@@ -1011,24 +1011,21 @@ class Pop_Image extends Pop_Image_Abstract
      * Output the image object directly.
      *
      * @param  boolean $download
-     * @return void
+     * @return Pop_Image
      */
     public function output($download = false)
     {
-        // Begin output of headers.
-        header('Content-type: ' . $this->_mime);
-
         // Determine if the force download argument has been passed.
         $attach = ($download) ? 'attachment; ' : null;
+        $headers = array(
+                       'Content-type' => $this->_mime,
+                       'Content-disposition' => $attach . 'filename=' . $this->basename
+                   );
 
-        // Send the file information.
-        header('Content-disposition: ' . $attach . 'filename=' . $this->basename);
+        $response = new Pop_Http_Response(200, $headers);
 
-        // Send cache control headers for IE SSL issue.
         if ($_SERVER['SERVER_PORT'] == 443) {
-            header('Expires: 0');
-            header('Cache-Control: private, must-revalidate');
-            header('Pragma: cache');
+            $response->setSslHeaders();
         }
 
         if (null === $this->_resource) {
@@ -1040,6 +1037,7 @@ class Pop_Image extends Pop_Image_Abstract
         }
 
         // Create the image resource and output it
+        $response->sendHeaders();
         $this->_createImage($this->_output, null, $this->_quality);
 
         // Destroy the image resource.

@@ -49,6 +49,12 @@ The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use AP
 * Pop_View
 
 
+INSTALLATION
+------------
+
+Please see INSTALL.TXT.
+
+
 SYSTEM REQUIREMENTS
 -------------------
 
@@ -96,12 +102,6 @@ be thrown within any of the following components:
   - Pop_Image
   - Pop_Imagick
   - Pop_Pdf
-
-
-INSTALLATION
-------------
-
-Please see INSTALL.TXT.
 
 
 QUESTIONS AND FEEDBACK

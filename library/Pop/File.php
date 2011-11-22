@@ -447,7 +447,7 @@ class Pop_File
      * Output the file object directly.
      *
      * @param  boolean $download
-     * @return void
+     * @return Pop_File
      */
     public function output($download = false)
     {
@@ -465,6 +465,8 @@ class Pop_File
         }
 
         $response->send();
+
+        return $this;
     }
 
     /**

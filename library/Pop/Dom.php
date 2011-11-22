@@ -181,7 +181,8 @@ class Pop_Dom extends Pop_Dom_Abstract
         } else {
             if (null !== $this->_type) {
                 if (!headers_sent()) {
-                    header('Content-type: ' . $this->_contentType);
+                    $response = new Pop_Http_Response(200, array('Content-type' => $this->_contentType));
+                    $response->sendHeaders();
                 }
                 echo str_replace('[{charset}]', $this->_charset, $this->_doctypes[$this->_type]);
             }

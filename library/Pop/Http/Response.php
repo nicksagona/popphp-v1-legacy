@@ -563,6 +563,20 @@ class Pop_Http_Response
     }
 
     /**
+     * Send headers
+     *
+     * @throws Exception
+     * @return void
+     */
+    public function sendHeaders()
+    {
+        header("HTTP/{$this->_version} {$this->_code} {$this->_message}");
+        foreach ($this->_headers as $name => $value) {
+            header($name . ": " . $value);
+        }
+    }
+
+    /**
      * Send response
      *
      * @throws Exception
@@ -573,17 +587,14 @@ class Pop_Http_Response
         if (headers_sent()) {
             throw new Exception($this->_lang->__('The headers have already been sent.'));
         } else {
-            header("HTTP/{$this->_version} {$this->_code} {$this->_message}");
-            foreach ($this->_headers as $name => $value) {
-                header($name . ": " . $value);
-            }
-
             $body = $this->_body;
+
             if (array_key_exists('Content-Encoding', $this->_headers)) {
                 $body = self::encodeBody($body, $this->_headers['Content-Encoding']);
                 $this->_headers['Content-Length'] = strlen($body);
             }
 
+            $this->sendHeaders();
             echo $body;
         }
     }

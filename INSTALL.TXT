@@ -2,62 +2,16 @@ INSTALLATION
 ------------
 
 The Pop PHP Framework requires no special installation steps. Simply download the
-framework and extract it next to or inside of your document root. If you have an
-application folder, you can add it to the include path within the 'bootstrap.php'
-file in the document root.
-
-If you do not have access to the level above document root, you can simply place
-the framework code and your application code within the document root and set the
-'bootstrap.php' file accordingly.
+framework and extract it next to or inside of your document root. If you change
+the relationship of the 'bootstrap.php' file to the location of the 'library'
+folder, you'll have to make that adjustment in the 'require_once' statement in
+the 'bootstrap.php' file.
 
 
 SYSTEM REQUIREMENTS
 -------------------
 
-The Pop PHP Framework requires PHP 5.3.0 or later.
-
-Some dependencies for the framework to fully function are as follows:
-
-* The Tar, Zlib, Zip and Bz2 extensions to manipulate archive files.
-* The basic MySQL extension for basic MySQL database connections and transactions
-* The MySQLi extension to utilize MySQLi to connect to and interact with MySQL databases
-* The PostgreSQL extension for PostgreSQL database connections and transactions
-* The SQLite3 extension for SQLite database connections and transactions
-* The PDO extension for utilize PDO for database connections and transactions
-* The GD library for image manipulation (including FreeType support)
-* The Imagick extension (with ImageMagick & Ghostscript) for advanced image manipulation
-* The Memcache extension for the Cache component (using the Memcached adapter)
-* The SimpleXML extension for the Feed, Language and Data components
-* The PHP mail function and SMTP server correctly set for the mail component
-* The cURL extension for the Curl component
-* FTP support enabled for the FTP component
-
-Most of these extensions are generally included in PHP 5.3.0+, but should there be
-any issues in any of these areas, please verify that the related extensions are
-installed and configured properly. PHP's mail function is dependant on the whichever
-mail program is available and correctly installed on the server.
-
-A Note on ImageMagick: As of July 28th, 2011, stable testing was successful with the
-following versions of the required software:
-
-* ImageMagick 6.5.*
-* Ghostscript 8.70 or 8.71
-* Imagick PHP Extension 3.0.1
-
-Any variation in the versions of the required software may contribute to the
-Pop_Imagick component not functioning properly.
-
-A Note on Permissions: The following classes may require the correct permissions
-to be set for the files and the directories that they access in order to work
-properly. If the permissions are not set correctly, an exception or error could
-be thrown within any of the following components:
-
-* Pop_File
-  - Pop_Archive
-  - Pop_Font
-  - Pop_Image
-  - Pop_Imagick
-  - Pop_Pdf
+Please see README.TXT.
 
 
 DEVELOPMENT VERSIONS

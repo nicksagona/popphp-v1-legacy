@@ -1131,24 +1131,21 @@ class Pop_Imagick extends Pop_Image_Abstract
      *
      * @param  int|string $q
      * @param  boolean $download
-     * @return void
+     * @return Pop_Imagick
      */
     public function output($download = false)
     {
-        // Begin output of headers.
-        header('Content-type: ' . $this->_mime);
-
         // Determine if the force download argument has been passed.
         $attach = ($download) ? 'attachment; ' : null;
+        $headers = array(
+                       'Content-type' => $this->_mime,
+                       'Content-disposition' => $attach . 'filename=' . $this->basename
+                   );
 
-        // Send the file information.
-        header('Content-disposition: ' . $attach . 'filename=' . $this->basename);
+        $response = new Pop_Http_Response(200, $headers);
 
-        // Send cache control headers for IE SSL issue.
         if ($_SERVER['SERVER_PORT'] == 443) {
-            header('Expires: 0');
-            header('Cache-Control: private, must-revalidate');
-            header('Pragma: cache');
+            $response->setSslHeaders();
         }
 
         if (null !== $this->_compression) {
@@ -1158,6 +1155,7 @@ class Pop_Imagick extends Pop_Image_Abstract
             $this->_resource->setImageCompressionQuality($this->_quality);
         }
 
+        $response->sendHeaders();
         echo $this->_resource;
 
         return $this;
