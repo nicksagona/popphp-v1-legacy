@@ -462,7 +462,7 @@ class Pop_Form extends Pop_Dom
             if ($ret) {
                 return (string)$this;
             } else {
-                print($this);
+                echo $this;
             }
         // Else, start building the form's HTML output based on the template.
         } else {
@@ -538,7 +538,7 @@ class Pop_Form extends Pop_Dom
             if ($ret) {
                 return $this->_form->render(true);
             } else {
-                print($this->_form->render(true));
+                echo $this->_form->render(true);
             }
         }
     }

@@ -183,7 +183,7 @@ class Pop_Dom extends Pop_Dom_Abstract
                 if (!headers_sent()) {
                     header('Content-type: ' . $this->_contentType);
                 }
-                print(str_replace('[{charset}]', $this->_charset, $this->_doctypes[$this->_type]));
+                echo str_replace('[{charset}]', $this->_charset, $this->_doctypes[$this->_type]);
             }
 
             foreach ($this->_childNodes as $child) {

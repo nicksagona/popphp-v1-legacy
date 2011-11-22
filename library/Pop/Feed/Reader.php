@@ -218,7 +218,7 @@ class Pop_Feed_Reader
                 return $output;
             } else {
                 // Print the final output.
-                print($output);
+                echo $output;
             }
         }
     }

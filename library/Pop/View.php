@@ -96,10 +96,10 @@ class Pop_View
      *
      * @return string
      */
-	public function __toString()
-	{
-	    return $this->render(true);
-	}
+    public function __toString()
+    {
+        return $this->render(true);
+    }
 
 
     /**

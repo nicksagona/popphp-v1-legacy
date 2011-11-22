@@ -15,12 +15,15 @@ The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use AP
 * Pop_Array
 * Pop_Auth
 * Pop_Autoloader
+* Pop_Browser
 * Pop_Cache
 * Pop_Color
+* Pop_Controller
 * Pop_Cookie
 * Pop_Curl
 * Pop_Data
 * Pop_Db
+* Pop_Dir
 * Pop_Dom
 * Pop_Feed
 * Pop_File
@@ -28,16 +31,22 @@ The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use AP
 * Pop_Form
 * Pop_Ftp
 * Pop_Graph
+* Pop_Http
 * Pop_Image
 * Pop_Imagick
-* Pop_Language
+* Pop_Locale
 * Pop_Mail
+* Pop_Mobile
+* Pop_Model
+* Pop_Paginator
 * Pop_Pdf
 * Pop_Record
+* Pop_Server
 * Pop_Session
 * Pop_String
 * Pop_Svg
 * Pop_Version
+* Pop_View
 
 
 SYSTEM REQUIREMENTS

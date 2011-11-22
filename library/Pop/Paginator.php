@@ -360,7 +360,7 @@ class Pop_Paginator
         if ($ret) {
             return $output;
         } else {
-            print($output);
+            echo $output;
         }
     }
 

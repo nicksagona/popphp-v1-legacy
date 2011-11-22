@@ -240,7 +240,7 @@ class Pop_Dom_Child extends Pop_Dom_Abstract
         if ($ret) {
             return $this->_output;
         } else {
-            print($this->_output);
+            echo $this->_output;
         }
     }
 
