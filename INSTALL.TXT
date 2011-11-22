@@ -1,43 +1,14 @@
-Welcome to the Pop PHP Framework 0.9 Beta Release!
+INSTALLATION
+------------
 
-RELEASE INFORMATION
--------------------
-Pop PHP Framework 0.9 Beta Release
-Released TBD
+The Pop PHP Framework requires no special installation steps. Simply download the
+framework and extract it next to or inside of your document root. If you have an
+application folder, you can add it to the include path within the 'bootstrap.php'
+file in the document root.
 
-
-FEATURES
---------
-
-The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use API.
-
-* Pop_Archive
-* Pop_Array
-* Pop_Auth
-* Pop_Autoloader
-* Pop_Cache
-* Pop_Color
-* Pop_Cookie
-* Pop_Curl
-* Pop_Data
-* Pop_Db
-* Pop_Dom
-* Pop_Feed
-* Pop_File
-* Pop_Font
-* Pop_Form
-* Pop_Ftp
-* Pop_Graph
-* Pop_Image
-* Pop_Imagick
-* Pop_Language
-* Pop_Mail
-* Pop_Pdf
-* Pop_Record
-* Pop_Session
-* Pop_String
-* Pop_Svg
-* Pop_Version
+If you do not have access to the level above document root, you can simply place
+the framework code and your application code within the document root and set the
+'bootstrap.php' file accordingly.
 
 
 SYSTEM REQUIREMENTS
@@ -89,26 +60,10 @@ be thrown within any of the following components:
   - Pop_Pdf
 
 
-INSTALLATION
-------------
-
-Please see INSTALL.TXT.
-
-
-QUESTIONS AND FEEDBACK
-----------------------
-
-An online overview and documentation can be found at
-http://www.popphp.org/
+DEVELOPMENT VERSIONS
+--------------------
 
 The Pop PHP Framework is available for anonymous checkout via
 GitHub at https://github.com/nicksagona/PopPHP
 
 Further contact or comments can be emailed to info@popphp.org.
-
-
-LICENSE
--------
-
-The files in this archive are released under the Pop PHP Framework license.
-You can find a copy of this license in LICENSE.TXT.

@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE language [
+    <!ELEMENT language ANY>
+    <!ELEMENT text (source,output)>
+    <!ELEMENT source ANY>
+    <!ELEMENT output ANY>
+    <!ATTLIST language
+        src       CDATA    #REQUIRED
+        output    CDATA    #REQUIRED
+        name      CDATA    #REQUIRED
+        native    CDATA    #REQUIRED
+    >
+]>
+<language src="en" output="ru" name="Russian" native="Россию">
+    <text>
+        <source>That option is not set.</source>
+        <output>Этот вариант не установлен.</output>
+    </text>
+    <text>
+        <source>Error:</source>
+        <output>Ошибка:</output>
+    </text>
+    <text>
+        <source>Error: The proper database credentials were not passed.</source>
+        <output>Ошибка: надлежащие полномочия базы данных не были приняты.</output>
+    </text>
+    <text>
+        <source>Error: The database result resource is not currently set.</source>
+        <output>Ошибка: базы данных ресурсов результат не является в настоящее время множество.</output>
+    </text>
+    <text>
+        <source>Error: Could not connect to database. Connection Error #%1: %2.</source>
+        <output>Ошибка: не удалось подключиться к базе данных. Ошибка при подключении #%1: %2.</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the database.</source>
+        <output>Ошибка: Существовал ошибка подключения к базе данных.</output>
+    </text>
+    <text>
+        <source>Error: The database file was not passed.</source>
+        <output>Ошибка: файл базы данных не был принят.</output>
+    </text>
+    <text>
+        <source>Error: The database file does not exists.</source>
+        <output>Ошибка: файл базы данных не существует.</output>
+    </text>
+    <text>
+        <source>Error: That doctype is not allowed.</source>
+        <output>Ошибка: Это тип документа не допускается.</output>
+    </text>
+    <text>
+        <source>The child element passed is not an instance of Moc10_Dom_Child.</source>
+        <output>Дочерний элемент прошло не экземпляр Moc10_Dom_Child.</output>
+    </text>
+    <text>
+        <source>One or more of the child elements passed is not an instance of Moc10_Dom_Child.</source>
+        <output>Один или несколько дочерних элементов прошло не экземпляр Moc10_Dom_Child.</output>
+    </text>
+    <text>
+        <source>That feed URL cannot be read at this time. Please try again later.</source>
+        <output>Это корма URL не может быть прочитан в это время. Пожалуйста, повторите попытку позже.</output>
+    </text>
+    <text>
+        <source>Error: The feed item template is not set.</source>
+        <output>Ошибка: шаблон элемента канала не установлен.</output>
+    </text>
+    <text>
+        <source>Error: The feed currently has no content.</source>
+        <output>Ошибка: кормов в настоящее время не имеет содержания.</output>
+    </text>
+    <text>
+        <source>Error: The feed type must be only RSS or ATOM.</source>
+        <output>Ошибка: корма типа должны быть только RSS или ATOM.</output>
+    </text>
+    <text>
+        <source>Error: The file is not an accepted file format.</source>
+        <output>Ошибка: файл не принимаются формат файла.</output>
+    </text>
+    <text>
+        <source>Error: The file already exists.</source>
+        <output>Ошибка: Файл уже существует.</output>
+    </text>
+    <text>
+        <source>Error: The directory does not exist.</source>
+        <output>Ошибка: каталог не существует.</output>
+    </text>
+    <text>
+        <source>Error: The upload directory does not exist.</source>
+        <output>Ошибка: загрузить каталог не существует.</output>
+    </text>
+    <text>
+        <source>Error: The file uploaded is too big.</source>
+        <output>Ошибка: загружаемого файла слишком велик.</output>
+    </text>
+    <text>
+        <source>Error: The image file uploaded is too big.</source>
+        <output>Ошибка: файл изображения загрузили, слишком большой.</output>
+    </text>
+    <text>
+        <source>Error: There was an error in uploading the file.</source>
+        <output>Ошибка: Существовал ошибка в загрузке файла.</output>
+    </text>
+    <text>
+        <source>Error: There was an error in uploading the image file.</source>
+        <output>Ошибка: Существовал ошибка в загрузке файла изображения.</output>
+    </text>
+    <text>
+        <source>Error: Permission denied.</source>
+        <output>Ошибка: Доступ запрещен.</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed is not an array.</source>
+        <output>Ошибка: параметр, передаваемый не является массивом.</output>
+    </text>
+    <text>
+        <source>Error: The array passed must contain at least one type.</source>
+        <output>Ошибка: массив, переданный должен содержать не менее одного типа.</output>
+    </text>
+    <text>
+        <source>Error: The file or directory (%1) is not writable.</source>
+        <output>Ошибка: файл или каталог (%1) не для записи.</output>
+    </text>
+    <text>
+        <source>Error: There are no form elements declared for this form object.</source>
+        <output>Ошибка: Есть нет формы элементов, объявленных для этого форму объекта.</output>
+    </text>
+    <text>
+        <source>Error: That input type is not allowed.</source>
+        <output>Ошибка: Это тип входа, не допускается.</output>
+    </text>
+    <text>
+        <source>Error: The required flag must be a boolean value.</source>
+        <output>Ошибка: требуется флаг должен быть логическое значение.</output>
+    </text>
+    <text>
+        <source>Error: That type validator is not allowed.</source>
+        <output>Ошибка: Такого рода проверки не допускается.</output>
+    </text>
+    <text>
+        <source>Error: The condition must be a boolean.</source>
+        <output>Ошибка: условие должно быть логическое значение.</output>
+    </text>
+    <text>
+        <source>This field is required.</source>
+        <output>Это поле является обязательным.</output>
+    </text>
+    <text>
+        <source>This field value must %1 contain alphanumeric characters.</source>
+        <output>В этом поле значение должно %1 содержать буквы и цифры.</output>
+    </text>
+    <text>
+        <source>This field value must %1 contain characters of the alphabet.</source>
+        <output>В этом поле значение должно %1 содержать символы латинского алфавита.</output>
+    </text>
+    <text>
+        <source>This field value is %1 between %2 and %3.</source>
+        <output>Это значение поля %1 между %2 и %3.</output>
+    </text>
+    <text>
+        <source>This field value format is %1 a correct email format.</source>
+        <output>Этот формат значение поля %1 правильный формат электронной почты.</output>
+    </text>
+    <text>
+        <source>This field value does not equal the correct value.</source>
+        <output>Это значение поля не равно правильное значение.</output>
+    </text>
+    <text>
+        <source>This field value is %1 greater than %2.</source>
+        <output>Это значение поля %1 больше, чем %2.</output>
+    </text>
+    <text>
+        <source>This field value length is %1 equal to %2 characters long.</source>
+        <output>Эта длина поля значения %1 равно %2 символов.</output>
+    </text>
+    <text>
+        <source>This field value length is %1 between %2 and %3.</source>
+        <output>Эта длина поля значения %1 между %2 и %3.</output>
+    </text>
+    <text>
+        <source>This field value length must be %1 %2 characters long.</source>
+        <output>Эта длина значения поля должны быть %1 %2 символов.</output>
+    </text>
+    <text>
+        <source>This field value is %1 less than %2.</source>
+        <output>Это значение поля %1 меньше, чем %2.</output>
+    </text>
+    <text>
+        <source>This field value is %1 empty.</source>
+        <output>Это значение поля %1 пустой.</output>
+    </text>
+    <text>
+        <source>This field value is %1 a number.</source>
+        <output>Это значение поля %1 номер.</output>
+    </text>
+    <text>
+        <source>This field value format is %1 correct.</source>
+        <output>Этот формат значение поля %1 правильный.</output>
+    </text>
+    <text>
+        <source>The parameter passed must be an array.</source>
+        <output>Параметр, передаваемый должен быть массивом.</output>
+    </text>
+    <text>
+        <source>The array parameter passed must contain an array.</source>
+        <output>Массив параметров, передаваемых должен содержать массив.</output>
+    </text>
+    <text>
+        <source>not</source>
+        <output>не</output>
+    </text>
+    <text>
+        <source>only</source>
+        <output>только</output>
+    </text>
+    <text>
+        <source>under</source>
+        <output>под</output>
+    </text>
+    <text>
+        <source>at least</source>
+        <output>по крайней мере</output>
+    </text>
+    <text>
+        <source>Sunday</source>
+        <output>Воскресенье</output>
+    </text>
+    <text>
+        <source>Monday</source>
+        <output>Понедельник</output>
+    </text>
+    <text>
+        <source>Tuesday</source>
+        <output>Вторник</output>
+    </text>
+    <text>
+        <source>Wednesday</source>
+        <output>Среда</output>
+    </text>
+    <text>
+        <source>Thursday</source>
+        <output>Четверг</output>
+    </text>
+    <text>
+        <source>Friday</source>
+        <output>Пятница</output>
+    </text>
+    <text>
+        <source>Saturday</source>
+        <output>Суббота</output>
+    </text>
+    <text>
+        <source>January</source>
+        <output>Января</output>
+    </text>
+    <text>
+        <source>February</source>
+        <output>Февраль</output>
+    </text>
+    <text>
+        <source>March</source>
+        <output>Марта</output>
+    </text>
+    <text>
+        <source>April</source>
+        <output>Апрель</output>
+    </text>
+    <text>
+        <source>May</source>
+        <output>Май</output>
+    </text>
+    <text>
+        <source>June</source>
+        <output>Июня</output>
+    </text>
+    <text>
+        <source>July</source>
+        <output>Июля</output>
+    </text>
+    <text>
+        <source>August</source>
+        <output>Август</output>
+    </text>
+    <text>
+        <source>September</source>
+        <output>Сентябрь</output>
+    </text>
+    <text>
+        <source>October</source>
+        <output>Октябрь</output>
+    </text>
+    <text>
+        <source>November</source>
+        <output>Ноябрь</output>
+    </text>
+    <text>
+        <source>December</source>
+        <output>Декабрь</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the FTP server %1.</source>
+        <output>Ошибка: Существовал Ошибка при подключении к FTP-сервер %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the FTP server %1 with those credentials.</source>
+        <output>Ошибка: Существовал Ошибка при подключении к FTP-сервер %1 с этих полномочий.</output>
+    </text>
+    <text>
+        <source>Error: There was an error changing to the directory %1.</source>
+        <output>Ошибка: Существовал ошибка изменения в каталог %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error making the directory %1.</source>
+        <output>Ошибка: Существовал ошибка решений каталог %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error removing the directory %1.</source>
+        <output>Ошибка: Существовал ошибка удаления каталогов %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error getting the file %1.</source>
+        <output>Ошибка: Существовал ошибка при получении файла %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error putting the file %1.</source>
+        <output>Ошибка: Существовал ошибка положить файл %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error renaming the file %1.</source>
+        <output>Ошибка: Существовал Ошибка переименования файла %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error changing the permission of %1.</source>
+        <output>Ошибка: Существовал ошибка изменения разрешения %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error removing the file %1.</source>
+        <output>Ошибка: Существовал ошибка удаления файла %1.</output>
+    </text>
+    <text>
+        <source>Error: You must define a width and height for a new image object.</source>
+        <output>Ошибка: Вы должны определить ширину и высоту для нового объекта изображения.</output>
+    </text>
+    <text>
+        <source>Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.</source>
+        <output>Ошибка: Это тип изображения не поддерживается. Только GIF, JPG и PNG типов изображения поддерживаются.</output>
+    </text>
+    <text>
+        <source>Error: This image file is already a %1 image file.</source>
+        <output>Ошибка: Этот файл уже %1 файл изображения.</output>
+    </text>
+    <text>
+        <source>Error: The language file %1 does not exist.</source>
+        <output>Ошибка: язык файла %1 не существует.</output>
+    </text>
+    <text>
+        <source>Error: Your output language selection is not valid.</source>
+        <output>Ошибка: Ваш вывод выбор языка не является действительным.</output>
+    </text>
+    <text>
+        <source>Error: Your source language selection is not valid.</source>
+        <output>Ошибка: Ваш источник выбор языка не является действительным.</output>
+    </text>
+    <text>
+        <source>Error: Both the output and source language selections are the same. Please choose again.</source>
+        <output>Ошибка: Оба выбора продукции и исходного языка те же. Пожалуйста, выберите еще раз.</output>
+    </text>
+    <text>
+        <source>Error: There was an error processing that Google Translate URL. Please check your API key.</source>
+        <output>Ошибка: Существовал ошибка обработки, что URL Google Translate. Пожалуйста, проверьте ваш ключ API.</output>
+    </text>
+    <text>
+        <source>Error: There was an error processing that XML file.</source>
+        <output>Ошибка: Существовал ошибка обработки, что XML-файл.</output>
+    </text>
+    <text>
+        <source>Error: At least one of the array keys must be 'email'.</source>
+        <output>Ошибка: По крайней мере, один из ключей массива должны быть "Электронная почта".</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed must either be a valid file or an instance of Moc10_File.</source>
+        <output>Ошибка: параметр, передаваемый должны быть либо действительными файл или экземпляр Moc10_File.</output>
+    </text>
+    <text>
+        <source>Error: The message body elements are not set.</source>
+        <output>Ошибка: элементы тела сообщения не установлены.</output>
+    </text>
+    <text>
+        <source>Error: That page does not exist.</source>
+        <output>Ошибка: Эта страница не существует.</output>
+    </text>
+    <text>
+        <source>Error: The PDF does not have enough pages in which to order.</source>
+        <output>Ошибка: PDF не хватает страниц, на которых на заказ.</output>
+    </text>
+    <text>
+        <source>Error: The pages array passed does not contain the same number of pages as the PDF.</source>
+        <output>Ошибка: Страницы массив, переданный не содержит столько же страниц, PDF.</output>
+    </text>
+    <text>
+        <source>Error: The pages array passed contains a page that does not exist.</source>
+        <output>Ошибка: Страницы массив, переданный содержит статью, которая пока не существует.</output>
+    </text>
+    <text>
+        <source>Error: The rotation parameter must be between -90 and 90 degrees.</source>
+        <output>Ошибка: параметр вращения должна быть между -90 и 90 градусов.</output>
+    </text>
+    <text>
+        <source>Error: The render parameter must be an integer between 0 and 7.</source>
+        <output>Ошибка: сделать параметр должен быть целым числом от 0 до 7.</output>
+    </text>
+    <text>
+        <source>Error: That font is not contained within the standard PDF fonts.</source>
+        <output>Ошибка: Это шрифт не содержащиеся в стандартных шрифтов PDF.</output>
+    </text>
+    <text>
+        <source>Error: That font has not been added to the PDF.</source>
+        <output>Ошибка: этот шрифт не был добавлен в формате PDF.</output>
+    </text>
+    <text>
+        <source>Error: That page has not been defined.</source>
+        <output>Ошибка: Эта страница еще не была определена.</output>
+    </text>
+    <text>
+        <source>Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.</source>
+        <output>Ошибка: PNG альфа каналы не поддерживаются. Только 8-битных прозрачные изображения PNG поддерживаются.</output>
+    </text>
+    <text>
+        <source>Error: The file already exists and it cannot be overwritten. Please specify a new filename.</source>
+        <output>Ошибка: файл уже существует и не может быть перезаписана. Пожалуйста, укажите новое имя файла.</output>
+    </text>
+    <text>
+        <source>Error: The argument passed must be an array.</source>
+        <output>Ошибка: аргумент должен быть массивом.</output>
+    </text>
+    <text>
+        <source>Error: A width and height must be passed.</source>
+        <output>Ошибка: ширина и высота должны быть приняты.</output>
+    </text>
+    <text>
+        <source>Error: A page index must be passed.</source>
+        <output>Ошибка: страница индекс должен быть принят.</output>
+    </text>
+    <text>
+        <source>The field '%1' does not exist.</source>
+        <output>"%1" поле не существует.</output>
+    </text>
+    <text>
+        <source>The parameter passed must be either an array or null.</source>
+        <output>Параметр, передаваемый должны быть массив или NULL.</output>
+    </text>
+    <text>
+        <source>This primary ID of this table either is not set or does not exist.</source>
+        <output>Это первичное ID этой таблицы либо не установлена или не существует.</output>
+    </text>
+    <text>
+        <source>The field and value parameters were not defined to describe the row(s) to delete.</source>
+        <output>Поля и значения параметров не были определены, чтобы описать строки (ы) для удаления.</output>
+    </text>
+    <text>
+        <source>The mobile site is not set.</source>
+        <output>Мобильный сайт не установлен.</output>
+    </text>
+    <text>
+        <source>The standard site is not set.</source>
+        <output>Стандартный сайт не установлен.</output>
+    </text>
+</language>

@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE language [
+    <!ELEMENT language ANY>
+    <!ELEMENT text (source,output)>
+    <!ELEMENT source ANY>
+    <!ELEMENT output ANY>
+    <!ATTLIST language
+        src       CDATA    #REQUIRED
+        output    CDATA    #REQUIRED
+        name      CDATA    #REQUIRED
+        native    CDATA    #REQUIRED
+    >
+]>
+<language src="en" output="fr" name="French" native="Française">
+    <text>
+        <source>That option is not set.</source>
+        <output>Cette option n'est pas activée.</output>
+    </text>
+    <text>
+        <source>Error:</source>
+        <output>Erreur:</output>
+    </text>
+    <text>
+        <source>Error: The proper database credentials were not passed.</source>
+        <output>Erreur: Les pouvoirs de bases de données appropriées n'ont pas été transmis.</output>
+    </text>
+    <text>
+        <source>Error: The database result resource is not currently set.</source>
+        <output>Erreur: La ressource de résultat de base de données n'est actuellement pas défini.</output>
+    </text>
+    <text>
+        <source>Error: Could not connect to database. Connection Error #%1: %2.</source>
+        <output>Erreur: Impossible de se connecter aux bases de données. Erreur de connexion #%1: %2.</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the database.</source>
+        <output>Erreur: Il ya eu une erreur de connexion à la base de données.</output>
+    </text>
+    <text>
+        <source>Error: The database file was not passed.</source>
+        <output>Erreur: Le fichier de base de données n'a pas été adopté.</output>
+    </text>
+    <text>
+        <source>Error: The database file does not exists.</source>
+        <output>Erreur: Le fichier de base de données n'existe pas.</output>
+    </text>
+    <text>
+        <source>Error: That doctype is not allowed.</source>
+        <output>Erreur: Ce doctype n'est pas autorisé.</output>
+    </text>
+    <text>
+        <source>The child element passed is not an instance of Moc10_Dom_Child.</source>
+        <output>L'élément enfant adopté n'est pas une instance de Moc10_Dom_Child.</output>
+    </text>
+    <text>
+        <source>One or more of the child elements passed is not an instance of Moc10_Dom_Child.</source>
+        <output>Un ou plusieurs des éléments enfant passait n'est pas une instance de Moc10_Dom_Child.</output>
+    </text>
+    <text>
+        <source>That feed URL cannot be read at this time. Please try again later.</source>
+        <output>Cette URL du flux ne peut être lu à cette époque. S'il vous plaît réessayer plus tard.</output>
+    </text>
+    <text>
+        <source>Error: The feed item template is not set.</source>
+        <output>Erreur: Le modèle d'élément d'alimentation n'est pas définie.</output>
+    </text>
+    <text>
+        <source>Error: The feed currently has no content.</source>
+        <output>Erreur: L'alimentation a pour l'instant aucun contenu.</output>
+    </text>
+    <text>
+        <source>Error: The feed type must be only RSS or ATOM.</source>
+        <output>Erreur: Le type d'alimentation ne doit être que RSS ou ATOM.</output>
+    </text>
+    <text>
+        <source>Error: The file is not an accepted file format.</source>
+        <output>Erreur: Le fichier n'est pas un format de fichier acceptés.</output>
+    </text>
+    <text>
+        <source>Error: The file already exists.</source>
+        <output>Erreur: Le fichier existe déjà.</output>
+    </text>
+    <text>
+        <source>Error: The directory does not exist.</source>
+        <output>Erreur: Le répertoire n'existe pas.</output>
+    </text>
+    <text>
+        <source>Error: The upload directory does not exist.</source>
+        <output>Erreur: Le répertoire de téléchargement n'existe pas.</output>
+    </text>
+    <text>
+        <source>Error: The file uploaded is too big.</source>
+        <output>Erreur: Le fichier téléchargé est trop grand.</output>
+    </text>
+    <text>
+        <source>Error: The image file uploaded is too big.</source>
+        <output>Erreur: Le fichier image téléchargée est trop grand.</output>
+    </text>
+    <text>
+        <source>Error: There was an error in uploading the file.</source>
+        <output>Erreur: Il y avait une erreur dans le chargement du fichier.</output>
+    </text>
+    <text>
+        <source>Error: There was an error in uploading the image file.</source>
+        <output>Erreur: Il y avait une erreur dans le chargement du fichier image.</output>
+    </text>
+    <text>
+        <source>Error: Permission denied.</source>
+        <output>Erreur: Permission denied.</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed is not an array.</source>
+        <output>Erreur: Le paramètre passé n'est pas un tableau.</output>
+    </text>
+    <text>
+        <source>Error: The array passed must contain at least one type.</source>
+        <output>Erreur: Le tableau passé doit contenir au moins un type.</output>
+    </text>
+    <text>
+        <source>Error: The file or directory (%1) is not writable.</source>
+        <output>Erreur: Le fichier ou le répertoire (%1) n'est pas accessible en écriture.</output>
+    </text>
+    <text>
+        <source>Error: There are no form elements declared for this form object.</source>
+        <output>Erreur: Il n'y a pas des éléments de formulaire a déclaré pour cet objet formulaire.</output>
+    </text>
+    <text>
+        <source>Error: That input type is not allowed.</source>
+        <output>Erreur: Ce type d'entrée n'est pas autorisée.</output>
+    </text>
+    <text>
+        <source>Error: The required flag must be a boolean value.</source>
+        <output>Erreur: Le drapeau nécessaire doit être une valeur booléenne.</output>
+    </text>
+    <text>
+        <source>Error: That type validator is not allowed.</source>
+        <output>Erreur: Ce type de validation n'est pas autorisée.</output>
+    </text>
+    <text>
+        <source>Error: The condition must be a boolean.</source>
+        <output>Erreur: La condition doit être un booléen.</output>
+    </text>
+    <text>
+        <source>This field is required.</source>
+        <output>Ce champ est obligatoire.</output>
+    </text>
+    <text>
+        <source>This field value must %1 contain alphanumeric characters.</source>
+        <output>Cette valeur du champ doit contenir %1 caractères alphanumériques.</output>
+    </text>
+    <text>
+        <source>This field value must %1 contain characters of the alphabet.</source>
+        <output>Cette valeur du champ doit contenir des caractères de %1 de l'alphabet.</output>
+    </text>
+    <text>
+        <source>This field value is %1 between %2 and %3.</source>
+        <output>Cette valeur du champ est de %1 entre %2 et %3.</output>
+    </text>
+    <text>
+        <source>This field value format is %1 a correct email format.</source>
+        <output>Ce format valeur du champ est de %1 un format e-mail correcte.</output>
+    </text>
+    <text>
+        <source>This field value does not equal the correct value.</source>
+        <output>Cette valeur de champ n'est pas égal à la valeur correcte.</output>
+    </text>
+    <text>
+        <source>This field value is %1 greater than %2.</source>
+        <output>Cette valeur du champ est de %1 supérieure à %2.</output>
+    </text>
+    <text>
+        <source>This field value length is %1 equal to %2 characters long.</source>
+        <output>Cette longueur valeur du champ est égale à %1 %2 caractères.</output>
+    </text>
+    <text>
+        <source>This field value length is %1 between %2 and %3.</source>
+        <output>Cette longueur valeur du champ est de %1 entre %2 et %3.</output>
+    </text>
+    <text>
+        <source>This field value length must be %1 %2 characters long.</source>
+        <output>Cette longueur valeur du champ doit être %1 %2 caractères.</output>
+    </text>
+    <text>
+        <source>This field value is %1 less than %2.</source>
+        <output>Cette valeur du champ est de %1 de moins de %2.</output>
+    </text>
+    <text>
+        <source>This field value is %1 empty.</source>
+        <output>Cette valeur du champ est de %1 vide.</output>
+    </text>
+    <text>
+        <source>This field value is %1 a number.</source>
+        <output>Cette valeur du champ est de %1 un certain nombre.</output>
+    </text>
+    <text>
+        <source>This field value format is %1 correct.</source>
+        <output>Ce format valeur du champ est de %1 correct.</output>
+    </text>
+    <text>
+        <source>The parameter passed must be an array.</source>
+        <output>Le paramètre passé doit être un tableau.</output>
+    </text>
+    <text>
+        <source>The array parameter passed must contain an array.</source>
+        <output>Le paramètre tableau passé doit contenir un tableau.</output>
+    </text>
+    <text>
+        <source>not</source>
+        <output>pas</output>
+    </text>
+    <text>
+        <source>only</source>
+        <output>seulement</output>
+    </text>
+    <text>
+        <source>under</source>
+        <output>en vertu de</output>
+    </text>
+    <text>
+        <source>at least</source>
+        <output>au moins</output>
+    </text>
+    <text>
+        <source>Sunday</source>
+        <output>Dimanche</output>
+    </text>
+    <text>
+        <source>Monday</source>
+        <output>Lundi</output>
+    </text>
+    <text>
+        <source>Tuesday</source>
+        <output>Mardi</output>
+    </text>
+    <text>
+        <source>Wednesday</source>
+        <output>Mercredi</output>
+    </text>
+    <text>
+        <source>Thursday</source>
+        <output>Jeudi</output>
+    </text>
+    <text>
+        <source>Friday</source>
+        <output>Vendredi</output>
+    </text>
+    <text>
+        <source>Saturday</source>
+        <output>Samedi</output>
+    </text>
+    <text>
+        <source>January</source>
+        <output>Janvier</output>
+    </text>
+    <text>
+        <source>February</source>
+        <output>Février</output>
+    </text>
+    <text>
+        <source>March</source>
+        <output>Mars</output>
+    </text>
+    <text>
+        <source>April</source>
+        <output>Avril</output>
+    </text>
+    <text>
+        <source>May</source>
+        <output>Mai</output>
+    </text>
+    <text>
+        <source>June</source>
+        <output>Juin</output>
+    </text>
+    <text>
+        <source>July</source>
+        <output>Juillet</output>
+    </text>
+    <text>
+        <source>August</source>
+        <output>Août</output>
+    </text>
+    <text>
+        <source>September</source>
+        <output>Septembre</output>
+    </text>
+    <text>
+        <source>October</source>
+        <output>Octobre</output>
+    </text>
+    <text>
+        <source>November</source>
+        <output>Novembre</output>
+    </text>
+    <text>
+        <source>December</source>
+        <output>Décembre</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the FTP server %1.</source>
+        <output>Erreur: Il ya eu une erreur de connexion au serveur FTP %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the FTP server %1 with those credentials.</source>
+        <output>Erreur: Il ya eu une erreur de connexion au serveur FTP %1 avec les informations d'identification.</output>
+    </text>
+    <text>
+        <source>Error: There was an error changing to the directory %1.</source>
+        <output>Erreur: Une erreur s'est produite à changer le répertoire %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error making the directory %1.</source>
+        <output>Erreur: Une erreur s'est fait le répertoire %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error removing the directory %1.</source>
+        <output>Erreur: Il ya eu une erreur de suppression le répertoire %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error getting the file %1.</source>
+        <output>Erreur: Une erreur s'est produite obtenir le fichier %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error putting the file %1.</source>
+        <output>Erreur: Il ya eu une erreur de mettre le fichier %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error renaming the file %1.</source>
+        <output>Erreur: Il ya eu une erreur de renommer le fichier %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error changing the permission of %1.</source>
+        <output>Erreur: Une erreur s'est produite changer la permission de %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error removing the file %1.</source>
+        <output>Erreur: Il ya eu une erreur de suppression du fichier %1.</output>
+    </text>
+    <text>
+        <source>Error: You must define a width and height for a new image object.</source>
+        <output>Erreur: Vous devez définir une largeur et la hauteur d'un nouvel objet image.</output>
+    </text>
+    <text>
+        <source>Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.</source>
+        <output>Erreur: ce type d'image n'est pas pris en charge. Seuls les formats GIF, JPG et PNG types d'images sont supportés.</output>
+    </text>
+    <text>
+        <source>Error: This image file is already a %1 image file.</source>
+        <output>Erreur: Ce fichier image est déjà de %1 fichier image.</output>
+    </text>
+    <text>
+        <source>Error: The language file %1 does not exist.</source>
+        <output>Erreur: Le fichier %1 de langue n'existe pas.</output>
+    </text>
+    <text>
+        <source>Error: Your output language selection is not valid.</source>
+        <output>Erreur: Votre sélection de la langue de sortie n'est pas valide.</output>
+    </text>
+    <text>
+        <source>Error: Your source language selection is not valid.</source>
+        <output>Erreur: Votre sélection de la langue source n'est pas valide.</output>
+    </text>
+    <text>
+        <source>Error: Both the output and source language selections are the same. Please choose again.</source>
+        <output>Erreur: Les deux sélections de la langue sortie et la source sont les mêmes. S'il vous plaît choisir à nouveau.</output>
+    </text>
+    <text>
+        <source>Error: There was an error processing that Google Translate URL. Please check your API key.</source>
+        <output>Erreur: Il ya eu une erreur de traitement que Google Translate URL. S'il vous plaît vérifier votre clé API.</output>
+    </text>
+    <text>
+        <source>Error: There was an error processing that XML file.</source>
+        <output>Erreur: Il ya eu une erreur de traitement de ce fichier XML.</output>
+    </text>
+    <text>
+        <source>Error: At least one of the array keys must be 'email'.</source>
+        <output>Erreur: Au moins un des clés du tableau doit être 'email'.</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed must either be a valid file or an instance of Moc10_File.</source>
+        <output>Erreur: Le paramètre passé doit être un fichier valide ou une instance de Moc10_File.</output>
+    </text>
+    <text>
+        <source>Error: The message body elements are not set.</source>
+        <output>Erreur: Les éléments du corps du message ne sont pas définies.</output>
+    </text>
+    <text>
+        <source>Error: That page does not exist.</source>
+        <output>Erreur: Cette page n'existe pas.</output>
+    </text>
+    <text>
+        <source>Error: The PDF does not have enough pages in which to order.</source>
+        <output>Erreur: Le PDF n'a pas assez de pages dans lequel à l'ordre.</output>
+    </text>
+    <text>
+        <source>Error: The pages array passed does not contain the same number of pages as the PDF.</source>
+        <output>Erreur: Le tableau pages adopté ne contient pas le même nombre de pages que le PDF.</output>
+    </text>
+    <text>
+        <source>Error: The pages array passed contains a page that does not exist.</source>
+        <output>Erreur: Le tableau pages transmis contient une page qui n'existe pas.</output>
+    </text>
+    <text>
+        <source>Error: The rotation parameter must be between -90 and 90 degrees.</source>
+        <output>Erreur: Le paramètre de rotation doit être comprise entre -90 et 90 degrés.</output>
+    </text>
+    <text>
+        <source>Error: The render parameter must be an integer between 0 and 7.</source>
+        <output>Erreur: Le paramètre rendre doit être un nombre entier compris entre 0 et 7.</output>
+    </text>
+    <text>
+        <source>Error: That font is not contained within the standard PDF fonts.</source>
+        <output>Erreur: cette police n'est pas contenue dans les polices PDF standard.</output>
+    </text>
+    <text>
+        <source>Error: That font has not been added to the PDF.</source>
+        <output>Erreur: cette police n'a pas été ajoutés au document PDF.</output>
+    </text>
+    <text>
+        <source>Error: That page has not been defined.</source>
+        <output>Erreur: Cette page n'a pas été définie.</output>
+    </text>
+    <text>
+        <source>Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.</source>
+        <output>Erreur: les canaux alpha PNG ne sont pas pris en charge. Seuls 8-bit des images PNG transparentes sont pris en charge.</output>
+    </text>
+    <text>
+        <source>Error: The file already exists and it cannot be overwritten. Please specify a new filename.</source>
+        <output>Erreur: Le fichier existe déjà et il ne peut pas être écrasée. S'il vous plaît spécifier un nouveau nom de fichier.</output>
+    </text>
+    <text>
+        <source>Error: The argument passed must be an array.</source>
+        <output>Erreur: L'argument passé doit être un tableau.</output>
+    </text>
+    <text>
+        <source>Error: A width and height must be passed.</source>
+        <output>Erreur: Une largeur et la hauteur doit être adopté.</output>
+    </text>
+    <text>
+        <source>Error: A page index must be passed.</source>
+        <output>Erreur: Une page d'index doit être adopté.</output>
+    </text>
+    <text>
+        <source>The field '%1' does not exist.</source>
+        <output>'%1' Le domaine n'existe pas.</output>
+    </text>
+    <text>
+        <source>The parameter passed must be either an array or null.</source>
+        <output>Le paramètre passé doit être un tableau ou la valeur null.</output>
+    </text>
+    <text>
+        <source>This primary ID of this table either is not set or does not exist.</source>
+        <output>Cet identifiant primaire de cette table est soit pas définie ou n'existe pas.</output>
+    </text>
+    <text>
+        <source>The field and value parameters were not defined to describe the row(s) to delete.</source>
+        <output>Les paramètres de champ et la valeur n'ont pas été définies pour décrire la ligne (s) à supprimer.</output>
+    </text>
+    <text>
+        <source>The mobile site is not set.</source>
+        <output>Le site mobile n'est pas définie.</output>
+    </text>
+    <text>
+        <source>The standard site is not set.</source>
+        <output>Le site n'est pas mis en standard.</output>
+    </text>
+</language>

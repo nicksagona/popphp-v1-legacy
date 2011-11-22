@@ -1,0 +1,159 @@
+Pop PHP Framework 0.9 Beta (Forked from Moc10 PHP Library 1.9.7)
+
+  1st Round:
+  [DONE] > Add Archive component
+  [DONE] > Add Array component and wrap common features into in (sort, key exists, etc)
+  [DONE] > Add dynamic element generator methods to Dom
+  [DONE] > Form field/value access
+  [DONE] > Improve dynamic field element generation
+  [DONE] > Add text clean up to Pop_String (MS ASCII issues, convert EOL chars DOS => Unix => DOS, etc.)
+  [DONE] > Improve Pop_File API
+  [DONE] > Improve Pop_Image API overall, 'save'/'saveAs'/'output' methods, better chaining, etc.
+  [DONE] > Add 'rotate' method to Pop_Image
+  [DONE] > Add 'add rectangle' method to Pop_Image
+  [DONE] > Add 'add ellipse' method to Pop_Image
+  [DONE] > Add 'add line' method to Pop_Image
+  [DONE] > Add alpha control and compositing to Pop_Image
+  [DONE] > Add color control to Pop_Image
+  [DONE] > Add 'destroy' method to Pop_Image
+  [DONE] > Add advanced image filter methods to Pop_Image
+  [DONE] > Add Imagick Component
+  [DONE] > Address the 'touch' file creation issue in Pop_File and all child classes
+  [DONE] > Add count() method to Record
+  [DONE] > Add methods to get system and upload temp directories in the Pop_File_Dir class
+  [DONE] > Change setString and setArray to factory
+  [DONE] > Add Auth Component
+  [DONE] > Add PDO support
+  [DONE] > Modify the structure and naming convention of the Db component to fall under "Adapter"
+  [DONE] > Add SQL query builder object/API to the DB component
+  [DONE] > Add prepared/binded statements to the DB/Record component
+           - MySQLi
+           - PostgreSQL
+           - SQLite
+           - PDO
+  [DONE] > Add multiple database connection support
+  [DONE] > Revisit Record component and DB integration
+           - Address save/update of row entry that's auto increment or not
+           - Record Component: Class name to get table name
+           - Record Component: Better access to create/get fields and their values
+           - Add prepared statement support to the Record class.
+           - Convert methods to static to facilitate easier API calls.
+  [DONE] > Add extended image functionality with ImageMagick
+  [DONE] > Add Cache Component
+  [DONE] > Add JSON support
+  [DONE] > Add ability to convert sets of data between SQL, XML, CSV, YAML, JSON and PHP
+  [DONE] > Add SVG Component
+  [DONE] > Add Color Component and add it to the components that use color.
+  [DONE] > Add Graph component, Pop_Image, Pop_Imagick, Pop_Pdf, Pop_Svg
+           - Background color/images
+  [DONE] > Add Http Request/Response Component
+  [DONE] > Add MVC Component
+
+------------------------------------------------
+-- ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON --
+------------------------------------------------
+        > Rework the integration of the new/improved image components into Pop_Pdf
+ [DONE] > Improve Pop_Pdf API
+ [DONE] > Fix PDF import bug
+ [DONE] > Address page ordering issue for PDF import
+ [DONE] > Fix addFont bug
+ [DONE] > Add compression to PDF
+        > Add a font component
+        > Add font embedding/compression to PDF
+        > Revisit PDF layer/clipping issues
+        > Revisit embedding GIFs into PDF issue
+        > Revisit pie chart text for PDF
+        > Revisit File write/buffer, etc.
+
+------------------------------------------------
+--    CURRENTLY ON DECK & BEING WORKED ON     --
+------------------------------------------------
+
+ 2nd Round:
+        > Add Code Generator
+          - Data mapping classes to database tables
+          - Generate code for classes and create database from template
+        > Add Geo support via Google API (get address, city, state, long/lat, calculate distances, etc.)
+          - Integrate GeoIP?
+        > Add Namespace support
+        > Look at creating more dependency injections throughout (config/ini file?)
+        > Check autoloader for override issue. Revise autoloader to work with other autoloaders. Classmap generator?
+        > Officially integrate Ralph's USAePay and Paymentech support components, as well as create
+          support components for Authorize.net and PayPal.
+        > Evaluate where the framework would benefit from interfaces and abstact class blueprints (i.e. Db Adapter)
+
+ 3rd Round:
+        > Code review/cleanup
+          - Class layout - statics before instances, magics at bottom
+          - Paginator Placement?
+          - Record
+            > isset vs array_key_exists
+          - General
+            > is_null() change to (null === $var)
+          - Change print to echo
+
+ 4th Round:
+        > Testing, testing & more testing!
+        > Documentation!
+
+METHOD/PROPERTY RENAMES:
+Form:
+-----
+setPostValues => setFieldValues
+processInitValues => generateFields
+
+String:
+-------
+setString => factory
+
+Array:
+-------
+setArray => factory
+
+
+LANGUAGE ADDITIONS & REVISIONS:
+Error: The image resource has not been created.
+Error: The image output resource has not been created.
+The argument passed is not valid.
+The archive file is compressed. It must only be either a TAR or ZIP archive file.
+The archive file must be either a TAR or ZIP archive file.
+Error: The compression type must either be Flate or LZW.
+Error: The font file does not seem to have all of the correct data to parse.
+Error: The GD library extension must be installed to use the Pop_Image component.
+No source file or database table was passed.
+The options parameter must be an array.
+The options parameter must be an array that contains either a 'table' or 'file' key.
+Error: Could not connect to database. %1
+Error: The database interface object has not been instaniated.
+Error: That method does not exist within the database interface object.
+Error: The columns parameter must be an array.
+Error: The columns parameter must be an array that contains at least one key/value pair.
+Error: The table must be set.
+Error: A SQL type must be set.
+Error: The database statement resource is not currently set.
+(Change) The column and value parameters were not defined to describe the row(s) to delete.
+(Change) The column '%1' does not exist.
+(Remove) Error: Table name not set.
+Error: That database adapter class does not exist.
+Error: The Imagick library extension must be installed to use the Pop_Imagick component.
+Error: That image type is not supported.
+Error: The cache type must be 'File', 'Sqlite' or 'Memcached'.
+Error: You must pass either a directory or SQLite file store point.
+Error: That cache directory does not exist.
+Error: That cache directory is not writable.
+Error: That cache db file and/or directory is not writable.
+Error: Memcache is not available on this server.
+Error: Unable to connect to the memcached server.
+That data type is not supported.
+No database adapter was found.
+That font is not available.
+The percentages are greater than 100.
+A proper color array was not passed.
+One or more of the color values is out of range.
+The color parameter is not a valid color space object.
+That color space object does not exist.
+That color space object is already that type.
+The headers have already been sent.
+The response was not properly formatted.
+A template asset has not been assigned.
+That template file either does not exist or is not the correct format.

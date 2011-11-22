@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE language [
+    <!ELEMENT language ANY>
+    <!ELEMENT text (source,output)>
+    <!ELEMENT source ANY>
+    <!ELEMENT output ANY>
+    <!ATTLIST language
+        src       CDATA    #REQUIRED
+        output    CDATA    #REQUIRED
+        name      CDATA    #REQUIRED
+        native    CDATA    #REQUIRED
+    >
+]>
+<language src="en" output="zh" name="Chinese" native="中文">
+    <text>
+        <source>That option is not set.</source>
+        <output>这种选择是没有设置。</output>
+    </text>
+    <text>
+        <source>Error:</source>
+        <output>错误：</output>
+    </text>
+    <text>
+        <source>Error: The proper database credentials were not passed.</source>
+        <output>错误：不正确的数据库认证通过。</output>
+    </text>
+    <text>
+        <source>Error: The database result resource is not currently set.</source>
+        <output>错误：数据库结果资源目前尚未设置。</output>
+    </text>
+    <text>
+        <source>Error: Could not connect to database. Connection Error #%1: %2.</source>
+        <output>错误：无法连接到数据库。连接错误＃%1： %2。</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the database.</source>
+        <output>有错误发生：无法连接到数据库。</output>
+    </text>
+    <text>
+        <source>Error: The database file was not passed.</source>
+        <output>错误：数据库文件没有通过。</output>
+    </text>
+    <text>
+        <source>Error: The database file does not exists.</source>
+        <output>错误：数据库文件不存在。</output>
+    </text>
+    <text>
+        <source>Error: That doctype is not allowed.</source>
+        <output>错误：这DOCTYPE是不允许的。</output>
+    </text>
+    <text>
+        <source>The child element passed is not an instance of Moc10_Dom_Child.</source>
+        <output>子元素传递的不是一个Moc10_Dom_Child实例。</output>
+    </text>
+    <text>
+        <source>One or more of the child elements passed is not an instance of Moc10_Dom_Child.</source>
+        <output>一个或更多的孩子传递的元素是不是一个Moc10_Dom_Child实例。</output>
+    </text>
+    <text>
+        <source>That feed URL cannot be read at this time. Please try again later.</source>
+        <output>这供稿网址无法读取在这个时候。请稍后再试。</output>
+    </text>
+    <text>
+        <source>Error: The feed item template is not set.</source>
+        <output>错误：供稿项模板未设置。</output>
+    </text>
+    <text>
+        <source>Error: The feed currently has no content.</source>
+        <output>错误：饲料目前还没有内容。</output>
+    </text>
+    <text>
+        <source>Error: The feed type must be only RSS or ATOM.</source>
+        <output>错误：供稿类型必须是唯一的RSS或Atom。</output>
+    </text>
+    <text>
+        <source>Error: The file is not an accepted file format.</source>
+        <output>错误：该文件不是一个接受的文件格式。</output>
+    </text>
+    <text>
+        <source>Error: The file already exists.</source>
+        <output>错误：该文件已经存在。</output>
+    </text>
+    <text>
+        <source>Error: The directory does not exist.</source>
+        <output>错误：该目录不存在。</output>
+    </text>
+    <text>
+        <source>Error: The upload directory does not exist.</source>
+        <output>错误：上传目录不存在。</output>
+    </text>
+    <text>
+        <source>Error: The file uploaded is too big.</source>
+        <output>错误：文件上传太大。</output>
+    </text>
+    <text>
+        <source>Error: The image file uploaded is too big.</source>
+        <output>错误：图像文件上传太大。</output>
+    </text>
+    <text>
+        <source>Error: There was an error in uploading the file.</source>
+        <output>有错误发生：在上传文件中的错误。</output>
+    </text>
+    <text>
+        <source>Error: There was an error in uploading the image file.</source>
+        <output>有错误发生：在上传图像文件错误。</output>
+    </text>
+    <text>
+        <source>Error: Permission denied.</source>
+        <output>错误：权限被拒绝。</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed is not an array.</source>
+        <output>错误：参数传递的不是一个数组。</output>
+    </text>
+    <text>
+        <source>Error: The array passed must contain at least one type.</source>
+        <output>错误：通过必须至少包含一个类型的数组。</output>
+    </text>
+    <text>
+        <source>Error: The file or directory (%1) is not writable.</source>
+        <output>错误：文件或目录（%1）不写。</output>
+    </text>
+    <text>
+        <source>Error: There are no form elements declared for this form object.</source>
+        <output>错误：没有为这种形式的表单元素对象的声明。</output>
+    </text>
+    <text>
+        <source>Error: That input type is not allowed.</source>
+        <output>错误：该输入类型是不允许的。</output>
+    </text>
+    <text>
+        <source>Error: The required flag must be a boolean value.</source>
+        <output>错误：所需要的标志必须是一个布尔值。</output>
+    </text>
+    <text>
+        <source>Error: That type validator is not allowed.</source>
+        <output>错误：该类型的验证器是不允许的。</output>
+    </text>
+    <text>
+        <source>Error: The condition must be a boolean.</source>
+        <output>错误：该条件必须是一个布尔值。</output>
+    </text>
+    <text>
+        <source>This field is required.</source>
+        <output>此字段是必需的。</output>
+    </text>
+    <text>
+        <source>This field value must %1 contain alphanumeric characters.</source>
+        <output>该字段值必须包含字母数字字符%1。</output>
+    </text>
+    <text>
+        <source>This field value must %1 contain characters of the alphabet.</source>
+        <output>该字段值必须包含%1的字母字符。</output>
+    </text>
+    <text>
+        <source>This field value is %1 between %2 and %3.</source>
+        <output>此字段值是%1%2至%3。</output>
+    </text>
+    <text>
+        <source>This field value format is %1 a correct email format.</source>
+        <output>该字段值的格式是%1正确的电子邮件格式。</output>
+    </text>
+    <text>
+        <source>This field value does not equal the correct value.</source>
+        <output>此字段值不等于正确的值。</output>
+    </text>
+    <text>
+        <source>This field value is %1 greater than %2.</source>
+        <output>此字段值是%1%2比更大。</output>
+    </text>
+    <text>
+        <source>This field value length is %1 equal to %2 characters long.</source>
+        <output>该字段值的长度等于%1%2个字符长。</output>
+    </text>
+    <text>
+        <source>This field value length is %1 between %2 and %3.</source>
+        <output>该字段值的长度是%1%2至%3。</output>
+    </text>
+    <text>
+        <source>This field value length must be %1 %2 characters long.</source>
+        <output>该字段值的长度必须是%1%2个字符长。</output>
+    </text>
+    <text>
+        <source>This field value is %1 less than %2.</source>
+        <output>此字段值是%1%2比少。</output>
+    </text>
+    <text>
+        <source>This field value is %1 empty.</source>
+        <output>此字段值是%1空。</output>
+    </text>
+    <text>
+        <source>This field value is %1 a number.</source>
+        <output>此字段的值是%1的号码。</output>
+    </text>
+    <text>
+        <source>This field value format is %1 correct.</source>
+        <output>该字段值的格式是%1正确的。</output>
+    </text>
+    <text>
+        <source>The parameter passed must be an array.</source>
+        <output>传递的参数必须是一个数组。</output>
+    </text>
+    <text>
+        <source>The array parameter passed must contain an array.</source>
+        <output>参数传递的数组必须包含一个数组。</output>
+    </text>
+    <text>
+        <source>not</source>
+        <output>不</output>
+    </text>
+    <text>
+        <source>only</source>
+        <output>只</output>
+    </text>
+    <text>
+        <source>under</source>
+        <output>下</output>
+    </text>
+    <text>
+        <source>at least</source>
+        <output>至少</output>
+    </text>
+    <text>
+        <source>Sunday</source>
+        <output>星期日</output>
+    </text>
+    <text>
+        <source>Monday</source>
+        <output>星期一</output>
+    </text>
+    <text>
+        <source>Tuesday</source>
+        <output>星期二</output>
+    </text>
+    <text>
+        <source>Wednesday</source>
+        <output>星期三</output>
+    </text>
+    <text>
+        <source>Thursday</source>
+        <output>星期四</output>
+    </text>
+    <text>
+        <source>Friday</source>
+        <output>星期五</output>
+    </text>
+    <text>
+        <source>Saturday</source>
+        <output>星期六</output>
+    </text>
+    <text>
+        <source>January</source>
+        <output>一月</output>
+    </text>
+    <text>
+        <source>February</source>
+        <output>二月</output>
+    </text>
+    <text>
+        <source>March</source>
+        <output>三月</output>
+    </text>
+    <text>
+        <source>April</source>
+        <output>四月</output>
+    </text>
+    <text>
+        <source>May</source>
+        <output>五月</output>
+    </text>
+    <text>
+        <source>June</source>
+        <output>六月</output>
+    </text>
+    <text>
+        <source>July</source>
+        <output>七月</output>
+    </text>
+    <text>
+        <source>August</source>
+        <output>八月</output>
+    </text>
+    <text>
+        <source>September</source>
+        <output>九月</output>
+    </text>
+    <text>
+        <source>October</source>
+        <output>十月</output>
+    </text>
+    <text>
+        <source>November</source>
+        <output>十一月</output>
+    </text>
+    <text>
+        <source>December</source>
+        <output>十二月</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the FTP server %1.</source>
+        <output>有错误发生：无法连接到FTP服务器%1。</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the FTP server %1 with those credentials.</source>
+        <output>错误：有错误的凭据连接到FTP服务器%1。</output>
+    </text>
+    <text>
+        <source>Error: There was an error changing to the directory %1.</source>
+        <output>错误：有错误更改到目录%1。</output>
+    </text>
+    <text>
+        <source>Error: There was an error making the directory %1.</source>
+        <output>错误：有错误使目录%1。</output>
+    </text>
+    <text>
+        <source>Error: There was an error removing the directory %1.</source>
+        <output>错误：有错误删除目录%1。</output>
+    </text>
+    <text>
+        <source>Error: There was an error getting the file %1.</source>
+        <output>错误：有一个错误获取文件%1。</output>
+    </text>
+    <text>
+        <source>Error: There was an error putting the file %1.</source>
+        <output>错误：有错误将文件%1。</output>
+    </text>
+    <text>
+        <source>Error: There was an error renaming the file %1.</source>
+        <output>错误：有错误重命名文件%1。</output>
+    </text>
+    <text>
+        <source>Error: There was an error changing the permission of %1.</source>
+        <output>错误：有一个错误改变了%1的权限。</output>
+    </text>
+    <text>
+        <source>Error: There was an error removing the file %1.</source>
+        <output>错误：有错误删除文件%1。</output>
+    </text>
+    <text>
+        <source>Error: You must define a width and height for a new image object.</source>
+        <output>错误：您必须定义一个新的宽度和图像对象的高度。</output>
+    </text>
+    <text>
+        <source>Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.</source>
+        <output>错误：该图像类型不支持。只有GIF，JPG和PNG图片类型都支持。</output>
+    </text>
+    <text>
+        <source>Error: This image file is already a %1 image file.</source>
+        <output>错误：这已经是一个图像文件%1的图像文件。</output>
+    </text>
+    <text>
+        <source>Error: The language file %1 does not exist.</source>
+        <output>错误：该语言文件%1不存在。</output>
+    </text>
+    <text>
+        <source>Error: Your output language selection is not valid.</source>
+        <output>错误：你的输出语言的选择是无效的。</output>
+    </text>
+    <text>
+        <source>Error: Your source language selection is not valid.</source>
+        <output>错误：您的源语言的选择是无效的。</output>
+    </text>
+    <text>
+        <source>Error: Both the output and source language selections are the same. Please choose again.</source>
+        <output>错误：无论是产量和源语言的选择是相同的。请重新选择。</output>
+    </text>
+    <text>
+        <source>Error: There was an error processing that Google Translate URL. Please check your API key.</source>
+        <output>错误：有一个错误处理，谷歌翻译的网址。请检查您的API密钥。</output>
+    </text>
+    <text>
+        <source>Error: There was an error processing that XML file.</source>
+        <output>错误：有一个错误处理的XML文件。</output>
+    </text>
+    <text>
+        <source>Error: At least one of the array keys must be 'email'.</source>
+        <output>错误：至少数组的关键之一必须是'电子邮件'。</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed must either be a valid file or an instance of Moc10_File.</source>
+        <output>错误：参数传递必须是一个有效的文件，或者Moc10_File实例。</output>
+    </text>
+    <text>
+        <source>Error: The message body elements are not set.</source>
+        <output>错误：邮件正文内容是没有设置。</output>
+    </text>
+    <text>
+        <source>Error: That page does not exist.</source>
+        <output>错误：该网页不存在。</output>
+    </text>
+    <text>
+        <source>Error: The PDF does not have enough pages in which to order.</source>
+        <output>错误：没有足够的PDF格式的网页在其中的顺序。</output>
+    </text>
+    <text>
+        <source>Error: The pages array passed does not contain the same number of pages as the PDF.</source>
+        <output>错误：数组传递的网页不包含作为PDF页面相同的号码。</output>
+    </text>
+    <text>
+        <source>Error: The pages array passed contains a page that does not exist.</source>
+        <output>错误：数组传递的页面包含的页面不存在。</output>
+    </text>
+    <text>
+        <source>Error: The rotation parameter must be between -90 and 90 degrees.</source>
+        <output>错误：自转参数必须介于-90到90度。</output>
+    </text>
+    <text>
+        <source>Error: The render parameter must be an integer between 0 and 7.</source>
+        <output>错误：渲染参数必须是0和7之间的整数。</output>
+    </text>
+    <text>
+        <source>Error: That font is not contained within the standard PDF fonts.</source>
+        <output>错误：该字体不包含在标准的PDF字体。</output>
+    </text>
+    <text>
+        <source>Error: That font has not been added to the PDF.</source>
+        <output>错误：该字体并没有被添加到PDF。</output>
+    </text>
+    <text>
+        <source>Error: That page has not been defined.</source>
+        <output>错误：该页面还没有被定义。</output>
+    </text>
+    <text>
+        <source>Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.</source>
+        <output>错误：巴不支持alpha通道。只有8位透明PNG图像的支持。</output>
+    </text>
+    <text>
+        <source>Error: The file already exists and it cannot be overwritten. Please specify a new filename.</source>
+        <output>错误：该文件已经存在，它不能被覆盖。请指定一个新文件名。</output>
+    </text>
+    <text>
+        <source>Error: The argument passed must be an array.</source>
+        <output>错误：必须是一个数组传递参数。</output>
+    </text>
+    <text>
+        <source>Error: A width and height must be passed.</source>
+        <output>错误：宽度和高度必须予以通过。</output>
+    </text>
+    <text>
+        <source>Error: A page index must be passed.</source>
+        <output>错误：一个页面索引必须予以通过。</output>
+    </text>
+    <text>
+        <source>The field '%1' does not exist.</source>
+        <output>字段'%1'不存在。</output>
+    </text>
+    <text>
+        <source>The parameter passed must be either an array or null.</source>
+        <output>传递的参数必须是一个数组或null。</output>
+    </text>
+    <text>
+        <source>This primary ID of this table either is not set or does not exist.</source>
+        <output>这本表的主ID或者未设置或不存在。</output>
+    </text>
+    <text>
+        <source>The field and value parameters were not defined to describe the row(s) to delete.</source>
+        <output>外地和价值参数没有定义描述行（s）到删除。</output>
+    </text>
+    <text>
+        <source>The mobile site is not set.</source>
+        <output>移动网站没有设置。</output>
+    </text>
+    <text>
+        <source>The standard site is not set.</source>
+        <output>标准的网站没有设置。</output>
+    </text>
+</language>

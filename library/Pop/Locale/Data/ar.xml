@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE language [
+    <!ELEMENT language ANY>
+    <!ELEMENT text (source,output)>
+    <!ELEMENT source ANY>
+    <!ELEMENT output ANY>
+    <!ATTLIST language
+        src       CDATA    #REQUIRED
+        output    CDATA    #REQUIRED
+        name      CDATA    #REQUIRED
+        native    CDATA    #REQUIRED
+    >
+]>
+<language src="en" output="ar" name="Arabic" native="العربية">
+    <text>
+        <source>That option is not set.</source>
+        <output>لم يتم تعيين هذا الخيار.</output>
+    </text>
+    <text>
+        <source>Error:</source>
+        <output>خطأ :</output>
+    </text>
+    <text>
+        <source>Error: The proper database credentials were not passed.</source>
+        <output>خطأ : لم يتم تمرير بيانات الاعتماد قاعدة البيانات الصحيحة.</output>
+    </text>
+    <text>
+        <source>Error: The database result resource is not currently set.</source>
+        <output>خطأ : لم يتم تعيين قاعدة بيانات الموارد نتيجة لعرضه.</output>
+    </text>
+    <text>
+        <source>Error: Could not connect to database. Connection Error #%1: %2.</source>
+        <output>خطأ : تعذر الاتصال بقاعدة البيانات. خطأ اتصال # %1 :  %2.</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the database.</source>
+        <output>خطأ : هناك خطأ في الاتصال بقاعدة البيانات.</output>
+    </text>
+    <text>
+        <source>Error: The database file was not passed.</source>
+        <output>خطأ : لم يتم تمرير ملف قاعدة البيانات.</output>
+    </text>
+    <text>
+        <source>Error: The database file does not exists.</source>
+        <output>خطأ : لا يوجد ملف قاعدة البيانات.</output>
+    </text>
+    <text>
+        <source>Error: That doctype is not allowed.</source>
+        <output>خطأ : لا يسمح هذا نوع مستند.</output>
+    </text>
+    <text>
+        <source>The child element passed is not an instance of Moc10_Dom_Child.</source>
+        <output>العنصر التابع مرت لا مثيل Moc10_Dom_Child.</output>
+    </text>
+    <text>
+        <source>One or more of the child elements passed is not an instance of Moc10_Dom_Child.</source>
+        <output>واحد أو أكثر من العناصر التابعة مرت لا مثيل Moc10_Dom_Child.</output>
+    </text>
+    <text>
+        <source>That feed URL cannot be read at this time. Please try again later.</source>
+        <output>لا يمكن تغذية هذا العنوان أن تقرأ في هذا الوقت. يرجى المحاولة مرة أخرى في وقت لاحق.</output>
+    </text>
+    <text>
+        <source>Error: The feed item template is not set.</source>
+        <output>خطأ : لم يتم تعيين قالب العنصر الأعلاف.</output>
+    </text>
+    <text>
+        <source>Error: The feed currently has no content.</source>
+        <output>خطأ : الأعلاف في الوقت الحالي أي محتوى.</output>
+    </text>
+    <text>
+        <source>Error: The feed type must be only RSS or ATOM.</source>
+        <output>خطأ : نوع العلف يجب أن يكون فقط آر إس إس أو الذرة.</output>
+    </text>
+    <text>
+        <source>Error: The file is not an accepted file format.</source>
+        <output>خطأ : الملف ليس تنسيق ملف المقبولة.</output>
+    </text>
+    <text>
+        <source>Error: The file already exists.</source>
+        <output>خطأ : الملف موجود بالفعل.</output>
+    </text>
+    <text>
+        <source>Error: The directory does not exist.</source>
+        <output>خطأ : الدليل غير موجود.</output>
+    </text>
+    <text>
+        <source>Error: The upload directory does not exist.</source>
+        <output>خطأ : تحميل الدليل غير موجود.</output>
+    </text>
+    <text>
+        <source>Error: The file uploaded is too big.</source>
+        <output>خطأ : الملف الذي تم تحميله هو كبير جدا.</output>
+    </text>
+    <text>
+        <source>Error: The image file uploaded is too big.</source>
+        <output>خطأ : ملف الصورة التي تم تحميلها كبيرة جدا.</output>
+    </text>
+    <text>
+        <source>Error: There was an error in uploading the file.</source>
+        <output>خطأ : كان هناك خطأ في تحميل الملف.</output>
+    </text>
+    <text>
+        <source>Error: There was an error in uploading the image file.</source>
+        <output>خطأ : كان هناك خطأ في تحميل ملف الصورة.</output>
+    </text>
+    <text>
+        <source>Error: Permission denied.</source>
+        <output>ونفى إذن : خطأ.</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed is not an array.</source>
+        <output>خطأ : المعلمة تمرير ليس صفيف.</output>
+    </text>
+    <text>
+        <source>Error: The array passed must contain at least one type.</source>
+        <output>خطأ : تمرير الصفيف يجب أن يحتوي على الأقل نوع واحد.</output>
+    </text>
+    <text>
+        <source>Error: The file or directory (%1) is not writable.</source>
+        <output>خطأ : الملف أو الدليل (%1) غير قابل للكتابة.</output>
+    </text>
+    <text>
+        <source>Error: There are no form elements declared for this form object.</source>
+        <output>خطأ : لا يوجد عناصر النموذج أعلن لهذا الكائن النموذج.</output>
+    </text>
+    <text>
+        <source>Error: That input type is not allowed.</source>
+        <output>خطأ : لا يسمح هذا النوع الإدخال.</output>
+    </text>
+    <text>
+        <source>Error: The required flag must be a boolean value.</source>
+        <output>خطأ : يجب أن يطلب العلم أن قيمة منطقية.</output>
+    </text>
+    <text>
+        <source>Error: That type validator is not allowed.</source>
+        <output>خطأ : لا يسمح هذا النوع المدقق.</output>
+    </text>
+    <text>
+        <source>Error: The condition must be a boolean.</source>
+        <output>خطأ : يجب أن يكون شرط منطقي.</output>
+    </text>
+    <text>
+        <source>This field is required.</source>
+        <output>هذا الحقل مطلوب.</output>
+    </text>
+    <text>
+        <source>This field value must %1 contain alphanumeric characters.</source>
+        <output>هذه القيمة يجب أن تحتوي على %1 حقل الأحرف الأبجدية الرقمية.</output>
+    </text>
+    <text>
+        <source>This field value must %1 contain characters of the alphabet.</source>
+        <output>هذه القيمة يجب أن الحقل %1 تحتوي على أحرف الأبجدية.</output>
+    </text>
+    <text>
+        <source>This field value is %1 between %2 and %3.</source>
+        <output>هذه القيمة الحقل %1 بين %2 و %3.</output>
+    </text>
+    <text>
+        <source>This field value format is %1 a correct email format.</source>
+        <output>هذا الشكل قيمة الحقل هو %1 تنسيق البريد الإلكتروني الصحيح.</output>
+    </text>
+    <text>
+        <source>This field value does not equal the correct value.</source>
+        <output>هذه القيمة الحقل لا يساوي القيمة الصحيحة.</output>
+    </text>
+    <text>
+        <source>This field value is %1 greater than %2.</source>
+        <output>هذه القيمة الحقل هو أكبر من %1 %2.</output>
+    </text>
+    <text>
+        <source>This field value length is %1 equal to %2 characters long.</source>
+        <output>طول هذا الحقل قيمة %1 إلى %2 على قدم المساواة حرفا.</output>
+    </text>
+    <text>
+        <source>This field value length is %1 between %2 and %3.</source>
+        <output>طول هذا الحقل قيمة %1 بين %2 و %3.</output>
+    </text>
+    <text>
+        <source>This field value length must be %1 %2 characters long.</source>
+        <output>وهذا يجب أن يكون طول قيمة الحقل %1 %2 حرفا.</output>
+    </text>
+    <text>
+        <source>This field value is %1 less than %2.</source>
+        <output>هذه القيمة الحقل %1 أقل من %2.</output>
+    </text>
+    <text>
+        <source>This field value is %1 empty.</source>
+        <output>هذه القيمة الحقل %1 فارغة.</output>
+    </text>
+    <text>
+        <source>This field value is %1 a number.</source>
+        <output>هذه القيمة الحقل %1 رقما.</output>
+    </text>
+    <text>
+        <source>This field value format is %1 correct.</source>
+        <output>هذا الشكل قيمة الحقل هو %1 الصحيح.</output>
+    </text>
+    <text>
+        <source>The parameter passed must be an array.</source>
+        <output>المعلمة يجب تمرير صفيف.</output>
+    </text>
+    <text>
+        <source>The array parameter passed must contain an array.</source>
+        <output>المعلمة تمرير الصفيف يجب أن يحتوي على صفيف.</output>
+    </text>
+    <text>
+        <source>not</source>
+        <output>لا</output>
+    </text>
+    <text>
+        <source>only</source>
+        <output>فقط</output>
+    </text>
+    <text>
+        <source>under</source>
+        <output>تحت</output>
+    </text>
+    <text>
+        <source>at least</source>
+        <output>على الأقل</output>
+    </text>
+    <text>
+        <source>Sunday</source>
+        <output>الأحد</output>
+    </text>
+    <text>
+        <source>Monday</source>
+        <output>الاثنين</output>
+    </text>
+    <text>
+        <source>Tuesday</source>
+        <output>الثلاثاء</output>
+    </text>
+    <text>
+        <source>Wednesday</source>
+        <output>الأربعاء</output>
+    </text>
+    <text>
+        <source>Thursday</source>
+        <output>الخميس</output>
+    </text>
+    <text>
+        <source>Friday</source>
+        <output>الجمعة</output>
+    </text>
+    <text>
+        <source>Saturday</source>
+        <output>السبت</output>
+    </text>
+    <text>
+        <source>January</source>
+        <output>كانون الثاني / يناير</output>
+    </text>
+    <text>
+        <source>February</source>
+        <output>شباط / فبراير</output>
+    </text>
+    <text>
+        <source>March</source>
+        <output>آذار / مارس</output>
+    </text>
+    <text>
+        <source>April</source>
+        <output>نيسان / أبريل</output>
+    </text>
+    <text>
+        <source>May</source>
+        <output>قد</output>
+    </text>
+    <text>
+        <source>June</source>
+        <output>حزيران / يونيو</output>
+    </text>
+    <text>
+        <source>July</source>
+        <output>تموز / يوليو</output>
+    </text>
+    <text>
+        <source>August</source>
+        <output>آب / أغسطس</output>
+    </text>
+    <text>
+        <source>September</source>
+        <output>أيلول / سبتمبر</output>
+    </text>
+    <text>
+        <source>October</source>
+        <output>تشرين الأول / أكتوبر</output>
+    </text>
+    <text>
+        <source>November</source>
+        <output>تشرين الثاني / نوفمبر</output>
+    </text>
+    <text>
+        <source>December</source>
+        <output>كانون الأول / ديسمبر</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the FTP server %1.</source>
+        <output>خطأ : كان هناك خطأ في الاتصال خادم بروتوكول نقل الملفات %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the FTP server %1 with those credentials.</source>
+        <output>خطأ : كان هناك خطأ في الاتصال %1 مع خادم بروتوكول نقل الملفات وثائق التفويض.</output>
+    </text>
+    <text>
+        <source>Error: There was an error changing to the directory %1.</source>
+        <output>خطأ : هناك خطأ في تغيير إلى الدليل %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error making the directory %1.</source>
+        <output>خطأ : هناك خطأ في صنع الدليل %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error removing the directory %1.</source>
+        <output>خطأ : هناك خطأ في إزالة الدليل %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error getting the file %1.</source>
+        <output>خطأ : حدث خطأ في الحصول على الملف %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error putting the file %1.</source>
+        <output>خطأ : هناك خطأ في وضع الملف %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error renaming the file %1.</source>
+        <output>خطأ : حدث خطأ في إعادة تسمية الملف %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error changing the permission of %1.</source>
+        <output>خطأ : هناك خطأ في تغيير إذن من %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error removing the file %1.</source>
+        <output>خطأ : هناك خطأ في إزالة الملف %1.</output>
+    </text>
+    <text>
+        <source>Error: You must define a width and height for a new image object.</source>
+        <output>خطأ : يجب تحديد العرض والارتفاع للكائن صورة جديدة.</output>
+    </text>
+    <text>
+        <source>Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.</source>
+        <output>خطأ : لا يتم اعتماد هذا النوع الصورة. فقط معتمدة اف ، جي بي جي وأنواع الصور بابوا نيو غينيا.</output>
+    </text>
+    <text>
+        <source>Error: This image file is already a %1 image file.</source>
+        <output>خطأ : هذا الملف هو بالفعل صورة ملف الصورة %1.</output>
+    </text>
+    <text>
+        <source>Error: The language file %1 does not exist.</source>
+        <output>الخطأ : %1 ملف اللغة غير موجود.</output>
+    </text>
+    <text>
+        <source>Error: Your output language selection is not valid.</source>
+        <output>خطأ : اختيارك لغة الإخراج غير صالحة.</output>
+    </text>
+    <text>
+        <source>Error: Your source language selection is not valid.</source>
+        <output>خطأ : اختيارك لغة مصدر غير صالح.</output>
+    </text>
+    <text>
+        <source>Error: Both the output and source language selections are the same. Please choose again.</source>
+        <output>خطأ : كل من اللغة والإخراج مصدر التحديدات هي نفسها. الرجاء اختيار مرة أخرى.</output>
+    </text>
+    <text>
+        <source>Error: There was an error processing that Google Translate URL. Please check your API key.</source>
+        <output>خطأ : كان هناك خطأ في معالجة هذا العنوان ترجمة غوغل. الرجاء مراجعة الخاص المعهد الرئيسية.</output>
+    </text>
+    <text>
+        <source>Error: There was an error processing that XML file.</source>
+        <output>خطأ : كان هناك خطأ في معالجة هذا ملف نصي.</output>
+    </text>
+    <text>
+        <source>Error: At least one of the array keys must be 'email'.</source>
+        <output>خطأ : يجب أن يكون واحد على الأقل مجموعة من مفاتيح تكون 'الرسالة'.</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed must either be a valid file or an instance of Moc10_File.</source>
+        <output>خطأ : تمرير المعلمة يجب أن يكون إما ملف صالح أو مثيل Moc10_File.</output>
+    </text>
+    <text>
+        <source>Error: The message body elements are not set.</source>
+        <output>خطأ : لم يتم تعيين عناصر نص الرسالة.</output>
+    </text>
+    <text>
+        <source>Error: That page does not exist.</source>
+        <output>خطأ : هذا الصفحة غير موجودة.</output>
+    </text>
+    <text>
+        <source>Error: The PDF does not have enough pages in which to order.</source>
+        <output>خطأ : قوات الدفاع الشعبي لا يملك ما يكفي من الصفحات التي لأجل.</output>
+    </text>
+    <text>
+        <source>Error: The pages array passed does not contain the same number of pages as the PDF.</source>
+        <output>خطأ : تمرير الصفيف صفحات لا تحتوي على نفس العدد من الصفحات كما في قوات الدفاع الشعبي.</output>
+    </text>
+    <text>
+        <source>Error: The pages array passed contains a page that does not exist.</source>
+        <output>الخطأ : مجموعة صفحات تمرير يحتوي على الصفحة التي لا وجود لها.</output>
+    </text>
+    <text>
+        <source>Error: The rotation parameter must be between -90 and 90 degrees.</source>
+        <output>خطأ : المعلمة التناوب يجب أن تكون بين -90 و 90 درجة.</output>
+    </text>
+    <text>
+        <source>Error: The render parameter must be an integer between 0 and 7.</source>
+        <output>خطأ : يجب أن تجعل المعلمة ان يكون عدد صحيح بين 0 و 7.</output>
+    </text>
+    <text>
+        <source>Error: That font is not contained within the standard PDF fonts.</source>
+        <output>خطأ : لم يتم احتواء هذا الخط ضمن الخطوط الشعبي القياسية.</output>
+    </text>
+    <text>
+        <source>Error: That font has not been added to the PDF.</source>
+        <output>خطأ : لم يكن ذلك الخط إضافة إلى قوات الدفاع الشعبي.</output>
+    </text>
+    <text>
+        <source>Error: That page has not been defined.</source>
+        <output>خطأ : لم يتم تعريف هذه الصفحة.</output>
+    </text>
+    <text>
+        <source>Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.</source>
+        <output>لا يتم دعم قنوات ألفا بابوا غينيا الجديدة : خطأ. معتمدة فقط 8 بت صور شفافة بابوا نيو غينيا.</output>
+    </text>
+    <text>
+        <source>Error: The file already exists and it cannot be overwritten. Please specify a new filename.</source>
+        <output>خطأ : الملف موجود بالفعل ، وأنه لا يمكن تجاوزها. يرجى تحديد اسم ملف جديد.</output>
+    </text>
+    <text>
+        <source>Error: The argument passed must be an array.</source>
+        <output>خطأ : الوسيطة تمرير يجب صفيف.</output>
+    </text>
+    <text>
+        <source>Error: A width and height must be passed.</source>
+        <output>خطأ : يجب تمرير العرض والارتفاع.</output>
+    </text>
+    <text>
+        <source>Error: A page index must be passed.</source>
+        <output>خطأ : يجب أن يتم تمرير مؤشر صفحة.</output>
+    </text>
+    <text>
+        <source>The field '%1' does not exist.</source>
+        <output>'%1' حقل غير موجود.</output>
+    </text>
+    <text>
+        <source>The parameter passed must be either an array or null.</source>
+        <output>ويجب على المعلمة أن تكون إما تمرير صفيف أو فارغة.</output>
+    </text>
+    <text>
+        <source>This primary ID of this table either is not set or does not exist.</source>
+        <output>هذا الرقم الأساسي لهذا الجدول إما لم يتم تعيين أو غير موجود.</output>
+    </text>
+    <text>
+        <source>The field and value parameters were not defined to describe the row(s) to delete.</source>
+        <output>لم تحدد المعلمات الميدانية وقيمة لوصف الصف (ق) لحذف.</output>
+    </text>
+    <text>
+        <source>The mobile site is not set.</source>
+        <output>لم يتم تعيين موقع للجوال.</output>
+    </text>
+    <text>
+        <source>The standard site is not set.</source>
+        <output>لم يتم تعيين موقع القياسية.</output>
+    </text>
+</language>

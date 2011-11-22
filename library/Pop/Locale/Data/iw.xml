@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE language [
+    <!ELEMENT language ANY>
+    <!ELEMENT text (source,output)>
+    <!ELEMENT source ANY>
+    <!ELEMENT output ANY>
+    <!ATTLIST language
+        src       CDATA    #REQUIRED
+        output    CDATA    #REQUIRED
+        name      CDATA    #REQUIRED
+        native    CDATA    #REQUIRED
+    >
+]>
+<language src="en" output="iw" name="Hebrew" native="עברית">
+    <text>
+        <source>That option is not set.</source>
+        <output>אפשרות זו אינה מוגדרת.</output>
+    </text>
+    <text>
+        <source>Error:</source>
+        <output>שגיאה:</output>
+    </text>
+    <text>
+        <source>Error: The proper database credentials were not passed.</source>
+        <output>שגיאה: אישורי מסד נתונים ראוי לא הועברו.</output>
+    </text>
+    <text>
+        <source>Error: The database result resource is not currently set.</source>
+        <output>שגיאה: משאב התוצאה הנתונים לא מוגדר כעת.</output>
+    </text>
+    <text>
+        <source>Error: Could not connect to database. Connection Error #%1: %2.</source>
+        <output>שגיאה: אין אפשרות להתחבר למסד הנתונים. שגיאת התחברות #%1: %2.</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the database.</source>
+        <output>שגיאה: אירעה שגיאה בחיבור למסד הנתונים.</output>
+    </text>
+    <text>
+        <source>Error: The database file was not passed.</source>
+        <output>שגיאה: קובץ מסד הנתונים לא עברו.</output>
+    </text>
+    <text>
+        <source>Error: The database file does not exists.</source>
+        <output>שגיאה: קובץ מסד הנתונים אינו קיים.</output>
+    </text>
+    <text>
+        <source>Error: That doctype is not allowed.</source>
+        <output>שגיאה: DOCTYPE זה אסור.</output>
+    </text>
+    <text>
+        <source>The child element passed is not an instance of Moc10_Dom_Child.</source>
+        <output>האלמנט הילד עבר הוא לא מופע של Moc10_Dom_Child.</output>
+    </text>
+    <text>
+        <source>One or more of the child elements passed is not an instance of Moc10_Dom_Child.</source>
+        <output>אחד או יותר של אלמנטים הילד עבר היא לא מופע של Moc10_Dom_Child.</output>
+    </text>
+    <text>
+        <source>That feed URL cannot be read at this time. Please try again later.</source>
+        <output>כתובת שמזינים לא ניתן לקרוא בשלב זה. נסה שוב מאוחר יותר.</output>
+    </text>
+    <text>
+        <source>Error: The feed item template is not set.</source>
+        <output>שגיאה: תבנית פריט להאכיל לא מוגדר.</output>
+    </text>
+    <text>
+        <source>Error: The feed currently has no content.</source>
+        <output>שגיאה: העדכון כרגע אין תוכן.</output>
+    </text>
+    <text>
+        <source>Error: The feed type must be only RSS or ATOM.</source>
+        <output>שגיאה: הסוג להאכיל חייב להיות רק RSS או Atom.</output>
+    </text>
+    <text>
+        <source>Error: The file is not an accepted file format.</source>
+        <output>שגיאה: הקובץ אינו קובץ בפורמט המקובל.</output>
+    </text>
+    <text>
+        <source>Error: The file already exists.</source>
+        <output>שגיאה: הקובץ כבר קיים.</output>
+    </text>
+    <text>
+        <source>Error: The directory does not exist.</source>
+        <output>שגיאה: המדריך אינו קיים.</output>
+    </text>
+    <text>
+        <source>Error: The upload directory does not exist.</source>
+        <output>שגיאה: ההעלאה אינו קיים.</output>
+    </text>
+    <text>
+        <source>Error: The file uploaded is too big.</source>
+        <output>שגיאה: הקובץ שהועלה הוא גדול מדי.</output>
+    </text>
+    <text>
+        <source>Error: The image file uploaded is too big.</source>
+        <output>שגיאה: קובץ התמונה נטען הוא גדול מדי.</output>
+    </text>
+    <text>
+        <source>Error: There was an error in uploading the file.</source>
+        <output>שגיאה: אירעה שגיאה ב העלאת הקובץ.</output>
+    </text>
+    <text>
+        <source>Error: There was an error in uploading the image file.</source>
+        <output>שגיאה: אירעה שגיאה ב העלאת קובץ התמונה.</output>
+    </text>
+    <text>
+        <source>Error: Permission denied.</source>
+        <output>שגיאה: Permission denied.</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed is not an array.</source>
+        <output>שגיאה: הפרמטר עברו אינו מערך.</output>
+    </text>
+    <text>
+        <source>Error: The array passed must contain at least one type.</source>
+        <output>שגיאה: מערך עברו חייב להכיל לפחות סוג אחד.</output>
+    </text>
+    <text>
+        <source>Error: The file or directory (%1) is not writable.</source>
+        <output>שגיאה: קובץ או תיקייה (%1) אינו ניתן לכתיבה.</output>
+    </text>
+    <text>
+        <source>Error: There are no form elements declared for this form object.</source>
+        <output>שגיאה: אין אלמנטים טופס הכריז על אובייקט טופס זה.</output>
+    </text>
+    <text>
+        <source>Error: That input type is not allowed.</source>
+        <output>שגיאה: סוג זה תשומות אינו מותר.</output>
+    </text>
+    <text>
+        <source>Error: The required flag must be a boolean value.</source>
+        <output>שגיאה: דגל הנדרש חייב להיות ערך בוליאני.</output>
+    </text>
+    <text>
+        <source>Error: That type validator is not allowed.</source>
+        <output>שגיאה: validator זה סוג אינה מותרת.</output>
+    </text>
+    <text>
+        <source>Error: The condition must be a boolean.</source>
+        <output>שגיאה: התנאי חייב להיות בוליאני.</output>
+    </text>
+    <text>
+        <source>This field is required.</source>
+        <output>שדה זה נדרש.</output>
+    </text>
+    <text>
+        <source>This field value must %1 contain alphanumeric characters.</source>
+        <output>זה ערך השדה %1 חייב להכיל תווים אלפאנומריים.</output>
+    </text>
+    <text>
+        <source>This field value must %1 contain characters of the alphabet.</source>
+        <output>זה ערך השדה %1 חייב להכיל תווים של האלפבית.</output>
+    </text>
+    <text>
+        <source>This field value is %1 between %2 and %3.</source>
+        <output>זה ערך השדה הוא %1 בין %2 לבין %3.</output>
+    </text>
+    <text>
+        <source>This field value format is %1 a correct email format.</source>
+        <output>זה פורמט ערך השדה הוא %1 תבנית הדוא"ל הנכונה.</output>
+    </text>
+    <text>
+        <source>This field value does not equal the correct value.</source>
+        <output>זה ערך השדה אינו שווה את הערך הנכון.</output>
+    </text>
+    <text>
+        <source>This field value is %1 greater than %2.</source>
+        <output>זה ערך השדה הוא %1 יותר מ %2.</output>
+    </text>
+    <text>
+        <source>This field value length is %1 equal to %2 characters long.</source>
+        <output>זה אורך ערך השדה הוא %1 שווה ל %2 תווים.</output>
+    </text>
+    <text>
+        <source>This field value length is %1 between %2 and %3.</source>
+        <output>זה אורך ערך השדה הוא %1 בין %2 לבין %3.</output>
+    </text>
+    <text>
+        <source>This field value length must be %1 %2 characters long.</source>
+        <output>זה אורך ערך השדה חייב להיות %1 %2 תווים.</output>
+    </text>
+    <text>
+        <source>This field value is %1 less than %2.</source>
+        <output>זה ערך השדה הוא %1 פחות מ %2.</output>
+    </text>
+    <text>
+        <source>This field value is %1 empty.</source>
+        <output>זה ערך השדה הוא %1 ריק.</output>
+    </text>
+    <text>
+        <source>This field value is %1 a number.</source>
+        <output>זה ערך השדה הוא %1 מספר.</output>
+    </text>
+    <text>
+        <source>This field value format is %1 correct.</source>
+        <output>זה פורמט ערך השדה הוא %1 נכונה.</output>
+    </text>
+    <text>
+        <source>The parameter passed must be an array.</source>
+        <output>פרמטר חלפו חייב להיות מערך.</output>
+    </text>
+    <text>
+        <source>The array parameter passed must contain an array.</source>
+        <output>הפרמטר מערך עבר להכיל מערך.</output>
+    </text>
+    <text>
+        <source>not</source>
+        <output>לא</output>
+    </text>
+    <text>
+        <source>only</source>
+        <output>רק</output>
+    </text>
+    <text>
+        <source>under</source>
+        <output>תחת</output>
+    </text>
+    <text>
+        <source>at least</source>
+        <output>לפחות</output>
+    </text>
+    <text>
+        <source>Sunday</source>
+        <output>יום ראשון</output>
+    </text>
+    <text>
+        <source>Monday</source>
+        <output>יום שני</output>
+    </text>
+    <text>
+        <source>Tuesday</source>
+        <output>יום שלישי</output>
+    </text>
+    <text>
+        <source>Wednesday</source>
+        <output>יום רביעי</output>
+    </text>
+    <text>
+        <source>Thursday</source>
+        <output>יום חמישי</output>
+    </text>
+    <text>
+        <source>Friday</source>
+        <output>יום שישי</output>
+    </text>
+    <text>
+        <source>Saturday</source>
+        <output>שבת</output>
+    </text>
+    <text>
+        <source>January</source>
+        <output>בינואר</output>
+    </text>
+    <text>
+        <source>February</source>
+        <output>בפברואר</output>
+    </text>
+    <text>
+        <source>March</source>
+        <output>במרץ</output>
+    </text>
+    <text>
+        <source>April</source>
+        <output>באפריל</output>
+    </text>
+    <text>
+        <source>May</source>
+        <output>במאי</output>
+    </text>
+    <text>
+        <source>June</source>
+        <output>ביוני</output>
+    </text>
+    <text>
+        <source>July</source>
+        <output>ביולי</output>
+    </text>
+    <text>
+        <source>August</source>
+        <output>באוגוסט</output>
+    </text>
+    <text>
+        <source>September</source>
+        <output>בספטמבר</output>
+    </text>
+    <text>
+        <source>October</source>
+        <output>באוקטובר</output>
+    </text>
+    <text>
+        <source>November</source>
+        <output>בנובמבר</output>
+    </text>
+    <text>
+        <source>December</source>
+        <output>בדצמבר</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the FTP server %1.</source>
+        <output>שגיאה: אירעה שגיאה בהתחברות שרת FTP %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the FTP server %1 with those credentials.</source>
+        <output>שגיאה: אירעה שגיאה בהתחברות שרת FTP %1 עם האישורים הללו.</output>
+    </text>
+    <text>
+        <source>Error: There was an error changing to the directory %1.</source>
+        <output>שגיאה: אירעה שגיאה שינוי כדי במדריך %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error making the directory %1.</source>
+        <output>שגיאה: אירעה שגיאה עושה את המדריך %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error removing the directory %1.</source>
+        <output>שגיאה: אירעה שגיאה הסרת %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error getting the file %1.</source>
+        <output>שגיאה: אירעה שגיאה מקבל את הקובץ %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error putting the file %1.</source>
+        <output>שגיאה: אירעה שגיאה לשים את הקובץ %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error renaming the file %1.</source>
+        <output>שגיאה: אירעה שגיאה בעת שינוי שם הקובץ %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error changing the permission of %1.</source>
+        <output>שגיאה: אירעה שגיאה שינוי ההרשאה של %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error removing the file %1.</source>
+        <output>שגיאה: אירעה שגיאה הסרת את הקובץ %1.</output>
+    </text>
+    <text>
+        <source>Error: You must define a width and height for a new image object.</source>
+        <output>שגיאה: אתה חייב להגדיר רוחב וגובה עבור אובייקט תמונה חדשה.</output>
+    </text>
+    <text>
+        <source>Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.</source>
+        <output>שגיאה: סוג כי התמונה אינה נתמכת. רק GIF, JPG ו-PNG סוגי התמונה נתמכים.</output>
+    </text>
+    <text>
+        <source>Error: This image file is already a %1 image file.</source>
+        <output>שגיאה: קובץ התמונה הוא כבר %1 קובץ התמונה.</output>
+    </text>
+    <text>
+        <source>Error: The language file %1 does not exist.</source>
+        <output>שגיאה: הקובץ שפה %1 אינו קיים.</output>
+    </text>
+    <text>
+        <source>Error: Your output language selection is not valid.</source>
+        <output>שגיאה: השפה התפוקה שלך הבחירה היא לא חוקית.</output>
+    </text>
+    <text>
+        <source>Error: Your source language selection is not valid.</source>
+        <output>שגיאה: שפת המקור שלך הבחירה היא לא חוקית.</output>
+    </text>
+    <text>
+        <source>Error: Both the output and source language selections are the same. Please choose again.</source>
+        <output>שגיאה: שניהם התוצר המקור בחירות השפה זהים. נא לבחור שוב.</output>
+    </text>
+    <text>
+        <source>Error: There was an error processing that Google Translate URL. Please check your API key.</source>
+        <output>שגיאה: אירעה שגיאה בעיבוד כי כתובת האתר של Google Translate. אנא בדוק את מפתח ה-API שלך.</output>
+    </text>
+    <text>
+        <source>Error: There was an error processing that XML file.</source>
+        <output>שגיאה: אירעה שגיאה בעיבוד כי קובץ ה-XML.</output>
+    </text>
+    <text>
+        <source>Error: At least one of the array keys must be 'email'.</source>
+        <output>שגיאה: לפחות אחד המפתחות מערך חייב להיות "דוא"ל".</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed must either be a valid file or an instance of Moc10_File.</source>
+        <output>שגיאה: הפרמטר עברו חייב להיות או קובץ חוקי או מופע של Moc10_File.</output>
+    </text>
+    <text>
+        <source>Error: The message body elements are not set.</source>
+        <output>שגיאה: הגוף אלמנטים ההודעה לא מוגדרים.</output>
+    </text>
+    <text>
+        <source>Error: That page does not exist.</source>
+        <output>שגיאה: דף זה אינו קיים.</output>
+    </text>
+    <text>
+        <source>Error: The PDF does not have enough pages in which to order.</source>
+        <output>שגיאה: PDF אין מספיק דפים בהם סדר.</output>
+    </text>
+    <text>
+        <source>Error: The pages array passed does not contain the same number of pages as the PDF.</source>
+        <output>שגיאה: מערך עמודים עברו אינו מכיל את אותו מספר עמודים כמו ה-PDF.</output>
+    </text>
+    <text>
+        <source>Error: The pages array passed contains a page that does not exist.</source>
+        <output>שגיאה: מערך עמודים עברו מכיל דף זה אינו קיים.</output>
+    </text>
+    <text>
+        <source>Error: The rotation parameter must be between -90 and 90 degrees.</source>
+        <output>שגיאה: הפרמטר סיבוב חייב להיות בין -90 ו 90 מעלות.</output>
+    </text>
+    <text>
+        <source>Error: The render parameter must be an integer between 0 and 7.</source>
+        <output>שגיאה: הפרמטר לדקלם חייב להיות מספר שלם בין 0 ל 7.</output>
+    </text>
+    <text>
+        <source>Error: That font is not contained within the standard PDF fonts.</source>
+        <output>שגיאה: גופן שאינו כלול בתוך גופנים תקן PDF.</output>
+    </text>
+    <text>
+        <source>Error: That font has not been added to the PDF.</source>
+        <output>שגיאה: הגופן לא נוספה ל-PDF.</output>
+    </text>
+    <text>
+        <source>Error: That page has not been defined.</source>
+        <output>שגיאה: הדף לא הוגדר.</output>
+    </text>
+    <text>
+        <source>Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.</source>
+        <output>שגיאה: PNG ערוצי אלפא אינן נתמכות. רק 8-bit תמונות PNG שקופות נתמכים.</output>
+    </text>
+    <text>
+        <source>Error: The file already exists and it cannot be overwritten. Please specify a new filename.</source>
+        <output>שגיאה: הקובץ כבר קיים, והוא לא יכול להימחק. נא לציין שם קובץ חדש.</output>
+    </text>
+    <text>
+        <source>Error: The argument passed must be an array.</source>
+        <output>שגיאה: הטענה עברו חייב להיות מערך.</output>
+    </text>
+    <text>
+        <source>Error: A width and height must be passed.</source>
+        <output>שגיאה: רוחב וגובה יש עבר.</output>
+    </text>
+    <text>
+        <source>Error: A page index must be passed.</source>
+        <output>שגיאה: דף האינדקס חייב להיות עבר.</output>
+    </text>
+    <text>
+        <source>The field '%1' does not exist.</source>
+        <output>"%1" השדה אינו קיים.</output>
+    </text>
+    <text>
+        <source>The parameter passed must be either an array or null.</source>
+        <output>הפרמטר עברו חייב להיות מערך או ריק.</output>
+    </text>
+    <text>
+        <source>This primary ID of this table either is not set or does not exist.</source>
+        <output>זהות זו הראשי של הטבלה הזו או לא מוגדר או לא קיים.</output>
+    </text>
+    <text>
+        <source>The field and value parameters were not defined to describe the row(s) to delete.</source>
+        <output>הפרמטרים שדה ערך לא הוגדרו לתאר את השורה (ים) למחוק.</output>
+    </text>
+    <text>
+        <source>The mobile site is not set.</source>
+        <output>האתר הסלולרי אינו מוגדר.</output>
+    </text>
+    <text>
+        <source>The standard site is not set.</source>
+        <output>אתר רגיל לא מוגדר.</output>
+    </text>
+</language>

@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE language [
+    <!ELEMENT language ANY>
+    <!ELEMENT text (source,output)>
+    <!ELEMENT source ANY>
+    <!ELEMENT output ANY>
+    <!ATTLIST language
+        src       CDATA    #REQUIRED
+        output    CDATA    #REQUIRED
+        name      CDATA    #REQUIRED
+        native    CDATA    #REQUIRED
+    >
+]>
+<language src="en" output="pt" name="Portuguese" native="Português">
+    <text>
+        <source>That option is not set.</source>
+        <output>Esta opção não está definida.</output>
+    </text>
+    <text>
+        <source>Error:</source>
+        <output>Erro:</output>
+    </text>
+    <text>
+        <source>Error: The proper database credentials were not passed.</source>
+        <output>Erro: As credenciais do banco de dados adequado não foram passados.</output>
+    </text>
+    <text>
+        <source>Error: The database result resource is not currently set.</source>
+        <output>Erro: O recurso de resultado do banco de dados não está definido.</output>
+    </text>
+    <text>
+        <source>Error: Could not connect to database. Connection Error #%1: %2.</source>
+        <output>Erro: Não foi possível conectar ao banco de dados. Erro de conexão #%1: %2.</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the database.</source>
+        <output>Erro: Ocorreu um erro ao conectar ao banco de dados.</output>
+    </text>
+    <text>
+        <source>Error: The database file was not passed.</source>
+        <output>Erro: O arquivo de banco de dados não foi aprovada.</output>
+    </text>
+    <text>
+        <source>Error: The database file does not exists.</source>
+        <output>Erro: O arquivo de banco de dados não existe.</output>
+    </text>
+    <text>
+        <source>Error: That doctype is not allowed.</source>
+        <output>Erro: Essa doctype não é permitido.</output>
+    </text>
+    <text>
+        <source>The child element passed is not an instance of Moc10_Dom_Child.</source>
+        <output>O elemento filho passou não é uma instância de Moc10_Dom_Child.</output>
+    </text>
+    <text>
+        <source>One or more of the child elements passed is not an instance of Moc10_Dom_Child.</source>
+        <output>Um ou mais dos elementos a criança passou não é uma instância de Moc10_Dom_Child.</output>
+    </text>
+    <text>
+        <source>That feed URL cannot be read at this time. Please try again later.</source>
+        <output>URL do feed que não pode ser lido neste momento. Por favor, tente novamente mais tarde.</output>
+    </text>
+    <text>
+        <source>Error: The feed item template is not set.</source>
+        <output>Erro: O modelo de item alimentar não está definido.</output>
+    </text>
+    <text>
+        <source>Error: The feed currently has no content.</source>
+        <output>Erro: A alimentação de hoje não tem nenhum conteúdo.</output>
+    </text>
+    <text>
+        <source>Error: The feed type must be only RSS or ATOM.</source>
+        <output>Erro: O tipo de alimentação deve ser apenas de RSS ou ATOM.</output>
+    </text>
+    <text>
+        <source>Error: The file is not an accepted file format.</source>
+        <output>Erro: O arquivo não é um formato de arquivo aceitos.</output>
+    </text>
+    <text>
+        <source>Error: The file already exists.</source>
+        <output>Erro: O arquivo já existe.</output>
+    </text>
+    <text>
+        <source>Error: The directory does not exist.</source>
+        <output>Erro: O diretório não existe.</output>
+    </text>
+    <text>
+        <source>Error: The upload directory does not exist.</source>
+        <output>Erro: O diretório de upload, não existe.</output>
+    </text>
+    <text>
+        <source>Error: The file uploaded is too big.</source>
+        <output>Erro: O arquivo enviado é muito grande.</output>
+    </text>
+    <text>
+        <source>Error: The image file uploaded is too big.</source>
+        <output>Erro: O arquivo de imagem de upload é muito grande.</output>
+    </text>
+    <text>
+        <source>Error: There was an error in uploading the file.</source>
+        <output>Erro: Ocorreu um erro no upload do arquivo.</output>
+    </text>
+    <text>
+        <source>Error: There was an error in uploading the image file.</source>
+        <output>Erro: Ocorreu um erro ao fazer o upload do arquivo de imagem.</output>
+    </text>
+    <text>
+        <source>Error: Permission denied.</source>
+        <output>Erro: Permissão negada.</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed is not an array.</source>
+        <output>Erro: O parâmetro passado não é um array.</output>
+    </text>
+    <text>
+        <source>Error: The array passed must contain at least one type.</source>
+        <output>Erro: A matriz passada deve conter pelo menos um tipo.</output>
+    </text>
+    <text>
+        <source>Error: The file or directory (%1) is not writable.</source>
+        <output>Erro: O arquivo ou diretório (%1) não é gravável.</output>
+    </text>
+    <text>
+        <source>Error: There are no form elements declared for this form object.</source>
+        <output>Erro: Não há elementos para essa forma declarado objeto de formulário.</output>
+    </text>
+    <text>
+        <source>Error: That input type is not allowed.</source>
+        <output>Erro: Este tipo de entrada não é permitida.</output>
+    </text>
+    <text>
+        <source>Error: The required flag must be a boolean value.</source>
+        <output>Erro: A bandeira deve ser exigido um valor booleano.</output>
+    </text>
+    <text>
+        <source>Error: That type validator is not allowed.</source>
+        <output>Erro: Que tipo de validação não é permitido.</output>
+    </text>
+    <text>
+        <source>Error: The condition must be a boolean.</source>
+        <output>Erro: A condição deve ser um booleano.</output>
+    </text>
+    <text>
+        <source>This field is required.</source>
+        <output>Este campo é obrigatório.</output>
+    </text>
+    <text>
+        <source>This field value must %1 contain alphanumeric characters.</source>
+        <output>Este valor do campo deve %1 conter caracteres alfanuméricos.</output>
+    </text>
+    <text>
+        <source>This field value must %1 contain characters of the alphabet.</source>
+        <output>Este valor do campo deve conter caracteres de %1 do alfabeto.</output>
+    </text>
+    <text>
+        <source>This field value is %1 between %2 and %3.</source>
+        <output>Este valor do campo é de %1 entre %2 e %3.</output>
+    </text>
+    <text>
+        <source>This field value format is %1 a correct email format.</source>
+        <output>Este formato valor do campo é de %1 um formato de e-mail correto.</output>
+    </text>
+    <text>
+        <source>This field value does not equal the correct value.</source>
+        <output>Este valor de campo não é igual ao valor correto.</output>
+    </text>
+    <text>
+        <source>This field value is %1 greater than %2.</source>
+        <output>Este valor do campo é %1 maior do que %2.</output>
+    </text>
+    <text>
+        <source>This field value length is %1 equal to %2 characters long.</source>
+        <output>Este valor de comprimento do campo é igual a %1 a %2 caracteres.</output>
+    </text>
+    <text>
+        <source>This field value length is %1 between %2 and %3.</source>
+        <output>Este valor de comprimento do campo é de %1 entre %2 e %3.</output>
+    </text>
+    <text>
+        <source>This field value length must be %1 %2 characters long.</source>
+        <output>Este valor de comprimento do campo deve ser de %1 a %2 caracteres.</output>
+    </text>
+    <text>
+        <source>This field value is %1 less than %2.</source>
+        <output>Este valor do campo é de %1 a menos de %2.</output>
+    </text>
+    <text>
+        <source>This field value is %1 empty.</source>
+        <output>Este valor do campo é de %1 vazio.</output>
+    </text>
+    <text>
+        <source>This field value is %1 a number.</source>
+        <output>Este valor do campo é de %1 um número.</output>
+    </text>
+    <text>
+        <source>This field value format is %1 correct.</source>
+        <output>Este formato valor do campo é de %1 correto.</output>
+    </text>
+    <text>
+        <source>The parameter passed must be an array.</source>
+        <output>O parâmetro passado deve ser uma matriz.</output>
+    </text>
+    <text>
+        <source>The array parameter passed must contain an array.</source>
+        <output>O parâmetro matriz passada deve conter uma matriz.</output>
+    </text>
+    <text>
+        <source>not</source>
+        <output>não</output>
+    </text>
+    <text>
+        <source>only</source>
+        <output>apenas</output>
+    </text>
+    <text>
+        <source>under</source>
+        <output>em</output>
+    </text>
+    <text>
+        <source>at least</source>
+        <output>pelo menos</output>
+    </text>
+    <text>
+        <source>Sunday</source>
+        <output>Domingo</output>
+    </text>
+    <text>
+        <source>Monday</source>
+        <output>Segunda-feira</output>
+    </text>
+    <text>
+        <source>Tuesday</source>
+        <output>Terça-feira</output>
+    </text>
+    <text>
+        <source>Wednesday</source>
+        <output>Quarta-feira</output>
+    </text>
+    <text>
+        <source>Thursday</source>
+        <output>Quinta-feira</output>
+    </text>
+    <text>
+        <source>Friday</source>
+        <output>Sexta-feira</output>
+    </text>
+    <text>
+        <source>Saturday</source>
+        <output>Sábado</output>
+    </text>
+    <text>
+        <source>January</source>
+        <output>Janeiro</output>
+    </text>
+    <text>
+        <source>February</source>
+        <output>Fevereiro</output>
+    </text>
+    <text>
+        <source>March</source>
+        <output>Março</output>
+    </text>
+    <text>
+        <source>April</source>
+        <output>Abril</output>
+    </text>
+    <text>
+        <source>May</source>
+        <output>Maio</output>
+    </text>
+    <text>
+        <source>June</source>
+        <output>Junho</output>
+    </text>
+    <text>
+        <source>July</source>
+        <output>Julho</output>
+    </text>
+    <text>
+        <source>August</source>
+        <output>Agosto</output>
+    </text>
+    <text>
+        <source>September</source>
+        <output>Setembro</output>
+    </text>
+    <text>
+        <source>October</source>
+        <output>De outubro</output>
+    </text>
+    <text>
+        <source>November</source>
+        <output>Novembro</output>
+    </text>
+    <text>
+        <source>December</source>
+        <output>Dezembro</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the FTP server %1.</source>
+        <output>Erro: Ocorreu um erro ao se conectar ao servidor FTP %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the FTP server %1 with those credentials.</source>
+        <output>Erro: Ocorreu um erro ao se conectar ao servidor FTP %1, com essas credenciais.</output>
+    </text>
+    <text>
+        <source>Error: There was an error changing to the directory %1.</source>
+        <output>Erro: Ocorreu um erro ao mudar para o diretório %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error making the directory %1.</source>
+        <output>Erro: Ocorreu um erro ao fazer o diretório %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error removing the directory %1.</source>
+        <output>Erro: Ocorreu um erro ao remover o diretório %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error getting the file %1.</source>
+        <output>Erro: Ocorreu um erro ao obter o arquivo %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error putting the file %1.</source>
+        <output>Erro: Ocorreu um erro ao colocar o arquivo %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error renaming the file %1.</source>
+        <output>Erro: Ocorreu um erro ao renomear o arquivo %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error changing the permission of %1.</source>
+        <output>Erro: Ocorreu um erro ao alterar a permissão de %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error removing the file %1.</source>
+        <output>Erro: Ocorreu um erro ao remover o arquivo %1.</output>
+    </text>
+    <text>
+        <source>Error: You must define a width and height for a new image object.</source>
+        <output>Erro: Você deve definir uma largura e altura de um objeto de nova imagem.</output>
+    </text>
+    <text>
+        <source>Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.</source>
+        <output>Erro: Que tipo de imagem não é suportado. Só GIF, JPG e PNG tipos de imagem são suportados.</output>
+    </text>
+    <text>
+        <source>Error: This image file is already a %1 image file.</source>
+        <output>Erro: Este arquivo de imagem já é um arquivo de imagem %1.</output>
+    </text>
+    <text>
+        <source>Error: The language file %1 does not exist.</source>
+        <output>Erro: O ficheiro %1 linguagem não existe.</output>
+    </text>
+    <text>
+        <source>Error: Your output language selection is not valid.</source>
+        <output>Erro: a seleção do idioma de saída não é válido.</output>
+    </text>
+    <text>
+        <source>Error: Your source language selection is not valid.</source>
+        <output>Erro: A selecção do idioma de origem não é válido.</output>
+    </text>
+    <text>
+        <source>Error: Both the output and source language selections are the same. Please choose again.</source>
+        <output>Erro: Ambas as seleções de língua de saída e fonte são os mesmos. Por favor, escolha outra vez.</output>
+    </text>
+    <text>
+        <source>Error: There was an error processing that Google Translate URL. Please check your API key.</source>
+        <output>Erro: Ocorreu um erro de processamento de URL que o Google Translate. Por favor, verifique a sua chave API.</output>
+    </text>
+    <text>
+        <source>Error: There was an error processing that XML file.</source>
+        <output>Erro: Ocorreu um erro ao processar o arquivo XML.</output>
+    </text>
+    <text>
+        <source>Error: At least one of the array keys must be 'email'.</source>
+        <output>Erro: Pelo menos uma das chaves do array deve ser 'email'.</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed must either be a valid file or an instance of Moc10_File.</source>
+        <output>Erro: O parâmetro passado deve ser um arquivo válido ou uma instância de Moc10_File.</output>
+    </text>
+    <text>
+        <source>Error: The message body elements are not set.</source>
+        <output>Erro: Os elementos do corpo da mensagem não estão definidos.</output>
+    </text>
+    <text>
+        <source>Error: That page does not exist.</source>
+        <output>Erro: Esta página não existe.</output>
+    </text>
+    <text>
+        <source>Error: The PDF does not have enough pages in which to order.</source>
+        <output>Erro: O PDF não tem suficiente páginas em que a ordem.</output>
+    </text>
+    <text>
+        <source>Error: The pages array passed does not contain the same number of pages as the PDF.</source>
+        <output>Erro: A matriz passou páginas, não contém o mesmo número de páginas como o PDF.</output>
+    </text>
+    <text>
+        <source>Error: The pages array passed contains a page that does not exist.</source>
+        <output>Erro: A matriz passou páginas contém uma página que não existe.</output>
+    </text>
+    <text>
+        <source>Error: The rotation parameter must be between -90 and 90 degrees.</source>
+        <output>Erro: O parâmetro de rotação deve estar entre -90 e 90 graus.</output>
+    </text>
+    <text>
+        <source>Error: The render parameter must be an integer between 0 and 7.</source>
+        <output>Erro: O parâmetro render deve ser um inteiro entre 0 e 7.</output>
+    </text>
+    <text>
+        <source>Error: That font is not contained within the standard PDF fonts.</source>
+        <output>Erro: Essa fonte não está contido em fontes padrão PDF.</output>
+    </text>
+    <text>
+        <source>Error: That font has not been added to the PDF.</source>
+        <output>Erro: Essa fonte não tenha sido adicionado ao PDF.</output>
+    </text>
+    <text>
+        <source>Error: That page has not been defined.</source>
+        <output>Erro: Essa página ainda não foi definido.</output>
+    </text>
+    <text>
+        <source>Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.</source>
+        <output>Erro: canais alfa PNG não são suportados. Apenas 8-bit imagens PNG transparentes são suportados.</output>
+    </text>
+    <text>
+        <source>Error: The file already exists and it cannot be overwritten. Please specify a new filename.</source>
+        <output>Erro: O arquivo já existe e não pode ser substituído. Por favor, especifique um novo nome.</output>
+    </text>
+    <text>
+        <source>Error: The argument passed must be an array.</source>
+        <output>Erro: O argumento passado deve ser um array.</output>
+    </text>
+    <text>
+        <source>Error: A width and height must be passed.</source>
+        <output>Erro: A largura ea altura deve ser passado.</output>
+    </text>
+    <text>
+        <source>Error: A page index must be passed.</source>
+        <output>Erro: A página de índice deve ser passado.</output>
+    </text>
+    <text>
+        <source>The field '%1' does not exist.</source>
+        <output>'%1' O campo não existe.</output>
+    </text>
+    <text>
+        <source>The parameter passed must be either an array or null.</source>
+        <output>O parâmetro passado deve ser um array ou nulo.</output>
+    </text>
+    <text>
+        <source>This primary ID of this table either is not set or does not exist.</source>
+        <output>Essa identificação primária dessa tabela ou não é definida ou não existe.</output>
+    </text>
+    <text>
+        <source>The field and value parameters were not defined to describe the row(s) to delete.</source>
+        <output>Os parâmetros de campo e valor não foram definidos para descrever a linha (s) para apagar.</output>
+    </text>
+    <text>
+        <source>The mobile site is not set.</source>
+        <output>O site móvel não está definido.</output>
+    </text>
+    <text>
+        <source>The standard site is not set.</source>
+        <output>O site padrão não está definido.</output>
+    </text>
+</language>

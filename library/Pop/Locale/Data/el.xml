@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE language [
+    <!ELEMENT language ANY>
+    <!ELEMENT text (source,output)>
+    <!ELEMENT source ANY>
+    <!ELEMENT output ANY>
+    <!ATTLIST language
+        src       CDATA    #REQUIRED
+        output    CDATA    #REQUIRED
+        name      CDATA    #REQUIRED
+        native    CDATA    #REQUIRED
+    >
+]>
+<language src="en" output="el" name="Greek" native="Ελληνικά">
+    <text>
+        <source>That option is not set.</source>
+        <output>Η δυνατότητα αυτή δεν έχει οριστεί.</output>
+    </text>
+    <text>
+        <source>Error:</source>
+        <output>Σφάλμα:</output>
+    </text>
+    <text>
+        <source>Error: The proper database credentials were not passed.</source>
+        <output>Σφάλμα: Η σωστή διαπιστευτήρια βάση δεδομένων δεν είχαν περάσει.</output>
+    </text>
+    <text>
+        <source>Error: The database result resource is not currently set.</source>
+        <output>Σφάλμα: Ο πόρος αποτέλεσμα βάσης δεδομένων δεν είναι επί του παρόντος ορίζεται.</output>
+    </text>
+    <text>
+        <source>Error: Could not connect to database. Connection Error #%1: %2.</source>
+        <output>Σφάλμα: Δεν ήταν δυνατή η σύνδεση με τη βάση δεδομένων. Σφάλμα σύνδεσης #%1: %2.</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the database.</source>
+        <output>Σφάλμα: Υπήρξε ένα σφάλμα σύνδεσης με τη βάση δεδομένων.</output>
+    </text>
+    <text>
+        <source>Error: The database file was not passed.</source>
+        <output>Σφάλμα: Το αρχείο της βάσης δεδομένων δεν πέρασε.</output>
+    </text>
+    <text>
+        <source>Error: The database file does not exists.</source>
+        <output>Σφάλμα: Το αρχείο της βάσης δεδομένων δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>Error: That doctype is not allowed.</source>
+        <output>Σφάλμα: Αυτό DOCTYPE δεν επιτρέπεται.</output>
+    </text>
+    <text>
+        <source>The child element passed is not an instance of Moc10_Dom_Child.</source>
+        <output>Το στοιχείο που πέρασε το παιδί δεν είναι ένα παράδειγμα Moc10_Dom_Child.</output>
+    </text>
+    <text>
+        <source>One or more of the child elements passed is not an instance of Moc10_Dom_Child.</source>
+        <output>Ένα ή περισσότερα από τα στοιχεία που πέρασε παιδί δεν είναι ένα παράδειγμα Moc10_Dom_Child.</output>
+    </text>
+    <text>
+        <source>That feed URL cannot be read at this time. Please try again later.</source>
+        <output>Ότι η διεύθυνση URL ζωοτροφών δεν μπορούν να διαβάσουν αυτή τη στιγμή. Παρακαλώ δοκιμάστε αργότερα.</output>
+    </text>
+    <text>
+        <source>Error: The feed item template is not set.</source>
+        <output>Σφάλμα: Το πρότυπο στοιχείο της ροής δεν έχει οριστεί.</output>
+    </text>
+    <text>
+        <source>Error: The feed currently has no content.</source>
+        <output>Σφάλμα: Η διατροφή δεν έχει καμία περιεχόμενο.</output>
+    </text>
+    <text>
+        <source>Error: The feed type must be only RSS or ATOM.</source>
+        <output>Σφάλμα: Ο τύπος των ζωοτροφών πρέπει να είναι μόνο RSS ή Atom.</output>
+    </text>
+    <text>
+        <source>Error: The file is not an accepted file format.</source>
+        <output>Σφάλμα: Το αρχείο δεν είναι μια αποδεκτή μορφή αρχείου.</output>
+    </text>
+    <text>
+        <source>Error: The file already exists.</source>
+        <output>Σφάλμα: Το αρχείο υπάρχει ήδη.</output>
+    </text>
+    <text>
+        <source>Error: The directory does not exist.</source>
+        <output>Σφάλμα: Ο κατάλογος δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>Error: The upload directory does not exist.</source>
+        <output>Σφάλμα: Ο κατάλογος αφαιρέθηκε δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>Error: The file uploaded is too big.</source>
+        <output>Σφάλμα: Το αρχείο είναι πολύ μεγάλο.</output>
+    </text>
+    <text>
+        <source>Error: The image file uploaded is too big.</source>
+        <output>Σφάλμα: Το αρχείο φορτώθηκε εικόνα είναι πολύ μεγάλη.</output>
+    </text>
+    <text>
+        <source>Error: There was an error in uploading the file.</source>
+        <output>Σφάλμα: Υπήρξε ένα σφάλμα κατά τη μεταφόρτωση του αρχείου.</output>
+    </text>
+    <text>
+        <source>Error: There was an error in uploading the image file.</source>
+        <output>Σφάλμα: Υπήρξε ένα σφάλμα κατά τη μεταφόρτωση του αρχείου εικόνας.</output>
+    </text>
+    <text>
+        <source>Error: Permission denied.</source>
+        <output>Σφάλμα: Permission denied.</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed is not an array.</source>
+        <output>Σφάλμα: Η παράμετρος πέρασε δεν είναι ένα array.</output>
+    </text>
+    <text>
+        <source>Error: The array passed must contain at least one type.</source>
+        <output>Σφάλμα: Ο πίνακας πέρασε πρέπει να περιέχει τουλάχιστον έναν τύπο.</output>
+    </text>
+    <text>
+        <source>Error: The file or directory (%1) is not writable.</source>
+        <output>Σφάλμα: Το αρχείο ή κατάλογο (%1) δεν είναι εγγράψιμος.</output>
+    </text>
+    <text>
+        <source>Error: There are no form elements declared for this form object.</source>
+        <output>Σφάλμα: Δεν υπάρχουν στοιχεία που αποτελούν δηλωθεί για αυτό το αντικείμενο έντυπο.</output>
+    </text>
+    <text>
+        <source>Error: That input type is not allowed.</source>
+        <output>Σφάλμα: Αυτό το είδος των εισροών δεν επιτρέπεται.</output>
+    </text>
+    <text>
+        <source>Error: The required flag must be a boolean value.</source>
+        <output>Σφάλμα: Η απαιτούμενη σημαία πρέπει να είναι μια τιμή boolean.</output>
+    </text>
+    <text>
+        <source>Error: That type validator is not allowed.</source>
+        <output>Σφάλμα: Αυτό το είδος validator δεν επιτρέπεται.</output>
+    </text>
+    <text>
+        <source>Error: The condition must be a boolean.</source>
+        <output>Σφάλμα: Η κατάσταση πρέπει να είναι boolean.</output>
+    </text>
+    <text>
+        <source>This field is required.</source>
+        <output>Αυτό το πεδίο είναι υποχρεωτικό.</output>
+    </text>
+    <text>
+        <source>This field value must %1 contain alphanumeric characters.</source>
+        <output>Αυτή η τιμή πεδίο πρέπει %1 περιέχει αλφαριθμητικούς χαρακτήρες.</output>
+    </text>
+    <text>
+        <source>This field value must %1 contain characters of the alphabet.</source>
+        <output>Αυτή η τιμή πεδίο πρέπει %1 περιέχει τους χαρακτήρες του αλφαβήτου.</output>
+    </text>
+    <text>
+        <source>This field value is %1 between %2 and %3.</source>
+        <output>Αυτή η τιμή του πεδίου είναι %1 μεταξύ %2 και %3.</output>
+    </text>
+    <text>
+        <source>This field value format is %1 a correct email format.</source>
+        <output>Αυτή η μορφή τιμή του πεδίου είναι %1 α σωστή μορφή e-mail.</output>
+    </text>
+    <text>
+        <source>This field value does not equal the correct value.</source>
+        <output>Αυτή η τιμή του πεδίου δεν είναι ίσο με τη σωστή τιμή.</output>
+    </text>
+    <text>
+        <source>This field value is %1 greater than %2.</source>
+        <output>Αυτή η τιμή του πεδίου είναι %1 μεγαλύτερη από %2.</output>
+    </text>
+    <text>
+        <source>This field value length is %1 equal to %2 characters long.</source>
+        <output>Αυτό το μήκος τιμή του πεδίου είναι %1 ίσο με %2 χαρακτήρες.</output>
+    </text>
+    <text>
+        <source>This field value length is %1 between %2 and %3.</source>
+        <output>Αυτό το μήκος τιμή του πεδίου είναι %1 μεταξύ %2 και %3.</output>
+    </text>
+    <text>
+        <source>This field value length must be %1 %2 characters long.</source>
+        <output>Αυτό το μήκος τιμή πεδίου πρέπει να είναι %1 %2 χαρακτήρες.</output>
+    </text>
+    <text>
+        <source>This field value is %1 less than %2.</source>
+        <output>Αυτή η τιμή του πεδίου είναι %1 λιγότερο από το %2.</output>
+    </text>
+    <text>
+        <source>This field value is %1 empty.</source>
+        <output>Αυτή η τιμή του πεδίου είναι %1 άδειο.</output>
+    </text>
+    <text>
+        <source>This field value is %1 a number.</source>
+        <output>Αυτή η τιμή του πεδίου είναι %1 έναν αριθμό.</output>
+    </text>
+    <text>
+        <source>This field value format is %1 correct.</source>
+        <output>Αυτή η μορφή τιμή του πεδίου είναι %1 σωστή.</output>
+    </text>
+    <text>
+        <source>The parameter passed must be an array.</source>
+        <output>Η παράμετρος πέρασε πρέπει να είναι πίνακας.</output>
+    </text>
+    <text>
+        <source>The array parameter passed must contain an array.</source>
+        <output>Η παράμετρος πίνακα πέρασε πρέπει να περιέχει έναν πίνακα.</output>
+    </text>
+    <text>
+        <source>not</source>
+        <output>δεν</output>
+    </text>
+    <text>
+        <source>only</source>
+        <output>μόνο</output>
+    </text>
+    <text>
+        <source>under</source>
+        <output>υπό</output>
+    </text>
+    <text>
+        <source>at least</source>
+        <output>τουλάχιστον</output>
+    </text>
+    <text>
+        <source>Sunday</source>
+        <output>Κυριακή</output>
+    </text>
+    <text>
+        <source>Monday</source>
+        <output>Δευτέρα</output>
+    </text>
+    <text>
+        <source>Tuesday</source>
+        <output>Τρίτη</output>
+    </text>
+    <text>
+        <source>Wednesday</source>
+        <output>Τετάρτη</output>
+    </text>
+    <text>
+        <source>Thursday</source>
+        <output>Πέμπτη</output>
+    </text>
+    <text>
+        <source>Friday</source>
+        <output>Παρασκευή</output>
+    </text>
+    <text>
+        <source>Saturday</source>
+        <output>Σάββατο</output>
+    </text>
+    <text>
+        <source>January</source>
+        <output>Ιανουάριος</output>
+    </text>
+    <text>
+        <source>February</source>
+        <output>Φεβρουάριος</output>
+    </text>
+    <text>
+        <source>March</source>
+        <output>Μαρτίου</output>
+    </text>
+    <text>
+        <source>April</source>
+        <output>Απριλίου</output>
+    </text>
+    <text>
+        <source>May</source>
+        <output>Μάιος</output>
+    </text>
+    <text>
+        <source>June</source>
+        <output>Ιουνίου</output>
+    </text>
+    <text>
+        <source>July</source>
+        <output>Ιουλίου</output>
+    </text>
+    <text>
+        <source>August</source>
+        <output>Αύγουστος</output>
+    </text>
+    <text>
+        <source>September</source>
+        <output>Σεπτέμβριος</output>
+    </text>
+    <text>
+        <source>October</source>
+        <output>Οκτωβρίου</output>
+    </text>
+    <text>
+        <source>November</source>
+        <output>Νοεμβρίου</output>
+    </text>
+    <text>
+        <source>December</source>
+        <output>Δεκεμβρίου</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the FTP server %1.</source>
+        <output>Σφάλμα: Υπήρξε ένα σφάλμα σύνδεσης στον διακομιστή FTP %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error connecting to the FTP server %1 with those credentials.</source>
+        <output>Σφάλμα: Υπήρξε ένα σφάλμα σύνδεσης στον διακομιστή FTP %1 με τις πιστοποιήσεις.</output>
+    </text>
+    <text>
+        <source>Error: There was an error changing to the directory %1.</source>
+        <output>Σφάλμα: Υπήρξε ένα λάθος την αλλαγή στο κατάλογο %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error making the directory %1.</source>
+        <output>Σφάλμα: Υπήρξε ένα σφάλμα καθιστώντας το %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error removing the directory %1.</source>
+        <output>Σφάλμα: Υπήρξε ένα σφάλμα κατά την απομάκρυνση του %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error getting the file %1.</source>
+        <output>Σφάλμα: Υπήρξε ένα σφάλμα να πάρει το αρχείο %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error putting the file %1.</source>
+        <output>Σφάλμα: Υπήρξε ένα λάθος βάζοντας το αρχείο %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error renaming the file %1.</source>
+        <output>Σφάλμα: Υπήρξε ένα σφάλμα μετονομασία του αρχείου %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error changing the permission of %1.</source>
+        <output>Σφάλμα: Υπήρξε ένα σφάλμα αλλάζοντας την άδεια του %1.</output>
+    </text>
+    <text>
+        <source>Error: There was an error removing the file %1.</source>
+        <output>Σφάλμα: Υπήρξε ένα σφάλμα κατά την απομάκρυνση του αρχείου %1.</output>
+    </text>
+    <text>
+        <source>Error: You must define a width and height for a new image object.</source>
+        <output>Σφάλμα: Πρέπει να ορίσετε το πλάτος και το ύψος για ένα νέο αντικείμενο εικόνα.</output>
+    </text>
+    <text>
+        <source>Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.</source>
+        <output>Σφάλμα: Αυτός ο τύπος εικόνας δεν υποστηρίζεται. Μόνο GIF, JPG και PNG τύπους εικόνας υποστηρίζονται.</output>
+    </text>
+    <text>
+        <source>Error: This image file is already a %1 image file.</source>
+        <output>Σφάλμα: Αυτό το αρχείο εικόνας είναι ήδη κατά %1 το αρχείο εικόνας.</output>
+    </text>
+    <text>
+        <source>Error: The language file %1 does not exist.</source>
+        <output>Σφάλμα: Η γλώσσα αρχείο %1 δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>Error: Your output language selection is not valid.</source>
+        <output>Σφάλμα: έξοδος επιλογή σας γλώσσα δεν είναι έγκυρη.</output>
+    </text>
+    <text>
+        <source>Error: Your source language selection is not valid.</source>
+        <output>Σφάλμα: πηγή επιλογή σας γλώσσα δεν είναι έγκυρη.</output>
+    </text>
+    <text>
+        <source>Error: Both the output and source language selections are the same. Please choose again.</source>
+        <output>Λάθος: Τόσο τις επιλογές γλώσσας εξόδου και η πηγή είναι τα ίδια. Παρακαλώ επιλέξτε πάλι.</output>
+    </text>
+    <text>
+        <source>Error: There was an error processing that Google Translate URL. Please check your API key.</source>
+        <output>Σφάλμα: Υπήρξε ένα σφάλμα κατά την επεξεργασία το URL του Google Translate. Παρακαλούμε ελέγξτε API κλειδί σας.</output>
+    </text>
+    <text>
+        <source>Error: There was an error processing that XML file.</source>
+        <output>Σφάλμα: Υπήρξε ένα σφάλμα κατά την επεξεργασία αυτού του αρχείου XML.</output>
+    </text>
+    <text>
+        <source>Error: At least one of the array keys must be 'email'.</source>
+        <output>Σφάλμα: Τουλάχιστον ένα από τα κλειδιά array πρέπει να είναι «ηλεκτρονικού ταχυδρομείου».</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed must either be a valid file or an instance of Moc10_File.</source>
+        <output>Σφάλμα: Η παράμετρος πέρασε πρέπει να είναι είτε ένα έγκυρο αρχείο ή μια εμφάνιση του Moc10_File.</output>
+    </text>
+    <text>
+        <source>Error: The message body elements are not set.</source>
+        <output>Σφάλμα: δεν καθορίζονται Τα στοιχεία σώμα του μηνύματος.</output>
+    </text>
+    <text>
+        <source>Error: That page does not exist.</source>
+        <output>Σφάλμα: Η σελίδα δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>Error: The PDF does not have enough pages in which to order.</source>
+        <output>Σφάλμα: Το PDF δεν έχει αρκετές σελίδες στις οποίες να παραγγείλετε.</output>
+    </text>
+    <text>
+        <source>Error: The pages array passed does not contain the same number of pages as the PDF.</source>
+        <output>Σφάλμα: Ο πίνακας σελίδες πέρασε δεν περιέχει τον ίδιο αριθμό σελίδων, όπως το PDF.</output>
+    </text>
+    <text>
+        <source>Error: The pages array passed contains a page that does not exist.</source>
+        <output>Σφάλμα: Ο πίνακας σελίδες πέρασε περιέχει μια σελίδα που δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>Error: The rotation parameter must be between -90 and 90 degrees.</source>
+        <output>Σφάλμα: Η παράμετρος περιστροφής πρέπει να είναι μεταξύ -90 και 90 μοιρών.</output>
+    </text>
+    <text>
+        <source>Error: The render parameter must be an integer between 0 and 7.</source>
+        <output>Σφάλμα: Η παράμετρος καθιστούν πρέπει να είναι ακέραιος αριθμός μεταξύ 0 και 7.</output>
+    </text>
+    <text>
+        <source>Error: That font is not contained within the standard PDF fonts.</source>
+        <output>Σφάλμα: Η γραμματοσειρά αυτή δεν εμφανίζεται στο πρότυπο γραμματοσειρές PDF.</output>
+    </text>
+    <text>
+        <source>Error: That font has not been added to the PDF.</source>
+        <output>Σφάλμα: Η γραμματοσειρά δεν έχει προστεθεί στο PDF.</output>
+    </text>
+    <text>
+        <source>Error: That page has not been defined.</source>
+        <output>Σφάλμα: Η σελίδα δεν έχει οριστεί.</output>
+    </text>
+    <text>
+        <source>Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.</source>
+        <output>Σφάλμα: PNG κανάλια άλφα δεν υποστηρίζονται. Υποστηρίζονται μόνο 8-bit διαφάνεια PNG εικόνες.</output>
+    </text>
+    <text>
+        <source>Error: The file already exists and it cannot be overwritten. Please specify a new filename.</source>
+        <output>Σφάλμα: Το αρχείο υπάρχει ήδη και δεν μπορούν να αντικατασταθούν. Παρακαλείστε να προσδιορίσετε ένα νέο όνομα αρχείου.</output>
+    </text>
+    <text>
+        <source>Error: The argument passed must be an array.</source>
+        <output>Σφάλμα: Το επιχείρημα πέρασε πρέπει να είναι πίνακας.</output>
+    </text>
+    <text>
+        <source>Error: A width and height must be passed.</source>
+        <output>Σφάλμα: Ένα πλάτος και το ύψος πρέπει να περάσει.</output>
+    </text>
+    <text>
+        <source>Error: A page index must be passed.</source>
+        <output>Σφάλμα: Ο δείκτης σελίδα πρέπει να περάσει.</output>
+    </text>
+    <text>
+        <source>The field '%1' does not exist.</source>
+        <output>'%1' Το πεδίο δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>The parameter passed must be either an array or null.</source>
+        <output>Το πέρασε παράμετρος πρέπει να είναι είτε ένας πίνακας ή μηδενική.</output>
+    </text>
+    <text>
+        <source>This primary ID of this table either is not set or does not exist.</source>
+        <output>Αυτή η πρωταρχική ταυτότητα του πίνακα αυτού, είτε δεν έχει οριστεί ή δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>The field and value parameters were not defined to describe the row(s) to delete.</source>
+        <output>Οι παράμετροι πεδίο και η αξία δεν είχαν οριστεί για την περιγραφή της σειράς (ών) για να διαγράψετε.</output>
+    </text>
+    <text>
+        <source>The mobile site is not set.</source>
+        <output>Η ιστοσελίδα κινητού δεν έχει οριστεί.</output>
+    </text>
+    <text>
+        <source>The standard site is not set.</source>
+        <output>Το πρότυπο site δεν έχει οριστεί.</output>
+    </text>
+</language>
