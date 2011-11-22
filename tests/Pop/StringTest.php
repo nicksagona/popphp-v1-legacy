@@ -15,7 +15,7 @@
  * @category   Pop
  * @package    Pop_String
  * @author     Nick Sagona, III <nick@moc10media.com>
- * @copyright  Copyright (c) 2009-2011 Moc 10 Media, LLC. (http://www.moc10media.com)
+ * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  */
 
@@ -39,9 +39,9 @@ class Pop_StringTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($x, (string)$s);
     }
 
-    public function testStringSetString()
+    public function testStringFactory()
     {
-        $s = Pop_String::setString('This is a string');
+        $s = Pop_String::factory('This is a string');
         $class = 'Pop_String';
         $this->assertTrue($s instanceof $class);
     }
@@ -157,7 +157,7 @@ class Pop_StringTest extends PHPUnit_Framework_TestCase
         $s = new Pop_String($x);
         $pattern = '/string/';
         $replace = 'STRING';
-        $this->assertEquals(preg_replace($pattern, $replace, $x), (string)$s->preg($pattern, $replace));
+        $this->assertEquals(preg_replace($pattern, $replace, $x), (string)$s->preplace($pattern, $replace));
     }
 
     public function testStringCanAddSlashes()
@@ -220,7 +220,7 @@ class Pop_StringTest extends PHPUnit_Framework_TestCase
 
     public function testStringCanFormatDate()
     {
-        $x = "2009-2011-08-28";
+        $x = "2009-08-28";
         $s = new Pop_String($x);
         $format = 'm/d/Y';
         $this->assertEquals(date($format, strtotime($x)), (string)$s->date($format));

@@ -451,26 +451,21 @@ class Pop_File
      */
     public function output($download = false)
     {
-        // Send the file's mime type.
-        header('Content-type: ' . $this->_mime);
-
         // Determine if the force download argument has been passed.
         $attach = ($download) ? 'attachment; ' : null;
+        $headers = array(
+                       'Content-type' => $this->_mime,
+                       'Content-disposition' => $attach . 'filename=' . $this->basename
+                   );
 
-        // Send the file information.
-        header('Content-disposition: ' . $attach . 'filename=' . $this->basename);
+        $response = new Pop_Http_Response(200, $headers, $this->read());
 
-        // Send cache control headers for IE SSL issue.
         if ($_SERVER['SERVER_PORT'] == 443) {
-            header('Expires: 0');
-            header('Cache-Control: private, must-revalidate');
-            header('Pragma: cache');
+            $response->setSslHeaders();
         }
 
-        // Output the file contents.
-        echo $this->read();
+        $response->send();
     }
-
 
     /**
      * Save the file object to disk.
