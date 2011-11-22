@@ -43,7 +43,7 @@ class Pop_Archive_Tar
     public function extract($archive, $to = null)
     {
         $tar = new Archive_Tar($archive->fullpath);
-        $tar->extract((!is_null($to) ? $to : './'));
+        $tar->extract((null !== $to) ? $to : './');
 
         return -1;
     }

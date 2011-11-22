@@ -216,7 +216,7 @@ class Pop_Graph
      */
     public function setAxisOptions(Pop_Color_Interface $color = null, $width = 2)
     {
-        $this->_axisColor = (is_null($color)) ? new Pop_Color_Rgb(0, 0, 0) : $color;
+        $this->_axisColor = (null === $color) ? new Pop_Color_Rgb(0, 0, 0) : $color;
         $this->_axisWidth = (int)$width;
 
         return $this;
@@ -250,7 +250,7 @@ class Pop_Graph
      */
     public function setFont($font = null)
     {
-        if (!is_null($font) && !array_key_exists($font, $this->_fonts)) {
+        if ((null !== $font) && !array_key_exists($font, $this->_fonts)) {
             throw new Exception($this->_lang->__('That font is not available.'));
         } else {
             $this->_font = $font;
@@ -377,7 +377,7 @@ class Pop_Graph
     public function showX($showX, Pop_Color_Interface $color = null)
     {
         $this->_showX = (boolean)$showX;
-        $this->_showXColor = (is_null($color)) ? new Pop_Color_Rgb(200, 200, 200) : $color;
+        $this->_showXColor = (null === $color) ? new Pop_Color_Rgb(200, 200, 200) : $color;
         return $this;
     }
 
@@ -391,7 +391,7 @@ class Pop_Graph
     public function showY($showY, Pop_Color_Interface $color = null)
     {
         $this->_showY = (boolean)$showY;
-        $this->_showYColor = (is_null($color)) ? new Pop_Color_Rgb(200, 200, 200) : $color;
+        $this->_showYColor = (null === $color) ? new Pop_Color_Rgb(200, 200, 200) : $color;
         return $this;
     }
 
@@ -435,9 +435,9 @@ class Pop_Graph
         }
 
         // Draw graph data.
-        if (!is_null($this->_fillColor)) {
+        if (null !== $this->_fillColor) {
             $this->_adapter->setFillColor($this->_fillColor);
-            $this->_adapter->setStrokeColor((!is_null($this->_strokeColor) ? $this->_strokeColor : $this->_fillColor));
+            $this->_adapter->setStrokeColor((null !== $this->_strokeColor) ? $this->_strokeColor : $this->_fillColor);
             $this->_adapter->setStrokeWidth($this->_strokeWidth);
             $formattedPoints = array();
             for ($i = 0; $i < count($dataPoints); $i++) {
@@ -450,7 +450,7 @@ class Pop_Graph
             $this->_adapter->addPolygon($formattedPoints);
         } else {
             $this->_adapter->setStrokeWidth($this->_strokeWidth);
-            $this->_adapter->setStrokeColor((!is_null($this->_strokeColor) ? $this->_strokeColor : new Pop_Color_Rgb(0, 0, 0)));
+            $this->_adapter->setStrokeColor((null !== $this->_strokeColor) ? $this->_strokeColor : new Pop_Color_Rgb(0, 0, 0));
 
             for ($i = 1; $i < count($dataPoints); $i++) {
                 $x1 = ((($dataPoints[$i - 1][0] - $dataPoints[0][0]) / $points->xRange) * $points->xLength) + $points->zeroPoint['x'];
@@ -497,16 +497,16 @@ class Pop_Graph
         // Draw graph data.
         $realXDiv = ($points->xLength - ($this->_barWidth * 2)) / (count($xAxis) - 1);
 
-        if (!is_null($this->_fillColor) || is_array($dataPoints[0])) {
+        if ((null !== $this->_fillColor) || is_array($dataPoints[0])) {
             $this->_adapter->setStrokeWidth($this->_strokeWidth);
             for ($i = 0; $i < count($dataPoints); $i++) {
                 if (is_array($dataPoints[$i])) {
                     $pt = $dataPoints[$i][0];
-                    $this->_adapter->setStrokeColor((!is_null($this->_strokeColor) ? $this->_strokeColor : $dataPoints[$i][1]));
+                    $this->_adapter->setStrokeColor((null !== $this->_strokeColor) ? $this->_strokeColor : $dataPoints[$i][1]);
                     $this->_adapter->setFillColor($dataPoints[$i][1]);
                 } else {
                     $pt = $dataPoints[$i];
-                    $this->_adapter->setStrokeColor((!is_null($this->_strokeColor) ? $this->_strokeColor : $this->_fillColor));
+                    $this->_adapter->setStrokeColor((null !== $this->_strokeColor) ? $this->_strokeColor : $this->_fillColor);
                     $this->_adapter->setFillColor($this->_fillColor);
                 }
                 $x = ($realXDiv * ($i + 1)) - ($this->_barWidth / 1.75);
@@ -517,7 +517,7 @@ class Pop_Graph
             }
         } else {
             $this->_adapter->setStrokeWidth($this->_strokeWidth);
-            $this->_adapter->setStrokeColor((!is_null($this->_strokeColor) ? $this->_strokeColor : new Pop_Color_Rgb(0, 0, 0)));
+            $this->_adapter->setStrokeColor((null !== $this->_strokeColor) ? $this->_strokeColor : new Pop_Color_Rgb(0, 0, 0));
             for ($i = 0; $i < count($dataPoints); $i++) {
                 $x = ($realXDiv * ($i + 1)) - ($this->_barWidth / 1.75);
                 $y = $points->yOffset - ((($dataPoints[$i]) / $points->yRange) * $points->yLength);
@@ -576,19 +576,19 @@ class Pop_Graph
             $realYDiv = ($points->yLength - ($this->_barWidth * 2)) / (count($yAxis) - 1);
         }
 
-        if (!is_null($this->_fillColor) || is_array($dataPoints[0])) {
+        if ((null !== $this->_fillColor) || is_array($dataPoints[0])) {
             $this->_adapter->setFillColor($this->_fillColor);
-            $this->_adapter->setStrokeColor((!is_null($this->_strokeColor) ? $this->_strokeColor : $this->_fillColor));
+            $this->_adapter->setStrokeColor((null !== $this->_strokeColor) ? $this->_strokeColor : $this->_fillColor);
             $this->_adapter->setStrokeWidth($this->_strokeWidth);
             $len = count($dataPoints);
             for ($i = 0; $i < $len; $i++) {
                 if (is_array($dataPoints[$i])) {
                     $pt = $dataPoints[$i][0];
-                    $this->_adapter->setStrokeColor((!is_null($this->_strokeColor) ? $this->_strokeColor : $dataPoints[$i][1]));
+                    $this->_adapter->setStrokeColor((null !== $this->_strokeColor) ? $this->_strokeColor : $dataPoints[$i][1]);
                     $this->_adapter->setFillColor($dataPoints[$i][1]);
                 } else {
                     $pt = $dataPoints[$i];
-                    $this->_adapter->setStrokeColor((!is_null($this->_strokeColor) ? $this->_strokeColor : $this->_fillColor));
+                    $this->_adapter->setStrokeColor((null !== $this->_strokeColor) ? $this->_strokeColor : $this->_fillColor);
                     $this->_adapter->setFillColor($this->_fillColor);
                 }
                 if ($this->_adapter instanceof Pop_Pdf) {
@@ -603,7 +603,7 @@ class Pop_Graph
             }
         } else {
             $this->_adapter->setStrokeWidth($this->_strokeWidth);
-            $this->_adapter->setStrokeColor((!is_null($this->_strokeColor) ? $this->_strokeColor : new Pop_Color_Rgb(0, 0, 0)));
+            $this->_adapter->setStrokeColor((null !== $this->_strokeColor) ? $this->_strokeColor : new Pop_Color_Rgb(0, 0, 0));
             for ($i = 0; $i < count($dataPoints); $i++) {
                 if ($this->_adapter instanceof Pop_Pdf) {
                     $y = ($points->zeroPoint['y'] - ($realYDiv * $i)) + ($this->_barWidth / 5);
@@ -803,18 +803,18 @@ class Pop_Graph
 
         $points = new ArrayObject(
                                   array(
-                                        'zeroPoint' => $zeroPoint,
-                                        'endX'      => $endX,
-                                        'endY'      => $endY,
-                                        'xOffset'   => $xOffset,
-                                        'yOffset'   => $yOffset,
-                                        'xLength'   => $xLength,
-                                        'yLength'   => $yLength,
-                                        'xRange'    => $xRange,
-                                        'yRange'    => $yRange,
-                                        'xDiv'      => $xDiv,
-                                        'yDiv'      => $yDiv
-                                        ), ArrayObject::ARRAY_AS_PROPS
+                                      'zeroPoint' => $zeroPoint,
+                                      'endX'      => $endX,
+                                      'endY'      => $endY,
+                                      'xOffset'   => $xOffset,
+                                      'yOffset'   => $yOffset,
+                                      'xLength'   => $xLength,
+                                      'yLength'   => $yLength,
+                                      'xRange'    => $xRange,
+                                      'yRange'    => $yRange,
+                                      'xDiv'      => $xDiv,
+                                      'yDiv'      => $yDiv
+                                  ), ArrayObject::ARRAY_AS_PROPS
                                   );
 
         return $points;
@@ -924,7 +924,7 @@ class Pop_Graph
                 $this->_adapter->addLine($realZeroX + ($realXDiv * $i), $points->zeroPoint['y'], $realZeroX + ($realXDiv * $i), $points->zeroPoint['y'] + 5);
             }
 
-            if (!is_null($this->_font)) {
+            if (null !== $this->_font) {
                 if ($this->_adapter instanceof Pop_Pdf) {
                     $this->_adapter->addText($realZeroX + ($realXDiv * $i) - $xFontOffset, $points->zeroPoint['y'] - $yFontOffset, $x, $this->_fonts[$this->_font], $this->_fontSize);
                 } else {
@@ -976,7 +976,7 @@ class Pop_Graph
             $xFontOffset = (($this->_fontSize * strlen($y)) / 1.5) + 15;
             $yFontOffset = $this->_fontSize / 2;
             $this->_adapter->addLine($points->zeroPoint['x'], $realZeroY - ($realYDiv * $i), $points->zeroPoint['x'] - 5, $realZeroY - ($realYDiv * $i));
-            if (!is_null($this->_font)) {
+            if (null !== $this->_font) {
                 if ($this->_adapter instanceof Pop_Pdf) {
                     $this->_adapter->addText($points->zeroPoint['x'] - $xFontOffset, $realZeroY - ($realYDiv * $i) - $yFontOffset, $y, $this->_fonts[$this->_font], $this->_fontSize);
                 } else {
@@ -1019,37 +1019,37 @@ class Pop_Graph
                     $x = ((($dataPoints[$i][0] - $dataPoints[0][0]) / $points->xRange) * $points->xLength) + $points->zeroPoint['x'] - $strSize;
                     $y = $points->yOffset - ((($dataPoints[$i][1] - $dataPoints[0][1]) / $points->yRange) * $points->yLength);
                     if ($i < (count($dataPoints) - 1)) {
-                        if (!is_null($prevY)) {
+                        if (null !== $prevY) {
                             $nextY = $points->yOffset - ((($dataPoints[$i + 1][1] - $dataPoints[0][1]) / $points->yRange) * $points->yLength);
                         }
                         if ($this->_adapter instanceof Pop_Pdf) {
-                            if (!is_null($prevY) && ($y < $nextY) && ($y < $prevY)) {
+                            if ((null !== $prevY) && ($y < $nextY) && ($y < $prevY)) {
                                 $y -= $this->_fontSize * 2;
-                                if (!is_null($this->_fillColor)) {
-                                    $revColor = (!is_null($this->_reverseFontColor)) ? $this->_reverseFontColor : new Pop_Color_Rgb(255, 255, 255);
+                                if (null !== $this->_fillColor) {
+                                    $revColor = (null !== $this->_reverseFontColor) ? $this->_reverseFontColor : new Pop_Color_Rgb(255, 255, 255);
                                     $this->_adapter->setFillColor($revColor);
                                 }
-                            } else if ((!is_null($prevY) && ($y < $nextY) && ($y > $prevY)) || ((is_null($prevY)) && ($y > $nextY))) {
+                            } else if (((null !== $prevY) && ($y < $nextY) && ($y > $prevY)) || ((null === prevY) && ($y > $nextY))) {
                                 $x -= $strSize * 2;
-                            } else if ((!is_null($prevY) && ($y > $nextY) && ($y < $prevY)) || ((is_null($prevY)) && ($y < $nextY))) {
+                            } else if (((null !== $prevY) && ($y > $nextY) && ($y < $prevY)) || ((null === $prevY) && ($y < $nextY))) {
                                 $x += $strSize * 2;
                             }
                         } else {
-                            if (!is_null($prevY) && ($y > $nextY) && ($y > $prevY)) {
+                            if ((null !== $prevY) && ($y > $nextY) && ($y > $prevY)) {
                                 $y += $this->_fontSize * 2;
-                                if (!is_null($this->_fillColor)) {
-                                    $revColor = (!is_null($this->_reverseFontColor)) ? $this->_reverseFontColor : new Pop_Color_Rgb(255, 255, 255);
+                                if (null !== $this->_fillColor) {
+                                    $revColor = (null !== $this->_reverseFontColor) ? $this->_reverseFontColor : new Pop_Color_Rgb(255, 255, 255);
                                     $this->_adapter->setFillColor($revColor);
                                 }
-                            } else if ((!is_null($prevY) && ($y > $nextY) && ($y < $prevY)) || ((is_null($prevY)) && ($y > $nextY))) {
+                            } else if (((null !== $prevY) && ($y > $nextY) && ($y < $prevY)) || ((null === $prevY) && ($y > $nextY))) {
                                 $x -= $strSize * 2;
-                            } else if ((!is_null($prevY) && ($y < $nextY) && ($y > $prevY)) || ((is_null($prevY)) && ($y < $nextY))) {
+                            } else if (((null !== $prevY) && ($y < $nextY) && ($y > $prevY)) || ((null === $prevY) && ($y < $nextY))) {
                                 $x += $strSize * 2;
                             }
                         }
                     }
 
-                    if (!is_null($this->_font)) {
+                    if (null !== $this->_font) {
                         if ($this->_adapter instanceof Pop_Pdf) {
                             $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $dataPoints[$i][1], $this->_fonts[$this->_font], $this->_fontSize);
                         } else {
@@ -1076,7 +1076,7 @@ class Pop_Graph
                     $strSize = (strlen($dataPoints[$i]) * $this->_fontSize) / 4;
                     $x = ($realXDiv * ($i + 1)) - ($this->_barWidth / 1.75) + ($this->_barWidth / 2) - $strSize;
                     $y = $points->yOffset - ((($dataPoints[$i]) / $points->yRange) * $points->yLength);
-                    if (!is_null($this->_font)) {
+                    if (null !== $this->_font) {
                         if ($this->_adapter instanceof Pop_Pdf) {
                             $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $dataPoints[$i], $this->_fonts[$this->_font], $this->_fontSize);
                         } else {
@@ -1110,7 +1110,7 @@ class Pop_Graph
                         $y = ($points->yLength - ($realYDiv * ($i + 1))) + ($this->_barWidth * 1.1) + ($this->_barWidth / 2) + ($this->_fontSize / 2);
                     }
                     $x = (($dataPoints[$i] / $points->xRange) * $points->xLength) + $points->zeroPoint['x'] +  ($this->_fontSize / 2);
-                    if (!is_null($this->_font)) {
+                    if (null !== $this->_font) {
                         if ($this->_adapter instanceof Pop_Pdf) {
                             $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $dataPoints[$i], $this->_fonts[$this->_font], $this->_fontSize);
                         } else {

@@ -83,7 +83,7 @@ class Pop_Dom extends Pop_Dom_Abstract
         $this->_lang = new Pop_Locale();
 
         // Check the document type, else set the properties.
-        if ((!is_null($type)) && (!array_key_exists($type, $this->_doctypes))) {
+        if ((null !== $type) && (!array_key_exists($type, $this->_doctypes))) {
             throw new Exception($this->_lang->__('Error: That doctype is not allowed.'));
         } else {
             $this->_type = $type;
@@ -98,7 +98,7 @@ class Pop_Dom extends Pop_Dom_Abstract
             }
             $this->_charset = $charset;
             $this->_indent = $indent;
-            if (!is_null($childNode)) {
+            if (null !== $childNode) {
                 $this->addChild($childNode);
             }
         }
@@ -170,7 +170,7 @@ class Pop_Dom extends Pop_Dom_Abstract
         // If the return flag is passed, return output.
         if ($ret) {
             $this->_output = '';
-            if (!is_null($this->_type)) {
+            if (null !== $this->_type) {
                 $this->_output .= str_replace('[{charset}]', $this->_charset, $this->_doctypes[$this->_type]);
             }
             foreach ($this->_childNodes as $child) {
@@ -179,7 +179,7 @@ class Pop_Dom extends Pop_Dom_Abstract
             return $this->_output;
         // Else, print output.
         } else {
-            if (!is_null($this->_type)) {
+            if (null !== $this->_type) {
                 if (!headers_sent()) {
                     header('Content-type: ' . $this->_contentType);
                 }

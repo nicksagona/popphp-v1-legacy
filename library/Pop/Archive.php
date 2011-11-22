@@ -133,6 +133,79 @@ class Pop_Archive extends Pop_File implements Pop_Archive_Interface
     }
 
     /**
+     * Static method to compress a string of data
+     *
+     * @param  string $data
+     * @param  int    $type
+     * @param  int    $level
+     * @return string
+     */
+    public static function compress($data, $type = Pop_Archive::GZIP, $level = 4)
+    {
+        $compress = null;
+
+        switch ($type) {
+            // Gzip
+            case 1:
+                $compress = gzcompress($data, $level);
+                break;
+
+            // Bzip2
+            case 2:
+                $compress = bzcompress($data, $level);
+                break;
+
+            // Deflate
+            case 3:
+                $compress = gzdeflate($data, $level);
+                break;
+
+            // LZF
+            case 4:
+                $compress = lzf_compress($data);
+                break;
+        }
+
+        return $compress;
+    }
+
+    /**
+     * Static method to decompress a string of data
+     *
+     * @param  string $data
+     * @param  int    $type
+     * @return string
+     */
+    public static function decompress($data, $type = Pop_Archive::GZIP)
+    {
+        $decompress = null;
+
+        switch ($type) {
+            // Gzip
+            case 1:
+                $decompress = gzuncompress($data);
+                break;
+
+            // Bzip2
+            case 2:
+                $decompress = bzdecompress($data);
+                break;
+
+            // Deflate
+            case 3:
+                $decompress = gzinflate($data);
+                break;
+
+            // LZF
+            case 4:
+                $decompress = lzf_decompress($data);
+                break;
+        }
+
+        return $decompress;
+    }
+
+    /**
      * Method to extract an archived and/or compressed file
      *
      * @param  string $to
@@ -209,79 +282,6 @@ class Pop_Archive extends Pop_File implements Pop_Archive_Interface
         } else {
             return $this->_interface->listFiles($this, $all);
         }
-    }
-
-    /**
-     * Static method to compress a string of data
-     *
-     * @param  string $data
-     * @param  int    $type
-     * @param  int    $level
-     * @return string
-     */
-    public static function compress($data, $type = Pop_Archive::GZIP, $level = 4)
-    {
-        $compress = null;
-
-        switch ($type) {
-            // Gzip
-            case 1:
-                $compress = gzcompress($data, $level);
-                break;
-
-            // Bzip2
-            case 2:
-                $compress = bzcompress($data, $level);
-                break;
-
-            // Deflate
-            case 3:
-                $compress = gzdeflate($data, $level);
-                break;
-
-            // LZF
-            case 4:
-                $compress = lzf_compress($data);
-                break;
-        }
-
-        return $compress;
-    }
-
-    /**
-     * Static method to decompress a string of data
-     *
-     * @param  string $data
-     * @param  int    $type
-     * @return string
-     */
-    public static function decompress($data, $type = Pop_Archive::GZIP)
-    {
-        $decompress = null;
-
-        switch ($type) {
-            // Gzip
-            case 1:
-                $decompress = gzuncompress($data);
-                break;
-
-            // Bzip2
-            case 2:
-                $decompress = bzdecompress($data);
-                break;
-
-            // Deflate
-            case 3:
-                $decompress = gzinflate($data);
-                break;
-
-            // LZF
-            case 4:
-                $decompress = lzf_decompress($data);
-                break;
-        }
-
-        return $decompress;
     }
 
 }

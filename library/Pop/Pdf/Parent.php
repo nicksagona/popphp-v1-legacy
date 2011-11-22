@@ -70,7 +70,7 @@ class Pop_Pdf_Parent
         $matches = array();
 
         // Use default settings for a new PDF and its parent object.
-        if (is_null($str)) {
+        if (null === $str) {
             $this->_data = "2 0 obj\n<</Type/Pages/Count [{count}]/Kids[[{kids}]]>>\nendobj\n";
         } else {
             // Else, determine the parent object index.

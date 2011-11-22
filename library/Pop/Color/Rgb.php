@@ -79,18 +79,6 @@ class Pop_Color_Rgb implements Pop_Color_Interface
     }
 
     /**
-     * Method to return the string value for printing output.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-
-        return $this->getRgb(Pop_Color::STRING);
-
-    }
-
-    /**
      * Method to get the full RGB value
      *
      * @param  int     $type
@@ -150,6 +138,16 @@ class Pop_Color_Rgb implements Pop_Color_Interface
     public function getBlue()
     {
         return $this->_blue;
+    }
+
+    /**
+     * Method to return the string value for printing output.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getRgb(Pop_Color::STRING);
     }
 
 }

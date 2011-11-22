@@ -76,7 +76,7 @@ class Pop_Autoloader
      */
     public static function bootstrap($dirs = null)
     {
-        if (!is_null($dirs)) {
+        if (null !== $dirs) {
             if (is_array($dirs)) {
                 $realDirs = array();
                 foreach ($dirs as $dir) {

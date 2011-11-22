@@ -80,7 +80,7 @@ class Pop_Pdf_Root
     public function __construct($str = null)
     {
         // Use default settings for a new PDF and its root object.
-        if (is_null($str)) {
+        if (null === $str) {
             $this->_data = "1 0 obj\n<</Pages 2 0 R/Type/Catalog>>\nendobj\n";
         } else {
             // Else, parse out any metadata and determine the root and parent object indices.

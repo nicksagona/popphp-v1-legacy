@@ -87,6 +87,16 @@ class Pop_Cookie
     }
 
     /**
+     * Return the current the IP address.
+     *
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->_ip;
+    }
+
+    /**
      * Get method to return the value of the $_COOKIE global variable.
      *
      * @param  string $name
@@ -117,16 +127,6 @@ class Pop_Cookie
     public function __unset($name)
     {
         setcookie($name, $_COOKIE[$name], (time() - 3600));
-    }
-
-    /**
-     * Return the current the IP address.
-     *
-     * @return string
-     */
-    public function getIp()
-    {
-        return $this->_ip;
     }
 
 }

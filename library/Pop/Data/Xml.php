@@ -72,7 +72,7 @@ class Pop_Data_Xml implements Pop_Data_Interface
 
         if ($pma) {
             foreach($data as $key => $ary) {
-                $table = (is_null($table)) ? substr($key, 0, strrpos($key, '_')) : $table;
+                $table = (null === $table) ? substr($key, 0, strrpos($key, '_')) : $table;
                 $xml .= "    <table name=\"" . $table . "\">\n";
                 foreach ($ary as $k => $v) {
                     $xml .= "        <column name=\"" . $k . "\">" . $v . "</column>\n";
@@ -81,7 +81,7 @@ class Pop_Data_Xml implements Pop_Data_Interface
             }
         } else {
             foreach($data as $key => $ary) {
-                $table = (is_null($table)) ? substr($key, 0, strrpos($key, '_')) : $table;
+                $table = (null === $table) ? substr($key, 0, strrpos($key, '_')) : $table;
                 $xml .= "    <" . $table . ">\n";
                 foreach ($ary as $k => $v) {
                     $xml .= "        <" . $k . ">" . $v . "</" . $k . ">\n";

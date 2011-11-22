@@ -214,15 +214,15 @@ class Pop_File
             $fileSize = filesize($file);
 
             // Check the file size requirement.
-            if ((!is_null($size)) && ($fileSize > $size)) {
+            if ((null !== $size) && ($fileSize > $size)) {
                 unlink($file);
                 throw new Exception($lang->__('Error: The file uploaded is too big.'));
-            } else if ((is_null($size)) && (!is_null(Pop_File::MAX)) && ($fileSize > Pop_File::MAX)) {
+            } else if ((null === $size) && (null !== Pop_File::MAX) && ($fileSize > Pop_File::MAX)) {
                 unlink($file);
                 throw new Exception($lang->__('Error: The file uploaded is too big.'));
             } else {
                 $fileObj = new static($file);
-                if (!is_null($types)) {
+                if (null !== $types) {
                     $fileObj->setAllowedTypes($types);
                 }
                 return $fileObj;
@@ -282,7 +282,7 @@ class Pop_File
     public function setAllowedTypes($types = null)
     {
         $this->_allowed = array();
-        $ary = (is_null($types) || !is_array($types)) ? array() : $types;
+        $ary = ((null === $types) || !is_array($types)) ? array() : $types;
         $this->addAllowedTypes($ary);
     }
 
@@ -351,16 +351,16 @@ class Pop_File
         $data = null;
 
         // Read from the output buffer
-        if (!is_null($this->_output)) {
-            if (!is_null($off)) {
-                $data = (!is_null($len)) ? substr($this->_output, $off, $len) : substr($this->_output, $off);
+        if (null !== $this->_output) {
+            if (null !== $off) {
+                $data = (null !== $len) ? substr($this->_output, $off, $len) : substr($this->_output, $off);
             } else {
                 $data = $this->_output;
             }
         // Else, if the file exists, then read the data from the actual file
         } else if (file_exists($this->fullpath)) {
-            if (!is_null($off)) {
-                $data = (!is_null($len)) ? file_get_contents($this->fullpath, null, null, $off, $len) : $this->_output = file_get_contents($this->fullpath, null, null, $off);
+            if (null !== $off) {
+                $data = (null !== $len) ? file_get_contents($this->fullpath, null, null, $off, $len) : $this->_output = file_get_contents($this->fullpath, null, null, $off);
             } else {
                 $data = file_get_contents($this->fullpath);
             }
@@ -481,7 +481,7 @@ class Pop_File
      */
     public function save($to = null, $append = false)
     {
-        $file = (is_null($to)) ? $this->fullpath : $to;
+        $file = (null === $to) ? $this->fullpath : $to;
 
         if ($append) {
             file_put_contents($file, $this->read(), FILE_APPEND);
@@ -502,7 +502,7 @@ class Pop_File
     {
         // Check to make sure the file exists and the permissions are set correctly before attempting to delete it from disk.
         if (file_exists($this->fullpath)) {
-            if (!is_null($this->_perm['file']) && ($this->_perm['file'] != 777)) {
+            if ((null !== $this->_perm['file']) && ($this->_perm['file'] != 777)) {
                 throw new Exception($this->_lang->__('Error: Permission denied.'));
             } else {
                 unlink($this->fullpath);
@@ -518,6 +518,30 @@ class Pop_File
     }
 
     /**
+     * Check file or directory permissions.
+     *
+     * @param  string $file
+     * @throws Exception
+     * @return string
+     */
+    protected static function _checkPermissions($file)
+    {
+        $perm = '';
+
+        if (DIRECTORY_SEPARATOR == '/') {
+            $perm = substr(sprintf('%o', fileperms($file)), -3);
+        } else {
+            if (!is_writable($file)) {
+               throw new Exception(Pop_Locale::load()->__('Error: The file or directory (%1) is not writable.', $file));
+            } else {
+               $perm = 777;
+            }
+        }
+
+        return $perm;
+    }
+
+    /**
      * Set the file and its properties.
      *
      * @param  string $file
@@ -530,7 +554,7 @@ class Pop_File
         // Set file object properties.
         $file_parts = pathinfo($file);
 
-        if (!is_null($types)) {
+        if (null !== $types) {
             $this->_allowed = $types;
         }
 
@@ -553,36 +577,12 @@ class Pop_File
         }
 
         // Check to see if the file is an accepted file format.
-        if (!is_null($this->_allowed) && !is_null($this->ext) && (count($this->_allowed) > 0) && (!array_key_exists(strtolower($this->ext), $this->_allowed))) {
+        if ((null !== $this->_allowed) && (null !== $this->ext) && (count($this->_allowed) > 0) && (!array_key_exists(strtolower($this->ext), $this->_allowed))) {
             throw new Exception($this->_lang->__('Error: The file is not an accepted file format.'));
         } else {
             // Set the mime type of the file.
-            $this->_mime = (!is_null($this->ext) && (count($this->_allowed) > 0) && !is_null($this->_allowed)) ? $this->_allowed[strtolower($this->ext)] : null;
+            $this->_mime = ((null !== $this->ext) && (count($this->_allowed) > 0) && (null !== $this->_allowed)) ? $this->_allowed[strtolower($this->ext)] : null;
         }
-    }
-
-    /**
-     * Check file or directory permissions.
-     *
-     * @param  string $file
-     * @throws Exception
-     * @return string
-     */
-    static protected function _checkPermissions($file)
-    {
-        $perm = '';
-
-        if (DIRECTORY_SEPARATOR == '/') {
-            $perm = substr(sprintf('%o', fileperms($file)), -3);
-        } else {
-            if (!is_writable($file)) {
-               throw new Exception(Pop_Locale::load()->__('Error: The file or directory (%1) is not writable.', $file));
-            } else {
-               $perm = 777;
-            }
-        }
-
-        return $perm;
     }
 
 }

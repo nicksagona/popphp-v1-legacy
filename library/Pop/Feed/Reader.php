@@ -186,14 +186,14 @@ class Pop_Feed_Reader
      */
     public function render($dt = null, $ret = false)
     {
-        if (is_null($this->_template)) {
+        if (null === $this->_template) {
             throw new Exception($this->_lang->__('Error: The feed item template is not set.'));
         } else if (!isset($this->items[0])) {
             throw new Exception($this->_lang->__('Error: The feed currently has no content.'));
         } else {
             $output = '';
 
-            if (!is_null($this->_limit)) {
+            if (null !== $this->_limit) {
                 $lim = ($this->_limit > count($this->items)) ? count($this->items) : $this->_limit;
             } else {
                 $lim = count($this->items);
@@ -203,7 +203,7 @@ class Pop_Feed_Reader
             for ($i = 0; $i < $lim; $i++) {
                 $tmpl = $this->_template;
                 foreach ($this->items[$i] as $k => $v) {
-                    if (!is_null($dt) && (stripos($k, 'date') !== false)) {
+                    if ((null !== $dt) && (stripos($k, 'date') !== false)) {
                         $val =  date($dt, strtotime($v));
                     } else {
                         $val = $v;

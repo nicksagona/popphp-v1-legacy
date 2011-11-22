@@ -78,18 +78,6 @@ class Pop_Color_Lab implements Pop_Color_Interface
     }
 
     /**
-     * Method to return the string value for printing output.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-
-        return $this->getLab(Pop_Color::STRING);
-
-    }
-
-    /**
      * Method to get the full LAB value
      *
      * @param  int     $type
@@ -144,6 +132,16 @@ class Pop_Color_Lab implements Pop_Color_Interface
     public function getB()
     {
         return $this->_b;
+    }
+
+    /**
+     * Method to return the string value for printing output.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getLab(Pop_Color::STRING);
     }
 
 }

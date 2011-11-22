@@ -53,6 +53,81 @@ class Pop_Model
     }
 
     /**
+     * Get the model data
+     *
+     * @return ArrayObject
+     */
+    public function getData()
+    {
+        return $this->_data;
+    }
+
+    /**
+     * Load a value into the model data array
+     *
+     * @param string $name
+     * @param mixed  $value
+     * @return Pop_Model
+     */
+    public function loadData($name, $value)
+    {
+        $convertedValue = $value;
+
+        if (is_array($value)) {
+            if (isset($value[0]) && is_array($value[0])){
+                foreach ($value as $k => $v) {
+                    $value[$k] = new ArrayObject($value[$k], ArrayObject::ARRAY_AS_PROPS);
+                }
+            }
+            $convertedValue = new ArrayObject($value, ArrayObject::ARRAY_AS_PROPS);
+        }
+
+        if (null === $this->_data) {
+            $this->_data = new ArrayObject(array(), ArrayObject::ARRAY_AS_PROPS);
+        }
+
+        $this->_data->$name = $convertedValue;
+
+        return $this;
+    }
+
+    /**
+     * Set the model data
+     *
+     * @param  array $data
+     * @return Pop_Model
+     */
+    public function setData(array $data = null)
+    {
+        if (null !== $data) {
+            $this->_data = $data;
+            $this->_convertData();
+        }
+        return $this;
+    }
+
+    /**
+     * Convert all the model data to ArrayObjects
+     *
+     * @return void
+     */
+    protected function _convertData()
+    {
+        foreach ($this->_data as $key => $value) {
+            if (is_array($value)) {
+                if (isset($value[0]) && is_array($value[0])){
+                    foreach ($value as $k => $v) {
+                        $value[$k] = new ArrayObject($value[$k], ArrayObject::ARRAY_AS_PROPS);
+                    }
+                }
+                $this->_data[$key] = new ArrayObject($value, ArrayObject::ARRAY_AS_PROPS);
+            }
+        }
+
+        $this->_data = new ArrayObject($this->_data, ArrayObject::ARRAY_AS_PROPS);
+    }
+
+    /**
      * Set method to set the property to the value of _data[$name].
      *
      * @param  string $name
@@ -96,81 +171,6 @@ class Pop_Model
     {
         $this->_data->$name = null;
         unset($this->_data->$name);
-    }
-
-    /**
-     * Get the model data
-     *
-     * @return ArrayObject
-     */
-    public function getData()
-    {
-        return $this->_data;
-    }
-
-    /**
-     * Load a value into the model data array
-     *
-     * @param string $name
-     * @param mixed  $value
-     * @return Pop_Model
-     */
-    public function loadData($name, $value)
-    {
-        $convertedValue = $value;
-
-        if (is_array($value)) {
-            if (isset($value[0]) && is_array($value[0])){
-                foreach ($value as $k => $v) {
-                    $value[$k] = new ArrayObject($value[$k], ArrayObject::ARRAY_AS_PROPS);
-                }
-            }
-            $convertedValue = new ArrayObject($value, ArrayObject::ARRAY_AS_PROPS);
-        }
-
-        if (is_null($this->_data)) {
-            $this->_data = new ArrayObject(array(), ArrayObject::ARRAY_AS_PROPS);
-        }
-
-        $this->_data->$name = $convertedValue;
-
-        return $this;
-    }
-
-    /**
-     * Set the model data
-     *
-     * @param  array $data
-     * @return Pop_Model
-     */
-    public function setData(array $data = null)
-    {
-        if (!is_null($data)) {
-            $this->_data = $data;
-            $this->_convertData();
-        }
-        return $this;
-    }
-
-    /**
-     * Convert all the model data to ArrayObjects
-     *
-     * @return void
-     */
-    protected function _convertData()
-    {
-        foreach ($this->_data as $key => $value) {
-            if (is_array($value)) {
-                if (isset($value[0]) && is_array($value[0])){
-                    foreach ($value as $k => $v) {
-                        $value[$k] = new ArrayObject($value[$k], ArrayObject::ARRAY_AS_PROPS);
-                    }
-                }
-                $this->_data[$key] = new ArrayObject($value, ArrayObject::ARRAY_AS_PROPS);
-            }
-        }
-
-        $this->_data = new ArrayObject($this->_data, ArrayObject::ARRAY_AS_PROPS);
     }
 
 }

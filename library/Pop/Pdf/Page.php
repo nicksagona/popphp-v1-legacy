@@ -152,20 +152,20 @@ class Pop_Pdf_Page
         $lang = new Pop_Locale();
 
         // Use default settings for a new PDF page.
-        if (is_null($str)) {
+        if (null === $str) {
             // If no arguments are passed, default to the Letter size.
-            if (is_null($sz) && is_null($w) && is_null($h)) {
+            if ((null === $sz) && (null === $w) && (null === $h)) {
                 $this->width = $this->_sizes['Letter']['width'];
                 $this->height = $this->_sizes['Letter']['height'];
             } else {
                 // Check for a default size setting.
-                if (!is_null($sz)) {
+                if (null !== $sz) {
                     if (array_key_exists($sz, $this->_sizes)) {
                         $this->width = $this->_sizes[$sz]['width'];
                         $this->height = $this->_sizes[$sz]['height'];
                     } else {
                         // Else, assign a custom width and height.
-                        if ((is_null($w) && !is_null($h)) || (!is_null($w) && is_null($h))) {
+                        if (((null === $w) && (null !== $h)) || ((null !== $w) && (null === $h))) {
                             throw new Exception($lang->__('Error: A width and height must be passed.'));
                         } else {
                             $this->width = $w;
@@ -174,7 +174,7 @@ class Pop_Pdf_Page
                     }
                 } else {
                     // Else, assign a custom width and height.
-                    if ((is_null($w) && !is_null($h)) || (!is_null($w) && is_null($h))) {
+                    if (((null === $w) && (null !== $h)) || ((null !== $w) && (null === $h))) {
                         throw new Exception($lang->__('Error: A width and height must be passed.'));
                     } else {
                         $this->width = $w;
@@ -183,7 +183,7 @@ class Pop_Pdf_Page
                 }
             }
 
-            if (is_null($i)) {
+            if (null === $i) {
                 throw new Exception($lang->__('Error: A page index must be passed.'));
             } else {
                 $this->index = $i;

@@ -159,7 +159,7 @@ class Pop_Curl
      */
     public function getinfo($opt = null)
     {
-        return (!is_null($opt)) ? curl_getinfo($this->_curl, $opt) : curl_getinfo($this->_curl);
+        return (null !== $opt) ? curl_getinfo($this->_curl, $opt) : curl_getinfo($this->_curl);
     }
 
     /**
@@ -173,16 +173,6 @@ class Pop_Curl
     }
 
     /**
-     * Close the cURL session.
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        curl_close($this->_curl);
-    }
-
-    /**
      * Throw an exception upon a cURL error.
      *
      * @throws Exception
@@ -191,6 +181,16 @@ class Pop_Curl
     protected function _showError()
     {
         throw new Exception('Error: ' . curl_errno($this->_curl) . ' => ' . curl_error($this->_curl) . '.');
+    }
+
+    /**
+     * Close the cURL session.
+     *
+     * @return void
+     */
+    public function __destruct()
+    {
+        curl_close($this->_curl);
     }
 
 }

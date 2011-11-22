@@ -37,7 +37,7 @@ class Pop_Session
      * Instance of the session
      * @var object
      */
-    static private $_instance;
+    private static $_instance;
 
     /**
      * Session ID
@@ -73,6 +73,40 @@ class Pop_Session
         }
 
         return self::$_instance;
+    }
+
+    /**
+     * Return the current the session id.
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->_session_id;
+    }
+
+    /**
+     * Regenerate the session id.
+     *
+     * @return void
+     */
+    public function regenerateId()
+    {
+        session_regenerate_id();
+        $this->_session_id = session_id();
+    }
+
+    /**
+     * Destroy the session.
+     *
+     * @return void
+     */
+    public function kill()
+    {
+        $_SESSION = null;
+        session_unset();
+        session_destroy();
+        unset($this->_session_id);
     }
 
     /**
@@ -119,40 +153,6 @@ class Pop_Session
     {
         $_SESSION[$name] = null;
         unset($_SESSION[$name]);
-    }
-
-    /**
-     * Return the current the session id.
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->_session_id;
-    }
-
-    /**
-     * Regenerate the session id.
-     *
-     * @return void
-     */
-    public function regenerateId()
-    {
-        session_regenerate_id();
-        $this->_session_id = session_id();
-    }
-
-    /**
-     * Destroy the session.
-     *
-     * @return void
-     */
-    public function kill()
-    {
-        $_SESSION = null;
-        session_unset();
-        session_destroy();
-        unset($this->_session_id);
     }
 
 }

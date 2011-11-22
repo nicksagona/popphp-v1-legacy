@@ -76,7 +76,7 @@ class Pop_View
     {
         $this->_lang = new Pop_Locale();
 
-        if (!is_null($template)) {
+        if (null !== $template) {
             if (((substr($template, -6) == '.phtml') ||
                  (substr($template, -5) == '.php3') ||
                  (substr($template, -4) == '.php')) && (file_exists($template))) {
@@ -90,17 +90,6 @@ class Pop_View
 
         $this->_model = $model;
     }
-
-    /**
-     * Return rendered view as string
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->render(true);
-    }
-
 
     /**
      * Create a Pop_View object
@@ -153,7 +142,7 @@ class Pop_View
      */
     public function setTemplateFile($template = null)
     {
-        if (!is_null($template)) {
+        if (null !== $template) {
             if (((substr($template, -6) == '.phtml') ||
                  (substr($template, -5) == '.php3') ||
                  (substr($template, -4) == '.php')) && (file_exists($template))) {
@@ -203,10 +192,10 @@ class Pop_View
      */
     public function render($ret = false)
     {
-        if (is_null($this->_templateFile) && is_null($this->_templateString)) {
+        if ((null === $this->_templateFile) && (null === $this->_templateString)) {
             throw new Exception($this->_lang->__('A template asset has not been assigned.'));
         } else {
-            if (!is_null($this->_templateFile)) {
+            if (null !== $this->_templateFile) {
                 $this->_renderTemplateFile();
             } else {
                 $this->_renderTemplateString();
@@ -278,6 +267,16 @@ class Pop_View
                 $this->_output = str_replace('[{' . $key . '}]', $value, $this->_output);
             }
         }
+    }
+
+    /**
+     * Return rendered view as string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->render(true);
     }
 
 }

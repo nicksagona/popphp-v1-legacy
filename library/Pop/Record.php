@@ -46,17 +46,17 @@ class Pop_Record
     const UPDATE = 1;
 
     /**
+     * Database connection(s)
+     * @var array
+     */
+    public static $db = array('default' => null);
+
+    /**
      * Rows of multiple return results from a database query
      * in an ArrayObject format.
      * @var array
      */
     public $rows = array();
-
-    /**
-     * Database connection(s)
-     * @var array
-     */
-    public static $db = array('default' => null);
 
     /**
      * Database adapter
@@ -113,23 +113,23 @@ class Pop_Record
         $this->_lang = new Pop_Locale();
 
         // If the $columns argument is set, set the _columns properties.
-        if (!is_null($columns)) {
+        if (null !== $columns) {
             foreach($columns as $key => $value) {
                 $this->_columns[$key] = $value;
             }
         }
 
-        if (is_null($this->_tableName)) {
+        if (null === $this->_tableName) {
             $class = get_class($this);
             $cls = substr($class, (strrpos($class, '_') + 1));
             $this->_tableName = (string)Pop_String::factory($cls)->toUnderscore();
         }
 
         $options = array(
-                         'tableName' => $this->_tableName,
-                         'primaryId' => $this->_primaryId,
-                         'auto'      => $this->_auto
-                         );
+                       'tableName' => $this->_tableName,
+                       'primaryId' => $this->_primaryId,
+                       'auto'      => $this->_auto
+                   );
 
         $type = self::getDb()->getAdapterType();
 
@@ -138,63 +138,6 @@ class Pop_Record
         } else {
             $this->_interface = new Pop_Record_Prepared(self::getDb(), $options);
         }
-    }
-
-    /**
-     * Set method to set the property to the value of _columns[$name].
-     *
-     * @param  string $name
-     * @param  mixed $value
-     * @throws Exception
-     * @return void
-     */
-    public function __set($name, $value)
-    {
-        // Check to see if the column key exists.
-        if (!array_key_exists($name, $this->_columns)) {
-            throw new Exception($this->_lang->__("The column '%1' does not exist.", $name));
-        } else {
-            $this->_columns[$name] = $value;
-        }
-    }
-
-    /**
-     * Get method to return the value of _columns[$name].
-     *
-     * @param  string $name
-     * @throws Exception
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        // Check to see if the column key exists.
-        if (!array_key_exists($name, $this->_columns)) {
-            throw new Exception($this->_lang->__("The column '%1' does not exist.", $name));
-        } else {
-            return $this->_columns[$name];
-        }
-    }
-
-    /**
-     * Return the isset value of _columns[$name].
-     *
-     * @param  string $name
-     * @return boolean
-     */
-    public function __isset($name)
-    {
-        return isset($this->_columns[$name]);
-    }
-
-    /**
-     * Unset _columns[$name].
-     *
-     * @param  string $name
-     * @return void
-     */
-    public function __unset($name)
-    {
-        $this->_columns[$name] = null;
     }
 
     /**
@@ -230,39 +173,6 @@ class Pop_Record
             return static::$db['default'];
         } else {
             throw new Exception(Pop_Locale::load()->__('No database adapter was found.'));
-        }
-    }
-
-    /**
-     * Method to return the current number of records.
-     *
-     * @return int
-     */
-    public function count()
-    {
-        return count($this->rows);
-    }
-
-    /**
-     * Set all the table column values at once.
-     *
-     * @param  array $columns
-     * @throws Exception
-     * @return void
-     */
-    public function setValues($columns = null)
-    {
-        // If null, clear the columns.
-        if (is_null($columns)) {
-            $this->_columns = array();
-            $this->rows = array();
-        // Else, if an array, set the columns.
-        } else if (is_array($columns)) {
-            $this->_columns = $columns;
-            $this->rows[0] = new ArrayObject($columns, ArrayObject::ARRAY_AS_PROPS);
-        // Else, throw an exception.
-        } else {
-            throw new Exception($this->_lang->__('The parameter passed must be either an array or null.'));
         }
     }
 
@@ -414,6 +324,40 @@ class Pop_Record
     }
 
     /**
+     * Method to return the current number of records.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->rows);
+    }
+
+    /**
+     * Set all the table column values at once.
+     *
+     * @param  array $columns
+     * @throws Exception
+     * @return void
+     */
+    public function setValues($columns = null)
+    {
+        // If null, clear the columns.
+        if (null === $columns) {
+            $this->_columns = array();
+            $this->rows = array();
+        // Else, if an array, set the columns.
+        } else if (is_array($columns)) {
+            $this->_columns = $columns;
+            $this->rows[0] = new ArrayObject($columns, ArrayObject::ARRAY_AS_PROPS);
+        // Else, throw an exception.
+        } else {
+            throw new Exception($this->_lang->__('The parameter passed must be either an array or null.'));
+        }
+    }
+
+
+    /**
      * Update (save) the existing database record.
      *
      * @return void
@@ -499,6 +443,63 @@ class Pop_Record
     {
         $this->rows = $rows;
         $this->_columns = (count($rows) == 1) ? $rows[0] : array();
+    }
+
+    /**
+     * Set method to set the property to the value of _columns[$name].
+     *
+     * @param  string $name
+     * @param  mixed $value
+     * @throws Exception
+     * @return void
+     */
+    public function __set($name, $value)
+    {
+        // Check to see if the column key exists.
+        if (!array_key_exists($name, $this->_columns)) {
+            throw new Exception($this->_lang->__("The column '%1' does not exist.", $name));
+        } else {
+            $this->_columns[$name] = $value;
+        }
+    }
+
+    /**
+     * Get method to return the value of _columns[$name].
+     *
+     * @param  string $name
+     * @throws Exception
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        // Check to see if the column key exists.
+        if (!array_key_exists($name, $this->_columns)) {
+            throw new Exception($this->_lang->__("The column '%1' does not exist.", $name));
+        } else {
+            return $this->_columns[$name];
+        }
+    }
+
+    /**
+     * Return the isset value of _columns[$name].
+     *
+     * @param  string $name
+     * @return boolean
+     */
+    public function __isset($name)
+    {
+        return isset($this->_columns[$name]);
+    }
+
+    /**
+     * Unset _columns[$name].
+     *
+     * @param  string $name
+     * @return void
+     */
+    public function __unset($name)
+    {
+        $this->_columns[$name] = null;
     }
 
 }

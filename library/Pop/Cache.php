@@ -60,7 +60,7 @@ class Pop_Cache implements Pop_Cache_Interface
     {
         if (($type != 'File') && ($type != 'Sqlite') && ($type != 'Memcached')) {
             throw new Exception(Pop_Locale::load()->__('Error: The cache type must be \'File\', \'Sqlite\' or \'Memcached\'.'));
-        } else if (($type != 'Memcached') && is_null($store)) {
+        } else if (($type != 'Memcached') && (null !== $store)) {
             throw new Exception(Pop_Locale::load()->__('Error: You must pass either a directory or SQLite file store point.'));
         } else {
             $this->_lifetime = $lifetime;
@@ -131,7 +131,7 @@ class Pop_Cache implements Pop_Cache_Interface
      */
     public function load($id, $time = null)
     {
-        $time = (is_null($time)) ? $this->_lifetime : $time;
+        $time = (null !== $time) ? $this->_lifetime : $time;
         return $this->_adapter->load($id, $time);
     }
 

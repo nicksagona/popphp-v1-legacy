@@ -210,7 +210,7 @@ class Pop_Form_Element extends Pop_Dom_Child
         }
 
         // If a certain value is marked (selected or checked), set the property here.
-        if (!is_null($marked)) {
+        if (null !== $marked) {
             $this->marked = $marked;
         }
     }
@@ -297,7 +297,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             if (preg_match('/^\w+$/', $curElemValue) == $value['condition']) {
                                 unset($this->errors['AlphaNum']);
                             } else {
-                                if (!is_null($value['msg'])) {
+                                if (null !== $value['msg']) {
                                     $this->errors['AlphaNum'] = $value['msg'];
                                 } else {
                                     $this->errors['AlphaNum'] = $this->_lang->__('This field value must %1 contain alphanumeric characters.', (($value['condition'] == true) ? $this->_lang->__('only') : $this->_lang->__('not')));
@@ -312,7 +312,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             if (preg_match('/^[a-zA-Z]+$/', $curElemValue) == $value['condition']) {
                                 unset($this->errors['Alpha']);
                             } else {
-                                if (!is_null($value['msg'])) {
+                                if (null !== $value['msg']) {
                                     $this->errors['Alpha'] = $value['msg'];
                                 } else {
                                     $this->errors['Alpha'] = $this->_lang->__('This field value must %1 contain characters of the alphabet.', (($value['condition'] == true) ? $this->_lang->__('only') : $this->_lang->__('not')));
@@ -328,7 +328,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             if ((($curElemValue > $numAry[0]) && ($curElemValue < $numAry[1])) == $value['condition']) {
                                 unset($this->errors['Between']);
                             } else {
-                                if (!is_null($value['msg'])) {
+                                if (null !== $value['msg']) {
                                     $this->errors['Between'] = $value['msg'];
                                 } else {
                                     $this->errors['Between'] = $this->_lang->__('This field value is %1 between %2 and %3.', array((($value['condition'] == true) ? 'not' : ''), $numAry[0], $numAry[1]));
@@ -343,7 +343,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             if (preg_match('/[a-zA-Z0-9\.\-\_+%]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]{2,4}/', $curElemValue) == $value['condition']) {
                                 unset($this->errors['Email']);
                             } else {
-                                if (!is_null($value['msg'])) {
+                                if (null !== $value['msg']) {
                                     $this->errors['Email'] = $value['msg'];
                                 } else {
                                     $this->errors['Email'] = $this->_lang->__('This field value format is %1 a correct email format.', (($value['condition'] == true) ? 'not' : ''));
@@ -358,7 +358,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             if (($curElemValue == $value['value']) == $value['condition']) {
                                 unset($this->errors['Equal']);
                             } else {
-                                if (!is_null($value['msg'])) {
+                                if (null !== $value['msg']) {
                                     $this->errors['Equal'] = $value['msg'];
                                 } else {
                                     $this->errors['Equal'] = $this->_lang->__('This field value does not equal the correct value.');
@@ -373,7 +373,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             if (($curElemValue > $value['value']) == $value['condition']) {
                                 unset($this->errors['GreaterThan']);
                             } else {
-                                if (!is_null($value['msg'])) {
+                                if (null !== $value['msg']) {
                                     $this->errors['GreaterThan'] = $value['msg'];
                                 } else {
                                     $this->errors['GreaterThan'] = $this->_lang->__('This field value is %1 greater than %2.', array((($value['condition'] == true) ? 'not' : ''), $value['value']));
@@ -388,7 +388,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             if ((strlen($curElemValue) == $value['value']) == $value['condition']) {
                                 unset($this->errors['Length']);
                             } else {
-                                if (!is_null($value['msg'])) {
+                                if (null !== $value['msg']) {
                                     $this->errors['Length'] = $value['msg'];
                                 } else {
                                     $this->errors['Length'] = $this->_lang->__('This field value length is %1 equal to %2 characters long.', array((($value['condition'] == true) ? 'not' : ''), $value['value']));
@@ -404,7 +404,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             if (((strlen($curElemValue) > $numAry[0]) && (strlen($curElemValue) < $numAry[1])) == $value['condition']) {
                                 unset($this->errors['LengthBet']);
                             } else {
-                                if (!is_null($value['msg'])) {
+                                if (null !== $value['msg']) {
                                     $this->errors['LengthBet'] = $value['msg'];
                                 } else {
                                     $this->errors['LengthBet'] = $this->_lang->__('This field value length is %1 between %2 and %3.', array((($value['condition'] == true) ? 'not' : ''), $numAry[0], $numAry[1]));
@@ -419,7 +419,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             if ((strlen($curElemValue) >= $value['value']) == $value['condition']) {
                                 unset($this->errors['LengthGT']);
                             } else {
-                                if (!is_null($value['msg'])) {
+                                if (null !== $value['msg']) {
                                     $this->errors['LengthGT'] = $value['msg'];
                                 } else {
                                     $this->errors['LengthGT'] = $this->_lang->__('This field value length must be %1 %2 characters long.', array((($value['condition'] == true) ? 'at least' : 'under'), $value['value']));
@@ -434,7 +434,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             if ((strlen($curElemValue) <= $value['value']) == $value['condition']) {
                                 unset($this->errors['LengthLT']);
                             } else {
-                                if (!is_null($value['msg'])) {
+                                if (null !== $value['msg']) {
                                     $this->errors['LengthLT'] = $value['msg'];
                                 } else {
                                     $this->errors['LengthLT'] = $this->_lang->__('This field value length must be %1 %2 characters long.', array((($value['condition'] == true) ? 'under' : 'at least'), $value['value']));
@@ -449,7 +449,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             if (($curElemValue < $value['value']) == $value['condition']) {
                                 unset($this->errors['LessThan']);
                             } else {
-                                if (!is_null($value['msg'])) {
+                                if (null !== $value['msg']) {
                                     $this->errors['LessThan'] = $value['msg'];
                                 } else {
                                     $this->errors['LessThan'] = $this->_lang->__('This field value is %1 less than %2.', array((($value['condition'] == true) ? 'not' : ''), $value['value']));
@@ -463,7 +463,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                         if ((!empty($curElemValue)) == $value['condition']) {
                             unset($this->errors['NotEmpty']);
                         } else {
-                            if (!is_null($value['msg'])) {
+                            if (null !== $value['msg']) {
                                 $this->errors['NotEmpty'] = $value['msg'];
                             } else {
                                 $this->errors['NotEmpty'] = $this->_lang->__('This field value is %1 empty.', (($value['condition'] == true) ? '' : 'not'));
@@ -477,7 +477,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             if (($curElemValue != $value['value']) == $value['condition']) {
                                 unset($this->errors['NotEqual']);
                             } else {
-                                if (!is_null($value['msg'])) {
+                                if (null !== $value['msg']) {
                                     $this->errors['NotEqual'] = $value['msg'];
                                 } else {
                                     $this->errors['NotEqual'] = $this->_lang->__('This field value does not equal the correct value.');
@@ -492,7 +492,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             if ((is_numeric($curElemValue)) == $value['condition']) {
                                 unset($this->errors['Num']);
                             } else {
-                                if (!is_null($value['msg'])) {
+                                if (null !== $value['msg']) {
                                     $this->errors['Num'] = $value['msg'];
                                 } else {
                                     $this->errors['Num'] = $this->_lang->__('This field value is %1 a number.', (($value['condition'] == true) ? 'not' : ''));
@@ -507,7 +507,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             if (preg_match($value['value'], $curElemValue) == $value['condition']) {
                                 unset($this->errors['RegEx']);
                             } else {
-                                if (!is_null($value['msg'])) {
+                                if (null !== $value['msg']) {
                                     $this->errors['RegEx'] = $value['msg'];
                                 } else {
                                     $this->errors['RegEx'] = $this->_lang->__('This field value format is %1 correct.', (($value['condition'] == true) ? 'not' : ''));

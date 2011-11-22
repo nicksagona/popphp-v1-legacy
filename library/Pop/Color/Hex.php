@@ -112,25 +112,13 @@ class Pop_Color_Hex implements Pop_Color_Interface
                 $b = substr($this->_hex, 4, 1);
             }
 
-            if (!is_null($r) && !is_null($g) && !is_null($b)) {
+            if ((null !== $r) && (null !== $g) && (null !== $b)) {
                 $this->_shorthand = $r . $g . $b;
             } else {
                 $this->_shorthand = null;
             }
 
         }
-
-    }
-
-    /**
-     * Method to return the string value for printing output.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-
-        return $this->getHex(true);
 
     }
 
@@ -146,7 +134,7 @@ class Pop_Color_Hex implements Pop_Color_Interface
 
         $hex = null;
 
-        if (($short) && !is_null($this->_shorthand)) {
+        if (($short) && (null !== $this->_shorthand)) {
             $hex = ($hash) ? '#' . $this->_shorthand : $this->_shorthand;
         } else {
             $hex = ($hash) ? '#' . $this->_hex : $this->_hex;
@@ -184,6 +172,16 @@ class Pop_Color_Hex implements Pop_Color_Interface
     public function getBlue()
     {
         return $this->_blue;
+    }
+
+    /**
+     * Method to return the string value for printing output.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getHex(true);
     }
 
 }

@@ -188,7 +188,7 @@ class Pop_Dir
      */
     public function emptyDir($path = null, $del = false)
     {
-        if (is_null($path)) {
+        if (null === $path) {
             $path = $this->path;
         }
 

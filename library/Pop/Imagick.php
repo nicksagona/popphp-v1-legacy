@@ -180,7 +180,7 @@ class Pop_Imagick extends Pop_Image_Abstract
             } else {
                 $this->_resource = new Imagick();
 
-                if (is_null($w) || is_null($h)) {
+                if ((null === $w) || (null === $h)) {
                     throw new Exception($this->_lang->__('Error: You must define a width and height for a new image object.'));
                 } else {
                     // Set image object properties.
@@ -188,7 +188,7 @@ class Pop_Imagick extends Pop_Image_Abstract
                     $this->_height = $h;
                     $this->_channels = null;
 
-                    $color = (is_null($color)) ? new Pop_Color_Rgb(255, 255, 255) : $color;
+                    $color = (null === $color) ? new Pop_Color_Rgb(255, 255, 255) : $color;
                     $clr = $this->_setColor($color);
 
                     // Create a new image and allocate the background color.
@@ -204,6 +204,16 @@ class Pop_Imagick extends Pop_Image_Abstract
     }
 
     /**
+     * Check if Imagick is installed.
+     *
+     * @return boolean
+     */
+    public static function isImagickInstalled()
+    {
+        return class_exists('Imagick');
+    }
+
+    /**
      * Set the image quality.
      *
      * @param  int $q
@@ -211,7 +221,7 @@ class Pop_Imagick extends Pop_Image_Abstract
      */
     public function setQuality($q = null)
     {
-        $this->_quality = (!is_null($q)) ? (int)$q : null;
+        $this->_quality = (null !== $q) ? (int)$q : null;
         return $this;
     }
 
@@ -235,7 +245,7 @@ class Pop_Imagick extends Pop_Image_Abstract
      */
     public function setCompression($comp = null)
     {
-        $this->_compression = (!is_null($comp)) ? (int)$comp : null;
+        $this->_compression = (null !== $comp) ? (int)$comp : null;
         return $this;
     }
 
@@ -476,13 +486,13 @@ class Pop_Imagick extends Pop_Image_Abstract
         $draw->setFontSize($size);
         $draw->setFillColor($this->_setColor($this->_fillColor));
 
-        if (!is_null($rotate)) {
+        if (null !== $rotate) {
             $draw->rotate($rotate);
         }
 
         if ($stroke) {
             $draw->setStrokeColor($this->_setColor($this->_strokeColor));
-            $draw->setStrokeWidth((is_null($this->_strokeWidth) ? 1 : $this->_strokeWidth));
+            $draw->setStrokeWidth((null === $this->_strokeWidth) ? 1 : $this->_strokeWidth);
         }
 
         $draw->annotation($x, $y, $str);
@@ -504,7 +514,7 @@ class Pop_Imagick extends Pop_Image_Abstract
     {
         $draw = new ImagickDraw();
         $draw->setStrokeColor($this->_setColor($this->_strokeColor));
-        $draw->setStrokeWidth((is_null($this->_strokeWidth) ? 1 : $this->_strokeWidth));
+        $draw->setStrokeWidth((null === $this->_strokeWidth) ? 1 : $this->_strokeWidth);
         $draw->line($x1, $y1, $x2, $y2);
         $this->_resource->drawImage($draw);
 
@@ -523,14 +533,14 @@ class Pop_Imagick extends Pop_Image_Abstract
     public function addRectangle($x, $y, $w, $h = null)
     {
         $x2 = $x + $w;
-        $y2 = $y + ((is_null($h)) ? $w : $h);
+        $y2 = $y + ((null === $h) ? $w : $h);
 
         $draw = new ImagickDraw();
         $draw->setFillColor($this->_setColor($this->_fillColor));
 
-        if (!is_null($this->_strokeWidth)) {
+        if (null !== $this->_strokeWidth) {
             $draw->setStrokeColor($this->_setColor($this->_strokeColor));
-            $draw->setStrokeWidth((is_null($this->_strokeWidth) ? 1 : $this->_strokeWidth));
+            $draw->setStrokeWidth((null === $this->_strokeWidth) ? 1 : $this->_strokeWidth);
         }
 
         $draw->rectangle($x, $y, $x2, $y2);
@@ -565,14 +575,14 @@ class Pop_Imagick extends Pop_Image_Abstract
     public function addEllipse($x, $y, $w, $h = null)
     {
         $wid = $w;
-        $hgt = (is_null($h)) ? $w : $h;
+        $hgt = (null === $h) ? $w : $h;
 
         $draw = new ImagickDraw();
         $draw->setFillColor($this->_setColor($this->_fillColor));
 
-        if (!is_null($this->_strokeWidth)) {
+        if (null !== $this->_strokeWidth) {
             $draw->setStrokeColor($this->_setColor($this->_strokeColor));
-            $draw->setStrokeWidth((is_null($this->_strokeWidth) ? 1 : $this->_strokeWidth));
+            $draw->setStrokeWidth((null === $this->_strokeWidth) ? 1 : $this->_strokeWidth);
         }
 
         $draw->ellipse($x, $y, $wid, $hgt, 0, 360);
@@ -607,7 +617,7 @@ class Pop_Imagick extends Pop_Image_Abstract
     public function addArc($x, $y, $start, $end, $w, $h = null)
     {
         $wid = $w;
-        $hgt = (is_null($h)) ? $w : $h;
+        $hgt = (null === $h) ? $w : $h;
 
         $draw = new ImagickDraw();
         $draw->setFillColor($this->_setColor($this->_fillColor));
@@ -618,22 +628,22 @@ class Pop_Imagick extends Pop_Image_Abstract
         $y2 = $h * sin($end / 180 * pi());
 
         $points = array(
-                        array('x' => $x, 'y' => $y),
-                        array('x' => $x + $x1, 'y' => $y + $y1),
-                        array('x' => $x + $x2, 'y' => $y + $y2)
-                        );
+                      array('x' => $x, 'y' => $y),
+                      array('x' => $x + $x1, 'y' => $y + $y1),
+                      array('x' => $x + $x2, 'y' => $y + $y2)
+                  );
 
         $draw->polygon($points);
 
         $draw->ellipse($x, $y, $wid, $hgt, $start, $end);
         $this->_resource->drawImage($draw);
 
-        if (!is_null($this->_strokeWidth)) {
+        if (null !== $this->_strokeWidth) {
             $draw = new ImagickDraw();
 
             $draw->setFillColor($this->_setColor($this->_fillColor));
             $draw->setStrokeColor($this->_setColor($this->_strokeColor));
-            $draw->setStrokeWidth((is_null($this->_strokeWidth) ? 1 : $this->_strokeWidth));
+            $draw->setStrokeWidth((null === $this->_strokeWidth) ? 1 : $this->_strokeWidth);
 
             $draw->ellipse($x, $y, $wid, $hgt, $start, $end);
             $draw->line($x, $y, $x + $x1, $y + $y1);
@@ -656,9 +666,9 @@ class Pop_Imagick extends Pop_Image_Abstract
         $draw = new ImagickDraw();
         $draw->setFillColor($this->_setColor($this->_fillColor));
 
-        if (!is_null($this->_strokeWidth)) {
+        if (null !== $this->_strokeWidth) {
             $draw->setStrokeColor($this->_setColor($this->_strokeColor));
-            $draw->setStrokeWidth((is_null($this->_strokeWidth) ? 1 : $this->_strokeWidth));
+            $draw->setStrokeWidth((null === $this->_strokeWidth) ? 1 : $this->_strokeWidth);
         }
 
         $draw->polygon($points);
@@ -817,7 +827,7 @@ class Pop_Imagick extends Pop_Image_Abstract
      */
     public function border($w, $h = null, $type = Pop_Imagick::INNER_BORDER)
     {
-        $h = is_null($h) ? $w : $h;
+        $h = (null === $h) ? $w : $h;
 
         if ($type == Pop_Imagick::INNER_BORDER) {
             $this->setStrokeWidth(($h * 2));
@@ -981,7 +991,7 @@ class Pop_Imagick extends Pop_Image_Abstract
     public function pixelate($w, $h = null)
     {
         $x = $this->_width / $w;
-        $y = $this->_height / (is_null($h) ? $w : $h);
+        $y = $this->_height / ((null === $h) ? $w : $h);
 
         $this->_resource->scaleImage($x, $y);
         $this->_resource->scaleImage($this->_width, $this->_height);
@@ -1091,7 +1101,7 @@ class Pop_Imagick extends Pop_Image_Abstract
         $type = strtolower($type);
 
         // Check if the permissions are set correctly.
-        if (!is_null($this->_perm['file']) && ($this->_perm['file'] != 777)) {
+        if ((null !== $this->_perm['file']) && ($this->_perm['file'] != 777)) {
             throw new Exception($this->_lang->__('Error: Permission denied.'));
         // Check if the requested image type is supported.
         } else if (!array_key_exists($type, $this->_allowed)) {
@@ -1141,10 +1151,10 @@ class Pop_Imagick extends Pop_Image_Abstract
             header('Pragma: cache');
         }
 
-        if (!is_null($this->_compression)) {
+        if (null !== $this->_compression) {
             $this->_resource->setImageCompression($this->_compression);
         }
-        if (!is_null($this->_quality)) {
+        if (null !== $this->_quality) {
             $this->_resource->setImageCompressionQuality($this->_quality);
         }
 
@@ -1162,13 +1172,13 @@ class Pop_Imagick extends Pop_Image_Abstract
      */
     public function save($to = null, $append = false)
     {
-        if (!is_null($this->_compression)) {
+        if (null !== $this->_compression) {
             $this->_resource->setImageCompression($this->_compression);
         }
-        if (!is_null($this->_quality)) {
+        if (null !== $this->_quality) {
             $this->_resource->setImageCompressionQuality($this->_quality);
         }
-        $img = (!is_null($to)) ? $to : $this->fullpath;
+        $img = (null !== $to) ? $to : $this->fullpath;
         $this->_resource->writeImage($img);
 
         clearstatcache();
@@ -1197,16 +1207,6 @@ class Pop_Imagick extends Pop_Image_Abstract
         if ($file) {
             $this->delete();
         }
-    }
-
-    /**
-     * Check if Imagick is installed.
-     *
-     * @return boolean
-     */
-    public static function isImagickInstalled()
-    {
-        return class_exists('Imagick');
     }
 
     /**
@@ -1389,14 +1389,7 @@ class Pop_Imagick extends Pop_Image_Abstract
      */
     protected function _setColor(Pop_Color_Interface $color = null)
     {
-        $clr = null;
-
-        if (!is_null($color)) {
-            $clr = $color->getRgb(Pop_Color::STRING, true);
-        } else {
-            $clr = 'rgb(0,0,0)';
-        }
-
+        $clr = (null !== $color) ? $color->getRgb(Pop_Color::STRING, true) : 'rgb(0,0,0)';
         return new ImagickPixel($clr);
     }
 

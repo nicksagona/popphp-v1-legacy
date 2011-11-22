@@ -77,7 +77,7 @@ class Pop_Dom_Child extends Pop_Dom_Abstract
         $this->_nodeValue = $value;
         $this->_childrenFirst = $first;
 
-        if (!is_null($childNode)) {
+        if (null !== $childNode) {
             $this->addChild($childNode);
         }
 
@@ -192,7 +192,7 @@ class Pop_Dom_Child extends Pop_Dom_Abstract
     {
         // Initialize child object properties and variables.
         $this->_output = '';
-        $this->_indent = (is_null($this->_indent)) ? str_repeat('    ', $depth) : $this->_indent;
+        $this->_indent = (null === $this->_indent) ? str_repeat('    ', $depth) : $this->_indent;
         $attribs = '';
         $attribAry = array();
 
@@ -214,7 +214,7 @@ class Pop_Dom_Child extends Pop_Dom_Abstract
 
             // Render node value before the child nodes.
             if (!$this->_childrenFirst) {
-                $this->_output .= (!is_null($this->_nodeValue)) ? (str_repeat('    ', $new_depth) . "{$indent}{$this->_nodeValue}\n") : '';
+                $this->_output .= (null !== $this->_nodeValue) ? (str_repeat('    ', $new_depth) . "{$indent}{$this->_nodeValue}\n") : '';
                 foreach ($this->_childNodes as $child) {
                     $this->_output .= $child->render(true, $new_depth, $indent);
                 }
@@ -224,11 +224,11 @@ class Pop_Dom_Child extends Pop_Dom_Abstract
                 foreach ($this->_childNodes as $child) {
                     $this->_output .= $child->render(true, $new_depth, $indent);
                 }
-                $this->_output .= (!is_null($this->_nodeValue)) ? (str_repeat('    ', $new_depth) . "{$indent}{$this->_nodeValue}\n{$indent}{$this->_indent}</{$this->_nodeName}>\n") : "{$indent}{$this->_indent}</{$this->_nodeName}>\n";
+                $this->_output .= (null !== $this->_nodeValue) ? (str_repeat('    ', $new_depth) . "{$indent}{$this->_nodeValue}\n{$indent}{$this->_indent}</{$this->_nodeName}>\n") : "{$indent}{$this->_indent}</{$this->_nodeName}>\n";
             }
         // Else, render the child node.
         } else {
-            if ((!is_null($this->_nodeValue)) || ($this->_nodeName == 'textarea')) {
+            if ((null !== $this->_nodeValue) || ($this->_nodeName == 'textarea')) {
                 $this->_output .= ">";
                 $this->_output .= "{$this->_nodeValue}</{$this->_nodeName}>\n";
             } else {

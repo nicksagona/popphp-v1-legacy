@@ -78,18 +78,6 @@ class Pop_Color_Hsb implements Pop_Color_Interface
     }
 
     /**
-     * Method to return the string value for printing output.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-
-        return $this->getHsb(Pop_Color::STRING);
-
-    }
-
-    /**
      * Method to get the full HSB value
      *
      * @param  int     $type
@@ -144,6 +132,16 @@ class Pop_Color_Hsb implements Pop_Color_Interface
     public function getBrightness()
     {
         return $this->_brightness;
+    }
+
+    /**
+     * Method to return the string value for printing output.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getHsb(Pop_Color::STRING);
     }
 
 }

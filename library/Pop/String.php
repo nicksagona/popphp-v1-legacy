@@ -49,17 +49,7 @@ class Pop_String
      */
     public function __construct($str = null)
     {
-        $this->_string = (!is_null($str)) ? $str : '';
-    }
-
-    /**
-     * Method to return the string value for printing output.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->_string;
+        $this->_string = (null !== $str) ? $str : '';
     }
 
     /**
@@ -209,7 +199,7 @@ class Pop_String
      */
     public function sub($start, $len = null)
     {
-        $this->_string = (!is_null($len)) ? substr($this->_string, $start, $len) : substr($this->_string, $start);
+        $this->_string = (null !== $len) ? substr($this->_string, $start, $len) : substr($this->_string, $start);
         return $this;
     }
 
@@ -292,7 +282,7 @@ class Pop_String
      */
     public function trim($chars = null)
     {
-        $this->_string = (!is_null($chars)) ? trim($this->_string, $chars) : trim($this->_string);
+        $this->_string = (null !== $chars) ? trim($this->_string, $chars) : trim($this->_string);
         return $this;
     }
 
@@ -326,7 +316,7 @@ class Pop_String
      */
     public function striptags($allowed = null)
     {
-        $this->_string = (!is_null($allowed)) ? strip_tags($this->_string, $allowed) : strip_tags($this->_string);
+        $this->_string = (null !== $allowed) ? strip_tags($this->_string, $allowed) : strip_tags($this->_string);
         return $this;
     }
 
@@ -459,7 +449,7 @@ class Pop_String
     public function slug($sep = null)
     {
         if (strlen($this->_string) > 0) {
-            if (!is_null($sep)) {
+            if (null !== $sep) {
                 $strAry = explode($sep, $this->_string);
                 $tmpStrAry = array();
 
@@ -624,6 +614,16 @@ class Pop_String
         $this->_string = $hyphenated;
 
         return $this;
+    }
+
+    /**
+     * Method to return the string value for printing output.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->_string;
     }
 
 }

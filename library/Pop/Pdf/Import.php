@@ -90,7 +90,7 @@ class Pop_Pdf_Import
         $this->pages = $this->_kids;
 
         // If the page argument was passed, parse out the desired page(s), removing any unwanted pages and their content.
-        if (!is_null($pgs)) {
+        if (null !== $pgs) {
             if (is_array($pgs)) {
                 foreach ($pgs as $value) {
                     $pAry[] = $this->pages[$value - 1];

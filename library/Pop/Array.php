@@ -106,7 +106,7 @@ class Pop_Array extends ArrayObject
     {
         $this->_flags = $flags;
 
-        if (!is_null($this->_flags)) {
+        if (null !== $this->_flags) {
             parent::__construct((!is_array($arr) ? array($arr) : $arr), $this->_flags);
         } else {
             parent::__construct((!is_array($arr) ? array($arr) : $arr));
@@ -201,7 +201,7 @@ class Pop_Array extends ArrayObject
     public function sort($type = Pop_Array::SORT, $flags = null)
     {
         $ary = (array)$this;
-        $flags = (!is_null($flags)) ? $flags : SORT_REGULAR;
+        $flags = (null !== $flags) ? $flags : SORT_REGULAR;
 
         switch ($type) {
             case Pop_Array::SORT:

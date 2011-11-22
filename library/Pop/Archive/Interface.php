@@ -53,6 +53,25 @@ interface Pop_Archive_Interface
     public static function factory($archive);
 
     /**
+     * Static method to compress a string of data
+     *
+     * @param  string $data
+     * @param  int    $type
+     * @param  int    $level
+     * @return string
+     */
+    public static function compress($data, $type = Pop_Archive::GZIP, $level = 4);
+
+    /**
+     * Static method to decompress a string of data
+     *
+     * @param  string $data
+     * @param  int    $type
+     * @return string
+     */
+    public static function decompress($data, $type = Pop_Archive::GZIP);
+
+    /**
      * Method to extract an archived and/or compressed file
      *
      * @param  string $to
@@ -86,24 +105,5 @@ interface Pop_Archive_Interface
      * @return array
      */
     public function listFiles($all = false);
-
-    /**
-     * Static method to compress a string of data
-     *
-     * @param  string $data
-     * @param  int    $type
-     * @param  int    $level
-     * @return string
-     */
-    public static function compress($data, $type = Pop_Archive::GZIP, $level = 4);
-
-    /**
-     * Static method to decompress a string of data
-     *
-     * @param  string $data
-     * @param  int    $type
-     * @return string
-     */
-    public static function decompress($data, $type = Pop_Archive::GZIP);
 
 }

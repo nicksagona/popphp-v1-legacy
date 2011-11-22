@@ -216,7 +216,7 @@ class Pop_Http_Request
     {
         $path = null;
 
-        if (!is_null($num)) {
+        if (null !== $num) {
             if (isset($this->_path[(int)$num])) {
                 $path = $this->_path[(int)$num];
             }
@@ -335,7 +335,7 @@ class Pop_Http_Request
      */
     public function getQuery($key = null)
     {
-        if (is_null($key)) {
+        if (null === $key) {
             return $this->_get;
         } else {
             return (isset($this->_get[$key])) ? $this->_get[$key] : null;
@@ -350,7 +350,7 @@ class Pop_Http_Request
      */
     public function getPost($key = null)
     {
-        if (is_null($key)) {
+        if (null === $key) {
             return $this->_post;
         } else {
             return (isset($this->_post[$key])) ? $this->_post[$key] : null;
@@ -365,7 +365,7 @@ class Pop_Http_Request
      */
     public function getCookie($key = null)
     {
-        if (is_null($key)) {
+        if (null === $key) {
             return $this->_cookie;
         } else {
             return (isset($this->_cookie[$key])) ? $this->_cookie[$key] : null;
@@ -380,7 +380,7 @@ class Pop_Http_Request
      */
     public function getServer($key = null)
     {
-        if (is_null($key)) {
+        if (null === $key) {
             return $this->_server;
         } else {
             return (isset($this->_server[$key])) ? $this->_server[$key] : null;
@@ -395,7 +395,7 @@ class Pop_Http_Request
      */
     public function getEnv($key = null)
     {
-        if (is_null($key)) {
+        if (null === $key) {
             return $this->_server;
         } else {
             return (isset($this->_env[$key])) ? $this->_env[$key] : null;
@@ -411,7 +411,7 @@ class Pop_Http_Request
      */
     public function setRequestUri($uri = null, $basePath = null)
     {
-        if (is_null($uri)) {
+        if (null === $uri) {
             $uri = $_SERVER['REQUEST_URI'];
         }
 
@@ -420,7 +420,7 @@ class Pop_Http_Request
         $dir = str_replace('\\', '/', dirname($this->_docRoot . $_SERVER['PHP_SELF']));
 
         $this->_requestUri = ($dir != $this->_docRoot) ? str_replace(str_replace($this->_docRoot, '', $dir), '', $uri) : $uri;
-        $this->_basePath = (is_null($basePath)) ? str_replace($this->_docRoot, '', $dir) : $basePath;
+        $this->_basePath = (null === $basePath) ? str_replace($this->_docRoot, '', $dir) : $basePath;
         $this->_fullPath = $this->_docRoot . $this->_basePath;
         $this->_isSecure = ($_SERVER['SERVER_PORT'] == '443') ? true : false;
 

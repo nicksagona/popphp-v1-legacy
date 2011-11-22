@@ -79,7 +79,7 @@ class Pop_Cache_File implements Pop_Cache_Interface
      */
     public function save($id, $value, $time = null)
     {
-        $time = (is_null($time)) ? time() : time() + $time;
+        $time = (null === $time) ? time() : time() + $time;
 
         $file = new Pop_File($this->_dir . DIRECTORY_SEPARATOR . sha1($id));
         $file->write($time . '|' . serialize($value));

@@ -139,7 +139,7 @@ class Pop_Data_Sql implements Pop_Data_Interface
             $fields = array_keys($ary);
         }
 
-        $table = (is_null($table)) ? 'data' : $table;
+        $table = (null === $table) ? 'data' : $table;
         $idQuoteEnd = ($idQuote == '[') ? ']' : $idQuote;
         $sql = "INSERT INTO {$idQuote}{$table}{$idQuoteEnd} ({$idQuote}" . implode("{$idQuoteEnd}, {$idQuote}", $fields). "{$idQuoteEnd}) VALUES\n";
 

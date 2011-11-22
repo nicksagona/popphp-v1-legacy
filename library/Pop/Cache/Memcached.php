@@ -86,7 +86,7 @@ class Pop_Cache_Memcached implements Pop_Cache_Interface
      */
     public function save($id, $value, $time = null)
     {
-        $time = (is_null($time)) ? time() : time() + $time;
+        $time = (null === $time) ? time() : time() + $time;
         $this->_memcache->set($id, $value, false, $time);
     }
 

@@ -147,7 +147,7 @@ class Pop_Db_Sql
     {
         $this->_lang = new Pop_Locale();
 
-        if (!is_null($table)) {
+        if (null !== $table) {
             $this->setTable($table);
         }
     }
@@ -341,10 +341,10 @@ class Pop_Db_Sql
     public function join($tableToJoin, $commonColumn, $typeOfJoin = 'JOIN')
     {
         $allowedJoins = array(
-                              'JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'FULL JOIN',
-                              'OUTER JOIN', 'LEFT OUTER JOIN', 'RIGHT OUTER JOIN', 'FULL OUTER JOIN',
-                              'INNER JOIN', 'LEFT INNER JOIN', 'RIGHT INNER JOIN', 'FULL INNER JOIN'
-                              );
+                            'JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'FULL JOIN',
+                            'OUTER JOIN', 'LEFT OUTER JOIN', 'RIGHT OUTER JOIN', 'FULL OUTER JOIN',
+                            'INNER JOIN', 'LEFT INNER JOIN', 'RIGHT INNER JOIN', 'FULL INNER JOIN'
+                        );
 
         $join = (in_array(strtoupper($typeOfJoin), $allowedJoins)) ? strtoupper($typeOfJoin) : 'JOIN';
 
@@ -357,10 +357,10 @@ class Pop_Db_Sql
         }
 
         $this->_join = array(
-                             'tableToJoin' => $this->_quoteId($tableToJoin),
-                             'commonColumn' => $cols,
-                             'typeOfJoin'  => $join
-                             );
+                           'tableToJoin' => $this->_quoteId($tableToJoin),
+                           'commonColumn' => $cols,
+                           'typeOfJoin'  => $join
+                       );
 
         return $this;
     }
@@ -384,11 +384,11 @@ class Pop_Db_Sql
         $quote = (($value == '?') || (substr($value, 0, 1) == ':') || (preg_match('/^\$\d*\d$/', $value) != 0)) ? null : "'";
 
         $this->_where[] = array(
-                                'column'      => $this->_quoteId($column),
-                                'comparison'  => $comp,
-                                'value'       => $quote . $value . $quote,
-                                'conjunction' => $conj
-                                );
+                              'column'      => $this->_quoteId($column),
+                              'comparison'  => $comp,
+                              'value'       => $quote . $value . $quote,
+                              'conjunction' => $conj
+                          );
 
         return $this;
     }
@@ -441,9 +441,9 @@ class Pop_Db_Sql
      */
     public function buildSql($ret = false)
     {
-        if (is_null($this->_table)) {
+        if (null === $this->_table) {
             throw new Exception($this->_lang->__('Error: The table must be set.'));
-        } else if (is_null($this->_type)) {
+        } else if (null === $this->_type) {
             throw new Exception($this->_lang->__('Error: A SQL type must be set.'));
         } else {
             switch ($this->_type) {
@@ -480,12 +480,12 @@ class Pop_Db_Sql
                     }
 
                     // If there is an order clause.
-                    if (!is_null($this->_order)) {
+                    if (null !== $this->_order) {
                         $this->_sql .= ' ORDER BY ' . $this->_order;
                     }
 
                     // If there is a limit clause.
-                    if (!is_null($this->_limit)) {
+                    if (null !== $this->_limit) {
                         $this->_sql .= ' LIMIT ' . $this->_limit;
                     }
 

@@ -45,7 +45,7 @@ class Pop_Archive_Zip
         $zip = new ZipArchive();
 
         if ($zip->open($archive->fullpath) === true) {
-            $zip->extractTo((!is_null($to) ? $to : './'));
+            $zip->extractTo((null !== $to) ? $to : './');
             $zip->close();
         }
 

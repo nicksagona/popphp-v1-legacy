@@ -38,57 +38,57 @@ class Pop_Http_Response
      * @var array
      */
     protected static $_responseCodes = array(
-                                             // Informational 1xx
-                                             100 => 'Continue',
-                                             101 => 'Switching Protocols',
+                                           // Informational 1xx
+                                           100 => 'Continue',
+                                           101 => 'Switching Protocols',
 
-                                             // Success 2xx
-                                             200 => 'OK',
-                                             201 => 'Created',
-                                             202 => 'Accepted',
-                                             203 => 'Non-Authoritative Information',
-                                             204 => 'No Content',
-                                             205 => 'Reset Content',
-                                             206 => 'Partial Content',
+                                           // Success 2xx
+                                           200 => 'OK',
+                                           201 => 'Created',
+                                           202 => 'Accepted',
+                                           203 => 'Non-Authoritative Information',
+                                           204 => 'No Content',
+                                           205 => 'Reset Content',
+                                           206 => 'Partial Content',
 
-                                             // Redirection 3xx
-                                             300 => 'Multiple Choices',
-                                             301 => 'Moved Permanently',
-                                             302 => 'Found',
-                                             303 => 'See Other',
-                                             304 => 'Not Modified',
-                                             305 => 'Use Proxy',
-                                             307 => 'Temporary Redirect',
+                                           // Redirection 3xx
+                                           300 => 'Multiple Choices',
+                                           301 => 'Moved Permanently',
+                                           302 => 'Found',
+                                           303 => 'See Other',
+                                           304 => 'Not Modified',
+                                           305 => 'Use Proxy',
+                                           307 => 'Temporary Redirect',
 
-                                             // Client Error 4xx
-                                             400 => 'Bad Request',
-                                             401 => 'Unauthorized',
-                                             402 => 'Payment Required',
-                                             403 => 'Forbidden',
-                                             404 => 'Not Found',
-                                             405 => 'Method Not Allowed',
-                                             406 => 'Not Acceptable',
-                                             407 => 'Proxy Authentication Required',
-                                             408 => 'Request Timeout',
-                                             409 => 'Conflict',
-                                             410 => 'Gone',
-                                             411 => 'Length Required',
-                                             412 => 'Precondition Failed',
-                                             413 => 'Request Entity Too Large',
-                                             414 => 'Request-URI Too Long',
-                                             415 => 'Unsupported Media Type',
-                                             416 => 'Requested Range Not Satisfiable',
-                                             417 => 'Expectation Failed',
+                                           // Client Error 4xx
+                                           400 => 'Bad Request',
+                                           401 => 'Unauthorized',
+                                           402 => 'Payment Required',
+                                           403 => 'Forbidden',
+                                           404 => 'Not Found',
+                                           405 => 'Method Not Allowed',
+                                           406 => 'Not Acceptable',
+                                           407 => 'Proxy Authentication Required',
+                                           408 => 'Request Timeout',
+                                           409 => 'Conflict',
+                                           410 => 'Gone',
+                                           411 => 'Length Required',
+                                           412 => 'Precondition Failed',
+                                           413 => 'Request Entity Too Large',
+                                           414 => 'Request-URI Too Long',
+                                           415 => 'Unsupported Media Type',
+                                           416 => 'Requested Range Not Satisfiable',
+                                           417 => 'Expectation Failed',
 
-                                             // Server Error 5xx
-                                             500 => 'Internal Server Error',
-                                             501 => 'Not Implemented',
-                                             502 => 'Bad Gateway',
-                                             503 => 'Service Unavailable',
-                                             504 => 'Gateway Timeout',
-                                             505 => 'HTTP Version Not Supported',
-                                             509 => 'Bandwidth Limit Exceeded'
-                                             );
+                                           // Server Error 5xx
+                                           500 => 'Internal Server Error',
+                                           501 => 'Not Implemented',
+                                           502 => 'Bad Gateway',
+                                           503 => 'Service Unavailable',
+                                           504 => 'Gateway Timeout',
+                                           505 => 'HTTP Version Not Supported',
+                                           509 => 'Bandwidth Limit Exceeded'
+                                       );
 
     /**
      * HTTP version
@@ -147,7 +147,7 @@ class Pop_Http_Response
             throw new Exception($this->_lang->__("That header code '%1' is not allowed.", $code));
         } else {
             $this->_code = $code;
-            $this->_message = (!is_null($message)) ? $message : self::$_responseCodes[$code];
+            $this->_message = (null !== $message) ? $message : self::$_responseCodes[$code];
             $this->_body = $body;
             $this->_version = $version;
 
@@ -158,20 +158,217 @@ class Pop_Http_Response
     }
 
     /**
-     * Return entire response as a string
+     * Parse a response and create a new response object,
+     * either from a URL or a full response string
      *
-     * @return string
+     * @param  string $response
+     * @throws Exception
+     * @return Pop_Http_Response
      */
-    public function __toString()
+    public static function parse($response)
     {
-        $body = $this->_body;
+        $headers = array();
 
-        if (array_key_exists('Content-Encoding', $this->_headers)) {
-            $body = self::encodeBody($body, $this->_headers['Content-Encoding']);
-            $this->_headers['Content-Length'] = strlen($body);
+        // If a URL, use a stream to get the header and URL contents
+        if ((strtolower(substr($response, 0, 7)) == 'http://') || (strtolower(substr($response, 0, 8)) == 'https://')) {
+            $stream = fopen($response, 'r');
+            $meta = stream_get_meta_data($stream);
+            $body = stream_get_contents($stream);
+
+            $firstLine = $meta['wrapper_data'][0];
+            unset($meta['wrapper_data'][0]);
+            $allHeadersAry = $meta['wrapper_data'];
+            $bodyStr = $body;
+        // Else, if a response string, parse the headers and contents
+        } else if (substr($response, 0, 5) == 'HTTP/'){
+            if (strpos($response, "\r") !== false) {
+                $headerStr = substr($response, 0, strpos($response, "\r\n\r\n"));
+                $bodyStr = substr($response, (strpos($response, "\r\n\r\n") + 4));
+            } else {
+                $headerStr = substr($response, 0, strpos($response, "\n\n"));
+                $bodyStr = substr($response, (strpos($response, "\n\n") + 2));
+            }
+
+            $firstLine = trim(substr($headerStr, 0, strpos($headerStr, "\n")));
+            $firstLine = substr($firstLine, (strpos($firstLine, '/') + 1));
+            $allHeaders = trim(substr($headerStr, strpos($headerStr, "\n")));
+            $allHeadersAry = explode("\n", $allHeaders);
+        } else {
+            throw new Exception(Pop_Locale::load()->__('The response was not properly formatted.'));
         }
 
-        return $this->getHeadersAsString() . "\n" . $body;
+        // Get the version, code and message
+        $version = substr($firstLine, 0, strpos($firstLine, ' '));
+        preg_match('/\d\d\d/', $firstLine, $match);
+        $code = $match[0];
+        $message = str_replace($version . ' ' . $code . ' ', '', $firstLine);
+
+        // Get the headers
+        foreach ($allHeadersAry as $hdr) {
+            $name = substr($hdr, 0, strpos($hdr, ':'));
+            $value = substr($hdr, (strpos($hdr, ' ') + 1));
+            $headers[trim($name)] = trim($value);
+        }
+
+        // If the body content is encoded, decode the body content
+        if (array_key_exists('Content-Encoding', $headers)) {
+            if (isset($headers['Transfer-Encoding']) && ($headers['Transfer-Encoding'] == 'chunked')) {
+                $bodyStr = self::decodeChunkedBody($bodyStr);
+            }
+            $body = self::decodeBody($bodyStr, $headers['Content-Encoding']);
+        } else {
+            $body = $bodyStr;
+        }
+
+        return new Pop_Http_Response($code, $headers, $body, $message, $version);
+    }
+
+    /**
+     * Send redirect
+     *
+     * @param  string $url
+     * @param  string $version
+     * @throws Exception
+     * @return void
+     */
+    public static function redirect($url, $version = '1.1')
+    {
+        if (headers_sent()) {
+            throw new Exception(Pop_Locale::load()->__('The headers have already been sent.'));
+        } else {
+            header("HTTP/{$version} 302 Found");
+            header("Location: {$url}");
+        }
+    }
+
+    /**
+     * Get response message from code
+     *
+     * @param  array $code
+     * @throws Exception
+     * @return string
+     */
+    public static function getMessageFromCode($code)
+    {
+        if (!array_key_exists($code, self::$_responseCodes)) {
+            throw new Exception(Pop_Locale::load()->__("That header code '%1' is not allowed.", $code));
+        } else {
+            return self::$_responseCodes[$code];
+        }
+    }
+
+    /**
+     * Encode the body data.
+     *
+     * @param  string $body
+     * @param  string $encode
+     * @throws Exception
+     * @return string
+     */
+    public static function encodeBody($body, $encode)
+    {
+        switch ($encode) {
+            // GZIP compression
+            case 'gzip':
+                if (!function_exists('gzencode')) {
+                    throw new Exception(Pop_Locale::load()->__('Gzip compression is not available.'));
+                } else {
+                    $encodedBody = gzencode($body);
+                }
+                break;
+
+            // Deflate compression
+            case 'deflate':
+                if (!function_exists('gzdeflate')) {
+                    throw new Exception(Pop_Locale::load()->__('Deflate compression is not available.'));
+                } else {
+                    $encodedBody = gzdeflate($body);
+                }
+                break;
+
+            // Unknown compression
+            default:
+                $encodedBody = $body;
+
+        }
+
+        return $encodedBody;
+    }
+
+    /**
+     * Decode the body data.
+     *
+     * @param  string $body
+     * @param  string $decode
+     * @throws Exception
+     * @return string
+     */
+    public static function decodeBody($body, $decode)
+    {
+        switch ($decode) {
+            // GZIP compression
+            case 'gzip':
+                if (!function_exists('gzinflate')) {
+                    throw new Exception(Pop_Locale::load()->__('Gzip compression is not available.'));
+                } else {
+                    $decodedBody = gzinflate(substr($body, 10));
+                }
+                break;
+
+            // Deflate compression
+            case 'deflate':
+                if (!function_exists('gzinflate')) {
+                    throw new Exception(Pop_Locale::load()->__('Deflate compression is not available.'));
+                } else {
+                    $zlibHeader = unpack('n', substr($body, 0, 2));
+                    $decodedBody = ($zlibHeader[1] % 31 == 0) ? gzuncompress($body) : gzinflate($body);
+                }
+                break;
+
+            // Unknown compression
+            default:
+                $decodedBody = $body;
+
+        }
+
+        return $decodedBody;
+    }
+
+    /**
+     * Decode a chunked transfer-encoded body and return the decoded text
+     *
+     * @param string $body
+     * @return string
+     */
+    public static function decodeChunkedBody($body)
+    {
+        $decoded = '';
+
+        while($body != '') {
+            $lf_pos = strpos($body, "\012");
+            if($lf_pos === false) {
+                $decoded .= $body;
+                break;
+            }
+            $chunk_hex = trim(substr($body, 0, $lf_pos));
+            $sc_pos = strpos($chunk_hex, ';');
+            if($sc_pos !== false)
+                $chunk_hex = substr($chunk_hex, 0, $sc_pos);
+            if($chunk_hex == '') {
+                $decoded .= substr($body, 0, $lf_pos);
+                $body = substr($body, $lf_pos + 1);
+                continue;
+            }
+            $chunk_len = hexdec($chunk_hex);
+            if($chunk_len) {
+                $decoded .= substr($body, $lf_pos + 1, $chunk_len);
+                $body = substr($body, $lf_pos + 2 + $chunk_len);
+            } else {
+                $body = '';
+            }
+        }
+
+        return $decoded;
     }
 
     /**
@@ -392,217 +589,20 @@ class Pop_Http_Response
     }
 
     /**
-     * Parse a response and create a new response object,
-     * either from a URL or a full response string
+     * Return entire response as a string
      *
-     * @param  string $response
-     * @throws Exception
-     * @return Pop_Http_Response
-     */
-    public static function parse($response)
-    {
-        $headers = array();
-
-        // If a URL, use a stream to get the header and URL contents
-        if ((strtolower(substr($response, 0, 7)) == 'http://') || (strtolower(substr($response, 0, 8)) == 'https://')) {
-            $stream = fopen($response, 'r');
-            $meta = stream_get_meta_data($stream);
-            $body = stream_get_contents($stream);
-
-            $firstLine = $meta['wrapper_data'][0];
-            unset($meta['wrapper_data'][0]);
-            $allHeadersAry = $meta['wrapper_data'];
-            $bodyStr = $body;
-        // Else, if a response string, parse the headers and contents
-        } else if (substr($response, 0, 5) == 'HTTP/'){
-            if (strpos($response, "\r") !== false) {
-                $headerStr = substr($response, 0, strpos($response, "\r\n\r\n"));
-                $bodyStr = substr($response, (strpos($response, "\r\n\r\n") + 4));
-            } else {
-                $headerStr = substr($response, 0, strpos($response, "\n\n"));
-                $bodyStr = substr($response, (strpos($response, "\n\n") + 2));
-            }
-
-            $firstLine = trim(substr($headerStr, 0, strpos($headerStr, "\n")));
-            $firstLine = substr($firstLine, (strpos($firstLine, '/') + 1));
-            $allHeaders = trim(substr($headerStr, strpos($headerStr, "\n")));
-            $allHeadersAry = explode("\n", $allHeaders);
-        } else {
-            throw new Exception(Pop_Locale::load()->__('The response was not properly formatted.'));
-        }
-
-        // Get the version, code and message
-        $version = substr($firstLine, 0, strpos($firstLine, ' '));
-        preg_match('/\d\d\d/', $firstLine, $match);
-        $code = $match[0];
-        $message = str_replace($version . ' ' . $code . ' ', '', $firstLine);
-
-        // Get the headers
-        foreach ($allHeadersAry as $hdr) {
-            $name = substr($hdr, 0, strpos($hdr, ':'));
-            $value = substr($hdr, (strpos($hdr, ' ') + 1));
-            $headers[trim($name)] = trim($value);
-        }
-
-        // If the body content is encoded, decode the body content
-        if (array_key_exists('Content-Encoding', $headers)) {
-            if (isset($headers['Transfer-Encoding']) && ($headers['Transfer-Encoding'] == 'chunked')) {
-                $bodyStr = self::decodeChunkedBody($bodyStr);
-            }
-            $body = self::decodeBody($bodyStr, $headers['Content-Encoding']);
-        } else {
-            $body = $bodyStr;
-        }
-
-        return new Pop_Http_Response($code, $headers, $body, $message, $version);
-    }
-
-    /**
-     * Send redirect
-     *
-     * @param  string $url
-     * @param  string $version
-     * @throws Exception
-     * @return void
-     */
-    public static function redirect($url, $version = '1.1')
-    {
-        if (headers_sent()) {
-            throw new Exception(Pop_Locale::load()->__('The headers have already been sent.'));
-        } else {
-            header("HTTP/{$version} 302 Found");
-            header("Location: {$url}");
-        }
-    }
-
-    /**
-     * Get response message from code
-     *
-     * @param  array $code
-     * @throws Exception
      * @return string
      */
-    public static function getMessageFromCode($code)
+    public function __toString()
     {
-        if (!array_key_exists($code, self::$_responseCodes)) {
-            throw new Exception(Pop_Locale::load()->__("That header code '%1' is not allowed.", $code));
-        } else {
-            return self::$_responseCodes[$code];
-        }
-    }
+        $body = $this->_body;
 
-    /**
-     * Encode the body data.
-     *
-     * @param  string $body
-     * @param  string $encode
-     * @throws Exception
-     * @return string
-     */
-    public static function encodeBody($body, $encode)
-    {
-        switch ($encode) {
-            // GZIP compression
-            case 'gzip':
-                if (!function_exists('gzencode')) {
-                    throw new Exception(Pop_Locale::load()->__('Gzip compression is not available.'));
-                } else {
-                    $encodedBody = gzencode($body);
-                }
-                break;
-
-            // Deflate compression
-            case 'deflate':
-                if (!function_exists('gzdeflate')) {
-                    throw new Exception(Pop_Locale::load()->__('Deflate compression is not available.'));
-                } else {
-                    $encodedBody = gzdeflate($body);
-                }
-                break;
-
-            // Unknown compression
-            default:
-                $encodedBody = $body;
-
+        if (array_key_exists('Content-Encoding', $this->_headers)) {
+            $body = self::encodeBody($body, $this->_headers['Content-Encoding']);
+            $this->_headers['Content-Length'] = strlen($body);
         }
 
-        return $encodedBody;
-    }
-
-    /**
-     * Decode the body data.
-     *
-     * @param  string $body
-     * @param  string $decode
-     * @throws Exception
-     * @return string
-     */
-    public static function decodeBody($body, $decode)
-    {
-        switch ($decode) {
-            // GZIP compression
-            case 'gzip':
-                if (!function_exists('gzinflate')) {
-                    throw new Exception(Pop_Locale::load()->__('Gzip compression is not available.'));
-                } else {
-                    $decodedBody = gzinflate(substr($body, 10));
-                }
-                break;
-
-            // Deflate compression
-            case 'deflate':
-                if (!function_exists('gzinflate')) {
-                    throw new Exception(Pop_Locale::load()->__('Deflate compression is not available.'));
-                } else {
-                    $zlibHeader = unpack('n', substr($body, 0, 2));
-                    $decodedBody = ($zlibHeader[1] % 31 == 0) ? gzuncompress($body) : gzinflate($body);
-                }
-                break;
-
-            // Unknown compression
-            default:
-                $decodedBody = $body;
-
-        }
-
-        return $decodedBody;
-    }
-
-    /**
-     * Decode a chunked transfer-encoded body and return the decoded text
-     *
-     * @param string $body
-     * @return string
-     */
-    public static function decodeChunkedBody($body)
-    {
-        $decoded = '';
-
-        while($body != '') {
-            $lf_pos = strpos($body, "\012");
-            if($lf_pos === false) {
-                $decoded .= $body;
-                break;
-            }
-            $chunk_hex = trim(substr($body, 0, $lf_pos));
-            $sc_pos = strpos($chunk_hex, ';');
-            if($sc_pos !== false)
-                $chunk_hex = substr($chunk_hex, 0, $sc_pos);
-            if($chunk_hex == '') {
-                $decoded .= substr($body, 0, $lf_pos);
-                $body = substr($body, $lf_pos + 1);
-                continue;
-            }
-            $chunk_len = hexdec($chunk_hex);
-            if($chunk_len) {
-                $decoded .= substr($body, $lf_pos + 1, $chunk_len);
-                $body = substr($body, $lf_pos + 2 + $chunk_len);
-            } else {
-                $body = '';
-            }
-        }
-
-        return $decoded;
+        return $this->getHeadersAsString() . "\n" . $body;
     }
 
 }

@@ -86,18 +86,6 @@ class Pop_Color_Cmyk implements Pop_Color_Interface
     }
 
     /**
-     * Method to return the string value for printing output.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-
-        return $this->getCmyk(Pop_Color::STRING);
-
-    }
-
-    /**
      * Method to get the full CMYK value
      *
      * @param  int $type
@@ -162,6 +150,16 @@ class Pop_Color_Cmyk implements Pop_Color_Interface
     public function getBlack()
     {
         return $this->_black;
+    }
+
+    /**
+     * Method to return the string value for printing output.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getCmyk(Pop_Color::STRING);
     }
 
 }

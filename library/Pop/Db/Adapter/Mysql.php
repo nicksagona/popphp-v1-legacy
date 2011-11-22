@@ -170,16 +170,6 @@ class Pop_Db_Adapter_Mysql extends Pop_Db_Adapter_Abstract
     }
 
     /**
-     * Close the DB connection.
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        mysql_close($this->connection);
-    }
-
-    /**
      * Get an array of the tables of the database.
      *
      * @return array
@@ -196,6 +186,16 @@ class Pop_Db_Adapter_Mysql extends Pop_Db_Adapter_Abstract
         }
 
         return $tables;
+    }
+
+    /**
+     * Close the DB connection.
+     *
+     * @return void
+     */
+    public function __destruct()
+    {
+        mysql_close($this->connection);
     }
 
 }

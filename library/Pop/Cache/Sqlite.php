@@ -108,7 +108,7 @@ class Pop_Cache_Sqlite implements Pop_Cache_Interface
      */
     public function save($id, $value, $time = null)
     {
-        $time = (is_null($time)) ? time() : time() + $time;
+        $time = (null === $time) ? time() : time() + $time;
 
         // Determine if the value already exists.
         $this->_sqlite->sql->setTable('pop_cache')
@@ -127,9 +127,9 @@ class Pop_Cache_Sqlite implements Pop_Cache_Interface
             $this->_sqlite->sql->setTable('pop_cache')
                                ->update(
                                         array(
-                                              'value' => $this->_sqlite->adapter->escape(serialize($value)),
-                                              'time'  => $time
-                                              )
+                                            'value' => $this->_sqlite->adapter->escape(serialize($value)),
+                                            'time'  => $time
+                                        )
                                         )
                                ->where('id', '=', $this->_sqlite->adapter->escape(sha1($id)));
         // Else, save the new value.
@@ -137,10 +137,10 @@ class Pop_Cache_Sqlite implements Pop_Cache_Interface
             $this->_sqlite->sql->setTable('pop_cache')
                                ->insert(
                                         array(
-                                              'id'    => $this->_sqlite->adapter->escape(sha1($id)),
-                                              'value' => $this->_sqlite->adapter->escape(serialize($value)),
-                                              'time'  => $time
-                                              )
+                                            'id'    => $this->_sqlite->adapter->escape(sha1($id)),
+                                            'value' => $this->_sqlite->adapter->escape(serialize($value)),
+                                            'time'  => $time
+                                        )
                                         );
         }
 

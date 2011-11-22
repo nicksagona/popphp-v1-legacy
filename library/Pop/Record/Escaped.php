@@ -50,11 +50,11 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
         $type = $this->db->getAdapterType();
 
         if (($type == 'Sqlite') || ($type == 'Pdo_Sqlite')) {
-            $this->_idQuote = (is_null($this->_idQuote)) ? Pop_Db_Sql::DOUBLE_QUOTE : $this->_idQuote;
+            $this->_idQuote = (null === $this->_idQuote) ? Pop_Db_Sql::DOUBLE_QUOTE : $this->_idQuote;
         } else if ($type == 'Pgsql') {
-            $this->_idQuote = (is_null($this->_idQuote)) ? Pop_Db_Sql::DOUBLE_QUOTE : $this->_idQuote;
+            $this->_idQuote = (null === $this->_idQuote) ? Pop_Db_Sql::DOUBLE_QUOTE : $this->_idQuote;
         } else {
-            $this->_idQuote = (is_null($this->_idQuote)) ? Pop_Db_Sql::BACKTICK : $this->_idQuote;
+            $this->_idQuote = (null === $this->_idQuote) ? Pop_Db_Sql::BACKTICK : $this->_idQuote;
         }
 
         $this->_tableName = $options['tableName'];
@@ -72,7 +72,7 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
      */
     public function findById($id, $limit = null)
     {
-        if (is_null($this->_primaryId)) {
+        if (null === $this->_primaryId) {
             throw new Exception($this->_lang->__('This primary ID of this table either is not set or does not exist.'));
         } else {
             // Build the SQL.
@@ -81,7 +81,7 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
                           ->select()
                           ->where($this->_primaryId, '=', $this->db->adapter->escape($id));
 
-            if (!is_null($limit)) {
+            if (null !== $limit) {
                 $this->db->sql->limit($this->db->adapter->escape((int)$limit));
             }
 
@@ -110,7 +110,7 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
                       ->select()
                       ->where($this->db->adapter->escape($column), '=', $this->db->adapter->escape($value));
 
-        if (!is_null($limit)) {
+        if (null !== $limit) {
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
@@ -137,7 +137,7 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
                       ->select();
 
         // If a specific column and value are passde.
-        if (!is_null($column) && !is_null($value)) {
+        if ((null !== $column) && (null !== $value)) {
             $this->_finder = array($column, $value);
             $this->db->sql->where($this->db->adapter->escape($column), '=', $this->db->adapter->escape($value));
         } else {
@@ -145,13 +145,13 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
         }
 
         // Set the SQL query to a specific order, if given.
-        if (!is_null($order)) {
+        if (null !== $order) {
             $ord = $this->_getOrder($order);
             $this->db->sql->order($this->db->adapter->escape($ord['by']), $this->db->adapter->escape($ord['order']));
         }
 
         // Set any limit to the SQL query.
-        if (!is_null($limit)) {
+        if (null !== $limit) {
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
@@ -183,7 +183,7 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
                       ->select($distinctColumns)->distinct();
 
         // If a specific column and value are passed.
-        if (!is_null($column) && !is_null($value)) {
+        if ((null !== $column) && (null !== $value)) {
             $this->_finder = array($column, $value);
             $this->db->sql->where($this->db->adapter->escape($column), '=', $this->db->adapter->escape($value));
         } else {
@@ -191,13 +191,13 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
         }
 
         // Set the SQL query to a specific order, if given.
-        if (!is_null($order)) {
+        if (null !== $order) {
             $ord = $this->_getOrder($order);
             $this->db->sql->order($this->db->adapter->escape($ord['by']), $this->db->adapter->escape($ord['order']));
         }
 
         // Set any limit to the SQL query.
-        if (!is_null($limit)) {
+        if (null !== $limit) {
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
@@ -235,13 +235,13 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
         }
 
         // Set the SQL query to a specific order, if given.
-        if (!is_null($order)) {
+        if (null !== $order) {
             $ord = $this->_getOrder($order);
             $this->db->sql->order($this->db->adapter->escape($ord['by']), $this->db->adapter->escape($ord['order']));
         }
 
         // Set any limit to the SQL query.
-        if (!is_null($limit)) {
+        if (null !== $limit) {
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
@@ -271,7 +271,7 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
                       ->join($tableToJoin, $commonColumn, 'LEFT JOIN');
 
         // If a specific column and value are passed.
-        if (!is_null($column) && !is_null($value)) {
+        if ((null !== $column) && (null !== $value)) {
             $this->_finder = array($column, $value);
             $this->db->sql->where($this->db->adapter->escape($column), '=', $this->db->adapter->escape($value));
         } else {
@@ -279,13 +279,13 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
         }
 
         // Set the SQL query to a specific order, if given.
-        if (!is_null($order)) {
+        if (null !== $order) {
             $ord = $this->_getOrder($order);
             $this->db->sql->order($this->_tableName . '.' . $this->db->adapter->escape($ord['by']), $this->db->adapter->escape($ord['order']));
         }
 
         // Set any limit to the SQL query.
-        if (!is_null($limit)) {
+        if (null !== $limit) {
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
@@ -310,7 +310,7 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
             $this->_columns[$key] = $this->db->adapter->escape($value);
         }
 
-        if (is_null($this->_primaryId)) {
+        if (null === $this->_primaryId) {
             if ($type == Pop_Record::UPDATE) {
                 $this->db->sql->setTable($this->_tableName)
                               ->setIdQuoteType($this->_idQuote)
@@ -370,8 +370,8 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
     {
         $this->_columns = $columnsPassed;
 
-        if (is_null($this->_primaryId)) {
-            if ((is_null($column)) && (is_null($value))) {
+        if (null === $this->_primaryId) {
+            if ((null === $column) && (null === $value)) {
                 throw new Exception($this->_lang->__('The column and value parameters were not defined to describe the row(s) to delete.'));
             } else {
                 $this->db->sql->setTable($this->_tableName)

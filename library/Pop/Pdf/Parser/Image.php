@@ -115,7 +115,7 @@ class Pop_Pdf_Parser_Image extends Pop_Image
         parent::__construct($img);
 
         // If a scale value is passed, scale the image.
-        if (!is_null($scl)) {
+        if (null !== $scl) {
             $this->_scaleImage($scl);
         }
 
@@ -142,10 +142,10 @@ class Pop_Pdf_Parser_Image extends Pop_Image
         $this->_stream = "\nq\n" . $this->getWidth() . " 0 0 " . $this->getHeight() . " {$this->_x} {$this->_y} cm\n/I{$this->_index} Do\nQ\n";
 
         // Image clean-up.
-        if (!is_null($this->_scaledImage) && file_exists($this->_scaledImage)) {
+        if ((null !== $this->_scaledImage) && file_exists($this->_scaledImage)) {
             unlink($this->_scaledImage);
         }
-        if (!is_null($this->_convertedImage) && file_exists($this->_convertedImage)) {
+        if ((null !== $this->_convertedImage) && file_exists($this->_convertedImage)) {
             unlink($this->_convertedImage);
         }
 

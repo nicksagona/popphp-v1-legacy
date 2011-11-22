@@ -55,7 +55,7 @@ class Pop_Locale
      */
     public function __construct($lng = null)
     {
-        $this->_language = (!is_null($lng)) ? $lng : 'en';
+        $this->_language = (null !== $lng) ? $lng : 'en';
         $this->_loadCurrentLanguage();
     }
 
@@ -138,7 +138,7 @@ class Pop_Locale
     public function getLanguages($dir = null)
     {
         $langsAry = array();
-        $langDirectory = (!is_null($dir)) ? $dir : dirname(__FILE__) . '/Locale/Data';
+        $langDirectory = (null !== $dir) ? $dir : dirname(__FILE__) . '/Locale/Data';
 
         if (file_exists($langDirectory)) {
             $langDir = new Pop_Dir($langDirectory);
@@ -266,7 +266,7 @@ class Pop_Locale
 
                 // Get template text.
                 $langText = array();
-                $langTmplFile = (!is_null($tmpl)) ? $tmpl : dirname(__FILE__) . '/Locale/Data/__.xml';
+                $langTmplFile = (null !== $tmpl) ? $tmpl : dirname(__FILE__) . '/Locale/Data/__.xml';
                 if (file_exists($langTmplFile)) {
                     if (($xml =@ new SimpleXMLElement($langTmplFile, LIBXML_NOWARNING, true)) !== false) {
                         foreach ($xml->text as $text) {
@@ -361,7 +361,7 @@ class Pop_Locale
         $key = array_search($str, $this->_content['source']);
         $trans = ($key !== false) ? $this->_content['output'][$key] : $str;
 
-        if (!is_null($params)) {
+        if (null !== $params) {
             if (is_array($params)) {
                 foreach ($params as $key => $value) {
                     $trans = str_replace('%' . ($key + 1), $value, $trans);

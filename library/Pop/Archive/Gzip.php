@@ -34,6 +34,29 @@ class Pop_Archive_Gzip
 {
 
     /**
+     * Static method to compress an archive file using Gzip.
+     *
+     * @param  Pop_Archive $archive
+     * @param  int           $level
+     * @return string
+     */
+    public static function compress($archive, $level = 4)
+    {
+        // Read the file data.
+        $data = $archive->read();
+
+        // Create the new Gzip file and resource.
+        $gzFile = new Pop_File($archive->fullpath . '.gz');
+        $gzResource = fopen($gzFile->fullpath, 'w');
+
+        // Write the data to the new Gzip file and close the resource.
+        fwrite($gzResource, gzencode($data, $level));
+        fclose($gzResource);
+
+        return $gzFile->fullpath;
+    }
+
+    /**
      * Method to extract a compressed file using Gzip
      *
      * @param  Pop_Archive $archive
@@ -63,29 +86,6 @@ class Pop_Archive_Gzip
         } else {
             return $new->fullpath;
         }
-    }
-
-    /**
-     * Static method to compress an archive file using Gzip.
-     *
-     * @param  Pop_Archive $archive
-     * @param  int           $level
-     * @return string
-     */
-    public static function compress($archive, $level = 4)
-    {
-        // Read the file data.
-        $data = $archive->read();
-
-        // Create the new Gzip file and resource.
-        $gzFile = new Pop_File($archive->fullpath . '.gz');
-        $gzResource = fopen($gzFile->fullpath, 'w');
-
-        // Write the data to the new Gzip file and close the resource.
-        fwrite($gzResource, gzencode($data, $level));
-        fclose($gzResource);
-
-        return $gzFile->fullpath;
     }
 
 }

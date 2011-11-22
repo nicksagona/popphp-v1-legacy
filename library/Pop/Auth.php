@@ -138,23 +138,23 @@ class Pop_Auth
      *
      * For a database table. The table option must be an extended child class of Pop_Record.
      * $options = array(
-     *                  'table'          => 'Some_Table_Users',
-     *                  'username_field' => 'username',
-     *                  'password_field' => 'password',
-     *                  'access_field'   => 'access',
-     *                  'login_attempts' => 3,
-     *                  'blocked_ips'    => array('123.456.789.123', '123.456.789.*')
-     *                  );
+     *                'table'          => 'Some_Table_Users',
+     *                'username_field' => 'username',
+     *                'password_field' => 'password',
+     *                'access_field'   => 'access',
+     *                'login_attempts' => 3,
+     *                'blocked_ips'    => array('123.456.789.123', '123.456.789.*')
+     *            );
      *
      * For a file on disk. This is more limited. Three delimited columns are allowed
      * (with the 3rd 'access' column being optional): username|password|access
      * The delimiter option defaults to a pipe '|', but you can set a different one.
      * $options = array(
-     *                  'file'      => 'path/to/file/access.txt',
-     *                  'delimiter' => ',',
-     *                  'login_attempts' => 3,
-     *                  'blocked_ips'    => array('123.456.789.123', '123.456.789.*')
-     *                  );
+     *                'file'      => 'path/to/file/access.txt',
+     *                'delimiter' => ',',
+     *                'login_attempts' => 3,
+     *                'blocked_ips'    => array('123.456.789.123', '123.456.789.*')
+     *            );
      *
      * @param  array  $options
      * @param  int    $encypt
@@ -173,29 +173,6 @@ class Pop_Auth
             $this->setEncryption($encrypt);
             $this->_salt = $salt;
         }
-    }
-
-    /**
-     * Set method to set the property to the value of _options[$name].
-     *
-     * @param  string $name
-     * @param  mixed $value
-     * @return void
-     */
-    public function __set($name, $value)
-    {
-        $this->_options->$name = $value;
-    }
-
-    /**
-     * Get method to return the value of _options[$name].
-     *
-     * @param  string $name
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        return (isset($this->_options->$name)) ? $this->_options->$name : null;
     }
 
     /**
@@ -264,7 +241,7 @@ class Pop_Auth
      */
     public function setRoles($roles, $level = null)
     {
-        if (is_string($roles) && !is_null($level)) {
+        if (is_string($roles) && (null !== $level)) {
             $this->_roles[$roles] = (int)$level;
         } else if (is_array($roles)) {
             foreach ($roles as $role => $lev) {
@@ -317,7 +294,7 @@ class Pop_Auth
                 if (!array_key_exists($user, $users)) {
                     $this->_attempts++;
                     $result = self::USER_NOT_FOUND;
-                } else if ($users[$user]['password'] != $this->_encryptPassword($pass, (!is_null($this->_salt) ? $this->_salt : $users[$user]['password']))) {
+                } else if ($users[$user]['password'] != $this->_encryptPassword($pass, ((null !== $this->_salt) ? $this->_salt : $users[$user]['password']))) {
                     $this->_attempts++;
                     $result = self::PASSWORD_INCORRECT;
                 } else {
@@ -339,12 +316,12 @@ class Pop_Auth
                 if (!isset($tableObject->$usernameField)) {
                     $this->_attempts++;
                     $result = self::USER_NOT_FOUND;
-                } else if ($tableObject->$passwordField != $this->_encryptPassword($pass, (!is_null($this->_salt) ? $this->_salt : $tableObject->$passwordField))) {
+                } else if ($tableObject->$passwordField != $this->_encryptPassword($pass, ((null !== $this->_salt) ? $this->_salt : $tableObject->$passwordField))) {
                     $this->_attempts++;
                     $result = self::PASSWORD_INCORRECT;
                 } else {
                     $this->_attempts = 0;
-                    $this->setUserAuthorization((!is_null($accessField) ? $tableObject->$accessField : 0));
+                    $this->setUserAuthorization((null !== $accessField) ? $tableObject->$accessField : 0);
                     $this->user = $tableObject;
                     $result = self::USER_IS_VALID;
                 }
@@ -474,13 +451,36 @@ class Pop_Auth
             $entAry = explode($delim , $ent);
             if (isset($entAry[0]) && isset($entAry[1])) {
                 $entryResults[$entAry[0]] = array(
-                                                  'password' => $entAry[1],
-                                                  'access'   => (isset($entAry[2]) ? $entAry[2] : 0)
-                                                  );
+                                                'password' => $entAry[1],
+                                                'access'   => (isset($entAry[2]) ? $entAry[2] : 0)
+                                            );
             }
         }
 
         return $entryResults;
+    }
+
+    /**
+     * Set method to set the property to the value of _options[$name].
+     *
+     * @param  string $name
+     * @param  mixed $value
+     * @return void
+     */
+    public function __set($name, $value)
+    {
+        $this->_options->$name = $value;
+    }
+
+    /**
+     * Get method to return the value of _options[$name].
+     *
+     * @param  string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        return (isset($this->_options->$name)) ? $this->_options->$name : null;
     }
 
 }

@@ -101,7 +101,7 @@ class Pop_Mobile
      */
     public function goToMobile()
     {
-        if (is_null($this->mobile)) {
+        if (null === $this->mobile) {
             throw new Exception(Pop_Locale::load()->__('The mobile site is not set.'));
         } else {
             Pop_Http_Response::redirect($this->mobile);
@@ -116,7 +116,7 @@ class Pop_Mobile
      */
     public function goToStandard()
     {
-        if (is_null($this->standard)) {
+        if (null === $this->standard) {
             throw new Exception(Pop_Locale::load()->__('The standard site is not set.'));
         } else {
             Pop_Http_Response::redirect($this->standard);

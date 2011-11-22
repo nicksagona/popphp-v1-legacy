@@ -216,7 +216,7 @@ class Pop_Pdf extends Pop_File
         }
 
         // If page parameters were passed, add a new page.
-        if (!is_null($sz) || (!is_null($w) && !is_null($h))) {
+        if ((null !== $sz) || ((null !== $w) && (null !== $h))) {
             $this->addPage($sz, $w, $h);
         }
     }
@@ -246,7 +246,7 @@ class Pop_Pdf extends Pop_File
                 $this->_objects[$key] = new Pop_Pdf_Page($value['data']);
 
                 // Finalize related page variables and objects.
-                $this->_curPage = (is_null($this->_curPage)) ? 0 : ($this->_lastIndex($this->_pages) + 1);
+                $this->_curPage = (null === $this->_curPage) ? 0 : ($this->_lastIndex($this->_pages) + 1);
                 $this->_pages[$this->_curPage] = $key;
                 $this->_objects[$this->_parent]->count += 1;
             } else {
@@ -284,7 +284,7 @@ class Pop_Pdf extends Pop_File
         $this->_objects[$ci] = new Pop_Pdf_Object($ci);
 
         // Finalize related page variables and objects.
-        $this->_curPage = (is_null($this->_curPage)) ? 0 : ($this->_lastIndex($this->_pages) + 1);
+        $this->_curPage = (null === $this->_curPage) ? 0 : ($this->_lastIndex($this->_pages) + 1);
         $this->_pages[$this->_curPage] = $pi;
         $this->_objects[$this->_parent]->count += 1;
         $this->_objects[$this->_parent]->kids[] = $pi;
@@ -321,7 +321,7 @@ class Pop_Pdf extends Pop_File
             }
 
             // Finalize related page variables and objects.
-            $this->_curPage = (is_null($this->_curPage)) ? 0 : ($this->_lastIndex($this->_pages) + 1);
+            $this->_curPage = (null === $this->_curPage) ? 0 : ($this->_lastIndex($this->_pages) + 1);
             $this->_pages[$this->_curPage] = $pi;
             $this->_objects[$this->_parent]->count += 1;
             $this->_objects[$this->_parent]->kids[] = $pi;
@@ -604,7 +604,7 @@ class Pop_Pdf extends Pop_File
      */
     public function setStrokeWidth($w = null, $dash_len = null, $dash_gap = null)
     {
-        if (is_null($w) || ($w == false) || ($w == 0)) {
+        if ((null === $w) || ($w == false) || ($w == 0)) {
             $this->_stroke = false;
             $this->_strokeWidth = null;
             $this->_strokeDashLength = null;
@@ -619,7 +619,7 @@ class Pop_Pdf extends Pop_File
             $new_str = "\n{$w} w\n";
 
             // Set the dash properties of the stroke, or else default it to a solid line.
-            $new_str .= (!is_null($dash_len) && !is_null($dash_gap)) ? "[{$dash_len} {$dash_gap}] 0 d\n" : "[] 0 d\n";
+            $new_str .= ((null !== $dash_len) && (null !== $dash_gap)) ? "[{$dash_len} {$dash_gap}] 0 d\n" : "[] 0 d\n";
 
             $co_index = $this->_getContentObject();
             $this->_objects[$co_index]->setStream($new_str);
@@ -811,7 +811,7 @@ class Pop_Pdf extends Pop_File
      */
     public function addRectangle($x, $y, $w, $h = null, $fill = true)
     {
-        if (is_null($h)) {
+        if (null === $h) {
             $h = $w;
         }
 
@@ -848,7 +848,7 @@ class Pop_Pdf extends Pop_File
      */
     public function addEllipse($x, $y, $w, $h = null, $fill = true)
     {
-        if (is_null($h)) {
+        if (null === $h) {
             $h = $w;
         }
 
@@ -949,7 +949,7 @@ class Pop_Pdf extends Pop_File
      */
     public function addArc($x, $y, $start, $end, $w, $h = null, $fill = true)
     {
-        if (is_null($h)) {
+        if (null === $h) {
             $h = $w;
         }
 
@@ -1108,12 +1108,12 @@ class Pop_Pdf extends Pop_File
         $this->setFillColor($this->_backgroundColor);
         $this->setStrokeWidth(false);
 
-        $h = (is_null($h)) ? $w : $h;
+        $h = (null === $h) ? $w : $h;
         $co_index = $this->_getContentObject();
         $this->_objects[$co_index]->setStream("\n{$x} {$y} {$w} {$h} re\nW\nF\n");
 
         $this->setFillColor($oldFillColor);
-        if (!is_null($oldStrokeColor)) {
+        if (null !== $oldStrokeColor) {
             $this->setStrokeColor($oldStrokeColor);
             $this->setStrokeWidth($oldStrokeWidth, $oldStrokeDashLength, $oldStrokeDashGap);
         }
@@ -1157,7 +1157,7 @@ class Pop_Pdf extends Pop_File
         $this->setFillColor($this->_backgroundColor);
         $this->setStrokeWidth(false);
 
-        if (is_null($h)) {
+        if (null === $h) {
             $h = $w;
         }
 
@@ -1201,7 +1201,7 @@ class Pop_Pdf extends Pop_File
         $this->_objects[$co_index]->setStream("\n{$x1} {$y1} m\n{$coor1_bez1_x} {$coor1_bez1_y} {$coor2_bez1_x} {$coor2_bez1_y} {$x2} {$y2} c\n{$coor2_bez2_x} {$coor2_bez2_y} {$coor3_bez1_x} {$coor3_bez1_y} {$x3} {$y3} c\n{$coor3_bez2_x} {$coor3_bez2_y} {$coor4_bez1_x} {$coor4_bez1_y} {$x4} {$y4} c\n{$coor4_bez2_x} {$coor4_bez2_y} {$coor1_bez2_x} {$coor1_bez2_y} {$x1} {$y1} c\nW\nF\n");
 
         $this->setFillColor($oldFillColor);
-        if (!is_null($oldStrokeColor)) {
+        if (null !== $oldStrokeColor) {
             $this->setStrokeColor($oldStrokeColor);
             $this->setStrokeWidth($oldStrokeWidth, $oldStrokeDashLength, $oldStrokeDashGap);
         }
@@ -1260,7 +1260,7 @@ class Pop_Pdf extends Pop_File
         $this->_objects[$co_index]->setStream("\n{$polygon}\nF\n");
 
         $this->setFillColor($oldFillColor);
-        if (!is_null($oldStrokeColor)) {
+        if (null !== $oldStrokeColor) {
             $this->setStrokeColor($oldStrokeColor);
             $this->setStrokeWidth($oldStrokeWidth, $oldStrokeDashLength, $oldStrokeDashGap);
         }
@@ -1314,18 +1314,15 @@ class Pop_Pdf extends Pop_File
         $i = $this->_lastIndex($this->_objects) + 1;
 
         // Set the destination of the internal link, or default to the current page.
-        if (!is_null($dest)) {
-
+        if (null !== $dest) {
             if (!isset($this->_pages[$dest - 1])) {
                 throw new Exception($this->_lang->__('Error: That page has not been defined.'));
             } else {
                 $d = $this->_objects[$this->_pages[$dest - 1]]->index;
             }
-
+        // Else, set the destination to the current page.
         } else {
-            // Else, set the destination to the current page.
             $d = $this->_objects[$this->_pages[$this->_curPage]]->index;
-
         }
 
         // Add the annotation index to the current page's annotations and add the annotation to _objects array.
@@ -1445,7 +1442,7 @@ class Pop_Pdf extends Pop_File
     protected function _getContentObject()
     {
         // If the page's current content object index is not set, create one.
-        if (is_null($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->curContent)) {
+        if (null === $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->curContent) {
             $coi = $this->_lastIndex($this->_objects) + 1;
             $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->content[] = $coi;
             $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->curContent = $coi;

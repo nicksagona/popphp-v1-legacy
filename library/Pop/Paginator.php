@@ -233,7 +233,7 @@ class Pop_Paginator
         }
 
         // Check and calculate for any page ranges.
-        if (((is_null($this->_range)) || ($this->_range > $this->_numpages)) && (is_null($this->_total))) {
+        if (((null === $this->_range) || ($this->_range > $this->_numpages)) && (null === $this->_total)) {
             $link_start = 1;
             $link_end = $this->_numpages;
             $prev = false;
@@ -278,8 +278,8 @@ class Pop_Paginator
             $new_link = '';
             $prev_link = '';
             $next_link = '';
-            $classOff = (!is_null($clsOff)) ? " class=\"{$clsOff}\"" : '';
-            $classLink = (!is_null($clsLnk)) ? " class=\"{$clsLnk}\"" : '';
+            $classOff = (null !== $clsOff) ? " class=\"{$clsOff}\"" : '';
+            $classLink = (null !== $clsLnk) ? " class=\"{$clsLnk}\"" : '';
 
             $new_link = ($i == $pg) ? "<span{$classOff}>{$i}</span>" : "<a{$classLink} href=\"" . $_SERVER['PHP_SELF'] . "?page={$i}{$query}\">{$i}</a>";
 
@@ -295,7 +295,7 @@ class Pop_Paginator
         }
 
         // Format and output the header.
-        if (is_null($this->_header)) {
+        if (null === $this->_header) {
             if (count($this->_links) > 1) {
                 $output .= implode($sep, $this->_links) . "\n";
             }
@@ -312,11 +312,11 @@ class Pop_Paginator
 
         // Format and output the rows.
         for ($i = $this->_start; $i < $this->_end; $i++) {
-            if (is_null($this->_rowtmpl)) {
+            if (null === $this->_rowtmpl) {
                 $output .= "<tr>";
                 if (isset($this->_content[$i])) {
                     foreach ($this->_content[$i] as $value) {
-                        if (!is_null($dt)) {
+                        if (null !== $dt) {
                             $val = (strtotime($value) !== false) ? date($dt, strtotime($value)) : $value;
                         } else {
                             $val = $value;
@@ -329,7 +329,7 @@ class Pop_Paginator
                 $tmpl = new Pop_String($this->_rowtmpl);
                 if (isset($this->_content[$i])) {
                     foreach ($this->_content[$i] as $key => $value) {
-                        if (!is_null($dt)) {
+                        if (null !== $dt) {
                             $val = ((strtotime($value) !== false) || (stripos($key, 'date') !== false)) ? date($dt, strtotime($value)) : $value;
                         } else {
                             $val = $value;
@@ -342,7 +342,7 @@ class Pop_Paginator
         }
 
         // Format and output the footer.
-        if (is_null($this->_footer)) {
+        if (null === $this->_footer) {
             $output .= "</table>\n";
             if (count($this->_links) > 1) {
                 $output .= implode($sep, $this->_links) . "\n";
@@ -373,7 +373,7 @@ class Pop_Paginator
     protected function _calcItems($p)
     {
         // Calculate the number of pages based on the remainder.
-        if (!is_null($this->_total)) {
+        if (null !== $this->_total) {
             $this->_rem = $this->_total % $this->_perpage;
             $this->_numpages = ($this->_rem != 0) ? (floor(($this->_total / $this->_perpage)) + 1) : floor(($this->_total / $this->_perpage));
         } else {

@@ -138,7 +138,7 @@ class Pop_Db_Adapter_Sqlite extends Pop_Db_Adapter_Abstract
      */
     public function execute()
     {
-        if (is_null($this->_statement)) {
+        if (null === $this->_statement) {
             throw new Exception($this->_lang->__('Error: The database statement resource is not currently set.'));
         } else {
             $this->result = $this->_statement->execute();
@@ -207,7 +207,7 @@ class Pop_Db_Adapter_Sqlite extends Pop_Db_Adapter_Abstract
      */
     public function numRows()
     {
-        if (is_null($this->last_sql)) {
+        if (null === $this->last_sql) {
             return $this->connection->changes();
         } else {
             if (!($this->last_result = $this->connection->query($this->last_sql))) {
@@ -249,16 +249,6 @@ class Pop_Db_Adapter_Sqlite extends Pop_Db_Adapter_Abstract
     }
 
     /**
-     * Close the DB connection.
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        $this->connection->close();
-    }
-
-    /**
      * Get an array of the tables of the database.
      *
      * @return array
@@ -275,6 +265,16 @@ class Pop_Db_Adapter_Sqlite extends Pop_Db_Adapter_Abstract
         }
 
         return $tables;
+    }
+
+    /**
+     * Close the DB connection.
+     *
+     * @return void
+     */
+    public function __destruct()
+    {
+        $this->connection->close();
     }
 
 }

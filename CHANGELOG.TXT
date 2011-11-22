@@ -52,49 +52,46 @@ Pop PHP Framework 0.9 Beta (Forked from Moc10 PHP Library 1.9.7)
 ------------------------------------------------
 -- ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON --
 ------------------------------------------------
-        > Rework the integration of the new/improved image components into Pop_Pdf
- [DONE] > Improve Pop_Pdf API
- [DONE] > Fix PDF import bug
- [DONE] > Address page ordering issue for PDF import
- [DONE] > Fix addFont bug
- [DONE] > Add compression to PDF
-        > Add a font component
-        > Add font embedding/compression to PDF
-        > Revisit PDF layer/clipping issues
-        > Revisit embedding GIFs into PDF issue
-        > Revisit pie chart text for PDF
-        > Revisit File write/buffer, etc.
+         > Rework the integration of the new/improved image components into Pop_Pdf
+  [DONE] > Improve Pop_Pdf API
+  [DONE] > Fix PDF import bug
+  [DONE] > Address page ordering issue for PDF import
+  [DONE] > Fix addFont bug
+  [DONE] > Add compression to PDF
+         > Add a font component
+         > Add font embedding/compression to PDF
+         > Revisit PDF layer/clipping issues
+         > Revisit embedding GIFs into PDF issue
+         > Revisit pie chart text for PDF
+         > Revisit File write/buffer, etc.
 
 ------------------------------------------------
 --    CURRENTLY ON DECK & BEING WORKED ON     --
 ------------------------------------------------
 
  2nd Round:
-        > Add Code Generator
-          - Data mapping classes to database tables
-          - Generate code for classes and create database from template
-        > Add Geo support via Google API (get address, city, state, long/lat, calculate distances, etc.)
-          - Integrate GeoIP?
-        > Add Namespace support
-        > Look at creating more dependency injections throughout (config/ini file?)
-        > Check autoloader for override issue. Revise autoloader to work with other autoloaders. Classmap generator?
-        > Officially integrate Ralph's USAePay and Paymentech support components, as well as create
-          support components for Authorize.net and PayPal.
-        > Evaluate where the framework would benefit from interfaces and abstact class blueprints (i.e. Db Adapter)
+         > Add Code Generator
+           - Data mapping classes to database tables
+           - Generate code for classes and create database from template
+         > Add Geo support via Google API (get address, city, state, long/lat, calculate distances, etc.)
+           - Integrate GeoIP?
+         > Add Namespace support
+         > Look at creating more dependency injections throughout (config/ini file?)
+         > Check autoloader for override issue. Revise autoloader to work with other autoloaders. Classmap generator?
+         > Officially integrate Ralph's USAePay and Paymentech support components, as well as create
+           support components for Authorize.net and PayPal.
+         > Evaluate where the framework would benefit from interfaces and abstact class blueprints (i.e. Db Adapter)
 
  3rd Round:
-        > Code review/cleanup
-          - Class layout - statics before instances, magics at bottom
-          - Paginator Placement?
-          - Record
-            > isset vs array_key_exists
-          - General
-            > is_null() change to (null === $var)
-          - Change print to echo
+  [DONE] > Code review/cleanup - Phase 1
+           - Overall class layout
+           - Change is_null($var) to (null === $var)
+           - Change print to echo
+         > Code review/cleanup - Phase 2
 
  4th Round:
-        > Testing, testing & more testing!
-        > Documentation!
+         > Testing, testing & more testing
+         > Documentation
 
 METHOD/PROPERTY RENAMES:
 Form:

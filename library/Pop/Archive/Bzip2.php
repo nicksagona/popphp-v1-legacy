@@ -34,6 +34,28 @@ class Pop_Archive_Bzip2
 {
 
     /**
+     * Static method to compress an archive file using Bzip2.
+     *
+     * @param  Pop_Archive $archive
+     * @return string
+     */
+    public static function compress($archive)
+    {
+        // Read the file data.
+        $data = $archive->read();
+
+        // Create the new Bzip2 file and resource.
+        $bzFile = new Pop_File($archive->fullpath . '.bz2');
+        $bzResource = bzopen($bzFile->fullpath, 'w');
+
+        // Write the data to the new Bzip2 file and close the resource.
+        bzwrite($bzResource, $data, strlen($data));
+        bzclose($bzResource);
+
+        return $bzFile->fullpath;
+    }
+
+    /**
      * Method to extract a compressed file using Bzip2
      *
      * @param  Pop_Archive $archive
@@ -63,28 +85,6 @@ class Pop_Archive_Bzip2
         } else {
             return $new->fullpath;
         }
-    }
-
-    /**
-     * Static method to compress an archive file using Bzip2.
-     *
-     * @param  Pop_Archive $archive
-     * @return string
-     */
-    public static function compress($archive)
-    {
-        // Read the file data.
-        $data = $archive->read();
-
-        // Create the new Bzip2 file and resource.
-        $bzFile = new Pop_File($archive->fullpath . '.bz2');
-        $bzResource = bzopen($bzFile->fullpath, 'w');
-
-        // Write the data to the new Bzip2 file and close the resource.
-        bzwrite($bzResource, $data, strlen($data));
-        bzclose($bzResource);
-
-        return $bzFile->fullpath;
     }
 
 }

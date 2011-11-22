@@ -142,10 +142,10 @@ class Pop_Db_Adapter_Pgsql extends Pop_Db_Adapter_Abstract
      */
     public function execute()
     {
-        if (is_null($this->_statement)) {
+        if (null === $this->_statement) {
             throw new Exception($this->_lang->__('Error: The database statement resource is not currently set.'));
         } else {
-            if (!is_null($this->_parameters) && is_array($this->_parameters))  {
+            if ((null !== $this->_parameters) && is_array($this->_parameters))  {
                 $this->result = pg_execute($this->connection, 'pop_db_adapter_pgsql_statement', $this->_parameters);
             } else {
                 $this->query($this->_sql);
@@ -247,16 +247,6 @@ class Pop_Db_Adapter_Pgsql extends Pop_Db_Adapter_Abstract
     }
 
     /**
-     * Close the DB connection.
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        pg_close($this->connection);
-    }
-
-    /**
      * Get an array of the tables of the database.
      *
      * @return array
@@ -273,6 +263,16 @@ class Pop_Db_Adapter_Pgsql extends Pop_Db_Adapter_Abstract
         }
 
         return $tables;
+    }
+
+    /**
+     * Close the DB connection.
+     *
+     * @return void
+     */
+    public function __destruct()
+    {
+        pg_close($this->connection);
     }
 
 }

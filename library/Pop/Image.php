@@ -132,7 +132,7 @@ class Pop_Image extends Pop_Image_Abstract
             // If image does not exists, check to make sure the width and
             // height properties of the new image have been passed.
             } else {
-                if (is_null($w) || is_null($h)) {
+                if ((null === $w) || (null === $h)) {
                     throw new Exception($this->_lang->__('Error: You must define a width and height for a new image object.'));
                 } else {
                     // Set image object properties.
@@ -143,11 +143,11 @@ class Pop_Image extends Pop_Image_Abstract
                     // Create a new image and allocate the background color.
                     if ($this->_mime == 'image/gif') {
                         $this->_resource = imagecreate($w, $h);
-                        $this->setBackgroundColor((is_null($color)) ? new Pop_Color_Rgb(255, 255, 255) : $color);
+                        $this->setBackgroundColor((null === $color) ? new Pop_Color_Rgb(255, 255, 255) : $color);
                         $clr = $this->_setColor($this->_backgroundColor);
                     } else {
                         $this->_resource = imagecreatetruecolor($w, $h);
-                        $this->setBackgroundColor((is_null($color)) ? new Pop_Color_Rgb(255, 255, 255) : $color);
+                        $this->setBackgroundColor((null === $color) ? new Pop_Color_Rgb(255, 255, 255) : $color);
                         $clr = $this->_setColor($this->_backgroundColor);
                         imagefill($this->_resource, 0, 0, $clr);
                     }
@@ -159,6 +159,16 @@ class Pop_Image extends Pop_Image_Abstract
                 }
             }
         }
+    }
+
+    /**
+     * Check if GD is installed.
+     *
+     * @return boolean
+     */
+    public static function isGdInstalled()
+    {
+        return function_exists('gd_info');
     }
 
     /**
@@ -391,7 +401,7 @@ class Pop_Image extends Pop_Image_Abstract
         $color = $this->_setColor($this->_fillColor);
 
         // Write the text to the image.
-        if (!is_null($font) && function_exists('imagettftext')) {
+        if ((null !== $font) && function_exists('imagettftext')) {
             if ($stroke) {
                 $stroke = $this->_setColor($this->_strokeColor);
                 imagettftext($this->_resource, $size, $rotate, $x, ($y - 1), $stroke, $font, $str);
@@ -423,8 +433,8 @@ class Pop_Image extends Pop_Image_Abstract
         // Create an image resource and set the stroke color.
         $this->_createResource();
 
-        $strokeWidth = (is_null($this->_strokeWidth)) ? 1 : $this->_strokeWidth;
-        $strokeColor = (is_null($this->_strokeColor)) ? $this->_setColor(new Pop_Color_Rgb(0, 0, 0)) : $this->_setColor($this->_strokeColor);
+        $strokeWidth = (null === $this->_strokeWidth) ? 1 : $this->_strokeWidth;
+        $strokeColor = (null === $this->_strokeColor) ? $this->_setColor(new Pop_Color_Rgb(0, 0, 0)) : $this->_setColor($this->_strokeColor);
 
         // Draw the line.
         imagesetthickness($this->_resource, $strokeWidth);
@@ -446,15 +456,15 @@ class Pop_Image extends Pop_Image_Abstract
     public function addRectangle($x, $y, $w, $h = null)
     {
         $x2 = $x + $w;
-        $y2 = $y + ((is_null($h)) ? $w : $h);
+        $y2 = $y + ((null === $h) ? $w : $h);
 
         // Create an image resource.
         $this->_createResource();
 
         // Set fill color and create rectangle.
-        if (is_null($this->_fillColor) && is_null($this->_backgroundColor)) {
+        if ((null === $this->_fillColor) && (null === $this->_backgroundColor)) {
             $fill = $this->_setColor(new Pop_Color_Rgb(255, 255, 255));
-        } else if (is_null($this->_fillColor)) {
+        } else if (null === $this->_fillColor) {
             $fill = $this->_setColor($this->_backgroundColor);
         } else {
             $fill = $this->_setColor($this->_fillColor);
@@ -463,9 +473,9 @@ class Pop_Image extends Pop_Image_Abstract
         imagefilledrectangle($this->_resource, $x, $y, $x2, $y2, $fill);
 
             // Create stroke, if applicable.
-        if (!is_null($this->_strokeColor)) {
+        if (null !== $this->_strokeColor) {
             $stroke = $this->_setColor($this->_strokeColor);
-            if (is_null($this->_strokeWidth)) {
+            if (null === $this->_strokeWidth) {
                 $this->_strokeWidth = 1;
             }
             imagesetthickness($this->_resource, $this->_strokeWidth);
@@ -502,24 +512,24 @@ class Pop_Image extends Pop_Image_Abstract
     public function addEllipse($x, $y, $w, $h = null)
     {
         $wid = $w * 2;
-        $hgt = ((is_null($h)) ? $w : $h) * 2;
+        $hgt = ((null === $h) ? $w : $h) * 2;
 
         // Create an image resource.
         $this->_createResource();
 
         // Create stroke, if applicable.
-        if (!is_null($this->_strokeColor)) {
+        if (null !== $this->_strokeColor) {
             $stroke = $this->_setColor($this->_strokeColor);
-            if (is_null($this->_strokeWidth)) {
+            if (null === $this->_strokeWidth) {
                 $this->_strokeWidth = 1;
             }
             imagefilledellipse($this->_resource, $x, $y, ($wid + $this->_strokeWidth), ($hgt + $this->_strokeWidth), $stroke);
         }
 
         // Set fill color and create ellipse.
-        if (is_null($this->_fillColor) && is_null($this->_backgroundColor)) {
+        if ((null === $this->_fillColor) && (null === $this->_backgroundColor)) {
             $fill = $this->_setColor(new Pop_Color_Rgb(255, 255, 255));
-        } else if (is_null($this->_fillColor)) {
+        } else if (null === $this->_fillColor) {
             $fill = $this->_setColor($this->_backgroundColor);
         } else {
             $fill = $this->_setColor($this->_fillColor);
@@ -559,15 +569,15 @@ class Pop_Image extends Pop_Image_Abstract
     public function addArc($x, $y, $start, $end, $w, $h = null)
     {
         $wid = $w * 2;
-        $hgt = ((is_null($h)) ? $w : $h) * 2;
+        $hgt = ((null === $h) ? $w : $h) * 2;
 
         // Create an image resource.
         $this->_createResource();
 
         // Set fill color and create rectangle.
-        if (is_null($this->_fillColor) && is_null($this->_backgroundColor)) {
+        if ((null === $this->_fillColor) && (null === $this->_backgroundColor)) {
             $fill = $this->_setColor(new Pop_Color_Rgb(255, 255, 255));
-        } else if (is_null($this->_fillColor)) {
+        } else if (null === $this->_fillColor) {
             $fill = $this->_setColor($this->_backgroundColor);
         } else {
             $fill = $this->_setColor($this->_fillColor);
@@ -576,7 +586,7 @@ class Pop_Image extends Pop_Image_Abstract
         imagefilledarc($this->_resource, $x, $y, $wid, $hgt, $start, $end, $fill, IMG_ARC_PIE);
 
         // Create stroke, if applicable.
-        if (!is_null($this->_strokeColor)) {
+        if (null !== $this->_strokeColor) {
             $x1 = $w * cos($start / 180 * pi());
             $y1 = $h * sin($start / 180 * pi());
             $x2 = $w * cos($end / 180 * pi());
@@ -584,7 +594,7 @@ class Pop_Image extends Pop_Image_Abstract
 
             $stroke = $this->_setColor($this->_strokeColor);
 
-            if (is_null($this->_strokeWidth)) {
+            if (null === $this->_strokeWidth) {
                 $this->_strokeWidth = 1;
             }
 
@@ -619,9 +629,9 @@ class Pop_Image extends Pop_Image_Abstract
         $this->_createResource();
 
         // Set fill color and create rectangle.
-        if (is_null($this->_fillColor) && is_null($this->_backgroundColor)) {
+        if ((null === $this->_fillColor) && (null === $this->_backgroundColor)) {
             $fill = $this->_setColor(new Pop_Color_Rgb(255, 255, 255));
-        } else if (is_null($this->_fillColor)) {
+        } else if (null === $this->_fillColor) {
             $fill = $this->_setColor($this->_backgroundColor);
         } else {
             $fill = $this->_setColor($this->_fillColor);
@@ -630,9 +640,9 @@ class Pop_Image extends Pop_Image_Abstract
         imagefilledpolygon($this->_resource, $realPoints, count($points), $fill);
 
         // Create stroke, if applicable.
-        if (!is_null($this->_strokeColor)) {
+        if (null !== $this->_strokeColor) {
             $stroke = $this->_setColor($this->_strokeColor);
-            if (is_null($this->_strokeWidth)) {
+            if (null === $this->_strokeWidth) {
                 $this->_strokeWidth = 1;
             }
             imagesetthickness($this->_resource, $this->_strokeWidth);
@@ -738,7 +748,7 @@ class Pop_Image extends Pop_Image_Abstract
      */
     public function border($w, $h = null, $type = Pop_Image::INNER_BORDER)
     {
-        $h = is_null($h) ? $w : $h;
+        $h = (null === $h) ? $w : $h;
 
         $this->_fillColor = $this->_strokeColor;
         $this->setOpacity(100);
@@ -935,7 +945,7 @@ class Pop_Image extends Pop_Image_Abstract
         $type = strtolower($type);
 
         // Check if the permissions are set correctly.
-        if (!is_null($this->_perm['file']) && ($this->_perm['file'] != 777)) {
+        if ((null !== $this->_perm['file']) && ($this->_perm['file'] != 777)) {
             throw new Exception($this->_lang->__('Error: Permission denied.'));
         // Check if the requested image type is supported.
         } else if (!array_key_exists($type, $this->_allowed)) {
@@ -1021,11 +1031,11 @@ class Pop_Image extends Pop_Image_Abstract
             header('Pragma: cache');
         }
 
-        if (is_null($this->_resource)) {
+        if (null === $this->_resource) {
             $this->_createResource();
         }
 
-        if (is_null($this->_output)) {
+        if (null === $this->_output) {
             $this->_output = $this->_resource;
         }
 
@@ -1047,17 +1057,17 @@ class Pop_Image extends Pop_Image_Abstract
      */
     public function save($to = null, $append = false)
     {
-        if (is_null($this->_output) && is_null($this->_resource)) {
+        if ((null === $this->_output) && (null === $this->_resource)) {
             throw new Exception($this->_lang->__('Error: The image resource has not been created.'));
         } else {
-            if (is_null($this->_output)) {
+            if (null === $this->_output) {
                 $this->_output = $this->_resource;
             }
 
-            $this->_createImage($this->_output, (is_null($to) ? $this->fullpath : $to), $this->_quality);
+            $this->_createImage($this->_output, ((null === $to) ? $this->fullpath : $to), $this->_quality);
             clearstatcache();
 
-            $this->_setFile((is_null($to) ? $this->fullpath : $to));
+            $this->_setFile((null === $to) ? $this->fullpath : $to);
 
             $imgSize = getimagesize($this->fullpath);
 
@@ -1079,14 +1089,14 @@ class Pop_Image extends Pop_Image_Abstract
     public function destroy($file = false)
     {
         // Destroy the image resource.
-        if (!is_null($this->_resource)) {
+        if (null !== $this->_resource) {
             if (!is_string($this->_resource)) {
                 imagedestroy($this->_resource);
             }
             $this->_resource = null;
         }
         // Destroy the image output resource.
-        if (!is_null($this->_output)) {
+        if (null !== $this->_output) {
             if (!is_string($this->_output)) {
                 imagedestroy($this->_output);
             }
@@ -1100,16 +1110,6 @@ class Pop_Image extends Pop_Image_Abstract
         if ($file) {
             $this->delete();
         }
-    }
-
-    /**
-     * Check if GD is installed.
-     *
-     * @return boolean
-     */
-    public static function isGdInstalled()
-    {
-        return function_exists('gd_info');
     }
 
     /**
@@ -1145,11 +1145,11 @@ class Pop_Image extends Pop_Image_Abstract
      */
     protected function _setColor(Pop_Color_Interface $color = null)
     {
-        if (is_null($this->_resource)) {
+        if (null === $this->_resource) {
             throw new Exception($this->_lang->__('Error: The image resource has not been created.'));
         } else {
-            $opac = (is_null($this->_opacity)) ? 0 : $this->_opacity;
-            if (!is_null($color)) {
+            $opac = (null === $this->_opacity) ? 0 : $this->_opacity;
+            if (null !== $color) {
                 $color = imagecolorallocatealpha($this->_resource, (int)$color->getRed(), (int)$color->getGreen(), (int)$color->getBlue(), $opac);
             } else {
                 $color = imagecolorallocatealpha($this->_resource, 0, 0, 0, $opac);
@@ -1167,7 +1167,7 @@ class Pop_Image extends Pop_Image_Abstract
      */
     protected function _createResource()
     {
-        if (!is_null($this->_output)) {
+        if (null !== $this->_output) {
             $this->_resource = (is_string($this->_output)) ? imagecreatefromstring($this->_output) : $this->_output;
         } else if (file_exists($this->fullpath)) {
             switch ($this->_mime) {

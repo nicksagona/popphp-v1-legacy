@@ -131,7 +131,7 @@ class Pop_Mail
             }
         // Else, set the single email value.
         } else {
-            if (!is_null($nm)) {
+            if (null !== $nm) {
                 $this->_queue[] = array('name' => $nm, 'email' => $em);
             } else {
                 $this->_queue[] = array('email' => $em);
@@ -169,7 +169,7 @@ class Pop_Mail
      */
     public function setBoundary($bnd = null)
     {
-        $this->_mime_boundary = (!is_null($bnd)) ? $bnd : sha1(time());
+        $this->_mime_boundary = (null !== $bnd) ? $bnd : sha1(time());
         return $this;
     }
 
@@ -262,7 +262,7 @@ class Pop_Mail
      */
     public function setHeaders($hdrs = null)
     {
-        if (is_null($hdrs)) {
+        if (null === $hdrs) {
             $this->_headers = null;
         } else if (is_array($hdrs)) {
             foreach ($hdrs as $key => $value) {
@@ -283,7 +283,7 @@ class Pop_Mail
      */
     public function setParams($params = null)
     {
-        if (is_null($params)) {
+        if (null === $params) {
             $this->_params = null;
         } else if (is_array($params)) {
             foreach ($params as $value) {
@@ -306,7 +306,7 @@ class Pop_Mail
     {
         $msgType = $this->_getMessageType();
 
-        if (is_null($msgType)) {
+        if (null === $msgType) {
             throw new Exception($this->_lang->__('Error: The message body elements are not set.'));
         } else {
             $this->setBoundary();
@@ -398,19 +398,19 @@ class Pop_Mail
      */
     protected function _getMessageType()
     {
-        if ((count($this->_attachments) > 0) && is_null($this->_html) && is_null($this->_text)) {
+        if ((count($this->_attachments) > 0) && (null === $this->_html) && (null === $this->_text)) {
             $type = null;
-        } else if ((count($this->_attachments) > 0) && (!is_null($this->_html)) && (!is_null($this->_text))) {
+        } else if ((count($this->_attachments) > 0) && (null !== $this->_html) && (null !== $this->_text)) {
             $type = 'FILE|HTML|TEXT';
-        } else if ((count($this->_attachments) > 0) && (!is_null($this->_html))) {
+        } else if ((count($this->_attachments) > 0) && (null !== $this->_html)) {
             $type = 'FILE|HTML';
-        } else if ((count($this->_attachments) > 0) && (!is_null($this->_text))) {
+        } else if ((count($this->_attachments) > 0) && (null !== $this->_text)) {
             $type = 'FILE|TEXT';
-        } else if ((!is_null($this->_html)) && (!is_null($this->_text))) {
+        } else if ((null !== $this->_html) && (null !== $this->_text)) {
             $type = 'HTML|TEXT';
-        } else if (!is_null($this->_html)) {
+        } else if (null !== $this->_html) {
             $type = 'HTML';
-        } else if (!is_null($this->_text)) {
+        } else if (null !== $this->_text) {
             $type = 'TEXT';
         }
 

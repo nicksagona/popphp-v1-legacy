@@ -86,7 +86,7 @@ class Pop_Pdf_Info
     public function __construct($str = null)
     {
         // Use default settings for a new PDF object and its info object.
-        if (is_null($str)) {
+        if (null === $str) {
             $this->create_date = date('D, M j, Y h:i A');
             $this->mod_date = date('D, M j, Y h:i A');
             $this->_data = "3 0 obj\n<</Creator(Pop PDF)/CreationDate([{pdf_create_date}])/ModDate([{pdf_mod_date}])/Author([{pdf_author}])/Title([{pdf_title}])/Subject([{pdf_subject}])/Producer(Pop PDF)>>\nendobj\n";
@@ -188,10 +188,10 @@ class Pop_Pdf_Info
     public function __toString()
     {
         // Set the CreationDate and the ModDate if they are null.
-        if (is_null($this->create_date)) {
+        if (null === $this->create_date) {
             $this->create_date = date('D, M j, Y h:i A');
         }
-        if (is_null($this->mod_date)) {
+        if (null === $this->mod_date) {
             $this->mod_date = date('D, M j, Y h:i A');
         }
 

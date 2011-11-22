@@ -93,31 +93,6 @@ class Pop_Form extends Pop_Dom
     }
 
     /**
-     * Set method to set the property to the value of _fields[$name].
-     *
-     * @param  string $name
-     * @param  mixed $value
-     * @throws Exception
-     * @return void
-     */
-    public function __set($name, $value)
-    {
-        $this->_fields[$name] = $value;
-    }
-
-    /**
-     * Get method to return the value of _fields[$name].
-     *
-     * @param  string $name
-     * @throws Exception
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        return (!array_key_exists($name, $this->_fields)) ? null : $this->_fields[$name];
-    }
-
-    /**
      * Set the init values of the form object.
      *
      * @param  array $values
@@ -173,17 +148,17 @@ class Pop_Form extends Pop_Dom
                     }
 
                     // Set the label.
-                    if (!is_null($label)) {
+                    if (null !== $label) {
                         $elem->setLabel($label);
                     }
 
                     // Set if required.
-                    if (!is_null($required)) {
+                    if (null !== $required) {
                         $elem->setRequired($required);
                     }
 
                     // Set any attributes.
-                    if (!is_null($attributes)) {
+                    if (null !== $attributes) {
                         if (is_array($attributes)) {
                             if ((count($attributes) == 2) && !is_array($attributes[0]) && !is_array($attributes[1])) {
                                 $elem->setAttributes($attributes[0], $attributes[1]);
@@ -198,7 +173,7 @@ class Pop_Form extends Pop_Dom
                     }
 
                     // Set any validators.
-                    if (!is_null($validators)) {
+                    if (null !== $validators) {
                         if (is_array($validators)) {
                             foreach ($validators as $val) {
                                 if (is_array($val)) {
@@ -458,7 +433,7 @@ class Pop_Form extends Pop_Dom
         if (count($this->_form->getChildren()) == 0) {
             throw new Exception(Pop_Locale::load()->__('Error: There are no form elements declared for this form object.'));
         // Else, if the template is not set, default to the basic output.
-        } else if (is_null($this->_template)) {
+        } else if (null === $this->_template) {
             if ($ret) {
                 return (string)$this;
             } else {
@@ -483,7 +458,7 @@ class Pop_Form extends Pop_Dom
                 $name = str_replace('[]', '', $name);
 
                 // Set the element's label, if applicable.
-                if (!is_null($child->label)) {
+                if (null !== $child->label) {
 
                     // Format the label name.
                     $label = new Pop_Dom_Child('label', $child->label);
@@ -544,6 +519,31 @@ class Pop_Form extends Pop_Dom
     }
 
     /**
+     * Set method to set the property to the value of _fields[$name].
+     *
+     * @param  string $name
+     * @param  mixed $value
+     * @throws Exception
+     * @return void
+     */
+    public function __set($name, $value)
+    {
+        $this->_fields[$name] = $value;
+    }
+
+    /**
+     * Get method to return the value of _fields[$name].
+     *
+     * @param  string $name
+     * @throws Exception
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        return (!array_key_exists($name, $this->_fields)) ? null : $this->_fields[$name];
+    }
+
+    /**
      * Output the form object in a basic HTML format. Each form element is formatted to a 1:1 label to element
      * ratio, using <dl>, <dt> and <dd> tags. Required fields' labels have class="required" and error messages
      * have class="error" for styling purposes.
@@ -564,7 +564,7 @@ class Pop_Form extends Pop_Dom
         // Loop through the children and create and attach the appropriate DT and DT elements, with labels where applicable.
         foreach ($children as $child) {
             // If the element label is set, render the appropriate DT and DD elements.
-            if (!is_null($child->label)) {
+            if (null !== $child->label) {
                 // Create the DT and DD elements.
                 $dt = new Pop_Dom_Child('dt', null, null, false, ($this->_form->getIndent() . '        '));
                 $dd = new Pop_Dom_Child('dd', null, null, false, ($this->_form->getIndent() . '        '));

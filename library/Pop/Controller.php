@@ -75,10 +75,10 @@ class Pop_Controller
      */
     public function __construct(Pop_Http_Request $request = null, Pop_Http_Response $response = null, $viewPath = null)
     {
-        $this->_request = (!is_null($request)) ? $request : new Pop_Http_Request();
-        $this->_response = (!is_null($response)) ? $response : new Pop_Http_Response(200, array('Content-Type' => 'text/html'));
+        $this->_request = (null !== $request) ? $request : new Pop_Http_Request();
+        $this->_response = (null !== $response) ? $response : new Pop_Http_Response(200, array('Content-Type' => 'text/html'));
 
-        if (!is_null($viewPath)) {
+        if (null !== $viewPath) {
             $this->_viewPath = $viewPath;
         }
     }
@@ -160,7 +160,7 @@ class Pop_Controller
     {
         $this->_response->setCode($code);
 
-        if (!is_null($headers)) {
+        if (null !== $headers) {
             foreach ($headers as $name => $value) {
                 $this->_response->setHeader($name, $value);
             }

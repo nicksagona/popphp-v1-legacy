@@ -120,7 +120,7 @@ class Pop_Pdf_Object
         $matches = array();
 
         // Set the content stream.
-        $stream = (!is_null($this->_stream)) ? "stream" . $this->_stream . "endstream\n" : '';
+        $stream = (null !== $this->_stream) ? "stream" . $this->_stream . "endstream\n" : '';
 
         // Set up the Length definition.
         if (strpos($this->_def, '/Length ') !== false) {

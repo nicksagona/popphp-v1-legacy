@@ -145,17 +145,6 @@ class Pop_Font extends Pop_File
     }
 
     /**
-     * Method to convert a value to the representative value in EM.
-     *
-     * @param int $value
-     * @return int
-     */
-    public function toEmSpace($value)
-    {
-        return ($this->unitsPerEm == 1000) ? $value : ceil(($value / $this->unitsPerEm) * 1000);
-    }
-
-    /**
      * Static method to read and return a fixed-point number
      *
      * @param  int    $mantissaBits
@@ -217,6 +206,17 @@ class Pop_Font extends Pop_File
         }
 
         return $values;
+    }
+
+    /**
+     * Method to convert a value to the representative value in EM.
+     *
+     * @param int $value
+     * @return int
+     */
+    public function toEmSpace($value)
+    {
+        return ($this->unitsPerEm == 1000) ? $value : ceil(($value / $this->unitsPerEm) * 1000);
     }
 
     /**

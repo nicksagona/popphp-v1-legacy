@@ -77,53 +77,8 @@ class Pop_Color
     {
         $this->_lang = new Pop_Locale();
 
-        if (!is_null($color)) {
+        if (null !== $color) {
             $this->addColor($color, $convert);
-        }
-    }
-
-    /**
-     * Get method to return the value of _colors[$name].
-     *
-     * @param  string $name
-     * @throws Exception
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        $name = strtolower($name);
-
-        // Check to see if the color space object exists.
-        if (!array_key_exists($name, $this->_colors)) {
-            throw new Exception($this->_lang->__('That color space object does not exist.'));
-        } else {
-            return $this->_colors[$name];
-        }
-    }
-
-    /**
-     * Return the isset value of _colors[$name].
-     *
-     * @param  string $name
-     * @return boolean
-     */
-    public function __isset($name)
-    {
-        return isset($this->_colors[strtolower($name)]);
-    }
-
-    /**
-     * Unset _colors[$name].
-     *
-     * @param  string $name
-     * @return void
-     */
-    public function __unset($name)
-    {
-        $name = strtolower($name);
-
-        if (isset($this->_colors[$name])) {
-            unset($this->_colors[$name]);
         }
     }
 
@@ -704,6 +659,51 @@ class Pop_Color
     public function labToHsb(Pop_Color_Lab $lab)
     {
         return $this->rgbToHsb($this->labToRgb($lab));
+    }
+
+    /**
+     * Get method to return the value of _colors[$name].
+     *
+     * @param  string $name
+     * @throws Exception
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        $name = strtolower($name);
+
+        // Check to see if the color space object exists.
+        if (!array_key_exists($name, $this->_colors)) {
+            throw new Exception($this->_lang->__('That color space object does not exist.'));
+        } else {
+            return $this->_colors[$name];
+        }
+    }
+
+    /**
+     * Return the isset value of _colors[$name].
+     *
+     * @param  string $name
+     * @return boolean
+     */
+    public function __isset($name)
+    {
+        return isset($this->_colors[strtolower($name)]);
+    }
+
+    /**
+     * Unset _colors[$name].
+     *
+     * @param  string $name
+     * @return void
+     */
+    public function __unset($name)
+    {
+        $name = strtolower($name);
+
+        if (isset($this->_colors[$name])) {
+            unset($this->_colors[$name]);
+        }
     }
 
 }

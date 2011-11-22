@@ -124,7 +124,7 @@ class Pop_Db_Adapter_Pdo extends Pop_Db_Adapter_Abstract
     {
         $errorMessage = null;
 
-        if (is_null($code) && is_null($info)) {
+        if ((null === $code) && (null === $info)) {
             $errorCode = $this->connection->errorCode();
             $errorInfo = $this->connection->errorInfo();
         } else {
@@ -162,7 +162,7 @@ class Pop_Db_Adapter_Pdo extends Pop_Db_Adapter_Abstract
             $this->_placeholder = ':';
         }
 
-        if (!is_null($attribs) && is_array($attribs)) {
+        if ((null !== $attribs) && is_array($attribs)) {
             $this->_statement = $this->connection->prepare($sql, $attribs);
         } else {
             $this->_statement = $this->connection->prepare($sql);
@@ -215,7 +215,7 @@ class Pop_Db_Adapter_Pdo extends Pop_Db_Adapter_Abstract
      */
     public function execute()
     {
-        if (is_null($this->_statement)) {
+        if (null === $this->_statement) {
             throw new Exception($this->_lang->__('Error: The database statement resource is not currently set.'));
         } else {
             $this->result = $this->_statement->execute();
@@ -316,16 +316,6 @@ class Pop_Db_Adapter_Pdo extends Pop_Db_Adapter_Abstract
     }
 
     /**
-     * Close the DB connection.
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        $this->connection = null;
-    }
-
-    /**
      * Get an array of the tables of the database.
      *
      * @return array
@@ -342,6 +332,16 @@ class Pop_Db_Adapter_Pdo extends Pop_Db_Adapter_Abstract
         }
 
         return $tables;
+    }
+
+    /**
+     * Close the DB connection.
+     *
+     * @return void
+     */
+    public function __destruct()
+    {
+        $this->connection = null;
     }
 
 }

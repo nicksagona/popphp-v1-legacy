@@ -95,7 +95,7 @@ class Pop_Data_Csv implements Pop_Data_Interface
         $tempAry = array();
         $headerAry = array();
 
-        if (is_null($omit)) {
+        if (null === $omit) {
             $omit = array();
         } else if (!is_array($omit)) {
             $omit = array($omit);
@@ -127,7 +127,7 @@ class Pop_Data_Csv implements Pop_Data_Interface
             $rowAry = array();
             foreach ($value as $key => $val) {
                 if (!in_array($key, $omit)) {
-                    if (!is_null($dt)) {
+                    if (null !== $dt) {
                         if ((strtotime($val) !== false) || (stripos($key, 'date') !== false)) {
                             $v = (date($dt, strtotime($val)) != '12/31/1969') ? new Pop_String(date($dt, strtotime((string)$val))) : new Pop_String('');
                         } else {
