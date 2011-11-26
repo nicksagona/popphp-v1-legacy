@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo -e "This will be the Pop PHP Framework bash file for Linux/Unix.\n"
