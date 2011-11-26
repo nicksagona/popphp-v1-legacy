@@ -93,37 +93,6 @@ Pop PHP Framework 0.9 Beta (Forked from Moc10 PHP Library 1.9.7)
          > Testing, testing & more testing
          > Documentation
 
-------------------------------------------------
---      THOUGHTS ON DIRECTORY STRUCTURE       --
-------------------------------------------------
-
-/config
-   /application.config.php
-/module
-  /Mod
-    /config
-      module.config.php
-    /src
-      /Mod
-        /Form
-        /Model
-        /Table
-        /(etc.)
-    /views
-/public
-/src
-  /App
-    /Form
-    /Model
-    /Table
-    /(etc.)
-/vendor
-  /PopPHPFramework
-    /library
-      /Pop
-/views
-
-
 
 METHOD/PROPERTY RENAMES:
 Form:
