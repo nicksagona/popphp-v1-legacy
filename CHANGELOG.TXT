@@ -70,14 +70,15 @@ Pop PHP Framework 0.9 Beta (Forked from Moc10 PHP Library 1.9.7)
 ------------------------------------------------
 
  2nd Round:
+         > Add Namespace support
+         > Check autoloader for override issue. Revise autoloader to work with other autoloaders. Classmap generator?
+         > Look at creating more dependency injections throughout (config/ini file?)
+         > Exceptions
          > Add Code Generator
            - Data mapping classes to database tables
            - Generate code for classes and create database from template
          > Add Geo support via Google API (get address, city, state, long/lat, calculate distances, etc.)
            - Integrate GeoIP?
-         > Add Namespace support
-         > Look at creating more dependency injections throughout (config/ini file?)
-         > Check autoloader for override issue. Revise autoloader to work with other autoloaders. Classmap generator?
          > Officially integrate Ralph's USAePay and Paymentech support components, as well as create
            support components for Authorize.net and PayPal.
          > Evaluate where the framework would benefit from interfaces and abstact class blueprints (i.e. Db Adapter)

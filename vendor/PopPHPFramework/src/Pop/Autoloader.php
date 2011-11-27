@@ -34,63 +34,61 @@ class Pop_Autoloader
 {
 
     /**
-     * Method to autoload a class via the file name.
+     * Array of available namespaces.
+     * @var array
+     */
+    protected $_namespaces = array();
+
+    /**
+     * Constructor
+     *
+     * Instantiate the archive object
+     *
+     * @param  boolean $self
+     * @return void
+     */
+    public function __construct($self = true)
+    {
+        if ($self) {
+            $this->register('Pop', realpath(__DIR__ . '/../'));
+        }
+    }
+
+    /**
+     * Register a namespace and directory location with the autoloader
+     *
+     * @param  string $namespace
+     * @param  string $directory
+     * @return Pop_Autoloader
+     */
+    public function register($namespace, $directory)
+    {
+        $this->_namespaces[$namespace] = $directory;
+        return $this;
+    }
+
+    /**
+     * Register the autoloader instance with the SPL
+     *
+     * @return Pop_Autoloader
+     */
+    public function splAutoloadRegister()
+    {
+        spl_autoload_register($this);
+        return $this;
+    }
+
+    /**
+     * Invoke the class
      *
      * @param  string $class
      * @return void
      */
-    public static function autoload($class)
+    public function __invoke($class)
     {
-        // Set the file name and path.
-        $filePath = str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
-
-        // Require the file.
+        $namespace = substr($class, 0, strpos($class, '_'));
+        $filePath = $this->_namespaces[$namespace] . DIRECTORY_SEPARATOR . str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
         require_once $filePath;
-    }
-
-    /**
-     * Method to register the autoload class name with the autoload stack.
-     *
-     * @return void
-     */
-    public static function registerAutoloader()
-    {
-        spl_autoload_register('Pop_Autoloader::autoload');
-    }
-
-    /**
-     * Method to set the include path of the library.
-     *
-     * @return void
-     */
-    public static function setupIncludePath()
-    {
-        set_include_path(realpath(dirname(__FILE__) . '/../') . PATH_SEPARATOR . get_include_path());
-    }
-
-    /**
-     * Method to bootstrap the autoloader.
-     *
-     * @param  string|array $dirs
-     * @return void
-     */
-    public static function bootstrap($dirs = null)
-    {
-        if (null !== $dirs) {
-            if (is_array($dirs)) {
-                $realDirs = array();
-                foreach ($dirs as $dir) {
-                    $realDirs[] = realpath($dir);
-                }
-                $d = implode(PATH_SEPARATOR, $realDirs) . PATH_SEPARATOR . get_include_path();
-            } else {
-                $d = realpath($dirs) . PATH_SEPARATOR . get_include_path();
-            }
-            set_include_path($d);
-        }
-
-        self::setupIncludePath();
-        self::registerAutoloader();
     }
 
 }
