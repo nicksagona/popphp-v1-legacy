@@ -48,6 +48,10 @@ Pop PHP Framework 0.9 (Forked from Moc10 PHP Library 1.9.7)
            - Background color/images
   [DONE] > Add Http Request/Response Component
   [DONE] > Add MVC Component
+  [DONE] > Code review/cleanup - Phase 1
+           - Overall class layout
+           - Change is_null($var) to (null === $var)
+           - Change print to echo
   [DONE] > Refactor Autoloader Component
            - Add classmap generator
   [DONE] > Refactor framework with namespaces
@@ -77,6 +81,7 @@ Pop PHP Framework 0.9 (Forked from Moc10 PHP Library 1.9.7)
            - Compression
            - Filter
            - Images
+           - Evaluate possible benefits from interfaces, abstact classes, etc.
          > Look at creating more dependency injections throughout (config/ini file?)
          > Add Code Generator
            - Data mapping classes to database tables
@@ -85,13 +90,8 @@ Pop PHP Framework 0.9 (Forked from Moc10 PHP Library 1.9.7)
            - Integrate GeoIP?
          > Officially integrate Ralph's USAePay and Paymentech support components, as well as create
            support components for Authorize.net and PayPal.
-         > Evaluate where the framework would benefit from interfaces and abstact class blueprints (i.e. Db Adapter)
 
  3rd Round:
-  [DONE] > Code review/cleanup - Phase 1
-           - Overall class layout
-           - Change is_null($var) to (null === $var)
-           - Change print to echo
          > Code review/cleanup - Phase 2
 
  4th Round:
