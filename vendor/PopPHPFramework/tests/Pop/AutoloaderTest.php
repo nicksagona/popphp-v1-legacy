@@ -20,10 +20,10 @@
  */
 
 // Require the library's autoloader.
-require_once dirname(__FILE__) . '/../../library/Pop/Autoloader.php';
+require_once __DIR__ . '/../../library/Pop/Autoloader.php';
 
 // Set the include path of the application.
-set_include_path(dirname(__FILE__) . '/../../application/' . PATH_SEPARATOR . get_include_path());
+set_include_path(__DIR__ . '/../../application/' . PATH_SEPARATOR . get_include_path());
 
 // Call the autoloader's bootstrap function.
 Pop_Autoloader::bootstrap();

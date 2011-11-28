@@ -19,7 +19,7 @@
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  */
 
-require_once dirname(__FILE__) . '/../../library/Pop/Autoloader.php';
+require_once __DIR__ . '/../../library/Pop/Autoloader.php';
 Pop_Autoloader::bootstrap();
 
 class Pop_FileTest extends PHPUnit_Framework_TestCase

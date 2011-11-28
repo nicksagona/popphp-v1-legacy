@@ -73,6 +73,7 @@ Pop PHP Framework 0.9 (Forked from Moc10 PHP Library 1.9.7)
 ------------------------------------------------
 
  2nd Round:
+         > Break out Archive/Compression to its own component?
          > Look at creating more dependency injections throughout (config/ini file?)
          > Add Code Generator
            - Data mapping classes to database tables

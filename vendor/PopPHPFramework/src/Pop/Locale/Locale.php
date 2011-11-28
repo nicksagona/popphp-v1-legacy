@@ -146,7 +146,7 @@ class Locale
     public function getLanguages($dir = null)
     {
         $langsAry = array();
-        $langDirectory = (null !== $dir) ? $dir : dirname(__FILE__) . '/Locale/Data';
+        $langDirectory = (null !== $dir) ? $dir : __DIR__ . '/Locale/Data';
 
         if (file_exists($langDirectory)) {
             $langDir = new Dir($langDirectory);
@@ -274,7 +274,7 @@ class Locale
 
                 // Get template text.
                 $langText = array();
-                $langTmplFile = (null !== $tmpl) ? $tmpl : dirname(__FILE__) . '/Locale/Data/__.xml';
+                $langTmplFile = (null !== $tmpl) ? $tmpl : __DIR__ . '/Locale/Data/__.xml';
                 if (file_exists($langTmplFile)) {
                     if (($xml =@ new \SimpleXMLElement($langTmplFile, LIBXML_NOWARNING, true)) !== false) {
                         foreach ($xml->text as $text) {

@@ -158,7 +158,7 @@ class Select extends Element
                         $val = $value;
                     // Else, check for the values in the XML options file.
                     } else {
-                        $xmlFile = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Data' . DIRECTORY_SEPARATOR . 'options.xml';
+                        $xmlFile = __DIR__ . DIRECTORY_SEPARATOR . 'Data' . DIRECTORY_SEPARATOR . 'options.xml';
                         if (file_exists($xmlFile)) {
                             $xml = new \SimpleXMLElement($xmlFile, null, true);
                             $xmlValues = array();
