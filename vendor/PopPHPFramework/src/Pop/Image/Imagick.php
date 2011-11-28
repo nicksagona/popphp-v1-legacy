@@ -31,7 +31,7 @@
 /**
  * @namespace
  */
-namespace Pop\Imagick;
+namespace Pop\Image;
 use Pop\Color\Color,
     Pop\Color\ColorInterface,
     Pop\Color\Rgb,
