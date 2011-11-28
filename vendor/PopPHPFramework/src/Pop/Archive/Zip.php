@@ -20,17 +20,22 @@
  */
 
 /**
- * Pop_Archive_Zip
- *
  * @category   Pop
  * @package    Pop_Archive
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Archive_Zip
+/**
+ * @namespace
+ */
+namespace Pop\Archive;
+use Pop\Dir\Dir,
+    Pop\Filter\StringFilter;
+
+class Zip
 {
 
     /**
@@ -42,7 +47,7 @@ class Pop_Archive_Zip
      */
     public function extract($archive, $to = null)
     {
-        $zip = new ZipArchive();
+        $zip = new \ZipArchive();
 
         if ($zip->open($archive->fullpath) === true) {
             $zip->extractTo((null !== $to) ? $to : './');
@@ -65,19 +70,19 @@ class Pop_Archive_Zip
             $files = array($files);
         }
 
-        $zip = new ZipArchive();
+        $zip = new \ZipArchive();
 
-        if ($zip->open($archive->fullpath, ZipArchive::CREATE) === true) {
+        if ($zip->open($archive->fullpath, \ZipArchive::CREATE) === true) {
             foreach ($files as $file) {
                 // If file is a directory, loop through and add the files.
                 if (file_exists($file) && is_dir($file)) {
-                    $dir = new Pop_Dir($file, true, true);
-                    $zip->addEmptyDir((string)Pop_String::factory($dir->path)->replace('\\', '/')->replace('./', ''));
+                    $dir = new Dir($file, true, true);
+                    $zip->addEmptyDir((string)StringFilter::factory($dir->path)->replace('\\', '/')->replace('./', ''));
                     foreach ($dir->files as $fle) {
                         if (file_exists($fle) && is_dir($fle)) {
-                            $zip->addEmptyDir((string)Pop_String::factory($fle)->replace('\\', '/')->replace('./', ''));
+                            $zip->addEmptyDir((string)StringFilter::factory($fle)->replace('\\', '/')->replace('./', ''));
                         } else if (file_exists($fle)) {
-                            $zip->addFile($fle, (string)Pop_String::factory($fle)->replace('\\', '/')->replace('./', ''));
+                            $zip->addFile($fle, (string)StringFilter::factory($fle)->replace('\\', '/')->replace('./', ''));
                         }
                     }
                 // Else, just add the file.
@@ -100,7 +105,7 @@ class Pop_Archive_Zip
     {
         $files = array();
         $list = array();
-        $zip = new ZipArchive();
+        $zip = new \ZipArchive();
 
         if ($zip->open($archive->fullpath) === true) {
             $i = 0;

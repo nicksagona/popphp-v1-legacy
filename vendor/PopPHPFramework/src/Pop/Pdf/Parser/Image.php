@@ -20,17 +20,23 @@
  */
 
 /**
- * Pop_Pdf_Parser_Image
- *
  * @category   Pop
  * @package    Pop_Pdf
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Pdf_Parser_Image extends Pop_Image
+/**
+ * @namespace
+ */
+namespace Pop\Pdf\Parser;
+use Pop\Dir\Dir,
+    Pop\Image\Gd,
+    Pop\Pdf\Object;
+
+class Image extends Gd
 {
 
     /**
@@ -197,7 +203,7 @@ class Pop_Pdf_Parser_Image extends Pop_Image
     {
 
         // Define the temp scaled image.
-        $this->_scaledImage = Pop_Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->filename . '_' . time() . '.' . $this->ext;
+        $this->_scaledImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->filename . '_' . time() . '.' . $this->ext;
 
         // Scale or resize the image
         if (is_float($scl)) {
@@ -224,7 +230,7 @@ class Pop_Pdf_Parser_Image extends Pop_Image
     {
 
         // Define the temp converted image.
-        $this->_convertedImage = Pop_Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->filename . '_' . time() . '.png';
+        $this->_convertedImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->filename . '_' . time() . '.png';
 
         // Convert the GIF to PNG, save and clear the output buffer.
         $this->convert('png')->save(null, $this->_convertedImage);
@@ -246,7 +252,7 @@ class Pop_Pdf_Parser_Image extends Pop_Image
 
         // Add the image to the _objects array.
         $colorspace = ($this->getColorMode() == 'CMYK') ? "/DeviceCMYK\n    /Decode [1 0 1 0 1 0 1 0]" : "/Device" . $this->getColorMode();
-        $this->_objects[$this->_index] = new Pop_Pdf_Object("{$this->_index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->getWidth() . "\n    /Height " . $this->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent 8\n    /Filter /DCTDecode\n    /Length {$this->_imageDataLength}\n>>\nstream\n{$this->_imageData}\nendstream\nendobj\n");
+        $this->_objects[$this->_index] = new Object("{$this->_index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->getWidth() . "\n    /Height " . $this->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent 8\n    /Filter /DCTDecode\n    /Length {$this->_imageDataLength}\n>>\nstream\n{$this->_imageData}\nendstream\nendobj\n");
 
     }
 
@@ -305,12 +311,12 @@ class Pop_Pdf_Parser_Image extends Pop_Image
 
         // Add the image to the _objects array.
 
-        $this->_objects[$this->_index] = new Pop_Pdf_Object("{$this->_index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->getWidth() . "\n    /Height " . $this->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent " . $this->getDepth() . "\n    /Filter /FlateDecode\n    /DecodeParms <</Predictor 15 /Colors {$num_of_colors} /BitsPerComponent " . $this->getDepth() . " /Columns " . $this->getWidth() . ">>\n{$mask}    /Length {$this->_imageDataLength}\n>>\nstream\n{$IDAT}\nendstream\nendobj\n");
+        $this->_objects[$this->_index] = new Object("{$this->_index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->getWidth() . "\n    /Height " . $this->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent " . $this->getDepth() . "\n    /Filter /FlateDecode\n    /DecodeParms <</Predictor 15 /Colors {$num_of_colors} /BitsPerComponent " . $this->getDepth() . " /Columns " . $this->getWidth() . ">>\n{$mask}    /Length {$this->_imageDataLength}\n>>\nstream\n{$IDAT}\nendstream\nendobj\n");
 
         // If it exists, add the image palette to the _objects array.
         if ($PLTE != '') {
             $j = $this->_index + 1;
-            $this->_objects[$j] = new Pop_Pdf_Object("{$j} 0 obj\n<<\n    /Length " . strlen($PLTE) . "\n>>\nstream\n{$PLTE}\nendstream\nendobj\n");
+            $this->_objects[$j] = new Object("{$j} 0 obj\n<<\n    /Length " . strlen($PLTE) . "\n>>\nstream\n{$PLTE}\nendstream\nendobj\n");
             $this->_objects[$j]->setPalette(true);
         }
 

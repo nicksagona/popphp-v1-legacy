@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Color_Cmyk
- *
  * @category   Pop
  * @package    Pop_Color
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Color_Cmyk implements Pop_Color_Interface
+/**
+ * @namespace
+ */
+namespace Pop\Color;
+use Pop\Locale\Locale;
+
+class Cmyk implements ColorInterface
 {
 
     /**
@@ -75,7 +79,7 @@ class Pop_Color_Cmyk implements Pop_Color_Interface
         $min = min($c, $m, $y, $k);
 
         if (($max > 100) || ($min < 0)) {
-            throw new Exception(Pop_Locale::load()->__('One or more of the color values is out of range.'));
+            throw new Exception(Locale::factory()->__('One or more of the color values is out of range.'));
         } else {
             $this->_cyan = (int)$c;
             $this->_magenta = (int)$m;
@@ -91,7 +95,7 @@ class Pop_Color_Cmyk implements Pop_Color_Interface
      * @param  int $type
      * @return string|array
      */
-    public function getCmyk($type = Pop_Color::ASSOC_ARRAY)
+    public function getCmyk($type = Color::ASSOC_ARRAY)
     {
 
         $cmyk = null;
@@ -159,7 +163,7 @@ class Pop_Color_Cmyk implements Pop_Color_Interface
      */
     public function __toString()
     {
-        return $this->getCmyk(Pop_Color::STRING);
+        return $this->getCmyk(Color::STRING);
     }
 
 }

@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Font_Type1
- *
  * @category   Pop
  * @package    Pop_Font
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Font_Type1 extends Pop_Font
+/**
+ * @namespace
+ */
+namespace Pop\Font;
+use Pop\Font\Font;
+
+class Type1 extends Font
 {
 
     /**
@@ -128,17 +132,17 @@ class Pop_Font_Type1 extends Pop_Font
             $info['copyright'] = $this->_strip($copyright);
         }
 
-        $this->info = new ArrayObject($info, ArrayObject::ARRAY_AS_PROPS);
+        $this->info = new \ArrayObject($info, \ArrayObject::ARRAY_AS_PROPS);
 
         if (stripos($this->dict, '/FontBBox') !== false) {
             $bbox = substr($this->dict, (stripos($this->dict, '/FontBBox') + 9));
             $bbox = substr($bbox, 0, stripos($bbox, 'readonly def'));
             $bbox = trim($this->_strip($bbox));
             $bboxAry = explode(' ', $bbox);
-            $this->bBox = new ArrayObject(array('xMin' => $bboxAry[0],
+            $this->bBox = new \ArrayObject(array('xMin' => $bboxAry[0],
                                                 'yMin' => $bboxAry[1],
                                                 'xMax' => $bboxAry[2],
-                                                'yMax' => $bboxAry[3]), ArrayObject::ARRAY_AS_PROPS);
+                                                'yMax' => $bboxAry[3]), \ArrayObject::ARRAY_AS_PROPS);
         }
 
         if (stripos($this->dict, '/ascent') !== false) {

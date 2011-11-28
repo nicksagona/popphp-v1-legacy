@@ -20,17 +20,23 @@
  */
 
 /**
- * Pop_Font_TrueType_Table_Cmap
- *
  * @category   Pop
  * @package    Pop_Font
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Font_TrueType_Table_Cmap
+/**
+ * @namespace
+ */
+namespace Pop\Font\TrueType\Table;
+use Pop\Font\TrueType\Table\Cmap\ByteEncoding,
+    Pop\Font\TrueType\Table\Cmap\SegmentToDelta,
+    Pop\Font\TrueType\Table\Cmap\TrimmedTable;
+
+class Cmap
 {
 
     /**
@@ -61,7 +67,7 @@ class Pop_Font_TrueType_Table_Cmap
         $cmapTableHeader = unpack('ntableVersion/' .
                                   'nnumberOfTables', $font->read($bytePos, 4));
 
-        $this->header = new ArrayObject($cmapTableHeader, ArrayObject::ARRAY_AS_PROPS);
+        $this->header = new \ArrayObject($cmapTableHeader, \ArrayObject::ARRAY_AS_PROPS);
         $this->_parseSubTables($font);
     }
 
@@ -90,7 +96,7 @@ class Pop_Font_TrueType_Table_Cmap
             } else {
                 $ary['encoding'] = 'Unknown';
             }
-            $this->subTables[] = new ArrayObject($ary, ArrayObject::ARRAY_AS_PROPS);
+            $this->subTables[] = new \ArrayObject($ary, \ArrayObject::ARRAY_AS_PROPS);
             $bytePos += 8;
         }
 
@@ -107,13 +113,13 @@ class Pop_Font_TrueType_Table_Cmap
             $this->subTables[$key]->data = $font->read($bytePos, $ary['length'] - 6);
             switch ($this->subTables[$key]->format) {
                 case 0:
-                    $this->subTables[$key]->parsed = Pop_Font_TrueType_Table_Cmap_ByteEncoding::parseData($this->subTables[$key]->data);
+                    $this->subTables[$key]->parsed = ByteEncoding::parseData($this->subTables[$key]->data);
                     break;
                 case 4:
-                    $this->subTables[$key]->parsed = Pop_Font_TrueType_Table_Cmap_SegmentToDelta::parseData($this->subTables[$key]->data);
+                    $this->subTables[$key]->parsed = SegmentToDelta::parseData($this->subTables[$key]->data);
                     break;
                 case 6:
-                    $this->subTables[$key]->parsed = Pop_Font_TrueType_Table_Cmap_TrimmedTable::parseData($this->subTables[$key]->data);
+                    $this->subTables[$key]->parsed = TrimmedTable::parseData($this->subTables[$key]->data);
                     break;
             }
         }

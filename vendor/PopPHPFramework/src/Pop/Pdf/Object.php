@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Pdf_Object
- *
  * @category   Pop
  * @package    Pop_Pdf
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Pdf_Object
+/**
+ * @namespace
+ */
+namespace Pop\Pdf;
+use Pop\Archive\Archive;
+
+class Object
 {
 
     /**
@@ -201,7 +205,7 @@ class Pop_Pdf_Object
     {
         if (($this->_stream != '') && (function_exists('gzcompress')) && (strpos($this->_def, ' /Image') === false) && (strpos($this->_def, '/FlateDecode') === false)) {
             $this->_compress = true;
-            $this->_stream = "\n" . Pop_Archive::compress($this->_stream) . "\n";
+            $this->_stream = "\n" . Archive::compress($this->_stream) . "\n";
             $this->_isCompressed = true;
         }
     }

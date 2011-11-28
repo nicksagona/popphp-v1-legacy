@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Pdf_Page
- *
  * @category   Pop
  * @package    Pop_Pdf
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Pdf_Page
+/**
+ * @namespace
+ */
+namespace Pop\Pdf;
+use Pop\Locale\Locale;
+
+class Page
 {
 
     /**
@@ -149,7 +153,7 @@ class Pop_Pdf_Page
      */
     public function __construct($str = null, $sz = null, $w = null, $h = null, $i = null)
     {
-        $lang = new Pop_Locale();
+        $lang = new Locale();
 
         // Use default settings for a new PDF page.
         if (null === $str) {

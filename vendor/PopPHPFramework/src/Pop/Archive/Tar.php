@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Archive_Tar
- *
  * @category   Pop
  * @package    Pop_Archive
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Archive_Tar
+/**
+ * @namespace
+ */
+namespace Pop\Archive;
+use Pop\Dir\Dir;
+
+class Tar
 {
 
     /**
@@ -42,7 +46,7 @@ class Pop_Archive_Tar
      */
     public function extract($archive, $to = null)
     {
-        $tar = new Archive_Tar($archive->fullpath);
+        $tar = new \Archive_Tar($archive->fullpath);
         $tar->extract((null !== $to) ? $to : './');
 
         return -1;
@@ -61,12 +65,12 @@ class Pop_Archive_Tar
             $files = array($files);
         }
 
-        $tar = new Archive_Tar($archive->fullpath);
+        $tar = new \Archive_Tar($archive->fullpath);
 
         foreach ($files as $file) {
             // If file is a directory, loop through and add the files.
             if (file_exists($file) && is_dir($file)) {
-                $dir = new Pop_Dir($file, true, true);
+                $dir = new Dir($file, true, true);
                 foreach ($dir->files as $fle) {
                     if (file_exists($fle) && !is_dir($fle)) {
                         $tar->add($fle);
@@ -90,7 +94,7 @@ class Pop_Archive_Tar
     {
         $files = array();
 
-        $tar = new Archive_Tar($archive->fullpath);
+        $tar = new \Archive_Tar($archive->fullpath);
         $list = $tar->listContent();
 
         if (!$all) {

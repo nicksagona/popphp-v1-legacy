@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Feed_Reader
- *
  * @category   Pop
  * @package    Pop_Feed
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Feed_Reader
+/**
+ * @namespace
+ */
+namespace Pop\Feed;
+use Pop\Locale\Locale;
+
+class Reader
 {
 
     /**
@@ -123,11 +127,11 @@ class Pop_Feed_Reader
      */
     public function __construct($url, $limit = null)
     {
-        $this->_lang = new Pop_Locale();
+        $this->_lang = new Locale();
 
         // Create the SimpleXMLElement and set the format to either XML or HTML.
         try {
-            if (($this->_xml =@ new SimpleXMLElement($url, LIBXML_NOWARNING, true)) !== false) {
+            if (($this->_xml =@ new \SimpleXMLElement($url, LIBXML_NOWARNING, true)) !== false) {
                 $this->_feed_type = (isset($this->_xml->entry)) ? $this->_feed_type = 'atom' : $this->_feed_type = 'rss';
 
                 // Set the type of feed, either a YouTube, Vimeo or normal RSS feed.

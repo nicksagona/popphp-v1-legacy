@@ -20,17 +20,22 @@
  */
 
 /**
- * Pop_Font_TrueType_OpenType
- *
  * @category   Pop
  * @package    Pop_Font
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Font_TrueType_OpenType extends Pop_Font_TrueType
+/**
+ * @namespace
+ */
+namespace Pop\Font\TrueType;
+use Pop\Font\TrueType,
+    Pop\Font\TrueType\Table\Os2;
+
+class OpenType extends TrueType
 {
 
     /**
@@ -55,7 +60,7 @@ class Pop_Font_TrueType_OpenType extends Pop_Font_TrueType
     {
         // OS/2
         if (isset($this->tableInfo['OS/2'])) {
-            $this->tables['OS/2'] = new Pop_Font_TrueType_Table_Os2($this);
+            $this->tables['OS/2'] = new Os2($this);
 
             $this->flags->isSerif = $this->tables['OS/2']->flags->isSerif;
             $this->flags->isScript = $this->tables['OS/2']->flags->isScript;

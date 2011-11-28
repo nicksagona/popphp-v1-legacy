@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Form_Element_Textarea
- *
  * @category   Pop
  * @package    Pop_Form
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Form_Element_Textarea extends Pop_Form_Element
+/**
+ * @namespace
+ */
+namespace Pop\Form\Element;
+use Pop\Form\Element;
+
+class Textarea extends Element
 {
 
     /**

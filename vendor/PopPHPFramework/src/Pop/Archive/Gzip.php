@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Archive_Gzip
- *
  * @category   Pop
  * @package    Pop_Archive
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Archive_Gzip
+/**
+ * @namespace
+ */
+namespace Pop\Archive;
+use Pop\File\File;
+
+class Gzip
 {
 
     /**
@@ -46,7 +50,7 @@ class Pop_Archive_Gzip
         $data = $archive->read();
 
         // Create the new Gzip file and resource.
-        $gzFile = new Pop_File($archive->fullpath . '.gz');
+        $gzFile = new File($archive->fullpath . '.gz');
         $gzResource = fopen($gzFile->fullpath, 'w');
 
         // Write the data to the new Gzip file and close the resource.
@@ -66,7 +70,7 @@ class Pop_Archive_Gzip
     public function extract($archive, $to = null)
     {
         // Create the new, uncompressed file and open the Gzip compressed file.
-        $new = new Pop_File(str_replace('.gz', '', $archive->fullpath));
+        $new = new File(str_replace('.gz', '', $archive->fullpath));
         $gz = gzopen($archive->fullpath, 'r');
         $decompressed = '';
 
@@ -81,7 +85,7 @@ class Pop_Archive_Gzip
 
         // If it was a Tar/Gzip combo, extract the newly uncompressed Tar file as well.
         if ($archive->ext == 'tgz') {
-            $tar = new Pop_Archive_Tar();
+            $tar = new Tar();
             return $tar->extract($archive, $to);
         } else {
             return $new->fullpath;

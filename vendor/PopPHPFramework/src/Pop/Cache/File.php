@@ -20,17 +20,23 @@
  */
 
 /**
- * Pop_Cache_File
- *
  * @category   Pop
  * @package    Pop_Cache
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Cache_File implements Pop_Cache_Interface
+/**
+ * @namespace
+ */
+namespace Pop\Cache;
+use Pop\Dir\Dir,
+    Pop\File\File,
+    Pop\Locale\Locale;
+
+class File implements CacheInterface
 {
 
     /**
@@ -51,9 +57,9 @@ class Pop_Cache_File implements Pop_Cache_Interface
     public function __construct($dir)
     {
         if (!file_exists($dir)) {
-            throw new Exception(Pop_Locale::load()->__('Error: That cache directory does not exist.'));
+            throw new Exception(Locale::factory()->__('Error: That cache directory does not exist.'));
         } else if (!is_writable($dir)) {
-            throw new Exception(Pop_Locale::load()->__('Error: That cache directory is not writable.'));
+            throw new Exception(Locale::factory()->__('Error: That cache directory is not writable.'));
         } else {
             $this->_dir = realpath($dir);
         }
@@ -81,7 +87,7 @@ class Pop_Cache_File implements Pop_Cache_Interface
     {
         $time = (null === $time) ? time() : time() + $time;
 
-        $file = new Pop_File($this->_dir . DIRECTORY_SEPARATOR . sha1($id));
+        $file = new File($this->_dir . DIRECTORY_SEPARATOR . sha1($id));
         $file->write($time . '|' . serialize($value));
         $file->save();
     }
@@ -99,7 +105,7 @@ class Pop_Cache_File implements Pop_Cache_Interface
         $value = false;
 
         if (file_exists($fileId)) {
-            $file = new Pop_File($fileId);
+            $file = new File($fileId);
             $fileData = $file->read();
             $fileTime = substr($fileData, 0, strpos($fileData, '|'));
             $data = substr($fileData, (strpos($fileData, '|') + 1));
@@ -132,7 +138,7 @@ class Pop_Cache_File implements Pop_Cache_Interface
      */
     public function clear()
     {
-        $dir = new Pop_Dir($this->_dir);
+        $dir = new Dir($this->_dir);
         $dir->emptyDir();
     }
 

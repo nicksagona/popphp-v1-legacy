@@ -20,17 +20,20 @@
  */
 
 /**
- * Pop_Font_TrueType_Table_Cmap_ByteEncoding
- *
  * @category   Pop
  * @package    Pop_Font
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Font_TrueType_Table_Cmap_ByteEncoding
+/**
+ * @namespace
+ */
+namespace Pop\Font\TrueType\Table\Cmap;
+
+class ByteEncoding
 {
 
     /**
@@ -43,9 +46,9 @@ class Pop_Font_TrueType_Table_Cmap_ByteEncoding
         $ary = array();
 
         for ($i = 0; $i < strlen($data); $i++) {
-            $ary[$i] = new ArrayObject(array('hex'   => bin2hex($data[$i]),
-                                             'ascii' => ord($data[$i]),
-                                             'char'  => chr(ord($data[$i]))), ArrayObject::ARRAY_AS_PROPS);
+            $ary[$i] = new \ArrayObject(array('hex'   => bin2hex($data[$i]),
+                                              'ascii' => ord($data[$i]),
+                                              'char'  => chr(ord($data[$i]))), \ArrayObject::ARRAY_AS_PROPS);
         }
 
         return $ary;

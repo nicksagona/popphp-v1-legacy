@@ -20,17 +20,20 @@
  */
 
 /**
- * Pop_Data_Xml
- *
  * @category   Pop
  * @package    Pop_Data
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Data_Xml implements Pop_Data_Interface
+/**
+ * @namespace
+ */
+namespace Pop\Data;
+
+class Xml implements DataInterface
 {
 
     /**
@@ -41,7 +44,7 @@ class Pop_Data_Xml implements Pop_Data_Interface
      */
     public static function decode($data)
     {
-        $xml = new SimpleXMLElement($data);
+        $xml = new \SimpleXMLElement($data);
         $nodes = array();
 
         $i = 1;

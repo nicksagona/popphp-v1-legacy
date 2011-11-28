@@ -20,17 +20,24 @@
  */
 
 /**
- * Pop_Record_Escaped
- *
  * @category   Pop
  * @package    Pop_Record
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Record_Escaped extends Pop_Record_Abstract
+/**
+ * @namespace
+ */
+namespace Pop\Record;
+use Pop\Db\Db,
+    Pop\Db\Sql,
+    Pop\Locale\Locale,
+    Pop\Record\AbstractRecord;
+
+class Escaped extends AbstractRecord
 {
 
     /**
@@ -42,19 +49,19 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
      * @param  array    $options
      * @return void
      */
-    public function __construct(Pop_Db $db, $options)
+    public function __construct(Db $db, $options)
     {
-        $this->_lang = new Pop_Locale();
+        $this->_lang = new Locale();
         $this->db = $db;
 
         $type = $this->db->getAdapterType();
 
         if (($type == 'Sqlite') || ($type == 'Pdo_Sqlite')) {
-            $this->_idQuote = (null === $this->_idQuote) ? Pop_Db_Sql::DOUBLE_QUOTE : $this->_idQuote;
+            $this->_idQuote = (null === $this->_idQuote) ? Sql::DOUBLE_QUOTE : $this->_idQuote;
         } else if ($type == 'Pgsql') {
-            $this->_idQuote = (null === $this->_idQuote) ? Pop_Db_Sql::DOUBLE_QUOTE : $this->_idQuote;
+            $this->_idQuote = (null === $this->_idQuote) ? Sql::DOUBLE_QUOTE : $this->_idQuote;
         } else {
-            $this->_idQuote = (null === $this->_idQuote) ? Pop_Db_Sql::BACKTICK : $this->_idQuote;
+            $this->_idQuote = (null === $this->_idQuote) ? Sql::BACKTICK : $this->_idQuote;
         }
 
         $this->_tableName = $options['tableName'];
@@ -302,7 +309,7 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
      * @param  int   $type
      * @return void
      */
-    public function save($columnsPassed, $type = Pop_Record::INSERT)
+    public function save($columnsPassed, $type = Record::INSERT)
     {
         $this->_columns = $columnsPassed;
 
@@ -311,7 +318,7 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
         }
 
         if (null === $this->_primaryId) {
-            if ($type == Pop_Record::UPDATE) {
+            if ($type == Record::UPDATE) {
                 $this->db->sql->setTable($this->_tableName)
                               ->setIdQuoteType($this->_idQuote)
                               ->update($this->_columns);
@@ -330,7 +337,7 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
             }
         } else {
             if ($this->_auto == false) {
-                $action = ($type == Pop_Record::INSERT) ? 'insert' : 'update';
+                $action = ($type == Record::INSERT) ? 'insert' : 'update';
             } else {
                 $action = (isset($this->_columns[$this->_primaryId])) ? 'update' : 'insert';
             }
@@ -438,7 +445,7 @@ class Pop_Record_Escaped extends Pop_Record_Abstract
         $this->_rows = array();
 
         while (($row = $this->db->adapter->fetch()) != false) {
-            $this->_rows[] = new ArrayObject($row, ArrayObject::ARRAY_AS_PROPS);
+            $this->_rows[] = new \ArrayObject($row, \ArrayObject::ARRAY_AS_PROPS);
         }
     }
 

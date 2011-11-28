@@ -1,8 +1,8 @@
-Welcome to the Pop PHP Framework 0.9 Beta Release!
+Welcome to the Pop PHP Framework 0.9 Release!
 
 RELEASE INFORMATION
 -------------------
-Pop PHP Framework 0.9 Beta Release
+Pop PHP Framework 0.9 Release
 Released TBD
 
 

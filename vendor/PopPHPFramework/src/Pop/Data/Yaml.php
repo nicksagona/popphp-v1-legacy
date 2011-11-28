@@ -20,17 +20,20 @@
  */
 
 /**
- * Pop_Data_Yaml
- *
  * @category   Pop
  * @package    Pop_Data
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Data_Yaml implements Pop_Data_Interface
+/**
+ * @namespace
+ */
+namespace Pop\Data;
+
+class Yaml implements DataInterface
 {
 
     /**

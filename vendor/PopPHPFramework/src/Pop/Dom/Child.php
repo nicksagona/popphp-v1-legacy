@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Dom_Child
- *
  * @category   Pop
  * @package    Pop_Dom
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Dom_Child extends Pop_Dom_Abstract
+/**
+ * @namespace
+ */
+namespace Pop\Dom;
+use Pop\Locale\Locale;
+
+class Child extends AbstractDom
 {
 
     /**
@@ -71,7 +75,7 @@ class Pop_Dom_Child extends Pop_Dom_Abstract
      */
     public function __construct($name, $value = null, $childNode = null, $first = false, $indent = null)
     {
-        $this->_lang = new Pop_Locale();
+        $this->_lang = new Locale();
 
         $this->_nodeName = $name;
         $this->_nodeValue = $value;
@@ -97,7 +101,7 @@ class Pop_Dom_Child extends Pop_Dom_Abstract
         $childFirst = (isset($c['childrenFirst']) ? $c['childrenFirst'] : false);
         $indent = (isset($c['indent']) ? $c['indent'] : null);
 
-        $child = new Pop_Dom_Child($nodeName, $nodeValue, null, $childFirst, $indent);
+        $child = new Child($nodeName, $nodeValue, null, $childFirst, $indent);
         if (isset($c['attributes'])) {
             $child->setAttributes($c['attributes']);
         }

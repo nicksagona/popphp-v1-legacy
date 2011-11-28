@@ -20,17 +20,22 @@
  */
 
 /**
- * Pop_Form_Element_Select
- *
  * @category   Pop
  * @package    Pop_Form
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Form_Element_Select extends Pop_Form_Element
+/**
+ * @namespace
+ */
+namespace Pop\Form\Element;
+use Pop\Form\Element,
+    Pop\Locale\Locale;
+
+class Select extends Element
 {
 
     /**
@@ -53,7 +58,7 @@ class Pop_Form_Element_Select extends Pop_Form_Element
     public function __construct($name, $value = null, $marked = null, $indent = null)
     {
         $val = null;
-        $lang = new Pop_Locale();
+        $lang = new Locale();
 
         // If the value flag is YEAR-based, calculate the year range for the select drop-down menu.
         if (is_string($value) && (strpos($value, 'YEAR') !== false)) {
@@ -155,7 +160,7 @@ class Pop_Form_Element_Select extends Pop_Form_Element
                     } else {
                         $xmlFile = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Data' . DIRECTORY_SEPARATOR . 'options.xml';
                         if (file_exists($xmlFile)) {
-                            $xml = new SimpleXMLElement($xmlFile, null, true);
+                            $xml = new \SimpleXMLElement($xmlFile, null, true);
                             $xmlValues = array();
                             foreach ($xml->set as $node) {
                                 $xmlValues[(string)$node->attributes()->name] = array();

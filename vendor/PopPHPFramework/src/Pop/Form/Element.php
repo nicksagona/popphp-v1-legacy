@@ -20,17 +20,22 @@
  */
 
 /**
- * Pop_Form_Element
- *
  * @category   Pop
  * @package    Pop_Form
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Form_Element extends Pop_Dom_Child
+/**
+ * @namespace
+ */
+namespace Pop\Form;
+use Pop\Dom\Child,
+    Pop\Locale\Locale;
+
+class Element extends Child
 {
 
     /**
@@ -102,7 +107,7 @@ class Pop_Form_Element extends Pop_Dom_Child
      */
     public function __construct($type, $name, $value = null, $marked = null, $indent = null)
     {
-        $this->_lang = new Pop_Locale();
+        $this->_lang = new Locale();
 
         // Check the element type, else set the properties.
         if (!in_array($type, $this->_allowed_types)) {
@@ -126,7 +131,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                     // Create the child option elements.
                     foreach ($value as $k => $v) {
 
-                        $opt = new Pop_Dom_Child('option', null, null, false, ($indent . '    '));
+                        $opt = new Child('option', null, null, false, ($indent . '    '));
                         $opt->setAttributes('value', $k);
 
                         // Determine if the current option element is selected.
@@ -151,7 +156,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                     $i = null;
                     foreach ($value as $k => $v) {
 
-                        $rad = new Pop_Dom_Child('input', null, null, false, ($indent . '    '));
+                        $rad = new Child('input', null, null, false, ($indent . '    '));
                         $rad->setAttributes(array('type' => $type, 'class' => 'radioBtn', 'name' => $name, 'id' => ($name . $i), 'value' => $k));
 
                         // Determine if the current radio element is checked.
@@ -159,7 +164,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             $rad->setAttributes('checked', 'checked');
                         }
 
-                        $span = new Pop_Dom_Child('span', null, null, false, ($indent . '    '));
+                        $span = new Child('span', null, null, false, ($indent . '    '));
                         $span->setAttributes('class', 'radioPad');
                         $span->setNodeValue($v);
                         $this->addChildren(array($rad, $span));
@@ -179,7 +184,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                     $i = null;
                     foreach ($value as $k => $v) {
 
-                        $chk = new Pop_Dom_Child('input', null, null, false, ($indent . '    '));
+                        $chk = new Child('input', null, null, false, ($indent . '    '));
                         $chk->setAttributes(array('type' => $type, 'class' => 'checkBox', 'name' => ($name . '[]'), 'id' => ($name . $i), 'value' => $k));
 
                         // Determine if the current radio element is checked.
@@ -187,7 +192,7 @@ class Pop_Form_Element extends Pop_Dom_Child
                             $chk->setAttributes('checked', 'checked');
                         }
 
-                        $span = new Pop_Dom_Child('span', null, null, false, ($indent . '    '));
+                        $span = new Child('span', null, null, false, ($indent . '    '));
                         $span->setAttributes('class', 'checkPad');
                         $span->setNodeValue($v);
                         $this->addChildren(array($chk, $span));

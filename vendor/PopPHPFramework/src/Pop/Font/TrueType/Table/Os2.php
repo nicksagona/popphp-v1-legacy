@@ -20,17 +20,20 @@
  */
 
 /**
- * Pop_Font_TrueType_Table_Os2
- *
  * @category   Pop
  * @package    Pop_Font
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Font_TrueType_Table_Os2
+/**
+ * @namespace
+ */
+namespace Pop\Font\TrueType\Table;
+
+class Os2
 {
 
     /**
@@ -55,15 +58,15 @@ class Pop_Font_TrueType_Table_Os2
      */
     public function __construct($font)
     {
-        $this->flags = new ArrayObject(array('isFixedPitch'  => false,
-                                             'isSerif'       => false,
-                                             'isSymbolic'    => false,
-                                             'isScript'      => false,
-                                             'isNonSymbolic' => false,
-                                             'isItalic'      => false,
-                                             'isAllCap'      => false,
-                                             'isSmallCap'    => false,
-                                             'isForceBold'   => false), ArrayObject::ARRAY_AS_PROPS);
+        $this->flags = new \ArrayObject(array('isFixedPitch'  => false,
+                                              'isSerif'       => false,
+                                              'isSymbolic'    => false,
+                                              'isScript'      => false,
+                                              'isNonSymbolic' => false,
+                                              'isItalic'      => false,
+                                              'isAllCap'      => false,
+                                              'isSmallCap'    => false,
+                                              'isForceBold'   => false), \ArrayObject::ARRAY_AS_PROPS);
 
         $bytePos = $font->tableInfo['OS/2']->offset + 30;
         $ary = unpack("nfamily_class", $font->read($bytePos, 2));

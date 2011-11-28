@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Http_Response
- *
  * @category   Pop
  * @package    Pop_Http
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Http_Response
+/**
+ * @namespace
+ */
+namespace Pop\Http;
+use Pop\Locale\Locale;
+
+class Response
 {
 
     /**
@@ -141,7 +145,7 @@ class Pop_Http_Response
      */
     public function __construct($code, array $headers, $body = null, $message = null, $version = '1.1')
     {
-        $this->_lang = new Pop_Locale();
+        $this->_lang = new Locale();
 
         if (!array_key_exists($code, self::$_responseCodes)) {
             throw new Exception($this->_lang->__("That header code '%1' is not allowed.", $code));
@@ -194,7 +198,7 @@ class Pop_Http_Response
             $allHeaders = trim(substr($headerStr, strpos($headerStr, "\n")));
             $allHeadersAry = explode("\n", $allHeaders);
         } else {
-            throw new Exception(Pop_Locale::load()->__('The response was not properly formatted.'));
+            throw new Exception(Locale::factory()->__('The response was not properly formatted.'));
         }
 
         // Get the version, code and message
@@ -220,7 +224,7 @@ class Pop_Http_Response
             $body = $bodyStr;
         }
 
-        return new Pop_Http_Response($code, $headers, $body, $message, $version);
+        return new Response($code, $headers, $body, $message, $version);
     }
 
     /**
@@ -234,7 +238,7 @@ class Pop_Http_Response
     public static function redirect($url, $version = '1.1')
     {
         if (headers_sent()) {
-            throw new Exception(Pop_Locale::load()->__('The headers have already been sent.'));
+            throw new Exception(Locale::factory()->__('The headers have already been sent.'));
         } else {
             header("HTTP/{$version} 302 Found");
             header("Location: {$url}");
@@ -251,7 +255,7 @@ class Pop_Http_Response
     public static function getMessageFromCode($code)
     {
         if (!array_key_exists($code, self::$_responseCodes)) {
-            throw new Exception(Pop_Locale::load()->__("That header code '%1' is not allowed.", $code));
+            throw new Exception(Locale::factory()->__("That header code '%1' is not allowed.", $code));
         } else {
             return self::$_responseCodes[$code];
         }
@@ -271,7 +275,7 @@ class Pop_Http_Response
             // GZIP compression
             case 'gzip':
                 if (!function_exists('gzencode')) {
-                    throw new Exception(Pop_Locale::load()->__('Gzip compression is not available.'));
+                    throw new Exception(Locale::factory()->__('Gzip compression is not available.'));
                 } else {
                     $encodedBody = gzencode($body);
                 }
@@ -280,7 +284,7 @@ class Pop_Http_Response
             // Deflate compression
             case 'deflate':
                 if (!function_exists('gzdeflate')) {
-                    throw new Exception(Pop_Locale::load()->__('Deflate compression is not available.'));
+                    throw new Exception(Locale::factory()->__('Deflate compression is not available.'));
                 } else {
                     $encodedBody = gzdeflate($body);
                 }
@@ -309,7 +313,7 @@ class Pop_Http_Response
             // GZIP compression
             case 'gzip':
                 if (!function_exists('gzinflate')) {
-                    throw new Exception(Pop_Locale::load()->__('Gzip compression is not available.'));
+                    throw new Exception(Locale::factory()->__('Gzip compression is not available.'));
                 } else {
                     $decodedBody = gzinflate(substr($body, 10));
                 }
@@ -318,7 +322,7 @@ class Pop_Http_Response
             // Deflate compression
             case 'deflate':
                 if (!function_exists('gzinflate')) {
-                    throw new Exception(Pop_Locale::load()->__('Deflate compression is not available.'));
+                    throw new Exception(Locale::factory()->__('Deflate compression is not available.'));
                 } else {
                     $zlibHeader = unpack('n', substr($body, 0, 2));
                     $decodedBody = ($zlibHeader[1] % 31 == 0) ? gzuncompress($body) : gzinflate($body);

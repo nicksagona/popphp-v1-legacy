@@ -20,17 +20,23 @@
  */
 
 /**
- * Pop_Feed_Writer
- *
  * @category   Pop
  * @package    Pop_Feed
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Feed_Writer extends Pop_Dom
+/**
+ * @namespace
+ */
+namespace Pop\Feed;
+use Pop\Dom\Dom,
+    Pop\Dom\Child,
+    Pop\Locale\Locale;
+
+class Writer extends Dom
 {
 
     /**
@@ -90,22 +96,22 @@ class Pop_Feed_Writer extends Pop_Dom
     {
         if ($this->_feed_type == 'RSS') {
             // Set up the RSS child node.
-            $rss = new Pop_Dom_Child('rss');
+            $rss = new Child('rss');
             $rss->setAttributes('version', '2.0');
             $rss->setAttributes('xmlns:content', 'http://purl.org/rss/1.0/modules/content/');
             $rss->setAttributes('xmlns:wfw', 'http://wellformedweb.org/CommentAPI/');
 
             // Set up the Channel child node and the header children.
-            $channel = new Pop_Dom_Child('channel');
+            $channel = new Child('channel');
             foreach ($this->_headers as $key => $value) {
-                $channel->addChild(new Pop_Dom_Child($key, $value));
+                $channel->addChild(new Child($key, $value));
             }
 
             // Set up the Item child nodes and add them to the Channel child node.
             foreach ($this->_items as $itm) {
-                $item = new Pop_Dom_Child('item');
+                $item = new Child('item');
                 foreach ($itm as $key => $value) {
-                    $item->addChild(new Pop_Dom_Child($key, $value));
+                    $item->addChild(new Child($key, $value));
                 }
                 $channel->addChild($item);
             }
@@ -115,7 +121,7 @@ class Pop_Feed_Writer extends Pop_Dom
             $this->addChild($rss);
         } else if ($this->_feed_type == 'ATOM') {
             // Set up the Feed child node.
-            $feed = new Pop_Dom_Child('feed');
+            $feed = new Child('feed');
             $feed->setAttributes('xmlns', 'http://www.w3.org/2005/Atom');
 
             if (isset($this->_headers['language'])) {
@@ -125,30 +131,30 @@ class Pop_Feed_Writer extends Pop_Dom
             // Set up the header children.
             foreach ($this->_headers as $key => $value) {
                 if ($key == 'author') {
-                    $auth = new Pop_Dom_Child($key);
-                    $auth->addChild(new Pop_Dom_Child('name', $value));
+                    $auth = new Child($key);
+                    $auth->addChild(new Child('name', $value));
                     $feed->addChild($auth);
                 } else if ($key == 'link') {
-                    $link = new Pop_Dom_Child($key);
+                    $link = new Child($key);
                     $link->setAttributes('href', $value);
                     $feed->addChild($link);
                 } else if ($key != 'language') {
                     $val = (stripos($key, 'date') !== false) ? date($this->_date, strtotime($value)) : $value;
-                    $feed->addChild(new Pop_Dom_Child($key, $val));
+                    $feed->addChild(new Child($key, $val));
                 }
             }
 
             // Set up the Entry child nodes and add them to the Feed child node.
             foreach ($this->_items as $itm) {
-                $item = new Pop_Dom_Child('entry');
+                $item = new Child('entry');
                 foreach ($itm as $key => $value) {
                     if ($key == 'link') {
-                        $link = new Pop_Dom_Child($key);
+                        $link = new Child($key);
                         $link->setAttributes('href', $value);
                         $item->addChild($link);
                     } else {
                         $val = (stripos($key, 'date') !== false) ? date($this->_date, strtotime($value)) : $value;
-                        $item->addChild(new Pop_Dom_Child($key, $val));
+                        $item->addChild(new Child($key, $val));
                     }
                 }
                 $feed->addChild($item);
@@ -157,7 +163,7 @@ class Pop_Feed_Writer extends Pop_Dom
             // Add the Feed child node to the DOM.
             $this->addChild($feed);
         } else {
-            throw new Exception(Pop_Locale::load()->__('Error: The feed type must be only RSS or ATOM.'));
+            throw new Exception(Locale::factory()->__('Error: The feed type must be only RSS or ATOM.'));
         }
     }
 

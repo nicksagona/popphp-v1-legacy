@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Color_Lab
- *
  * @category   Pop
  * @package    Pop_Color
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Color_Lab implements Pop_Color_Interface
+/**
+ * @namespace
+ */
+namespace Pop\Color;
+use Pop\Locale\Locale;
+
+class Lab implements ColorInterface
 {
 
     /**
@@ -68,7 +72,7 @@ class Pop_Color_Lab implements Pop_Color_Interface
         $min = min($l, $a, $b);
 
         if (($l > 100) || ($l < 0) || ($max > 127) || ($min < -128)) {
-            throw new Exception(Pop_Locale::load()->__('One or more of the color values is out of range.'));
+            throw new Exception(Locale::factory()->__('One or more of the color values is out of range.'));
         } else {
             $this->_l = (int)$l;
             $this->_a = (int)$a;
@@ -83,7 +87,7 @@ class Pop_Color_Lab implements Pop_Color_Interface
      * @param  int     $type
      * @return string|array
      */
-    public function getLab($type = Pop_Color::ASSOC_ARRAY)
+    public function getLab($type = Color::ASSOC_ARRAY)
     {
 
         $lab = null;
@@ -141,7 +145,7 @@ class Pop_Color_Lab implements Pop_Color_Interface
      */
     public function __toString()
     {
-        return $this->getLab(Pop_Color::STRING);
+        return $this->getLab(Color::STRING);
     }
 
 }

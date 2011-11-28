@@ -20,17 +20,25 @@
  */
 
 /**
- * Pop_Cache_Sqlite
- *
  * @category   Pop
  * @package    Pop_Cache
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Cache_Sqlite implements Pop_Cache_Interface
+/**
+ * @namespace
+ */
+namespace Pop\Cache;
+use Pop\Db\Db,
+    Pop\Db\Sql,
+    Pop\Dir\Dir,
+    Pop\File\File,
+    Pop\Locale\Locale;
+
+class Sqlite implements CacheInterface
 {
 
     /**
@@ -62,10 +70,10 @@ class Pop_Cache_Sqlite implements Pop_Cache_Interface
         // If the database file doesn't exist, create it.
         if (!file_exists($this->_db)) {
             if (is_writable($dir)) {
-                $dbFile = new Pop_File($db);
+                $dbFile = new File($db);
                 $dbFile->save();
             } else {
-                throw new Exception(Pop_Locale::load()->__('Error: That cache db file and/or directory is not writable.'));
+                throw new Exception(Locale::factory()->__('Error: That cache db file and/or directory is not writable.'));
             }
         }
 
@@ -74,9 +82,9 @@ class Pop_Cache_Sqlite implements Pop_Cache_Interface
 
         // Check the permissions, access the database and check for the cache table.
         if (!is_writable($dir) || !is_writable($this->_db)) {
-            throw new Exception(Pop_Locale::load()->__('Error: That cache db file and/or directory is not writable.'));
+            throw new Exception(Locale::factory()->__('Error: That cache db file and/or directory is not writable.'));
         } else {
-            $this->_sqlite = Pop_Db::factory('Sqlite', array('database' => $this->_db));
+            $this->_sqlite = Db::factory('Sqlite', array('database' => $this->_db));
 
             // If the cache table doesn't exist, create it.
             if (!in_array('pop_cache', $this->_sqlite->adapter->getTables())) {
@@ -84,7 +92,7 @@ class Pop_Cache_Sqlite implements Pop_Cache_Interface
             }
 
             $this->_sqlite->sql->setTable('pop_cache');
-            $this->_sqlite->sql->setIdQuoteType(Pop_Db_Sql::DOUBLE_QUOTE);
+            $this->_sqlite->sql->setIdQuoteType(Sql::DOUBLE_QUOTE);
         }
     }
 

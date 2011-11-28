@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Archive_Bzip2
- *
  * @category   Pop
  * @package    Pop_Archive
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Archive_Bzip2
+/**
+ * @namespace
+ */
+namespace Pop\Archive;
+use Pop\File\File;
+
+class Bzip2
 {
 
     /**
@@ -45,7 +49,7 @@ class Pop_Archive_Bzip2
         $data = $archive->read();
 
         // Create the new Bzip2 file and resource.
-        $bzFile = new Pop_File($archive->fullpath . '.bz2');
+        $bzFile = new File($archive->fullpath . '.bz2');
         $bzResource = bzopen($bzFile->fullpath, 'w');
 
         // Write the data to the new Bzip2 file and close the resource.
@@ -65,7 +69,7 @@ class Pop_Archive_Bzip2
     public function extract($archive, $to = null)
     {
         // Create the new, uncompressed file and open the Bzip2 compressed file.
-        $new = new Pop_File(str_replace('.bz2', '', $archive->fullpath));
+        $new = new File(str_replace('.bz2', '', $archive->fullpath));
         $bz = bzopen($archive->fullpath, 'r');
         $decompressed = '';
 
@@ -80,7 +84,7 @@ class Pop_Archive_Bzip2
 
         // If it was a Tar/Bzip2 combo, extract the newly uncompressed Tar file as well.
         if ($archive->ext == 'tbz2') {
-            $tar = new Pop_Archive_Tar();
+            $tar = new Tar();
             return $tar->extract($archive, $to);
         } else {
             return $new->fullpath;

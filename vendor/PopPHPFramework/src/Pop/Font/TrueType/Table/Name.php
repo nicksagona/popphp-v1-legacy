@@ -20,17 +20,20 @@
  */
 
 /**
- * Pop_Font_TrueType_Table_Name
- *
  * @category   Pop
  * @package    Pop_Font
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Font_TrueType_Table_Name
+/**
+ * @namespace
+ */
+namespace Pop\Font\TrueType\Table;
+
+class Name
 {
 
     /**
@@ -73,9 +76,9 @@ class Pop_Font_TrueType_Table_Name
      */
     public function __construct($font)
     {
-        $font->tableInfo['name']->header = new ArrayObject(unpack('nformatSelector/' .
-                                                                  'nnameRecordsCount/' .
-                                                                  'nstorageOffset', $font->read($font->tableInfo['name']->offset, 6)), ArrayObject::ARRAY_AS_PROPS);
+        $font->tableInfo['name']->header = new \ArrayObject(unpack('nformatSelector/' .
+                                                                   'nnameRecordsCount/' .
+                                                                   'nstorageOffset', $font->read($font->tableInfo['name']->offset, 6)), \ArrayObject::ARRAY_AS_PROPS);
 
         $bytePos = $font->tableInfo['name']->offset + 6;
 

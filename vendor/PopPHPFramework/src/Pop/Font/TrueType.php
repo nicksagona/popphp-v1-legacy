@@ -20,17 +20,31 @@
  */
 
 /**
- * Pop_Font_TrueType
- *
  * @category   Pop
  * @package    Pop_Font
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Font_TrueType extends Pop_Font
+/**
+ * @namespace
+ */
+namespace Pop\Font;
+use Pop\Font\Font,
+    Pop\Font\TrueType\Table\Cmap,
+    Pop\Font\TrueType\Table\Glyf,
+    Pop\Font\TrueType\Table\Head,
+    Pop\Font\TrueType\Table\Hhea,
+    Pop\Font\TrueType\Table\Hmtx,
+    Pop\Font\TrueType\Table\Loca,
+    Pop\Font\TrueType\Table\Maxp,
+    Pop\Font\TrueType\Table\Name,
+    Pop\Font\TrueType\Table\Os2,
+    Pop\Font\TrueType\Table\Post;
+
+class TrueType extends Font
 {
 
     /**
@@ -103,8 +117,8 @@ class Pop_Font_TrueType extends Pop_Font
 
         $ttfTable['name'] = $tableName;
 
-        $this->ttfHeader = new ArrayObject($ttfHeader, ArrayObject::ARRAY_AS_PROPS);
-        $this->ttfTable = new ArrayObject($ttfTable, ArrayObject::ARRAY_AS_PROPS);
+        $this->ttfHeader = new \ArrayObject($ttfHeader, \ArrayObject::ARRAY_AS_PROPS);
+        $this->ttfTable = new \ArrayObject($ttfTable, \ArrayObject::ARRAY_AS_PROPS);
 
         $nameByteOffset = 28;
         $tableByteOffset = 32;
@@ -115,7 +129,7 @@ class Pop_Font_TrueType extends Pop_Font
                                'Noffset/' .
                                'Nlength', $this->read($tableByteOffset, 12));
 
-            $this->tableInfo[trim($ttfTableName)] = new ArrayObject($ttfTable, ArrayObject::ARRAY_AS_PROPS);
+            $this->tableInfo[trim($ttfTableName)] = new \ArrayObject($ttfTable, \ArrayObject::ARRAY_AS_PROPS);
 
             $nameByteOffset = $tableByteOffset + 12;
             $tableByteOffset = $nameByteOffset + 4;
@@ -130,7 +144,7 @@ class Pop_Font_TrueType extends Pop_Font
     protected function _parseName()
     {
         if (isset($this->tableInfo['name'])) {
-            $this->tables['name'] = new Pop_Font_TrueType_Table_Name($this);
+            $this->tables['name'] = new Name($this);
             $this->info = $this->tables['name'];
         }
     }
@@ -144,7 +158,7 @@ class Pop_Font_TrueType extends Pop_Font
     {
         // head
         if (isset($this->tableInfo['head'])) {
-            $this->tables['head'] = new Pop_Font_TrueType_Table_Head($this);
+            $this->tables['head'] = new Head($this);
 
             $this->unitsPerEm = $this->tables['head']->unitsPerEm;
 
@@ -153,17 +167,17 @@ class Pop_Font_TrueType extends Pop_Font
             $this->tables['head']->xMax = $this->toEmSpace($this->tables['head']->xMax);
             $this->tables['head']->yMax = $this->toEmSpace($this->tables['head']->yMax);
 
-            $this->bBox = new ArrayObject(array('xMin' => $this->tables['head']->xMin,
-                                                'yMin' => $this->tables['head']->yMin,
-                                                'xMax' => $this->tables['head']->xMax,
-                                                'yMax' => $this->tables['head']->yMax), ArrayObject::ARRAY_AS_PROPS);
+            $this->bBox = new \ArrayObject(array('xMin' => $this->tables['head']->xMin,
+                                                 'yMin' => $this->tables['head']->yMin,
+                                                 'xMax' => $this->tables['head']->xMax,
+                                                 'yMax' => $this->tables['head']->yMax), \ArrayObject::ARRAY_AS_PROPS);
 
             $this->header = $this->tables['head'];
         }
 
         // hhea
         if (isset($this->tableInfo['hhea'])) {
-            $this->tables['hhea'] = new Pop_Font_TrueType_Table_Hhea($this);
+            $this->tables['hhea'] = new Hhea($this);
             $this->ascent = $this->tables['hhea']->ascent;
             $this->descent = $this->tables['hhea']->descent;
             $this->capHeight = $this->ascent + $this->descent;
@@ -172,13 +186,13 @@ class Pop_Font_TrueType extends Pop_Font
 
         // maxp
         if (isset($this->tableInfo['maxp'])) {
-            $this->tables['maxp'] = new Pop_Font_TrueType_Table_Maxp($this);
+            $this->tables['maxp'] = new Maxp($this);
             $this->numberOfGlyphs = $this->tables['maxp']->numberOfGlyphs;
         }
 
         // post
         if (isset($this->tableInfo['post'])) {
-            $this->tables['post'] = new Pop_Font_TrueType_Table_Post($this);
+            $this->tables['post'] = new Post($this);
 
             if ($this->tables['post']->italicAngle != 0) {
                 $this->flags->isItalic = true;
@@ -191,13 +205,13 @@ class Pop_Font_TrueType extends Pop_Font
 
         // hmtx
         if (isset($this->tableInfo['hmtx'])) {
-            $this->tables['hmtx'] = new Pop_Font_TrueType_Table_Hmtx($this);
+            $this->tables['hmtx'] = new Hmtx($this);
             $this->glyphWidths = $this->tables['hmtx']->glyphWidths;
         }
 
         // cmap
         if (isset($this->tableInfo['cmap'])) {
-            $this->tables['cmap'] = new Pop_Font_TrueType_Table_Cmap($this);
+            $this->tables['cmap'] = new Cmap($this);
         }
     }
 
@@ -210,18 +224,18 @@ class Pop_Font_TrueType extends Pop_Font
     {
         // loca
         if (isset($this->tableInfo['loca'])) {
-            $this->tables['loca'] = new Pop_Font_TrueType_Table_Loca($this);
+            $this->tables['loca'] = new Loca($this);
         }
 
         // glyf
         if (isset($this->tableInfo['glyf'])) {
-            $this->tables['glyf'] = new Pop_Font_TrueType_Table_Glyf($this);
+            $this->tables['glyf'] = new Glyf($this);
             $this->glyphWidths = $this->tables['glyf']->glyphWidths;
         }
 
         // OS/2 (Optional in a TTF font file)
         if (isset($this->tableInfo['OS/2'])) {
-            $this->tables['OS/2'] = new Pop_Font_TrueType_Table_Os2($this);
+            $this->tables['OS/2'] = new Os2($this);
 
             $this->flags->isSerif = $this->tables['OS/2']->flags->isSerif;
             $this->flags->isScript = $this->tables['OS/2']->flags->isScript;

@@ -1,4 +1,4 @@
-Pop PHP Framework 0.9 Beta (Forked from Moc10 PHP Library 1.9.7)
+Pop PHP Framework 0.9 (Forked from Moc10 PHP Library 1.9.7)
 
   1st Round:
   [DONE] > Add Archive component
@@ -48,6 +48,9 @@ Pop PHP Framework 0.9 Beta (Forked from Moc10 PHP Library 1.9.7)
            - Background color/images
   [DONE] > Add Http Request/Response Component
   [DONE] > Add MVC Component
+  [DONE] > Refactor Autoloader Component
+           - Add classmap generator
+  [DONE] > Refactor framework with namespaces
 
 ------------------------------------------------
 -- ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON --
@@ -70,10 +73,7 @@ Pop PHP Framework 0.9 Beta (Forked from Moc10 PHP Library 1.9.7)
 ------------------------------------------------
 
  2nd Round:
-         > Add Namespace support
-         > Check autoloader for override issue. Revise autoloader to work with other autoloaders. Classmap generator?
          > Look at creating more dependency injections throughout (config/ini file?)
-         > Exceptions
          > Add Code Generator
            - Data mapping classes to database tables
            - Generate code for classes and create database from template

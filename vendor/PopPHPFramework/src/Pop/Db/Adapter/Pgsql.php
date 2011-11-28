@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Db_Adapter_Pgsql
- *
  * @category   Pop
  * @package    Pop_Db
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Db_Adapter_Pgsql extends Pop_Db_Adapter_Abstract
+/**
+ * @namespace
+ */
+namespace Pop\Db\Adapter;
+use Pop\Locale\Locale;
+
+class Pgsql extends AbstractAdapter
 {
 
     /**
@@ -62,7 +66,7 @@ class Pop_Db_Adapter_Pgsql extends Pop_Db_Adapter_Abstract
      */
     public function __construct(array $options)
     {
-        $this->_lang = new Pop_Locale();
+        $this->_lang = new Locale();
 
         if (!isset($options['database']) || !isset($options['host']) || !isset($options['username']) || !isset($options['password'])) {
             throw new Exception($this->_lang->__('Error: The proper database credentials were not passed.'));

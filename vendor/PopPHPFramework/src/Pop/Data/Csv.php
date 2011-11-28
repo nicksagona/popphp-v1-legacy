@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Data_Csv
- *
  * @category   Pop
  * @package    Pop_Data
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Data_Csv implements Pop_Data_Interface
+/**
+ * @namespace
+ */
+namespace Pop\Data;
+use Pop\Filter\StringFilter;
+
+class Csv implements DataInterface
 {
 
     /**
@@ -108,12 +112,12 @@ class Pop_Data_Csv implements Pop_Data_Interface
 
         foreach ($tempAry as $key => $value) {
             if (!in_array($key, $omit)) {
-                $v = new Pop_String((string)$value);
+                $v = new StringFilter((string)$value);
                 if ($v->pos($esc) !== false) {
                     $v->replace($esc, $esc . $esc);
                 }
                 if ($v->pos($delim) !== false) {
-                    $v = new Pop_String($esc . $v . $esc);
+                    $v = new StringFilter($esc . $v . $esc);
                 }
                 $headerAry[] = (string)$v;
             }
@@ -129,18 +133,18 @@ class Pop_Data_Csv implements Pop_Data_Interface
                 if (!in_array($key, $omit)) {
                     if (null !== $dt) {
                         if ((strtotime($val) !== false) || (stripos($key, 'date') !== false)) {
-                            $v = (date($dt, strtotime($val)) != '12/31/1969') ? new Pop_String(date($dt, strtotime((string)$val))) : new Pop_String('');
+                            $v = (date($dt, strtotime($val)) != '12/31/1969') ? new StringFilter(date($dt, strtotime((string)$val))) : new StringFilter('');
                         } else {
-                            $v = new Pop_String((string)$val);
+                            $v = new StringFilter((string)$val);
                         }
                     } else {
-                        $v = new Pop_String((string)$val);
+                        $v = new StringFilter((string)$val);
                     }
                     if ($v->pos($esc) !== false) {
                         $v->replace($esc, $esc . $esc);
                     }
                     if ($v->pos($delim) !== false) {
-                        $v = new Pop_String($esc . (string)$v . $esc);
+                        $v = new StringFilter($esc . (string)$v . $esc);
                     }
                     $rowAry[] = $v;
                 }

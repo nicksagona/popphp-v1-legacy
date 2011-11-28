@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Data_Sql
- *
  * @category   Pop
  * @package    Pop_Data
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Data_Sql implements Pop_Data_Interface
+/**
+ * @namespace
+ */
+namespace Pop\Data;
+use Pop\Filter\StringFilter;
+
+class Sql implements DataInterface
 {
 
      /**
@@ -51,7 +55,7 @@ class Pop_Data_Sql implements Pop_Data_Interface
 
         $fields = substr($data, (strpos($data, '(') + 1));
         $fields = substr($fields, 0, strpos($fields, ')'));
-        $fields = (string)Pop_String::factory($fields)->replace(', ', ',')
+        $fields = (string)StringFilter::factory($fields)->replace(', ', ',')
                                                         ->replace('`', '')
                                                         ->replace('"', '')
                                                         ->replace("'", "")

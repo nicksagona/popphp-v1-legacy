@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Db_Sql
- *
  * @category   Pop
  * @package    Pop_Db
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Db_Sql
+/**
+ * @namespace
+ */
+namespace Pop\Db;
+use Pop\Locale\Locale;
+
+class Sql
 {
 
     /**
@@ -145,7 +149,7 @@ class Pop_Db_Sql
      */
     public function __construct($table = null)
     {
-        $this->_lang = new Pop_Locale();
+        $this->_lang = new Locale();
 
         if (null !== $table) {
             $this->setTable($table);

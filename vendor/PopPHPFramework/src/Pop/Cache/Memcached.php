@@ -20,17 +20,21 @@
  */
 
 /**
- * Pop_Cache_Memcached
- *
  * @category   Pop
  * @package    Pop_Cache
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Cache_Memcached implements Pop_Cache_Interface
+/**
+ * @namespace
+ */
+namespace Pop\Cache;
+use Pop\Locale\Locale;
+
+class Memcached implements CacheInterface
 {
 
     /**
@@ -55,11 +59,11 @@ class Pop_Cache_Memcached implements Pop_Cache_Interface
     public function __construct()
     {
         if (!class_exists('Memcache')) {
-            throw new Exception(Pop_Locale::load()->__('Error: Memcache is not available on this server.'));
+            throw new Exception(Locale::factory()->__('Error: Memcache is not available on this server.'));
         } else {
-            $this->_memcache = new Memcache();
+            $this->_memcache = new \Memcache();
             if (!$this->_memcache->connect('localhost', 11211)) {
-                throw new Exception(Pop_Locale::load()->__('Error: Unable to connect to the memcached server.'));
+                throw new Exception(Locale::factory()->__('Error: Unable to connect to the memcached server.'));
             } else {
                 $this->_version = $this->_memcache->getVersion();
             }

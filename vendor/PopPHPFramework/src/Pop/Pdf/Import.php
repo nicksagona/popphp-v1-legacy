@@ -20,17 +20,22 @@
  */
 
 /**
- * Pop_Pdf_Import
- *
  * @category   Pop
  * @package    Pop_Pdf
  * @author     Nick Sagona, III <nick@moc10media.com>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9 beta
+ * @version    0.9
  */
 
-class Pop_Pdf_Import
+/**
+ * @namespace
+ */
+namespace Pop\Pdf;
+use Pop\File\File,
+    Pop\Locale\Locale;
+
+class Import
 {
 
     /**
@@ -75,7 +80,7 @@ class Pop_Pdf_Import
     public function __construct($pdf, $pgs = null)
     {
         // Read the file data from the imported PDF.
-        $import_file = new Pop_File($pdf);
+        $import_file = new File($pdf);
         $this->_data = $import_file->read();
 
         // Strip any and all XREF tables, as the structure of the PDF will change.
@@ -338,7 +343,7 @@ class Pop_Pdf_Import
     protected function _lastIndex($arr)
     {
         if (!is_array($arr)) {
-            throw new Exception(Pop_Locale::load()->__('Error: The argument passed must be an array.'));
+            throw new Exception(Locale::factory()->__('Error: The argument passed must be an array.'));
         } else {
             $objs = array_keys($arr);
             sort($objs);
@@ -361,7 +366,7 @@ class Pop_Pdf_Import
     protected function _firstIndex($arr)
     {
         if (!is_array($arr)) {
-            throw new Exception(Pop_Locale::load()->__('Error: The argument passed must be an array.'));
+            throw new Exception(Locale::factory()->__('Error: The argument passed must be an array.'));
         } else {
             $objs = array_keys($arr);
             rsort($objs);
