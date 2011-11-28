@@ -126,12 +126,12 @@ class Autoloader
         if (array_key_exists($class, $this->_classmap)) {
             $classPath = $this->_classmap[$class];
         } else {
-            if (strpos($class, '_') !== false) {
-                $prefix = substr($class, 0, strpos($class, '_'));
-                $classPath = $this->_prefixes[$prefix] . DIRECTORY_SEPARATOR . str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
-            } else {
+            if (strpos($class, '\\') !== false) {
                 $prefix = substr($class, 0, strpos($class, '\\'));
                 $classPath = $this->_prefixes[$prefix] . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
+            } else {
+                $prefix = substr($class, 0, strpos($class, '_'));
+                $classPath = $this->_prefixes[$prefix] . DIRECTORY_SEPARATOR . str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
             }
         }
 
