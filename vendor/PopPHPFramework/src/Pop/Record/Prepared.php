@@ -14,29 +14,29 @@
  *
  * @category   Pop
  * @package    Pop_Record
- * @author     Nick Sagona, III <nick@moc10media.com>
+ * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- */
-
-/**
- * @category   Pop
- * @package    Pop_Record
- * @author     Nick Sagona, III <nick@moc10media.com>
- * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
- * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9
  */
 
 /**
  * @namespace
  */
 namespace Pop\Record;
+
 use Pop\Db\Db,
     Pop\Db\Sql,
     Pop\Locale\Locale,
     Pop\Record\AbstractRecord;
 
+/**
+ * @category   Pop
+ * @package    Pop_Record
+ * @author     Nick Sagona, III <nick@popphp.org>
+ * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
+ * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ * @version    0.9
+ */
 class Prepared extends AbstractRecord
 {
 

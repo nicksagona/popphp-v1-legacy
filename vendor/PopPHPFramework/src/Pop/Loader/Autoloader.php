@@ -14,18 +14,9 @@
  *
  * @category   Pop
  * @package    Pop_Loader
- * @author     Nick Sagona, III <nick@moc10media.com>
+ * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- */
-
-/**
- * @category   Pop
- * @package    Pop_Loader
- * @author     Nick Sagona, III <nick@moc10media.com>
- * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
- * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9
  */
 
 /**
@@ -33,6 +24,14 @@
  */
 namespace Pop\Loader;
 
+/**
+ * @category   Pop
+ * @package    Pop_Loader
+ * @author     Nick Sagona, III <nick@popphp.org>
+ * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
+ * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ * @version    0.9
+ */
 class Autoloader
 {
 
@@ -59,7 +58,7 @@ class Autoloader
     public function __construct($self = true)
     {
         if ($self) {
-            $this->register('Pop', realpath(__DIR__ . '/../../'));
+            $this->register('Pop', __DIR__ . '/../../');
         }
     }
 
@@ -100,7 +99,7 @@ class Autoloader
      */
     public function register($namespace, $directory)
     {
-        $this->_prefixes[$namespace] = $directory;
+        $this->_prefixes[$namespace] = realpath($directory);
         return $this;
     }
 

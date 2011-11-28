@@ -14,26 +14,26 @@
  *
  * @category   Pop
  * @package    Pop_Db
- * @author     Nick Sagona, III <nick@moc10media.com>
+ * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- */
-
-/**
- * @category   Pop
- * @package    Pop_Db
- * @author     Nick Sagona, III <nick@moc10media.com>
- * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
- * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9
  */
 
 /**
  * @namespace
  */
 namespace Pop\Db\Adapter;
+
 use Pop\Locale\Locale;
 
+/**
+ * @category   Pop
+ * @package    Pop_Db
+ * @author     Nick Sagona, III <nick@popphp.org>
+ * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
+ * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ * @version    0.9
+ */
 class Pdo extends AbstractAdapter
 {
 

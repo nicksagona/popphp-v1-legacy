@@ -14,28 +14,28 @@
  *
  * @category   Pop
  * @package    Pop_Svg
- * @author     Nick Sagona, III <nick@moc10media.com>
+ * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- */
-
-/**
- * @category   Pop
- * @package    Pop_Svg
- * @author     Nick Sagona, III <nick@moc10media.com>
- * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
- * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9
  */
 
 /**
  * @namespace
  */
 namespace Pop\Svg;
+
 use Pop\Color\Color,
     Pop\Color\Rgb,
     Pop\File\File;
 
+/**
+ * @category   Pop
+ * @package    Pop_Svg
+ * @author     Nick Sagona, III <nick@popphp.org>
+ * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
+ * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ * @version    0.9
+ */
 class Svg extends File
 {
 

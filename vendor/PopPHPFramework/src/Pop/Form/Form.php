@@ -14,24 +14,16 @@
  *
  * @category   Pop
  * @package    Pop_Form
- * @author     Nick Sagona, III <nick@moc10media.com>
+ * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- */
-
-/**
- * @category   Pop
- * @package    Pop_Form
- * @author     Nick Sagona, III <nick@moc10media.com>
- * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
- * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    0.9
  */
 
 /**
  * @namespace
  */
 namespace Pop\Form;
+
 use Pop\Dom\Dom,
     Pop\Dom\Child,
     Pop\Form\Element,
@@ -42,6 +34,14 @@ use Pop\Dom\Dom,
     Pop\Locale\Locale,
     Pop\Filter\StringFilter;
 
+/**
+ * @category   Pop
+ * @package    Pop_Form
+ * @author     Nick Sagona, III <nick@popphp.org>
+ * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
+ * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ * @version    0.9
+ */
 class Form extends Dom
 {
 
