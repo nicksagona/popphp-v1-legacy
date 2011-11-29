@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace Pop\Archive;
+namespace Pop\Archive\Adapter;
 
 /**
  * @category   Pop
@@ -55,25 +55,6 @@ interface ArchiveInterface
     public static function factory($archive);
 
     /**
-     * Static method to compress a string of data
-     *
-     * @param  string $data
-     * @param  int    $type
-     * @param  int    $level
-     * @return string
-     */
-    public static function compress($data, $type = Archive::GZIP, $level = 4);
-
-    /**
-     * Static method to decompress a string of data
-     *
-     * @param  string $data
-     * @param  int    $type
-     * @return string
-     */
-    public static function decompress($data, $type = Archive::GZIP);
-
-    /**
      * Method to extract an archived and/or compressed file
      *
      * @param  string $to
@@ -90,14 +71,12 @@ interface ArchiveInterface
     public function addFiles($files);
 
     /**
-     * Method to compress an archive file
+     * Method to create an archive file
      *
-     * @param  int     $type
-     * @param  boolean $replace
-     * @param  int     $level
+     * @param  string|array $files
      * @return Pop_Archive
      */
-    public function compressArchive($type = Archive::GZIP, $replace = false, $level = 4);
+    public function removeFiles($files);
 
     /**
      * Method to return a listing of the contents of an archived file
