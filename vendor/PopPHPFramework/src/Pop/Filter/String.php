@@ -32,14 +32,14 @@ namespace Pop\Filter;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-class StringFilter
+class String
 {
 
     /**
      * String property
      * @var string
      */
-    protected $_string;
+    protected $_string = null;
 
     /**
      * Constructor
@@ -59,7 +59,7 @@ class StringFilter
      * to facilitate chaining methods together.
      *
      * @param  string $str
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
     public static function factory($str = null)
     {
@@ -67,91 +67,9 @@ class StringFilter
     }
 
     /**
-     * Method to return the length of the string.
-     *
-     * @return int
-     */
-    public function length()
-    {
-        return strlen($this->_string);
-    }
-
-    /**
-     * Method to return the position of the character(s) in the string.
-     *
-     * @param  string $char
-     * @param  int    $offset
-     * @return int
-     */
-    public function pos($char, $offset = 0)
-    {
-        return strpos($this->_string, $char, $offset);
-    }
-
-    /**
-     * Method to return the position of the case-insensitive character(s) in the string.
-     *
-     * @param  string $char
-     * @param  int    $offset
-     * @return int
-     */
-    public function ipos($char, $offset = 0)
-    {
-        return stripos($this->_string, $char, $offset);
-    }
-
-    /**
-     * Method to return the last position of the character(s) in the string.
-     *
-     * @param  string $char
-     * @param  int    $offset
-     * @return int
-     */
-    public function rpos($char, $offset = 0)
-    {
-        return strrpos($this->_string, $char, $offset);
-    }
-
-    /**
-     * Method to return the last position of the case-insensitive character(s) in the string.
-     *
-     * @param  string $char
-     * @param  int    $offset
-     * @return int
-     */
-    public function ripos($char, $offset = 0)
-    {
-        return strripos($this->_string, $char, $offset);
-    }
-
-    /**
-     * Method to return an array of parts of the string based on the delimiter.
-     *
-     * @param  string $delimiter
-     * @return array
-     */
-    public function split($delimiter)
-    {
-        return explode($delimiter, $this->_string);
-    }
-
-    /**
-     * Method to glue an array of parts togeter into a string based on the delimiter.
-     *
-     * @param  array  $ary
-     * @param  string $delimiter
-     * @return Pop_String
-     */
-    public function glue($ary, $delimiter)
-    {
-        $this->_string = implode($delimiter, $ary);
-        return $this;
-    }
-
-    /**
      * Method to convert the string to all lowercase and return the newly edited string.
      *
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
     public function lower()
     {
@@ -162,46 +80,33 @@ class StringFilter
     /**
      * Method to convert the first letter of each word in the string to uppercase and return the newly edited string.
      *
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
     public function upper()
-    {
-        $this->_string = ucwords($this->_string);
-        return $this;
-    }
-
-    /**
-     * Method to convert the string to all uppercase and return the newly edited string.
-     *
-     * @return Pop_String
-     */
-    public function upperall()
     {
         $this->_string = strtoupper($this->_string);
         return $this;
     }
 
     /**
-     * Method to convert the first letter of a string to uppercase and return the newly edited string.
+     * Method to convert the string to all uppercase and return the newly edited string.
      *
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
-    public function upperfirst()
+    public function upperWords()
     {
-        $this->_string = ucfirst($this->_string);
+        $this->_string = ucwords($this->_string);
         return $this;
     }
 
     /**
-     * Method to return a substring of the string.
+     * Method to convert the first letter of a string to uppercase and return the newly edited string.
      *
-     * @param  int $start
-     * @param  int $len
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
-    public function sub($start, $len = null)
+    public function upperFirst()
     {
-        $this->_string = (null !== $len) ? substr($this->_string, $start, $len) : substr($this->_string, $start);
+        $this->_string = ucfirst($this->_string);
         return $this;
     }
 
@@ -210,7 +115,7 @@ class StringFilter
      *
      * @param  int $start
      * @param  int $end
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
     public function between($start, $end)
     {
@@ -225,26 +130,18 @@ class StringFilter
     /**
      * Method to replace the substring that was passed as an argument and return the newly edited string.
      *
-     * @param  string $search
-     * @param  string $replace
-     * @return Pop_String
+     * @param  string  $search
+     * @param  string  $replace
+     * @param  boolean $caseSenstive
+     * @return Pop\Filter\String
      */
-    public function replace($search, $replace)
+    public function replace($search, $replace, $caseSenstive = true)
     {
-        $this->_string = str_replace($search, $replace, $this->_string);
-        return $this;
-    }
-
-    /**
-     * Method to replace (case-insensitive) the substring using what was passed as an argument and return the newly edited string.
-     *
-     * @param  string $search
-     * @param  string $replace
-     * @return Pop_String
-     */
-    public function ireplace($search, $replace)
-    {
-        $this->_string = str_ireplace($search, $replace, $this->_string);
+        if ($caseSenstive) {
+            $this->_string = str_replace($search, $replace, $this->_string);
+        } else {
+            $this->_string = str_ireplace($search, $replace, $this->_string);
+        }
         return $this;
     }
 
@@ -253,34 +150,19 @@ class StringFilter
      *
      * @param  string $pattern
      * @param  string $replace
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
-    public function preplace($pattern, $replace)
+    public function pregReplace($pattern, $replace)
     {
         $this->_string = preg_replace($pattern, $replace, $this->_string);
         return $this;
     }
 
     /**
-     * Method to preg_replace the substring using what was passed as an argument and return the newly edited string.
-     *
-     * @param  string $pattern
-     * @param  int    $flags
-     * @param  int    $offset
-     * @return Pop_String
-     */
-    public function pmatch($pattern, $flags = 0, $offset = 0)
-    {
-        $matches = array();
-        preg_match_all($pattern, $this->_string, $matches, $flags, $offset);
-        return $matches;
-    }
-
-    /**
      * Method to trim the whitespace at the beginning and end of the string and return the newly edited string.
      *
      * @param  string $chars
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
     public function trim($chars = null)
     {
@@ -291,7 +173,7 @@ class StringFilter
     /**
      * Method to add slashes to the string and return the newly edited string.
      *
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
     public function add()
     {
@@ -302,7 +184,7 @@ class StringFilter
     /**
      * Method to strip slashes from the string and return the newly edited string.
      *
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
     public function strip()
     {
@@ -314,11 +196,44 @@ class StringFilter
      * Method to strip HTML tags from the string and return the newly edited string.
      *
      * @param  string $allowed
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
     public function striptags($allowed = null)
     {
         $this->_string = (null !== $allowed) ? strip_tags($this->_string, $allowed) : strip_tags($this->_string);
+        return $this;
+    }
+
+    /**
+     * Method to convert special characters in the string to properly formatted HTML entities and return the newly edited string.
+     *
+     * @return Pop\Filter\String
+     */
+    public function html()
+    {
+        $this->_string = htmlentities($this->_string, ENT_QUOTES, 'UTF-8');
+        return $this;
+    }
+
+    /**
+     * Method to convert formatted HTML entities in the string back into special characters and return the newly edited string.
+     *
+     * @return Pop\Filter\String
+     */
+    public function dehtml()
+    {
+        $this->_string = html_entity_decode($this->_string, ENT_QUOTES, 'UTF-8');
+        return $this;
+    }
+
+    /**
+     * Method to convert newlines in the string to <br /> tags and return the newly edited string.
+     *
+     * @return Pop\Filter\String
+     */
+    public function br()
+    {
+        $this->_string = nl2br($this->_string);
         return $this;
     }
 
@@ -330,7 +245,7 @@ class StringFilter
      * '%' and '_' characters to be escaped as well.
      *
      * @param  boolean $all
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
     public function escape($all = false)
     {
@@ -340,11 +255,11 @@ class StringFilter
         $this->_string = str_replace("\x00", "\\x00", $this->_string);
         $this->_string = str_replace("\x1a", "\\x1a", $this->_string);
         $this->_string = str_replace('\'', '\\\'', $this->_string);
-        $this->_string = str_replace('"', '\"', $this->_string);
+        $this->_string = str_replace('"', '\\"', $this->_string);
 
         if ($all) {
-            $this->_string = str_replace('%', '\%', $this->_string);
-            $this->_string = str_replace('_', '\_', $this->_string);
+            $this->_string = str_replace('%', '\\%', $this->_string);
+            $this->_string = str_replace('_', '\\_', $this->_string);
         }
 
         return $this;
@@ -354,7 +269,7 @@ class StringFilter
      * Method to clean the string of any of the standard MS Word based characters
      *
      * @param  boolean $html
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
     public function msClean($html = false)
     {
@@ -379,9 +294,9 @@ class StringFilter
      * Method to convert newlines from DOS to UNIX
      *
      * @param  boolean $html
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
-    public function dos2unix()
+    public function dosToUnix()
     {
         $this->_string = str_replace(chr(13) . chr(10), chr(10), $this->_string);
         return $this;
@@ -390,58 +305,11 @@ class StringFilter
     /**
      * Method to convert newlines from UNIX to DOS
      *
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
-    public function unix2dos()
+    public function unixToDos()
     {
         $this->_string = str_replace(chr(10), chr(13) . chr(10), $this->_string);
-        return $this;
-    }
-
-    /**
-     * Method to convert newlines in the string to <br /> tags and return the newly edited string.
-     *
-     * @return Pop_String
-     */
-    public function br()
-    {
-        $this->_string = nl2br($this->_string);
-        return $this;
-    }
-
-    /**
-     * Method to perform a word wrap on a string.
-     *
-     * @param  string  $len
-     * @param  string  $delimiter
-     * @param  boolean $cut
-     * @return Pop_String
-     */
-    public function wrap($len, $delimiter = "\n", $cut = false)
-    {
-        $this->_string = wordwrap($this->_string, $len, $delimiter, $cut);
-        return $this;
-    }
-
-    /**
-     * Method to convert special characters in the string to properly formatted HTML entities and return the newly edited string.
-     *
-     * @return Pop_String
-     */
-    public function html()
-    {
-        $this->_string = htmlentities($this->_string, ENT_QUOTES, 'UTF-8');
-        return $this;
-    }
-
-    /**
-     * Method to convert formatted HTML entities in the string back into special characters and return the newly edited string.
-     *
-     * @return Pop_String
-     */
-    public function dehtml()
-    {
-        $this->_string = html_entity_decode($this->_string, ENT_QUOTES, 'UTF-8');
         return $this;
     }
 
@@ -449,7 +317,7 @@ class StringFilter
      * Method to convert the string into an SEO-friendly slug.
      *
      * @param  string $sep
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
     public function slug($sep = null)
     {
@@ -492,7 +360,7 @@ class StringFilter
      * Method to convert any links in the string to clickable HTML links.
      *
      * @param  boolean $tar
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
     public function links($tar = false)
     {
@@ -509,28 +377,16 @@ class StringFilter
     }
 
     /**
-     * Method to return a date-formatted string.
-     *
-     * @param  string $format
-     * @return Pop_String
-     */
-    public function date($format = 'm/d/Y')
-    {
-        $this->_string = date($format, strtotime($this->_string));
-        return $this;
-    }
-
-    /**
      * Method to generate a random alphanumeric string of a predefined length.
      *
      * @param  int     $len
      * @param  boolean $caps
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
     public function random($len, $caps = false)
     {
         // Array of alphanumeric characters. The O, 0, I and 1 have been removed to eliminate confusion.
-        $chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        $chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz';
 
         for ($i = 0; $i < $len; $i++) {
             $num = (rand(1, strlen($chars)) - 1);
@@ -545,15 +401,47 @@ class StringFilter
     }
 
     /**
-     * Method to convert the string from under_score to camelCase format
+     * Method to convert the string from camelCase to dash format
      *
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
-    public function toCamelcase()
+    public function camelCaseToDash()
     {
-        $delim = (strpos($this->_string, '_') !== false) ? '_' : '-';
+       $this->_string = $this->_convertCamelCase('-');
+       return $this;
+    }
 
-        $strAry = explode($delim, $this->_string);
+    /**
+     * Method to convert the string from camelCase to separator format
+     *
+     * @param  string $sep
+     * @return Pop\Filter\String
+     */
+    public function camelCaseToSeparator($sep = DIRECTORY_SEPARATOR)
+    {
+        $this->_string = $this->_convertCamelCase($sep);
+        return $this;
+    }
+
+    /**
+     * Method to convert the string from camelCase to under_score format
+     *
+     * @return Pop\Filter\String
+     */
+    public function camelCaseToUnderscore()
+    {
+        $this->_string = $this->_convertCamelCase('_');
+        return $this;
+    }
+
+    /**
+     * Method to convert the string from dash to camelCase format
+     *
+     * @return Pop\Filter\String
+     */
+    public function dashToCamelcase()
+    {
+        $strAry = explode('-', $this->_string);
         $camelCase = null;
         $i = 0;
 
@@ -572,53 +460,98 @@ class StringFilter
     }
 
     /**
-     * Method to convert the string from camelCase to under_score format
+     * Method to convert the string from dash to separator format
      *
-     * @return Pop_String
+     * @param  string $sep
+     * @return Pop\Filter\String
      */
-    public function toUnderscore()
+    public function dashToSeparator($sep = DIRECTORY_SEPARATOR)
     {
-        $strAry = str_split($this->_string);
-        $under_score = null;
+        $this->_string = str_replace('_', $sep, $this->_string);
+        return $this;
+    }
+
+    /**
+     * Method to convert the string from dash to under_score format
+     *
+     * @return Pop\Filter\String
+     */
+    public function dashToUnderscore()
+    {
+        $this->_string = str_replace('-', '_', $this->_string);
+        return $this;
+    }
+
+    /**
+     * Method to convert the string from under_score to camelCase format
+     *
+     * @return Pop\Filter\String
+     */
+    public function underscoreToCamelcase()
+    {
+        $strAry = explode('_', $this->_string);
+        $camelCase = null;
         $i = 0;
 
-        foreach ($strAry as $chr) {
+        foreach ($strAry as $word) {
             if ($i == 0) {
-                $under_score .= strtolower($chr);
+                $camelCase .= $word;
             } else {
-                $under_score .= (ctype_upper($chr)) ? ('_' . strtolower($chr)) : $chr;
+                $camelCase .= ucfirst($word);
             }
             $i++;
         }
 
-        $this->_string = $under_score;
+        $this->_string = $camelCase;
 
         return $this;
     }
 
     /**
-     * Method to convert the string from camelCase to hyphenated format
+     * Method to convert the string from under_score to dash format
      *
-     * @return Pop_String
+     * @return Pop\Filter\String
      */
-    public function toHyphen()
+    public function underscoreToDash()
+    {
+        $this->_string = str_replace('_', '-', $this->_string);
+        return $this;
+    }
+
+    /**
+     * Method to convert the string from under_score to separator format
+     *
+     * @param  string $sep
+     * @return Pop\Filter\String
+     */
+    public function underscoreToSeparator($sep = DIRECTORY_SEPARATOR)
+    {
+        $this->_string = str_replace('_', $sep, $this->_string);
+        return $this;
+    }
+
+    /**
+     * Method to convert a camelCase string using the $sep value passed
+     *
+     * @param string $sep
+     * @return string
+     */
+    protected function _convertCamelCase($sep)
     {
         $strAry = str_split($this->_string);
-        $hyphenated = null;
+        $convert = null;
         $i = 0;
 
         foreach ($strAry as $chr) {
             if ($i == 0) {
-                $hyphenated .= strtolower($chr);
+                $convert .= strtolower($chr);
             } else {
-                $hyphenated .= (ctype_upper($chr)) ? ('-' . strtolower($chr)) : $chr;
+                $convert .= (ctype_upper($chr)) ? ($sep . strtolower($chr)) : $chr;
             }
             $i++;
         }
 
-        $this->_string = $hyphenated;
-
-        return $this;
+        return $convert;
     }
 
     /**
