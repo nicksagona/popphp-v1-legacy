@@ -67,7 +67,8 @@ class String
     }
 
     /**
-     * Method to convert the string to all lowercase and return the newly edited string.
+     * Method to convert the string to all lowercase and
+     * return the newly edited string filter object.
      *
      * @return Pop\Filter\String
      */
@@ -78,7 +79,8 @@ class String
     }
 
     /**
-     * Method to convert the first letter of each word in the string to uppercase and return the newly edited string.
+     * Method to convert the first letter of each word in the string
+     * to uppercase and return the newly edited string filter object.
      *
      * @return Pop\Filter\String
      */
@@ -89,7 +91,8 @@ class String
     }
 
     /**
-     * Method to convert the string to all uppercase and return the newly edited string.
+     * Method to convert the string to all uppercase and
+     * return the newly edited string filter object.
      *
      * @return Pop\Filter\String
      */
@@ -100,7 +103,8 @@ class String
     }
 
     /**
-     * Method to convert the first letter of a string to uppercase and return the newly edited string.
+     * Method to convert the first letter of a string to uppercase
+     * and return the newly edited string filter object.
      *
      * @return Pop\Filter\String
      */
@@ -119,16 +123,19 @@ class String
      */
     public function between($start, $end)
     {
-        $startPos = (strpos($this->_string, $start) !== false) ? (strpos($this->_string, $start) + strlen($start)) : 0;
+        $startPos = (strpos($this->_string, $start) !== false)
+            ? (strpos($this->_string, $start) + strlen($start)) : 0;
 
         $this->_string = substr($this->_string, $startPos);
-        $this->_string = (strpos($this->_string, $end) !== false) ? substr($this->_string, 0, (strpos($this->_string, $end))) : $this->_string;
+        $this->_string = (strpos($this->_string, $end) !== false)
+            ? substr($this->_string, 0, (strpos($this->_string, $end))) : $this->_string;
 
         return $this;
     }
 
     /**
-     * Method to replace the substring that was passed as an argument and return the newly edited string.
+     * Method to replace the substring that was passed as an argument
+     * and return the newly edited string filter object.
      *
      * @param  string  $search
      * @param  string  $replace
@@ -146,7 +153,8 @@ class String
     }
 
     /**
-     * Method to preg_replace the substring using what was passed as an argument and return the newly edited string.
+     * Method to preg_replace the substring using what was passed
+     * as an argument and return the newly edited string filter object.
      *
      * @param  string $pattern
      * @param  string $replace
@@ -159,19 +167,22 @@ class String
     }
 
     /**
-     * Method to trim the whitespace at the beginning and end of the string and return the newly edited string.
+     * Method to trim the whitespace at the beginning and end of the string
+     * and return the newly edited string filter object.
      *
      * @param  string $chars
      * @return Pop\Filter\String
      */
     public function trim($chars = null)
     {
-        $this->_string = (null !== $chars) ? trim($this->_string, $chars) : trim($this->_string);
+        $this->_string = (null !== $chars)
+            ? trim($this->_string, $chars) : trim($this->_string);
         return $this;
     }
 
     /**
-     * Method to add slashes to the string and return the newly edited string.
+     * Method to add slashes to the string and return the newly
+     * edited string filter object.
      *
      * @return Pop\Filter\String
      */
@@ -182,7 +193,8 @@ class String
     }
 
     /**
-     * Method to strip slashes from the string and return the newly edited string.
+     * Method to strip slashes from the string and return the newly
+     * edited string filter object.
      *
      * @return Pop\Filter\String
      */
@@ -193,19 +205,22 @@ class String
     }
 
     /**
-     * Method to strip HTML tags from the string and return the newly edited string.
+     * Method to strip HTML tags from the string and return the
+     * newly edited string filter object.
      *
      * @param  string $allowed
      * @return Pop\Filter\String
      */
     public function striptags($allowed = null)
     {
-        $this->_string = (null !== $allowed) ? strip_tags($this->_string, $allowed) : strip_tags($this->_string);
+        $this->_string = (null !== $allowed)
+            ? strip_tags($this->_string, $allowed) : strip_tags($this->_string);
         return $this;
     }
 
     /**
-     * Method to convert special characters in the string to properly formatted HTML entities and return the newly edited string.
+     * Method to convert special characters in the string to properly
+     * formatted HTML entities and return the newly edited string filter object.
      *
      * @return Pop\Filter\String
      */
@@ -216,7 +231,8 @@ class String
     }
 
     /**
-     * Method to convert formatted HTML entities in the string back into special characters and return the newly edited string.
+     * Method to convert formatted HTML entities in the string back into
+     * special characters and return the newly edited string filter object.
      *
      * @return Pop\Filter\String
      */
@@ -227,7 +243,8 @@ class String
     }
 
     /**
-     * Method to convert newlines in the string to <br /> tags and return the newly edited string.
+     * Method to convert newlines in the string to <br /> tags and return
+     * the newly edited string filter object.
      *
      * @return Pop\Filter\String
      */
@@ -266,7 +283,8 @@ class String
     }
 
     /**
-     * Method to clean the string of any of the standard MS Word based characters
+     * Method to clean the string of any of the standard MS Word based
+     * characters and return the newly edited string filter object
      *
      * @param  boolean $html
      * @return Pop\Filter\String
@@ -385,7 +403,8 @@ class String
      */
     public function random($len, $caps = false)
     {
-        // Array of alphanumeric characters. The O, 0, I and 1 have been removed to eliminate confusion.
+        // Array of alphanumeric characters. The O, 0, I and 1 have been
+        // removed to eliminate confusion.
         $chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz';
 
         for ($i = 0; $i < $len; $i++) {

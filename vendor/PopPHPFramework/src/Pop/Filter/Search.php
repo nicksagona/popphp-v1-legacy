@@ -84,7 +84,7 @@ class Search
     }
 
     /**
-     * Static method to instantiate the array object and return itself
+     * Static method to instantiate the search filter object and return itself
      * to facilitate chaining methods together.
      *
      * @param  mixed  $data
@@ -97,7 +97,7 @@ class Search
     }
 
     /**
-     * Method to perform a search over the array and return an array of the results.
+     * Method to perform a search over the data and return an array of the results.
      * Wildcards (*) are supported, such as:
      *
      *   string* (beginning with 'string')
