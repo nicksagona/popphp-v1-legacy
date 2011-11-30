@@ -137,17 +137,29 @@ class String
      * Method to replace the substring that was passed as an argument
      * and return the newly edited string filter object.
      *
-     * @param  string  $search
-     * @param  string  $replace
-     * @param  boolean $caseSenstive
+     * @param  array|string  $search
+     * @param  string        $replace
+     * @param  boolean       $caseSenstive
      * @return Pop\Filter\String
      */
-    public function replace($search, $replace, $caseSenstive = true)
+    public function replace($search, $replace = null, $caseSenstive = true)
     {
-        if ($caseSenstive) {
-            $this->_string = str_replace($search, $replace, $this->_string);
+        if (is_array($search)) {
+            foreach ($search as $value) {
+                if (is_array($value) && isset($value[0]) && isset($value[1])) {
+                    if ($caseSenstive) {
+                        $this->_string = str_replace($value[0], $value[1], $this->_string);
+                    } else {
+                        $this->_string = str_ireplace($value[0], $value[1], $this->_string);
+                    }
+                }
+            }
         } else {
-            $this->_string = str_ireplace($search, $replace, $this->_string);
+            if ($caseSenstive) {
+                $this->_string = str_replace($search, $replace, $this->_string);
+            } else {
+                $this->_string = str_ireplace($search, $replace, $this->_string);
+            }
         }
         return $this;
     }

@@ -89,7 +89,7 @@ class Gzip implements CompressInterface
             $new->write($uncompressed);
         // Else, decompress the string
         } else {
-            return gzdecode($data);
+            return gzinflate(substr($data, 10));
         }
     }
 
