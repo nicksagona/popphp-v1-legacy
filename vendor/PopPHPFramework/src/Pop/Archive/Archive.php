@@ -24,6 +24,8 @@
  */
 namespace Pop\Archive;
 
+use Pop\Archive\Adapter\ArchiveInterface;
+
 use Pop\File\File;
 
 /**
@@ -106,6 +108,55 @@ class Archive extends File
     public static function factory($archive)
     {
         return new self($archive);
+    }
+
+    /**
+     * Method to extract an archived and/or compressed file
+     *
+     * @param  string $to
+     * @return Pop_Archive
+     */
+    public function extract($to = null)
+    {
+        $this->_adapter->extract($to);
+        return $this;
+    }
+
+    /**
+     * Method to create an archive file
+     *
+     * @param  string|array $files
+     * @return Pop_Archive
+     */
+    public function addFiles($files)
+    {
+        $this->_adapter->addFiles($files);
+        return $this;
+    }
+
+    /**
+     * Method to create an archive file
+     *
+     * @param  string|array $files
+     * @return Pop_Archive
+     */
+    public function removeFiles($files)
+    {
+        $this->_adapter->removeFiles($files);
+        return $this;
+    }
+
+    /**
+     * Method to return a listing of the contents of an archived file
+     *
+     * @param  boolean $all
+     * @throws Exception
+     * @return array
+     */
+    public function listFiles($all = false)
+    {
+        $this->_adapter->listFiles($all);
+        return $this;
     }
 
 }
