@@ -54,9 +54,9 @@ interface ArchiveInterface
     /**
      * Method to return a listing of the contents of an archived file
      *
-     * @param  boolean $all
+     * @param  boolean $full
      * @return array
      */
-    public function listFiles($all = false);
+    public function listFiles($full = false);
 
 }
