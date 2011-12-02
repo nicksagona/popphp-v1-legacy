@@ -141,7 +141,7 @@ class File
                                 'pdf'    => 'application/pdf',
                                 'pfb'    => 'application/x-font-pfb',
                                 'pfm'    => 'application/x-font-pfm',
-                                'phar'   => 'text/plain',
+                                'phar'   => 'application/x-phar',
                                 'php'    => 'text/plain',
                                 'png'    => 'image/png',
                                 'ppt'    => 'application/msword',
