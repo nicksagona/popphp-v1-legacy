@@ -24,6 +24,9 @@
  */
 namespace Pop\Archive\Adapter;
 
+use Pop\Archive\ArchiveInterface,
+    Pop\File\File;
+
 /**
  * @category   Pop
  * @package    Pop_Archive
@@ -35,6 +38,48 @@ namespace Pop\Archive\Adapter;
 class Phar implements ArchiveInterface
 {
 
+    /**
+     * Method to instantiate an archive adapter object
+     *
+     * @param  string $archive
+     * @return void
+     */
+    public function __construct($archive)
+    {
 
+    }
+
+    /**
+     * Method to extract an archived and/or compressed file
+     *
+     * @param  string $to
+     * @return mixed
+     */
+    public function extract($to = null)
+    {
+
+    }
+
+    /**
+     * Method to create an archive file
+     *
+     * @param  string|array $files
+     * @return mixed
+     */
+    public function addFiles($files)
+    {
+
+    }
+
+    /**
+     * Method to return a listing of the contents of an archived file
+     *
+     * @param  boolean $full
+     * @return array
+     */
+    public function listFiles($full = false)
+    {
+
+    }
 
 }

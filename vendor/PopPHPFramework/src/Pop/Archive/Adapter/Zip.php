@@ -24,6 +24,11 @@
  */
 namespace Pop\Archive\Adapter;
 
+use Pop\Archive\ArchiveInterface,
+    Pop\Dir\Dir,
+    Pop\File\File,
+    Pop\Filter\String;
+
 /**
  * @category   Pop
  * @package    Pop_Archive
@@ -35,6 +40,119 @@ namespace Pop\Archive\Adapter;
 class Zip implements ArchiveInterface
 {
 
+    /**
+     * Archive object
+     * @var Archive_Tar
+     */
+    protected $_archive = null;
 
+    /**
+     * Archive path
+     * @var string
+     */
+    protected $_path = null;
+
+    /**
+     * Method to instantiate an archive adapter object
+     *
+     * @param  Pop\Archive\Archive $archive
+     * @return void
+     */
+    public function __construct($archive)
+    {
+        $this->_path = $archive->fullpath;
+        $this->_archive = new \ZipArchive();
+    }
+
+    /**
+     * Method to extract an archived and/or compressed file
+     *
+     * @param  string $to
+     * @return void
+     */
+    public function extract($to = null)
+    {
+        if ($this->_archive->open($this->_path) === true) {
+            $this->_archive->extractTo((null !== $to) ? $to : './');
+            $this->_archive->close();
+        }
+    }
+
+    /**
+     * Method to create an archive file
+     *
+     * @param  string|array $files
+     * @return mixed
+     */
+    public function addFiles($files)
+    {
+        if (!is_array($files)) {
+            $files = array($files);
+        }
+
+        if (!file_exists($this->_path)) {
+            $result = $this->_archive->open($this->_path, \ZipArchive::CREATE);
+        } else {
+            $result = $this->_archive->open($this->_path);
+        }
+
+        if ($result === true) {
+            // Directory separator clean up
+            $seps = array(
+                        array('\\', '/'),
+                        array('../', ''),
+                        array('./', '')
+                    );
+
+            foreach ($files as $file) {
+                // If file is a directory, loop through and add the files.
+                if (file_exists($file) && is_dir($file)) {
+                    $dir = new Dir($file, true, true);
+                    $this->_archive->addEmptyDir((string)String::factory($dir->path)->replace($seps));
+                    foreach ($dir->files as $fle) {
+                        if (file_exists($fle) && is_dir($fle)) {
+                            $this->_archive->addEmptyDir((string)String::factory($fle)->replace($seps));
+                        } else if (file_exists($fle)) {
+                            $this->_archive->addFile($fle, (string)String::factory($fle)->replace($seps));
+                        }
+                    }
+                // Else, just add the file.
+                } else if (file_exists($file)) {
+                    $this->_archive->addFile($file, str_replace('\\', '/', $file));
+                }
+            }
+            $this->_archive->close();
+        }
+    }
+
+    /**
+     * Method to return a listing of the contents of an archived file
+     *
+     * @param  boolean $full
+     * @return array
+     */
+    public function listFiles($full = false)
+    {
+        $files = array();
+        $list = array();
+
+        if ($this->_archive->open($this->_path) === true) {
+            $i = 0;
+            while ($this->_archive->statIndex($i)) {
+                $list[] = $this->_archive->statIndex($i);
+                $i++;
+            }
+        }
+
+        if (!$full) {
+            foreach ($list as $file) {
+                $files[] = $file['name'];
+            }
+        } else {
+            $files = $list;
+        }
+
+        return $files;
+    }
 
 }

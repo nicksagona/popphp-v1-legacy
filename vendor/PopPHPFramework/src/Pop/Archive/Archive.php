@@ -24,9 +24,13 @@
  */
 namespace Pop\Archive;
 
-use Pop\Archive\Adapter\ArchiveInterface;
-
-use Pop\File\File;
+use Pop\Archive\Adapter\Phar,
+    Pop\Archive\Adapter\Rar,
+    Pop\Archive\Adapter\Tar,
+    Pop\Archive\Adapter\Zip,
+    Pop\Compress\Bzip2,
+    Pop\Compress\Gzip,
+    Pop\File\File;
 
 /**
  * @category   Pop
@@ -36,7 +40,7 @@ use Pop\File\File;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-class Archive extends File
+class Archive extends File implements ArchiveInterface
 {
 
     /**
@@ -48,6 +52,7 @@ class Archive extends File
                                 'phar' => 'application/x-phar',
                                 'rar'  => 'application/x-rar-compressed',
                                 'tar'  => 'application/x-tar',
+                                'tbz'  => 'application/bzip2',
                                 'tbz2' => 'application/bzip2',
                                 'tgz'  => 'application/x-gzip',
                                 'zip'  => 'application/x-zip');
@@ -96,6 +101,8 @@ class Archive extends File
         }
 
         parent::__construct($archive);
+
+        $this->_setAdapter();
     }
 
     /**
@@ -103,7 +110,7 @@ class Archive extends File
      * to facilitate chaining methods together.
      *
      * @param  string $archive
-     * @return Pop_Archive
+     * @return Pop\Archive
      */
     public static function factory($archive)
     {
@@ -114,7 +121,7 @@ class Archive extends File
      * Method to extract an archived and/or compressed file
      *
      * @param  string $to
-     * @return Pop_Archive
+     * @return Pop\Archive
      */
     public function extract($to = null)
     {
@@ -126,7 +133,7 @@ class Archive extends File
      * Method to create an archive file
      *
      * @param  string|array $files
-     * @return Pop_Archive
+     * @return Pop\Archive
      */
     public function addFiles($files)
     {
@@ -135,28 +142,77 @@ class Archive extends File
     }
 
     /**
-     * Method to create an archive file
+     * Method to return a listing of the contents of an archived file
      *
-     * @param  string|array $files
-     * @return Pop_Archive
+     * @param  boolean $full
+     * @return array
      */
-    public function removeFiles($files)
+    public function listFiles($full = false)
     {
-        $this->_adapter->removeFiles($files);
+        return $this->_adapter->listFiles($full);
+    }
+
+    /**
+     * Method to compress an archive file with Gzip or Bzip2
+     *
+     * @param  string $ext
+     * @return Pop\Archive
+     */
+    public function compress($ext = 'gz')
+    {
+        if ($ext == 'bz') {
+            $ext .= '2';
+        }
+        switch ($ext) {
+            case 'gz':
+                $newArchive = Gzip::compress($this->fullpath);
+                break;
+            case 'tgz':
+                $tmpArchive = Gzip::compress($this->fullpath);
+                $newArchive = str_replace('.tar.gz', '.tgz', $tmpArchive);
+                rename($tmpArchive, $newArchive);
+                break;
+            case 'bz2':
+                $newArchive = Bzip2::compress($this->fullpath);
+                break;
+            case 'tbz':
+                $tmpArchive = Bzip2::compress($this->fullpath);
+                $newArchive = str_replace('.tar.bz2', '.tbz', $tmpArchive);
+                rename($tmpArchive, $newArchive);
+                break;
+            case 'tbz2':
+                $tmpArchive = Bzip2::compress($this->fullpath);
+                $newArchive = str_replace('.tar.bz2', '.tbz2', $tmpArchive);
+                rename($tmpArchive, $newArchive);
+                break;
+        }
+
+        if (file_exists($this->fullpath)) {
+            unlink($this->fullpath);
+        }
+
+        self::__construct($newArchive);
         return $this;
     }
 
     /**
-     * Method to return a listing of the contents of an archived file
+     * Method to set the adapter based on the file name
      *
-     * @param  boolean $all
-     * @throws Exception
-     * @return array
+     * @return void
      */
-    public function listFiles($all = false)
+    protected function _setAdapter()
     {
-        $this->_adapter->listFiles($all);
-        return $this;
+        $ext = strtolower($this->ext);
+
+        if ($ext == 'phar') {
+            $this->_adapter = new Phar($this);
+        } else if ($ext == 'rar') {
+            $this->_adapter = new Rar($this);
+        } else if (($ext == 'tar') || (stripos($ext, 'bz') !== false) || (stripos($ext, 'gz') !== false)) {
+            $this->_adapter = new Tar($this);
+        } else if ($ext == 'zip') {
+            $this->_adapter = new Zip($this);
+        }
     }
 
 }

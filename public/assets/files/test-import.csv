@@ -1,0 +1,4 @@
+provider_id,region,location_name,address,city,state,zip,phone,fax,parish,mailing_address,mailing_city,mailing_zip,license,tips,class,stars,fed_ein,la_revenue_acct_num,capacity,enrollment,total_staff,full_time_teachers,part_time_teachers,owner_name,owner_email,owner_phone,owner_mobile,director_name,director_email,director_phone,director_mobile,ccap_children_accepted,ccap_children_num,receive_ccap_info,staff_informed,receive_tax_info,agreement
+0,9,Child's Play Development Center,123 Main Street,"Mar,io,n",MS,12345,,,Union,,,,14468,,A,1,,,0,0,0,0,0,,,,,,,,,,,,,,Yes
+0,8,"1,2,3 Start Center",456 Masing Dr,"Haynes,ville",KY,98765,,,Claiborne,,,,12024,,A,1,,,0,0,0,0,0,,,,,,,,,,,,,,Yes
+0,7,101 Faces,632 Hwy 321,Anytown,CA,98765,,,Concordia,,,,13869,,A,1,,,0,0,0,0,0,,,,,,,,,,,,,,Yes

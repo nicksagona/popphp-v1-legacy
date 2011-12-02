@@ -55,6 +55,8 @@ class Bzip2 implements CompressInterface
             $bzResource = bzopen($archive->fullpath . '.bz2', 'w');
             bzwrite($bzResource, $data, strlen($data));
             bzclose($bzResource);
+
+            return $archive->fullpath . '.bz2';
         // Else, compress the string
         } else {
             return bzcompress($data, $block);
@@ -80,15 +82,19 @@ class Bzip2 implements CompressInterface
             // Close the Bzip2 compressed file and write
             // the data to the uncompressed file.
             bzclose($bz);
-            if (stripos($data, '.tbz') !== false) {
-                $newFile = str_replace('.tbz', '.tar', $data);
-            } else if (stripos($data, '.tbz2') !== false) {
+            if (stripos($data, '.tbz2') !== false) {
                 $newFile = str_replace('.tbz2', '.tar', $data);
+            } else if (stripos($data, '.tbz') !== false) {
+                $newFile = str_replace('.tbz', '.tar', $data);
             } else {
                 $newFile = str_replace('.bz2', '', $data);
             }
+
             $new = new File($newFile);
-            $new->write($uncompressed);
+            $new->write($uncompressed)
+                ->save();
+
+            return $new->fullpath;
         // Else, decompress the string
         } else {
             return bzdecompress($data);

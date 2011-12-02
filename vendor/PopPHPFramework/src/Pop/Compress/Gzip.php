@@ -56,6 +56,8 @@ class Gzip implements CompressInterface
             $gzResource = fopen($archive->fullpath . '.gz', 'w');
             fwrite($gzResource, gzencode($data, $level, $mode));
             fclose($gzResource);
+
+            return $archive->fullpath . '.gz';
         // Else, compress the string
         } else {
             return gzencode($data, $level, $mode);
@@ -85,8 +87,12 @@ class Gzip implements CompressInterface
             gzclose($gz);
             $newFile = (stripos($data, '.tgz') !== false)
                 ? str_replace('.tgz', '.tar', $data) : str_replace('.gz', '', $data);
+
             $new = new File($newFile);
-            $new->write($uncompressed);
+            $new->write($uncompressed)
+                ->save();
+
+            return $new->fullpath;
         // Else, decompress the string
         } else {
             return gzinflate(substr($data, 10));

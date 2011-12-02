@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace Pop\Archive\Adapter;
+namespace Pop\Archive;
 
 /**
  * @category   Pop
@@ -36,29 +36,10 @@ interface ArchiveInterface
 {
 
     /**
-     * Constructor
-     *
-     * Instantiate the archive object
-     *
-     * @param  string $archive
-     * @return void
-     */
-    public function __construct($archive);
-
-    /**
-     * Static method to instantiate the archive object and return itself
-     * to facilitate chaining methods together.
-     *
-     * @param  string $archive
-     * @return Pop_Archive
-     */
-    public static function factory($archive);
-
-    /**
      * Method to extract an archived and/or compressed file
      *
      * @param  string $to
-     * @return Pop_Archive
+     * @return mixed
      */
     public function extract($to = null);
 
@@ -66,23 +47,14 @@ interface ArchiveInterface
      * Method to create an archive file
      *
      * @param  string|array $files
-     * @return Pop_Archive
+     * @return mixed
      */
     public function addFiles($files);
-
-    /**
-     * Method to create an archive file
-     *
-     * @param  string|array $files
-     * @return Pop_Archive
-     */
-    public function removeFiles($files);
 
     /**
      * Method to return a listing of the contents of an archived file
      *
      * @param  boolean $all
-     * @throws Exception
      * @return array
      */
     public function listFiles($all = false);
