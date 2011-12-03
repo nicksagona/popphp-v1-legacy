@@ -50,6 +50,7 @@ class Rar implements ArchiveInterface
      * @var string
      */
     protected $_path = null;
+
     /**
      * Archive password
      * @var string
