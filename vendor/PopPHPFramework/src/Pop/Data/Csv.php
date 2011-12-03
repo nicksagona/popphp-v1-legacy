@@ -24,7 +24,7 @@
  */
 namespace Pop\Data;
 
-use Pop\Filter\StringFilter;
+use Pop\Filter\String;
 
 /**
  * @category   Pop
@@ -112,12 +112,12 @@ class Csv implements DataInterface
 
         foreach ($tempAry as $key => $value) {
             if (!in_array($key, $omit)) {
-                $v = new StringFilter((string)$value);
+                $v = new String((string)$value);
                 if ($v->pos($esc) !== false) {
                     $v->replace($esc, $esc . $esc);
                 }
                 if ($v->pos($delim) !== false) {
-                    $v = new StringFilter($esc . $v . $esc);
+                    $v = new String($esc . $v . $esc);
                 }
                 $headerAry[] = (string)$v;
             }
@@ -133,18 +133,18 @@ class Csv implements DataInterface
                 if (!in_array($key, $omit)) {
                     if (null !== $dt) {
                         if ((strtotime($val) !== false) || (stripos($key, 'date') !== false)) {
-                            $v = (date($dt, strtotime($val)) != '12/31/1969') ? new StringFilter(date($dt, strtotime((string)$val))) : new StringFilter('');
+                            $v = (date($dt, strtotime($val)) != '12/31/1969') ? new String(date($dt, strtotime((string)$val))) : new String('');
                         } else {
-                            $v = new StringFilter((string)$val);
+                            $v = new String((string)$val);
                         }
                     } else {
-                        $v = new StringFilter((string)$val);
+                        $v = new String((string)$val);
                     }
                     if ($v->pos($esc) !== false) {
                         $v->replace($esc, $esc . $esc);
                     }
                     if ($v->pos($delim) !== false) {
-                        $v = new StringFilter($esc . (string)$v . $esc);
+                        $v = new String($esc . (string)$v . $esc);
                     }
                     $rowAry[] = $v;
                 }

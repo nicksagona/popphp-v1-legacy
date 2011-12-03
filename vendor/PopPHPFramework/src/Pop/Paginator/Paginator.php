@@ -24,7 +24,7 @@
  */
 namespace Pop\Paginator;
 
-use Pop\Filter\StringFilter;
+use Pop\Filter\String;
 
 /**
  * @category   Pop
@@ -305,7 +305,7 @@ class Paginator
             }
             $output .= "<table>\n";
         } else {
-            $hdr = new StringFilter($this->_header);
+            $hdr = new String($this->_header);
             if (count($this->_links) > 1) {
                 $hdr->replace('[{page_links}]', implode($sep, $this->_links));
             } else {
@@ -330,7 +330,7 @@ class Paginator
                     $output .= "</tr>\n";
                 }
             } else {
-                $tmpl = new StringFilter($this->_rowtmpl);
+                $tmpl = new String($this->_rowtmpl);
                 if (isset($this->_content[$i])) {
                     foreach ($this->_content[$i] as $key => $value) {
                         if (null !== $dt) {
@@ -352,7 +352,7 @@ class Paginator
                 $output .= implode($sep, $this->_links) . "\n";
             }
         } else {
-            $ftr = new StringFilter($this->_footer);
+            $ftr = new String($this->_footer);
             if (count($this->_links) > 1) {
                 $ftr->replace('[{page_links}]', implode($sep, $this->_links));
             } else {

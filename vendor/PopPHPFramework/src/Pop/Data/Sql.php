@@ -24,7 +24,7 @@
  */
 namespace Pop\Data;
 
-use Pop\Filter\StringFilter;
+use Pop\Filter\String;
 
 /**
  * @category   Pop
@@ -55,7 +55,7 @@ class Sql implements DataInterface
 
         $fields = substr($data, (strpos($data, '(') + 1));
         $fields = substr($fields, 0, strpos($fields, ')'));
-        $fields = (string)StringFilter::factory($fields)->replace(', ', ',')
+        $fields = (string)String::factory($fields)->replace(', ', ',')
                                                         ->replace('`', '')
                                                         ->replace('"', '')
                                                         ->replace("'", "")

@@ -32,7 +32,7 @@ use Pop\Dom\Dom,
     Pop\Form\Element\Select,
     Pop\Form\Element\Textarea,
     Pop\Locale\Locale,
-    Pop\Filter\StringFilter;
+    Pop\Filter\String;
 
 /**
  * @category   Pop
@@ -225,7 +225,7 @@ class Form extends Dom
                     if (($field['type'] == 'select') || ($field['type'] == 'checkbox') || ($field['type'] == 'radio')) {
                         $this->_initValues[$key]['marked'] = $values[$field['name']];
                     } else {
-                        $this->_initValues[$key]['value'] = ($filter) ? (string)StringFilter::factory($values[$field['name']])->striptags() : $values[$field['name']];
+                        $this->_initValues[$key]['value'] = ($filter) ? (string)String::factory($values[$field['name']])->striptags() : $values[$field['name']];
                     }
                 }
             }
@@ -249,12 +249,12 @@ class Form extends Dom
                         }
                     // If a textarea element.
                     } else if ($field instanceof Textarea) {
-                        $val = ($filter) ? (string)StringFilter::factory($values[$attributes['name']])->striptags() : $values[$attributes['name']];
+                        $val = ($filter) ? (string)String::factory($values[$attributes['name']])->striptags() : $values[$attributes['name']];
                         $elements[$key]->value = $val;
                         $elements[$key]->setNodeValue($val);
                     // If an input element.
                     } else {
-                        $val = ($filter) ? (string)StringFilter::factory($values[$attributes['name']])->striptags() : $values[$attributes['name']];
+                        $val = ($filter) ? (string)String::factory($values[$attributes['name']])->striptags() : $values[$attributes['name']];
                         $elements[$key]->value = $val;
                         $elements[$key]->setAttributes('value', $val);
                     }

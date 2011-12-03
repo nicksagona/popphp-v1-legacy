@@ -27,7 +27,7 @@ namespace Pop\Record;
 use Pop\Locale\Locale,
     Pop\Record\Escaped,
     Pop\Record\Prepared,
-    Pop\Filter\StringFilter;
+    Pop\Filter\String;
 
 /**
  * @category   Pop
@@ -128,8 +128,8 @@ class Record
 
         if (null === $this->_tableName) {
             $class = get_class($this);
-            $cls = substr($class, (strrpos($class, '_') + 1));
-            $this->_tableName = (string)StringFilter::factory($cls)->toUnderscore();
+            $cls = substr($class, (strrpos($class, '\\') + 1));
+            $this->_tableName = (string)String::factory($cls)->camelCaseToUnderscore();
         }
 
         $options = array(
