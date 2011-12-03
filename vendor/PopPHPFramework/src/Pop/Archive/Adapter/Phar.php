@@ -44,7 +44,7 @@ class Phar implements ArchiveInterface
      * ZipArchive object
      * @var ZipArchive
      */
-    protected $_archive = null;
+    public $archive = null;
 
     /**
      * Archive path
@@ -61,7 +61,7 @@ class Phar implements ArchiveInterface
     public function __construct($archive)
     {
         $this->_path = $archive->fullpath;
-        $this->_archive = new \Phar($this->_path);
+        $this->archive = new \Phar($this->_path);
     }
 
     /**
@@ -72,7 +72,7 @@ class Phar implements ArchiveInterface
      */
     public function extract($to = null)
     {
-        $this->_archive->extractTo((null !== $to) ? $to : './');
+        $this->archive->extractTo((null !== $to) ? $to : './');
     }
 
     /**
@@ -98,41 +98,19 @@ class Phar implements ArchiveInterface
             // If file is a directory, loop through and add the files.
             if (file_exists($file) && is_dir($file)) {
                 $dir = new Dir($file, true, true);
-                $this->_archive->addEmptyDir((string)String::factory($dir->path)->replace($seps));
+                $this->archive->addEmptyDir((string)String::factory($dir->path)->replace($seps));
                 foreach ($dir->files as $fle) {
                     if (file_exists($fle) && is_dir($fle)) {
-                        $this->_archive->addEmptyDir((string)String::factory($fle)->replace($seps));
+                        $this->archive->addEmptyDir((string)String::factory($fle)->replace($seps));
                     } else if (file_exists($fle)) {
-                        $this->_archive->addFile($fle, (string)String::factory($fle)->replace($seps));
+                        $this->archive->addFile($fle, (string)String::factory($fle)->replace($seps));
                     }
                 }
             // Else, just add the file.
             } else if (file_exists($file)) {
-                $this->_archive->addFile($file, str_replace('\\', '/', $file));
+                $this->archive->addFile($file, str_replace('\\', '/', $file));
             }
         }
-    }
-
-    /**
-     * Method to set a default stub for the PHAR archive
-     *
-     * @param  string $file
-     * @return array
-     */
-    public function setStub($file)
-    {
-        $this->_archive->setStub($this->_archive->createDefaultStub($file));
-    }
-
-    /**
-     * Method to get a default stub for the PHAR archive
-     *
-     * @param  string $file
-     * @return string
-     */
-    public function getStub()
-    {
-        return $this->_archive->getStub();
     }
 
     /**
@@ -145,7 +123,7 @@ class Phar implements ArchiveInterface
     {
         $list = array();
 
-        foreach ($this->_archive as $file) {
+        foreach ($this->archive as $file) {
             if ($file->isDir()) {
                 $objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator((string)$file), \RecursiveIteratorIterator::SELF_FIRST);
                 foreach ($objects as $fileInfo) {

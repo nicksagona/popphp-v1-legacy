@@ -119,13 +119,13 @@ class Archive extends File implements ArchiveInterface
     }
 
     /**
-     * Method to return the adapter object
+     * Method to return the archive adapter object
      *
      * @return mixed
      */
     public function adapter()
     {
-        return $this->_adapter;
+        return $this->_adapter->archive;
     }
 
     /**

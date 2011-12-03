@@ -44,7 +44,7 @@ class Zip implements ArchiveInterface
      * ZipArchive object
      * @var ZipArchive
      */
-    protected $_archive = null;
+    public $archive = null;
 
     /**
      * Archive path
@@ -61,7 +61,7 @@ class Zip implements ArchiveInterface
     public function __construct($archive)
     {
         $this->_path = $archive->fullpath;
-        $this->_archive = new \ZipArchive();
+        $this->archive = new \ZipArchive();
     }
 
     /**
@@ -72,9 +72,9 @@ class Zip implements ArchiveInterface
      */
     public function extract($to = null)
     {
-        if ($this->_archive->open($this->_path) === true) {
-            $this->_archive->extractTo((null !== $to) ? $to : './');
-            $this->_archive->close();
+        if ($this->archive->open($this->_path) === true) {
+            $this->archive->extractTo((null !== $to) ? $to : './');
+            $this->archive->close();
         }
     }
 
@@ -91,9 +91,9 @@ class Zip implements ArchiveInterface
         }
 
         if (!file_exists($this->_path)) {
-            $result = $this->_archive->open($this->_path, \ZipArchive::CREATE);
+            $result = $this->archive->open($this->_path, \ZipArchive::CREATE);
         } else {
-            $result = $this->_archive->open($this->_path);
+            $result = $this->archive->open($this->_path);
         }
 
         if ($result === true) {
@@ -108,20 +108,20 @@ class Zip implements ArchiveInterface
                 // If file is a directory, loop through and add the files.
                 if (file_exists($file) && is_dir($file)) {
                     $dir = new Dir($file, true, true);
-                    $this->_archive->addEmptyDir((string)String::factory($dir->path)->replace($seps));
+                    $this->archive->addEmptyDir((string)String::factory($dir->path)->replace($seps));
                     foreach ($dir->files as $fle) {
                         if (file_exists($fle) && is_dir($fle)) {
-                            $this->_archive->addEmptyDir((string)String::factory($fle)->replace($seps));
+                            $this->archive->addEmptyDir((string)String::factory($fle)->replace($seps));
                         } else if (file_exists($fle)) {
-                            $this->_archive->addFile($fle, (string)String::factory($fle)->replace($seps));
+                            $this->archive->addFile($fle, (string)String::factory($fle)->replace($seps));
                         }
                     }
                 // Else, just add the file.
                 } else if (file_exists($file)) {
-                    $this->_archive->addFile($file, str_replace('\\', '/', $file));
+                    $this->archive->addFile($file, str_replace('\\', '/', $file));
                 }
             }
-            $this->_archive->close();
+            $this->archive->close();
         }
     }
 
@@ -136,10 +136,10 @@ class Zip implements ArchiveInterface
         $files = array();
         $list = array();
 
-        if ($this->_archive->open($this->_path) === true) {
+        if ($this->archive->open($this->_path) === true) {
             $i = 0;
-            while ($this->_archive->statIndex($i)) {
-                $list[] = $this->_archive->statIndex($i);
+            while ($this->archive->statIndex($i)) {
+                $list[] = $this->archive->statIndex($i);
                 $i++;
             }
         }

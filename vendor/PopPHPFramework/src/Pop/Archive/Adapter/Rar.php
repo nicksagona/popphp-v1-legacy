@@ -43,7 +43,7 @@ class Rar implements ArchiveInterface
      * RarArchive object
      * @var RarArchive
      */
-    protected $_archive = null;
+    public $archive = null;
 
     /**
      * Archive path
@@ -71,7 +71,7 @@ class Rar implements ArchiveInterface
         $this->_password = $password;
 
         if (file_exists($this->_path)) {
-            $this->_archive = \RarArchive::open($this->_path, $this->_password);
+            $this->archive = \RarArchive::open($this->_path, $this->_password);
         } else {
             throw new Exception(Locale::factory()->__('Due to licensing restrictions, RAR files cannot be created and can only be decompressed.'));
         }
@@ -85,7 +85,7 @@ class Rar implements ArchiveInterface
      */
     public function extract($to = null)
     {
-        $entries = $this->_archive->getEntries();
+        $entries = $this->archive->getEntries();
         if (!empty($entries)) {
             foreach ($entries as $entry) {
                 $entry->extract((null !== $to) ? $to : './');
@@ -114,7 +114,7 @@ class Rar implements ArchiveInterface
     public function listFiles($full = false)
     {
         $list = array();
-        $entries = $this->_archive->getEntries();
+        $entries = $this->archive->getEntries();
 
         if (!empty($entries)) {
             foreach ($entries as $entry) {

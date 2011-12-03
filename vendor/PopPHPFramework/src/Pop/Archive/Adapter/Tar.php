@@ -45,7 +45,7 @@ class Tar implements ArchiveInterface
      * Archive_Tar object
      * @var Archive_Tar
      */
-    protected $_archive = null;
+    public $archive = null;
 
     /**
      * Archive path
@@ -73,7 +73,7 @@ class Tar implements ArchiveInterface
             $this->_compression = 'gz';
         }
         $this->_path = $archive->fullpath;
-        $this->_archive = new \Archive_Tar($this->_path);
+        $this->archive = new \Archive_Tar($this->_path);
     }
 
     /**
@@ -86,12 +86,12 @@ class Tar implements ArchiveInterface
     {
         if ($this->_compression == 'bz') {
             $this->_path = Bzip2::decompress($this->_path);
-            $this->_archive = new \Archive_Tar($this->_path);
+            $this->archive = new \Archive_Tar($this->_path);
         } else if ($this->_compression == 'gz') {
             $this->_path = Gzip::decompress($this->_path);
-            $this->_archive = new \Archive_Tar($this->_path);
+            $this->archive = new \Archive_Tar($this->_path);
         }
-        $this->_archive->extract((null !== $to) ? $to : './');
+        $this->archive->extract((null !== $to) ? $to : './');
     }
 
     /**
@@ -112,12 +112,12 @@ class Tar implements ArchiveInterface
                 $dir = new Dir($file, true, true);
                 foreach ($dir->files as $fle) {
                     if (file_exists($fle) && !is_dir($fle)) {
-                        $this->_archive->add($fle);
+                        $this->archive->add($fle);
                     }
                 }
             // Else, just add the file.
             } else if (file_exists($file)) {
-                $this->_archive->add($file);
+                $this->archive->add($file);
             }
         }
     }
@@ -131,7 +131,7 @@ class Tar implements ArchiveInterface
     public function listFiles($full = false)
     {
         $files = array();
-        $list = $this->_archive->listContent();
+        $list = $this->archive->listContent();
 
         if (!$full) {
             foreach ($list as $file) {
