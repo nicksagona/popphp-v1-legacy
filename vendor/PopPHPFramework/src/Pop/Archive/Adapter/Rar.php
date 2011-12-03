@@ -25,7 +25,8 @@
 namespace Pop\Archive\Adapter;
 
 use Pop\Archive\ArchiveInterface,
-    Pop\File\File;
+    Pop\File\File,
+    Pop\Locale\Locale;
 
 /**
  * @category   Pop
@@ -39,36 +40,68 @@ class Rar implements ArchiveInterface
 {
 
     /**
+     * RarArchive object
+     * @var RarArchive
+     */
+    protected $_archive = null;
+
+    /**
+     * Archive path
+     * @var string
+     */
+    protected $_path = null;
+    /**
+     * Archive password
+     * @var string
+     */
+    protected $_password = null;
+
+    /**
      * Method to instantiate an archive adapter object
      *
      * @param  string $archive
+     * @param  string $password
+     * @throws Exception
      * @return void
      */
-    public function __construct($archive)
+    public function __construct($archive, $password = null)
     {
+        $this->_path = $archive->fullpath;
+        $this->_password = $password;
 
+        if (file_exists($this->_path)) {
+            $this->_archive = \RarArchive::open($this->_path, $this->_password);
+        } else {
+            throw new Exception(Locale::factory()->__('Due to licensing restrictions, RAR files cannot be created and can only be decompressed.'));
+        }
     }
 
     /**
      * Method to extract an archived and/or compressed file
      *
      * @param  string $to
-     * @return mixed
+     * @return void
      */
     public function extract($to = null)
     {
-
+        $entries = $this->_archive->getEntries();
+        if (!empty($entries)) {
+            foreach ($entries as $entry) {
+                $entry->extract((null !== $to) ? $to : './');
+            }
+        }
     }
 
     /**
      * Method to create an archive file
      *
      * @param  string|array $files
-     * @return mixed
+     * @throws Exception
+     * @return void
      */
     public function addFiles($files)
     {
-
+        throw new Exception(Locale::factory()->__('Due to licensing restrictions, RAR files cannot be created and can only be decompressed.'));
     }
 
     /**
@@ -79,7 +112,30 @@ class Rar implements ArchiveInterface
      */
     public function listFiles($full = false)
     {
+        $list = array();
+        $entries = $this->_archive->getEntries();
 
+        if (!empty($entries)) {
+            foreach ($entries as $entry) {
+                if (!$full) {
+                    $list[] = $entry->getName();
+                } else {
+                    $list[] = array(
+                                  'name'          => $entry->getName(),
+                                  'unpacked_size' => $entry->getUnpackedSize(),
+                                  'packed_size'   => $entry->getPackedSize(),
+                                  'host_os'       => $entry->getHostOs(),
+                                  'file_time'     => $entry->getFileTime(),
+                                  'crc'           => $entry->getCrc(),
+                                  'attr'          => $entry->getAttr(),
+                                  'version'       => $entry->getVersion(),
+                                  'method'        => $entry->getMethod()
+                              );
+                }
+            }
+        }
+
+        return $list;
     }
 
 }

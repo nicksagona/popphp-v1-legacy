@@ -160,3 +160,4 @@ The headers have already been sent.
 The response was not properly formatted.
 A template asset has not been assigned.
 That template file either does not exist or is not the correct format.
+Due to licensing restrictions, RAR files cannot be created and can only be decompressed.

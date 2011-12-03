@@ -42,7 +42,7 @@ class Tar implements ArchiveInterface
 {
 
     /**
-     * Archive object
+     * Archive_Tar object
      * @var Archive_Tar
      */
     protected $_archive = null;
@@ -98,7 +98,7 @@ class Tar implements ArchiveInterface
      * Method to create an archive file
      *
      * @param  string|array $files
-     * @return mixed
+     * @return void
      */
     public function addFiles($files)
     {

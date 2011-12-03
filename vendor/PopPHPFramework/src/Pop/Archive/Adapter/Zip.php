@@ -41,8 +41,8 @@ class Zip implements ArchiveInterface
 {
 
     /**
-     * Archive object
-     * @var Archive_Tar
+     * ZipArchive object
+     * @var ZipArchive
      */
     protected $_archive = null;
 
@@ -82,7 +82,7 @@ class Zip implements ArchiveInterface
      * Method to create an archive file
      *
      * @param  string|array $files
-     * @return mixed
+     * @return void
      */
     public function addFiles($files)
     {

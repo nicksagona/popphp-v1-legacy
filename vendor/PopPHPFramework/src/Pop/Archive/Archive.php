@@ -69,9 +69,10 @@ class Archive extends File implements ArchiveInterface
      * Instantiate the archive object
      *
      * @param  string $archive
+     * @param  string $password
      * @return void
      */
-    public function __construct($archive)
+    public function __construct($archive, $password = null)
     {
         // Check if Bzip2 is available.
         if (!function_exists('bzcompress')) {
@@ -102,7 +103,7 @@ class Archive extends File implements ArchiveInterface
 
         parent::__construct($archive);
 
-        $this->_setAdapter();
+        $this->_setAdapter($password);
     }
 
     /**
@@ -110,7 +111,7 @@ class Archive extends File implements ArchiveInterface
      * to facilitate chaining methods together.
      *
      * @param  string $archive
-     * @return Pop\Archive
+     * @return Pop\Archive\Archive
      */
     public static function factory($archive)
     {
@@ -121,7 +122,7 @@ class Archive extends File implements ArchiveInterface
      * Method to extract an archived and/or compressed file
      *
      * @param  string $to
-     * @return Pop\Archive
+     * @return Pop\Archive\Archive
      */
     public function extract($to = null)
     {
@@ -133,7 +134,7 @@ class Archive extends File implements ArchiveInterface
      * Method to create an archive file
      *
      * @param  string|array $files
-     * @return Pop\Archive
+     * @return Pop\Archive\Archive
      */
     public function addFiles($files)
     {
@@ -156,7 +157,7 @@ class Archive extends File implements ArchiveInterface
      * Method to compress an archive file with Gzip or Bzip2
      *
      * @param  string $ext
-     * @return Pop\Archive
+     * @return Pop\Archive\Archive
      */
     public function compress($ext = 'gz')
     {
@@ -200,14 +201,14 @@ class Archive extends File implements ArchiveInterface
      *
      * @return void
      */
-    protected function _setAdapter()
+    protected function _setAdapter($password = null)
     {
         $ext = strtolower($this->ext);
 
         if ($ext == 'phar') {
             $this->_adapter = new Phar($this);
         } else if ($ext == 'rar') {
-            $this->_adapter = new Rar($this);
+            $this->_adapter = new Rar($this, $password);
         } else if (($ext == 'tar') || (stripos($ext, 'bz') !== false) || (stripos($ext, 'gz') !== false)) {
             $this->_adapter = new Tar($this);
         } else if ($ext == 'zip') {

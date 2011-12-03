@@ -39,7 +39,7 @@ interface ArchiveInterface
      * Method to extract an archived and/or compressed file
      *
      * @param  string $to
-     * @return mixed
+     * @return void
      */
     public function extract($to = null);
 
@@ -47,7 +47,7 @@ interface ArchiveInterface
      * Method to create an archive file
      *
      * @param  string|array $files
-     * @return mixed
+     * @return void
      */
     public function addFiles($files);
 
