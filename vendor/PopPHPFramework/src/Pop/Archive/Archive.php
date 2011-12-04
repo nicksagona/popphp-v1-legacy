@@ -149,6 +149,7 @@ class Archive extends File implements ArchiveInterface
     public function addFiles($files)
     {
         $this->_adapter->addFiles($files);
+        self::__construct($this->fullpath);
         return $this;
     }
 

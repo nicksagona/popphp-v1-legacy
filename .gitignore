@@ -2,3 +2,6 @@
 .buildpath
 .project
 logs
+module/HelloWorld/src/HelloWorld/.empty
+module/HelloWorld/view/.empty
+public/examples/tmp/.empty
