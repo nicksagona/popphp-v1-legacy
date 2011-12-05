@@ -86,7 +86,7 @@ class Auth
      * @param  mixed $role
      * @return Pop\Auth\Auth
      */
-    public function addRule(Role $role)
+    public function addRole(Role $role)
     {
         $this->_roles[$role->getName()] = $role;
         return $this;
