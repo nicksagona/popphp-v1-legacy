@@ -198,7 +198,7 @@ class String
      *
      * @return Pop\Filter\String
      */
-    public function add()
+    public function addSlashes()
     {
         $this->_string = addslashes($this->_string);
         return $this;
@@ -210,7 +210,7 @@ class String
      *
      * @return Pop\Filter\String
      */
-    public function strip()
+    public function stripSlashes()
     {
         $this->_string = stripslashes($this->_string);
         return $this;
@@ -223,7 +223,7 @@ class String
      * @param  string $allowed
      * @return Pop\Filter\String
      */
-    public function striptags($allowed = null)
+    public function stripTags($allowed = null)
     {
         $this->_string = (null !== $allowed)
             ? strip_tags($this->_string, $allowed) : strip_tags($this->_string);
@@ -278,19 +278,22 @@ class String
      */
     public function escape($all = false)
     {
-        $this->_string = str_replace('\\', '\\\\', $this->_string);
-        $this->_string = str_replace("\n", "\\n", $this->_string);
-        $this->_string = str_replace("\r", "\\r", $this->_string);
-        $this->_string = str_replace("\x00", "\\x00", $this->_string);
-        $this->_string = str_replace("\x1a", "\\x1a", $this->_string);
-        $this->_string = str_replace('\'', '\\\'', $this->_string);
-        $this->_string = str_replace('"', '\\"', $this->_string);
+        $replace = array(
+                       array('\\', '\\\\'),
+                       array("\n", "\\n"),
+                       array("\r", "\\r"),
+                       array("\x00", "\\x00"),
+                       array("\x1a", "\\x1a"),
+                       array('\'', '\\\''),
+                       array('"', '\\"')
+                   );
 
         if ($all) {
-            $this->_string = str_replace('%', '\\%', $this->_string);
-            $this->_string = str_replace('_', '\\_', $this->_string);
+            $replace[] = array('%', '\\%');
+            $replace[] = array('_', '\\_');
         }
 
+        $this->replace($replace);
         return $this;
     }
 
@@ -301,7 +304,7 @@ class String
      * @param  boolean $html
      * @return Pop\Filter\String
      */
-    public function msClean($html = false)
+    public function clean($html = false)
     {
         if ($html) {
             $apos = "&#39;";
@@ -426,6 +429,47 @@ class String
             } else {
                 $this->_string .= $chars[$num];
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Method to convert the string to an MD5 hash
+     *
+     * @param  boolean $raw
+     * @return Pop\Filter\String
+     */
+    public function md5($raw = false)
+    {
+        $this->_string = md5($this->_string, $raw);
+        return $this;
+    }
+
+    /**
+     * Method to convert the string to an SHA1 hash
+     *
+     * @param  boolean $raw
+     * @return Pop\Filter\String
+     */
+    public function sha1($raw = false)
+    {
+        $this->_string = sha1($this->_string, $raw);
+        return $this;
+    }
+
+    /**
+     * Method to convert the string to a hash using the crypt functions
+     *
+     * @param  boolean $raw
+     * @return Pop\Filter\String
+     */
+    public function crypt($salt = null)
+    {
+        if (null === $salt) {
+            $this->_string = crypt($this->_string);
+        } else {
+            $this->_string = crypt($this->_string, $salt);
         }
 
         return $this;
