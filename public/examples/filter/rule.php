@@ -10,11 +10,11 @@ $rule = Rule::factory(new AlphaNumeric());
 
 // Evaluate if the input value meets the rule or not
 if (!$rule->evaluate('abcd1234')) {
-    echo $rule->getMessage() . PHP_EOL;
+    echo $rule->getMessage();
 } else {
-    echo 'Rule test passed.' . PHP_EOL;
+    echo 'The rule test passed. The string is alphanumeric.';
 }
 
-echo 'Done.' . PHP_EOL . PHP_EOL;
+echo PHP_EOL . PHP_EOL;
 
 ?>

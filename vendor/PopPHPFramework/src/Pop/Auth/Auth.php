@@ -57,6 +57,12 @@ class Auth
     protected $_roles = array();
 
     /**
+     * Required role for authorization
+     * @var Pop\Auth\Role
+     */
+    protected $_requiredRole = null;
+
+    /**
      * Array of Pop\Auth\Rule\* objects
      * @var array
      */
