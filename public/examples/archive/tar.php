@@ -5,6 +5,7 @@ require_once '../../bootstrap.php';
 use Pop\Archive\Archive;
 
 // Create a new TAR archive and add some files to it
+// (Make sure the '../tmp' folder is writable)
 $archive = new Archive('../tmp/test.tar');
 $archive->addFiles('../assets');
 

@@ -13,7 +13,7 @@
  * to info@popphp.org so we can send you a copy immediately.
  *
  * @category   Pop
- * @package    Pop_Auth
+ * @package    Pop_Filter
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
@@ -22,19 +22,14 @@
 /**
  * @namespace
  */
-namespace Pop\Auth\Rule;
+namespace Pop\Filter;
 
 /**
  * @category   Pop
- * @package    Pop_Auth
+ * @package    Pop_Filter
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-interface RuleInterface
-{
-
-
-
-}
+class Exception extends \Exception {}

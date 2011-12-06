@@ -42,10 +42,10 @@ class Role
     protected $_name = null;
 
     /**
-     * Role value
+     * Role level value
      * @var int
      */
-    protected $_value = 0;
+    protected $_level = 0;
 
     /**
      * Constructor
@@ -53,13 +53,13 @@ class Role
      * Instantiate the role object
      *
      * @param  string $name
-     * @param  int    $value
+     * @param  int    $level
      * @return void
      */
-    public function __construct($name, $value)
+    public function __construct($name, $level)
     {
         $this->_name = $name;
-        $this->_value = (int)$value;
+        $this->_level = (int)$level;
     }
 
     /**
@@ -67,12 +67,12 @@ class Role
      * to facilitate chaining methods together.
      *
      * @param  string $name
-     * @param  int    $value
+     * @param  int    $level
      * @return Pop\Auth\Role
      */
-    public static function factory($name, $value)
+    public static function factory($name, $level)
     {
-        return new self($name, $value);
+        return new self($name, $level);
     }
 
     /**
@@ -86,13 +86,37 @@ class Role
     }
 
     /**
-     * Method to get the role value
+     * Method to get the role level value
      *
      * @return int
      */
-    public function getValue()
+    public function getLevel()
     {
-        return $this->_value;
+        return $this->_level;
+    }
+
+    /**
+     * Method to set the role name
+     *
+     * @param  string $name
+     * @return Pop\Auth\Role
+     */
+    public function setName($name)
+    {
+        $this->_name = $name;
+        return $this;
+    }
+
+    /**
+     * Method to get the role level value
+     *
+     * @param  int $level
+     * @return Pop\Auth\Role
+     */
+    public function setLevel($level)
+    {
+        $this->_level = (int)$level;
+        return $this;
     }
 
     /**
@@ -104,9 +128,9 @@ class Role
     {
         $value = 0;
 
-        if ($this->_value < $role->getValue()) {
+        if ($this->_level < $role->getLevel()) {
             $value = -1;
-        } else if ($this->_value > $role->getValue()) {
+        } else if ($this->_level > $role->getLevel()) {
             $value = 1;
         }
 
@@ -121,12 +145,22 @@ class Role
      */
     public function __get($name)
     {
-        $value = null;
+        $level = 0;
         if ($name == $this->_name) {
-            $value = $this->_value;
+            $level = $this->_level;
         }
 
-        return $value;
+        return $level;
+    }
+
+    /**
+     * Method to return the string value of the name of the role..
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->_name;
     }
 
 }
