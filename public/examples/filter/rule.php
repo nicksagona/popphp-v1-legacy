@@ -2,16 +2,19 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Filter\Rule;
+use Pop\Filter\Rule,
+    Pop\Filter\Rule\AlphaNumeric;
 
-$input = 'BlahBlah@#$@#$123';
-$rule = Rule::factory('AlphaNum');
+// Create an alphanumeric rule
+$rule = Rule::factory(new AlphaNumeric());
 
-if (!$rule->evaluate($input)) {
-    echo $rule->getMessage() . '<br />' . PHP_EOL;
+// Evaluate if the input value meets the rule or not
+if (!$rule->evaluate('abcd1234')) {
+    echo $rule->getMessage() . PHP_EOL;
 } else {
-    echo 'Rule test passed.<br />' . PHP_EOL;
+    echo 'Rule test passed.' . PHP_EOL;
 }
 
+echo 'Done.' . PHP_EOL . PHP_EOL;
 
 ?>

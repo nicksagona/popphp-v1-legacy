@@ -10,7 +10,7 @@ $archive = new Archive('../tmp/test.zip');
 $archive->addFiles('../assets');
 
 // Display the new archive file size
-echo '<strong>' . $archive->basename . '</strong>: compressed file size: ' . $archive->getSize() . '<br />' . PHP_EOL;
-echo 'Done.';
+echo $archive->basename . ': compressed file size => ' . $archive->getSize() . PHP_EOL;
+echo 'Done.' . PHP_EOL . PHP_EOL;
 
 ?>
