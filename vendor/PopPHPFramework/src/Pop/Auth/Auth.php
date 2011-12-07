@@ -32,7 +32,9 @@ use Pop\Auth\Adapter\AccessFile,
     Pop\Filter\Rule\Included,
     Pop\Filter\Rule\Ipv4,
     Pop\Filter\Rule\Ipv6,
+    Pop\Filter\Rule\IsSubnetOf,
     Pop\Filter\Rule\LessThan,
+    Pop\Filter\Rule\Subnet,
     Pop\Locale\Locale;
 
 /**
@@ -87,9 +89,11 @@ class Auth
      * @var array
      */
     protected $_rules = array(
-                            'attempts'    => null,
-                            'blockedIps' => null,
-                            'allowedIps' => null
+                            'allowedIps'     => null,
+                            'allowedSubnets' => null,
+                            'blockedIps'     => null,
+                            'blockedSubnets' => null,
+                            'loginAttempts'  => null,
                         );
 
     /**
@@ -114,19 +118,19 @@ class Auth
      * Current number of login attempts
      * @var int
      */
-    protected $_attempts = 0;
+    protected $_loginAttempts = 0;
 
     /**
-     * Array of blocked IP addresses
-     * @var array
+     * Current IP address
+     * @var string
      */
-    protected $_blockedIps = array();
+    protected $_ip = null;
 
     /**
-     * Array of allowed IP addresses
+     * Current subnet
      * @var array
      */
-    protected $_allowedIps = array();
+    protected $_subnet = null;
 
     /**
      * Constructor
@@ -145,6 +149,8 @@ class Auth
         }
 
         $this->_salt = $salt;
+        $this->_ip = $_SERVER['REMOTE_ADDR'];
+        $this->_subnet = substr($this->_ip, 0, strrpos($this->_ip, '.'));
     }
 
     /**
@@ -204,7 +210,26 @@ class Auth
         } else {
             $validIps = $this->_filterIps($ips);
             if (count($validIps) > 0) {
-                $this->_rules['allowedIps'] = Rule::factory(new Excluded($validIps));
+                $this->_rules['blockedIps'] = Rule::factory(new Excluded($validIps));
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Method to set the block subnets
+     *
+     * @param  string|array $subnets
+     * @return Pop\Auth\Auth
+     */
+    public function setBlockedSubnets($subnets = null)
+    {
+        if (null === $subnets) {
+            $this->_rules['blockedSubnets'] = null;
+        } else {
+            $validSubnets = $this->_filterSubnets($subnets);
+            if (count($validSubnets) > 0) {
+                $this->_rules['blockedSubnets'] = Rule::factory(new Excluded($validSubnets));
             }
         }
         return $this;
@@ -230,9 +255,28 @@ class Auth
     }
 
     /**
+     * Method to set the allowed subnets
+     *
+     * @param  string|array $subnets
+     * @return Pop\Auth\Auth
+     */
+    public function setAllowedSubnets($subnets = null)
+    {
+        if (null === $subnets) {
+            $this->_rules['allowedSubnets'] = null;
+        } else {
+            $validSubnets = $this->_filterSubnets($subnets);
+            if (count($validSubnets) > 0) {
+                $this->_rules['allowedSubnets'] = Rule::factory(new Included($validSubnets));
+            }
+        }
+        return $this;
+    }
+
+    /**
      * Method to set the required role
      *
-     * @param  mixed $role
+     * @param  Pop\Auth\Role $role
      * @return Pop\Auth\Auth
      */
     public function setRequiredRole(Role $role)
@@ -242,12 +286,25 @@ class Auth
     }
 
     /**
-     * Method to filter the ip adddresses to confirm their validity
+     * Method to authenticate a user
+     *
+     * @param  string        $username
+     * @param  string        $password
+     * @param  Pop\Auth\Role $role
+     * @return boolean
+     */
+    public function authenticate($username, $password, Role $role = null)
+    {
+        $this->_user = new User($username, $password, $role);
+    }
+
+    /**
+     * Method to filter the ip addresses to confirm their validity
      *
      * @param  string|array $ips
      * @return array
      */
-    protected function filterIps($ips)
+    protected function _filterIps($ips)
     {
         $validIps = array();
 
@@ -263,6 +320,29 @@ class Auth
         }
 
         return $validIps;
+    }
+
+    /**
+     * Method to filter the subnets to confirm their validity
+     *
+     * @param  string|array $subnets
+     * @return array
+     */
+    protected function _filterSubnets($subnets)
+    {
+        $validSubnets = array();
+
+        if (!is_array($subnets)) {
+            $subnets = array($subnets);
+        }
+
+        foreach ($subnets as $subnets) {
+            if (Rule::factory(new Subnet())->evaluate($subnets)) {
+                $validSubnets[] = $subnets;
+            }
+        }
+
+        return $validSubnets;
     }
 
 }
