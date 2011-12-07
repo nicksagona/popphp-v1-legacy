@@ -45,16 +45,34 @@ class Auth
 {
 
     /**
+     * Constant to trigger using no encryption
+     * @var int
+     */
+    const NO_ENCRYPT = 0;
+
+    /**
+     * Constant to trigger using md5() encryption
+     * @var int
+     */
+    const MD5 = 1;
+
+    /**
+     * Constant to trigger using sha1() encryption
+     * @var int
+     */
+    const SHA1 = 2;
+
+    /**
+     * Constant to trigger using crypt() encryption
+     * @var int
+     */
+    const CRYPT = 3;
+
+    /**
      * Auth user object
      * @var Pop\Auth\User
      */
     protected $_user = null;
-
-    /**
-     * Array of Pop\Auth\Role objects
-     * @var array
-     */
-    protected $_roles = array();
 
     /**
      * Required role for authorization
@@ -66,7 +84,11 @@ class Auth
      * Array of Pop\Auth\Rule\* objects
      * @var array
      */
-    protected $_rules = array();
+    protected $_rules = array(
+                            'attempts'    => null,
+                            'ips_blocked' => null,
+                            'ips_allowed' => null
+                        );
 
     /**
      * Auth adapter object
@@ -75,38 +97,91 @@ class Auth
     protected $_adapter = null;
 
     /**
+     * Encryption method to use
+     * @var int
+     */
+    protected $_encryption = 0;
+
+    /**
+     * Encryption salt
+     * @var string
+     */
+    protected $_salt = null;
+
+    /**
+     * Number of attempts
+     * @var int
+     */
+    protected $_attempts = 0;
+
+    /**
      * Constructor
      *
      * Instantiate the auth object
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(AdapterInterface $adapter, $encryption = 0, $salt = null)
     {
+        $this->_adapter = $adapter;
 
+        $enc = (int)$encryption;
+        if (($enc >= 0) && ($enc <= 3)) {
+            $this->_encryption = $enc;
+        }
+
+        $this->_salt = $salt;
     }
 
     /**
-     * Method to add a role
+     * Method to set the encryption
      *
-     * @param  mixed $role
+     * @param  int $encryption
      * @return Pop\Auth\Auth
      */
-    public function addRole(Role $role)
+    public function setEncryption($encryption = 0)
     {
-        $this->_roles[$role->getName()] = $role;
+        $enc = (int)$encryption;
+        if (($enc >= 0) && ($enc <= 3)) {
+            $this->_encryption = $enc;
+        }
+
         return $this;
     }
 
     /**
-     * Method to add a rule
+     * Method to set the encryption
      *
-     * @param  mixed $rule
+     * @param  string $salt
      * @return Pop\Auth\Auth
      */
-    public function addRule(RuleInterface $rule)
+    public function setSalt($salt = null)
     {
-        $this->_rules[] = $rule;
+        $this->_salt = $salt;
+        return $this;
+    }
+
+    /**
+     * Method to set the number of login attempts allowed
+     *
+     * @param  int $attempts
+     * @return Pop\Auth\Auth
+     */
+    public function setAttempts($attempts = 0)
+    {
+        $this->_attempts = (int)$attempts;
+        return $this;
+    }
+
+    /**
+     * Method to set the required role
+     *
+     * @param  mixed $role
+     * @return Pop\Auth\Auth
+     */
+    public function setRequiredRole(Role $role)
+    {
+        $this->_requiredRole = $role;
         return $this;
     }
 

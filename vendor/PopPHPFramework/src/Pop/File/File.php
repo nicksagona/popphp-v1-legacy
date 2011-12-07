@@ -583,7 +583,7 @@ class File
 
         // Check to see if the file is an accepted file format.
         if ((null !== $this->_allowed) && (null !== $this->ext) && (count($this->_allowed) > 0) && (!array_key_exists(strtolower($this->ext), $this->_allowed))) {
-            throw new Exception($this->_lang->__('Error: The file is not an accepted file format.'));
+            throw new Exception($this->_lang->__('Error: The file type %1 is not an accepted file format.', strtoupper($this->ext)));
         } else {
             // Set the mime type of the file.
             $this->_mime = ((null !== $this->ext) && (count($this->_allowed) > 0) && (null !== $this->_allowed)) ? $this->_allowed[strtolower($this->ext)] : null;

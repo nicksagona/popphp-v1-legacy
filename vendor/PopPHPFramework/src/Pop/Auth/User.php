@@ -66,7 +66,7 @@ class User
      * @param  Pop\Auth\Role $role
      * @return void
      */
-    public function __construct($username, $password, Role $role = null)
+    public function __construct($username = null, $password = null, Role $role = null)
     {
         $this->_username = $username;
         $this->_password = $password;
@@ -82,7 +82,7 @@ class User
      * @param  Pop\Auth\Role $role
      * @return Pop\Auth\User
      */
-    public static function factory($username, $password, $role = null)
+    public static function factory($username = null, $password = null, Role $role = null)
     {
         return new self($username, $password, $role);
     }
@@ -98,7 +98,7 @@ class User
     }
 
     /**
-     * Method to get the username
+     * Method to get the password
      *
      * @return string
      */
@@ -117,9 +117,32 @@ class User
         return $this->_role;
     }
 
+    /**
+     * Method to set the username
+     *
+     * @return string $username
+     * @return Pop\Auth\User
+     */
+    public function setUsername($username)
+    {
+        $this->_username = $username;
+        return $this;
+    }
 
     /**
-     * Method to get the role
+     * Method to set the password
+     *
+     * @return string $password
+     * @return Pop\Auth\User
+     */
+    public function setPassword($password)
+    {
+        $this->_password = $password;
+        return $this;
+    }
+
+    /**
+     * Method to set the role
      *
      * @return Pop\Auth\Role $role
      * @return Pop\Auth\User
@@ -131,31 +154,18 @@ class User
     }
 
     /**
-     * Method to get the role
+     * Method to evaluate if the user is authorized
      *
      * @param  Pop\Auth\Role $requiredRole
-     * @param  boolean $equal
-     * @throws Exception
-     * @return string
+     * @return boolean
      */
-    public function isAuthorized(Role $requiredRole, $equal = true)
+    public function isAuthorizedAs(Role $requiredRole)
     {
-        if (null === $this->_role) {
-            throw new Exception(Locale::factory()->__('The user role has not been defined to evaluate against.'));
-        }
-
         $result = false;
 
-        // If user role is greater than or equal to required role
-        if ($equal) {
-            if ($this->_role->compare($requiredRole) >= 0) {
-                $result = true;
-            }
-        // Else, if user role is greater than required role
-        } else {
-            if ($this->_role->compare($requiredRole) > 0) {
-                $result = true;
-            }
+        // If user role is defined and is greater than or equal to required role
+        if ((null !== $this->_role) && ($this->_role->compare($requiredRole) >= 0)) {
+            $result = true;
         }
 
         return $result;
