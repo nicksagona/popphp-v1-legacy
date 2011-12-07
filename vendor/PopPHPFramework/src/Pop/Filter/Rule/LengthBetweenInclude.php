@@ -62,6 +62,8 @@ class LengthBetweenInclude extends AbstractRule
         // Evaluate the input against the rule
         if (((strlen($this->_input) >= $nums[0]) && (strlen($this->_input) <= $nums[1])) == $this->_condition) {
             $this->_result = true;
+        } else {
+            $this->_result = false;
         }
 
         return $this->_result;

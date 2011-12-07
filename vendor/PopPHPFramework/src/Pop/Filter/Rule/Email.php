@@ -60,6 +60,8 @@ class Email extends AbstractRule
         // Evaluate the input against the rule
         if (preg_match('/[a-zA-Z0-9\.\-\_+%]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]{2,4}/', $this->_input) == $this->_condition) {
             $this->_result = true;
+        } else {
+            $this->_result = false;
         }
 
         return $this->_result;

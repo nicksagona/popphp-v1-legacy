@@ -60,6 +60,8 @@ class LengthGt extends AbstractRule
         // Evaluate the input against the rule
         if ((strlen($this->_input) > $this->_value) == $this->_condition) {
             $this->_result = true;
+        } else {
+            $this->_result = false;
         }
 
         return $this->_result;

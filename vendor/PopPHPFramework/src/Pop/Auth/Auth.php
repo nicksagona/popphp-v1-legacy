@@ -49,6 +49,48 @@ class Auth
 {
 
     /**
+     * Constant for user is valid result
+     * @var int
+     */
+    const USER_IS_VALID = 1;
+
+    /**
+     * Constant for user not found result
+     * @var int
+     */
+    const USER_NOT_FOUND = 2;
+
+    /**
+     * Constant for user is blocked result
+     * @var int
+     */
+    const USER_IS_BLOCKED = 3;
+
+    /**
+     * Constant for password incorrect result
+     * @var int
+     */
+    const PASSWORD_INCORRECT = 4;
+
+    /**
+     * Constant for login attempts exceeded result
+     * @var int
+     */
+    const LOGIN_ATTEMPTS_EXCEEDED = 5;
+
+    /**
+     * Constant for IP address blocked result
+     * @var int
+     */
+    const IP_BLOCKED = 6;
+
+    /**
+     * Constant for IP address blocked result
+     * @var int
+     */
+    const IP_NOT_ALLOWED = 7;
+
+    /**
      * Constant to trigger using no encryption
      * @var int
      */
@@ -77,6 +119,12 @@ class Auth
      * @var Pop\Auth\User
      */
     protected $_user = null;
+
+    /**
+     * Allowed roles.
+     * @var array
+     */
+    protected $_allowedRoles = array();
 
     /**
      * Required role for authorization
@@ -133,6 +181,12 @@ class Auth
     protected $_subnet = null;
 
     /**
+     * Authentication result
+     * @var int
+     */
+    protected $_result = 0;
+
+    /**
      * Constructor
      *
      * Instantiate the auth object
@@ -151,6 +205,95 @@ class Auth
         $this->_salt = $salt;
         $this->_ip = $_SERVER['REMOTE_ADDR'];
         $this->_subnet = substr($this->_ip, 0, strrpos($this->_ip, '.'));
+    }
+
+    /**
+     * Method to get the current number of login attempts
+     *
+     * @return int
+     */
+    public function getLoginAttempts()
+    {
+        return $this->_loginAttempts;
+    }
+
+    /**
+     * Method to get the encryption
+     *
+     * @return int
+     */
+    public function getEncryption()
+    {
+        return $this->_encryption;
+    }
+
+    /**
+     * Method to get the salt
+     *
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->_salt;
+    }
+
+    /**
+     * Method to get the authentication result
+     *
+     * @return int
+     */
+    public function getResult()
+    {
+        return $this->_result;
+    }
+
+    /**
+     * Method to get the authentication result message
+     *
+     * @return string
+     */
+    public function getResultMessage()
+    {
+        $msg = null;
+
+        switch ($this->_result) {
+            case self::USER_IS_VALID:
+                $msg = Locale::factory()->__('The user is valid.');
+                break;
+            case self::USER_NOT_FOUND:
+                $msg = Locale::factory()->__('The user was not found.');
+                break;
+            case self::USER_IS_BLOCKED:
+                $msg = Locale::factory()->__('The user is blocked.');
+                break;
+            case self::PASSWORD_INCORRECT:
+                $msg = Locale::factory()->__('The password was incorrect.');
+                break;
+            case self::LOGIN_ATTEMPTS_EXCEEDED:
+                $msg = Locale::factory()->__(
+                                             'The allowed login attempts (%1) have been exceeded.',
+                                             $this->_rules['loginAttempts']->getRule()->getValue()
+                                             );
+                break;
+            case self::IP_BLOCKED:
+                $msg = Locale::factory()->__('That IP address is blocked.');
+                break;
+            case self::IP_NOT_ALLOWED:
+                $msg = Locale::factory()->__('That IP address is not allowed.');
+                break;
+        }
+
+        return $msg;
+    }
+
+    /**
+     * Method to get the required role
+     *
+     * @return Pop\Auth\Role
+     */
+    public function getRequiredRole()
+    {
+        return $this->_requiredRole;
     }
 
     /**
@@ -182,17 +325,46 @@ class Auth
     }
 
     /**
+     * Method to add a role
+     *
+     * @param  Pop\Auth\Role $role
+     * @return Pop\Auth\Auth
+     */
+    public function addRole(Role $role)
+    {
+        $this->_allowedRoles[$role->getName()] = $role;
+        return $this;
+    }
+
+    /**
+     * Method to remove a role
+     *
+     * @param  mixed $role
+     * @return Pop\Auth\Auth
+     */
+    public function removeRole($role)
+    {
+        $roleName = ($role instanceof Role) ? $role->getName() : $role;
+
+        if (array_key_exists($roleName, $this->_roles)) {
+            unset($this->_roles[$roleName]);
+        }
+
+        return $this;
+    }
+
+    /**
      * Method to set the number of login attempts allowed
      *
      * @param  int $attempts
      * @return Pop\Auth\Auth
      */
-    public function setAttempts($attempts = 0)
+    public function setLoginAttempts($attempts = 0)
     {
         if ($attempts == 0) {
-            $this->_rules['attempts'] = null;
+            $this->_rules['loginAttempts'] = null;
         } else {
-            $this->_rules['attempts'] = Rule::factory(new LessThan($attempts));
+            $this->_rules['loginAttempts'] = Rule::factory(new LessThan($attempts));
         }
         return $this;
     }
@@ -290,12 +462,24 @@ class Auth
      *
      * @param  string        $username
      * @param  string        $password
-     * @param  Pop\Auth\Role $role
-     * @return boolean
+     * @return int
      */
-    public function authenticate($username, $password, Role $role = null)
+    public function authenticate($username, $password)
     {
-        $this->_user = new User($username, $password, $role);
+        $this->_processRules();
+
+        if ($this->_result == 0) {
+            $this->_user = new User($username, $this->_encryptPassword($password));
+
+            $result = $this->_adapter->authenticate($this->_user->getUsername(), $this->_user->getPassword());
+            $this->_result = $result['result'];
+
+            if ((null !== $result['access']) && isset($this->_allowedRoles[$result['access']])) {
+                $this->_user->setRole($this->_allowedRoles[$result['access']]);
+            }
+        }
+
+        return $this->_result;
     }
 
     /**
@@ -336,13 +520,76 @@ class Auth
             $subnets = array($subnets);
         }
 
-        foreach ($subnets as $subnets) {
-            if (Rule::factory(new Subnet())->evaluate($subnets)) {
-                $validSubnets[] = $subnets;
+        foreach ($subnets as $subnet) {
+            if (Rule::factory(new Subnet())->evaluate($subnet)) {
+                $validSubnets[] = $subnet;
             }
         }
 
         return $validSubnets;
+    }
+
+    /**
+     * Method to encrypt the password
+     *
+     * @param  string $pwd
+     * @return string
+     */
+    protected function _encryptPassword($pwd)
+    {
+        $encrypted = $pwd;
+
+        if ($this->_encryption == self::ENCRYPT_MD5) {
+            $encrypted = md5($pwd);
+        } else if ($this->_encryption == self::ENCRYPT_SHA1) {
+            $encrypted = sha1($pwd);
+        } else if ($this->_encryption == self::ENCRYPT_CRYPT) {
+            $encrypted = crypt($pwd, $this->_salt);
+        }
+
+        return $encrypted;
+    }
+
+    /**
+     * Method to process the rules
+     *
+     * @return void
+     */
+    protected function _processRules()
+    {
+        foreach ($this->_rules as $name => $rule) {
+            if (null !== $rule) {
+                switch ($name) {
+                    case 'allowedIps':
+                        if (!$rule->evaluate($this->_ip)) {
+                            $this->_result = self::IP_NOT_ALLOWED;
+                        }
+                        break;
+                    case 'allowedSubnets':
+                        if (!$rule->evaluate($this->_subnet)) {
+                            $this->_result = self::IP_NOT_ALLOWED;
+                        }
+                        break;
+                    case 'blockedIps':
+                        if (!$rule->evaluate($this->_ip)) {
+                            $this->_result = self::IP_BLOCKED;
+                        }
+                        break;
+                    case 'blockedSubnets':
+                        if (!$rule->evaluate($this->_subnet)) {
+                            $this->_result = self::IP_BLOCKED;
+                        }
+                        break;
+                    case 'loginAttempts':
+                        if (!$rule->evaluate($this->_loginAttempts)) {
+                            $this->_result = self::LOGIN_ATTEMPTS_EXCEEDED;
+                        }
+                        break;
+                }
+            }
+        }
+
+        $this->_loginAttempts++;
     }
 
 }

@@ -60,6 +60,8 @@ class RegEx extends AbstractRule
         // Evaluate the input against the rule
         if (preg_match($this->_value, $this->_input) == $this->_condition) {
             $this->_result = true;
+        } else {
+            $this->_result = false;
         }
 
         return $this->_result;

@@ -35,6 +35,13 @@ namespace Pop\Auth\Adapter;
 interface AdapterInterface
 {
 
-
+    /**
+     * Method to authenticate the user
+     *
+     * @param  string $username
+     * @param  string $password
+     * @return boolean
+     */
+    public function authenticate($username, $password);
 
 }

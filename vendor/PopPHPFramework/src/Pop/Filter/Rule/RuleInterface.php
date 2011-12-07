@@ -50,6 +50,13 @@ interface RuleInterface
     public function getCondition();
 
     /**
+     * Method to get the rule default message
+     *
+     * @return boolean
+     */
+    public function getDefaultMessage();
+
+    /**
      * Method to get the rule input
      *
      * @return mixed

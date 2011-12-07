@@ -215,3 +215,10 @@ The value must not be part of the subnet %1.
 The value must be a valid IPv4 subnet.
 The value must not be a valid IPv4 subnet.
 The IP address must be a valid IPv4 address.
+The user is valid.
+The user was not found.
+The user is blocked.
+The password was incorrect.
+The allowed login attempts (%1) have been exceeded.
+That IP address is blocked.
+That IP address is not allowed.

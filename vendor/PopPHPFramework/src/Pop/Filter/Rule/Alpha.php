@@ -60,6 +60,8 @@ class Alpha extends AbstractRule
         // Evaluate the input against the rule
         if (preg_match('/^[a-zA-Z]+$/', $this->_input) == $this->_condition) {
             $this->_result = true;
+        } else {
+            $this->_result = false;
         }
 
         return $this->_result;
