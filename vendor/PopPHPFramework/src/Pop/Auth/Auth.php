@@ -27,10 +27,12 @@ namespace Pop\Auth;
 use Pop\Auth\Adapter\AccessFile,
     Pop\Auth\Adapter\AdapterInterface,
     Pop\Auth\Adapter\DbTable,
-    Pop\Auth\Rule\AllowedIps,
-    Pop\Auth\Rule\Attempts,
-    Pop\Auth\Rule\BlockedIps,
-    Pop\Auth\Rule\RuleInterface,
+    Pop\Filter\Rule,
+    Pop\Filter\Rule\Excluded,
+    Pop\Filter\Rule\Included,
+    Pop\Filter\Rule\Ipv4,
+    Pop\Filter\Rule\Ipv6,
+    Pop\Filter\Rule\LessThan,
     Pop\Locale\Locale;
 
 /**
@@ -48,25 +50,25 @@ class Auth
      * Constant to trigger using no encryption
      * @var int
      */
-    const NO_ENCRYPT = 0;
+    const ENCRYPT_NONE = 0;
 
     /**
      * Constant to trigger using md5() encryption
      * @var int
      */
-    const MD5 = 1;
+    const ENCRYPT_MD5 = 1;
 
     /**
      * Constant to trigger using sha1() encryption
      * @var int
      */
-    const SHA1 = 2;
+    const ENCRYPT_SHA1 = 2;
 
     /**
      * Constant to trigger using crypt() encryption
      * @var int
      */
-    const CRYPT = 3;
+    const ENCRYPT_CRYPT = 3;
 
     /**
      * Auth user object
@@ -86,8 +88,8 @@ class Auth
      */
     protected $_rules = array(
                             'attempts'    => null,
-                            'ips_blocked' => null,
-                            'ips_allowed' => null
+                            'blockedIps' => null,
+                            'allowedIps' => null
                         );
 
     /**
@@ -109,10 +111,22 @@ class Auth
     protected $_salt = null;
 
     /**
-     * Number of attempts
+     * Current number of login attempts
      * @var int
      */
     protected $_attempts = 0;
+
+    /**
+     * Array of blocked IP addresses
+     * @var array
+     */
+    protected $_blockedIps = array();
+
+    /**
+     * Array of allowed IP addresses
+     * @var array
+     */
+    protected $_allowedIps = array();
 
     /**
      * Constructor
@@ -169,7 +183,49 @@ class Auth
      */
     public function setAttempts($attempts = 0)
     {
-        $this->_attempts = (int)$attempts;
+        if ($attempts == 0) {
+            $this->_rules['attempts'] = null;
+        } else {
+            $this->_rules['attempts'] = Rule::factory(new LessThan($attempts));
+        }
+        return $this;
+    }
+
+    /**
+     * Method to set the block IP addresses
+     *
+     * @param  string|array $ips
+     * @return Pop\Auth\Auth
+     */
+    public function setBlockedIps($ips = null)
+    {
+        if (null === $ips) {
+            $this->_rules['blockedIps'] = null;
+        } else {
+            $validIps = $this->_filterIps($ips);
+            if (count($validIps) > 0) {
+                $this->_rules['allowedIps'] = Rule::factory(new Excluded($validIps));
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Method to set the allowed IP addresses
+     *
+     * @param  string|array $ips
+     * @return Pop\Auth\Auth
+     */
+    public function setAllowedIps($ips = null)
+    {
+        if (null === $ips) {
+            $this->_rules['allowedIps'] = null;
+        } else {
+            $validIps = $this->_filterIps($ips);
+            if (count($validIps) > 0) {
+                $this->_rules['allowedIps'] = Rule::factory(new Included($validIps));
+            }
+        }
         return $this;
     }
 
@@ -183,6 +239,30 @@ class Auth
     {
         $this->_requiredRole = $role;
         return $this;
+    }
+
+    /**
+     * Method to filter the ip adddresses to confirm their validity
+     *
+     * @param  string|array $ips
+     * @return array
+     */
+    protected function filterIps($ips)
+    {
+        $validIps = array();
+
+        if (!is_array($ips)) {
+            $ips = array($ips);
+        }
+
+        foreach ($ips as $ip) {
+            if ((Rule::factory(new Ipv4())->evaluate($ip)) ||
+                (Rule::factory(new Ipv6())->evaluate($ip))) {
+                $validIps[] = $ip;
+            }
+        }
+
+        return $validIps;
     }
 
 }
