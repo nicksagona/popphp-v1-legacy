@@ -27,14 +27,14 @@ namespace Pop\Auth;
 use Pop\Auth\Adapter\AccessFile,
     Pop\Auth\Adapter\AdapterInterface,
     Pop\Auth\Adapter\DbTable,
-    Pop\Filter\Rule,
-    Pop\Filter\Rule\Excluded,
-    Pop\Filter\Rule\Included,
-    Pop\Filter\Rule\Ipv4,
-    Pop\Filter\Rule\Ipv6,
-    Pop\Filter\Rule\IsSubnetOf,
-    Pop\Filter\Rule\LessThan,
-    Pop\Filter\Rule\Subnet,
+    Pop\Validator\Validator,
+    Pop\Validator\Validator\Excluded,
+    Pop\Validator\Validator\Included,
+    Pop\Validator\Validator\Ipv4,
+    Pop\Validator\Validator\Ipv6,
+    Pop\Validator\Validator\IsSubnetOf,
+    Pop\Validator\Validator\LessThan,
+    Pop\Validator\Validator\Subnet,
     Pop\Locale\Locale;
 
 /**
@@ -133,16 +133,16 @@ class Auth
     protected $_requiredRole = null;
 
     /**
-     * Array of Pop\Auth\Rule\* objects
+     * Array of validator objects
      * @var array
      */
-    protected $_rules = array(
-                            'allowedIps'     => null,
-                            'allowedSubnets' => null,
-                            'blockedIps'     => null,
-                            'blockedSubnets' => null,
-                            'loginAttempts'  => null,
-                        );
+    protected $_validators = array(
+                                 'allowedIps'     => null,
+                                 'allowedSubnets' => null,
+                                 'blockedIps'     => null,
+                                 'blockedSubnets' => null,
+                                 'loginAttempts'  => null,
+                             );
 
     /**
      * Auth adapter object
@@ -203,8 +203,6 @@ class Auth
         }
 
         $this->_salt = $salt;
-        $this->_ip = $_SERVER['REMOTE_ADDR'];
-        $this->_subnet = substr($this->_ip, 0, strrpos($this->_ip, '.'));
     }
 
     /**
@@ -272,7 +270,7 @@ class Auth
             case self::LOGIN_ATTEMPTS_EXCEEDED:
                 $msg = Locale::factory()->__(
                                              'The allowed login attempts (%1) have been exceeded.',
-                                             $this->_rules['loginAttempts']->getRule()->getValue()
+                                             $this->_validators['loginAttempts']->getValidator()->getValue()
                                              );
                 break;
             case self::IP_BLOCKED:
@@ -294,6 +292,16 @@ class Auth
     public function getRequiredRole()
     {
         return $this->_requiredRole;
+    }
+
+    /**
+     * Method to get the user
+     *
+     * @return Pop\Auth\User
+     */
+    public function getUser()
+    {
+        return $this->_user;
     }
 
     /**
@@ -327,12 +335,20 @@ class Auth
     /**
      * Method to add a role
      *
-     * @param  Pop\Auth\Role $role
+     * @param  mixed $role
      * @return Pop\Auth\Auth
      */
-    public function addRole(Role $role)
+    public function addRoles($role)
     {
-        $this->_allowedRoles[$role->getName()] = $role;
+        if (is_array($role)) {
+            foreach ($role as $r) {
+                if ($r instanceof Role) {
+                    $this->_allowedRoles[$r->getName()] = $r;
+                }
+            }
+        } else if ($role instanceof Role) {
+            $this->_allowedRoles[$role->getName()] = $role;
+        }
         return $this;
     }
 
@@ -346,8 +362,36 @@ class Auth
     {
         $roleName = ($role instanceof Role) ? $role->getName() : $role;
 
-        if (array_key_exists($roleName, $this->_roles)) {
-            unset($this->_roles[$roleName]);
+        if (array_key_exists($roleName, $this->_allowedRoles)) {
+            unset($this->_allowedRoles[$roleName]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Method to set the required role
+     *
+     * @param  mixed $role
+     * @param  int   $level
+     * @return Pop\Auth\Auth
+     */
+    public function setRequiredRole($role = null, $level = 0)
+    {
+        if (null === $role) {
+            $this->_requiredRole = null;
+        } else {
+            if ($role instanceof Role) {
+                if (!array_key_exists($role->getName(), $this->_allowedRoles)) {
+                    $this->_allowedRoles[$role->getName()] = $role;
+                }
+                $this->_requiredRole = $role;
+            } else {
+                if (!array_key_exists($role, $this->_allowedRoles)) {
+                    $this->_allowedRoles[$role] = Role::factory($role, $level);
+                }
+                $this->_requiredRole = $this->_allowedRoles[$role];
+            }
         }
 
         return $this;
@@ -362,9 +406,9 @@ class Auth
     public function setLoginAttempts($attempts = 0)
     {
         if ($attempts == 0) {
-            $this->_rules['loginAttempts'] = null;
+            $this->_validators['loginAttempts'] = null;
         } else {
-            $this->_rules['loginAttempts'] = Rule::factory(new LessThan($attempts));
+            $this->_validators['loginAttempts'] = Validator::factory(new LessThan($attempts));
         }
         return $this;
     }
@@ -378,11 +422,11 @@ class Auth
     public function setBlockedIps($ips = null)
     {
         if (null === $ips) {
-            $this->_rules['blockedIps'] = null;
+            $this->_validators['blockedIps'] = null;
         } else {
             $validIps = $this->_filterIps($ips);
             if (count($validIps) > 0) {
-                $this->_rules['blockedIps'] = Rule::factory(new Excluded($validIps));
+                $this->_validators['blockedIps'] = Validator::factory(new Excluded($validIps));
             }
         }
         return $this;
@@ -397,11 +441,11 @@ class Auth
     public function setBlockedSubnets($subnets = null)
     {
         if (null === $subnets) {
-            $this->_rules['blockedSubnets'] = null;
+            $this->_validators['blockedSubnets'] = null;
         } else {
             $validSubnets = $this->_filterSubnets($subnets);
             if (count($validSubnets) > 0) {
-                $this->_rules['blockedSubnets'] = Rule::factory(new Excluded($validSubnets));
+                $this->_validators['blockedSubnets'] = Validator::factory(new Excluded($validSubnets));
             }
         }
         return $this;
@@ -416,11 +460,11 @@ class Auth
     public function setAllowedIps($ips = null)
     {
         if (null === $ips) {
-            $this->_rules['allowedIps'] = null;
+            $this->_validators['allowedIps'] = null;
         } else {
             $validIps = $this->_filterIps($ips);
             if (count($validIps) > 0) {
-                $this->_rules['allowedIps'] = Rule::factory(new Included($validIps));
+                $this->_validators['allowedIps'] = Validator::factory(new Included($validIps));
             }
         }
         return $this;
@@ -435,25 +479,13 @@ class Auth
     public function setAllowedSubnets($subnets = null)
     {
         if (null === $subnets) {
-            $this->_rules['allowedSubnets'] = null;
+            $this->_validators['allowedSubnets'] = null;
         } else {
             $validSubnets = $this->_filterSubnets($subnets);
             if (count($validSubnets) > 0) {
-                $this->_rules['allowedSubnets'] = Rule::factory(new Included($validSubnets));
+                $this->_validators['allowedSubnets'] = Validator::factory(new Included($validSubnets));
             }
         }
-        return $this;
-    }
-
-    /**
-     * Method to set the required role
-     *
-     * @param  Pop\Auth\Role $role
-     * @return Pop\Auth\Auth
-     */
-    public function setRequiredRole(Role $role)
-    {
-        $this->_requiredRole = $role;
         return $this;
     }
 
@@ -466,7 +498,12 @@ class Auth
      */
     public function authenticate($username, $password)
     {
-        $this->_processRules();
+        $this->_result = 0;
+        if (isset($_SERVER['REMOTE_ADDR'])) {
+            $this->_ip = $_SERVER['REMOTE_ADDR'];
+            $this->_subnet = substr($this->_ip, 0, strrpos($this->_ip, '.'));
+        }
+        $this->_processValidators();
 
         if ($this->_result == 0) {
             $this->_user = new User($username, $this->_encryptPassword($password));
@@ -480,6 +517,31 @@ class Auth
         }
 
         return $this->_result;
+    }
+    /**
+     * Method to authorize a user
+     *
+     * @throws Exception
+     * @return boolean
+     */
+    public function isUserAuthorized()
+    {
+        $result = false;
+
+        if (null === $this->_requiredRole) {
+            $result = true;
+        } else {
+            if (null === $this->_user->getRole()) {
+                throw new Exception(Locale::factory()->__("The user's role is not defined."));
+            }
+            if ($this->_user->getRole()->compare($this->_requiredRole) >= 0) {
+                $result = true;
+            } else {
+                $result = false;
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -497,8 +559,8 @@ class Auth
         }
 
         foreach ($ips as $ip) {
-            if ((Rule::factory(new Ipv4())->evaluate($ip)) ||
-                (Rule::factory(new Ipv6())->evaluate($ip))) {
+            if ((Validator::factory(new Ipv4())->evaluate($ip)) ||
+                (Validator::factory(new Ipv6())->evaluate($ip))) {
                 $validIps[] = $ip;
             }
         }
@@ -521,7 +583,7 @@ class Auth
         }
 
         foreach ($subnets as $subnet) {
-            if (Rule::factory(new Subnet())->evaluate($subnet)) {
+            if (Validator::factory(new Subnet())->evaluate($subnet)) {
                 $validSubnets[] = $subnet;
             }
         }
@@ -551,37 +613,37 @@ class Auth
     }
 
     /**
-     * Method to process the rules
+     * Method to process the validators
      *
      * @return void
      */
-    protected function _processRules()
+    protected function _processValidators()
     {
-        foreach ($this->_rules as $name => $rule) {
-            if (null !== $rule) {
+        foreach ($this->_validators as $name => $validator) {
+            if (null !== $validator) {
                 switch ($name) {
                     case 'allowedIps':
-                        if (!$rule->evaluate($this->_ip)) {
+                        if ((null !== $this->_ip) && (!$validator->evaluate($this->_ip))) {
                             $this->_result = self::IP_NOT_ALLOWED;
                         }
                         break;
                     case 'allowedSubnets':
-                        if (!$rule->evaluate($this->_subnet)) {
+                        if ((null !== $this->_subnet) && (!$validator->evaluate($this->_subnet))) {
                             $this->_result = self::IP_NOT_ALLOWED;
                         }
                         break;
                     case 'blockedIps':
-                        if (!$rule->evaluate($this->_ip)) {
+                        if ((null !== $this->_ip) && (!$validator->evaluate($this->_ip))) {
                             $this->_result = self::IP_BLOCKED;
                         }
                         break;
                     case 'blockedSubnets':
-                        if (!$rule->evaluate($this->_subnet)) {
+                        if ((null !== $this->_subnet) && (!$validator->evaluate($this->_subnet))) {
                             $this->_result = self::IP_BLOCKED;
                         }
                         break;
                     case 'loginAttempts':
-                        if (!$rule->evaluate($this->_loginAttempts)) {
+                        if (!$validator->evaluate($this->_loginAttempts)) {
                             $this->_result = self::LOGIN_ATTEMPTS_EXCEEDED;
                         }
                         break;
