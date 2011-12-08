@@ -521,7 +521,6 @@ class Auth
     /**
      * Method to authorize a user
      *
-     * @throws Exception
      * @return boolean
      */
     public function isUserAuthorized()
