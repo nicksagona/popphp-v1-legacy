@@ -531,14 +531,7 @@ class Auth
         if (null === $this->_requiredRole) {
             $result = true;
         } else {
-            if (null === $this->_user->getRole()) {
-                throw new Exception(Locale::factory()->__("The user's role is not defined."));
-            }
-            if ($this->_user->getRole()->compare($this->_requiredRole) >= 0) {
-                $result = true;
-            } else {
-                $result = false;
-            }
+            $result = $this->_user->isAuthorizedAs($this->_requiredRole);
         }
 
         return $result;
