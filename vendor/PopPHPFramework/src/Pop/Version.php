@@ -112,7 +112,7 @@ class Version
 
         // PHP Version
         $php['Required PHP'] = '5.3.0';
-        $php['Installed PHP'] = PHP_VERSION . ((version_compare(PHP_VERSION, '5.3.0') >= 0) ? ' (Pass)' : ' (Fail)');
+        $php['Installed PHP'] = PHP_VERSION;
 
         // Archive
         $check['Archive Tar'] = (class_exists('Archive_Tar')) ? 'Yes' : 'No';
