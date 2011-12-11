@@ -60,7 +60,7 @@ class Db
      * @throws Exception
      * @return void
      */
-    public function __construct($type, array $options, $prefix = 'Pop_Db_Adapter_')
+    public function __construct($type, array $options, $prefix = 'Pop\\Db\\Adapter\\')
     {
         $class = $prefix . ucfirst(strtolower($type));
 
@@ -68,6 +68,7 @@ class Db
             throw new Exception(Locale::factory()->__('Error: That database adapter class does not exist.'));
         } else {
             $this->sql = new Sql();
+            print_r($options);
             $this->adapter = new $class($options);
         }
     }
