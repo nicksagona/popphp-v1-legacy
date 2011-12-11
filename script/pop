@@ -20,19 +20,5 @@
 # -v --version    Display version of Pop PHP Framework
 #
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-TEMP=`getopt -o bchv --long build,check,help,version -n 'Error' -- "$@"`
-
-if [ $# = 0 ] ; then echo -e "\nPop PHP Framework CLI script\n============================\n\nYou must pass at least one argument.\nRun './pop -h' for help.\n" >&2 ; exit 1 ; fi
-
-eval set -- "$TEMP"
-
-while true ; do
-    case "$1" in
-        -b|--build) echo -e "$("$DIR"/pop.php -b)\n" ; shift ;;
-        -c|--check) echo -e "$("$DIR"/pop.php -c)\n" ; shift ;;
-        -h|--help) echo -e "$("$DIR"/pop.php -h)\n" ; shift ;;
-        -v|--version) echo -e "$("$DIR"/pop.php -v)\n" ; shift ;;
-        *) break ;;
-    esac
-done
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+"$SCRIPT_DIR"/pop.php "$1"
