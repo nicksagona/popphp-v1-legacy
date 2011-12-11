@@ -15,13 +15,13 @@
  *
  * Possible arguments
  *
-
  * -b --build      Build a project based on the project configuration file
  * -c --check      Check the current configuration for required dependencies
  * -h --help       Display this help
  * -v --version    Display version of Pop PHP Framework
  *
  */
+
 require_once __DIR__ . '/../public/bootstrap.php';
 
 // Write header
@@ -39,10 +39,10 @@ if (isset($argv[1])) {
     } else if (($argv[1] == '-h') || ($argv[1] == '--help')) {
         echo 'Help' . PHP_EOL;
         echo '----' . PHP_EOL;
-        echo ' -b --build      Build a project based on the project configuration file' . PHP_EOL;
+        echo ' -b --build      Build a project based on the files in the \'config\' folder' . PHP_EOL;
         echo ' -c --check      Check the current configuration for required dependencies' . PHP_EOL;
         echo ' -h --help       Display this help' . PHP_EOL;
-        echo ' -v --version    Display version of Pop PHP Framework' . PHP_EOL . PHP_EOL;
+        echo ' -v --version    Display version of Pop PHP Framework and latest available' . PHP_EOL . PHP_EOL;
     // Else, check dependencies
     } else if (($argv[1] == '-c') || ($argv[1] == '--check')) {
         echo 'Dependencies Check' . PHP_EOL;

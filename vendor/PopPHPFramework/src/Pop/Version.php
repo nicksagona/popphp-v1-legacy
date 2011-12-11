@@ -105,7 +105,7 @@ class Version
      * @param int $ret
      * @return string|array
      */
-    public static function check($ret = self::PLAIN)
+    public static function check($ret = Version::PLAIN)
     {
         $php = array();
         $check = array();
@@ -115,10 +115,10 @@ class Version
         $php['Installed PHP'] = PHP_VERSION;
 
         // Archive
-        $check['Archive Tar'] = (class_exists('Archive_Tar')) ? 'Yes' : 'No';
-        $check['Archive Phar'] = (class_exists('Phar')) ? 'Yes' : 'No';
-        $check['Archive Rar'] = (class_exists('RarArchive')) ? 'Yes' : 'No';
-        $check['Archive Zip'] = (class_exists('ZipArchive')) ? 'Yes' : 'No';
+        $check['Archive Tar'] = (!class_exists('Archive_Tar')) ? 'No' : 'Yes';
+        $check['Archive Phar'] = (!class_exists('Phar')) ? 'No' : 'Yes';
+        $check['Archive Rar'] = (!file_exists('RarArchive.php') || !class_exists('RarArchive')) ? 'No' : 'Yes';
+        $check['Archive Zip'] = (!class_exists('ZipArchive')) ? 'No' : 'Yes';
 
         // Compress
         $check['Compress Bzip2'] = (function_exists('bzcompress'))  ? 'Yes' : 'No';
@@ -155,8 +155,10 @@ class Version
         $total = count($check) - $count['No'] . ' of ' . count($check);
 
         $results = null;
+
+        // Format and return the results
         switch ($ret) {
-            case 1:
+            case self::PLAIN:
                 foreach ($php as $key => $value) {
                     $results .= $key . ': ' . $value . PHP_EOL;
                 }
@@ -167,7 +169,7 @@ class Version
                 $results .= '------------------' . PHP_EOL;
                 $results .= 'Total: ' . $total . PHP_EOL;
                 break;
-            case 2:
+            case self::HTML:
                 foreach ($php as $key => $value) {
                     $color = (stripos($value, 'fail') !== false) ? 'red' : 'green';
                     $results .= '<strong>' . $key . ':</strong> <span style="color: ' . $color . ';">' . $value . '</span><br />' . PHP_EOL;
@@ -180,7 +182,7 @@ class Version
                 $results .= '<hr />' . PHP_EOL;
                 $results .= '<strong>Total:</strong> ' . $total . PHP_EOL;
                 break;
-            case 3:
+            case self::DATA:
                 $data = array();
                 foreach ($php as $key => $value) {
                     if (strpos($key, ' ') !== false) {
@@ -203,8 +205,8 @@ class Version
                 $results = new \ArrayObject($data, \ArrayObject::ARRAY_AS_PROPS);
                 break;
         }
-        return $results;
 
+        return $results;
     }
 
 }
