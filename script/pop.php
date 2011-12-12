@@ -15,7 +15,7 @@
  *
  * Possible arguments
  *
- * -b --build ProjectName    Build a project based on the project configuration files
+ * -b --build ProjectName    Build a project based on the files in the 'config' folder
  * -c --check                Check the current configuration for required dependencies
  * -h --help                 Display this help
  * -m --map folder file.php  Create a class map file from the source folder and save to the output file
@@ -40,20 +40,16 @@ if (!empty($argv[1])) {
         echo '-------------' . PHP_EOL;
         echo 'Installed: ' . Version::getVersion() . PHP_EOL;
         echo 'Latest Available: ' . Version::getLatest() . PHP_EOL;
-    // Else, display help
-    } else if (($argv[1] == '-h') || ($argv[1] == '--help')) {
-        echo 'Help' . PHP_EOL;
-        echo '----' . PHP_EOL;
-        echo ' -b --build ProjectName    Build a project based on the files in the \'config\' folder' . PHP_EOL;
-        echo ' -c --check                Check the current configuration for required dependencies' . PHP_EOL;
-        echo ' -h --help                 Display this help' . PHP_EOL;
-        echo ' -m --map folder file.php  Create a class map file from the source folder and save to the output file' . PHP_EOL;
-        echo ' -v --version              Display version of Pop PHP Framework and latest available' . PHP_EOL . PHP_EOL;
     // Else, check dependencies
     } else if (($argv[1] == '-c') || ($argv[1] == '--check')) {
         echo 'Dependencies Check' . PHP_EOL;
         echo '------------------' . PHP_EOL;
         echo Version::check() . PHP_EOL;
+    // Else, display help
+    } else if (($argv[1] == '-h') || ($argv[1] == '--help')) {
+        echo 'Help' . PHP_EOL;
+        echo '----' . PHP_EOL;
+        Project::cliHelp();
     // Else, generate class map
     } else if (($argv[1] == '-m') || ($argv[1] == '--map')) {
         echo 'Generate Class Map File' . PHP_EOL;
@@ -69,7 +65,7 @@ if (!empty($argv[1])) {
             echo Project::cliError(3);
         // Else, generate the class map file
         } else {
-            echo 'Creating class map file \'' . $argv[3] . '\' from source folder \'' . $argv[2] . '\'' . PHP_EOL;
+            echo 'Generating class map file \'' . $argv[3] . '\' from source folder \'' . $argv[2] . '\'' . PHP_EOL;
             Classmap::generate($argv[2], $argv[3]);
             echo 'Done.' . PHP_EOL . PHP_EOL;
         }
@@ -84,9 +80,11 @@ if (!empty($argv[1])) {
         } else {
             Project::build($argv[2]);
         }
+    // Else, unknown option passed
     } else {
         echo Project::cliError(5, $argv[1]);
     }
+// Else, no option passed
 } else {
     echo Project::cliError(6);
 }

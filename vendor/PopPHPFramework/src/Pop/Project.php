@@ -66,6 +66,20 @@ class Project
     }
 
     /**
+     * Print the CLI help message
+     *
+     * @return void
+     */
+    public static function cliHelp()
+    {
+        echo ' -b --build ProjectName    Build a project based on the files in the \'config\' folder' . PHP_EOL;
+        echo ' -c --check                Check the current configuration for required dependencies' . PHP_EOL;
+        echo ' -h --help                 Display this help' . PHP_EOL;
+        echo ' -m --map folder file.php  Create a class map file from the source folder and save to the output file' . PHP_EOL;
+        echo ' -v --version              Display version of Pop PHP Framework and latest available' . PHP_EOL . PHP_EOL;
+    }
+
+    /**
      * Return a CLI error message based on the code
      *
      * @param int    $num
@@ -79,7 +93,7 @@ class Project
             $i = 0;
         }
         $msg = Locale::factory()->__(self::$_cliErrorCodes[$i]) . $arg . PHP_EOL .
-               Locale::factory()->__('Run \'./pop.php -h\' for help.') . PHP_EOL . PHP_EOL;
+               Locale::factory()->__('Run \'.' . DIRECTORY_SEPARATOR . 'pop -h\' for help.') . PHP_EOL . PHP_EOL;
         return $msg;
     }
 

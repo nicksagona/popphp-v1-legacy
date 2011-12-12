@@ -225,10 +225,12 @@ That IP address is not allowed.
 The access file does not exist.
 The user's role is not defined.
 That class map file does not exist.
+Unknown error.
 You must pass a source folder and a output file to generate a class map file.
 The source folder passed does not exist.
 The output file passed must be a PHP file.
 You must pass a name for the project.
 Unknown option: 
 You must pass at least one argument.
-Run './pop.php -h' for help.
+Run './pop -h' for help.
+Run '.\pop -h' for help.

@@ -14,7 +14,7 @@ REM to info@popphp.org so we can send you a copy immediately.
 REM
 REM Possible arguments
 REM
-REM -b --build ProjectName    Build a project based on the project configuration files
+REM -b --build ProjectName    Build a project based on the files in the 'config' folder
 REM -c --check                Check the current configuration for required dependencies
 REM -h --help                 Display this help
 REM -m --map folder file.php  Create a class map file from the source folder and save to the output file
