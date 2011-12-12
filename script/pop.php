@@ -15,7 +15,7 @@
  *
  * Possible arguments
  *
- * -b --build projectname    Build a project based on the project configuration file
+ * -b --build ProjectName    Build a project based on the project configuration files
  * -c --check                Check the current configuration for required dependencies
  * -h --help                 Display this help
  * -m --map folder file.php  Create a class map file from the source folder and save to the output file
