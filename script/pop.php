@@ -52,8 +52,14 @@ if (isset($argv[1])) {
     } else if (($argv[1] == '-b') || ($argv[1] == '--build')) {
         echo 'Build Project' . PHP_EOL;
         echo '-------------' . PHP_EOL;
-        // Run the build process here
-        echo 'Done!' . PHP_EOL . PHP_EOL;
+        // Check if the $name argument was passed
+        if (!isset($argv[2])) {
+            echo 'You must pass a name for the project. ' . PHP_EOL;
+            echo 'Run \'./pop.php -h\' for help.' . PHP_EOL . PHP_EOL;
+        // Else, run the build process
+        } else {
+            Pop\Project::build($argv[2]);
+        }
     } else {
         echo 'Unknown option: ' . $argv[1] . PHP_EOL;
         echo 'Run \'./pop.php -h\' for help.' . PHP_EOL . PHP_EOL;
