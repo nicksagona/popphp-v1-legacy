@@ -14,10 +14,10 @@
 #
 # Possible arguments
 #
-# -b --build      Build a project based on the project configuration file
-# -c --check      Check the current configuration for required dependencies
-# -h --help       Display this help
-# -v --version    Display version of Pop PHP Framework
+# -b --build ProjectName    Build a project based on the project configuration file
+# -c --check                Check the current configuration for required dependencies
+# -h --help                 Display this help
+# -v --version              Display version of Pop PHP Framework
 #
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
