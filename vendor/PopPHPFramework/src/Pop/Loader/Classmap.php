@@ -64,8 +64,8 @@ class Classmap
                 $ary = array();
                 if (isset($classMatch[0])) {
                     $ary['file'] = $file;
-                    $ary['class'] = self::parseClass($classMatch[0]);
-                    $ary['namespace'] = (isset($namespaceMatch[0])) ? self::parseNamespace($namespaceMatch[0]) : null;
+                    $ary['class'] = self::_parseClass($classMatch[0]);
+                    $ary['namespace'] = (isset($namespaceMatch[0])) ? self::_parseNamespace($namespaceMatch[0]) : null;
                     $matches[] = $ary;
                 }
             }
@@ -96,7 +96,7 @@ class Classmap
      * @param  string $classString
      * @return string
      */
-    public static function parseClass($classString)
+    protected static function _parseClass($classString)
     {
         $cls = str_replace('class ', '', $classString);
         if (strpos($cls, ' ') !== false) {
@@ -111,7 +111,7 @@ class Classmap
      * @param  string $namespaceString
      * @return string
      */
-    public static function parseNamespace($namespaceString)
+    protected static function _parseNamespace($namespaceString)
     {
         $ns = trim(str_replace(';', '', str_replace('namespace ', '', $namespaceString)));
         return $ns;

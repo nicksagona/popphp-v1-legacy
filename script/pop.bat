@@ -17,8 +17,9 @@ REM
 REM -b --build ProjectName    Build a project based on the project configuration file
 REM -c --check                Check the current configuration for required dependencies
 REM -h --help                 Display this help
+REM -m --map folder file.php  Create a class map file from the source folder and save to the output file
 REM -v --version              Display version of Pop PHP Framework
 REM
 
 SET SCRIPT_DIR=%~dp0
-php %SCRIPT_DIR%pop.php %1 %2
+php %SCRIPT_DIR%pop.php %1 %2 %3

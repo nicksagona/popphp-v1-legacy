@@ -17,8 +17,9 @@
 # -b --build ProjectName    Build a project based on the project configuration file
 # -c --check                Check the current configuration for required dependencies
 # -h --help                 Display this help
+# -m --map folder file.php  Create a class map file from the source folder and save to the output file
 # -v --version              Display version of Pop PHP Framework
 #
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-"$SCRIPT_DIR"/pop.php "$1" "$2"
+"$SCRIPT_DIR"/pop.php "$1" "$2" "$3"

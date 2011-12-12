@@ -24,6 +24,8 @@
  */
 namespace Pop\Loader;
 
+use Pop\Locale\Locale;
+
 /**
  * @category   Pop
  * @package    Pop_Loader
@@ -77,10 +79,14 @@ class Autoloader
      * Load a class map file
      *
      * @param  string $classmap
+     * @throws Exception
      * @return Pop_Loader_Autoloader
      */
     public function loadClassMap($classmap)
     {
+        if (!file_exists($classmap)) {
+            throw new Exception(Locale::factory()->__('That class map file does not exist.'));
+        }
         $newClassMap = include $classmap;
         if (count($this->_classmap) > 0) {
             $ary = array_merge($this->_classmap, $newClassMap);
