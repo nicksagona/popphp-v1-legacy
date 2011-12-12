@@ -1,6 +1,5 @@
 <?php
 
-
 namespace HelloWorld\Table;
 
 use Pop\Record\Record;

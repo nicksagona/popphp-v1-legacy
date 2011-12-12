@@ -24,7 +24,13 @@
  */
 namespace Pop\Db;
 
-use Pop\Locale\Locale;
+use Pop\Db\Sql,
+    Pop\Db\Adapter\Mysql,
+    Pop\Db\Adapter\Mysqli,
+    Pop\Db\Adapter\Pdo,
+    Pop\Db\Adapter\Pgsql,
+    Pop\Db\Adapter\Sqlite,
+    Pop\Locale\Locale;
 
 /**
  * @category   Pop
@@ -68,7 +74,6 @@ class Db
             throw new Exception(Locale::factory()->__('Error: That database adapter class does not exist.'));
         } else {
             $this->sql = new Sql();
-            print_r($options);
             $this->adapter = new $class($options);
         }
     }
@@ -98,9 +103,9 @@ class Db
         $class = get_class($this->adapter);
 
         if (stripos($class, 'Pdo') !== false) {
-            $type = 'Pdo_' . ucfirst($this->adapter->getDbtype());
+            $type = 'Pdo\\' . ucfirst($this->adapter->getDbtype());
         } else {
-            $type = ucfirst(str_replace('Pop_Db_Adapter_', '', $class));
+            $type = ucfirst(str_replace('Pop\\Db\\Adapter\\', '', $class));
         }
 
         return $type;

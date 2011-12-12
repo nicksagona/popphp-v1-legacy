@@ -87,7 +87,7 @@ class Pdo extends AbstractAdapter
                         throw new Exception($this->_lang->__('Error: The proper database credentials were not passed.'));
                     } else {
                         $this->_dsn = $this->_dbtype . ':host=' . $options['host'] . ';dbname=' . $options['database'];
-                        $this->connection = new PDO($this->_dsn, $options['username'], $options['password']);
+                        $this->connection = new \PDO($this->_dsn, $options['username'], $options['password']);
                     }
                 }
             } catch (\PDOException $e) {
@@ -207,7 +207,7 @@ class Pdo extends AbstractAdapter
      */
     public function fetchResult()
     {
-        return $this->_statement->fetchAll(PDO::FETCH_ASSOC);
+        return $this->_statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -254,7 +254,7 @@ class Pdo extends AbstractAdapter
         if (!isset($this->result)) {
             throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
         } else {
-            return $this->result->fetch(PDO::FETCH_ASSOC);
+            return $this->result->fetch(\PDO::FETCH_ASSOC);
         }
     }
 

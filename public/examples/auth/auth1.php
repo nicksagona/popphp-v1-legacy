@@ -33,13 +33,15 @@ try {
     echo $auth->getResultMessage() . PHP_EOL;
 
     // Check if the user is authorized to be in this area
-    if ($auth->isUserAuthorized()) {
-        echo 'The user "' . $auth->getUser()->getUsername() .
-             '" is authorized as a "' .  $auth->getUser()->getRole()->getName() . '".';
-    } else {
-        echo 'The user "' . $auth->getUser()->getUsername() .
-             '" is NOT authorized. The user is a "' .  $auth->getUser()->getRole()->getName() .
-             '" and needs to be a "' . $auth->getRequiredRole()->getName() . '".';
+    if ($auth->isValid()) {
+        if ($auth->isAuthorized()) {
+            echo 'The user "' . $auth->getUser()->getUsername() .
+                 '" is authorized as a "' .  $auth->getUser()->getRole()->getName() . '".';
+        } else {
+            echo 'The user "' . $auth->getUser()->getUsername() .
+                 '" is NOT authorized. The user is a "' .  $auth->getUser()->getRole()->getName() .
+                 '" and needs to be a "' . $auth->getRequiredRole()->getName() . '".';
+        }
     }
 
     echo PHP_EOL . PHP_EOL;

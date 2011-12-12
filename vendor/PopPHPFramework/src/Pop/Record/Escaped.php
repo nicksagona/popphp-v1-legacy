@@ -92,7 +92,7 @@ class Escaped extends AbstractRecord
                 $this->db->sql->limit($this->db->adapter->escape((int)$limit));
             }
 
-            $this->db->adapter->query($this->db->sql->buildSql(true));
+            $this->db->adapter->query($this->db->sql->getSql());
 
             // Set the return results.
             $this->_setResults();
@@ -121,7 +121,7 @@ class Escaped extends AbstractRecord
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
-        $this->db->adapter->query($this->db->sql->buildSql(true));
+        $this->db->adapter->query($this->db->sql->getSql());
 
         // Set the return results.
         $this->_setResults();
@@ -162,7 +162,7 @@ class Escaped extends AbstractRecord
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
-        $this->db->adapter->query($this->db->sql->buildSql(true));
+        $this->db->adapter->query($this->db->sql->getSql());
 
         // Set the return results.
         $this->_setResults();
@@ -208,7 +208,7 @@ class Escaped extends AbstractRecord
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
-        $this->db->adapter->query($this->db->sql->buildSql(true));
+        $this->db->adapter->query($this->db->sql->getSql());
 
         // Set the return results.
         $this->_setResults();
@@ -252,7 +252,7 @@ class Escaped extends AbstractRecord
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
-        $this->db->adapter->query($this->db->sql->buildSql(true));
+        $this->db->adapter->query($this->db->sql->getSql());
 
         // Set the return results.
         $this->_setResults();
@@ -296,7 +296,7 @@ class Escaped extends AbstractRecord
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
-        $this->db->adapter->query($this->db->sql->buildSql(true));
+        $this->db->adapter->query($this->db->sql->getSql());
 
         // Set the return results.
         $this->_setResults();
@@ -327,13 +327,13 @@ class Escaped extends AbstractRecord
                     $this->db->sql->where($this->_finder[0], '=', $this->db->adapter->escape($this->_finder[1]));
                 }
 
-                $this->db->adapter->query($this->db->sql->buildSql(true));
+                $this->db->adapter->query($this->db->sql->getSql());
             } else {
                 $this->db->sql->setTable($this->_tableName)
                               ->setIdQuoteType($this->_idQuote)
                               ->insert($this->_columns);
 
-                $this->db->adapter->query($this->db->sql->buildSql(true));
+                $this->db->adapter->query($this->db->sql->getSql());
             }
         } else {
             if ($this->_auto == false) {
@@ -348,13 +348,13 @@ class Escaped extends AbstractRecord
                               ->update($this->_columns)
                               ->where($this->_primaryId, '=', $this->db->adapter->escape($this->_columns[$this->_primaryId]));
 
-                $this->db->adapter->query($this->db->sql->buildSql(true));
+                $this->db->adapter->query($this->db->sql->getSql());
             } else {
                 $this->db->sql->setTable($this->_tableName)
                               ->setIdQuoteType($this->_idQuote)
                               ->insert($this->_columns);
 
-                $this->db->adapter->query($this->db->sql->buildSql(true));
+                $this->db->adapter->query($this->db->sql->getSql());
 
                 if ($this->_auto) {
                     $this->_columns[$this->_primaryId] = $this->db->adapter->lastId();
@@ -386,7 +386,7 @@ class Escaped extends AbstractRecord
                               ->delete()
                               ->where($this->db->adapter->escape($column), '=', $this->db->adapter->escape($value));
 
-                $this->db->adapter->query($this->db->sql->buildSql(true));
+                $this->db->adapter->query($this->db->sql->getSql());
 
                 $this->_columns = array();
                 $this->_rows = array();
@@ -397,7 +397,7 @@ class Escaped extends AbstractRecord
                           ->delete()
                           ->where($this->db->adapter->escape($this->_primaryId), '=', $this->db->adapter->escape($this->_columns[$this->_primaryId]));
 
-            $this->db->adapter->query($this->db->sql->buildSql(true));
+            $this->db->adapter->query($this->db->sql->getSql());
 
             $this->_columns = array();
             $this->_rows = array();

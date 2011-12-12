@@ -59,7 +59,7 @@ class Mysqli extends AbstractAdapter
         if (!isset($options['database']) || !isset($options['host']) || !isset($options['username']) || !isset($options['password'])) {
             throw new Exception($this->_lang->__('Error: The proper database credentials were not passed.'));
         } else {
-            $this->connection = new mysqli($options['host'], $options['username'], $options['password'], $options['database']);
+            $this->connection = new \mysqli($options['host'], $options['username'], $options['password'], $options['database']);
 
             if ($this->connection->connect_error != '') {
                 throw new Exception($this->_lang->__('Error: Could not connect to database. Connection Error #%1: %2.', array($this->connection->connect_errno, $this->connection->connect_error)));

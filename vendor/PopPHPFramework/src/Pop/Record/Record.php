@@ -24,7 +24,8 @@
  */
 namespace Pop\Record;
 
-use Pop\Locale\Locale,
+use Pop\Db\Db,
+    Pop\Locale\Locale,
     Pop\Record\Escaped,
     Pop\Record\Prepared,
     Pop\Filter\String;
@@ -128,7 +129,11 @@ class Record
 
         if (null === $this->_tableName) {
             $class = get_class($this);
-            $cls = substr($class, (strrpos($class, '\\') + 1));
+            if (strpos($class, '_') !== false) {
+                $cls = substr($class, (strrpos($class, '_') + 1));
+            } else {
+                $cls = substr($class, (strrpos($class, '\\') + 1));
+            }
             $this->_tableName = (string)String::factory($cls)->camelCaseToUnderscore();
         }
 
@@ -154,7 +159,7 @@ class Record
      * @param  boolean  $isDefault
      * @return void
      */
-    public static function setDb(Pop_Db $db, $isDefault = false)
+    public static function setDb(Db $db, $isDefault = false)
     {
         $class = get_called_class();
 
@@ -168,7 +173,7 @@ class Record
      * Get DB connection
      *
      * @throws Exception
-     * @return Pop_Db
+     * @return Pop\Pop\Db
      */
     public static function getDb()
     {
@@ -189,7 +194,7 @@ class Record
      * @param  int|string $id
      * @param  int|string $limit
      * @throws Exception
-     * @return Pop_Record
+     * @return Pop\Record\Record
      */
     public static function findById($id, $limit = null)
     {
@@ -207,7 +212,7 @@ class Record
      * @param  string $column
      * @param  int|string $value
      * @param  int|string $limit
-     * @return Pop_Record
+     * @return Pop\Record\Record
      */
     public static function findBy($column, $value, $limit = null)
     {
@@ -226,7 +231,7 @@ class Record
      * @param  string     $column
      * @param  int|string $value
      * @param  int|string $limit
-     * @return Pop_Record
+     * @return Pop\Record\Record
      */
     public static function findAll($order = null, $column = null, $value = null, $limit = null)
     {
@@ -246,7 +251,7 @@ class Record
      * @param  string $column
      * @param  int|string $value
      * @param  int|string $limit
-     * @return Pop_Record
+     * @return Pop\Record\Record
      */
     public static function distinct($distinctColumns, $order = null, $column = null, $value = null, $limit = null)
     {
@@ -264,7 +269,7 @@ class Record
      * @param  array $searchColumns
      * @param  string $order
      * @param  int|string $limit
-     * @return Pop_Record
+     * @return Pop\Record\Record
      */
     public static function search($searchColumns, $order = null, $limit = null)
     {
@@ -285,7 +290,7 @@ class Record
      * @param  string $column
      * @param  int|string $value
      * @param  int|string $limit
-     * @return Pop_Record
+     * @return Pop\Record\Record
      */
     public static function join($tableToJoin, $commonColumn, $order = null, $column = null, $value = null, $limit = null)
     {
@@ -302,7 +307,7 @@ class Record
      *
      * @param  string $sql
      * @param  array  $params
-     * @return Pop_Record
+     * @return Pop\Record\Record
      */
     public static function execute($sql, $params = null)
     {
@@ -318,7 +323,7 @@ class Record
      * Execute a custom SQL query.
      *
      * @param  string $sql
-     * @return Pop_Record
+     * @return Pop\Record\Record
      */
     public static function query($sql)
     {

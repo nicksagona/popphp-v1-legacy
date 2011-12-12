@@ -187,6 +187,12 @@ class Auth
     protected $_result = 0;
 
     /**
+     * User validation result from authentication
+     * @var boolean
+     */
+    protected $_isValid = false;
+
+    /**
      * Constructor
      *
      * Instantiate the auth object
@@ -516,14 +522,27 @@ class Auth
             }
         }
 
+        $this->_isValid = ($this->_result == 1) ? true : false;
+
         return $this->_result;
     }
+
     /**
-     * Method to authorize a user
+     * Method to determine if the user is valid
      *
      * @return boolean
      */
-    public function isUserAuthorized()
+    public function isValid()
+    {
+        return $this->_isValid;
+    }
+
+    /**
+     * Method to determine if the user is authorized
+     *
+     * @return boolean
+     */
+    public function isAuthorized()
     {
         $result = false;
 

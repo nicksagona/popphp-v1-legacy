@@ -72,7 +72,7 @@ class AuthTable implements AdapterInterface
      * @param string $accessField
      * @return void
      */
-    public function __construct($tableName, $usernameField, $passwordField, $accessField = null)
+    public function __construct($tableName, $usernameField = 'username', $passwordField = 'password', $accessField = null)
     {
         $this->_tableName = $tableName;
         $this->_usernameField = $usernameField;

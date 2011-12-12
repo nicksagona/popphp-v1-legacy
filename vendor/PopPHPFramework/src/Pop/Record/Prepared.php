@@ -101,7 +101,7 @@ class Prepared extends AbstractRecord
                 $this->db->sql->limit($this->db->adapter->escape((int)$limit));
             }
 
-            $this->db->adapter->prepare($this->db->sql->buildSql(true));
+            $this->db->adapter->prepare($this->db->sql->getSql());
             $this->db->adapter->bindParams(array($this->_primaryId => $id));
             $this->db->adapter->execute();
 
@@ -132,7 +132,7 @@ class Prepared extends AbstractRecord
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
-        $this->db->adapter->prepare($this->db->sql->buildSql(true));
+        $this->db->adapter->prepare($this->db->sql->getSql());
         $this->db->adapter->bindParams(array($column => $value));
         $this->db->adapter->execute();
 
@@ -175,7 +175,7 @@ class Prepared extends AbstractRecord
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
-        $this->db->adapter->prepare($this->db->sql->buildSql(true));
+        $this->db->adapter->prepare($this->db->sql->getSql());
         if ((null !== $column) && (null !== $value)) {
             $this->db->adapter->bindParams(array($column => $value));
         }
@@ -225,7 +225,7 @@ class Prepared extends AbstractRecord
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
-        $this->db->adapter->prepare($this->db->sql->buildSql(true));
+        $this->db->adapter->prepare($this->db->sql->getSql());
         if ((null !== $column) && (null !== $value)) {
             $this->db->adapter->bindParams(array($column => $value));
         }
@@ -275,7 +275,7 @@ class Prepared extends AbstractRecord
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
-        $this->db->adapter->prepare($this->db->sql->buildSql(true));
+        $this->db->adapter->prepare($this->db->sql->getSql());
         foreach ($searchColumns as $search) {
             $this->db->adapter->bindParams(array($search[0] => $search[2]));
         }
@@ -323,7 +323,7 @@ class Prepared extends AbstractRecord
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
         }
 
-        $this->db->adapter->prepare($this->db->sql->buildSql(true));
+        $this->db->adapter->prepare($this->db->sql->getSql());
         if ((null !== $column) && (null !== $value)) {
             $this->db->adapter->bindParams(array($column => $value));
         }
@@ -366,7 +366,7 @@ class Prepared extends AbstractRecord
                     $params[$this->_finder[0]] = $val;
                     $this->db->sql->update($columns)
                                   ->where($this->_finder[0], '=', $this->_getPlaceholder($this->_finder[0], $i));
-                    $this->db->adapter->prepare($this->db->sql->buildSql(true));
+                    $this->db->adapter->prepare($this->db->sql->getSql());
                     $this->db->adapter->bindParams($params);
                 } else {
                     $columns = array();
@@ -376,7 +376,7 @@ class Prepared extends AbstractRecord
                         $i++;
                     }
                     $this->db->sql->update($columns);
-                    $this->db->adapter->prepare($this->db->sql->buildSql(true));
+                    $this->db->adapter->prepare($this->db->sql->getSql());
                     $this->db->adapter->bindParams($this->_columns);
                 }
                 $this->db->adapter->execute();
@@ -391,7 +391,7 @@ class Prepared extends AbstractRecord
                     $i++;
                 }
                 $this->db->sql->insert($columns);
-                $this->db->adapter->prepare($this->db->sql->buildSql(true));
+                $this->db->adapter->prepare($this->db->sql->getSql());
                 $this->db->adapter->bindParams($this->_columns);
                 $this->db->adapter->execute();
             }
@@ -427,7 +427,7 @@ class Prepared extends AbstractRecord
                 $this->db->sql->update($columns)
                               ->where($this->_primaryId, '=', $this->_getPlaceholder($this->_primaryId, $i));
 
-                $this->db->adapter->prepare($this->db->sql->buildSql(true));
+                $this->db->adapter->prepare($this->db->sql->getSql());
                 $this->db->adapter->bindParams($params);
                 $this->db->adapter->execute();
             } else {
@@ -443,7 +443,7 @@ class Prepared extends AbstractRecord
                 }
 
                 $this->db->sql->insert($columns);
-                $this->db->adapter->prepare($this->db->sql->buildSql(true));
+                $this->db->adapter->prepare($this->db->sql->getSql());
                 $this->db->adapter->bindParams($this->_columns);
                 $this->db->adapter->execute();
 
@@ -477,7 +477,7 @@ class Prepared extends AbstractRecord
                               ->delete()
                               ->where($this->db->adapter->escape($column), '=', $this->_getPlaceholder($column));
 
-                $this->db->adapter->prepare($this->db->sql->buildSql(true));
+                $this->db->adapter->prepare($this->db->sql->getSql());
                 $this->db->adapter->bindParams(array($column => $value));
                 $this->db->adapter->execute();
 
@@ -490,7 +490,7 @@ class Prepared extends AbstractRecord
                           ->delete()
                           ->where($this->db->adapter->escape($this->_primaryId), '=', $this->_getPlaceholder($this->_primaryId));
 
-            $this->db->adapter->prepare($this->db->sql->buildSql(true));
+            $this->db->adapter->prepare($this->db->sql->getSql());
             $this->db->adapter->bindParams(array($this->_primaryId => $this->_columns[$this->_primaryId]));
             $this->db->adapter->execute();
 

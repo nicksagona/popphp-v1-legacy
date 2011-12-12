@@ -254,6 +254,7 @@ class Sql
      */
     public function getSql()
     {
+        $this->_buildSql();
         return $this->_sql;
     }
 
@@ -439,11 +440,10 @@ class Sql
     /**
      * Built the SQL query.
      *
-     * @param  boolean $ret
      * @throws Exception
-     * @return Pop_Db_Sql|string
+     * @return void
      */
-    public function buildSql($ret = false)
+    protected function _buildSql()
     {
         if (null === $this->_table) {
             throw new Exception($this->_lang->__('Error: The table must be set.'));
@@ -523,8 +523,6 @@ class Sql
                     break;
             }
         }
-
-        return ($ret) ? $this->_sql : $this;
     }
 
     /**
@@ -618,6 +616,17 @@ class Sql
         }
 
         return $whereSql;
+    }
+
+    /**
+     * Method to return the SQL as a string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $this->_buildSql();
+        return $this->_sql;
     }
 
 }
