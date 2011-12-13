@@ -62,8 +62,6 @@ class Project
      */
     public static function build($name)
     {
-        echo 'Building the project: \'' . $name . '\''. PHP_EOL;
-
         self::instructions();
 
         $input = self::cliInput();

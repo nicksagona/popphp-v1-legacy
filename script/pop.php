@@ -77,13 +77,13 @@ if (!empty($argv[1])) {
         }
     // Else, build project
     } else if (($argv[1] == '-b') || ($argv[1] == '--build')) {
-        echo 'Build Project' . PHP_EOL;
-        echo '-------------' . PHP_EOL;
         // Check if the $name argument was passed
         if (empty($argv[2])) {
             echo Project::cliError(4);
         // Else, run the build process
         } else {
+            echo 'Building Project \'' . $argv[2] . '\'' . PHP_EOL;
+            echo '-------------------' . str_repeat('-', strlen($argv[2])) . PHP_EOL;
             Project::build($argv[2]);
         }
     // Else, unknown option passed

@@ -38,9 +38,41 @@ use Pop\Data\Sql,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-class InstallDb
+class Db
 {
 
+    /**
+     * Check the database
+     *
+     * @param string $type
+     * @param array  $creds
+     * @return int
+     */
+    public static function check($type, $creds)
+    {
 
+    }
+
+    /**
+     * Install the database
+     *
+     * @param string $folder
+     * @return mixed
+     */
+    public static function install($folder)
+    {
+
+    }
+
+    /**
+     * Write to the project config file
+     *
+     * @param string $file
+     * @return mixed
+     */
+    public static function config($file)
+    {
+
+    }
 
 }
