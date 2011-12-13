@@ -27,6 +27,7 @@ namespace Pop\Project;
 use Pop\Data\Sql,
     Pop\Data\Xml,
     Pop\Data\Yaml,
+    Pop\Db\Db as PopDb,
     Pop\File\File,
     Pop\Locale\Locale;
 
@@ -44,13 +45,25 @@ class Db
     /**
      * Check the database
      *
-     * @param string $type
-     * @param array  $creds
+     * @param array $db
      * @return int
      */
-    public static function check($type, $creds)
+    public static function check($db)
     {
-
+        if (($db['type'] != 'Mysql') &&
+            ($db['type'] != 'Mysqli') &&
+            ($db['type'] != 'Pdo') &&
+            ($db['type'] != 'Pgsql') &&
+            ($db['type'] != 'Sqlite')) {
+            return 'The database type \'' . $db['type'] . '\' is not valid.';
+        } else {
+            try {
+                $db = PopDb::factory($db['type'], $db);
+                return null;
+            } catch (Exception $e) {
+                return $e->getMessage();
+            }
+        }
     }
 
     /**

@@ -106,7 +106,22 @@ class Project
                 }
             }
             if ($db) {
-                echo 'Continue building the project (w/ the DB)...' . PHP_EOL . PHP_EOL;
+                //echo 'Continue building the project (w/ the DB)...' . PHP_EOL . PHP_EOL;
+                echo 'Testing the database(s)...' . PHP_EOL;
+                foreach ($config['databases'] as $dbname => $db) {
+                    echo 'Testing \'' . $dbname . '\'...' . PHP_EOL;
+                    if (!isset($db['type']) || !isset($db['database'])) {
+                        echo 'The database type and database name must be set for the database \'' . $dbname . '\'.' . PHP_EOL . PHP_EOL;
+                        exit(0);
+                    }
+                    $check = Db::check($db);
+                    if (null !== $check) {
+                        echo $check . PHP_EOL . PHP_EOL;
+                        exit(0);
+                    } else {
+                        echo 'Database \'' . $dbname . '\' passed.' . PHP_EOL;
+                    }
+                }
             } else {
                 echo 'Continue building the project (w/o the DB)...' . PHP_EOL . PHP_EOL;
             }
