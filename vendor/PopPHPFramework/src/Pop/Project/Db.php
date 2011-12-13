@@ -25,11 +25,9 @@
 namespace Pop\Project;
 
 use Pop\Data\Sql,
-    Pop\Data\Xml,
-    Pop\Data\Yaml,
     Pop\Db\Db as PopDb,
-    Pop\File\File,
-    Pop\Locale\Locale;
+    Pop\Dir\Dir,
+    Pop\File\File;
 
 /**
  * @category   Pop
@@ -46,7 +44,7 @@ class Db
      * Check the database
      *
      * @param array $db
-     * @return int
+     * @return string
      */
     public static function check($db)
     {
@@ -60,7 +58,7 @@ class Db
             try {
                 $db = PopDb::factory($db['type'], $db);
                 return null;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 return $e->getMessage();
             }
         }
@@ -69,12 +67,126 @@ class Db
     /**
      * Install the database
      *
-     * @param string $folder
-     * @return mixed
+     * @param array $db
+     * @return array
      */
-    public static function install($folder)
+    public static function install($db)
     {
+        $popdb = PopDb::factory($db['type'], $db);
+        $tables = array();
 
+        $dbDir = __DIR__ . '/../../../../../config/' . $db['database'];
+        $createDir = __DIR__ . '/../../../../../config/' . $db['database'] . '/create';
+        $insertDir = __DIR__ . '/../../../../../config/' . $db['database'] . '/insert';
+
+        // Create tables
+        if (file_exists($createDir)) {
+            echo 'Creating tables...' . PHP_EOL;
+            $dir = new Dir($createDir, true);
+            foreach ($dir->files as $file) {
+                if (file_exists($file) && !is_dir($file)) {
+                    $f = new File($file);
+                    $sql = trim($f->read());
+                    $statements = explode(';', $sql);
+                    $tableName = null;
+                    $auto = false;
+                    $primaryId = null;
+                    foreach ($statements as $s) {
+                        $s = trim($s);
+                        if (!empty($s)) {
+                            // Get table name
+                            if ((stripos($s, 'CREATE') !== false) && (stripos($s, 'TABLE') !== false)) {
+                                $tableName = substr($s, (stripos($s, 'CREATE') + 6));
+                                $tableName = trim(substr($tableName, 0, strpos($tableName, '(')));
+                                $tableName = trim(substr($tableName, strrpos($tableName, ' ')));
+                                $tableName = str_replace('`', '', $tableName);
+                                $tableName = str_replace('"', '', $tableName);
+                                $tableName = str_replace("'", "", $tableName);
+                            }
+                            // Get auto-increment (mysql & pgsql)
+                            if ((stripos($s, 'AUTO_INCREMENT') !== false) || (stripos($s, 'CREATE SEQUENCE') !== false)) {
+                                $auto = true;
+                            }
+                            // Get primary key (mysql)
+                            if (stripos($s, 'PRIMARY KEY') !== false) {
+                                $primaryId = trim(substr($s, (stripos($s, 'PRIMARY KEY') + 11)));
+                                $primaryId = trim(substr($primaryId, 0, strpos($primaryId, ')')));
+                                $primaryId = str_replace('`', '', $primaryId);
+                                $primaryId = str_replace('"', '', $primaryId);
+                                $primaryId = str_replace("'", "", $primaryId);
+                                $primaryId = str_replace('(', '', $primaryId);
+                                $primaryId = str_replace(')', '', $primaryId);
+                            }
+                            // Get primary key (pgsql)
+                            if (stripos($s, 'ALTER SEQUENCE') !== false) {
+                                $primaryId = trim(substr($s, (stripos($s, 'ALTER SEQUENCE') + 14)));
+                                $primaryId = trim(substr($primaryId, strrpos($primaryId, ' ')));
+                                $primaryId = str_replace($tableName . '.', '', $primaryId);
+                            }
+                            try {
+                                $popdb->adapter->query(trim($s));
+                            } catch (\Exception $e) {
+                                echo $e->getMessage() . PHP_EOL . PHP_EOL;
+                                exit(0);
+                            }
+                        }
+                    }
+                    $tables[] = array(
+                        'tableName' => $tableName,
+                        'auto'      => $auto,
+                        'primaryId' => $primaryId
+                    );
+                }
+            }
+        }
+
+        // Insert data
+        if (file_exists($insertDir)) {
+            echo 'Inserting data...' . PHP_EOL;
+            $dir = new Dir($insertDir, true);
+            foreach ($dir->files as $file) {
+                if (file_exists($file) && !is_dir($file)) {
+                    $f = new File($file);
+                    $sql = trim($f->read());
+                    $statements = explode(';', $sql);
+                    foreach ($statements as $s) {
+                        if (!empty($s)) {
+                            try {
+                                $popdb->adapter->query(trim($s));
+                            } catch (\Exception $e) {
+                                echo $e->getMessage() . PHP_EOL . PHP_EOL;
+                                exit(0);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Execute any other SQL
+        if (file_exists($dbDir)) {
+            echo 'Executing additional SQL queries...' . PHP_EOL;
+            $dir = new Dir($dbDir, true);
+            foreach ($dir->files as $file) {
+                if (file_exists($file) && !is_dir($file)) {
+                    $f = new File($file);
+                    $sql = trim($f->read());
+                    $statements = explode(';', $sql);
+                    foreach ($statements as $s) {
+                        if (!empty($s)) {
+                            try {
+                                $popdb->adapter->query(trim($s));
+                            } catch (\Exception $e) {
+                                echo $e->getMessage() . PHP_EOL . PHP_EOL;
+                                exit(0);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $tables;
     }
 
     /**

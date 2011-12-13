@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../vendor/PopPHPFramework/src/Pop/Loader/Autoloader.php';
+
 use Pop\Loader\Autoloader;
 
 // Instantiate the autoloader object.

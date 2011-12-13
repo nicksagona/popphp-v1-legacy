@@ -102,10 +102,10 @@ class Dir
                     if (($fileInfo->getFilename() != '.') && ($fileInfo->getFilename() != '..')) {
                         // If full path flag was passed, store the full path.
                         if ($this->_full) {
-                            $this->files[] = ($fileInfo->isDir()) ? ($fileInfo->getPathname() . DIRECTORY_SEPARATOR) : $fileInfo->getPathname();
+                            $this->files[] = realpath(($fileInfo->isDir()) ? ($fileInfo->getPathname() . DIRECTORY_SEPARATOR) : $fileInfo->getPathname());
                         // Else, store only the directory or file name.
                         } else {
-                            $this->files[] = ($fileInfo->isDir()) ? ($fileInfo->getFilename() . DIRECTORY_SEPARATOR) : $fileInfo->getFilename();
+                            $this->files[] = realpath(($fileInfo->isDir()) ? ($fileInfo->getFilename() . DIRECTORY_SEPARATOR) : $fileInfo->getFilename());
                         }
                     }
                 }
@@ -115,10 +115,10 @@ class Dir
                     if(!$fileInfo->isDot()) {
                         // If full path flag was passed, store the full path.
                         if ($this->_full) {
-                            $this->files[] = ($fileInfo->isDir()) ? ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename() . DIRECTORY_SEPARATOR) : ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename());
+                            $this->files[] = realpath(($fileInfo->isDir()) ? ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename() . DIRECTORY_SEPARATOR) : ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename()));
                         // Else, store only the directory or file name.
                         } else {
-                            $this->files[] = ($fileInfo->isDir()) ? ($fileInfo->getFilename() . DIRECTORY_SEPARATOR) : $fileInfo->getFilename();
+                            $this->files[] = realpath(($fileInfo->isDir()) ? ($fileInfo->getFilename() . DIRECTORY_SEPARATOR) : $fileInfo->getFilename());
                         }
                     }
                 }
