@@ -18,6 +18,7 @@
  * -b --build ProjectName    Build a project based on the files in the 'config' folder
  * -c --check                Check the current configuration for required dependencies
  * -h --help                 Display this help
+ * -i --instructions         Display build project instructions
  * -m --map folder file.php  Create a class map file from the source folder and save to the output file
  * -v --version              Display version of Pop PHP Framework
  *
@@ -25,7 +26,7 @@
 
 require_once __DIR__ . '/../public/bootstrap.php';
 
-use Pop\Project,
+use Pop\Project\Project,
     Pop\Loader\Classmap,
     Pop\Version;
 
@@ -50,6 +51,11 @@ if (!empty($argv[1])) {
         echo 'Help' . PHP_EOL;
         echo '----' . PHP_EOL;
         Project::cliHelp();
+    // Else, display help
+    } else if (($argv[1] == '-i') || ($argv[1] == '--instructions')) {
+        echo 'Build Project Instructions' . PHP_EOL;
+        echo '--------------------------' . PHP_EOL;
+        Project::instructions();
     // Else, generate class map
     } else if (($argv[1] == '-m') || ($argv[1] == '--map')) {
         echo 'Generate Class Map File' . PHP_EOL;
