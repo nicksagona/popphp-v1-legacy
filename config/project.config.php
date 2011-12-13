@@ -2,11 +2,11 @@
 
 return array(
     'databases' => array(
-    	'poptest' => array(
+        'poptest' => array(
             'default'  => true,
-        	'type'     => 'Mysqli',
+            'type'     => 'Mysqli',
             'database' => 'poptest',
-            'host'	   => 'localhost',
+            'host'     => 'localhost',
             'username' => 'popuser',
             'password' => '12pop34'
         )
