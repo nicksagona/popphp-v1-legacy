@@ -2,31 +2,17 @@
 
 require_once '../../bootstrap.php';
 
-use HelloWorld\Table\Users,
-    Pop\Auth\Auth,
+use Pop\Auth\Auth,
     Pop\Auth\Role,
-    Pop\Auth\Adapter\AuthTable,
-    Pop\Db\Db;
+    Pop\Auth\Adapter\AuthFile;
 
 try {
-
-    // Define DB credentials
-    $creds = array(
-                 'database' => 'poptest',
-                 'host'     => 'localhost',
-                 'username' => 'popuser',
-                 'password' => '12pop34'
-             );
-
-    // Set DB object for the record object
-    Users::setDb(Db::factory('Mysql', $creds));
-
     // Set the username and password
-    $username = 'test1';
-    $password = 'password1';
+    $username = 'testuser3';
+    $password = '90test12';
 
     // Create auth object
-    $auth = new Auth(new AuthTable('HelloWorld\\Table\\Users', 'username', 'password', 'access'));
+    $auth = new Auth(new AuthFile('../assets/files/access_sha1.txt'), Auth::ENCRYPT_SHA1);
 
     // Add some roles
     $auth->addRoles(

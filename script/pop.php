@@ -23,12 +23,13 @@
  * -m --map folder file.php  Create a class map file from the source folder and save to the output file
  * -v --version              Display version of Pop PHP Framework
  *
- */
-
-/*
+ * IMPORTANT!
+ *
  * If you move the 'bootstrap.php' file, make
  * sure you adjust the path to it accordingly
+ *
  */
+
 require_once __DIR__ . '/../public/bootstrap.php';
 
 use Pop\File\File,
@@ -91,14 +92,16 @@ if (!empty($argv[1])) {
         $bootstrap = new File($location . '/bootstrap.php');
         $bootstrapCode = $bootstrap->read();
 
-        // Add the new default language setting to the bootstrap file
-        if (stripos($bootstrapCode, 'POP_DEFAULT_LANG') !== false) {
-            $curLangCode = substr($bootstrapCode, stripos($bootstrapCode, 'define('));
+        // Set the new default language setting into the bootstrap file
+        if (stripos($bootstrapCode, 'define(\'POP_DEFAULT_LANG') !== false) {
+            $curLangCode = substr($bootstrapCode, stripos($bootstrapCode, 'define(\'POP_DEFAULT_LANG'));
             $curLangCode = substr($curLangCode, 0, strpos($curLangCode, ';'));
             $bootstrapCode = str_replace($curLangCode, 'define(\'POP_DEFAULT_LANG\', \'' . $lang . '\')', $bootstrapCode);
         } else {
-            $langCode = '<?php' . PHP_EOL . PHP_EOL . '// Define the default language to use' . PHP_EOL . 'define(\'POP_DEFAULT_LANG\', \'' . $lang . '\');';
-            $bootstrapCode = str_replace('<?php', $langCode, $bootstrapCode);
+            $curLangCode = substr($bootstrapCode, stripos($bootstrapCode, '// Require the Autoloader class file'));
+            $curLangCode = substr($curLangCode, 0, strpos($curLangCode, 'Autoloader class file'));
+            $langCode = '// Define the default language to use' . PHP_EOL . 'define(\'POP_DEFAULT_LANG\', \'' . $lang . '\');' . PHP_EOL . PHP_EOL . '// Require the ';
+            $bootstrapCode = str_replace($curLangCode, $langCode, $bootstrapCode);
         }
 
         $bootstrap->write($bootstrapCode)

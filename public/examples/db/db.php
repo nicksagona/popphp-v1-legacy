@@ -5,7 +5,6 @@ require_once '../../bootstrap.php';
 use Pop\Db\Db;
 
 try {
-
     // Define DB credentials
     $creds = array(
                  'database' => 'poptest',

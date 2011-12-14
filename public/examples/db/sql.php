@@ -5,7 +5,6 @@ require_once '../../bootstrap.php';
 use Pop\Db\Sql;
 
 try {
-
     $sql = new Sql('users');
     $sql->setIdQuoteType(Sql::BACKTICK)
         ->select()
