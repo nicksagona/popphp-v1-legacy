@@ -14,5 +14,5 @@ $autoloader->splAutoloadRegister();
  */
 // require_once $autoloader->loadModule('YourModule');
 // $autoloader->register('YourLib', __DIR__ . '/../vendor/YourLib/src');
-// $autoloader->loadClassMap('../module/YourModule/classmap.php');
+// $autoloader->loadClassMap('../vendor/YourLib/classmap.php');
 

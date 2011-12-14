@@ -151,7 +151,7 @@ class Project
             if ($input == 'y') {
                 $location = self::getBootstrap();
                 $bootstrap = new File($location . '/bootstrap.php');
-                $bootstrap->write("require_once __DIR__ . '/../config/project.config.php';" . PHP_EOL, true)
+                $bootstrap->write("require_once '" . realpath(__DIR__ . '/../../../../../config/project.config.php') . "';" . PHP_EOL, true)
                           ->write("require_once \$autoloader->loadModule('{$name}');" . PHP_EOL . PHP_EOL, true)
                           ->save();
             }
