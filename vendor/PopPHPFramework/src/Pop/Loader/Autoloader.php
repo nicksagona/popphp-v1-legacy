@@ -68,7 +68,7 @@ class Autoloader
      * Static method to instantiate the autoloader object
      *
      * @param  boolean $self
-     * @return Pop_Loader_Autoloader
+     * @return Pop\Loader\Autoloader
      */
     public static function factory($self = true)
     {
@@ -76,11 +76,23 @@ class Autoloader
     }
 
     /**
+     * Load a module
+     *
+     * @param  string $module
+     * @return string
+     */
+    public function loadModule($module)
+    {
+        $this->register($module, __DIR__  . '/../../../../../module/' . $module . '/src');
+        return realpath(__DIR__  . '/../../../../../module/' . $module . '/config/module.config.php');
+    }
+
+    /**
      * Load a class map file
      *
      * @param  string $classmap
      * @throws Exception
-     * @return Pop_Loader_Autoloader
+     * @return Pop\Loader\Autoloader
      */
     public function loadClassMap($classmap)
     {
@@ -101,7 +113,7 @@ class Autoloader
      *
      * @param  string $namespace
      * @param  string $directory
-     * @return Pop_Loader_Autoloader
+     * @return Pop\Loader\Autoloader
      */
     public function register($namespace, $directory)
     {
@@ -112,7 +124,7 @@ class Autoloader
     /**
      * Register the autoloader instance with the SPL
      *
-     * @return Pop_Loader_Autoloader
+     * @return Pop\Loader\Autoloader
      */
     public function splAutoloadRegister()
     {

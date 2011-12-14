@@ -389,6 +389,9 @@ class File
     {
         // If the file is to be appended.
         if ($append) {
+            if ((null === $this->_output) && file_exists($this->fullpath)) {
+                $this->_output = file_get_contents($this->fullpath);
+            }
             $this->_output .= $data;
         //Else, overwrite the file contents.
         } else {

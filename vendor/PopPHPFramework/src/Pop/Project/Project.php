@@ -145,7 +145,17 @@ class Project
             if (count($dbTables) > 0) {
                 self::_createTables($name, $dbTables);
             }
-            //echo 'Continue building the project...' . PHP_EOL . PHP_EOL;
+
+            // Add project to the bootstrap file
+            $input = self::cliInput('Add project to the bootstrap file? (Y/N) ');
+            if ($input == 'y') {
+                $location = self::getBootstrap();
+                $bootstrap = new File($location . '/bootstrap.php');
+                $bootstrap->write("require_once __DIR__ . '/../config/project.config.php';" . PHP_EOL, true)
+                          ->write("require_once \$autoloader->loadModule('{$name}');" . PHP_EOL . PHP_EOL, true)
+                          ->save();
+            }
+
             echo 'Complete.' . PHP_EOL . PHP_EOL;
         }
     }
@@ -228,6 +238,30 @@ class Project
     }
 
     /**
+     * Return the (Y/N) input from STDIN
+     *
+     * @return string
+     */
+    public static function getBootstrap()
+    {
+        $msg = 'Enter the folder where the \'bootstrap.php\' is located in relation to the current folder: ';
+        echo $msg;
+        $input = null;
+
+        while (!file_exists($input . '/bootstrap.php')) {
+            if (null !== $input) {
+                echo $msg;
+            }
+            $prompt = fopen("php://stdin", "r");
+            $input = fgets($prompt, 255);
+            $input = rtrim($input);
+            fclose ($prompt);
+        }
+
+        return $input;
+    }
+
+    /**
      * Create the base folder and file structure
      *
      * @param string $name
@@ -241,11 +275,26 @@ class Project
         $projectCfg = new File(__DIR__ . '/../../../../../config/project.config.php');
         $projectCfg->write('<?php' . PHP_EOL . PHP_EOL);
         if (isset($build['databases'])) {
-            foreach ($build['databases'] as $db) {
-                $type = $db['type'];
-                $default = ($db['default']) ? 'true' : 'false';
-                $projectCfg->write("Pop\Record\Record::setDb(Pop\Db\Db::factory('{$type}', " . var_export($db, true) . ", {$default}));" . PHP_EOL, true);
+            $projectCfg->write('$db = array(' . PHP_EOL, true);
+            $i = 0;
+            foreach ($build['databases'] as $dbname => $db) {
+				$projectCfg->write("    'poptest' => Pop\\Db\\Db::factory('" . $db['type'] . "', array (" . PHP_EOL, true);
+				$j = 0;
+				foreach ($db as $key => $value) {
+				    if (($key != 'default') && ($key != 'type')) {
+    				    $ary = "        '{$key}' => '{$value}'";
+    				    $j++;
+    				    if ($j < count($db)) {
+    				       $ary .= ',';
+    				    }
+    				    $projectCfg->write($ary . PHP_EOL, true);
+				    }
+				}
+				$i++;
+				$end = ($i < count($build['databases'])) ? '    )),' : '    ))';
+				$projectCfg->write($end . PHP_EOL, true);
             }
+            $projectCfg->write(');' . PHP_EOL, true);
         }
         $projectCfg->save();
 

@@ -16,3 +16,4 @@ $autoloader->splAutoloadRegister();
  */
 // $autoloader->register('YourApp', __DIR__ . '/../module/YourApp/src');
 // $autoloader->loadClassMap('../module/YourApp/classmap.php');
+
