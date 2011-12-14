@@ -19,6 +19,7 @@
  * -c --check                Check the current configuration for required dependencies
  * -h --help                 Display this help
  * -i --instructions         Display build project instructions
+ * -l --lang fr              Set the default language for the project.
  * -m --map folder file.php  Create a class map file from the source folder and save to the output file
  * -v --version              Display version of Pop PHP Framework
  *
@@ -32,6 +33,7 @@ require_once __DIR__ . '/../public/bootstrap.php';
 
 use Pop\File\File,
     Pop\Loader\Classmap,
+    Pop\Locale\Locale,
     Pop\Project\Project,
     Pop\Version;
 
@@ -62,6 +64,47 @@ if (!empty($argv[1])) {
         echo 'Build Project Instructions' . PHP_EOL;
         echo '--------------------------' . PHP_EOL;
         Project::instructions();
+    // Else, set default project language
+    } else if (($argv[1] == '-l') || ($argv[1] == '--lang')) {
+        echo 'Set Default Project Language' . PHP_EOL;
+        echo '----------------------------' . PHP_EOL;
+        $langs = Locale::factory()->getLanguages();
+        $langsList = null;
+        foreach ($langs as $key => $value) {
+            $langsList .= '[' . $key . '] : ' . $value . PHP_EOL;
+        }
+        if (isset($argv[2])) {
+            if (!array_key_exists($argv[2], $langs)) {
+                echo $langsList;
+                $lang = Project::getLanguage($langs);
+            } else {
+                $lang = $argv[2];
+            }
+        } else {
+            echo $langsList;
+            $lang = Project::getLanguage($langs);
+        }
+        echo 'You selected [' . $lang .'] : ' . $langs[$lang] . PHP_EOL . PHP_EOL;
+
+        // Get the bootstrap file
+        $location = Project::getBootstrap();
+        $bootstrap = new File($location . '/bootstrap.php');
+        $bootstrapCode = $bootstrap->read();
+
+        // Add the new default language setting to the bootstrap file
+        if (stripos($bootstrapCode, 'POP_DEFAULT_LANG') !== false) {
+            $curLangCode = substr($bootstrapCode, stripos($bootstrapCode, 'define('));
+            $curLangCode = substr($curLangCode, 0, strpos($curLangCode, ';'));
+            $bootstrapCode = str_replace($curLangCode, 'define(\'POP_DEFAULT_LANG\', \'' . $lang . '\')', $bootstrapCode);
+        } else {
+            $langCode = '<?php' . PHP_EOL . PHP_EOL . '// Define the default language to use' . PHP_EOL . 'define(\'POP_DEFAULT_LANG\', \'' . $lang . '\');';
+            $bootstrapCode = str_replace('<?php', $langCode, $bootstrapCode);
+        }
+
+        $bootstrap->write($bootstrapCode)
+                  ->save();
+
+        echo 'Done.' . PHP_EOL . PHP_EOL;
     // Else, generate class map
     } else if (($argv[1] == '-m') || ($argv[1] == '--map')) {
         echo 'Generate Class Map File' . PHP_EOL;

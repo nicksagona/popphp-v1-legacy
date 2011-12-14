@@ -1,4 +1,5 @@
 <?php
+
 /*
  * If you move the 'bootstrap.php' file, make sure you
  * adjust the path to the Autoloader class accordingly

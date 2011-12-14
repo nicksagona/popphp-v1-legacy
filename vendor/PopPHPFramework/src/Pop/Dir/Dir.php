@@ -105,7 +105,7 @@ class Dir
                             $this->files[] = realpath(($fileInfo->isDir()) ? ($fileInfo->getPathname() . DIRECTORY_SEPARATOR) : $fileInfo->getPathname());
                         // Else, store only the directory or file name.
                         } else {
-                            $this->files[] = realpath(($fileInfo->isDir()) ? ($fileInfo->getFilename() . DIRECTORY_SEPARATOR) : $fileInfo->getFilename());
+                            $this->files[] = ($fileInfo->isDir()) ? ($fileInfo->getFilename() . DIRECTORY_SEPARATOR) : $fileInfo->getFilename();
                         }
                     }
                 }
@@ -118,7 +118,7 @@ class Dir
                             $this->files[] = realpath(($fileInfo->isDir()) ? ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename() . DIRECTORY_SEPARATOR) : ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename()));
                         // Else, store only the directory or file name.
                         } else {
-                            $this->files[] = realpath(($fileInfo->isDir()) ? ($fileInfo->getFilename() . DIRECTORY_SEPARATOR) : $fileInfo->getFilename());
+                            $this->files[] = ($fileInfo->isDir()) ? ($fileInfo->getFilename() . DIRECTORY_SEPARATOR) : $fileInfo->getFilename();
                         }
                     }
                 }

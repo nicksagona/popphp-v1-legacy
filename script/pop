@@ -18,6 +18,7 @@
 # -c --check                Check the current configuration for required dependencies
 # -h --help                 Display this help
 # -i --instructions         Display build project instructions
+# -l --lang fr              Set the default language for the project
 # -m --map folder file.php  Create a class map file from the source folder and save to the output file
 # -v --version              Display version of Pop PHP Framework
 #

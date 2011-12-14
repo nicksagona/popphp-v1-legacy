@@ -18,6 +18,7 @@ REM -b --build ProjectName    Build a project based on the files in the 'config'
 REM -c --check                Check the current configuration for required dependencies
 REM -h --help                 Display this help
 REM -i --instructions         Display build project instructions
+REM -l --lang fr              Set the default language for the project
 REM -m --map folder file.php  Create a class map file from the source folder and save to the output file
 REM -v --version              Display version of Pop PHP Framework
 REM

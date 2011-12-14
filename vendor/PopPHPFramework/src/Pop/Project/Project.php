@@ -66,14 +66,14 @@ class Project
 
         $input = self::cliInput();
         if ($input == 'n') {
-            echo 'Aborted.' . PHP_EOL . PHP_EOL;
+            echo Locale::factory()->__('Aborted.') . PHP_EOL . PHP_EOL;
             exit(0);
         }
 
         // Check for the project build file.
         if (!file_exists(__DIR__ . '/../../../../../config/project.build.php')) {
-            echo 'The project build file, \'config/project.build.php\', was not found.' . PHP_EOL;
-            echo 'Aborted.' . PHP_EOL . PHP_EOL;
+            echo Locale::factory()->__('The project build file, \'config/project.build.php\', was not found.') . PHP_EOL;
+            echo Locale::factory()->__('Aborted.') . PHP_EOL . PHP_EOL;
             exit(0);
         }
 
@@ -81,7 +81,7 @@ class Project
 
         // Check if a project folder already exists.
         if (file_exists(__DIR__ . '/../../../../../module/' . $name)) {
-            echo 'This may overwrite any project files you may already have' . PHP_EOL;
+            echo Locale::factory()->__('This may overwrite any project files you may already have.') . PHP_EOL;
             echo 'under the \'module/' . $name . '/src\' folder.' . PHP_EOL;
             $input = self::cliInput();
         } else {
@@ -90,7 +90,7 @@ class Project
 
         // If 'No', abort
         if ($input == 'n') {
-            echo 'Aborted.' . PHP_EOL . PHP_EOL;
+            echo Locale::factory()->__('Aborted.') . PHP_EOL . PHP_EOL;
             exit(0);
         // Else, continue
         } else {
@@ -100,8 +100,8 @@ class Project
             if (isset($build['databases']) && (count($build['databases']) > 0)) {
                 $keys = array_keys($build['databases']);
                 if (isset($keys[0]) && (file_exists(__DIR__ . '/../../../../../config/' . $keys[0]))) {
-                    echo 'Database credentials and schema detected.' . PHP_EOL;
-                    $input = self::cliInput('Test and install the database(s)? (Y/N) ');
+                    echo Locale::factory()->__('Database credentials and schema detected.') . PHP_EOL;
+                    $input = self::cliInput(Locale::factory()->__('Test and install the database(s)?') . ' (Y/N) ');
                     $db = ($input == 'n') ? false : true;
                 }
             }
@@ -114,12 +114,12 @@ class Project
                 error_reporting(E_ERROR);
 
                 // Test the databases
-                echo 'Testing the database(s)...' . PHP_EOL;
+                echo Locale::factory()->__('Testing the database(s)...') . PHP_EOL;
 
                 foreach ($build['databases'] as $dbname => $db) {
-                    echo 'Testing \'' . $dbname . '\'...' . PHP_EOL;
+                    echo Locale::factory()->__('Testing') . ' \'' . $dbname . '\'...' . PHP_EOL;
                     if (!isset($db['type']) || !isset($db['database'])) {
-                        echo 'The database type and database name must be set for the database \'' . $dbname . '\'.' . PHP_EOL . PHP_EOL;
+                        echo Locale::factory()->__('The database type and database name must be set for the database ') . '\'' . $dbname . '\'.' . PHP_EOL . PHP_EOL;
                         exit(0);
                     }
                     $check = Db::check($db);
@@ -127,8 +127,8 @@ class Project
                         echo $check . PHP_EOL . PHP_EOL;
                         exit(0);
                     } else {
-                        echo 'Database \'' . $dbname . '\' passed.' . PHP_EOL;
-                        echo 'Installing database \'' . $dbname . '\'...' . PHP_EOL;
+                        echo Locale::factory()->__('Database') . ' \'' . $dbname . '\' passed.' . PHP_EOL;
+                        echo Locale::factory()->__('Installing database') .' \'' . $dbname . '\'...' . PHP_EOL;
                         $tables = Db::install($db);
                         if (null !== $tables) {
                             $dbTables = array_merge($dbTables, $tables);
@@ -148,7 +148,7 @@ class Project
             }
 
             // Add project to the bootstrap file
-            $input = self::cliInput('Add project to the bootstrap file? (Y/N) ');
+            $input = self::cliInput(Locale::factory()->__('Add project to the bootstrap file?') . ' (Y/N) ');
             if ($input == 'y') {
                 $location = self::getBootstrap();
                 $bootstrap = new File($location . '/bootstrap.php');
@@ -157,7 +157,7 @@ class Project
                           ->save();
             }
 
-            echo 'Complete.' . PHP_EOL . PHP_EOL;
+            echo Locale::factory()->__('Project build complete.') . PHP_EOL . PHP_EOL;
         }
     }
 
@@ -168,15 +168,8 @@ class Project
      */
     public static function instructions()
     {
-        echo 'This process will build a lightweight framework for your project' . PHP_EOL;
-        echo 'under the \'module/ProjectName\' folder. Minimally, you should have the' . PHP_EOL;
-        echo '\'config/project.build.php\' file present, which should return an array' . PHP_EOL;
-        echo 'containing your project build settings, such as your database information' . PHP_EOL;
-        echo 'and credentials. Besides creating the folders and files for you, one of' . PHP_EOL;
-        echo 'the main benefits is ability to test and install the database and the' . PHP_EOL;
-        echo 'corresponding configuration and class files. You can do this by having' . PHP_EOL;
-        echo 'the SQL files in the \'config/dbname\' folder. The following folder' . PHP_EOL;
-        echo 'structure is required for the database installation to work properly:' . PHP_EOL . PHP_EOL;
+        $msg = "This process will build a lightweight framework for your project under the 'module/ProjectName' folder. Minimally, you should have the 'config/project.build.php' file present, which should return an array containing your project build settings, such as your database information and credentials. Besides creating the folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can do this by having the SQL files in the 'config/dbname' folder. The following folder structure is required for the database installation to work properly:";
+        echo wordwrap(Locale::factory()->__($msg), 70, PHP_EOL) . PHP_EOL . PHP_EOL;
         echo '\'config/dbname/create/*.sql\'' . PHP_EOL;
         echo '\'config/dbname/insert/*.sql\'' . PHP_EOL;
         echo '\'config/dbname/*.sql\'' . PHP_EOL . PHP_EOL;
@@ -189,12 +182,13 @@ class Project
      */
     public static function cliHelp()
     {
-        echo ' -b --build ProjectName    Build a project based on the files in the \'config\' folder' . PHP_EOL;
-        echo ' -c --check                Check the current configuration for required dependencies' . PHP_EOL;
-        echo ' -h --help                 Display this help' . PHP_EOL;
-        echo ' -i --instructions         Display build project instructions' . PHP_EOL;
-        echo ' -m --map folder file.php  Create a class map file from the source folder and save to the output file' . PHP_EOL;
-        echo ' -v --version              Display version of Pop PHP Framework and latest available' . PHP_EOL . PHP_EOL;
+        echo ' -b --build ProjectName    ' . Locale::factory()->__('Build a project based on the files in the \'config\' folder') . PHP_EOL;
+        echo ' -c --check                ' . Locale::factory()->__('Check the current configuration for required dependencies') . PHP_EOL;
+        echo ' -h --help                 ' . Locale::factory()->__('Display this help') . PHP_EOL;
+        echo ' -i --instructions         ' . Locale::factory()->__('Display build project instructions') . PHP_EOL;
+        echo ' -l --lang fr              ' . Locale::factory()->__('Set the default language for the project') . PHP_EOL;
+        echo ' -m --map folder file.php  ' . Locale::factory()->__('Create a class map file from the source folder and save to the output file') . PHP_EOL;
+        echo ' -v --version              ' . Locale::factory()->__('Display version of Pop PHP Framework and latest available') . PHP_EOL . PHP_EOL;
     }
 
     /**
@@ -220,9 +214,9 @@ class Project
      *
      * @return string
      */
-    public static function cliInput($msg = 'Continue? (Y/N) ')
+    public static function cliInput($msg = null)
     {
-        echo $msg;
+        echo ((null === $msg) ? Locale::factory()->__('Continue?') : $msg) . ' (Y/N) ';
         $input = null;
 
         while (($input != 'y') && ($input != 'n')) {
@@ -239,19 +233,19 @@ class Project
     }
 
     /**
-     * Return the (Y/N) input from STDIN
+     * Return the location of the bootstrap file from STDIN
      *
      * @return string
      */
     public static function getBootstrap()
     {
-        $msg = 'Enter the folder where the \'bootstrap.php\' is located in relation to the current folder: ';
+        $msg = Locale::factory()->__('Enter the folder where the \'bootstrap.php\' is located in relation to the current folder: ');
         echo $msg;
         $input = null;
 
         while (!file_exists($input . '/bootstrap.php')) {
             if (null !== $input) {
-                echo 'Bootstrap file not found. Try again.' . PHP_EOL . $msg;
+                echo Locale::factory()->__('Bootstrap file not found. Try again.') . PHP_EOL . $msg;
             }
             $prompt = fopen("php://stdin", "r");
             $input = fgets($prompt, 255);
@@ -263,6 +257,31 @@ class Project
     }
 
     /**
+     * Return the two-letter language code from STDIN
+     *
+     * @param array $langs
+     * @return string
+     */
+    public static function getLanguage($langs)
+    {
+        $msg = Locale::factory()->__('Enter the two-letter code for the default language: ');
+        echo $msg;
+        $lang = null;
+
+        while (!array_key_exists($lang, $langs)) {
+            if (null !== $lang) {
+                echo $msg;
+            }
+            $prompt = fopen("php://stdin", "r");
+            $lang = fgets($prompt, 5);
+            $lang = rtrim($lang);
+            fclose ($prompt);
+        }
+
+        return $lang;
+    }
+
+    /**
      * Create the base folder and file structure
      *
      * @param string $name
@@ -271,7 +290,7 @@ class Project
      */
     protected static function _create($name, $build)
     {
-        echo 'Creating base folder and file structure...' . PHP_EOL;
+        echo Locale::factory()->__('Creating base folder and file structure...') . PHP_EOL;
 
         $projectCfg = new File(__DIR__ . '/../../../../../config/project.config.php');
         $projectCfg->write('<?php' . PHP_EOL . PHP_EOL);
@@ -327,10 +346,13 @@ class Project
      */
     protected static function _createTables($name, $dbTables)
     {
+        echo Locale::factory()->__('Creating database table class files...') . PHP_EOL;
+
         $tableDir = __DIR__ . '/../../../../../module/' . $name . '/src/' . $name . '/Table';
         if (!file_exists($tableDir)) {
             mkdir($tableDir);
         }
+
         foreach ($dbTables as $table) {
             if (null !== $table['tableName']) {
                 $tableName = String::factory($table['tableName'])->underscoreToCamelcase()->upperFirst();
@@ -351,6 +373,5 @@ class Project
             }
         }
     }
-
 
 }

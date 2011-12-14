@@ -234,3 +234,29 @@ Unknown option:
 You must pass at least one argument.
 Run './pop -h' for help.
 Run '.\pop -h' for help.
+Aborted.
+The project build file, 'config/project.build.php', was not found.
+This may overwrite any project files you may already have.
+Database credentials and schema detected.
+Test and install the database(s)?
+Testing the database(s)...
+Testing
+The database type and database name must be set for the database
+Database
+Installing database
+Add project to the bootstrap file?
+Project build complete.
+This process will build a lightweight framework for your project under the 'module/ProjectName' folder. Minimally, you should have the 'config/project.build.php' file present, which should return an array containing your project build settings, such as your database information and credentials. Besides creating the folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can do this by having the SQL files in the 'config/dbname' folder. The following folder structure is required for the database installation to work properly:
+Build a project based on the files in the 'config' folder
+Check the current configuration for required dependencies
+Display this help
+Display build project instructions
+Set the default language for the project
+Create a class map file from the source folder and save to the output file
+Display version of Pop PHP Framework and latest available
+Continue?
+Enter the folder where the 'bootstrap.php' is located in relation to the current folder: 
+Bootstrap file not found. Try again.
+Creating base folder and file structure...
+Creating database table class files...
+Enter the two-letter code for the default language: 

@@ -63,7 +63,13 @@ class Locale
      */
     public function __construct($lng = null)
     {
-        $this->_language = (null !== $lng) ? $lng : 'en';
+        if (null !== $lng) {
+            $this->_language = $lng;
+        } else if (defined('POP_DEFAULT_LANG')) {
+            $this->_language = POP_DEFAULT_LANG;
+        } else {
+            $this->_language = 'en';
+        }
         $this->_loadCurrentLanguage();
     }
 
@@ -146,7 +152,7 @@ class Locale
     public function getLanguages($dir = null)
     {
         $langsAry = array();
-        $langDirectory = (null !== $dir) ? $dir : __DIR__ . '/Locale/Data';
+        $langDirectory = (null !== $dir) ? $dir : __DIR__ . '/Data';
 
         if (file_exists($langDirectory)) {
             $langDir = new Dir($langDirectory);
@@ -154,7 +160,7 @@ class Locale
                 if ($file != '__.xml') {
                     if (($xml =@ new \SimpleXMLElement($langDirectory . '/' . $file, LIBXML_NOWARNING, true)) !== false) {
                         if ((string)$xml->attributes()->name == (string)$xml->attributes()->native) {
-                            $langsAry[str_replace('.xml', '', $file)] = $xml->attributes()->native;
+                            $langsAry[str_replace('.xml', '', $file)] = (string)$xml->attributes()->native;
                         } else {
                             $langsAry[str_replace('.xml', '', $file)] = $xml->attributes()->native . ' (' . $xml->attributes()->name . ")";
                         }
@@ -163,6 +169,7 @@ class Locale
             }
         }
 
+        ksort($langsAry);
         return $langsAry;
     }
 
