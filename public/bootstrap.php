@@ -9,11 +9,10 @@ $autoloader = Autoloader::factory();
 $autoloader->splAutoloadRegister();
 
 /*
- * Add any optional custom loader features here, such as,
- * registering a vendor library namespace prefix with the autoloader,
- * or, loading a class map file
- *
+ * Add any optional custom loader features here, such as, loading a module,
+ * registering a third-party library or loading a class map file.
  */
-// $autoloader->register('YourApp', __DIR__ . '/../module/YourApp/src');
-// $autoloader->loadClassMap('../module/YourApp/classmap.php');
+// require_once $autoloader->loadModule('YourModule');
+// $autoloader->register('YourLib', __DIR__ . '/../vendor/YourLib/src');
+// $autoloader->loadClassMap('../module/YourModule/classmap.php');
 

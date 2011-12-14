@@ -250,7 +250,7 @@ class Project
 
         while (!file_exists($input . '/bootstrap.php')) {
             if (null !== $input) {
-                echo $msg;
+                echo 'Bootstrap file not found. Try again.' . PHP_EOL . $msg;
             }
             $prompt = fopen("php://stdin", "r");
             $input = fgets($prompt, 255);
@@ -281,7 +281,7 @@ class Project
                 $projectCfg->write("    'poptest' => Pop\\Db\\Db::factory('" . $db['type'] . "', array (" . PHP_EOL, true);
                 $j = 0;
                 foreach ($db as $key => $value) {
-                    if (($key != 'default') && ($key != 'type')) {
+                    if ($key != 'type') {
                         $ary = "        '{$key}' => '{$value}'";
                         $j++;
                         if ($j < count($db)) {

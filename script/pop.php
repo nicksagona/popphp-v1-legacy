@@ -26,8 +26,9 @@
 
 require_once __DIR__ . '/../public/bootstrap.php';
 
-use Pop\Project\Project,
+use Pop\File\File,
     Pop\Loader\Classmap,
+    Pop\Project\Project,
     Pop\Version;
 
 // Write header
@@ -73,6 +74,15 @@ if (!empty($argv[1])) {
         } else {
             echo 'Generating class map file \'' . $argv[3] . '\' from source folder \'' . $argv[2] . '\'' . PHP_EOL;
             Classmap::generate($argv[2], $argv[3]);
+
+            // Add project to the bootstrap file
+            $input = Project::cliInput('Add classmap to the bootstrap file? (Y/N) ');
+            if ($input == 'y') {
+                $location = Project::getBootstrap();
+                $bootstrap = new File($location . '/bootstrap.php');
+                $bootstrap->write("\$autoloader->loadClassMap('" . addslashes(realpath($argv[3])) . "');" . PHP_EOL . PHP_EOL, true)
+                          ->save();
+            }
             echo 'Done.' . PHP_EOL . PHP_EOL;
         }
     // Else, build project

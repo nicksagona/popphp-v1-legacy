@@ -6,18 +6,12 @@ use Pop\Db\Db,
     HelloWorld\Table\Users;
 
 try {
-    // Define DB credentials
-    $creds = array(
-                 'database' => 'poptest',
-                 'host'     => 'localhost',
-                 'username' => 'popuser',
-                 'password' => '12pop34'
-             );
+    // Set DB object for the record object to use,
+    // assumed inherited from the 'project.config.php'
+    // in the 'bootstrap.php' file
+    Users::setDb($db['poptest']);
 
-    // Set DB object for the record object
-    Users::setDb(Db::factory('Mysql', $creds));
-
-    // Get the users and
+    // Get the users
     $users = Users::findAll('id ASC');
 
     // Output the results

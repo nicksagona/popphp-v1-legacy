@@ -3,7 +3,6 @@
 return array(
     'databases' => array(
         'poptest' => array(
-            'default'  => true,
             'type'     => 'Mysqli',
             'database' => 'poptest',
             'host'     => 'localhost',
