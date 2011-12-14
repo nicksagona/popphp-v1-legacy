@@ -52,6 +52,7 @@ class Project
                                            5 => 'Unknown option: ',
                                            6 => 'You must pass at least one argument.'
                                        );
+
     /**
      * Build the project based on the available config files
      *
@@ -141,7 +142,7 @@ class Project
             // Create base folder and file structure
             self::_create($name, $build);
 
-            // Create table
+            // Create tables
             if (count($dbTables) > 0) {
                 self::_createTables($name, $dbTables);
             }

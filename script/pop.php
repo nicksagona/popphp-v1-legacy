@@ -24,6 +24,10 @@
  *
  */
 
+/*
+ * If you move the 'bootstrap.php' file, make
+ * sure you adjust the path to it accordingly
+ */
 require_once __DIR__ . '/../public/bootstrap.php';
 
 use Pop\File\File,
@@ -32,7 +36,8 @@ use Pop\File\File,
     Pop\Version;
 
 // Write header
-echo PHP_EOL . 'Pop PHP Framework CLI script' . PHP_EOL;
+echo PHP_EOL;
+echo 'Pop PHP Framework CLI script' . PHP_EOL;
 echo '============================' . PHP_EOL . PHP_EOL;
 
 if (!empty($argv[1])) {

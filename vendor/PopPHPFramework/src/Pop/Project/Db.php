@@ -189,15 +189,4 @@ class Db
         return $tables;
     }
 
-    /**
-     * Write to the project config file
-     *
-     * @param string $file
-     * @return mixed
-     */
-    public static function config($file)
-    {
-
-    }
-
 }

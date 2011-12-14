@@ -1,5 +1,8 @@
 <?php
-
+/*
+ * If you move the 'bootstrap.php' file, make sure you
+ * adjust the path to the Autoloader class accordingly
+ */
 require_once __DIR__ . '/../vendor/PopPHPFramework/src/Pop/Loader/Autoloader.php';
 
 use Pop\Loader\Autoloader;
