@@ -278,10 +278,10 @@ class Project
             $projectCfg->write('$db = array(' . PHP_EOL, true);
             $i = 0;
             foreach ($build['databases'] as $dbname => $db) {
-				$projectCfg->write("    'poptest' => Pop\\Db\\Db::factory('" . $db['type'] . "', array (" . PHP_EOL, true);
-				$j = 0;
-				foreach ($db as $key => $value) {
-				    if (($key != 'default') && ($key != 'type')) {
+                $projectCfg->write("    'poptest' => Pop\\Db\\Db::factory('" . $db['type'] . "', array (" . PHP_EOL, true);
+                $j = 0;
+                foreach ($db as $key => $value) {
+                    if (($key != 'default') && ($key != 'type')) {
                         $ary = "        '{$key}' => '{$value}'";
                         $j++;
                         if ($j < count($db)) {
