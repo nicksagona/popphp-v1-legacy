@@ -282,17 +282,17 @@ class Project
 				$j = 0;
 				foreach ($db as $key => $value) {
 				    if (($key != 'default') && ($key != 'type')) {
-    				    $ary = "        '{$key}' => '{$value}'";
-    				    $j++;
-    				    if ($j < count($db)) {
-    				       $ary .= ',';
-    				    }
-    				    $projectCfg->write($ary . PHP_EOL, true);
-				    }
-				}
-				$i++;
-				$end = ($i < count($build['databases'])) ? '    )),' : '    ))';
-				$projectCfg->write($end . PHP_EOL, true);
+                        $ary = "        '{$key}' => '{$value}'";
+                        $j++;
+                        if ($j < count($db)) {
+                           $ary .= ',';
+                        }
+                        $projectCfg->write($ary . PHP_EOL, true);
+                    }
+                }
+                $i++;
+                $end = ($i < count($build['databases'])) ? '    )),' : '    ))';
+                $projectCfg->write($end . PHP_EOL, true);
             }
             $projectCfg->write(');' . PHP_EOL, true);
         }
