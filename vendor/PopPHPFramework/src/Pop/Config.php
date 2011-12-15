@@ -43,7 +43,7 @@ class Config
     protected $_allowChanges = false;
 
     /**
-     * Config values as Pop\Config objects
+     * Config values as config objects
      * @var array
      */
     protected $_config = array();
@@ -70,11 +70,11 @@ class Config
     }
 
     /**
-     * Method to set the config values
+     * Method to get the config values as an array
      *
      * @return array
      */
-    public function getConfigAsArray()
+    public function asArray()
     {
         $this->_array = array();
         $this->_getConfig();
@@ -82,20 +82,15 @@ class Config
     }
 
     /**
-     * Set method to set the property to the value of _config[$name].
+     * Method to get the config values as an ArrayObject
      *
-     * @param  string $name
-     * @param  mixed $value
-     * @throws Exception
-     * @return void
+     * @return array
      */
-    public function __set($name, $value)
+    public function asArrayObject()
     {
-        if ($this->_allowChanges) {
-            $this->_config[$name] = $value;
-        } else {
-            throw new \Exception(Locale::factory()->__('Real-time configuration changes are not allowed.'));
-        }
+        $this->_array = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+        $this->_getConfigObject();
+        return $this->_array;
     }
 
     /**
@@ -125,6 +120,23 @@ class Config
     }
 
     /**
+     * Set method to set the property to the value of _config[$name].
+     *
+     * @param  string $name
+     * @param  mixed $value
+     * @throws Exception
+     * @return void
+     */
+    public function __set($name, $value)
+    {
+        if ($this->_allowChanges) {
+            $this->_config[$name] = (is_array($value) ? new Config($value, $this->_allowChanges) : $value);
+        } else {
+            throw new \Exception(Locale::factory()->__('Real-time configuration changes are not allowed.'));
+        }
+    }
+
+    /**
      * Return the isset value of _config[$name].
      *
      * @param  string $name
@@ -146,7 +158,7 @@ class Config
         unset($this->_config[$name]);
     }
 
-    /**
+    /**model data as an array
      * Method to set the config values
      *
      * @param  array $config
@@ -160,14 +172,26 @@ class Config
     }
 
     /**
-     * Method to get the config values
+     * Method to get the config values as array
      *
      * @return void
      */
     protected function _getConfig()
     {
         foreach ($this->_config as $key => $value) {
-            $this->_array[$key] = ($value instanceof Config) ? $value->getConfigAsArray() : $value;
+            $this->_array[$key] = ($value instanceof Config) ? $value->asArray() : $value;
+        }
+    }
+
+    /**
+     * Method to get the config values as ArrayObject
+     *
+     * @return void
+     */
+    protected function _getConfigObject()
+    {
+        foreach ($this->_config as $key => $value) {
+            $this->_array[$key] = ($value instanceof Config) ? $value->asArrayObject() : $value;
         }
     }
 

@@ -51,7 +51,7 @@ class View
 
     /**
      * Data model
-     * @var Pop_Model
+     * @var Pop\Mvc\Model
      */
     protected $_model = null;
 
@@ -72,11 +72,11 @@ class View
      *
      * Instantiate the view object.
      *
-     * @param string      $template
-     * @param Pop_Model $model
+     * @param string        $template
+     * @param Pop\Mvc\Model $model
      * @return void
      */
-    public function __construct($template = null, Pop_Model $model = null)
+    public function __construct($template = null, Pop\Mvc\Model $model = null)
     {
         $this->_lang = new Locale();
 
@@ -96,13 +96,13 @@ class View
     }
 
     /**
-     * Create a Pop_View object
+     * Create a Pop\Mvc\View object
      *
-     * @param string    $template
-     * @param Pop_Model $model
-     * @return Pop_View
+     * @param string        $template
+     * @param Pop\Mvc\Model $model
+     * @return Pop\Mvc\View
      */
-    public static function factory($template = null, Pop_Model $model = null)
+    public static function factory($template = null, Pop\Mvc\Model $model = null)
     {
         return new self($template, $model);
     }
@@ -110,7 +110,7 @@ class View
     /**
      * Get data model
      *
-     * @return Pop_Model
+     * @return Pop\Mvc\Model
      */
     public function getModel()
     {
@@ -142,7 +142,7 @@ class View
      *
      * @param  string $template
      * @throws Exception
-     * @return Pop_View
+     * @return Pop\Mvc\View
      */
     public function setTemplateFile($template = null)
     {
@@ -167,7 +167,7 @@ class View
      * Set view template string
      *
      * @param  string $template
-     * @return Pop_View
+     * @return Pop\Mvc\View
      */
     public function setTemplateString($template = null)
     {
@@ -178,10 +178,10 @@ class View
     /**
      * Set data model
      *
-     * @param  Pop_Model $model
-     * @return Pop_View
+     * @param  Pop\Mvc\Model $model
+     * @return Pop\Mvc\View
      */
-    public function setModel(Pop_Model $model)
+    public function setModel(Pop\Mvc\Model $model)
     {
         $this->_model = $model;
         return $this;
@@ -220,7 +220,7 @@ class View
      */
     protected function _renderTemplateFile()
     {
-        $data = $this->_model->getData();
+        $data = $this->_model->asArrayObject();
 
         foreach ($data as $key => $value) {
             ${$key} = $value;
@@ -240,7 +240,7 @@ class View
     {
         $this->_output = $this->_templateString;
 
-        $data = $this->_model->getData();
+        $data = $this->_model->asArrayObject();
 
         foreach ($data as $key => $value) {
             if ($value instanceof \ArrayObject) {

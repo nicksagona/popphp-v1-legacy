@@ -63,8 +63,8 @@ if (!empty($argv[1])) {
         Project::cliHelp();
     // Else, display help
     } else if (($argv[1] == '-s') || ($argv[1] == '--show')) {
-        echo 'Build Project Instructions' . PHP_EOL;
-        echo '--------------------------' . PHP_EOL;
+        echo 'Project Install Instructions' . PHP_EOL;
+        echo '----------------------------' . PHP_EOL;
         Project::instructions();
     // Else, set default project language
     } else if (($argv[1] == '-l') || ($argv[1] == '--lang')) {
@@ -137,12 +137,12 @@ if (!empty($argv[1])) {
             }
             echo 'Done.' . PHP_EOL . PHP_EOL;
         }
-    // Else, build project
+    // Else, install project
     } else if (($argv[1] == '-i') || ($argv[1] == '--install')) {
         // Check if the $name argument was passed
         if (empty($argv[2])) {
             echo Project::cliError(4);
-        // Else, run the build process
+        // Else, run the install process
         } else {
             echo 'Installing Project' . PHP_EOL;
             echo '------------------' . PHP_EOL;

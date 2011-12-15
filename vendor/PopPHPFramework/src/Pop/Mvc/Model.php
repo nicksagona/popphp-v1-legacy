@@ -24,6 +24,8 @@
  */
 namespace Pop\Mvc;
 
+use Pop\Locale\Locale;
+
 /**
  * @category   Pop
  * @package    Pop_Mvc
@@ -36,28 +38,59 @@ class Model
 {
 
     /**
-     * Model data
-     * @var ArrayObject
+     * Model data as model objects
+     * @var array
      */
-    protected $_data = null;
+    protected $_data = array();
+
+    /**
+     * Data values as an array
+     * @var array
+     */
+    protected $_array = array();
 
     /**
      * Constructor
      *
      * Instantiate the model object.
      *
-     * @param array $data
+     * @param  mixed $data
+     * @param  string $name
      * @return void
      */
-    public function __construct(array $data = null)
+    public function __construct($data, $name = null)
     {
-        $this->setData($data);
+        $this->_setData($data, $name);
     }
 
     /**
-     * Get the model data
+     * Method to get the model data as an array
      *
-     * @return ArrayObject
+     * @return array
+     */
+    public function asArray()
+    {
+        $this->_array = array();
+        $this->_getData();
+        return $this->_array;
+    }
+
+    /**
+     * Method to get the model data as an array
+     *
+     * @return array
+     */
+    public function asArrayObject()
+    {
+        $this->_array = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+        $this->_getDataObject();
+        return $this->_array;
+    }
+
+    /**
+     * Get method to return the data array
+     *
+     * @return array
      */
     public function getData()
     {
@@ -65,68 +98,48 @@ class Model
     }
 
     /**
-     * Load a value into the model data array
+     * Get method to return the value of _data[$name].
      *
-     * @param string $name
-     * @param mixed  $value
-     * @return Pop_Model
+     * @param  string $name
+     * @return mixed
      */
-    public function loadData($name, $value)
+    public function get($name)
     {
-        $convertedValue = $value;
-
-        if (is_array($value)) {
-            if (isset($value[0]) && is_array($value[0])){
-                foreach ($value as $k => $v) {
-                    $value[$k] = new \ArrayObject($value[$k], \ArrayObject::ARRAY_AS_PROPS);
-                }
-            }
-            $convertedValue = new \ArrayObject($value, \ArrayObject::ARRAY_AS_PROPS);
-        }
-
-        if (null === $this->_data) {
-            $this->_data = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
-        }
-
-        $this->_data->$name = $convertedValue;
-
-        return $this;
+        return (isset($this->_data[$name])) ? $this->_data[$name] : null;
     }
 
     /**
-     * Set the model data
+     * Get method to return the value of _data[$key].
      *
-     * @param  array $data
-     * @return Pop_Model
+     * @param  int $key
+     * @return mixed
      */
-    public function setData(array $data = null)
+    public function key($key)
     {
-        if (null !== $data) {
-            $this->_data = $data;
-            $this->_convertData();
-        }
-        return $this;
+        return (isset($this->_data[(int)$key])) ? $this->_data[(int)$key] : null;
     }
 
     /**
-     * Convert all the model data to ArrayObjects
+     * Get method to return the value of _data[$name].
      *
+     * @param  string $name
+     * @param  mixed $value
      * @return void
      */
-    protected function _convertData()
+    public function set($name, $value)
     {
-        foreach ($this->_data as $key => $value) {
-            if (is_array($value)) {
-                if (isset($value[0]) && is_array($value[0])){
-                    foreach ($value as $k => $v) {
-                        $value[$k] = new \ArrayObject($value[$k], \ArrayObject::ARRAY_AS_PROPS);
-                    }
-                }
-                $this->_data[$key] = new \ArrayObject($value, \ArrayObject::ARRAY_AS_PROPS);
-            }
-        }
+        $this->_data[$name] = (is_array($value) ? new Model($value) : $value);
+    }
 
-        $this->_data = new \ArrayObject($this->_data, \ArrayObject::ARRAY_AS_PROPS);
+    /**
+     * Get method to return the value of _data[$name].
+     *
+     * @param  string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        return $this->get($name);
     }
 
     /**
@@ -138,18 +151,7 @@ class Model
      */
     public function __set($name, $value)
     {
-        $this->_data->$name = $value;
-    }
-
-    /**
-     * Get method to return the value of _data[$name].
-     *
-     * @param  string $name
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        return (isset($this->_data->$name)) ? $this->_data->$name : null;
+        return $this->set($name, $value);
     }
 
     /**
@@ -160,7 +162,7 @@ class Model
      */
     public function __isset($name)
     {
-        return isset($this->_data->$name);
+        return isset($this->_data[$name]);
     }
 
     /**
@@ -171,8 +173,52 @@ class Model
      */
     public function __unset($name)
     {
-        $this->_data->$name = null;
-        unset($this->_data->$name);
+        unset($this->_data[$name]);
+    }
+
+    /**
+     * Set the model data
+     *
+     * @param  mixed $data
+     * @throws Exception
+     * @return void
+     */
+    protected function _setData($data, $name = null)
+    {
+        if (!is_array($data)) {
+            if (null === $name) {
+                throw new Exception(Locale::factory()->__('If you pass a scalar value, then you must pass a name for it.'));
+            }
+            $this->_data[$name] = $data;
+        } else {
+            foreach ($data as $key => $value) {
+                $this->_data[$key] = (is_array($value) ? new Model($value) : $value);
+            }
+        }
+    }
+
+    /**
+     * Method to get the data values as array
+     *
+     * @return void
+     */
+    protected function _getData()
+    {
+        foreach ($this->_data as $key => $value) {
+            $this->_array[$key] = ($value instanceof Model) ? $value->asArray() : $value;
+        }
+    }
+
+    /**
+     * Method to get the data values as ArrayObject
+     *
+     * @return void
+     */
+    protected function _getDataObject()
+    {
+        foreach ($this->_data as $key => $value) {
+            $this->_array[$key] = ($value instanceof Model) ? $value->asArrayObject() : $value;
+        }
     }
 
 }

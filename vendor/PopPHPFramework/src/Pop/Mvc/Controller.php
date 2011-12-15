@@ -40,25 +40,25 @@ class Controller
 
     /**
      * Request
-     * @var Pop_Http_Request
+     * @var Pop\Http\Request
      */
     protected $_request = null;
 
     /**
      * Response
-     * @var Pop_Http_Response
+     * @var Pop\Http\Response
      */
     protected $_response = null;
 
     /**
      * Data model object
-     * @var Pop_Model
+     * @var Pop\Mvc\Model
      */
     protected $_model = null;
 
     /**
      * View object
-     * @var Pop_View
+     * @var Pop\Mvc\View
      */
     protected $_view = null;
 
@@ -73,12 +73,12 @@ class Controller
      *
      * Instantiate the controller object
      *
-     * @param Pop_Http_Request  $request
-     * @param Pop_Http_Response $response
-     * @param string              $viewPath
+     * @param Pop\Http\Request  $request
+     * @param Pop\Http\Response $response
+     * @param string            $viewPath
      * @return void
      */
-    public function __construct(Pop_Http_Request $request = null, Pop_Http_Response $response = null, $viewPath = null)
+    public function __construct(Pop\Http\Request $request = null, Pop\Http\Response $response = null, $viewPath = null)
     {
         $this->_request = (null !== $request) ? $request : new Request();
         $this->_response = (null !== $response) ? $response : new Response(200, array('Content-Type' => 'text/html'));
@@ -91,10 +91,10 @@ class Controller
     /**
      * Set the request object
      *
-     * @param  Pop_Http_Request
-     * @return Pop_Controller
+     * @param  Pop\Http\Request
+     * @return Pop\Mvc\Controller
      */
-    public function setRequest(Pop_Http_Request $request)
+    public function setRequest(Pop\Http\Request $request)
     {
         $this->_request = $request;
         return $this;
@@ -103,10 +103,10 @@ class Controller
     /**
      * Set the response object
      *
-     * @param  Pop_Http_Response
-     * @return Pop_Controller
+     * @param  Pop\Http\Response
+     * @return Pop\Mvc\Controller
      */
-    public function setResponse(Pop_Http_Response $response)
+    public function setResponse(Pop\Http\Response $response)
     {
         $this->_response = $response;
         return $this;
@@ -116,7 +116,7 @@ class Controller
      * Set the response object
      *
      * @param  string $viewPath
-     * @return Pop_Controller
+     * @return Pop\Mvc\Controller
      */
     public function setViewPath($viewPath)
     {
@@ -127,7 +127,7 @@ class Controller
     /**
      * Get the request object
      *
-     * @return Pop_Http_Request
+     * @return Pop\Http\Request
      */
     public function getRequest()
     {
@@ -137,7 +137,7 @@ class Controller
     /**
      * Get the repsonse object
      *
-     * @return Pop_Http_Response
+     * @return Pop\Http\Response
      */
     public function getResponse()
     {

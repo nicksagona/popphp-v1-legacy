@@ -48,7 +48,7 @@ class Project
                                            1 => 'You must pass a source folder and a output file to generate a class map file.',
                                            2 => 'The source folder passed does not exist.',
                                            3 => 'The output file passed must be a PHP file.',
-                                           4 => 'You must pass a name for the project.',
+                                           4 => 'You must pass an install file to install the project.',
                                            5 => 'Unknown option: ',
                                            6 => 'You must pass at least one argument.',
                                            7 => 'That folder does not exist.',
@@ -94,7 +94,7 @@ class Project
 
             // Test for a database creds and schema, and ask to install the database.
             if (isset($install->databases)) {
-                $databases =  $install->databases->getConfigAsArray();
+                $databases =  $install->databases->asArray();
                 $keys = array_keys($databases);
                 if (isset($keys[0]) && (file_exists($installDir . '/' . $keys[0]))) {
                     echo Locale::factory()->__('Database credentials and schema detected.') . PHP_EOL;
@@ -167,7 +167,7 @@ class Project
      */
     public static function instructions()
     {
-        $msg = "This process will create and install a lightweight framework for your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders and any database credentials. Besides creating the folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can enable this by having the SQL files in the same folder as your build file under a folder named after the database, i.e. './dbname'. The following folder structure is required for the database installation to work properly:";
+        $msg = "This process will create and install a lightweight framework for your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders and any database credentials. Besides creating the folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can enable this by having the SQL files in the same folder as your install file under a folder named after the database, i.e. './dbname'. The following folder structure is required for the database installation to work properly:";
         echo wordwrap(Locale::factory()->__($msg), 70, PHP_EOL) . PHP_EOL . PHP_EOL;
         echo './project.install.php' . PHP_EOL;
         echo './dbname/create/*.sql' . PHP_EOL;
@@ -318,7 +318,7 @@ class Project
         if (isset($install->databases)) {
             $projectCfg->write("," . PHP_EOL, true)
                        ->write("    'databases' => array(" . PHP_EOL, true);
-            $databases = $install->databases->getConfigAsArray();
+            $databases = $install->databases->asArray();
             $i = 0;
             foreach ($databases as $dbname => $db) {
                 $projectCfg->write("        '" . $dbname . "' => Pop\\Db\\Db::factory('" . $db['type'] . "', array (" . PHP_EOL, true);
