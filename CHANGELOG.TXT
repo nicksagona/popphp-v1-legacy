@@ -77,15 +77,18 @@ Pop PHP Framework 0.9 (Forked from Moc10 PHP Library 1.9.7)
 ------------------------------------------------
 
  2nd Round:
+         > Add Code Generator
+           - Data mapping classes to database tables
+           - Generate code for classes and create database from template
+             Project Build
+                - Forms
+                - Test with Pgsql and Sqlite
          > Major Refactor/Restructure
            - Compression
            - Filter
            - Images
            - Evaluate possible benefits from interfaces, abstact classes, etc.
          > Look at creating more dependency injections throughout (config/ini file?)
-         > Add Code Generator
-           - Data mapping classes to database tables
-           - Generate code for classes and create database from template
          > Add Geo support via Google API (get address, city, state, long/lat, calculate distances, etc.)
            - Integrate GeoIP?
          > Officially integrate Ralph's USAePay and Paymentech support components, as well as create
@@ -230,7 +233,7 @@ You must pass a source folder and a output file to generate a class map file.
 The source folder passed does not exist.
 The output file passed must be a PHP file.
 You must pass a name for the project.
-Unknown option: 
+Unknown option:
 You must pass at least one argument.
 Run './pop -h' for help.
 Run '.\pop -h' for help.
@@ -254,11 +257,11 @@ Set the default language for the project
 Create a class map file from the source folder and save to the output file
 Display version of Pop PHP Framework and latest available
 Continue?
-Enter the folder where the 'bootstrap.php' is located in relation to the current folder: 
+Enter the folder where the 'bootstrap.php' is located in relation to the current folder:
 Bootstrap file not found. Try again.
 Creating base folder and file structure...
 Creating database table class files...
-Enter the two-letter code for the default language: 
+Enter the two-letter code for the default language:
 Real-time configuration changes are not allowed.
 Run the unit tests from a folder
 That folder does not exist.

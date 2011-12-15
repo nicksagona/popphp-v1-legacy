@@ -33,12 +33,11 @@ $autoloader->splAutoloadRegister();
  * to edit this file above this doc block.
  *
  * However, you can add any optional custom code or loader features below this
- * doc block, such as, loading a module, registering a third-party library or
- * loading a class map file. Some examples are commented out below.
+ * doc block, such as, registering a third-party library or loading a class
+ * map file. Some examples are commented out below.
  *
  */
 
-// require_once $autoloader->loadModule('YourModule');
 // $autoloader->register('YourLib', __DIR__ . '/../vendor/YourLib/src');
 // $autoloader->loadClassMap('../vendor/YourLib/classmap.php');
 
