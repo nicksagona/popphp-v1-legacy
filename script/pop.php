@@ -15,12 +15,12 @@
  *
  * Possible arguments
  *
- * -b --build buildfile      Build a project based on the build file specified
  * -c --check                Check the current configuration for required dependencies
  * -h --help                 Display this help
- * -i --instructions         Display build project instructions
- * -l --lang fr              Set the default language for the project.
+ * -i --install file.php     Install a project based on the install file specified
+ * -l --lang fr              Set the default language for the project
  * -m --map folder file.php  Create a class map file from the source folder and save to the output file
+ * -s --show                 Show project install instructions
  * -t --test folder          Run the unit tests from a folder
  * -v --version              Display version of Pop PHP Framework
  *
@@ -62,7 +62,7 @@ if (!empty($argv[1])) {
         echo '----' . PHP_EOL;
         Project::cliHelp();
     // Else, display help
-    } else if (($argv[1] == '-i') || ($argv[1] == '--instructions')) {
+    } else if (($argv[1] == '-s') || ($argv[1] == '--show')) {
         echo 'Build Project Instructions' . PHP_EOL;
         echo '--------------------------' . PHP_EOL;
         Project::instructions();
@@ -138,19 +138,19 @@ if (!empty($argv[1])) {
             echo 'Done.' . PHP_EOL . PHP_EOL;
         }
     // Else, build project
-    } else if (($argv[1] == '-b') || ($argv[1] == '--build')) {
+    } else if (($argv[1] == '-i') || ($argv[1] == '--install')) {
         // Check if the $name argument was passed
         if (empty($argv[2])) {
             echo Project::cliError(4);
         // Else, run the build process
         } else {
-            echo 'Building Project' . PHP_EOL;
-            echo '----------------' . PHP_EOL;
+            echo 'Installing Project' . PHP_EOL;
+            echo '------------------' . PHP_EOL;
             if (!file_exists($argv[2])) {
-                echo 'The project build file \'' . $argv[2] . '\' does not exist.' . PHP_EOL . PHP_EOL;
+                echo 'The project install file \'' . $argv[2] . '\' does not exist.' . PHP_EOL . PHP_EOL;
                 exit(0);
             }
-            Project::build($argv[2]);
+            Project::install($argv[2]);
         }
     // Else, unknown option passed
     } else {

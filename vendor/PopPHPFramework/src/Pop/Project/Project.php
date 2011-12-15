@@ -56,12 +56,12 @@ class Project
                                        );
 
     /**
-     * Build the project based on the available config files
+     * Install the project based on the available config files
      *
      * @param string $bldFile
      * @return void
      */
-    public static function build($bldFile)
+    public static function install($installFile)
     {
         $dbTables = array();
         self::instructions();
@@ -72,14 +72,12 @@ class Project
             exit(0);
         }
 
-        // Get the build config.
-        $buildDir = realpath(dirname($bldFile));
-        $build = include $bldFile;
-        //echo $buildDir;
-        //print_r($build);
+        // Get the install config.
+        $installDir = realpath(dirname($installFile));
+        $install = include $installFile;
 
         // Check if a project folder already exists.
-        if (file_exists($build->project->name)) {
+        if (file_exists($install->project->name)) {
             echo wordwrap(Locale::factory()->__('Project folder exists. This may overwrite any project files you may already have under that project folder.'), 70, PHP_EOL) . PHP_EOL;
             $input = self::cliInput();
         } else {
@@ -95,10 +93,10 @@ class Project
             $db = false;
 
             // Test for a database creds and schema, and ask to install the database.
-            if (isset($build->databases)) {
-                $databases =  $build->databases->getConfigAsArray();
+            if (isset($install->databases)) {
+                $databases =  $install->databases->getConfigAsArray();
                 $keys = array_keys($databases);
-                if (isset($keys[0]) && (file_exists($buildDir . '/' . $keys[0]))) {
+                if (isset($keys[0]) && (file_exists($installDir . '/' . $keys[0]))) {
                     echo Locale::factory()->__('Database credentials and schema detected.') . PHP_EOL;
                     $input = self::cliInput(Locale::factory()->__('Test and install the database(s)?') . ' (Y/N) ');
                     $db = ($input == 'n') ? false : true;
@@ -128,7 +126,7 @@ class Project
                     } else {
                         echo Locale::factory()->__('Database') . ' \'' . $dbname . '\' passed.' . PHP_EOL;
                         echo Locale::factory()->__('Installing database') .' \'' . $dbname . '\'...' . PHP_EOL;
-                        $tables = Db::install($db, $buildDir);
+                        $tables = Db::install($db, $installDir);
                         if (null !== $tables) {
                             $dbTables = array_merge($dbTables, $tables);
                         }
@@ -139,29 +137,25 @@ class Project
             }
 
             // Create base folder and file structure
-            self::_create($build);
+            self::_create($install);
 
             // Create tables
             if (count($dbTables) > 0) {
-                self::_createTables($build, $dbTables);
+                self::_createTables($install, $dbTables);
             }
 
             // Create 'bootstrap.php' file
             $autoload = realpath(__DIR__ . '/../Loader/Autoloader.php');
-            $projectCfg = realpath($build->project->folder . '/config/project.config.php');
-            $moduleCfg = realpath($build->project->folder . '/module/' . $build->project->name . '/config/module.config.php');
-            $moduleSrc = realpath($build->project->folder . '/module/' . $build->project->name . '/src');
+            $moduleSrc = realpath($install->project->folder . '/module/' . $install->project->name . '/src');
 
-            $bootstrap = new File($build->project->docroot . '/bootstrap.php');
+            $bootstrap = new File($install->project->docroot . '/bootstrap.php');
             $bootstrap->write("<?php " . PHP_EOL . PHP_EOL)
                       ->write("// Require the Autoloader class file" . PHP_EOL . "require_once '{$autoload}';" . PHP_EOL . PHP_EOL, true)
                       ->write("// Instantiate the autoloader object" . PHP_EOL . "\$autoloader = Pop\\Loader\\Autoloader::factory();" . PHP_EOL . "\$autoloader->splAutoloadRegister();" . PHP_EOL, true)
-                      ->write("\$autoloader->register('{$build->project->name}', '{$moduleSrc}');" . PHP_EOL . PHP_EOL, true)
-                      ->write("\$project = include '{$projectCfg}';" . PHP_EOL, true)
-                      ->write("\$module = include '{$moduleCfg}';" . PHP_EOL, true)
+                      ->write("\$autoloader->register('{$install->project->name}', '{$moduleSrc}');" . PHP_EOL . PHP_EOL, true)
                       ->save();
 
-            echo Locale::factory()->__('Project build complete.') . PHP_EOL . PHP_EOL;
+            echo Locale::factory()->__('Project install complete.') . PHP_EOL . PHP_EOL;
         }
 
     }
@@ -173,9 +167,9 @@ class Project
      */
     public static function instructions()
     {
-        $msg = "This process will build a lightweight framework for your project under the folder specified in the build file. Minimally, the build file should return a Pop\\Config object containing your project build settings, such as project name, folders and any database credentials. Besides creating the folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can enable this by having the SQL files in the same folder as your build file under a folder named after the database, i.e. './dbname'. The following folder structure is required for the database installation to work properly:";
+        $msg = "This process will create and install a lightweight framework for your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders and any database credentials. Besides creating the folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can enable this by having the SQL files in the same folder as your build file under a folder named after the database, i.e. './dbname'. The following folder structure is required for the database installation to work properly:";
         echo wordwrap(Locale::factory()->__($msg), 70, PHP_EOL) . PHP_EOL . PHP_EOL;
-        echo './project.build.php' . PHP_EOL;
+        echo './project.install.php' . PHP_EOL;
         echo './dbname/create/*.sql' . PHP_EOL;
         echo './dbname/insert/*.sql' . PHP_EOL;
         echo './dbname/*.sql' . PHP_EOL . PHP_EOL;
@@ -188,12 +182,12 @@ class Project
      */
     public static function cliHelp()
     {
-        echo ' -b --build buildfile      ' . Locale::factory()->__('Build a project based on the build file specified') . PHP_EOL;
         echo ' -c --check                ' . Locale::factory()->__('Check the current configuration for required dependencies') . PHP_EOL;
         echo ' -h --help                 ' . Locale::factory()->__('Display this help') . PHP_EOL;
-        echo ' -i --instructions         ' . Locale::factory()->__('Display build project instructions') . PHP_EOL;
+        echo ' -i --install file.php     ' . Locale::factory()->__('Install a project based on the install file specified') . PHP_EOL;
         echo ' -l --lang fr              ' . Locale::factory()->__('Set the default language for the project') . PHP_EOL;
         echo ' -m --map folder file.php  ' . Locale::factory()->__('Create a class map file from the source folder and save to the output file') . PHP_EOL;
+        echo ' -s --show                 ' . Locale::factory()->__('Show project install instructions') . PHP_EOL;
         echo ' -t --test folder          ' . Locale::factory()->__('Run the unit tests from a folder') . PHP_EOL;
         echo ' -v --version              ' . Locale::factory()->__('Display version of Pop PHP Framework and latest available') . PHP_EOL . PHP_EOL;
     }
@@ -291,23 +285,23 @@ class Project
     /**
      * Create the base folder and file structure
      *
-     * @param Pop\Config $build
+     * @param Pop\Config $install
      * @return void
      */
-    protected static function _create($build)
+    protected static function _create($install)
     {
         echo Locale::factory()->__('Creating base folder and file structure...') . PHP_EOL;
 
         $folders = array(
-            $build->project->folder,
-            $build->project->folder . '/config',
-            $build->project->folder . '/module',
-            $build->project->folder . '/module/' . $build->project->name,
-            $build->project->folder . '/module/' . $build->project->name . '/config',
-            $build->project->folder . '/module/' . $build->project->name . '/src',
-            $build->project->folder . '/module/' . $build->project->name . '/src/' . $build->project->name,
-            $build->project->folder . '/module/' . $build->project->name . '/view',
-            $build->project->docroot
+            $install->project->folder,
+            $install->project->folder . '/config',
+            $install->project->folder . '/module',
+            $install->project->folder . '/module/' . $install->project->name,
+            $install->project->folder . '/module/' . $install->project->name . '/config',
+            $install->project->folder . '/module/' . $install->project->name . '/src',
+            $install->project->folder . '/module/' . $install->project->name . '/src/' . $install->project->name,
+            $install->project->folder . '/module/' . $install->project->name . '/view',
+            $install->project->docroot
         );
 
         foreach ($folders as $folder) {
@@ -316,15 +310,15 @@ class Project
             }
         }
 
-        $projectCfg = new File($build->project->folder . '/config/project.config.php');
+        $projectCfg = new File($install->project->folder . '/config/project.config.php');
         $projectCfg->write('<?php' . PHP_EOL . PHP_EOL)
                    ->write('return new Pop\Config(array(' . PHP_EOL, true)
-                   ->write("    'folder'    => '" . realpath($build->project->folder) . "'," . PHP_EOL, true)
-                   ->write("    'docroot'   => '" . realpath($build->project->docroot) . "'", true);
-        if (isset($build->databases)) {
+                   ->write("    'folder'    => '" . realpath($install->project->folder) . "'," . PHP_EOL, true)
+                   ->write("    'docroot'   => '" . realpath($install->project->docroot) . "'", true);
+        if (isset($install->databases)) {
             $projectCfg->write("," . PHP_EOL, true)
                        ->write("    'databases' => array(" . PHP_EOL, true);
-            $databases = $build->databases->getConfigAsArray();
+            $databases = $install->databases->getConfigAsArray();
             $i = 0;
             foreach ($databases as $dbname => $db) {
                 $projectCfg->write("        '" . $dbname . "' => Pop\\Db\\Db::factory('" . $db['type'] . "', array (" . PHP_EOL, true);
@@ -349,11 +343,11 @@ class Project
         $projectCfg->save();
 
         // Create the module config file
-        $moduleCfg = new File($build->project->folder . '/module/' . $build->project->name . '/config/module.config.php');
+        $moduleCfg = new File($install->project->folder . '/module/' . $install->project->name . '/config/module.config.php');
         $moduleCfg->write('<?php' . PHP_EOL . PHP_EOL)
                   ->write('return new Pop\Config(array(' . PHP_EOL, true)
-                  ->write("    'name' => '{$build->project->name}'," . PHP_EOL, true)
-                  ->write("    'src'  => '" . realpath($build->project->folder . '/module/' . $build->project->name . '/src') . "'" . PHP_EOL, true)
+                  ->write("    'name' => '{$install->project->name}'," . PHP_EOL, true)
+                  ->write("    'src'  => '" . realpath($install->project->folder . '/module/' . $install->project->name . '/src') . "'" . PHP_EOL, true)
                   ->write("));" . PHP_EOL, true)
                   ->save();
     }
@@ -361,15 +355,15 @@ class Project
     /**
      * Create the table class files
      *
-     * @param Pop\Config $build
+     * @param Pop\Config $install
      * @param array  $dbTables
      * @return void
      */
-    protected static function _createTables($build, $dbTables)
+    protected static function _createTables($install, $dbTables)
     {
         echo Locale::factory()->__('Creating database table class files...') . PHP_EOL;
 
-        $tableDir = $build->project->folder . '/module/' . $build->project->name . '/src/' . $build->project->name . '/Table';
+        $tableDir = $install->project->folder . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Table';
         if (!file_exists($tableDir)) {
             mkdir($tableDir);
         }
@@ -379,7 +373,7 @@ class Project
                 $tableName = String::factory($table['tableName'])->underscoreToCamelcase()->upperFirst();
                 $tableCls = new File($tableDir . '/' . $tableName . '.php');
                 $tableCls->write('<?php' . PHP_EOL . PHP_EOL)
-                         ->write('namespace ' . $build->project->name . '\\Table;' . PHP_EOL . PHP_EOL, true)
+                         ->write('namespace ' . $install->project->name . '\\Table;' . PHP_EOL . PHP_EOL, true)
                          ->write('use Pop\\Record\\Record;' . PHP_EOL . PHP_EOL, true);
 
                 $auto = ($table['auto']) ? 'true' : 'false';
