@@ -76,18 +76,6 @@ class Autoloader
     }
 
     /**
-     * Load a module
-     *
-     * @param  string $module
-     * @return string
-     */
-    public function loadModule($module)
-    {
-        $this->register($module, __DIR__  . '/../../../../../module/' . $module . '/src');
-        return realpath(__DIR__  . '/../../../../../module/' . $module . '/config/module.config.php');
-    }
-
-    /**
      * Load a class map file
      *
      * @param  string $classmap

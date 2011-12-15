@@ -11,7 +11,7 @@ try {
         ->where('id', '=', 1);
 
     echo $sql . PHP_EOL . PHP_EOL;
-} catch (Exception $e) {
+} catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }
 ?>

@@ -154,7 +154,7 @@ class Reader
             }
 
         // Else, throw an exception if there are any failures.
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new Exception($this->_lang->__('That feed URL cannot be read at this time. Please try again later.'));
         }
     }

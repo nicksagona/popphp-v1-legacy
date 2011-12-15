@@ -15,7 +15,7 @@
  *
  * Possible arguments
  *
- * -b --build ProjectName    Build a project based on the files in the 'config' folder
+ * -b --build buildfile      Build a project based on the build file specified
  * -c --check                Check the current configuration for required dependencies
  * -h --help                 Display this help
  * -i --instructions         Display build project instructions
@@ -144,8 +144,12 @@ if (!empty($argv[1])) {
             echo Project::cliError(4);
         // Else, run the build process
         } else {
-            echo 'Building Project \'' . $argv[2] . '\'' . PHP_EOL;
-            echo '-------------------' . str_repeat('-', strlen($argv[2])) . PHP_EOL;
+            echo 'Building Project' . PHP_EOL;
+            echo '----------------' . PHP_EOL;
+            if (!file_exists($argv[2])) {
+                echo 'The project build file \'' . $argv[2] . '\' does not exist.' . PHP_EOL . PHP_EOL;
+                exit(0);
+            }
             Project::build($argv[2]);
         }
     // Else, unknown option passed

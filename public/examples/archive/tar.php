@@ -19,7 +19,7 @@ try {
     // Display the newly compressed archive file size
     echo $archive->basename . ': compressed file size => ' . $archive->getSize() . PHP_EOL;
     echo 'Done.' . PHP_EOL . PHP_EOL;
-} catch (Exception $e) {
+} catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }
 ?>

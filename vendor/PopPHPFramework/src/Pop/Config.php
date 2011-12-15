@@ -125,6 +125,28 @@ class Config
     }
 
     /**
+     * Return the isset value of _config[$name].
+     *
+     * @param  string $name
+     * @return boolean
+     */
+    public function __isset($name)
+    {
+        return isset($this->_config[$name]);
+    }
+
+    /**
+     * Unset _config[$name].
+     *
+     * @param  string $name
+     * @return void
+     */
+    public function __unset($name)
+    {
+        unset($this->_config[$name]);
+    }
+
+    /**
      * Method to set the config values
      *
      * @param  array $config

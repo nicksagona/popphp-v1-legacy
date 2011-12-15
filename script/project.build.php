@@ -1,6 +1,11 @@
 <?php
 
-return array(
+return new Pop\Config(array(
+    'project' => array(
+        'name'    => 'HelloWorld',
+        'folder'  => __DIR__ . '/../helloworld',
+        'docroot' => __DIR__ . '/../helloworld/public'
+    ),
     'databases' => array(
         'poptest' => array(
             'type'     => 'Mysqli',
@@ -10,4 +15,4 @@ return array(
             'password' => '12pop34'
         )
     )
-);
+));

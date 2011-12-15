@@ -14,7 +14,7 @@
 #
 # Possible arguments
 #
-# -b --build ProjectName    Build a project based on the files in the 'config' folder
+# -b --build buildfile      Build a project based on the build file specified
 # -c --check                Check the current configuration for required dependencies
 # -h --help                 Display this help
 # -i --instructions         Display build project instructions

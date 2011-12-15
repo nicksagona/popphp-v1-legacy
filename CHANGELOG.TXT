@@ -235,8 +235,7 @@ You must pass at least one argument.
 Run './pop -h' for help.
 Run '.\pop -h' for help.
 Aborted.
-The project build file, 'config/project.build.php', was not found.
-This may overwrite any project files you may already have.
+Project folder exists. This may overwrite any project files you may already have under that project folder.
 Database credentials and schema detected.
 Test and install the database(s)?
 Testing the database(s)...
@@ -246,8 +245,8 @@ Database
 Installing database
 Add project to the bootstrap file?
 Project build complete.
-This process will build a lightweight framework for your project under the 'module/ProjectName' folder. Minimally, you should have the 'config/project.build.php' file present, which should return an array containing your project build settings, such as your database information and credentials. Besides creating the folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can do this by having the SQL files in the 'config/dbname' folder. The following folder structure is required for the database installation to work properly:
-Build a project based on the files in the 'config' folder
+This process will build a lightweight framework for your project under the folder specified in the build file. Minimally, the build file should return a Pop\Config object containing your project build settings, such as project name, folders and any database credentials. Besides creating the folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can enable this by having the SQL files in the same folder as your build file under a folder named after the database, i.e. './dbname'. The following folder structure is required for the database installation to work properly:
+Build a project based on the build file specified
 Check the current configuration for required dependencies
 Display this help
 Display build project instructions

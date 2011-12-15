@@ -67,17 +67,18 @@ class Db
     /**
      * Install the database
      *
-     * @param array $db
+     * @param array  $db
+     * @param string $dir
      * @return array
      */
-    public static function install($db)
+    public static function install($db, $dir)
     {
         $popdb = PopDb::factory($db['type'], $db);
         $tables = array();
 
-        $dbDir = __DIR__ . '/../../../../../config/' . $db['database'];
-        $createDir = __DIR__ . '/../../../../../config/' . $db['database'] . '/create';
-        $insertDir = __DIR__ . '/../../../../../config/' . $db['database'] . '/insert';
+        $dbDir = $dir . '/' . $db['database'];
+        $createDir = $dir . '/' . $db['database'] . '/create';
+        $insertDir = $dir . '/' . $db['database'] . '/insert';
 
         // Create tables
         if (file_exists($createDir)) {
