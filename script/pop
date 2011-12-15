@@ -30,7 +30,7 @@ TEST_DIR=
 if [ "$1" == "-t" ] || [ "$1" == "--test" ]; then
     if [ "$2" != "" ]; then
         if [ ! -d "$2" ]; then
-            echo -e "The folder '$2' does not exists.\n"
+            echo -e "The folder '$2' does not exist.\n"
             exit 1
         else
             TEST_DIR="$2"

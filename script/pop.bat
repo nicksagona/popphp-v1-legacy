@@ -25,4 +25,28 @@ REM -v --version              Display version of Pop PHP Framework
 REM
 
 SET SCRIPT_DIR=%~dp0
+SET TEST_DIR=
+
+if "%1" == "-t" (goto :test)
+if "%1" == "--test" (goto :test) else (goto :cli)
+
+:test
+if "%2"=="" (
+    SET TEST_DIR=%SCRIPT_DIR%..\vendor\PopPHPFramework\tests\Pop
+) else (
+    SET TEST_DIR=%2
+)
+if not exist %TEST_DIR% (
+    goto :nodir
+) else (
+    phpunit %TEST_DIR%
+)
+goto:eof
+
+:cli
 php %SCRIPT_DIR%pop.php %1 %2 %3
+goto:eof
+
+:nodir
+echo The folder '%TEST_DIR%' does not exists.
+goto:eof
