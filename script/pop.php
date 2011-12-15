@@ -37,7 +37,6 @@ use Pop\File\File,
     Pop\Loader\Classmap,
     Pop\Locale\Locale,
     Pop\Project\Project,
-    Pop\Test,
     Pop\Version;
 
 // Write header
