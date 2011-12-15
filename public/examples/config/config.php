@@ -6,10 +6,10 @@ use Pop\Config;
 
 try {
     $cfg = array(
-    	'db' => array(
-    		'name' => 'testdb',
-    		'host' => 'localhost',
-    		'user' => array(
+        'db' => array(
+            'name' => 'testdb',
+            'host' => 'localhost',
+            'user' => array(
                 'username' => 'testuser',
                 'password' => '12test34',
                 'role'     => 'editor'
