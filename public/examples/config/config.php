@@ -18,7 +18,7 @@ try {
         'module' => 'TestModule'
     );
 
-    $config = new Pop\Config($cfg);
+    $config = new Config($cfg);
 
     echo 'DB Name: ' . $config->db->name . PHP_EOL;
     echo 'User: ' . $config->db->user->username . ' has the role: ' . $config->db->user->role. PHP_EOL;
