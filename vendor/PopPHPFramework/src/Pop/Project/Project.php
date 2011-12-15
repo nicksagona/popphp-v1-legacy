@@ -50,7 +50,9 @@ class Project
                                            3 => 'The output file passed must be a PHP file.',
                                            4 => 'You must pass a name for the project.',
                                            5 => 'Unknown option: ',
-                                           6 => 'You must pass at least one argument.'
+                                           6 => 'You must pass at least one argument.',
+                                           7 => 'That folder does not exist.',
+                                           8 => 'The folder argument is not a folder.'
                                        );
 
     /**
@@ -188,6 +190,7 @@ class Project
         echo ' -i --instructions         ' . Locale::factory()->__('Display build project instructions') . PHP_EOL;
         echo ' -l --lang fr              ' . Locale::factory()->__('Set the default language for the project') . PHP_EOL;
         echo ' -m --map folder file.php  ' . Locale::factory()->__('Create a class map file from the source folder and save to the output file') . PHP_EOL;
+        echo ' -t --test folder          ' . Locale::factory()->__('Run the unit tests from a folder') . PHP_EOL;
         echo ' -v --version              ' . Locale::factory()->__('Display version of Pop PHP Framework and latest available') . PHP_EOL . PHP_EOL;
     }
 

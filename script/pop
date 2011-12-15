@@ -20,8 +20,26 @@
 # -i --instructions         Display build project instructions
 # -l --lang fr              Set the default language for the project
 # -m --map folder file.php  Create a class map file from the source folder and save to the output file
+# -t --test folder          Run the unit tests from a folder
 # -v --version              Display version of Pop PHP Framework
 #
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-"$SCRIPT_DIR"/pop.php "$1" "$2" "$3"
+TEST_DIR=
+
+if [ "$1" == "-t" ] || [ "$1" == "--test" ]; then
+    if [ "$2" != "" ]; then
+        if [ ! -d "$2" ]; then
+            echo -e "The folder '$2' does not exists.\n"
+            exit 1
+        else
+            TEST_DIR="$2"
+        fi
+    else
+        TEST_DIR="$SCRIPT_DIR/../vendor/PopPHPFramework/tests/Pop"
+    fi
+    echo -e "Testing folder '$TEST_DIR'...\n"
+    phpunit "$TEST_DIR"
+else
+    "$SCRIPT_DIR"/pop.php "$1" "$2" "$3"
+fi

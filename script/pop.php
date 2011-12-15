@@ -21,6 +21,7 @@
  * -i --instructions         Display build project instructions
  * -l --lang fr              Set the default language for the project.
  * -m --map folder file.php  Create a class map file from the source folder and save to the output file
+ * -t --test folder          Run the unit tests from a folder
  * -v --version              Display version of Pop PHP Framework
  *
  * IMPORTANT!
@@ -36,6 +37,7 @@ use Pop\File\File,
     Pop\Loader\Classmap,
     Pop\Locale\Locale,
     Pop\Project\Project,
+    Pop\Test,
     Pop\Version;
 
 // Write header

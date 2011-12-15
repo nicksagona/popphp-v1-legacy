@@ -1,6 +1,6 @@
 <?php
 /**
- * Pop PHP Framework
+ * Pop PHP Framework Unit Tests
  *
  * LICENSE
  *
@@ -12,32 +12,27 @@
  * obtain it through the world-wide-web, please send an email
  * to info@popphp.org so we can send you a copy immediately.
  *
- * @category   Pop
- * @package    Pop_Autoloader
- * @author     Nick Sagona, III <nick@popphp.org>
- * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
- * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  */
 
-// Require the library's autoloader.
-require_once __DIR__ . '/../../library/Pop/Autoloader.php';
+namespace Pop;
 
-// Set the include path of the application.
-set_include_path(__DIR__ . '/../../application/' . PATH_SEPARATOR . get_include_path());
+use Pop\Loader\Autoloader,
+    Pop\Filter\String;
+
+// Require the library's autoloader.
+require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
 
 // Call the autoloader's bootstrap function.
-Pop_Autoloader::bootstrap();
+Autoloader::factory()->splAutoloadRegister();
 
-class Pop_AutoloaderTest extends PHPUnit_Framework_TestCase
+class AutoloaderTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testAutoloaderLibrary()
+    public function testAutoloader()
     {
-
-        $s = new Pop_String('string');
-        $class = 'Pop_String';
+        $s = new String('string');
+        $class = 'Pop\\Filter\\String';
         $this->assertTrue($s instanceof $class);
-
     }
 
 }

@@ -261,3 +261,6 @@ Creating base folder and file structure...
 Creating database table class files...
 Enter the two-letter code for the default language: 
 Real-time configuration changes are not allowed.
+Run the unit tests from a folder
+That folder does not exist.
+The folder argument is not a folder.
