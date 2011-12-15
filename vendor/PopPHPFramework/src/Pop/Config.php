@@ -38,7 +38,6 @@ class Config
 {
     /**
      * Flag for whether or not changes are allowed after object instantiation
-     *
      * @var boolean
      */
     protected $_allowChanges = false;
