@@ -58,7 +58,7 @@ class Install
     /**
      * Install the project based on the available config files
      *
-     * @param string $bldFile
+     * @param string $installFile
      * @return void
      */
     public static function install($installFile)
