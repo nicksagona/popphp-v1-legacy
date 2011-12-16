@@ -146,9 +146,9 @@ class Install
 
             // Create 'bootstrap.php' file
             $autoload = realpath(__DIR__ . '/../Loader/Autoloader.php');
-            $projectCfg = realpath($install->project->folder . '/config/project.config.php');
-            $moduleCfg = realpath($install->project->folder . '/module/' . $install->project->name . '/config/module.config.php');
-            $moduleSrc = realpath($install->project->folder . '/module/' . $install->project->name . '/src');
+            $projectCfg = addslashes(realpath($install->project->folder . '/config/project.config.php'));
+            $moduleCfg = addslashes(realpath($install->project->folder . '/module/' . $install->project->name . '/config/module.config.php'));
+            $moduleSrc = addslashes(realpath($install->project->folder . '/module/' . $install->project->name . '/src'));
 
             $bootstrap = new File($install->project->docroot . '/bootstrap.php');
 
