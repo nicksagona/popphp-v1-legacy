@@ -78,7 +78,7 @@ class Controller
      * @param string            $viewPath
      * @return void
      */
-    public function __construct(Pop\Http\Request $request = null, Pop\Http\Response $response = null, $viewPath = null)
+    public function __construct(Request $request = null, Response $response = null, $viewPath = null)
     {
         $this->_request = (null !== $request) ? $request : new Request();
         $this->_response = (null !== $response) ? $response : new Response(200, array('Content-Type' => 'text/html'));
@@ -94,7 +94,7 @@ class Controller
      * @param  Pop\Http\Request
      * @return Pop\Mvc\Controller
      */
-    public function setRequest(Pop\Http\Request $request)
+    public function setRequest(Request $request)
     {
         $this->_request = $request;
         return $this;
@@ -106,7 +106,7 @@ class Controller
      * @param  Pop\Http\Response
      * @return Pop\Mvc\Controller
      */
-    public function setResponse(Pop\Http\Response $response)
+    public function setResponse(Response $response)
     {
         $this->_response = $response;
         return $this;

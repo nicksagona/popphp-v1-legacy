@@ -77,13 +77,12 @@ Pop PHP Framework 0.9 (Forked from Moc10 PHP Library 1.9.7)
 ------------------------------------------------
 
  2nd Round:
-         > Add Code Generator
+         > Add Project Install & Code Generator
            - Data mapping classes to database tables
            - Generate code for classes and create database from template
+           - Forms
            - Project class object?
-           - Project Install
-                - Forms
-                - Test with Pgsql and Sqlite
+           - Test with Pgsql and Sqlite
          > Major Refactor/Restructure
            - Compression
            - Filter
@@ -267,3 +266,4 @@ Real-time configuration changes are not allowed.
 Run the unit tests from a folder
 That folder does not exist.
 The folder argument is not a folder.
+The module name must be set in the module config.

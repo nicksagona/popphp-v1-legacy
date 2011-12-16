@@ -76,7 +76,7 @@ class View
      * @param Pop\Mvc\Model $model
      * @return void
      */
-    public function __construct($template = null, Pop\Mvc\Model $model = null)
+    public function __construct($template = null, Model $model = null)
     {
         $this->_lang = new Locale();
 
@@ -98,11 +98,11 @@ class View
     /**
      * Create a Pop\Mvc\View object
      *
-     * @param string        $template
-     * @param Pop\Mvc\Model $model
+     * @param  string        $template
+     * @param  Pop\Mvc\Model $model
      * @return Pop\Mvc\View
      */
-    public static function factory($template = null, Pop\Mvc\Model $model = null)
+    public static function factory($template = null, Model $model = null)
     {
         return new self($template, $model);
     }
@@ -181,7 +181,7 @@ class View
      * @param  Pop\Mvc\Model $model
      * @return Pop\Mvc\View
      */
-    public function setModel(Pop\Mvc\Model $model)
+    public function setModel(Model $model)
     {
         $this->_model = $model;
         return $this;

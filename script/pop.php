@@ -36,7 +36,7 @@ require_once __DIR__ . '/../public/bootstrap.php';
 use Pop\File\File,
     Pop\Loader\Classmap,
     Pop\Locale\Locale,
-    Pop\Project\Project,
+    Pop\Project\Install,
     Pop\Version;
 
 // Write header
@@ -60,12 +60,12 @@ if (!empty($argv[1])) {
     } else if (($argv[1] == '-h') || ($argv[1] == '--help')) {
         echo 'Help' . PHP_EOL;
         echo '----' . PHP_EOL;
-        Project::cliHelp();
+        Install::cliHelp();
     // Else, display help
     } else if (($argv[1] == '-s') || ($argv[1] == '--show')) {
         echo 'Project Install Instructions' . PHP_EOL;
         echo '----------------------------' . PHP_EOL;
-        Project::instructions();
+        Install::instructions();
     // Else, set default project language
     } else if (($argv[1] == '-l') || ($argv[1] == '--lang')) {
         echo 'Set Default Project Language' . PHP_EOL;
@@ -78,18 +78,18 @@ if (!empty($argv[1])) {
         if (isset($argv[2])) {
             if (!array_key_exists($argv[2], $langs)) {
                 echo $langsList;
-                $lang = Project::getLanguage($langs);
+                $lang = Install::getLanguage($langs);
             } else {
                 $lang = $argv[2];
             }
         } else {
             echo $langsList;
-            $lang = Project::getLanguage($langs);
+            $lang = Install::getLanguage($langs);
         }
         echo 'You selected [' . $lang .'] : ' . $langs[$lang] . PHP_EOL . PHP_EOL;
 
         // Get the bootstrap file
-        $location = Project::getBootstrap();
+        $location = Install::getBootstrap();
         $bootstrap = new File($location . '/bootstrap.php');
         $bootstrapCode = $bootstrap->read();
 
@@ -115,22 +115,22 @@ if (!empty($argv[1])) {
         echo '-----------------------' . PHP_EOL;
         // Check if the source folder and output file arguments were passed
         if (empty($argv[2]) || empty($argv[3])) {
-            echo Project::cliError(1);
+            echo Install::cliError(1);
         // Else, check if the source folder exists
         } else if (!file_exists($argv[2])) {
-            echo Project::cliError(2);
+            echo Install::cliError(2);
         // Else, check if the output file ends in '.php'
         } else if (strtolower(substr($argv[3], -4)) != '.php') {
-            echo Project::cliError(3);
+            echo Install::cliError(3);
         // Else, generate the class map file
         } else {
             echo 'Generating class map file \'' . $argv[3] . '\' from source folder \'' . $argv[2] . '\'' . PHP_EOL;
             Classmap::generate($argv[2], $argv[3]);
 
             // Add project to the bootstrap file
-            $input = Project::cliInput('Add classmap to the bootstrap file? (Y/N) ');
+            $input = Install::cliInput('Add classmap to the bootstrap file? (Y/N) ');
             if ($input == 'y') {
-                $location = Project::getBootstrap();
+                $location = Install::getBootstrap();
                 $bootstrap = new File($location . '/bootstrap.php');
                 $bootstrap->write("\$autoloader->loadClassMap('" . addslashes(realpath($argv[3])) . "');" . PHP_EOL . PHP_EOL, true)
                           ->save();
@@ -141,7 +141,7 @@ if (!empty($argv[1])) {
     } else if (($argv[1] == '-i') || ($argv[1] == '--install')) {
         // Check if the $name argument was passed
         if (empty($argv[2])) {
-            echo Project::cliError(4);
+            echo Install::cliError(4);
         // Else, run the install process
         } else {
             echo 'Installing Project' . PHP_EOL;
@@ -150,13 +150,13 @@ if (!empty($argv[1])) {
                 echo 'The project install file \'' . $argv[2] . '\' does not exist.' . PHP_EOL . PHP_EOL;
                 exit(0);
             }
-            Project::install($argv[2]);
+            Install::install($argv[2]);
         }
     // Else, unknown option passed
     } else {
-        echo Project::cliError(5, $argv[1]);
+        echo Install::cliError(5, $argv[1]);
     }
 // Else, no option passed
 } else {
-    echo Project::cliError(6);
+    echo Install::cliError(6);
 }
