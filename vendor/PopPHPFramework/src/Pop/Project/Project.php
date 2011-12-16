@@ -150,7 +150,7 @@ class Project
     {
         if (null !== $this->controller()) {
             $this->_controller = new $this->_config->controller();
-            $this->dispatch();
+            $this->_controller->dispatch();
         }
     }
 

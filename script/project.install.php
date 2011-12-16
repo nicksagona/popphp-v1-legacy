@@ -16,7 +16,7 @@ return new Pop\Config(array(
         )
     ),
     'controller' => array(
-        'index' => 'home.phtml',
+        'index' => 'index.phtml',
         'about' => 'about.phtml',
         'error' => 'error.phtml'
     )

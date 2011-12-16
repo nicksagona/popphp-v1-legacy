@@ -144,6 +144,11 @@ class Install
                 self::_createTables($install, $dbTables);
             }
 
+            // Create controller
+            if (isset($install->controller)) {
+                self::_createController($install);
+            }
+
             // Create 'bootstrap.php' file
             $autoload = realpath(__DIR__ . '/../Loader/Autoloader.php');
             $projectCfg = addslashes(realpath($install->project->base . '/config/project.config.php'));
@@ -401,6 +406,17 @@ class Install
                          ->save();
             }
         }
+    }
+
+    /**
+     * Create the controller class file
+     *
+     * @param Pop\Config $install
+     * @return void
+     */
+    protected static function _createController($install)
+    {
+
     }
 
 }
