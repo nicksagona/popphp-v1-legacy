@@ -51,6 +51,12 @@ class Project
     protected $_modules = array();
 
     /**
+     * Project controller
+     * @var Pop\Mvc\Controller
+     */
+    protected $_controller = null;
+
+    /**
      * Constructor
      *
      * Instantiate a project object
@@ -105,7 +111,20 @@ class Project
     }
 
     /**
-     * Access a project module config
+     * Access the project controller
+     *
+     * @return Pop\Mvc\Controller
+     */
+    public function controller()
+    {
+        if ((null === $this->_controller) && (null !== $this->_config->controller)) {
+            $this->_controller = new $this->_config->controller();
+        }
+        return $this->_controller;
+    }
+
+    /**
+     * Load a module config
      *
      * @param  Pop\Config $module
      * @throws Exception
@@ -118,6 +137,21 @@ class Project
         }
         $this->_modules[$module->name] = $module;
         return $this;
+    }
+
+    /**
+     * Run the project
+     *
+     * @param  Pop\Config $module
+     * @throws Exception
+     * @return Pop\Project\Project
+     */
+    public function run()
+    {
+        if (null !== $this->controller()) {
+            $this->_controller = new $this->_config->controller();
+            $this->dispatch();
+        }
     }
 
 }

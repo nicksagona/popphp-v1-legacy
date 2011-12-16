@@ -14,5 +14,10 @@ return new Pop\Config(array(
             'username' => 'popuser',
             'password' => '12pop34'
         )
+    ),
+    'controller' => array(
+        'index' => 'home.phtml',
+        'about' => 'about.phtml',
+        'error' => 'error.phtml'
     )
 ));
