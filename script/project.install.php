@@ -3,7 +3,7 @@
 return new Pop\Config(array(
     'project' => array(
         'name'    => 'HelloWorld',
-        'folder'  => __DIR__ . '/../helloworld',
+        'base'    => __DIR__ . '/../helloworld',
         'docroot' => __DIR__ . '/../helloworld/public'
     ),
     'databases' => array(

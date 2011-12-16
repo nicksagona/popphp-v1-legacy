@@ -146,9 +146,9 @@ class Install
 
             // Create 'bootstrap.php' file
             $autoload = realpath(__DIR__ . '/../Loader/Autoloader.php');
-            $projectCfg = addslashes(realpath($install->project->folder . '/config/project.config.php'));
-            $moduleCfg = addslashes(realpath($install->project->folder . '/module/' . $install->project->name . '/config/module.config.php'));
-            $moduleSrc = addslashes(realpath($install->project->folder . '/module/' . $install->project->name . '/src'));
+            $projectCfg = addslashes(realpath($install->project->base . '/config/project.config.php'));
+            $moduleCfg = addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/config/module.config.php'));
+            $moduleSrc = addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/src'));
 
             $bootstrap = new File($install->project->docroot . '/bootstrap.php');
 
@@ -305,14 +305,14 @@ class Install
         echo Locale::factory()->__('Creating base folder and file structure...') . PHP_EOL;
 
         $folders = array(
-            $install->project->folder,
-            $install->project->folder . '/config',
-            $install->project->folder . '/module',
-            $install->project->folder . '/module/' . $install->project->name,
-            $install->project->folder . '/module/' . $install->project->name . '/config',
-            $install->project->folder . '/module/' . $install->project->name . '/src',
-            $install->project->folder . '/module/' . $install->project->name . '/src/' . $install->project->name,
-            $install->project->folder . '/module/' . $install->project->name . '/view',
+            $install->project->base,
+            $install->project->base . '/config',
+            $install->project->base . '/module',
+            $install->project->base . '/module/' . $install->project->name,
+            $install->project->base . '/module/' . $install->project->name . '/config',
+            $install->project->base . '/module/' . $install->project->name . '/src',
+            $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name,
+            $install->project->base . '/module/' . $install->project->name . '/view',
             $install->project->docroot
         );
 
@@ -322,11 +322,11 @@ class Install
             }
         }
 
-        $projectCfg = new File($install->project->folder . '/config/project.config.php');
+        $projectCfg = new File($install->project->base . '/config/project.config.php');
         $projectCfg->write('<?php' . PHP_EOL . PHP_EOL)
                    ->write('return new Pop\Config(array(' . PHP_EOL, true)
-                   ->write("    'folder'    => '" . realpath($install->project->folder) . "'," . PHP_EOL, true)
-                   ->write("    'docroot'   => '" . realpath($install->project->docroot) . "'", true);
+                   ->write("    'base'      => '" . addslashes(realpath($install->project->base)) . "'," . PHP_EOL, true)
+                   ->write("    'docroot'   => '" . addslashes(realpath($install->project->docroot)) . "'", true);
         if (isset($install->databases)) {
             $projectCfg->write("," . PHP_EOL, true)
                        ->write("    'databases' => array(" . PHP_EOL, true);
@@ -355,13 +355,13 @@ class Install
         $projectCfg->save();
 
         // Create the module config file
-        $moduleCfg = new File($install->project->folder . '/module/' . $install->project->name . '/config/module.config.php');
+        $moduleCfg = new File($install->project->base . '/module/' . $install->project->name . '/config/module.config.php');
         $moduleCfg->write('<?php' . PHP_EOL . PHP_EOL)
                   ->write('return new Pop\Config(array(' . PHP_EOL, true)
                   ->write("    'name'   => '{$install->project->name}'," . PHP_EOL, true)
-                  ->write("    'base'   => '" . realpath($install->project->folder . '/module/' . $install->project->name) . "'," . PHP_EOL, true)
-                  ->write("    'config' => '" . realpath($install->project->folder . '/module/' . $install->project->name . '/config') . "'," . PHP_EOL, true)
-                  ->write("    'src'    => '" . realpath($install->project->folder . '/module/' . $install->project->name . '/src') . "'" . PHP_EOL, true)
+                  ->write("    'base'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name)) . "'," . PHP_EOL, true)
+                  ->write("    'config' => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/config')) . "'," . PHP_EOL, true)
+                  ->write("    'src'    => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/src')) . "'" . PHP_EOL, true)
                   ->write("));" . PHP_EOL, true)
                   ->save();
     }
@@ -377,7 +377,7 @@ class Install
     {
         echo Locale::factory()->__('Creating database table class files...') . PHP_EOL;
 
-        $tableDir = $install->project->folder . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Table';
+        $tableDir = $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Table';
         if (!file_exists($tableDir)) {
             mkdir($tableDir);
         }
