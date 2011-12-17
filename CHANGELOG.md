@@ -124,7 +124,7 @@ The archive file is compressed. It must only be either a TAR or ZIP archive file
 The archive file must be either a TAR or ZIP archive file.  
 Error: The compression type must either be Flate or LZW.  
 Error: The font file does not seem to have all of the correct data to parse.  
-Error: The GD library extension must be installed to use the Image\Gd component.  
+Error: The GD library extension must be installed to use the Gd adapter.  
 No source file or database table was passed.  
 The options parameter must be an array.  
 The options parameter must be an array that contains either a 'table' or 'file' key.  
@@ -140,7 +140,7 @@ Error: The database statement resource is not currently set.
 (Change) The column '%1' does not exist.  
 (Remove) Error: Table name not set.  
 Error: That database adapter class does not exist.  
-Error: The Imagick library extension must be installed to use the Pop_Imagick component.  
+Error: The Imagick library extension must be installed to use the Imagick adapter.  
 Error: That image type is not supported.  
 Error: The cache type must be 'File', 'Sqlite' or 'Memcached'.  
 Error: You must pass either a directory or SQLite file store point.  
