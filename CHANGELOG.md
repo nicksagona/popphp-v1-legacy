@@ -117,29 +117,29 @@ METHOD/PROPERTY RENAMES:
 
 LANGUAGE ADDITIONS & REVISIONS:
 -------------------------------
-Error: The image resource has not been created. 
-Error: The image output resource has not been created. 
-The argument passed is not valid. 
-The archive file is compressed. It must only be either a TAR or ZIP archive file. 
-The archive file must be either a TAR or ZIP archive file. 
-Error: The compression type must either be Flate or LZW. 
-Error: The font file does not seem to have all of the correct data to parse. 
-Error: The GD library extension must be installed to use the Pop_Image component. 
-No source file or database table was passed. 
-The options parameter must be an array. 
-The options parameter must be an array that contains either a 'table' or 'file' key. 
-Error: Could not connect to database. %1 
-Error: The database interface object has not been instaniated. 
-Error: That method does not exist within the database interface object. 
-Error: The columns parameter must be an array. 
-Error: The columns parameter must be an array that contains at least one key/value pair. 
-Error: The table must be set. 
-Error: A SQL type must be set. 
-Error: The database statement resource is not currently set. 
-(Change) The column and value parameters were not defined to describe the row(s) to delete. 
-(Change) The column '%1' does not exist. 
-(Remove) Error: Table name not set. 
-Error: That database adapter class does not exist. 
+Error: The image resource has not been created.  
+Error: The image output resource has not been created.  
+The argument passed is not valid.  
+The archive file is compressed. It must only be either a TAR or ZIP archive file.  
+The archive file must be either a TAR or ZIP archive file.  
+Error: The compression type must either be Flate or LZW.  
+Error: The font file does not seem to have all of the correct data to parse.  
+Error: The GD library extension must be installed to use the Pop_Image component.  
+No source file or database table was passed.  
+The options parameter must be an array.  
+The options parameter must be an array that contains either a 'table' or 'file' key.  
+Error: Could not connect to database. %1  
+Error: The database interface object has not been instaniated.  
+Error: That method does not exist within the database interface object.  
+Error: The columns parameter must be an array.  
+Error: The columns parameter must be an array that contains at least one key/value pair.  
+Error: The table must be set.  
+Error: A SQL type must be set.  
+Error: The database statement resource is not currently set.  
+(Change) The column and value parameters were not defined to describe the row(s) to delete.  
+(Change) The column '%1' does not exist.  
+(Remove) Error: Table name not set.  
+Error: That database adapter class does not exist.  
 Error: The Imagick library extension must be installed to use the Pop_Imagick component.
 Error: That image type is not supported.
 Error: The cache type must be 'File', 'Sqlite' or 'Memcached'.
