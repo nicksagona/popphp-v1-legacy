@@ -82,7 +82,7 @@ class Gd extends AbstractImage
 
         // Check to see if GD is installed.
         if (!self::isGdInstalled()) {
-            throw new Exception($this->_lang->__('Error: The GD library extension must be installed to use the Pop_Image_Gd component.'));
+            throw new Exception($this->_lang->__('Error: The GD library extension must be installed to use the Gd adapter'));
         } else {
             $this->_getGdInfo();
 

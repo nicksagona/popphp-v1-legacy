@@ -8,21 +8,21 @@ Completed:
 * Add dynamic element generator methods to Dom
 * Form field/value access
 * Improve dynamic field element generation
-* Add text clean up to Pop_String (MS ASCII issues, convert EOL chars DOS => Unix => DOS, etc.)
-* Improve Pop_File API
-* Improve Pop_Image API overall, 'save'/'saveAs'/'output' methods, better chaining, etc.
-* Add 'rotate' method to Pop_Image
-* Add 'add rectangle' method to Pop_Image
-* Add 'add ellipse' method to Pop_Image
-* Add 'add line' method to Pop_Image
-* Add alpha control and compositing to Pop_Image
-* Add color control to Pop_Image
-* Add 'destroy' method to Pop_Image
-* Add advanced image filter methods to Pop_Image
+* Add text clean up to String (MS ASCII issues, convert EOL chars DOS => Unix => DOS, etc.)
+* Improve File API
+* Improve Image API overall, 'save'/'saveAs'/'output' methods, better chaining, etc.
+* Add 'rotate' method to Image
+* Add 'add rectangle' method to Image
+* Add 'add ellipse' method to Image
+* Add 'add line' method to Image
+* Add alpha control and compositing to Image
+* Add color control to Image
+* Add 'destroy' method to Image
+* Add advanced image filter methods to Image
 * Add Imagick Component
-* Address the 'touch' file creation issue in Pop_File and all child classes
+* Address the 'touch' file creation issue in File and all child classes
 * Add count() method to Record
-* Add methods to get system and upload temp directories in the Pop_File_Dir class
+* Add methods to get system and upload temp directories in the Dir class
 * Change setString and setArray to factory
 * Add Auth Component
 * Add PDO support
@@ -46,7 +46,7 @@ Completed:
 * Add ability to convert sets of data between SQL, XML, CSV, YAML, JSON and PHP
 * Add SVG Component
 * Add Color Component and add it to the components that use color.
-* Add Graph component, Pop_Image, Pop_Imagick, Pop_Pdf, Pop_Svg
+* Add Graph component, Image, Imagick, Pdf, Svg
   - Background color/images
 * Add Http Request/Response Component
 * Add MVC Component
@@ -61,8 +61,8 @@ Completed:
 
 ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON
 ------------------------------------------
-* Rework the integration of the new/improved image components into Pop_Pdf
-* Improve Pop_Pdf API
+* Rework the integration of the new/improved image components into Pdf
+* Improve Pdf API
 * Fix PDF import bug
 * Address page ordering issue for PDF import
 * Fix addFont bug
@@ -124,7 +124,7 @@ The archive file is compressed. It must only be either a TAR or ZIP archive file
 The archive file must be either a TAR or ZIP archive file.  
 Error: The compression type must either be Flate or LZW.  
 Error: The font file does not seem to have all of the correct data to parse.  
-Error: The GD library extension must be installed to use the Pop_Image component.  
+Error: The GD library extension must be installed to use the Image\Gd component.  
 No source file or database table was passed.  
 The options parameter must be an array.  
 The options parameter must be an array that contains either a 'table' or 'file' key.  

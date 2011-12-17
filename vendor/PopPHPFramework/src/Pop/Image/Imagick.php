@@ -178,7 +178,7 @@ class Imagick extends AbstractImage
 
         // Check to see if Imagick is installed.
         if (!self::isImagickInstalled()) {
-            throw new Exception($this->_lang->__('Error: The Imagick library extension must be installed to use the Pop_Imagick component.'));
+            throw new Exception($this->_lang->__('Error: The Imagick library extension must be installed to use the Imagick adapter.'));
         } else {
             // If image exists, get image info and store in an array.
             if (file_exists($this->fullpath) && ($this->_size > 0)) {
