@@ -1,5 +1,5 @@
 INSTALLATION
-------------
+============
 
 The Pop PHP Framework requires no special installation steps. Simply download the
 framework and extract it next to or inside of your document root. If you change

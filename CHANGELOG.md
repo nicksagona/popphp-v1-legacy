@@ -1,123 +1,123 @@
-Pop PHP Framework 0.9 (Forked from Moc10 PHP Library 1.9.7)
+Pop PHP Framework 0.9
+(Forked from Moc10 PHP Library 1.9.7)
+=====================================
 
-  1st Round:
-  [DONE] > Add Archive component
-  [DONE] > Add Array component and wrap common features into in (sort, key exists, etc)
-  [DONE] > Add dynamic element generator methods to Dom
-  [DONE] > Form field/value access
-  [DONE] > Improve dynamic field element generation
-  [DONE] > Add text clean up to Pop_String (MS ASCII issues, convert EOL chars DOS => Unix => DOS, etc.)
-  [DONE] > Improve Pop_File API
-  [DONE] > Improve Pop_Image API overall, 'save'/'saveAs'/'output' methods, better chaining, etc.
-  [DONE] > Add 'rotate' method to Pop_Image
-  [DONE] > Add 'add rectangle' method to Pop_Image
-  [DONE] > Add 'add ellipse' method to Pop_Image
-  [DONE] > Add 'add line' method to Pop_Image
-  [DONE] > Add alpha control and compositing to Pop_Image
-  [DONE] > Add color control to Pop_Image
-  [DONE] > Add 'destroy' method to Pop_Image
-  [DONE] > Add advanced image filter methods to Pop_Image
-  [DONE] > Add Imagick Component
-  [DONE] > Address the 'touch' file creation issue in Pop_File and all child classes
-  [DONE] > Add count() method to Record
-  [DONE] > Add methods to get system and upload temp directories in the Pop_File_Dir class
-  [DONE] > Change setString and setArray to factory
-  [DONE] > Add Auth Component
-  [DONE] > Add PDO support
-  [DONE] > Modify the structure and naming convention of the Db component to fall under "Adapter"
-  [DONE] > Add SQL query builder object/API to the DB component
-  [DONE] > Add prepared/binded statements to the DB/Record component
-           - MySQLi
-           - PostgreSQL
-           - SQLite
-           - PDO
-  [DONE] > Add multiple database connection support
-  [DONE] > Revisit Record component and DB integration
-           - Address save/update of row entry that's auto increment or not
-           - Record Component: Class name to get table name
-           - Record Component: Better access to create/get fields and their values
-           - Add prepared statement support to the Record class.
-           - Convert methods to static to facilitate easier API calls.
-  [DONE] > Add extended image functionality with ImageMagick
-  [DONE] > Add Cache Component
-  [DONE] > Add JSON support
-  [DONE] > Add ability to convert sets of data between SQL, XML, CSV, YAML, JSON and PHP
-  [DONE] > Add SVG Component
-  [DONE] > Add Color Component and add it to the components that use color.
-  [DONE] > Add Graph component, Pop_Image, Pop_Imagick, Pop_Pdf, Pop_Svg
-           - Background color/images
-  [DONE] > Add Http Request/Response Component
-  [DONE] > Add MVC Component
-  [DONE] > Code review/cleanup - Phase 1
-           - Overall class layout
-           - Change is_null($var) to (null === $var)
-           - Change print to echo
-  [DONE] > Refactor Autoloader Component
-           - Add classmap generator
-  [DONE] > Refactor framework with namespaces
+Completed:
+----------
+* Add Archive component
+* Add Array component and wrap common features into in (sort, key exists, etc)
+* Add dynamic element generator methods to Dom
+* Form field/value access
+* Improve dynamic field element generation
+* Add text clean up to Pop_String (MS ASCII issues, convert EOL chars DOS => Unix => DOS, etc.)
+* Improve Pop_File API
+* Improve Pop_Image API overall, 'save'/'saveAs'/'output' methods, better chaining, etc.
+* Add 'rotate' method to Pop_Image
+* Add 'add rectangle' method to Pop_Image
+* Add 'add ellipse' method to Pop_Image
+* Add 'add line' method to Pop_Image
+* Add alpha control and compositing to Pop_Image
+* Add color control to Pop_Image
+* Add 'destroy' method to Pop_Image
+* Add advanced image filter methods to Pop_Image
+* Add Imagick Component
+* Address the 'touch' file creation issue in Pop_File and all child classes
+* Add count() method to Record
+* Add methods to get system and upload temp directories in the Pop_File_Dir class
+* Change setString and setArray to factory
+* Add Auth Component
+* Add PDO support
+* Modify the structure and naming convention of the Db component to fall under "Adapter"
+* Add SQL query builder object/API to the DB component
+* Add prepared/binded statements to the DB/Record component
+  - MySQLi
+  - PostgreSQL
+  - SQLite
+  - PDO
+* Add multiple database connection support
+* Revisit Record component and DB integration
+  - Address save/update of row entry that's auto increment or not
+  - Record Component: Class name to get table name
+  - Record Component: Better access to create/get fields and their values
+  - Add prepared statement support to the Record class.
+  - Convert methods to static to facilitate easier API calls.
+* Add extended image functionality with ImageMagick
+* Add Cache Component
+* Add JSON support
+* Add ability to convert sets of data between SQL, XML, CSV, YAML, JSON and PHP
+* Add SVG Component
+* Add Color Component and add it to the components that use color.
+* Add Graph component, Pop_Image, Pop_Imagick, Pop_Pdf, Pop_Svg
+  - Background color/images
+* Add Http Request/Response Component
+* Add MVC Component
+* Code review/cleanup - Phase 1
+  - Overall class layout
+  - Change is_null($var) to (null === $var)
+  - Change print to echo
+* Refactor Autoloader Component
+  - Add classmap generator
+* Refactor framework with namespaces
 
-------------------------------------------------
--- ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON --
-------------------------------------------------
-         > Rework the integration of the new/improved image components into Pop_Pdf
-  [DONE] > Improve Pop_Pdf API
-  [DONE] > Fix PDF import bug
-  [DONE] > Address page ordering issue for PDF import
-  [DONE] > Fix addFont bug
-  [DONE] > Add compression to PDF
-         > Add a font component
-         > Add font embedding/compression to PDF
-         > Revisit PDF layer/clipping issues
-         > Revisit embedding GIFs into PDF issue
-         > Revisit pie chart text for PDF
-         > Revisit File write/buffer, etc.
 
-------------------------------------------------
---    CURRENTLY ON DECK & BEING WORKED ON     --
-------------------------------------------------
+ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON
+------------------------------------------
+* Rework the integration of the new/improved image components into Pop_Pdf
+* Improve Pop_Pdf API
+* Fix PDF import bug
+* Address page ordering issue for PDF import
+* Fix addFont bug
+* Add compression to PDF
+* Add a font component
+* Add font embedding/compression to PDF
+* Revisit PDF layer/clipping issues
+* Revisit embedding GIFs into PDF issue
+* Revisit pie chart text for PDF
+* Revisit File write/buffer, etc.
 
- 2nd Round:
-         > Add Project Install & Code Generator
-           - Data mapping classes to database tables
-           - Generate code for classes and create database from template
-           - Forms
-           - Project class object?
-           - Test with Pgsql and Sqlite
-         > Major Refactor/Restructure
-           - Compression
-           - Filter
-           - Images
-           - Evaluate possible benefits from interfaces, abstact classes, etc.
-         > Look at creating more dependency injections throughout (config/ini file?)
-         > Add Geo support via Google API (get address, city, state, long/lat, calculate distances, etc.)
-           - Integrate GeoIP?
-         > Officially integrate Ralph's USAePay and Paymentech support components, as well as create
-           support components for Authorize.net and PayPal.
 
- 3rd Round:
-         > Code review/cleanup - Phase 2
+CURRENTLY BEING WORKED ON & ON DECK
+-----------------------------------
+* Add Project Install & Code Generator
+  - Data mapping classes to database tables
+  - Generate code for classes and create database from template
+  - Forms
+  - Project class object?
+  - Test with Pgsql and Sqlite
+* Major Refactor/Restructure
+  - Compression
+  - Filter
+  - Images
+  - Evaluate possible benefits from interfaces, abstact classes, etc.
+* Look at creating more dependency injections throughout (config/ini file?)
+* Add Geo support via Google API (get address, city, state, long/lat, calculate distances, etc.)
+  - Integrate GeoIP?
+* Officially integrate Ralph's USAePay and Paymentech support components,
+  as well as create support components for Authorize.net and PayPal.
 
- 4th Round:
-         > Testing, testing & more testing
-         > Documentation
+
+NEXT UP:
+--------
+* Phase 2 of code review/cleanup
+* Testing, testing & more testing
+* Documentation
 
 
 METHOD/PROPERTY RENAMES:
+------------------------
 Form:
------
-setPostValues => setFieldValues
-processInitValues => generateFields
+* setPostValues => setFieldValues
+* processInitValues => generateFields
 
 String:
--------
-setString => factory
+* setString => factory
 
 Array:
--------
-setArray => factory
+* setArray => factory
 
 
 LANGUAGE ADDITIONS & REVISIONS:
+-------------------------------
 Error: The image resource has not been created.
 Error: The image output resource has not been created.
 The argument passed is not valid.
