@@ -27,7 +27,12 @@ namespace Pop\Project;
 use Pop\File\File,
     Pop\Filter\String,
     Pop\Locale\Locale,
-    Pop\Project\Install\Db;
+    Pop\Project\Install\Base,
+    Pop\Project\Install\Bootstrap,
+    Pop\Project\Install\Db,
+    Pop\Project\Install\Forms,
+    Pop\Project\Install\Project,
+    Pop\Project\Install\Tables;
 
 /**
  * @category   Pop
@@ -137,41 +142,24 @@ class Install
                 error_reporting($oldError);
             }
 
-            // Create base folder and file structure
-            self::_createBase($install);
+            // Install base folder and file structure
+            Base::install($install);
 
-            // Create project
-            self::_createProject($install, $installDir);
+            // Install project files
+            Project::install($install, $installDir);
 
-            // Create tables
+            // Install table class files
             if (count($dbTables) > 0) {
-                self::_createTables($install, $dbTables);
+                Tables::install($install, $dbTables);
+            }
+
+            // Install form class files
+            if (isset($install->forms)) {
+                Forms::install($install);
             }
 
             // Create 'bootstrap.php' file
-            $autoload = addslashes(realpath(__DIR__ . '/../Loader/Autoloader.php'));
-            $projectCfg = addslashes(realpath($install->project->base . '/config/project.config.php'));
-            $moduleCfg = addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/config/module.config.php'));
-            $moduleSrc = addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/src'));
-
-            $bootstrap = new File($install->project->docroot . '/bootstrap.php');
-
-            // Create new bootstrap file
-            if (!file_exists($install->project->docroot . '/bootstrap.php')) {
-                $bootstrap->write("<?php " . PHP_EOL . PHP_EOL)
-                          ->write("// Require the Autoloader class file" . PHP_EOL . "require_once '{$autoload}';" . PHP_EOL . PHP_EOL, true)
-                          ->write("// Instantiate the autoloader object" . PHP_EOL . "\$autoloader = Pop\\Loader\\Autoloader::factory();" . PHP_EOL . "\$autoloader->splAutoloadRegister();" . PHP_EOL, true);
-            }
-
-            // Else, just append to the existing bootstrap file
-            $bootstrap->write("\$autoloader->register('{$install->project->name}', '{$moduleSrc}');" . PHP_EOL . PHP_EOL, true)
-                      ->write("// Create a project config object" . PHP_EOL, true)
-                      ->write("\$project = {$install->project->name}\\Project::factory(" . PHP_EOL, true)
-                      ->write("    include '{$projectCfg}'," . PHP_EOL, true)
-                      ->write("    include '{$moduleCfg}'" . PHP_EOL, true)
-                      ->write(");" . PHP_EOL . PHP_EOL, true)
-                      ->write("\$project->run();" . PHP_EOL . PHP_EOL, true)
-                      ->save();
+            Bootstrap::install($install);
 
             echo Locale::factory()->__('Project install complete.') . PHP_EOL . PHP_EOL;
         }
@@ -298,247 +286,6 @@ class Install
         }
 
         return $lang;
-    }
-
-    /**
-     * Install index controller and web config files
-     *
-     * @return string
-     */
-    public static function installWeb()
-    {
-        $msg = Locale::factory()->__('Install index controller and web configuration files?') . ' ([A]pache/[I]IS/[N]o) ';
-        echo $msg;
-        $input = null;
-
-        while (($input != 'a') && ($input != 'i') && ($input != 'n')) {
-            if (null !== $input) {
-                echo $msg;
-            }
-            $prompt = fopen("php://stdin", "r");
-            $input = fgets($prompt, 32);
-            $input = substr(strtolower(rtrim($input)), 0, 1);
-            fclose ($prompt);
-        }
-
-        return $input;
-    }
-
-    /**
-     * Create the base folder and file structure
-     *
-     * @param Pop\Config $install
-     * @return void
-     */
-    protected static function _createBase($install)
-    {
-        echo Locale::factory()->__('Creating base folder and file structure...') . PHP_EOL;
-
-        $folders = array(
-            $install->project->base,
-            $install->project->base . '/config',
-            $install->project->base . '/module',
-            $install->project->base . '/module/' . $install->project->name,
-            $install->project->base . '/module/' . $install->project->name . '/config',
-            $install->project->base . '/module/' . $install->project->name . '/src',
-            $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name,
-            $install->project->base . '/module/' . $install->project->name . '/view',
-            $install->project->docroot
-        );
-
-        foreach ($folders as $folder) {
-            if (!file_exists($folder)) {
-                mkdir($folder);
-            }
-        }
-
-        $projectCfg = new File($install->project->base . '/config/project.config.php');
-        $projectCfg->write('<?php' . PHP_EOL . PHP_EOL)
-                   ->write('return new Pop\Config(array(' . PHP_EOL, true)
-                   ->write("    'base'      => '" . addslashes(realpath($install->project->base)) . "'," . PHP_EOL, true)
-                   ->write("    'docroot'   => '" . addslashes(realpath($install->project->docroot)) . "'", true);
-        if (isset($install->databases)) {
-            $projectCfg->write("," . PHP_EOL, true)
-                       ->write("    'databases' => array(" . PHP_EOL, true);
-            $databases = $install->databases->asArray();
-            $i = 0;
-            foreach ($databases as $dbname => $db) {
-                $projectCfg->write("        '" . $dbname . "' => Pop\\Db\\Db::factory('" . $db['type'] . "', array (" . PHP_EOL, true);
-                $j = 0;
-                foreach ($db as $key => $value) {
-                    $j++;
-                    if ($key != 'type') {
-                        $ary = "            '{$key}' => '{$value}'";
-                        if ($j < count($db)) {
-                           $ary .= ',';
-                        }
-                        $projectCfg->write($ary . PHP_EOL, true);
-                    }
-                }
-                $i++;
-                $end = ($i < count($databases)) ? '        )),' : '        ))';
-                $projectCfg->write($end . PHP_EOL, true);
-            }
-            $projectCfg->write('    )', true);
-        }
-        if (isset($install->controller)) {
-            $projectCfg->write(',' . PHP_EOL . "    'controller' => '{$install->project->name}\\\\Controller'", true);
-        }
-        $projectCfg->write(PHP_EOL . '));' . PHP_EOL, true);
-        $projectCfg->save();
-
-        // Create the module config file
-        $moduleCfg = new File($install->project->base . '/module/' . $install->project->name . '/config/module.config.php');
-        $moduleCfg->write('<?php' . PHP_EOL . PHP_EOL)
-                  ->write('return new Pop\Config(array(' . PHP_EOL, true)
-                  ->write("    'name'   => '{$install->project->name}'," . PHP_EOL, true)
-                  ->write("    'base'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name)) . "'," . PHP_EOL, true)
-                  ->write("    'config' => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/config')) . "'," . PHP_EOL, true)
-                  ->write("    'src'    => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/src')) . "'" . PHP_EOL, true)
-                  ->write("));" . PHP_EOL, true)
-                  ->save();
-    }
-
-    /**
-     * Create the project class files
-     *
-     * @param Pop\Config $install
-     * @param string     $installDir
-     * @return void
-     */
-    protected static function _createProject($install, $installDir)
-    {
-        // Create the project class file
-        $projectCls = new File($install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Project.php');
-        $projectCls->write('<?php' . PHP_EOL . PHP_EOL)
-                   ->write('namespace ' . $install->project->name . ';' . PHP_EOL . PHP_EOL, true)
-                   ->write('use Pop\\Project\\Project as P;' . PHP_EOL . PHP_EOL, true)
-                   ->write('class Project extends P' . PHP_EOL, true)
-                   ->write('{' . PHP_EOL . PHP_EOL, true)
-                   ->write('    public function run()' . PHP_EOL, true)
-                   ->write('    {' . PHP_EOL, true)
-                   ->write('        // Add any project specific code for run-time here.' . PHP_EOL, true)
-                   ->write('        parent::run();' . PHP_EOL, true)
-                   ->write('    }' . PHP_EOL . PHP_EOL, true)
-                   ->write('}' . PHP_EOL, true)
-                   ->save();
-
-        // Create the controller class file
-        if (isset($install->controller)) {
-            if (!file_exists($install->project->base . '/view')) {
-                mkdir($install->project->base . '/view');
-            }
-            $controllerCls = new File($install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Controller.php');
-            $controllerCls->write('<?php' . PHP_EOL . PHP_EOL)
-                          ->write('namespace ' . $install->project->name. ';' . PHP_EOL . PHP_EOL, true)
-                          ->write('use Pop\\Http\\Response,' . PHP_EOL, true)
-                          ->write('    Pop\\Http\\Request,' . PHP_EOL, true)
-                          ->write('    Pop\\Mvc\\Controller as C,' . PHP_EOL, true)
-                          ->write('    Pop\\Mvc\\Model,' . PHP_EOL, true)
-                          ->write('    Pop\\Mvc\\View;' . PHP_EOL . PHP_EOL, true)
-                          ->write('class Controller extends C' . PHP_EOL, true)
-                          ->write('{' . PHP_EOL . PHP_EOL, true)
-                          ->write("    public function __construct(Request \$request = null, Response \$response = null, \$viewPath = null)" . PHP_EOL, true)
-                          ->write("    {" . PHP_EOL, true)
-                          ->write("        if (null === \$viewPath) {" . PHP_EOL, true)
-                          ->write("            \$viewPath = __DIR__ . '/../../../../view';" . PHP_EOL, true)
-                          ->write("        }" . PHP_EOL . PHP_EOL, true)
-                          ->write("        parent::__construct(\$request, \$response, \$viewPath);" . PHP_EOL . PHP_EOL, true)
-                          ->write("        if (\$this->_request->getRequestUri() == '/') {" . PHP_EOL, true)
-                          ->write("            \$this->index();" . PHP_EOL, true)
-                          ->write("        } else if (!is_null(\$this->_request->getPath(0)) && method_exists(\$this, \$this->_request->getPath(0))) {" . PHP_EOL, true)
-                          ->write("            \$path = \$this->_request->getPath(0);" . PHP_EOL, true)
-                          ->write("            \$this->\$path();" . PHP_EOL, true)
-                          ->write("        } else {" . PHP_EOL, true)
-                          ->write("            \$this->_isError = true;" . PHP_EOL, true)
-                          ->write("            \$this->error();" . PHP_EOL, true)
-                          ->write("        }" . PHP_EOL, true)
-                          ->write("    }" . PHP_EOL. PHP_EOL, true);
-            $views = $install->controller->asArray();
-            foreach ($views as $key => $value) {
-                if (file_exists($installDir . '/view/' . $value)) {
-                    copy($installDir . '/view/' . $value, $install->project->base . '/view/' . $value);
-                }
-                $controllerCls->write("    public function {$key}()" . PHP_EOL, true)
-                              ->write("    {" . PHP_EOL, true)
-                              ->write("        // Add your model data here to inject into the view." . PHP_EOL, true)
-                              ->write("        \$this->_view = View::factory(\$this->_viewPath . '/{$value}');" . PHP_EOL, true)
-                              ->write("    }" . PHP_EOL . PHP_EOL, true);
-            }
-            $controllerCls->write('}' . PHP_EOL, true)
-                          ->save();
-        }
-
-        $input = self::installWeb();
-        if ($input != 'n') {
-            if (file_exists(__DIR__ . '/Config/index.php')) {
-                copy(__DIR__ . '/Config/index.php', $install->project->docroot . '/index.php');
-            }
-            if ($input == 'a') {
-                if (file_exists(__DIR__ . '/Config/ht.access')) {
-                    copy(__DIR__ . '/Config/ht.access', $install->project->docroot . '/.htaccess');
-                }
-            } else {
-                if (file_exists(__DIR__ . '/Config/web.config')) {
-                    copy(__DIR__ . '/Config/web.config', $install->project->docroot . '/web.config');
-                }
-            }
-        }
-        /*
-        // Create index controller file
-        $indexFile = new File($install->project->docroot . '/index.php');
-        $indexFile->write("<?php" . PHP_EOL . PHP_EOL, true)
-                  ->write("require_once 'bootstrap.php';" . PHP_EOL . PHP_EOL, true)
-                  ->save();
-
-        // Create .htaccess file
-        $htFile = new File($install->project->docroot . '/.htaccess', array());
-        $htFile->write("RewriteEngine On" . PHP_EOL . PHP_EOL, true)
-               ->write("RewriteCond %{REQUEST_FILENAME} -s [OR]" . PHP_EOL, true)
-               ->write("RewriteCond %{REQUEST_FILENAME} -l [OR]" . PHP_EOL, true)
-               ->write("RewriteCond %{REQUEST_FILENAME} -f [OR]" . PHP_EOL, true)
-               ->write("RewriteCond %{REQUEST_FILENAME} -d" . PHP_EOL . PHP_EOL, true)
-               ->write("RewriteRule ^.*$ - [NC,L]" . PHP_EOL, true)
-               ->write("RewriteRule ^.*$ index.php [NC,L]" . PHP_EOL . PHP_EOL, true)
-               ->save();
-         */
-    }
-
-    /**
-     * Create the table class files
-     *
-     * @param Pop\Config $install
-     * @param array  $dbTables
-     * @return void
-     */
-    protected static function _createTables($install, $dbTables)
-    {
-        echo Locale::factory()->__('Creating database table class files...') . PHP_EOL;
-
-        $tableDir = $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Table';
-        if (!file_exists($tableDir)) {
-            mkdir($tableDir);
-        }
-
-        foreach ($dbTables as $table) {
-            if (null !== $table['tableName']) {
-                $tableName = String::factory($table['tableName'])->underscoreToCamelcase()->upperFirst();
-                $tableCls = new File($tableDir . '/' . $tableName . '.php');
-                $tableCls->write('<?php' . PHP_EOL . PHP_EOL)
-                         ->write('namespace ' . $install->project->name . '\\Table;' . PHP_EOL . PHP_EOL, true)
-                         ->write('use Pop\\Record\\Record;' . PHP_EOL . PHP_EOL, true);
-
-                $auto = ($table['auto']) ? 'true' : 'false';
-                $primaryId = (null !== $table['primaryId']) ? "'" . $table['primaryId'] . "'" : 'null';
-
-                $tableCls->write('class ' . $tableName . ' extends Record' . PHP_EOL, true)
-                         ->write('{' . PHP_EOL . PHP_EOL, true)
-                         ->write('    protected $_primaryId = ' . $primaryId . ';' . PHP_EOL . PHP_EOL, true)
-                         ->write('    protected $_auto =  ' . $auto . ';' . PHP_EOL . PHP_EOL, true)
-                         ->write('}' . PHP_EOL, true)
-                         ->save();
-            }
-        }
     }
 
 }
