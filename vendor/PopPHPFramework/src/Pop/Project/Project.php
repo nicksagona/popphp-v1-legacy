@@ -117,7 +117,7 @@ class Project
      */
     public function controller()
     {
-        if ((null === $this->_controller) && (null !== $this->_config->controller)) {
+        if ((null === $this->_controller) && isset($this->_config->controller)) {
             $this->_controller = new $this->_config->controller();
         }
         return $this->_controller;

@@ -51,6 +51,12 @@ class Controller
     protected $_response = null;
 
     /**
+     * Error flag
+     * @var boolean
+     */
+    protected $_isError = false;
+
+    /**
      * Data model object
      * @var Pop\Mvc\Model
      */
@@ -163,6 +169,9 @@ class Controller
      */
     public function dispatch($code = 200, array $headers = null)
     {
+        if ($this->_isError) {
+            $code = 404;
+        }
         $this->_response->setCode($code);
 
         if (null !== $headers) {

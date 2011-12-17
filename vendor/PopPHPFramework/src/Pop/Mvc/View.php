@@ -220,10 +220,11 @@ class View
      */
     protected function _renderTemplateFile()
     {
-        $data = $this->_model->asArrayObject();
-
-        foreach ($data as $key => $value) {
-            ${$key} = $value;
+        if (null !== $this->_model) {
+            $data = $this->_model->asArrayObject();
+            foreach ($data as $key => $value) {
+                ${$key} = $value;
+            }
         }
 
         ob_start();
@@ -240,35 +241,37 @@ class View
     {
         $this->_output = $this->_templateString;
 
-        $data = $this->_model->asArrayObject();
+        if (null !== $this->_model) {
+            $data = $this->_model->asArrayObject();
 
-        foreach ($data as $key => $value) {
-            if ($value instanceof \ArrayObject) {
-                $start = '[{' . $key . '}]';
-                $end = '[{/' . $key . '}]';
+            foreach ($data as $key => $value) {
+                if ($value instanceof \ArrayObject) {
+                    $start = '[{' . $key . '}]';
+                    $end = '[{/' . $key . '}]';
 
-                $loopCode = substr($this->_templateString, strpos($this->_templateString, $start));
-                $loopCode = substr($loopCode, 0, (strpos($loopCode, $end) + strlen($end)));
+                    $loopCode = substr($this->_templateString, strpos($this->_templateString, $start));
+                    $loopCode = substr($loopCode, 0, (strpos($loopCode, $end) + strlen($end)));
 
-                $loop = str_replace($start, '', $loopCode);
-                $loop = str_replace($end, '', $loop);
-                $outputLoop = '';
+                    $loop = str_replace($start, '', $loopCode);
+                    $loop = str_replace($end, '', $loop);
+                    $outputLoop = '';
 
-                foreach ($value as $val) {
-                    if ($val instanceof \ArrayObject) {
-                        $l = $loop;
-                        foreach ($val as $k => $v) {
-                            $l = str_replace('[{' . $k . '}]', $v, $l);
+                    foreach ($value as $val) {
+                        if ($val instanceof \ArrayObject) {
+                            $l = $loop;
+                            foreach ($val as $k => $v) {
+                                $l = str_replace('[{' . $k . '}]', $v, $l);
+                            }
+                            $outputLoop .= $l . PHP_EOL;
+                        } else {
+                            $outputLoop .= str_replace('[{value}]', $val, $loop) . PHP_EOL;
                         }
-                        $outputLoop .= $l . PHP_EOL;
-                    } else {
-                        $outputLoop .= str_replace('[{value}]', $val, $loop) . PHP_EOL;
                     }
-                }
 
-                $this->_output = str_replace($loopCode, substr($outputLoop, 0, -2), $this->_output);
-            } else {
-                $this->_output = str_replace('[{' . $key . '}]', $value, $this->_output);
+                    $this->_output = str_replace($loopCode, substr($outputLoop, 0, -2), $this->_output);
+                } else {
+                    $this->_output = str_replace('[{' . $key . '}]', $value, $this->_output);
+                }
             }
         }
     }
