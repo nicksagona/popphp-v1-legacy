@@ -24,8 +24,6 @@
  */
 namespace Pop\Code;
 
-use Pop\File\File;
-
 /**
  * @category   Pop
  * @package    Pop_Code
@@ -36,5 +34,79 @@ use Pop\File\File;
  */
 class ClassGenerator
 {
+
+    /**
+     * Class body
+     * @var string
+     */
+    protected $_body = null;
+
+    /**
+     * Docblock generator object
+     * @var Pop\Code\DocblockGenerator
+     */
+    protected $_docblock = null;
+
+    /**
+     * Namespace generator object
+     * @var array
+     */
+    protected $_namespace = null;
+
+    /**
+     * Array of property generator objects
+     * @var array
+     */
+    protected $_properties = array();
+
+    /**
+     * Array of method generator objects
+     * @var array
+     */
+    protected $_methods = array();
+
+    /**
+     * Set the class body
+     *
+     * @param  string $body
+     * @return Pop\Code\ClassGenerator
+     */
+    public function setBody($body)
+    {
+        $this->_body = $body;
+        return $this;
+    }
+
+    /**
+     * Get the class body
+     *
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->_body;
+    }
+
+    /**
+     * Set the docblock generator object
+     *
+     * @param  Pop\Code\DocblockGenerator $docblock
+     * @return Pop\Code\ClassGenerator
+     */
+    public function setDocblock(DocblockGenerator $docblock)
+    {
+        $this->_docblock = $docblock;
+        return $this;
+    }
+
+    /**
+     * Access the docblock generator object
+     *
+     * @return Pop\Code\DocblockGenerator
+     */
+    public function getDocblock()
+    {
+        return $this->_docblock;
+    }
 
 }

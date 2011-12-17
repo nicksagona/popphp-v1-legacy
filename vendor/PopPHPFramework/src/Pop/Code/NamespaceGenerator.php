@@ -24,7 +24,7 @@
  */
 namespace Pop\Code;
 
-use Pop\File\File;
+use Pop\Code\DocblockGenerator;
 
 /**
  * @category   Pop
@@ -36,5 +36,163 @@ use Pop\File\File;
  */
 class NamespaceGenerator
 {
+
+    /**
+     * Namespace
+     * @var string
+     */
+    protected $_namespace = null;
+
+    /**
+     * Array of namespaces to use
+     * @var array
+     */
+    protected $_use = array();
+
+    /**
+     * Docblock generator object
+     * @var Pop\Code\DocblockGenerator
+     */
+    protected $_docblock = null;
+
+    /**
+     * Namespace indent
+     * @var string
+     */
+    protected $_indent = null;
+
+    /**
+     * Namespace output
+     * @var string
+     */
+    protected $_output = null;
+
+    /**
+     * Constructor
+     *
+     * Instantiate the property generator object
+     *
+     * @param  string $namespace
+     * @return void
+     */
+
+    public function __construct($namespace)
+    {
+        $this->_namespace = $namespace;
+    }
+
+    /**
+     * Static method to instantiate the property generator object and return itself
+     * to facilitate chaining methods together.
+     *
+     * @param  string $namespace
+     * @return Pop\Code\NamespaceGenerator
+     */
+    public static function factory($namespace)
+    {
+        return new self($namespace);
+    }
+
+    /**
+     * Set the namespace
+     *
+     * @param  string $namespace
+     * @return Pop\Code\NamespaceGenerator
+     */
+    public function setNamespace($namespace)
+    {
+        $this->_namespace = $namespace;
+        return $this;
+    }
+
+    /**
+     * Get the namespace
+     *
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->_namespace;
+    }
+
+    /**
+     * Set a namespace to use
+     *
+     * @param  string $use
+     * @param  string $as
+     * @return Pop\Code\NamespaceGenerator
+     */
+    public function setUse($use, $as = null)
+    {
+        $this->_use[$use] = $as;
+        return $this;
+    }
+
+    /**
+     * Set namespaces to use
+     *
+     * @param  array $uses
+     * @return Pop\Code\NamespaceGenerator
+     */
+    public function setUses(array $uses)
+    {
+        foreach ($uses as $use) {
+            $this->_use[$use[0]] = (isset($use[1])) ? $use[1] : null;
+        }
+        return $this;
+    }
+        /**
+     * Render property
+     *
+     * @param  boolean $ret
+     * @return mixed
+     */
+    public function render($ret = false)
+    {
+        $this->_docblock = new DocblockGenerator(null, $this->_indent);
+        $this->_docblock->setTag('namespace');
+        $this->_output = $this->_docblock->render(true);
+        $this->_output .= $this->_indent . 'namespace ' . $this->_namespace . ';' . PHP_EOL;
+
+        if (count($this->_use) > 0) {
+            $this->_output .= PHP_EOL . $this->_indent . 'use ';
+            $i = 0;
+            foreach ($this->_use as $ns => $as) {
+                if ($i == 0) {
+                    $this->_output .= $ns;
+                    if (null !== $as) {
+                        $this->_output .= ' as ' . $as;
+                    }
+                } else {
+                    $this->_output .= $this->_indent . '    '. $ns;
+                    if (null !== $as) {
+                        $this->_output .= ' as ' . $as;
+                    }
+                }
+                $i++;
+                if ($i < count($this->_use)) {
+                    $this->_output .= ',' . PHP_EOL;
+                } else {
+                    $this->_output .= ';' . PHP_EOL;
+                }
+            }
+        }
+
+        if ($ret) {
+            return $this->_output;
+        } else {
+            echo $this->_output;
+        }
+    }
+
+    /**
+     * Print namespace
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->render(true);
+    }
 
 }

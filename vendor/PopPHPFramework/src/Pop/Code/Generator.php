@@ -37,4 +37,84 @@ use Pop\File\File;
 class Generator extends File
 {
 
+    /**
+     * Class generator object
+     * @var Pop\Code\ClassGenerator
+     */
+    protected $_class = null;
+
+    /**
+     * Docblock generator object
+     * @var Pop\Code\DocblockGenerator
+     */
+    protected $_docblock = null;
+
+    /**
+     * Array of allowed file types.
+     * @var array
+     */
+    protected $_allowed = array(
+    	'php'    => 'text/plain',
+        'php3'   => 'text/plain',
+        'phtml'  => 'text/plain'
+    );
+
+    /**
+     * Constructor
+     *
+     * Instantiate the code generator object
+     *
+     * @param  string $file
+     * @param  array  $types
+     * @return void
+     */
+    public function __construct($file)
+    {
+        parent::__construct($file);
+    }
+
+    /**
+     * Set the class generator object
+     *
+     * @param  Pop\Code\ClassGenerator $class
+     * @return Pop\Code\Generator
+     */
+    public function setClass(ClassGenerator $class)
+    {
+        $this->_class = $class;
+        return $this;
+    }
+
+    /**
+     * Access the class generator object
+     *
+     * @return Pop\Code\ClassGenerator
+     */
+    public function getClass()
+    {
+        return $this->_class;
+    }
+
+    /**
+     * Set the docblock generator object
+     *
+     * @param  Pop\Code\DocblockGenerator $docblock
+     * @return Pop\Code\Generator
+     */
+    public function setDocblock(DocblockGenerator $docblock)
+    {
+        $this->_docblock = $docblock;
+        return $this;
+    }
+
+    /**
+     * Access the docblock generator object
+     *
+     * @return Pop\Code\DocblockGenerator
+     */
+    public function getDocblock()
+    {
+        return $this->_docblock;
+    }
+
 }
