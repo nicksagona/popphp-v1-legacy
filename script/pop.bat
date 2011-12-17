@@ -30,6 +30,7 @@ SET TEST_DIR=
 if "%1" == "-t" (goto :test)
 if "%1" == "--test" (goto :test) else (goto :cli)
 
+REM Run tests via PHP Unit
 :test
 if "%2"=="" (
     SET TEST_DIR=%SCRIPT_DIR%..\vendor\PopPHPFramework\tests\Pop
@@ -39,14 +40,20 @@ if "%2"=="" (
 if not exist %TEST_DIR% (
     goto :nodir
 ) else (
-    phpunit %TEST_DIR%
+    if not exist "%PHP_PEAR_BIN_DIR%\phpunit.bat" (
+        echo PHP Unit was not found.
+    ) else (
+        "%PHP_PEAR_BIN_DIR%\phpunit.bat" %TEST_DIR%
+    )
 )
 goto:eof
 
+REM Else, run the Pop CLI script
 :cli
 php %SCRIPT_DIR%pop.php %1 %2 %3
 goto:eof
 
+REM Test directory not found error
 :nodir
 echo The folder '%TEST_DIR%' does not exists.
 goto:eof

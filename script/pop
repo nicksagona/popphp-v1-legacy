@@ -41,7 +41,7 @@ if [ "$1" == "-t" ] || [ "$1" == "--test" ]; then
     fi
     PHP_UNIT="$( which phpunit )"
     if [ "$PHP_UNIT" == "" ]; then
-        echo -e "PHP Unit is not installed.\n"
+        echo -e "PHP Unit was not found.\n"
     else
         echo -e "Testing folder '$TEST_DIR'...\n"
         $PHP_UNIT "$TEST_DIR"
