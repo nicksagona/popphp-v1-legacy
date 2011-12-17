@@ -61,7 +61,7 @@ if (!empty($argv[1])) {
         echo 'Help' . PHP_EOL;
         echo '----' . PHP_EOL;
         Install::cliHelp();
-    // Else, display help
+    // Else, show instructions
     } else if (($argv[1] == '-s') || ($argv[1] == '--show')) {
         echo 'Project Install Instructions' . PHP_EOL;
         echo '----------------------------' . PHP_EOL;
@@ -70,11 +70,15 @@ if (!empty($argv[1])) {
     } else if (($argv[1] == '-l') || ($argv[1] == '--lang')) {
         echo 'Set Default Project Language' . PHP_EOL;
         echo '----------------------------' . PHP_EOL;
+
+        // Create list of available languages
         $langs = Locale::factory()->getLanguages();
         $langsList = null;
         foreach ($langs as $key => $value) {
             $langsList .= '[' . $key . '] : ' . $value . PHP_EOL;
         }
+
+        // Prompt user to select language
         if (isset($argv[2])) {
             if (!array_key_exists($argv[2], $langs)) {
                 echo $langsList;
@@ -113,6 +117,7 @@ if (!empty($argv[1])) {
     } else if (($argv[1] == '-m') || ($argv[1] == '--map')) {
         echo 'Generate Class Map File' . PHP_EOL;
         echo '-----------------------' . PHP_EOL;
+
         // Check if the source folder and output file arguments were passed
         if (empty($argv[2]) || empty($argv[3])) {
             echo Install::cliError(1);
@@ -139,7 +144,7 @@ if (!empty($argv[1])) {
         }
     // Else, install project
     } else if (($argv[1] == '-i') || ($argv[1] == '--install')) {
-        // Check if the $name argument was passed
+        // Check if the project install file argument was passed
         if (empty($argv[2])) {
             echo Install::cliError(4);
         // Else, run the install process

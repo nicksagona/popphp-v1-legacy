@@ -27,6 +27,7 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 TEST_DIR=
 
+# Run tests via PHP Unit
 if [ "$1" == "-t" ] || [ "$1" == "--test" ]; then
     if [ "$2" != "" ]; then
         if [ ! -d "$2" ]; then
@@ -38,8 +39,14 @@ if [ "$1" == "-t" ] || [ "$1" == "--test" ]; then
     else
         TEST_DIR="$SCRIPT_DIR/../vendor/PopPHPFramework/tests/Pop"
     fi
-    echo -e "Testing folder '$TEST_DIR'...\n"
-    phpunit "$TEST_DIR"
+    PHP_UNIT="$( which phpunit )"
+    if [ "$PHP_UNIT" == "" ]; then
+        echo -e "PHP Unit is not installed.\n"
+    else
+        echo -e "Testing folder '$TEST_DIR'...\n"
+        $PHP_UNIT "$TEST_DIR"
+    fi
+# Else, run the Pop CLI script
 else
     "$SCRIPT_DIR"/pop.php "$1" "$2" "$3"
 fi
