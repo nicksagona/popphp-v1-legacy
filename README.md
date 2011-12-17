@@ -1,4 +1,5 @@
 Welcome to the Pop PHP Framework 0.9 Release!
+---------------------------------------------
 
 RELEASE INFORMATION
 -------------------
