@@ -3,51 +3,50 @@ Welcome to the Pop PHP Framework 0.9 Release!
 
 RELEASE INFORMATION
 -------------------
-Pop PHP Framework 0.9 Release
+Pop PHP Framework 0.9 Release  
 Released TBD
 
 
 FEATURES
 --------
 
-The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use API.
+The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use API
+to access and utilize the following components:
 
-* Pop_Archive
-* Pop_Array
-* Pop_Auth
-* Pop_Autoloader
-* Pop_Browser
-* Pop_Cache
-* Pop_Color
-* Pop_Controller
-* Pop_Cookie
-* Pop_Curl
-* Pop_Data
-* Pop_Db
-* Pop_Dir
-* Pop_Dom
-* Pop_Feed
-* Pop_File
-* Pop_Font
-* Pop_Form
-* Pop_Ftp
-* Pop_Graph
-* Pop_Http
-* Pop_Image
-* Pop_Imagick
-* Pop_Locale
-* Pop_Mail
-* Pop_Mobile
-* Pop_Model
-* Pop_Paginator
-* Pop_Pdf
-* Pop_Record
-* Pop_Server
-* Pop_Session
-* Pop_String
-* Pop_Svg
-* Pop_Version
-* Pop_View
+* Archive
+* Auth
+* Cache
+* Code
+* Color
+* Compress
+* Config
+* Cookie
+* Curl
+* Data
+* Db
+* Dir
+* Dom
+* Feed
+* File
+* Filter
+* Font
+* Form
+* Ftp
+* Graph
+* Http
+* Image
+* Loader
+* Locale
+* Mail
+* Mvc
+* Paginator
+* Pdf
+* Project
+* Record
+* Svg
+* Validator
+* Version
+* Web
 
 
 INSTALLATION
@@ -63,7 +62,8 @@ The Pop PHP Framework requires PHP 5.3.0 or later.
 
 Some dependencies for the framework to fully function are as follows:
 
-* The Tar, Zlib, Zip and Bz2 extensions to manipulate archive files.
+* The Phar, Rar, Tar and Zip extensions for the archive component
+* The Bzip2, Lzf and ZLib extenstions for the compress component
 * The basic MySQL extension for basic MySQL database connections and transactions
 * The MySQLi extension to utilize MySQLi to connect to and interact with MySQL databases
 * The PostgreSQL extension for PostgreSQL database connections and transactions
@@ -72,7 +72,8 @@ Some dependencies for the framework to fully function are as follows:
 * The GD library for image manipulation (including FreeType support)
 * The Imagick extension (with ImageMagick & Ghostscript) for advanced image manipulation
 * The Memcache extension for the Cache component (using the Memcached adapter)
-* The SimpleXML extension for the Feed, Language and Data components
+* The DOMDocument extension for the Svg component
+* The SimpleXML extension for the Feed, Data, Locale and Svg components
 * The PHP mail function and SMTP server correctly set for the mail component
 * The cURL extension for the Curl component
 * FTP support enabled for the FTP component
@@ -90,19 +91,19 @@ following versions of the required software:
 * Imagick PHP Extension 3.0.1
 
 Any variation in the versions of the required software may contribute to the
-Pop_Imagick component not functioning properly.
+Pop\Image\Imagick component not functioning properly.
 
 A Note on Permissions: The following classes may require the correct permissions
 to be set for the files and the directories that they access in order to work
 properly. If the permissions are not set correctly, an exception or error could
 be thrown within any of the following components:
 
-* Pop_File
-  - Pop_Archive
-  - Pop_Font
-  - Pop_Image
-  - Pop_Imagick
-  - Pop_Pdf
+* Pop\File\File
+  - Pop\Archive\Archive
+  - Pop\Code\Generator
+  - Pop\Font\Font
+  - Pop\Image\Image
+  - Pop\Pdf\Pdf
 
 
 QUESTIONS AND FEEDBACK
