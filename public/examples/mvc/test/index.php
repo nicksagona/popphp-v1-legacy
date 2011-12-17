@@ -24,39 +24,33 @@ class TestController extends Controller {
             $path = $this->_request->getPath(0);
             $this->$path();
         } else {
+            $this->_isError = true;
             $this->error();
         }
-    }
-
-    public static function init(Request $request = null, Response $response = null, $viewPath = null)
-    {
-        return new self($request, $response, $viewPath);
     }
 
     public function index()
     {
         $page = array('title' => 'Home Page', 'header' => 'This is the home page.');
-        $this->_view = View::factory($this->_viewPath . '/home.php', new Model($page));
-        $this->dispatch();
+        $this->_view = View::factory($this->_viewPath . '/home.phtml', new Model($page));
     }
 
     public function blog()
     {
         $page = array('title' => 'Blog | Some Article', 'header' => 'This is the blog page.');
-        $this->_view = View::factory($this->_viewPath . '/blog.php', new Model($page));
-        $this->dispatch();
+        $this->_view = View::factory($this->_viewPath . '/blog.phtml', new Model($page));
     }
 
     public function error()
     {
         $page = array('title' => 'Error | 404', 'header' => 'This is the error page.');
-        $this->_view = View::factory($this->_viewPath . '/error.php', new Model($page));
-        $this->dispatch(404);
+        $this->_view = View::factory($this->_viewPath . '/error.phtml', new Model($page));
     }
 }
 
 try {
-    TestController::init();
+    $controller = new TestController();
+    $controller->dispatch();
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

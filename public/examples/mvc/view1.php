@@ -31,7 +31,7 @@ try {
                                    )
                   );
 
-    $view = View::factory('test/view/template.php', new Model($data));
+    $view = View::factory('test/view/template.phtml', new Model($data));
     $view->render();
 
 } catch (Exception $e) {

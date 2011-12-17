@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace Pop\Project;
+namespace Pop\Project\Install;
 
 use Pop\Data\Sql,
     Pop\Db\Db as PopDb,

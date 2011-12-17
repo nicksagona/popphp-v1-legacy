@@ -26,7 +26,8 @@ namespace Pop\Project;
 
 use Pop\File\File,
     Pop\Filter\String,
-    Pop\Locale\Locale;
+    Pop\Locale\Locale,
+    Pop\Project\Install\Db;
 
 /**
  * @category   Pop
@@ -300,6 +301,30 @@ class Install
     }
 
     /**
+     * Install index controller and web config files
+     *
+     * @return string
+     */
+    public static function installWeb()
+    {
+        $msg = Locale::factory()->__('Install index controller and web configuration files?') . ' ([A]pache/[I]IS/[N]o) ';
+        echo $msg;
+        $input = null;
+
+        while (($input != 'a') && ($input != 'i') && ($input != 'n')) {
+            if (null !== $input) {
+                echo $msg;
+            }
+            $prompt = fopen("php://stdin", "r");
+            $input = fgets($prompt, 32);
+            $input = substr(strtolower(rtrim($input)), 0, 1);
+            fclose ($prompt);
+        }
+
+        return $input;
+    }
+
+    /**
      * Create the base folder and file structure
      *
      * @param Pop\Config $install
@@ -444,6 +469,22 @@ class Install
                           ->save();
         }
 
+        $input = self::installWeb();
+        if ($input != 'n') {
+            if (file_exists(__DIR__ . '/Config/index.php')) {
+                copy(__DIR__ . '/Config/index.php', $install->project->docroot . '/index.php');
+            }
+            if ($input == 'a') {
+                if (file_exists(__DIR__ . '/Config/ht.access')) {
+                    copy(__DIR__ . '/Config/ht.access', $install->project->docroot . '/.htaccess');
+                }
+            } else {
+                if (file_exists(__DIR__ . '/Config/web.config')) {
+                    copy(__DIR__ . '/Config/web.config', $install->project->docroot . '/web.config');
+                }
+            }
+        }
+        /*
         // Create index controller file
         $indexFile = new File($install->project->docroot . '/index.php');
         $indexFile->write("<?php" . PHP_EOL . PHP_EOL, true)
@@ -460,6 +501,7 @@ class Install
                ->write("RewriteRule ^.*$ - [NC,L]" . PHP_EOL, true)
                ->write("RewriteRule ^.*$ index.php [NC,L]" . PHP_EOL . PHP_EOL, true)
                ->save();
+         */
     }
 
     /**

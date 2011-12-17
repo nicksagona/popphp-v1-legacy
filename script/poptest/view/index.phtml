@@ -1,11 +1,11 @@
 <html>
 <head>
-    <title><?php echo (isset($title) ? $title : 'Home Page'); ?></title>
+    <title><?php echo (!isset($title) ? $title : 'Home Page'); ?></title>
 </head>
 <body>
-    <h1><?php echo (isset($header) ? $header : 'This is the home page header'); ?></h1>
+    <h1 style="color: #999;"><?php echo (isset($header) ? $header : 'This is the home page header'); ?></h1>
     <p>
-        This is the home page.
+        This is the home page. Go to the <a href="/">home page</a>.
     </p>
 </body>
 </html>

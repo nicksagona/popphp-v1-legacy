@@ -267,3 +267,4 @@ Run the unit tests from a folder
 That folder does not exist.
 The folder argument is not a folder.
 The module name must be set in the module config.
+Install index controller and web configuration files?
