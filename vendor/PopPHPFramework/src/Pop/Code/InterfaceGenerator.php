@@ -32,7 +32,7 @@ namespace Pop\Code;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-class ClassGenerator
+class InterfaceGenerator
 {
 
     /**
@@ -48,28 +48,10 @@ class ClassGenerator
     protected $_namespace = null;
 
     /**
-     * Parent class that is extended
+     * Parent interface that is extended
      * @var string
      */
     protected $_parent = null;
-
-    /**
-     * Interface that is implemented
-     * @var string
-     */
-    protected $_interface = null;
-
-    /**
-     * Class abstract flag
-     * @var boolean
-     */
-    protected $_abstract = false;
-
-    /**
-     * Array of property generator objects
-     * @var array
-     */
-    protected $_properties = array();
 
     /**
      * Array of method generator objects
@@ -92,64 +74,36 @@ class ClassGenerator
     /**
      * Constructor
      *
-     * Instantiate the class generator object
+     * Instantiate the interface generator object
      *
      * @param  string  $name
      * @param  string  $parent
-     * @param  string  $interface
-     * @param  boolean $abstract
      * @return void
      */
-    public function __construct($name, $parent = null, $interface = null, $abstract = false)
+    public function __construct($name, $parent = null)
     {
         $this->_name = $name;
         $this->_parent = $parent;
-        $this->_interface = $interface;
-        $this->_abstract = (boolean)$abstract;
     }
 
     /**
-     * Static method to instantiate the class generator object and return itself
+     * Static method to instantiate the interface generator object and return itself
      * to facilitate chaining methods together.
      *
      * @param  string  $name
      * @param  string  $parent
-     * @param  string  $interface
-     * @param  boolean $abstract
-     * @return Pop\Code\ClassGenerator
+     * @return Pop\Code\InterfaceGenerator
      */
-    public static function factory($name, $parent = null, $interface = null, $abstract = false)
+    public static function factory($name, $parent = null)
     {
-        return new self($name, $parent, $interface, $abstract);
+        return new self($name, $parent);
     }
 
     /**
-     * Set the class abstract flag
-     *
-     * @param  boolean $abstract
-     * @return Pop\Code\ClassGenerator
-     */
-    public function setAbstract($abstract = false)
-    {
-        $this->_abstract = (boolean)$abstract;
-        return $this;
-    }
-
-    /**
-     * Get the class abstract flag
-     *
-     * @return boolean
-     */
-    public function isAbstract()
-    {
-        return $this->_abstract;
-    }
-
-    /**
-     * Set the class indent
+     * Set the interface indent
      *
      * @param  string $indent
-     * @return Pop\Code\ClassGenerator
+     * @return Pop\Code\InterfaceGenerator
      */
     public function setIndent($indent = null)
     {
@@ -158,7 +112,7 @@ class ClassGenerator
     }
 
     /**
-     * Get the class indent
+     * Get the interface indent
      *
      * @return string
      */
@@ -168,10 +122,10 @@ class ClassGenerator
     }
 
     /**
-     * Set the class parent
+     * Set the interface parent
      *
      * @param  string $parent
-     * @return Pop\Code\ClassGenerator
+     * @return Pop\Code\InterfaceGenerator
      */
     public function setParent($parent = null)
     {
@@ -180,35 +134,13 @@ class ClassGenerator
     }
 
     /**
-     * Get the class parent
+     * Get the interface parent
      *
      * @return string
      */
     public function getParent()
     {
         return $this->_parent;
-    }
-
-    /**
-     * Set the class interface
-     *
-     * @param  string $interface
-     * @return Pop\Code\ClassGenerator
-     */
-    public function setInterface($interface = null)
-    {
-        $this->_interface = $interface;
-        return $this;
-    }
-
-    /**
-     * Get the class interface
-     *
-     * @return string
-     */
-    public function getInterface()
-    {
-        return $this->_interface;
     }
 
     /**
@@ -253,44 +185,6 @@ class ClassGenerator
     public function getDocblock()
     {
         return $this->_docblock;
-    }
-
-    /**
-     * Add a class property
-     *
-     * @param  Pop\Code\PropertyGenerator $property
-     * @return Pop\Code\ClassGenerator
-     */
-    public function addProperty(PropertyGenerator $property)
-    {
-        $this->_properties[$property->getName()] = $property;
-    }
-
-    /**
-     * Get a class property
-     *
-     * @param  mixed $property
-     * @return Pop\Code\PropertyGenerator
-     */
-    public function getProperty($property)
-    {
-        $p = ($property instanceof PropertyGenerator) ? $property->getName() : $property;
-        return (isset($this->_properties[$p])) ? $this->_properties[$p] : null;
-    }
-
-    /**
-     * Remove a class property
-     *
-     * @param  mixed $property
-     * @return Pop\Code\ClassGenerator
-     */
-    public function removeProperty($property)
-    {
-        $p = ($property instanceof PropertyGenerator) ? $property->getName() : $property;
-        if (isset($this->_properties[$p])) {
-            unset($this->_properties[$p]);
-        }
-        return $this;
     }
 
     /**
@@ -339,20 +233,15 @@ class ClassGenerator
      */
     public function render($ret = false)
     {
-        $abstract = ($this->_abstract) ? 'abstract ' : null;
         $this->_output = (null !== $this->_namespace) ? $this->_namespace->render(true) . PHP_EOL : null;
         $this->_output .= (null !== $this->_docblock) ? $this->_docblock->render(true) : null;
-        $this->_output .= $abstract . 'class ' . $this->_name;
+        $this->_output .= 'interface ' . $this->_name;
 
         if (null !== $this->_parent) {
             $this->_output .= ' extends ' . $this->_parent;
         }
-        if (null !== $this->_interface) {
-            $this->_output .= ' implements ' . $this->_interface;
-        }
 
         $this->_output .= PHP_EOL . '{' . PHP_EOL;
-        $this->_output .= $this->_formatProperties() . PHP_EOL;
         $this->_output .= $this->_formatMethods() . PHP_EOL;
         $this->_output .= '}' . PHP_EOL;
 
@@ -361,22 +250,6 @@ class ClassGenerator
         } else {
             echo $this->_output;
         }
-    }
-
-    /**
-     * Method to format the properties
-     *
-     * @return string
-     */
-    protected function _formatProperties()
-    {
-        $props = null;
-
-        foreach ($this->_properties as $prop) {
-            $props .= PHP_EOL . $prop->render(true);
-        }
-
-        return $props;
     }
 
     /**
@@ -389,6 +262,7 @@ class ClassGenerator
         $methods = null;
 
         foreach ($this->_methods as $method) {
+            $method->setInterface(true);
             $methods .= PHP_EOL . $method->render(true);
         }
 

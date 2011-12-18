@@ -38,6 +38,12 @@ class PropertyGenerator
 {
 
     /**
+     * Docblock generator object
+     * @var Pop\Code\DocblockGenerator
+     */
+    protected $_docblock = null;
+
+    /**
      * Property description
      * @var string
      */
@@ -72,12 +78,6 @@ class PropertyGenerator
      * @var mixed
      */
     protected $_value = null;
-
-    /**
-     * Docblock generator object
-     * @var Pop\Code\DocblockGenerator
-     */
-    protected $_docblock = null;
 
     /**
      * Property indent

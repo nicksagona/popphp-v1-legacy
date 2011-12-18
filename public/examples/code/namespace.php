@@ -6,10 +6,10 @@ use Pop\Code\NamespaceGenerator;
 
 try {
     // Create namespace object
-    $ns = new NamespaceGenerator('Some\\Namespace');
-    $ns->setUse('Some\\Namespace\\Thing')
-       ->setUse('Some\\Namespace\\Blah', 'B')
-       ->setUse('Some\\Namespace\\Another');
+    $ns = new NamespaceGenerator('Some\\Other');
+    $ns->setUse('Some\\Other\\Thing')
+       ->setUse('Some\\Other\\Blah', 'B')
+       ->setUse('Some\\Other\\Another');
 
     // Output the namespace
     echo $ns . PHP_EOL . PHP_EOL;

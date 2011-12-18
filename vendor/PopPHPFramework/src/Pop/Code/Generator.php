@@ -38,10 +38,22 @@ class Generator extends File
 {
 
     /**
-     * Class generator object
-     * @var Pop\Code\ClassGenerator
+     * Constant to use a class
+     * @var int
      */
-    protected $_class = null;
+    const FILE_CLASS = 1;
+
+    /**
+     * Constant to use an interface
+     * @var int
+     */
+    const FILE_INTERFACE = 2;
+
+    /**
+     * Code object
+     * @var Pop\Code\ClassGenerator|Pop\Code\InterfaceGenerator
+     */
+    protected $_code = null;
 
     /**
      * Docblock generator object
@@ -68,31 +80,24 @@ class Generator extends File
      * @param  array  $types
      * @return void
      */
-    public function __construct($file)
+    public function __construct($file, $type = Generator::FILE_CLASS)
     {
         parent::__construct($file);
+        if ($type == self::FILE_CLASS) {
+            $this->_code = new ClassGenerator($this->filename);
+        } else if ($type == self::FILE_INTERFACE) {
+            $this->_code = new InterfaceGenerator($this->filename);
+        }
     }
 
     /**
-     * Set the class generator object
+     * Access the code generator object
      *
-     * @param  Pop\Code\ClassGenerator $class
-     * @return Pop\Code\Generator
+     * @return Pop\Code\ClassGenerator|Pop\Code\InterfaceGenerator
      */
-    public function setClass(ClassGenerator $class)
+    public function code()
     {
-        $this->_class = $class;
-        return $this;
-    }
-
-    /**
-     * Access the class generator object
-     *
-     * @return Pop\Code\ClassGenerator
-     */
-    public function getClass()
-    {
-        return $this->_class;
+        return $this->_code;
     }
 
     /**
@@ -115,6 +120,50 @@ class Generator extends File
     public function getDocblock()
     {
         return $this->_docblock;
+    }
+
+    /**
+     * Render method
+     *
+     * @param  boolean $ret
+     * @return mixed
+     */
+    public function render($ret = false)
+    {
+        $this->_output = '<?php' . PHP_EOL;
+        $this->_output .= (null !== $this->_docblock) ? $this->_docblock->render(true) . PHP_EOL : null;
+        if (null !== $this->_code) {
+            $this->_output .= $this->_code->render(true);
+        }
+        if ($ret) {
+            return $this->_output;
+        } else {
+            echo $this->_output;
+        }
+    }
+    /**
+     * Output the code object directly.
+     *
+     * @param  boolean $download
+     * @return Pop\Code\Generator
+     */
+    public function output($download = false)
+    {
+        $this->render(true);
+        parent::output($download);
+    }
+
+    /**
+     * Save the code object to disk.
+     *
+     * @param  string $to
+     * @param  boolean $append
+     * @return void
+     */
+    public function save($to = null, $append = false)
+    {
+        $this->render(true);
+        parent::save($to, $append);
     }
 
 }

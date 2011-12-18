@@ -38,6 +38,12 @@ class MethodGenerator
 {
 
     /**
+     * Docblock generator object
+     * @var Pop\Code\DocblockGenerator
+     */
+    protected $_docblock = null;
+
+    /**
      * Method description
      * @var string
      */
@@ -68,16 +74,22 @@ class MethodGenerator
     protected $_static = false;
 
     /**
+     * Method abstract flag
+     * @var boolean
+     */
+    protected $_abstract = false;
+
+    /**
+     * Method interface flag
+     * @var boolean
+     */
+    protected $_interface = false;
+
+    /**
      * Method body
      * @var string
      */
     protected $_body = null;
-
-    /**
-     * Docblock generator object
-     * @var Pop\Code\DocblockGenerator
-     */
-    protected $_docblock = null;
 
     /**
      * Method indent
@@ -142,6 +154,50 @@ class MethodGenerator
     public function isStatic()
     {
         return $this->_static;
+    }
+
+    /**
+     * Set the method abstract flag
+     *
+     * @param  boolean $abstract
+     * @return Pop\Code\MethodGenerator
+     */
+    public function setAbstract($abstract = false)
+    {
+        $this->_abstract = (boolean)$abstract;
+        return $this;
+    }
+
+    /**
+     * Get the method abstract flag
+     *
+     * @return boolean
+     */
+    public function isAbstract()
+    {
+        return $this->_abstract;
+    }
+
+    /**
+     * Set the method interface flag
+     *
+     * @param  boolean $interface
+     * @return Pop\Code\MethodGenerator
+     */
+    public function setInterface($interface = false)
+    {
+        $this->_interface = (boolean)$interface;
+        return $this;
+    }
+
+    /**
+     * Get the method interface flag
+     *
+     * @return boolean
+     */
+    public function isInterface()
+    {
+        return $this->_interface;
     }
 
     /**
@@ -218,7 +274,20 @@ class MethodGenerator
      */
     public function setBody($body)
     {
-        $this->_body = $body;
+        $this->_body = $this->_indent . '    ' .  str_replace(PHP_EOL, PHP_EOL . $this->_indent . '    ', $body);
+        return $this;
+    }
+
+    /**
+     * Append to the method body
+     *
+     * @param  string $body
+     * @return Pop\Code\MethodGenerator
+     */
+    public function appendToBody($body)
+    {
+        $body = str_replace(PHP_EOL, PHP_EOL . $this->_indent . '    ', $body);
+        $this->_body .= PHP_EOL . $this->_indent . '    ' . $body;
         return $this;
     }
 
@@ -277,23 +346,32 @@ class MethodGenerator
     }
 
     /**
-     * Set a method argument
+     * Add a method argument
      *
+     * @param string  $name
+     * @param mixed   $value
+     * @param string  $type
      * @return Pop\Code\MethodGenerator
      */
-    public function setArgument()
+    public function addArgument($name, $value = null, $type = null)
     {
+        $this->_arguments[$name] = array('value' => $value, 'type' => $type);
         return $this;
     }
 
     /**
-     * Set method arguments
+     * Add method arguments
      *
      * @param array $args
      * @return Pop\Code\MethodGenerator
      */
-    public function setArguments(array $args)
+    public function addArguments(array $args)
     {
+        foreach ($args as $arg) {
+            $value = (isset($arg['value'])) ? $value : null;
+            $type = (isset($arg['type'])) ? $type : null;
+            $this->_arguments[$arg['name']] = array('value' => $value, 'type' => $type);
+        }
         return $this;
     }
 
@@ -325,22 +403,52 @@ class MethodGenerator
      */
     public function render($ret = false)
     {
+        $abstract = ($this->_abstract) ? 'abstract ' : null;
         $static = ($this->_static) ? ' static' : null;
-        $args = null;
+        $args = $this->_formatArguments();
 
         $this->_docblock = new DocblockGenerator($this->_desc, $this->_indent);
 
         $this->_output = $this->_docblock->render(true);
-        $this->_output .= $this->_indent . $this->_visibility . $static . ' function ' . $this->_name . '(' . $args . ')' . PHP_EOL;
-        $this->_output .= $this->_indent . '{' . PHP_EOL;
-        $this->_output .= $this->_body . PHP_EOL;
-        $this->_output .= $this->_indent . '}' . PHP_EOL;
+        $this->_output .= $this->_indent . $abstract . $this->_visibility .
+           $static . ' function ' . $this->_name . '(' . $args . ')';
+
+        if ((!$this->_abstract) && (!$this->_interface)) {
+            $this->_output .= PHP_EOL . $this->_indent . '{' . PHP_EOL;
+            $this->_output .= $this->_body. PHP_EOL;
+            $this->_output .= $this->_indent . '}' . PHP_EOL;
+        } else {
+            $this->_output .= ';' . PHP_EOL;
+        }
 
         if ($ret) {
             return $this->_output;
         } else {
             echo $this->_output;
         }
+    }
+
+    /**
+     * Method to format the arguments
+     *
+     * @return string
+     */
+    protected function _formatArguments()
+    {
+        $args = null;
+
+        $i = 0;
+        foreach ($this->_arguments as $name => $arg) {
+            $i++;
+            $args .= (null !== $arg['type']) ? $arg['type'] . ' ' : null;
+            $args .= "\$" . $name;
+            $args .= (null !== $arg['value']) ? " = " . $arg['value'] : null;
+            if ($i < count($this->_arguments)) {
+                $args .= ', ';
+            }
+        }
+
+        return $args;
     }
 
     /**

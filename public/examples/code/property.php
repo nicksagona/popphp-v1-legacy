@@ -9,7 +9,7 @@ try {
     $const = new PropertyGenerator('SOME_CONSTANT', 'int', 0, 'const');
     $const->setDesc('This is a test constant');
 
-    // Create property object as an instance property and set the description
+    // Create property object as a static property and set the description
     $prop = new PropertyGenerator('_testProp', 'string', 'test', 'protected');
     $prop->setDesc('This is a test property')
          ->setStatic(true);
