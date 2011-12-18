@@ -48,6 +48,12 @@ class InterfaceGenerator
     protected $_namespace = null;
 
     /**
+     * Class name
+     * @var string
+     */
+    protected $_name = null;
+
+    /**
      * Parent interface that is extended
      * @var string
      */
@@ -85,7 +91,6 @@ class InterfaceGenerator
         $this->_name = $name;
         $this->_parent = $parent;
     }
-
     /**
      * Static method to instantiate the interface generator object and return itself
      * to facilitate chaining methods together.
@@ -119,6 +124,28 @@ class InterfaceGenerator
     public function getIndent()
     {
         return $this->_indent;
+    }
+
+    /**
+     * Set the interface name
+     *
+     * @param  string $name
+     * @return Pop\Code\InterfaceGenerator
+     */
+    public function setName($name)
+    {
+        $this->_name = $name;
+        return $this;
+    }
+
+    /**
+     * Get the interface name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->_name;
     }
 
     /**

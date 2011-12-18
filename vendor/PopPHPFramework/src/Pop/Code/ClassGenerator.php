@@ -48,6 +48,12 @@ class ClassGenerator
     protected $_namespace = null;
 
     /**
+     * Class name
+     * @var string
+     */
+    protected $_name = null;
+
+    /**
      * Parent class that is extended
      * @var string
      */
@@ -165,6 +171,28 @@ class ClassGenerator
     public function getIndent()
     {
         return $this->_indent;
+    }
+
+    /**
+     * Set the class name
+     *
+     * @param  string $name
+     * @return Pop\Code\ClassGenerator
+     */
+    public function setName($name)
+    {
+        $this->_name = $name;
+        return $this;
+    }
+
+    /**
+     * Get the class name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->_name;
     }
 
     /**

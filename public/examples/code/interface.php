@@ -10,7 +10,7 @@ use Pop\Code\DocblockGenerator,
 
 try {
     // Create the code generator object
-    $code = new Generator('../tmp/MyInterface.php', Generator::FILE_INTERFACE);
+    $code = new Generator('../tmp/MyInterface.php', Generator::CREATE_INTERFACE);
     $code->setDocblock(new DocblockGenerator('This is my test interface file'))
          ->getDocblock()->setTag('category', 'Pop')
                         ->setTag('package', 'Pop_Code')

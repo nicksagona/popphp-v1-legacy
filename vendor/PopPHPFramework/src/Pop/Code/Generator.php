@@ -38,16 +38,22 @@ class Generator extends File
 {
 
     /**
+     * Constant to not use a class or interface
+     * @var int
+     */
+    const CREATE_NONE = 0;
+
+    /**
      * Constant to use a class
      * @var int
      */
-    const FILE_CLASS = 1;
+    const CREATE_CLASS = 1;
 
     /**
      * Constant to use an interface
      * @var int
      */
-    const FILE_INTERFACE = 2;
+    const CREATE_INTERFACE = 2;
 
     /**
      * Code object
@@ -60,6 +66,24 @@ class Generator extends File
      * @var Pop\Code\DocblockGenerator
      */
     protected $_docblock = null;
+
+    /**
+     * Code body
+     * @var string
+     */
+    protected $_body = null;
+
+    /**
+     * Code indent
+     * @var string
+     */
+    protected $_indent = null;
+
+    /**
+     * Flag to close the code file with ?>
+     * @var boolean
+     */
+    protected $_close = false;
 
     /**
      * Array of allowed file types.
@@ -80,14 +104,34 @@ class Generator extends File
      * @param  array  $types
      * @return void
      */
-    public function __construct($file, $type = Generator::FILE_CLASS)
+    public function __construct($file, $type = Generator::CREATE_NONE)
     {
         parent::__construct($file);
-        if ($type == self::FILE_CLASS) {
-            $this->_code = new ClassGenerator($this->filename);
-        } else if ($type == self::FILE_INTERFACE) {
-            $this->_code = new InterfaceGenerator($this->filename);
+        if ($type == self::CREATE_CLASS) {
+            $this->createClass();
+        } else if ($type == self::CREATE_INTERFACE) {
+            $this->createInterface();
         }
+    }
+
+    /**
+     * Create a class generator object
+     *
+     * @return Pop\Code\Generator
+     */
+    public function createInterface()
+    {
+        $this->_code = new InterfaceGenerator($this->filename);
+    }
+
+    /**
+     * Create a class generator object
+     *
+     * @return Pop\Code\Generator
+     */
+    public function createClass()
+    {
+        $this->_code = new ClassGenerator($this->filename);
     }
 
     /**
@@ -98,6 +142,40 @@ class Generator extends File
     public function code()
     {
         return $this->_code;
+    }
+
+    /**
+     * Set the code close flag
+     *
+     * @param  boolean $close
+     * @return Pop\Code\Generator
+     */
+    public function setClose($close = false)
+    {
+        $this->_close = (boolean)$close;
+        return $this;
+    }
+
+    /**
+     * Set the code indent
+     *
+     * @param  string $indent
+     * @return Pop\Code\Generator
+     */
+    public function setIndent($indent = null)
+    {
+        $this->_indent = $indent;
+        return $this;
+    }
+
+    /**
+     * Get the code indent
+     *
+     * @return string
+     */
+    public function getIndent()
+    {
+        return $this->_indent;
     }
 
     /**
@@ -123,6 +201,41 @@ class Generator extends File
     }
 
     /**
+     * Set the code body
+     *
+     * @param  string $body
+     * @return Pop\Code\Generator
+     */
+    public function setBody($body)
+    {
+        $this->_body = $this->_indent . str_replace(PHP_EOL, PHP_EOL . $this->_indent, $body);
+        return $this;
+    }
+
+    /**
+     * Append to the code body
+     *
+     * @param  string $body
+     * @return Pop\Code\Generator
+     */
+    public function appendToBody($body)
+    {
+        $body = str_replace(PHP_EOL, PHP_EOL . $this->_indent, $body);
+        $this->_body .= PHP_EOL . $this->_indent . $body;
+        return $this;
+    }
+
+    /**
+     * Get the method body
+     *
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->_body;
+    }
+
+    /**
      * Render method
      *
      * @param  boolean $ret
@@ -132,9 +245,19 @@ class Generator extends File
     {
         $this->_output = '<?php' . PHP_EOL;
         $this->_output .= (null !== $this->_docblock) ? $this->_docblock->render(true) . PHP_EOL : null;
+
         if (null !== $this->_code) {
-            $this->_output .= $this->_code->render(true);
+            $this->_output .= $this->_code->render(true) . PHP_EOL;
         }
+
+        if (null !== $this->_body) {
+            $this->_output .= PHP_EOL . $this->_body . PHP_EOL . PHP_EOL;
+        }
+
+        if ($this->_close) {
+            $this->_output .= '?>' . PHP_EOL;
+        }
+
         if ($ret) {
             return $this->_output;
         } else {

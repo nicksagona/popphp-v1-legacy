@@ -11,7 +11,7 @@ use Pop\Code\ClassGenerator,
 
 try {
     // Create the code generator object
-    $code = new Generator('MyClass.php');
+    $code = new Generator('MyClass.php', Generator::CREATE_CLASS);
     $code->setDocblock(new DocblockGenerator('This is my test class file'))
          ->getDocblock()->setTag('category', 'Pop')
                         ->setTag('package', 'Pop_Code')
