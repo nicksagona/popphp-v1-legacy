@@ -476,7 +476,7 @@ class File
 
         $response = new Response(200, $headers, $this->read());
 
-        if ($_SERVER['SERVER_PORT'] == 443) {
+        if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == 443)) {
             $response->setSslHeaders();
         }
 
