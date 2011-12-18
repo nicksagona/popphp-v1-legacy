@@ -68,6 +68,12 @@ class Generator extends File
     protected $_docblock = null;
 
     /**
+     * Namespace generator object
+     * @var Pop\Code\NamespaceGenerator
+     */
+    protected $_namespace = null;
+
+    /**
      * Code body
      * @var string
      */
@@ -179,6 +185,28 @@ class Generator extends File
     }
 
     /**
+     * Set the namespace generator object
+     *
+     * @param  Pop\Code\NamespaceGenerator $namespace
+     * @return Pop\Code\Generator
+     */
+    public function setNamespace(NamespaceGenerator $namespace)
+    {
+        $this->_namespace = $namespace;
+        return $this;
+    }
+
+    /**
+     * Access the namespace generator object
+     *
+     * @return Pop\Code\NamespaceGenerator
+     */
+    public function getNamespace()
+    {
+        return $this->_namespace;
+    }
+
+    /**
      * Set the docblock generator object
      *
      * @param  Pop\Code\DocblockGenerator $docblock
@@ -245,6 +273,10 @@ class Generator extends File
     {
         $this->_output = '<?php' . PHP_EOL;
         $this->_output .= (null !== $this->_docblock) ? $this->_docblock->render(true) . PHP_EOL : null;
+
+        if (null !== $this->_namespace) {
+            $this->_output .= $this->_namespace->render(true) . PHP_EOL;
+        }
 
         if (null !== $this->_code) {
             $this->_output .= $this->_code->render(true) . PHP_EOL;

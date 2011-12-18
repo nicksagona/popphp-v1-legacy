@@ -29,7 +29,7 @@ try {
            ->addArgument('other', "array()", 'array');
 
     // Add code pieces to the code file
-    $code->code()->setNamespace($ns);
+    $code->setNamespace($ns);
     $code->code()->setDocblock(new DocblockGenerator('This is my test interface'))
                  ->getDocblock()->setTag('category', 'Pop')
                                 ->setTag('package', 'Pop_Code')
