@@ -320,6 +320,8 @@ class PropertyGenerator
             $this->_output .= ' = ' . $val . ';';
         }
 
+        $this->_output .= PHP_EOL;
+
         if ($ret) {
             return $this->_output;
         } else {

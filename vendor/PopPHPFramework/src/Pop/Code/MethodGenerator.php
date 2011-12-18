@@ -418,8 +418,10 @@ class MethodGenerator
             $this->_output .= $this->_body. PHP_EOL;
             $this->_output .= $this->_indent . '}' . PHP_EOL;
         } else {
-            $this->_output .= ';' . PHP_EOL;
+            $this->_output .= ';';
         }
+
+        $this->_output .= PHP_EOL;
 
         if ($ret) {
             return $this->_output;
