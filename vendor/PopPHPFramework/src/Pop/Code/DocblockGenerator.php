@@ -90,8 +90,8 @@ class DocblockGenerator
     }
 
     /**
-     * Static method to instantiate the docblock object and return itself
-     * to facilitate chaining methods together.
+     * Static method to parse a docblock string and return a new
+     * docblock generator object.
      *
      * @param  string $docblock
      * @throws Exception
