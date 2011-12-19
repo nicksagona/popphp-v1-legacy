@@ -116,7 +116,7 @@ class Reflection extends \ReflectionClass
         }
 
         // Detect and set if the class is abstract
-        if ($this->isAbstract()) {
+        if (!$this->isInterface() && $this->isAbstract()) {
             $this->_generator->code()->setAbstract(true);
         }
 
@@ -130,16 +130,18 @@ class Reflection extends \ReflectionClass
         }
 
         // Detect and set if the class implements any interfaces
-        $interfaces = $this->getInterfaces();
-        if ($interfaces !== false) {
-            $interfacesAry = array();
-            foreach ($interfaces as $interface) {
-                if ($interface->inNamespace()) {
-                    $this->_generator->getNamespace()->setUse($interface->getNamespaceName() . '\\' . $interface->getShortName());
+        if (!$this->isInterface()) {
+            $interfaces = $this->getInterfaces();
+            if ($interfaces !== false) {
+                $interfacesAry = array();
+                foreach ($interfaces as $interface) {
+                    if ($interface->inNamespace()) {
+                        $this->_generator->getNamespace()->setUse($interface->getNamespaceName() . '\\' . $interface->getShortName());
+                    }
+                    $interfacesAry[] = $interface->getShortName();
                 }
-                $interfacesAry[] = $interface->getShortName();
+                $this->_generator->code()->setInterface(implode(', ', $interfacesAry));
             }
-            $this->_generator->code()->setInterface(implode(', ', $interfacesAry));
         }
 
         // Detect and set constants
