@@ -13,7 +13,7 @@ try {
     // Create the code generator object
     $code = new Generator('code.php');
     $code->setBody("// Let's get some stuff to happen here." . PHP_EOL . "\$blah = 'Sounds like a good idea';")
-         ->appendToBody("echo \$blah;")
+         ->appendToBody("echo \$blah;", false)
          ->setClose(true);
 
     // Render and output the code

@@ -312,14 +312,15 @@ class Reflection extends \ReflectionClass
                 // Get method body
                 if ((strpos($methodExport, '@@') !== false) && (file_exists($this->getFilename()))) {
                     $lineNums = substr($methodExport, (strpos($methodExport, '@@ ') + 3));
-                    $lineNums = substr($lineNums, (strpos($lineNums, ' ') + 1));
-                    $lineNums = trim(substr($lineNums, 0, strpos($lineNums, PHP_EOL)));
-                    $lineNumsAry = explode(' - ', $lineNums);
-                    if (isset($lineNumsAry[0]) && isset($lineNumsAry[1])) {
+                    $start = trim(substr($lineNums, strpos($lineNums, ' ')));
+                    $end = substr($start, (strpos($start, ' - ') + 3));
+                    $start = substr($start, 0, strpos($start, ' '));
+                    $end = (int)$end;
+                    if (is_numeric($start) && is_numeric($end)) {
                         $classLines = file($this->getFilename());
                         $body = null;
-                        $start = $lineNumsAry[0] + 1;
-                        $end = $lineNumsAry[1] - 1;
+                        $start = $start + 1;
+                        $end = $end - 1;
                         for ($i = $start; $i < $end; $i++) {
                             if (substr($classLines[$i], 0, 8) == '        ') {
                                 $body .= substr($classLines[$i], 8);
@@ -333,7 +334,7 @@ class Reflection extends \ReflectionClass
                                 $body .= $classLines[$i];
                             }
                         }
-                        $mthd->setBody(rtrim($body));
+                        $mthd->setBody(rtrim($body), false);
                     }
                 }
 

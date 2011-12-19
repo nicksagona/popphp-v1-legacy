@@ -300,11 +300,15 @@ class MethodGenerator
      * Set the method body
      *
      * @param  string $body
+     * @param  boolean $newline
      * @return Pop\Code\MethodGenerator
      */
-    public function setBody($body)
+    public function setBody($body, $newline = true)
     {
         $this->_body = $this->_indent . '    ' .  str_replace(PHP_EOL, PHP_EOL . $this->_indent . '    ', $body);
+        if ($newline) {
+            $this->_body .= PHP_EOL;
+        }
         return $this;
     }
 
