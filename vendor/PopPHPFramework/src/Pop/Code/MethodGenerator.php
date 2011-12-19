@@ -44,12 +44,6 @@ class MethodGenerator
     protected $_docblock = null;
 
     /**
-     * Method description
-     * @var string
-     */
-    protected $_desc = null;
-
-    /**
      * Method arguments
      * @var array
      */
@@ -208,7 +202,11 @@ class MethodGenerator
      */
     public function setDesc($desc = null)
     {
-        $this->_desc = $desc;
+        if (null !== $this->_docblock) {
+            $this->_docblock->setDesc($desc);
+        } else {
+            $this->_docblock = new DocblockGenerator($desc, $this->_indent);
+        }
         return $this;
     }
 
@@ -219,7 +217,11 @@ class MethodGenerator
      */
     public function getDesc()
     {
-        return $this->_desc;
+        $desc = null;
+        if (null !== $this->_docblock) {
+            $desc = $this->_docblock->getDesc();
+        }
+        return $desc;
     }
 
     /**
@@ -355,7 +357,22 @@ class MethodGenerator
      */
     public function addArgument($name, $value = null, $type = null)
     {
-        $this->_arguments[$name] = array('value' => $value, 'type' => $type);
+        $typeHintsNotAllowed = array(
+            'int',
+            'integer',
+            'boolean',
+            'float',
+            'string'
+        );
+        $argType = (!in_array($type, $typeHintsNotAllowed)) ? $type : null;
+        $this->_arguments[$name] = array('value' => $value, 'type' => $argType);
+        if (null === $this->_docblock) {
+            $this->_docblock = new DocblockGenerator(null, $this->_indent);
+        }
+        if (null === $type) {
+            $type = 'unknown';
+        }
+        $this->_docblock->setParam($type, '$' . $name);
         return $this;
     }
 
@@ -370,7 +387,7 @@ class MethodGenerator
         foreach ($args as $arg) {
             $value = (isset($arg['value'])) ? $value : null;
             $type = (isset($arg['type'])) ? $type : null;
-            $this->_arguments[$arg['name']] = array('value' => $value, 'type' => $type);
+            $this->addArgument($arg['name'], $value, $type);
         }
         return $this;
     }
@@ -407,9 +424,7 @@ class MethodGenerator
         $static = ($this->_static) ? ' static' : null;
         $args = $this->_formatArguments();
 
-        $this->_docblock = new DocblockGenerator($this->_desc, $this->_indent);
-
-        $this->_output = $this->_docblock->render(true);
+        $this->_output = (null !== $this->_docblock) ? $this->_output = $this->_docblock->render(true) : null;
         $this->_output .= $this->_indent . $abstract . $this->_visibility .
            $static . ' function ' . $this->_name . '(' . $args . ')';
 

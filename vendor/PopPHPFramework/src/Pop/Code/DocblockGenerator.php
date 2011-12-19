@@ -24,6 +24,8 @@
  */
 namespace Pop\Code;
 
+use Pop\Locale\Locale;
+
 /**
  * @category   Pop
  * @package    Pop_Code
@@ -85,6 +87,96 @@ class DocblockGenerator
     public static function factory($desc = null, $indent = null)
     {
         return new self($desc, $indent);
+    }
+
+    /**
+     * Static method to instantiate the docblock object and return itself
+     * to facilitate chaining methods together.
+     *
+     * @param  string $docblock
+     * @throws Exception
+     * @return Pop\Code\DocblockGenerator
+     */
+    public static function parse($docblock)
+    {
+        if ((strpos($docblock, '/*') === false) || (strpos($docblock, '*/') === false)) {
+            throw new Exception(Locale::factory()->__('The docblock is not in the correct format.'));
+        }
+
+        $desc = null;
+        $formattedDesc = null;
+        $indent = null;
+        $tags = null;
+
+        // Parse the description, if any
+        if (strpos($docblock, '@') !== false) {
+            $desc = substr($docblock, 0, strpos($docblock, '@'));
+            $desc = str_replace('/*', '', $desc);
+            $desc = str_replace('*/', '', $desc);
+            $desc = str_replace(PHP_EOL . ' * ', ' ', $desc);
+            $desc = trim(str_replace('*', '', $desc));
+            $descAry = explode(PHP_EOL, $desc);
+            $formattedDesc = null;
+            foreach ($descAry as $line) {
+                $formattedDesc .= ' ' . trim($line);
+            }
+            $formattedDesc = trim($formattedDesc);
+        }
+
+        // Get the indentation, if any
+        $indent = substr($docblock, 0, strpos($docblock, '/'));
+
+        $newDocblock = new self($formattedDesc, $indent);
+
+        // Get the tags, if any
+        if (strpos($docblock, '@') !== false) {
+            $tags = substr($docblock, strpos($docblock, '@'));
+            $tags = substr($tags, 0, strpos($tags, '/'));
+            $tags = str_replace('*', '', $tags);
+            $tagsAry = explode(PHP_EOL, $tags);
+
+            foreach ($tagsAry as $key => $value) {
+                $value = trim(str_replace('@', '', $value));
+                // Param tags
+                if (stripos($value, 'param') !== false) {
+                    $paramtag = trim(str_replace('param', '', $value));
+                    $paramtype = trim(substr($paramtag, 0, strpos($paramtag, ' ')));
+                    $varname = null;
+                    $paramdesc = null;
+                    if (strpos($paramtag, ' ') !== false) {
+                        $varname = trim(substr($paramtag, strpos($paramtag, ' ')));
+                        if (strpos($varname, ' ') !== false) {
+                            $paramdesc = trim(substr($varname, strpos($varname, ' ')));
+                        }
+                    } else {
+                        $paramtype = $paramtag;
+                    }
+                    $newDocblock->setParam($paramtype, $varname, $paramdesc);
+                // Else, return tags
+                } else if (stripos($value, 'return') !== false) {
+                    $returntag = trim(str_replace('return', '', $value));
+                    if (strpos($returntag, ' ') !== false) {
+                        $returntype = substr($returntag, 0, strpos($returntag, ' '));
+                        $returndesc = trim(str_replace($returntype, '', $returntag));
+                    } else {
+                        $returntype = $returntag;
+                        $returndesc = null;
+                    }
+                    $newDocblock->setReturn($returntype, $returndesc);
+                // Else, all other tags
+                } else {
+                    $tagname = trim(substr($value, 0, strpos($value, ' ')));
+                    $tagdesc = trim(str_replace($tagname, '', $value));
+                    if (!empty($tagname) && !empty($tagdesc)) {
+                        $newDocblock->setTag($tagname, $tagdesc);
+                    } else {
+                        unset($tagsAry[$key]);
+                    }
+                }
+            }
+        }
+
+        return $newDocblock;
     }
 
     /**
@@ -159,6 +251,17 @@ class DocblockGenerator
     }
 
     /**
+     * Get a tag
+     *
+     * @param  string $name
+     * @return string
+     */
+    public function getTag($name)
+    {
+        return (isset($this->_tags[$name])) ? $this->_tags[$name] : null;
+    }
+
+    /**
      * Add a param tag
      *
      * @param  string $name
@@ -186,6 +289,17 @@ class DocblockGenerator
     }
 
     /**
+     * Get a param
+     *
+     * @param  string $name
+     * @return string
+     */
+    public function getParam($name)
+    {
+        return (isset($this->_tags['param'][$name])) ? $this->_tags['param'][$name] : null;
+    }
+
+    /**
      * Add a return tag
      *
      * @param  string $type
@@ -196,6 +310,17 @@ class DocblockGenerator
     {
         $this->_tags['return'] = array('type' => $type, 'desc' => $desc);
         return $this;
+    }
+
+    /**
+     * Get the return
+     *
+     * @param  string $name
+     * @return string
+     */
+    public function getReturn()
+    {
+        return (isset($this->_tags['return'])) ? $this->_tags['return'] : null;
     }
 
     /**

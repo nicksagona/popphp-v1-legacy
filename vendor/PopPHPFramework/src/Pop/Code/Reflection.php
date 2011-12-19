@@ -148,24 +148,55 @@ class Reflection extends \ReflectionClass
         // Detect and set properties
         $properties = $this->getDefaultProperties();
         if (count($properties) > 0) {
-            //print_r($properties);
-            //foreach ($properties as $property) {
-            //    //$property->setAccessible(true);
-            //    if ($property->isPublic()) {
-            //        $visibility = 'public';
-            //    } else if ($property->isProtected()) {
-            //        $visibility = 'protected';
-            //    } else if ($property->isPrivate()) {
-            //        $visibility = 'private';
-            //    }
-            //    $class = $this->getName();
-            //    $prop = new PropertyGenerator($property->getName(), gettype($property->getValue()), $property->getValue(), $visibility);
-            //    $prop->setStatic($property->isStatic());
-            //    $this->_generator->code()->addProperty($prop);
-            //}
+            foreach ($properties as $name => $value) {
+                $property = $this->getProperty($name);
+                if ($property->isPublic()) {
+                    $visibility = 'public';
+                } else if ($property->isProtected()) {
+                    $visibility = 'protected';
+                } else if ($property->isPrivate()) {
+                    $visibility = 'private';
+                }
+
+                $doc = $property->getDocComment();
+                if (null !== $doc) {
+                    $docblock = DocblockGenerator::parse($doc);
+                    $desc = $docblock->getDesc();
+                    $type = $docblock->getTag('var');
+                } else {
+                    $type = strtolower(gettype($value));
+                    $desc = null;
+                }
+
+                if (is_array($value)) {
+                    $formattedValue = (count($value) == 0) ? null : $value;
+                } else {
+                    $formattedValue = $value;
+                }
+                $class = $this->getName();
+                $prop = new PropertyGenerator($property->getName(), $type, $formattedValue, $visibility);
+                $prop->setStatic($property->isStatic());
+                $prop->setDesc($desc);
+                $this->_generator->code()->addProperty($prop);
+            }
         }
 
-        //$this->_generator->output();
+        $this->_generator->output();
+    }
+
+
+    /**
+     * Format array value
+     *
+     * @return string
+     */
+    protected function _formatArrayValues($value)
+    {
+        $ary = str_replace(PHP_EOL, PHP_EOL . '   ', var_export($value, true));
+        //$ary .= ';';
+        //$ary = str_replace('  );', ');', $ary);
+
+        return $ary;
     }
 
 }

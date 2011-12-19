@@ -44,12 +44,6 @@ class PropertyGenerator
     protected $_docblock = null;
 
     /**
-     * Property description
-     * @var string
-     */
-    protected $_desc = null;
-
-    /**
      * Property type
      * @var string
      */
@@ -155,7 +149,11 @@ class PropertyGenerator
      */
     public function setDesc($desc = null)
     {
-        $this->_desc = $desc;
+        if (null !== $this->_docblock) {
+            $this->_docblock->setDesc($desc);
+        } else {
+            $this->_docblock = new DocblockGenerator($desc, $this->_indent);
+        }
         return $this;
     }
 
@@ -166,7 +164,11 @@ class PropertyGenerator
      */
     public function getDesc()
     {
-        return $this->_desc;
+        $desc = null;
+        if (null !== $this->_docblock) {
+            $desc = $this->_docblock->getDesc();
+        }
+        return $desc;
     }
 
     /**
@@ -280,6 +282,28 @@ class PropertyGenerator
     }
 
     /**
+     * Set the docblock generator object
+     *
+     * @param  Pop\Code\DocblockGenerator $docblock
+     * @return Pop\Code\PropertyGenerator
+     */
+    public function setDocblock(DocblockGenerator $docblock)
+    {
+        $this->_docblock = $docblock;
+        return $this;
+    }
+
+    /**
+     * Access the docblock generator object
+     *
+     * @return Pop\Code\DocblockGenerator
+     */
+    public function getDocblock()
+    {
+        return $this->_docblock;
+    }
+
+    /**
      * Render property
      *
      * @param  boolean $ret
@@ -297,9 +321,10 @@ class PropertyGenerator
             $varDeclaration = ' ';
         }
 
-        $this->_docblock = new DocblockGenerator($this->_desc, $this->_indent);
+        if (null === $this->_docblock) {
+            $this->_docblock = new DocblockGenerator(null, $this->_indent);
+        }
         $this->_docblock->setTag('var', $this->_type);
-
         $this->_output = $this->_docblock->render(true);
         $this->_output .= $this->_indent . $this->_visibility . $static . $varDeclaration . $this->_name;
 
@@ -339,6 +364,7 @@ class PropertyGenerator
         $ary = str_replace(PHP_EOL, PHP_EOL . $this->_indent . '  ', var_export($this->_value, true));
         $ary .= ';';
         $ary = str_replace('  );', ');', $ary);
+        $ary = str_replace('NULL', 'null', $ary);
 
         return $ary;
     }
