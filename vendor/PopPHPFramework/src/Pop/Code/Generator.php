@@ -96,7 +96,7 @@ class Generator extends File
      * @var array
      */
     protected $_allowed = array(
-    	'php'    => 'text/plain',
+        'php'    => 'text/plain',
         'php3'   => 'text/plain',
         'phtml'  => 'text/plain'
     );

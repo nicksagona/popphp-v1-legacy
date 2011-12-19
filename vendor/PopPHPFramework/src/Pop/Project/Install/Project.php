@@ -83,7 +83,7 @@ class Project
             $ns = new NamespaceGenerator($install->project->name);
             $ns->setUses(
                 array(
-                	'Pop\\Http\\Response',
+                    'Pop\\Http\\Response',
                     'Pop\\Http\\Request',
                     array('Pop\\Mvc\\Controller', 'C'),
                     'Pop\\Mvc\\Model',
