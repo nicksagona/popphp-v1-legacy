@@ -143,10 +143,12 @@ class Project
                 if (file_exists(__DIR__ . '/Web/ht.access')) {
                     copy(__DIR__ . '/Web/ht.access', $install->project->docroot . '/.htaccess');
                 }
-            } else {
+            } else if ($input == 'i') {
                 if (file_exists(__DIR__ . '/Web/web.config')) {
                     copy(__DIR__ . '/Web/web.config', $install->project->docroot . '/web.config');
                 }
+            } else {
+                echo Locale::factory()->__('You will have to install your web server rewrite configuration manually.') . PHP_EOL;
             }
         }
     }
@@ -158,11 +160,11 @@ class Project
      */
     public static function installWeb()
     {
-        $msg = Locale::factory()->__('Install index controller and web configuration files?') . ' ([A]pache/[I]IS/[N]o) ';
+        $msg = Locale::factory()->__('Install index controller and web configuration files?') . ' ([A]pache/[I]IS/[O]ther/[N]o) ';
         echo $msg;
         $input = null;
 
-        while (($input != 'a') && ($input != 'i') && ($input != 'n')) {
+        while (($input != 'a') && ($input != 'i') && ($input != 'o') && ($input != 'n')) {
             if (null !== $input) {
                 echo $msg;
             }

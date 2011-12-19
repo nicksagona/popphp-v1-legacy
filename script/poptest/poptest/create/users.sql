@@ -1,6 +1,8 @@
 --
 -- Table structure for table `users`
 --
+
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `username` varchar(250) NOT NULL,

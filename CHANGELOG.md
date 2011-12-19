@@ -269,3 +269,4 @@ The folder argument is not a folder.
 The module name must be set in the module config.  
 Install index controller and web configuration files?  
 The docblock is not in the correct format.  
+You will have to install your web server rewrite configuration manually.  
