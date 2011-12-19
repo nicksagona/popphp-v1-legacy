@@ -223,6 +223,7 @@ class InterfaceGenerator
     public function addMethod(MethodGenerator $method)
     {
         $this->_methods[$method->getName()] = $method;
+        return $this;
     }
 
     /**

@@ -24,11 +24,6 @@
  */
 namespace Pop\Project\Install;
 
-use Pop\Data\Sql,
-    Pop\Db\Db as PopDb,
-    Pop\Dir\Dir,
-    Pop\File\File;
-
 /**
  * @category   Pop
  * @package    Pop_Project

@@ -325,7 +325,7 @@ class PropertyGenerator
             $this->_docblock = new DocblockGenerator(null, $this->_indent);
         }
         $this->_docblock->setTag('var', $this->_type);
-        $this->_output = $this->_docblock->render(true);
+        $this->_output = PHP_EOL . $this->_docblock->render(true);
         $this->_output .= $this->_indent . $this->_visibility . $static . $varDeclaration . $this->_name;
 
         if (null !== $this->_value) {
@@ -344,8 +344,6 @@ class PropertyGenerator
             $val = ($this->_type == 'array') ? 'array()' : 'null';
             $this->_output .= ' = ' . $val . ';';
         }
-
-        $this->_output .= PHP_EOL;
 
         if ($ret) {
             return $this->_output;

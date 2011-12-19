@@ -292,6 +292,7 @@ class ClassGenerator
     public function addProperty(PropertyGenerator $property)
     {
         $this->_properties[$property->getName()] = $property;
+        return $this;
     }
 
     /**
@@ -330,6 +331,7 @@ class ClassGenerator
     public function addMethod(MethodGenerator $method)
     {
         $this->_methods[$method->getName()] = $method;
+        return $this;
     }
 
     /**
@@ -379,7 +381,7 @@ class ClassGenerator
             $this->_output .= ' implements ' . $this->_interface;
         }
 
-        $this->_output .= PHP_EOL . '{' . PHP_EOL;
+        $this->_output .= PHP_EOL . '{';
         $this->_output .= $this->_formatProperties() . PHP_EOL;
         $this->_output .= $this->_formatMethods() . PHP_EOL;
         $this->_output .= '}' . PHP_EOL;

@@ -24,7 +24,7 @@
  */
 namespace Pop\Project\Install;
 
-use Pop\File\File,
+use Pop\Code\Generator,
     Pop\Locale\Locale;
 
 /**
@@ -66,18 +66,20 @@ class Base
             }
         }
 
-        $projectCfg = new File($install->project->base . '/config/project.config.php');
-        $projectCfg->write('<?php' . PHP_EOL . PHP_EOL)
-                   ->write('return new Pop\Config(array(' . PHP_EOL, true)
-                   ->write("    'base'      => '" . addslashes(realpath($install->project->base)) . "'," . PHP_EOL, true)
-                   ->write("    'docroot'   => '" . addslashes(realpath($install->project->docroot)) . "'", true);
+        // Create project.config.php file
+        $projectCfg = new Generator($install->project->base . '/config/project.config.php');
+        $projectCfg->appendToBody('return new Pop\Config(array(', true)
+                   ->appendToBody("    'base'      => '" . addslashes(realpath($install->project->base)) . "',")
+                   ->appendToBody("    'docroot'   => '" . addslashes(realpath($install->project->docroot)) . "'", false);
+
+        // Add the database config to it
         if (isset($install->databases)) {
-            $projectCfg->write("," . PHP_EOL, true)
-                       ->write("    'databases' => array(" . PHP_EOL, true);
+            $projectCfg->appendToBody(",")
+                       ->appendToBody("    'databases' => array(");
             $databases = $install->databases->asArray();
             $i = 0;
             foreach ($databases as $dbname => $db) {
-                $projectCfg->write("        '" . $dbname . "' => Pop\\Db\\Db::factory('" . $db['type'] . "', array (" . PHP_EOL, true);
+                $projectCfg->appendToBody("        '" . $dbname . "' => Pop\\Db\\Db::factory('" . $db['type'] . "', array (");
                 $j = 0;
                 foreach ($db as $key => $value) {
                     $j++;
@@ -86,30 +88,33 @@ class Base
                         if ($j < count($db)) {
                            $ary .= ',';
                         }
-                        $projectCfg->write($ary . PHP_EOL, true);
+                        $projectCfg->appendToBody($ary);
                     }
                 }
                 $i++;
                 $end = ($i < count($databases)) ? '        )),' : '        ))';
-                $projectCfg->write($end . PHP_EOL, true);
+                $projectCfg->appendToBody($end);
             }
-            $projectCfg->write('    )', true);
+            $projectCfg->appendToBody('    )', false);
         }
+
+        // Add the controller config to it
         if (isset($install->controller)) {
-            $projectCfg->write(',' . PHP_EOL . "    'controller' => '{$install->project->name}\\\\Controller'", true);
+            $projectCfg->appendToBody(',' . PHP_EOL . "    'controller' => '{$install->project->name}\\\\Controller'");
         }
-        $projectCfg->write(PHP_EOL . '));' . PHP_EOL, true);
+
+        // Save project config
+        $projectCfg->appendToBody('));', false);
         $projectCfg->save();
 
         // Create the module config file
-        $moduleCfg = new File($install->project->base . '/module/' . $install->project->name . '/config/module.config.php');
-        $moduleCfg->write('<?php' . PHP_EOL . PHP_EOL)
-                  ->write('return new Pop\Config(array(' . PHP_EOL, true)
-                  ->write("    'name'   => '{$install->project->name}'," . PHP_EOL, true)
-                  ->write("    'base'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name)) . "'," . PHP_EOL, true)
-                  ->write("    'config' => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/config')) . "'," . PHP_EOL, true)
-                  ->write("    'src'    => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/src')) . "'" . PHP_EOL, true)
-                  ->write("));" . PHP_EOL, true)
+        $moduleCfg = new Generator($install->project->base . '/module/' . $install->project->name . '/config/module.config.php');
+        $moduleCfg->appendToBody('return new Pop\Config(array(')
+                  ->appendToBody("    'name'   => '{$install->project->name}',")
+                  ->appendToBody("    'base'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name)) . "',")
+                  ->appendToBody("    'config' => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/config')) . "',")
+                  ->appendToBody("    'src'    => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/src')) . "'")
+                  ->appendToBody("));", false)
                   ->save();
     }
 

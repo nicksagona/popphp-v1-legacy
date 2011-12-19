@@ -137,7 +137,11 @@ class NamespaceGenerator
     public function setUses(array $uses)
     {
         foreach ($uses as $use) {
-            $this->_use[$use[0]] = (isset($use[1])) ? $use[1] : null;
+            if (is_array($use)) {
+                $this->_use[$use[0]] = (isset($use[1])) ? $use[1] : null;
+            } else {
+                $this->_use[$use] = null;
+            }
         }
         return $this;
     }

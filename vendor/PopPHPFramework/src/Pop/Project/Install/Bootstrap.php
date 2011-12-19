@@ -24,7 +24,7 @@
  */
 namespace Pop\Project\Install;
 
-use Pop\File\File;
+use Pop\Code\Generator;
 
 /**
  * @category   Pop
@@ -50,23 +50,22 @@ class Bootstrap
         $moduleCfg = addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/config/module.config.php'));
         $moduleSrc = addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/src'));
 
-        $bootstrap = new File($install->project->docroot . '/bootstrap.php');
+        $bootstrap = new Generator($install->project->docroot . '/bootstrap.php');
 
         // Create new bootstrap file
         if (!file_exists($install->project->docroot . '/bootstrap.php')) {
-            $bootstrap->write("<?php " . PHP_EOL . PHP_EOL)
-                      ->write("// Require the Autoloader class file" . PHP_EOL . "require_once '{$autoload}';" . PHP_EOL . PHP_EOL, true)
-                      ->write("// Instantiate the autoloader object" . PHP_EOL . "\$autoloader = Pop\\Loader\\Autoloader::factory();" . PHP_EOL . "\$autoloader->splAutoloadRegister();" . PHP_EOL, true);
+            $bootstrap->appendToBody("// Require the Autoloader class file" . PHP_EOL . "require_once '{$autoload}';" . PHP_EOL)
+                      ->appendToBody("// Instantiate the autoloader object" . PHP_EOL . "\$autoloader = Pop\\Loader\\Autoloader::factory();" . PHP_EOL . "\$autoloader->splAutoloadRegister();");
         }
 
         // Else, just append to the existing bootstrap file
-        $bootstrap->write("\$autoloader->register('{$install->project->name}', '{$moduleSrc}');" . PHP_EOL . PHP_EOL, true)
-                  ->write("// Create a project config object" . PHP_EOL, true)
-                  ->write("\$project = {$install->project->name}\\Project::factory(" . PHP_EOL, true)
-                  ->write("    include '{$projectCfg}'," . PHP_EOL, true)
-                  ->write("    include '{$moduleCfg}'" . PHP_EOL, true)
-                  ->write(");" . PHP_EOL . PHP_EOL, true)
-                  ->write("\$project->run();" . PHP_EOL . PHP_EOL, true)
+        $bootstrap->appendToBody("\$autoloader->register('{$install->project->name}', '{$moduleSrc}');" . PHP_EOL)
+                  ->appendToBody("// Create a project config object")
+                  ->appendToBody("\$project = {$install->project->name}\\Project::factory(")
+                  ->appendToBody("    include '{$projectCfg}',")
+                  ->appendToBody("    include '{$moduleCfg}'")
+                  ->appendToBody(");" . PHP_EOL)
+                  ->appendToBody("\$project->run();")
                   ->save();
     }
 

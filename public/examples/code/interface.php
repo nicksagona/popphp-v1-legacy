@@ -28,14 +28,20 @@ try {
            ->addArgument('test', "null", "Pop\\Filter\\String")
            ->addArgument('other', "array()", 'array');
 
+    // Create another method object
+    $method2 = new MethodGenerator('anotherMethod');
+    $method2->setDesc('This is another test method')
+            ->addArgument('someParam', "array()", 'array');
     // Add code pieces to the code file
+
     $code->setNamespace($ns);
     $code->code()->setDocblock(new DocblockGenerator('This is my test interface'))
                  ->getDocblock()->setTag('category', 'Pop')
                                 ->setTag('package', 'Pop_Code')
                                 ->setTag('author', 'Nick Sagona, III');
 
-    $code->code()->addMethod($method);
+    $code->code()->addMethod($method)
+                 ->addMethod($method2);
 
     // Render and save the interface
     $code->save();

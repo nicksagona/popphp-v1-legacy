@@ -24,7 +24,9 @@
  */
 namespace Pop\Project\Install;
 
-use Pop\File\File,
+use Pop\Code\Generator,
+    Pop\Code\MethodGenerator,
+    Pop\Code\NamespaceGenerator,
     Pop\Locale\Locale;
 
 /**
@@ -48,64 +50,87 @@ class Project
     public static function install($install, $installDir)
     {
         // Create the project class file
-        $projectCls = new File($install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Project.php');
-        $projectCls->write('<?php' . PHP_EOL . PHP_EOL)
-                   ->write('namespace ' . $install->project->name . ';' . PHP_EOL . PHP_EOL, true)
-                   ->write('use Pop\\Project\\Project as P;' . PHP_EOL . PHP_EOL, true)
-                   ->write('class Project extends P' . PHP_EOL, true)
-                   ->write('{' . PHP_EOL . PHP_EOL, true)
-                   ->write('    public function run()' . PHP_EOL, true)
-                   ->write('    {' . PHP_EOL, true)
-                   ->write('        // Add any project specific code for run-time here.' . PHP_EOL, true)
-                   ->write('        parent::run();' . PHP_EOL, true)
-                   ->write('    }' . PHP_EOL . PHP_EOL, true)
-                   ->write('}' . PHP_EOL, true)
-                   ->save();
+        $projectCls = new Generator(
+            $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Project.php',
+            Generator::CREATE_CLASS
+        );
+
+        // Set namespace
+        $ns = new NamespaceGenerator($install->project->name);
+        $ns->setUse('Pop\\Project\\Project', 'P');
+
+        // Create 'run' method
+        $run = new MethodGenerator('run');
+        $run->setDesc('Add any project specific code to this method for run-time use here.');
+        $run->appendToBody('parent::run();', false);
+
+        $projectCls->setNamespace($ns);
+        $projectCls->code()->setParent('P')
+                           ->addMethod($run);
+        $projectCls->save();
 
         // Create the controller class file
         if (isset($install->controller)) {
-            if (!file_exists($install->project->base . '/view')) {
-                mkdir($install->project->base . '/view');
+            if (!file_exists($install->project->base . '/module/' . $install->project->name . '/view')) {
+                mkdir($install->project->base . '/module/' . $install->project->name . '/view');
             }
-            $controllerCls = new File($install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Controller.php');
-            $controllerCls->write('<?php' . PHP_EOL . PHP_EOL)
-                          ->write('namespace ' . $install->project->name. ';' . PHP_EOL . PHP_EOL, true)
-                          ->write('use Pop\\Http\\Response,' . PHP_EOL, true)
-                          ->write('    Pop\\Http\\Request,' . PHP_EOL, true)
-                          ->write('    Pop\\Mvc\\Controller as C,' . PHP_EOL, true)
-                          ->write('    Pop\\Mvc\\Model,' . PHP_EOL, true)
-                          ->write('    Pop\\Mvc\\View;' . PHP_EOL . PHP_EOL, true)
-                          ->write('class Controller extends C' . PHP_EOL, true)
-                          ->write('{' . PHP_EOL . PHP_EOL, true)
-                          ->write("    public function __construct(Request \$request = null, Response \$response = null, \$viewPath = null)" . PHP_EOL, true)
-                          ->write("    {" . PHP_EOL, true)
-                          ->write("        if (null === \$viewPath) {" . PHP_EOL, true)
-                          ->write("            \$viewPath = __DIR__ . '/../../../../view';" . PHP_EOL, true)
-                          ->write("        }" . PHP_EOL . PHP_EOL, true)
-                          ->write("        parent::__construct(\$request, \$response, \$viewPath);" . PHP_EOL . PHP_EOL, true)
-                          ->write("        if (\$this->_request->getRequestUri() == '/') {" . PHP_EOL, true)
-                          ->write("            \$this->index();" . PHP_EOL, true)
-                          ->write("        } else if (!is_null(\$this->_request->getPath(0)) && method_exists(\$this, \$this->_request->getPath(0))) {" . PHP_EOL, true)
-                          ->write("            \$path = \$this->_request->getPath(0);" . PHP_EOL, true)
-                          ->write("            \$this->\$path();" . PHP_EOL, true)
-                          ->write("        } else {" . PHP_EOL, true)
-                          ->write("            \$this->_isError = true;" . PHP_EOL, true)
-                          ->write("            \$this->error();" . PHP_EOL, true)
-                          ->write("        }" . PHP_EOL, true)
-                          ->write("    }" . PHP_EOL. PHP_EOL, true);
+            $controllerCls = new Generator(
+                $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Controller.php',
+                Generator::CREATE_CLASS
+            );
+
+            // Set namespace
+            $ns = new NamespaceGenerator($install->project->name);
+            $ns->setUses(
+                array(
+                	'Pop\\Http\\Response',
+                    'Pop\\Http\\Request',
+                    array('Pop\\Mvc\\Controller', 'C'),
+                    'Pop\\Mvc\\Model',
+                    'Pop\\Mvc\\View'
+                )
+            );
+
+            $construct = new MethodGenerator('__construct');
+            $construct->setDesc('Constructer method to instantiate the controller object');
+            $construct->addArguments(
+                array(
+                    array('name' => 'request', 'value' => 'null', 'type' => 'Request'),
+                    array('name' => 'response', 'value' => 'null', 'type' => 'Response'),
+                    array('name' => 'viewPath', 'value' => 'null')
+                )
+            );
+            $construct->appendToBody("if (null === \$viewPath) {")
+                      ->appendToBody("    \$viewPath = __DIR__ . '/../../view';")
+                      ->appendToBody("}")
+                      ->appendToBody("parent::__construct(\$request, \$response, \$viewPath);")
+                      ->appendToBody("if (\$this->_request->getRequestUri() == '/') {")
+                      ->appendToBody("    \$this->index();")
+                      ->appendToBody("} else if (!is_null(\$this->_request->getPath(0)) && method_exists(\$this, \$this->_request->getPath(0))) {")
+                      ->appendToBody("    \$path = \$this->_request->getPath(0);")
+                      ->appendToBody("    \$this->\$path();")
+                      ->appendToBody("} else {")
+                      ->appendToBody("    \$this->_isError = true;")
+                      ->appendToBody("    \$this->error();")
+                      ->appendToBody("}", false);
+
+            $controllerCls->setNamespace($ns);
+            $controllerCls->code()->setParent('C')
+                                  ->addMethod($construct);
+
             $views = $install->controller->asArray();
             foreach ($views as $key => $value) {
                 if (file_exists($installDir . '/view/' . $value)) {
-                    copy($installDir . '/view/' . $value, $install->project->base . '/view/' . $value);
+                    copy($installDir . '/view/' . $value, $install->project->base . '/module/' . $install->project->name . '/view/' . $value);
                 }
-                $controllerCls->write("    public function {$key}()" . PHP_EOL, true)
-                              ->write("    {" . PHP_EOL, true)
-                              ->write("        // Add your model data here to inject into the view." . PHP_EOL, true)
-                              ->write("        \$this->_view = View::factory(\$this->_viewPath . '/{$value}');" . PHP_EOL, true)
-                              ->write("    }" . PHP_EOL . PHP_EOL, true);
+
+                $method = new MethodGenerator($key);
+                $method->setDesc('Add your model data here within the \'' . $key . '()\' method to inject into the view.');
+                $method->appendToBody("\$this->_view = View::factory(\$this->_viewPath . '/{$value}');", false);
+
+                $controllerCls->code()->addMethod($method);
             }
-            $controllerCls->write('}' . PHP_EOL, true)
-                          ->save();
+            $controllerCls->save();
         }
 
         $input = self::installWeb();

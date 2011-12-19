@@ -311,13 +311,17 @@ class MethodGenerator
     /**
      * Append to the method body
      *
-     * @param  string $body
+     * @param  string  $body
+     * @param  boolean $newline
      * @return Pop\Code\MethodGenerator
      */
-    public function appendToBody($body)
+    public function appendToBody($body, $newline = true)
     {
         $body = str_replace(PHP_EOL, PHP_EOL . $this->_indent . '    ', $body);
-        $this->_body .= PHP_EOL . $this->_indent . '    ' . $body;
+        $this->_body .= $this->_indent . '    ' . $body;
+        if ($newline) {
+            $this->_body .= PHP_EOL;
+        }
         return $this;
     }
 
@@ -415,8 +419,8 @@ class MethodGenerator
     public function addArguments(array $args)
     {
         foreach ($args as $arg) {
-            $value = (isset($arg['value'])) ? $value : null;
-            $type = (isset($arg['type'])) ? $type : null;
+            $value = (isset($arg['value'])) ? $arg['value'] : null;
+            $type = (isset($arg['type'])) ? $arg['type'] : null;
             $this->addArgument($arg['name'], $value, $type);
         }
         return $this;
@@ -501,14 +505,14 @@ class MethodGenerator
         $static = ($this->_static) ? ' static' : null;
         $args = $this->_formatArguments();
 
-        $this->_output = (null !== $this->_docblock) ? $this->_output = $this->_docblock->render(true) : null;
+        $this->_output = PHP_EOL . (null !== $this->_docblock) ? $this->_output = $this->_docblock->render(true) : null;
         $this->_output .= $this->_indent . $final . $abstract . $this->_visibility .
            $static . ' function ' . $this->_name . '(' . $args . ')';
 
         if ((!$this->_abstract) && (!$this->_interface)) {
             $this->_output .= PHP_EOL . $this->_indent . '{' . PHP_EOL;
             $this->_output .= $this->_body. PHP_EOL;
-            $this->_output .= $this->_indent . '}' . PHP_EOL;
+            $this->_output .= $this->_indent . '}';
         } else {
             $this->_output .= ';';
         }

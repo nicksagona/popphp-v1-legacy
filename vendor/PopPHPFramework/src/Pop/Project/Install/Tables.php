@@ -24,7 +24,9 @@
  */
 namespace Pop\Project\Install;
 
-use Pop\File\File,
+use Pop\Code\Generator,
+    Pop\Code\PropertyGenerator,
+    Pop\Code\NamespaceGenerator,
     Pop\Filter\String,
     Pop\Locale\Locale;
 
@@ -58,20 +60,22 @@ class Tables
         foreach ($dbTables as $table) {
             if (null !== $table['tableName']) {
                 $tableName = String::factory($table['tableName'])->underscoreToCamelcase()->upperFirst();
-                $tableCls = new File($tableDir . '/' . $tableName . '.php');
-                $tableCls->write('<?php' . PHP_EOL . PHP_EOL)
-                         ->write('namespace ' . $install->project->name . '\\Table;' . PHP_EOL . PHP_EOL, true)
-                         ->write('use Pop\\Record\\Record;' . PHP_EOL . PHP_EOL, true);
-
+                $primaryId = (null !== $table['primaryId']) ? $table['primaryId'] : 'null';
                 $auto = ($table['auto']) ? 'true' : 'false';
-                $primaryId = (null !== $table['primaryId']) ? "'" . $table['primaryId'] . "'" : 'null';
 
-                $tableCls->write('class ' . $tableName . ' extends Record' . PHP_EOL, true)
-                         ->write('{' . PHP_EOL . PHP_EOL, true)
-                         ->write('    protected $_primaryId = ' . $primaryId . ';' . PHP_EOL . PHP_EOL, true)
-                         ->write('    protected $_auto =  ' . $auto . ';' . PHP_EOL . PHP_EOL, true)
-                         ->write('}' . PHP_EOL, true)
-                         ->save();
+                $ns = new NamespaceGenerator($install->project->name . '\\Table');
+                $ns->setUse('Pop\\Record\\Record');
+
+                $propId = new PropertyGenerator('_primaryId', 'string', $primaryId, 'protected');
+                $propAuto = new PropertyGenerator('_auto', 'boolean', $auto, 'protected');
+
+                $tableCls = new Generator($tableDir . '/' . $tableName . '.php', Generator::CREATE_CLASS);
+                $tableCls->setNamespace($ns);
+                $tableCls->code()->setParent('Record')
+                                 ->addProperty($propId)
+                                 ->addProperty($propAuto);
+
+                $tableCls->save();
             }
         }
     }

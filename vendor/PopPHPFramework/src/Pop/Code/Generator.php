@@ -117,6 +117,9 @@ class Generator extends File
             $this->createClass();
         } else if ($type == self::CREATE_INTERFACE) {
             $this->createInterface();
+        } else if (($type == self::CREATE_NONE) && file_exists($file)) {
+            $this->_body = str_replace('<?php', '', $this->read());
+            $this->_body = trim(str_replace('?>', '', $this->_body)) . PHP_EOL . PHP_EOL;
         }
     }
 
@@ -244,12 +247,16 @@ class Generator extends File
      * Append to the code body
      *
      * @param  string $body
+     * @param  boolean $newline
      * @return Pop\Code\Generator
      */
-    public function appendToBody($body)
+    public function appendToBody($body, $newline = true)
     {
         $body = str_replace(PHP_EOL, PHP_EOL . $this->_indent, $body);
-        $this->_body .= PHP_EOL . $this->_indent . $body;
+        $this->_body .= $this->_indent . $body;
+        if ($newline) {
+            $this->_body .= PHP_EOL;
+        }
         return $this;
     }
 
