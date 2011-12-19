@@ -15,9 +15,13 @@ return new Pop\Config(array(
             'password' => '12pop34'
         )
     ),
-    'controller' => array(
-        'index' => 'index.phtml',
-        'about' => 'about.phtml',
-        'error' => 'error.phtml'
+    'forms' => array(
+    ),
+    'controllers' => array(
+    	'default' => array(
+        	'index' => 'index.phtml',
+        	'about' => 'about.phtml',
+        	'error' => 'error.phtml'
+        )
     )
 ));

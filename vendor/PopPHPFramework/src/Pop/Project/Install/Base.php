@@ -25,6 +25,7 @@
 namespace Pop\Project\Install;
 
 use Pop\Code\Generator,
+    Pop\Filter\String,
     Pop\Locale\Locale;
 
 /**
@@ -99,8 +100,17 @@ class Base
         }
 
         // Add the controller config to it
-        if (isset($install->controller)) {
-            $projectCfg->appendToBody(',' . PHP_EOL . "    'controller' => '{$install->project->name}\\\\Controller'");
+        if (isset($install->controllers)) {
+            $projectCfg->appendToBody(',' . PHP_EOL . "    'controllers' => array(");
+            $i = 0;
+            $controllers = $install->controllers->asArray();
+            foreach ($controllers as $key => $value) {
+                $i++;
+                $ctrl = "        '" . $key . "' => '" . $install->project->name . "\\\\Controller\\\\" . ucfirst(String::factory($key)->underscoreToCamelcase()) . "Controller'";
+                $ctrl .= ($i < count($databases)) ? ',' : null;
+                $projectCfg->appendToBody($ctrl);
+            }
+            $projectCfg->appendToBody('    )');
         }
 
         // Save project config

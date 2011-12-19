@@ -115,10 +115,11 @@ class Project
      *
      * @return Pop\Mvc\Controller
      */
-    public function controller()
+    public function controller($name = 'default')
     {
-        if ((null === $this->_controller) && isset($this->_config->controller)) {
-            $this->_controller = new $this->_config->controller();
+        if ((null === $this->_controller) && isset($this->_config->controllers->$name)) {
+            $ctrlCls = $this->_config->controllers->$name;
+            $this->_controller = new $ctrlCls();
         }
         return $this->_controller;
     }
@@ -146,10 +147,11 @@ class Project
      * @throws Exception
      * @return Pop\Project\Project
      */
-    public function run()
+    public function run($controller = 'default')
     {
-        if (null !== $this->controller()) {
-            $this->_controller = new $this->_config->controller();
+        if (null !== $this->controller($controller)) {
+            $ctrlCls = $this->controller($controller);
+            $this->_controller = new $ctrlCls();
             $this->_controller->dispatch();
         }
     }

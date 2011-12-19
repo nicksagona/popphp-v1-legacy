@@ -29,6 +29,7 @@ use Pop\File\File,
     Pop\Locale\Locale,
     Pop\Project\Install\Base,
     Pop\Project\Install\Bootstrap,
+    Pop\Project\Install\Controllers,
     Pop\Project\Install\Db,
     Pop\Project\Install\Forms,
     Pop\Project\Install\Project,
@@ -151,6 +152,11 @@ class Install
             // Install table class files
             if (count($dbTables) > 0) {
                 Tables::install($install, $dbTables);
+            }
+
+            // Install controller class files
+            if (isset($install->controllers)) {
+                Controllers::install($install, $installDir);
             }
 
             // Install form class files
