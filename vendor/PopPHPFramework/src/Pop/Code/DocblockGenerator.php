@@ -94,10 +94,11 @@ class DocblockGenerator
      * docblock generator object.
      *
      * @param  string $docblock
+     * @param  string $forceIndent
      * @throws Exception
      * @return Pop\Code\DocblockGenerator
      */
-    public static function parse($docblock)
+    public static function parse($docblock, $forceIndent = null)
     {
         if ((strpos($docblock, '/*') === false) || (strpos($docblock, '*/') === false)) {
             throw new Exception(Locale::factory()->__('The docblock is not in the correct format.'));
@@ -123,15 +124,14 @@ class DocblockGenerator
             $formattedDesc = trim($formattedDesc);
         }
 
-        // Get the indentation, if any
-        $indent = substr($docblock, 0, strpos($docblock, '/'));
-
+        // Get the indentation, if any, and create docblock object
+        $indent = (null === $forceIndent) ? substr($docblock, 0, strpos($docblock, '/')) : $forceIndent;
         $newDocblock = new self($formattedDesc, $indent);
 
         // Get the tags, if any
         if (strpos($docblock, '@') !== false) {
             $tags = substr($docblock, strpos($docblock, '@'));
-            $tags = substr($tags, 0, strpos($tags, '/'));
+            $tags = substr($tags, 0, strpos($tags, '*/'));
             $tags = str_replace('*', '', $tags);
             $tagsAry = explode(PHP_EOL, $tags);
 
@@ -333,7 +333,7 @@ class DocblockGenerator
     {
         $this->_output = $this->_indent . '/**' . PHP_EOL;
 
-        if (null !== $this->_desc) {
+        if (!empty($this->_desc)) {
             $desc = trim($this->_desc);
             $descAry = explode(PHP_EOL, $desc);
             $i = 0;

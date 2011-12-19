@@ -332,7 +332,7 @@ class PropertyGenerator
             if ($this->_type == 'array') {
                 $val = (count($this->_value) == 0) ? 'array()' : $this->_formatArrayValues();
                 $this->_output .= ' = ' . $val . PHP_EOL;
-            } else if (($this->_type == 'int') || ($this->_type == 'float')) {
+            } else if (($this->_type == 'integer') || ($this->_type == 'int') || ($this->_type == 'float')) {
                 $this->_output .= ' = ' . $this->_value . ';';
             } else if ($this->_type == 'boolean') {
                 $val = ($this->_value) ? 'true' : 'false';

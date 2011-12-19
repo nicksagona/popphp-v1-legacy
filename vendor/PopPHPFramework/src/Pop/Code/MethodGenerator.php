@@ -47,7 +47,7 @@ class MethodGenerator
      * Method arguments
      * @var array
      */
-    protected $_arguments = null;
+    protected $_arguments = array();
 
     /**
      * Method name
@@ -72,6 +72,12 @@ class MethodGenerator
      * @var boolean
      */
     protected $_abstract = false;
+
+    /**
+     * Method final flag
+     * @var boolean
+     */
+    protected $_final = false;
 
     /**
      * Method interface flag
@@ -170,6 +176,28 @@ class MethodGenerator
     public function isAbstract()
     {
         return $this->_abstract;
+    }
+
+    /**
+     * Set the method final flag
+     *
+     * @param  boolean $final
+     * @return Pop\Code\MethodGenerator
+     */
+    public function setFinal($final = false)
+    {
+        $this->_final = (boolean)$final;
+        return $this;
+    }
+
+    /**
+     * Get the method final flag
+     *
+     * @return boolean
+     */
+    public function isFinal()
+    {
+        return $this->_final;
     }
 
     /**
@@ -369,10 +397,12 @@ class MethodGenerator
         if (null === $this->_docblock) {
             $this->_docblock = new DocblockGenerator(null, $this->_indent);
         }
-        if (null === $type) {
-            $type = 'unknown';
+        if (null !== $type) {
+            if (substr($name, 0, 1) != '$') {
+                $name = '$' . $name;
+            }
+            $this->_docblock->setParam($type, $name);
         }
-        $this->_docblock->setParam($type, '$' . $name);
         return $this;
     }
 
@@ -389,6 +419,32 @@ class MethodGenerator
             $type = (isset($arg['type'])) ? $type : null;
             $this->addArgument($arg['name'], $value, $type);
         }
+        return $this;
+    }
+
+    /**
+     * Add a method argument (synonym method for convenience)
+     *
+     * @param string  $name
+     * @param mixed   $value
+     * @param string  $type
+     * @return Pop\Code\MethodGenerator
+     */
+    public function addParameter($name, $value = null, $type = null)
+    {
+        $this->addArgument($name, $value, $type);
+        return $this;
+    }
+
+    /**
+     * Add method arguments (synonym method for convenience)
+     *
+     * @param array $args
+     * @return Pop\Code\MethodGenerator
+     */
+    public function addParameters(array $args)
+    {
+        $this->addArguments($args);
         return $this;
     }
 
@@ -413,6 +469,26 @@ class MethodGenerator
     }
 
     /**
+     * Get a method argument (synonym method for convenience)
+     *
+     * @return array
+     */
+    public function getParameter($name)
+    {
+        return (isset($this->_arguments[$name])) ? $this->_arguments[$name] : null;
+    }
+
+    /**
+     * Get the method arguments (synonym method for convenience)
+     *
+     * @return array
+     */
+    public function getParameters()
+    {
+        return $this->_arguments;
+    }
+
+    /**
      * Render method
      *
      * @param  boolean $ret
@@ -420,12 +496,13 @@ class MethodGenerator
      */
     public function render($ret = false)
     {
+        $final = ($this->_final) ? 'final ' : null;
         $abstract = ($this->_abstract) ? 'abstract ' : null;
         $static = ($this->_static) ? ' static' : null;
         $args = $this->_formatArguments();
 
         $this->_output = (null !== $this->_docblock) ? $this->_output = $this->_docblock->render(true) : null;
-        $this->_output .= $this->_indent . $abstract . $this->_visibility .
+        $this->_output .= $this->_indent . $final . $abstract . $this->_visibility .
            $static . ' function ' . $this->_name . '(' . $args . ')';
 
         if ((!$this->_abstract) && (!$this->_interface)) {
@@ -458,7 +535,7 @@ class MethodGenerator
         foreach ($this->_arguments as $name => $arg) {
             $i++;
             $args .= (null !== $arg['type']) ? $arg['type'] . ' ' : null;
-            $args .= "\$" . $name;
+            $args .= (substr($name, 0, 1) != '$') ? "\$" . $name : $name;
             $args .= (null !== $arg['value']) ? " = " . $arg['value'] : null;
             if ($i < count($this->_arguments)) {
                 $args .= ', ';
