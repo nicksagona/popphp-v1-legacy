@@ -271,3 +271,4 @@ Install index controller and web configuration files?
 The docblock is not in the correct format.  
 You will have to install your web server rewrite configuration manually.  
 Creating controller class files...  
+The Sqlite database file and folder are not writable.  

@@ -104,7 +104,8 @@ class Controllers
                           ->appendToBody("} else {")
                           ->appendToBody("    \$this->_isError = true;")
                           ->appendToBody("    \$this->error();")
-                          ->appendToBody("}", false);
+                          ->appendToBody("}", false)
+                          ->getDocblock()->setReturn('void');
 
                 $controllerCls->setNamespace($ns);
                 $controllerCls->code()->setParent('C')
@@ -114,13 +115,14 @@ class Controllers
                     if (!file_exists($install->project->base . '/module/' . $install->project->name . '/view/' . $controller)) {
                         mkdir($install->project->base . '/module/' . $install->project->name . '/view/' . $controller);
                     }
-                    if (file_exists($installDir . '/view/' . $value)) {
-                        copy($installDir . '/view/' . $value, $install->project->base . '/module/' . $install->project->name . '/view/' . $controller . '/' . $value);
+                    if (file_exists($installDir . '/view/' . $controller . '/' . $value)) {
+                        copy($installDir . '/view/' . $controller . '/' . $value, $install->project->base . '/module/' . $install->project->name . '/view/' . $controller . '/' . $value);
                     }
 
                     $method = new MethodGenerator($key);
                     $method->setDesc('Add your model data here within the \'' . $key . '()\' method to inject into the view.');
                     $method->appendToBody("\$this->_view = View::factory(\$this->_viewPath . '/{$value}');", false);
+                    $method->getDocblock()->setReturn('void');
 
                     $controllerCls->code()->addMethod($method);
                 }

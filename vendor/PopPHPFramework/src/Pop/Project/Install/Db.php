@@ -27,7 +27,8 @@ namespace Pop\Project\Install;
 use Pop\Data\Sql,
     Pop\Db\Db as PopDb,
     Pop\Dir\Dir,
-    Pop\File\File;
+    Pop\File\File,
+    Pop\Locale\Locale;
 
 /**
  * @category   Pop
@@ -44,6 +45,7 @@ class Db
      * Check the database
      *
      * @param array $db
+     * @throws Exception
      * @return string
      */
     public static function check($db)
@@ -56,8 +58,15 @@ class Db
             return 'The database type \'' . $db['type'] . '\' is not valid.';
         } else {
             try {
-                $db = PopDb::factory($db['type'], $db);
-                return null;
+                $result = null;
+                if ($db['type'] == 'Sqlite') {
+                    if (!file_exists($db['database']) || !is_writable($db['database']) || !is_writable(dirname($db['database']))) {
+                        $result = Locale::factory()->__('The Sqlite database file and folder are not writable.');
+                    }
+                } else {
+                    $dbconn = PopDb::factory($db['type'], $db);
+                }
+                return $result;
             } catch (\Exception $e) {
                 return $e->getMessage();
             }
@@ -69,16 +78,23 @@ class Db
      *
      * @param array  $db
      * @param string $dir
+     * @throws Exception
      * @return array
      */
     public static function install($db, $dir)
     {
+        if ($db['type'] == 'Sqlite') {
+            $dbDir = dirname($db['database']);
+            $createDir = dirname($db['database']) . '/create';
+            $insertDir = dirname($db['database']) . '/insert';
+        } else {
+            $dbDir = $dir . '/' . $db['database'];
+            $createDir = $dir . '/' . $db['database'] . '/create';
+            $insertDir = $dir . '/' . $db['database'] . '/insert';
+        }
+
         $popdb = PopDb::factory($db['type'], $db);
         $tables = array();
-
-        $dbDir = $dir . '/' . $db['database'];
-        $createDir = $dir . '/' . $db['database'] . '/create';
-        $insertDir = $dir . '/' . $db['database'] . '/insert';
 
         // Create tables
         if (file_exists($createDir)) {
@@ -108,15 +124,25 @@ class Db
                             if ((stripos($s, 'AUTO_INCREMENT') !== false) || (stripos($s, 'CREATE SEQUENCE') !== false)) {
                                 $auto = true;
                             }
-                            // Get primary key (mysql)
+                            // Get primary key (mysql & sqlite)
                             if (stripos($s, 'PRIMARY KEY') !== false) {
-                                $primaryId = trim(substr($s, (stripos($s, 'PRIMARY KEY') + 11)));
-                                $primaryId = trim(substr($primaryId, 0, strpos($primaryId, ')')));
-                                $primaryId = str_replace('`', '', $primaryId);
-                                $primaryId = str_replace('"', '', $primaryId);
-                                $primaryId = str_replace("'", "", $primaryId);
-                                $primaryId = str_replace('(', '', $primaryId);
-                                $primaryId = str_replace(')', '', $primaryId);
+                                if ($db['type'] == 'Sqlite') {
+                                    $matches = array();
+                                    preg_match('/^(.*)PRIMARY\sKEY,/im', $sql, $matches);
+                                    if (isset($matches[0])) {
+                                        $id = trim($matches[0]);
+                                        $primaryId = substr($id, 0, strpos($id, ' '));
+                                        $auto = true;
+                                    }
+                                } else {
+                                    $primaryId = trim(substr($s, (stripos($s, 'PRIMARY KEY') + 11)));
+                                    $primaryId = trim(substr($primaryId, 0, strpos($primaryId, ')')));
+                                    $primaryId = str_replace('`', '', $primaryId);
+                                    $primaryId = str_replace('"', '', $primaryId);
+                                    $primaryId = str_replace("'", "", $primaryId);
+                                    $primaryId = str_replace('(', '', $primaryId);
+                                    $primaryId = str_replace(')', '', $primaryId);
+                                }
                             }
                             // Get primary key (pgsql)
                             if (stripos($s, 'ALTER SEQUENCE') !== false) {
@@ -169,7 +195,7 @@ class Db
             echo 'Executing additional SQL queries...' . PHP_EOL;
             $dir = new Dir($dbDir, true);
             foreach ($dir->files as $file) {
-                if (file_exists($file) && !is_dir($file)) {
+                if (file_exists($file) && !is_dir($file) && (substr($file, -4) == '.sql')) {
                     $f = new File($file);
                     $sql = trim($f->read());
                     $statements = explode(';', $sql);

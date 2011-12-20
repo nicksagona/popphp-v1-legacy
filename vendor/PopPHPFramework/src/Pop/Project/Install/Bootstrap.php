@@ -60,12 +60,11 @@ class Bootstrap
 
         // Else, just append to the existing bootstrap file
         $bootstrap->appendToBody("\$autoloader->register('{$install->project->name}', '{$moduleSrc}');" . PHP_EOL)
-                  ->appendToBody("// Create a project config object")
+                  ->appendToBody("// Create a project object")
                   ->appendToBody("\$project = {$install->project->name}\\Project::factory(")
                   ->appendToBody("    include '{$projectCfg}',")
                   ->appendToBody("    include '{$moduleCfg}'")
-                  ->appendToBody(");" . PHP_EOL)
-                  ->appendToBody("\$project->run();")
+                  ->appendToBody(");")
                   ->save();
     }
 

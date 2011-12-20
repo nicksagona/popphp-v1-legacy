@@ -55,6 +55,7 @@ class Base
             $install->project->base . '/module',
             $install->project->base . '/module/' . $install->project->name,
             $install->project->base . '/module/' . $install->project->name . '/config',
+            $install->project->base . '/module/' . $install->project->name . '/data',
             $install->project->base . '/module/' . $install->project->name . '/src',
             $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name,
             $install->project->base . '/module/' . $install->project->name . '/view',
@@ -66,6 +67,8 @@ class Base
                 mkdir($folder);
             }
         }
+
+        chmod($install->project->base . '/module/' . $install->project->name . '/data', 0777);
 
         // Create project.config.php file
         $projectCfg = new Generator($install->project->base . '/config/project.config.php');
@@ -82,10 +85,19 @@ class Base
             foreach ($databases as $dbname => $db) {
                 $projectCfg->appendToBody("        '" . $dbname . "' => Pop\\Db\\Db::factory('" . $db['type'] . "', array (");
                 $j = 0;
+                $isSqlite = ($db['type'] == 'Sqlite') ? true : false;
                 foreach ($db as $key => $value) {
                     $j++;
                     if ($key != 'type') {
-                        $ary = "            '{$key}' => '{$value}'";
+                        if ($isSqlite) {
+                            $dbFile = $install->project->base . '/module/' . $install->project->name . '/data/' . basename($value);
+                            copy($value, $dbFile);
+                            chmod($dbFile, 0777);
+                            $dbFile = addslashes(realpath($dbFile));
+                            $ary = "            '{$key}' => '{$dbFile}'";
+                        } else {
+                            $ary = "            '{$key}' => '{$value}'";
+                        }
                         if ($j < count($db)) {
                            $ary .= ',';
                         }
@@ -107,7 +119,7 @@ class Base
             foreach ($controllers as $key => $value) {
                 $i++;
                 $ctrl = "        '" . $key . "' => '" . $install->project->name . "\\\\Controller\\\\" . ucfirst(String::factory($key)->underscoreToCamelcase()) . "Controller'";
-                $ctrl .= ($i < count($databases)) ? ',' : null;
+                $ctrl .= ($i < count($controllers)) ? ',' : null;
                 $projectCfg->appendToBody($ctrl);
             }
             $projectCfg->appendToBody('    )');
@@ -123,7 +135,9 @@ class Base
                   ->appendToBody("    'name'   => '{$install->project->name}',")
                   ->appendToBody("    'base'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name)) . "',")
                   ->appendToBody("    'config' => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/config')) . "',")
-                  ->appendToBody("    'src'    => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/src')) . "'")
+                  ->appendToBody("    'data'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/data')) . "',")
+                  ->appendToBody("    'src'    => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/src')) . "',")
+                  ->appendToBody("    'view'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/view')) . "'")
                   ->appendToBody("));", false)
                   ->save();
     }

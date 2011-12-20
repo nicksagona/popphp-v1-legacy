@@ -64,6 +64,7 @@ class Project
         $run->setDesc('Add any project specific code to this method for run-time use here.');
         $run->addArgument('controller', "'default'", 'string');
         $run->appendToBody('parent::run($controller);', false);
+        $run->getDocblock()->setReturn('void');
 
         $projectCls->setNamespace($ns);
         $projectCls->code()->setParent('P')
