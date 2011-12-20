@@ -248,7 +248,7 @@ Database
 Installing database  
 Add project to the bootstrap file?  
 Project install complete.  
-This process will create and install a lightweight framework for your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders and any database credentials. Besides creating the folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can enable this by having the SQL files in the same folder as your build file under a folder named after the database, i.e. './dbname'. The following folder structure is required for the database installation to work properly:  
+This process will create and install a lightweight framework for your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders and any database credentials. Besides creating the folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can enable this by having the SQL files in the same folder as your install file, like so:
 Install a project based on the install file specified  
 Check the current configuration for required dependencies  
 Display this help  
@@ -273,4 +273,4 @@ You will have to install your web server rewrite configuration manually.
 Creating controller class files...  
 The Sqlite database file and folder are not writable.  
 Project reconfigured.  
-Reconfigure the project based on the new install file specified  
+Reconfigure the project based on the new location of the project  

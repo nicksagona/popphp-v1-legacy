@@ -12,7 +12,8 @@ return new Pop\Config(array(
             'database' => 'poptest',
             'host'     => 'localhost',
             'username' => 'popuser',
-            'password' => '12pop34'
+            'password' => '12pop34',
+            'prefix'   => 'pop_'
         )
     ),
     'forms' => array(

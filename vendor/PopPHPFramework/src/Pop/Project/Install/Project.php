@@ -66,6 +66,7 @@ class Project
         $run->appendToBody('parent::run($controller);', false);
         $run->getDocblock()->setReturn('void');
 
+        // Finalize the project config file and save it
         $projectCls->setNamespace($ns);
         $projectCls->code()->setParent('P')
                            ->addMethod($run);
@@ -73,6 +74,7 @@ class Project
 
         $input = self::installWeb();
 
+        // Install any web config and controller files
         if ($input != 'n') {
             if (file_exists(__DIR__ . '/Web/index.php')) {
                 $index = new Generator(__DIR__ . '/Web/index.php');

@@ -52,31 +52,32 @@ class Tables
     {
         echo Locale::factory()->__('Creating database table class files...') . PHP_EOL;
 
+        // Create table class folder
         $tableDir = $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Table';
         if (!file_exists($tableDir)) {
             mkdir($tableDir);
         }
 
-        foreach ($dbTables as $table) {
-            if (null !== $table['tableName']) {
-                $tableName = String::factory($table['tableName'])->underscoreToCamelcase()->upperFirst();
-                $primaryId = (null !== $table['primaryId']) ? $table['primaryId'] : 'null';
-                $auto = ($table['auto']) ? 'true' : 'false';
+        // Loop through the tables, creating the classes
+        foreach ($dbTables as $table => $value) {
+            $tableName = String::factory($table)->underscoreToCamelcase()->upperFirst();
 
-                $ns = new NamespaceGenerator($install->project->name . '\\Table');
-                $ns->setUse('Pop\\Record\\Record');
+            $ns = new NamespaceGenerator($install->project->name . '\\Table');
+            $ns->setUse('Pop\\Record\\Record');
 
-                $propId = new PropertyGenerator('_primaryId', 'string', $primaryId, 'protected');
-                $propAuto = new PropertyGenerator('_auto', 'boolean', $auto, 'protected');
+            $prefix = new PropertyGenerator('_prefix', 'string', $value['prefix'], 'protected');
+            $propId = new PropertyGenerator('_primaryId', 'string', $value['primaryId'], 'protected');
+            $propAuto = new PropertyGenerator('_auto', 'boolean', $value['auto'], 'protected');
 
-                $tableCls = new Generator($tableDir . '/' . $tableName . '.php', Generator::CREATE_CLASS);
-                $tableCls->setNamespace($ns);
-                $tableCls->code()->setParent('Record')
-                                 ->addProperty($propId)
-                                 ->addProperty($propAuto);
+            // Create and save table class file
+            $tableCls = new Generator($tableDir . '/' . $tableName . '.php', Generator::CREATE_CLASS);
+            $tableCls->setNamespace($ns);
+            $tableCls->code()->setParent('Record')
+                             ->addProperty($prefix)
+                             ->addProperty($propId)
+                             ->addProperty($propAuto);
 
-                $tableCls->save();
-            }
+            $tableCls->save();
         }
     }
 

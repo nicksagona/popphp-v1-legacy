@@ -49,6 +49,7 @@ class Base
     {
         echo Locale::factory()->__('Creating base folder and file structure...') . PHP_EOL;
 
+        // Define folders to create
         $folders = array(
             $install->project->base,
             $install->project->base . '/config',
@@ -62,12 +63,14 @@ class Base
             $install->project->docroot
         );
 
+        // Create the folders
         foreach ($folders as $folder) {
             if (!file_exists($folder)) {
                 mkdir($folder);
             }
         }
 
+        // Make the '/data' folder writable
         chmod($install->project->base . '/module/' . $install->project->name . '/data', 0777);
 
         // Create project.config.php file
@@ -86,23 +89,22 @@ class Base
                 $projectCfg->appendToBody("        '" . $dbname . "' => Pop\\Db\\Db::factory('" . $db['type'] . "', array (");
                 $j = 0;
                 $isSqlite = ($db['type'] == 'Sqlite') ? true : false;
-                foreach ($db as $key => $value) {
+                $dbCreds = $db;
+                unset($dbCreds['type']);
+                unset($dbCreds['prefix']);
+                foreach ($dbCreds as $key => $value) {
                     $j++;
-                    if ($key != 'type') {
-                        if ($isSqlite) {
-                            $dbFile = $install->project->base . '/module/' . $install->project->name . '/data/' . basename($value);
-                            copy($value, $dbFile);
-                            chmod($dbFile, 0777);
-                            $dbFile = addslashes(realpath($dbFile));
-                            $ary = "            '{$key}' => '{$dbFile}'";
-                        } else {
-                            $ary = "            '{$key}' => '{$value}'";
-                        }
-                        if ($j < count($db)) {
-                           $ary .= ',';
-                        }
-                        $projectCfg->appendToBody($ary);
+                    if ($isSqlite) {
+                        $dbFile = $install->project->base . '/module/' . $install->project->name . '/data/' . basename($value);
+                        $dbFile = addslashes(realpath($dbFile));
+                        $ary = "            '{$key}' => '{$dbFile}'";
+                    } else {
+                        $ary = "            '{$key}' => '{$value}'";
                     }
+                    if ($j < count($dbCreds)) {
+                       $ary .= ',';
+                    }
+                    $projectCfg->appendToBody($ary);
                 }
                 $i++;
                 $end = ($i < count($databases)) ? '        )),' : '        ))';

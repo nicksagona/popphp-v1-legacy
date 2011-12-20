@@ -15,15 +15,15 @@
  *
  * Possible arguments
  *
- * -c --check                Check the current configuration for required dependencies
- * -h --help                 Display this help
- * -i --install file.php     Install a project based on the install file specified
- * -l --lang fr              Set the default language for the project
- * -m --map folder file.php  Create a class map file from the source folder and save to the output file
- * -r --reconfig file.php    Reconfigure the project based on the new install file specified
- * -s --show                 Show project install instructions
- * -t --test folder          Run the unit tests from a folder
- * -v --version              Display version of Pop PHP Framework
+ * -c --check                     Check the current configuration for required dependencies
+ * -h --help                      Display this help
+ * -i --install file.php          Install a project based on the install file specified
+ * -l --lang fr                   Set the default language for the project
+ * -m --map folder file.php       Create a class map file from the source folder and save to the output file
+ * -r --reconfig projectfolder    Reconfigure the project based on the new location of the project
+ * -s --show                      Show project install instructions
+ * -t --test folder               Run the unit tests from a folder
+ * -v --version                   Display version of Pop PHP Framework
  *
  * IMPORTANT!
  *
@@ -42,8 +42,8 @@ use Pop\File\File,
 
 // Write header
 echo PHP_EOL;
-echo 'Pop PHP Framework CLI script' . PHP_EOL;
-echo '============================' . PHP_EOL . PHP_EOL;
+echo 'Pop PHP Framework CLI' . PHP_EOL;
+echo '=====================' . PHP_EOL . PHP_EOL;
 
 if (!empty($argv[1])) {
     // Check for version
@@ -160,7 +160,7 @@ if (!empty($argv[1])) {
         }
     // Else, reconfigure project
     } else if (($argv[1] == '-r') || ($argv[1] == '--reconfigure')) {
-        // Check if the project install file argument was passed
+        // Check if the project folder argument was passed
         if (empty($argv[2])) {
             echo Install::cliError(4);
         // Else, run the install process
@@ -168,7 +168,7 @@ if (!empty($argv[1])) {
             echo 'Reconfiguring Project' . PHP_EOL;
             echo '---------------------' . PHP_EOL;
             if (!file_exists($argv[2])) {
-                echo 'The project install file \'' . $argv[2] . '\' does not exist.' . PHP_EOL . PHP_EOL;
+                echo 'The new project folder \'' . $argv[2] . '\' does not exist.' . PHP_EOL . PHP_EOL;
                 exit(0);
             }
             Install::reconfigure($argv[2]);

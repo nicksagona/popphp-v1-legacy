@@ -59,11 +59,8 @@ class Db
         } else {
             try {
                 $result = null;
-                if ($db['type'] == 'Sqlite') {
-                    if (!file_exists($db['database']) || !is_writable($db['database']) || !is_writable(dirname($db['database']))) {
-                        $result = Locale::factory()->__('The Sqlite database file and folder are not writable.');
-                    }
-                } else {
+                // Test the db connection
+                if ($db['type'] != 'Sqlite') {
                     $dbconn = PopDb::factory($db['type'], $db);
                 }
                 return $result;
@@ -76,137 +73,162 @@ class Db
     /**
      * Install the database
      *
-     * @param array  $db
-     * @param string $dir
+     * @param array      $db
+     * @param string     $dir
+     * @param Pop\Config $install
      * @throws Exception
      * @return array
      */
-    public static function install($db, $dir)
+    public static function install($db, $dir, $install)
     {
-        if ($db['type'] == 'Sqlite') {
-            $dbDir = dirname($db['database']);
-            $createDir = dirname($db['database']) . '/create';
-            $insertDir = dirname($db['database']) . '/insert';
-        } else {
-            $dbDir = $dir . '/' . $db['database'];
-            $createDir = $dir . '/' . $db['database'] . '/create';
-            $insertDir = $dir . '/' . $db['database'] . '/insert';
+        // Detect any SQL files
+        $dir = new Dir($dir, true);
+        $sqlFiles = array();
+        foreach ($dir->files as $file) {
+            if (substr($file, -4) == '.sql') {
+                $sqlFiles[] = $file;
+            }
         }
 
+        // If SQLite, create folder and empty SQLite file
+        if ($db['type'] == 'Sqlite') {
+            // Define folders to create
+            $folders = array(
+                $install->project->base,
+                $install->project->base . '/module',
+                $install->project->base . '/module/' . $install->project->name,
+                $install->project->base . '/module/' . $install->project->name . '/data'
+            );
+            // Create the folders
+            foreach ($folders as $folder) {
+                if (!file_exists($folder)) {
+                    mkdir($folder);
+                }
+            }
+            // Create empty SQLite file and make file and folder writable
+            chmod($install->project->base . '/module/' . $install->project->name . '/data', 0777);
+            touch($install->project->base . '/module/' . $install->project->name . '/data/' . $db['database']);
+            chmod($install->project->base . '/module/' . $install->project->name . '/data/' . $db['database'], 0777);
+            $db['database'] = $install->project->base . '/module/' . $install->project->name . '/data/' . $db['database'];
+        }
+
+        // Create DB connection
         $popdb = PopDb::factory($db['type'], $db);
         $tables = array();
 
-        // Create tables
-        if (file_exists($createDir)) {
-            echo 'Creating tables...' . PHP_EOL;
-            $dir = new Dir($createDir, true);
-            foreach ($dir->files as $file) {
-                if (file_exists($file) && !is_dir($file)) {
-                    $f = new File($file);
-                    $sql = trim($f->read());
-                    $statements = explode(';', $sql);
-                    $tableName = null;
-                    $auto = false;
-                    $primaryId = null;
-                    foreach ($statements as $s) {
-                        $s = trim($s);
-                        if (!empty($s)) {
-                            // Get table name
-                            if ((stripos($s, 'CREATE') !== false) && (stripos($s, 'TABLE') !== false)) {
-                                $tableName = substr($s, (stripos($s, 'CREATE') + 6));
-                                $tableName = trim(substr($tableName, 0, strpos($tableName, '(')));
-                                $tableName = trim(substr($tableName, strrpos($tableName, ' ')));
-                                $tableName = str_replace('`', '', $tableName);
-                                $tableName = str_replace('"', '', $tableName);
-                                $tableName = str_replace("'", "", $tableName);
+        // If there are SQL files, parse them and execute the SQL queries
+        if (count($sqlFiles) > 0) {
+            echo 'SQL files found. Executing SQL queries...' . PHP_EOL;
+            foreach ($sqlFiles as $sqlFile) {
+                $file = new File($sqlFile);
+
+                $sql = trim($file->read());
+                $statements = explode(';', $sql);
+
+                $tableName = null;
+                $auto = false;
+                $primaryId = null;
+
+                // Loop through each statement found
+                foreach ($statements as $s) {
+                    $s = trim($s);
+                    if (!empty($s)) {
+                        // Get table name from DROP
+                        if ((stripos($s, 'DROP') !== false) && (stripos($s, 'TABLE') !== false)) {
+                            $tableName = trim(substr($s, strrpos($s, ' ')));
+                            $tableName = str_replace('`', '', $tableName);
+                            $tableName = str_replace('"', '', $tableName);
+                            $tableName = str_replace("'", "", $tableName);
+
+                            // Set table info
+                            $tables[$tableName] = array('primaryId' => null, 'auto' => false);
+                            if (isset($db['prefix'])) {
+                                $tables[$tableName]['prefix'] = $db['prefix'];
+                            } else {
+                                $tables[$tableName]['prefix'] = null;
                             }
-                            // Get auto-increment (mysql & pgsql)
-                            if ((stripos($s, 'AUTO_INCREMENT') !== false) || (stripos($s, 'CREATE SEQUENCE') !== false)) {
-                                $auto = true;
+                        }
+
+                        // Get table name from CREATE
+                        if ((stripos($s, 'CREATE') !== false) && (stripos($s, 'TABLE') !== false)) {
+                            $tableName = substr($s, (stripos($s, 'CREATE') + 6));
+                            $tableName = trim(substr($tableName, 0, strpos($tableName, '(')));
+                            $tableName = trim(substr($tableName, strrpos($tableName, ' ')));
+                            $tableName = str_replace('`', '', $tableName);
+                            $tableName = str_replace('"', '', $tableName);
+                            $tableName = str_replace("'", "", $tableName);
+
+                            // Set table info
+                            $tables[$tableName] = array('primaryId' => null, 'auto' => false);
+                            if (isset($db['prefix'])) {
+                                $tables[$tableName]['prefix'] = $db['prefix'];
+                            } else {
+                                $tables[$tableName]['prefix'] = null;
                             }
-                            // Get primary key (mysql & sqlite)
-                            if (stripos($s, 'PRIMARY KEY') !== false) {
-                                if ($db['type'] == 'Sqlite') {
-                                    $matches = array();
-                                    preg_match('/^(.*)PRIMARY\sKEY,/im', $sql, $matches);
-                                    if (isset($matches[0])) {
-                                        $id = trim($matches[0]);
-                                        $primaryId = substr($id, 0, strpos($id, ' '));
-                                        $auto = true;
+                        }
+
+                        // Get primary key (mysql & sqlite)
+                        if (stripos($s, 'PRIMARY KEY') !== false) {
+                            if ($db['type'] == 'Sqlite') {
+                                $matches = array();
+                                preg_match('/^(.*)PRIMARY\sKEY,/im', $sql, $matches);
+                                if (isset($matches[0])) {
+                                    $id = trim($matches[0]);
+                                    $primaryId = substr($id, 0, strpos($id, ' '));
+
+                                    // Set table info
+                                    if (isset($tables[$tableName])) {
+                                        $tables[$tableName]['primaryId'] = $primaryId;
+                                        $tables[$tableName]['auto'] = true;
                                     }
-                                } else {
-                                    $primaryId = trim(substr($s, (stripos($s, 'PRIMARY KEY') + 11)));
-                                    $primaryId = trim(substr($primaryId, 0, strpos($primaryId, ')')));
-                                    $primaryId = str_replace('`', '', $primaryId);
-                                    $primaryId = str_replace('"', '', $primaryId);
-                                    $primaryId = str_replace("'", "", $primaryId);
-                                    $primaryId = str_replace('(', '', $primaryId);
-                                    $primaryId = str_replace(')', '', $primaryId);
+                                }
+                            } else {
+                                $primaryId = trim(substr($s, (stripos($s, 'PRIMARY KEY') + 11)));
+                                $primaryId = trim(substr($primaryId, 0, strpos($primaryId, ')')));
+                                $primaryId = str_replace('`', '', $primaryId);
+                                $primaryId = str_replace('"', '', $primaryId);
+                                $primaryId = str_replace("'", "", $primaryId);
+                                $primaryId = str_replace('(', '', $primaryId);
+                                $primaryId = str_replace(')', '', $primaryId);
+
+                                // Set table info
+                                if (isset($tables[$tableName])) {
+                                    $tables[$tableName]['primaryId'] = $primaryId;
                                 }
                             }
-                            // Get primary key (pgsql)
-                            if (stripos($s, 'ALTER SEQUENCE') !== false) {
-                                $primaryId = trim(substr($s, (stripos($s, 'ALTER SEQUENCE') + 14)));
-                                $primaryId = trim(substr($primaryId, strrpos($primaryId, ' ')));
-                                $primaryId = str_replace($tableName . '.', '', $primaryId);
-                            }
-                            try {
-                                $popdb->adapter->query(trim($s));
-                            } catch (\Exception $e) {
-                                echo $e->getMessage() . PHP_EOL . PHP_EOL;
-                                exit(0);
+                        }
+
+                        // Get auto-increment (mysql)
+                        if ((stripos($s, 'AUTO_INCREMENT') !== false)) {
+                            if (isset($tables[$tableName])) {
+                                $tables[$tableName]['auto'] = true;
                             }
                         }
-                    }
-                    $tables[] = array(
-                        'tableName' => $tableName,
-                        'auto'      => $auto,
-                        'primaryId' => $primaryId
-                    );
-                }
-            }
-        }
 
-        // Insert data
-        if (file_exists($insertDir)) {
-            echo 'Inserting data...' . PHP_EOL;
-            $dir = new Dir($insertDir, true);
-            foreach ($dir->files as $file) {
-                if (file_exists($file) && !is_dir($file)) {
-                    $f = new File($file);
-                    $sql = trim($f->read());
-                    $statements = explode(';', $sql);
-                    foreach ($statements as $s) {
-                        if (!empty($s)) {
-                            try {
-                                $popdb->adapter->query(trim($s));
-                            } catch (\Exception $e) {
-                                echo $e->getMessage() . PHP_EOL . PHP_EOL;
-                                exit(0);
+                        // Get primary key and auto (pgsql)
+                        if (stripos($s, 'SERIAL') !== false) {
+                            $id = trim(substr($s, 0, stripos($s, 'SERIAL')));
+                            $id = trim(substr($id, strrpos($id, ' ')));
+
+                            // Set table info
+                            if (isset($tables[$tableName])) {
+                                $tables[$tableName]['primaryId'] = $id;
+                                $tables[$tableName]['auto'] = true;
                             }
+
                         }
-                    }
-                }
-            }
-        }
 
-        // Execute any other SQL
-        if (file_exists($dbDir)) {
-            echo 'Executing additional SQL queries...' . PHP_EOL;
-            $dir = new Dir($dbDir, true);
-            foreach ($dir->files as $file) {
-                if (file_exists($file) && !is_dir($file) && (substr($file, -4) == '.sql')) {
-                    $f = new File($file);
-                    $sql = trim($f->read());
-                    $statements = explode(';', $sql);
-                    foreach ($statements as $s) {
-                        if (!empty($s)) {
-                            try {
-                                $popdb->adapter->query(trim($s));
-                            } catch (\Exception $e) {
-                                echo $e->getMessage() . PHP_EOL . PHP_EOL;
-                                exit(0);
+                        // Execute the SQL query
+                        try {
+                            // Append the table prefix to the table in the query
+                            if (isset($tables[$tableName]) && isset($tables[$tableName]['prefix'])) {
+                                $s = str_replace($tableName, $tables[$tableName]['prefix'] . $tableName, $s);
                             }
+
+                            $popdb->adapter->query(trim($s));
+                        } catch (\Exception $e) {
+                            echo $e->getMessage() . PHP_EOL . PHP_EOL;
+                            exit(0);
                         }
                     }
                 }

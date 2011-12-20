@@ -73,6 +73,12 @@ class Record
     protected $_interface = null;
 
     /**
+     * Table prefix
+     * @var string
+     */
+    protected $_prefix = null;
+
+    /**
      * Table name of the database table
      * @var string
      */
@@ -134,7 +140,9 @@ class Record
             } else {
                 $cls = substr($class, (strrpos($class, '\\') + 1));
             }
-            $this->_tableName = (string)String::factory($cls)->camelCaseToUnderscore();
+            $this->_tableName = $this->_prefix . (string)String::factory($cls)->camelCaseToUnderscore();
+        } else {
+            $this->_tableName = $this->_prefix . $this->_tableName;
         }
 
         $options = array(
@@ -333,6 +341,60 @@ class Record
         $record->_setResults($record->_interface->getResult());
 
         return $record;
+    }
+
+    /**
+     * Get if the table is an autocrement table
+     *
+     * @return boolean
+     */
+    public function isAuto()
+    {
+        return $this->_auto;
+    }
+
+    /**
+     * Get the table primary ID
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->_primaryId;
+    }
+
+    /**
+     * Get the table prefix
+     *
+     * @return astring
+     */
+    public function getPrefix()
+    {
+        return $this->_prefix;
+    }
+
+    /**
+     * Get the table name
+     *
+     * @return string
+     */
+    public function getTableName()
+    {
+        if (null !== $this->_prefix) {
+            return str_replace($this->_prefix, '', $this->_tableName);
+        } else {
+            return $this->_tableName;
+        }
+    }
+
+    /**
+     * Get the full table name with prefix
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->_tableName;
     }
 
     /**

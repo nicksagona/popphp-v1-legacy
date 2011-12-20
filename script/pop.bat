@@ -14,15 +14,15 @@ REM to info@popphp.org so we can send you a copy immediately.
 REM
 REM Possible arguments
 REM
-REM -c --check                Check the current configuration for required dependencies
-REM -h --help                 Display this help
-REM -i --install file.php     Install a project based on the install file specified
-REM -l --lang fr              Set the default language for the project
-REM -m --map folder file.php  Create a class map file from the source folder and save to the output file
-REM -r --reconfig file.php    Reconfigure the project based on the new install file specified
-REM -s --show                 Show project install instructions
-REM -t --test folder          Run the unit tests from a folder
-REM -v --version              Display version of Pop PHP Framework
+REM -c --check                     Check the current configuration for required dependencies
+REM -h --help                      Display this help
+REM -i --install file.php          Install a project based on the install file specified
+REM -l --lang fr                   Set the default language for the project
+REM -m --map folder file.php       Create a class map file from the source folder and save to the output file
+REM -r --reconfig projectfolder    Reconfigure the project based on the new location of the project
+REM -s --show                      Show project install instructions
+REM -t --test folder               Run the unit tests from a folder
+REM -v --version                   Display version of Pop PHP Framework
 REM
 
 SET SCRIPT_DIR=%~dp0

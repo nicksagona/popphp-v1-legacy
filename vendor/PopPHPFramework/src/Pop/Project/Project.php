@@ -25,6 +25,7 @@
 namespace Pop\Project;
 
 use Pop\Config,
+    Pop\Db\Db,
     Pop\Locale\Locale;
 
 /**
@@ -94,6 +95,23 @@ class Project
     public function config()
     {
         return $this->_config;
+    }
+
+    /**
+     * Access a project database
+     *
+     * @param  string $dbname
+     * @return Pop\Db\Db
+     */
+    public function database($dbname)
+    {
+        if (isset($this->_config->databases) &&
+            isset($this->_config->databases->$dbname) &&
+            ($this->_config->databases->$dbname instanceof Db)) {
+            return $this->_config->databases->$dbname;
+        } else {
+            return null;
+        }
     }
 
     /**

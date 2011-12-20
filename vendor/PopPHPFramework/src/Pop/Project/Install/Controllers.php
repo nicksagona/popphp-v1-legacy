@@ -52,6 +52,7 @@ class Controllers
     {
         echo Locale::factory()->__('Creating controller class files...') . PHP_EOL;
 
+        // Make the controller folder
         $ctrlDir = $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Controller';
         if (!file_exists($ctrlDir)) {
             mkdir($ctrlDir);
@@ -61,9 +62,12 @@ class Controllers
         if (isset($install->controllers)) {
             $controllers = $install->controllers->asArray();
             foreach ($controllers as $controller => $views) {
+                // Create the '/view' folder for the controller
                 if (!file_exists($install->project->base . '/module/' . $install->project->name . '/view/' . $controller)) {
                     mkdir($install->project->base . '/module/' . $install->project->name . '/view/' . $controller);
                 }
+
+                // Create new controller class file
                 $controllerCls = new Generator(
                     $install->project->base . '/module/' . $install->project->name .
                         '/src/' . $install->project->name . '/Controller/' .
@@ -83,6 +87,7 @@ class Controllers
                     )
                 );
 
+                // Create the constructor
                 $construct = new MethodGenerator('__construct');
                 $construct->setDesc('Constructer method to instantiate the controller object');
                 $construct->addArguments(
@@ -92,6 +97,7 @@ class Controllers
                         array('name' => 'viewPath', 'value' => 'null')
                     )
                 );
+
                 $construct->appendToBody("if (null === \$viewPath) {")
                           ->appendToBody("    \$viewPath = __DIR__ . '/../../../view/{$controller}';")
                           ->appendToBody("}")
@@ -111,6 +117,7 @@ class Controllers
                 $controllerCls->code()->setParent('C')
                                       ->addMethod($construct);
 
+                // Create methods named after each view
                 foreach ($views as $key => $value) {
                     if (!file_exists($install->project->base . '/module/' . $install->project->name . '/view/' . $controller)) {
                         mkdir($install->project->base . '/module/' . $install->project->name . '/view/' . $controller);
@@ -126,6 +133,8 @@ class Controllers
 
                     $controllerCls->code()->addMethod($method);
                 }
+
+                // Save the new controller class file
                 $controllerCls->save();
             }
         }

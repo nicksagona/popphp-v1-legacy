@@ -24,7 +24,8 @@
  */
 namespace Pop\Project;
 
-use Pop\File\File,
+use Pop\Dir\Dir,
+    Pop\File\File,
     Pop\Filter\String,
     Pop\Locale\Locale,
     Pop\Project\Install\Base,
@@ -70,6 +71,7 @@ class Install
      */
     public static function install($installFile)
     {
+        // Display instructions to continue
         $dbTables = array();
         self::instructions();
 
@@ -99,15 +101,13 @@ class Install
         } else {
             $db = false;
 
-            // Test for a database creds and schema, and ask to install the database.
+            // Test for a database creds and schema, and ask
+            // to test and install the database.
             if (isset($install->databases)) {
                 $databases =  $install->databases->asArray();
-                $keys = array_keys($databases);
-                if (isset($keys[0]) && (file_exists($installDir . '/' . $keys[0]))) {
-                    echo Locale::factory()->__('Database credentials and schema detected.') . PHP_EOL;
-                    $input = self::cliInput(Locale::factory()->__('Test and install the database(s)?') . ' (Y/N) ');
-                    $db = ($input == 'n') ? false : true;
-                }
+                echo Locale::factory()->__('Database credentials and schema detected.') . PHP_EOL;
+                $input = self::cliInput(Locale::factory()->__('Test and install the database(s)?') . ' (Y/N) ');
+                $db = ($input == 'n') ? false : true;
             }
 
             // Handle any databases
@@ -133,7 +133,7 @@ class Install
                     } else {
                         echo Locale::factory()->__('Database') . ' \'' . $dbname . '\' passed.' . PHP_EOL;
                         echo Locale::factory()->__('Installing database') .' \'' . $dbname . '\'...' . PHP_EOL;
-                        $tables = Db::install($db, $installDir);
+                        $tables = Db::install($db, $installDir, $install);
                         if (null !== $tables) {
                             $dbTables = array_merge($dbTables, $tables);
                         }
@@ -175,11 +175,45 @@ class Install
     /**
      * Reconfigure the project based on the available config files
      *
-     * @param string $reconfigFile
+     * @param string $projectFolder
      * @return void
      */
-    public static function reconfigure($reconfigFile)
+    public static function reconfigure($projectFolder)
     {
+        // Get the new and old paths
+        $project = include $projectFolder . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'project.config.php';
+        $oldBase = $project->base;
+        $newBase = realpath($projectFolder);
+        $newDocroot = str_replace($oldBase, $newBase, $project->docroot);
+
+        // Reconfigure the project config file
+        if (file_exists($projectFolder . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'project.config.php')) {
+            $projectCfg = new File($projectFolder . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'project.config.php');
+            $cfgContents = str_replace($oldBase, $newBase, $projectCfg->read());
+            $projectCfg->write($cfgContents)
+                       ->save();
+        }
+
+        // Reconfigure the bootstrap file
+        if (file_exists($newDocroot . DIRECTORY_SEPARATOR . 'bootstrap.php')) {
+            $bootstrapFile = new File($newDocroot . DIRECTORY_SEPARATOR . 'bootstrap.php');
+            $bootContents = str_replace($oldBase, $newBase, $bootstrapFile->read());
+            $bootstrapFile->write($bootContents)
+                          ->save();
+        }
+
+        // Get the module folders
+        $moduleDir = new Dir($projectFolder . DIRECTORY_SEPARATOR . 'module', true);
+        foreach ($moduleDir->files as $module) {
+            // Reconfigure the module config file
+            if (is_dir($module) && (file_exists($module . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.config.php'))) {
+                $moduleCfg = new File($module . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.config.php');
+                $cfgContents = str_replace($oldBase, $newBase, $moduleCfg->read());
+                $moduleCfg->write($cfgContents)
+                          ->save();
+            }
+        }
+
         echo Locale::factory()->__('Project reconfigured.') . PHP_EOL . PHP_EOL;
     }
 
@@ -190,12 +224,10 @@ class Install
      */
     public static function instructions()
     {
-        $msg = "This process will create and install a lightweight framework for your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders and any database credentials. Besides creating the folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can enable this by having the SQL files in the same folder as your install file under a folder named after the database, i.e. './dbname'. The following folder structure is required for the database installation to work properly:";
+        $msg = "This process will create and install a lightweight framework for your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders and any database credentials. Besides creating the folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can enable this by having the SQL files in the same folder as your install file, like so:";
         echo wordwrap(Locale::factory()->__($msg), 70, PHP_EOL) . PHP_EOL . PHP_EOL;
-        echo './project.install.php' . PHP_EOL;
-        echo './dbname/create/*.sql' . PHP_EOL;
-        echo './dbname/insert/*.sql' . PHP_EOL;
-        echo './dbname/*.sql' . PHP_EOL . PHP_EOL;
+        echo 'projectname' . DIRECTORY_SEPARATOR . 'project.install.php' . PHP_EOL;
+        echo 'projectname' . DIRECTORY_SEPARATOR . '*.sql' . PHP_EOL . PHP_EOL;
     }
 
     /**
@@ -205,15 +237,15 @@ class Install
      */
     public static function cliHelp()
     {
-        echo ' -c --check                ' . Locale::factory()->__('Check the current configuration for required dependencies') . PHP_EOL;
-        echo ' -h --help                 ' . Locale::factory()->__('Display this help') . PHP_EOL;
-        echo ' -i --install file.php     ' . Locale::factory()->__('Install a project based on the install file specified') . PHP_EOL;
-        echo ' -l --lang fr              ' . Locale::factory()->__('Set the default language for the project') . PHP_EOL;
-        echo ' -m --map folder file.php  ' . Locale::factory()->__('Create a class map file from the source folder and save to the output file') . PHP_EOL;
-        echo ' -r --reconfig file.php    ' . Locale::factory()->__('Reconfigure the project based on the new install file specified') . PHP_EOL;
-        echo ' -s --show                 ' . Locale::factory()->__('Show project install instructions') . PHP_EOL;
-        echo ' -t --test folder          ' . Locale::factory()->__('Run the unit tests from a folder') . PHP_EOL;
-        echo ' -v --version              ' . Locale::factory()->__('Display version of Pop PHP Framework and latest available') . PHP_EOL . PHP_EOL;
+        echo ' -c --check                     ' . Locale::factory()->__('Check the current configuration for required dependencies') . PHP_EOL;
+        echo ' -h --help                      ' . Locale::factory()->__('Display this help') . PHP_EOL;
+        echo ' -i --install file.php          ' . Locale::factory()->__('Install a project based on the install file specified') . PHP_EOL;
+        echo ' -l --lang fr                   ' . Locale::factory()->__('Set the default language for the project') . PHP_EOL;
+        echo ' -m --map folder file.php       ' . Locale::factory()->__('Create a class map file from the source folder and save to the output file') . PHP_EOL;
+        echo ' -r --reconfig projectfolder    ' . Locale::factory()->__('Reconfigure the project based on the new location of the project') . PHP_EOL;
+        echo ' -s --show                      ' . Locale::factory()->__('Show project install instructions') . PHP_EOL;
+        echo ' -t --test folder               ' . Locale::factory()->__('Run the unit tests from a folder') . PHP_EOL;
+        echo ' -v --version                   ' . Locale::factory()->__('Display version of Pop PHP Framework and latest available') . PHP_EOL . PHP_EOL;
     }
 
     /**
