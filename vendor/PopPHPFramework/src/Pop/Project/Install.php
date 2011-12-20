@@ -173,6 +173,17 @@ class Install
     }
 
     /**
+     * Reconfigure the project based on the available config files
+     *
+     * @param string $reconfigFile
+     * @return void
+     */
+    public static function reconfigure($reconfigFile)
+    {
+        echo Locale::factory()->__('Project reconfigured.') . PHP_EOL . PHP_EOL;
+    }
+
+    /**
      * Display CLI instructions
      *
      * @return string
@@ -199,6 +210,7 @@ class Install
         echo ' -i --install file.php     ' . Locale::factory()->__('Install a project based on the install file specified') . PHP_EOL;
         echo ' -l --lang fr              ' . Locale::factory()->__('Set the default language for the project') . PHP_EOL;
         echo ' -m --map folder file.php  ' . Locale::factory()->__('Create a class map file from the source folder and save to the output file') . PHP_EOL;
+        echo ' -r --reconfig file.php    ' . Locale::factory()->__('Reconfigure the project based on the new install file specified') . PHP_EOL;
         echo ' -s --show                 ' . Locale::factory()->__('Show project install instructions') . PHP_EOL;
         echo ' -t --test folder          ' . Locale::factory()->__('Run the unit tests from a folder') . PHP_EOL;
         echo ' -v --version              ' . Locale::factory()->__('Display version of Pop PHP Framework and latest available') . PHP_EOL . PHP_EOL;

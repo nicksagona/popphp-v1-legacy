@@ -272,3 +272,5 @@ The docblock is not in the correct format.
 You will have to install your web server rewrite configuration manually.  
 Creating controller class files...  
 The Sqlite database file and folder are not writable.  
+Project reconfigured.  
+Reconfigure the project based on the new install file specified  
