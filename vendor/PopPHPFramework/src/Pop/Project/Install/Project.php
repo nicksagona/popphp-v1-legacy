@@ -75,7 +75,12 @@ class Project
 
         if ($input != 'n') {
             if (file_exists(__DIR__ . '/Web/index.php')) {
-                copy(__DIR__ . '/Web/index.php', $install->project->docroot . '/index.php');
+                $index = new Generator(__DIR__ . '/Web/index.php');
+                $contents = $index->read() .
+                	'// Run the project' . PHP_EOL .
+                	'$project->run();' . PHP_EOL . PHP_EOL .
+                	'?>' . PHP_EOL;
+                file_put_contents($install->project->docroot . '/index.php', $contents);
             }
             if ($input == 'a') {
                 if (file_exists(__DIR__ . '/Web/ht.access')) {
