@@ -430,7 +430,6 @@ class Record
         }
     }
 
-
     /**
      * Update (save) the existing database record.
      *
@@ -511,6 +510,7 @@ class Record
     /**
      * Set the query results.
      *
+     * @param  array $rows
      * @return void
      */
     protected function _setResults($rows)
