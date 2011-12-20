@@ -159,7 +159,7 @@ if (!empty($argv[1])) {
             Install::install($argv[2]);
         }
     // Else, reconfigure project
-    } else if (($argv[1] == '-r') || ($argv[1] == '--reconfigure')) {
+    } else if (($argv[1] == '-r') || ($argv[1] == '--reconfig')) {
         // Check if the project folder argument was passed
         if (empty($argv[2])) {
             echo Install::cliError(4);
