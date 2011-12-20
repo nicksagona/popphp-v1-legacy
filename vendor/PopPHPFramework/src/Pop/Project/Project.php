@@ -117,6 +117,7 @@ class Project
     /**
      * Access a project module config
      *
+     * @param  string $name
      * @return Pop\Config
      */
     public function module($name)
@@ -131,6 +132,7 @@ class Project
     /**
      * Access the project controller
      *
+     * @param  string $name
      * @return Pop\Mvc\Controller
      */
     public function controller($name = 'default')
@@ -161,8 +163,7 @@ class Project
     /**
      * Run the project
      *
-     * @param  Pop\Config $module
-     * @throws Exception
+     * @param  string $controller
      * @return Pop\Project\Project
      */
     public function run($controller = 'default')
