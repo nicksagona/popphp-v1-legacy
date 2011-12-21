@@ -32,6 +32,8 @@
  *
  */
 
+set_time_limit(0);
+
 require_once __DIR__ . '/../public/bootstrap.php';
 
 use Pop\File\File,

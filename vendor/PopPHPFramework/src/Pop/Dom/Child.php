@@ -22,6 +22,7 @@
 /**
  * @namespace
  */
+
 namespace Pop\Dom;
 
 use Pop\Locale\Locale;
@@ -68,7 +69,7 @@ class Child extends AbstractDom
      *
      * @param  string $name
      * @param  string $value
-     * @param  array|Pop_Dom_Child $childNode
+     * @param  array|Pop\Dom\Child $childNode
      * @param  boolean $first
      * @param  string $indent
      * @return void
@@ -77,7 +78,7 @@ class Child extends AbstractDom
     {
         $this->_lang = new Locale();
 
-        $this->_nodeName = $name;
+        $this->_nodeName = strtolower($name);
         $this->_nodeValue = $value;
         $this->_childrenFirst = $first;
 
@@ -92,7 +93,7 @@ class Child extends AbstractDom
      * Static factory method to create child objects
      *
      * @param  array $c
-     * @return Pop_Dom_Child
+     * @return Pop\Dom\Child
      */
     public static function factory(array $c)
     {
@@ -116,7 +117,7 @@ class Child extends AbstractDom
     /**
      * Method to return the child node name.
      *
-     * @return void
+     * @return string
      */
     public function getNodeName()
     {
@@ -126,7 +127,7 @@ class Child extends AbstractDom
     /**
      * Method to return the child node value.
      *
-     * @return void
+     * @return string
      */
     public function getNodeValue()
     {
@@ -137,23 +138,24 @@ class Child extends AbstractDom
      * Method to set the child node name.
      *
      * @param  string $name
-     * @return void
+     * @return Pop\Dom\Child
      */
     public function setNodeName($name)
     {
-        $this->_nodeName = $name;
+        $this->_nodeName = strtolower($name);
+        return $this;
     }
 
     /**
      * Method to set the child node value.
      *
      * @param  string $name
-     * @return void
+     * @return Pop\Dom\Child
      */
-
     public function setNodeValue($value)
     {
         $this->_nodeValue = $value;
+        return $this;
     }
 
     /**
@@ -161,17 +163,29 @@ class Child extends AbstractDom
      *
      * @param  array|string $a
      * @param  string $v
-     * @return void
+     * @return Pop\Dom\Child
      */
     public function setAttributes($a, $v = null)
     {
         if (is_array($a)) {
             foreach ($a as $name => $value) {
-                $this->_attributes[$name] = $value;
+                $this->_attributes[strtolower($name)] = $value;
             }
         } else {
-            $this->_attributes[$a] = $v;
+            $this->_attributes[strtolower($a)] = $v;
         }
+        return $this;
+    }
+
+    /**
+     * Get the attribute of the child object.
+     *
+     * @param  string $name
+     * @return string
+     */
+    public function getAttribute($name)
+    {
+        return (isset($this->_attributes[$name])) ? $this->_attributes[$name] : null;
     }
 
     /**

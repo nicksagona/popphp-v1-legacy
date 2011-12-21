@@ -25,7 +25,9 @@
 namespace Pop\Form;
 
 use Pop\Dom\Child,
-    Pop\Locale\Locale;
+    Pop\Locale\Locale,
+    Pop\Validator\Validator,
+    Pop\Validator\Validator\ValidatorInterface;
 
 /**
  * @category   Pop
@@ -37,6 +39,12 @@ use Pop\Dom\Child,
  */
 class Element extends Child
 {
+
+    /**
+     * Element name
+     * @var string
+     */
+    public $name = null;
 
     /**
      * Form element value(s)
@@ -78,13 +86,20 @@ class Element extends Child
      * Form element allowed types
      * @var array
      */
-    protected $_allowed_types = array('button', 'checkbox', 'file', 'hidden', 'image', 'password', 'radio', 'reset', 'select', 'submit', 'text', 'textarea');
-
-    /**
-     * Form element allowed validators
-     * @var array
-     */
-    protected $_allowed_validators = array('AlphaNum', 'Alpha', 'Between', 'Email', 'Equal', 'GreaterThan', 'Length', 'LengthBet', 'LengthGT', 'LengthLT', 'LessThan', 'NotEmpty', 'NotEqual', 'Num', 'RegEx');
+    protected $_allowed_types = array(
+        'button',
+        'checkbox',
+        'file',
+        'hidden',
+        'image',
+        'password',
+        'radio',
+        'reset',
+        'select',
+        'submit',
+        'text',
+        'textarea'
+    );
 
     /**
      * Language object
@@ -108,6 +123,7 @@ class Element extends Child
     public function __construct($type, $name, $value = null, $marked = null, $indent = null)
     {
         $this->_lang = new Locale();
+        $this->name = $name;
 
         // Check the element type, else set the properties.
         if (!in_array($type, $this->_allowed_types)) {
@@ -130,7 +146,6 @@ class Element extends Child
 
                     // Create the child option elements.
                     foreach ($value as $k => $v) {
-
                         $opt = new Child('option', null, null, false, ($indent . '    '));
                         $opt->setAttributes('value', $k);
 
@@ -141,7 +156,6 @@ class Element extends Child
 
                         $opt->setNodeValue($v);
                         $this->addChild($opt);
-
                     }
 
                     $this->value = $value;
@@ -155,9 +169,14 @@ class Element extends Child
                     // Create the radio elements and related span elements.
                     $i = null;
                     foreach ($value as $k => $v) {
-
                         $rad = new Child('input', null, null, false, ($indent . '    '));
-                        $rad->setAttributes(array('type' => $type, 'class' => 'radioBtn', 'name' => $name, 'id' => ($name . $i), 'value' => $k));
+                        $rad->setAttributes(array(
+                        	'type' => $type,
+                        	'class' => 'radioBtn',
+                        	'name' => $name,
+                        	'id' => ($name . $i),
+                        	'value' => $k
+                        ));
 
                         // Determine if the current radio element is checked.
                         if ($v == $this->marked) {
@@ -169,7 +188,6 @@ class Element extends Child
                         $span->setNodeValue($v);
                         $this->addChildren(array($rad, $span));
                         $i++;
-
                     }
 
                     $this->value = $value;
@@ -183,9 +201,14 @@ class Element extends Child
                     // Create the checkbox elements and related span elements.
                     $i = null;
                     foreach ($value as $k => $v) {
-
                         $chk = new Child('input', null, null, false, ($indent . '    '));
-                        $chk->setAttributes(array('type' => $type, 'class' => 'checkBox', 'name' => ($name . '[]'), 'id' => ($name . $i), 'value' => $k));
+                        $chk->setAttributes(array(
+                        	'type' => $type,
+                        	'class' => 'checkBox',
+                        	'name' => ($name . '[]'),
+                        	'id' => ($name . $i),
+                        	'value' => $k
+                        ));
 
                         // Determine if the current radio element is checked.
                         if (in_array($v, $this->marked)) {
@@ -197,7 +220,6 @@ class Element extends Child
                         $span->setNodeValue($v);
                         $this->addChildren(array($chk, $span));
                         $i++;
-
                     }
 
                     $this->value = $value;
@@ -223,53 +245,38 @@ class Element extends Child
     /**
      * Set the label of the form element object.
      *
-     * @param  string $l
-     * @return void
+     * @param  string $label
+     * @return Pop\Form\Element
      */
-    public function setLabel($l)
+    public function setLabel($label)
     {
-        $this->label = $l;
+        $this->label = $label;
+        return $this;
     }
 
     /**
      * Set whether the form element object is required.
      *
-     * @param  boolean $r
+     * @param  boolean $required
      * @throws Exception
-     * @return void
+     * @return Pop\Form\Element
      */
-    public function setRequired($r)
+    public function setRequired($required)
     {
-        if (!is_bool($r)) {
-            throw new Exception($this->_lang->__('Error: The required flag must be a boolean value.'));
-        } else {
-            $this->required = $r;
-        }
+        $this->required = (boolean)$required;
+        return $this;
     }
 
     /**
      * Add a validator the form element object.
      *
-     * @param  string $type
-     * @param  boolean $condition
-     * @param  string $value
-     * @param  string $msg
-     * @throws Exception
-     * @return void
+     * @param  ValidatorInterface $validator
+     * @return Pop\Form\Element
      */
-    public function addValidator($type, $condition = true, $value = null, $msg = null)
+    public function addValidator(ValidatorInterface $validator)
     {
-        // Check the validator type and condition, else set the properties.
-        if (!in_array($type, $this->_allowed_validators)) {
-            throw new Exception($this->_lang->__('Error: That type validator is not allowed.'));
-        } else if (!is_bool($condition)) {
-            throw new Exception($this->_lang->__('Error: The condition must be a boolean.'));
-        } else {
-            $this->validators[] = array('type' => $type,
-                                        'condition' => $condition,
-                                        'value' => $value,
-                                        'msg' => $msg);
-        }
+        $this->validators[] = new Validator($validator);
+        return $this;
     }
 
     /**
@@ -279,247 +286,22 @@ class Element extends Child
      */
     public function validate()
     {
+        $this->errors = array();
+
         // Check if the element is required.
         if ($this->required == true) {
             $curElemValue = (is_array($this->value)) ? $this->marked : $this->value;
-
             if (empty($curElemValue)) {
-                $this->errors['Required'] = $this->_lang->__('This field is required.');
-            } else {
-                unset($this->errors['Required']);
+                $this->errors[] = $this->_lang->__('This field is required.');
             }
         }
 
         // Check the element's validators.
         if (isset($this->validators[0])) {
-            foreach ($this->validators as $value) {
+            foreach ($this->validators as $validator) {
                 $curElemValue = (is_array($this->value)) ? $this->marked : $this->value;
-
-                switch ($value['type']) {
-                    // Alphanumeric pattern.
-                    case 'AlphaNum':
-                        if (!empty($curElemValue)) {
-                            if (preg_match('/^\w+$/', $curElemValue) == $value['condition']) {
-                                unset($this->errors['AlphaNum']);
-                            } else {
-                                if (null !== $value['msg']) {
-                                    $this->errors['AlphaNum'] = $value['msg'];
-                                } else {
-                                    $this->errors['AlphaNum'] = $this->_lang->__('This field value must %1 contain alphanumeric characters.', (($value['condition'] == true) ? $this->_lang->__('only') : $this->_lang->__('not')));
-                                }
-                            }
-                        }
-                        break;
-
-                    // Alpha-only pattern.
-                    case 'Alpha':
-                        if (!empty($curElemValue)) {
-                            if (preg_match('/^[a-zA-Z]+$/', $curElemValue) == $value['condition']) {
-                                unset($this->errors['Alpha']);
-                            } else {
-                                if (null !== $value['msg']) {
-                                    $this->errors['Alpha'] = $value['msg'];
-                                } else {
-                                    $this->errors['Alpha'] = $this->_lang->__('This field value must %1 contain characters of the alphabet.', (($value['condition'] == true) ? $this->_lang->__('only') : $this->_lang->__('not')));
-                                }
-                            }
-                        }
-                        break;
-
-                    // Between two values.
-                    case 'Between':
-                        if (!empty($curElemValue)) {
-                            $numAry = explode('|', $value['value']);
-                            if ((($curElemValue > $numAry[0]) && ($curElemValue < $numAry[1])) == $value['condition']) {
-                                unset($this->errors['Between']);
-                            } else {
-                                if (null !== $value['msg']) {
-                                    $this->errors['Between'] = $value['msg'];
-                                } else {
-                                    $this->errors['Between'] = $this->_lang->__('This field value is %1 between %2 and %3.', array((($value['condition'] == true) ? 'not' : ''), $numAry[0], $numAry[1]));
-                                }
-                            }
-                        }
-                        break;
-
-                    // E-mail pattern.
-                    case 'Email':
-                        if (!empty($curElemValue)) {
-                            if (preg_match('/[a-zA-Z0-9\.\-\_+%]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]{2,4}/', $curElemValue) == $value['condition']) {
-                                unset($this->errors['Email']);
-                            } else {
-                                if (null !== $value['msg']) {
-                                    $this->errors['Email'] = $value['msg'];
-                                } else {
-                                    $this->errors['Email'] = $this->_lang->__('This field value format is %1 a correct email format.', (($value['condition'] == true) ? 'not' : ''));
-                                }
-                            }
-                        }
-                        break;
-
-                    // Equal to value.
-                    case 'Equal':
-                        if (!empty($curElemValue)) {
-                            if (($curElemValue == $value['value']) == $value['condition']) {
-                                unset($this->errors['Equal']);
-                            } else {
-                                if (null !== $value['msg']) {
-                                    $this->errors['Equal'] = $value['msg'];
-                                } else {
-                                    $this->errors['Equal'] = $this->_lang->__('This field value does not equal the correct value.');
-                                }
-                            }
-                        }
-                        break;
-
-                    // Greater than value.
-                    case 'GreaterThan':
-                        if (!empty($curElemValue)) {
-                            if (($curElemValue > $value['value']) == $value['condition']) {
-                                unset($this->errors['GreaterThan']);
-                            } else {
-                                if (null !== $value['msg']) {
-                                    $this->errors['GreaterThan'] = $value['msg'];
-                                } else {
-                                    $this->errors['GreaterThan'] = $this->_lang->__('This field value is %1 greater than %2.', array((($value['condition'] == true) ? 'not' : ''), $value['value']));
-                                }
-                            }
-                        }
-                        break;
-
-                    // String length equals value.
-                    case 'Length':
-                        if (!empty($curElemValue)) {
-                            if ((strlen($curElemValue) == $value['value']) == $value['condition']) {
-                                unset($this->errors['Length']);
-                            } else {
-                                if (null !== $value['msg']) {
-                                    $this->errors['Length'] = $value['msg'];
-                                } else {
-                                    $this->errors['Length'] = $this->_lang->__('This field value length is %1 equal to %2 characters long.', array((($value['condition'] == true) ? 'not' : ''), $value['value']));
-                                }
-                            }
-                        }
-                        break;
-
-                    // String length between two values.
-                    case 'LengthBet':
-                        if (!empty($curElemValue)) {
-                            $numAry = explode('|', $value['value']);
-                            if (((strlen($curElemValue) > $numAry[0]) && (strlen($curElemValue) < $numAry[1])) == $value['condition']) {
-                                unset($this->errors['LengthBet']);
-                            } else {
-                                if (null !== $value['msg']) {
-                                    $this->errors['LengthBet'] = $value['msg'];
-                                } else {
-                                    $this->errors['LengthBet'] = $this->_lang->__('This field value length is %1 between %2 and %3.', array((($value['condition'] == true) ? 'not' : ''), $numAry[0], $numAry[1]));
-                                }
-                            }
-                        }
-                        break;
-
-                    // String length greater than value.
-                    case 'LengthGT':
-                        if (!empty($curElemValue)) {
-                            if ((strlen($curElemValue) >= $value['value']) == $value['condition']) {
-                                unset($this->errors['LengthGT']);
-                            } else {
-                                if (null !== $value['msg']) {
-                                    $this->errors['LengthGT'] = $value['msg'];
-                                } else {
-                                    $this->errors['LengthGT'] = $this->_lang->__('This field value length must be %1 %2 characters long.', array((($value['condition'] == true) ? 'at least' : 'under'), $value['value']));
-                                }
-                            }
-                        }
-                        break;
-
-                    // String length less than value.
-                    case 'LengthLT':
-                        if (!empty($curElemValue)) {
-                            if ((strlen($curElemValue) <= $value['value']) == $value['condition']) {
-                                unset($this->errors['LengthLT']);
-                            } else {
-                                if (null !== $value['msg']) {
-                                    $this->errors['LengthLT'] = $value['msg'];
-                                } else {
-                                    $this->errors['LengthLT'] = $this->_lang->__('This field value length must be %1 %2 characters long.', array((($value['condition'] == true) ? 'under' : 'at least'), $value['value']));
-                                }
-                            }
-                        }
-                        break;
-
-                    // Less than value.
-                    case 'LessThan':
-                        if (!empty($curElemValue)) {
-                            if (($curElemValue < $value['value']) == $value['condition']) {
-                                unset($this->errors['LessThan']);
-                            } else {
-                                if (null !== $value['msg']) {
-                                    $this->errors['LessThan'] = $value['msg'];
-                                } else {
-                                    $this->errors['LessThan'] = $this->_lang->__('This field value is %1 less than %2.', array((($value['condition'] == true) ? 'not' : ''), $value['value']));
-                                }
-                            }
-                        }
-                        break;
-
-                    // Value not empty.
-                    case 'NotEmpty':
-                        if ((!empty($curElemValue)) == $value['condition']) {
-                            unset($this->errors['NotEmpty']);
-                        } else {
-                            if (null !== $value['msg']) {
-                                $this->errors['NotEmpty'] = $value['msg'];
-                            } else {
-                                $this->errors['NotEmpty'] = $this->_lang->__('This field value is %1 empty.', (($value['condition'] == true) ? '' : 'not'));
-                            }
-                        }
-                        break;
-
-                    // Not equal to value.
-                    case 'NotEqual':
-                        if (!empty($curElemValue)) {
-                            if (($curElemValue != $value['value']) == $value['condition']) {
-                                unset($this->errors['NotEqual']);
-                            } else {
-                                if (null !== $value['msg']) {
-                                    $this->errors['NotEqual'] = $value['msg'];
-                                } else {
-                                    $this->errors['NotEqual'] = $this->_lang->__('This field value does not equal the correct value.');
-                                }
-                            }
-                        }
-                        break;
-
-                    // Numeric value.
-                    case 'Num':
-                        if (!empty($curElemValue)) {
-                            if ((is_numeric($curElemValue)) == $value['condition']) {
-                                unset($this->errors['Num']);
-                            } else {
-                                if (null !== $value['msg']) {
-                                    $this->errors['Num'] = $value['msg'];
-                                } else {
-                                    $this->errors['Num'] = $this->_lang->__('This field value is %1 a number.', (($value['condition'] == true) ? 'not' : ''));
-                                }
-                            }
-                        }
-                        break;
-
-                    // Value matches regular expression.
-                    case 'RegEx':
-                        if (!empty($curElemValue)) {
-                            if (preg_match($value['value'], $curElemValue) == $value['condition']) {
-                                unset($this->errors['RegEx']);
-                            } else {
-                                if (null !== $value['msg']) {
-                                    $this->errors['RegEx'] = $value['msg'];
-                                } else {
-                                    $this->errors['RegEx'] = $this->_lang->__('This field value format is %1 correct.', (($value['condition'] == true) ? 'not' : ''));
-                                }
-                            }
-                        }
-                        break;
+                if (!$validator->evaluate($curElemValue)) {
+                    $this->errors[] = $validator->getMessage();
                 }
             }
         }
@@ -535,7 +317,7 @@ class Element extends Child
      * @param  boolean $ret
      * @param  int $depth
      * @param  string $indent
-     * @return void
+     * @return string
      */
     public function render($ret = false, $depth = 0, $indent = null)
     {
@@ -549,6 +331,20 @@ class Element extends Child
         }
 
         return $output;
+    }
+
+
+    /**
+     * Method to render the child and its child nodes.
+     *
+     * @param  boolean $ret
+     * @param  int $depth
+     * @param  string $indent
+     * @return string
+     */
+    public function output()
+    {
+        echo $this->render();
     }
 
 }

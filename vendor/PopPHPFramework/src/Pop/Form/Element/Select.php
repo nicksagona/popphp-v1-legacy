@@ -39,6 +39,78 @@ class Select extends Element
 {
 
     /**
+     * Constant for months, short
+     * @var int
+     */
+    const MONTHS_SHORT = 1;
+
+    /**
+     * Constant for months, long
+     * @var int
+     */
+    const MONTHS_LONG = 2;
+
+    /**
+     * Constant for days of the month
+     * @var int
+     */
+    const DAYS_OF_MONTH = 3;
+
+    /**
+     * Constant for days of the week
+     * @var int
+     */
+    const DAYS_OF_WEEK = 4;
+
+    /**
+     * Constant for 12 hours
+     * @var int
+     */
+    const HOURS_12 = 5;
+
+    /**
+     * Constant for 24 hours
+     * @var int
+     */
+    const HOURS_24 = 6;
+
+    /**
+     * Constant for 60 minutes (0-59)
+     * @var int
+     */
+    const MINUTES = 7;
+
+    /**
+     * Constant for minutes in increments of 5
+     * @var int
+     */
+    const MINUTES_5 = 8;
+
+    /**
+     * Constant for minutes in increments of 10
+     * @var int
+     */
+    const MINUTES_10 = 9;
+
+    /**
+     * Constant forminutes in increments of 15
+     * @var int
+     */
+    const MINUTES_15 = 10;
+
+    /**
+     * Constant for US states, short
+     * @var int
+     */
+    const US_STATES_SHORT = 11;
+
+    /**
+     * Constant for US states, long
+     * @var int
+     */
+    const US_STATES_LONG = 12;
+
+    /**
      * Current values
      * @var array
      */
@@ -97,19 +169,19 @@ class Select extends Element
         } else {
             switch ($value) {
                 // Months, numeric short values.
-                case 'MONTHS_SHORT':
+                case Select::MONTHS_SHORT:
                     $val = array('--' => '--', '01' => '01', '02' => '02', '03' => '03', '04' => '04', '05' => '05', '06' => '06', '07' => '07', '08' => '08', '09' => '09', '10' => '10', '11' => '11', '12' => '12');
                     break;
                 // Months, long name values.
-                case 'MONTHS_LONG':
+                case Select::MONTHS_LONG:
                     $val = array('--' => '------', '01' => $lang->__('January'), '02' => $lang->__('February'), '03' => $lang->__('March'), '04' => $lang->__('April'), '05' => $lang->__('May'), '06' => $lang->__('June'), '07' => $lang->__('July'), '08' => $lang->__('August'), '09' => $lang->__('September'), '10' => $lang->__('October'), '11' => $lang->__('November'), '12' => $lang->__('December'));
                     break;
                 // Days of Month, numeric short values.
-                case 'DAYS_OF_MONTH':
+                case Select::DAYS_OF_MONTH:
                     $val = array('--' => '--', '01' => '01', '02' => '02', '03' => '03', '04' => '04', '05' => '05', '06' => '06', '07' => '07', '08' => '08', '09' => '09', '10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' => '14', '15' => '15', '16' => '16', '17' => '17', '18' => '18', '19' => '19', '20' => '20', '21' => '21', '22' => '22', '23' => '23', '24' => '24', '25' => '25', '26' => '26', '27' => '27', '28' => '28', '29' => '29', '30' => '30', '31' => '31');
                     break;
                 // Days of Week, long name values.
-                case 'DAYS_OF_WEEK':
+                case Select::DAYS_OF_WEEK:
                     $sun = $lang->__('Sunday');
                     $mon = $lang->__('Monday');
                     $tue = $lang->__('Tuesday');
@@ -120,35 +192,35 @@ class Select extends Element
                     $val = array('--' => '------', $sun => $sun, $mon => $mon, $tue => $tue, $wed => $wed, $thu => $thu, $fri => $fri, $sat => $sat);
                     break;
                 // Hours, 12-hour values.
-                case '12_HOURS':
+                case Select::HOURS_12:
                     $val = array('--' => '--', '01' => '01', '02' => '02', '03' => '03', '04' => '04', '05' => '05', '06' => '06', '07' => '07', '08' => '08', '09' => '09', '10' => '10', '11' => '11', '12' => '12');
                     break;
                 // Military Hours, 24-hour values.
-                case '24_HOURS':
+                case Select::HOURS_24:
                     $val = array('--' => '--', '00' => '00', '01' => '01', '02' => '02', '03' => '03', '04' => '04', '05' => '05', '06' => '06', '07' => '07', '08' => '08', '09' => '09', '10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' => '14', '15' => '15', '16' => '16', '17' => '17', '18' => '18', '19' => '19', '20' => '20', '21' => '21', '22' => '22', '23' => '23');
                     break;
                 // Minutes, incremental by 1 minute.
-                case 'MINUTES':
+                case Select::MINUTES:
                     $val = array('--' => '--', '00' => '00', '01' => '01', '02' => '02', '03' => '03', '04' => '04', '05' => '05', '06' => '06', '07' => '07', '08' => '08', '09' => '09', '10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' => '14', '15' => '15', '16' => '16', '17' => '17', '18' => '18', '19' => '19', '20' => '20', '21' => '21', '22' => '22', '23' => '23', '24' => '24', '25' => '25', '26' => '26', '27' => '27', '28' => '28', '29' => '29', '30' => '30', '31' => '31', '32' => '32', '33' => '33', '34' => '34', '35' => '35', '36' => '36', '37' => '37', '38' => '38', '39' => '39', '40' => '40', '41' => '41', '42' => '42', '43' => '43', '44' => '44', '45' => '45', '46' => '46', '47' => '47', '48' => '48', '49' => '49', '50' => '50', '51' => '51', '52' => '52', '53' => '53', '54' => '54', '55' => '55', '56' => '56', '57' => '57', '58' => '58', '59' => '59');
                     break;
                 // Minutes, incremental by 5 minutes.
-                case '5_MINUTES':
+                case Select::MINUTES_5:
                     $val = array('--' => '--', '00' => '00', '05' => '05', '10' => '10', '15' => '15', '20' => '20', '25' => '25', '30' => '30', '35' => '35', '40' => '40', '45' => '45', '50' => '50', '55' => '55');
                     break;
                 // Minutes, incremental by 10 minutes.
-                case '10_MINUTES':
+                case Select::MINUTES_10:
                     $val = array('--' => '--', '00' => '00', '10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50');
                     break;
                 // Minutes, incremental by 15 minutes.
-                case '15_MINUTES':
+                case Select::MINUTES_15:
                     $val = array('--' => '--', '00' => '00', '15' => '15', '30' => '30', '45' => '45');
                     break;
                 // US States, short name values.
-                case 'US_STATES_SHORT':
+                case Select::US_STATES_SHORT:
                     $val = array('--' => '--', 'AK' => 'AK', 'AL' => 'AL', 'AR' => 'AR', 'AZ' => 'AZ', 'CA' => 'CA', 'CO' => 'CO', 'CT' => 'CT', 'DC' => 'DC', 'DE' => 'DE', 'FL' => 'FL', 'GA' => 'GA', 'HI' => 'HI', 'IA' => 'IA', 'ID' => 'ID', 'IL' => 'IL', 'IN' => 'IN', 'KS' => 'KS', 'KY' => 'KY', 'LA' => 'LA', 'MA' => 'MA', 'MD' => 'MD', 'ME' => 'ME', 'MI' => 'MI', 'MN' => 'MN', 'MO' => 'MO', 'MS' => 'MS', 'MT' => 'MT', 'NC' => 'NC', 'ND' => 'ND', 'NE' => 'NE', 'NH' => 'NH', 'NJ' => 'NJ', 'NM' => 'NM', 'NV' => 'NV', 'NY' => 'NY', 'OH' => 'OH', 'OK' => 'OK', 'OR' => 'OR', 'PA' => 'PA', 'RI' => 'RI', 'SC' => 'SC', 'SD' => 'SD', 'TN' => 'TN', 'TX' => 'TX', 'UT' => 'UT', 'VA' => 'VA', 'VT' => 'VT', 'WA' => 'WA', 'WI' => 'WI', 'WV' => 'WV', 'WY' => 'WY');
                     break;
                 // US States, long name values.
-                case 'US_STATES_LONG':
+                case Select::US_STATES_LONG:
                     $val = array('--' => '------', 'AL' => 'Alabama', 'AK' => 'Alaska', 'AZ' => 'Arizona', 'AR' => 'Arkansas', 'CA' => 'California', 'CO' => 'Colorado', 'CT' => 'Connecticut', 'DC' => 'District of Columbia', 'DE' => 'Delaware', 'FL' => 'Florida', 'GA' => 'Georgia', 'HI' => 'Hawaii', 'ID' => 'Idaho', 'IL' => 'Illinois', 'IN' => 'Indiana', 'IA' => 'Iowa', 'KS' => 'Kansas', 'KY' => 'Kentucky', 'LA' => 'Louisiana', 'ME' => 'Maine', 'MD' => 'Maryland', 'MA' => 'Massachusetts', 'MI' => 'Michigan', 'MN' => 'Minnesota', 'MS' => 'Mississippi', 'MO' => 'Missouri', 'MT' => 'Montana', 'NE' => 'Nebraska', 'NV' => 'Nevada', 'NH' => 'New Hampshire', 'NJ' => 'New Jersey', 'NM' => 'New Mexico', 'NY' => 'New York', 'NC' => 'North Carolina', 'ND' => 'North Dakota', 'OH' => 'Ohio', 'OK' => 'Oklahoma', 'OR' => 'Oregon', 'PA' => 'Pennsylvania', 'RI' => 'Rhode Island', 'SC' => 'South Carolina', 'SD' => 'South Dakota', 'TN' => 'Tennessee', 'TX' => 'Texas', 'UT' => 'Utah', 'VT' => 'Vermont', 'VA' => 'Virginia', 'WA' => 'Washington', 'WV' => 'West Virginia', 'WI' => 'Wisconsin', 'WY' => 'Wyoming');
                     break;
                 // Else, set the custom array of values passed.

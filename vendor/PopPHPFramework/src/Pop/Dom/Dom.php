@@ -39,16 +39,82 @@ class Dom extends AbstractDom
 {
 
     /**
+     * Constant to use the HTML trans doctype
+     * @var int
+     */
+    const HTML_TRANS = 0;
+
+    /**
+     * Constant to use HTML strict doctype
+     * @var int
+     */
+    const HTML_STRICT = 1;
+
+    /**
+     * Constant to use the HTML frames doctype
+     * @var int
+     */
+    const HTML_FRAMES = 2;
+
+    /**
+     * Constant to use the XHTML trans doctype
+     * @var int
+     */
+    const XHTML_TRANS = 3;
+
+    /**
+     * Constant to use the XHTML strict doctype
+     * @var int
+     */
+    const XHTML_STRICT = 4;
+
+    /**
+     * Constant to use the XHTML frames doctype
+     * @var int
+     */
+    const XHTML_FRAMES = 5;
+
+    /**
+     * Constant to use the XHTML 1.1 doctype
+     * @var int
+     */
+    const XHTML11 = 6;
+
+    /**
+     * Constant to use the XML doctype
+     * @var int
+     */
+    const XML = 7;
+
+    /**
+     * Constant to use the HTML5 doctype
+     * @var int
+     */
+    const HTML5 = 8;
+
+    /**
+     * Constant to use the RSS doctype
+     * @var int
+     */
+    const RSS = 9;
+
+    /**
+     * Constant to use the ATOM doctype
+     * @var int
+     */
+    const ATOM = 10;
+
+    /**
      * Document type
      * @var string
      */
-    protected $_type = null;
+    protected $_doctype = 7;
 
     /**
      * Document content type
      * @var string
      */
-    protected $_contentType = 'text/html';
+    protected $_contentType = 'application/xml';
 
     /**
      * Document charset
@@ -60,69 +126,58 @@ class Dom extends AbstractDom
      * Document doctypes
      * @var array
      */
-    protected $_doctypes = array('HTML_TRANS' => "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n",
-                                 'HTML_STRICT' => "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n",
-                                 'HTML_FRAMES' => "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\" \"http://www.w3.org/TR/html4/frameset.dtd\">\n",
-                                 'XHTML_TRANS' => "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n",
-                                 'XHTML_STRICT' => "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n",
-                                 'XHTML_FRAMES' => "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\">\n",
-                                 'XHTML11' => "<?xml version=\"1.0\" encoding=\"[{charset}]\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n",
-                                 'XML' => "<?xml version=\"1.0\" encoding=\"[{charset}]\"?>\n",
-                                 'RSS' => "<?xml version=\"1.0\" encoding=\"[{charset}]\"?>\n",
-                                 'ATOM' => "<?xml version=\"1.0\" encoding=\"[{charset}]\"?>\n");
+    protected static $_doctypes = array(
+        "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n",
+        "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n",
+        "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\" \"http://www.w3.org/TR/html4/frameset.dtd\">\n",
+        "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n",
+        "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n",
+        "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\">\n",
+        "<?xml version=\"1.0\" encoding=\"[{charset}]\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n",
+        "<?xml version=\"1.0\" encoding=\"[{charset}]\"?>\n",
+        "<?xml version=\"1.0\" encoding=\"[{charset}]\"?>\n",
+        "<!DOCTYPE html>\n",
+        "<?xml version=\"1.0\" encoding=\"[{charset}]\"?>\n"
+    );
 
     /**
      * Constructor
      *
      * Instantiate the document object
      *
-     * @param  string $type
+     * @param  string $doctype
      * @param  string $charset
-     * @param  array|Pop_Dom_Child $childNode
+     * @param  array|Pop\Dom\Child $childNode
      * @param  string $indent
-     * @throws Exception
      * @return void
      */
-    public function __construct($type = null, $charset = 'utf-8', $childNode = null, $indent = null)
+    public function __construct($doctype = null, $charset = 'utf-8', $childNode = null, $indent = null)
     {
         $this->_lang = new Locale();
 
-        // Check the document type, else set the properties.
-        if ((null !== $type) && (!array_key_exists($type, $this->_doctypes))) {
-            throw new Exception($this->_lang->__('Error: That doctype is not allowed.'));
-        } else {
-            $this->_type = $type;
-            if ($type == 'ATOM') {
-                $this->_contentType = 'application/atom+xml';
-            } else if ($type == 'RSS') {
-                $this->_contentType = 'application/rss+xml';
-            } else if ($type == 'XML') {
-                $this->_contentType = 'application/xml';
-            } else {
-                $this->_contentType = 'text/html';
-            }
-            $this->_charset = $charset;
-            $this->_indent = $indent;
-            if (null !== $childNode) {
-                $this->addChild($childNode);
-            }
+        $this->setDoctype($doctype);
+        $this->_charset = $charset;
+        $this->_indent = $indent;
+
+        if (null !== $childNode) {
+            $this->addChild($childNode);
         }
     }
 
     /**
      * Method to return the document type.
      *
-     * @return void
+     * @return string
      */
-    public function getType()
+    public function getDoctype()
     {
-        return $this->_type;
+        return Dom::$_doctypes[$this->_doctype];
     }
 
     /**
      * Method to return the document charset.
      *
-     * @return void
+     * @return string
      */
     public function getCharset()
     {
@@ -130,38 +185,71 @@ class Dom extends AbstractDom
     }
 
     /**
-     * Method to set the document type.
+     * Method to return the document charset.
      *
-     * @param  string $type
-     * @return void
+     * @return string
      */
-    public function setType($type)
+    public function getContentType()
     {
-        $this->_type = $type;
+        return $this->_contentType;
     }
 
     /**
-     * Method to set the document type declaration in the doctype header.
+     * Method to set the document type.
      *
-     * @param  string $dtd
-     * @return void
+     * @param  string $doctype
+     * @return Pop\Dom\Dom
      */
-    public function setDTD($dtd)
+    public function setDoctype($doctype = null)
     {
-        if (($this->_type == 'XML') || ($this->_type == 'RSS') || ($this->_type == 'ATOM')) {
-            $this->_doctypes[$this->_type] .= $dtd . "\n";
+        if (null !== $doctype) {
+            $doctype = (int)$doctype;
+
+            if (array_key_exists($doctype, Dom::$_doctypes)) {
+                $this->_doctype = $doctype;
+                switch ($this->_doctype) {
+                    case Dom::ATOM:
+                        $this->_contentType = 'application/atom+xml';
+                        break;
+                    case Dom::RSS:
+                        $this->_contentType = 'application/rss+xml';
+                        break;
+                    case Dom::XML:
+                        $this->_contentType = 'application/xml';
+                        break;
+                    default:
+                        $this->_contentType = 'text/html';
+                }
+            }
+        } else {
+            $this->_doctype = null;
         }
+
+        return $this;
     }
 
     /**
      * Method to set the document charset.
      *
      * @param  string $chr
-     * @return void
+     * @return Pop\Dom\Dom
      */
     public function setCharset($chr)
     {
         $this->_charset = $chr;
+        return $this;
+    }
+
+    /**
+     * Method to set the document charset.
+     *
+     * @param  string $content
+     * @return Pop\Dom\Dom
+     */
+    public function setContentType($content)
+    {
+        $this->_contentType = $content;
+        return $this;
     }
 
     /**
@@ -175,8 +263,8 @@ class Dom extends AbstractDom
         // If the return flag is passed, return output.
         if ($ret) {
             $this->_output = '';
-            if (null !== $this->_type) {
-                $this->_output .= str_replace('[{charset}]', $this->_charset, $this->_doctypes[$this->_type]);
+            if (null !== $this->_doctype) {
+                $this->_output .= str_replace('[{charset}]', $this->_charset, Dom::$_doctypes[$this->_doctype]);
             }
             foreach ($this->_childNodes as $child) {
                 $this->_output .= $child->render(true, 0, $this->_indent);
@@ -184,12 +272,12 @@ class Dom extends AbstractDom
             return $this->_output;
         // Else, print output.
         } else {
-            if (null !== $this->_type) {
+            if (null !== $this->_doctype) {
                 if (!headers_sent()) {
                     $response = new Response(200, array('Content-type' => $this->_contentType));
                     $response->sendHeaders();
                 }
-                echo str_replace('[{charset}]', $this->_charset, $this->_doctypes[$this->_type]);
+                echo str_replace('[{charset}]', $this->_charset, Dom::$_doctypes[$this->_doctype]);
             }
 
             foreach ($this->_childNodes as $child) {

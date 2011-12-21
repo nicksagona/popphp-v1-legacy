@@ -57,7 +57,17 @@ Completed:
 * Refactor Autoloader Component
   - Add classmap generator
 * Refactor framework with namespaces
-
+*
+* Refactor Form and Dom components
+* Add Project Install, Code Generator and CLI scripts
+  - Add Project Component
+  - Data mapping classes to database tables with prefix support
+  - Generate config files and code for project classes
+    > DB Tables
+    > Controllers
+    > Forms
+    > Project
+  - Test with Mysql, Pgsql and Sqlite
 
 ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON
 ------------------------------------------
@@ -77,12 +87,6 @@ ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON
 
 CURRENTLY BEING WORKED ON & ON DECK
 -----------------------------------
-* Add Project Install & Code Generator
-  - Data mapping classes to database tables
-  - Generate code for classes and create database from template
-  - Forms
-  - Project class object?
-  - Test with Pgsql and Sqlite
 * Major Refactor/Restructure
   - Compression
   - Filter
@@ -117,6 +121,7 @@ METHOD/PROPERTY RENAMES:
 
 LANGUAGE ADDITIONS & REVISIONS:
 -------------------------------
+The array parameter passed must contain an array of field values.  
 Error: The image resource has not been created.  
 Error: The image output resource has not been created.  
 The argument passed is not valid.  
@@ -271,6 +276,7 @@ Install index controller and web configuration files?
 The docblock is not in the correct format.  
 You will have to install your web server rewrite configuration manually.  
 Creating controller class files...  
+Creating form class files...  
 The Sqlite database file and folder are not writable.  
 Project reconfigured.  
 Reconfigure the project based on the new location of the project  

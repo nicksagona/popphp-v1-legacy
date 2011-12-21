@@ -113,6 +113,27 @@ abstract class AbstractDom
     }
 
     /**
+     * Get whether or not the child object has children
+     *
+     * @return boolean
+     */
+    public function hasChildren()
+    {
+        return (count($this->_childNodes) > 0) ? true : false;
+    }
+
+    /**
+     * Get the child nodes of the object.
+     *
+     * @param int $i
+     * @return Pop\Dom\Child
+     */
+    public function getChild($i)
+    {
+        return (isset($this->_childNodes[(int)$i])) ? $this->_childNodes[(int)$i] : null;
+    }
+
+    /**
      * Get the child nodes of the object.
      *
      * @return array

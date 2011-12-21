@@ -26,13 +26,14 @@ namespace Pop\Form;
 
 use Pop\Dom\Dom,
     Pop\Dom\Child,
+    Pop\File\File,
+    Pop\Filter\String,
     Pop\Form\Element,
     Pop\Form\Element\Checkbox,
     Pop\Form\Element\Radio,
     Pop\Form\Element\Select,
     Pop\Form\Element\Textarea,
-    Pop\Locale\Locale,
-    Pop\Filter\String;
+    Pop\Locale\Locale;
 
 /**
  * @category   Pop
@@ -76,10 +77,10 @@ class Form extends Dom
     protected $_fields = array();
 
     /**
-     * Form init values for quick setup
+     * Form init field values
      * @var array
      */
-    protected $_initValues = array();
+    protected $_initFieldsValues = array();
 
     /**
      * Constructor
@@ -88,10 +89,11 @@ class Form extends Dom
      *
      * @param  string $action
      * @param  string $method
+     * @param  array  $fields
      * @param  string $indent
      * @return void
      */
-    public function __construct($action, $method, $indent = null)
+    public function __construct($action, $method, array $fields = null, $indent = null)
     {
         // Set the form's action and method.
         $this->_action = $action;
@@ -102,45 +104,76 @@ class Form extends Dom
         $this->_form = new Child('form', null, null, false, $indent);
         $this->_form->setAttributes(array('action' => $this->_action, 'method' => $this->_method));
         $this->addChild($this->_form);
-    }
 
-    /**
-     * Set the init values of the form object.
-     *
-     * @param  array $values
-     * @throws Exception
-     * @return void
-     */
-    public function setInitValues($values)
-    {
-        if (!is_array($values)) {
-            throw new Exception(Locale::factory()->__('The parameter passed must be an array.'));
-        } if (isset($values[0]) && !is_array($values[0])) {
-            throw new Exception(Locale::factory()->__('The array parameter passed must contain an array.'));
-        } else {
-            $this->_initValues = $values;
+        if (null !== $fields) {
+            $this->setFields($fields);
         }
     }
 
     /**
-     * Generate the form field elements based on the _initValues property.
+     * Set the fields of the form object.
      *
-     * @return void
+     * @param  array $fields
+     * @throws Exception
+     * @return Pop\Form\Form
      */
-    public function generateFields()
+    public function setFields(array $fields)
     {
-        if (isset($this->_initValues[0])) {
-            foreach ($this->_initValues as $field) {
+        if (isset($fields[0]) && !is_array($fields[0])) {
+            throw new Exception(Locale::factory()->__('The array parameter passed must contain an array of field values.'));
+        }
+        $this->_initFieldsValues = $fields;
+        return $this;
+    }
+
+    /**
+     * Get the form fields
+     *
+     * @return array
+     */
+    public function getFields()
+    {
+        return $this->_fields;
+    }
+
+    /**
+     * Set the field values
+     *
+     * @param  array $values
+     * @param  mixed $filters
+     * @return Pop\Form\Form
+     */
+    public function setFieldValues(array $values = null, $filters = null)
+    {
+        // Filter values if passed
+        if ((null !== $values) && (null !== $filters)) {
+            $values = $this->_filterValues($values, $filters);
+        }
+
+        // Loop through the initial fields values and build the fields
+        // based on the _initFieldsValues property.
+        if (isset($this->_initFieldsValues[0])) {
+            foreach ($this->_initFieldsValues as $field) {
                 if (is_array($field) && isset($field['type']) && isset($field['name'])) {
                     $type = $field['type'];
                     $name = $field['name'];
-                    $value = (isset($field['value'])) ? $field['value'] : null;
-                    $marked = (isset($field['marked'])) ? $field['marked'] : null;
                     $label = (isset($field['label'])) ? $field['label'] : null;
                     $required = (isset($field['required'])) ? $field['required'] : null;
                     $attributes = (isset($field['attributes'])) ? $field['attributes'] : null;
                     $validators = (isset($field['validators'])) ? $field['validators'] : null;
 
+                    if ((null !== $values) && array_key_exists($name, $values)) {
+                        if (($type == 'checkbox') || ($type == 'radio') || ($type == 'select')) {
+                            $value = (isset($field['value'])) ? $field['value'] : null;
+                            $marked = $values[$name];
+                        } else {
+                            $value = $values[$name];
+                            $marked = (isset($field['marked'])) ? $field['marked'] : null;
+                        }
+                    } else {
+                        $value = (isset($field['value'])) ? $field['value'] : null;
+                        $marked = (isset($field['marked'])) ? $field['marked'] : null;
+                    }
                     // Initialize the form element.
                     switch ($type) {
                         case 'checkbox':
@@ -188,14 +221,7 @@ class Form extends Dom
                     if (null !== $validators) {
                         if (is_array($validators)) {
                             foreach ($validators as $val) {
-                                if (is_array($val)) {
-                                    $cond = (isset($val[1])) ? $val[1] : true;
-                                    $value = (isset($val[2])) ? $val[2] : null;
-                                    $msg = (isset($val[3])) ? $val[3] : null;
-                                    $elem->addValidator($val[0], $cond, $value, $msg);
-                                } else {
-                                    $elem->addValidator($val);
-                                }
+                                $elem->addValidator($val);
                             }
                         } else {
                             $elem->addValidator($validators);
@@ -205,119 +231,69 @@ class Form extends Dom
                     $this->addElements($elem);
                 }
             }
-        }
-    }
-
-    /**
-     * Set fields values based on the array passed, $_POST or $_GET.
-     *
-     * @param  array $values
-     * @param  boolean $filter
-     * @return void
-     */
-    public function setFieldValues($values, $filter = false)
-    {
-        $elements = $this->_form->getChildren();
-        // Set values into the _initValues property.
-        if (isset($this->_initValues[0]) && (!isset($elements[0]))) {
-            foreach ($this->_initValues as $key => $field) {
-                if (isset($field['name']) && isset($values[$field['name']])) {
-                    if (($field['type'] == 'select') || ($field['type'] == 'checkbox') || ($field['type'] == 'radio')) {
-                        $this->_initValues[$key]['marked'] = $values[$field['name']];
-                    } else {
-                        $this->_initValues[$key]['value'] = ($filter) ? (string)String::factory($values[$field['name']])->striptags() : $values[$field['name']];
-                    }
-                }
-            }
-        // Else, if elements have already been created, set field values into those elements.
+        // Else, set the passed values to the elements that
+        // are already added to the form object
         } else {
-            foreach ($elements as $key => $field) {
-                $attributes = $field->getAttributes();
-                if (isset($attributes['name']) && isset($values[$attributes['name']])) {
-                    // If a select element.
-                    if ($field instanceof Select) {
-                        $elements[$key]->setMarked($values[$attributes['name']]);
-                        $elements[$key]->removeChildren();
-                        foreach ($elements[$key]->value as $k => $v) {
-                            $opt = new Child('option');
-                            $opt->setAttributes('value', $k);
-                            if ($v == $elements[$key]->marked) {
-                                $opt->setAttributes('selected', 'selected');
+            $fields = $this->getElements();
+            if ((null !== $values) && (count($fields) > 0)) {
+                foreach ($fields as $field) {
+                    // If a multi-value form element
+                    if (isset($values[$field->name])) {
+                        if (isset($field->values)) {
+                            $field->marked = $values[$field->name];
+                            $this->_fields[$field->name] = $values[$field->name];
+                            // Loop through the field's children
+                            if ($field->hasChildren()) {
+                                $children = $field->getChildren();
+                                foreach ($children as $key => $child) {
+                                    // If checkbox or radio
+                                    if (($child->getAttribute('type') == 'checkbox') || ($child->getAttribute('type') == 'radio')) {
+                                        if (is_array($field->marked) && in_array($child->getAttribute('value'), $field->marked)) {
+                                            $field->getChild($key)->setAttributes('checked', 'checked');
+                                        } else if ($child->getAttribute('value') == $field->marked) {
+                                            $field->getChild($key)->setAttributes('checked', 'checked');
+                                        }
+                                    // If select option
+                                    } else if ($child->getNodeName() == 'option') {
+                                        if ($child->getAttribute('value') == $field->marked) {
+                                            $field->getChild($key)->setAttributes('selected', 'selected');
+                                        }
+                                    }
+                                }
                             }
-                            $opt->setNodeValue($v);
-                            $elements[$key]->addChild($opt);
-                        }
-                    // If a textarea element.
-                    } else if ($field instanceof Textarea) {
-                        $val = ($filter) ? (string)String::factory($values[$attributes['name']])->striptags() : $values[$attributes['name']];
-                        $elements[$key]->value = $val;
-                        $elements[$key]->setNodeValue($val);
-                    // If an input element.
-                    } else {
-                        $val = ($filter) ? (string)String::factory($values[$attributes['name']])->striptags() : $values[$attributes['name']];
-                        $elements[$key]->value = $val;
-                        $elements[$key]->setAttributes('value', $val);
-                    }
-                // If a checkbox element.
-                } else if ($field instanceof Checkbox) {
-                    $children = $field->getChildren();
-                    $atts = $children[0]->getAttributes();
-                    $name = str_replace('[]', '', $atts['name']);
-                    if (isset($values[$name])) {
-                        $elements[$key]->setMarked($values[$name]);
-                        $elements[$key]->removeChildren();
-                        $i = null;
-                        foreach ($elements[$key]->value as $k => $v) {
-                            $chk = new Child('input');
-                            $chk->setAttributes(array('type' => 'checkbox', 'class' => 'checkBox', 'name' => ($name . '[]'), 'id' => ($name . $i), 'value' => $k));
-                            if (in_array($v, $elements[$key]->marked)) {
-                                $chk->setAttributes('checked', 'checked');
+                        // Else, if a single-value form element
+                        } else {
+                            $field->value = $values[$field->name];
+                            $this->_fields[$field->name] = $values[$field->name];
+                            if ($field->getNodeName() == 'textarea') {
+                                $field->setNodeValue($values[$field->name]);
+                            } else {
+                                $field->setAttributes('value', $values[$field->name]);
                             }
-                            $span = new Child('span');
-                            $span->setAttributes('class', 'checkPad');
-                            $span->setNodeValue($v);
-                            $elements[$key]->addChildren(array($chk, $span));
-                            $i++;
-                        }
-                    }
-                // If a radio element.
-                } else if ($field instanceof Radio) {
-                    $children = $field->getChildren();
-                    $atts = $children[0]->getAttributes();
-                    $name = $atts['name'];
-                    if (isset($values[$name])) {
-                        $elements[$key]->setMarked($values[$name]);
-                        $elements[$key]->removeChildren();
-                        $i = null;
-                        foreach ($elements[$key]->value as $k => $v) {
-                            $rad = new Child('input');
-                            $rad->setAttributes(array('type' => 'radio', 'class' => 'radioBtn', 'name' => $name, 'id' => ($name . $i), 'value' => $k));
-                            if ($v == $elements[$key]->marked) {
-                                $rad->setAttributes('checked', 'checked');
-                            }
-                            $span = new Child('span');
-                            $span->setAttributes('class', 'radioPad');
-                            $span->setNodeValue($v);
-                            $elements[$key]->addChildren(array($rad, $span));
-                            $i++;
                         }
                     }
                 }
             }
-            $this->_form->removeChildren();
-            $this->_form->addChildren($elements);
         }
+
+        return $this;
     }
 
     /**
      * Set a form template for the render method to utilize.
      *
      * @param  string $tmpl
-     * @return void
+     * @return Pop\Form\Form
      */
     public function setTemplate($tmpl)
     {
-        $this->_template = $tmpl;
+        if (file_exists($tmpl)) {
+            $tmplFile = new File($tmpl);
+            $this->_template = $tmplFile->read();
+        } else {
+            $this->_template = $tmpl;
+        }
+        return $this;
     }
 
     /**
@@ -335,11 +311,12 @@ class Form extends Dom
      *
      * @param  array|string $a
      * @param  string $v
-     * @return void
+     * @return Pop\Form\Form
      */
     public function setAttributes($a, $v = null)
     {
         $this->_form->setAttributes($a, $v);
+        return $this;
     }
 
     /**
@@ -356,7 +333,7 @@ class Form extends Dom
      * Add a form element or elements to the form object.
      *
      * @param  array|string $e
-     * @return void
+     * @return Pop\Form\Form
      */
     public function addElements($e)
     {
@@ -397,6 +374,8 @@ class Form extends Dom
                 }
             }
         }
+
+        return $this;
     }
 
     /**
@@ -416,23 +395,25 @@ class Form extends Dom
      */
     public function isValid()
     {
-        $noerrors = true;
+        $noErrors = true;
         $children = $this->_form->getChildren();
 
         // Check each element for validators, validate them and return the result.
         foreach ($children as $child) {
             if ($child->validate() == false) {
-                $noerrors = false;
+                $noErrors = false;
             }
         }
 
-        return $noerrors;
+        return $noErrors;
     }
 
     /**
-     * Render the form object using the defined template. The template should use a simple search and replace
-     * format that contains [{element}] and/or [{element_label}] for the placeholders that will be swapped out.
-     * Required fields' labels have class="required" and error messages have class="error" for styling purposes.
+     * Render the form object using the defined template. The template
+     * should use a simple search and replace format that contains
+     * [{element}] and/or [{element_label}] for the placeholders that
+     * will be swapped out. Required fields' labels have class="required"
+     * and error messages have class="error" for styling purposes.
      *
      * @param  boolean $ret
      * @throws Exception
@@ -528,6 +509,42 @@ class Form extends Dom
                 echo $this->_form->render(true);
             }
         }
+    }
+
+    /**
+     * Method to filter the values
+     *
+     * @param  array $values
+     * @param  mixed $filters
+     * @return array
+     */
+    protected function _filterValues($values, $filters)
+    {
+        $filteredValues = array();
+
+        if (!is_array($filters)) {
+            $filters = array($filters);
+        }
+
+        foreach ($values as $key => $value) {
+            foreach ($filters as $filter) {
+                if (method_exists('Pop\\Filter\\String', $filter)) {
+                    if (is_array($value)) {
+                        $filteredAry = array();
+                        foreach ($value as $k => $v) {
+                            $filteredAry[$k] = (string)String::factory($v)->$filter();
+                        }
+                        $filteredValues[$key] = $filteredAry;
+                    } else {
+                        $filteredValues[$key] = (string)String::factory($value)->$filter();
+                    }
+                } else {
+                    $filteredValues[$key] = $value;
+                }
+            }
+        }
+
+        return $filteredValues;
     }
 
     /**
