@@ -423,19 +423,79 @@ class Form extends Dom
     public function render($ret = false)
     {
         // Check to make sure form elements exist.
-        if (count($this->_form->getChildren()) == 0) {
+        if ((count($this->_form->getChildren()) == 0) && (count($this->_initFieldsValues) == 0)) {
             throw new Exception(Locale::factory()->__('Error: There are no form elements declared for this form object.'));
-        // Else, if the template is not set, default to the basic output.
-        } else if (null === $this->_template) {
-            if ($ret) {
-                return (string)$this;
-            } else {
-                echo $this;
+        } else if ((count($this->_form->getChildren()) == 0) && (count($this->_initFieldsValues) > 0)) {
+            $this->setFieldValues();
+        }
+
+        // If the template is not set, default to the basic output.
+        if (null === $this->_template) {
+            // Initialize properties.
+            $this->_output = null;
+            $children = $this->_form->getChildren();
+            $this->_form->removeChildren();
+
+            // Create DL element.
+            $dl = new Child('dl', null, null, false, ($this->_form->getIndent() . '    '));
+
+            // Loop through the children and create and attach the appropriate DT and DT elements, with labels where applicable.
+            foreach ($children as $child) {
+                // If the element label is set, render the appropriate DT and DD elements.
+                if (null !== $child->label) {
+                    // Create the DT and DD elements.
+                    $dt = new Child('dt', null, null, false, ($this->_form->getIndent() . '        '));
+                    $dd = new Child('dd', null, null, false, ($this->_form->getIndent() . '        '));
+
+                    // Format the label name.
+                    $lbl_name = ($child->getNodeName() == 'fieldset') ? '1' : '';
+                    $label = new Child('label', $child->label, null, false, ($this->_form->getIndent() . '            '));
+
+                    if ($child->getNodeName() == 'fieldset') {
+                        $chdrn = $child->getChildren();
+                        $attribs = $chdrn[0]->getAttributes();
+                    } else {
+                        $attribs = $child->getAttributes();
+                    }
+
+                    $name = (isset($attribs['name'])) ? $attribs['name'] : '';
+                    $name = str_replace('[]', '', $name);
+
+                    if ($child->required) {
+                        $label->setAttributes(array('for' => ($name . $lbl_name), 'class' => 'required'));
+                    } else {
+                        $label->setAttributes('for', ($name . $lbl_name));
+                    }
+
+                    // Add the appropriate children to the appropriate elements.
+                    $dt->addChild($label);
+                    $child->setIndent(($this->_form->getIndent() . '            '));
+                    $childChildren = $child->getChildren();
+                    $child->removeChildren();
+
+                    foreach ($childChildren as $cChild) {
+                        $cChild->setIndent(($this->_form->getIndent() . '                '));
+                        $child->addChild($cChild);
+                    }
+
+                    $dd->addChild($child);
+                    $dl->addChildren(array($dt, $dd));
+                // Else, render only a DD element.
+                } else {
+                    $dd = new Child('dd', null, null, false, ($this->_form->getIndent() . '        '));
+                    $child->setIndent(($this->_form->getIndent() . '            '));
+                    $dd->addChild($child);
+                    $dl->addChild($dd);
+                }
             }
+
+            // Add the DL element and its children to the form element.
+            $this->_form->addChild($dl);
+            $this->_output = $this->_form->render(true);
         // Else, start building the form's HTML output based on the template.
         } else {
-            // Initialize properties and variabels.
-            $this->_output = '';
+            // Initialize properties and variables.
+            $this->_output = null;
             $children = $this->_form->getChildren();
 
             // Loop through the child elements of the form.
@@ -501,14 +561,16 @@ class Form extends Dom
             // Set the rendered form content and remove the children.
             $this->_form->setNodeValue("\n" . $this->_template . "\n" . $this->_form->getIndent());
             $this->_form->removeChildren();
-
-            // Return or print the form output.
-            if ($ret) {
-                return $this->_form->render(true);
-            } else {
-                echo $this->_form->render(true);
-            }
+            $this->_output = $this->_form->render(true);
         }
+
+        // Return or print the form output.
+        if ($ret) {
+            return $this->_output;
+        } else {
+            echo $this->_output;
+        }
+
     }
 
     /**
@@ -582,70 +644,7 @@ class Form extends Dom
 
     public function __toString()
     {
-        // Initialize propeties.
-        $this->_output = '';
-        $children = $this->_form->getChildren();
-        $this->_form->removeChildren();
-
-        // Create DL element.
-        $dl = new Child('dl', null, null, false, ($this->_form->getIndent() . '    '));
-
-        // Loop through the children and create and attach the appropriate DT and DT elements, with labels where applicable.
-        foreach ($children as $child) {
-            // If the element label is set, render the appropriate DT and DD elements.
-            if (null !== $child->label) {
-                // Create the DT and DD elements.
-                $dt = new Child('dt', null, null, false, ($this->_form->getIndent() . '        '));
-                $dd = new Child('dd', null, null, false, ($this->_form->getIndent() . '        '));
-
-                // Format the label name.
-                $lbl_name = ($child->getNodeName() == 'fieldset') ? '1' : '';
-                $label = new Child('label', $child->label, null, false, ($this->_form->getIndent() . '            '));
-
-                if ($child->getNodeName() == 'fieldset') {
-                    $chdrn = $child->getChildren();
-                    $attribs = $chdrn[0]->getAttributes();
-                } else {
-                    $attribs = $child->getAttributes();
-                }
-
-                $name = (isset($attribs['name'])) ? $attribs['name'] : '';
-                $name = str_replace('[]', '', $name);
-
-                if ($child->required) {
-                    $label->setAttributes(array('for' => ($name . $lbl_name), 'class' => 'required'));
-                } else {
-                    $label->setAttributes('for', ($name . $lbl_name));
-                }
-
-                // Add the appropriate children to the appropriate elements.
-                $dt->addChild($label);
-                $child->setIndent(($this->_form->getIndent() . '            '));
-                $childChildren = $child->getChildren();
-                $child->removeChildren();
-
-                foreach ($childChildren as $cChild) {
-                    $cChild->setIndent(($this->_form->getIndent() . '                '));
-                    $child->addChild($cChild);
-                }
-
-                $dd->addChild($child);
-                $dl->addChildren(array($dt, $dd));
-            // Else, render only a DD element.
-            } else {
-                $dd = new Child('dd', null, null, false, ($this->_form->getIndent() . '        '));
-                $child->setIndent(($this->_form->getIndent() . '            '));
-                $dd->addChild($child);
-                $dl->addChild($dd);
-            }
-        }
-
-        // Add the DL element and its children to the form element.
-        $this->_form->addChild($dl);
-        $this->_output = $this->_form->render(true);
-
-        // Print the output.
-        return $this->_output;
+        return $this->render(true);
     }
 
 }

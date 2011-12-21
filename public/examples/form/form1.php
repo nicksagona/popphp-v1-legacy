@@ -61,8 +61,7 @@ try {
             print_r($form->getFields());
         }
     } else {
-        $form->setFieldValues()
-             ->render();
+        $form->render();
     }
 
     echo PHP_EOL . PHP_EOL;
