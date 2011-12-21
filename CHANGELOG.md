@@ -63,10 +63,10 @@ Completed:
   - Add Project Component
   - Data mapping classes to database tables with prefix support
   - Generate config files and code for project classes
-    > DB Tables
-    > Controllers
-    > Forms
-    > Project
+    + DB Tables
+    + Controllers
+    + Forms
+    + Project
   - Test with Mysql, Pgsql and Sqlite
 
 ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON
@@ -104,19 +104,6 @@ NEXT UP:
 * Phase 2 of code review/cleanup
 * Testing, testing & more testing
 * Documentation
-
-
-METHOD/PROPERTY RENAMES:
-------------------------
-### Form:
-* setPostValues to setFieldValues
-* processInitValues to generateFields
-
-### String:
-* setString to factory
-
-### Array:
-* setArray to factory
 
 
 LANGUAGE ADDITIONS & REVISIONS:
