@@ -63,10 +63,10 @@ Completed:
   - Add Project Component
   - Data mapping classes to database tables with prefix support
   - Generate config files and code for project classes
-    + DB Tables
-    + Controllers
-    + Forms
-    + Project
+    * DB Tables
+    * Controllers
+    * Forms
+    * Project
   - Test with Mysql, Pgsql and Sqlite
 
 ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON
