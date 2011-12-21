@@ -409,17 +409,17 @@ class Form extends Dom
     }
 
     /**
-     * Render the form object using the defined template. The template
-     * should use a simple search and replace format that contains
-     * [{element}] and/or [{element_label}] for the placeholders that
-     * will be swapped out. Required fields' labels have class="required"
-     * and error messages have class="error" for styling purposes.
+     * Render the form object either using the defined template or by a basic
+     * 1:1 DL/DD tag structure. The template should use a simple search and
+     * replace format that contains [{element}] and/or [{element_label}] for
+     * the placeholders that will be swapped out. Required fields' labels have
+     * have class="required" and error messages have class="error" for
+     * styling purposes.
      *
      * @param  boolean $ret
      * @throws Exception
      * @return void
      */
-
     public function render($ret = false)
     {
         // Check to make sure form elements exist.
@@ -431,137 +431,10 @@ class Form extends Dom
 
         // If the template is not set, default to the basic output.
         if (null === $this->_template) {
-            // Initialize properties.
-            $this->_output = null;
-            $children = $this->_form->getChildren();
-            $this->_form->removeChildren();
-
-            // Create DL element.
-            $dl = new Child('dl', null, null, false, ($this->_form->getIndent() . '    '));
-
-            // Loop through the children and create and attach the appropriate DT and DT elements, with labels where applicable.
-            foreach ($children as $child) {
-                // If the element label is set, render the appropriate DT and DD elements.
-                if (null !== $child->label) {
-                    // Create the DT and DD elements.
-                    $dt = new Child('dt', null, null, false, ($this->_form->getIndent() . '        '));
-                    $dd = new Child('dd', null, null, false, ($this->_form->getIndent() . '        '));
-
-                    // Format the label name.
-                    $lbl_name = ($child->getNodeName() == 'fieldset') ? '1' : '';
-                    $label = new Child('label', $child->label, null, false, ($this->_form->getIndent() . '            '));
-
-                    if ($child->getNodeName() == 'fieldset') {
-                        $chdrn = $child->getChildren();
-                        $attribs = $chdrn[0]->getAttributes();
-                    } else {
-                        $attribs = $child->getAttributes();
-                    }
-
-                    $name = (isset($attribs['name'])) ? $attribs['name'] : '';
-                    $name = str_replace('[]', '', $name);
-
-                    if ($child->required) {
-                        $label->setAttributes(array('for' => ($name . $lbl_name), 'class' => 'required'));
-                    } else {
-                        $label->setAttributes('for', ($name . $lbl_name));
-                    }
-
-                    // Add the appropriate children to the appropriate elements.
-                    $dt->addChild($label);
-                    $child->setIndent(($this->_form->getIndent() . '            '));
-                    $childChildren = $child->getChildren();
-                    $child->removeChildren();
-
-                    foreach ($childChildren as $cChild) {
-                        $cChild->setIndent(($this->_form->getIndent() . '                '));
-                        $child->addChild($cChild);
-                    }
-
-                    $dd->addChild($child);
-                    $dl->addChildren(array($dt, $dd));
-                // Else, render only a DD element.
-                } else {
-                    $dd = new Child('dd', null, null, false, ($this->_form->getIndent() . '        '));
-                    $child->setIndent(($this->_form->getIndent() . '            '));
-                    $dd->addChild($child);
-                    $dl->addChild($dd);
-                }
-            }
-
-            // Add the DL element and its children to the form element.
-            $this->_form->addChild($dl);
-            $this->_output = $this->_form->render(true);
+            $this->_renderWithoutTemplate();
         // Else, start building the form's HTML output based on the template.
         } else {
-            // Initialize properties and variables.
-            $this->_output = null;
-            $children = $this->_form->getChildren();
-
-            // Loop through the child elements of the form.
-            foreach ($children as $child) {
-                // Get the element name.
-                if ($child->getNodeName() == 'fieldset') {
-                    $chdrn = $child->getChildren();
-                    $attribs = $chdrn[0]->getAttributes();
-                } else {
-                    $attribs = $child->getAttributes();
-                }
-                $name = (isset($attribs['name'])) ? $attribs['name'] : '';
-                $name = str_replace('[]', '', $name);
-
-                // Set the element's label, if applicable.
-                if (null !== $child->label) {
-
-                    // Format the label name.
-                    $label = new Child('label', $child->label);
-
-                    if ($child->required) {
-                        $label->setAttributes(array('for' => $name, 'class' => 'required'));
-                    } else {
-                        $label->setAttributes('for', $name);
-                    }
-
-                    // Swap the element's label placeholder with the rendered label element.
-                    $labelSearch = '[{' . $name . '_label}]';
-                    $labelReplace = $label->render(true);
-                    $this->_template = str_replace($labelSearch, substr($labelReplace, 0, -1), $this->_template);
-                }
-
-                // Calculate the element's indentation.
-                $indent = '';
-                $indent = substr($this->_template, 0, strpos($this->_template, ('[{' . $name . '}]')));
-                $indent = substr($indent, (strrpos($indent, "\n") + 1));
-
-                $matches = array();
-                preg_match_all('/[^\s]/', $indent, $matches);
-                if (isset($matches[0])) {
-                    foreach ($matches[0] as $str) {
-                        $indent = str_replace($str, ' ', $indent);
-                    }
-                }
-
-                // Set each child element's indentation.
-                $childChildren = $child->getChildren();
-                $child->removeChildren();
-                foreach ($childChildren as $cChild) {
-                    $cChild->setIndent(($indent . '    '));
-                    $child->addChild($cChild);
-                }
-
-                // Swap the element's placeholder with the rendered element.
-                $elementSearch = '[{' . $name . '}]';
-                $elementReplace = $child->render(true, 0, $indent);
-                $elementReplace = substr($elementReplace, 0, -1);
-                $elementReplace = str_replace('</select>', $indent . '</select>', $elementReplace);
-                $elementReplace = str_replace('</fieldset>', $indent . '</fieldset>', $elementReplace);
-                $this->_template = str_replace($elementSearch, $elementReplace, $this->_template);
-            }
-
-            // Set the rendered form content and remove the children.
-            $this->_form->setNodeValue("\n" . $this->_template . "\n" . $this->_form->getIndent());
-            $this->_form->removeChildren();
-            $this->_output = $this->_form->render(true);
+            $this->_renderWithTemplate();
         }
 
         // Return or print the form output.
@@ -607,6 +480,153 @@ class Form extends Dom
         }
 
         return $filteredValues;
+    }
+
+    /**
+     * Method to render the form using a basic 1:1 DD/DL layout
+     *
+     * @return void
+     */
+    protected function _renderWithoutTemplate()
+    {
+        // Initialize properties.
+        $this->_output = null;
+        $children = $this->_form->getChildren();
+        $this->_form->removeChildren();
+
+        // Create DL element.
+        $dl = new Child('dl', null, null, false, ($this->_form->getIndent() . '    '));
+
+        // Loop through the children and create and attach the appropriate DT and DT elements, with labels where applicable.
+        foreach ($children as $child) {
+            // If the element label is set, render the appropriate DT and DD elements.
+            if (null !== $child->label) {
+                // Create the DT and DD elements.
+                $dt = new Child('dt', null, null, false, ($this->_form->getIndent() . '        '));
+                $dd = new Child('dd', null, null, false, ($this->_form->getIndent() . '        '));
+
+                // Format the label name.
+                $lbl_name = ($child->getNodeName() == 'fieldset') ? '1' : '';
+                $label = new Child('label', $child->label, null, false, ($this->_form->getIndent() . '            '));
+
+                if ($child->getNodeName() == 'fieldset') {
+                    $chdrn = $child->getChildren();
+                    $attribs = $chdrn[0]->getAttributes();
+                } else {
+                    $attribs = $child->getAttributes();
+                }
+
+                $name = (isset($attribs['name'])) ? $attribs['name'] : '';
+                $name = str_replace('[]', '', $name);
+
+                if ($child->required) {
+                    $label->setAttributes(array('for' => ($name . $lbl_name), 'class' => 'required'));
+                } else {
+                    $label->setAttributes('for', ($name . $lbl_name));
+                }
+
+                // Add the appropriate children to the appropriate elements.
+                $dt->addChild($label);
+                $child->setIndent(($this->_form->getIndent() . '            '));
+                $childChildren = $child->getChildren();
+                $child->removeChildren();
+
+                foreach ($childChildren as $cChild) {
+                    $cChild->setIndent(($this->_form->getIndent() . '                '));
+                    $child->addChild($cChild);
+                }
+
+                $dd->addChild($child);
+                $dl->addChildren(array($dt, $dd));
+            // Else, render only a DD element.
+            } else {
+                $dd = new Child('dd', null, null, false, ($this->_form->getIndent() . '        '));
+                $child->setIndent(($this->_form->getIndent() . '            '));
+                $dd->addChild($child);
+                $dl->addChild($dd);
+            }
+        }
+
+        // Add the DL element and its children to the form element.
+        $this->_form->addChild($dl);
+        $this->_output = $this->_form->render(true);
+    }
+
+    /**
+     * Method to render the form using the template
+     *
+     * @return void
+     */
+    protected function _renderWithTemplate()
+    {
+        // Initialize properties and variables.
+        $this->_output = null;
+        $children = $this->_form->getChildren();
+
+        // Loop through the child elements of the form.
+        foreach ($children as $child) {
+            // Get the element name.
+            if ($child->getNodeName() == 'fieldset') {
+                $chdrn = $child->getChildren();
+                $attribs = $chdrn[0]->getAttributes();
+            } else {
+                $attribs = $child->getAttributes();
+            }
+            $name = (isset($attribs['name'])) ? $attribs['name'] : '';
+            $name = str_replace('[]', '', $name);
+
+            // Set the element's label, if applicable.
+            if (null !== $child->label) {
+
+                // Format the label name.
+                $label = new Child('label', $child->label);
+
+                if ($child->required) {
+                    $label->setAttributes(array('for' => $name, 'class' => 'required'));
+                } else {
+                    $label->setAttributes('for', $name);
+                }
+
+                // Swap the element's label placeholder with the rendered label element.
+                $labelSearch = '[{' . $name . '_label}]';
+                $labelReplace = $label->render(true);
+                $this->_template = str_replace($labelSearch, substr($labelReplace, 0, -1), $this->_template);
+            }
+
+            // Calculate the element's indentation.
+            $indent = '';
+            $indent = substr($this->_template, 0, strpos($this->_template, ('[{' . $name . '}]')));
+            $indent = substr($indent, (strrpos($indent, "\n") + 1));
+
+            $matches = array();
+            preg_match_all('/[^\s]/', $indent, $matches);
+            if (isset($matches[0])) {
+                foreach ($matches[0] as $str) {
+                    $indent = str_replace($str, ' ', $indent);
+                }
+            }
+
+            // Set each child element's indentation.
+            $childChildren = $child->getChildren();
+            $child->removeChildren();
+            foreach ($childChildren as $cChild) {
+                $cChild->setIndent(($indent . '    '));
+                $child->addChild($cChild);
+            }
+
+            // Swap the element's placeholder with the rendered element.
+            $elementSearch = '[{' . $name . '}]';
+            $elementReplace = $child->render(true, 0, $indent);
+            $elementReplace = substr($elementReplace, 0, -1);
+            $elementReplace = str_replace('</select>', $indent . '</select>', $elementReplace);
+            $elementReplace = str_replace('</fieldset>', $indent . '</fieldset>', $elementReplace);
+            $this->_template = str_replace($elementSearch, $elementReplace, $this->_template);
+        }
+
+        // Set the rendered form content and remove the children.
+        $this->_form->setNodeValue("\n" . $this->_template . "\n" . $this->_form->getIndent());
+        $this->_form->removeChildren();
+        $this->_output = $this->_form->render(true);
     }
 
     /**
