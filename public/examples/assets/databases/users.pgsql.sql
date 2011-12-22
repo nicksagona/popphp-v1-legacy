@@ -7,10 +7,9 @@ CREATE TABLE users (
     username character varying(250) NOT NULL,
     password character varying(250) NOT NULL,
     email character varying(250) NOT NULL,
-    access character varying(250) NOT NULL
+    access character varying(250) NOT NULL,
+    CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
-
-ALTER TABLE public.users OWNER TO popuser;
 
 --
 -- Dumping data for table users

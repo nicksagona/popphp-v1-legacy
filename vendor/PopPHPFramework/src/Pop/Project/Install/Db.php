@@ -73,17 +73,19 @@ class Db
     /**
      * Install the database
      *
+     * @param string     $dbname
      * @param array      $db
      * @param string     $dir
      * @param Pop\Config $install
      * @throws Exception
      * @return array
      */
-    public static function install($db, $dir, $install)
+    public static function install($dbname, $db, $dir, $install)
     {
         // Detect any SQL files
         $dir = new Dir($dir, true);
         $sqlFiles = array();
+
         foreach ($dir->files as $file) {
             if (substr($file, -4) == '.sql') {
                 $sqlFiles[] = $file;
@@ -114,7 +116,6 @@ class Db
 
         // Create DB connection
         $popdb = PopDb::factory($db['type'], $db);
-        $tables = array();
 
         // If there are SQL files, parse them and execute the SQL queries
         if (count($sqlFiles) > 0) {
@@ -125,106 +126,10 @@ class Db
                 $sql = trim($file->read());
                 $statements = explode(';', $sql);
 
-                $tableName = null;
-                $auto = false;
-                $primaryId = null;
-
-                // Loop through each statement found
+                // Loop through each statement found and execute
                 foreach ($statements as $s) {
-                    $s = trim($s);
                     if (!empty($s)) {
-                        // Get table name from DROP
-                        if ((stripos($s, 'DROP') !== false) && (stripos($s, 'TABLE') !== false)) {
-                            $tableName = trim(substr($s, strrpos($s, ' ')));
-                            $tableName = str_replace('`', '', $tableName);
-                            $tableName = str_replace('"', '', $tableName);
-                            $tableName = str_replace("'", "", $tableName);
-
-                            // Set table info
-                            $tables[$tableName] = array('primaryId' => null, 'auto' => false);
-                            if (isset($db['prefix'])) {
-                                $tables[$tableName]['prefix'] = $db['prefix'];
-                            } else {
-                                $tables[$tableName]['prefix'] = null;
-                            }
-                        }
-
-                        // Get table name from CREATE
-                        if ((stripos($s, 'CREATE') !== false) && (stripos($s, 'TABLE') !== false)) {
-                            $tableName = substr($s, (stripos($s, 'CREATE') + 6));
-                            $tableName = trim(substr($tableName, 0, strpos($tableName, '(')));
-                            $tableName = trim(substr($tableName, strrpos($tableName, ' ')));
-                            $tableName = str_replace('`', '', $tableName);
-                            $tableName = str_replace('"', '', $tableName);
-                            $tableName = str_replace("'", "", $tableName);
-
-                            // Set table info
-                            $tables[$tableName] = array('primaryId' => null, 'auto' => false);
-                            if (isset($db['prefix'])) {
-                                $tables[$tableName]['prefix'] = $db['prefix'];
-                            } else {
-                                $tables[$tableName]['prefix'] = null;
-                            }
-                        }
-
-                        // Get primary key (mysql & sqlite)
-                        if (stripos($s, 'PRIMARY KEY') !== false) {
-                            if ($db['type'] == 'Sqlite') {
-                                $matches = array();
-                                preg_match('/^(.*)PRIMARY\sKEY,/im', $sql, $matches);
-                                if (isset($matches[0])) {
-                                    $id = trim($matches[0]);
-                                    $primaryId = substr($id, 0, strpos($id, ' '));
-
-                                    // Set table info
-                                    if (isset($tables[$tableName])) {
-                                        $tables[$tableName]['primaryId'] = $primaryId;
-                                        $tables[$tableName]['auto'] = true;
-                                    }
-                                }
-                            } else {
-                                $primaryId = trim(substr($s, (stripos($s, 'PRIMARY KEY') + 11)));
-                                $primaryId = trim(substr($primaryId, 0, strpos($primaryId, ')')));
-                                $primaryId = str_replace('`', '', $primaryId);
-                                $primaryId = str_replace('"', '', $primaryId);
-                                $primaryId = str_replace("'", "", $primaryId);
-                                $primaryId = str_replace('(', '', $primaryId);
-                                $primaryId = str_replace(')', '', $primaryId);
-
-                                // Set table info
-                                if (isset($tables[$tableName])) {
-                                    $tables[$tableName]['primaryId'] = $primaryId;
-                                }
-                            }
-                        }
-
-                        // Get auto-increment (mysql)
-                        if ((stripos($s, 'AUTO_INCREMENT') !== false)) {
-                            if (isset($tables[$tableName])) {
-                                $tables[$tableName]['auto'] = true;
-                            }
-                        }
-
-                        // Get primary key and auto (pgsql)
-                        if (stripos($s, 'SERIAL') !== false) {
-                            $id = trim(substr($s, 0, stripos($s, 'SERIAL')));
-                            $id = trim(substr($id, strrpos($id, ' ')));
-
-                            // Set table info
-                            if (isset($tables[$tableName])) {
-                                $tables[$tableName]['primaryId'] = $id;
-                                $tables[$tableName]['auto'] = true;
-                            }
-
-                        }
-
-                        // Execute the SQL query
                         try {
-                            // Append the table prefix to the table in the query
-                            if (isset($tables[$tableName]) && isset($tables[$tableName]['prefix'])) {
-                                $s = str_replace($tableName, $tables[$tableName]['prefix'] . $tableName, $s);
-                            }
-
                             $popdb->adapter->query(trim($s));
                         } catch (\Exception $e) {
                             echo $e->getMessage() . PHP_EOL . PHP_EOL;
@@ -235,6 +140,92 @@ class Db
             }
         }
 
+        // Get table info
+        $tables = array();
+
+        try {
+            // Get Sqlite table info
+            if ($db['type'] == 'Sqlite') {
+                $tablesFromDb = $popdb->adapter->getTables();
+                if (count($tablesFromDb) > 0) {
+                    foreach ($tablesFromDb as $table) {
+                        $popdb->adapter->query("PRAGMA table_info('" . $table . "')");
+                        while (($row = $popdb->adapter->fetch()) != false) {
+                            if ($row['pk'] == 1) {
+                                $tables[$table] = array('primaryId' => $row['name'], 'auto' => true);
+                            }
+                        }
+                    }
+                }
+            // Else, get MySQL and PgSQL table info
+            } else {
+                if ($db['type'] == 'Pgsql') {
+                    $schema = 'CATALOG';
+                    $tableSchema = " AND TABLE_SCHEMA = 'public'";
+                    $tableName = 'table_name';
+                    $constraintName = 'constraint_name';
+                    $columnName = 'column_name';
+                } else {
+                    $schema = 'SCHEMA';
+                    $tableSchema = null;
+                    $tableName = 'TABLE_NAME';
+                    $constraintName = 'CONSTRAINT_NAME';
+                    $columnName = 'COLUMN_NAME';
+                }
+                $popdb->adapter->query("SELECT * FROM information_schema.TABLES WHERE TABLE_" . $schema . " = '" . $dbname . "'" . $tableSchema);
+
+                // Get the auto increment info (mysql) and set table name
+                while (($row = $popdb->adapter->fetch()) != false) {
+                    $auto = (!empty($row['AUTO_INCREMENT'])) ? true : false;
+                    $tables[$row[$tableName]] = array('primaryId' => null, 'auto' => $auto);
+                }
+
+                // Get the primary key info
+                foreach ($tables as $table => $value) {
+                    // Pgsql sequence info for auto increment
+                    if ($db['type'] == 'Pgsql') {
+                        $popdb->adapter->query("SELECT column_name FROM information_schema.COLUMNS WHERE table_name = '" . $table . "'");
+                        $columns = array();
+                        while (($row = $popdb->adapter->fetch()) != false) {
+                            $columns[] = $row['column_name'];
+                        }
+
+                        if (count($columns) > 0) {
+                            foreach ($columns as $column) {
+                                $popdb->adapter->query("SELECT pg_get_serial_sequence('" . $table . "', '" . $column . "')");
+                                while (($row = $popdb->adapter->fetch()) != false) {
+                                    if (!empty($row['pg_get_serial_sequence'])) {
+                                        $idAry = explode('_', $row['pg_get_serial_sequence']);
+                                        if (isset($idAry[1]) && (in_array($idAry[1], $columns))) {
+                                            $tables[$table]['auto'] = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Get primary id, if there is one
+                    $popdb->adapter->query("SELECT * FROM information_schema.KEY_COLUMN_USAGE WHERE CONSTRAINT_" . $schema . " = '" . $dbname . "' AND TABLE_NAME = '" . $table . "'");
+                    while (($row = $popdb->adapter->fetch()) != false) {
+                        if (isset($row[$constraintName])) {
+                            $tables[$table]['primaryId'] = $row[$columnName];
+                        }
+                    }
+                }
+            }
+
+            // Modify table name with prefix, if any
+            if (isset($db['prefix'])) {
+                foreach ($tables as $table => $value) {
+                    $tables[$table]['prefix'] = $db['prefix'];
+                    $popdb->adapter->query("ALTER TABLE " . $table . " RENAME TO " . $db['prefix'] . $table);
+                }
+            }
+        } catch (\Exception $e) {
+            echo $e->getMessage() . PHP_EOL . PHP_EOL;
+            exit(0);
+        }
         return $tables;
     }
 
