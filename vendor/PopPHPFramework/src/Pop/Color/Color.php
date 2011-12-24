@@ -77,12 +77,11 @@ class Color
      *
      * Instantiate the color object
      *
-     * @param  mixed   $color
-     * @param  boolean $convert
-     * @throws Exception
+     * @param  Pop\Color\ColorInterface   $color
+     * @param  boolean                    $convert
      * @return void
      */
-    public function __construct(Pop_Color_Interface $color = null, $convert = false)
+    public function __construct(ColorInterface $color = null, $convert = true)
     {
         $this->_lang = new Locale();
 
@@ -92,18 +91,31 @@ class Color
     }
 
     /**
+     * Static method to instantiate the color object and return itself
+     * to facilitate chaining methods together.
+     *
+     * @param  Pop\Color\ColorInterface   $color
+     * @param  boolean                    $convert
+     * @return Pop\Color\Color
+     */
+    public static function factory(ColorInterface $color = null, $convert = true)
+    {
+        return new self($color, $convert);
+    }
+
+    /**
      * Method to add a new color space object to the color object.
      *
-     * @param  mixed  $color
+     * @param  Pop\Color\ColorInterface  $color
      * @param  boolean $convert
      * @throws
-     * @return Pop_Color
+     * @return Pop\Color\Color
      */
-    public function addColor(Pop_Color_Interface $color, $convert = false)
+    public function addColor(ColorInterface $color, $convert = true)
     {
         $class = get_class($color);
 
-        $type = strtolower(substr($class, (strrpos($class, '_') + 1)));
+        $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
         $this->_colors[$type] = $color;
 
         if ($convert) {
@@ -134,16 +146,16 @@ class Color
      *
      * @param  mixed $color
      * @throws
-     * @return Pop_Color_Cmyk
+     * @return Pop\Color\Cmyk
      */
     public function convertToCmyk($color, $save = false)
     {
         $class = get_class($color);
 
-        if ($class == 'Pop_Color_Cmyk') {
+        if ($class == 'Pop\\Color\\Cmyk') {
             throw new Exception($this->_lang->__('That color space object is already that type.'));
         } else {
-            $type = strtolower(substr($class, (strrpos($class, '_') + 1)));
+            $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
             $method = $type . 'ToCmyk';
 
             $cmyk = $this->$method($color);
@@ -161,16 +173,16 @@ class Color
      *
      * @param  mixed $color
      * @throws
-     * @return Pop_Color_Hex
+     * @return Pop\Color\Hex
      */
     public function convertToHex($color, $save = false)
     {
         $class = get_class($color);
 
-        if ($class == 'Pop_Color_Hex') {
+        if ($class == 'Pop\\Color\\Hex') {
             throw new Exception($this->_lang->__('That color space object is already that type.'));
         } else {
-            $type = strtolower(substr($class, (strrpos($class, '_') + 1)));
+            $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
             $method = $type . 'ToHex';
 
             $hex = $this->$method($color);
@@ -188,16 +200,16 @@ class Color
      *
      * @param  mixed $color
      * @throws
-     * @return Pop_Color_Hsb
+     * @return Pop\Color\Hsb
      */
     public function convertToHsb($color, $save = false)
     {
         $class = get_class($color);
 
-        if ($class == 'Pop_Color_Hsb') {
+        if ($class == 'Pop\\Color\\Hsb') {
             throw new Exception($this->_lang->__('That color space object is already that type.'));
         } else {
-            $type = strtolower(substr($class, (strrpos($class, '_') + 1)));
+            $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
             $method = $type . 'ToHsb';
 
             $hsb = $this->$method($color);
@@ -215,16 +227,16 @@ class Color
      *
      * @param  mixed $color
      * @throws
-     * @return Pop_Color_Lab
+     * @return Pop\Color\Lab
      */
     public function convertToLab($color, $save = false)
     {
         $class = get_class($color);
 
-        if ($class == 'Pop_Color_Lab') {
+        if ($class == 'Pop\\Color\\Lab') {
             throw new Exception($this->_lang->__('That color space object is already that type.'));
         } else {
-            $type = strtolower(substr($class, (strrpos($class, '_') + 1)));
+            $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
             $method = $type . 'ToLab';
 
             $lab = $this->$method($color);
@@ -242,16 +254,16 @@ class Color
      *
      * @param  mixed $color
      * @throws
-     * @return Pop_Color_Rgb
+     * @return Pop\Color\Rgb
      */
     public function convertToRgb($color, $save = false)
     {
         $class = get_class($color);
 
-        if ($class == 'Pop_Color_Rgb') {
+        if ($class == 'Pop\\Color\\Rgb') {
             throw new Exception($this->_lang->__('That color space object is already that type.'));
         } else {
-            $type = strtolower(substr($class, (strrpos($class, '_') + 1)));
+            $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
             $method = $type . 'ToRgb';
 
             $rgb = $this->$method($color);
@@ -267,10 +279,10 @@ class Color
     /**
      * Method to convert an integer RGB object to a hex RGB object
      *
-     * @param  Pop_Color_Rgb $rgb
-     * @return Pop_Color_Hex
+     * @param  Pop\Color\Rgb $rgb
+     * @return Pop\Color\Hex
      */
-    public function rgbToHex(Pop_Color_Rgb $rgb)
+    public function rgbToHex(Rgb $rgb)
     {
         $hex = dechex($rgb->getRed()) . dechex($rgb->getGreen()) . dechex($rgb->getBlue());
         return new Hex($hex);
@@ -279,10 +291,10 @@ class Color
     /**
      * Method to convert an integer RGB object to a CMYK object
      *
-     * @param  Pop_Color_Rgb $rgb
-     * @return Pop_Color_Cmyk
+     * @param  Pop\Color\Rgb $rgb
+     * @return Pop\Color\Cmyk
      */
-    public function rgbToCmyk(Pop_Color_Rgb $rgb)
+    public function rgbToCmyk(Rgb $rgb)
     {
         $K = 1;
 
@@ -320,10 +332,10 @@ class Color
     /**
      * Method to convert an integer RGB object to an HSB object
      *
-     * @param  Pop_Color_Rgb $rgb
-     * @return Pop_Color_Hsb
+     * @param  Pop\Color\Rgb $rgb
+     * @return Pop\Color\Hsb
      */
-    public function rgbToHsb(Pop_Color_Rgb $rgb)
+    public function rgbToHsb(Rgb $rgb)
     {
         // Calculate the hue.
         $r = $rgb->getRed();
@@ -361,10 +373,10 @@ class Color
     /**
      * Method to convert an integer RGB object to a LAB object
      *
-     * @param  Pop_Color_Rgb $rgb
-     * @return Pop_Color_Lab
+     * @param  Pop\Color\Rgb $rgb
+     * @return Pop\Color\Lab
      */
-    public function rgbToLab(Pop_Color_Rgb $rgb)
+    public function rgbToLab(Rgb $rgb)
     {
         $r = $rgb->getRed() / 255;
         $g = $rgb->getGreen() / 255;
@@ -420,10 +432,10 @@ class Color
     /**
      * Method to convert a CMYK object to an integer RGB object
      *
-     * @param  Pop_Color_Cmyk $cmyk
-     * @return Pop_Color_Rgb
+     * @param  Pop\Color\Cmyk $cmyk
+     * @return Pop\Color\Rgb
      */
-    public function cmykToRgb(Pop_Color_Cmyk $cmyk)
+    public function cmykToRgb(Cmyk $cmyk)
     {
         $cmykAry = array();
 
@@ -448,10 +460,10 @@ class Color
     /**
      * Method to convert a CMYK object to a hex RGB object
      *
-     * @param  Pop_Color_Cmyk $cmyk
-     * @return Pop_Color_Hex
+     * @param  Pop\Color\Cmyk $cmyk
+     * @return Pop\Color\Hex
      */
-    public function cmykToHex(Pop_Color_Cmyk $cmyk)
+    public function cmykToHex(Cmyk $cmyk)
     {
         return $this->rgbToHex($this->cmykToRgb($cmyk));
     }
@@ -459,10 +471,10 @@ class Color
     /**
      * Method to convert a CMYK object to an HSB object
      *
-     * @param  Pop_Color_Cmyk $cmyk
-     * @return Pop_Color_Hsb
+     * @param  Pop\Color\Cmyk $cmyk
+     * @return Pop\Color\Hsb
      */
-    public function cmykToHsb(Pop_Color_Cmyk $cmyk)
+    public function cmykToHsb(Cmyk $cmyk)
     {
         return $this->rgbToHsb($this->cmykToRgb($cmyk));
     }
@@ -470,10 +482,10 @@ class Color
     /**
      * Method to convert a CMYK object to a LAB object
      *
-     * @param  Pop_Color_Cmyk $cmyk
-     * @return Pop_Color_Lab
+     * @param  Pop\Color\Cmyk $cmyk
+     * @return Pop\Color\Lab
      */
-    public function cmykToLab(Pop_Color_Cmyk $cmyk)
+    public function cmykToLab(Cmyk $cmyk)
     {
         return $this->rgbToLab($this->cmykToRgb($cmyk));
     }
@@ -481,10 +493,10 @@ class Color
     /**
      * Method to convert an HSB object to an integer RGB object
      *
-     * @param  Pop_Color_Hsb $hsb
-     * @return Pop_Color_Rgb
+     * @param  Pop\Color\Hsb $hsb
+     * @return Pop\Color\Rgb
      */
-    public function hsbToRgb(Pop_Color_Hsb $hsb)
+    public function hsbToRgb(Hsb $hsb)
     {
         $s = $hsb->getSaturation() / 100;
         $v = $hsb->getBrightness() / 100;
@@ -548,10 +560,10 @@ class Color
     /**
      * Method to convert an HSB object to a hex RGB object
      *
-     * @param  Pop_Color_Hsb $hsb
-     * @return Pop_Color_Hex
+     * @param  Pop\Color\Hsb $hsb
+     * @return Pop\Color\Hex
      */
-    public function hsbToHex(Pop_Color_Hsb $hsb)
+    public function hsbToHex(Hsb $hsb)
     {
         return $this->rgbToHex($this->hsbToRgb($hsb));
     }
@@ -559,10 +571,10 @@ class Color
     /**
      * Method to convert an HSB object to a CMYK object
      *
-     * @param  Pop_Color_Hsb $hsb
-     * @return Pop_Color_Cmyk
+     * @param  Pop\Color\Hsb $hsb
+     * @return Pop\Color\Cmyk
      */
-    public function hsbToCmyk(Pop_Color_Hsb $hsb)
+    public function hsbToCmyk(Hsb $hsb)
     {
         return $this->rgbToCmyk($this->hsbToRgb($hsb));
     }
@@ -570,10 +582,10 @@ class Color
     /**
      * Method to convert an HSB object to a LAB object
      *
-     * @param  Pop_Color_Hsb $hsb
-     * @return Pop_Color_Lab
+     * @param  Pop\Color\Hsb $hsb
+     * @return Pop\Color\Lab
      */
-    public function hsbToLab(Pop_Color_Hsb $hsb)
+    public function hsbToLab(Hsb $hsb)
     {
         return $this->rgbToLab($this->hsbToRgb($hsb));
     }
@@ -581,10 +593,10 @@ class Color
     /**
      * Method to convert a LAB object to an integer RGB object
      *
-     * @param  Pop_Color_Lab $lab
-     * @return Pop_Color_Rgb
+     * @param  Pop\Color\Lab $lab
+     * @return Pop\Color\Rgb
      */
-    public function labToRgb(Pop_Color_Lab $lab)
+    public function labToRgb(Lab $lab)
     {
         $y = ($lab->getL() + 16) / 116;
         $x = ($lab->getA() / 500) + $y;
@@ -640,10 +652,10 @@ class Color
     /**
      * Method to convert a LAB object to a hex RGB object
      *
-     * @param  Pop_Color_Lab $lab
-     * @return Pop_Color_Hex
+     * @param  Pop\Color\Lab $lab
+     * @return Pop\Color\Hex
      */
-    public function labToHex(Pop_Color_Lab $lab)
+    public function labToHex(Lab $lab)
     {
         return $this->rgbToHex($this->labToRgb($lab));
     }
@@ -651,10 +663,10 @@ class Color
     /**
      * Method to convert a LAB object to a CMYK object
      *
-     * @param  Pop_Color_Lab $lab
-     * @return Pop_Color_Cmyk
+     * @param  Pop\Color\Lab $lab
+     * @return Pop\Color\Cmyk
      */
-    public function labToCmyk(Pop_Color_Lab $lab)
+    public function labToCmyk(Lab $lab)
     {
         return $this->rgbToCmyk($this->labToRgb($lab));
     }
@@ -662,10 +674,10 @@ class Color
     /**
      * Method to convert a LAB object to an HSB object
      *
-     * @param  Pop_Color_Lab $lab
-     * @return Pop_Color_Hsb
+     * @param  Pop\Color\Lab $lab
+     * @return Pop\Color\Hsb
      */
-    public function labToHsb(Pop_Color_Lab $lab)
+    public function labToHsb(Lab $lab)
     {
         return $this->rgbToHsb($this->labToRgb($lab));
     }

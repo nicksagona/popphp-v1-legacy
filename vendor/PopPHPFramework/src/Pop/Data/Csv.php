@@ -113,10 +113,10 @@ class Csv implements DataInterface
         foreach ($tempAry as $key => $value) {
             if (!in_array($key, $omit)) {
                 $v = new String((string)$value);
-                if ($v->pos($esc) !== false) {
+                if (strpos($v, $esc) !== false) {
                     $v->replace($esc, $esc . $esc);
                 }
-                if ($v->pos($delim) !== false) {
+                if (strpos($v, $delim) !== false) {
                     $v = new String($esc . $v . $esc);
                 }
                 $headerAry[] = (string)$v;
@@ -140,10 +140,10 @@ class Csv implements DataInterface
                     } else {
                         $v = new String((string)$val);
                     }
-                    if ($v->pos($esc) !== false) {
+                    if (strpos($v, $esc) !== false) {
                         $v->replace($esc, $esc . $esc);
                     }
-                    if ($v->pos($delim) !== false) {
+                    if (strpos($v, $delim) !== false) {
                         $v = new String($esc . (string)$v . $esc);
                     }
                     $rowAry[] = $v;

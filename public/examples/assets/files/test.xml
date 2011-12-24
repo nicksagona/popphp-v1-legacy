@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<users>
+    <row>
+        <username>Test1</username>
+        <password>123456</password>
+        <email>test1@test.com</email>
+    </row>
+    <row>
+        <username>Test2</username>
+        <password>123456</password>
+        <email>test2@test.com</email>
+    </row>
+    <row>
+        <username>Test3</username>
+        <password>123456</password>
+        <email>test3@test.com</email>
+    </row>
+    <row>
+        <username>Test4</username>
+        <password>123456</password>
+        <email>test4@test.com</email>
+    </row>
+</users>

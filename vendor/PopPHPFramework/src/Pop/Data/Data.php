@@ -24,7 +24,12 @@
  */
 namespace Pop\Data;
 
-use Pop\File\File,
+use Pop\Data\Csv,
+    Pop\Data\Json,
+    Pop\Data\Sql,
+    Pop\Data\Xml,
+    Pop\Data\Yaml,
+    Pop\File\File,
     Pop\Locale\Locale;
 
 /**
@@ -124,7 +129,7 @@ class Data
      * Set the table name
      *
      * @param  string $table
-     * @return Pop_Data
+     * @return Pop\Data\Data
      */
     public function setTable($table)
     {
@@ -136,7 +141,7 @@ class Data
      * Set the identifier quote
      *
      * @param  string $quote
-     * @return Pop_Data
+     * @return Pop\Data\Data
      */
     public function setIdQuote($quote)
     {
@@ -148,7 +153,7 @@ class Data
      * Set the PMA compatible XML flag
      *
      * @param  boolean $comp
-     * @return Pop_Data
+     * @return Pop\Data\Data
      */
     public function setPma($comp)
     {
@@ -163,7 +168,7 @@ class Data
      */
     public function parseFile()
     {
-        $class = 'Pop_Data_' . $this->_type;
+        $class = 'Pop\\Data\\' . $this->_type;
         $this->_data = $class::decode($this->_file);
         return $this->_data;
     }
@@ -183,7 +188,7 @@ class Data
         if (!in_array($to, $types)) {
             throw new Exception(Locale::factory()->__('That data type is not supported.'));
         } else {
-            $class = 'Pop_Data_' . ucfirst($to);
+            $class = 'Pop\\Data\\' . ucfirst($to);
             if ($to == 'sql') {
                 $this->_file = $class::encode($this->_data, $this->_table, $this->_idQuote);
             } else if ($to == 'xml') {

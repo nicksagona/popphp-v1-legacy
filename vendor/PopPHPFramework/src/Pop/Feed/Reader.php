@@ -24,7 +24,8 @@
  */
 namespace Pop\Feed;
 
-use Pop\Locale\Locale;
+use Pop\File\File,
+    Pop\Locale\Locale;
 
 /**
  * @category   Pop
@@ -95,19 +96,25 @@ class Reader
      * Feed type
      * @var string
      */
-    protected $_feed_type = null;
+    protected $_feedType = null;
 
     /**
      * Feed source
      * @var string
      */
-    protected $_feed_src = null;
+    protected $_feedSrc = null;
 
     /**
      * Feed item template
      * @var string
      */
     protected $_template = null;
+
+    /**
+     * Feed date format
+     * @var string
+     */
+    protected $_dateFormat = 'm/d/Y h:i a';
 
     /**
      * Language object
@@ -132,15 +139,15 @@ class Reader
         // Create the SimpleXMLElement and set the format to either XML or HTML.
         try {
             if (($this->_xml =@ new \SimpleXMLElement($url, LIBXML_NOWARNING, true)) !== false) {
-                $this->_feed_type = (isset($this->_xml->entry)) ? $this->_feed_type = 'atom' : $this->_feed_type = 'rss';
+                $this->_feedType = (isset($this->_xml->entry)) ? $this->_feedType = 'atom' : $this->_feedType = 'rss';
 
                 // Set the type of feed, either a YouTube, Vimeo or normal RSS feed.
                 if (strpos($url, 'youtube') !== false) {
-                    $this->_feed_src = 'youtube';
+                    $this->_feedSrc = 'youtube';
                 } else if (strpos($url, 'vimeo') !== false) {
-                    $this->_feed_src = 'vimeo';
+                    $this->_feedSrc = 'vimeo';
                 } else if (strpos($url, 'viddler') !== false) {
-                    $this->_feed_src = 'viddler';
+                    $this->_feedSrc = 'viddler';
                 } else {
                     $this->_youtube = false;
                 }
@@ -163,11 +170,49 @@ class Reader
      * Method to set item template
      *
      * @param  string $tmpl
-     * @return void
+     * @return Pop\Feed\Reader
      */
-    public function setItemTemplate($tmpl)
+    public function setTemplate($tmpl)
     {
-        $this->_template = $tmpl;
+        if (file_exists($tmpl)) {
+            $tmplFile = new File($tmpl);
+            $this->_template = $tmpl->read();
+        } else {
+            $this->_template = $tmpl;
+        }
+        return $this;
+    }
+
+    /**
+     * Method to set date format
+     *
+     * @param  string $date
+     * @return Pop\Feed\Reader
+     */
+    public function setDateFormat($date)
+    {
+        $this->_dateFormat = $date;
+        return $this;
+    }
+
+    /**
+     * Method to get feed template
+     *
+     * @return string
+     */
+    public function getTemplate()
+    {
+        return $this->_template;
+    }
+
+    /**
+     * Method to get feed date format
+     *
+     * @return string
+     */
+    public function getDateFormat()
+    {
+        return $this->_dateFormat;
     }
 
     /**
@@ -177,18 +222,17 @@ class Reader
      */
     public function getFeedType()
     {
-        return $this->_feed_type;
+        return $this->_feedType;
     }
 
     /**
      * Method to render the feed
      *
-     * @param  string  $dt
      * @param  boolean $ret
      * @throws Exception
-     * @return void
+     * @return mixed
      */
-    public function render($dt = null, $ret = false)
+    public function render($ret = false)
     {
         if (null === $this->_template) {
             throw new Exception($this->_lang->__('Error: The feed item template is not set.'));
@@ -207,8 +251,8 @@ class Reader
             for ($i = 0; $i < $lim; $i++) {
                 $tmpl = $this->_template;
                 foreach ($this->items[$i] as $k => $v) {
-                    if ((null !== $dt) && (stripos($k, 'date') !== false)) {
-                        $val =  date($dt, strtotime($v));
+                    if ((null !== $this->_dateFormat) && (stripos($k, 'date') !== false)) {
+                        $val =  date($this->_dateFormat, strtotime($v));
                     } else {
                         $val = $v;
                     }
@@ -217,11 +261,10 @@ class Reader
                 $output .= $tmpl;
             }
 
-            if ($ret == true) {
-                // Return the final output.
+            // Return the final output.
+            if ($ret) {
                 return $output;
             } else {
-                // Print the final output.
                 echo $output;
             }
         }
@@ -235,7 +278,7 @@ class Reader
     protected function _parseFeed()
     {
         // If the feed type is YouTube, parse accordingly.
-        if ($this->_feed_src == 'youtube') {
+        if ($this->_feedSrc == 'youtube') {
             $this->title = (string)$this->_xml->title;
             $this->url = (string)$this->_xml->link->attributes()->href;
             $this->desc = (string)$this->_xml->subtitle;
@@ -260,7 +303,7 @@ class Reader
                                        'image' => $image);
             }
         // Else, if the feed type is Vimeo, parse accordingly.
-        } else if ($this->_feed_src == 'vimeo') {
+        } else if ($this->_feedSrc == 'vimeo') {
             $this->title = (string)$this->_xml->channel->title;
             $this->url = (string)$this->_xml->channel->link;
             $this->desc = (string)$this->_xml->channel->description;
@@ -284,7 +327,7 @@ class Reader
             }
 
         // Else, if the feed type is Viddler, parse accordingly.
-        } else if ($this->_feed_src == 'viddler') {
+        } else if ($this->_feedSrc == 'viddler') {
             $this->title = (string)$this->_xml->channel->title;
             $this->url = (string)$this->_xml->channel->link;
             $this->desc = (string)$this->_xml->channel->description;
@@ -308,7 +351,7 @@ class Reader
                                        'image' => $image);
             }
         // Else, parse as a regular Atom feed.
-        } else if ($this->_feed_type == 'atom') {
+        } else if ($this->_feedType == 'atom') {
             $this->title = (string)$this->_xml->title;
             $this->url = (string)$this->_xml->link->attributes()->href;
             $this->desc = (string)$this->_xml->subtitle;

@@ -1,0 +1,17 @@
+%YAML 1.1
+---
+ username: "Test1"
+ password: "123456"
+ email: "test1@test.com"
+-
+ username: "Test2"
+ password: "123456"
+ email: "test2@test.com"
+-
+ username: "Test3"
+ password: "123456"
+ email: "test3@test.com"
+-
+ username: "Test4"
+ password: "123456"
+ email: "test4@test.com"

@@ -35,9 +35,7 @@ try {
     $view->render();
 
 } catch (Exception $e) {
-
-    print($e->getMessage());
-
+    echo $e->getMessage();
 }
 
 ?>

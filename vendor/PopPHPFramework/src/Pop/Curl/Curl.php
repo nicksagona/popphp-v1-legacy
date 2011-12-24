@@ -75,7 +75,7 @@ class Curl
      *
      * @param  array|const $opt
      * @param  mixed $vl
-     * @return void
+     * @return Pop\Curl\Curl
      */
     public function setOption($opt, $vl = null)
     {
@@ -107,34 +107,30 @@ class Curl
                 $this->_options[$opt] = $vl;
             }
         }
+
+        return $this;
     }
 
     /**
      * Get a cURL session option.
      *
      * @param  const $opt
-     * @throws Exception
      * @return string
      */
     public function getOption($opt)
     {
-        // Check to see if the option key exists.
-        if (!array_key_exists($opt, $this->_options)) {
-            throw new Exception(Locale::factory()->__('That option is not set.'));
-        } else {
-            return $this->_options[$opt];
-        }
+        return (isset($this->_options[$opt])) ? $this->_options[$opt] : null;
     }
 
     /**
      * Execute the cURL session.
      *
-     * @return void
+     * @return mixed
      */
     public function execute()
     {
         // If the CURLOPT_RETURNTRANSFER option is set, return the data.
-        if (isset($this->_options[CURLOPT_RETURNTRANSFER]) && ($this->_options[CURLOPT_RETURNTRANSFER] == TRUE)) {
+        if (isset($this->_options[CURLOPT_RETURNTRANSFER]) && ($this->_options[CURLOPT_RETURNTRANSFER] == true)) {
             $output = curl_exec($this->_curl);
             return ($output === false) ? $this->_showError() : $output;
         // Else, execute the cURL session.
@@ -148,7 +144,7 @@ class Curl
      *
      * @param  resource $ch
      * @param  string $dt
-     * @return void
+     * @return int
      */
     public function processData($ch, $dt)
     {

@@ -55,14 +55,13 @@ class Writer extends Dom
      * Feed type
      * @var string
      */
-    protected $_feed_type = null;
+    protected $_feedType = null;
 
     /**
      * Feed date format
      * @var string
      */
     protected $_date = null;
-
 
     /**
      * Constructor
@@ -75,14 +74,14 @@ class Writer extends Dom
      * @param  string $dt
      * @return void
      */
-    public function __construct($hdrs, $itms, $type = 'RSS', $dt = 'D, j M Y H:i:s O')
+    public function __construct($hdrs, $itms, $type = Dom::RSS, $dt = 'D, j M Y H:i:s O')
     {
         $this->_headers = $hdrs;
         $this->_items = $itms;
-        $this->_feed_type = $type;
+        $this->_feedType = $type;
         $this->_date = $dt;
 
-        parent::__construct($this->_feed_type, 'utf-8');
+        parent::__construct($this->_feedType, 'utf-8');
         $this->_init();
     }
 
@@ -94,7 +93,7 @@ class Writer extends Dom
      */
     protected function _init()
     {
-        if ($this->_feed_type == 'RSS') {
+        if ($this->_feedType == Dom::RSS) {
             // Set up the RSS child node.
             $rss = new Child('rss');
             $rss->setAttributes('version', '2.0');
@@ -119,7 +118,7 @@ class Writer extends Dom
             // Add the Channel child node to the RSS child node, add the RSS child node to the DOM.
             $rss->addChild($channel);
             $this->addChild($rss);
-        } else if ($this->_feed_type == 'ATOM') {
+        } else if ($this->_feedType == Dom::ATOM) {
             // Set up the Feed child node.
             $feed = new Child('feed');
             $feed->setAttributes('xmlns', 'http://www.w3.org/2005/Atom');
