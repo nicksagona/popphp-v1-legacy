@@ -52,16 +52,16 @@ class Install
      * @var array
      */
     protected static $_cliErrorCodes = array(
-                                           0 => 'Unknown error.',
-                                           1 => 'You must pass a source folder and a output file to generate a class map file.',
-                                           2 => 'The source folder passed does not exist.',
-                                           3 => 'The output file passed must be a PHP file.',
-                                           4 => 'You must pass an install file to install the project.',
-                                           5 => 'Unknown option: ',
-                                           6 => 'You must pass at least one argument.',
-                                           7 => 'That folder does not exist.',
-                                           8 => 'The folder argument is not a folder.'
-                                       );
+        0 => 'Unknown error.',
+        1 => 'You must pass a source folder and a output file to generate a class map file.',
+        2 => 'The source folder passed does not exist.',
+        3 => 'The output file passed must be a PHP file.',
+        4 => 'You must pass an install file to install the project.',
+        5 => 'Unknown option: ',
+        6 => 'You must pass at least one argument.',
+        7 => 'That folder does not exist.',
+        8 => 'The folder argument is not a folder.'
+    );
 
     /**
      * Install the project based on the available config files
