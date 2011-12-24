@@ -46,6 +46,7 @@ try {
     $feedEntries = array($entry1, $entry2, $entry3);
     $feed = new Writer($feedHeaders, $feedEntries, Dom::ATOM);
     $feed->render();
+    echo PHP_EOL . PHP_EOL;
 } catch (Exception $e) {
     echo $e->getMessage();
 }
