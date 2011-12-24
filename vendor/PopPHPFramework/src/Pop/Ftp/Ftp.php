@@ -94,42 +94,45 @@ class Ftp
      * Change directories.
      *
      * @param  string $dir
-     * @return void
      * @throws Exception
+     * @return Pop\Ftp\Ftp
      */
     public function chdir($dir)
     {
         if (!ftp_chdir($this->_conn, $dir)) {
             throw new Exception($this->_lang->__('Error: There was an error changing to the directory %1.', $dir));
         }
+        return $this;
     }
 
     /**
      * Make directory.
      *
      * @param  string $dir
-     * @return void
      * @throws Exception
+     * @return Pop\Ftp\Ftp
      */
     public function mkdir($dir)
     {
         if (!ftp_mkdir($this->_conn, $dir)) {
             throw new Exception($this->_lang->__('Error: There was an error making the directory %1.', $dir));
         }
+        return $this;
     }
 
     /**
      * Remove directory.
      *
      * @param  string $dir
-     * @return void
      * @throws Exception
+     * @return Pop\Ftp\Ftp
      */
     public function rmdir($dir)
     {
         if (!ftp_mkdir($this->_conn, $dir)) {
             throw new Exception($this->_lang->__('Error: There was an error removing the directory %1.', $dir));
         }
+        return $this;
     }
 
     /**
@@ -138,14 +141,15 @@ class Ftp
      * @param  string $local
      * @param  string $remote
      * @param  string $mode
-     * @return void
      * @throws Exception
+     * @return Pop\Ftp\Ftp
      */
     public function get($local, $remote, $mode = FTP_BINARY)
     {
         if (!ftp_get($this->_conn, $local, $remote, $mode)) {
             throw new Exception($this->_lang->__('Error: There was an error getting the file %1.', $remote));
         }
+        return $this;
     }
 
     /**
@@ -154,8 +158,8 @@ class Ftp
      * @param  string $remote
      * @param  string $local
      * @param  string $mode
-     * @return void
      * @throws Exception
+     * @return Pop\Ftp\Ftp
      */
     public function put($remote, $local, $mode = FTP_BINARY)
     {
@@ -170,14 +174,15 @@ class Ftp
      * @param  string $old
      * @param  string $new
      * @param  string $mode
-     * @return void
      * @throws Exception
+     * @return Pop\Ftp\Ftp
      */
     public function rename($old, $new)
     {
         if (!ftp_rename($this->_conn, $old, $new)) {
             throw new Exception($this->_lang->__('Error: There was an error renaming the file %1.', $old));
         }
+        return $this;
     }
 
     /**
@@ -185,39 +190,42 @@ class Ftp
      *
      * @param  string $file
      * @param  string $mode
-     * @return void
      * @throws Exception
+     * @return Pop\Ftp\Ftp
      */
     public function chmod($file, $mode)
     {
         if (!ftp_chmod($this->_conn, $mode, $file)) {
             throw new Exception($this->_lang->__('Error: There was an error changing the permission of %1.', $file));
         }
+        return $this;
     }
 
     /**
      * Delete file.
      *
      * @param  string $file
-     * @return void
      * @throws Exception
+     * @return Pop\Ftp\Ftp
      */
     public function delete($file)
     {
         if (!ftp_delete($this->_conn, $file)) {
             throw new Exception($this->_lang->__('Error: There was an error removing the file %1.', $file));
         }
+        return $this;
     }
 
     /**
      * Switch the passive mode.
      *
      * @param  boolean $flag
-     * @return void
+     * @return Pop\Ftp\Ftp
      */
     public function pasv($flag = true)
     {
         ftp_pasv($this->_conn, $flag);
+        return $this;
     }
 
     /**
