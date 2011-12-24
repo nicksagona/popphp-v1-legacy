@@ -273,3 +273,6 @@ The Pop autoloader class file was not found.
 Enter the folder where the 'vendor' folder is contained in relation to the current folder:  
 Pop PHP Framework not found. Try again.  
 Pop PHP Framework found.  
+Error: That cache directory does not exist.  
+Error: That cache directory is not writable.  
+Error: Memcache is not available.  

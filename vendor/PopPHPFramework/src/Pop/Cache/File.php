@@ -25,7 +25,7 @@
 namespace Pop\Cache;
 
 use Pop\Dir\Dir,
-    Pop\File\File,
+    Pop\File\File as PopFile,
     Pop\Locale\Locale;
 
 /**
@@ -87,7 +87,7 @@ class File implements CacheInterface
     {
         $time = (null === $time) ? time() : time() + $time;
 
-        $file = new File($this->_dir . DIRECTORY_SEPARATOR . sha1($id));
+        $file = new PopFile($this->_dir . DIRECTORY_SEPARATOR . sha1($id));
         $file->write($time . '|' . serialize($value));
         $file->save();
     }
@@ -105,7 +105,7 @@ class File implements CacheInterface
         $value = false;
 
         if (file_exists($fileId)) {
-            $file = new File($fileId);
+            $file = new PopFile($fileId);
             $fileData = $file->read();
             $fileTime = substr($fileData, 0, strpos($fileData, '|'));
             $data = substr($fileData, (strpos($fileData, '|') + 1));

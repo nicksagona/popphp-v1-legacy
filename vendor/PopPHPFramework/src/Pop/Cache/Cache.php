@@ -54,44 +54,34 @@ class Cache implements CacheInterface
      *
      * Instantiate the cache object
      *
-     * @param  string $type
-     * @param  string $store
-     * @param  int    $lifetime
-     * @throws Exception
+     * @param  Pop\Cache\CacheInterface $adapter
+     * @param  int                      $lifetime
      * @return void
      */
-    public function __construct($type, $store = null, $lifetime = 0)
+    public function __construct(CacheInterface $adapter, $lifetime = 0)
     {
-        if (($type != 'File') && ($type != 'Sqlite') && ($type != 'Memcached')) {
-            throw new Exception(Locale::factory()->__('Error: The cache type must be \'File\', \'Sqlite\' or \'Memcached\'.'));
-        } else if (($type != 'Memcached') && (null !== $store)) {
-            throw new Exception(Locale::factory()->__('Error: You must pass either a directory or SQLite file store point.'));
-        } else {
-            $this->_lifetime = $lifetime;
-            $class = 'Pop_Cache_' . $type;
-            $this->_adapter = ($class == 'Pop_Cache_Memcached') ? new $class() : new $class($store);
-        }
+        $this->_lifetime = $lifetime;
+        $this->_adapter = $adapter;
     }
 
     /**
      * Static method to instantiate the cache object and return itself
      * to facilitate chaining methods together.
      *
-     * @param  string $type
-     * @param  string $store
-     * @param  int    $lifetime
-     * @return Pop_Cache
+     * @param  Pop\Cache\CacheInterface $adapter
+     * @param  int                      $lifetime
+     * @return Pop\Cache\Cache
      */
-    public static function factory($type, $store = null, $lifetime = 0)
+    public static function factory(CacheInterface $adapter, $lifetime = 0)
     {
-        return new self($type, $store, $lifetime);
+        return new self($adapter, $lifetime);
     }
 
     /**
      * Method to set the cache lifetime.
      *
      * @param  int $time
-     * @return Pop_Cache
+     * @return Pop\Cache\Cache
      */
     public function setLifetime($time = 0)
     {

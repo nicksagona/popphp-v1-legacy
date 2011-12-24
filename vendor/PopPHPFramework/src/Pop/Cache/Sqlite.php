@@ -48,6 +48,12 @@ class Sqlite implements CacheInterface
     protected $_db = null;
 
     /**
+     * Cache db table
+     * @var string
+     */
+    protected $_table = null;
+
+    /**
      * Cache db adapter
      * @var Pop_Db
      */
@@ -59,19 +65,20 @@ class Sqlite implements CacheInterface
      * Instantiate the cache db object
      *
      * @param  string $db
+     * @param  string $table
      * @throws Exception
      * @return void
      */
-    public function __construct($db)
+    public function __construct($db, $table = 'pop_cache')
     {
         $this->_db = $db;
+        $this->_table = $table;
         $dir = dirname($this->_db);
 
         // If the database file doesn't exist, create it.
         if (!file_exists($this->_db)) {
             if (is_writable($dir)) {
-                $dbFile = new File($db);
-                $dbFile->save();
+                touch($db);
             } else {
                 throw new Exception(Locale::factory()->__('Error: That cache db file and/or directory is not writable.'));
             }
@@ -87,11 +94,11 @@ class Sqlite implements CacheInterface
             $this->_sqlite = Db::factory('Sqlite', array('database' => $this->_db));
 
             // If the cache table doesn't exist, create it.
-            if (!in_array('pop_cache', $this->_sqlite->adapter->getTables())) {
-                $this->_sqlite->adapter->query('CREATE TABLE IF NOT EXISTS "pop_cache" ("id" VARCHAR PRIMARY KEY NOT NULL UNIQUE, "value" BLOB, "time" INTEGER)');
+            if (!in_array($this->_table, $this->_sqlite->adapter->getTables())) {
+                $this->_sqlite->adapter->query('CREATE TABLE IF NOT EXISTS "' . $this->_table . '" ("id" VARCHAR PRIMARY KEY NOT NULL UNIQUE, "value" BLOB, "time" INTEGER)');
             }
 
-            $this->_sqlite->sql->setTable('pop_cache');
+            $this->_sqlite->sql->setTable($this->_table);
             $this->_sqlite->sql->setIdQuoteType(Sql::DOUBLE_QUOTE);
         }
     }
@@ -107,6 +114,26 @@ class Sqlite implements CacheInterface
     }
 
     /**
+     * Method to get the current cache db table.
+     *
+     * @return string
+     */
+    public function getTable()
+    {
+        return $this->_table;
+    }
+
+    /**
+     * Method to Set the cache db table.
+     *
+     * @return Pop\Cache\Sqlite
+     */
+    public function setTable($table = 'pop_cache')
+    {
+        return $this->_table = $table;
+    }
+
+    /**
      * Method to save a value to cache.
      *
      * @param  string $id
@@ -119,11 +146,11 @@ class Sqlite implements CacheInterface
         $time = (null === $time) ? time() : time() + $time;
 
         // Determine if the value already exists.
-        $this->_sqlite->sql->setTable('pop_cache')
+        $this->_sqlite->sql->setTable($this->_table)
                            ->select()
                            ->where('id', '=', $this->_sqlite->adapter->escape(sha1($id)));
 
-        $this->_sqlite->adapter->query($this->_sqlite->sql->buildSql(true));
+        $this->_sqlite->adapter->query($this->_sqlite->sql->getSql());
 
         $rows = array();
         while (($row = $this->_sqlite->adapter->fetch()) != false) {
@@ -132,7 +159,7 @@ class Sqlite implements CacheInterface
 
         // If the value exists, update it.
         if (count($rows) > 0) {
-            $this->_sqlite->sql->setTable('pop_cache')
+            $this->_sqlite->sql->setTable($this->_table)
                                ->update(
                                         array(
                                             'value' => $this->_sqlite->adapter->escape(serialize($value)),
@@ -142,7 +169,7 @@ class Sqlite implements CacheInterface
                                ->where('id', '=', $this->_sqlite->adapter->escape(sha1($id)));
         // Else, save the new value.
         } else {
-            $this->_sqlite->sql->setTable('pop_cache')
+            $this->_sqlite->sql->setTable($this->_table)
                                ->insert(
                                         array(
                                             'id'    => $this->_sqlite->adapter->escape(sha1($id)),
@@ -152,7 +179,7 @@ class Sqlite implements CacheInterface
                                         );
         }
 
-        $this->_sqlite->adapter->query($this->_sqlite->sql->buildSql(true));
+        $this->_sqlite->adapter->query($this->_sqlite->sql->getSql());
     }
 
     /**
@@ -167,11 +194,11 @@ class Sqlite implements CacheInterface
         $value = false;
 
         // Retrieve the value.
-        $this->_sqlite->sql->setTable('pop_cache')
+        $this->_sqlite->sql->setTable($this->_table)
                            ->select()
                            ->where('id', '=', $this->_sqlite->adapter->escape(sha1($id)));
 
-        $this->_sqlite->adapter->query($this->_sqlite->sql->buildSql(true));
+        $this->_sqlite->adapter->query($this->_sqlite->sql->getSql());
 
         $rows = array();
         while (($row = $this->_sqlite->adapter->fetch()) != false) {
@@ -198,11 +225,11 @@ class Sqlite implements CacheInterface
      */
     public function remove($id)
     {
-        $this->_sqlite->sql->setTable('pop_cache')
+        $this->_sqlite->sql->setTable($this->_table)
                            ->delete()
                            ->where('id', '=', $this->_sqlite->adapter->escape(sha1($id)));
 
-        $this->_sqlite->adapter->query($this->_sqlite->sql->buildSql(true));
+        $this->_sqlite->adapter->query($this->_sqlite->sql->getSql());
     }
 
     /**
@@ -212,7 +239,7 @@ class Sqlite implements CacheInterface
      */
     public function clear()
     {
-        $this->_sqlite->adapter->query('DELETE FROM "pop_cache"');
+        $this->_sqlite->adapter->query('DELETE FROM "' . $this->_table . '"');
     }
 
 }
