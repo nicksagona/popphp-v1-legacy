@@ -126,7 +126,7 @@ class Response
 
     /**
      * Language object
-     * @var Pop_Locale
+     * @var Pop\Locale\Locale
      */
     protected $_lang = null;
 
@@ -167,7 +167,7 @@ class Response
      *
      * @param  string $response
      * @throws Exception
-     * @return Pop_Http_Response
+     * @return Pop\Http\Response
      */
     public static function parse($response)
     {
@@ -484,7 +484,7 @@ class Response
      *
      * @param  int $code
      * @throws Exception
-     * @return Pop_Http_Response
+     * @return Pop\Http\Response
      */
     public function setCode($code)
     {
@@ -502,7 +502,7 @@ class Response
      * Set the response message
      *
      * @param  string $message
-     * @return Pop_Http_Response
+     * @return Pop\Http\Response
      */
     public function setMessage($message)
     {
@@ -514,7 +514,7 @@ class Response
      * Set the response body
      *
      * @param  string $body
-     * @return Pop_Http_Response
+     * @return Pop\Http\Response
      */
     public function setBody($body = null)
     {
@@ -528,7 +528,7 @@ class Response
      * @param  string $name
      * @param  string $value
      * @throws Exception
-     * @return Pop_Http_Response
+     * @return Pop\Http\Response
      */
     public function setHeader($name, $value)
     {
@@ -541,7 +541,7 @@ class Response
      *
      * @param  array $headers
      * @throws Exception
-     * @return Pop_Http_Response
+     * @return Pop\Http\Response
      */
     public function setHeaders(array $headers)
     {
@@ -555,7 +555,7 @@ class Response
     /**
      * Set IE SSL headers to fix file cache issues in IE over SSL.
      *
-     * @return Pop_Http_Response
+     * @return Pop\Http\Response
      */
     public function setSslHeaders()
     {

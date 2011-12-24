@@ -16,7 +16,7 @@ try {
 
     echo $str1 . PHP_EOL;
     echo $str2 . PHP_EOL . PHP_EOL;
-} catch (Exception $e) {
+} catch (\Exception $e) {
     echo $e->getMessage();
 }
 
