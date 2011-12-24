@@ -87,11 +87,15 @@ ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON
 
 CURRENTLY BEING WORKED ON & ON DECK
 -----------------------------------
-* Major Refactor/Restructure
-  - Compression
-  - Filter
-  - Images
-  - Evaluate possible benefits from interfaces, abstact classes, etc.
+* Major Refactor/Restructure (part 2)
+  - Font
+  - Image
+  - Graph
+  - Mail
+  - Paginator
+  - Pdf
+  - Svg
+
 * Look at creating more dependency injections throughout (config/ini file?)
 * Add Geo support via Google API (get address, city, state, long/lat, calculate distances, etc.)
   - Integrate GeoIP?
