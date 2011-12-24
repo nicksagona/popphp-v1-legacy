@@ -68,7 +68,7 @@ class Record
 
     /**
      * Database adapter
-     * @var Pop_Record_Escaped|Pop_Record_Prepared
+     * @var Pop\Record\Escaped|Pop\Record\Prepared
      */
     protected $_interface = null;
 
@@ -110,7 +110,7 @@ class Record
 
     /**
      * Language object
-     * @var Pop_Locale
+     * @var Pop\Locale\Locale
      */
     protected $_lang = null;
 
@@ -137,8 +137,10 @@ class Record
             $class = get_class($this);
             if (strpos($class, '_') !== false) {
                 $cls = substr($class, (strrpos($class, '_') + 1));
-            } else {
+            } else if (strpos($class, '\\') !== false) {
                 $cls = substr($class, (strrpos($class, '\\') + 1));
+            } else {
+                $cls = $class;
             }
             $this->_tableName = $this->_prefix . (string)String::factory($cls)->camelCaseToUnderscore();
         } else {
@@ -163,8 +165,8 @@ class Record
     /**
      * Set DB connection
      *
-     * @param  Pop_Db $name
-     * @param  boolean  $isDefault
+     * @param  Pop\Db\Db $name
+     * @param  boolean   $isDefault
      * @return void
      */
     public static function setDb(Db $db, $isDefault = false)

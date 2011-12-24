@@ -63,7 +63,7 @@ class View
 
     /**
      * Language object
-     * @var Pop_Locale
+     * @var Pop\Locale\Locale
      */
     protected $_lang = null;
 

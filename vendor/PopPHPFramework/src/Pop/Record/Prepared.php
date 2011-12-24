@@ -51,7 +51,7 @@ class Prepared extends AbstractRecord
      *
      * Instantiate the record escaped object.
      *
-     * @param  Pop_Db $db
+     * @param  Pop\Db\Db $db
      * @param  array    $options
      * @return void
      */

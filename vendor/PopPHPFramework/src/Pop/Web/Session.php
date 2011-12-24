@@ -13,7 +13,7 @@
  * to info@popphp.org so we can send you a copy immediately.
  *
  * @category   Pop
- * @package    Pop_Session
+ * @package    Pop_Web
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
@@ -26,7 +26,7 @@ namespace Pop\Web;
 
 /**
  * @category   Pop
- * @package    Pop_Session
+ * @package    Pop_Web
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
@@ -66,7 +66,7 @@ class Session
      * Determine whether or not an instance of the session object exists already,
      * and instantiate the object if it doesn't exist.
      *
-     * @return Pop_Session
+     * @return Pop\Web\Session
      */
     public static function getInstance()
     {
