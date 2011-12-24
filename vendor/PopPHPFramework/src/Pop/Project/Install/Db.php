@@ -226,6 +226,7 @@ class Db
             echo $e->getMessage() . PHP_EOL . PHP_EOL;
             exit(0);
         }
+
         return $tables;
     }
 

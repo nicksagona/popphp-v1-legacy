@@ -267,3 +267,9 @@ Creating form class files...
 The Sqlite database file and folder are not writable.  
 Project reconfigured.  
 Reconfigure the project based on the new location of the project  
+Database credentials detected.  
+Re-test the database(s)?  
+The Pop autoloader class file was not found.  
+Enter the folder where the 'vendor' folder is contained in relation to the current folder:  
+Pop PHP Framework not found. Try again.  
+Pop PHP Framework found.  

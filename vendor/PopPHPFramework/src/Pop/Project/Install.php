@@ -180,13 +180,26 @@ class Install
      */
     public static function reconfigure($projectFolder)
     {
+        // Get current error reporting setting and set
+        // error reporting to E_ERROR to suppress warnings
+        $oldError = ini_get('error_reporting');
+        error_reporting(E_ERROR);
+
+        // Get the current project config. This will test any databases
+        // that are contained in the config file, and exit upon failure
+        try {
+            $project = include $projectFolder . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'project.config.php';
+        } catch (\Exception $e) {
+            echo $e->getMessage() . PHP_EOL;
+            exit(0);
+        }
+
         // Get the new and old paths
-        $project = include $projectFolder . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'project.config.php';
         $oldBase = $project->base;
         $newBase = realpath($projectFolder);
         $newDocroot = str_replace($oldBase, $newBase, $project->docroot);
 
-        // Reconfigure the project config file
+        // Reconfigure the project config file and replace the path
         if (file_exists($projectFolder . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'project.config.php')) {
             $projectCfg = new File($projectFolder . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'project.config.php');
             $cfgContents = str_replace($oldBase, $newBase, $projectCfg->read());
@@ -197,15 +210,36 @@ class Install
         // Reconfigure the bootstrap file
         if (file_exists($newDocroot . DIRECTORY_SEPARATOR . 'bootstrap.php')) {
             $bootstrapFile = new File($newDocroot . DIRECTORY_SEPARATOR . 'bootstrap.php');
-            $bootContents = str_replace($oldBase, $newBase, $bootstrapFile->read());
-            $bootstrapFile->write($bootContents)
+            $bootstrapContents = str_replace($oldBase, $newBase, $bootstrapFile->read());
+
+            // Check the location of the vendor folder and framework
+            $match = array();
+            preg_match('/^require(.*)Autoloader.php[\'|\"];$/m', $bootstrapContents, $match);
+            if (isset($match[0])) {
+                $autoloader = trim(substr($match[0], strpos($match[0], ' ')));
+                $autoloader = (string)String::factory($autoloader)->replace(array(
+                        array(';', ''),
+                        array('"', ''),
+                        array("'", "")
+                    )
+                );
+                if (!file_exists($autoloader)) {
+                    echo Locale::factory()->__('The Pop autoloader class file was not found.') . PHP_EOL;
+                    $input = self::getPop();
+                    echo Locale::factory()->__('Pop PHP Framework found.') . PHP_EOL;
+                    $bootstrapContents = str_replace($autoloader, realpath($input . '/vendor/PopPHPFramework/src/Pop/Loader/Autoloader.php'), $bootstrapContents);
+                }
+            }
+
+            // Write the changes to the bootstrap file
+            $bootstrapFile->write($bootstrapContents)
                           ->save();
         }
 
         // Get the module folders
         $moduleDir = new Dir($projectFolder . DIRECTORY_SEPARATOR . 'module', true);
         foreach ($moduleDir->files as $module) {
-            // Reconfigure the module config file
+            // Reconfigure the module config file and replace the path
             if (is_dir($module) && (file_exists($module . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.config.php'))) {
                 $moduleCfg = new File($module . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.config.php');
                 $cfgContents = str_replace($oldBase, $newBase, $moduleCfg->read());
@@ -213,6 +247,9 @@ class Install
                           ->save();
             }
         }
+
+        // Return error reporting to its original state
+        error_reporting($oldError);
 
         echo Locale::factory()->__('Project reconfigured.') . PHP_EOL . PHP_EOL;
     }
@@ -303,6 +340,30 @@ class Install
         while (!file_exists($input . '/bootstrap.php')) {
             if (null !== $input) {
                 echo Locale::factory()->__('Bootstrap file not found. Try again.') . PHP_EOL . $msg;
+            }
+            $prompt = fopen("php://stdin", "r");
+            $input = fgets($prompt, 255);
+            $input = rtrim($input);
+            fclose ($prompt);
+        }
+
+        return $input;
+    }
+
+    /**
+     * Return the location of the vendor folder and the Pop PHP framework from STDIN
+     *
+     * @return string
+     */
+    public static function getPop()
+    {
+        $msg = Locale::factory()->__('Enter the folder where the \'vendor\' folder is contained in relation to the current folder: ');
+        echo $msg;
+        $input = null;
+
+        while (!file_exists($input . '/vendor/PopPHPFramework/src/Pop/Loader/Autoloader.php')) {
+            if (null !== $input) {
+                echo Locale::factory()->__('Pop PHP Framework not found. Try again.') . PHP_EOL . $msg;
             }
             $prompt = fopen("php://stdin", "r");
             $input = fgets($prompt, 255);
