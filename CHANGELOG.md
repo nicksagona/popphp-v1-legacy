@@ -280,3 +280,4 @@ Pop PHP Framework found.
 Error: That cache directory does not exist.  
 Error: That cache directory is not writable.  
 Error: Memcache is not available.  
+Error: The parameter passed must either be a valid file or an instance of Pop\\File\\File.  

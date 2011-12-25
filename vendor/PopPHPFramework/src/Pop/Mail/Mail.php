@@ -90,7 +90,7 @@ class Mail
      * MIME boundary
      * @var string
      */
-    protected $_mime_boundary = null;
+    protected $_mimeBoundary = null;
 
     /**
      * File attachments
@@ -100,7 +100,7 @@ class Mail
 
     /**
      * Language object
-     * @var Pop_Locale
+     * @var Pop\Locale\Locale
      */
     protected $_lang = null;
 
@@ -109,46 +109,57 @@ class Mail
      *
      * Instantiate the mail object.
      *
-     * @param  string|array $em
-     * @param  string       $nm
+     * @param  array        $rcpts
      * @param  string       $subj
+     * @param  string|array $hdrs
      * @throws Exception
      * @return void
      */
-    public function __construct($em, $nm = null, $subj = null)
+    public function __construct(array $rcpts = null, $subj = null, $hdrs = null)
     {
         $this->_lang = new Locale();
-
         $this->_subject = $subj;
 
-        // If the email parameter passed is an array, set accordingly.
-        if (is_array($em)) {
-            foreach ($em as $value) {
-                if (is_array($value)) {
-                    if (!array_key_exists('email', $value)) {
-                        throw new Exception($this->_lang->__("Error: At least one of the array keys must be 'email'."));
-                    } else {
-                        $this->_queue[] = $value;
-                    }
+        if (null !== $rcpts) {
+            $this->addRecipients($rcpts);
+        }
+        if (null !== $hdrs) {
+            $this->setHeaders($hdrs);
+        }
+    }
+
+    /**
+     * Add recipients
+     *
+     * @param  array $rcpts
+     * @return Pop\Mail\Mail
+     */
+    public function addRecipients(array $rcpts)
+    {
+        if (is_array($rcpts[0])) {
+            foreach ($rcpts as $rcpt) {
+                if (!array_key_exists('email', $rcpt)) {
+                    throw new Exception($this->_lang->__("Error: At least one of the array keys must be 'email'."));
                 } else {
-                    $this->_queue[] = array('email' => $value);
+                    $this->_queue[] = $rcpt;
                 }
             }
-        // Else, set the single email value.
         } else {
-            if (null !== $nm) {
-                $this->_queue[] = array('name' => $nm, 'email' => $em);
+            if (!array_key_exists('email', $rcpts)) {
+                throw new Exception($this->_lang->__("Error: At least one of the array keys must be 'email'."));
             } else {
-                $this->_queue[] = array('email' => $em);
+                $this->_queue[] = $rcpts;
             }
         }
+
+        return $this;
     }
 
     /**
      * Set the subject
      *
      * @param  string $subj
-     * @return Pop_Mail
+     * @return Pop\Mail\Mail
      */
     public function setSubject($subj)
     {
@@ -170,11 +181,11 @@ class Mail
      * Set MIME boundary
      *
      * @param  string $bnd
-     * @return Pop_Mail
+     * @return Pop\Mail\Mail
      */
     public function setBoundary($bnd = null)
     {
-        $this->_mime_boundary = (null !== $bnd) ? $bnd : sha1(time());
+        $this->_mimeBoundary = (null !== $bnd) ? $bnd : sha1(time());
         return $this;
     }
 
@@ -185,14 +196,14 @@ class Mail
      */
     public function getBoundary()
     {
-        return $this->_mime_boundary;
+        return $this->_mimeBoundary;
     }
 
     /**
      * Set character set
      *
      * @param  string $chr
-     * @return Pop_Mail
+     * @return Pop\Mail\Mail
      */
     public function setCharset($chr)
     {
@@ -214,7 +225,7 @@ class Mail
      * Set text part of the message.
      *
      * @param  string $txt
-     * @return Pop_Mail
+     * @return Pop\Mail\Mail
      */
     public function setText($txt)
     {
@@ -223,10 +234,20 @@ class Mail
     }
 
     /**
+     * Get text part of the message.
+     *
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->_text;
+    }
+
+    /**
      * Set HTML part of the message.
      *
      * @param  string $html
-     * @return Pop_Mail
+     * @return Pop\Mail\Mail
      */
     public function setHtml($html)
     {
@@ -235,17 +256,27 @@ class Mail
     }
 
     /**
+     * Get HTML part of the message.
+     *
+     * @return string
+     */
+    public function getHtml()
+    {
+        return $this->_html;
+    }
+
+    /**
      * Attach a file to the mail object.
      *
-     * @param  string|Pop_File $file
+     * @param  string|Pop\File\File $file
      * @throws Exception
-     * @return Pop_Mail
+     * @return Pop\Mail\Mail
      */
     public function attachFile($file)
     {
         // Determine if the file is valid.
         if (((is_string($file)) && (!file_exists($file))) && (!($file instanceof File))) {
-            throw new Exception($this->_lang->__('Error: The parameter passed must either be a valid file or an instance of Pop_File.'));
+            throw new Exception($this->_lang->__('Error: The parameter passed must either be a valid file or an instance of Pop\\File\\File.'));
         } else if (is_string($file)) {
             $fle = new File($file);
         } else {
@@ -263,13 +294,11 @@ class Mail
      * Set headers
      *
      * @param  string|array $hdrs
-     * @return Pop_Mail
+     * @return Pop\Mail\Mail
      */
-    public function setHeaders($hdrs = null)
+    public function setHeaders($hdrs)
     {
-        if (null === $hdrs) {
-            $this->_headers = null;
-        } else if (is_array($hdrs)) {
+        if (is_array($hdrs)) {
             foreach ($hdrs as $key => $value) {
                 $this->_headers .= (is_array($value)) ? $key . ": " . $value[0] . " <" . $value[1] . ">" . PHP_EOL : $key . ": " . $value . PHP_EOL;
             }
@@ -284,7 +313,7 @@ class Mail
      * Set parameters
      *
      * @param  string|array $params
-     * @return Pop_Mail
+     * @return Pop\Mail\Mail
      */
     public function setParams($params = null)
     {
