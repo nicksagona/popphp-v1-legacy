@@ -13,7 +13,7 @@
  * to info@popphp.org so we can send you a copy immediately.
  *
  * @category   Pop
- * @package    Pop_Imagick
+ * @package    Pop_Image
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
@@ -29,12 +29,11 @@ use Pop\Color\Color,
     Pop\Color\Rgb,
     Pop\Http\Response,
     Pop\Image\AbstractImage,
-    Pop\Image\Exception,
-    Pop\Image\ImageAbstract;
+    Pop\Image\Exception;
 
 /**
  * @category   Pop
- * @package    Pop_Imagick
+ * @package    Pop_Image
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
@@ -71,39 +70,41 @@ class Imagick extends AbstractImage
      * Array of allowed file types.
      * @var array
      */
-    protected $_allowed = array('afm'   => 'application/x-font-afm',
-                                'ai'    => 'application/postscript',
-                                'avi'   => 'video/x-msvideo',
-                                'bmp'   => 'image/x-ms-bmp',
-                                'eps'   => 'application/octet-stream',
-                                'gif'   => 'image/gif',
-                                'html'  => 'text/html',
-                                'htm'   => 'text/html',
-                                'jpe'   => 'image/jpeg',
-                                'jpg'   => 'image/jpeg',
-                                'jpeg'  => 'image/jpeg',
-                                'mov'   => 'video/quicktime',
-                                'mp4'   => 'video/mp4',
-                                'mpg'   => 'video/mpeg',
-                                'mpeg'  => 'video/mpeg',
-                                'otf'   => 'application/x-font-otf',
-                                'pdf'   => 'application/pdf',
-                                'pfb'   => 'application/x-font-pfb',
-                                'pfm'   => 'application/x-font-pfm',
-                                'png'   => 'image/png',
-                                'ps'    => 'application/postscript',
-                                'psb'   => 'image/x-photoshop',
-                                'psd'   => 'image/x-photoshop',
-                                'shtml' => 'text/html',
-                                'shtm'  => 'text/html',
-                                'svg'   => 'image/svg+xml',
-                                'tif'   => 'image/tiff',
-                                'tiff'  => 'image/tiff',
-                                'tsv'   => 'text/tsv',
-                                'ttf'   => 'application/x-font-ttf',
-                                'txt'   => 'text/plain',
-                                'xhtml' => 'application/xhtml+xml',
-                                'xml'   => 'application/xml');
+    protected $_allowed = array(
+        'afm'   => 'application/x-font-afm',
+        'ai'    => 'application/postscript',
+        'avi'   => 'video/x-msvideo',
+        'bmp'   => 'image/x-ms-bmp',
+        'eps'   => 'application/octet-stream',
+        'gif'   => 'image/gif',
+        'html'  => 'text/html',
+        'htm'   => 'text/html',
+        'jpe'   => 'image/jpeg',
+        'jpg'   => 'image/jpeg',
+        'jpeg'  => 'image/jpeg',
+        'mov'   => 'video/quicktime',
+        'mp4'   => 'video/mp4',
+        'mpg'   => 'video/mpeg',
+        'mpeg'  => 'video/mpeg',
+        'otf'   => 'application/x-font-otf',
+        'pdf'   => 'application/pdf',
+        'pfb'   => 'application/x-font-pfb',
+        'pfm'   => 'application/x-font-pfm',
+        'png'   => 'image/png',
+        'ps'    => 'application/postscript',
+        'psb'   => 'image/x-photoshop',
+        'psd'   => 'image/x-photoshop',
+        'shtml' => 'text/html',
+        'shtm'  => 'text/html',
+        'svg'   => 'image/svg+xml',
+        'tif'   => 'image/tiff',
+        'tiff'  => 'image/tiff',
+        'tsv'   => 'text/tsv',
+        'ttf'   => 'application/x-font-ttf',
+        'txt'   => 'text/plain',
+        'xhtml' => 'application/xhtml+xml',
+        'xml'   => 'application/xml'
+    );
 
     /**
      * Image color opacity
@@ -121,7 +122,7 @@ class Imagick extends AbstractImage
      * Image filter
      * @var int
      */
-    protected $_filter = Imagick::FILTER_LANCZOS;
+    protected $_filter = \Imagick::FILTER_LANCZOS;
 
     /**
      * Image blur
@@ -133,7 +134,7 @@ class Imagick extends AbstractImage
      * Image overlay
      * @var int
      */
-    protected $_overlay = Imagick::COMPOSITE_ATOP;
+    protected $_overlay = \Imagick::COMPOSITE_ATOP;
 
     /**
      * Constructor
@@ -149,7 +150,7 @@ class Imagick extends AbstractImage
      * Imagick PHP Extension 3.0.1
      *
      * Any variation in the versions of the required software may contribute to
-     * the Pop_Imagick component not functioning properly.
+     * the Pop\Image\Imagick component not functioning properly.
      *
      * @param  string     $img
      * @param  int|string $w
@@ -164,11 +165,13 @@ class Imagick extends AbstractImage
         $imagickFile = null;
         $imgFile = null;
 
+        // If image passed is a paged images, like a PDF
         if (!file_exists($img) && (strpos($img, '[') !== false)) {
             $imagickFile = $img;
             $imgFile = trim(substr($img, 0, strpos($img, '[')));
             $imgFile .= substr($img, (strpos($img, ']') + 1));
             $img = $imgFile;
+        // Else, continue
         } else {
             $imgFile = $img;
             $imagickFile = $img;
@@ -227,7 +230,7 @@ class Imagick extends AbstractImage
      * Set the image quality.
      *
      * @param  int $q
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function setQuality($q = null)
     {
@@ -239,7 +242,7 @@ class Imagick extends AbstractImage
      * Set the opacity.
      *
      * @param  float $opac
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function setOpacity($opac)
     {
@@ -251,7 +254,7 @@ class Imagick extends AbstractImage
      * Set the image quality.
      *
      * @param  int $comp
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function setCompression($comp = null)
     {
@@ -263,7 +266,7 @@ class Imagick extends AbstractImage
      * Set the image filter.
      *
      * @param  int|string $filter
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function setFilter($filter = null)
     {
@@ -275,7 +278,7 @@ class Imagick extends AbstractImage
      * Set the image blur.
      *
      * @param  int|string $blur
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function setBlur($blur = null)
     {
@@ -287,7 +290,7 @@ class Imagick extends AbstractImage
      * Set the image overlay.
      *
      * @param  int|string $ovr
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function setOverlay($ovr = null)
     {
@@ -354,7 +357,7 @@ class Imagick extends AbstractImage
      * 200px X 150px.
      *
      * @param  int|string $px
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function resize($px)
     {
@@ -382,7 +385,7 @@ class Imagick extends AbstractImage
      * will be scaled to 400px X 300px.
      *
      * @param  float|string $scl
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function scale($scl)
     {
@@ -432,7 +435,7 @@ class Imagick extends AbstractImage
      * @param  int|string $px
      * @param  int|string $x
      * @param  int|string $y
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function cropThumb($px, $x = 0, $y = 0)
     {
@@ -460,7 +463,7 @@ class Imagick extends AbstractImage
      * to rotate the image.
      *
      * @param  int|string $deg
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function rotate($deg)
     {
@@ -487,7 +490,7 @@ class Imagick extends AbstractImage
      * @param  string     $font
      * @param  int|string $rotate
      * @param  boolean    $stroke
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function text($str, $size, $x, $y, $font = 'Arial', $rotate = null, $stroke = false)
     {
@@ -518,7 +521,7 @@ class Imagick extends AbstractImage
      * @param  int $y1
      * @param  int $x2
      * @param  int $y2
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function addLine($x1, $y1, $x2, $y2)
     {
@@ -538,7 +541,7 @@ class Imagick extends AbstractImage
      * @param  int $y
      * @param  int $w
      * @param  int $h
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function addRectangle($x, $y, $w, $h = null)
     {
@@ -565,7 +568,7 @@ class Imagick extends AbstractImage
      * @param  int     $x
      * @param  int     $y
      * @param  int     $w
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function addSquare($x, $y, $w)
     {
@@ -580,7 +583,7 @@ class Imagick extends AbstractImage
      * @param  int $y
      * @param  int $w
      * @param  int $h
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function addEllipse($x, $y, $w, $h = null)
     {
@@ -607,7 +610,7 @@ class Imagick extends AbstractImage
      * @param  int     $x
      * @param  int     $y
      * @param  int     $w
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function addCircle($x, $y, $w)
     {
@@ -622,7 +625,7 @@ class Imagick extends AbstractImage
      * @param  int $y
      * @param  int $w
      * @param  int $h
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function addArc($x, $y, $start, $end, $w, $h = null)
     {
@@ -669,7 +672,7 @@ class Imagick extends AbstractImage
      * Method to add a polygon to the image.
      *
      * @param  array $points
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function addPolygon($points)
     {
@@ -691,7 +694,7 @@ class Imagick extends AbstractImage
      * Method to adjust the hue of the image.
      *
      * @param  int $h
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function hue($h)
     {
@@ -703,7 +706,7 @@ class Imagick extends AbstractImage
      * Method to adjust the saturation of the image.
      *
      * @param  int $s
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function saturation($s)
     {
@@ -715,7 +718,7 @@ class Imagick extends AbstractImage
      * Method to adjust the brightness of the image.
      *
      * @param  int $b
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function brightness($b)
     {
@@ -729,7 +732,7 @@ class Imagick extends AbstractImage
      * @param  int $h
      * @param  int $s
      * @param  int $b
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function hsb($h, $s, $b)
     {
@@ -743,7 +746,7 @@ class Imagick extends AbstractImage
      * @param  int   $black
      * @param  float $gamma
      * @param  int   $white
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function level($black, $gamma, $white)
     {
@@ -768,7 +771,7 @@ class Imagick extends AbstractImage
      * Method to adjust the contrast of the image.
      *
      * @param  int $amount
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function contrast($amount)
     {
@@ -790,7 +793,7 @@ class Imagick extends AbstractImage
      *
      * @param  int $radius
      * @param  int $sigma
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function sharpen($radius = 0, $sigma = 0)
     {
@@ -805,7 +808,7 @@ class Imagick extends AbstractImage
      * @param  int $sigma
      * @param  int $angle
      * @param  int $type
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function blur($radius = 0, $sigma = 0, $angle = 0, $type = Imagick::BLUR)
     {
@@ -833,7 +836,7 @@ class Imagick extends AbstractImage
      * @param  int $w
      * @param  int $h
      * @param  int $type
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function border($w, $h = null, $type = Imagick::INNER_BORDER)
     {
@@ -859,7 +862,7 @@ class Imagick extends AbstractImage
      * @param  string     $ovr
      * @param  int|string $x
      * @param  int|string $y
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function overlay($ovr, $x = 0, $y = 0)
     {
@@ -876,7 +879,7 @@ class Imagick extends AbstractImage
      * Method to colorize the image with the color passed.
      *
      * @param  mixed $color
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function colorize(ColorInterface $color)
     {
@@ -887,7 +890,7 @@ class Imagick extends AbstractImage
     /**
      * Method to invert the image (create a negative.)
      *
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function invert()
     {
@@ -898,7 +901,7 @@ class Imagick extends AbstractImage
     /**
      * Method to flip the image over the x-axis.
      *
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function flip()
     {
@@ -909,7 +912,7 @@ class Imagick extends AbstractImage
     /**
      * Method to flip the image over the x-axis.
      *
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function flop()
     {
@@ -920,11 +923,11 @@ class Imagick extends AbstractImage
     /**
      * Flatten the image layers
      *
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function flatten()
     {
-        $this->_resource->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+        $this->_resource->mergeImageLayers(\Imagick::LAYERMETHOD_FLATTEN);
         return $this;
     }
 
@@ -932,7 +935,7 @@ class Imagick extends AbstractImage
      * Apply an oil paint effect to the image using the pixel radius threshold
      *
      * @param  int $radius
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function paint($radius)
     {
@@ -945,7 +948,7 @@ class Imagick extends AbstractImage
      *
      * @param  int     $levels
      * @param  boolean $dither
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function posterize($levels, $dither = false)
     {
@@ -957,9 +960,9 @@ class Imagick extends AbstractImage
      * Apply a noise effect to the image
      *
      * @param  int $type
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
-    public function noise($type = Imagick::NOISE_MULTIPLICATIVEGAUSSIAN)
+    public function noise($type = \Imagick::NOISE_MULTIPLICATIVEGAUSSIAN)
     {
         $this->_resource->addNoiseImage($type);
         return $this;
@@ -969,7 +972,7 @@ class Imagick extends AbstractImage
      * Apply a diffusion effect to the image
      *
      * @param  int $radius
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function diffuse($radius)
     {
@@ -983,7 +986,7 @@ class Imagick extends AbstractImage
      * @param  mixed $color
      * @param  int   $x
      * @param  int   $y
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function skew(ColorInterface $color, $x, $y)
     {
@@ -996,7 +999,7 @@ class Imagick extends AbstractImage
      *
      * @param  int $w
      * @param  int $h
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function pixelate($w, $h = null)
     {
@@ -1015,7 +1018,7 @@ class Imagick extends AbstractImage
      * @param  int $radius
      * @param  int $sigma
      * @param  int $angle
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function pencil($radius, $sigma, $angle)
     {
@@ -1027,7 +1030,7 @@ class Imagick extends AbstractImage
      * Apply a swirl effect to the image
      *
      * @param  int $degrees
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function swirl($degrees)
     {
@@ -1040,7 +1043,7 @@ class Imagick extends AbstractImage
      *
      * @param  int $amp
      * @param  int $length
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function wave($amp, $length)
     {
@@ -1104,7 +1107,7 @@ class Imagick extends AbstractImage
      *
      * @param  string     $type
      * @throws Exception
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function convert($type)
     {
@@ -1141,16 +1144,16 @@ class Imagick extends AbstractImage
      *
      * @param  int|string $q
      * @param  boolean $download
-     * @return Pop_Imagick
+     * @return Pop\Image\Imagick
      */
     public function output($download = false)
     {
         // Determine if the force download argument has been passed.
         $attach = ($download) ? 'attachment; ' : null;
         $headers = array(
-                       'Content-type' => $this->_mime,
-                       'Content-disposition' => $attach . 'filename=' . $this->basename
-                   );
+            'Content-type' => $this->_mime,
+            'Content-disposition' => $attach . 'filename=' . $this->basename
+        );
 
         $response = new Response(200, $headers);
 
@@ -1287,21 +1290,21 @@ class Imagick extends AbstractImage
         $type = $this->_resource->getImageType();
 
         switch ($colorSpace) {
-            case Imagick::COLORSPACE_UNDEFINED:
+            case \Imagick::COLORSPACE_UNDEFINED:
                 $this->_channels = 0;
                 $this->_mode = '';
                 break;
-            case Imagick::COLORSPACE_RGB:
-                if ($type == Imagick::IMGTYPE_PALETTE) {
+            case \Imagick::COLORSPACE_RGB:
+                if ($type == \Imagick::IMGTYPE_PALETTE) {
                     $this->_channels = 3;
                     $this->_mode = 'Indexed';
-                } else if ($type == Imagick::IMGTYPE_PALETTEMATTE) {
+                } else if ($type == \Imagick::IMGTYPE_PALETTEMATTE) {
                     $this->_channels = 3;
                     $this->_mode = 'Indexed';
-                } else if ($type == Imagick::IMGTYPE_GRAYSCALE) {
+                } else if ($type == \Imagick::IMGTYPE_GRAYSCALE) {
                     $this->_channels = 1;
                     $this->_mode = 'Gray';
-                } else if ($type == Imagick::IMGTYPE_GRAYSCALEMATTE) {
+                } else if ($type == \Imagick::IMGTYPE_GRAYSCALEMATTE) {
                     $this->_channels = 1;
                     $this->_mode = 'Gray';
                 } else {
@@ -1309,79 +1312,79 @@ class Imagick extends AbstractImage
                     $this->_mode = 'RGB';
                 }
                 break;
-            case Imagick::COLORSPACE_GRAY:
+            case \Imagick::COLORSPACE_GRAY:
                 $this->_channels = 1;
-                $this->_mode = (($type == Imagick::IMGTYPE_PALETTE) || ($type == Imagick::IMGTYPE_PALETTEMATTE)) ? 'Indexed' : 'Gray';
+                $this->_mode = (($type == \Imagick::IMGTYPE_PALETTE) || ($type == \Imagick::IMGTYPE_PALETTEMATTE)) ? 'Indexed' : 'Gray';
                 break;
-            case Imagick::COLORSPACE_TRANSPARENT:
+            case \Imagick::COLORSPACE_TRANSPARENT:
                 $this->_channels = 1;
                 $this->_mode = 'Transparent';
                 break;
-            case Imagick::COLORSPACE_OHTA:
+            case \Imagick::COLORSPACE_OHTA:
                 $this->_channels = 3;
                 $this->_mode = 'OHTA';
                 break;
-            case Imagick::COLORSPACE_LAB:
+            case \Imagick::COLORSPACE_LAB:
                 $this->_channels = 3;
                 $this->_mode = 'LAB';
                 break;
-            case Imagick::COLORSPACE_XYZ:
+            case \Imagick::COLORSPACE_XYZ:
                 $this->_channels = 3;
                 $this->_mode = 'XYZ';
                 break;
-            case Imagick::COLORSPACE_YCBCR:
+            case \Imagick::COLORSPACE_YCBCR:
                 $this->_channels = 3;
                 $this->_mode = 'YCbCr';
                 break;
-            case Imagick::COLORSPACE_YCC:
+            case \Imagick::COLORSPACE_YCC:
                 $this->_channels = 3;
                 $this->_mode = 'YCC';
                 break;
-            case Imagick::COLORSPACE_YIQ:
+            case \Imagick::COLORSPACE_YIQ:
                 $this->_channels = 3;
                 $this->_mode = 'YIQ';
                 break;
-            case Imagick::COLORSPACE_YPBPR:
+            case \Imagick::COLORSPACE_YPBPR:
                 $this->_channels = 3;
                 $this->_mode = 'YPbPr';
                 break;
-            case Imagick::COLORSPACE_YUV:
+            case \Imagick::COLORSPACE_YUV:
                 $this->_channels = 3;
                 $this->_mode = 'YUV';
                 break;
-            case Imagick::COLORSPACE_CMYK:
+            case \Imagick::COLORSPACE_CMYK:
                 $this->_channels = 4;
                 $this->_mode = 'CMYK';
                 break;
-            case Imagick::COLORSPACE_SRGB:
+            case \Imagick::COLORSPACE_SRGB:
                 $this->_channels = 3;
                 $this->_mode = 'sRGB';
                 break;
-            case Imagick::COLORSPACE_HSB:
+            case \Imagick::COLORSPACE_HSB:
                 $this->_channels = 3;
                 $this->_mode = 'HSB';
                 break;
-            case Imagick::COLORSPACE_HSL:
+            case \Imagick::COLORSPACE_HSL:
                 $this->_channels = 3;
                 $this->_mode = 'HSL';
                 break;
-            case Imagick::COLORSPACE_HWB:
+            case \Imagick::COLORSPACE_HWB:
                 $this->_channels = 3;
                 $this->_mode = 'HWB';
                 break;
-            case Imagick::COLORSPACE_REC601LUMA:
+            case \Imagick::COLORSPACE_REC601LUMA:
                 $this->_channels = 3;
                 $this->_mode = 'Rec601';
                 break;
-            case Imagick::COLORSPACE_REC709LUMA:
+            case \Imagick::COLORSPACE_REC709LUMA:
                 $this->_channels = 3;
                 $this->_mode = 'Rec709';
                 break;
-            case Imagick::COLORSPACE_LOG:
+            case \Imagick::COLORSPACE_LOG:
                 $this->_channels = 3;
                 $this->_mode = 'LOG';
                 break;
-            case Imagick::COLORSPACE_CMY:
+            case \Imagick::COLORSPACE_CMY:
                 $this->_channels = 3;
                 $this->_mode = 'CMY';
                 break;

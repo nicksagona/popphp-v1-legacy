@@ -367,7 +367,7 @@ abstract class AbstractImage extends File
      * @param  string     $font
      * @param  int|string $rotate
      * @param  boolean    $stroke
-     * @return Pop_Image
+     * @return mixed
      */
     abstract public function text($str, $size, $x, $y, $font = null, $rotate = null, $stroke = false);
 
