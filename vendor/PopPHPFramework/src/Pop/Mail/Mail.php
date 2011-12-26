@@ -135,12 +135,6 @@ class Mail
     protected $_attachments = array();
 
     /**
-     * Is teh mail initialized flag
-     * @var boolean
-     */
-    protected $_isInit = false;
-
-    /**
      * Language object
      * @var Pop\Locale\Locale
      */
@@ -151,22 +145,17 @@ class Mail
      *
      * Instantiate the mail object.
      *
-     * @param  array        $rcpts
-     * @param  string       $subj
-     * @param  string|array $hdrs
-     * @throws Exception
+     * @param  array  $rcpts
+     * @param  string $subj
      * @return void
      */
-    public function __construct(array $rcpts = null, $subj = null, $hdrs = null)
+    public function __construct(array $rcpts = null, $subj = null)
     {
         $this->_lang = new Locale();
         $this->_subject = $subj;
 
         if (null !== $rcpts) {
             $this->addRecipients($rcpts);
-        }
-        if (null !== $hdrs) {
-            $this->setHeaders($hdrs);
         }
     }
 
@@ -338,11 +327,16 @@ class Mail
      */
     public function setHeader($name, $value)
     {
-        if (is_array($value) && isset($value[0]) && isset($value[1])) {
-            $this->_headers[$name] = $value[0] . ' <' . $value[1] . '>';
+        if (is_array($value)) {
+            if (isset($value['name']) && isset($value['email'])) {
+                $this->_headers[$name] = $value['name'] . ' <' . $value['email'] . '>';
+            } else if (isset($value[0]) && isset($value[1])) {
+                $this->_headers[$name] = $value[0] . ' <' . $value[1] . '>';
+            }
         } else {
             $this->_headers[$name] = $value;
         }
+
         return $this;
     }
 
@@ -421,6 +415,7 @@ class Mail
         if (null === $msgType) {
             throw new Exception($this->_lang->__('Error: The message body elements are not set.'));
         } else {
+            $this->_message = null;
             $this->setBoundary();
 
             switch ($msgType) {
@@ -430,7 +425,7 @@ class Mail
                     	'MIME-Version' => '1.0',
                         'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
                     ));
-                    //$headers .= "MIME-Version: 1.0" . PHP_EOL . "Content-Type: multipart/mixed; boundary=\"" . $this->getBoundary() . "\"" . PHP_EOL . "This is a multi-part message in MIME format." . PHP_EOL . PHP_EOL;
+
                     foreach ($this->_attachments as $file) {
                         $this->_message .= PHP_EOL . '--' . $this->getBoundary() .
                             PHP_EOL . 'Content-Type: file; name="' . $file['file']->basename .
@@ -449,7 +444,6 @@ class Mail
                         PHP_EOL . PHP_EOL . $this->_text . PHP_EOL . PHP_EOL . '--' .
                         $this->getBoundary() . '--' . PHP_EOL . PHP_EOL;
 
-                    $this->_isInit = true;
                     break;
 
                 // If the message contains files and HTML.
@@ -458,7 +452,7 @@ class Mail
                     	'MIME-Version' => '1.0',
                         'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
                     ));
-                    //$headers .= "MIME-Version: 1.0" . PHP_EOL . "Content-Type: multipart/mixed; boundary=\"" . $this->getBoundary() . "\"" . PHP_EOL . "This is a multi-part message in MIME format." . PHP_EOL;
+
                     foreach ($this->_attachments as $file) {
                         $this->_message .= PHP_EOL . '--' . $this->getBoundary() .
                             PHP_EOL . 'Content-Type: file; name="' . $file['file']->basename .
@@ -472,7 +466,6 @@ class Mail
                         PHP_EOL . PHP_EOL . $this->_html . PHP_EOL . PHP_EOL . '--' .
                         $this->getBoundary() . '--' . PHP_EOL . PHP_EOL;
 
-                    $this->_isInit = true;
                     break;
 
                 // If the message contains files and text.
@@ -481,7 +474,7 @@ class Mail
                     	'MIME-Version' => '1.0',
                         'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
                     ));
-                    //$headers .= "MIME-Version: 1.0" . PHP_EOL . "Content-Type: multipart/mixed; boundary=\"" . $this->getBoundary() . "\"" . PHP_EOL . "This is a multi-part message in MIME format." . PHP_EOL . PHP_EOL;
+
                     foreach ($this->_attachments as $file) {
                         $this->_message .= PHP_EOL . '--' . $this->getBoundary() .
                             PHP_EOL . 'Content-Type: file; name="' . $file['file']->basename .
@@ -495,7 +488,6 @@ class Mail
                         PHP_EOL . PHP_EOL . $this->_text . PHP_EOL . PHP_EOL . '--' .
                         $this->getBoundary() . '--' . PHP_EOL . PHP_EOL;
 
-                    $this->_isInit = true;
                     break;
 
                 // If the message contains HTML and text.
@@ -504,7 +496,7 @@ class Mail
                     	'MIME-Version' => '1.0',
                         'Content-Type' => 'multipart/alternative; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
                     ));
-                    //$headers .= "MIME-Version: 1.0" . PHP_EOL . "Content-Type: multipart/alternative; boundary=\"" . $this->getBoundary() . "\"" . PHP_EOL . "This is a multi-part message in MIME format." . PHP_EOL . PHP_EOL;
+
                     $this->_message .= '--' . $this->getBoundary() . PHP_EOL .
                         'Content-type: text/plain; charset=' . $this->getCharset() .
                         PHP_EOL . PHP_EOL . $this->_text . PHP_EOL . PHP_EOL;
@@ -513,7 +505,6 @@ class Mail
                         PHP_EOL . PHP_EOL . $this->_html . PHP_EOL . PHP_EOL .
                         '--' . $this->getBoundary() . '--' . PHP_EOL . PHP_EOL;
 
-                    $this->_isInit = true;
                     break;
 
                 // If the message contains HTML.
@@ -522,13 +513,12 @@ class Mail
                     	'MIME-Version' => '1.0',
                         'Content-Type' => 'multipart/alternative; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
                     ));
-                    //$headers .= "MIME-Version: 1.0" . PHP_EOL . "Content-Type: multipart/alternative; boundary=\"" . $this->getBoundary() . "\"" . PHP_EOL . "This is a multi-part message in MIME format." . PHP_EOL . PHP_EOL;
+
                     $this->_message .= '--' . $this->getBoundary() . PHP_EOL .
                         'Content-type: text/html; charset=' . $this->getCharset() .
                         PHP_EOL . PHP_EOL . $this->_html . PHP_EOL . PHP_EOL . '--' .
                         $this->getBoundary() . '--' . PHP_EOL . PHP_EOL;
 
-                    $this->_isInit = true;
                     break;
 
                 // If the message contains text.
@@ -536,14 +526,14 @@ class Mail
                     $this->setHeaders(array(
                         'Content-Type' => 'text/plain; charset="' . $this->getCharset()
                     ));
-                    //$headers .= "Content-Type: text/plain; charset=" . $this->getCharset() . PHP_EOL;
+
                     $this->_message = $this->_text . PHP_EOL;
 
-                    $this->_isInit = true;
                     break;
 
+                // Else if nothing has been set yet
                 default:
-                    $this->_isInit = false;
+                    $this->_message = null;
             }
         }
     }
@@ -558,7 +548,7 @@ class Mail
      */
     public function send()
     {
-        if (!$this->_isInit) {
+        if (null === $this->_message) {
             $this->init();
         }
 

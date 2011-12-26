@@ -18,13 +18,13 @@ try {
 
     $mail = new Mail($rcpts, 'Hello World!');
     $mail->setHeaders(array(
-        'From'        => array('Bob', 'bob123@gmail.com'),
-        'Reply-To'    => array('Bob', 'bob123@gmail.com'),
+        'From'        => array('name' => 'Bob', 'email' => 'bob123@gmail.com'),
+        'Reply-To'    => array('name' => 'Bob', 'email' => 'bob123@gmail.com'),
         'X-Mailer'    => 'PHP/' . phpversion(),
         'X-Priority'  => '3',
     ));
 
-    $mail->setText("Hey [{name}],\n\nI'm just trying out this new Pop Mail component.\n\nThanks,\nBob\n\n");
+    $mail->setText("Hello [{name}],\n\nI'm just trying out this new Pop Mail component.\n\nThanks,\nBob\n\n");
     $mail->send();
 
     echo 'Mail Sent!' . PHP_EOL . PHP_EOL;
