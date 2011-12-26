@@ -449,7 +449,7 @@ class Response
     }
 
     /**
-     * Get the response headers
+     * Get the response header
      *
      * @param  string $name
      * @return string
