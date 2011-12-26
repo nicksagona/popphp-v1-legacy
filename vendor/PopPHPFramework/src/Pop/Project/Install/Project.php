@@ -79,9 +79,9 @@ class Project
             if (file_exists(__DIR__ . '/Web/index.php')) {
                 $index = new Generator(__DIR__ . '/Web/index.php');
                 $contents = $index->read() .
-                	'// Run the project' . PHP_EOL .
-                	'$project->run();' . PHP_EOL . PHP_EOL .
-                	'?>' . PHP_EOL;
+                    '// Run the project' . PHP_EOL .
+                    '$project->run();' . PHP_EOL . PHP_EOL .
+                    '?>' . PHP_EOL;
                 file_put_contents($install->project->docroot . '/index.php', $contents);
             }
             if ($input == 'a') {

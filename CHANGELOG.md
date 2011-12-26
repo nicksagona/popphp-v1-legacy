@@ -91,7 +91,6 @@ CURRENTLY BEING WORKED ON & ON DECK
   - Font
   - Image
   - Graph
-  - Paginator
   - Pdf
   - Svg
 

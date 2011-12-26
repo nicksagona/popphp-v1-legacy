@@ -171,11 +171,11 @@ class Element extends Child
                     foreach ($value as $k => $v) {
                         $rad = new Child('input', null, null, false, ($indent . '    '));
                         $rad->setAttributes(array(
-                        	'type' => $type,
-                        	'class' => 'radioBtn',
-                        	'name' => $name,
-                        	'id' => ($name . $i),
-                        	'value' => $k
+                            'type' => $type,
+                            'class' => 'radioBtn',
+                            'name' => $name,
+                            'id' => ($name . $i),
+                            'value' => $k
                         ));
 
                         // Determine if the current radio element is checked.
@@ -203,11 +203,11 @@ class Element extends Child
                     foreach ($value as $k => $v) {
                         $chk = new Child('input', null, null, false, ($indent . '    '));
                         $chk->setAttributes(array(
-                        	'type' => $type,
-                        	'class' => 'checkBox',
-                        	'name' => ($name . '[]'),
-                        	'id' => ($name . $i),
-                        	'value' => $k
+                            'type' => $type,
+                            'class' => 'checkBox',
+                            'name' => ($name . '[]'),
+                            'id' => ($name . $i),
+                            'value' => $k
                         ));
 
                         // Determine if the current radio element is checked.

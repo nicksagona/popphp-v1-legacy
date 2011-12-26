@@ -7,7 +7,7 @@ use Pop\Dom\Dom,
 
 try {
     $feedHeaders = array(
-    	'title'     => 'Test Feed Title',
+        'title'     => 'Test Feed Title',
         'subtitle'  => 'Test Feed Description',
         'link'      => 'http://www.testfeed.com/',
         'language'  => 'en',
@@ -17,7 +17,7 @@ try {
     );
 
     $entry1 = array(
-    	'title'    => 'Entry Title 1',
+        'title'    => 'Entry Title 1',
         'link'     => 'http://www.testfeed.com/entry1',
         'comments' => 'http://www.testfeed.com/entry1#comments',
         'author'   => 'Entry Author 1',
@@ -26,7 +26,7 @@ try {
     );
 
     $entry2 = array(
-    	'title'    => 'Entry Title 2',
+        'title'    => 'Entry Title 2',
         'link'     => 'http://www.testfeed.com/entry2',
         'comments' => 'http://www.testfeed.com/entry2#comments',
         'author'   => 'Entry Author 2',
@@ -35,7 +35,7 @@ try {
     );
 
     $entry3 = array(
-    	'title'    => 'Entry Title 3',
+        'title'    => 'Entry Title 3',
         'link'     => 'http://www.testfeed.com/entry3',
         'comments' => 'http://www.testfeed.com/entry3#comments',
         'author'   => 'Entry Author 3',

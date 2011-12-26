@@ -422,7 +422,7 @@ class Mail
                 // If the message contains files, HTML and text.
                 case self::TEXT_HTML_FILE:
                     $this->setHeaders(array(
-                    	'MIME-Version' => '1.0',
+                        'MIME-Version' => '1.0',
                         'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
                     ));
 
@@ -449,7 +449,7 @@ class Mail
                 // If the message contains files and HTML.
                 case self::HTML_FILE:
                     $this->setHeaders(array(
-                    	'MIME-Version' => '1.0',
+                        'MIME-Version' => '1.0',
                         'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
                     ));
 
@@ -471,7 +471,7 @@ class Mail
                 // If the message contains files and text.
                 case self::TEXT_FILE:
                     $this->setHeaders(array(
-                    	'MIME-Version' => '1.0',
+                        'MIME-Version' => '1.0',
                         'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
                     ));
 
@@ -493,7 +493,7 @@ class Mail
                 // If the message contains HTML and text.
                 case self::TEXT_HTML:
                     $this->setHeaders(array(
-                    	'MIME-Version' => '1.0',
+                        'MIME-Version' => '1.0',
                         'Content-Type' => 'multipart/alternative; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
                     ));
 
@@ -510,7 +510,7 @@ class Mail
                 // If the message contains HTML.
                 case self::HTML:
                     $this->setHeaders(array(
-                    	'MIME-Version' => '1.0',
+                        'MIME-Version' => '1.0',
                         'Content-Type' => 'multipart/alternative; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
                     ));
 

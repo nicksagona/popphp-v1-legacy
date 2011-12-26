@@ -7,12 +7,12 @@ use Pop\Mail\Mail;
 try {
     $rcpts = array(
         array(
-    		'name'  => 'Test Smith',
-    		'email' => 'test@email.com'
+            'name'  => 'Test Smith',
+            'email' => 'test@email.com'
         ),
         array(
-    		'name'  => 'Someone Else',
-    		'email' => 'someone@email.com'
+            'name'  => 'Someone Else',
+            'email' => 'someone@email.com'
         )
     );
 
