@@ -95,13 +95,13 @@ class Paginator
      * Items per page property
      * @var int
      */
-    protected $_perPage = null;
+    protected $_perPage = 10;
 
     /**
      * Page range property
      * @var int
      */
-    protected $_range = null;
+    protected $_range = 10;
 
     /**
      * Total item count property
@@ -191,11 +191,11 @@ class Paginator
      * @param  int $total
      * @return void
      */
-    public function __construct(array $items, $perPage = 10, $range = null, $total = null)
+    public function __construct(array $items, $perPage = 10, $range = 10, $total = null)
     {
         $this->_items = $items;
         $this->_perPage = (int)$perPage;
-        $this->_range = (null !== $range) ? (int)$range : null;
+        $this->_range = ($range > 0) ? (int)$range : 10;
         $this->_total = (null !== $total) ? (int)$total : null;
     }
 
@@ -229,9 +229,9 @@ class Paginator
      * @param  int $range
      * @return Pop\Paginator\Paginator
      */
-    public function setRange($range = null)
+    public function setRange($range = 10)
     {
-        $this->_range = (null !== $range) ? (int)$range : null;
+        $this->_range = ($range > 0) ? (int)$range : 10;
         return $this;
     }
 
@@ -518,9 +518,9 @@ class Paginator
         // Format and output the header.
         if (null === $this->_header) {
             if (count($this->_links) > 1) {
-                $output .= implode($this->_separator, $this->_links) . PHP_EOL;
+                $this->_output .= implode($this->_separator, $this->_links) . PHP_EOL;
             }
-            $output .= "<table>" . PHP_EOL;
+            $this->_output .= '<table class="paged-table" cellpadding="0" cellspacing="0">' . PHP_EOL;
         } else {
             $hdr = new String($this->_header);
             if (count($this->_links) > 1) {
@@ -528,13 +528,13 @@ class Paginator
             } else {
                 $hdr->replace('[{page_links}]', '');
             }
-            $output .= $hdr;
+            $this->_output .= $hdr;
         }
 
         // Format and output the rows.
         for ($i = $this->_start; $i < $this->_end; $i++) {
             if (null === $this->_rowTemplate) {
-                $output .= "<tr>";
+                $this->_output .= "    <tr>";
                 if (isset($this->_items[$i])) {
                     foreach ($this->_items[$i] as $value) {
                         if (null !== $this->_dateFormat) {
@@ -542,9 +542,9 @@ class Paginator
                         } else {
                             $val = $value;
                         }
-                        $output .= "<td>{$val}</td>";
+                        $this->_output .= "<td>{$val}</td>";
                     }
-                    $output .= "</tr>" . PHP_EOL;
+                    $this->_output .= "</tr>" . PHP_EOL;
                 }
             } else {
                 $tmpl = new String($this->_rowTemplate);
@@ -557,16 +557,16 @@ class Paginator
                         }
                         $tmpl->replace('[{' . $key . '}]', $val);
                     }
-                    $output .= $tmpl;
+                    $this->_output .= $tmpl;
                 }
             }
         }
 
         // Format and output the footer.
         if (null === $this->_footer) {
-            $output .= "</table>" . PHP_EOL;
+            $this->_output .= "</table>" . PHP_EOL;
             if (count($this->_links) > 1) {
-                $output .= implode($this->_separator, $this->_links) . PHP_EOL;
+                $this->_output .= implode($this->_separator, $this->_links) . PHP_EOL;
             }
         } else {
             $ftr = new String($this->_footer);
@@ -575,13 +575,13 @@ class Paginator
             } else {
                 $ftr->replace('[{page_links}]', '');
             }
-            $output .= $ftr;
+            $this->_output .= $ftr;
         }
 
         if ($ret) {
-            return $output;
+            return $this->_output;
         } else {
-            echo $output;
+            echo $this->_output;
         }
     }
 
@@ -594,7 +594,7 @@ class Paginator
     protected function _calcItems($p)
     {
         // Calculate the number of pages based on the remainder.
-        if (null !== $this->_total) {
+        if ((null !== $this->_total) && ((int)$this->_total > 0)) {
             $this->_rem = $this->_total % $this->_perPage;
             $this->_numPages = ($this->_rem != 0) ? (floor(($this->_total / $this->_perPage)) + 1) : floor(($this->_total / $this->_perPage));
         } else {
