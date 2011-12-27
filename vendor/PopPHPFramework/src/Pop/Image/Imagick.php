@@ -185,13 +185,13 @@ class Imagick extends AbstractImage
         } else {
             // If image exists, get image info and store in an array.
             if (file_exists($this->fullpath) && ($this->_size > 0)) {
-                $this->_resource = new Imagick($imagickFile);
+                $this->_resource = new \Imagick($imagickFile);
                 $this->_setImageInfo();
                 $this->setQuality(100);
             // If image does not exists, check to make sure the width and height
             // properties of the new image have been passed.
             } else {
-                $this->_resource = new Imagick();
+                $this->_resource = new \Imagick();
 
                 if ((null === $w) || (null === $h)) {
                     throw new Exception($this->_lang->__('Error: You must define a width and height for a new image object.'));
