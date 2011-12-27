@@ -29,9 +29,9 @@ use Pop\Color\ColorInterface,
     Pop\File\File,
     Pop\Image\Gd,
     Pop\Image\Imagick,
+    Pop\Image\Svg,
     Pop\Locale\Locale,
-    Pop\Pdf\Pdf,
-    Pop\Svg\Svg;
+    Pop\Pdf\Pdf;
 
 /**
  * @category   Pop
@@ -223,7 +223,7 @@ class Graph
      *
      * @param  mixed $color
      * @param  int   $width
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function setAxisOptions(ColorInterface $color = null, $width = 2)
     {
@@ -237,7 +237,7 @@ class Graph
      * Add a font to available fonts
      *
      * @param  string $font
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function addFont($font)
     {
@@ -257,7 +257,7 @@ class Graph
      *
      * @param  string $font
      * @throws Exception
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function setFont($font = null)
     {
@@ -274,7 +274,7 @@ class Graph
      * Set the font size
      *
      * @param  int $size
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function setFontSize($size)
     {
@@ -286,7 +286,7 @@ class Graph
      * Set the font color
      *
      * @param  mixed $color
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function setFontColor(ColorInterface $color)
     {
@@ -298,7 +298,7 @@ class Graph
      * Set the font color
      *
      * @param  mixed $color
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function setReverseFontColor(ColorInterface $color)
     {
@@ -310,7 +310,7 @@ class Graph
      * Set the fill color
      *
      * @param  mixed $color
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function setFillColor(ColorInterface $color)
     {
@@ -322,7 +322,7 @@ class Graph
      * Set the stroke color
      *
      * @param  mixed $color
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function setStrokeColor(ColorInterface $color)
     {
@@ -334,7 +334,7 @@ class Graph
      * Set the stroke width
      *
      * @param  int $width
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function setStrokeWidth($width = 1)
     {
@@ -346,7 +346,7 @@ class Graph
      * Set the graph canvas padding
      *
      * @param  int $pad
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function setPadding($pad)
     {
@@ -358,7 +358,7 @@ class Graph
      * Set the bar width
      *
      * @param  int $width
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function setBarWidth($width)
     {
@@ -370,7 +370,7 @@ class Graph
      * Set the 'show data text' flag
      *
      * @param  boolean $showText
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function showText($showText)
     {
@@ -383,7 +383,7 @@ class Graph
      *
      * @param  boolean $showX
      * @param  mixed   $color
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function showX($showX, ColorInterface $color = null)
     {
@@ -397,7 +397,7 @@ class Graph
      *
      * @param  boolean $showY
      * @param  mixed   $color
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function showY($showY, ColorInterface $color = null)
     {
@@ -412,7 +412,7 @@ class Graph
      * @param  array $dataPoints
      * @param  array $xAxis
      * @param  array $yAxis
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function addLineGraph(array $dataPoints, array $xAxis, array $yAxis)
     {
@@ -491,7 +491,7 @@ class Graph
      * @param  array $dataPoints
      * @param  array $xAxis
      * @param  array $yAxis
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function addVBarGraph(array $dataPoints, array $xAxis, array $yAxis)
     {
@@ -566,7 +566,7 @@ class Graph
      * @param  array $dataPoints
      * @param  array $xAxis
      * @param  array $yAxis
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function addHBarGraph(array $dataPoints, array $xAxis, array $yAxis)
     {
@@ -657,7 +657,7 @@ class Graph
      * @param  array $percents
      * @param  int   $explode
      * @throws Exception
-     * @return Pop_Graph
+     * @return Pop\Graph\Graph
      */
     public function addPieChart(array $pie, array $percents, $explode = 0)
     {
@@ -1147,25 +1147,6 @@ class Graph
                     $this->_adapter->setFillColor($this->_fontColor);
                     if ($this->_adapter instanceof Pdf) {
                         // Text not supported on PDF pie charts yet due to clipping path issues.
-                        //switch ($yAxis[$i]) {
-                        //    case 1:
-                        //        $textX = $newMidX + ($this->_fontSize);
-                        //        $textY = $newMidY - ($this->_fontSize);
-                        //        break;
-                        //    case 2:
-                        //        $textX = $newMidX - ($this->_fontSize);
-                        //        $textY = $newMidY - ($this->_fontSize);
-                        //        break;
-                        //    case 3:
-                        //        $textX = $newMidX - ($this->_fontSize);
-                        //        $textY = $newMidY + ($this->_fontSize);
-                        //        break;
-                        //    case 4:
-                        //        $textX = $newMidX + ($this->_fontSize);
-                        //        $textY = $newMidY + ($this->_fontSize);
-                        //        break;
-                        //}
-                        //$this->_adapter->addText($textX, $textY, $dataPoints[$i][0], $this->_fonts[$this->_font], $this->_fontSize);
                     } else {
                         switch ($yAxis[$i]) {
                             case 1:
