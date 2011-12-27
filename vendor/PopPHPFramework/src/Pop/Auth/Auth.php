@@ -91,6 +91,12 @@ class Auth
     const IP_NOT_ALLOWED = 7;
 
     /**
+     * Constant for session expired result
+     * @var int
+     */
+    const SESSION_EXPIRED = 8;
+
+    /**
      * Constant to trigger using no encryption
      * @var int
      */
@@ -137,18 +143,31 @@ class Auth
      * @var array
      */
     protected $_validators = array(
-                                 'allowedIps'     => null,
-                                 'allowedSubnets' => null,
-                                 'blockedIps'     => null,
-                                 'blockedSubnets' => null,
-                                 'loginAttempts'  => null,
-                             );
+        'allowedIps'     => null,
+        'allowedSubnets' => null,
+        'blockedIps'     => null,
+        'blockedSubnets' => null,
+        'loginAttempts'  => null,
+        'expiration'     => null
+    );
 
     /**
      * Auth adapter object
      * @var mixed
      */
     protected $_adapter = null;
+
+    /**
+     * Session start timestamp
+     * @var int
+     */
+    protected $_start = 0;
+
+    /**
+     * Expiration time in minutes
+     * @var int
+     */
+    protected $_expiration = 0;
 
     /**
      * Encryption method to use
@@ -199,15 +218,12 @@ class Auth
      *
      * @return void
      */
-    public function __construct(AdapterInterface $adapter, $encryption = 0, $salt = null)
+    public function __construct(AdapterInterface $adapter, $expiration = 0, $encryption = 0, $salt = null)
     {
         $this->_adapter = $adapter;
-
-        $enc = (int)$encryption;
-        if (($enc >= 0) && ($enc <= 3)) {
-            $this->_encryption = $enc;
-        }
-
+        $this->_start = time();
+        $this->setExpiration($expiration);
+        $this->setEncryption($encryption);
         $this->_salt = $salt;
     }
 
@@ -219,6 +235,16 @@ class Auth
     public function getLoginAttempts()
     {
         return $this->_loginAttempts;
+    }
+
+    /**
+     * Method to get the expiration
+     *
+     * @return int
+     */
+    public function getExpiration()
+    {
+        return $this->_expiration;
     }
 
     /**
@@ -275,15 +301,18 @@ class Auth
                 break;
             case self::LOGIN_ATTEMPTS_EXCEEDED:
                 $msg = Locale::factory()->__(
-                                             'The allowed login attempts (%1) have been exceeded.',
-                                             $this->_validators['loginAttempts']->getValidator()->getValue()
-                                             );
+                           'The allowed login attempts (%1) have been exceeded.',
+                           $this->_validators['loginAttempts']->getValidator()->getValue()
+                       );
                 break;
             case self::IP_BLOCKED:
                 $msg = Locale::factory()->__('That IP address is blocked.');
                 break;
             case self::IP_NOT_ALLOWED:
                 $msg = Locale::factory()->__('That IP address is not allowed.');
+                break;
+            case self::SESSION_EXPIRED:
+                $msg = Locale::factory()->__('The session has expired.');
                 break;
         }
 
@@ -308,6 +337,24 @@ class Auth
     public function getUser()
     {
         return $this->_user;
+    }
+
+    /**
+     * Method to set the expiration
+     *
+     * @param  int $expiration
+     * @return Pop\Auth\Auth
+     */
+    public function setExpiration($expiration = 0)
+    {
+        $this->_expiration = (int)$expiration;
+        if ($this->_expiration == 0) {
+            $this->_validators['expiration'] = null;
+        } else {
+            $exp = time() + ($this->_expiration * 60);
+            $this->_validators['expiration'] = Validator::factory(new LessThan($exp));
+        }
+        return $this;
     }
 
     /**
@@ -656,6 +703,11 @@ class Auth
                     case 'loginAttempts':
                         if (!$validator->evaluate($this->_loginAttempts)) {
                             $this->_result = self::LOGIN_ATTEMPTS_EXCEEDED;
+                        }
+                        break;
+                    case 'expiration':
+                        if (!$validator->evaluate($this->_start)) {
+                            $this->_result = self::SESSION_EXPIRED;
                         }
                         break;
                 }

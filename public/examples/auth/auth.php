@@ -12,16 +12,14 @@ try {
     $password = '90test12';
 
     // Create auth object
-    $auth = new Auth(new AuthFile('../assets/files/access_sha1.txt'), Auth::ENCRYPT_SHA1);
+    $auth = new Auth(new AuthFile('../assets/files/access_sha1.txt'), 0, Auth::ENCRYPT_SHA1);
 
     // Add some roles
-    $auth->addRoles(
-               array(
-                   Role::factory('admin', 3),
-                   Role::factory('editor', 2),
-                   Role::factory('reader', 1)
-               )
-           );
+    $auth->addRoles(array(
+        Role::factory('admin', 3),
+        Role::factory('editor', 2),
+        Role::factory('reader', 1)
+    ));
 
     // Define some other auth parameters and authenticate the user
     $auth->setRequiredRole('admin')

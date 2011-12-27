@@ -217,6 +217,7 @@ The password was incorrect.
 The allowed login attempts (%1) have been exceeded.  
 That IP address is blocked.  
 That IP address is not allowed.  
+The session has expired.  
 The access file does not exist.  
 The user's role is not defined.  
 That class map file does not exist.  
