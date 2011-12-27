@@ -89,10 +89,8 @@ CURRENTLY BEING WORKED ON & ON DECK
 -----------------------------------
 * Major Refactor/Restructure (part 2)
   - Font
-  - Image
   - Graph
   - Pdf
-  - Svg
 
 * Look at creating more dependency injections throughout (config/ini file?)
 * Add Geo support via Google API (get address, city, state, long/lat, calculate distances, etc.)
