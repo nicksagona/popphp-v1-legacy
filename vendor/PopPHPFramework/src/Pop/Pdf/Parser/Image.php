@@ -113,7 +113,6 @@ class Image extends Gd
      */
     public function __construct($img, $x, $y, $i, $scl = null)
     {
-
         $this->_x = $x;
         $this->_y = $y;
         $this->_index = $i;
@@ -154,7 +153,6 @@ class Image extends Gd
         if ((null !== $this->_convertedImage) && file_exists($this->_convertedImage)) {
             unlink($this->_convertedImage);
         }
-
     }
 
     /**
@@ -164,9 +162,7 @@ class Image extends Gd
      */
     public function getObjects()
     {
-
         return $this->_objects;
-
     }
 
     /**
@@ -176,9 +172,7 @@ class Image extends Gd
      */
     public function getXObject()
     {
-
         return $this->_xobject;
-
     }
 
     /**
@@ -188,9 +182,7 @@ class Image extends Gd
      */
     public function getStream()
     {
-
         return $this->_stream;
-
     }
 
     /**
@@ -201,7 +193,6 @@ class Image extends Gd
      */
     protected function _scaleImage($scl)
     {
-
         // Define the temp scaled image.
         $this->_scaledImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->filename . '_' . time() . '.' . $this->ext;
 
@@ -218,7 +209,6 @@ class Image extends Gd
 
         // Re-instantiate the newly scaled image object.
         parent::__construct($this->_scaledImage);
-
     }
 
     /**
@@ -228,7 +218,6 @@ class Image extends Gd
      */
     protected function _convertImage()
     {
-
         // Define the temp converted image.
         $this->_convertedImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->filename . '_' . time() . '.png';
 
@@ -239,7 +228,6 @@ class Image extends Gd
         // Re-instantiate the newly converted image object and re-read the image data.
         parent::__construct($this->_convertedImage);
         $this->_imageData = $this->read();
-
     }
 
     /**
@@ -249,11 +237,9 @@ class Image extends Gd
      */
     protected function _parseJpeg()
     {
-
         // Add the image to the _objects array.
         $colorspace = ($this->getColorMode() == 'CMYK') ? "/DeviceCMYK\n    /Decode [1 0 1 0 1 0 1 0]" : "/Device" . $this->getColorMode();
         $this->_objects[$this->_index] = new Object("{$this->_index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->getWidth() . "\n    /Height " . $this->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent 8\n    /Filter /DCTDecode\n    /Length {$this->_imageDataLength}\n>>\nstream\n{$this->_imageData}\nendstream\nendobj\n");
-
     }
 
     /**
@@ -264,7 +250,6 @@ class Image extends Gd
      */
     protected function _parsePng()
     {
-
         // Define some PNG image-specific variables.
         $PLTE = null;
         $TRNS = null;
@@ -319,7 +304,6 @@ class Image extends Gd
             $this->_objects[$j] = new Object("{$j} 0 obj\n<<\n    /Length " . strlen($PLTE) . "\n>>\nstream\n{$PLTE}\nendstream\nendobj\n");
             $this->_objects[$j]->setPalette(true);
         }
-
     }
 
 }

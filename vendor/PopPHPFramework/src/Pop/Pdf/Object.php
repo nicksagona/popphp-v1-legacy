@@ -24,7 +24,7 @@
  */
 namespace Pop\Pdf;
 
-use Pop\Archive\Archive;
+use Pop\Compress\Zlib;
 
 /**
  * @category   Pop
@@ -205,7 +205,7 @@ class Object
     {
         if (($this->_stream != '') && (function_exists('gzcompress')) && (strpos($this->_def, ' /Image') === false) && (strpos($this->_def, '/FlateDecode') === false)) {
             $this->_compress = true;
-            $this->_stream = "\n" . Archive::compress($this->_stream) . "\n";
+            $this->_stream = "\n" . Zlib::compress($this->_stream) . "\n";
             $this->_isCompressed = true;
         }
     }

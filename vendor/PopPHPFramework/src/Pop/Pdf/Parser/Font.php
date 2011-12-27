@@ -24,7 +24,7 @@
  */
 namespace Pop\Pdf\Parser;
 
-use Pop\Archive\Archive,
+use Pop\Compress\Zlib,
     Pop\Font\TrueType,
     Pop\Pdf\Object;
 
@@ -95,7 +95,6 @@ class Font
      */
     public function __construct($fle, $fi, $oi, $comp = false)
     {
-
         $this->_fontIndex = $fi;
         $this->_objectIndex = $oi;
         $this->_fontDescIndex = $oi + 1;
@@ -105,7 +104,6 @@ class Font
         $this->_font = new TrueType($fle);
 
         $this->_createFontObjects();
-
     }
 
     /**
@@ -115,9 +113,7 @@ class Font
      */
     public function getObjects()
     {
-
         return $this->_objects;
-
     }
 
     /**
@@ -127,9 +123,7 @@ class Font
      */
     public function getFontRef()
     {
-
         return "/TT{$this->_fontIndex} {$this->_objectIndex} 0 R";
-
     }
 
     /**
@@ -139,12 +133,8 @@ class Font
      */
     public function getFontName()
     {
-
         return $this->_font->tables['name']->postscriptName;
-
     }
-
-
 
     /**
      * Method to create the font objects.
@@ -153,11 +143,10 @@ class Font
      */
     protected function _createFontObjects()
     {
-
         $this->_objects[$this->_objectIndex] = new Object("{$this->_objectIndex} 0 obj\n<<\n    /Type /Font\n    /Subtype /TrueType\n    /FontDescriptor {$this->_fontDescIndex} 0 R\n    /Name /TT{$this->_fontIndex}\n    /BaseFont /" . $this->_font->tables['name']->postscriptName . "\n    /FirstChar 32\n    /LastChar 255\n    /Widths [" . implode(' ', $this->_font->glyphWidths) . "]\n    /Encoding /WinAnsiEncoding\n>>\nendobj\n\n");
 
         $unCompStream = $this->_font->read();
-        $compStream = (function_exists('gzcompress')) ? Archive::compress($unCompStream) : null;
+        $compStream = (function_exists('gzcompress')) ? Zlib::compress($unCompStream) : null;
         $bBox = '[' . $this->_font->bBox->xMin . ' ' . $this->_font->bBox->yMin . ' ' . $this->_font->bBox->xMax . ' ' . $this->_font->bBox->yMax . ']';
 
         if ($this->_compress) {
@@ -168,7 +157,6 @@ class Font
 
         $this->_objects[$this->_fontDescIndex] = new Object("{$this->_fontDescIndex} 0 obj\n<<\n    /Type /FontDescriptor\n    /FontName /" . $this->_font->tables['name']->postscriptName . "\n    /FontFile2 {$this->_fontFileIndex} 0 R\n    /StemV {$this->_font->stemV}\n    /Flags " . $this->_font->calcFlags() . "\n    /FontBBox {$bBox}\n    /Descent {$this->_font->descent}\n    /Ascent {$this->_font->ascent}\n    /CapHeight {$this->_font->capHeight}\n    /ItalicAngle {$this->_font->italicAngle}\n>>\nendobj\n\n");
         $this->_objects[$this->_fontFileIndex] = new Object($fontFileObj);
-
     }
 
     /**
@@ -179,10 +167,8 @@ class Font
      */
     protected function _calcByteLength($str)
     {
-
         $bytes = str_replace("\n", "", $str);
         return strlen($bytes);
-
     }
 
 }

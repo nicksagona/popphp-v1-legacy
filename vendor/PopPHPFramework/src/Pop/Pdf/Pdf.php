@@ -24,7 +24,9 @@
  */
 namespace Pop\Pdf;
 
-use Pop\Color\Rgb,
+use Pop\Color\Color,
+    Pop\Color\ColorInterface,
+    Pop\Color\Rgb,
     Pop\File\File,
     Pop\Locale\Locale,
     Pop\Pdf\Import,
@@ -111,32 +113,34 @@ class Pdf extends File
      * Standard PDF fonts with their approximate character width and height factors.
      * @var array
      */
-    protected $_standard_fonts = array('Arial'                    => array('width_factor' => 0.5, 'height_factor' => 1),
-                                       'Arial,Italic'             => array('width_factor' => 0.5, 'height_factor' => 1.12),
-                                       'Arial,Bold'               => array('width_factor' => 0.55, 'height_factor' => 1.12),
-                                       'Arial,BoldItalic'         => array('width_factor' => 0.55, 'height_factor' => 1.12),
-                                       'Courier'                  => array('width_factor' => 0.65, 'height_factor' => 1),
-                                       'CourierNew'               => array('width_factor' => 0.65, 'height_factor' => 1),
-                                       'Courier-Oblique'          => array('width_factor' => 0.65, 'height_factor' => 1),
-                                       'CourierNew,Italic'        => array('width_factor' => 0.65, 'height_factor' => 1),
-                                       'Courier-Bold'             => array('width_factor' => 0.65, 'height_factor' => 1),
-                                       'CourierNew,Bold'          => array('width_factor' => 0.65, 'height_factor' => 1),
-                                       'Courier-BoldOblique'      => array('width_factor' => 0.65, 'height_factor' => 1),
-                                       'CourierNew,BoldItalic'    => array('width_factor' => 0.65, 'height_factor' => 1),
-                                       'Helvetica'                => array('width_factor' => 0.5, 'height_factor' => 1.12),
-                                       'Helvetica-Oblique'        => array('width_factor' => 0.5, 'height_factor' => 1.12),
-                                       'Helvetica-Bold'           => array('width_factor' => 0.55, 'height_factor' => 1.12),
-                                       'Helvetica-BoldOblique'    => array('width_factor' => 0.55, 'height_factor' => 1.12),
-                                       'Symbol'                   => array('width_factor' => 0.85, 'height_factor' => 1.12),
-                                       'Times-Roman'              => array('width_factor' => 0.5, 'height_factor' => 1.12),
-                                       'Times-Bold'               => array('width_factor' => 0.5, 'height_factor' => 1.12),
-                                       'Times-Italic'             => array('width_factor' => 0.5, 'height_factor' => 1.12),
-                                       'Times-BoldItalic'         => array('width_factor' => 0.5, 'height_factor' => 1.12),
-                                       'TimesNewRoman'            => array('width_factor' => 0.5, 'height_factor' => 1.12),
-                                       'TimesNewRoman,Italic'     => array('width_factor' => 0.5, 'height_factor' => 1.12),
-                                       'TimesNewRoman,Bold'       => array('width_factor' => 0.5, 'height_factor' => 1.12),
-                                       'TimesNewRoman,BoldItalic' => array('width_factor' => 0.5, 'height_factor' => 1.12),
-                                       'ZapfDingbats'             => array('width_factor' => 0.75, 'height_factor' => 1.12));
+    protected $_standard_fonts = array(
+        'Arial'                    => array('width_factor' => 0.5, 'height_factor' => 1),
+        'Arial,Italic'             => array('width_factor' => 0.5, 'height_factor' => 1.12),
+        'Arial,Bold'               => array('width_factor' => 0.55, 'height_factor' => 1.12),
+        'Arial,BoldItalic'         => array('width_factor' => 0.55, 'height_factor' => 1.12),
+        'Courier'                  => array('width_factor' => 0.65, 'height_factor' => 1),
+        'CourierNew'               => array('width_factor' => 0.65, 'height_factor' => 1),
+        'Courier-Oblique'          => array('width_factor' => 0.65, 'height_factor' => 1),
+        'CourierNew,Italic'        => array('width_factor' => 0.65, 'height_factor' => 1),
+        'Courier-Bold'             => array('width_factor' => 0.65, 'height_factor' => 1),
+        'CourierNew,Bold'          => array('width_factor' => 0.65, 'height_factor' => 1),
+        'Courier-BoldOblique'      => array('width_factor' => 0.65, 'height_factor' => 1),
+        'CourierNew,BoldItalic'    => array('width_factor' => 0.65, 'height_factor' => 1),
+        'Helvetica'                => array('width_factor' => 0.5, 'height_factor' => 1.12),
+        'Helvetica-Oblique'        => array('width_factor' => 0.5, 'height_factor' => 1.12),
+        'Helvetica-Bold'           => array('width_factor' => 0.55, 'height_factor' => 1.12),
+        'Helvetica-BoldOblique'    => array('width_factor' => 0.55, 'height_factor' => 1.12),
+        'Symbol'                   => array('width_factor' => 0.85, 'height_factor' => 1.12),
+        'Times-Roman'              => array('width_factor' => 0.5, 'height_factor' => 1.12),
+        'Times-Bold'               => array('width_factor' => 0.5, 'height_factor' => 1.12),
+        'Times-Italic'             => array('width_factor' => 0.5, 'height_factor' => 1.12),
+        'Times-BoldItalic'         => array('width_factor' => 0.5, 'height_factor' => 1.12),
+        'TimesNewRoman'            => array('width_factor' => 0.5, 'height_factor' => 1.12),
+        'TimesNewRoman,Italic'     => array('width_factor' => 0.5, 'height_factor' => 1.12),
+        'TimesNewRoman,Bold'       => array('width_factor' => 0.5, 'height_factor' => 1.12),
+        'TimesNewRoman,BoldItalic' => array('width_factor' => 0.5, 'height_factor' => 1.12),
+        'ZapfDingbats'             => array('width_factor' => 0.75, 'height_factor' => 1.12)
+    );
 
 
     /**
@@ -196,9 +200,9 @@ class Pdf extends File
     /**
      * Constructor
      *
-     * Instantiate a PDF file object based on either a pre-existing PDF file on disk, or a new PDF file.
-     * Arguments may be passed to add a page upon instantiation. The PDF file exists, it and all of its
-     * assets will be imported.
+     * Instantiate a PDF file object based on either a pre-existing PDF file on disk,
+     * or a new PDF file. Arguments may be passed to add a page upon instantiation.
+     * The PDF file exists, it and all of its assets will be imported.
      *
      * @param  string $pdf
      * @param  string $sz
@@ -456,7 +460,7 @@ class Pdf extends File
      * Method to set the compression of the PDF.
      *
      * @param  boolean $comp
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function setCompression($comp = false)
     {
@@ -469,7 +473,7 @@ class Pdf extends File
      *
      * @param  int $pg
      * @throws Exception
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function setPage($pg)
     {
@@ -489,7 +493,7 @@ class Pdf extends File
      * Method to set the PDF version.
      *
      * @param  string $ver
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function setVersion($ver)
     {
@@ -501,7 +505,7 @@ class Pdf extends File
      * Method to set the PDF info title.
      *
      * @param  string $tle
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function setTitle($tle)
     {
@@ -513,7 +517,7 @@ class Pdf extends File
      * Method to set the PDF info author.
      *
      * @param  string $auth
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function setAuthor($auth)
     {
@@ -525,7 +529,7 @@ class Pdf extends File
      * Method to set the PDF info subject.
      *
      * @param  string $subj
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function setSubject($subj)
     {
@@ -537,7 +541,7 @@ class Pdf extends File
      * Method to set the PDF info creation date.
      *
      * @param  string $dt
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function setCreateDate($dt)
     {
@@ -549,7 +553,7 @@ class Pdf extends File
      * Method to set the PDF info modification date.
      *
      * @param  string $dt
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function setModDate($dt)
     {
@@ -561,9 +565,9 @@ class Pdf extends File
      * Method to set the background of the document.
      *
      * @param  mixed $color
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
-    public function setBackgroundColor(Pop_Color_Interface $color)
+    public function setBackgroundColor(ColorInterface $color)
     {
         $this->_backgroundColor = $color;
         return $this;
@@ -573,9 +577,9 @@ class Pdf extends File
      * Method to set the fill color of objects and text in the PDF.
      *
      * @param  mixed $color
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
-    public function setFillColor(Pop_Color_Interface $color)
+    public function setFillColor(ColorInterface $color)
     {
         $this->_fillColor = $color;
 
@@ -589,9 +593,9 @@ class Pdf extends File
      * Method to set the stroke color of paths in the PDF.
      *
      * @param  mixed $color
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
-    public function setStrokeColor(Pop_Color_Interface $color)
+    public function setStrokeColor(ColorInterface $color)
     {
         $this->_strokeColor = $color;
 
@@ -607,7 +611,7 @@ class Pdf extends File
      * @param  int $w
      * @param  int $dash_len
      * @param  int $dash_gap
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function setStrokeWidth($w = null, $dash_len = null, $dash_gap = null)
     {
@@ -645,7 +649,7 @@ class Pdf extends File
      * @param  int $rot
      * @param  int $rend
      * @throws Exception
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function setTextParams($c = 0, $w = 0, $h = 100, $v = 100, $rot = 0, $rend = 0)
     {
@@ -796,7 +800,7 @@ class Pdf extends File
      * @param  int $y1
      * @param  int $x2
      * @param  int $y2
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addLine($x1, $y1, $x2, $y2)
     {
@@ -814,7 +818,7 @@ class Pdf extends File
      * @param  int $w
      * @param  int $h
      * @param  boolean $fill
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addRectangle($x, $y, $w, $h = null, $fill = true)
     {
@@ -835,7 +839,7 @@ class Pdf extends File
      * @param  int     $y
      * @param  int     $w
      * @param  boolean $fill
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addSquare($x, $y, $w, $fill = true)
     {
@@ -851,7 +855,7 @@ class Pdf extends File
      * @param  int     $w
      * @param  int     $h
      * @param  boolean $fill
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addEllipse($x, $y, $w, $h = null, $fill = true)
     {
@@ -908,7 +912,7 @@ class Pdf extends File
      * @param  int     $y
      * @param  int     $w
      * @param  boolean $fill
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addCircle($x, $y, $w, $fill = true)
     {
@@ -921,7 +925,7 @@ class Pdf extends File
      *
      * @param  array $points
      * @param  boolean $fill
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addPolygon($points, $fill = true)
     {
@@ -952,7 +956,7 @@ class Pdf extends File
      * @param  int $w
      * @param  int $h
      * @param  boolean $fill
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addArc($x, $y, $start, $end, $w, $h = null, $fill = true)
     {
@@ -1070,7 +1074,7 @@ class Pdf extends File
      * Method to open a new graphics state layer within the PDF.
      * Must be used in conjunction with the closeLayer() method.
      *
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function openLayer()
     {
@@ -1084,7 +1088,7 @@ class Pdf extends File
      * Method to close a new graphics state layer within the PDF.
      * Must be used in conjunction with the openLayer() method.
      *
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function closeLayer()
     {
@@ -1102,7 +1106,7 @@ class Pdf extends File
      * @param  int $w
      * @param  int $h
      * @param  boolean $fill
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addClippingRectangle($x, $y, $w, $h = null)
     {
@@ -1135,7 +1139,7 @@ class Pdf extends File
      * @param  int     $y
      * @param  int     $w
      * @param  boolean $fill
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addClippingSquare($x, $y, $w)
     {
@@ -1151,7 +1155,7 @@ class Pdf extends File
      * @param  int     $w
      * @param  int     $h
      * @param  boolean $fill
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addClippingEllipse($x, $y, $w, $h = null)
     {
@@ -1223,7 +1227,7 @@ class Pdf extends File
      * @param  int     $y
      * @param  int     $w
      * @param  boolean $fill
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addClippingCircle($x, $y, $w)
     {
@@ -1236,7 +1240,7 @@ class Pdf extends File
      *
      * @param  array $points
      * @param  boolean $fill
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addClippingPolygon($points)
     {
@@ -1283,7 +1287,7 @@ class Pdf extends File
      * @param  int    $w
      * @param  int    $h
      * @param  string $url
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addURL($x, $y, $w, $h, $url)
     {
@@ -1311,7 +1315,7 @@ class Pdf extends File
      * @param  int $Z
      * @param  int $dest
      * @throws Exception
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addLink($x, $y, $w, $h, $X, $Y, $Z, $dest = null)
     {
@@ -1347,7 +1351,7 @@ class Pdf extends File
      * @param  int       $y
      * @param  int|float $scl
      * @throws Exception
-     * @return Pop_Pdf
+     * @return Pop\Pdf\Pdf
      */
     public function addImage($image, $x, $y, $scl = null)
     {
