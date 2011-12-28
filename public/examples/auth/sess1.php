@@ -8,17 +8,35 @@ use Pop\Auth\Auth,
     Pop\Web\Session;
 
 try {
+    // Start the session
     $sess = Session::getInstance();
 
+    // If auth object exists in session, validate it.
     if (isset($sess->auth)) {
+        $sess->auth->setRequiredRole('reader')
+             ->validate();
 
+        if ($sess->auth->isValid()) {
+            echo 'The session is still valid.' . PHP_EOL . PHP_EOL;
+            if ($sess->auth->isAuthorized()) {
+                echo 'The user "' . $sess->auth->getUser()->getUsername() .
+                     '" is authorized as a "' .  $sess->auth->getUser()->getRole()->getName() . '".';
+            } else {
+                echo 'The user "' . $sess->auth->getUser()->getUsername() .
+                     '" is NOT authorized. The user is a "' .  $sess->auth->getUser()->getRole()->getName() .
+                     '" and needs to be a "' . $sess->auth->getRequiredRole()->getName() . '".';
+            }
+        } else {
+            echo $sess->auth->getResultMessage();
+        }
+    // Else authenticate the session
     } else {
         // Set the username and password
         $username = 'testuser3';
         $password = '90test12';
 
         // Create auth object
-        $auth = new Auth(new AuthFile('../assets/files/access_sha1.txt'), 0, Auth::ENCRYPT_SHA1);
+        $auth = new Auth(new AuthFile('../assets/files/access_sha1.txt'), Auth::ENCRYPT_SHA1);
 
         // Add some roles
         $auth->addRoles(array(
@@ -29,6 +47,7 @@ try {
 
         // Define some other auth parameters and authenticate the user
         $auth->setRequiredRole('reader')
+             ->setExpiration(1) // Set session expiration to 1 minute
              ->setLoginAttempts(3)
              ->setAllowedIps('127.0.0.1')
              ->authenticate($username, $password);
@@ -46,6 +65,7 @@ try {
                      '" and needs to be a "' . $auth->getRequiredRole()->getName() . '".';
             }
         }
+
         $sess->auth = $auth;
     }
 

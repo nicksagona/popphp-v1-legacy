@@ -215,14 +215,15 @@ class Auth
      * Constructor
      *
      * Instantiate the auth object
-     *
+     * @param AdapterInterface $adapter
+     * @param int              $encryption
+     * @param string           $salt
      * @return void
      */
-    public function __construct(AdapterInterface $adapter, $expiration = 0, $encryption = 0, $salt = null)
+    public function __construct(AdapterInterface $adapter, $encryption = 0, $salt = null)
     {
         $this->_adapter = $adapter;
         $this->_start = time();
-        $this->setExpiration($expiration);
         $this->setEncryption($encryption);
         $this->_salt = $salt;
     }
@@ -235,6 +236,16 @@ class Auth
     public function getLoginAttempts()
     {
         return $this->_loginAttempts;
+    }
+
+    /**
+     * Method to get the session start
+     *
+     * @return int
+     */
+    public function getStart()
+    {
+        return $this->_start;
     }
 
     /**
@@ -545,17 +556,19 @@ class Auth
     /**
      * Method to authenticate a user
      *
-     * @param  string        $username
-     * @param  string        $password
+     * @param  string $username
+     * @param  string $password
      * @return int
      */
     public function authenticate($username, $password)
     {
         $this->_result = 0;
+
         if (isset($_SERVER['REMOTE_ADDR'])) {
             $this->_ip = $_SERVER['REMOTE_ADDR'];
             $this->_subnet = substr($this->_ip, 0, strrpos($this->_ip, '.'));
         }
+
         $this->_processValidators();
 
         if ($this->_result == 0) {
@@ -570,6 +583,31 @@ class Auth
         }
 
         $this->_isValid = ($this->_result == 1) ? true : false;
+
+        return $this->_result;
+    }
+
+    /**
+     * Method to reauthenticate a user
+     *
+     * @return int
+     */
+    public function validate()
+    {
+        $this->_result = 0;
+
+        if (isset($_SERVER['REMOTE_ADDR'])) {
+            $this->_ip = $_SERVER['REMOTE_ADDR'];
+            $this->_subnet = substr($this->_ip, 0, strrpos($this->_ip, '.'));
+        }
+
+        $this->_processValidators(false);
+
+        if (($this->_result == 0) && ($this->_isValid)) {
+            $this->_result = 1;
+        } else {
+            $this->_isValid = false;
+        }
 
         return $this->_result;
     }
@@ -673,9 +711,10 @@ class Auth
     /**
      * Method to process the validators
      *
+     * @param  boolean $count
      * @return void
      */
-    protected function _processValidators()
+    protected function _processValidators($count = true)
     {
         foreach ($this->_validators as $name => $validator) {
             if (null !== $validator) {
@@ -706,7 +745,7 @@ class Auth
                         }
                         break;
                     case 'expiration':
-                        if (!$validator->evaluate($this->_start)) {
+                        if (!$validator->evaluate(time())) {
                             $this->_result = self::SESSION_EXPIRED;
                         }
                         break;
@@ -714,7 +753,9 @@ class Auth
             }
         }
 
-        $this->_loginAttempts++;
+        if ($count) {
+            $this->_loginAttempts++;
+        }
     }
 
 }
