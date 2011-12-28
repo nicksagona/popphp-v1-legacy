@@ -142,6 +142,21 @@ class Version
         // FTP
         $check['FTP'] = (function_exists('ftp_connect'))  ? 'Yes' : 'No';
 
+        // GeoIP
+        if (function_exists('geoip_db_get_all_info')) {
+            $yes = 'Yes';
+            $databases = geoip_db_get_all_info();
+            $count = 0;
+            foreach ($databases as $db) {
+                if ($db['available']) {
+                    $count++;
+                }
+            }
+            $check['GeoIP'] = $yes . ' (' . $count . '/' . count($databases) . ' DBs Available)';
+        } else {
+            $check['GeoIP'] = 'No';
+        }
+
         // Image
         $check['Image Gd'] = (function_exists('getimagesize'))  ? 'Yes' : 'No';
         $check['Image Freetype'] = (function_exists('imagettftext'))  ? 'Yes' : 'No';

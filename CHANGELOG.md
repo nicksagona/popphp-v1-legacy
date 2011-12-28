@@ -69,6 +69,7 @@ Completed:
     * Project
   - Test with Mysql, Pgsql and Sqlite
 * Major Refactor/Restructure (part 2)
+* Add Geo component
 
 
 ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON
@@ -88,8 +89,6 @@ ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON
 
 CURRENTLY BEING WORKED ON & ON DECK
 -----------------------------------
-* Add Geo support via Google API (get address, city, state, long/lat, calculate distances, etc.)
-  - Integrate GeoIP?
 * Officially integrate Ralph's USAePay and Paymentech support components,
   as well as create support components for Authorize.net and PayPal.
 
@@ -273,3 +272,4 @@ Error: That cache directory does not exist.
 Error: That cache directory is not writable.  
 Error: Memcache is not available.  
 Error: The parameter passed must either be a valid file or an instance of Pop\\File\\File.  
+You must either pass a Pop\\Geo\\Geo object or a set of latitude/longitude coordinates.  
