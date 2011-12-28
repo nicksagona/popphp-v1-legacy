@@ -47,15 +47,17 @@ class Archive extends File implements ArchiveInterface
      * Array of allowed file types.
      * @var array
      */
-    protected $_allowed = array('bz2'  => 'application/bzip2',
-                                'gz'   => 'application/x-gzip',
-                                'phar' => 'application/x-phar',
-                                'rar'  => 'application/x-rar-compressed',
-                                'tar'  => 'application/x-tar',
-                                'tbz'  => 'application/bzip2',
-                                'tbz2' => 'application/bzip2',
-                                'tgz'  => 'application/x-gzip',
-                                'zip'  => 'application/x-zip');
+    protected $_allowed = array(
+        'bz2'  => 'application/bzip2',
+        'gz'   => 'application/x-gzip',
+        'phar' => 'application/x-phar',
+        'rar'  => 'application/x-rar-compressed',
+        'tar'  => 'application/x-tar',
+        'tbz'  => 'application/bzip2',
+        'tbz2' => 'application/bzip2',
+        'tgz'  => 'application/x-gzip',
+        'zip'  => 'application/x-zip'
+    );
 
     /**
      * Archive adapter
@@ -210,6 +212,7 @@ class Archive extends File implements ArchiveInterface
     /**
      * Method to set the adapter based on the file name
      *
+     * @param  string $password
      * @return void
      */
     protected function _setAdapter($password = null)
