@@ -117,7 +117,7 @@ class Version
         // Archive
         $check['Archive Tar'] = (!class_exists('Archive_Tar')) ? 'No' : 'Yes';
         $check['Archive Phar'] = (!class_exists('Phar')) ? 'No' : 'Yes';
-        $check['Archive Rar'] = (!file_exists('RarArchive.php') || !class_exists('RarArchive')) ? 'No' : 'Yes';
+        $check['Archive Rar'] = (!file_exists('RarArchive.php') && !class_exists('RarArchive')) ? 'No' : 'Yes';
         $check['Archive Zip'] = (!class_exists('ZipArchive')) ? 'No' : 'Yes';
 
         // Compress
