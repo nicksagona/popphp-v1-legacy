@@ -604,6 +604,7 @@ class Auth
         $this->_processValidators(false);
 
         if (($this->_result == 0) && ($this->_isValid)) {
+            $this->setExpiration($this->_expiration);
             $this->_result = 1;
         } else {
             $this->_isValid = false;
