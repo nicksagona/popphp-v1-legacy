@@ -107,27 +107,21 @@ class Version
      */
     public static function check($ret = Version::PLAIN)
     {
+        // Get include path and define some variables.
+        $includePath = explode(PATH_SEPARATOR, get_include_path());
         $php = array();
         $check = array();
-
-        // Get PEAR path
-        $includePath = get_include_path();
-        $includePathAry = explode(';', $includePath);
-
-        $pearPath = null;
-        foreach ($includePathAry as $path) {
-            if (stripos($path, 'pear') !== false) {
-                $pearPath = $path;
-            }
-        }
 
         // PHP Version
         $php['Required PHP'] = '5.3.0';
         $php['Installed PHP'] = PHP_VERSION;
 
         // Archive
-        if (null !== $pearPath) {
-            $check['Archive Tar'] = (!file_exists($pearPath . DIRECTORY_SEPARATOR . 'Archive' . DIRECTORY_SEPARATOR . 'Tar.php')) ? 'No' : 'Yes';
+        $check['Archive Tar'] = 'No';
+        foreach ($includePath as $path) {
+            if (file_exists($path . DIRECTORY_SEPARATOR . 'Archive' . DIRECTORY_SEPARATOR . 'Tar.php')) {
+                $check['Archive Tar'] = 'Yes';
+            }
         }
         $check['Archive Phar'] = (!class_exists('Phar', false)) ? 'No' : 'Yes';
         $check['Archive Rar'] = (!class_exists('RarArchive', false)) ? 'No' : 'Yes';
