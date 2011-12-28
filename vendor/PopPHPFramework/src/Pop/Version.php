@@ -115,10 +115,10 @@ class Version
         $php['Installed PHP'] = PHP_VERSION;
 
         // Archive
-        $check['Archive Tar'] = (!class_exists('Archive_Tar')) ? 'No' : 'Yes';
-        $check['Archive Phar'] = (!class_exists('Phar')) ? 'No' : 'Yes';
-        $check['Archive Rar'] = (!file_exists('RarArchive.php') && !class_exists('RarArchive')) ? 'No' : 'Yes';
-        $check['Archive Zip'] = (!class_exists('ZipArchive')) ? 'No' : 'Yes';
+        $check['Archive Tar'] = (!class_exists('Archive_Tar', false)) ? 'No' : 'Yes';
+        $check['Archive Phar'] = (!class_exists('Phar', false)) ? 'No' : 'Yes';
+        $check['Archive Rar'] = (!class_exists('RarArchive', false)) ? 'No' : 'Yes';
+        $check['Archive Zip'] = (!class_exists('ZipArchive', false)) ? 'No' : 'Yes';
 
         // Compress
         $check['Compress Bzip2'] = (function_exists('bzcompress'))  ? 'Yes' : 'No';
@@ -131,13 +131,13 @@ class Version
         // DB
         $check['Db MySql'] = (function_exists('mysql_connect'))  ? 'Yes' : 'No';
         $check['Db MySqli'] = (class_exists('mysqli')) ? 'Yes' : 'No';
-        $check['Db Pdo'] = (class_exists('Pdo'))  ? 'Yes' : 'No';
+        $check['Db Pdo'] = (class_exists('Pdo', false))  ? 'Yes' : 'No';
         $check['Db PgSql'] = (function_exists('pg_connect'))  ? 'Yes' : 'No';
-        $check['Db Sqlite'] = (class_exists('Sqlite3'))  ? 'Yes' : 'No';
+        $check['Db Sqlite'] = (class_exists('Sqlite3', false))  ? 'Yes' : 'No';
 
         // DOM/XML
-        $check['Dom DOMDocument'] = (class_exists('DOMDocument'))  ? 'Yes' : 'No';
-        $check['Dom SimpleXml'] = (class_exists('SimpleXMLElement'))  ? 'Yes' : 'No';
+        $check['Dom DOMDocument'] = (class_exists('DOMDocument', false))  ? 'Yes' : 'No';
+        $check['Dom SimpleXml'] = (class_exists('SimpleXMLElement', false))  ? 'Yes' : 'No';
 
         // FTP
         $check['FTP'] = (function_exists('ftp_connect'))  ? 'Yes' : 'No';
@@ -160,10 +160,10 @@ class Version
         // Image
         $check['Image Gd'] = (function_exists('getimagesize'))  ? 'Yes' : 'No';
         $check['Image Freetype'] = (function_exists('imagettftext'))  ? 'Yes' : 'No';
-        $check['Image Imagick'] = (class_exists('Imagick'))  ? 'Yes' : 'No';
+        $check['Image Imagick'] = (class_exists('Imagick', false))  ? 'Yes' : 'No';
 
         // Memcache
-        $check['Memcache'] = (class_exists('Memcache'))  ? 'Yes' : 'No';
+        $check['Memcache'] = (class_exists('Memcache', false))  ? 'Yes' : 'No';
 
         // Total
         $count = array_count_values($check);
