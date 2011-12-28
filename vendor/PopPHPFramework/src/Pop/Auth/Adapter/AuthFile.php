@@ -110,9 +110,9 @@ class AuthFile extends File implements AdapterInterface
             $entAry = explode($this->_delimiter , $ent);
             if (isset($entAry[0]) && isset($entAry[1])) {
                 $this->_users[$entAry[0]] = array(
-                                                'password' => $entAry[1],
-                                                'access'   => (isset($entAry[2]) ? $entAry[2] : null)
-                                            );
+                    'password' => $entAry[1],
+                    'access'   => (isset($entAry[2]) ? $entAry[2] : null)
+                );
             }
         }
     }

@@ -68,6 +68,8 @@ Completed:
     * Forms
     * Project
   - Test with Mysql, Pgsql and Sqlite
+* Major Refactor/Restructure (part 2)
+
 
 ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON
 ------------------------------------------
@@ -82,17 +84,10 @@ ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON
 * Revisit PDF layer/clipping issues
 * Revisit embedding GIFs into PDF issue
 * Revisit pie chart text for PDF
-* Revisit File write/buffer, etc.
 
 
 CURRENTLY BEING WORKED ON & ON DECK
 -----------------------------------
-* Major Refactor/Restructure (part 2)
-  - Font
-  - Graph
-  - Pdf
-
-* Look at creating more dependency injections throughout (config/ini file?)
 * Add Geo support via Google API (get address, city, state, long/lat, calculate distances, etc.)
   - Integrate GeoIP?
 * Officially integrate Ralph's USAePay and Paymentech support components,

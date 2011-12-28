@@ -229,6 +229,43 @@ class Auth
     }
 
     /**
+     * Method to add a role
+     *
+     * @param  mixed $role
+     * @return Pop\Auth\Auth
+     */
+    public function addRoles($role)
+    {
+        if (is_array($role)) {
+            foreach ($role as $r) {
+                if ($r instanceof Role) {
+                    $this->_allowedRoles[$r->getName()] = $r;
+                }
+            }
+        } else if ($role instanceof Role) {
+            $this->_allowedRoles[$role->getName()] = $role;
+        }
+        return $this;
+    }
+
+    /**
+     * Method to remove a role
+     *
+     * @param  mixed $role
+     * @return Pop\Auth\Auth
+     */
+    public function removeRole($role)
+    {
+        $roleName = ($role instanceof Role) ? $role->getName() : $role;
+
+        if (array_key_exists($roleName, $this->_allowedRoles)) {
+            unset($this->_allowedRoles[$roleName]);
+        }
+
+        return $this;
+    }
+
+    /**
      * Method to get the current number of login attempts
      *
      * @return int
@@ -312,9 +349,9 @@ class Auth
                 break;
             case self::LOGIN_ATTEMPTS_EXCEEDED:
                 $msg = Locale::factory()->__(
-                           'The allowed login attempts (%1) have been exceeded.',
-                           $this->_validators['loginAttempts']->getValidator()->getValue()
-                       );
+                    'The allowed login attempts (%1) have been exceeded.',
+                    $this->_validators['loginAttempts']->getValidator()->getValue()
+                );
                 break;
             case self::IP_BLOCKED:
                 $msg = Locale::factory()->__('That IP address is blocked.');
@@ -393,43 +430,6 @@ class Auth
     public function setSalt($salt = null)
     {
         $this->_salt = $salt;
-        return $this;
-    }
-
-    /**
-     * Method to add a role
-     *
-     * @param  mixed $role
-     * @return Pop\Auth\Auth
-     */
-    public function addRoles($role)
-    {
-        if (is_array($role)) {
-            foreach ($role as $r) {
-                if ($r instanceof Role) {
-                    $this->_allowedRoles[$r->getName()] = $r;
-                }
-            }
-        } else if ($role instanceof Role) {
-            $this->_allowedRoles[$role->getName()] = $role;
-        }
-        return $this;
-    }
-
-    /**
-     * Method to remove a role
-     *
-     * @param  mixed $role
-     * @return Pop\Auth\Auth
-     */
-    public function removeRole($role)
-    {
-        $roleName = ($role instanceof Role) ? $role->getName() : $role;
-
-        if (array_key_exists($roleName, $this->_allowedRoles)) {
-            unset($this->_allowedRoles[$roleName]);
-        }
-
         return $this;
     }
 
