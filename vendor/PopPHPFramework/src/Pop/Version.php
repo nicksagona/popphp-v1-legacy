@@ -110,12 +110,25 @@ class Version
         $php = array();
         $check = array();
 
+        // Get PEAR path
+        $includePath = get_include_path();
+        $includePathAry = explode(';', $includePath);
+
+        $pearPath = null;
+        foreach ($includePathAry as $path) {
+            if (stripos($path, 'pear') !== false) {
+                $pearPath = $path;
+            }
+        }
+
         // PHP Version
         $php['Required PHP'] = '5.3.0';
         $php['Installed PHP'] = PHP_VERSION;
 
         // Archive
-        $check['Archive Tar'] = (!class_exists('Archive_Tar', false)) ? 'No' : 'Yes';
+        if (null !== $pearPath) {
+            $check['Archive Tar'] = (!file_exists($pearPath . DIRECTORY_SEPARATOR . 'Archive' . DIRECTORY_SEPARATOR . 'Tar.php')) ? 'No' : 'Yes';
+        }
         $check['Archive Phar'] = (!class_exists('Phar', false)) ? 'No' : 'Yes';
         $check['Archive Rar'] = (!class_exists('RarArchive', false)) ? 'No' : 'Yes';
         $check['Archive Zip'] = (!class_exists('ZipArchive', false)) ? 'No' : 'Yes';
