@@ -68,6 +68,7 @@ Some dependencies for the framework to fully function are as follows:
 * The PostgreSQL extension for PostgreSQL database connections and transactions
 * The SQLite3 extension for SQLite database connections and transactions
 * The PDO extension for utilize PDO for database connections and transactions
+* The GeoIP extension to utilize the Geo component
 * The GD library for image manipulation (including FreeType support)
 * The Imagick extension (with ImageMagick & Ghostscript) for advanced image manipulation
 * The Memcache extension for the Cache component (using the Memcached adapter)
