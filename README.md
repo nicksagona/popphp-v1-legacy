@@ -20,7 +20,6 @@ to access and utilize the following components:
 * Color
 * Compress
 * Config
-* Cookie
 * Curl
 * Data
 * Db
@@ -32,6 +31,7 @@ to access and utilize the following components:
 * Font
 * Form
 * Ftp
+* Geo
 * Graph
 * Http
 * Image
@@ -43,7 +43,6 @@ to access and utilize the following components:
 * Pdf
 * Project
 * Record
-* Svg
 * Validator
 * Version
 * Web
