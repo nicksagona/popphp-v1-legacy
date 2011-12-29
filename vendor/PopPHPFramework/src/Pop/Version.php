@@ -182,21 +182,34 @@ class Version
         // Format and return the results
         switch ($ret) {
             case self::PLAIN:
+                if (DIRECTORY_SEPARATOR == '\\') {
+                    $green = null;
+                    $yellow = null;
+                    $red = null;
+                    $blue = null;
+                    $endColor = null;
+                } else {
+                    $green = "\033[1;32m";
+                    $yellow = "\033[1;33m";
+                    $red = "\033[1;31m";
+                    $blue = "\033[1;34m";
+                    $endColor = "\033[0m";
+                }
                 foreach ($php as $key => $value) {
                     if ($key == 'Required PHP') {
-                        $value = "\033[1;33m" . $value . "\033[0m";
+                        $value = $yellow . $value . $endColor;
                     } else {
-                        $value = ($versionCompare < 0) ? "\033[1;31m" . $value . "\033[0m" : "\033[1;32m" . $value . "\033[0m";
+                        $value = ($versionCompare < 0) ? $red . $value . $endColor : $green . $value . $endColor;
                     }
                     $results .= $key . ': ' . $value . PHP_EOL;
                 }
                 $results .= '------------------' . PHP_EOL;
                 foreach ($check as $key => $value) {
-                    $value = (stripos($value, 'Yes') !== false) ? "\033[1;32m" . $value . "\033[0m" : "\033[1;31m" . $value . "\033[0m";
+                    $value = (stripos($value, 'Yes') !== false) ? $green . $value . $endColor : $red . $value . $endColor;
                     $results .= $key . ': ' . $value . PHP_EOL;
                 }
                 $results .= '------------------' . PHP_EOL;
-                $results .= "Total: \033[1;34m" . $total . "\033[0m" . PHP_EOL;
+                $results .= 'Total: ' . $blue . $total . $endColor . PHP_EOL;
                 break;
             case self::HTML:
                 foreach ($php as $key => $value) {
