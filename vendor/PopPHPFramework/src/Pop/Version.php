@@ -159,7 +159,7 @@ class Version
                     $count++;
                 }
             }
-            $check['GeoIP'] = $yes . ' (' . $count . '/' . count($databases) . ' DBs Available)';
+            $check['GeoIP'] = $yes . ' (' . $count . '/' . count($databases) . ' GeoIP DBs Available)';
         } else {
             $check['GeoIP'] = 'No';
         }
@@ -177,32 +177,43 @@ class Version
         $total = count($check) - $count['No'] . ' of ' . count($check);
 
         $results = null;
+        $versionCompare = version_compare($php['Installed PHP'], $php['Required PHP']);
 
         // Format and return the results
         switch ($ret) {
             case self::PLAIN:
                 foreach ($php as $key => $value) {
+                    if ($key == 'Required PHP') {
+                        $value = "\033[1;33m" . $value . "\033[0m";
+                    } else {
+                        $value = ($versionCompare < 0) ? "\033[1;31m" . $value . "\033[0m" : "\033[1;32m" . $value . "\033[0m";
+                    }
                     $results .= $key . ': ' . $value . PHP_EOL;
                 }
                 $results .= '------------------' . PHP_EOL;
                 foreach ($check as $key => $value) {
+                    $value = (stripos($value, 'Yes') !== false) ? "\033[1;32m" . $value . "\033[0m" : "\033[1;31m" . $value . "\033[0m";
                     $results .= $key . ': ' . $value . PHP_EOL;
                 }
                 $results .= '------------------' . PHP_EOL;
-                $results .= 'Total: ' . $total . PHP_EOL;
+                $results .= "Total: \033[1;34m" . $total . "\033[0m" . PHP_EOL;
                 break;
             case self::HTML:
                 foreach ($php as $key => $value) {
-                    $color = (stripos($value, 'fail') !== false) ? 'red' : 'green';
-                    $results .= '<strong>' . $key . ':</strong> <span style="color: ' . $color . ';">' . $value . '</span><br />' . PHP_EOL;
+                    if ($key == 'Required PHP') {
+                        $color = 'orange';
+                    } else {
+                        $color = ($versionCompare < 0) ? 'red' : 'green';
+                    }
+                    $results .= $key . ': <strong style="color: ' . $color . ';">' . $value . '</strong><br />' . PHP_EOL;
                 }
                 $results .= '<hr />' . PHP_EOL;
                 foreach ($check as $key => $value) {
                     $color = ($value == 'No') ? 'red' : 'green';
-                    $results .= '<strong>' . $key . ':</strong> <span style="color: ' . $color . ';">' . $value . '</span><br />' . PHP_EOL;
+                    $results .= $key . ': <strong style="color: ' . $color . ';">' . $value . '</strong><br />' . PHP_EOL;
                 }
                 $results .= '<hr />' . PHP_EOL;
-                $results .= '<strong>Total:</strong> ' . $total . PHP_EOL;
+                $results .= 'Total: <strong style="color: blue;">' . $total . '</strong>' . PHP_EOL;
                 break;
             case self::DATA:
                 $data = array();
