@@ -109,12 +109,10 @@ class Version
     {
         // Get include path and define some variables.
         $includePath = explode(PATH_SEPARATOR, get_include_path());
-        $php = array();
+        $isWindows = (DIRECTORY_SEPARATOR == '\\') ? true : false;
+        $php = array('Required PHP' => '5.3.0', 'Installed PHP' => PHP_VERSION);
+        $versionCompare = version_compare($php['Installed PHP'], $php['Required PHP']);
         $check = array();
-
-        // PHP Version
-        $php['Required PHP'] = '5.3.0';
-        $php['Installed PHP'] = PHP_VERSION;
 
         // Archive
         $check['Archive Tar'] = 'No';
@@ -176,25 +174,19 @@ class Version
         $count = array_count_values($check);
         $total = count($check) - $count['No'] . ' of ' . count($check);
 
-        $results = null;
-        $versionCompare = version_compare($php['Installed PHP'], $php['Required PHP']);
-
         // Format and return the results
+        $results = null;
+
         switch ($ret) {
+            // Build plain text results
             case self::PLAIN:
-                if (DIRECTORY_SEPARATOR == '\\') {
-                    $green = null;
-                    $yellow = null;
-                    $red = null;
-                    $blue = null;
-                    $endColor = null;
-                } else {
-                    $green = "\033[1;32m";
-                    $yellow = "\033[1;33m";
-                    $red = "\033[1;31m";
-                    $blue = "\033[1;34m";
-                    $endColor = "\033[0m";
-                }
+                // Define colors for a bash terminal
+                $green = (!$isWindows) ? "\033[1;32m" : null;
+                $yellow = (!$isWindows) ? "\033[1;33m" : null;
+                $red = (!$isWindows) ? "\033[1;31m" : null;
+                $blue = (!$isWindows) ? "\033[1;34m" : null;
+                $endColor = (!$isWindows) ? "\033[0m" : null;
+
                 foreach ($php as $key => $value) {
                     if ($key == 'Required PHP') {
                         $value = $yellow . $value . $endColor;
@@ -211,6 +203,8 @@ class Version
                 $results .= '------------------' . PHP_EOL;
                 $results .= 'Total: ' . $blue . $total . $endColor . PHP_EOL;
                 break;
+
+            // Build HTML results
             case self::HTML:
                 foreach ($php as $key => $value) {
                     if ($key == 'Required PHP') {
@@ -228,6 +222,8 @@ class Version
                 $results .= '<hr />' . PHP_EOL;
                 $results .= 'Total: <strong style="color: blue;">' . $total . '</strong>' . PHP_EOL;
                 break;
+
+            // Build the results as PHP data
             case self::DATA:
                 $data = array();
                 foreach ($php as $key => $value) {
