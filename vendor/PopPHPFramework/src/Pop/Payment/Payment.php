@@ -167,7 +167,47 @@ class Payment
     }
 
     /**
-     * Get response string
+     * Get raw response
+     *
+     * @return string
+     */
+    public function getResponse()
+    {
+        return $this->_adapter->getResponse();
+    }
+
+    /**
+     * Get response codes
+     *
+     * @return array
+     */
+    public function getResponseCodes()
+    {
+        return $this->_adapter->getResponseCodes();
+    }
+
+    /**
+     * Get specific response code from a field in the array
+     *
+     * @return string
+     */
+    public function getCode($key)
+    {
+        return $this->_adapter->getCode($key);
+    }
+
+    /**
+     * Get response code
+     *
+     * @return string
+     */
+    public function getResponseCode()
+    {
+        return $this->_adapter->getResponseCode();
+    }
+
+    /**
+     * Get response message
      *
      * @return string
      */

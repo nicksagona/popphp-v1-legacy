@@ -66,7 +66,7 @@ class UsaEpay extends AbstractAdapter
         'UMversion'          => '2.9',
         'UMcommand'			 => 'cc:sale',
         'UMamount'	         => null,
-        'UMcurrency'		 => 840,  //USD default, http://wiki.usaepay.com/developer/currencycode
+        'UMcurrency'		 => 840,  // USD by default, http://wiki.usaepay.com/developer/currencycode
         'UMcard'             => null, // No spaces or dashes
         'UMexpir'            => null, // MMYY format only
         'UMcvv2'             => null,
@@ -186,8 +186,7 @@ class UsaEpay extends AbstractAdapter
 
         $curl = new Curl($options);
         $this->_response = $curl->execute();
-        $this->_responseCodes = explode('&', $this->_response);
-        $this->_filterResponseCodes();
+        $this->_responseCodes = $this->_parseResponseCodes();
         $this->_responseCode = $this->_responseCodes['UMerrorcode'];
         $this->_message = $this->_responseCodes['UMerror'];
 
@@ -296,18 +295,21 @@ class UsaEpay extends AbstractAdapter
     }
 
     /**
-     * Filter the response codes
+     * Parse the response codes
      *
      * @return void
      */
-    protected function _filterResponseCodes()
+    protected function _parseResponseCodes()
     {
+        $responseCodes = explode('&', $this->_response);
         $codes = array();
-        foreach ($this->_responseCodes as $key => $value) {
+
+        foreach ($responseCodes as $key => $value) {
             $value = urldecode($value);
             $valueAry = explode('=', $value);
             $codes[$valueAry[0]] = (!empty($valueAry[1])) ? $valueAry[1] : null;
         }
-        $this->_responseCodes = $codes;
+
+        return $codes;
     }
 }

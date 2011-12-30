@@ -36,6 +36,41 @@ interface AdapterInterface
 {
 
     /**
+     * Get raw response
+     *
+     * @return string
+     */
+    public function getResponse();
+
+    /**
+     * Get response codes
+     *
+     * @return array
+     */
+    public function getResponseCodes();
+
+    /**
+     * Get specific response code from a field in the array
+     *
+     * @return string
+     */
+    public function getCode($key);
+
+    /**
+     * Get response code
+     *
+     * @return string
+     */
+    public function getResponseCode();
+
+    /**
+     * Get response message
+     *
+     * @return int
+     */
+    public function getMessage();
+
+    /**
      * Return whether currently set to test environment
      *
      * @return boolean
