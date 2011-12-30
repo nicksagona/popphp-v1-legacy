@@ -24,8 +24,7 @@
  */
 namespace Pop\Payment;
 
-use Pop\Payment\Adapter\AbstractAdapter,
-    Pop\Payment\Adapter\AdapterInterface;
+use Pop\Payment\Adapter\AbstractAdapter;
 
 /**
  * @category   Pop
