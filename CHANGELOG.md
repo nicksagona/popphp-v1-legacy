@@ -273,3 +273,4 @@ Error: That cache directory is not writable.
 Error: Memcache is not available.  
 Error: The parameter passed must either be a valid file or an instance of Pop\\File\\File.  
 You must either pass a Pop\\Geo\\Geo object or a set of latitude/longitude coordinates.  
+The required transaction data has not been set.  

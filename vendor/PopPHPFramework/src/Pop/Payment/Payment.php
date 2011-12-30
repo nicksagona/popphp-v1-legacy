@@ -24,6 +24,8 @@
  */
 namespace Pop\Payment;
 
+use Pop\Payment\Adapter\AdapterInterface;
+
 /**
  * @category   Pop
  * @package    Pop_Payment
@@ -42,15 +44,152 @@ class Payment
     protected $_adapter = null;
 
     /**
+     * Transaction fields
+     * @var array
+     */
+    protected $_fields = array(
+        'amount'          => null,
+        'cardNum'         => null,
+        'expDate'         => null,
+        'ccv'             => null,
+        'firstName'       => null,
+        'lastName'        => null,
+        'company'         => null,
+        'address'         => null,
+        'city'            => null,
+        'state'           => null,
+        'zip'             => null,
+        'country'         => null,
+        'phone'           => null,
+        'fax'             => null,
+        'email'           => null,
+        'shipToFirstName' => null,
+        'shipToLastName'  => null,
+        'shipToCompany'   => null,
+        'shipToAddress'   => null,
+        'shipToCity'      => null,
+        'shipToState'     => null,
+        'shipToZip'       => null,
+        'shipToCountry'   => null
+    );
+
+    /**
      * Constructor
      *
      * Instantiate the payment object
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(AdapterInterface $adapter)
     {
+        $this->_adapter = $adapter;
+    }
 
+    /**
+     * Access the adapter
+     *
+     * @return Pop\Payment\Adapter\AdapterInterface
+     */
+    public function adapter()
+    {
+        return $this->_adapter;
+    }
+
+    /**
+     * Send transaction data
+     *
+     * @return Pop\Payment\Payment
+     */
+    public function send()
+    {
+        $this->_adapter->set($this->_fields);
+        $this->_adapter->send();
+    }
+
+    /**
+     * Return whether the transaction is approved
+     *
+     * @return boolean
+     */
+    public function isApproved()
+    {
+        return $this->_adapter->isApproved();
+    }
+
+    /**
+     * Return whether the transaction is declined
+     *
+     * @return boolean
+     */
+    public function isDeclined()
+    {
+        return $this->_adapter->isDeclined();
+    }
+
+    /**
+     * Return whether the transaction is an error
+     *
+     * @return boolean
+     */
+    public function isError()
+    {
+        return $this->_adapter->isError();
+    }
+
+    /**
+     * Get response string
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->_adapter->getMessage();
+    }
+
+    /**
+     * Set method to set the property to the value of _fields[$name].
+     *
+     * @param  string $name
+     * @param  mixed $value
+     * @return void
+     */
+    public function __set($name, $value)
+    {
+        $this->_fields[$name] = $value;
+    }
+
+    /**
+     * Get method to return the value of _fields[$name].
+     *
+     * @param  string $name
+     * @throws Exception
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        return (isset($this->_fields[$name])) ? $this->_fields[$name] : null;
+    }
+
+    /**
+     * Return the isset value of _fields[$name].
+     *
+     * @param  string $name
+     * @return boolean
+     */
+    public function __isset($name)
+    {
+        return isset($this->_fields[$name]);
+    }
+
+    /**
+     * Unset _fields[$name].
+     *
+     * @param  string $name
+     * @return void
+     */
+    public function __unset($name)
+    {
+        $this->_fields[$name] = null;
     }
 
 }
