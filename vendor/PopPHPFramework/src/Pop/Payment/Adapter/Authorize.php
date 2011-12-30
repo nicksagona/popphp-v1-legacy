@@ -25,8 +25,7 @@
 namespace Pop\Payment\Adapter;
 
 use Pop\Curl\Curl,
-    Pop\Locale\Locale,
-    Pop\Payment\Adapter\AdapterInterface;
+    Pop\Locale\Locale;
 
 /**
  * @category   Pop
@@ -36,7 +35,7 @@ use Pop\Curl\Curl,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-class Authorize implements AdapterInterface
+class Authorize extends AbstractAdapter
 {
 
     /**
@@ -107,7 +106,7 @@ class Authorize implements AdapterInterface
     );
 
     /**
-     * Transaction fields
+     * Transaction fields for normalization purposes
      * @var array
      */
     protected $_fields = array(
@@ -162,30 +161,6 @@ class Authorize implements AdapterInterface
     protected $_liveUrl = 'https://secure.authorize.net/gateway/transact.dll';
 
     /**
-     * Boolean flag to use test environment or not
-     * @var boolean
-     */
-    protected $_test = true;
-
-    /**
-     * Response string
-     * @var string
-     */
-    protected $_response = null;
-
-    /**
-     * Response codes
-     * @var array
-     */
-    protected $_responseCodes = array();
-
-    /**
-     * Response code
-     * @var int
-     */
-    protected $_responseCode = 0;
-
-    /**
      * Response subcode
      * @var int
      */
@@ -198,46 +173,16 @@ class Authorize implements AdapterInterface
     protected $_reasonCode = 0;
 
     /**
-     * Response message
-     * @var string
-     */
-    protected $_message = null;
-
-    /**
-     * Boolean flag for approved transaction
-     * @var boolean
-     */
-    protected $_approved = false;
-
-    /**
-     * Boolean flag for declined transaction
-     * @var boolean
-     */
-    protected $_declined = false;
-
-    /**
-     * Boolean flag for error transaction
-     * @var boolean
-     */
-    protected $_error = false;
-
-    /**
-     * Response message
-     * @var string
-     */
-    protected $_responseMessage = null;
-
-    /**
      * Constructor
      *
-     * Method to instantiate a payment adapter object
+     * Method to instantiate an Authorize.net payment adapter object
      *
-     * @param  string $apiLoginId
-     * @param  string $transKey
-     * @param  int    $state
+     * @param  string  $apiLoginId
+     * @param  string  $transKey
+     * @param  boolean $test
      * @return void
      */
-    public function __construct($apiLoginId, $transKey, $test = true)
+    public function __construct($apiLoginId, $transKey, $test = false)
     {
         $this->_apiLoginId = $apiLoginId;
         $this->_transKey = $transKey;
@@ -247,46 +192,13 @@ class Authorize implements AdapterInterface
     }
 
     /**
-     * Return whether currently set to test environment
-     *
-     * @return boolean
-     */
-    public function isTest()
-    {
-        return $this->_test;
-    }
-
-    /**
-     * Set transaction data
-     *
-     * @param  array|string $data
-     * @param  string       $value
-     * @return Pop\Payment\Adapter\Authorize
-     */
-    public function set($data, $value = null)
-    {
-        if (!is_array($data)) {
-            $data = array($data => $value);
-        }
-
-        foreach ($data as $key => $value) {
-            if (array_key_exists($key, $this->_fields)) {
-                $this->_transaction[$this->_fields[$key]] = $value;
-            } else {
-                $this->_transaction[$key] = $value;
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * Send transaction
      *
+     * @param  boolean $verifyPeer
      * @throws Exception
      * @return Pop\Payment\Adapter\Authorize
      */
-    public function send()
+    public function send($verifyPeer = true)
     {
         if (!$this->_validate()) {
             throw new Exception(Locale::factory()->__('The required transaction data has not been set.'));
@@ -300,6 +212,10 @@ class Authorize implements AdapterInterface
             CURLOPT_HEADER         => false,
             CURLOPT_RETURNTRANSFER => true
         );
+
+        if (!$verifyPeer) {
+            $options[CURLOPT_SSL_VERIFYPEER] = false;
+        }
 
         $curl = new Curl($options);
         $this->_response = $curl->execute();
@@ -323,66 +239,6 @@ class Authorize implements AdapterInterface
     }
 
     /**
-     * Return whether the transaction is approved
-     *
-     * @return boolean
-     */
-    public function isApproved()
-    {
-        return $this->_approved;
-    }
-
-    /**
-     * Return whether the transaction is declined
-     *
-     * @return boolean
-     */
-    public function isDeclined()
-    {
-        return $this->_declined;
-    }
-
-    /**
-     * Return whether the transaction is an error
-     *
-     * @return boolean
-     */
-    public function isError()
-    {
-        return $this->_error;
-    }
-
-    /**
-     * Get response
-     *
-     * @return string
-     */
-    public function getResponse()
-    {
-        return $this->_response;
-    }
-
-    /**
-     * Get response codes
-     *
-     * @return array
-     */
-    public function getResponseCodes()
-    {
-        return $this->_responseCodes;
-    }
-
-    /**
-     * Get response code
-     *
-     * @return int
-     */
-    public function getResponseCode()
-    {
-        return $this->_responseCode;
-    }
-
-    /**
      * Get response subcode
      *
      * @return int
@@ -403,34 +259,6 @@ class Authorize implements AdapterInterface
     }
 
     /**
-     * Get response message
-     *
-     * @return int
-     */
-    public function getMessage()
-    {
-        return $this->_message;
-    }
-
-    /**
-     * Validate that the required transaction data is set
-     *
-     * @return boolean
-     */
-    protected function _validate()
-    {
-        $valid = true;
-
-        foreach ($this->_requiredFields as $field) {
-            if (null === $field) {
-                $valid = false;
-            }
-        }
-
-        return $valid;
-    }
-
-    /**
      * Build the POST string
      *
      * @return string
@@ -442,6 +270,9 @@ class Authorize implements AdapterInterface
 
         foreach ($this->_transaction as $key => $value) {
             if (null !== $value) {
+                if ($key == 'x_card_num') {
+                    $value = $this->_filterCardNum($value);
+                }
                 $post[] = $key . '=' . urlencode($value);
             }
         }
@@ -454,6 +285,26 @@ class Authorize implements AdapterInterface
         }
 
         return $postString;
+    }
+
+    /**
+     * Filter the card num to remove dashes or spaces
+     *
+     * @param  string $ccNum
+     * @return string
+     */
+    protected function _filterCardNum($ccNum)
+    {
+        $filtered = $ccNum;
+
+        if (strpos($filtered, '-') !== false) {
+            $filtered = str_replace('-', '', $filtered);
+        }
+        if (strpos($filtered, ' ') !== false) {
+            $filtered = str_replace(' ', '', $filtered);
+        }
+
+        return $filtered;
     }
 
 }

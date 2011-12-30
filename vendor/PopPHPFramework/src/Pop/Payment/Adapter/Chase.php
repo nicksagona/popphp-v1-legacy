@@ -24,7 +24,8 @@
  */
 namespace Pop\Payment\Adapter;
 
-use Pop\Payment\Adapter\AdapterInterface;
+use Pop\Curl\Curl,
+    Pop\Locale\Locale;
 
 /**
  * @category   Pop
@@ -34,19 +35,9 @@ use Pop\Payment\Adapter\AdapterInterface;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-class Chase implements AdapterInterface
+class Chase extends AbstractAdapter
 {
 
-    /**
-     * Constructor
-     *
-     * Method to instantiate a payment adapter object
-     *
-     * @return void
-     */
-    public function __construct()
-    {
 
-    }
 
 }

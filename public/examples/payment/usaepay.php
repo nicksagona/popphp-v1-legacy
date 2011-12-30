@@ -3,15 +3,16 @@
 require_once '../../bootstrap.php';
 
 use Pop\Payment\Payment,
-    Pop\Payment\Adapter\Authorize;
+    Pop\Payment\Adapter\UsaEpay;
 
 try {
 
-    $payment = new Payment(new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST));
+    $payment = new Payment(new UsaEpay('SOURCE_KEY', Payment::TEST));
 
     $payment->cardNum = 'XXXXXXXXXXXXXXXX';
-    $payment->amount = '25.27';
-    $payment->expDate = '10/13';
+    $payment->amount = '25.00';
+    $payment->expDate = '12/12';
+    $payment->ccv = '123';
 
     $payment->send();
 

@@ -24,7 +24,8 @@
  */
 namespace Pop\Payment;
 
-use Pop\Payment\Adapter\AdapterInterface;
+use Pop\Payment\Adapter\AbstractAdapter,
+    Pop\Payment\Adapter\AdapterInterface;
 
 /**
  * @category   Pop
@@ -34,8 +35,14 @@ use Pop\Payment\Adapter\AdapterInterface;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-class Payment
+class Payment implements AdapterInterface
 {
+
+    /**
+     * Constant for test mode only
+     * @var int
+     */
+    const TEST = true;
 
     /**
      * Payment adapter
@@ -78,9 +85,10 @@ class Payment
      *
      * Instantiate the payment object
      *
+     * @param Pop\Payment\Adapter\AbstractAdapter $adapter
      * @return void
      */
-    public function __construct(AdapterInterface $adapter)
+    public function __construct(AbstractAdapter $adapter)
     {
         $this->_adapter = $adapter;
     }
@@ -88,7 +96,7 @@ class Payment
     /**
      * Access the adapter
      *
-     * @return Pop\Payment\Adapter\AdapterInterface
+     * @return Pop\Payment\Adapter\AbstractAdapter
      */
     public function adapter()
     {
@@ -98,12 +106,23 @@ class Payment
     /**
      * Send transaction data
      *
+     * @param  boolean $verifyPeer
      * @return Pop\Payment\Payment
      */
-    public function send()
+    public function send($verifyPeer = true)
     {
         $this->_adapter->set($this->_fields);
         $this->_adapter->send();
+    }
+
+    /**
+     * Return whether the transaction is in test mode
+     *
+     * @return boolean
+     */
+    public function isTest()
+    {
+        return $this->_adapter->isTest();
     }
 
     /**
@@ -144,6 +163,25 @@ class Payment
     public function getMessage()
     {
         return $this->_adapter->getMessage();
+    }
+
+    /**
+     * Set the shipping data fields to the same as billing data fields
+     *
+     * @return Pop\Payment\Payment
+     */
+    public function billingSameAsShipping()
+    {
+        $this->_fields['shipToFirstName'] = $this->_fields['firstName'];
+        $this->_fields['shipToLastName'] = $this->_fields['lastName'];
+        $this->_fields['shipToCompany'] = $this->_fields['company'];
+        $this->_fields['shipToAddress'] = $this->_fields['address'];
+        $this->_fields['shipToCity'] = $this->_fields['city'];
+        $this->_fields['shipToState'] = $this->_fields['state'];
+        $this->_fields['shipToZip'] = $this->_fields['zip'];
+        $this->_fields['shipToCountry'] = $this->_fields['country'];
+
+        return $this;
     }
 
     /**

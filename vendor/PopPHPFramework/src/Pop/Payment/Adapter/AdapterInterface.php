@@ -35,6 +35,32 @@ namespace Pop\Payment\Adapter;
 interface AdapterInterface
 {
 
+    /**
+     * Return whether currently set to test environment
+     *
+     * @return boolean
+     */
+    public function isTest();
 
+    /**
+     * Return whether the transaction is approved
+     *
+     * @return boolean
+     */
+    public function isApproved();
+
+    /**
+     * Return whether the transaction is declined
+     *
+     * @return boolean
+     */
+    public function isDeclined();
+
+    /**
+     * Return whether the transaction is an error
+     *
+     * @return boolean
+     */
+    public function isError();
 
 }
