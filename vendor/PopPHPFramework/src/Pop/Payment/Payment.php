@@ -35,7 +35,7 @@ use Pop\Payment\Adapter\AbstractAdapter,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-class Payment implements AdapterInterface
+class Payment
 {
 
     /**
