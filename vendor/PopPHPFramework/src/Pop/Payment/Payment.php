@@ -51,7 +51,19 @@ class Payment implements AdapterInterface
     protected $_adapter = null;
 
     /**
-     * Transaction fields
+     * Common transaction fields.
+     *
+     * These are the common transaction fields that will be normalized to the
+     * proper field names by the adapter. You can also add direct adapter-specific
+     * fields to the payment transaction object that won't be affected by
+     * the field normalization, for example:
+     *
+     * (Authorize.net)
+     * $payment->x_invoice_num = '12345';
+     *
+     * (UsaEPay)
+     * $payment->UMinvoice = '12345';
+     *
      * @var array
      */
     protected $_fields = array(
