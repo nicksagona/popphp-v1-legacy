@@ -145,7 +145,7 @@ class UsaEpay extends AbstractAdapter
     /**
      * Constructor
      *
-     * Method to instantiate a payment adapter object
+     * Method to instantiate an USAEpay payment adapter object
      *
      * @param  string  $sourceKey
      * @param  boolean $test

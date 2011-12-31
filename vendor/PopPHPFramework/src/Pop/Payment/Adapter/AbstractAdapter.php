@@ -216,10 +216,12 @@ abstract class AbstractAdapter implements AdapterInterface
         }
 
         foreach ($data as $key => $value) {
-            if (array_key_exists($key, $this->_fields)) {
-                $this->_transaction[$this->_fields[$key]] = $value;
-            } else {
-                $this->_transaction[$key] = $value;
+            if (null !== $value) {
+                if (array_key_exists($key, $this->_fields)) {
+                    $this->_transaction[$this->_fields[$key]] = $value;
+                } else {
+                    $this->_transaction[$key] = $value;
+                }
             }
         }
 
