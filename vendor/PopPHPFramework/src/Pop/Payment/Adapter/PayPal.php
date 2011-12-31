@@ -200,8 +200,7 @@ class PayPal extends AbstractAdapter
         if (!$this->_validate()) {
             throw new Exception(Locale::factory()->__('The required transaction data has not been set.'));
         }
-        //print_r($this->_transaction);
-        //echo $this->_buildPostString();
+
         $url = ($this->_test) ? $this->_testUrl : $this->_liveUrl;
         $options = array(
             CURLOPT_URL            => $url,
@@ -226,7 +225,7 @@ class PayPal extends AbstractAdapter
             if (isset($this->_responseCodes['L_SHORTMESSAGE0']) && (stripos($this->_responseCodes['L_SHORTMESSAGE0'], 'Decline') !== false)) {
                 $this->_declined = true;
             }
-            if (isset($this->_responseCodes['L_SHORTMESSAGE0']) && (stripos($this->_responseCodes['L_SEVERITYCODE0'], 'Error') !== false)) {
+            if (isset($this->_responseCodes['L_SEVERITYCODE0']) && (stripos($this->_responseCodes['L_SEVERITYCODE0'], 'Error') !== false)) {
                 $this->_error = true;
             }
             if (isset($this->_responseCodes['L_LONGMESSAGE0'])) {
