@@ -123,10 +123,10 @@ class Record
      */
     public function __construct(array $columns = null, Db $db = null)
     {
+        $class = get_class($this);
         $this->_lang = new Locale();
 
         if (null !== $db) {
-            $class = get_called_class();
             $class::setDb($db);
         }
 
@@ -136,7 +136,6 @@ class Record
         }
 
         if (null === $this->_tableName) {
-            $class = get_class($this);
             if (strpos($class, '_') !== false) {
                 $cls = substr($class, (strrpos($class, '_') + 1));
             } else if (strpos($class, '\\') !== false) {
