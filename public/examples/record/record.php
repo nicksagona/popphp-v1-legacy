@@ -12,18 +12,18 @@ use Pop\Db\Db,
 class Users extends Record { }
 
 try {
-
     // Define DB credentials
-    $creds = array(
+    $db = Db::factory('Mysqli', array(
         'database' => 'poptest',
         'host'     => 'localhost',
         'username' => 'popuser',
         'password' => '12pop34'
-    );
+    ));
 
-    Users::setDb(Db::factory('Mysqli', $creds));
+    Users::setDb($db);
     $users = Users::findAll();
     print_r($users->rows);
+
     echo PHP_EOL . PHP_EOL;
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;

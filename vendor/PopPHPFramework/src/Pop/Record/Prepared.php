@@ -26,8 +26,7 @@ namespace Pop\Record;
 
 use Pop\Db\Db,
     Pop\Db\Sql,
-    Pop\Locale\Locale,
-    Pop\Record\AbstractRecord;
+    Pop\Locale\Locale;
 
 /**
  * @category   Pop

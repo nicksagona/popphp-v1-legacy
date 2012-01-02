@@ -26,8 +26,6 @@ namespace Pop\Record;
 
 use Pop\Db\Db,
     Pop\Locale\Locale,
-    Pop\Record\Escaped,
-    Pop\Record\Prepared,
     Pop\Filter\String;
 
 /**
@@ -119,18 +117,22 @@ class Record
      *
      * Instantiate the database record object.
      *
-     * @param  array $columns
+     * @param  array     $columns
+     * @param  Pop\Db\Db $db
      * @return void
      */
-    public function __construct($columns = null)
+    public function __construct(array $columns = null, Db $db = null)
     {
         $this->_lang = new Locale();
 
+        if (null !== $db) {
+            $class = get_called_class();
+            $class::setDb($db);
+        }
+
         // If the $columns argument is set, set the _columns properties.
         if (null !== $columns) {
-            foreach($columns as $key => $value) {
-                $this->_columns[$key] = $value;
-            }
+            $this->_columns = $columns;
         }
 
         if (null === $this->_tableName) {
@@ -148,10 +150,10 @@ class Record
         }
 
         $options = array(
-                       'tableName' => $this->_tableName,
-                       'primaryId' => $this->_primaryId,
-                       'auto'      => $this->_auto
-                   );
+            'tableName' => $this->_tableName,
+            'primaryId' => $this->_primaryId,
+            'auto'      => $this->_auto
+        );
 
         $type = self::getDb()->getAdapterType();
 
@@ -209,7 +211,6 @@ class Record
     public static function findById($id, $limit = null)
     {
         $record = new static();
-
         $record->_interface->findById($id, $limit);
         $record->_setResults($record->_interface->getResult());
 
@@ -227,12 +228,12 @@ class Record
     public static function findBy($column, $value, $limit = null)
     {
         $record = new static();
-
         $record->_interface->findBy($column, $value, $limit);
         $record->_setResults($record->_interface->getResult());
 
         return $record;
     }
+
 
     /**
      * Find all of the database rows by the column passed through the method argument.
@@ -246,7 +247,6 @@ class Record
     public static function findAll($order = null, $column = null, $value = null, $limit = null)
     {
         $record = new static();
-
         $record->_interface->findAll($order, $column, $value, $limit);
         $record->_setResults($record->_interface->getResult());
 
@@ -266,7 +266,6 @@ class Record
     public static function distinct($distinctColumns, $order = null, $column = null, $value = null, $limit = null)
     {
         $record = new static();
-
         $record->_interface->distinct($distinctColumns, $order, $column, $value, $limit);
         $record->_setResults($record->_interface->getResult());
 
@@ -284,7 +283,6 @@ class Record
     public static function search($searchColumns, $order = null, $limit = null)
     {
         $record = new static();
-
         $record->_interface->search($searchColumns, $order, $limit);
         $record->_setResults($record->_interface->getResult());
 
@@ -305,7 +303,6 @@ class Record
     public static function join($tableToJoin, $commonColumn, $order = null, $column = null, $value = null, $limit = null)
     {
         $record = new static();
-
         $record->_interface->join($tableToJoin, $commonColumn, $order, $column, $value, $limit);
         $record->_setResults($record->_interface->getResult());
 
@@ -322,7 +319,6 @@ class Record
     public static function execute($sql, $params = null)
     {
         $record = new static();
-
         $record->_interface->execute($sql, $params);
         $record->_setResults($record->_interface->getResult());
 
@@ -338,7 +334,6 @@ class Record
     public static function query($sql)
     {
         $record = new static();
-
         $record->_interface->query($sql);
         $record->_setResults($record->_interface->getResult());
 
@@ -526,34 +521,22 @@ class Record
      *
      * @param  string $name
      * @param  mixed $value
-     * @throws Exception
      * @return void
      */
     public function __set($name, $value)
     {
-        // Check to see if the column key exists.
-        if (!array_key_exists($name, $this->_columns)) {
-            throw new Exception($this->_lang->__("The column '%1' does not exist.", $name));
-        } else {
-            $this->_columns[$name] = $value;
-        }
+        $this->_columns[$name] = $value;
     }
 
     /**
      * Get method to return the value of _columns[$name].
      *
      * @param  string $name
-     * @throws Exception
      * @return mixed
      */
     public function __get($name)
     {
-        // Check to see if the column key exists.
-        if (!array_key_exists($name, $this->_columns)) {
-            throw new Exception($this->_lang->__("The column '%1' does not exist.", $name));
-        } else {
-            return $this->_columns[$name];
-        }
+        return (isset($this->_columns[$name])) ? $this->_columns[$name] : null;
     }
 
     /**
