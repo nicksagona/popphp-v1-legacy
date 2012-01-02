@@ -261,8 +261,10 @@ class Install
      */
     public static function instructions()
     {
-        $msg = "This process will create and install a lightweight framework for your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders and any database credentials. Besides creating the folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can enable this by having the SQL files in the same folder as your install file, like so:";
-        echo wordwrap(Locale::factory()->__($msg), 70, PHP_EOL) . PHP_EOL . PHP_EOL;
+        $msg1 = "This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.";
+        $msg2 = "Besides creating the base folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can take advantage of this by having the database SQL files in the same folder as your install file, like so:";
+        echo wordwrap(Locale::factory()->__($msg1), 70, PHP_EOL) . PHP_EOL . PHP_EOL;
+        echo wordwrap(Locale::factory()->__($msg2), 70, PHP_EOL) . PHP_EOL . PHP_EOL;
         echo 'projectname' . DIRECTORY_SEPARATOR . 'project.install.php' . PHP_EOL;
         echo 'projectname' . DIRECTORY_SEPARATOR . '*.sql' . PHP_EOL . PHP_EOL;
     }

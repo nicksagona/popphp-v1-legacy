@@ -87,7 +87,7 @@ class Db
         $sqlFiles = array();
 
         foreach ($dir->files as $file) {
-            if (substr($file, -4) == '.sql') {
+            if (strtolower(substr($file, -4)) == '.sql') {
                 $sqlFiles[] = $file;
             }
         }

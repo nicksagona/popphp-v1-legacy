@@ -24,10 +24,7 @@
  */
 namespace Pop\Locale;
 
-use Pop\Curl\Curl,
-    Pop\Dir\Dir,
-    Pop\Dom\Dom,
-    Pop\Dom\Child,
+use Pop\Dir\Dir,
     Pop\File\File;
 
 /**
