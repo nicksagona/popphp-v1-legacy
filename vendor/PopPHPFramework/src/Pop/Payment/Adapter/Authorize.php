@@ -51,6 +51,18 @@ class Authorize extends AbstractAdapter
     protected $_transKey = null;
 
     /**
+     * Test URL
+     * @var string
+     */
+    protected $_testUrl = 'https://test.authorize.net/gateway/transact.dll';
+
+    /**
+     * Live URL
+     * @var string
+     */
+    protected $_liveUrl = 'https://secure.authorize.net/gateway/transact.dll';
+
+    /**
      * Transaction data
      * @var array
      */
@@ -147,18 +159,6 @@ class Authorize extends AbstractAdapter
         'x_card_num',
         'x_exp_date'
     );
-
-    /**
-     * Test URL
-     * @var string
-     */
-    protected $_testUrl = 'https://test.authorize.net/gateway/transact.dll';
-
-    /**
-     * Live URL
-     * @var string
-     */
-    protected $_liveUrl = 'https://secure.authorize.net/gateway/transact.dll';
 
     /**
      * Response subcode
