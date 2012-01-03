@@ -21,10 +21,10 @@ Completed:
   - Add SQL query builder object/API to the DB component
   - Add PDO support
   - Add support for prepared/binded statements
-    * MySQLi
-    * PostgreSQL
-    * SQLite
-    * PDO
+    + MySQLi
+    + PostgreSQL
+    + SQLite
+    + PDO
 * Refactor and improve the Record component
   - Address save/update issue regarding non-autoincrement tables
   - Use class name to get table name
