@@ -241,36 +241,21 @@ class PayPal extends AbstractAdapter
      */
     protected function _buildPostString()
     {
-        $post = array();
-        $postString = null;
+        $post = $this->_transaction;
 
-        if ((null !== $this->_transaction['SHIPTOFNAME']) || (null !== $this->_transaction['SHIPTOLNAME'])) {
-            $this->_transaction['SHIPTONAME'] = $this->_transaction['SHIPTOFNAME'] . ' ' . $this->_transaction['SHIPTOLNAME'];
-            $this->_transaction['SHIPTOFNAME'] = null;
-            $this->_transaction['SHIPTOLNAME'] = null;
+        $post['ACCT'] = $this->_filterCardNum($post['ACCT']);
+        $post['EXPDATE'] = $this->_filterExpDate($post['EXPDATE']);
+
+        if ((null !== $post['SHIPTOFNAME']) || (null !== $post['SHIPTOLNAME'])) {
+            $post['SHIPTONAME'] = $post['SHIPTOFNAME'] . ' ' . $post['SHIPTOLNAME'];
+            unset($post['SHIPTOFNAME']);
+            unset($post['SHIPTOLNAME']);
+        }
+        if (null === $post['IPADDRESS']) {
+            $post['IPADDRESS'] = $_SERVER['REMOTE_ADDR'];
         }
 
-        if (null === $this->_transaction['IPADDRESS']) {
-            $this->_transaction['IPADDRESS'] = $_SERVER['REMOTE_ADDR'];
-        }
-
-        foreach ($this->_transaction as $key => $value) {
-            if (null !== $value) {
-                if ($key == 'ACCT') {
-                    $value = $this->_filterCardNum($value);
-                }
-                if ($key == 'EXPDATE') {
-                    $value = $this->_filterExpDate($value);
-                }
-                $post[] = $key . '=' . urlencode($value);
-            }
-        }
-
-        foreach ($post as $key => $value) {
-            $postString = implode('&', $post);
-        }
-
-        return $postString;
+        return http_build_query($post);
     }
 
     /**

@@ -6,7 +6,6 @@ use Pop\Payment\Payment,
     Pop\Payment\Adapter\UsaEpay;
 
 try {
-
     $payment = new Payment(new UsaEpay('SOURCE_KEY', Payment::TEST));
 
     $payment->cardNum = 'XXXXXXXXXXXXXXXX';

@@ -6,7 +6,6 @@ use Pop\Payment\Payment,
     Pop\Payment\Adapter\PayPal;
 
 try {
-
     $payment = new Payment(new PayPal(
         'API_USERNAME',
         'API_PASSWORD',

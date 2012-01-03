@@ -210,36 +210,26 @@ class UsaEpay extends AbstractAdapter
      */
     protected function _buildPostString()
     {
-        $post = array();
-        $postString = null;
+        $post = $this->_transaction;
 
-        foreach ($this->_transaction as $key => $value) {
-            if (null !== $value) {
-                if ($key == 'UMcard') {
-                    $value = $this->_filterCardNum($value);
-                }
-                if ($key == 'UMexpir') {
-                    $value = $this->_filterExpDate($value);
-                }
-                $post[] = $key . '=' . urlencode($value);
-            }
-        }
+        $post['UMcard'] = $this->_filterCardNum($post['UMcard']);
+        $post['UMexpir'] = $this->_filterExpDate($post['UMexpir']);
 
-        if ((null !== $this->_transaction['UMbillfname']) && (null !== $this->_transaction['UMbilllname'])) {
-            $post[] = 'UMname=' . urlencode($this->_transaction['UMbillfname'] . ' ' . $this->_transaction['UMbilllname']);
+        if ((null !== $post['UMbillfname']) && (null !== $post['UMbilllname'])) {
+            $post['UMname'] =  $post['UMbillfname'] . ' ' . $post['UMbilllname'];
+            unset($post['UMbillfname']);
+            unset($post['UMbilllname']);
         }
-        if (null !== $this->_transaction['UMbillstreet']) {
-            $post[] = 'UMstreet=' . urlencode($this->_transaction['UMbillstreet']);
+        if (null !== $post['UMbillstreet']) {
+            $post['UMstreet'] = $post['UMbillstreet'];
+            unset($post['UMbillstreet']);
         }
         if (null !== $this->_transaction['UMbillzip']) {
-            $post[] = 'UMzip=' . urlencode($this->_transaction['UMbillzip']);
+            $post['UMzip'] = $post['UMbillzip'];
+            unset($post['UMbillzip']);
         }
 
-        foreach ($post as $key => $value) {
-            $postString = implode('&', $post);
-        }
-
-        return $postString;
+        return http_build_query($post);
     }
 
     /**

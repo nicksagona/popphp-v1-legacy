@@ -265,26 +265,12 @@ class Authorize extends AbstractAdapter
      */
     protected function _buildPostString()
     {
-        $post = array();
-        $postString = null;
+        $post = $this->_transaction;
+        $post['x_card_num'] = $this->_filterCardNum($post['x_card_num']);
+        $post['x_delim_data'] = 'TRUE';
+        $post['x_delim_char'] = '|';
 
-        foreach ($this->_transaction as $key => $value) {
-            if (null !== $value) {
-                if ($key == 'x_card_num') {
-                    $value = $this->_filterCardNum($value);
-                }
-                $post[] = $key . '=' . urlencode($value);
-            }
-        }
-
-        $post[] = 'x_delim_data=' . urlencode('TRUE');
-        $post[] = 'x_delim_char=' . urlencode('|');
-
-        foreach ($post as $key => $value) {
-            $postString = implode('&', $post);
-        }
-
-        return $postString;
+        return http_build_query($post);
     }
 
     /**
