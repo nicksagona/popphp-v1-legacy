@@ -10,8 +10,8 @@ Released TBD
 FEATURES
 --------
 
-The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use API
-to access and utilize the following components:
+The Pop PHP Framework is an object-oriented PHP framework with an
+easy-to-use API to access and utilize the following components:
 
 * Archive
 * Auth
@@ -40,6 +40,7 @@ to access and utilize the following components:
 * Mail
 * Mvc
 * Paginator
+* Payment
 * Pdf
 * Project
 * Record
@@ -99,11 +100,13 @@ properly. If the permissions are not set correctly, an exception or error could
 be thrown within any of the following components:
 
 * Pop\File\File
-  - Pop\Archive\Archive
-  - Pop\Code\Generator
-  - Pop\Font\Font
-  - Pop\Image\Image
-  - Pop\Pdf\Pdf
+    - Pop\Archive\Archive
+    - Pop\Code\Generator
+    - Pop\Font\Font
+    - Pop\Image\Gd
+    - Pop\Image\Imagick
+    - Pop\Image\Svg  
+    - Pop\Pdf\Pdf
 
 
 QUESTIONS AND FEEDBACK
