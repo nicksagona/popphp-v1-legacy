@@ -464,4 +464,700 @@
         <source>The standard site is not set.</source>
         <output></output>
     </text>
+    <text>
+        <source>That header code '%1' is not allowed.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The array parameter passed must contain an array of field values.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The image resource has not been created.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The image output resource has not been created.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The argument passed is not valid.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The archive file is compressed. It must only be either a TAR or ZIP archive file.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The archive file must be either a TAR or ZIP archive file.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The compression type must either be Flate or LZW.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The font file does not seem to have all of the correct data to parse.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The GD library extension must be installed to use the Gd adapter.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>No source file or database table was passed.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The options parameter must be an array.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The options parameter must be an array that contains either a 'table' or 'file' key.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: Could not connect to database. %1</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The database interface object has not been instaniated.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: That method does not exist within the database interface object.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The columns parameter must be an array.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The columns parameter must be an array that contains at least one key/value pair.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The table must be set.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: A SQL type must be set.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The database statement resource is not currently set.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>(Change) The column and value parameters were not defined to describe the row(s) to delete.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>(Change) The column '%1' does not exist.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>(Remove) Error: Table name not set.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: That database adapter class does not exist.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The Imagick library extension must be installed to use the Imagick adapter.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: That image type is not supported.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The cache type must be 'File', 'Sqlite' or 'Memcached'.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: You must pass either a directory or SQLite file store point.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: That cache directory does not exist.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: That cache directory is not writable.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: That cache db file and/or directory is not writable.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: Memcache is not available on this server.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: Unable to connect to the memcached server.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>That data type is not supported.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>No database adapter was found.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>That font is not available.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The percentages are greater than 100.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>A proper color array was not passed.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>One or more of the color values is out of range.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The color parameter is not a valid color space object.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>That color space object does not exist.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>That color space object is already that type.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The headers have already been sent.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The response was not properly formatted.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>A template asset has not been assigned.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>That template file either does not exist or is not the correct format.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Due to licensing restrictions, RAR files cannot be created and can only be decompressed.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must only contain alphanumeric characters.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must contain non-alphanumeric characters.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must only contain characters of the alphabet.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must contain characters not in the alphabet.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be between %1 and %2.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be between %1 and %2.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be between or equal to %1 and %2.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be between or equal to %1 and %2.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be a valid email format.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be a valid email format.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be excluded.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be excluded.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be included.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be included.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be equal to %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be equal to %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be greater than %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be greater than %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be greater than or equal to %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be greater than or equal to %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value length must be equal to %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value length must not be equal to %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be less than %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be less than %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be less than or equal to %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be less than or equal to %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value length must be between %1 and %2.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value length must not be between %1 and %2.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value length must be between or equal to %1 and %2.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value length must not be between or equal to %1 and %2.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value length must be greater than %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value length must not be greater than %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value length must be greater than or equal to %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value length must not be greater than or equal to %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value length must be less than %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value length must not be less than %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value length must be less than or equal to %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value length must not be less than or equal to %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be empty.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be empty.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be numeric.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be numeric.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The file type %1 is not an accepted file format.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value format is not correct.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv4 address.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv4 address.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv6 address.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv6 address.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The user role has not been defined to evaluate against.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The file type %1 is not an accepted file format.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be part of the subnet %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be part of the subnet %1.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv4 subnet.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv4 subnet.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The IP address must be a valid IPv4 address.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The user is valid.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The user was not found.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The user is blocked.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The password was incorrect.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The allowed login attempts (%1) have been exceeded.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>That IP address is blocked.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>That IP address is not allowed.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The session has expired.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The access file does not exist.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The user's role is not defined.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>That class map file does not exist.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Unknown error.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>You must pass a source folder and a output file to generate a class map file.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The source folder passed does not exist.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The output file passed must be a PHP file.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>You must pass an install file to install the project.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Unknown option:</source>
+        <output></output>
+    </text>
+    <text>
+        <source>You must pass at least one argument.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Run './pop -h' for help.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Run '.\pop -h' for help.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Aborted.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Project folder exists. This may overwrite any project files you may already have under that project folder.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Database credentials and schema detected.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Test and install the database(s)?</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Testing the database(s)...</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Testing</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The database type and database name must be set for the database</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Database</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Installing database</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Add project to the bootstrap file?</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Project install complete.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Besides creating the base folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can take advantage of this by having the database SQL files in the same folder as your install file, like so:</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Install a project based on the install file specified</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Check the current configuration for required dependencies</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Display this help</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Show project install instructions</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Set the default language for the project</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Create a class map file from the source folder and save to the output file</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Display version of Pop PHP Framework and latest available</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Continue?</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Enter the folder where the 'bootstrap.php' is located in relation to the current folder:</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Bootstrap file not found. Try again.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Creating base folder and file structure...</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Creating database table class files...</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Enter the two-letter code for the default language:</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Real-time configuration changes are not allowed.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Run the unit tests from a folder</source>
+        <output></output>
+    </text>
+    <text>
+        <source>That folder does not exist.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The folder argument is not a folder.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The module name must be set in the module config.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Install index controller and web configuration files?</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The docblock is not in the correct format.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>You will have to install your web server rewrite configuration manually.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Creating controller class files...</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Creating form class files...</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The Sqlite database file and folder are not writable.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Project reconfigured.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Reconfigure the project based on the new location of the project</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Database credentials detected.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Re-test the database(s)?</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The Pop autoloader class file was not found.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Enter the folder where the 'vendor' folder is contained in relation to the current folder:</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Pop PHP Framework not found. Try again.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Pop PHP Framework found.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: That cache directory does not exist.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: That cache directory is not writable.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: Memcache is not available.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>You must either pass a Pop\Geo\Geo object or a set of latitude/longitude coordinates.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The required transaction data has not been set.</source>
+       <output></output>
+    </text>
 </language>

@@ -171,7 +171,7 @@ class Mobile
             $this->device = 'Pre';
             $is = true;
         // Apple devices
-        } else if (preg_match('/(ipod|iphone)/i', $this->ua, $matches) != 0) {
+        } else if (preg_match('/(ipod|iphone|ipad)/i', $this->ua, $matches) != 0) {
             $this->device = $matches[0];
             $is = true;
         // Nokia and other devices

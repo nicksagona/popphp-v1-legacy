@@ -3,94 +3,78 @@ Pop PHP Framework 0.9 (Forked from Moc10 PHP Library 1.9.7)
 
 Completed:
 ----------
+* Refactor framework for 5.3+ only and restructured it using namespaces
 * Add Archive component
-* Add Array component and wrap common features into in (sort, key exists, etc)
-* Add dynamic element generator methods to Dom
-* Form field/value access
-* Improve dynamic field element generation
-* Add text clean up to String (MS ASCII issues, convert EOL chars DOS => Unix => DOS, etc.)
-* Improve File API
-* Improve Image API overall, 'save'/'saveAs'/'output' methods, better chaining, etc.
-* Add 'rotate' method to Image
-* Add 'add rectangle' method to Image
-* Add 'add ellipse' method to Image
-* Add 'add line' method to Image
-* Add alpha control and compositing to Image
-* Add color control to Image
-* Add 'destroy' method to Image
-* Add advanced image filter methods to Image
-* Add Imagick Component
-* Address the 'touch' file creation issue in File and all child classes
-* Add count() method to Record
-* Add methods to get system and upload temp directories in the Dir class
-* Change setString and setArray to factory
-* Add Auth Component
-* Add PDO support
-* Modify the structure and naming convention of the Db component to fall under "Adapter"
-* Add SQL query builder object/API to the DB component
-* Add prepared/binded statements to the DB/Record component
-  - MySQLi
-  - PostgreSQL
-  - SQLite
-  - PDO
-* Add multiple database connection support
-* Revisit Record component and DB integration
-  - Address save/update of row entry that's auto increment or not
-  - Record Component: Class name to get table name
-  - Record Component: Better access to create/get fields and their values
+* Add Compress component
+* Add Auth component with user roles
+* Add Validator component
+* Refactor and improve the Dom and Form components
+* Add Filter component, move String component under it, adding more filtering methods
+* Improve File component
+* Improve the Dir component
+* Refactor and improve Image component overall
+  - Add 'save'/'saveAs'/'output' methods, better chaining, etc.
+  - Add support for Imagick
+  - Add support for SVG
+* Refactor and improve the Db component
+  - Add multiple database connection support
+  - Add SQL query builder object/API to the DB component
+  - Add PDO support
+  - Add support for prepared/binded statements
+    * MySQLi
+    * PostgreSQL
+    * SQLite
+    * PDO
+* Refactor and improve the Record component
+  - Address save/update issue regarding non-autoincrement tables
+  - Use class name to get table name
+  - Better access to create/get fields and their values
   - Add prepared statement support to the Record class.
   - Convert methods to static to facilitate easier API calls.
-* Add extended image functionality with ImageMagick
-* Add Cache Component
-* Add JSON support
-* Add ability to convert sets of data between SQL, XML, CSV, YAML, JSON and PHP
-* Add SVG Component
-* Add Color Component and add it to the components that use color.
-* Add Graph component, Image, Imagick, Pdf, Svg
-  - Background color/images
-* Add Http Request/Response Component
-* Add MVC Component
-* Code review/cleanup - Phase 1
-  - Overall class layout
-  - Change is_null($var) to (null === $var)
-  - Change print to echo
-* Refactor Autoloader Component
-  - Add classmap generator
-* Refactor framework with namespaces
-*
-* Refactor Form and Dom components
-* Add Project Install, Code Generator and CLI scripts
-  - Add Project Component
+* Add Cache component
+* Add Data component
+  - Convert sets of data between SQL, XML, CSV, YAML, JSON and PHP
+* Add Color component and add it to the components that use color.
+* Add Graph component utilizing Image (GD/Imagick/SVG) and Pdf
+* Add Http component
+* Add MVC component
+* Refactor Loader Component
+  - Add classmap support and classmap generator
+* Add Code generator component
+* Add Project config/install component, and CLI scripts
   - Data mapping classes to database tables with prefix support
   - Generate config files and code for project classes
     * DB Tables
     * Controllers
     * Forms
     * Project
-  - Test with Mysql, Pgsql and Sqlite
-* Major Refactor/Restructure (part 2)
 * Add Geo component
+
+
+CURRENTLY BEING WORKED ON
+-----------------------------------
+* Payment component
+  - Tested and completed
+    * Authorize.net
+    * PayPal (Website Payment Pro)
+    * UsaEpay
+  - Waiting on a test account
+    * Chase Paymentech
+    * Payleap
+    * Trustcommerce
 
 
 ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON
 ------------------------------------------
-* Rework the integration of the new/improved image components into Pdf
-* Improve Pdf API
-* Fix PDF import bug
-* Address page ordering issue for PDF import
-* Fix addFont bug
-* Add compression to PDF
-* Add a font component
-* Add font embedding/compression to PDF
-* Revisit PDF layer/clipping issues
-* Revisit embedding GIFs into PDF issue
-* Revisit pie chart text for PDF
-
-
-CURRENTLY BEING WORKED ON & ON DECK
------------------------------------
-* Officially integrate Ralph's USAePay and Paymentech support components,
-  as well as create support components for Authorize.net and PayPal.
+* Pdf Component
+  - Improve Pdf API overall
+  - Rework the integration of the new/improved image components into Pdf
+  - Address, test and debug embed fonts and the Font component
+  - Address, test and debug Pdf import
+  - Add compression to Pdf
+  - Revisit PDF layer/clipping issues
+  - Revisit embedding GIFs into Pdf
+  - Revisit pie chart text for Pdf
 
 
 NEXT UP:
@@ -98,180 +82,3 @@ NEXT UP:
 * Phase 2 of code review/cleanup
 * Testing, testing & more testing
 * Documentation
-
-
-LANGUAGE ADDITIONS & REVISIONS:
--------------------------------
-The array parameter passed must contain an array of field values.  
-Error: The image resource has not been created.  
-Error: The image output resource has not been created.  
-The argument passed is not valid.  
-The archive file is compressed. It must only be either a TAR or ZIP archive file.  
-The archive file must be either a TAR or ZIP archive file.  
-Error: The compression type must either be Flate or LZW.  
-Error: The font file does not seem to have all of the correct data to parse.  
-Error: The GD library extension must be installed to use the Gd adapter.  
-No source file or database table was passed.  
-The options parameter must be an array.  
-The options parameter must be an array that contains either a 'table' or 'file' key.  
-Error: Could not connect to database. %1  
-Error: The database interface object has not been instaniated.  
-Error: That method does not exist within the database interface object.  
-Error: The columns parameter must be an array.  
-Error: The columns parameter must be an array that contains at least one key/value pair.  
-Error: The table must be set.  
-Error: A SQL type must be set.  
-Error: The database statement resource is not currently set.  
-(Change) The column and value parameters were not defined to describe the row(s) to delete.  
-(Change) The column '%1' does not exist.  
-(Remove) Error: Table name not set.  
-Error: That database adapter class does not exist.  
-Error: The Imagick library extension must be installed to use the Imagick adapter.  
-Error: That image type is not supported.  
-Error: The cache type must be 'File', 'Sqlite' or 'Memcached'.  
-Error: You must pass either a directory or SQLite file store point.  
-Error: That cache directory does not exist.  
-Error: That cache directory is not writable.  
-Error: That cache db file and/or directory is not writable.  
-Error: Memcache is not available on this server.  
-Error: Unable to connect to the memcached server.  
-That data type is not supported.  
-No database adapter was found.  
-That font is not available.  
-The percentages are greater than 100.  
-A proper color array was not passed.  
-One or more of the color values is out of range.  
-The color parameter is not a valid color space object.  
-That color space object does not exist.  
-That color space object is already that type.  
-The headers have already been sent.  
-The response was not properly formatted.  
-A template asset has not been assigned.  
-That template file either does not exist or is not the correct format.  
-Due to licensing restrictions, RAR files cannot be created and can only be decompressed.  
-The value must only contain alphanumeric characters.  
-The value must contain non-alphanumeric characters.  
-The value must only contain characters of the alphabet.  
-The value must contain characters not in the alphabet.  
-The value must be between %1 and %2.  
-The value must not be between %1 and %2.  
-The value must be between or equal to %1 and %2.  
-The value must not be between or equal to %1 and %2.  
-The value must be a valid email format.  
-The value must not be a valid email format.  
-The value must be excluded.  
-The value must not be excluded.  
-The value must be included.  
-The value must not be included.  
-The value must be equal to %1.  
-The value must not be equal to %1.  
-The value must be greater than %1.  
-The value must not be greater than %1.  
-The value must be greater than or equal to %1.  
-The value must not be greater than or equal to %1.  
-The value length must be equal to %1.  
-The value length must not be equal to %1.  
-The value must be less than %1.  
-The value must not be less than %1.  
-The value must be less than or equal to %1.  
-The value must not be less than or equal to %1.  
-The value length must be between %1 and %2.  
-The value length must not be between %1 and %2.  
-The value length must be between or equal to %1 and %2.  
-The value length must not be between or equal to %1 and %2.  
-The value length must be greater than %1.  
-The value length must not be greater than %1.  
-The value length must be greater than or equal to %1.  
-The value length must not be greater than or equal to %1.  
-The value length must be less than %1.  
-The value length must not be less than %1.  
-The value length must be less than or equal to %1.  
-The value length must not be less than or equal to %1.  
-The value must be empty.  
-The value must not be empty.  
-The value must be numeric.  
-The value must not be numeric.  
-Error: The file type %1 is not an accepted file format.  
-The value format is not correct.  
-The value must be a valid IPv4 address.  
-The value must not be a valid IPv4 address.  
-The value must be a valid IPv6 address.  
-The value must not be a valid IPv6 address.  
-The user role has not been defined to evaluate against.  
-Error: The file type %1 is not an accepted file format.  
-The value must be part of the subnet %1.  
-The value must not be part of the subnet %1.  
-The value must be a valid IPv4 subnet.  
-The value must not be a valid IPv4 subnet.  
-The IP address must be a valid IPv4 address.  
-The user is valid.  
-The user was not found.  
-The user is blocked.  
-The password was incorrect.  
-The allowed login attempts (%1) have been exceeded.  
-That IP address is blocked.  
-That IP address is not allowed.  
-The session has expired.  
-The access file does not exist.  
-The user's role is not defined.  
-That class map file does not exist.  
-Unknown error.  
-You must pass a source folder and a output file to generate a class map file.  
-The source folder passed does not exist.  
-The output file passed must be a PHP file.  
-You must pass an install file to install the project.  
-Unknown option:  
-You must pass at least one argument.  
-Run './pop -h' for help.  
-Run '.\pop -h' for help.  
-Aborted.  
-Project folder exists. This may overwrite any project files you may already have under that project folder.  
-Database credentials and schema detected.  
-Test and install the database(s)?  
-Testing the database(s)...  
-Testing  
-The database type and database name must be set for the database  
-Database  
-Installing database  
-Add project to the bootstrap file?  
-Project install complete.  
-This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.  
-Besides creating the base folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can take advantage of this by having the database SQL files in the same folder as your install file, like so:  
-Install a project based on the install file specified  
-Check the current configuration for required dependencies  
-Display this help  
-Show project install instructions  
-Set the default language for the project  
-Create a class map file from the source folder and save to the output file  
-Display version of Pop PHP Framework and latest available  
-Continue?  
-Enter the folder where the 'bootstrap.php' is located in relation to the current folder:  
-Bootstrap file not found. Try again.  
-Creating base folder and file structure...  
-Creating database table class files...  
-Enter the two-letter code for the default language:  
-Real-time configuration changes are not allowed.  
-Run the unit tests from a folder  
-That folder does not exist.  
-The folder argument is not a folder.  
-The module name must be set in the module config.  
-Install index controller and web configuration files?  
-The docblock is not in the correct format.  
-You will have to install your web server rewrite configuration manually.  
-Creating controller class files...  
-Creating form class files...  
-The Sqlite database file and folder are not writable.  
-Project reconfigured.  
-Reconfigure the project based on the new location of the project  
-Database credentials detected.  
-Re-test the database(s)?  
-The Pop autoloader class file was not found.  
-Enter the folder where the 'vendor' folder is contained in relation to the current folder:  
-Pop PHP Framework not found. Try again.  
-Pop PHP Framework found.  
-Error: That cache directory does not exist.  
-Error: That cache directory is not writable.  
-Error: Memcache is not available.  
-Error: The parameter passed must either be a valid file or an instance of Pop\\File\\File.  
-You must either pass a Pop\\Geo\\Geo object or a set of latitude/longitude coordinates.  
-The required transaction data has not been set.  
