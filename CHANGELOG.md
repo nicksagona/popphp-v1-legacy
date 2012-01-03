@@ -3,7 +3,7 @@ Pop PHP Framework 0.9 (Forked from Moc10 PHP Library 1.9.7)
 
 Completed:
 ----------
-* Refactor framework for 5.3+ only and restructured it using namespaces
+* Refactor framework for 5.3+ only and restructure it using namespaces
 * Add Archive component
 * Add Compress component
 * Add Auth component with user roles
