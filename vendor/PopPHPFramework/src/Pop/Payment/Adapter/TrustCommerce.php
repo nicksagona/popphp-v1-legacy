@@ -38,6 +38,35 @@ use Pop\Curl\Curl,
 class TrustCommerce extends AbstractAdapter
 {
 
+    /**
+     * Customer ID
+     * @var string
+     */
+    protected $_custId = null;
 
+    /**
+     * Password
+     * @var string
+     */
+    protected $_password = null;
+
+    /**
+     * URL
+     * @var string
+     */
+    protected $_url = 'https://vault.trustcommerce.com/trans/';
+
+    /**
+     * Transaction data
+     * @var array
+     */
+    protected $_transaction = array(
+        'x_login'                           => null,
+        'x_tran_key'                        => null,
+        'x_allow_partial_Auth'              => null,
+        'x_version'                         => '3.1',
+        'x_type'                            => 'AUTH_CAPTURE',
+        'x_method'                          => 'CC'
+    );
 
 }
