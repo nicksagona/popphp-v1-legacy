@@ -274,56 +274,9 @@ class PayLeap extends AbstractAdapter
         return $ext;
     }
 
-    /**
-     * Filter the card num to remove dashes or spaces
-     *
-     * @param  string $ccNum
-     * @return string
-     */
-    protected function _filterCardNum($ccNum)
-    {
-        $filtered = $ccNum;
-
-        if (strpos($filtered, '-') !== false) {
-            $filtered = str_replace('-', '', $filtered);
-        }
-        if (strpos($filtered, ' ') !== false) {
-            $filtered = str_replace(' ', '', $filtered);
-        }
-
-        return $filtered;
-    }
-
-    /**
-     * Filter the exp date
-     *
-     * @param  string $date
-     * @return string
-     */
-    protected function _filterExpDate($date)
-    {
-        $filtered = $date;
-
-        if (preg_match('/^\d\d\d\d$/', $filtered) == 0) {
-            $delim = null;
-            if (strpos($filtered, '/') !== false) {
-                $delim = '/';
-            } else if (strpos($filtered, '-') !== false) {
-                $delim = '-';
-            }
-            if (null !== $delim) {
-                $dateAry = explode($delim, $filtered);
-                $month = $dateAry[0];
-                $year = (strlen($dateAry[1]) == 4) ? substr($dateAry[1], -2) : $dateAry[1];
-                $filtered = $month . $year;
-            } else {
-                if (strlen($filtered) == 6) {
-                    $filtered = substr($filtered, 0, 2) . substr($filtered, -2);
-                }
-            }
-        }
-
-        return $filtered;
-    }
-
 }
+
+
+
+
+

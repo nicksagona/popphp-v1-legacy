@@ -248,4 +248,76 @@ abstract class AbstractAdapter implements AdapterInterface
         return $valid;
     }
 
+    /**
+     * Filter the card num to remove dashes or spaces
+     *
+     * @param  string $ccNum
+     * @return string
+     */
+    protected function _filterCardNum($ccNum)
+    {
+        $filtered = $ccNum;
+
+        if (strpos($filtered, '-') !== false) {
+            $filtered = str_replace('-', '', $filtered);
+        }
+        if (strpos($filtered, ' ') !== false) {
+            $filtered = str_replace(' ', '', $filtered);
+        }
+
+        return $filtered;
+    }
+
+    /**
+     * Filter the exp date
+     *
+     * @param  string $date
+     * @param  int    $length
+     * @return string
+     */
+    protected function _filterExpDate($date, $length = 4)
+    {
+        $filtered = $date;
+
+        if ($length == 4) {
+            $regex = '/^\d\d\d\d$/';
+        } else {
+            $regex = '/^\d\d\d\d\d\d$/';
+        }
+
+        if (preg_match($regex, $filtered) == 0) {
+            $delim = null;
+            if (strpos($filtered, '/') !== false) {
+                $delim = '/';
+            } else if (strpos($filtered, '-') !== false) {
+                $delim = '-';
+            }
+            if ($length == 4) {
+                if (null !== $delim) {
+                    $dateAry = explode($delim, $filtered);
+                    $month = $dateAry[0];
+                    $year = (strlen($dateAry[1]) == 4) ? substr($dateAry[1], -2) : $dateAry[1];
+                    $filtered = $month . $year;
+                } else {
+                    if (strlen($filtered) == 6) {
+                        $filtered = substr($filtered, 0, 2) . substr($filtered, -2);
+                    }
+                }
+            } else {
+                if (null !== $delim) {
+                    $dateAry = explode($delim, $filtered);
+                    $month = $dateAry[0];
+                    $year = (strlen($dateAry[1]) == 2) ? '20' . $dateAry[1] : $dateAry[1];
+                    $filtered = $month . $year;
+                } else {
+                    if (strlen($filtered) == 4) {
+                        $filtered = substr($filtered, 0, 2) . '20' . substr($filtered, -2);
+                    }
+                }
+            }
+        }
+
+        return $filtered;
+    }
+
 }

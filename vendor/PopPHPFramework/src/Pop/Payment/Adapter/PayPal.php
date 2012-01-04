@@ -244,7 +244,7 @@ class PayPal extends AbstractAdapter
         $post = $this->_transaction;
 
         $post['ACCT'] = $this->_filterCardNum($post['ACCT']);
-        $post['EXPDATE'] = $this->_filterExpDate($post['EXPDATE']);
+        $post['EXPDATE'] = $this->_filterExpDate($post['EXPDATE'], 6);
 
         if ((null !== $post['SHIPTOFNAME']) || (null !== $post['SHIPTOLNAME'])) {
             $post['SHIPTONAME'] = $post['SHIPTOFNAME'] . ' ' . $post['SHIPTOLNAME'];
@@ -256,58 +256,6 @@ class PayPal extends AbstractAdapter
         }
 
         return http_build_query($post);
-    }
-
-    /**
-     * Filter the card num to remove dashes or spaces
-     *
-     * @param  string $ccNum
-     * @return string
-     */
-    protected function _filterCardNum($ccNum)
-    {
-        $filtered = $ccNum;
-
-        if (strpos($filtered, '-') !== false) {
-            $filtered = str_replace('-', '', $filtered);
-        }
-        if (strpos($filtered, ' ') !== false) {
-            $filtered = str_replace(' ', '', $filtered);
-        }
-
-        return $filtered;
-    }
-
-    /**
-     * Filter the exp date
-     *
-     * @param  string $date
-     * @return string
-     */
-    protected function _filterExpDate($date)
-    {
-        $filtered = $date;
-
-        if (preg_match('/^\d\d\d\d\d\d$/', $filtered) == 0) {
-            $delim = null;
-            if (strpos($filtered, '/') !== false) {
-                $delim = '/';
-            } else if (strpos($filtered, '-') !== false) {
-                $delim = '-';
-            }
-            if (null !== $delim) {
-                $dateAry = explode($delim, $filtered);
-                $month = $dateAry[0];
-                $year = (strlen($dateAry[1]) == 2) ? '20' . $dateAry[1] : $dateAry[1];
-                $filtered = $month . $year;
-            } else {
-                if (strlen($filtered) == 4) {
-                    $filtered = substr($filtered, 0, 2) . '20' . substr($filtered, -2);
-                }
-            }
-        }
-
-        return $filtered;
     }
 
     /**

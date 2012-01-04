@@ -273,24 +273,4 @@ class Authorize extends AbstractAdapter
         return http_build_query($post);
     }
 
-    /**
-     * Filter the card num to remove dashes or spaces
-     *
-     * @param  string $ccNum
-     * @return string
-     */
-    protected function _filterCardNum($ccNum)
-    {
-        $filtered = $ccNum;
-
-        if (strpos($filtered, '-') !== false) {
-            $filtered = str_replace('-', '', $filtered);
-        }
-        if (strpos($filtered, ' ') !== false) {
-            $filtered = str_replace(' ', '', $filtered);
-        }
-
-        return $filtered;
-    }
-
 }
