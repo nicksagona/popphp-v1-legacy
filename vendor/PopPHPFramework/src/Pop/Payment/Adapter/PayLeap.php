@@ -159,20 +159,18 @@ class PayLeap extends AbstractAdapter
         $url = ($this->_test) ? $this->_testUrl : $this->_liveUrl;
         $url .= '?' . $this->_buildQueryString();
 
-        echo $url;
+        $options = array(
+            CURLOPT_URL            => $url,
+            CURLOPT_RETURNTRANSFER => true
+        );
 
-        //$options = array(
-        //    CURLOPT_URL            => $url,
-        //    CURLOPT_RETURNTRANSFER => true
-        //);
-        //
-        //if (!$verifyPeer) {
-        //    $options[CURLOPT_SSL_VERIFYPEER] = false;
-        //}
-        //
-        //$curl = new Curl($options);
-        //echo $curl->execute();
-        //$this->_response = $curl->execute();
+        if (!$verifyPeer) {
+            $options[CURLOPT_SSL_VERIFYPEER] = false;
+        }
+
+        $curl = new Curl($options);
+        $this->_response = $curl->execute();
+
     }
 
     /**
@@ -194,6 +192,7 @@ class PayLeap extends AbstractAdapter
 
         $query['MagData'] = null;
         $query['ExtData'] = $this->_buildExtData();
+        $query['PNRef'] = null;
 
         unset($query['FNameOnCard']);
         unset($query['LNameOnCard']);
