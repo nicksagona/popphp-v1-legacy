@@ -14,16 +14,16 @@ try {
 
     $payment->send();
 
-    if ($payment->isApproved()) {
-        echo "You're approved!" . PHP_EOL;
-        echo $payment->getMessage();
-    } else if ($payment->isDeclined()) {
-        echo "You were declined!" . PHP_EOL;
-        echo $payment->getMessage();
-    } else if ($payment->isError()) {
-        echo "There was an error!" . PHP_EOL;
-        echo $payment->getMessage();
-    }
+    //if ($payment->isApproved()) {
+    //    echo "You're approved!" . PHP_EOL;
+    //    echo $payment->getMessage();
+    //} else if ($payment->isDeclined()) {
+    //    echo "You were declined!" . PHP_EOL;
+    //    echo $payment->getMessage();
+    //} else if ($payment->isError()) {
+    //    echo "There was an error!" . PHP_EOL;
+    //    echo $payment->getMessage();
+    //}
 
     echo PHP_EOL . PHP_EOL;
 } catch (\Exception $e) {

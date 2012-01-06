@@ -170,7 +170,22 @@ class PayLeap extends AbstractAdapter
 
         $curl = new Curl($options);
         $this->_response = $curl->execute();
+        $this->_responseCodes = $this->_parseResponseCodes();
+        $this->_responseCode = $this->_responseCodes['Result'];
+        $this->_message = $this->_responseCodes['RespMSG'];
 
+        switch ($this->_message) {
+            case 'Approved':
+                $this->_approved = true;
+                break;
+            case 'Declined':
+                $this->_declined = true;
+                break;
+        }
+
+        if ($this->_responseCode > 0) {
+            $this->_error = true;
+        }
     }
 
     /**
@@ -271,6 +286,17 @@ class PayLeap extends AbstractAdapter
             $ext .= '</BillTo></Invoice>';
         }
         return $ext;
+    }
+
+    /**
+     * Parse the response codes
+     *
+     * @return void
+     */
+    protected function _parseResponseCodes()
+    {
+        $responseCodes = new \SimpleXMLElement($this->_response);
+        return (array)$responseCodes;
     }
 
 }
