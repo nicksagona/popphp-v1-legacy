@@ -7,13 +7,13 @@ use Pop\Payment\Payment,
 
 try {
     $payment = new Payment(new PayPal(
-        'API_USERNAME',
-        'API_PASSWORD',
-        'API_SIGNATURE',
+        'USERNAME',
+        'PASSWORD',
+        'SIGNATURE',
         Payment::TEST
     ));
 
-    $payment->cardNum = 'XXXXXXXXXXXXXXXX';
+    $payment->cardNum = '4111111111111111';
     $payment->amount = '50.00';
     $payment->expDate = '122016';
     $payment->firstName = 'Bob';
@@ -24,6 +24,8 @@ try {
     $payment->zip = '70130';
 
     $payment->send();
+
+    //print_r($payment->getResponseCodes());
 
     if ($payment->isApproved()) {
         echo "You're approved!" . PHP_EOL;

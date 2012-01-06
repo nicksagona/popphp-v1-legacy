@@ -188,7 +188,11 @@ class Authorize extends AbstractAdapter
         $this->_transKey = $transKey;
         $this->_transaction['x_login'] = $apiLoginId;
         $this->_transaction['x_tran_key'] = $transKey;
+
         $this->_test = $test;
+        if ($this->_test) {
+            $this->_transaction['x_test_request'] = 'TRUE';
+        }
     }
 
     /**
