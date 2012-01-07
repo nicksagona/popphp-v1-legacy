@@ -203,6 +203,16 @@ abstract class AbstractAdapter implements AdapterInterface
     }
 
     /**
+     * Return whether the required transaction data is valid
+     *
+     * @return boolean
+     */
+    public function isValid()
+    {
+        return $this->_validate();
+    }
+
+    /**
      * Set transaction data
      *
      * @param  array|string $data

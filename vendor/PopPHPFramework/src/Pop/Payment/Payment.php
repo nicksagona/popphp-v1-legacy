@@ -24,7 +24,9 @@
  */
 namespace Pop\Payment;
 
-use Pop\Payment\Adapter\AbstractAdapter;
+use Pop\Payment\Adapter\AbstractAdapter,
+    Pop\Validator\Validator,
+    Pop\Validator\Validator\ValidatorInterface;
 
 /**
  * @category   Pop
@@ -112,6 +114,16 @@ class Payment
     public function adapter()
     {
         return $this->_adapter;
+    }
+
+    /**
+     * Validate transaction data
+     *
+     * @return boolean
+     */
+    public function isValid()
+    {
+        return $this->_adapter->isValid();
     }
 
     /**

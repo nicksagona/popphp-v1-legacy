@@ -1160,4 +1160,12 @@
         <source>The required transaction data has not been set.</source>
        <output></output>
     </text>
+    <text>
+        <source>The value must be a valid credit card number</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The value must not be a valid credit card number</source>
+        <output></output>
+    </text>
 </language>
