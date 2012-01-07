@@ -14,6 +14,7 @@ try {
     ));
 
     $payment->cardNum = '4111111111111111';
+    $payment->ccv = '123';
     $payment->amount = '50.00';
     $payment->expDate = '122016';
     $payment->firstName = 'Bob';
@@ -24,8 +25,6 @@ try {
     $payment->zip = '70130';
 
     $payment->send();
-
-    //print_r($payment->getResponseCodes());
 
     if ($payment->isApproved()) {
         echo "You're approved!" . PHP_EOL;

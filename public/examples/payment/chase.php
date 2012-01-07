@@ -8,9 +8,9 @@ use Pop\Payment\Payment,
 try {
     $payment = new Payment(new Chase('API_ID', 'TRANS_KEY', Payment::TEST));
 
-    $payment->cardNum = '4111222233334444';
+    $payment->cardNum = 'XXXXXXXXXXXXXXXX';
     $payment->amount = '25.27';
-    $payment->expDate = '10/13';
+    $payment->expDate = '12/13';
 
     $payment->send();
 

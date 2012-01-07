@@ -197,6 +197,10 @@ class PayPal extends AbstractAdapter
      */
     public function send($verifyPeer = true)
     {
+        if (null === $this->_transaction['IPADDRESS']) {
+            $this->_transaction['IPADDRESS'] = $_SERVER['REMOTE_ADDR'];
+        }
+
         if (!$this->_validate()) {
             throw new Exception(Locale::factory()->__('The required transaction data has not been set.'));
         }
@@ -250,9 +254,6 @@ class PayPal extends AbstractAdapter
             $post['SHIPTONAME'] = $post['SHIPTOFNAME'] . ' ' . $post['SHIPTOLNAME'];
             unset($post['SHIPTOFNAME']);
             unset($post['SHIPTOLNAME']);
-        }
-        if (null === $post['IPADDRESS']) {
-            $post['IPADDRESS'] = $_SERVER['REMOTE_ADDR'];
         }
 
         return http_build_query($post);

@@ -249,7 +249,7 @@ abstract class AbstractAdapter implements AdapterInterface
 
         if (count($this->_requiredFields) > 0) {
             foreach ($this->_requiredFields as $field) {
-                if (null === $field) {
+                if (null === $this->_transaction[$field]) {
                     $valid = false;
                 }
             }

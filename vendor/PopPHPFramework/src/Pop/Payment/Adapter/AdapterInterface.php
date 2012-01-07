@@ -71,6 +71,13 @@ interface AdapterInterface
     public function getMessage();
 
     /**
+     * Return whether transaction data is valid
+     *
+     * @return boolean
+     */
+    public function isValid();
+
+    /**
      * Return whether currently set to test environment
      *
      * @return boolean

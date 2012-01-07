@@ -10,7 +10,7 @@ try {
 
     $payment->cardNum = '4111111111111111';
     $payment->amount = '25.27';
-    $payment->expDate = '10/13';
+    $payment->expDate = '12/13';
 
     $payment->send();
 

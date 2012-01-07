@@ -117,16 +117,6 @@ class Payment
     }
 
     /**
-     * Validate transaction data
-     *
-     * @return boolean
-     */
-    public function isValid()
-    {
-        return $this->_adapter->isValid();
-    }
-
-    /**
      * Send transaction data
      *
      * @param  boolean $verifyPeer
@@ -136,6 +126,16 @@ class Payment
     {
         $this->_adapter->set($this->_fields);
         $this->_adapter->send();
+    }
+
+    /**
+     * Validate transaction data
+     *
+     * @return boolean
+     */
+    public function isValid()
+    {
+        return $this->_adapter->isValid();
     }
 
     /**
