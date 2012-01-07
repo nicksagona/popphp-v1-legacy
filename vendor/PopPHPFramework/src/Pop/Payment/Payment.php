@@ -24,9 +24,7 @@
  */
 namespace Pop\Payment;
 
-use Pop\Payment\Adapter\AbstractAdapter,
-    Pop\Validator\Validator,
-    Pop\Validator\Validator\ValidatorInterface;
+use Pop\Payment\Adapter\AbstractAdapter;
 
 /**
  * @category   Pop

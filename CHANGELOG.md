@@ -49,23 +49,19 @@ Completed:
         + Forms
         + Project
 * Add Geo component
-
-
-CURRENTLY BEING WORKED ON
------------------------------------
 * Payment component
     - Tested and completed
         + Authorize.net
         + PayPal (Website Payment Pro)
         + UsaEpay
-    - Waiting on a test account
-        + Chase Paymentech
         + Payleap
         + Trustcommerce
+    - Waiting on a test account
+        + Chase Paymentech
 
 
-ON HOLD/TO BE CONTINUED/DEBUGGED/WORKED ON
-------------------------------------------
+CURRENTLY BEING WORKED ON
+-----------------------------------
 * Pdf Component
     - Improve Pdf API overall
     - Rework the integration of the new/improved image components into Pdf
