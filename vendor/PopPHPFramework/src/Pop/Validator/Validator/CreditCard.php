@@ -48,6 +48,12 @@ class CreditCard extends AbstractValidator
         // Set the input, if passed
         if (null !== $input) {
             $this->_input = $input;
+            if (strpos($this->_input, ' ') !== false) {
+                $this->_input = str_replace(' ', '', $this->_input);
+            }
+            if (strpos($this->_input, '-') !== false) {
+                $this->_input = str_replace('-', '', $this->_input);
+            }
         }
 
         // Set the default message
@@ -58,7 +64,34 @@ class CreditCard extends AbstractValidator
         }
 
         // Evaluate the input against the validator
+        $nums = str_split($this->_input);
+        $check = $nums[count($nums) - 1];
+        $start = count($nums) - 2;
+        $sum = 0;
+        $double = true;
 
+        for ($i = $start; $i >= 0; $i--) {
+            if ($double) {
+                $num = $nums[$i] * 2;
+                if ($num > 9) {
+                    $num = substr($num, 0, 1) + substr($num, 1, 1);
+                }
+                $sum += $num;
+                $double = false;
+            } else {
+                $sum += $nums[$i];
+                $double = true;
+            }
+        }
+
+        $sum += $check;
+        $rem = $sum % 10;
+
+        if (($rem == 0) == $this->_condition) {
+            $this->_result = true;
+        } else {
+            $this->_result = false;
+        }
 
         return $this->_result;
     }
