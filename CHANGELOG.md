@@ -71,6 +71,8 @@ CURRENTLY BEING WORKED ON
     - Revisit PDF layer/clipping issues
     - Revisit embedding GIFs into Pdf
     - Revisit pie chart text for Pdf
+* Check/Test Record Component
+* Finish XML language data
 
 
 NEXT UP:
