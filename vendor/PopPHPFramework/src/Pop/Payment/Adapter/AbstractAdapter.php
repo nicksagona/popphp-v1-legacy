@@ -217,7 +217,7 @@ abstract class AbstractAdapter implements AdapterInterface
      *
      * @param  array|string $data
      * @param  string       $value
-     * @return Pop\Payment\Adapter\Authorize
+     * @return mixed
      */
     public function set($data, $value = null)
     {
