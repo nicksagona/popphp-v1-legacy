@@ -77,7 +77,7 @@ class Record
     protected $_prefix = null;
 
     /**
-     * Table name of the database table
+     * Table name of the database tablel
      * @var string
      */
     protected $_tableName = null;
@@ -202,8 +202,8 @@ class Record
     /**
      * Find a database row by the primary ID passed through the method argument.
      *
-     * @param  int|string $id
-     * @param  int|string $limit
+     * @param  mixed $id
+     * @param  int   $limit
      * @throws Exception
      * @return Pop\Record\Record
      */
@@ -352,7 +352,7 @@ class Record
     /**
      * Get the table primary ID
      *
-     * @return string
+     * @return mixed
      */
     public function getId()
     {
@@ -362,7 +362,7 @@ class Record
     /**
      * Get the table prefix
      *
-     * @return astring
+     * @return string
      */
     public function getPrefix()
     {
@@ -381,16 +381,6 @@ class Record
         } else {
             return $this->_tableName;
         }
-    }
-
-    /**
-     * Get the full table name with prefix
-     *
-     * @return string
-     */
-    public function getFullName()
-    {
-        return $this->_tableName;
     }
 
     /**

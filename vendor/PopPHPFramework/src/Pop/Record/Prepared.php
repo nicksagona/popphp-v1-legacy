@@ -80,8 +80,8 @@ class Prepared extends AbstractRecord
     /**
      * Find a database row by the primary ID passed through the method argument.
      *
-     * @param  int|string $id
-     * @param  int|string $limit
+     * @param  mixed $id
+     * @param  int   $limit
      * @throws Exception
      * @return void
      */
@@ -93,15 +93,36 @@ class Prepared extends AbstractRecord
             // Build the SQL.
             $this->db->sql->setTable($this->_tableName)
                           ->setIdQuoteType($this->_idQuote)
-                          ->select()
-                          ->where($this->_primaryId, '=', $this->_getPlaceholder($this->_primaryId));
+                          ->select();
+                          //->where($this->_primaryId, '=', $this->_getPlaceholder($this->_primaryId));
+
+            if (is_array($this->_primaryId)) {
+                if (!is_array($id) || (count($id) != count($this->_primaryId))) {
+                    throw new Exception($this->_lang->__('The array of ID values does not match the number of IDs.'));
+                }
+                foreach ($id as $key => $value) {
+                    $this->db->sql->where($this->_primaryId[$key], '=', $this->_getPlaceholder($this->_primaryId[$key], ($key + 1)));
+                }
+            } else {
+                $this->db->sql->where($this->_primaryId, '=', $this->_getPlaceholder($this->_primaryId));
+            }
 
             if (null !== $limit) {
                 $this->db->sql->limit($this->db->adapter->escape((int)$limit));
             }
 
             $this->db->adapter->prepare($this->db->sql->getSql());
-            $this->db->adapter->bindParams(array($this->_primaryId => $id));
+
+            if (is_array($this->_primaryId)) {
+                $params = array();
+                foreach ($id as $key => $value) {
+                    $params[$this->_primaryId[$key]] = $value;
+                }
+            } else {
+                $params = array($this->_primaryId => $id);
+            }
+
+            $this->db->adapter->bindParams($params);
             $this->db->adapter->execute();
 
             // Set the return results.
@@ -363,7 +384,7 @@ class Prepared extends AbstractRecord
                         unset($params[$this->_finder[0]]);
                     }
                     $params[$this->_finder[0]] = $val;
-                    $this->db->sql->update($columns)
+                    $this->db->sql->update((array)$columns)
                                   ->where($this->_finder[0], '=', $this->_getPlaceholder($this->_finder[0], $i));
                     $this->db->adapter->prepare($this->db->sql->getSql());
                     $this->db->adapter->bindParams($params);
@@ -374,7 +395,7 @@ class Prepared extends AbstractRecord
                         $columns[$key] = $this->_getPlaceholder($key, $i);
                         $i++;
                     }
-                    $this->db->sql->update($columns);
+                    $this->db->sql->update((array)$columns);
                     $this->db->adapter->prepare($this->db->sql->getSql());
                     $this->db->adapter->bindParams($this->_columns);
                 }
@@ -389,7 +410,7 @@ class Prepared extends AbstractRecord
                     $columns[$key] = $this->_getPlaceholder($key, $i);
                     $i++;
                 }
-                $this->db->sql->insert($columns);
+                $this->db->sql->insert((array)$columns);
                 $this->db->adapter->prepare($this->db->sql->getSql());
                 $this->db->adapter->bindParams($this->_columns);
                 $this->db->adapter->execute();
@@ -398,7 +419,17 @@ class Prepared extends AbstractRecord
             if ($this->_auto == false) {
                 $action = ($type == Record::INSERT) ? 'insert' : 'update';
             } else {
-                $action = (isset($this->_columns[$this->_primaryId])) ? 'update' : 'insert';
+                if (is_array($this->_primaryId)) {
+                    $isset = true;
+                    foreach ($this->_primaryId as $value) {
+                        if (!isset($this->_columns[$value])) {
+                            $isset = false;
+                        }
+                    }
+                    $action = ($isset) ? 'update' : 'insert';
+                } else {
+                    $action = (isset($this->_columns[$this->_primaryId])) ? 'update' : 'insert';
+                }
             }
 
             if ($action == 'update') {
@@ -410,21 +441,42 @@ class Prepared extends AbstractRecord
 
                 $i = 1;
                 foreach ($this->_columns as $key => $value) {
-                    if ($key != $this->_primaryId) {
-                        $columns[$key] = $this->_getPlaceholder($key, $i);
-                        $i++;
+                    if (is_array($this->_primaryId)) {
+                        if (!in_array($key, $this->_primaryId)) {
+                            $columns[$key] = $this->_getPlaceholder($key, $i);
+                            $i++;
+                        }
+                    } else {
+                        if ($key != $this->_primaryId) {
+                            $columns[$key] = $this->_getPlaceholder($key, $i);
+                            $i++;
+                        }
                     }
                 }
 
-                if (isset($params[$this->_primaryId])) {
-                    $id = $params[$this->_primaryId];
-                    unset($params[$this->_primaryId]);
+                $this->db->sql->update((array)$columns);
+
+                if (is_array($this->_primaryId)) {
+                    foreach ($this->_primaryId as $key => $value) {
+                        if (isset($params[$value])) {
+                            $id = $params[$value];
+                            unset($params[$value]);
+                        } else {
+                            $id = $params[$value];
+                        }
+                        $params[$value] = $id;
+                        $this->db->sql->where($value, '=', $this->_getPlaceholder($value, ($i + $key + 1)));
+                    }
+                } else {
+                    if (isset($params[$this->_primaryId])) {
+                        $id = $params[$this->_primaryId];
+                        unset($params[$this->_primaryId]);
+                    } else {
+                        $id = $params[$this->_primaryId];
+                    }
+                    $params[$this->_primaryId] = $id;
+                    $this->db->sql->where($this->_primaryId, '=', $this->_getPlaceholder($this->_primaryId, $i));
                 }
-
-                $params[$this->_primaryId] = $id;
-
-                $this->db->sql->update($columns)
-                              ->where($this->_primaryId, '=', $this->_getPlaceholder($this->_primaryId, $i));
 
                 $this->db->adapter->prepare($this->db->sql->getSql());
                 $this->db->adapter->bindParams($params);
@@ -441,7 +493,7 @@ class Prepared extends AbstractRecord
                     $i++;
                 }
 
-                $this->db->sql->insert($columns);
+                $this->db->sql->insert((array)$columns);
                 $this->db->adapter->prepare($this->db->sql->getSql());
                 $this->db->adapter->bindParams($this->_columns);
                 $this->db->adapter->execute();
@@ -486,11 +538,26 @@ class Prepared extends AbstractRecord
         } else {
             $this->db->sql->setTable($this->_tableName)
                           ->setIdQuoteType($this->_idQuote)
-                          ->delete()
-                          ->where($this->db->adapter->escape($this->_primaryId), '=', $this->_getPlaceholder($this->_primaryId));
+                          ->delete();
+            if (is_array($this->_primaryId)) {
+                foreach ($this->_primaryId as $key => $value) {
+                    $this->db->sql->where($this->db->adapter->escape($value), '=', $this->_getPlaceholder($value, ($key + 1)));
+                }
+            } else {
+                $this->db->sql->where($this->db->adapter->escape($this->_primaryId), '=', $this->_getPlaceholder($this->_primaryId));
+            }
 
             $this->db->adapter->prepare($this->db->sql->getSql());
-            $this->db->adapter->bindParams(array($this->_primaryId => $this->_columns[$this->_primaryId]));
+
+            if (is_array($this->_primaryId)) {
+                $params = array();
+                foreach ($this->_primaryId as $value) {
+                    $params[$value] = $this->_columns[$value];
+                }
+            } else {
+                $params = array($this->_primaryId => $this->_columns[$this->_primaryId]);
+            }
+            $this->db->adapter->bindParams($params);
             $this->db->adapter->execute();
 
             $this->_columns = array();
