@@ -346,10 +346,10 @@ class Sql
     public function join($tableToJoin, $commonColumn, $typeOfJoin = 'JOIN')
     {
         $allowedJoins = array(
-                            'JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'FULL JOIN',
-                            'OUTER JOIN', 'LEFT OUTER JOIN', 'RIGHT OUTER JOIN', 'FULL OUTER JOIN',
-                            'INNER JOIN', 'LEFT INNER JOIN', 'RIGHT INNER JOIN', 'FULL INNER JOIN'
-                        );
+            'JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'FULL JOIN',
+            'OUTER JOIN', 'LEFT OUTER JOIN', 'RIGHT OUTER JOIN', 'FULL OUTER JOIN',
+            'INNER JOIN', 'LEFT INNER JOIN', 'RIGHT INNER JOIN', 'FULL INNER JOIN'
+        );
 
         $join = (in_array(strtoupper($typeOfJoin), $allowedJoins)) ? strtoupper($typeOfJoin) : 'JOIN';
 
@@ -362,10 +362,10 @@ class Sql
         }
 
         $this->_join = array(
-                           'tableToJoin' => $this->_quoteId($tableToJoin),
-                           'commonColumn' => $cols,
-                           'typeOfJoin'  => $join
-                       );
+            'tableToJoin' => $this->_quoteId($tableToJoin),
+            'commonColumn' => $cols,
+            'typeOfJoin'  => $join
+        );
 
         return $this;
     }
@@ -389,11 +389,11 @@ class Sql
         $quote = (($value == '?') || (substr($value, 0, 1) == ':') || (preg_match('/^\$\d*\d$/', $value) != 0)) ? null : "'";
 
         $this->_where[] = array(
-                              'column'      => $this->_quoteId($column),
-                              'comparison'  => $comp,
-                              'value'       => $quote . $value . $quote,
-                              'conjunction' => $conj
-                          );
+            'column'      => $this->_quoteId($column),
+            'comparison'  => $comp,
+            'value'       => $quote . $value . $quote,
+            'conjunction' => $conj
+        );
 
         return $this;
     }
@@ -611,7 +611,7 @@ class Sql
         for ($i = 0; $i < count($this->_where); $i++) {
             $whereSql .= '(' . $this->_where[$i]['column'] . ' ' . $this->_where[$i]['comparison'] . ' ' . $this->_where[$i]['value'] . ')';
             if ($i < (count($this->_where) - 1)) {
-                $whereSql .= ' ' . $this->_where[$i]['conjunction'];
+                $whereSql .= ' ' . $this->_where[$i]['conjunction'] . ' ';
             }
         }
 

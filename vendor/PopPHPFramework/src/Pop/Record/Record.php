@@ -84,7 +84,7 @@ class Record
 
     /**
      * Primary ID column name of the database table
-     * @var string
+     * @var string|array
      */
     protected $_primaryId = 'id';
 
