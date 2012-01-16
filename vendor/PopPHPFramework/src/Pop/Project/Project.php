@@ -171,7 +171,6 @@ class Project
         if (null !== $this->controller($controller)) {
             $ctrlCls = $this->controller($controller);
             $this->_controller = new $ctrlCls();
-            $this->_controller->dispatch();
         }
     }
 

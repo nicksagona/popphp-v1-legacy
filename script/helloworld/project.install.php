@@ -1,4 +1,14 @@
 <?php
+/**
+ * HelloWorld Application Example
+ *
+ * This application example demonstrates how to easily set
+ * various configuration data to have the Pop PHP Framework
+ * automatically build the foundation of your application.
+ *
+ * This includes databases and corresponding table classes,
+ * forms and their fields, and controllers and their view templates.
+ */
 
 return new Pop\Config(array(
     'project' => array(
@@ -28,31 +38,17 @@ return new Pop\Config(array(
                     'validators' => 'AlphaNumeric()'
                 ),
                 array(
-                    'type'       => 'text',
-                    'name'       => 'email',
-                    'label'      => 'Email:',
-                    'required'   => true,
-                    'attributes' => array('size', 40),
-                    'validators' => array('NotEmpty()', 'Email()')
-                ),
-                array(
                     'type'       => 'password',
                     'name'       => 'password',
                     'label'      => 'Password:',
                     'required'   => true,
                     'attributes' => array('size', 40),
-                    'validators' => 'LengthGt(6)'
-                ),
-                array(
-                    'type'       => 'checkbox',
-                    'name'       => 'colors',
-                    'label'      => 'Colors:',
-                    'value'      => array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue')
+                    'validators' => array('NotEmpty()', 'LengthGt(6)')
                 ),
                 array(
                     'type'       => 'submit',
                     'name'       => 'submit',
-                    'value'      => 'SUBMIT',
+                    'value'      => 'LOGIN',
                     'attributes' => array('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;')
                 )
             )

@@ -1,3 +1,5 @@
+-- This is the test data for the HelloWorld Application Example 
+
 --
 -- Table structure for table `users`
 --
