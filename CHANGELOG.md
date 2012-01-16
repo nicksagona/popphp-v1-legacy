@@ -60,7 +60,6 @@ Completed:
 
 CURRENTLY BEING WORKED ON
 -----------------------------------
-* Finish XML language data
 * Pdf Component
     - Improve Pdf API overall
     - Rework the integration of the new/improved image components into Pdf

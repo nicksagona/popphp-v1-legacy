@@ -50,11 +50,11 @@
     </text>
     <text>
         <source>The child element passed is not an instance of Moc10_Dom_Child.</source>
-        <output>Το στοιχείο που πέρασε το παιδί δεν είναι ένα παράδειγμα Moc10_Dom_Child.</output>
+        <output>Το στοιχείο που πέρασε το παιδί δεν είναι ένα παράδειγμα Pop\Dom\Child.</output>
     </text>
     <text>
-        <source>One or more of the child elements passed is not an instance of Moc10_Dom_Child.</source>
-        <output>Ένα ή περισσότερα από τα στοιχεία που πέρασε παιδί δεν είναι ένα παράδειγμα Moc10_Dom_Child.</output>
+        <source>One or more of the child elements passed is not an instance of Pop\Dom\Child.</source>
+        <output>Ένα ή περισσότερα από τα στοιχεία που πέρασε παιδί δεν είναι ένα παράδειγμα Pop\Dom\Child.</output>
     </text>
     <text>
         <source>That feed URL cannot be read at this time. Please try again later.</source>
@@ -377,8 +377,8 @@
         <output>Σφάλμα: Τουλάχιστον ένα από τα κλειδιά array πρέπει να είναι «ηλεκτρονικού ταχυδρομείου».</output>
     </text>
     <text>
-        <source>Error: The parameter passed must either be a valid file or an instance of Moc10_File.</source>
-        <output>Σφάλμα: Η παράμετρος πέρασε πρέπει να είναι είτε ένα έγκυρο αρχείο ή μια εμφάνιση του Moc10_File.</output>
+        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
+        <output>Σφάλμα: Η παράμετρος πέρασε πρέπει να είναι είτε ένα έγκυρο αρχείο ή μια εμφάνιση του Pop\File\File.</output>
     </text>
     <text>
         <source>Error: The message body elements are not set.</source>
@@ -463,5 +463,709 @@
     <text>
         <source>The standard site is not set.</source>
         <output>Το πρότυπο site δεν έχει οριστεί.</output>
+    </text>
+    <text>
+        <source>That header code '%1' is not allowed.</source>
+        <output>Ο κώδικας επικεφαλίδα "%1" δεν επιτρέπεται.</output>
+    </text>
+    <text>
+        <source>The array parameter passed must contain an array of field values.</source>
+        <output>Η παράμετρος πέρασε συστοιχία πρέπει να περιέχει έναν πίνακα τιμών πεδίου.</output>
+    </text>
+    <text>
+        <source>Error: The image resource has not been created.</source>
+        <output>Σφάλμα: Ο πόρος εικόνα δεν έχει δημιουργηθεί.</output>
+    </text>
+    <text>
+        <source>Error: The image output resource has not been created.</source>
+        <output>Σφάλμα: Ο πόρος έξοδος εικόνας δεν έχει δημιουργηθεί.</output>
+    </text>
+    <text>
+        <source>The argument passed is not valid.</source>
+        <output>Το πέρασε το επιχείρημα δεν είναι έγκυρη.</output>
+    </text>
+    <text>
+        <source>The archive file is compressed. It must only be either a TAR or ZIP archive file.</source>
+        <output>Το αρχείο αρχειοθέτησης είναι συμπιεσμένα. Θα πρέπει μόνο να είναι είτε TAR ή ZIP αρχείο αρχειοθέτησης.</output>
+    </text>
+    <text>
+        <source>The archive file must be either a TAR or ZIP archive file.</source>
+        <output>Το αρχείο αρχείο πρέπει να είναι είτε ένα TAR ή ZIP αρχείο αρχειοθέτησης.</output>
+    </text>
+    <text>
+        <source>Error: The compression type must either be Flate or LZW.</source>
+        <output>Σφάλμα: Ο τύπος συμπίεσης πρέπει να είναι είτε Flate ή LZW.</output>
+    </text>
+    <text>
+        <source>Error: The font file does not seem to have all of the correct data to parse.</source>
+        <output>Σφάλμα: Το αρχείο γραμματοσειράς δεν φαίνεται να έχει όλα τα σωστά στοιχεία για να αναλύσει.</output>
+    </text>
+    <text>
+        <source>Error: The GD library extension must be installed to use the Gd adapter.</source>
+        <output>Σφάλμα: Η επέκταση βιβλιοθήκη GD πρέπει να εγκατασταθούν για να χρησιμοποιήσετε τον προσαρμογέα Θ.</output>
+    </text>
+    <text>
+        <source>No source file or database table was passed.</source>
+        <output>Δεν αρχείο προέλευσης ή πίνακα βάσης δεδομένων ψηφίστηκε.</output>
+    </text>
+    <text>
+        <source>The options parameter must be an array.</source>
+        <output>Η παράμετρος επιλογές πρέπει να είναι πίνακας.</output>
+    </text>
+    <text>
+        <source>The options parameter must be an array that contains either a 'table' or 'file' key.</source>
+        <output>Η παράμετρος επιλογές πρέπει να είναι ένας πίνακας που περιέχει είτε ένα «τραπέζι» ή «αρχείο» κλειδί.</output>
+    </text>
+    <text>
+        <source>Error: Could not connect to database. %1</source>
+        <output>Σφάλμα: Δεν ήταν δυνατή η σύνδεση με βάση δεδομένων. %1</output>
+    </text>
+    <text>
+        <source>Error: The database interface object has not been instaniated.</source>
+        <output>Σφάλμα: Το αντικείμενο περιβάλλοντος βάση δεδομένων δεν έχει instaniated.</output>
+    </text>
+    <text>
+        <source>Error: That method does not exist within the database interface object.</source>
+        <output>Σφάλμα: Η μέθοδος αυτή δεν υπάρχει στο αντικείμενο περιβάλλοντος βάσης δεδομένων.</output>
+    </text>
+    <text>
+        <source>Error: The columns parameter must be an array.</source>
+        <output>Σφάλμα: Η παράμετρος στήλες πρέπει να είναι πίνακας.</output>
+    </text>
+    <text>
+        <source>Error: The columns parameter must be an array that contains at least one key/value pair.</source>
+        <output>Σφάλμα: Η παράμετρος στήλες πρέπει να είναι ένας πίνακας που να περιέχει τουλάχιστον ένα ζευγάρι κλειδιού / τιμής.</output>
+    </text>
+    <text>
+        <source>Error: The table must be set.</source>
+        <output>Σφάλμα: Ο πίνακας πρέπει να ρυθμιστεί.</output>
+    </text>
+    <text>
+        <source>Error: A SQL type must be set.</source>
+        <output>Σφάλμα: Ένας τύπος SQL πρέπει να ρυθμιστεί.</output>
+    </text>
+    <text>
+        <source>Error: The database statement resource is not currently set.</source>
+        <output>Σφάλμα: Ο πόρος δήλωση βάση δεδομένων δεν έχει οριστεί.</output>
+    </text>
+    <text>
+        <source>The column and value parameters were not defined to describe the row(s) to delete.</source>
+        <output>Οι παράμετροι στήλη και η αξία δεν είχαν καθοριστεί για την περιγραφή της σειράς (s) για να διαγράψετε.</output>
+    </text>
+    <text>
+        <source>The column '%1' does not exist.</source>
+        <output>'%1' Η στήλη δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>Error: That database adapter class does not exist.</source>
+        <output>Σφάλμα: Αυτό κατηγορία προσαρμογέας βάσης δεδομένων δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>Error: The Imagick library extension must be installed to use the Imagick adapter.</source>
+        <output>Σφάλμα: Η επέκταση της βιβλιοθήκης imagick πρέπει να εγκατασταθούν για να χρησιμοποιήσετε τον προσαρμογέα imagick.</output>
+    </text>
+    <text>
+        <source>Error: That image type is not supported.</source>
+        <output>Σφάλμα: Αυτός ο τύπος της εικόνας δεν υποστηρίζεται.</output>
+    </text>
+    <text>
+        <source>Error: The cache type must be 'File', 'Sqlite' or 'Memcached'.</source>
+        <output>Σφάλμα: Ο τύπος cache πρέπει να είναι «Αρχείο», «SQLite» ή «Memcached».</output>
+    </text>
+    <text>
+        <source>Error: You must pass either a directory or SQLite file store point.</source>
+        <output>Σφάλμα: Θα πρέπει να περάσουν είτε ένα κατάλογο ή SQLite σημείο αποθήκευση αρχείων.</output>
+    </text>
+    <text>
+        <source>Error: That cache directory does not exist.</source>
+        <output>Σφάλμα: Ο κατάλογος cache δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>Error: That cache directory is not writable.</source>
+        <output>Σφάλμα: Ο κατάλογος cache δεν είναι εγγράψιμος.</output>
+    </text>
+    <text>
+        <source>Error: That cache db file and/or directory is not writable.</source>
+        <output>Σφάλμα: Αυτό cache db αρχείο και / ή ο κατάλογος δεν είναι εγγράψιμος.</output>
+    </text>
+    <text>
+        <source>Error: Memcache is not available on this server.</source>
+        <output>Σφάλμα: Memcache δεν είναι διαθέσιμη σε αυτόν το διακομιστή.</output>
+    </text>
+    <text>
+        <source>Error: Unable to connect to the memcached server.</source>
+        <output>Σφάλμα: Δεν είναι δυνατή η σύνδεση με το memcached διακομιστή.</output>
+    </text>
+    <text>
+        <source>That data type is not supported.</source>
+        <output>Αυτός ο τύπος δεδομένων δεν υποστηρίζεται.</output>
+    </text>
+    <text>
+        <source>No database adapter was found.</source>
+        <output>Δεν προσαρμογέα βάσης δεδομένων βρέθηκε.</output>
+    </text>
+    <text>
+        <source>That font is not available.</source>
+        <output>Αυτό γραμματοσειρά δεν είναι διαθέσιμη.</output>
+    </text>
+    <text>
+        <source>The percentages are greater than 100.</source>
+        <output>Τα ποσοστά είναι μεγαλύτερα από 100.</output>
+    </text>
+    <text>
+        <source>A proper color array was not passed.</source>
+        <output>Μια σωστή σειρά χρωμάτων δεν ψηφίστηκε.</output>
+    </text>
+    <text>
+        <source>One or more of the color values is out of range.</source>
+        <output>Μία ή περισσότερες από τις τιμές των χρωμάτων είναι εκτός εμβέλειας.</output>
+    </text>
+    <text>
+        <source>The color parameter is not a valid color space object.</source>
+        <output>Η παράμετρος χρώμα δεν είναι έγκυρο αντικείμενο χρωματικό χώρο.</output>
+    </text>
+    <text>
+        <source>That color space object does not exist.</source>
+        <output>Αυτό το αντικείμενο χρωματικό χώρο δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>That color space object is already that type.</source>
+        <output>Αυτό το αντικείμενο χρωματικό χώρο είναι ήδη αυτού του τύπου.</output>
+    </text>
+    <text>
+        <source>The headers have already been sent.</source>
+        <output>Οι κεφαλίδες που έχουν ήδη αποσταλεί.</output>
+    </text>
+    <text>
+        <source>The response was not properly formatted.</source>
+        <output>Η απάντηση δεν ήταν σωστή μορφή.</output>
+    </text>
+    <text>
+        <source>A template asset has not been assigned.</source>
+        <output>Ένα περιουσιακό στοιχείο πρότυπο δεν έχει ανατεθεί.</output>
+    </text>
+    <text>
+        <source>That template file either does not exist or is not the correct format.</source>
+        <output>Αυτό το αρχείο προτύπου είτε δεν υπάρχει ή δεν είναι η σωστή μορφή.</output>
+    </text>
+    <text>
+        <source>Due to licensing restrictions, RAR files cannot be created and can only be decompressed.</source>
+        <output>Λόγω των περιορισμών αδειοδότησης, RAR αρχεία δεν μπορεί να δημιουργηθεί και δεν μπορεί παρά να αποσυμπιεστούν.</output>
+    </text>
+    <text>
+        <source>The value must only contain alphanumeric characters.</source>
+        <output>Η τιμή πρέπει να περιέχει μόνο αλφαριθμητικούς χαρακτήρες.</output>
+    </text>
+    <text>
+        <source>The value must contain non-alphanumeric characters.</source>
+        <output>Η τιμή πρέπει να περιέχει μη αλφαριθμητικούς χαρακτήρες.</output>
+    </text>
+    <text>
+        <source>The value must only contain characters of the alphabet.</source>
+        <output>Η τιμή πρέπει να περιέχουν μόνο τους χαρακτήρες του αλφαβήτου.</output>
+    </text>
+    <text>
+        <source>The value must contain characters not in the alphabet.</source>
+        <output>Η τιμή πρέπει να περιέχει χαρακτήρες όχι στο αλφάβητο.</output>
+    </text>
+    <text>
+        <source>The value must be between %1 and %2.</source>
+        <output>Η τιμή πρέπει να είναι μεταξύ %1 και %2.</output>
+    </text>
+    <text>
+        <source>The value must not be between %1 and %2.</source>
+        <output>Η τιμή δεν πρέπει να είναι μεταξύ %1 και %2.</output>
+    </text>
+    <text>
+        <source>The value must be between or equal to %1 and %2.</source>
+        <output>Η τιμή πρέπει να είναι μεταξύ ή ίση με %1 και %2.</output>
+    </text>
+    <text>
+        <source>The value must not be between or equal to %1 and %2.</source>
+        <output>Η τιμή δεν πρέπει να είναι μεταξύ ή ίση με %1 και %2.</output>
+    </text>
+    <text>
+        <source>The value must be a valid email format.</source>
+        <output>Η τιμή πρέπει να είναι μια έγκυρη μορφή e-mail.</output>
+    </text>
+    <text>
+        <source>The value must not be a valid email format.</source>
+        <output>Η τιμή δεν πρέπει να είναι μια έγκυρη μορφή e-mail.</output>
+    </text>
+    <text>
+        <source>The value must be excluded.</source>
+        <output>Η τιμή πρέπει να αποκλειστεί.</output>
+    </text>
+    <text>
+        <source>The value must not be excluded.</source>
+        <output>Η τιμή δεν πρέπει να αποκλειστεί.</output>
+    </text>
+    <text>
+        <source>The value must be included.</source>
+        <output>Η αξία πρέπει να συμπεριληφθούν.</output>
+    </text>
+    <text>
+        <source>The value must not be included.</source>
+        <output>Η τιμή δεν πρέπει να περιλαμβάνονται.</output>
+    </text>
+    <text>
+        <source>The value must be equal to %1.</source>
+        <output>Η τιμή πρέπει να είναι ίσο με το %1.</output>
+    </text>
+    <text>
+        <source>The value must not be equal to %1.</source>
+        <output>Η τιμή δεν πρέπει να είναι ίσο με το %1.</output>
+    </text>
+    <text>
+        <source>The value must be greater than %1.</source>
+        <output>Η τιμή πρέπει να είναι μεγαλύτερη από %1.</output>
+    </text>
+    <text>
+        <source>The value must not be greater than %1.</source>
+        <output>Η τιμή δεν πρέπει να είναι μεγαλύτερη από %1.</output>
+    </text>
+    <text>
+        <source>The value must be greater than or equal to %1.</source>
+        <output>Η τιμή πρέπει να είναι μεγαλύτερη ή ίση με %1.</output>
+    </text>
+    <text>
+        <source>The value must not be greater than or equal to %1.</source>
+        <output>Η τιμή δεν πρέπει να είναι μεγαλύτερη ή ίση με %1.</output>
+    </text>
+    <text>
+        <source>The value length must be equal to %1.</source>
+        <output>Το μήκος τιμή πρέπει να είναι ίσο με το %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be equal to %1.</source>
+        <output>Το μήκος του αξία δεν πρέπει να είναι ίσο με το %1.</output>
+    </text>
+    <text>
+        <source>The value must be less than %1.</source>
+        <output>Η τιμή πρέπει να είναι μικρότερη από %1.</output>
+    </text>
+    <text>
+        <source>The value must not be less than %1.</source>
+        <output>Η τιμή δεν πρέπει να είναι μικρότερη από %1.</output>
+    </text>
+    <text>
+        <source>The value must be less than or equal to %1.</source>
+        <output>Η τιμή πρέπει να είναι μικρότερη ή ίση με %1.</output>
+    </text>
+    <text>
+        <source>The value must not be less than or equal to %1.</source>
+        <output>Η τιμή δεν πρέπει να είναι μικρότερη ή ίση με %1.</output>
+    </text>
+    <text>
+        <source>The value length must be between %1 and %2.</source>
+        <output>Το μήκος τιμή πρέπει να είναι μεταξύ%1 και%2.</output>
+    </text>
+    <text>
+        <source>The value length must not be between %1 and %2.</source>
+        <output>Το μήκος του αξία δεν πρέπει να είναι μεταξύ%1 και%2.</output>
+    </text>
+    <text>
+        <source>The value length must be between or equal to %1 and %2.</source>
+        <output>Το μήκος τιμή πρέπει να είναι μεταξύ ή ίση με %1 και %2.</output>
+    </text>
+    <text>
+        <source>The value length must not be between or equal to %1 and %2.</source>
+        <output>Το μήκος του αξία δεν πρέπει να είναι μεταξύ ή ίση με %1 και %2.</output>
+    </text>
+    <text>
+        <source>The value length must be greater than %1.</source>
+        <output>Το μήκος τιμή πρέπει να είναι μεγαλύτερη από %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be greater than %1.</source>
+        <output>Το μήκος του αξία δεν πρέπει να είναι μεγαλύτερη από %1.</output>
+    </text>
+    <text>
+        <source>The value length must be greater than or equal to %1.</source>
+        <output>Το μήκος τιμή πρέπει να είναι μεγαλύτερη ή ίση με %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be greater than or equal to %1.</source>
+        <output>Το μήκος του αξία δεν πρέπει να είναι μεγαλύτερη ή ίση με %1.</output>
+    </text>
+    <text>
+        <source>The value length must be less than %1.</source>
+        <output>Το μήκος τιμή πρέπει να είναι μικρότερη από %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be less than %1.</source>
+        <output>Το μήκος του αξία δεν πρέπει να είναι μικρότερη από %1.</output>
+    </text>
+    <text>
+        <source>The value length must be less than or equal to %1.</source>
+        <output>Το μήκος τιμή πρέπει να είναι μικρότερη ή ίση με %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be less than or equal to %1.</source>
+        <output>Το μήκος του αξία δεν πρέπει να είναι μικρότερη ή ίση με %1.</output>
+    </text>
+    <text>
+        <source>The value must be empty.</source>
+        <output>Η τιμή πρέπει να είναι κενός.</output>
+    </text>
+    <text>
+        <source>The value must not be empty.</source>
+        <output>Η τιμή δεν πρέπει να είναι κενό.</output>
+    </text>
+    <text>
+        <source>The value must be numeric.</source>
+        <output>Η τιμή πρέπει να είναι αριθμητική.</output>
+    </text>
+    <text>
+        <source>The value must not be numeric.</source>
+        <output>Η τιμή δεν πρέπει να είναι αριθμητική.</output>
+    </text>
+    <text>
+        <source>Error: The file type %1 is not an accepted file format.</source>
+        <output>Σφάλμα: Ο τύπος αρχείου%1 δεν είναι αποδεκτή μορφή αρχείου.</output>
+    </text>
+    <text>
+        <source>The value format is not correct.</source>
+        <output>Η μορφή τιμή δεν είναι σωστή.</output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv4 address.</source>
+        <output>Η τιμή πρέπει να είναι μια έγκυρη διεύθυνση IPv4.</output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv4 address.</source>
+        <output>Η τιμή δεν πρέπει να είναι μια έγκυρη διεύθυνση IPv4.</output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv6 address.</source>
+        <output>Η τιμή πρέπει να είναι μια έγκυρη διεύθυνση IPv6.</output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv6 address.</source>
+        <output>Η τιμή δεν πρέπει να είναι μια έγκυρη διεύθυνση IPv6.</output>
+    </text>
+    <text>
+        <source>The user role has not been defined to evaluate against.</source>
+        <output>Ο ρόλος χρήστης δεν έχει καθοριστεί για την αξιολόγηση κατά.</output>
+    </text>
+    <text>
+        <source>Error: The file type %1 is not an accepted file format.</source>
+        <output>Σφάλμα: Ο τύπος αρχείου%1 δεν είναι αποδεκτή μορφή αρχείου.</output>
+    </text>
+    <text>
+        <source>The value must be part of the subnet %1.</source>
+        <output>Η τιμή πρέπει να είναι μέρος του υποδικτύου%1.</output>
+    </text>
+    <text>
+        <source>The value must not be part of the subnet %1.</source>
+        <output>Η τιμή δεν πρέπει να είναι μέρος του υποδικτύου%1.</output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv4 subnet.</source>
+        <output>Η τιμή πρέπει να είναι μια έγκυρη IPv4 υποδίκτυο.</output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv4 subnet.</source>
+        <output>Η τιμή δεν πρέπει να είναι μια έγκυρη IPv4 υποδίκτυο.</output>
+    </text>
+    <text>
+        <source>The IP address must be a valid IPv4 address.</source>
+        <output>Η διεύθυνση IP πρέπει να είναι μια έγκυρη διεύθυνση IPv4.</output>
+    </text>
+    <text>
+        <source>The user is valid.</source>
+        <output>Ο χρήστης είναι έγκυρη.</output>
+    </text>
+    <text>
+        <source>The user was not found.</source>
+        <output>Ο χρήστης δεν βρέθηκε.</output>
+    </text>
+    <text>
+        <source>The user is blocked.</source>
+        <output>Ο χρήστης έχει αποκλειστεί.</output>
+    </text>
+    <text>
+        <source>The password was incorrect.</source>
+        <output>Ο κωδικός πρόσβασης ήταν εσφαλμένη.</output>
+    </text>
+    <text>
+        <source>The allowed login attempts (%1) have been exceeded.</source>
+        <output>Οι προσπάθειες σύνδεσης επιτρέπονται (%1) σημειώθηκε υπέρβαση.</output>
+    </text>
+    <text>
+        <source>That IP address is blocked.</source>
+        <output>Αυτή η διεύθυνση IP είναι αποκλεισμένη.</output>
+    </text>
+    <text>
+        <source>That IP address is not allowed.</source>
+        <output>Αυτή η διεύθυνση IP δεν επιτρέπεται.</output>
+    </text>
+    <text>
+        <source>The session has expired.</source>
+        <output>Η συνεδρίαση έχει λήξει.</output>
+    </text>
+    <text>
+        <source>The access file does not exist.</source>
+        <output>Το αρχείο πρόσβαση δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>The user's role is not defined.</source>
+        <output>Ο ρόλος του χρήστη δεν έχει οριστεί.</output>
+    </text>
+    <text>
+        <source>That class map file does not exist.</source>
+        <output>Αυτό το αρχείο χάρτη τάξη δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>Unknown error.</source>
+        <output>Άγνωστο σφάλμα.</output>
+    </text>
+    <text>
+        <source>You must pass a source folder and a output file to generate a class map file.</source>
+        <output>Θα πρέπει να περάσει ένα φάκελο πηγή και ένα αρχείο εξόδου για να δημιουργήσετε ένα αρχείο χάρτη τάξη.</output>
+    </text>
+    <text>
+        <source>The source folder passed does not exist.</source>
+        <output>Ο φάκελος πέρασε πηγή δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>The output file passed must be a PHP file.</source>
+        <output>Το αρχείο πέρασε εξόδου πρέπει να είναι ένα PHP αρχείο.</output>
+    </text>
+    <text>
+        <source>You must pass an install file to install the project.</source>
+        <output>Θα πρέπει να περάσει ένα αρχείο εγκατάστασης για να εγκαταστήσετε το πρόγραμμα.</output>
+    </text>
+    <text>
+        <source>Unknown option:</source>
+        <output>Άγνωστο επιλογή:</output>
+    </text>
+    <text>
+        <source>You must pass at least one argument.</source>
+        <output>Θα πρέπει να περάσει τουλάχιστον ένα επιχείρημα.</output>
+    </text>
+    <text>
+        <source>Run './pop -h' for help.</source>
+        <output>Εκτέλεση '. / Pop-h' για βοήθεια.</output>
+    </text>
+    <text>
+        <source>Run '.\pop -h' for help.</source>
+        <output>Run '. \ Pop-h' για βοήθεια.</output>
+    </text>
+    <text>
+        <source>Aborted.</source>
+        <output>Ματαιώθηκε.</output>
+    </text>
+    <text>
+        <source>Project folder exists. This may overwrite any project files you may already have under that project folder.</source>
+        <output>Φάκελο του έργου υπάρχει. Αυτό μπορεί να αντικαταστήσει όλα τα αρχεία του έργου μπορεί να έχετε ήδη κάτω από αυτόν το φάκελο του έργου.</output>
+    </text>
+    <text>
+        <source>Database credentials and schema detected.</source>
+        <output>Διαπιστευτήρια βάσης δεδομένων και σχήματος ανιχνευθεί.</output>
+    </text>
+    <text>
+        <source>Test and install the database(s)?</source>
+        <output>Δοκιμή και εγκατάσταση της βάσης δεδομένων (s)?</output>
+    </text>
+    <text>
+        <source>Testing the database(s)...</source>
+        <output>Έλεγχος της βάσης δεδομένων (s) ...</output>
+    </text>
+    <text>
+        <source>Testing</source>
+        <output>Δοκιμές</output>
+    </text>
+    <text>
+        <source>The database type and database name must be set for the database</source>
+        <output>Ο τύπος της βάσης δεδομένων και όνομα βάσης δεδομένων πρέπει να οριστεί για τη βάση δεδομένων</output>
+    </text>
+    <text>
+        <source>Database</source>
+        <output>Βάση δεδομένων</output>
+    </text>
+    <text>
+        <source>Installing database</source>
+        <output>Εγκατάσταση βάσης δεδομένων</output>
+    </text>
+    <text>
+        <source>Add project to the bootstrap file?</source>
+        <output>Προσθήκη του έργου στο αρχείο bootstrap;</output>
+    </text>
+    <text>
+        <source>Project install complete.</source>
+        <output>Έργο εγκατάστασης ολοκληρωθεί.</output>
+    </text>
+    <text>
+        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
+        <output>Αυτή η διαδικασία θα δημιουργήσει και να εγκαταστήσετε το θεμέλιο βάση του σχεδίου σας κάτω από το φάκελο που καθορίζεται στο αρχείο εγκατάστασης. Ελάχιστα, το αρχείο εγκατάστασης θα πρέπει να επιστρέψει ένα Pop \ Config αντικείμενο που περιέχει τις ρυθμίσεις του έργου σας, εγκαταστήστε, όπως η ονομασία του έργου, φακέλων, εντύπων, των ελεγκτών, τις απόψεις και τις πιστοποιήσεις βάση δεδομένων.</output>
+    </text>
+    <text>
+        <source>Besides creating the base folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can take advantage of this by having the database SQL files in the same folder as your install file, like so:</source>
+        <output>Εκτός από τη δημιουργία της βάσης τους φακέλους και τα αρχεία για σας, ένα από τα κύρια οφέλη είναι η δυνατότητα να δοκιμάσουν και να εγκαταστήσετε τη βάση δεδομένων και η αντίστοιχη διαμόρφωση και τα αρχεία της κατηγορίας. Μπορείτε να επωφεληθούν από αυτή, έχοντας τη βάση δεδομένων SQL αρχεία στον ίδιο φάκελο με το αρχείο εγκατάστασης σας, όπως:</output>
+    </text>
+    <text>
+        <source>Install a project based on the install file specified</source>
+        <output>Εγκαταστήστε ένα πρόγραμμα που βασίζεται σε συγκεκριμένα το αρχείο εγκατάστασης</output>
+    </text>
+    <text>
+        <source>Check the current configuration for required dependencies</source>
+        <output>Ελέγξτε την τρέχουσα ρύθμιση για τις απαιτούμενες εξαρτήσεις</output>
+    </text>
+    <text>
+        <source>Display this help</source>
+        <output>Προβολή αυτής της βοήθειας</output>
+    </text>
+    <text>
+        <source>Show project install instructions</source>
+        <output>Δείτε τις οδηγίες εγκατάστασης του έργου</output>
+    </text>
+    <text>
+        <source>Set the default language for the project</source>
+        <output>Ορίστε την προεπιλεγμένη γλώσσα για το έργο</output>
+    </text>
+    <text>
+        <source>Create a class map file from the source folder and save to the output file</source>
+        <output>Δημιουργήστε ένα αρχείο χάρτη τάξη από το φάκελο προέλευσης και να αποθηκεύσετε το αρχείο εξόδου</output>
+    </text>
+    <text>
+        <source>Display version of Pop PHP Framework and latest available</source>
+        <output>Εμφάνιση έκδοση του Πλαισίου Pop PHP και πιο πρόσφατα διαθέσιμα</output>
+    </text>
+    <text>
+        <source>Continue?</source>
+        <output>Συνέχεια;</output>
+    </text>
+    <text>
+        <source>Enter the folder where the 'bootstrap.php' is located in relation to the current folder:</source>
+        <output>Πληκτρολογήστε το φάκελο όπου το «bootstrap.php» βρίσκεται σε σχέση με τον τρέχοντα φάκελο:</output>
+    </text>
+    <text>
+        <source>Bootstrap file not found. Try again.</source>
+        <output>Bootstrap αρχείο δεν βρέθηκε. Δοκιμάστε ξανά.</output>
+    </text>
+    <text>
+        <source>Creating base folder and file structure...</source>
+        <output>Δημιουργία φακέλου βάση και δομή των αρχείων ...</output>
+    </text>
+    <text>
+        <source>Creating database table class files...</source>
+        <output>Δημιουργία αρχείων class βάση δεδομένων πίνακα ...</output>
+    </text>
+    <text>
+        <source>Enter the two-letter code for the default language:</source>
+        <output>Εισάγετε τον διψήφιο κωδικό για την προεπιλεγμένη γλώσσα:</output>
+    </text>
+    <text>
+        <source>Real-time configuration changes are not allowed.</source>
+        <output>Σε πραγματικό χρόνο αλλαγές στις ρυθμίσεις δεν επιτρέπονται.</output>
+    </text>
+    <text>
+        <source>Run the unit tests from a folder</source>
+        <output>Εκτελέστε τις δοκιμές μονάδα από ένα φάκελο</output>
+    </text>
+    <text>
+        <source>That folder does not exist.</source>
+        <output>Αυτός ο φάκελος δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>The folder argument is not a folder.</source>
+        <output>Το επιχείρημα φάκελος δεν είναι ένα φάκελο.</output>
+    </text>
+    <text>
+        <source>The module name must be set in the module config.</source>
+        <output>Το όνομα της μονάδας πρέπει να ρυθμιστεί στο config module.</output>
+    </text>
+    <text>
+        <source>Install index controller and web configuration files?</source>
+        <output>Εγκαταστήστε ελεγκτή δείκτη και τα αρχεία ρύθμισης παραμέτρων μέσω Web;</output>
+    </text>
+    <text>
+        <source>The docblock is not in the correct format.</source>
+        <output>Η docblock δεν είναι στη σωστή μορφή.</output>
+    </text>
+    <text>
+        <source>You will have to install your web server rewrite configuration manually.</source>
+        <output>Θα πρέπει να εγκαταστήσετε το web διαμόρφωση του διακομιστή σας ξαναγράψουμε το χέρι.</output>
+    </text>
+    <text>
+        <source>Creating controller class files...</source>
+        <output>Δημιουργία αρχείων τάξη ελεγκτή ...</output>
+    </text>
+    <text>
+        <source>Creating form class files...</source>
+        <output>Δημιουργία αρχείων class μορφή ...</output>
+    </text>
+    <text>
+        <source>The Sqlite database file and folder are not writable.</source>
+        <output>Το αρχείο βάσης δεδομένων SQLite και ο φάκελος δεν είναι εγγράψιμο.</output>
+    </text>
+    <text>
+        <source>Project reconfigured.</source>
+        <output>Έργο αναδιαρθρώνεται.</output>
+    </text>
+    <text>
+        <source>Reconfigure the project based on the new location of the project</source>
+        <output>Ρυθμίστε ξανά το έργο με βάση τη νέα θέση του έργου</output>
+    </text>
+    <text>
+        <source>Database credentials detected.</source>
+        <output>Διαπιστευτήρια Database ανιχνευθεί.</output>
+    </text>
+    <text>
+        <source>Re-test the database(s)?</source>
+        <output>Re-test της βάσης δεδομένων (s)?</output>
+    </text>
+    <text>
+        <source>The Pop autoloader class file was not found.</source>
+        <output>Η Pop αρχείο τάξη Autoloader δεν βρέθηκε.</output>
+    </text>
+    <text>
+        <source>Enter the folder where the 'vendor' folder is contained in relation to the current folder:</source>
+        <output>Πληκτρολογήστε το φάκελο στον οποίο ο «πωλητής» φάκελο περιέχεται σε σχέση με τον τρέχοντα φάκελο:</output>
+    </text>
+    <text>
+        <source>Pop PHP Framework not found. Try again.</source>
+        <output>Pop PHP-πλαίσιο δεν βρέθηκε. Δοκιμάστε ξανά.</output>
+    </text>
+    <text>
+        <source>Pop PHP Framework found.</source>
+        <output>Pop PHP-πλαίσιο που βρέθηκαν.</output>
+    </text>
+    <text>
+        <source>Error: That cache directory does not exist.</source>
+        <output>Σφάλμα: Ο κατάλογος cache δεν υπάρχει.</output>
+    </text>
+    <text>
+        <source>Error: That cache directory is not writable.</source>
+        <output>Σφάλμα: Ο κατάλογος cache δεν είναι εγγράψιμος.</output>
+    </text>
+    <text>
+        <source>Error: Memcache is not available.</source>
+        <output>Σφάλμα: Memcache δεν είναι διαθέσιμη.</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
+        <output>Σφάλμα: Η περάσει παράμετρος πρέπει να είναι είτε ένα έγκυρο αρχείο ή μια εμφάνιση της Ποπ Αρχείο \ Αρχείο \.</output>
+    </text>
+    <text>
+        <source>You must either pass a Pop\Geo\Geo object or a set of latitude/longitude coordinates.</source>
+        <output>Θα πρέπει να περάσουν είτε ένα Pop \ Geo \ Geo αντικείμενο ή ένα σύνολο γεωγραφικού πλάτους / μήκους συντεταγμένες.</output>
+    </text>
+    <text>
+        <source>The required transaction data has not been set.</source>
+        <output>Τα απαιτούμενα στοιχεία των συναλλαγών δεν έχει οριστεί.</output>
+    </text>
+    <text>
+        <source>The value must be a valid credit card number</source>
+        <output>Η τιμή πρέπει να είναι ένα έγκυρο αριθμό πιστωτικής κάρτας</output>
+    </text>
+    <text>
+        <source>The value must not be a valid credit card number</source>
+        <output>Η τιμή δεν πρέπει να είναι ένας έγκυρος αριθμός πιστωτικής κάρτας</output>
+    </text>
+    <text>
+        <source>The array of ID values does not match the number of IDs.</source>
+        <output>Η σειρά των τιμών ID δεν ταιριάζει με τον αριθμό των ταυτοτήτων.</output>
     </text>
 </language>

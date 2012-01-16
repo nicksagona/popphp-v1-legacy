@@ -49,12 +49,12 @@
         <output>错误：这DOCTYPE是不允许的。</output>
     </text>
     <text>
-        <source>The child element passed is not an instance of Moc10_Dom_Child.</source>
-        <output>子元素传递的不是一个Moc10_Dom_Child实例。</output>
+        <source>The child element passed is not an instance of Pop\Dom\Child.</source>
+        <output>子元素传递的不是一个Pop\Dom\Child实例。</output>
     </text>
     <text>
-        <source>One or more of the child elements passed is not an instance of Moc10_Dom_Child.</source>
-        <output>一个或更多的孩子传递的元素是不是一个Moc10_Dom_Child实例。</output>
+        <source>One or more of the child elements passed is not an instance of Pop\Dom\Child.</source>
+        <output>一个或更多的孩子传递的元素是不是一个Pop\Dom\Child实例。</output>
     </text>
     <text>
         <source>That feed URL cannot be read at this time. Please try again later.</source>
@@ -377,8 +377,8 @@
         <output>错误：至少数组的关键之一必须是'电子邮件'。</output>
     </text>
     <text>
-        <source>Error: The parameter passed must either be a valid file or an instance of Moc10_File.</source>
-        <output>错误：参数传递必须是一个有效的文件，或者Moc10_File实例。</output>
+        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
+        <output>错误：参数传递必须是一个有效的文件，或者Pop\File\File实例。</output>
     </text>
     <text>
         <source>Error: The message body elements are not set.</source>
@@ -463,5 +463,709 @@
     <text>
         <source>The standard site is not set.</source>
         <output>标准的网站没有设置。</output>
+    </text>
+    <text>
+        <source>That header code '%1' is not allowed.</source>
+        <output>这个头代码'%1'是不允许的。</output>
+    </text>
+    <text>
+        <source>The array parameter passed must contain an array of field values.</source>
+        <output>传递数组参数必须包含一个字段值数组。</output>
+    </text>
+    <text>
+        <source>Error: The image resource has not been created.</source>
+        <output>错误：图像资源尚未建立。</output>
+    </text>
+    <text>
+        <source>Error: The image output resource has not been created.</source>
+        <output>错误：图像输出资源尚未建立。</output>
+    </text>
+    <text>
+        <source>The argument passed is not valid.</source>
+        <output>传递的参数是无效的。</output>
+    </text>
+    <text>
+        <source>The archive file is compressed. It must only be either a TAR or ZIP archive file.</source>
+        <output>压缩归档文件。它只能是一个TAR或ZIP归档文件。</output>
+    </text>
+    <text>
+        <source>The archive file must be either a TAR or ZIP archive file.</source>
+        <output>归档文件必须是一个TAR或ZIP归档文件。</output>
+    </text>
+    <text>
+        <source>Error: The compression type must either be Flate or LZW.</source>
+        <output>错误：压缩类型，必须是Flate或LZW。</output>
+    </text>
+    <text>
+        <source>Error: The font file does not seem to have all of the correct data to parse.</source>
+        <output>错误：字体文件似乎不会有正确的数据解析。</output>
+    </text>
+    <text>
+        <source>Error: The GD library extension must be installed to use the Gd adapter.</source>
+        <output>错误：GD库扩展必须安装使用GD适配器。</output>
+    </text>
+    <text>
+        <source>No source file or database table was passed.</source>
+        <output>没有源文件或数据库表中获得通过。</output>
+    </text>
+    <text>
+        <source>The options parameter must be an array.</source>
+        <output>该选项的参数必须是一个数组。</output>
+    </text>
+    <text>
+        <source>The options parameter must be an array that contains either a 'table' or 'file' key.</source>
+        <output>的选项参数必须是一个数组，包含一个“表”或“文件”键。</output>
+    </text>
+    <text>
+        <source>Error: Could not connect to database. %1</source>
+        <output>错误：无法连接到数据库。 %1</output>
+    </text>
+    <text>
+        <source>Error: The database interface object has not been instaniated.</source>
+        <output>错误：数据库接口对象尚未instaniated。</output>
+    </text>
+    <text>
+        <source>Error: That method does not exist within the database interface object.</source>
+        <output>错误：该方法不存在于数据库接口对象。</output>
+    </text>
+    <text>
+        <source>Error: The columns parameter must be an array.</source>
+        <output>错误：列参数必须是一个数组。</output>
+    </text>
+    <text>
+        <source>Error: The columns parameter must be an array that contains at least one key/value pair.</source>
+        <output>错误：列参数必须至少包含一个键/值对的数组。</output>
+    </text>
+    <text>
+        <source>Error: The table must be set.</source>
+        <output>错误：该表必须设置。</output>
+    </text>
+    <text>
+        <source>Error: A SQL type must be set.</source>
+        <output>错误：必须设置SQL类型。</output>
+    </text>
+    <text>
+        <source>Error: The database statement resource is not currently set.</source>
+        <output>错误：目前没有设置数据库语句资源。</output>
+    </text>
+    <text>
+        <source>The column and value parameters were not defined to describe the row(s) to delete.</source>
+        <output>列和值参数没有定义描述行（S）删除。</output>
+    </text>
+    <text>
+        <source>The column '%1' does not exist.</source>
+        <output>列'%1'不存在。</output>
+    </text>
+    <text>
+        <source>Error: That database adapter class does not exist.</source>
+        <output>错误：不存在该数据库的适配器类。</output>
+    </text>
+    <text>
+        <source>Error: The Imagick library extension must be installed to use the Imagick adapter.</source>
+        <output>错误：Imagick库的扩展必须安装使用的Imagick适配器。</output>
+    </text>
+    <text>
+        <source>Error: That image type is not supported.</source>
+        <output>错误：不支持该图像类型。</output>
+    </text>
+    <text>
+        <source>Error: The cache type must be 'File', 'Sqlite' or 'Memcached'.</source>
+        <output>错误：缓存类型必须是“文件”，“sqlite的'或'Memcached的”。</output>
+    </text>
+    <text>
+        <source>Error: You must pass either a directory or SQLite file store point.</source>
+        <output>错误：您必须通过一个目录或SQLite文件存储点。</output>
+    </text>
+    <text>
+        <source>Error: That cache directory does not exist.</source>
+        <output>错误：缓存目录不存在。</output>
+    </text>
+    <text>
+        <source>Error: That cache directory is not writable.</source>
+        <output>错误：该缓存目录是不可写的。</output>
+    </text>
+    <text>
+        <source>Error: That cache db file and/or directory is not writable.</source>
+        <output>错误：该缓存数据库文件和/或目录是不可写的。</output>
+    </text>
+    <text>
+        <source>Error: Memcache is not available on this server.</source>
+        <output>错误：Memcache的是不能在此服务器上。</output>
+    </text>
+    <text>
+        <source>Error: Unable to connect to the memcached server.</source>
+        <output>错误：无法连接到memcached服务器。</output>
+    </text>
+    <text>
+        <source>That data type is not supported.</source>
+        <output>不支持该数据类型。</output>
+    </text>
+    <text>
+        <source>No database adapter was found.</source>
+        <output>没有发现数据库适配器。</output>
+    </text>
+    <text>
+        <source>That font is not available.</source>
+        <output>该字体不可用。</output>
+    </text>
+    <text>
+        <source>The percentages are greater than 100.</source>
+        <output>该百分比大于100。</output>
+    </text>
+    <text>
+        <source>A proper color array was not passed.</source>
+        <output>一个合适的颜色阵列未能获得通过。</output>
+    </text>
+    <text>
+        <source>One or more of the color values is out of range.</source>
+        <output>一个或更多的颜色值超出范围。</output>
+    </text>
+    <text>
+        <source>The color parameter is not a valid color space object.</source>
+        <output>颜色参数不是一个有效的的色彩空间对象。</output>
+    </text>
+    <text>
+        <source>That color space object does not exist.</source>
+        <output>该色彩空间对象不存在。</output>
+    </text>
+    <text>
+        <source>That color space object is already that type.</source>
+        <output>该色彩空间对象已经是该类型。</output>
+    </text>
+    <text>
+        <source>The headers have already been sent.</source>
+        <output>已发送的标头。</output>
+    </text>
+    <text>
+        <source>The response was not properly formatted.</source>
+        <output>格式不正确的响应。</output>
+    </text>
+    <text>
+        <source>A template asset has not been assigned.</source>
+        <output>模板资产尚未分配。</output>
+    </text>
+    <text>
+        <source>That template file either does not exist or is not the correct format.</source>
+        <output>该模板文件不存在或不正确的格式。</output>
+    </text>
+    <text>
+        <source>Due to licensing restrictions, RAR files cannot be created and can only be decompressed.</source>
+        <output>由于许可限制，RAR文件不能被创建，并且只能解压缩。</output>
+    </text>
+    <text>
+        <source>The value must only contain alphanumeric characters.</source>
+        <output>该值必须只包含字母数字字符。</output>
+    </text>
+    <text>
+        <source>The value must contain non-alphanumeric characters.</source>
+        <output>该值必须包含非字母数字字符。</output>
+    </text>
+    <text>
+        <source>The value must only contain characters of the alphabet.</source>
+        <output>该值必须只包含字母表中的字符。</output>
+    </text>
+    <text>
+        <source>The value must contain characters not in the alphabet.</source>
+        <output>该值必须包含的字符在字母表中。</output>
+    </text>
+    <text>
+        <source>The value must be between %1 and %2.</source>
+        <output>值必须介于%1和%2。</output>
+    </text>
+    <text>
+        <source>The value must not be between %1 and %2.</source>
+        <output>该值不能是%1和%2之间。</output>
+    </text>
+    <text>
+        <source>The value must be between or equal to %1 and %2.</source>
+        <output>该值必须是%1和%2之间或等于。</output>
+    </text>
+    <text>
+        <source>The value must not be between or equal to %1 and %2.</source>
+        <output>该值必须不能或等于%1和%2。</output>
+    </text>
+    <text>
+        <source>The value must be a valid email format.</source>
+        <output>该值必须是一个有效的电子邮件格式。</output>
+    </text>
+    <text>
+        <source>The value must not be a valid email format.</source>
+        <output>该值必须是一个有效的电子邮件格式。</output>
+    </text>
+    <text>
+        <source>The value must be excluded.</source>
+        <output>该值必须被排除在外。</output>
+    </text>
+    <text>
+        <source>The value must not be excluded.</source>
+        <output>该值不能被排除在外。</output>
+    </text>
+    <text>
+        <source>The value must be included.</source>
+        <output>该值必须包含在内。</output>
+    </text>
+    <text>
+        <source>The value must not be included.</source>
+        <output>该值必须不包括在内。</output>
+    </text>
+    <text>
+        <source>The value must be equal to %1.</source>
+        <output>该值必须等于%1。</output>
+    </text>
+    <text>
+        <source>The value must not be equal to %1.</source>
+        <output>该值必须不等于%1。</output>
+    </text>
+    <text>
+        <source>The value must be greater than %1.</source>
+        <output>该值必须大于%1。</output>
+    </text>
+    <text>
+        <source>The value must not be greater than %1.</source>
+        <output>该值不得大于%1。</output>
+    </text>
+    <text>
+        <source>The value must be greater than or equal to %1.</source>
+        <output>该值必须大于或等于%1。</output>
+    </text>
+    <text>
+        <source>The value must not be greater than or equal to %1.</source>
+        <output>该值不得大于或等于%1。</output>
+    </text>
+    <text>
+        <source>The value length must be equal to %1.</source>
+        <output>值的长度必须等于%1。</output>
+    </text>
+    <text>
+        <source>The value length must not be equal to %1.</source>
+        <output>值的长度必须不等于%1。</output>
+    </text>
+    <text>
+        <source>The value must be less than %1.</source>
+        <output>该值必须小于%1。</output>
+    </text>
+    <text>
+        <source>The value must not be less than %1.</source>
+        <output>该值不得少于%1。</output>
+    </text>
+    <text>
+        <source>The value must be less than or equal to %1.</source>
+        <output>该值必须小于或等于%1。</output>
+    </text>
+    <text>
+        <source>The value must not be less than or equal to %1.</source>
+        <output>该值不得小于或等于%1。</output>
+    </text>
+    <text>
+        <source>The value length must be between %1 and %2.</source>
+        <output>值的长度必须介于%1和%2。</output>
+    </text>
+    <text>
+        <source>The value length must not be between %1 and %2.</source>
+        <output>值的长度不得%1和%2之间。</output>
+    </text>
+    <text>
+        <source>The value length must be between or equal to %1 and %2.</source>
+        <output>值的长度必须之间或等于%1和%2。</output>
+    </text>
+    <text>
+        <source>The value length must not be between or equal to %1 and %2.</source>
+        <output>值的长度不得之间或等于%1和%2。</output>
+    </text>
+    <text>
+        <source>The value length must be greater than %1.</source>
+        <output>值的长度必须大于%1。</output>
+    </text>
+    <text>
+        <source>The value length must not be greater than %1.</source>
+        <output>值的长度不得大于%1。</output>
+    </text>
+    <text>
+        <source>The value length must be greater than or equal to %1.</source>
+        <output>值的长度必须大于或等于%1。</output>
+    </text>
+    <text>
+        <source>The value length must not be greater than or equal to %1.</source>
+        <output>值的长度不得大于或等于%1。</output>
+    </text>
+    <text>
+        <source>The value length must be less than %1.</source>
+        <output>值的长度必须小于%1。</output>
+    </text>
+    <text>
+        <source>The value length must not be less than %1.</source>
+        <output>值的长度不得少于%1。</output>
+    </text>
+    <text>
+        <source>The value length must be less than or equal to %1.</source>
+        <output>值的长度必须小于或等于%1。</output>
+    </text>
+    <text>
+        <source>The value length must not be less than or equal to %1.</source>
+        <output>值的长度不得小于或等于%1。</output>
+    </text>
+    <text>
+        <source>The value must be empty.</source>
+        <output>该值必须是空的。</output>
+    </text>
+    <text>
+        <source>The value must not be empty.</source>
+        <output>该值不能是空的。</output>
+    </text>
+    <text>
+        <source>The value must be numeric.</source>
+        <output>该值必须是数字。</output>
+    </text>
+    <text>
+        <source>The value must not be numeric.</source>
+        <output>该值必须是数字。</output>
+    </text>
+    <text>
+        <source>Error: The file type %1 is not an accepted file format.</source>
+        <output>错误：%1文件类型是不接受的文件格式。</output>
+    </text>
+    <text>
+        <source>The value format is not correct.</source>
+        <output>值的格式是不正确的。</output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv4 address.</source>
+        <output>该值必须是一个有效的IPv4地址。</output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv4 address.</source>
+        <output>该值必须是一个有效的IPv4地址。</output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv6 address.</source>
+        <output>该值必须是一个有效的IPv6地址。</output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv6 address.</source>
+        <output>值必须是一个有效的IPv6地址。</output>
+    </text>
+    <text>
+        <source>The user role has not been defined to evaluate against.</source>
+        <output>用户的作用还没有被定义，以评估对。</output>
+    </text>
+    <text>
+        <source>Error: The file type %1 is not an accepted file format.</source>
+        <output>错误：%1文件类型是不接受的文件格式。</output>
+    </text>
+    <text>
+        <source>The value must be part of the subnet %1.</source>
+        <output>该值必须是%1子网的一部分。</output>
+    </text>
+    <text>
+        <source>The value must not be part of the subnet %1.</source>
+        <output>该值不得%1子网的一部分。</output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv4 subnet.</source>
+        <output>该值必须是一个有效的IPv4子网。</output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv4 subnet.</source>
+        <output>值必须是一个有效的IPv4子网。</output>
+    </text>
+    <text>
+        <source>The IP address must be a valid IPv4 address.</source>
+        <output>IP地址必须是一个有效的IPv4地址。</output>
+    </text>
+    <text>
+        <source>The user is valid.</source>
+        <output>用户是有效的。</output>
+    </text>
+    <text>
+        <source>The user was not found.</source>
+        <output>该用户没有被发现。</output>
+    </text>
+    <text>
+        <source>The user is blocked.</source>
+        <output>用户被封锁。</output>
+    </text>
+    <text>
+        <source>The password was incorrect.</source>
+        <output>密码是不正确的的。</output>
+    </text>
+    <text>
+        <source>The allowed login attempts (%1) have been exceeded.</source>
+        <output>已超出允许的登录尝试（%1）。</output>
+    </text>
+    <text>
+        <source>That IP address is blocked.</source>
+        <output>该IP地址被封锁。</output>
+    </text>
+    <text>
+        <source>That IP address is not allowed.</source>
+        <output>该IP地址是不允许的。</output>
+    </text>
+    <text>
+        <source>The session has expired.</source>
+        <output>会话已过期。</output>
+    </text>
+    <text>
+        <source>The access file does not exist.</source>
+        <output>访问文件不存在。</output>
+    </text>
+    <text>
+        <source>The user's role is not defined.</source>
+        <output>没有定义用户的角色。</output>
+    </text>
+    <text>
+        <source>That class map file does not exist.</source>
+        <output>该类地图文件不存在。</output>
+    </text>
+    <text>
+        <source>Unknown error.</source>
+        <output>未知的错误。</output>
+    </text>
+    <text>
+        <source>You must pass a source folder and a output file to generate a class map file.</source>
+        <output>你必须通过一个源文件夹和输出文件生成一个类映射文件。</output>
+    </text>
+    <text>
+        <source>The source folder passed does not exist.</source>
+        <output>通过源文件夹不存在。</output>
+    </text>
+    <text>
+        <source>The output file passed must be a PHP file.</source>
+        <output>传递输出文件必须是一个PHP文件。</output>
+    </text>
+    <text>
+        <source>You must pass an install file to install the project.</source>
+        <output>你必须通过一个安装文件，安装项目。</output>
+    </text>
+    <text>
+        <source>Unknown option:</source>
+        <output>未知的选项：</output>
+    </text>
+    <text>
+        <source>You must pass at least one argument.</source>
+        <output>您必须至少有一个参数传递。</output>
+    </text>
+    <text>
+        <source>Run './pop -h' for help.</source>
+        <output>运行“。/ POP - H'帮助。</output>
+    </text>
+    <text>
+        <source>Run '.\pop -h' for help.</source>
+        <output>运行“\弹出H'的帮助。</output>
+    </text>
+    <text>
+        <source>Aborted.</source>
+        <output>中止。</output>
+    </text>
+    <text>
+        <source>Project folder exists. This may overwrite any project files you may already have under that project folder.</source>
+        <output>项目文件夹存在。这可能会覆盖您可能已经拥有该项目的文件夹下的任何项目文件。</output>
+    </text>
+    <text>
+        <source>Database credentials and schema detected.</source>
+        <output>数据库凭据和模式检测。</output>
+    </text>
+    <text>
+        <source>Test and install the database(s)?</source>
+        <output>测试和安装数据库（S）？</output>
+    </text>
+    <text>
+        <source>Testing the database(s)...</source>
+        <output>测试数据库（S）...</output>
+    </text>
+    <text>
+        <source>Testing</source>
+        <output>测试</output>
+    </text>
+    <text>
+        <source>The database type and database name must be set for the database</source>
+        <output>数据库类型和数据库的名称，必须设置数据库</output>
+    </text>
+    <text>
+        <source>Database</source>
+        <output>数据库</output>
+    </text>
+    <text>
+        <source>Installing database</source>
+        <output>安装数据库</output>
+    </text>
+    <text>
+        <source>Add project to the bootstrap file?</source>
+        <output>新增项目的引导文件？</output>
+    </text>
+    <text>
+        <source>Project install complete.</source>
+        <output>项目完成安装。</output>
+    </text>
+    <text>
+        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
+        <output>此过程将创建并安装在安装文件中指定的文件夹下你的项目的基础的基础。微创，安装文件应该返回一个含有项目安装设置，如项目名称，文件夹，形式，控制器，视图和任何数据库凭据的流行\ Config对象。</output>
+    </text>
+    <text>
+        <source>Besides creating the base folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can take advantage of this by having the database SQL files in the same folder as your install file, like so:</source>
+        <output>除了建立基地的文件夹和文件，为您的主要好处之一是能力测试和安装数据库和相应的配置文件和类文件。您可以利用这个优势，通过数据库的SQL文件在同一文件夹作为您的安装文件，象这样：</output>
+    </text>
+    <text>
+        <source>Install a project based on the install file specified</source>
+        <output>安装上安装指定的文件为基础的项目</output>
+    </text>
+    <text>
+        <source>Check the current configuration for required dependencies</source>
+        <output>检查当前配置所需的依赖</output>
+    </text>
+    <text>
+        <source>Display this help</source>
+        <output>显示此帮助</output>
+    </text>
+    <text>
+        <source>Show project install instructions</source>
+        <output>显示项目的安装说明</output>
+    </text>
+    <text>
+        <source>Set the default language for the project</source>
+        <output>为项目设置的默认语言</output>
+    </text>
+    <text>
+        <source>Create a class map file from the source folder and save to the output file</source>
+        <output>从源文件夹中创建一个类映射文件，并保存到输出文件</output>
+    </text>
+    <text>
+        <source>Display version of Pop PHP Framework and latest available</source>
+        <output>显示流行的PHP框架和最新的可用版本</output>
+    </text>
+    <text>
+        <source>Continue?</source>
+        <output>要继续吗？</output>
+    </text>
+    <text>
+        <source>Enter the folder where the 'bootstrap.php' is located in relation to the current folder:</source>
+        <output>输入“bootstrap.php”是关系到当前文件夹所在的文件夹：</output>
+    </text>
+    <text>
+        <source>Bootstrap file not found. Try again.</source>
+        <output>引导文件没有找到。再次尝试。</output>
+    </text>
+    <text>
+        <source>Creating base folder and file structure...</source>
+        <output>建立基地的文件夹和文件结构...</output>
+    </text>
+    <text>
+        <source>Creating database table class files...</source>
+        <output>创建数据库表的类文件...</output>
+    </text>
+    <text>
+        <source>Enter the two-letter code for the default language:</source>
+        <output>输入默认语言的两个字母代码：</output>
+    </text>
+    <text>
+        <source>Real-time configuration changes are not allowed.</source>
+        <output>实时配置变化是不允许的。</output>
+    </text>
+    <text>
+        <source>Run the unit tests from a folder</source>
+        <output>从文件夹中运行单元测试</output>
+    </text>
+    <text>
+        <source>That folder does not exist.</source>
+        <output>该文件夹不存在。</output>
+    </text>
+    <text>
+        <source>The folder argument is not a folder.</source>
+        <output>文件夹的说法是没有一个文件夹。</output>
+    </text>
+    <text>
+        <source>The module name must be set in the module config.</source>
+        <output>模块名称必须设置在模块配置。</output>
+    </text>
+    <text>
+        <source>Install index controller and web configuration files?</source>
+        <output>安装指数控制器和Web配置文件？</output>
+    </text>
+    <text>
+        <source>The docblock is not in the correct format.</source>
+        <output>文档块是不正确的格式。</output>
+    </text>
+    <text>
+        <source>You will have to install your web server rewrite configuration manually.</source>
+        <output>你将不得不手动安装您的Web服务器重写配置。</output>
+    </text>
+    <text>
+        <source>Creating controller class files...</source>
+        <output>创建控制器类文件...</output>
+    </text>
+    <text>
+        <source>Creating form class files...</source>
+        <output>创建窗体类的文件...</output>
+    </text>
+    <text>
+        <source>The Sqlite database file and folder are not writable.</source>
+        <output>SQLite数据库文件和文件夹不可写。</output>
+    </text>
+    <text>
+        <source>Project reconfigured.</source>
+        <output>项目重新配置。</output>
+    </text>
+    <text>
+        <source>Reconfigure the project based on the new location of the project</source>
+        <output>重新配置的基础上，新的项目位置项目</output>
+    </text>
+    <text>
+        <source>Database credentials detected.</source>
+        <output>检测到数据库的凭据。</output>
+    </text>
+    <text>
+        <source>Re-test the database(s)?</source>
+        <output>重新测试数据库（S）？</output>
+    </text>
+    <text>
+        <source>The Pop autoloader class file was not found.</source>
+        <output>流行的自动加载磁带机类文件没有被发现。</output>
+    </text>
+    <text>
+        <source>Enter the folder where the 'vendor' folder is contained in relation to the current folder:</source>
+        <output>输入“供应商”的文件夹是关系到当前文件夹中的文件夹：</output>
+    </text>
+    <text>
+        <source>Pop PHP Framework not found. Try again.</source>
+        <output>流行PHP框架没有发现。再次尝试。</output>
+    </text>
+    <text>
+        <source>Pop PHP Framework found.</source>
+        <output>流行PHP框架发现。</output>
+    </text>
+    <text>
+        <source>Error: That cache directory does not exist.</source>
+        <output>错误：缓存目录不存在。</output>
+    </text>
+    <text>
+        <source>Error: That cache directory is not writable.</source>
+        <output>错误：该缓存目录是不可写的。</output>
+    </text>
+    <text>
+        <source>Error: Memcache is not available.</source>
+        <output>错误：Memcache的不可用。</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
+        <output>错误：传递的参数必须是一个有效的文件或POP \文件\文件的一个实例。</output>
+    </text>
+    <text>
+        <source>You must either pass a Pop\Geo\Geo object or a set of latitude/longitude coordinates.</source>
+        <output>您必须通过一个流行\地理\地理对象或纬度/经度坐标。</output>
+    </text>
+    <text>
+        <source>The required transaction data has not been set.</source>
+        <output>尚未确定所需的交易数据。</output>
+    </text>
+    <text>
+        <source>The value must be a valid credit card number</source>
+        <output>该值必须是一个有效的信用卡号码</output>
+    </text>
+    <text>
+        <source>The value must not be a valid credit card number</source>
+        <output>该值必须是一个有效的信用卡号码</output>
+    </text>
+    <text>
+        <source>The array of ID values does not match the number of IDs.</source>
+        <output>ID值的数组不匹配的ID。</output>
     </text>
 </language>

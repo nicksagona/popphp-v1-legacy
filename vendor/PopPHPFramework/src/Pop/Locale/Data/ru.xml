@@ -49,12 +49,12 @@
         <output>Ошибка: Это тип документа не допускается.</output>
     </text>
     <text>
-        <source>The child element passed is not an instance of Moc10_Dom_Child.</source>
-        <output>Дочерний элемент прошло не экземпляр Moc10_Dom_Child.</output>
+        <source>The child element passed is not an instance of Pop\Dom\Child.</source>
+        <output>Дочерний элемент прошло не экземпляр Pop\Dom\Child.</output>
     </text>
     <text>
-        <source>One or more of the child elements passed is not an instance of Moc10_Dom_Child.</source>
-        <output>Один или несколько дочерних элементов прошло не экземпляр Moc10_Dom_Child.</output>
+        <source>One or more of the child elements passed is not an instance of Pop\Dom\Child.</source>
+        <output>Один или несколько дочерних элементов прошло не экземпляр Pop\Dom\Child.</output>
     </text>
     <text>
         <source>That feed URL cannot be read at this time. Please try again later.</source>
@@ -377,8 +377,8 @@
         <output>Ошибка: По крайней мере, один из ключей массива должны быть "Электронная почта".</output>
     </text>
     <text>
-        <source>Error: The parameter passed must either be a valid file or an instance of Moc10_File.</source>
-        <output>Ошибка: параметр, передаваемый должны быть либо действительными файл или экземпляр Moc10_File.</output>
+        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
+        <output>Ошибка: параметр, передаваемый должны быть либо действительными файл или экземпляр Pop\File\File.</output>
     </text>
     <text>
         <source>Error: The message body elements are not set.</source>
@@ -463,5 +463,709 @@
     <text>
         <source>The standard site is not set.</source>
         <output>Стандартный сайт не установлен.</output>
+    </text>
+    <text>
+        <source>That header code '%1' is not allowed.</source>
+        <output>Это код заголовка "%1" не допускается.</output>
+    </text>
+    <text>
+        <source>The array parameter passed must contain an array of field values.</source>
+        <output>Массив параметров, передаваемых должен содержать массив значений полей.</output>
+    </text>
+    <text>
+        <source>Error: The image resource has not been created.</source>
+        <output>Ошибка: изображение ресурс не был создан.</output>
+    </text>
+    <text>
+        <source>Error: The image output resource has not been created.</source>
+        <output>Ошибка: ресурс вывода изображения не была создана.</output>
+    </text>
+    <text>
+        <source>The argument passed is not valid.</source>
+        <output>Аргумент не действует.</output>
+    </text>
+    <text>
+        <source>The archive file is compressed. It must only be either a TAR or ZIP archive file.</source>
+        <output>Архивный файл сжимается. Она должна быть либо TAR или файл ZIP архива.</output>
+    </text>
+    <text>
+        <source>The archive file must be either a TAR or ZIP archive file.</source>
+        <output>Архивный файл должен быть или TAR или файл ZIP архива.</output>
+    </text>
+    <text>
+        <source>Error: The compression type must either be Flate or LZW.</source>
+        <output>Ошибка: тип сжатия должны быть либо Flate или LZW.</output>
+    </text>
+    <text>
+        <source>Error: The font file does not seem to have all of the correct data to parse.</source>
+        <output>Ошибка: файл шрифта, кажется, не есть все правильные данные для анализа.</output>
+    </text>
+    <text>
+        <source>Error: The GD library extension must be installed to use the Gd adapter.</source>
+        <output>Ошибка: расширение GD библиотека должна быть установлена ​​использовать адаптер Б-га.</output>
+    </text>
+    <text>
+        <source>No source file or database table was passed.</source>
+        <output>Нет исходного файла или таблицы базы данных, был принят.</output>
+    </text>
+    <text>
+        <source>The options parameter must be an array.</source>
+        <output>Варианты параметр должен быть массивом.</output>
+    </text>
+    <text>
+        <source>The options parameter must be an array that contains either a 'table' or 'file' key.</source>
+        <output>Варианты параметр должен быть массив, который содержит либо 'стол' или 'файл' ключ.</output>
+    </text>
+    <text>
+        <source>Error: Could not connect to database. %1</source>
+        <output>Ошибка: Невозможно подключиться к базе данных. %1</output>
+    </text>
+    <text>
+        <source>Error: The database interface object has not been instaniated.</source>
+        <output>Ошибка: Объект интерфейс базы данных не было instaniated.</output>
+    </text>
+    <text>
+        <source>Error: That method does not exist within the database interface object.</source>
+        <output>Ошибка: Этот метод не существует в объекте интерфейс базы данных.</output>
+    </text>
+    <text>
+        <source>Error: The columns parameter must be an array.</source>
+        <output>Ошибка: столбцов параметр должен быть массивом.</output>
+    </text>
+    <text>
+        <source>Error: The columns parameter must be an array that contains at least one key/value pair.</source>
+        <output>Ошибка: столбцов параметр должен быть массив, который содержит хотя бы одну пару ключ / значение.</output>
+    </text>
+    <text>
+        <source>Error: The table must be set.</source>
+        <output>Ошибка: стол должен быть установлен.</output>
+    </text>
+    <text>
+        <source>Error: A SQL type must be set.</source>
+        <output>Ошибка: тип SQL должен быть установлен.</output>
+    </text>
+    <text>
+        <source>Error: The database statement resource is not currently set.</source>
+        <output>Ошибка: базы данных ресурсов заявлении в настоящее время не установлен.</output>
+    </text>
+    <text>
+        <source>The column and value parameters were not defined to describe the row(s) to delete.</source>
+        <output>Столбца и значения параметров не были определены, чтобы описать строку (и) для удаления.</output>
+    </text>
+    <text>
+        <source>The column '%1' does not exist.</source>
+        <output>"%1" колонки не существует.</output>
+    </text>
+    <text>
+        <source>Error: That database adapter class does not exist.</source>
+        <output>Ошибка: Этот класс адаптер базы данных не существует.</output>
+    </text>
+    <text>
+        <source>Error: The Imagick library extension must be installed to use the Imagick adapter.</source>
+        <output>Ошибка: расширение Imagick библиотека должна быть установлена ​​использовать Imagick адаптера.</output>
+    </text>
+    <text>
+        <source>Error: That image type is not supported.</source>
+        <output>Ошибка: Это тип изображения не поддерживается.</output>
+    </text>
+    <text>
+        <source>Error: The cache type must be 'File', 'Sqlite' or 'Memcached'.</source>
+        <output>Ошибка: кэш тип должен быть 'Файл', 'Sqlite' или 'Memcached.</output>
+    </text>
+    <text>
+        <source>Error: You must pass either a directory or SQLite file store point.</source>
+        <output>Ошибка: Вы должны пройти либо каталог или SQLite хранилище файлов точке.</output>
+    </text>
+    <text>
+        <source>Error: That cache directory does not exist.</source>
+        <output>Ошибка: Это каталог кэша не существует.</output>
+    </text>
+    <text>
+        <source>Error: That cache directory is not writable.</source>
+        <output>Ошибка: Это каталог кэша недоступен для записи.</output>
+    </text>
+    <text>
+        <source>Error: That cache db file and/or directory is not writable.</source>
+        <output>Ошибка: Это кэш БД файла и / или каталог не доступен для записи.</output>
+    </text>
+    <text>
+        <source>Error: Memcache is not available on this server.</source>
+        <output>Ошибка: Memcache не доступна на этом сервере.</output>
+    </text>
+    <text>
+        <source>Error: Unable to connect to the memcached server.</source>
+        <output>Ошибка: Невозможно подключиться к серверу Memcached.</output>
+    </text>
+    <text>
+        <source>That data type is not supported.</source>
+        <output>Это тип данных не поддерживается.</output>
+    </text>
+    <text>
+        <source>No database adapter was found.</source>
+        <output>Нет базы данных адаптер был найден.</output>
+    </text>
+    <text>
+        <source>That font is not available.</source>
+        <output>Это шрифт недоступен.</output>
+    </text>
+    <text>
+        <source>The percentages are greater than 100.</source>
+        <output>Проценты больше 100.</output>
+    </text>
+    <text>
+        <source>A proper color array was not passed.</source>
+        <output>Надлежащее массив цвет не был принят.</output>
+    </text>
+    <text>
+        <source>One or more of the color values is out of range.</source>
+        <output>Один или несколько значений цвета вне диапазона.</output>
+    </text>
+    <text>
+        <source>The color parameter is not a valid color space object.</source>
+        <output>Цвет параметр не является допустимым объектом цветового пространства.</output>
+    </text>
+    <text>
+        <source>That color space object does not exist.</source>
+        <output>Этот объект цветового пространства не существует.</output>
+    </text>
+    <text>
+        <source>That color space object is already that type.</source>
+        <output>Этот объект цветовое пространство уже этого типа.</output>
+    </text>
+    <text>
+        <source>The headers have already been sent.</source>
+        <output>Заголовки уже отправлены.</output>
+    </text>
+    <text>
+        <source>The response was not properly formatted.</source>
+        <output>Ответ был неверный формат.</output>
+    </text>
+    <text>
+        <source>A template asset has not been assigned.</source>
+        <output>Шаблонного актива не был назначен.</output>
+    </text>
+    <text>
+        <source>That template file either does not exist or is not the correct format.</source>
+        <output>Это файл шаблона либо не существует или не правильный формат.</output>
+    </text>
+    <text>
+        <source>Due to licensing restrictions, RAR files cannot be created and can only be decompressed.</source>
+        <output>Из-за лицензионных ограничений, RAR файлов не может быть создан и может быть извлечен из архива.</output>
+    </text>
+    <text>
+        <source>The value must only contain alphanumeric characters.</source>
+        <output>Значение должно содержать только алфавитно-цифровые символы.</output>
+    </text>
+    <text>
+        <source>The value must contain non-alphanumeric characters.</source>
+        <output>Значение должно содержать не буквенно-цифровых символов.</output>
+    </text>
+    <text>
+        <source>The value must only contain characters of the alphabet.</source>
+        <output>Значение должно содержать только символы латинского алфавита.</output>
+    </text>
+    <text>
+        <source>The value must contain characters not in the alphabet.</source>
+        <output>Значение должно содержать символы, которые в алфавите.</output>
+    </text>
+    <text>
+        <source>The value must be between %1 and %2.</source>
+        <output>Значение должно быть между%1 и%2.</output>
+    </text>
+    <text>
+        <source>The value must not be between %1 and %2.</source>
+        <output>Значение не должно быть между%1 и%2.</output>
+    </text>
+    <text>
+        <source>The value must be between or equal to %1 and %2.</source>
+        <output>Значение должно быть в пределах или равным%1 и%2.</output>
+    </text>
+    <text>
+        <source>The value must not be between or equal to %1 and %2.</source>
+        <output>Значение не должно быть в пределах или равным%1 и%2.</output>
+    </text>
+    <text>
+        <source>The value must be a valid email format.</source>
+        <output>Значение должно быть действительным формат электронной почты.</output>
+    </text>
+    <text>
+        <source>The value must not be a valid email format.</source>
+        <output>Значение не должно быть правильный формат электронной почты.</output>
+    </text>
+    <text>
+        <source>The value must be excluded.</source>
+        <output>Значение должно быть исключено.</output>
+    </text>
+    <text>
+        <source>The value must not be excluded.</source>
+        <output>Значение не должно быть исключено.</output>
+    </text>
+    <text>
+        <source>The value must be included.</source>
+        <output>Значение должно быть включено.</output>
+    </text>
+    <text>
+        <source>The value must not be included.</source>
+        <output>Значение не должно быть включено.</output>
+    </text>
+    <text>
+        <source>The value must be equal to %1.</source>
+        <output>Значение должно быть равным%1.</output>
+    </text>
+    <text>
+        <source>The value must not be equal to %1.</source>
+        <output>Значение не должно быть равным%1.</output>
+    </text>
+    <text>
+        <source>The value must be greater than %1.</source>
+        <output>Значение должно быть больше, чем%1.</output>
+    </text>
+    <text>
+        <source>The value must not be greater than %1.</source>
+        <output>Значение не должно быть больше, чем %1.</output>
+    </text>
+    <text>
+        <source>The value must be greater than or equal to %1.</source>
+        <output>Значение должно быть больше или равно%1.</output>
+    </text>
+    <text>
+        <source>The value must not be greater than or equal to %1.</source>
+        <output>Значение не должно быть больше или равно%1.</output>
+    </text>
+    <text>
+        <source>The value length must be equal to %1.</source>
+        <output>Значение длина должна быть равна %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be equal to %1.</source>
+        <output>Значение длина не должна быть равна %1.</output>
+    </text>
+    <text>
+        <source>The value must be less than %1.</source>
+        <output>Значение должно быть меньше%1.</output>
+    </text>
+    <text>
+        <source>The value must not be less than %1.</source>
+        <output>Значение не должно быть меньше%1.</output>
+    </text>
+    <text>
+        <source>The value must be less than or equal to %1.</source>
+        <output>Значение должно быть меньше или равна %1.</output>
+    </text>
+    <text>
+        <source>The value must not be less than or equal to %1.</source>
+        <output>Значение не должно быть меньше или равна %1.</output>
+    </text>
+    <text>
+        <source>The value length must be between %1 and %2.</source>
+        <output>Значение длины должно быть между%1 и%2.</output>
+    </text>
+    <text>
+        <source>The value length must not be between %1 and %2.</source>
+        <output>Значение длина не должна быть между%1 и%2.</output>
+    </text>
+    <text>
+        <source>The value length must be between or equal to %1 and %2.</source>
+        <output>Значение длины должно быть между или равно%1 и%2.</output>
+    </text>
+    <text>
+        <source>The value length must not be between or equal to %1 and %2.</source>
+        <output>Значение длина не должна быть в пределах или равным%1 и%2.</output>
+    </text>
+    <text>
+        <source>The value length must be greater than %1.</source>
+        <output>Значение длина должна быть больше %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be greater than %1.</source>
+        <output>Значение длина не должна превышать %1.</output>
+    </text>
+    <text>
+        <source>The value length must be greater than or equal to %1.</source>
+        <output>Значение длина должна быть больше или равно%1.</output>
+    </text>
+    <text>
+        <source>The value length must not be greater than or equal to %1.</source>
+        <output>Значение длина не должна быть больше или равно%1.</output>
+    </text>
+    <text>
+        <source>The value length must be less than %1.</source>
+        <output>Значение длины должно быть меньше%1.</output>
+    </text>
+    <text>
+        <source>The value length must not be less than %1.</source>
+        <output>Значение длина не должна быть меньше%1.</output>
+    </text>
+    <text>
+        <source>The value length must be less than or equal to %1.</source>
+        <output>Значение длины должно быть меньше или равна %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be less than or equal to %1.</source>
+        <output>Значение длина не должна быть меньше или равна %1.</output>
+    </text>
+    <text>
+        <source>The value must be empty.</source>
+        <output>Значение должно быть пустым.</output>
+    </text>
+    <text>
+        <source>The value must not be empty.</source>
+        <output>Значение не должно быть пустым.</output>
+    </text>
+    <text>
+        <source>The value must be numeric.</source>
+        <output>Значение должно быть числовым.</output>
+    </text>
+    <text>
+        <source>The value must not be numeric.</source>
+        <output>Значение не должно быть числовым.</output>
+    </text>
+    <text>
+        <source>Error: The file type %1 is not an accepted file format.</source>
+        <output>Ошибка: тип файла%1 не является распространенный формат файла.</output>
+    </text>
+    <text>
+        <source>The value format is not correct.</source>
+        <output>Значение формат не является правильным.</output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv4 address.</source>
+        <output>Значение должно быть действительным адресом IPv4.</output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv4 address.</source>
+        <output>Значение не должно быть действительным адресом IPv4.</output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv6 address.</source>
+        <output>Значение должно быть правильным адресом IPv6.</output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv6 address.</source>
+        <output>Значение не должно быть правильным адресом IPv6.</output>
+    </text>
+    <text>
+        <source>The user role has not been defined to evaluate against.</source>
+        <output>Роль пользователя не была определена для оценки против.</output>
+    </text>
+    <text>
+        <source>Error: The file type %1 is not an accepted file format.</source>
+        <output>Ошибка: тип файла%1 не является распространенный формат файла.</output>
+    </text>
+    <text>
+        <source>The value must be part of the subnet %1.</source>
+        <output>Значение должно быть частью подсети%1.</output>
+    </text>
+    <text>
+        <source>The value must not be part of the subnet %1.</source>
+        <output>Значение не должно быть частью подсети%1.</output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv4 subnet.</source>
+        <output>Значение должно быть действительным IPv4 подсети.</output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv4 subnet.</source>
+        <output>Значение не должно быть правильным IPv4 подсети.</output>
+    </text>
+    <text>
+        <source>The IP address must be a valid IPv4 address.</source>
+        <output>IP-адрес должен быть действительный адрес IPv4.</output>
+    </text>
+    <text>
+        <source>The user is valid.</source>
+        <output>Пользователь является действительным.</output>
+    </text>
+    <text>
+        <source>The user was not found.</source>
+        <output>Пользователь не был найден.</output>
+    </text>
+    <text>
+        <source>The user is blocked.</source>
+        <output>Пользователь будет заблокирован.</output>
+    </text>
+    <text>
+        <source>The password was incorrect.</source>
+        <output>Пароль был неверным.</output>
+    </text>
+    <text>
+        <source>The allowed login attempts (%1) have been exceeded.</source>
+        <output>Войти разрешили попытки (%1) были превышены.</output>
+    </text>
+    <text>
+        <source>That IP address is blocked.</source>
+        <output>Это IP-адрес будет заблокирован.</output>
+    </text>
+    <text>
+        <source>That IP address is not allowed.</source>
+        <output>Это IP-адрес, не допускается.</output>
+    </text>
+    <text>
+        <source>The session has expired.</source>
+        <output>Сессии истек.</output>
+    </text>
+    <text>
+        <source>The access file does not exist.</source>
+        <output>Доступ к файлам, не существует.</output>
+    </text>
+    <text>
+        <source>The user's role is not defined.</source>
+        <output>Роль пользователя не определены.</output>
+    </text>
+    <text>
+        <source>That class map file does not exist.</source>
+        <output>Этот файл карту класса не существует.</output>
+    </text>
+    <text>
+        <source>Unknown error.</source>
+        <output>Неизвестная ошибка.</output>
+    </text>
+    <text>
+        <source>You must pass a source folder and a output file to generate a class map file.</source>
+        <output>Вы должны пройти папки источника и выходного файла для создания файла класса карты.</output>
+    </text>
+    <text>
+        <source>The source folder passed does not exist.</source>
+        <output>Исходную папку прошло не существует.</output>
+    </text>
+    <text>
+        <source>The output file passed must be a PHP file.</source>
+        <output>Выходной файл передается должны быть PHP-файл.</output>
+    </text>
+    <text>
+        <source>You must pass an install file to install the project.</source>
+        <output>Вы должны пройти установки файла для установки проекта.</output>
+    </text>
+    <text>
+        <source>Unknown option:</source>
+        <output>Неизвестная опция:</output>
+    </text>
+    <text>
+        <source>You must pass at least one argument.</source>
+        <output>Вы должны пройти по крайней мере один аргумент.</output>
+    </text>
+    <text>
+        <source>Run './pop -h' for help.</source>
+        <output>Run '. / Поп-ч' о помощи.</output>
+    </text>
+    <text>
+        <source>Run '.\pop -h' for help.</source>
+        <output>Run '. \ Поп-ч' о помощи.</output>
+    </text>
+    <text>
+        <source>Aborted.</source>
+        <output>Aborted.</output>
+    </text>
+    <text>
+        <source>Project folder exists. This may overwrite any project files you may already have under that project folder.</source>
+        <output>Проект папка существует. Это может переписать любой проект файлы, которые вы, возможно, уже в рамках этого проекта папку.</output>
+    </text>
+    <text>
+        <source>Database credentials and schema detected.</source>
+        <output>База данных учетных данных и схемы обнаружено.</output>
+    </text>
+    <text>
+        <source>Test and install the database(s)?</source>
+        <output>Тестирование и установка базы данных (ы)?</output>
+    </text>
+    <text>
+        <source>Testing the database(s)...</source>
+        <output>Тестирование базы данных (ы) ...</output>
+    </text>
+    <text>
+        <source>Testing</source>
+        <output>Тестирование</output>
+    </text>
+    <text>
+        <source>The database type and database name must be set for the database</source>
+        <output>Тип базы данных и имя базы данных должно быть установлено для баз данных</output>
+    </text>
+    <text>
+        <source>Database</source>
+        <output>База данных</output>
+    </text>
+    <text>
+        <source>Installing database</source>
+        <output>Установка базы данных</output>
+    </text>
+    <text>
+        <source>Add project to the bootstrap file?</source>
+        <output>Добавить проект в загрузочный файл?</output>
+    </text>
+    <text>
+        <source>Project install complete.</source>
+        <output>Проект установки завершен.</output>
+    </text>
+    <text>
+        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
+        <output>Этот процесс будет создавать и устанавливать базовую основу вашего проекта в папке, указанной в установочный файл. Как минимум, установить файл должен вернуть Поп \ Config объект, содержащий параметры проекта установки, такие как имя проекта, папки, бланки, контроллеры, мнения и любые базы данных учетных данных.</output>
+    </text>
+    <text>
+        <source>Besides creating the base folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can take advantage of this by having the database SQL files in the same folder as your install file, like so:</source>
+        <output>Помимо создания базы папки и файлы для вас, одного из основных преимуществ является возможность тестирования и установки базы данных и соответствующей конфигурации и файлы классов. Вы можете воспользоваться этим при наличии базы данных SQL файлы в той же папке, что и установочный файл, например так:</output>
+    </text>
+    <text>
+        <source>Install a project based on the install file specified</source>
+        <output>Установить проект, основанный на установке файл, указанный</output>
+    </text>
+    <text>
+        <source>Check the current configuration for required dependencies</source>
+        <output>Проверить текущую конфигурацию для необходимых зависимостей</output>
+    </text>
+    <text>
+        <source>Display this help</source>
+        <output>Показать эту помощь</output>
+    </text>
+    <text>
+        <source>Show project install instructions</source>
+        <output>Показать инструкции проекта установки</output>
+    </text>
+    <text>
+        <source>Set the default language for the project</source>
+        <output>Установить язык по умолчанию для проекта</output>
+    </text>
+    <text>
+        <source>Create a class map file from the source folder and save to the output file</source>
+        <output>Создайте файл класса карту из исходной папки и сохранять данные в выходной файл</output>
+    </text>
+    <text>
+        <source>Display version of Pop PHP Framework and latest available</source>
+        <output>Показать версию Framework Поп и PHP последней доступной</output>
+    </text>
+    <text>
+        <source>Continue?</source>
+        <output>Продолжить?</output>
+    </text>
+    <text>
+        <source>Enter the folder where the 'bootstrap.php' is located in relation to the current folder:</source>
+        <output>Зайти в папку, где 'bootstrap.php "расположен по отношению к текущей папке:</output>
+    </text>
+    <text>
+        <source>Bootstrap file not found. Try again.</source>
+        <output>Загрузочный файл не найден. Попробуйте еще раз.</output>
+    </text>
+    <text>
+        <source>Creating base folder and file structure...</source>
+        <output>Создание папки базы и структуры файла ...</output>
+    </text>
+    <text>
+        <source>Creating database table class files...</source>
+        <output>Создание базы данных файлов класса таблицы ...</output>
+    </text>
+    <text>
+        <source>Enter the two-letter code for the default language:</source>
+        <output>Введите двухбуквенный код языка по умолчанию:</output>
+    </text>
+    <text>
+        <source>Real-time configuration changes are not allowed.</source>
+        <output>В режиме реального времени изменения в конфигурации не допускается.</output>
+    </text>
+    <text>
+        <source>Run the unit tests from a folder</source>
+        <output>Запуск модульных тестов из папки</output>
+    </text>
+    <text>
+        <source>That folder does not exist.</source>
+        <output>Эта папка не существует.</output>
+    </text>
+    <text>
+        <source>The folder argument is not a folder.</source>
+        <output>Папка аргумент не папки.</output>
+    </text>
+    <text>
+        <source>The module name must be set in the module config.</source>
+        <output>Имя модуля должен быть установлен в модуле конфигурации.</output>
+    </text>
+    <text>
+        <source>Install index controller and web configuration files?</source>
+        <output>Установите контроллер индекс и файлы веб-конфигурации?</output>
+    </text>
+    <text>
+        <source>The docblock is not in the correct format.</source>
+        <output>Docblock не в правильном формате.</output>
+    </text>
+    <text>
+        <source>You will have to install your web server rewrite configuration manually.</source>
+        <output>Вы должны будете установить ваш веб-сервер переписать конфигурацию вручную.</output>
+    </text>
+    <text>
+        <source>Creating controller class files...</source>
+        <output>Создание файлы классов контроллеров ...</output>
+    </text>
+    <text>
+        <source>Creating form class files...</source>
+        <output>Создание файлов класса формы ...</output>
+    </text>
+    <text>
+        <source>The Sqlite database file and folder are not writable.</source>
+        <output>Sqlite файл базы данных и папки не доступна для записи.</output>
+    </text>
+    <text>
+        <source>Project reconfigured.</source>
+        <output>Проект заново.</output>
+    </text>
+    <text>
+        <source>Reconfigure the project based on the new location of the project</source>
+        <output>Перенастройка проект, основанный на новом месте по проекту</output>
+    </text>
+    <text>
+        <source>Database credentials detected.</source>
+        <output>База данных учетных данных обнаружено.</output>
+    </text>
+    <text>
+        <source>Re-test the database(s)?</source>
+        <output>Повторная проверка базы данных (ы)?</output>
+    </text>
+    <text>
+        <source>The Pop autoloader class file was not found.</source>
+        <output>Поп файла класса автозагрузчик не был найден.</output>
+    </text>
+    <text>
+        <source>Enter the folder where the 'vendor' folder is contained in relation to the current folder:</source>
+        <output>Зайти в папку, где "продавец" папке содержится по отношению к текущей папке:</output>
+    </text>
+    <text>
+        <source>Pop PHP Framework not found. Try again.</source>
+        <output>Поп PHP Framework не найден. Попробуйте еще раз.</output>
+    </text>
+    <text>
+        <source>Pop PHP Framework found.</source>
+        <output>Поп PHP Framework найдено.</output>
+    </text>
+    <text>
+        <source>Error: That cache directory does not exist.</source>
+        <output>Ошибка: Это каталог кэша не существует.</output>
+    </text>
+    <text>
+        <source>Error: That cache directory is not writable.</source>
+        <output>Ошибка: Это каталог кэша недоступен для записи.</output>
+    </text>
+    <text>
+        <source>Error: Memcache is not available.</source>
+        <output>Ошибка: Memcache не доступен.</output>
+    </text>
+    <text>
+        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
+        <output>Ошибка: параметр, передаваемый должны быть либо действительным файла или экземпляра Поп \ Файл \.</output>
+    </text>
+    <text>
+        <source>You must either pass a Pop\Geo\Geo object or a set of latitude/longitude coordinates.</source>
+        <output>Вы должны либо передать Поп \ Geo \ Geo объект или набор широты / долготы.</output>
+    </text>
+    <text>
+        <source>The required transaction data has not been set.</source>
+        <output>Необходимые данные сделки не были установлены.</output>
+    </text>
+    <text>
+        <source>The value must be a valid credit card number</source>
+        <output>Значение должно быть действительный номер кредитной карты</output>
+    </text>
+    <text>
+        <source>The value must not be a valid credit card number</source>
+        <output>Значение не должно быть действительный номер кредитной карты</output>
+    </text>
+    <text>
+        <source>The array of ID values does not match the number of IDs.</source>
+        <output>Массив ID значений не соответствует числу ID.</output>
     </text>
 </language>
