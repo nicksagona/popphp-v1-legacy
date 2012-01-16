@@ -7,12 +7,12 @@ return new Pop\Config(array(
         'docroot' => __DIR__ . '/../../helloworld/public'
     ),
     'databases' => array(
-        'poptest' => array(
+        'helloworld' => array(
             'type'     => 'Mysqli',
-            'database' => 'poptest',
+            'database' => 'helloworld',
             'host'     => 'localhost',
-            'username' => 'popuser',
-            'password' => '12pop34',
+            'username' => 'hello',
+            'password' => '12world34',
             'prefix'   => 'pop_'
         )
     ),

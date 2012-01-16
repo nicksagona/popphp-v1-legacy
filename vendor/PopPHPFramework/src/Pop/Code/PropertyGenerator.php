@@ -364,6 +364,22 @@ class PropertyGenerator
         $ary = str_replace('  );', ');', $ary);
         $ary = str_replace('NULL', 'null', $ary);
 
+        $keys = array_keys($this->_value);
+
+        $isAssoc = false;
+
+        for ($i = 0; $i < count($keys); $i++) {
+            if ($keys[$i] != $i) {
+                $isAssoc = true;
+            }
+        }
+
+        if (!$isAssoc) {
+            for ($i = 0; $i < count($keys); $i++) {
+                $ary = str_replace($i . ' => ', '', $ary);
+            }
+        }
+
         return $ary;
     }
 

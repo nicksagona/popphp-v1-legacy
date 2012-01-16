@@ -209,7 +209,11 @@ class Db
                     $popdb->adapter->query("SELECT * FROM information_schema.KEY_COLUMN_USAGE WHERE CONSTRAINT_" . $schema . " = '" . $dbname . "' AND TABLE_NAME = '" . $table . "'");
                     while (($row = $popdb->adapter->fetch()) != false) {
                         if (isset($row[$constraintName])) {
-                            $tables[$table]['primaryId'] = $row[$columnName];
+                            if (!isset($tables[$table]['primaryId'])) {
+                                $tables[$table]['primaryId'] = $row[$columnName];
+                            } else {
+                                $tables[$table]['primaryId'] .= '|' . $row[$columnName];
+                            }
                         }
                     }
                 }

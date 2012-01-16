@@ -134,7 +134,7 @@ class Install
                         echo Locale::factory()->__('Database') . ' \'' . $dbname . '\' passed.' . PHP_EOL;
                         echo Locale::factory()->__('Installing database') .' \'' . $dbname . '\'...' . PHP_EOL;
                         $tables = Db::install($dbname, $db, $installDir, $install);
-                        if (null !== $tables) {
+                        if (count($tables) > 0) {
                             $dbTables = array_merge($dbTables, $tables);
                         }
                     }

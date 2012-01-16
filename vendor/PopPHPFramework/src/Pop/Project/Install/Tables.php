@@ -65,8 +65,16 @@ class Tables
             $ns = new NamespaceGenerator($install->project->name . '\\Table');
             $ns->setUse('Pop\\Record\\Record');
 
+            if (strpos($value['primaryId'], '|') !== false) {
+                $pIdType = 'array';
+                $pId = explode('|', $value['primaryId']);
+            } else {
+                $pIdType = 'string';
+                $pId = $value['primaryId'];
+            }
+
             $prefix = new PropertyGenerator('_prefix', 'string', $value['prefix'], 'protected');
-            $propId = new PropertyGenerator('_primaryId', 'string', $value['primaryId'], 'protected');
+            $propId = new PropertyGenerator('_primaryId', $pIdType, $pId, 'protected');
             $propAuto = new PropertyGenerator('_auto', 'boolean', $value['auto'], 'protected');
 
             // Create and save table class file

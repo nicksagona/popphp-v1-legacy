@@ -56,12 +56,11 @@ Completed:
         + UsaEpay
         + Payleap
         + Trustcommerce
-    - Waiting on a test account
-        + Chase Paymentech
 
 
 CURRENTLY BEING WORKED ON
 -----------------------------------
+* Finish XML language data
 * Pdf Component
     - Improve Pdf API overall
     - Rework the integration of the new/improved image components into Pdf
@@ -71,8 +70,6 @@ CURRENTLY BEING WORKED ON
     - Revisit PDF layer/clipping issues
     - Revisit embedding GIFs into Pdf
     - Revisit pie chart text for Pdf
-* Check/Test Record Component
-* Finish XML language data
 
 
 NEXT UP:
