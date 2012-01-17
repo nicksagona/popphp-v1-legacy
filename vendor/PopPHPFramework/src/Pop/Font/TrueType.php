@@ -236,7 +236,6 @@ class TrueType extends Font
         // OS/2 (Optional in a TTF font file)
         if (isset($this->tableInfo['OS/2'])) {
             $this->tables['OS/2'] = new Os2($this);
-
             $this->flags->isSerif = $this->tables['OS/2']->flags->isSerif;
             $this->flags->isScript = $this->tables['OS/2']->flags->isScript;
             $this->flags->isSymbolic = $this->tables['OS/2']->flags->isSymbolic;

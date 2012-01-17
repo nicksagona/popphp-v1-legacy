@@ -32,6 +32,8 @@ namespace Pop\Font\TrueType\Table;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
+use Pop\File\File;
+
 class Head
 {
 
@@ -64,6 +66,7 @@ class Head
                               'fontRevision'       => $fontRevision);
 
         $bytePos += 4;
+
         $headerArray = unpack('NcheckSumAdjustment/' .
                               'NmagicNumber/' .
                               'nflags/' .

@@ -135,15 +135,17 @@ class Font extends File
      */
     public function __construct($font)
     {
-        $this->flags = new \ArrayObject(array('isFixedPitch'  => false,
-                                              'isSerif'       => false,
-                                              'isSymbolic'    => false,
-                                              'isScript'      => false,
-                                              'isNonSymbolic' => false,
-                                              'isItalic'      => false,
-                                              'isAllCap'      => false,
-                                              'isSmallCap'    => false,
-                                              'isForceBold'   => false), \ArrayObject::ARRAY_AS_PROPS);
+        $this->flags = new \ArrayObject(array(
+            'isFixedPitch'  => false,
+            'isSerif'       => false,
+            'isSymbolic'    => false,
+            'isScript'      => false,
+            'isNonSymbolic' => false,
+            'isItalic'      => false,
+            'isAllCap'      => false,
+            'isSmallCap'    => false,
+            'isForceBold'   => false
+        ), \ArrayObject::ARRAY_AS_PROPS);
 
         parent::__construct($font);
     }
@@ -230,28 +232,7 @@ class Font extends File
      */
     public function calcFlags()
     {
-        $flags = 0;
-
-        if ($this->flags->isFixedPitch) {
-            $flags |= 1 << 0;
-        }
-        if ($this->flags->isSerif) {
-            $flags |= 1 << 1;
-        }
-        if ($this->flags->isSymbolic) {
-            $flags |= 1 << 2;
-        }
-        if ($this->flags->isScript) {
-            $flags |= 1 << 3;
-        }
-        if ($this->flags->isNonSymbolic) {
-            $flags |= 1 << 5;
-        }
-        if ($this->flags->isItalic) {
-            $flags |= 1 << 6;
-        }
-
-        return $flags;
+        return ($this->flags->isNonSymbolic) ? 32 : 4;
     }
 
 }

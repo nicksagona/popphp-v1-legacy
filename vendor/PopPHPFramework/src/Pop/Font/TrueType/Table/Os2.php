@@ -57,15 +57,17 @@ class Os2
      */
     public function __construct($font)
     {
-        $this->flags = new \ArrayObject(array('isFixedPitch'  => false,
-                                              'isSerif'       => false,
-                                              'isSymbolic'    => false,
-                                              'isScript'      => false,
-                                              'isNonSymbolic' => false,
-                                              'isItalic'      => false,
-                                              'isAllCap'      => false,
-                                              'isSmallCap'    => false,
-                                              'isForceBold'   => false), \ArrayObject::ARRAY_AS_PROPS);
+        $this->flags = new \ArrayObject(array(
+            'isFixedPitch'  => false,
+            'isSerif'       => false,
+            'isSymbolic'    => false,
+            'isScript'      => false,
+            'isNonSymbolic' => false,
+            'isItalic'      => false,
+            'isAllCap'      => false,
+            'isSmallCap'    => false,
+            'isForceBold'   => false
+        ), \ArrayObject::ARRAY_AS_PROPS);
 
         $bytePos = $font->tableInfo['OS/2']->offset + 30;
         $ary = unpack("nfamily_class", $font->read($bytePos, 2));
