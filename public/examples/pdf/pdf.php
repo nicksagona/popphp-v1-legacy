@@ -27,7 +27,7 @@ try {
     $pdf->addFont('Courier-Bold');
     $pdf->addText(150, 350, 'Hello World!', 'Courier-Bold', 48);
     $sz = $pdf->getStringSize('Hello World!', 'Courier-Bold', 48);
-    $pdf->addURL(150, (350 - $sz['baseline']), $sz['width'], $sz['height'], 'http://www.google.com/');
+    $pdf->addUrl(150, (350 - $sz['baseline']), $sz['width'], $sz['height'], 'http://www.google.com/');
 
     $pdf->addPage('Letter');
 
@@ -56,7 +56,7 @@ try {
     $pdf->addPage('Legal');
     $pdf->addFont('Courier-Bold');
     $pdf->addText(50, 650, 'Hello World Again!', 'Courier-Bold', 36);
-    $pdf->addURL(50, 650, 380, 36, 'http://www.moc10media.com/');
+    $pdf->addUrl(50, 650, 380, 36, 'http://www.popphp.org/');
 
     $pdf->orderPages(array(3, 1, 2));
 

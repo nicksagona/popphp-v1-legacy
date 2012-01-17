@@ -71,7 +71,7 @@ class Pdf extends File
      * Array of allowed file types.
      * @var array
      */
-    protected $_allowed = array('pdf'  => 'application/pdf');
+    protected $_allowed = array('pdf' => 'application/pdf');
 
     /**
      * Array of PDF page object indices.
@@ -1289,7 +1289,7 @@ class Pdf extends File
      * @param  string $url
      * @return Pop\Pdf\Pdf
      */
-    public function addURL($x, $y, $w, $h, $url)
+    public function addUrl($x, $y, $w, $h, $url)
     {
         $x2 = $x + $w;
         $y2 = $y + $h;

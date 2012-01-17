@@ -1,5 +1,5 @@
-Pop PHP Framework 0.9 (Forked from Moc10 PHP Library 1.9.7)
-===========================================================
+Pop PHP Framework 0.9
+=====================
 
 Completed:
 ----------
@@ -61,14 +61,7 @@ Completed:
 CURRENTLY BEING WORKED ON
 -----------------------------------
 * Pdf Component
-    - Improve Pdf API overall
-    - Rework the integration of the new/improved image components into Pdf
     - Address, test and debug embed fonts and the Font component
-    - Address, test and debug Pdf import
-    - Add compression to Pdf
-    - Revisit PDF layer/clipping issues
-    - Revisit embedding GIFs into Pdf
-    - Revisit pie chart text for Pdf
 
 
 NEXT UP:
