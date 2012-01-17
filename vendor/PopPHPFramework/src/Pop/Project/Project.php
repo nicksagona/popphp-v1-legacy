@@ -168,10 +168,7 @@ class Project
      */
     public function run($controller = 'default')
     {
-        if (null !== $this->controller($controller)) {
-            $ctrlCls = $this->controller($controller);
-            $this->_controller = new $ctrlCls();
-        }
+        $this->controller($controller);
     }
 
 }

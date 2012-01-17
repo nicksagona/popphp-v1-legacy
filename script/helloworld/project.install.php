@@ -57,7 +57,6 @@ return new Pop\Config(array(
     'controllers' => array(
         'default' => array(
             'index' => 'index.phtml',
-            'about' => 'about.phtml',
             'error' => 'error.phtml'
         )
     )

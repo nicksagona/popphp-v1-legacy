@@ -100,18 +100,23 @@ class Controllers
 
                 $construct->appendToBody("if (null === \$viewPath) {")
                           ->appendToBody("    \$viewPath = __DIR__ . '/../../../view/{$controller}';")
-                          ->appendToBody("}")
-                          ->appendToBody("parent::__construct(\$request, \$response, \$viewPath);")
-                          ->appendToBody("if (\$this->_request->getRequestUri() == '/') {")
-                          ->appendToBody("    \$this->index();")
-                          ->appendToBody("} else if (!is_null(\$this->_request->getPath(0)) && method_exists(\$this, \$this->_request->getPath(0))) {")
-                          ->appendToBody("    \$path = \$this->_request->getPath(0);")
-                          ->appendToBody("    \$this->\$path();")
-                          ->appendToBody("} else {")
-                          ->appendToBody("    \$this->_isError = true;")
-                          ->appendToBody("    \$this->error();")
-                          ->appendToBody("}", false)
-                          ->getDocblock()->setReturn('void');
+                          ->appendToBody("}" . PHP_EOL)
+                          ->appendToBody("parent::__construct(\$request, \$response, \$viewPath);");
+
+                if (array_key_exists('index', $views) && array_key_exists('error', $views)) {
+                    $construct->appendToBody("if (\$this->_request->getRequestUri() == '/') {")
+                              ->appendToBody("    \$this->index();")
+                              ->appendToBody("} else {")
+                              ->appendToBody("    \$this->_isError = true;")
+                              ->appendToBody("    \$this->error();")
+                              ->appendToBody("}", false);
+                } else if (array_key_exists('index', $views)) {
+                    $construct->appendToBody("if (\$this->_request->getRequestUri() == '/') {")
+                              ->appendToBody("    \$this->index();")
+                              ->appendToBody("}", false);
+                }
+
+                $construct->getDocblock()->setReturn('void');
 
                 $controllerCls->setNamespace($ns);
                 $controllerCls->code()->setParent('C')
@@ -128,7 +133,8 @@ class Controllers
 
                     $method = new MethodGenerator($key);
                     $method->setDesc('Add your model data here within the \'' . $key . '()\' method to inject into the view.');
-                    $method->appendToBody("\$this->_view = View::factory(\$this->_viewPath . '/{$value}');", false);
+                    $method->appendToBody("\$this->_view = View::factory(\$this->_viewPath . '/{$value}');");
+                    $method->appendToBody("\$this->dispatch();", false);
                     $method->getDocblock()->setReturn('void');
 
                     $controllerCls->code()->addMethod($method);

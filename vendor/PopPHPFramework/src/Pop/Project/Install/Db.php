@@ -120,6 +120,15 @@ class Db
         // If there are SQL files, parse them and execute the SQL queries
         if (count($sqlFiles) > 0) {
             echo 'SQL files found. Executing SQL queries...' . PHP_EOL;
+
+            // Clear database
+            $oldTables = $popdb->adapter->getTables();
+            if (count($oldTables) > 0) {
+                foreach ($oldTables as $tab) {
+                    $popdb->adapter->query("DROP TABLE " . $tab);
+                }
+            }
+
             foreach ($sqlFiles as $sqlFile) {
                 $file = new File($sqlFile);
 
