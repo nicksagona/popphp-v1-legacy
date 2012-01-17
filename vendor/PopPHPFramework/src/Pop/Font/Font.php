@@ -119,11 +119,13 @@ class Font extends File
      * Array of allowed file types.
      * @var array
      */
-    protected $_allowed = array('afm' => 'application/x-font-afm',
-                                'otf' => 'application/x-font-otf',
-                                'pfb' => 'application/x-font-pfb',
-                                'pfm' => 'application/x-font-pfm',
-                                'ttf' => 'application/x-font-ttf');
+    protected $_allowed = array(
+        'afm' => 'application/x-font-afm',
+        'otf' => 'application/x-font-otf',
+        'pfb' => 'application/x-font-pfb',
+        'pfm' => 'application/x-font-pfm',
+        'ttf' => 'application/x-font-ttf'
+    );
 
     /**
      * Constructor
