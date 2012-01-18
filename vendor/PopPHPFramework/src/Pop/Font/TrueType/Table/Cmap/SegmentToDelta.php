@@ -42,13 +42,14 @@ class SegmentToDelta
      */
     public static function parseData($data)
     {
-        $ary = unpack('nsegCountx2/' .
-                      'nsearchRange/' .
-                      'nentrySelector/' .
-                      'nrangeShift', substr($data, 0, 8));
+        $ary = unpack(
+            'nsegCountx2/' .
+            'nsearchRange/' .
+            'nentrySelector/' .
+            'nrangeShift', substr($data, 0, 8)
+        );
 
         $ary['segCount'] = $ary['segCountx2'] / 2;
-
         $ary['endCount'] = array();
 
         $bytePos = 8;

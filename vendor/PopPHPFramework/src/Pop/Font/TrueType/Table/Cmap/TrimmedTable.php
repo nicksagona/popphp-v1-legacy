@@ -42,8 +42,10 @@ class TrimmedTable
      */
     public static function parseData($data)
     {
-        $ary = unpack('nfirstCode/' .
-                      'nentryCount', substr($data, 0, 4));
+        $ary = unpack(
+            'nfirstCode/' .
+            'nentryCount', substr($data, 0, 4)
+        );
 
         $ary['glyphId'] = array();
 

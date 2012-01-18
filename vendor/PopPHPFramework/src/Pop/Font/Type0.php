@@ -34,7 +34,7 @@ use Pop\Font\Font;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-class Type0 extends Font
+class Type0 extends AbstractFont
 {
 
 

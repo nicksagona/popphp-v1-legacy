@@ -62,21 +62,27 @@ class Head
         $fontRevisionBytes = $font->read($bytePos, 4);
         $fontRevision = $font->readFixed(16, 16, $fontRevisionBytes);
 
-        $versionArray = array('tableVersionNumber' => $tableVersionNumber,
-                              'fontRevision'       => $fontRevision);
+        $versionArray = array(
+            'tableVersionNumber' => $tableVersionNumber,
+            'fontRevision'       => $fontRevision
+        );
 
         $bytePos += 4;
 
-        $headerArray = unpack('NcheckSumAdjustment/' .
-                              'NmagicNumber/' .
-                              'nflags/' .
-                              'nunitsPerEm', $font->read($bytePos, 12));
+        $headerArray = unpack(
+            'NcheckSumAdjustment/' .
+            'NmagicNumber/' .
+            'nflags/' .
+            'nunitsPerEm', $font->read($bytePos, 12)
+        );
 
         $bytePos += 28;
-        $bBox = unpack('nxMin/' .
-                       'nyMin/' .
-                       'nxMax/' .
-                       'nyMax', $font->read($bytePos, 8));
+        $bBox = unpack(
+            'nxMin/' .
+            'nyMin/' .
+            'nxMax/' .
+            'nyMax', $font->read($bytePos, 8)
+        );
         $bBox = $font->shiftToSigned($bBox);
 
         $bytePos += 14;

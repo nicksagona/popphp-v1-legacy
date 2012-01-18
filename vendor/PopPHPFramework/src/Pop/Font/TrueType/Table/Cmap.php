@@ -64,8 +64,10 @@ class Cmap
         $bytePos = $font->tableInfo['cmap']->offset;
 
         // Get the CMAP header data.
-        $cmapTableHeader = unpack('ntableVersion/' .
-                                  'nnumberOfTables', $font->read($bytePos, 4));
+        $cmapTableHeader = unpack(
+            'ntableVersion/' .
+            'nnumberOfTables', $font->read($bytePos, 4)
+        );
 
         $this->header = new \ArrayObject($cmapTableHeader, \ArrayObject::ARRAY_AS_PROPS);
         $this->_parseSubTables($font);
@@ -82,9 +84,11 @@ class Cmap
 
         // Get each of the subtable's data.
         for ($i = 0; $i < $this->header->numberOfTables; $i++) {
-            $ary = unpack('nplatformId/' .
-                          'nencodingId/' .
-                          'Noffset', $font->read($bytePos, 8));
+            $ary = unpack(
+                'nplatformId/' .
+                'nencodingId/' .
+                'Noffset', $font->read($bytePos, 8)
+            );
             if (($ary['platformId'] == 0) && ($ary['encodingId'] == 0)) {
                 $ary['encoding'] = 'Unicode 2.0';
             } else if (($ary['platformId'] == 0) && ($ary['encodingId'] == 3)) {
@@ -103,9 +107,11 @@ class Cmap
         // Parse each of the subtable's data.
         foreach ($this->subTables as $key => $subTable) {
             $bytePos = $font->tableInfo['cmap']->offset + $subTable->offset;
-            $ary = unpack('nformat/' .
-                          'nlength/' .
-                          'nlanguage', $font->read($bytePos, 6));
+            $ary = unpack(
+                'nformat/' .
+                'nlength/' .
+                'nlanguage', $font->read($bytePos, 6)
+            );
             $this->subTables[$key]->format = $ary['format'];
             $this->subTables[$key]->length = $ary['length'];
             $this->subTables[$key]->language = $ary['language'];

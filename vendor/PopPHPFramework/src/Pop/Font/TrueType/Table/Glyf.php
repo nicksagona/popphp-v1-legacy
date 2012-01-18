@@ -61,11 +61,13 @@ class Glyf
         $j = 0;
         foreach ($font->tables['loca']->offsets as $offset) {
             $bytePos = $font->tableInfo['glyf']->offset + $offset;
-            $ary = unpack('nnumberOfContours/' .
-                          'nxMin/' .
-                          'nyMin/' .
-                          'nxMax/' .
-                          'nyMax', $font->read($bytePos, 10));
+            $ary = unpack(
+                'nnumberOfContours/' .
+                'nxMin/' .
+                'nyMin/' .
+                'nxMax/' .
+                'nyMax', $font->read($bytePos, 10)
+            );
             $ary = $font->shiftToSigned($ary);
             $ary['xMin'] = $font->toEmSpace($ary['xMin']);
             $ary['yMin'] = $font->toEmSpace($ary['yMin']);

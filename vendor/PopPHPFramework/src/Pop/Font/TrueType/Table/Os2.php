@@ -91,10 +91,12 @@ class Os2
 
         // Unicode bit-sniffing may not be necessary.
         $bytePos += 3;
-        $ary = unpack("NunicodeRange1/" .
-                      "NunicodeRange2/" .
-                      "NunicodeRange3/" .
-                      "NunicodeRange4", $font->read($bytePos, 16));
+        $ary = unpack(
+            'NunicodeRange1/' .
+            'NunicodeRange2/' .
+            'NunicodeRange3/' .
+            'NunicodeRange4', $font->read($bytePos, 16)
+        );
 
         if (($ary['unicodeRange1'] == 1) && ($ary['unicodeRange2'] == 0) && ($ary['unicodeRange3'] == 0) && ($ary['unicodeRange4'] == 0)) {
             $this->flags->isSymbolic = false;

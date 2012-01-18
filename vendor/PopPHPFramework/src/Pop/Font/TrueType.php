@@ -44,7 +44,7 @@ use Pop\Font\Font,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-class TrueType extends Font
+class TrueType extends AbstractFont
 {
 
     /**
@@ -102,18 +102,22 @@ class TrueType extends Font
      */
     protected function _parseTtfTable()
     {
-        $ttfHeader = unpack('nmajorVersion/' .
-                            'nminorVersion/' .
-                            'nnumberOfTables/' .
-                            'nsearchRange/' .
-                            'nentrySelector/' .
-                            'nrangeShift', $this->read(0, 12));
+        $ttfHeader = unpack(
+            'nmajorVersion/' .
+            'nminorVersion/' .
+            'nnumberOfTables/' .
+            'nsearchRange/' .
+            'nentrySelector/' .
+            'nrangeShift', $this->read(0, 12)
+        );
 
         $tableName = $this->read(12, 4);
 
-        $ttfTable = unpack('Nchecksum/' .
-                           'Noffset/' .
-                           'Nlength', $this->read(16, 12));
+        $ttfTable = unpack(
+            'Nchecksum/' .
+            'Noffset/' .
+            'Nlength', $this->read(16, 12)
+        );
 
         $ttfTable['name'] = $tableName;
 
@@ -125,9 +129,11 @@ class TrueType extends Font
 
         for ($i = 0; $i < $this->ttfHeader->numberOfTables; $i++) {
             $ttfTableName = $this->read($nameByteOffset, 4);
-            $ttfTable = unpack('Nchecksum/' .
-                               'Noffset/' .
-                               'Nlength', $this->read($tableByteOffset, 12));
+            $ttfTable = unpack(
+                'Nchecksum/' .
+                'Noffset/' .
+                'Nlength', $this->read($tableByteOffset, 12)
+            );
 
             $this->tableInfo[trim($ttfTableName)] = new \ArrayObject($ttfTable, \ArrayObject::ARRAY_AS_PROPS);
 
@@ -167,10 +173,12 @@ class TrueType extends Font
             $this->tables['head']->xMax = $this->toEmSpace($this->tables['head']->xMax);
             $this->tables['head']->yMax = $this->toEmSpace($this->tables['head']->yMax);
 
-            $this->bBox = new \ArrayObject(array('xMin' => $this->tables['head']->xMin,
-                                                 'yMin' => $this->tables['head']->yMin,
-                                                 'xMax' => $this->tables['head']->xMax,
-                                                 'yMax' => $this->tables['head']->yMax), \ArrayObject::ARRAY_AS_PROPS);
+            $this->bBox = new \ArrayObject(array(
+                'xMin' => $this->tables['head']->xMin,
+                'yMin' => $this->tables['head']->yMin,
+                'xMax' => $this->tables['head']->xMax,
+                'yMax' => $this->tables['head']->yMax
+            ), \ArrayObject::ARRAY_AS_PROPS);
 
             $this->header = $this->tables['head'];
         }

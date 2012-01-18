@@ -65,8 +65,10 @@ class Hhea
     {
         $bytePos = $font->tableInfo['hhea']->offset + 4;
 
-        $ary = unpack('nascent/' .
-                      'ndescent', $font->read($bytePos, 4));
+        $ary = unpack(
+            'nascent/' .
+            'ndescent', $font->read($bytePos, 4)
+        );
 
         $ary = $font->shiftToSigned($ary);
         $this->ascent = $font->toEmSpace($ary['ascent']);

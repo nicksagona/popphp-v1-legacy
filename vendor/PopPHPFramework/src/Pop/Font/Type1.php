@@ -34,7 +34,7 @@ use Pop\Font\Font;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-class Type1 extends Font
+class Type1 extends AbstractFont
 {
 
     /**
@@ -139,10 +139,12 @@ class Type1 extends Font
             $bbox = substr($bbox, 0, stripos($bbox, 'readonly def'));
             $bbox = trim($this->_strip($bbox));
             $bboxAry = explode(' ', $bbox);
-            $this->bBox = new \ArrayObject(array('xMin' => $bboxAry[0],
-                                                'yMin' => $bboxAry[1],
-                                                'xMax' => $bboxAry[2],
-                                                'yMax' => $bboxAry[3]), \ArrayObject::ARRAY_AS_PROPS);
+            $this->bBox = new \ArrayObject(array(
+                'xMin' => $bboxAry[0],
+                'yMin' => $bboxAry[1],
+                'xMax' => $bboxAry[2],
+                'yMax' => $bboxAry[3]
+            ), \ArrayObject::ARRAY_AS_PROPS);
         }
 
         if (stripos($this->dict, '/ascent') !== false) {
