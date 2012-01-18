@@ -17,6 +17,7 @@ try {
 
     $pdf->embedFont('../assets/fonts/times.ttf');
     //$pdf->embedFont('../assets/fonts/carltonn.ttf');
+
     $pdf->addText(50, 620, 'Hello World!', $pdf->getLastFontName(), 18);
 
     $pdf->output();

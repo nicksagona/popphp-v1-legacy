@@ -199,7 +199,7 @@ abstract class AbstractFont extends File
      * @param  int|array $values
      * @return int|array
      */
-    public static function shiftToSigned($values)
+    public function shiftToSigned($values)
     {
         if (is_array($values)) {
             foreach ($values as $key => $value) {

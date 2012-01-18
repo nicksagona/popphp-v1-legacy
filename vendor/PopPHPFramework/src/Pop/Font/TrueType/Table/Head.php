@@ -59,6 +59,7 @@ class Head
         $tableVersionNumber = $font->readFixed(16, 16, $tableVersionNumberBytes);
 
         $bytePos += 4;
+
         $fontRevisionBytes = $font->read($bytePos, 4);
         $fontRevision = $font->readFixed(16, 16, $fontRevisionBytes);
 
