@@ -9,6 +9,8 @@ try {
 
     $pdf->addPage('Letter');
 
+    //$pdf->setCompression(true);
+
     $pdf->setVersion('1.4')
         ->setTitle('Test Title')
         ->setAuthor('Test Author')

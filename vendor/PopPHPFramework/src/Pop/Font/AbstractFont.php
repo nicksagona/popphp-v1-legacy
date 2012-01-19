@@ -160,10 +160,10 @@ abstract class AbstractFont extends File
      * @param  string $bytes
      * @return int
      */
-    public static function readFixed($mantissaBits, $fractionBits, $bytes)
+    public function readFixed($mantissaBits, $fractionBits, $bytes)
     {
         $bitsToRead = $mantissaBits + $fractionBits;
-        $number = self::readInt(($bitsToRead >> 3), $bytes) / (1 << $fractionBits);
+        $number = $this->readInt(($bitsToRead >> 3), $bytes) / (1 << $fractionBits);
         return $number;
     }
 
@@ -174,7 +174,7 @@ abstract class AbstractFont extends File
      * @param  string $bytes
      * @return int
      */
-    public static function readInt($size, $bytes)
+    public function readInt($size, $bytes)
     {
         $number = ord($bytes[0]);
 

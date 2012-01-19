@@ -55,7 +55,7 @@ class Hmtx
 
         for ($i = 0; $i < $font->numberOfHMetrics; $i++) {
             $ary = unpack('nglyphWidth/', $font->read($bytePos, 2));
-            $this->glyphWidths[$i] = $ary['glyphWidth'];
+            $this->glyphWidths[$i] = $font->shiftToSigned($ary['glyphWidth']);
             $bytePos += 4;
         }
 

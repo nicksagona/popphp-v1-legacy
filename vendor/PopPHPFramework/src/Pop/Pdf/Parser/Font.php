@@ -150,7 +150,7 @@ class Font
         $bBox = '[' . $this->_font->bBox->xMin . ' ' . $this->_font->bBox->yMin . ' ' . $this->_font->bBox->xMax . ' ' . $this->_font->bBox->yMax . ']';
 
         if ($this->_compress) {
-            $fontFileObj = "{$this->_fontFileIndex} 0 obj\n<</Length " . $this->_calcByteLength($compStream) . " /Filter /FlateDecode /Length1 " . $this->_calcByteLength($unCompStream) . ">>\nstream\n" . $compStream . "\nendstream\nendobj\n\n";
+            $fontFileObj = "{$this->_fontFileIndex} 0 obj\n<</Filter /FlateDecode /Length1 " . $this->_calcByteLength($unCompStream) . ">>\nstream\n" . $compStream . "\nendstream\nendobj\n\n";
         } else {
             $fontFileObj = "{$this->_fontFileIndex} 0 obj\n<</Length " . $this->_calcByteLength($unCompStream) . ">>\nstream\n" . $unCompStream . "\nendstream\nendobj\n\n";
         }
