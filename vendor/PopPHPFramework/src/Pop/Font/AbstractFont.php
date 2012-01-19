@@ -234,7 +234,7 @@ abstract class AbstractFont extends File
      */
     public function calcFlags()
     {
-        // Array to represent big-endian order bits
+        // Array to represent big-endian order flag bits
         $flags = array(
             19 => 0,
             18 => 0,
@@ -285,8 +285,13 @@ abstract class AbstractFont extends File
             $flags[19] = 1;
         }
 
+        $flagsValue = bindec(implode('', $flags));
+        if ($flagsValue == 0) {
+            $flagsValue = ($this->flags->isNonSymbolic) ? 32 : 4;
+        }
+
         // Glue the bits together, convert to an integer and return
-        return bindec(implode('', $flags));
+        return $flagsValue;
     }
 
 }

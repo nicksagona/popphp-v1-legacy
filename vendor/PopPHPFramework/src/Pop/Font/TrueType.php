@@ -152,6 +152,13 @@ class TrueType extends AbstractFont
         if (isset($this->tableInfo['name'])) {
             $this->tables['name'] = new Name($this);
             $this->info = $this->tables['name'];
+            if ((stripos($this->tables['name']->fontFamily, 'bold') !== false) ||
+                (stripos($this->tables['name']->fullName, 'bold') !== false) ||
+                (stripos($this->tables['name']->postscriptName, 'bold') !== false)) {
+                $this->stemV = 120;
+            } else {
+                $this->stemV = 70;
+            }
         }
     }
 
