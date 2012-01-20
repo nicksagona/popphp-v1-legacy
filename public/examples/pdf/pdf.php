@@ -21,11 +21,11 @@ try {
         ->setFillColor(new Rgb(12, 101, 215))
         ->setStrokeColor(new Rgb(215, 101, 12));
     $pdf->addFont('Arial');
-    $pdf->addText(50, 620, 'Hello World! & You!', 'Arial', 18);
+    $pdf->addText(50, 620, 18, 'Hello World! & You!', 'Arial');
 
     $pdf->setTextParams();
     $pdf->addFont('Courier-Bold');
-    $pdf->addText(150, 350, 'Hello World!', 'Courier-Bold', 48);
+    $pdf->addText(150, 350, 48, 'Hello World!', 'Courier-Bold');
     $sz = $pdf->getStringSize('Hello World!', 'Courier-Bold', 48);
     $pdf->addUrl(150, (350 - $sz['baseline']), $sz['width'], $sz['height'], 'http://www.google.com/');
 
@@ -55,7 +55,7 @@ try {
 
     $pdf->addPage('Legal');
     $pdf->addFont('Courier-Bold');
-    $pdf->addText(50, 650, 'Hello World Again!', 'Courier-Bold', 36);
+    $pdf->addText(50, 650, 36, 'Hello World Again!', 'Courier-Bold');
     $pdf->addUrl(50, 650, 380, 36, 'http://www.popphp.org/');
 
     $pdf->orderPages(array(3, 1, 2));

@@ -142,7 +142,6 @@ class Pdf extends File
         'ZapfDingbats'             => array('width_factor' => 0.75, 'height_factor' => 1.12)
     );
 
-
     /**
      * Last font name
      * @var string
@@ -237,7 +236,7 @@ class Pdf extends File
      *
      * @param  string           $pdf
      * @param  int|string|array $pg
-     * @return void
+     * @return Pop\Pdf\Pdf
      */
     public function importPdf($pdf, $pg = null)
     {
@@ -269,6 +268,8 @@ class Pdf extends File
         foreach ($pdfi->pages as $value) {
             $this->_objects[$this->_parent]->kids[] = $value;
         }
+
+        return $this;
     }
 
     /**
@@ -277,7 +278,7 @@ class Pdf extends File
      * @param  string $sz
      * @param  int    $w
      * @param  int    h
-     * @return void
+     * @return Pop\Pdf\Pdf
      */
     public function addPage($sz = null, $w = null, $h = null)
     {
@@ -299,6 +300,8 @@ class Pdf extends File
         $this->_pages[$this->_curPage] = $pi;
         $this->_objects[$this->_parent]->count += 1;
         $this->_objects[$this->_parent]->kids[] = $pi;
+
+        return $this;
     }
 
     /**
@@ -306,7 +309,7 @@ class Pdf extends File
      *
      * @param  int $pg
      * @throws Exception
-     * @return void
+     * @return Pop\Pdf\Pdf
      */
     public function copyPage($pg)
     {
@@ -337,6 +340,8 @@ class Pdf extends File
             $this->_objects[$this->_parent]->count += 1;
             $this->_objects[$this->_parent]->kids[] = $pi;
         }
+
+        return $this;
     }
 
     /**
@@ -344,7 +349,7 @@ class Pdf extends File
      *
      * @param  int $pg
      * @throws Exception
-     * @return void
+     * @return Pop\Pdf\Pdf
      */
     public function deletePage($pg)
     {
@@ -388,6 +393,8 @@ class Pdf extends File
                 $this->_pages[] = $value;
             }
         }
+
+        return $this;
     }
 
     /**
@@ -395,7 +402,7 @@ class Pdf extends File
      *
      * @param  array $pgs
      * @throws Exception
-     * @return void
+     * @return Pop\Pdf\Pdf
      */
     public function orderPages($pgs)
     {
@@ -424,6 +431,8 @@ class Pdf extends File
         // Set the kids and pages arrays to the new order.
         $this->_objects[$this->_parent]->kids = $newOrder;
         $this->_pages = $newOrder;
+
+        return $this;
     }
 
     /**
@@ -679,7 +688,7 @@ class Pdf extends File
      *
      * @param  string $font
      * @throws Exception
-     * @return void
+     * @return Pop\Pdf\Pdf
      */
     public function addFont($font)
     {
@@ -700,6 +709,8 @@ class Pdf extends File
 
             $this->_lastFontName = $font;
         }
+
+        return $this;
     }
 
     /**
@@ -708,7 +719,7 @@ class Pdf extends File
      * @param  string $file
      * @param  string $font
      * @throws Exception
-     * @return void
+     * @return Pop\Pdf\Pdf
      */
     public function embedFont($file)
     {
@@ -727,6 +738,8 @@ class Pdf extends File
         }
 
         $this->_lastFontName = $fontParser->getFontName();
+
+        return $this;
     }
 
     /**
@@ -734,13 +747,13 @@ class Pdf extends File
      *
      * @param  int $x
      * @param  int $y
+     * @param  int $size
      * @param  string $str
      * @param  string $font
-     * @param  int $size
      * @throws Exception
-     * @return void
+     * @return Pop\Pdf\Pdf
      */
-    public function addText($x, $y, $str, $font, $size)
+    public function addText($x, $y, $size, $str, $font)
     {
         // Check to see if the font already exists on another page.
         $fontExists = false;
@@ -765,6 +778,8 @@ class Pdf extends File
         // Add the text to the current page's content stream.
         $co_index = $this->_getContentObject();
         $this->_objects[$co_index]->setStream("\nBT\n    /{$fontObj} {$size} Tf\n    " . $this->_calcTextMatrix() . " {$x} {$y} Tm\n    " . $this->_textParams['c'] . " Tc " . $this->_textParams['w'] . " Tw " . $this->_textParams['rend'] . " Tr\n    ({$str})Tj\nET\n");
+
+        return $this;
     }
 
     /**

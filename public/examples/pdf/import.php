@@ -28,7 +28,7 @@ try {
 
     $pdf->addFont('Courier');
     $pdf->setFillColor(new Rgb(12, 255, 12));
-    $pdf->addText(10, 300, 'Hello World Again!!!', 'Courier', 18);
+    $pdf->addText(10, 300, 18, 'Hello World Again!!!', 'Courier');
     $pdf->addUrl(10, 300, 380, 18, 'http://www.popphp.org/');
 
     $pdf->setFillColor(new Rgb(128, 200, 50));
@@ -42,7 +42,7 @@ try {
     $pdf->setStrokeWidth(8);
     $pdf->addCircle(500, 500, 100);
 
-    $pdf->addText(10, 300, 'Hello World Again!!!', 'Courier', 18);
+    $pdf->addText(10, 300, 18, 'Hello World Again!!!', 'Courier');
     $pdf->addUrl(10, 300, 380, 18, 'http://www.google.com/');
 
     $pdf->addImage('../assets/images/logo_cmyk.jpg', 150, 400);

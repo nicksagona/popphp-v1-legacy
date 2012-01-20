@@ -22,12 +22,12 @@ try {
 
     $pdf->setFillColor(new Rgb(0, 0, 0));
     $pdf->addFont('Arial');
-    $pdf->addText(200, 15, 'Hello World!', 'Arial', 18);
+    $pdf->addText(200, 15, 18, 'Hello World!', 'Arial');
 
     $pdf->setFillColor(new Rgb(0, 128, 255));
     $pdf->addRectangle(300, 600, 100, 50);
 
-    $pdf->addText(50, 300, 'Hello World 2!', 'Arial', 36);
+    $pdf->addText(50, 300, 36, 'Hello World 2!', 'Arial');
 
     $pdf->setFillColor(new Rgb(0, 128, 100));
     $pdf->addRectangle(300, 375, 250, 75);

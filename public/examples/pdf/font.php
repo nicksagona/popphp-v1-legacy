@@ -17,10 +17,10 @@ try {
         ->setSubject('Test Subject')
         ->setCreateDate(date('D, M j, Y h:i A'));
 
-    $pdf->embedFont('../assets/fonts/times.ttf');
-    //$pdf->embedFont('../assets/fonts/carltonn.ttf');
+    //$pdf->embedFont('../assets/fonts/times.ttf');
+    $pdf->embedFont('../assets/fonts/carltonn.ttf');
 
-    $pdf->addText(50, 620, 'Hello World!', $pdf->getLastFontName(), 18);
+    $pdf->addText(50, 620, 18, 'Hello World!', $pdf->getLastFontName());
 
     $pdf->output();
 } catch (\Exception $e) {
