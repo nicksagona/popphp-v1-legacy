@@ -75,6 +75,12 @@ abstract class AbstractFont extends File
     public $glyphWidths = array();
 
     /**
+     * Missing glyph width
+     * @var int
+     */
+    public $missingWidth = 0;
+
+    /**
      * Font number of horizontal metrics value
      * @var int
      */

@@ -222,6 +222,12 @@ class TrueType extends AbstractFont
         if (isset($this->tableInfo['hmtx'])) {
             $this->tables['hmtx'] = new Hmtx($this);
             $this->glyphWidths = $this->tables['hmtx']->glyphWidths;
+            if (isset($this->glyphWidths[0])) {
+                $this->missingWidth = round((1000 / $this->unitsPerEm) * $this->glyphWidths[0]);
+            }
+            foreach ($this->glyphWidths as $key => $value) {
+                $this->glyphWidths[$key] = round((1000 / $this->unitsPerEm) * $value);
+            }
         }
 
         // cmap
@@ -245,7 +251,6 @@ class TrueType extends AbstractFont
         // glyf
         if (isset($this->tableInfo['glyf'])) {
             $this->tables['glyf'] = new Glyf($this);
-            $this->glyphWidths = $this->tables['glyf']->glyphWidths;
         }
 
         // OS/2 (Optional in a TTF font file)
@@ -255,7 +260,6 @@ class TrueType extends AbstractFont
             $this->flags->isScript = $this->tables['OS/2']->flags->isScript;
             $this->flags->isSymbolic = $this->tables['OS/2']->flags->isSymbolic;
             $this->flags->isNonSymbolic = $this->tables['OS/2']->flags->isNonSymbolic;
-            //$this->capHeight = $this->tables['OS/2']->capHeight;
         }
     }
 

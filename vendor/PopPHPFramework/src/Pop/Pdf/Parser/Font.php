@@ -143,7 +143,9 @@ class Font
      */
     protected function _createFontObjects()
     {
-        $this->_objects[$this->_objectIndex] = new Object("{$this->_objectIndex} 0 obj\n<<\n    /Type /Font\n    /Subtype /TrueType\n    /FontDescriptor {$this->_fontDescIndex} 0 R\n    /Name /TT{$this->_fontIndex}\n    /BaseFont /" . $this->_font->tables['name']->postscriptName . "\n    /FirstChar 32\n    /LastChar 255\n    /Widths [" . implode(' ', $this->_font->glyphWidths) . "]\n    /Encoding /WinAnsiEncoding\n>>\nendobj\n\n");
+        $glyphWidths = $this->_getGlyphWidths($this->_font->tables['cmap']);
+
+        $this->_objects[$this->_objectIndex] = new Object("{$this->_objectIndex} 0 obj\n<<\n    /Type /Font\n    /Subtype /TrueType\n    /FontDescriptor {$this->_fontDescIndex} 0 R\n    /Name /TT{$this->_fontIndex}\n    /BaseFont /" . $this->_font->tables['name']->postscriptName . "\n    /FirstChar 32\n    /LastChar 255\n    /Widths [" . implode(' ', $glyphWidths['widths']) . "]\n    /Encoding /" . $glyphWidths['encoding'] . "\n>>\nendobj\n\n");
 
         $unCompStream = $this->_font->read();
         $compStream = (function_exists('gzcompress')) ? Zlib::compress($unCompStream) : null;
@@ -155,8 +157,49 @@ class Font
             $fontFileObj = "{$this->_fontFileIndex} 0 obj\n<</Length " . strlen($unCompStream) . " /Length1 " . strlen($unCompStream) . ">>\nstream\n" . $unCompStream . "\nendstream\nendobj\n\n";
         }
 
-        $this->_objects[$this->_fontDescIndex] = new Object("{$this->_fontDescIndex} 0 obj\n<<\n    /Type /FontDescriptor\n    /FontName /" . $this->_font->tables['name']->postscriptName . "\n    /FontFile2 {$this->_fontFileIndex} 0 R\n    /StemV {$this->_font->stemV}\n    /Flags " . $this->_font->calcFlags() . "\n    /FontBBox {$bBox}\n    /Descent {$this->_font->descent}\n    /Ascent {$this->_font->ascent}\n    /CapHeight {$this->_font->capHeight}\n    /ItalicAngle {$this->_font->italicAngle}\n>>\nendobj\n\n");
+        $this->_objects[$this->_fontDescIndex] = new Object("{$this->_fontDescIndex} 0 obj\n<<\n    /Type /FontDescriptor\n    /FontName /" . $this->_font->tables['name']->postscriptName . "\n    /FontFile2 {$this->_fontFileIndex} 0 R\n    /MissingWidth {$this->_font->missingWidth}\n    /StemV {$this->_font->stemV}\n    /Flags " . $this->_font->calcFlags() . "\n    /FontBBox {$bBox}\n    /Descent {$this->_font->descent}\n    /Ascent {$this->_font->ascent}\n    /CapHeight {$this->_font->capHeight}\n    /ItalicAngle {$this->_font->italicAngle}\n>>\nendobj\n\n");
         $this->_objects[$this->_fontFileIndex] = new Object($fontFileObj);
+    }
+
+    /**
+     * Method to to get the glyph widths
+     *
+     * @param  Pop\Font\TrueType\Table\Cmap $cmap
+     * @return array
+     */
+    protected function _getGlyphWidths($cmap)
+    {
+        $gw = array('encoding' => null, 'widths' => array());
+
+        $macTable = null;
+        $msTable = null;
+
+        foreach ($cmap->subTables as $index => $table) {
+            if (($table->encoding == 'Mac Roman') && ($table->format == 0)) {
+                $macTable = $index;
+            }
+            if ($table->encoding == 'Microsoft Unicode') {
+                $msTable = $index;
+            }
+        }
+
+        if (null !== $macTable) {
+            $gw['encoding'] = 'MacRomanEncoding';
+            foreach ($cmap->subTables[$macTable]->parsed as $key => $value) {
+                if (($this->_font->glyphWidths[$value->ascii] != 0) && ($this->_font->glyphWidths[$value->ascii] != $this->_font->missingWidth)) {
+                    $gw['widths'][$key] = $this->_font->glyphWidths[$value->ascii];
+                }
+            }
+        } else if (null !== $msTable) {
+            $gw['encoding'] = 'WinAnsiEncoding';
+            foreach ($cmap->subTables[$msTable]->parsed['glyphIndexArray'] as $key => $value) {
+                if ($this->_font->glyphWidths[$value] != 0) {
+                    $gw['widths'][$key] = $this->_font->glyphWidths[$value];
+                }
+            }
+        }
+
+        return $gw;
     }
 
     /**

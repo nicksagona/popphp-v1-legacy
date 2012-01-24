@@ -1421,7 +1421,7 @@ class Pdf extends File
     /**
      * Method to finalize the PDF.
      *
-     * @return void
+     * @return Pop\Pdf\Pdf
      */
     public function finalize()
     {
@@ -1458,6 +1458,8 @@ class Pdf extends File
 
         // Write to the file.
         $this->write($this->_output);
+
+        return $this;
     }
 
     /**
