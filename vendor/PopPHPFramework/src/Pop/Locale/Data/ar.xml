@@ -1168,4 +1168,8 @@
         <source>The array of ID values does not match the number of IDs.</source>
         <output>على مجموعة من القيم معرف لا يتطابق مع عدد من المعرفات.</output>
     </text>
+    <text>
+        <source>The font file does not exist.</source>
+        <output>ملف الخط لا وجود لها.</output>
+    </text>
 </language>

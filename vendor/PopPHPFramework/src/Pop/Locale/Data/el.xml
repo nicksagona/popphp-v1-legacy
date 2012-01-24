@@ -1168,4 +1168,8 @@
         <source>The array of ID values does not match the number of IDs.</source>
         <output>Η σειρά των τιμών ID δεν ταιριάζει με τον αριθμό των ταυτοτήτων.</output>
     </text>
+    <text>
+        <source>The font file does not exist.</source>
+        <output>Το αρχείο γραμματοσειράς δεν υπάρχει.</output>
+    </text>
 </language>

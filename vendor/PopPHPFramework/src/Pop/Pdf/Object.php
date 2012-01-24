@@ -127,7 +127,7 @@ class Object
         $stream = (null !== $this->_stream) ? "stream" . $this->_stream . "endstream\n" : '';
 
         // Set up the Length definition.
-        if (strpos($this->_def, '/Length ') !== false) {
+        if ((strpos($this->_def, '/Length ') !== false) && (strpos($this->_def, '/Length1') === false)) {
             preg_match('/\/Length\s\d*/', $this->_def, $matches);
             if (isset($matches[0])) {
                 $len = $matches[0];
@@ -135,7 +135,7 @@ class Object
                 $len = str_replace(' ', '', $len);
                 $this->_def = str_replace($len, '[{byte_length}]', $this->_def);
             }
-        } else {
+        } else if (strpos($this->_def, '/Length') === false) {
             $this->_def .= "<</Length [{byte_length}]>>\n";
         }
 

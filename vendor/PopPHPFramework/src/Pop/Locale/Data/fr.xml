@@ -1168,4 +1168,8 @@
         <source>The array of ID values does not match the number of IDs.</source>
         <output>Le tableau de valeurs d'identité ne correspond pas au nombre d'ID.</output>
     </text>
+    <text>
+        <source>The font file does not exist.</source>
+        <output>Le fichier de sono n'existe pas.</output>
+    </text>
 </language>

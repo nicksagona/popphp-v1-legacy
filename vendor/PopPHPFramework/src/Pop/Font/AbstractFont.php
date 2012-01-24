@@ -24,7 +24,8 @@
  */
 namespace Pop\Font;
 
-use Pop\File\File;
+use Pop\File\File,
+    Pop\Locale\Locale;
 
 /**
  * @category   Pop
@@ -133,10 +134,14 @@ abstract class AbstractFont extends File
      * Instantiate a font file object based on a pre-existing font file on disk.
      *
      * @param  string $font
+     * @throws Exception
      * @return void
      */
     public function __construct($font)
     {
+        if (!file_exists($font)) {
+            throw new Exception(Locale::factory()->__('The font file does not exist.'));
+        }
         $this->flags = new \ArrayObject(array(
             'isFixedPitch'  => false,
             'isSerif'       => false,

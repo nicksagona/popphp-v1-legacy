@@ -6,7 +6,7 @@ use Pop\Color\Rgb,
     Pop\Pdf\Pdf;
 
 try {
-    $pdf = new Pdf('doc.pdf');
+    $pdf = new Pdf('../tmp/doc.pdf');
     $pdf->addPage('Letter');
 
     $pdf->setVersion('1.4')

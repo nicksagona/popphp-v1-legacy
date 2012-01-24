@@ -150,9 +150,9 @@ class Font
         $bBox = '[' . $this->_font->bBox->xMin . ' ' . $this->_font->bBox->yMin . ' ' . $this->_font->bBox->xMax . ' ' . $this->_font->bBox->yMax . ']';
 
         if ($this->_compress) {
-            $fontFileObj = "{$this->_fontFileIndex} 0 obj\n<</Filter /FlateDecode /Length1 " . $this->_calcByteLength($unCompStream) . ">>\nstream\n" . $compStream . "\nendstream\nendobj\n\n";
+            $fontFileObj = "{$this->_fontFileIndex} 0 obj\n<</Length " . strlen($compStream) . " /Filter /FlateDecode /Length1 " . strlen($unCompStream) . ">>\nstream\n" . $compStream . "\nendstream\nendobj\n\n";
         } else {
-            $fontFileObj = "{$this->_fontFileIndex} 0 obj\n<</Length " . $this->_calcByteLength($unCompStream) . ">>\nstream\n" . $unCompStream . "\nendstream\nendobj\n\n";
+            $fontFileObj = "{$this->_fontFileIndex} 0 obj\n<</Length " . strlen($unCompStream) . " /Length1 " . strlen($unCompStream) . ">>\nstream\n" . $unCompStream . "\nendstream\nendobj\n\n";
         }
 
         $this->_objects[$this->_fontDescIndex] = new Object("{$this->_fontDescIndex} 0 obj\n<<\n    /Type /FontDescriptor\n    /FontName /" . $this->_font->tables['name']->postscriptName . "\n    /FontFile2 {$this->_fontFileIndex} 0 R\n    /StemV {$this->_font->stemV}\n    /Flags " . $this->_font->calcFlags() . "\n    /FontBBox {$bBox}\n    /Descent {$this->_font->descent}\n    /Ascent {$this->_font->ascent}\n    /CapHeight {$this->_font->capHeight}\n    /ItalicAngle {$this->_font->italicAngle}\n>>\nendobj\n\n");

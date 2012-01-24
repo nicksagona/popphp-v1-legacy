@@ -549,15 +549,11 @@
         <output></output>
     </text>
     <text>
-        <source>(Change) The column and value parameters were not defined to describe the row(s) to delete.</source>
+        <source>The column and value parameters were not defined to describe the row(s) to delete.</source>
         <output></output>
     </text>
     <text>
-        <source>(Change) The column '%1' does not exist.</source>
-        <output></output>
-    </text>
-    <text>
-        <source>(Remove) Error: Table name not set.</source>
+        <source>The column '%1' does not exist.</source>
         <output></output>
     </text>
     <text>
@@ -1170,6 +1166,10 @@
     </text>
     <text>
         <source>The array of ID values does not match the number of IDs.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>The font file does not exist.</source>
         <output></output>
     </text>
 </language>

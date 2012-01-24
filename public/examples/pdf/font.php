@@ -5,11 +5,11 @@ require_once '../../bootstrap.php';
 use Pop\Pdf\Pdf;
 
 try {
-    $pdf = new Pdf('doc.pdf');
+    $pdf = new Pdf('../tmp/doc.pdf');
 
     $pdf->addPage('Letter');
 
-    //$pdf->setCompression(true);
+    $pdf->setCompression(true);
 
     $pdf->setVersion('1.4')
         ->setTitle('Test Title')
@@ -18,7 +18,7 @@ try {
         ->setCreateDate(date('D, M j, Y h:i A'));
 
     //$pdf->embedFont('../assets/fonts/times.ttf');
-    $pdf->embedFont('../assets/fonts/carltonn.ttf');
+    $pdf->embedFont('../assets/fonts/carletonn.ttf');
 
     $pdf->addText(50, 620, 18, 'Hello World!', $pdf->getLastFontName());
 

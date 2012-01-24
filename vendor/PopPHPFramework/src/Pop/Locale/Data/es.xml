@@ -1168,4 +1168,8 @@
         <source>The array of ID values does not match the number of IDs.</source>
         <output>La matriz de valores de identificación no coincide con el número de documentos de identidad.</output>
     </text>
+    <text>
+        <source>The font file does not exist.</source>
+        <output>El archivo de fuente no existe.</output>
+    </text>
 </language>

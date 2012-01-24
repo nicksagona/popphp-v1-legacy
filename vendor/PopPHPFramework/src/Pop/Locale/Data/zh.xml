@@ -1168,4 +1168,8 @@
         <source>The array of ID values does not match the number of IDs.</source>
         <output>ID值的数组不匹配的ID。</output>
     </text>
+    <text>
+        <source>The font file does not exist.</source>
+        <output>字体文件不存在。</output>
+    </text>
 </language>

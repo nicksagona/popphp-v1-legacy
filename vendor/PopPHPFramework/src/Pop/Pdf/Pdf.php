@@ -1428,7 +1428,7 @@ class Pdf extends File
         $this->_output = null;
 
         // Define some variables and initialize the trailer.
-        $numObjs = count($this->_objects);
+        $numObjs = count($this->_objects) + 1;
         $this->_trailer = "xref\n0 {$numObjs}\n0000000000 65535 f \n";
 
         // Calculate the root object lead off.

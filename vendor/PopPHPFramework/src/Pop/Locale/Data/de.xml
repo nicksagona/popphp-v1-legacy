@@ -1150,7 +1150,7 @@
     </text>
     <text>
         <source>You must either pass a Pop\Geo\Geo object or a set of latitude/longitude coordinates.</source>
-        <output>Sie müssen entweder einen Pop \ Geo \ Geo-Objekt oder eine Gruppe von Längengrad / Breitengrad-Koordinaten.</output>
+        <output>Sie müssen entweder einen Pop\Geo\Geo Objekt oder eine Gruppe von Längengrad / Breitengrad-Koordinaten.</output>
     </text>
     <text>
         <source>The required transaction data has not been set.</source>
@@ -1167,5 +1167,9 @@
     <text>
         <source>The array of ID values does not match the number of IDs.</source>
         <output>Das Array von ID-Werte nicht mit der Anzahl der IDs.</output>
+    </text>
+    <text>
+        <source>The font file does not exist.</source>
+        <output>Die Font-Datei existiert nicht.</output>
     </text>
 </language>

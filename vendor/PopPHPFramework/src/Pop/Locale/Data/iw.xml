@@ -1168,4 +1168,8 @@
         <source>The array of ID values does not match the number of IDs.</source>
         <output>מערך של ערכים הזהות אינו תואם את מספר תעודות הזהות.</output>
     </text>
+    <text>
+        <source>The font file does not exist.</source>
+        <output>קובץ הגופן אינו קיים.</output>
+    </text>
 </language>

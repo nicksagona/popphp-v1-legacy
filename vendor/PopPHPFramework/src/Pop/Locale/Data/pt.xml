@@ -1168,4 +1168,8 @@
         <source>The array of ID values does not match the number of IDs.</source>
         <output>A matriz de valores de ID não corresponde ao número de IDs.</output>
     </text>
+    <text>
+        <source>The font file does not exist.</source>
+        <output>O arquivo de fonte não existe.</output>
+    </text>
 </language>
