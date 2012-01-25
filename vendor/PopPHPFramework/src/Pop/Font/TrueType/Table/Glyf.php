@@ -95,14 +95,24 @@ class Glyf
                 $bytePos += 2;
                 if ($ary['instructionLength'] > 0) {
                     for ($i = 0; $i < $ary['instructionLength']; $i++) {
-                        $ar = unpack('Cinstruction', $font->read($bytePos, 1));
-                        $ary['instructions'][$i] = $ar['instruction'];
-                        $bytePos++;
+                        $byte = $font->read($bytePos, 1);
+                        if (strlen($byte) != 0) {
+                            $ar = unpack('Cinstruction', $byte);
+                            $ary['instructions'][$i] = $ar['instruction'];
+                            $bytePos++;
+                        } else {
+                            $ary['instructions'][$i] = null;
+                        }
                     }
                 }
                 $bytePos++;
-                $ar = unpack('Cflags', $font->read($bytePos, 1));
-                $ary['flags'] = $ar['flags'];
+                $byte = $font->read($bytePos, 1);
+                if (strlen($byte) != 0) {
+                    $ar = unpack('Cflags', $byte);
+                    $ary['flags'] = $ar['flags'];
+                } else {
+                    $ary['flags'] = 0;
+                }
                 if ($j < ($locaLength - 1)) {
                     $this->glyphs[] = $ary;
                 }

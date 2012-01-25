@@ -211,6 +211,7 @@ class TrueType extends AbstractFont
 
             if ($this->tables['post']->italicAngle != 0) {
                 $this->flags->isItalic = true;
+                $this->italicAngle = $this->tables['post']->italicAngle;
             }
 
             if ($this->tables['post']->fixed != 0) {

@@ -62,6 +62,7 @@ CURRENTLY BEING WORKED ON
 -----------------------------------
 * Pdf Component
     - Address, test and debug embed fonts and the Font component
+    - Add embed override
 
 
 NEXT UP:

@@ -245,64 +245,19 @@ abstract class AbstractFont extends File
      */
     public function calcFlags()
     {
-        // Array to represent big-endian order flag bits
-        $flags = array(
-            19 => 0,
-            18 => 0,
-            17 => 0,
-            16 => 0,
-            15 => 0,
-            14 => 0,
-            13 => 0,
-            12 => 0,
-            11 => 0,
-            10 => 0,
-             9 => 0,
-             8 => 0,
-             7 => 0,
-             6 => 0,
-             5 => 0,
-             4 => 0,
-             3 => 0,
-             2 => 0,
-             1 => 0
-        );
+        $flags = 0;
 
         if ($this->flags->isFixedPitch) {
-            $flags[1] = 1;
+            $flags += 1 << 0;
         }
-        if ($this->flags->isSerif) {
-            $flags[2] = 1;
-        }
-        if ($this->flags->isSymbolic) {
-            $flags[3] = 1;
-        }
-        if ($this->flags->isScript) {
-            $flags[4] = 1;
-        }
-        if ($this->flags->isNonSymbolic) {
-            $flags[6] = 1;
-        }
+
+        $flags += 1 << 5;
+
         if ($this->flags->isItalic) {
-            $flags[7] = 1;
-        }
-        if ($this->flags->isAllCap) {
-            $flags[17] = 1;
-        }
-        if ($this->flags->isSmallCap) {
-            $flags[18] = 1;
-        }
-        if ($this->flags->isForceBold) {
-            $flags[19] = 1;
+            $flags += 1 << 6;
         }
 
-        $flagsValue = bindec(implode('', $flags));
-        if ($flagsValue == 0) {
-            $flagsValue = ($this->flags->isNonSymbolic) ? 32 : 4;
-        }
-
-        // Glue the bits together, convert to an integer and return
-        return $flagsValue;
+        return $flags;
     }
 
 }

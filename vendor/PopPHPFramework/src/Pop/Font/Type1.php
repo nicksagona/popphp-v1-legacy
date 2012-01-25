@@ -24,7 +24,8 @@
  */
 namespace Pop\Font;
 
-use Pop\Font\Font;
+use Pop\File\File,
+    Pop\Font\Font;
 
 /**
  * @category   Pop
@@ -62,6 +63,18 @@ class Type1 extends AbstractFont
     public $encoding = null;
 
     /**
+     * Type1 PFB file path
+     * @var string
+     */
+    public $pfbPath = null;
+
+    /**
+     * Type1 AFM file path
+     * @var string
+     */
+    public $afmPath = null;
+
+    /**
      * Constructor
      *
      * Instantiate a Type1 font file object based on a pre-existing font file on disk.
@@ -72,18 +85,46 @@ class Type1 extends AbstractFont
     public function __construct($font)
     {
         parent::__construct($font);
-        $this->_parseDictionary();
+
+        $dir = realpath($this->dir);
+
+        if (strtolower($this->ext) == 'pfb') {
+            $this->pfbPath = $this->fullpath;
+            $this->_parsePfb($this->fullpath);
+            if (file_exists($dir . DIRECTORY_SEPARATOR . $this->filename . '.afm')) {
+                $this->afmPath = $dir . DIRECTORY_SEPARATOR . $this->filename . '.afm';
+            } else if (file_exists($dir . DIRECTORY_SEPARATOR . $this->filename . '.AFM')) {
+                $this->afmPath = $dir . DIRECTORY_SEPARATOR . $this->filename . '.AFM';
+            }
+            if (null !== $this->afmPath) {
+                $this->_parseAfm($this->afmPath);
+            }
+        } else if (strtolower($this->ext) == 'afm') {
+            $this->afmPath = $this->fullpath;
+            $this->_parseAfm($this->afmPath);
+            if (file_exists($dir . DIRECTORY_SEPARATOR . $this->filename . '.pfb')) {
+                $this->pfbPath = $dir . DIRECTORY_SEPARATOR . $this->filename . '.pfb';
+            } else if (file_exists($dir . DIRECTORY_SEPARATOR . $this->filename . '.PFB')) {
+                $this->pfbPath = $dir . DIRECTORY_SEPARATOR . $this->filename . '.PFB';
+            }
+            if (null !== $this->pfbPath) {
+                $this->_parsePfb($this->pfbPath);
+            }
+        }
     }
 
     /**
-     * Method to parse the Type1 dictionary of the Type1 font file.
+     * Method to parse the Type1 PFB file.
      *
+     * @param  string $pfb
      * @return void
      */
-    protected function _parseDictionary()
+    protected function _parsePfb($pfb)
     {
+        $pfbFile = new File($pfb);
+        $data = $pfbFile->read();
+
         $info = array();
-        $data = $this->read();
         $this->dict = substr($data, stripos($data, 'FontDirectory'));
         $this->dict = substr($this->dict, 0, stripos($this->dict, 'currentdict end'));
 
@@ -140,19 +181,19 @@ class Type1 extends AbstractFont
             $bbox = trim($this->_strip($bbox));
             $bboxAry = explode(' ', $bbox);
             $this->bBox = new \ArrayObject(array(
-                'xMin' => $bboxAry[0],
+                'xMin' => str_replace('{', '', $bboxAry[0]),
                 'yMin' => $bboxAry[1],
                 'xMax' => $bboxAry[2],
-                'yMax' => $bboxAry[3]
+                'yMax' => str_replace('}', '', $bboxAry[3])
             ), \ArrayObject::ARRAY_AS_PROPS);
         }
 
-        if (stripos($this->dict, '/ascent') !== false) {
+        if (stripos($this->dict, '/Ascent') !== false) {
             $ascent = substr($this->dict, (stripos($this->dict, '/ascent ') + 8));
             $this->ascent = trim(substr($ascent, 0, stripos($ascent, 'def')));
         }
 
-        if (stripos($this->dict, '/descent') !== false) {
+        if (stripos($this->dict, '/Descent') !== false) {
             $descent = substr($this->dict, (stripos($this->dict, '/descent ') + 9));
             $this->descent = trim(substr($descent, 0, stripos($descent, 'def')));
         }
@@ -160,6 +201,9 @@ class Type1 extends AbstractFont
         if (stripos($this->dict, '/ItalicAngle') !== false) {
             $italic = substr($this->dict, (stripos($this->dict, '/ItalicAngle ') + 13));
             $this->italicAngle = trim(substr($italic, 0, stripos($italic, 'def')));
+            if ($this->italicAngle != 0) {
+                $this->flags->isItalic = true;
+            }
         }
 
         if (stripos($this->dict, '/em') !== false) {
@@ -182,6 +226,77 @@ class Type1 extends AbstractFont
         if (stripos($this->dict, '/Encoding') !== false) {
             $enc = substr($this->dict, (stripos($this->dict, '/Encoding ') + 10));
             $this->encoding = trim(substr($enc, 0, stripos($enc, 'def')));
+        }
+    }
+
+    /**
+     * Method to parse the Type1 Adobe Font Metrics file
+     *
+     * @param  string $afm
+     * @return void
+     */
+    protected function _parseAfm($afm)
+    {
+        $afmFile = new File($afm);
+        $data = $afmFile->read();
+
+        if (stripos($data, 'FontBBox') !== false) {
+            $bbox = substr($data, (stripos($data, 'FontBBox') + 8));
+            $bbox = substr($bbox, 0, stripos($bbox, "\n"));
+            $bbox = trim($bbox);
+            $bboxAry = explode(' ', $bbox);
+            $this->bBox = new \ArrayObject(array(
+                'xMin' => $bboxAry[0],
+                'yMin' => $bboxAry[1],
+                'xMax' => $bboxAry[2],
+                'yMax' => $bboxAry[3]
+            ), \ArrayObject::ARRAY_AS_PROPS);
+        }
+
+        if (stripos($data, 'ItalicAngle') !== false) {
+            $ital = substr($data, (stripos($data, 'ItalicAngle ') + 11));
+            $this->italicAngle = trim(substr($ital, 0, stripos($ital, "\n")));
+            if ($this->italicAngle != 0) {
+                $this->flags->isItalic = true;
+            }
+        }
+
+        if (stripos($data, 'IsFixedPitch') !== false) {
+            $fixed = substr($data, (stripos($data, 'IsFixedPitch ') + 13));
+            $fixed = strtolower(trim(substr($fixed, 0, stripos($fixed, "\n"))));
+            if ($fixed == 'true') {
+                $this->flags->isFixedPitch = true;
+            }
+        }
+
+        if (stripos($data, 'CapHeight') !== false) {
+            $cap = substr($data, (stripos($data, 'CapHeight ') + 10));
+            $this->capHeight = trim(substr($cap, 0, stripos($cap, "\n")));
+        }
+
+        if (stripos($data, 'Ascender') !== false) {
+            $asc = substr($data, (stripos($data, 'Ascender ') + 9));
+            $this->ascent = trim(substr($asc, 0, stripos($asc, "\n")));
+        }
+
+        if (stripos($data, 'Descender') !== false) {
+            $desc = substr($data, (stripos($data, 'Descender ') + 10));
+            $this->descent = trim(substr($desc, 0, stripos($desc, "\n")));
+        }
+
+        if (stripos($data, 'StartCharMetrics') !== false) {
+            $num = substr($data, (stripos($data, 'StartCharMetrics ') + 17));
+            $this->numberOfGlyphs = trim(substr($num, 0, stripos($num, "\n")));
+            $chars = substr($data, (stripos($data, 'StartCharMetrics ') + 17 + strlen($this->numberOfGlyphs)));
+            $chars = trim(substr($chars, 0, stripos($chars, 'EndCharMetrics')));
+            $glyphs = explode("\n", $chars);
+            $widths = array();
+            foreach ($glyphs as $glyph) {
+                $w = substr($glyph, (stripos($glyph, 'WX ') + 3));
+                $w = substr($w, 0, strpos($w, ' ;'));
+                $widths[] = $w;
+            }
+            $this->glyphWidths = $widths;
         }
     }
 
