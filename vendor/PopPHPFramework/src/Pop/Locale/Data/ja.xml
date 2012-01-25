@@ -1176,4 +1176,8 @@
         <source>That font type is not supported.</source>
         <output>そのフォントの種類はサポートされていません。</output>
     </text>
+    <text>
+        <source>The AFM font file was not found.</source>
+        <output>AFMフォントファイルが見つかりませんでした。</output>
+    </text>
 </language>

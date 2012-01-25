@@ -1176,4 +1176,8 @@
         <source>That font type is not supported.</source>
         <output>不支持该字体类型。</output>
     </text>
+    <text>
+        <source>The AFM font file was not found.</source>
+        <output>AFM的字体文件没有被发现。</output>
+    </text>
 </language>

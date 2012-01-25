@@ -1176,4 +1176,8 @@
         <source>That font type is not supported.</source>
         <output>Que tipo de fuente no es compatible.</output>
     </text>
+    <text>
+        <source>The AFM font file was not found.</source>
+        <output>El archivo de fuente AFM no se ha encontrado.</output>
+    </text>
 </language>

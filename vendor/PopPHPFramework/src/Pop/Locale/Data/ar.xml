@@ -1176,4 +1176,8 @@
         <source>That font type is not supported.</source>
         <output>لا يتم اعتماد هذا النوع الخط.</output>
     </text>
+    <text>
+        <source>The AFM font file was not found.</source>
+        <output>لم يتم العثور على ملف الخط فؤاد.</output>
+    </text>
 </language>

@@ -115,14 +115,13 @@ class Font
                 break;
             case '.pfb':
                 $this->_font = new Type1($fle);
-                break;
-            case 'afm':
-                $this->_font = new Type1($fle);
+                if (null === $this->_font->afmPath) {
+                    throw new Exception(Locale::factory()->__('The AFM font file was not found.'));
+                }
                 break;
             default:
                 throw new Exception(Locale::factory()->__('That font type is not supported.'));
         }
-
 
         $this->_createFontObjects();
     }
@@ -170,18 +169,17 @@ class Font
             $fontName = $this->_font->info->postscriptName;
             $fontFile = 'FontFile';
             $glyphWidths = array('encoding' => 'StandardEncoding', 'widths' => $this->_font->glyphWidths);
-            if (strtolower($this->_font->ext) == 'pfb') {
-                $unCompStream = $this->_font->read();
-            } else {
-                $f = new File($this->_font->pfbPath);
-                $unCompStream = $f->read();
-            }
+            $unCompStream = $this->_font->fontData;
+            $length1 = $this->_font->length1;
+            $length2 = " /Length2 " . $this->_font->length2 . " /Length3 0";
         } else {
             $fontType = 'TrueType';
             $fontName = $this->_font->tables['name']->postscriptName;
             $fontFile = 'FontFile2';
             $glyphWidths = $this->_getGlyphWidths($this->_font->tables['cmap']);
             $unCompStream = $this->_font->read();
+            $length1 = strlen($unCompStream);
+            $length2 = null;
         }
 
         $this->_objects[$this->_objectIndex] = new Object("{$this->_objectIndex} 0 obj\n<<\n    /Type /Font\n    /Subtype /{$fontType}\n    /FontDescriptor {$this->_fontDescIndex} 0 R\n    /Name /TT{$this->_fontIndex}\n    /BaseFont /" . $fontName . "\n    /FirstChar 32\n    /LastChar 255\n    /Widths [" . implode(' ', $glyphWidths['widths']) . "]\n    /Encoding /" . $glyphWidths['encoding'] . "\n>>\nendobj\n\n");
@@ -189,9 +187,9 @@ class Font
 
         $compStream = (function_exists('gzcompress')) ? Zlib::compress($unCompStream) : null;
         if ($this->_compress) {
-            $fontFileObj = "{$this->_fontFileIndex} 0 obj\n<</Length " . strlen($compStream) . " /Filter /FlateDecode /Length1 " . strlen($unCompStream) . ">>\nstream\n" . $compStream . "\nendstream\nendobj\n\n";
+            $fontFileObj = "{$this->_fontFileIndex} 0 obj\n<</Length " . strlen($compStream) . " /Filter /FlateDecode /Length1 " . $length1 . $length2 . ">>\nstream\n" . $compStream . "\nendstream\nendobj\n\n";
         } else {
-            $fontFileObj = "{$this->_fontFileIndex} 0 obj\n<</Length " . strlen($unCompStream) . " /Length1 " . strlen($unCompStream) . ">>\nstream\n" . $unCompStream . "\nendstream\nendobj\n\n";
+            $fontFileObj = "{$this->_fontFileIndex} 0 obj\n<</Length " . strlen($unCompStream) . " /Length1 " . $length1 . $length2 . ">>\nstream\n" . $unCompStream . "\nendstream\nendobj\n\n";
         }
 
         $this->_objects[$this->_fontDescIndex] = new Object("{$this->_fontDescIndex} 0 obj\n<<\n    /Type /FontDescriptor\n    /FontName /" . $fontName . "\n    /{$fontFile} {$this->_fontFileIndex} 0 R\n    /MissingWidth {$this->_font->missingWidth}\n    /StemV {$this->_font->stemV}\n    /Flags " . $this->_font->calcFlags() . "\n    /FontBBox {$bBox}\n    /Descent {$this->_font->descent}\n    /Ascent {$this->_font->ascent}\n    /CapHeight {$this->_font->capHeight}\n    /ItalicAngle {$this->_font->italicAngle}\n>>\nendobj\n\n");

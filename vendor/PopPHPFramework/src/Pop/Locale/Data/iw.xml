@@ -1176,4 +1176,8 @@
         <source>That font type is not supported.</source>
         <output>זה סוג הגופן אינו נתמך.</output>
     </text>
+    <text>
+        <source>The AFM font file was not found.</source>
+        <output>קובץ הגופן AFM לא נמצא.</output>
+    </text>
 </language>

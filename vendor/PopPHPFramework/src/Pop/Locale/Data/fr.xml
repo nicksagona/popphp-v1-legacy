@@ -1176,4 +1176,8 @@
         <source>Ce type de sono n'est pas supporté.</source>
         <output></output>
     </text>
+    <text>
+        <source>The AFM font file was not found.</source>
+        <output>Le fichier de sono AFM n'a pas été trouvé.</output>
+    </text>
 </language>

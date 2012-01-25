@@ -1176,4 +1176,8 @@
         <source>That font type is not supported.</source>
         <output>Αυτός ο τύπος γραμματοσειρά δεν υποστηρίζεται.</output>
     </text>
+    <text>
+        <source>The AFM font file was not found.</source>
+        <output>Το αρχείο γραμματοσειράς AFM δεν βρέθηκε.</output>
+    </text>
 </language>

@@ -63,6 +63,24 @@ class Type1 extends AbstractFont
     public $encoding = null;
 
     /**
+     * Type1 length1
+     * @var int
+     */
+    public $length1 = null;
+
+    /**
+     * Type1 length2
+     * @var int
+     */
+    public $length2 = null;
+
+    /**
+     * Type1 font data
+     * @var string
+     */
+    public $fontData = null;
+
+    /**
      * Type1 PFB file path
      * @var string
      */
@@ -123,6 +141,15 @@ class Type1 extends AbstractFont
     {
         $pfbFile = new File($pfb);
         $data = $pfbFile->read();
+
+        // Get lengths and data
+        $f = fopen($pfb, 'rb');
+        $a = unpack('Cmarker/Ctype/Vsize', fread($f,6));
+        $this->length1 = $a['size'];
+        $this->fontData = fread($f, $this->length1);
+        $a = unpack('Cmarker/Ctype/Vsize', fread($f,6));
+        $this->length2 = $a['size'];
+        $this->fontData .= fread($f, $this->length2);
 
         $info = array();
         $this->dict = substr($data, stripos($data, 'FontDirectory'));
