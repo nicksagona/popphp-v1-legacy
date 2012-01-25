@@ -1172,4 +1172,8 @@
         <source>The font file does not exist.</source>
         <output>ملف الخط لا وجود لها.</output>
     </text>
+    <text>
+        <source>That font type is not supported.</source>
+        <output>لا يتم اعتماد هذا النوع الخط.</output>
+    </text>
 </language>

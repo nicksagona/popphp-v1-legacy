@@ -1172,4 +1172,8 @@
         <source>The font file does not exist.</source>
         <output>O arquivo de fonte não existe.</output>
     </text>
+    <text>
+        <source>That font type is not supported.</source>
+        <output>Que tipo de fonte não é suportado.</output>
+    </text>
 </language>

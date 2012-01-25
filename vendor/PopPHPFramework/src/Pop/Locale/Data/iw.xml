@@ -1172,4 +1172,8 @@
         <source>The font file does not exist.</source>
         <output>קובץ הגופן אינו קיים.</output>
     </text>
+    <text>
+        <source>That font type is not supported.</source>
+        <output>זה סוג הגופן אינו נתמך.</output>
+    </text>
 </language>

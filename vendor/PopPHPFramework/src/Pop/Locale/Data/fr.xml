@@ -1172,4 +1172,8 @@
         <source>The font file does not exist.</source>
         <output>Le fichier de sono n'existe pas.</output>
     </text>
+    <text>
+        <source>Ce type de sono n'est pas supporté.</source>
+        <output></output>
+    </text>
 </language>

@@ -1172,4 +1172,8 @@
         <source>The font file does not exist.</source>
         <output>Το αρχείο γραμματοσειράς δεν υπάρχει.</output>
     </text>
+    <text>
+        <source>That font type is not supported.</source>
+        <output>Αυτός ο τύπος γραμματοσειρά δεν υποστηρίζεται.</output>
+    </text>
 </language>
