@@ -413,12 +413,12 @@
         <output>错误：该字体不包含在标准的PDF字体。</output>
     </text>
     <text>
-        <source>Error: That font has not been added to the PDF.</source>
+        <source>Error: The font '%1' has not been added to the PDF.</source>
         <output>错误：该字体并没有被添加到PDF。</output>
     </text>
     <text>
         <source>Error: That page has not been defined.</source>
-        <output>错误：该页面还没有被定义。</output>
+        <output>错误：字体'%1'没有被添加到PDF。</output>
     </text>
     <text>
         <source>Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.</source>
@@ -1179,5 +1179,9 @@
     <text>
         <source>The AFM font file was not found.</source>
         <output>AFM的字体文件没有被发现。</output>
+    </text>
+    <text>
+        <source>Error: The font license does not allow for it to be embedded.</source>
+        <output>错误：嵌入字体许可证不允许。</output>
     </text>
 </language>

@@ -413,8 +413,8 @@
         <output>Fehler: Die schriftart ist nicht in den standard PDF schriften enthalten.</output>
     </text>
     <text>
-        <source>Error: That font has not been added to the PDF.</source>
-        <output>Fehler: Die schriftart hat nicht auf die PDF aufgenommen worden.</output>
+        <source>Error: The font '%1' has not been added to the PDF.</source>
+        <output>Fehler: Die Schriftart "%1" wurde nicht auf die PDF aufgenommen worden.</output>
     </text>
     <text>
         <source>Error: That page has not been defined.</source>
@@ -1179,5 +1179,9 @@
     <text>
         <source>The AFM font file was not found.</source>
         <output>Die AFM-Schriftart-Datei wurde nicht gefunden.</output>
+    </text>
+    <text>
+        <source>Error: The font license does not allow for it to be embedded.</source>
+        <output>Fehler: Die Schriftart Lizenz nicht erlauben es eingebettet werden.</output>
     </text>
 </language>

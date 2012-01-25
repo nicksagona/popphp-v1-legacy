@@ -158,6 +158,16 @@ class Font
     }
 
     /**
+     * Method to get if the font is embeddable.
+     *
+     * @return boolean
+     */
+    public function isEmbeddable()
+    {
+        return $this->_font->embeddable;
+    }
+
+    /**
      * Method to create the font objects.
      *
      * @return void
@@ -205,12 +215,16 @@ class Font
     protected function _getGlyphWidths($cmap)
     {
         $gw = array('encoding' => null, 'widths' => array());
+        $uniTable = null;
         $msTable = null;
         $macTable = null;
 
         foreach ($cmap->subTables as $index => $table) {
             if ($table->encoding == 'Microsoft Unicode') {
                 $msTable = $index;
+            }
+            if ($table->encoding == 'Unicode') {
+                $uniTable = $index;
             }
             if (($table->encoding == 'Mac Roman') && ($table->format == 0)) {
                 $macTable = $index;
@@ -220,6 +234,11 @@ class Font
         if (null !== $msTable) {
             $gw['encoding'] = 'WinAnsiEncoding';
             foreach ($cmap->subTables[$msTable]->parsed['glyphNumbers'] as $key => $value) {
+                $gw['widths'][$key] = $this->_font->glyphWidths[$value];
+            }
+        } else if (null !== $uniTable) {
+            $gw['encoding'] = 'WinAnsiEncoding';
+            foreach ($cmap->subTables[$uniTable]->parsed['glyphNumbers'] as $key => $value) {
                 $gw['widths'][$key] = $this->_font->glyphWidths[$value];
             }
         } else if (null !== $macTable) {

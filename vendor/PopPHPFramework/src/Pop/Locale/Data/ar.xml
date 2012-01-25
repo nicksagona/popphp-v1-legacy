@@ -413,8 +413,8 @@
         <output>خطأ : لم يتم احتواء هذا الخط ضمن الخطوط الشعبي القياسية.</output>
     </text>
     <text>
-        <source>Error: That font has not been added to the PDF.</source>
-        <output>خطأ : لم يكن ذلك الخط إضافة إلى قوات الدفاع الشعبي.</output>
+        <source>Error: The font '%1' has not been added to the PDF.</source>
+        <output>الخطأ : الخط لم '%1' إضافة إلى PDF.</output>
     </text>
     <text>
         <source>Error: That page has not been defined.</source>
@@ -1179,5 +1179,9 @@
     <text>
         <source>The AFM font file was not found.</source>
         <output>لم يتم العثور على ملف الخط فؤاد.</output>
+    </text>
+    <text>
+        <source>Error: The font license does not allow for it to be embedded.</source>
+        <output>خطأ : الترخيص الخط لا تسمح أن تكون جزءا لا يتجزأ من ذلك.</output>
     </text>
 </language>

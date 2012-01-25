@@ -1,7 +1,7 @@
 Pop PHP Framework 0.9
 =====================
 
-Completed:
+COMPLETED:
 ----------
 * Refactor framework for 5.3+ only and restructure it using namespaces
 * Add Archive component
@@ -56,17 +56,14 @@ Completed:
         + UsaEpay
         + Payleap
         + Trustcommerce
-
-
-CURRENTLY BEING WORKED ON
------------------------------------
 * Pdf Component
     - Address, test and debug embed fonts and the Font component
+        + Add support for TTF, OTF and PFB (Type1) font files
     - Add embed override
 
 
-NEXT UP:
---------
+CURRENTLY BEING WORKED ON:
+--------------------------
 * Phase 2 of code review/cleanup
 * Testing, testing & more testing
 * Documentation

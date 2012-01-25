@@ -42,6 +42,12 @@ class Os2
     public $capHeight = 0;
 
     /**
+     * Font embeddable flag
+     * @var boolean
+     */
+    public $embeddable = true;
+
+    /**
      * Font flags
      * @var ArrayObject
      */
@@ -68,6 +74,10 @@ class Os2
             'isSmallCap'    => false,
             'isForceBold'   => false
         ), \ArrayObject::ARRAY_AS_PROPS);
+
+        $bytePos = $font->tableInfo['OS/2']->offset + 8;
+        $ary = unpack("nfsType", $font->read($bytePos, 2));
+        $this->embeddable = (($ary['fsType'] != 2) && (($ary['fsType'] & 0x200) == 0));
 
         $bytePos = $font->tableInfo['OS/2']->offset + 30;
         $ary = unpack("nfamily_class", $font->read($bytePos, 2));

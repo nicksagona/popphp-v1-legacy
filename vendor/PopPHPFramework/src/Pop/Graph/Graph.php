@@ -241,12 +241,14 @@ class Graph
      */
     public function addFont($font)
     {
-        $fontFile = new File($font);
-        $this->_font = $fontFile->filename;
-        $this->_fonts[$this->_font] = $font;
-
         if ($this->_adapter instanceof Pdf) {
             $this->_adapter->addFont($font);
+            $this->_font = $this->_adapter->getLastFontName();
+            $this->_fonts[$this->_font] = $this->_font;
+        } else {
+            $fontFile = new File($font);
+            $this->_font = $fontFile->filename;
+            $this->_fonts[$this->_font] = $font;
         }
 
         return $this;
@@ -937,14 +939,14 @@ class Graph
 
             if (null !== $this->_font) {
                 if ($this->_adapter instanceof Pdf) {
-                    $this->_adapter->addText($realZeroX + ($realXDiv * $i) - $xFontOffset, $points->zeroPoint['y'] - $yFontOffset, $x, $this->_fonts[$this->_font], $this->_fontSize);
+                    $this->_adapter->addText($realZeroX + ($realXDiv * $i) - $xFontOffset, $points->zeroPoint['y'] - $yFontOffset, $this->_fontSize, $x, $this->_fonts[$this->_font]);
                 } else {
                     $this->_adapter->text($x, $this->_fontSize, $realZeroX + ($realXDiv * $i) - $xFontOffset, $points->zeroPoint['y'] + $yFontOffset, $this->_fonts[$this->_font]);
                 }
             } else {
                 if ($this->_adapter instanceof Pdf) {
                     $this->_adapter->addFont('Arial');
-                    $this->_adapter->addText($realZeroX + ($realXDiv * $i) - $xFontOffset, $points->zeroPoint['y'] - $yFontOffset, $x, 'Arial', $this->_fontSize);
+                    $this->_adapter->addText($realZeroX + ($realXDiv * $i) - $xFontOffset, $points->zeroPoint['y'] - $yFontOffset, $this->_fontSize, $x, 'Arial');
                 } else {
                     $this->_adapter->text($x, $this->_fontSize, $realZeroX + ($realXDiv * $i) - $xFontOffset, $points->zeroPoint['y'] + $yFontOffset);
                 }
@@ -989,14 +991,14 @@ class Graph
             $this->_adapter->addLine($points->zeroPoint['x'], $realZeroY - ($realYDiv * $i), $points->zeroPoint['x'] - 5, $realZeroY - ($realYDiv * $i));
             if (null !== $this->_font) {
                 if ($this->_adapter instanceof Pdf) {
-                    $this->_adapter->addText($points->zeroPoint['x'] - $xFontOffset, $realZeroY - ($realYDiv * $i) - $yFontOffset, $y, $this->_fonts[$this->_font], $this->_fontSize);
+                    $this->_adapter->addText($points->zeroPoint['x'] - $xFontOffset, $realZeroY - ($realYDiv * $i) - $yFontOffset, $this->_fontSize, $y, $this->_fonts[$this->_font]);
                 } else {
                     $this->_adapter->text($y, $this->_fontSize, $points->zeroPoint['x'] - $xFontOffset, $realZeroY - ($realYDiv * $i) + $yFontOffset, $this->_fonts[$this->_font]);
                 }
             } else {
                 if ($this->_adapter instanceof Pdf) {
                     $this->_adapter->addFont('Arial');
-                    $this->_adapter->addText($points->zeroPoint['x'] - $xFontOffset, $realZeroY - ($realYDiv * $i) - $yFontOffset, $y, 'Arial', $this->_fontSize);
+                    $this->_adapter->addText($points->zeroPoint['x'] - $xFontOffset, $realZeroY - ($realYDiv * $i) - $yFontOffset, $this->_fontSize, $y, 'Arial');
                 } else {
                     $this->_adapter->text($y, $this->_fontSize, $points->zeroPoint['x'] - $xFontOffset, $realZeroY - ($realYDiv * $i) + $yFontOffset);
                 }
@@ -1040,7 +1042,7 @@ class Graph
                                     $revColor = (null !== $this->_reverseFontColor) ? $this->_reverseFontColor : new Rgb(255, 255, 255);
                                     $this->_adapter->setFillColor($revColor);
                                 }
-                            } else if (((null !== $prevY) && ($y < $nextY) && ($y > $prevY)) || ((null === prevY) && ($y > $nextY))) {
+                            } else if (((null !== $prevY) && ($y < $nextY) && ($y > $prevY)) || ((null === $prevY) && ($y > $nextY))) {
                                 $x -= $strSize * 2;
                             } else if (((null !== $prevY) && ($y > $nextY) && ($y < $prevY)) || ((null === $prevY) && ($y < $nextY))) {
                                 $x += $strSize * 2;
@@ -1062,14 +1064,14 @@ class Graph
 
                     if (null !== $this->_font) {
                         if ($this->_adapter instanceof Pdf) {
-                            $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $dataPoints[$i][1], $this->_fonts[$this->_font], $this->_fontSize);
+                            $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $this->_fontSize, $dataPoints[$i][1], $this->_fonts[$this->_font]);
                         } else {
                             $this->_adapter->text($dataPoints[$i][1], $this->_fontSize, $x, ($y - ($this->_fontSize / 2)), $this->_fonts[$this->_font]);
                         }
                     } else {
                         if ($this->_adapter instanceof Pdf) {
                             $this->_adapter->addFont('Arial');
-                            $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $dataPoints[$i][1], 'Arial', $this->_fontSize);
+                            $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $this->_fontSize, $dataPoints[$i][1], 'Arial');
                         } else {
                             $this->_adapter->text($dataPoints[$i][1], $this->_fontSize, $x, ($y - ($this->_fontSize / 2)));
                         }
@@ -1089,14 +1091,14 @@ class Graph
                     $y = $points->yOffset - ((($dataPoints[$i]) / $points->yRange) * $points->yLength);
                     if (null !== $this->_font) {
                         if ($this->_adapter instanceof Pdf) {
-                            $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $dataPoints[$i], $this->_fonts[$this->_font], $this->_fontSize);
+                            $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $this->_fontSize, $dataPoints[$i], $this->_fonts[$this->_font], $this->_fontSize);
                         } else {
                             $this->_adapter->text($dataPoints[$i], $this->_fontSize, $x, ($y - ($this->_fontSize / 2)), $this->_fonts[$this->_font]);
                         }
                     } else {
                         if ($this->_adapter instanceof Pdf) {
                             $this->_adapter->addFont('Arial');
-                            $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $dataPoints[$i], 'Arial', $this->_fontSize);
+                            $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $this->_fontSize, $dataPoints[$i], 'Arial');
                         } else {
                             $this->_adapter->text($dataPoints[$i], $this->_fontSize, $x, ($y - ($this->_fontSize / 2)));
                         }
@@ -1123,14 +1125,14 @@ class Graph
                     $x = (($dataPoints[$i] / $points->xRange) * $points->xLength) + $points->zeroPoint['x'] +  ($this->_fontSize / 2);
                     if (null !== $this->_font) {
                         if ($this->_adapter instanceof Pdf) {
-                            $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $dataPoints[$i], $this->_fonts[$this->_font], $this->_fontSize);
+                            $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $this->_fontSize, $dataPoints[$i], $this->_fonts[$this->_font]);
                         } else {
                             $this->_adapter->text($dataPoints[$i], $this->_fontSize, $x, ($y - ($this->_fontSize / 2)), $this->_fonts[$this->_font]);
                         }
                     } else {
                         if ($this->_adapter instanceof Pdf) {
                             $this->_adapter->addFont('Arial');
-                            $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $dataPoints[$i], 'Arial', $this->_fontSize);
+                            $this->_adapter->addText($x, ($y + ($this->_fontSize / 2)), $this->_fontSize, $dataPoints[$i], 'Arial');
                         } else {
                             $this->_adapter->text($dataPoints[$i], $this->_fontSize, $x, ($y - ($this->_fontSize / 2)));
                         }

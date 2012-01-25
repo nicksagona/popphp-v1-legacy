@@ -413,8 +413,8 @@
         <output>エラー：そのフォントは、標準のPDFフォント内に含まれていない。</output>
     </text>
     <text>
-        <source>Error: That font has not been added to the PDF.</source>
-        <output>エラー：そのフォントをPDFに追加されていません。</output>
+        <source>Error: The font '%1' has not been added to the PDF.</source>
+        <output>エラー：フォント'%1'はPDFに追加されていない。</output>
     </text>
     <text>
         <source>Error: That page has not been defined.</source>
@@ -1179,5 +1179,9 @@
     <text>
         <source>The AFM font file was not found.</source>
         <output>AFMフォントファイルが見つかりませんでした。</output>
+    </text>
+    <text>
+        <source>Error: The font license does not allow for it to be embedded.</source>
+        <output>エラー：それが埋め込まれるためにフォントライセンスが許可されていません。</output>
     </text>
 </language>

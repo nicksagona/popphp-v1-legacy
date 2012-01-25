@@ -413,8 +413,8 @@
         <output>Ошибка: Это шрифт не содержащиеся в стандартных шрифтов PDF.</output>
     </text>
     <text>
-        <source>Error: That font has not been added to the PDF.</source>
-        <output>Ошибка: этот шрифт не был добавлен в формате PDF.</output>
+        <source>Error: The font '%1' has not been added to the PDF.</source>
+        <output>Ошибка: "%1" шрифт не был добавлен в формате PDF.</output>
     </text>
     <text>
         <source>Error: That page has not been defined.</source>
@@ -1179,5 +1179,9 @@
     <text>
         <source>The AFM font file was not found.</source>
         <output>Файл AFM шрифта не был найден.</output>
+    </text>
+    <text>
+        <source>Error: The font license does not allow for it to be embedded.</source>
+        <output>Ошибка: шрифтом лицензия не позволяет, чтобы он был внедрен.</output>
     </text>
 </language>

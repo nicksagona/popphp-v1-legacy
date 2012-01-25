@@ -413,7 +413,7 @@
         <output></output>
     </text>
     <text>
-        <source>Error: That font has not been added to the PDF.</source>
+        <source>Error: The font '%1' has not been added to the PDF.</source>
         <output></output>
     </text>
     <text>
@@ -1178,6 +1178,10 @@
     </text>
     <text>
         <source>The AFM font file was not found.</source>
+        <output></output>
+    </text>
+    <text>
+        <source>Error: The font license does not allow for it to be embedded.</source>
         <output></output>
     </text>
 </language>

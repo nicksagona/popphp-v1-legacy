@@ -123,6 +123,12 @@ abstract class AbstractFont extends File
     public $flags = null;
 
     /**
+     * Font embeddable flag
+     * @var boolean
+     */
+    public $embeddable = true;
+
+    /**
      * Array of allowed file types.
      * @var array
      */

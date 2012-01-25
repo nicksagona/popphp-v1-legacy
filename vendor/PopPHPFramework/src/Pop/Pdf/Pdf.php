@@ -651,12 +651,12 @@ class Pdf extends File
     /**
      * Method to set the text parameters for rendering text content.
      *
-     * @param  int $c
-     * @param  int $w
-     * @param  int $h
-     * @param  int $v
-     * @param  int $rot
-     * @param  int $rend
+     * @param  int $c    (character spacing)
+     * @param  int $w    (word spacing)
+     * @param  int $h    (horz stretch)
+     * @param  int $v    (vert stretch)
+     * @param  int $rot  (rotation)
+     * @param  int $rend (render flag, 0 - 7)
      * @throws Exception
      * @return Pop\Pdf\Pdf
      */
@@ -684,60 +684,54 @@ class Pdf extends File
     }
 
     /**
-     * Method to add a standard font object to the PDF.
+     * Method to add a font to the PDF.
      *
      * @param  string $font
      * @throws Exception
      * @return Pop\Pdf\Pdf
      */
-    public function addFont($font)
+    public function addFont($font, $embedOverride = false)
     {
-        // Check to make sure the font is a standard PDF font.
-        if (!array_key_exists($font, $this->_standard_fonts)) {
-            throw new Exception($this->_lang->__('Error: That font is not contained within the standard PDF fonts.'));
+        // Embed the font file.
+        if (file_exists($font)) {
+            $fontIndex = (count($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) == 0) ? 1 : count($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) + 1;
+            $objectIndex = $this->_lastIndex($this->_objects) + 1;
+
+            $fontParser = new Font($font, $fontIndex, $objectIndex, $this->_compress);
+
+            if (!$fontParser->isEmbeddable() && !$embedOverride) {
+                throw new Exception($this->_lang->__('Error: The font license does not allow for it to be embedded.'));
+            } else {
+                $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$fontParser->getFontName()] = $fontParser->getFontRef();
+
+                $fontObjects = $fontParser->getObjects();
+
+                foreach ($fontObjects as $key => $value) {
+                    $this->_objects[$key] = $value;
+                }
+
+                $this->_lastFontName = $fontParser->getFontName();
+            }
+        // Else, use a standard font.
         } else {
-            // Set the font index.
-            $ft_index = (count($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) == 0) ? 1 : ($this->_lastIndex($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) + 1);
+            // Check to make sure the font is a standard PDF font.
+            if (!array_key_exists($font, $this->_standard_fonts)) {
+                throw new Exception($this->_lang->__('Error: That font is not contained within the standard PDF fonts.'));
+            } else {
+                // Set the font index.
+                $ft_index = (count($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) == 0) ? 1 : count($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) + 1;
 
-            // Set the font name and the next object index.
-            $f = 'MF' . $ft_index;
-            $i = $this->_lastIndex($this->_objects) + 1;
+                // Set the font name and the next object index.
+                $f = 'MF' . $ft_index;
+                $i = $this->_lastIndex($this->_objects) + 1;
 
-            // Add the font to the current page's fonts and add the font to _objects array.
-            $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$font] = "/{$f} {$i} 0 R";
-            $this->_objects[$i] = new Object("{$i} 0 obj\n<<\n    /Type /Font\n    /Subtype /Type1\n    /Name /{$f}\n    /BaseFont /{$font}\n    /Encoding /StandardEncoding\n>>\nendobj\n\n");
+                // Add the font to the current page's fonts and add the font to _objects array.
+                $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$font] = "/{$f} {$i} 0 R";
+                $this->_objects[$i] = new Object("{$i} 0 obj\n<<\n    /Type /Font\n    /Subtype /Type1\n    /Name /{$f}\n    /BaseFont /{$font}\n    /Encoding /StandardEncoding\n>>\nendobj\n\n");
 
-            $this->_lastFontName = $font;
+                $this->_lastFontName = $font;
+            }
         }
-
-        return $this;
-    }
-
-    /**
-     * Method to add a font object to the PDF.
-     *
-     * @param  string $file
-     * @param  string $font
-     * @throws Exception
-     * @return Pop\Pdf\Pdf
-     */
-    public function embedFont($file)
-    {
-        // Create font parser object.
-        $fontIndex = (count($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) == 0) ? 1 : ($this->_lastIndex($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) + 1);
-        $objectIndex = $this->_lastIndex($this->_objects) + 1;
-
-        $fontParser = new Font($file, $fontIndex, $objectIndex, $this->_compress);
-
-        $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$fontParser->getFontName()] = $fontParser->getFontRef();
-
-        $fontObjects = $fontParser->getObjects();
-
-        foreach ($fontObjects as $key => $value) {
-            $this->_objects[$key] = $value;
-        }
-
-        $this->_lastFontName = $fontParser->getFontName();
 
         return $this;
     }
@@ -771,7 +765,7 @@ class Pdf extends File
             if (array_key_exists($font, $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts)) {
                 $fontObj = substr($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$font], 1, (strpos(' ', $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$font]) + 3));
             } else {
-                throw new Exception($this->_lang->__('Error: That font has not been added to the PDF.'));
+                throw new Exception($this->_lang->__('Error: The font \'%1\' has not been added to the PDF.', $font));
             }
         }
 

@@ -413,8 +413,8 @@
         <output>שגיאה: גופן שאינו כלול בתוך גופנים תקן PDF.</output>
     </text>
     <text>
-        <source>Error: That font has not been added to the PDF.</source>
-        <output>שגיאה: הגופן לא נוספה ל-PDF.</output>
+        <source>Error: The font '%1' has not been added to the PDF.</source>
+        <output>שגיאה: '%1' הגופן לא נוספה PDF.</output>
     </text>
     <text>
         <source>Error: That page has not been defined.</source>
@@ -1179,5 +1179,9 @@
     <text>
         <source>The AFM font file was not found.</source>
         <output>קובץ הגופן AFM לא נמצא.</output>
+    </text>
+    <text>
+        <source>Error: The font license does not allow for it to be embedded.</source>
+        <output>שגיאה: רישיון גופן אינו מאפשר לו להיות מוטבע.</output>
     </text>
 </language>

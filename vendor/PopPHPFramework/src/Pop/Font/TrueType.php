@@ -261,6 +261,7 @@ class TrueType extends AbstractFont
             $this->flags->isScript = $this->tables['OS/2']->flags->isScript;
             $this->flags->isSymbolic = $this->tables['OS/2']->flags->isSymbolic;
             $this->flags->isNonSymbolic = $this->tables['OS/2']->flags->isNonSymbolic;
+            $this->embeddable = $this->tables['OS/2']->embeddable;
         }
     }
 
