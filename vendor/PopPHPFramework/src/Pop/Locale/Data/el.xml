@@ -421,7 +421,7 @@
         <output>Έργο αναδιαρθρώνεται.</output>
     </text>
     <text>
-        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
+        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
         <output>Αυτή η διαδικασία θα δημιουργήσει και να εγκαταστήσετε το θεμέλιο βάση του σχεδίου σας κάτω από το φάκελο που καθορίζεται στο αρχείο εγκατάστασης. Ελάχιστα, το αρχείο εγκατάστασης θα πρέπει να επιστρέψει ένα Pop \ \ Config αντικείμενο που περιέχει τις ρυθμίσεις του έργου σας, εγκαταστήστε, όπως η ονομασία του έργου, φακέλων, εντύπων, των ελεγκτών, τις απόψεις και τις πιστοποιήσεις βάση δεδομένων.</output>
     </text>
     <text>

@@ -421,7 +421,7 @@
         <output>项目重新配置。</output>
     </text>
     <text>
-        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
+        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
         <output>此过程将创建并安装在安装文件中指定的文件夹下你的项目的基础的基础。微创，安装文件应该返回一个POP \ \ Config对象中含有项目安装设置，如项目名称，文件夹，形式，控制器，视图和任何数据库凭据。</output>
     </text>
     <text>

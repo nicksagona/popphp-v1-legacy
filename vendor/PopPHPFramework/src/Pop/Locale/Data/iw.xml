@@ -421,7 +421,7 @@
         <output>פרויקט מחדש.</output>
     </text>
     <text>
-        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
+        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
         <output>תהליך זה ייצור והתקנה של תשתית הבסיס של הפרוייקט תחת תיקיית המצוין בקובץ ההתקנה. מינימלית, את קובץ ההתקנה צריך להחזיר פופ \ \ Config אובייקט המכיל להתקין את הגדרות הפרוייקט, כגון שם הפרוייקט, תיקיות, טפסים, בקרים, תצוגות וכל האישורים מסד הנתונים.</output>
     </text>
     <text>

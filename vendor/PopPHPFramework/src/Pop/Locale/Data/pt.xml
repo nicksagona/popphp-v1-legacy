@@ -421,7 +421,7 @@
         <output>Projeto reconfigurado.</output>
     </text>
     <text>
-        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
+        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
         <output>Este processo irá criar e instalar a base de base de seu projeto na pasta especificada no arquivo de instalação. Minimamente, o arquivo de instalação deve retornar um Pop \ \ objeto Configuração contendo as configurações de instalação do projeto, tais como nome do projeto, pastas, formulários, controladores, pontos de vista e as credenciais de banco de dados.</output>
     </text>
     <text>

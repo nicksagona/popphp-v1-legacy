@@ -421,7 +421,7 @@
         <output>مشروع إعادة تشكيلها.</output>
     </text>
     <text>
-        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
+        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
         <output>هذه العملية سوف تخلق وتثبيت قاعدة الأساس للمشروع ضمن المجلد المحدد في ملف تثبيت. الحد الأدنى ، يجب أن يكون ملف تثبيت إرجاع البوب ​​\ \ تكوين كائن يحتوي على إعدادات تثبيت مشروع ، مثل اسم المشروع ، والمجلدات والنماذج وحدات التحكم والآراء وأية بيانات اعتماد قاعدة البيانات.</output>
     </text>
     <text>
