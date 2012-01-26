@@ -13,7 +13,7 @@ COMPLETED:
 * Improve File component
 * Improve the Dir component
 * Refactor and improve Image component overall
-    - Add 'save'/'saveAs'/'output' methods, better chaining, etc.
+    - Add save/saveAs/output methods, better chaining, etc.
     - Add support for Imagick
     - Add support for SVG
 * Refactor and improve the Db component
@@ -64,6 +64,5 @@ COMPLETED:
 
 CURRENTLY BEING WORKED ON:
 --------------------------
-* Phase 2 of code review/cleanup
 * Testing, testing & more testing
 * Documentation

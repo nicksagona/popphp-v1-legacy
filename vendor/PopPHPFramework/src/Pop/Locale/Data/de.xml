@@ -13,240 +13,8 @@
 ]>
 <language src="en" output="de" name="German" native="Deutsch">
     <text>
-        <source>That option is not set.</source>
-        <output>Diese option ist nicht gesetzt.</output>
-    </text>
-    <text>
-        <source>Error:</source>
-        <output>Fehler:</output>
-    </text>
-    <text>
-        <source>Error: The proper database credentials were not passed.</source>
-        <output>Fehler: Die richtige datenbank anmeldeinformationen wurden nicht weitergegeben.</output>
-    </text>
-    <text>
-        <source>Error: The database result resource is not currently set.</source>
-        <output>Fehler: Die datenbank ressource ist derzeit nicht festgelegt.</output>
-    </text>
-    <text>
-        <source>Error: Could not connect to database. Connection Error #%1: %2.</source>
-        <output>Fehler: Konnte keine verbindung zur datenbank. Connection Error #%1: %2.</output>
-    </text>
-    <text>
-        <source>Error: There was an error connecting to the database.</source>
-        <output>Fehler: Es gab einen fehler mit der datenbank verbinden.</output>
-    </text>
-    <text>
-        <source>Error: The database file was not passed.</source>
-        <output>Fehler: Die datenbank datei wurde nicht bestanden.</output>
-    </text>
-    <text>
-        <source>Error: The database file does not exists.</source>
-        <output>Fehler: Die datenbank datei existiert nicht.</output>
-    </text>
-    <text>
-        <source>Error: That doctype is not allowed.</source>
-        <output>Fehler: Das doctype ist nicht erlaubt.</output>
-    </text>
-    <text>
-        <source>The child element passed is not an instance of Pop\Dom\Child.</source>
-        <output>Das untergeordnete Element übergeben wird keine instanz Pop\Dom\Child.</output>
-    </text>
-    <text>
-        <source>One or more of the child elements passed is not an instance of Pop\Dom\Child.</source>
-        <output>Einer oder mehrere der untergeordneten Elemente weitergegeben wird nicht eine instanz Pop\Dom\Child.</output>
-    </text>
-    <text>
-        <source>That feed URL cannot be read at this time. Please try again later.</source>
-        <output>Das Feed URL kann zu diesem zeitpunkt nicht gelesen werden. Bitte versuchen sie es später erneut.</output>
-    </text>
-    <text>
-        <source>Error: The feed item template is not set.</source>
-        <output>Fehler: Das futter elementvorlage ist nicht gesetzt.</output>
-    </text>
-    <text>
-        <source>Error: The feed currently has no content.</source>
-        <output>Fehler: Das futter hat derzeit keinen inhalt.</output>
-    </text>
-    <text>
-        <source>Error: The feed type must be only RSS or ATOM.</source>
-        <output>Fehler: Der Feed Typ muss nur RSS oder ATOM werden.</output>
-    </text>
-    <text>
-        <source>Error: The file is not an accepted file format.</source>
-        <output>Fehler: Die datei ist nicht eine akzeptierte dateiformat.</output>
-    </text>
-    <text>
-        <source>Error: The file already exists.</source>
-        <output>Fehler: Die datei existiert bereits.</output>
-    </text>
-    <text>
-        <source>Error: The directory does not exist.</source>
-        <output>Fehler: Das verzeichnis ist nicht vorhanden.</output>
-    </text>
-    <text>
-        <source>Error: The upload directory does not exist.</source>
-        <output>Fehler: Der upload verzeichnis existiert nicht.</output>
-    </text>
-    <text>
-        <source>Error: The file uploaded is too big.</source>
-        <output>Fehler: Die Datei hochgeladen ist zu groß.</output>
-    </text>
-    <text>
-        <source>Error: The image file uploaded is too big.</source>
-        <output>Fehler: Die bild datei hochgeladen ist zu groß.</output>
-    </text>
-    <text>
-        <source>Error: There was an error in uploading the file.</source>
-        <output>Fehler: Es gab einen fehler beim hochladen der datei.</output>
-    </text>
-    <text>
-        <source>Error: There was an error in uploading the image file.</source>
-        <output>Fehler: Es gab einen fehler beim hochladen der bilddatei.</output>
-    </text>
-    <text>
-        <source>Error: Permission denied.</source>
-        <output>Fehler: Zugriff verweigert.</output>
-    </text>
-    <text>
-        <source>Error: The parameter passed is not an array.</source>
-        <output>Fehler: Der parameter übergeben wird kein array.</output>
-    </text>
-    <text>
-        <source>Error: The array passed must contain at least one type.</source>
-        <output>Fehler: Der array übergeben muss mindestens eine art enthalten.</output>
-    </text>
-    <text>
-        <source>Error: The file or directory (%1) is not writable.</source>
-        <output>Fehler: Die datei oder das verzeichnis (%1) ist nicht beschreibbar.</output>
-    </text>
-    <text>
-        <source>Error: There are no form elements declared for this form object.</source>
-        <output>Fehler: Es gibt keine formular elemente erklärt, für die diese form objekt.</output>
-    </text>
-    <text>
-        <source>Error: That input type is not allowed.</source>
-        <output>Fehler: Das eingangs typ ist nicht erlaubt.</output>
-    </text>
-    <text>
-        <source>Error: The required flag must be a boolean value.</source>
-        <output>Fehler: Die erforderliche kennzeichnung ist ein boolescher wert sein.</output>
-    </text>
-    <text>
-        <source>Error: That type validator is not allowed.</source>
-        <output>Fehler: Diese art validator ist nicht erlaubt.</output>
-    </text>
-    <text>
-        <source>Error: The condition must be a boolean.</source>
-        <output>Fehler: Die bedingung muss ein boolescher werden.</output>
-    </text>
-    <text>
         <source>This field is required.</source>
-        <output>Dieses feld ist obligatorisch.</output>
-    </text>
-    <text>
-        <source>This field value must %1 contain alphanumeric characters.</source>
-        <output>Dieses feld wert muss %1 alphanumerische zeichen enthalten.</output>
-    </text>
-    <text>
-        <source>This field value must %1 contain characters of the alphabet.</source>
-        <output>Dieses feld wert muss %1 enthalten zeichen des alphabets.</output>
-    </text>
-    <text>
-        <source>This field value is %1 between %2 and %3.</source>
-        <output>Dieses feld wert %1 zwischen %2 und %3.</output>
-    </text>
-    <text>
-        <source>This field value format is %1 a correct email format.</source>
-        <output>Dieses feld wert format %1 eine korrekte e-mail format.</output>
-    </text>
-    <text>
-        <source>This field value does not equal the correct value.</source>
-        <output>Dieses feld wert nicht gleich den richtigen wert.</output>
-    </text>
-    <text>
-        <source>This field value is %1 greater than %2.</source>
-        <output>Dieses feld wert %1 größer als %2.</output>
-    </text>
-    <text>
-        <source>This field value length is %1 equal to %2 characters long.</source>
-        <output>Dieses feld wert %1 beträgt gleich sein %2 Zeichen lang.</output>
-    </text>
-    <text>
-        <source>This field value length is %1 between %2 and %3.</source>
-        <output>Dieses feld wert beträgt %1 zwischen %2 und %3.</output>
-    </text>
-    <text>
-        <source>This field value length must be %1 %2 characters long.</source>
-        <output>Dieses feld wert länge müssen %1 %2 zeichen lang sein.</output>
-    </text>
-    <text>
-        <source>This field value is %1 less than %2.</source>
-        <output>Dieses feld wert %1 weniger als %2.</output>
-    </text>
-    <text>
-        <source>This field value is %1 empty.</source>
-        <output>Dieses feld wert %1 leer.</output>
-    </text>
-    <text>
-        <source>This field value is %1 a number.</source>
-        <output>Dieses feld wert %1 eine nummer.</output>
-    </text>
-    <text>
-        <source>This field value format is %1 correct.</source>
-        <output>Dieses feld wert format %1 zu korrigieren.</output>
-    </text>
-    <text>
-        <source>The parameter passed must be an array.</source>
-        <output>Der übergebene parameter muss ein array sein.</output>
-    </text>
-    <text>
-        <source>The array parameter passed must contain an array.</source>
-        <output>Das array parameter übergeben muss ein array enthalten.</output>
-    </text>
-    <text>
-        <source>not</source>
-        <output>nicht</output>
-    </text>
-    <text>
-        <source>only</source>
-        <output>nur</output>
-    </text>
-    <text>
-        <source>under</source>
-        <output>unter</output>
-    </text>
-    <text>
-        <source>at least</source>
-        <output>mindestens</output>
-    </text>
-    <text>
-        <source>Sunday</source>
-        <output>Sonntag</output>
-    </text>
-    <text>
-        <source>Monday</source>
-        <output>Montag</output>
-    </text>
-    <text>
-        <source>Tuesday</source>
-        <output>Dienstag</output>
-    </text>
-    <text>
-        <source>Wednesday</source>
-        <output>Mittwoch</output>
-    </text>
-    <text>
-        <source>Thursday</source>
-        <output>Donnerstag</output>
-    </text>
-    <text>
-        <source>Friday</source>
-        <output>Freitag</output>
-    </text>
-    <text>
-        <source>Saturday</source>
-        <output>Samstag</output>
+        <output>Dieses Feld ist erforderlich.</output>
     </text>
     <text>
         <source>January</source>
@@ -297,472 +65,32 @@
         <output>Dezember</output>
     </text>
     <text>
-        <source>Error: There was an error connecting to the FTP server %1.</source>
-        <output>Fehler: Es gab einen fehler bei der verbindung zum FTP Server %1.</output>
+        <source>Sunday</source>
+        <output>Sonntag</output>
     </text>
     <text>
-        <source>Error: There was an error connecting to the FTP server %1 with those credentials.</source>
-        <output>Fehler: Es gab einen fehler bei der verbindung zum FTP Server %1 mit den anmeldeinformationen.</output>
+        <source>Monday</source>
+        <output>Montag</output>
     </text>
     <text>
-        <source>Error: There was an error changing to the directory %1.</source>
-        <output>Fehler: Es gab einen fehler wechselt in das verzeichnis %1.</output>
+        <source>Tuesday</source>
+        <output>Dienstag</output>
     </text>
     <text>
-        <source>Error: There was an error making the directory %1.</source>
-        <output>Fehler: Es gab einen fehler macht das verzeichnis %1.</output>
+        <source>Wednesday</source>
+        <output>Mittwoch</output>
     </text>
     <text>
-        <source>Error: There was an error removing the directory %1.</source>
-        <output>Fehler: Es gab einen fehler beim entfernen sie das verzeichnis %1.</output>
+        <source>Thursday</source>
+        <output>Donnerstag</output>
     </text>
     <text>
-        <source>Error: There was an error getting the file %1.</source>
-        <output>Fehler: Es gab einen fehler immer die datei %1.</output>
+        <source>Friday</source>
+        <output>Freitag</output>
     </text>
     <text>
-        <source>Error: There was an error putting the file %1.</source>
-        <output>Fehler: Es gab einen fehler indem sie die datei %1.</output>
-    </text>
-    <text>
-        <source>Error: There was an error renaming the file %1.</source>
-        <output>Fehler: Es gab einen fehler beim umbenennen der datei %1.</output>
-    </text>
-    <text>
-        <source>Error: There was an error changing the permission of %1.</source>
-        <output>Fehler: Es gab einen fehler beim ändern der erlaubnis des %1.</output>
-    </text>
-    <text>
-        <source>Error: There was an error removing the file %1.</source>
-        <output>Fehler: Es gab einen fehler beim entfernen der datei %1.</output>
-    </text>
-    <text>
-        <source>Error: You must define a width and height for a new image object.</source>
-        <output>Fehler: Sie müssen eine breite und höhe für ein neues bild objekt zu definieren.</output>
-    </text>
-    <text>
-        <source>Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.</source>
-        <output>Fehler: Das bild wird nicht unterstützt. Nur GIF, JPG und PNG bild typen werden unterstützt.</output>
-    </text>
-    <text>
-        <source>Error: This image file is already a %1 image file.</source>
-        <output>Fehler: Diese bilddatei ist bereits ein %1 bilddatei.</output>
-    </text>
-    <text>
-        <source>Error: The language file %1 does not exist.</source>
-        <output>Fehler: Die sprache der datei %1 existiert nicht.</output>
-    </text>
-    <text>
-        <source>Error: Your output language selection is not valid.</source>
-        <output>Fehler: Ihr ausgang sprachwahl ist nicht gültig.</output>
-    </text>
-    <text>
-        <source>Error: Your source language selection is not valid.</source>
-        <output>Fehler: Ihr ausgangssprache auswahl ist nicht gültig.</output>
-    </text>
-    <text>
-        <source>Error: Both the output and source language selections are the same. Please choose again.</source>
-        <output>Fehler: Sowohl die ausgabe und ausgangssprache auswahlen sind die gleichen. Bitte wählen sie erneut.</output>
-    </text>
-    <text>
-        <source>Error: There was an error processing that Google Translate URL. Please check your API key.</source>
-        <output>Fehler: Es gab einen fehler beim bearbeiten, dass Google Translate URL. Bitte überprüfen sie ihre API schlüssel.</output>
-    </text>
-    <text>
-        <source>Error: There was an error processing that XML file.</source>
-        <output>Fehler: Es gab einen fehler beim bearbeiten, dass XML datei.</output>
-    </text>
-    <text>
-        <source>Error: At least one of the array keys must be 'email'.</source>
-        <output>Fehler: Mindestens einer der schlüssel für das array muss 'e-mail'.</output>
-    </text>
-    <text>
-        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
-        <output>Fehler: Der parameter übergeben muss entweder eine gültige datei oder eine instanz Pop\File\File werden.</output>
-    </text>
-    <text>
-        <source>Error: The message body elements are not set.</source>
-        <output>Fehler: Der nachrichtentext elemente sind nicht festgelegt.</output>
-    </text>
-    <text>
-        <source>Error: That page does not exist.</source>
-        <output>Fehler: Die seite ist nicht vorhanden.</output>
-    </text>
-    <text>
-        <source>Error: The PDF does not have enough pages in which to order.</source>
-        <output>Fehler: Das PDF hat nicht genügend seiten, auf denen zu bestellen.</output>
-    </text>
-    <text>
-        <source>Error: The pages array passed does not contain the same number of pages as the PDF.</source>
-        <output>Fehler: Die seiten array übergeben enthält nicht die gleiche anzahl von seiten als PDF.</output>
-    </text>
-    <text>
-        <source>Error: The pages array passed contains a page that does not exist.</source>
-        <output>Fehler: Die seiten array übergeben enthält eine seite, die nicht existiert.</output>
-    </text>
-    <text>
-        <source>Error: The rotation parameter must be between -90 and 90 degrees.</source>
-        <output>Fehler: Die drehung parameter muss zwischen -90 und 90 Grad.</output>
-    </text>
-    <text>
-        <source>Error: The render parameter must be an integer between 0 and 7.</source>
-        <output>Fehler: Der machen parameter muss eine ganze zahl zwischen 0 und 7 sein.</output>
-    </text>
-    <text>
-        <source>Error: That font is not contained within the standard PDF fonts.</source>
-        <output>Fehler: Die schriftart ist nicht in den standard PDF schriften enthalten.</output>
-    </text>
-    <text>
-        <source>Error: The font '%1' has not been added to the PDF.</source>
-        <output>Fehler: Die Schriftart "%1" wurde nicht auf die PDF aufgenommen worden.</output>
-    </text>
-    <text>
-        <source>Error: That page has not been defined.</source>
-        <output>Fehler: Die seite wurde nicht definiert.</output>
-    </text>
-    <text>
-        <source>Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.</source>
-        <output>Fehler: PNG alpha-kanäle werden nicht unterstützt. Nur 8-Bit transparente PNG bilder werden unterstützt.</output>
-    </text>
-    <text>
-        <source>Error: The file already exists and it cannot be overwritten. Please specify a new filename.</source>
-        <output>Fehler: Die datei existiert bereits und kann nicht überschrieben werden. Bitte geben sie einen neuen dateinamen ein.</output>
-    </text>
-    <text>
-        <source>Error: The argument passed must be an array.</source>
-        <output>Fehler: Das argument muss ein array sein.</output>
-    </text>
-    <text>
-        <source>Error: A width and height must be passed.</source>
-        <output>Fehler: Ein breite und höhe müssen weitergegeben werden.</output>
-    </text>
-    <text>
-        <source>Error: A page index must be passed.</source>
-        <output>Fehler: Ein seite index muss weitergegeben werden.</output>
-    </text>
-    <text>
-        <source>The field '%1' does not exist.</source>
-        <output>Das feld "%1" existiert nicht.</output>
-    </text>
-    <text>
-        <source>The parameter passed must be either an array or null.</source>
-        <output>Der übergebene parameter muss entweder ein array oder null.</output>
-    </text>
-    <text>
-        <source>This primary ID of this table either is not set or does not exist.</source>
-        <output>Diese primäre ID dieser tabelle entweder nicht oder existiert nicht.</output>
-    </text>
-    <text>
-        <source>The field and value parameters were not defined to describe the row(s) to delete.</source>
-        <output>Das feld und wert parameter wurden nicht definiert, um die zeile (n) zu löschen beschreiben.</output>
-    </text>
-    <text>
-        <source>The mobile site is not set.</source>
-        <output>Die mobile website ist nicht gesetzt.</output>
-    </text>
-    <text>
-        <source>The standard site is not set.</source>
-        <output>Die standard  wbsite ist nicht gesetzt.</output>
-    </text>
-    <text>
-        <source>That header code '%1' is not allowed.</source>
-        <output>Das Header-Code '%1' ist nicht erlaubt.</output>
-    </text>
-    <text>
-        <source>The array parameter passed must contain an array of field values.</source>
-        <output>Der Array-Parameter übergeben werden muss enthalten eine Reihe von Feld-Werte.</output>
-    </text>
-    <text>
-        <source>Error: The image resource has not been created.</source>
-        <output>Fehler: Das Bild Ressource wurde nicht erstellt.</output>
-    </text>
-    <text>
-        <source>Error: The image output resource has not been created.</source>
-        <output>Fehler: Die Bildausgabe Ressource wurde nicht erstellt.</output>
-    </text>
-    <text>
-        <source>The argument passed is not valid.</source>
-        <output>Das Argument ist nicht gültig.</output>
-    </text>
-    <text>
-        <source>The archive file is compressed. It must only be either a TAR or ZIP archive file.</source>
-        <output>Die Archiv-Datei ist komprimiert. Es darf nur entweder ein TAR-oder ZIP-Archiv-Datei sein.</output>
-    </text>
-    <text>
-        <source>The archive file must be either a TAR or ZIP archive file.</source>
-        <output>Die Archiv-Datei muss entweder ein TAR-oder ZIP-Archiv-Datei sein.</output>
-    </text>
-    <text>
-        <source>Error: The compression type must either be Flate or LZW.</source>
-        <output>Fehler: Die Kompression Typ muss entweder Flate oder LZW werden.</output>
-    </text>
-    <text>
-        <source>Error: The font file does not seem to have all of the correct data to parse.</source>
-        <output>Fehler: Die Font-Datei scheint nicht alle die richtigen Daten zu analysieren haben.</output>
-    </text>
-    <text>
-        <source>Error: The GD library extension must be installed to use the Gd adapter.</source>
-        <output>Fehler: Die GD-Bibliothek Erweiterung muss installiert sein, die Gd-Adapter verwenden.</output>
-    </text>
-    <text>
-        <source>No source file or database table was passed.</source>
-        <output>Keine Quelldatei oder Datenbanktabelle übergeben wurde.</output>
-    </text>
-    <text>
-        <source>The options parameter must be an array.</source>
-        <output>Die Optionen-Parameter muss ein Array sein.</output>
-    </text>
-    <text>
-        <source>The options parameter must be an array that contains either a 'table' or 'file' key.</source>
-        <output>Die Optionen-Parameter muss ein Array, das entweder eine "Tabelle" oder "Datei"-Taste enthält.</output>
-    </text>
-    <text>
-        <source>Error: Could not connect to database. %1</source>
-        <output>Fehler: Konnte keine Verbindung zur Datenbank. %1</output>
-    </text>
-    <text>
-        <source>Error: The database interface object has not been instaniated.</source>
-        <output>Fehler: Die Datenbank-Schnittstelle Objekt wurde nicht instaniated.</output>
-    </text>
-    <text>
-        <source>Error: That method does not exist within the database interface object.</source>
-        <output>Fehler: Diese Methode funktioniert nicht in der Datenbank-Schnittstelle Objekt vorhanden.</output>
-    </text>
-    <text>
-        <source>Error: The columns parameter must be an array.</source>
-        <output>Fehler: Die Spalten-Parameter muss ein Array sein.</output>
-    </text>
-    <text>
-        <source>Error: The columns parameter must be an array that contains at least one key/value pair.</source>
-        <output>Fehler: Die Spalten Parameter muss ein Array, dass mindestens ein Schlüssel / Wert-Paar enthält.</output>
-    </text>
-    <text>
-        <source>Error: The table must be set.</source>
-        <output>Fehler: Die Tabelle muss eingestellt werden.</output>
-    </text>
-    <text>
-        <source>Error: A SQL type must be set.</source>
-        <output>Fehler: Ein SQL-Typ eingestellt werden.</output>
-    </text>
-    <text>
-        <source>Error: The database statement resource is not currently set.</source>
-        <output>Fehler: Die Datenbank-Statement Ressource ist derzeit nicht festgelegt.</output>
-    </text>
-    <text>
-        <source>The column and value parameters were not defined to describe the row(s) to delete.</source>
-        <output>Die Säule und den Wert Parameter wurden nicht definiert, um die Zeile (n) löschen zu beschreiben.</output>
-    </text>
-    <text>
-        <source>The column '%1' does not exist.</source>
-        <output>Die Spalte "%1" existiert nicht.</output>
-    </text>
-    <text>
-        <source>Error: That database adapter class does not exist.</source>
-        <output>Fehler: Das Datenbank-Adapter-Klasse gibt es nicht.</output>
-    </text>
-    <text>
-        <source>Error: The Imagick library extension must be installed to use the Imagick adapter.</source>
-        <output>Fehler: Die Imagick Bibliothek Erweiterung muss installiert sein, um die Imagick Adapter verwenden.</output>
-    </text>
-    <text>
-        <source>Error: That image type is not supported.</source>
-        <output>Fehler: Das Bild wird nicht unterstützt.</output>
-    </text>
-    <text>
-        <source>Error: The cache type must be 'File', 'Sqlite' or 'Memcached'.</source>
-        <output>Fehler: Der Cache-Typ muss 'File' werden 'Sqlite' oder 'Memcached ".</output>
-    </text>
-    <text>
-        <source>Error: You must pass either a directory or SQLite file store point.</source>
-        <output>Fehler: Sie müssen entweder ein Verzeichnis oder eine SQLite-Datei zu speichern Punkt durchgehen.</output>
-    </text>
-    <text>
-        <source>Error: That cache directory does not exist.</source>
-        <output>Fehler: Das Cache-Verzeichnis existiert nicht.</output>
-    </text>
-    <text>
-        <source>Error: That cache directory is not writable.</source>
-        <output>Fehler: Das Cache-Verzeichnis ist nicht beschreibbar.</output>
-    </text>
-    <text>
-        <source>Error: That cache db file and/or directory is not writable.</source>
-        <output>Fehler: Das Cache-db-Datei und / oder das Verzeichnis ist nicht beschreibbar.</output>
-    </text>
-    <text>
-        <source>Error: Memcache is not available on this server.</source>
-        <output>Fehler: Memcache ist nicht auf diesem Server zur Verfügung.</output>
-    </text>
-    <text>
-        <source>Error: Unable to connect to the memcached server.</source>
-        <output>Fehler: Keine Verbindung mit dem memcached Server zu verbinden.</output>
-    </text>
-    <text>
-        <source>That data type is not supported.</source>
-        <output>Das Datentyp wird nicht unterstützt.</output>
-    </text>
-    <text>
-        <source>No database adapter was found.</source>
-        <output>Keine Datenbank-Adapter gefunden wurde.</output>
-    </text>
-    <text>
-        <source>That font is not available.</source>
-        <output>Das font ist nicht verfügbar.</output>
-    </text>
-    <text>
-        <source>The percentages are greater than 100.</source>
-        <output>Die Prozentsätze sind größer als 100 ist.</output>
-    </text>
-    <text>
-        <source>A proper color array was not passed.</source>
-        <output>Eine richtige Farb-Array wurde nicht bestanden.</output>
-    </text>
-    <text>
-        <source>One or more of the color values is out of range.</source>
-        <output>Eine oder mehrere der Farbwerte außerhalb des Bereichs liegt.</output>
-    </text>
-    <text>
-        <source>The color parameter is not a valid color space object.</source>
-        <output>Die Farbe Parameter ist kein gültiger Farbraum Objekt.</output>
-    </text>
-    <text>
-        <source>That color space object does not exist.</source>
-        <output>Das Farbraum Objekt existiert nicht.</output>
-    </text>
-    <text>
-        <source>That color space object is already that type.</source>
-        <output>Das Farbraum Objekt bereits dieses Typs.</output>
-    </text>
-    <text>
-        <source>The headers have already been sent.</source>
-        <output>Die Header wurden bereits gesendet.</output>
-    </text>
-    <text>
-        <source>The response was not properly formatted.</source>
-        <output>Die Resonanz war nicht korrekt formatiert.</output>
-    </text>
-    <text>
-        <source>A template asset has not been assigned.</source>
-        <output>Eine Vorlage Vermögenswert nicht zugeordnet wurde.</output>
-    </text>
-    <text>
-        <source>That template file either does not exist or is not the correct format.</source>
-        <output>Das Template-Datei ist entweder nicht vorhanden oder nicht das richtige Format.</output>
-    </text>
-    <text>
-        <source>Due to licensing restrictions, RAR files cannot be created and can only be decompressed.</source>
-        <output>Aus Lizenzgründen kann RAR-Dateien nicht erstellt werden und kann nur entpackt werden.</output>
-    </text>
-    <text>
-        <source>The value must only contain alphanumeric characters.</source>
-        <output>Der Wert muss nur alphanumerische Zeichen enthalten.</output>
-    </text>
-    <text>
-        <source>The value must contain non-alphanumeric characters.</source>
-        <output>Der Wert muss nicht alphanumerische Zeichen.</output>
-    </text>
-    <text>
-        <source>The value must only contain characters of the alphabet.</source>
-        <output>Der Wert darf nur aus Zeichen des Alphabets.</output>
-    </text>
-    <text>
-        <source>The value must contain characters not in the alphabet.</source>
-        <output>Der Wert muss Zeichen enthalten, nicht im Alphabet.</output>
-    </text>
-    <text>
-        <source>The value must be between %1 and %2.</source>
-        <output>Der Wert muss zwischen %1 und %2 sein.</output>
-    </text>
-    <text>
-        <source>The value must not be between %1 and %2.</source>
-        <output>Der Wert darf nicht zwischen %1 und %2 sein.</output>
-    </text>
-    <text>
-        <source>The value must be between or equal to %1 and %2.</source>
-        <output>Der Wert muss zwischen oder gleich %1 und %2 sein.</output>
-    </text>
-    <text>
-        <source>The value must not be between or equal to %1 and %2.</source>
-        <output>Der Wert darf nicht zwischen oder gleich %1 und %2.</output>
-    </text>
-    <text>
-        <source>The value must be a valid email format.</source>
-        <output>Der Wert muss eine gültige E-Mail-Format.</output>
-    </text>
-    <text>
-        <source>The value must not be a valid email format.</source>
-        <output>Der Wert darf nicht eine gültige E-Mail-Format sein.</output>
-    </text>
-    <text>
-        <source>The value must be excluded.</source>
-        <output>Der Wert muss ausgeschlossen werden.</output>
-    </text>
-    <text>
-        <source>The value must not be excluded.</source>
-        <output>Der Wert darf nicht ausgeschlossen werden.</output>
-    </text>
-    <text>
-        <source>The value must be included.</source>
-        <output>Der Wert muss einbezogen werden.</output>
-    </text>
-    <text>
-        <source>The value must not be included.</source>
-        <output>Der Wert darf nicht enthalten sein.</output>
-    </text>
-    <text>
-        <source>The value must be equal to %1.</source>
-        <output>Der Wert muss gleich %1.</output>
-    </text>
-    <text>
-        <source>The value must not be equal to %1.</source>
-        <output>Der Wert muss nicht gleich %1.</output>
-    </text>
-    <text>
-        <source>The value must be greater than %1.</source>
-        <output>Der Wert muss größer als %1.</output>
-    </text>
-    <text>
-        <source>The value must not be greater than %1.</source>
-        <output>Der Wert darf nicht größer sein als %1.</output>
-    </text>
-    <text>
-        <source>The value must be greater than or equal to %1.</source>
-        <output>Der Wert muss größer als oder gleich %1.</output>
-    </text>
-    <text>
-        <source>The value must not be greater than or equal to %1.</source>
-        <output>Der Wert darf nicht größer als oder gleich %1.</output>
-    </text>
-    <text>
-        <source>The value length must be equal to %1.</source>
-        <output>Der Wert Länge muss gleich %1.</output>
-    </text>
-    <text>
-        <source>The value length must not be equal to %1.</source>
-        <output>Der Wert Länge muss nicht gleich %1.</output>
-    </text>
-    <text>
-        <source>The value must be less than %1.</source>
-        <output>Der Wert muss kleiner als %1.</output>
-    </text>
-    <text>
-        <source>The value must not be less than %1.</source>
-        <output>Der Wert darf nicht kleiner sein als %1.</output>
-    </text>
-    <text>
-        <source>The value must be less than or equal to %1.</source>
-        <output>Der Wert muss kleiner als oder gleich %1.</output>
-    </text>
-    <text>
-        <source>The value must not be less than or equal to %1.</source>
-        <output>Der Wert darf nicht weniger als oder gleich %1.</output>
-    </text>
-    <text>
-        <source>The value length must be between %1 and %2.</source>
-        <output>Der Wert muss zwischen %1 und %2 sein.</output>
-    </text>
-    <text>
-        <source>The value length must not be between %1 and %2.</source>
-        <output>Der Wert Länge darf nicht zwischen %1 und %2 sein.</output>
+        <source>Saturday</source>
+        <output>Samstag</output>
     </text>
     <text>
         <source>The value length must be between or equal to %1 and %2.</source>
@@ -773,70 +101,6 @@
         <output>Der Wert Länge darf nicht zwischen oder gleich %1 und %2.</output>
     </text>
     <text>
-        <source>The value length must be greater than %1.</source>
-        <output>Der Wert Länge muss größer als %1.</output>
-    </text>
-    <text>
-        <source>The value length must not be greater than %1.</source>
-        <output>Der Wert Länge darf nicht größer sein als %1.</output>
-    </text>
-    <text>
-        <source>The value length must be greater than or equal to %1.</source>
-        <output>Der Wert Länge muss größer als oder gleich %1.</output>
-    </text>
-    <text>
-        <source>The value length must not be greater than or equal to %1.</source>
-        <output>Der Wert Länge darf nicht größer als oder gleich%1.</output>
-    </text>
-    <text>
-        <source>The value length must be less than %1.</source>
-        <output>Der Wert Länge muss kleiner als %1.</output>
-    </text>
-    <text>
-        <source>The value length must not be less than %1.</source>
-        <output>Der Wert Länge darf nicht kleiner sein als %1.</output>
-    </text>
-    <text>
-        <source>The value length must be less than or equal to %1.</source>
-        <output>Der Wert Länge muss kleiner als oder gleich %1.</output>
-    </text>
-    <text>
-        <source>The value length must not be less than or equal to %1.</source>
-        <output>Der Wert Länge darf nicht kleiner als oder gleich %1.</output>
-    </text>
-    <text>
-        <source>The value must be empty.</source>
-        <output>Der Wert muss leer sein.</output>
-    </text>
-    <text>
-        <source>The value must not be empty.</source>
-        <output>Der Wert darf nicht leer sein.</output>
-    </text>
-    <text>
-        <source>The value must be numeric.</source>
-        <output>Der Wert muss numerisch sein.</output>
-    </text>
-    <text>
-        <source>The value must not be numeric.</source>
-        <output>Der Wert darf nicht numerisch sein.</output>
-    </text>
-    <text>
-        <source>Error: The file type %1 is not an accepted file format.</source>
-        <output>Fehler: Die Datei %1 ist kein gültiger Dateiformat.</output>
-    </text>
-    <text>
-        <source>The value format is not correct.</source>
-        <output>Der Wert-Format ist nicht korrekt.</output>
-    </text>
-    <text>
-        <source>The value must be a valid IPv4 address.</source>
-        <output>Der Wert muss eine gültige IPv4-Adresse sein.</output>
-    </text>
-    <text>
-        <source>The value must not be a valid IPv4 address.</source>
-        <output>Der Wert darf nicht eine gültige IPv4-Adresse sein.</output>
-    </text>
-    <text>
         <source>The value must be a valid IPv6 address.</source>
         <output>Der Wert muss eine gültige IPv6-Adresse sein.</output>
     </text>
@@ -845,12 +109,28 @@
         <output>Der Wert darf nicht eine gültige IPv6-Adresse sein.</output>
     </text>
     <text>
-        <source>The user role has not been defined to evaluate against.</source>
-        <output>Die Benutzerrolle ist nicht definiert worden, um gegen zu bewerten.</output>
+        <source>The value must be a valid credit card number.</source>
+        <output>Der Wert muss eine gültige Kreditkarte Zahl sein.</output>
     </text>
     <text>
-        <source>Error: The file type %1 is not an accepted file format.</source>
-        <output>Fehler: Die Datei %1 ist kein gültiger Dateiformat.</output>
+        <source>The value must not be a valid credit card number.</source>
+        <output>Der Wert darf nicht eine gültige Kreditkarte Zahl sein.</output>
+    </text>
+    <text>
+        <source>The value must be included.</source>
+        <output>Der Wert muss einbezogen werden.</output>
+    </text>
+    <text>
+        <source>The value must not be included.</source>
+        <output>Der Wert darf nicht enthalten sein.</output>
+    </text>
+    <text>
+        <source>The value must be between or equal to %1 and %2.</source>
+        <output>Der Wert muss zwischen oder gleich %1 und %2 sein.</output>
+    </text>
+    <text>
+        <source>The value must not be between or equal to %1 and %2.</source>
+        <output>Der Wert darf nicht zwischen oder gleich %1 und %2.</output>
     </text>
     <text>
         <source>The value must be part of the subnet %1.</source>
@@ -861,6 +141,86 @@
         <output>Der Wert darf nicht Teil der Subnetz %1 sein.</output>
     </text>
     <text>
+        <source>The value must be greater than or equal to %1.</source>
+        <output>Der Wert muss größer als oder gleich %1.</output>
+    </text>
+    <text>
+        <source>The value must not be greater than or equal to %1.</source>
+        <output>Der Wert darf nicht größer als oder gleich %1.</output>
+    </text>
+    <text>
+        <source>The value length must be greater than %1.</source>
+        <output>Der Wert Länge muss größer als %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be greater than %1.</source>
+        <output>Der Wert Länge darf nicht größer sein als %1.</output>
+    </text>
+    <text>
+        <source>The value must only contain alphanumeric characters.</source>
+        <output>Der Wert muss nur alphanumerische Zeichen enthalten.</output>
+    </text>
+    <text>
+        <source>The value must contain non-alphanumeric characters.</source>
+        <output>Der Wert muss nicht alphanumerische Zeichen.</output>
+    </text>
+    <text>
+        <source>The value length must be equal to %1.</source>
+        <output>Der Wert Länge muss gleich %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be equal to %1.</source>
+        <output>Der Wert Länge muss nicht gleich %1.</output>
+    </text>
+    <text>
+        <source>The value length must be greater than or equal to %1.</source>
+        <output>Der Wert Länge muss größer als oder gleich %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be greater than or equal to %1.</source>
+        <output>Der Wert Länge darf nicht größer als oder gleich %1.</output>
+    </text>
+    <text>
+        <source>The value must be less than or equal to %1.</source>
+        <output>Der Wert muss kleiner als oder gleich %1.</output>
+    </text>
+    <text>
+        <source>The value must not be less than or equal to %1.</source>
+        <output>Der Wert darf nicht weniger als oder gleich %1.</output>
+    </text>
+    <text>
+        <source>The value must be between %1 and %2.</source>
+        <output>Der Wert muss zwischen %1 und %2 sein.</output>
+    </text>
+    <text>
+        <source>The value must not be between %1 and %2.</source>
+        <output>Der Wert darf nicht zwischen %1 und %2 sein.</output>
+    </text>
+    <text>
+        <source>The value must be greater than %1.</source>
+        <output>Der Wert muss größer als %1.</output>
+    </text>
+    <text>
+        <source>The value must not be greater than %1.</source>
+        <output>Der Wert darf nicht größer sein als %1.</output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv4 address.</source>
+        <output>Der Wert muss eine gültige IPv4-Adresse sein.</output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv4 address.</source>
+        <output>Der Wert darf nicht eine gültige IPv4-Adresse sein.</output>
+    </text>
+    <text>
+        <source>The value must be a valid email format.</source>
+        <output>Der Wert muss eine gültige E-Mail-Format.</output>
+    </text>
+    <text>
+        <source>The value must not be a valid email format.</source>
+        <output>Der Wert darf nicht eine gültige E-Mail-Format sein.</output>
+    </text>
+    <text>
         <source>The value must be a valid IPv4 subnet.</source>
         <output>Der Wert muss eine gültige IPv4-Subnetz befinden.</output>
     </text>
@@ -869,8 +229,112 @@
         <output>Der Wert darf nicht eine gültige IPv4-Subnetz befinden.</output>
     </text>
     <text>
-        <source>The IP address must be a valid IPv4 address.</source>
-        <output>Die IP-Adresse muss eine gültige IPv4-Adresse sein.</output>
+        <source>The value format is not correct.</source>
+        <output>Der Wert-Format ist nicht korrekt.</output>
+    </text>
+    <text>
+        <source>The value must be equal to %1.</source>
+        <output>Der Wert muss gleich %1.</output>
+    </text>
+    <text>
+        <source>The value must not be equal to %1.</source>
+        <output>Der Wert muss nicht gleich %1.</output>
+    </text>
+    <text>
+        <source>The value must be less than %1.</source>
+        <output>Der Wert muss kleiner als %1.</output>
+    </text>
+    <text>
+        <source>The value must not be less than %1.</source>
+        <output>Der Wert darf nicht kleiner sein als %1.</output>
+    </text>
+    <text>
+        <source>The value length must be between %1 and %2.</source>
+        <output>Der Wert muss zwischen %1 und %2 sein.</output>
+    </text>
+    <text>
+        <source>The value length must not be between %1 and %2.</source>
+        <output>Der Wert Länge darf nicht zwischen %1 und %2 sein.</output>
+    </text>
+    <text>
+        <source>The value must be numeric.</source>
+        <output>Der Wert muss numerisch sein.</output>
+    </text>
+    <text>
+        <source>The value must not be numeric.</source>
+        <output>Der Wert darf nicht numerisch sein.</output>
+    </text>
+    <text>
+        <source>The value must not be empty.</source>
+        <output>Der Wert darf nicht leer sein.</output>
+    </text>
+    <text>
+        <source>The value must be empty.</source>
+        <output>Der Wert muss leer sein.</output>
+    </text>
+    <text>
+        <source>The value length must be less than %1.</source>
+        <output>Der Wert Länge muss kleiner als %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be less than %1.</source>
+        <output>Der Wert Länge darf nicht kleiner sein als %1.</output>
+    </text>
+    <text>
+        <source>The value must only contain characters in the alphabet.</source>
+        <output>Der Wert muss nur Zeichen enthalten, in dem Alphabet.</output>
+    </text>
+    <text>
+        <source>The value must only contain characters not in the alphabet.</source>
+        <output>Der Wert muss nur Zeichen enthalten, nicht im Alphabet.</output>
+    </text>
+    <text>
+        <source>The value must be excluded.</source>
+        <output>Der Wert muss ausgeschlossen werden.</output>
+    </text>
+    <text>
+        <source>The value must not be excluded.</source>
+        <output>Der Wert darf nicht ausgeschlossen werden.</output>
+    </text>
+    <text>
+        <source>The value length must be less than or equal to %1.</source>
+        <output>Der Wert Länge muss kleiner als oder gleich %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be less than or equal to %1.</source>
+        <output>Der Wert Länge darf nicht kleiner als oder gleich %1.</output>
+    </text>
+    <text>
+        <source>The value must not be equal to %1.</source>
+        <output>Der Wert muss nicht gleich %1.</output>
+    </text>
+    <text>
+        <source>The value must be equal to %1.</source>
+        <output>Der Wert muss gleich %1.</output>
+    </text>
+    <text>
+        <source>Creating controller class files...</source>
+        <output>Erstellen Controller-Klasse-Dateien ...</output>
+    </text>
+    <text>
+        <source>Creating base folder and file structure...</source>
+        <output>Erstellen Basis Ordner-und Dateistruktur ...</output>
+    </text>
+    <text>
+        <source>Creating database table class files...</source>
+        <output>Erstellen Datenbanktabelle class-Dateien ...</output>
+    </text>
+    <text>
+        <source>Creating form class files...</source>
+        <output>Erstellen Form class-Dateien ...</output>
+    </text>
+    <text>
+        <source>You will have to install your web server rewrite configuration manually.</source>
+        <output>Sie müssen Ihren Webserver rewrite Konfiguration manuell zu installieren.</output>
+    </text>
+    <text>
+        <source>Install index controller and web configuration files?</source>
+        <output>Installieren Index-Controller-und Web-Konfigurations-Dateien?</output>
     </text>
     <text>
         <source>The user is valid.</source>
@@ -890,7 +354,7 @@
     </text>
     <text>
         <source>The allowed login attempts (%1) have been exceeded.</source>
-        <output>Die zulässigen Login-Versuche (%1) überschritten wurden.</output>
+        <output>Die zulässigen Login-Versuche ( %1) überschritten wurden.</output>
     </text>
     <text>
         <source>That IP address is blocked.</source>
@@ -903,54 +367,6 @@
     <text>
         <source>The session has expired.</source>
         <output>Die Sitzung ist abgelaufen.</output>
-    </text>
-    <text>
-        <source>The access file does not exist.</source>
-        <output>Die Access-Datei existiert nicht.</output>
-    </text>
-    <text>
-        <source>The user's role is not defined.</source>
-        <output>Die Rolle des Benutzers ist nicht definiert.</output>
-    </text>
-    <text>
-        <source>That class map file does not exist.</source>
-        <output>Diese Klasse Map-Datei existiert nicht.</output>
-    </text>
-    <text>
-        <source>Unknown error.</source>
-        <output>Unbekannter Fehler.</output>
-    </text>
-    <text>
-        <source>You must pass a source folder and a output file to generate a class map file.</source>
-        <output>Sie müssen eine Ausgangs-und einen Ausgabe-Datei, um eine Klasse Map-Datei zu generieren.</output>
-    </text>
-    <text>
-        <source>The source folder passed does not exist.</source>
-        <output>Der Quellordner weitergegeben existiert nicht.</output>
-    </text>
-    <text>
-        <source>The output file passed must be a PHP file.</source>
-        <output>Die Ausgabedatei übergeben werden muss eine PHP-Datei sein.</output>
-    </text>
-    <text>
-        <source>You must pass an install file to install the project.</source>
-        <output>Sie müssen das Bestehen einer Installationsdatei, um das Projekt zu installieren.</output>
-    </text>
-    <text>
-        <source>Unknown option:</source>
-        <output>Unbekannte Option:</output>
-    </text>
-    <text>
-        <source>You must pass at least one argument.</source>
-        <output>Sie müssen gehen mindestens ein Argument.</output>
-    </text>
-    <text>
-        <source>Run './pop -h' for help.</source>
-        <output>Run '. / Pop-h' für Hilfe.</output>
-    </text>
-    <text>
-        <source>Run '.\pop -h' for help.</source>
-        <output>Run '. \ Pop-h' für Hilfe.</output>
     </text>
     <text>
         <source>Aborted.</source>
@@ -989,24 +405,28 @@
         <output>Installation Datenbank</output>
     </text>
     <text>
-        <source>Add project to the bootstrap file?</source>
-        <output>Add-Projekt auf die Bootstrap-Datei?</output>
-    </text>
-    <text>
         <source>Project install complete.</source>
         <output>Projekt Installation abzuschließen.</output>
     </text>
     <text>
-        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
-        <output>Dieser Prozess wird erstellt und installiert die Basis Fundament Ihres Projektes unter dem Ordner in der Installation angegeben. Minimal sollte die Installationsdatei gibt eine Pop \ Config-Objekt mit Ihrem Projekt zu installieren Einstellungen, wie Projektname, Ordner, Formulare, Controller, Ansichten und alle Anmeldeinformationen für die Datenbank.</output>
+        <source>The Pop autoloader class file was not found.</source>
+        <output>Die Pop-Autoloader-Klasse-Datei wurde nicht gefunden.</output>
+    </text>
+    <text>
+        <source>Pop PHP Framework found.</source>
+        <output>Pop PHP Framework gefunden.</output>
+    </text>
+    <text>
+        <source>Project reconfigured.</source>
+        <output>Projekt neu konfiguriert werden.</output>
+    </text>
+    <text>
+        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
+        <output>Dieser Prozess wird erstellt und installiert die Basis Fundament Ihres Projektes unter dem Ordner in der Installation angegeben. Minimal sollte die Installationsdatei gibt eine Pop \ \ Config-Objekt mit Ihrem Projekt zu installieren Einstellungen, wie Projektname, Ordner, Formulare, Controller, Ansichten und alle Anmeldeinformationen für die Datenbank.</output>
     </text>
     <text>
         <source>Besides creating the base folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can take advantage of this by having the database SQL files in the same folder as your install file, like so:</source>
         <output>Neben der Schaffung der Basis von Ordnern und Dateien für Sie, eine der wichtigsten Vorteile ist die Fähigkeit zu testen und zu installieren, die Datenbank und die entsprechenden Konfigurations-und class-Dateien. Profitieren Sie von diesem, indem er die Datenbank SQL-Dateien in den gleichen Ordner wie die Installationsdatei zu nehmen, etwa so:</output>
-    </text>
-    <text>
-        <source>Install a project based on the install file specified</source>
-        <output>Installieren Sie ein Projekt auf der Installations-Datei angegebenen Basis</output>
     </text>
     <text>
         <source>Check the current configuration for required dependencies</source>
@@ -1017,8 +437,8 @@
         <output>Letzte Hilfe</output>
     </text>
     <text>
-        <source>Show project install instructions</source>
-        <output>Zeigen Projekt Installationsanweisungen</output>
+        <source>Install a project based on the install file specified</source>
+        <output>Installieren Sie ein Projekt auf der Installations-Datei angegebenen Basis</output>
     </text>
     <text>
         <source>Set the default language for the project</source>
@@ -1029,8 +449,28 @@
         <output>Erstellen Sie eine Klasse Map-Datei aus dem Quellordner und speichern Sie die Ausgabedatei</output>
     </text>
     <text>
+        <source>Reconfigure the project based on the new location of the project</source>
+        <output>Konfigurieren Sie das Projekt auf den neuen Standort des Projekts</output>
+    </text>
+    <text>
+        <source>Show project install instructions</source>
+        <output>Zeigen Projekt Installationsanweisungen</output>
+    </text>
+    <text>
+        <source>Run the unit tests from a folder</source>
+        <output>Führen Sie die Unit-Tests aus einem Ordner</output>
+    </text>
+    <text>
         <source>Display version of Pop PHP Framework and latest available</source>
         <output>Display-Version der Pop-PHP-Framework und neuesten verfügbaren</output>
+    </text>
+    <text>
+        <source>Run './pop -h' for help.</source>
+        <output>Run '. / Pop-h' für Hilfe.</output>
+    </text>
+    <text>
+        <source>Run '.\pop -h' for help.</source>
+        <output>Run '. \ Pop-h' für Hilfe.</output>
     </text>
     <text>
         <source>Continue?</source>
@@ -1045,82 +485,6 @@
         <output>Bootstrap-Datei nicht gefunden. Versuchen Sie es erneut.</output>
     </text>
     <text>
-        <source>Creating base folder and file structure...</source>
-        <output>Erstellen Basis Ordner-und Dateistruktur ...</output>
-    </text>
-    <text>
-        <source>Creating database table class files...</source>
-        <output>Erstellen Datenbanktabelle class-Dateien ...</output>
-    </text>
-    <text>
-        <source>Enter the two-letter code for the default language:</source>
-        <output>Geben Sie den Code aus zwei Buchstaben für die Standard-Sprache:</output>
-    </text>
-    <text>
-        <source>Real-time configuration changes are not allowed.</source>
-        <output>Real-time Änderungen an der Konfiguration sind nicht gestattet.</output>
-    </text>
-    <text>
-        <source>Run the unit tests from a folder</source>
-        <output>Führen Sie die Unit-Tests aus einem Ordner</output>
-    </text>
-    <text>
-        <source>That folder does not exist.</source>
-        <output>Das Verzeichnis existiert nicht.</output>
-    </text>
-    <text>
-        <source>The folder argument is not a folder.</source>
-        <output>Der Ordner Argument ist kein Ordner.</output>
-    </text>
-    <text>
-        <source>The module name must be set in the module config.</source>
-        <output>Das Modul muss in das Modul Config eingestellt werden.</output>
-    </text>
-    <text>
-        <source>Install index controller and web configuration files?</source>
-        <output>Installieren Index-Controller-und Web-Konfigurations-Dateien?</output>
-    </text>
-    <text>
-        <source>The docblock is not in the correct format.</source>
-        <output>Die Docblock ist nicht im richtigen Format.</output>
-    </text>
-    <text>
-        <source>You will have to install your web server rewrite configuration manually.</source>
-        <output>Sie müssen Ihren Webserver rewrite Konfiguration manuell zu installieren.</output>
-    </text>
-    <text>
-        <source>Creating controller class files...</source>
-        <output>Erstellen Controller-Klasse-Dateien ...</output>
-    </text>
-    <text>
-        <source>Creating form class files...</source>
-        <output>Erstellen Form class-Dateien ...</output>
-    </text>
-    <text>
-        <source>The Sqlite database file and folder are not writable.</source>
-        <output>Die SQLite-Datenbank-Datei und Ordner sind nicht beschreibbar.</output>
-    </text>
-    <text>
-        <source>Project reconfigured.</source>
-        <output>Projekt neu konfiguriert werden.</output>
-    </text>
-    <text>
-        <source>Reconfigure the project based on the new location of the project</source>
-        <output>Konfigurieren Sie das Projekt auf den neuen Standort des Projekts</output>
-    </text>
-    <text>
-        <source>Database credentials detected.</source>
-        <output>Anmeldeinformationen für die Datenbank erkannt.</output>
-    </text>
-    <text>
-        <source>Re-test the database(s)?</source>
-        <output>Re-test die Datenbank (en)?</output>
-    </text>
-    <text>
-        <source>The Pop autoloader class file was not found.</source>
-        <output>Die Pop-Autoloader-Klasse-Datei wurde nicht gefunden.</output>
-    </text>
-    <text>
         <source>Enter the folder where the 'vendor' folder is contained in relation to the current folder:</source>
         <output>Geben Sie den Ordner, in dem die 'Verkäufer' Ordner in Bezug auf den aktuellen Ordner enthalten ist:</output>
     </text>
@@ -1129,59 +493,43 @@
         <output>Pop PHP Framework nicht gefunden. Versuchen Sie es erneut.</output>
     </text>
     <text>
-        <source>Pop PHP Framework found.</source>
-        <output>Pop PHP Framework gefunden.</output>
+        <source>Enter the two-letter code for the default language:</source>
+        <output>Geben Sie den Code aus zwei Buchstaben für die Standard-Sprache:</output>
     </text>
     <text>
-        <source>Error: That cache directory does not exist.</source>
-        <output>Fehler: Das Cache-Verzeichnis existiert nicht.</output>
+        <source>Unknown error.</source>
+        <output>Unbekannter Fehler.</output>
     </text>
     <text>
-        <source>Error: That cache directory is not writable.</source>
-        <output>Fehler: Das Cache-Verzeichnis ist nicht beschreibbar.</output>
+        <source>You must pass a source folder and a output file to generate a class map file.</source>
+        <output>Sie müssen eine Ausgangs-und einen Ausgabe-Datei, um eine Klasse Map-Datei zu generieren.</output>
     </text>
     <text>
-        <source>Error: Memcache is not available.</source>
-        <output>Fehler: Memcache ist nicht verfügbar.</output>
+        <source>The source folder passed does not exist.</source>
+        <output>Der Quellordner weitergegeben existiert nicht.</output>
     </text>
     <text>
-        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
-        <output>Fehler: Die Parameter übergeben muss entweder eine gültige Datei oder eine Instanz von Pop \ File \ File werden.</output>
+        <source>The output file passed must be a PHP file.</source>
+        <output>Die Ausgabedatei übergeben werden muss eine PHP-Datei sein.</output>
     </text>
     <text>
-        <source>You must either pass a Pop\Geo\Geo object or a set of latitude/longitude coordinates.</source>
-        <output>Sie müssen entweder einen Pop\Geo\Geo Objekt oder eine Gruppe von Längengrad / Breitengrad-Koordinaten.</output>
+        <source>You must pass an install file to install the project.</source>
+        <output>Sie müssen das Bestehen einer Installationsdatei, um das Projekt zu installieren.</output>
     </text>
     <text>
-        <source>The required transaction data has not been set.</source>
-        <output>Die erforderlichen Transaktionsdaten nicht festgelegt worden.</output>
+        <source>Unknown option:</source>
+        <output>Unbekannte Option:</output>
     </text>
     <text>
-        <source>The value must be a valid credit card number</source>
-        <output>Der Wert muss eine gültige Kreditkarte Zahl sein</output>
+        <source>You must pass at least one argument.</source>
+        <output>Sie müssen gehen mindestens ein Argument.</output>
     </text>
     <text>
-        <source>The value must not be a valid credit card number</source>
-        <output>Der Wert darf nicht eine gültige Kreditkarte Zahl sein</output>
+        <source>That folder does not exist.</source>
+        <output>Das Verzeichnis existiert nicht.</output>
     </text>
     <text>
-        <source>The array of ID values does not match the number of IDs.</source>
-        <output>Das Array von ID-Werte nicht mit der Anzahl der IDs.</output>
-    </text>
-    <text>
-        <source>The font file does not exist.</source>
-        <output>Die Font-Datei existiert nicht.</output>
-    </text>
-    <text>
-        <source>That font type is not supported.</source>
-        <output>Das Schriftart wird nicht unterstützt.</output>
-    </text>
-    <text>
-        <source>The AFM font file was not found.</source>
-        <output>Die AFM-Schriftart-Datei wurde nicht gefunden.</output>
-    </text>
-    <text>
-        <source>Error: The font license does not allow for it to be embedded.</source>
-        <output>Fehler: Die Schriftart Lizenz nicht erlauben es eingebettet werden.</output>
+        <source>The folder argument is not a folder</source>
+        <output>Der Ordner Argument ist kein Ordner</output>
     </text>
 </language>

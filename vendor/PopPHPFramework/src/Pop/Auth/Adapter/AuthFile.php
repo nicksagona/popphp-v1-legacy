@@ -25,8 +25,7 @@
 namespace Pop\Auth\Adapter;
 
 use Pop\Auth\Auth,
-    Pop\File\File,
-    Pop\Locale\Locale;
+    Pop\File\File;
 
 /**
  * @category   Pop
@@ -63,7 +62,7 @@ class AuthFile extends File implements AdapterInterface
     public function __construct($filename, $delimiter = '|')
     {
         if (!file_exists($filename)) {
-            throw new Exception(Locale::factory()->__('The access file does not exist.'));
+            throw new Exception('The access file does not exist.');
         }
         parent::__construct($filename, array());
         $this->_delimiter = $delimiter;

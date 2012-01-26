@@ -25,8 +25,7 @@
 namespace Pop\Cache;
 
 use Pop\Dir\Dir,
-    Pop\File\File as PopFile,
-    Pop\Locale\Locale;
+    Pop\File\File as PopFile;
 
 /**
  * @category   Pop
@@ -57,12 +56,12 @@ class File implements CacheInterface
     public function __construct($dir)
     {
         if (!file_exists($dir)) {
-            throw new Exception(Locale::factory()->__('Error: That cache directory does not exist.'));
+            throw new Exception('Error: That cache directory does not exist.');
         } else if (!is_writable($dir)) {
-            throw new Exception(Locale::factory()->__('Error: That cache directory is not writable.'));
-        } else {
-            $this->_dir = realpath($dir);
+            throw new Exception('Error: That cache directory is not writable.');
         }
+
+        $this->_dir = realpath($dir);
     }
 
     /**

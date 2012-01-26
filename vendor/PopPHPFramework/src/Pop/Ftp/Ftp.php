@@ -24,8 +24,6 @@
  */
 namespace Pop\Ftp;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Ftp
@@ -44,12 +42,6 @@ class Ftp
     protected $_conn = null;
 
     /**
-     * Language object
-     * @var Pop\Locale\Locale
-     */
-    protected $_lang = null;
-
-    /**
      * Constructor
      *
      * Instantiate the FTP object.
@@ -63,20 +55,18 @@ class Ftp
      */
     public function __construct($ftp, $user, $pass, $ssl = false)
     {
-        $this->_lang = new Locale();
-
         if ($ssl) {
             if (!($this->_conn = ftp_ssl_connect($ftp))) {
-                throw new Exception($this->_lang->__('Error: There was an error connecting to the FTP server %1.', $ftp));
+                throw new Exception('Error: There was an error connecting to the FTP server ' . $ftp);
             }
         } else {
             if (!($this->_conn = ftp_connect($ftp))) {
-                throw new Exception($this->_lang->__('Error: There was an error connecting to the FTP server %1.', $ftp));
+                throw new Exception('Error: There was an error connecting to the FTP server ' . $ftp);
             }
         }
 
         if (!ftp_login($this->_conn, $user, $pass)) {
-            throw new Exception($this->_lang->__('Error: There was an error connecting to the FTP server %1 with those credentials.', $ftp));
+            throw new Exception('Error: There was an error connecting to the FTP server ' . $ftp . ' with those credentials.');
         }
     }
 
@@ -100,7 +90,7 @@ class Ftp
     public function chdir($dir)
     {
         if (!ftp_chdir($this->_conn, $dir)) {
-            throw new Exception($this->_lang->__('Error: There was an error changing to the directory %1.', $dir));
+            throw new Exception('Error: There was an error changing to the directory ' . $dir);
         }
         return $this;
     }
@@ -115,7 +105,7 @@ class Ftp
     public function mkdir($dir)
     {
         if (!ftp_mkdir($this->_conn, $dir)) {
-            throw new Exception($this->_lang->__('Error: There was an error making the directory %1.', $dir));
+            throw new Exception('Error: There was an error making the directory ' . $dir);
         }
         return $this;
     }
@@ -130,7 +120,7 @@ class Ftp
     public function rmdir($dir)
     {
         if (!ftp_mkdir($this->_conn, $dir)) {
-            throw new Exception($this->_lang->__('Error: There was an error removing the directory %1.', $dir));
+            throw new Exception('Error: There was an error removing the directory ' . $dir);
         }
         return $this;
     }
@@ -147,7 +137,7 @@ class Ftp
     public function get($local, $remote, $mode = FTP_BINARY)
     {
         if (!ftp_get($this->_conn, $local, $remote, $mode)) {
-            throw new Exception($this->_lang->__('Error: There was an error getting the file %1.', $remote));
+            throw new Exception('Error: There was an error getting the file ' . $remote);
         }
         return $this;
     }
@@ -164,7 +154,7 @@ class Ftp
     public function put($remote, $local, $mode = FTP_BINARY)
     {
         if (!ftp_put($this->_conn, $remote, $local, $mode)) {
-            throw new Exception($this->_lang->__('Error: There was an error putting the file %1.', $local));
+            throw new Exception('Error: There was an error putting the file ' . $local);
         }
     }
 
@@ -180,7 +170,7 @@ class Ftp
     public function rename($old, $new)
     {
         if (!ftp_rename($this->_conn, $old, $new)) {
-            throw new Exception($this->_lang->__('Error: There was an error renaming the file %1.', $old));
+            throw new Exception('Error: There was an error renaming the file ' . $old);
         }
         return $this;
     }
@@ -196,7 +186,7 @@ class Ftp
     public function chmod($file, $mode)
     {
         if (!ftp_chmod($this->_conn, $mode, $file)) {
-            throw new Exception($this->_lang->__('Error: There was an error changing the permission of %1.', $file));
+            throw new Exception('Error: There was an error changing the permission of ' . $file);
         }
         return $this;
     }
@@ -211,7 +201,7 @@ class Ftp
     public function delete($file)
     {
         if (!ftp_delete($this->_conn, $file)) {
-            throw new Exception($this->_lang->__('Error: There was an error removing the file %1.', $file));
+            throw new Exception('Error: There was an error removing the file ' . $file);
         }
         return $this;
     }

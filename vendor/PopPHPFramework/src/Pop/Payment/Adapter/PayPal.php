@@ -24,8 +24,7 @@
  */
 namespace Pop\Payment\Adapter;
 
-use Pop\Curl\Curl,
-    Pop\Locale\Locale;
+use Pop\Curl\Curl;
 
 /**
  * @category   Pop
@@ -202,7 +201,7 @@ class PayPal extends AbstractAdapter
         }
 
         if (!$this->_validate()) {
-            throw new Exception(Locale::factory()->__('The required transaction data has not been set.'));
+            throw new Exception('The required transaction data has not been set.');
         }
 
         $url = ($this->_test) ? $this->_testUrl : $this->_liveUrl;

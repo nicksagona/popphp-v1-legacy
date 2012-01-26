@@ -24,8 +24,6 @@
  */
 namespace Pop\Pdf;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Pdf
@@ -155,8 +153,6 @@ class Page
      */
     public function __construct($str = null, $sz = null, $w = null, $h = null, $i = null)
     {
-        $lang = new Locale();
-
         // Use default settings for a new PDF page.
         if (null === $str) {
             // If no arguments are passed, default to the Letter size.
@@ -172,29 +168,26 @@ class Page
                     } else {
                         // Else, assign a custom width and height.
                         if (((null === $w) && (null !== $h)) || ((null !== $w) && (null === $h))) {
-                            throw new Exception($lang->__('Error: A width and height must be passed.'));
-                        } else {
-                            $this->width = $w;
-                            $this->height = $h;
+                            throw new Exception('Error: A width and height must be passed.');
                         }
+                        $this->width = $w;
+                        $this->height = $h;
                     }
                 } else {
                     // Else, assign a custom width and height.
                     if (((null === $w) && (null !== $h)) || ((null !== $w) && (null === $h))) {
-                        throw new Exception($lang->__('Error: A width and height must be passed.'));
-                    } else {
-                        $this->width = $w;
-                        $this->height = $h;
+                        throw new Exception('Error: A width and height must be passed.');
                     }
+                    $this->width = $w;
+                    $this->height = $h;
                 }
             }
 
             if (null === $i) {
-                throw new Exception($lang->__('Error: A page index must be passed.'));
-            } else {
-                $this->index = $i;
-                $this->_data = "\n[{page_index}] 0 obj\n<</Type/Page/Parent [{parent}] 0 R[{annotations}]/MediaBox[0 0 {$this->width} {$this->height}]/Contents[[{content_objects}]]/Resources<</ProcSet[/PDF/Text/ImageB/ImageC/ImageI][{xobjects}][{fonts}]>>>>\nendobj\n";
+                throw new Exception('Error: A page index must be passed.');
             }
+            $this->index = $i;
+            $this->_data = "\n[{page_index}] 0 obj\n<</Type/Page/Parent [{parent}] 0 R[{annotations}]/MediaBox[0 0 {$this->width} {$this->height}]/Contents[[{content_objects}]]/Resources<</ProcSet[/PDF/Text/ImageB/ImageC/ImageI][{xobjects}][{fonts}]>>>>\nendobj\n";
         } else {
             // Else, determine the page object index.
             $this->index = substr($str, 0, strpos($str, ' '));

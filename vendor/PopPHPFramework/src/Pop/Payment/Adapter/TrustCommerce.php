@@ -24,8 +24,7 @@
  */
 namespace Pop\Payment\Adapter;
 
-use Pop\Curl\Curl,
-    Pop\Locale\Locale;
+use Pop\Curl\Curl;
 
 /**
  * @category   Pop
@@ -164,7 +163,7 @@ class TrustCommerce extends AbstractAdapter
     public function send($verifyPeer = true)
     {
         if (!$this->_validate()) {
-            throw new Exception(Locale::factory()->__('The required transaction data has not been set.'));
+            throw new Exception('The required transaction data has not been set.');
         }
 
         $this->_transaction['demo'] = ($this->_test) ? 'y' : 'n';

@@ -28,8 +28,7 @@ use Pop\Color\Cmyk,
     Pop\Color\Hex,
     Pop\Color\Hsb,
     Pop\Color\Lab,
-    Pop\Color\Rgb,
-    Pop\Locale\Locale;
+    Pop\Color\Rgb;
 
 /**
  * @category   Pop
@@ -67,12 +66,6 @@ class Color
     protected $_colors = array();
 
     /**
-     * Language object
-     * @var Pop_Locale
-     */
-    protected $_lang = null;
-
-    /**
      * Constructor
      *
      * Instantiate the color object
@@ -83,8 +76,6 @@ class Color
      */
     public function __construct(ColorInterface $color = null, $convert = true)
     {
-        $this->_lang = new Locale();
-
         if (null !== $color) {
             $this->addColor($color, $convert);
         }
@@ -153,19 +144,19 @@ class Color
         $class = get_class($color);
 
         if ($class == 'Pop\\Color\\Cmyk') {
-            throw new Exception($this->_lang->__('That color space object is already that type.'));
-        } else {
-            $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
-            $method = $type . 'ToCmyk';
-
-            $cmyk = $this->$method($color);
-
-            if ($save) {
-                $this->_colors['cmyk'] = $cmyk;
-            }
-
-            return $cmyk;
+            throw new Exception('That color space object is already that type.');
         }
+
+        $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
+        $method = $type . 'ToCmyk';
+
+        $cmyk = $this->$method($color);
+
+        if ($save) {
+            $this->_colors['cmyk'] = $cmyk;
+        }
+
+        return $cmyk;
     }
 
     /**
@@ -180,19 +171,19 @@ class Color
         $class = get_class($color);
 
         if ($class == 'Pop\\Color\\Hex') {
-            throw new Exception($this->_lang->__('That color space object is already that type.'));
-        } else {
-            $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
-            $method = $type . 'ToHex';
-
-            $hex = $this->$method($color);
-
-            if ($save) {
-                $this->_colors['hex'] = $hex;
-            }
-
-            return $hex;
+            throw new Exception('That color space object is already that type.');
         }
+
+        $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
+        $method = $type . 'ToHex';
+
+        $hex = $this->$method($color);
+
+        if ($save) {
+            $this->_colors['hex'] = $hex;
+        }
+
+        return $hex;
     }
 
     /**
@@ -207,19 +198,19 @@ class Color
         $class = get_class($color);
 
         if ($class == 'Pop\\Color\\Hsb') {
-            throw new Exception($this->_lang->__('That color space object is already that type.'));
-        } else {
-            $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
-            $method = $type . 'ToHsb';
-
-            $hsb = $this->$method($color);
-
-            if ($save) {
-                $this->_colors['hsb'] = $hsb;
-            }
-
-            return $hsb;
+            throw new Exception('That color space object is already that type.');
         }
+
+        $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
+        $method = $type . 'ToHsb';
+
+        $hsb = $this->$method($color);
+
+        if ($save) {
+            $this->_colors['hsb'] = $hsb;
+        }
+
+        return $hsb;
     }
 
     /**
@@ -234,19 +225,19 @@ class Color
         $class = get_class($color);
 
         if ($class == 'Pop\\Color\\Lab') {
-            throw new Exception($this->_lang->__('That color space object is already that type.'));
-        } else {
-            $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
-            $method = $type . 'ToLab';
-
-            $lab = $this->$method($color);
-
-            if ($save) {
-                $this->_colors['lab'] = $lab;
-            }
-
-            return $lab;
+            throw new Exception('That color space object is already that type.');
         }
+
+        $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
+        $method = $type . 'ToLab';
+
+        $lab = $this->$method($color);
+
+        if ($save) {
+            $this->_colors['lab'] = $lab;
+        }
+
+        return $lab;
     }
 
     /**
@@ -261,19 +252,19 @@ class Color
         $class = get_class($color);
 
         if ($class == 'Pop\\Color\\Rgb') {
-            throw new Exception($this->_lang->__('That color space object is already that type.'));
-        } else {
-            $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
-            $method = $type . 'ToRgb';
-
-            $rgb = $this->$method($color);
-
-            if ($save) {
-                $this->_colors['rgb'] = $rgb;
-            }
-
-            return $rgb;
+            throw new Exception('That color space object is already that type.');
         }
+
+        $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
+        $method = $type . 'ToRgb';
+
+        $rgb = $this->$method($color);
+
+        if ($save) {
+            $this->_colors['rgb'] = $rgb;
+        }
+
+        return $rgb;
     }
 
     /**
@@ -695,10 +686,10 @@ class Color
 
         // Check to see if the color space object exists.
         if (!array_key_exists($name, $this->_colors)) {
-            throw new Exception($this->_lang->__('That color space object does not exist.'));
-        } else {
-            return $this->_colors[$name];
+            throw new Exception('That color space object does not exist.');
         }
+
+        return $this->_colors[$name];
     }
 
     /**

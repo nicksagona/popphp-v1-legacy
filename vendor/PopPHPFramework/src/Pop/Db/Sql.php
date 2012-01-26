@@ -24,8 +24,6 @@
  */
 namespace Pop\Db;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Db
@@ -134,12 +132,6 @@ class Sql
     protected $_idQuoteType = 0;
 
     /**
-     * Language object
-     * @var Pop_Locale
-     */
-    protected $_lang = null;
-
-    /**
      * Constructor
      *
      * Instantiate the SQL object.
@@ -149,8 +141,6 @@ class Sql
      */
     public function __construct($table = null)
     {
-        $this->_lang = new Locale();
-
         if (null !== $table) {
             $this->setTable($table);
         }
@@ -291,17 +281,16 @@ class Sql
      * @throws Exception
      * @return Pop_Db_Sql
      */
-    public function insert($columns)
+    public function insert(array $columns)
     {
-        if (!is_array($columns)) {
-            throw new Exception($this->_lang->__('Error: The columns parameter must be an array.'));
-        } else if (count($columns) == 0) {
-            throw new Exception($this->_lang->__('Error: The columns parameter must be an array that contains at least one key/value pair.'));
-        } else {
-            $this->_type = 'INSERT';
-            $this->_insertColumns = $this->_quote($columns);
-            return $this;
+        if (count($columns) == 0) {
+            throw new Exception('Error: The columns parameter must be an array that contains at least one key/value pair.');
         }
+
+        $this->_type = 'INSERT';
+        $this->_insertColumns = $this->_quote($columns);
+
+        return $this;
     }
 
     /**
@@ -311,17 +300,16 @@ class Sql
      * @throws Exception
      * @return Pop_Db_Sql
      */
-    public function update($columns)
+    public function update(array $columns)
     {
-        if (!is_array($columns)) {
-            throw new Exception($this->_lang->__('Error: The columns parameter must be an array.'));
-        } else if (count($columns) == 0) {
-            throw new Exception($this->_lang->__('Error: The columns parameter must be an array that contains at least one key/value pair.'));
-        } else {
-            $this->_type = 'UPDATE';
-            $this->_updateColumns = $this->_quote($columns);
-            return $this;
+        if (count($columns) == 0) {
+            throw new Exception('Error: The columns parameter must be an array that contains at least one key/value pair.');
         }
+
+        $this->_type = 'UPDATE';
+        $this->_updateColumns = $this->_quote($columns);
+
+        return $this;
     }
 
     /**
@@ -446,82 +434,82 @@ class Sql
     protected function _buildSql()
     {
         if (null === $this->_table) {
-            throw new Exception($this->_lang->__('Error: The table must be set.'));
+            throw new Exception('Error: The table must be set.');
         } else if (null === $this->_type) {
-            throw new Exception($this->_lang->__('Error: A SQL type must be set.'));
-        } else {
-            switch ($this->_type) {
-                // Build a SELECT query.
-                case 'SELECT':
-                    $selectColumns = ($this->_distinct) ? 'DISTINCT ' : null;
-                    if ((count($this->_selectColumns) == 1) && ($this->_selectColumns[0] == '*')) {
-                        $selectColumns .= '*';
+            throw new Exception('Error: A SQL type must be set.');
+        }
+
+        switch ($this->_type) {
+            // Build a SELECT query.
+            case 'SELECT':
+                $selectColumns = ($this->_distinct) ? 'DISTINCT ' : null;
+                if ((count($this->_selectColumns) == 1) && ($this->_selectColumns[0] == '*')) {
+                    $selectColumns .= '*';
+                } else {
+                    $selAry = array();
+                    foreach ($this->_selectColumns as $value) {
+                        $selAry[] = $this->_quoteId($value);
+                    }
+                    $selectColumns .= implode(', ', $selAry);
+                }
+
+                $this->_sql = $this->_type . ' ' . $selectColumns . ' FROM ' . $this->_quoteId($this->_table);
+
+                // If there is a join clause.
+                if (count($this->_join) > 0) {
+                    if (is_array($this->_join['commonColumn'])) {
+                        $col1 = $this->_join['commonColumn'][0];
+                        $col2 = $this->_join['commonColumn'][1];
                     } else {
-                        $selAry = array();
-                        foreach ($this->_selectColumns as $value) {
-                            $selAry[] = $this->_quoteId($value);
-                        }
-                        $selectColumns .= implode(', ', $selAry);
+                        $col1 = $this->_join['commonColumn'];
+                        $col2 = $this->_join['commonColumn'];
                     }
+                    $this->_sql .= ' ' . $this->_join['typeOfJoin'] . ' ' . $this->_join['tableToJoin'] . ' ON ' . $this->_quoteId($this->_table) . '.' . $col1 . ' = ' . $this->_join['tableToJoin'] . '.' . $col2;
+                }
 
-                    $this->_sql = $this->_type . ' ' . $selectColumns . ' FROM ' . $this->_quoteId($this->_table);
+                // If there is a where clause.
+                if (count($this->_where) > 0) {
+                    $this->_sql .= ' WHERE ' . $this->_formatWhereConditions();
+                }
 
-                    // If there is a join clause.
-                    if (count($this->_join) > 0) {
-                        if (is_array($this->_join['commonColumn'])) {
-                            $col1 = $this->_join['commonColumn'][0];
-                            $col2 = $this->_join['commonColumn'][1];
-                        } else {
-                            $col1 = $this->_join['commonColumn'];
-                            $col2 = $this->_join['commonColumn'];
-                        }
-                        $this->_sql .= ' ' . $this->_join['typeOfJoin'] . ' ' . $this->_join['tableToJoin'] . ' ON ' . $this->_quoteId($this->_table) . '.' . $col1 . ' = ' . $this->_join['tableToJoin'] . '.' . $col2;
-                    }
+                // If there is an order clause.
+                if (null !== $this->_order) {
+                    $this->_sql .= ' ORDER BY ' . $this->_order;
+                }
 
-                    // If there is a where clause.
-                    if (count($this->_where) > 0) {
-                        $this->_sql .= ' WHERE ' . $this->_formatWhereConditions();
-                    }
+                // If there is a limit clause.
+                if (null !== $this->_limit) {
+                    $this->_sql .= ' LIMIT ' . $this->_limit;
+                }
 
-                    // If there is an order clause.
-                    if (null !== $this->_order) {
-                        $this->_sql .= ' ORDER BY ' . $this->_order;
-                    }
+                break;
 
-                    // If there is a limit clause.
-                    if (null !== $this->_limit) {
-                        $this->_sql .= ' LIMIT ' . $this->_limit;
-                    }
+            // Build an INSERT query.
+            case 'INSERT':
+                $this->_sql = $this->_type . ' INTO ' . $this->_quoteId($this->_table) . ' ' . $this->_formatInsertValues();
+                break;
 
-                    break;
+            // Build an UPDATE query.
+            case 'UPDATE':
+                $this->_sql = $this->_type . ' ' . $this->_quoteId($this->_table) . ' SET ' . $this->_formatUpdateValues();
 
-                // Build an INSERT query.
-                case 'INSERT':
-                    $this->_sql = $this->_type . ' INTO ' . $this->_quoteId($this->_table) . ' ' . $this->_formatInsertValues();
-                    break;
+                // If there is a where clause.
+                if (count($this->_where) > 0) {
+                    $this->_sql .= ' WHERE ' . $this->_formatWhereConditions();
+                }
 
-                // Build an UPDATE query.
-                case 'UPDATE':
-                    $this->_sql = $this->_type . ' ' . $this->_quoteId($this->_table) . ' SET ' . $this->_formatUpdateValues();
+                break;
 
-                    // If there is a where clause.
-                    if (count($this->_where) > 0) {
-                        $this->_sql .= ' WHERE ' . $this->_formatWhereConditions();
-                    }
+            // Build a DELETE query.
+            case 'DELETE':
+                $this->_sql = $this->_type . ' FROM ' . $this->_quoteId($this->_table);
 
-                    break;
+                // If there is a where clause.
+                if (count($this->_where) > 0) {
+                    $this->_sql .= ' WHERE ' . $this->_formatWhereConditions();
+                }
 
-                // Build a DELETE query.
-                case 'DELETE':
-                    $this->_sql = $this->_type . ' FROM ' . $this->_quoteId($this->_table);
-
-                    // If there is a where clause.
-                    if (count($this->_where) > 0) {
-                        $this->_sql .= ' WHERE ' . $this->_formatWhereConditions();
-                    }
-
-                    break;
-            }
+                break;
         }
     }
 

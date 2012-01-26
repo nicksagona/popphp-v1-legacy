@@ -139,7 +139,7 @@ class Image extends Gd
             }
             $this->_parsePng();
         } else {
-            throw new Exception($this->_lang->__('Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.'));
+            throw new Exception('Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.');
         }
 
         // Define the xobject object and stream.
@@ -258,7 +258,7 @@ class Image extends Gd
 
         // Make sure the PNG does not contain a true alpha channel.
         if ($this->alpha) {
-            throw new Exception($this->_lang->__('Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.'));
+            throw new Exception('Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.');
         }
 
         // Determine the PNG colorspace.

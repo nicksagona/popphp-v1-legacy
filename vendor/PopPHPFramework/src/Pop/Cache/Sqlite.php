@@ -27,8 +27,7 @@ namespace Pop\Cache;
 use Pop\Db\Db,
     Pop\Db\Sql,
     Pop\Dir\Dir,
-    Pop\File\File,
-    Pop\Locale\Locale;
+    Pop\File\File;
 
 /**
  * @category   Pop
@@ -80,7 +79,7 @@ class Sqlite implements CacheInterface
             if (is_writable($dir)) {
                 touch($db);
             } else {
-                throw new Exception(Locale::factory()->__('Error: That cache db file and/or directory is not writable.'));
+                throw new Exception('Error: That cache db file and/or directory is not writable.');
             }
         }
 
@@ -89,18 +88,18 @@ class Sqlite implements CacheInterface
 
         // Check the permissions, access the database and check for the cache table.
         if (!is_writable($dir) || !is_writable($this->_db)) {
-            throw new Exception(Locale::factory()->__('Error: That cache db file and/or directory is not writable.'));
-        } else {
-            $this->_sqlite = Db::factory('Sqlite', array('database' => $this->_db));
-
-            // If the cache table doesn't exist, create it.
-            if (!in_array($this->_table, $this->_sqlite->adapter->getTables())) {
-                $this->_sqlite->adapter->query('CREATE TABLE IF NOT EXISTS "' . $this->_table . '" ("id" VARCHAR PRIMARY KEY NOT NULL UNIQUE, "value" BLOB, "time" INTEGER)');
-            }
-
-            $this->_sqlite->sql->setTable($this->_table);
-            $this->_sqlite->sql->setIdQuoteType(Sql::DOUBLE_QUOTE);
+            throw new Exception('Error: That cache db file and/or directory is not writable.');
         }
+
+        $this->_sqlite = Db::factory('Sqlite', array('database' => $this->_db));
+
+        // If the cache table doesn't exist, create it.
+        if (!in_array($this->_table, $this->_sqlite->adapter->getTables())) {
+            $this->_sqlite->adapter->query('CREATE TABLE IF NOT EXISTS "' . $this->_table . '" ("id" VARCHAR PRIMARY KEY NOT NULL UNIQUE, "value" BLOB, "time" INTEGER)');
+        }
+
+        $this->_sqlite->sql->setTable($this->_table);
+        $this->_sqlite->sql->setIdQuoteType(Sql::DOUBLE_QUOTE);
     }
 
     /**

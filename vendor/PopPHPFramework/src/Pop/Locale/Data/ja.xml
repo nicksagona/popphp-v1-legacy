@@ -13,212 +13,56 @@
 ]>
 <language src="en" output="ja" name="Japanese" native="日本">
     <text>
-        <source>That option is not set.</source>
-        <output>このオプションが設定されていません。</output>
-    </text>
-    <text>
-        <source>Error:</source>
-        <output>エラー：</output>
-    </text>
-    <text>
-        <source>Error: The proper database credentials were not passed.</source>
-        <output>エラー：適切なデータベースの資格情報が渡されませんでした。</output>
-    </text>
-    <text>
-        <source>Error: The database result resource is not currently set.</source>
-        <output>エラー：データベース結果リソースは、現在設定されていません。</output>
-    </text>
-    <text>
-        <source>Error: Could not connect to database. Connection Error #%1: %2.</source>
-        <output>エラー：データベースに接続できませんでした。接続エラー＃%1： %2。</output>
-    </text>
-    <text>
-        <source>Error: There was an error connecting to the database.</source>
-        <output>エラー：データベースに接続エラーが発生しました。</output>
-    </text>
-    <text>
-        <source>Error: The database file was not passed.</source>
-        <output>エラー：データベースファイルが渡されませんでした。</output>
-    </text>
-    <text>
-        <source>Error: The database file does not exists.</source>
-        <output>エラー：データベースファイルが存在しません。</output>
-    </text>
-    <text>
-        <source>Error: That doctype is not allowed.</source>
-        <output>エラー：そのdoctypeは許可されていません。</output>
-    </text>
-    <text>
-        <source>The child element passed is not an instance of Pop\Dom\Child.</source>
-        <output>渡された子要素はPop\Dom\Childのインスタンスではありません。</output>
-    </text>
-    <text>
-        <source>One or more of the child elements passed is not an instance of Pop\Dom\Child.</source>
-        <output>渡された子要素の1つまたは複数のPop\Dom\Childのインスタンスではありません。</output>
-    </text>
-    <text>
-        <source>That feed URL cannot be read at this time. Please try again later.</source>
-        <output>そのフィードのURLは、この時点で読み取ることができません。後でもう一度やり直してください。</output>
-    </text>
-    <text>
-        <source>Error: The feed item template is not set.</source>
-        <output>エラー：フィード項目テンプレートが設定されていません。</output>
-    </text>
-    <text>
-        <source>Error: The feed currently has no content.</source>
-        <output>エラーは：フィードは、現在はコンテンツがありません。</output>
-    </text>
-    <text>
-        <source>Error: The feed type must be only RSS or ATOM.</source>
-        <output>エラー：フィードの種類は、RSSやATOMする必要があります。</output>
-    </text>
-    <text>
-        <source>Error: The file is not an accepted file format.</source>
-        <output>エラー：ファイルが受け入れられたファイル形式ではありません。</output>
-    </text>
-    <text>
-        <source>Error: The file already exists.</source>
-        <output>エラー：ファイルが既に存在しています。</output>
-    </text>
-    <text>
-        <source>Error: The directory does not exist.</source>
-        <output>エラー：ディレクトリが存在しません。</output>
-    </text>
-    <text>
-        <source>Error: The upload directory does not exist.</source>
-        <output>エラー：存在しないディレクトリをアップロードしてください。</output>
-    </text>
-    <text>
-        <source>Error: The file uploaded is too big.</source>
-        <output>エラーは：アップロードされたファイルが大きすぎます。</output>
-    </text>
-    <text>
-        <source>Error: The image file uploaded is too big.</source>
-        <output>エラーは：アップロードされた画像ファイルが大きすぎます。</output>
-    </text>
-    <text>
-        <source>Error: There was an error in uploading the file.</source>
-        <output>エラー：ファイルをアップロード中にエラーが発生しました。</output>
-    </text>
-    <text>
-        <source>Error: There was an error in uploading the image file.</source>
-        <output>エラー：画像のファイルをアップロード中にエラーが発生しました。</output>
-    </text>
-    <text>
-        <source>Error: Permission denied.</source>
-        <output>エラー：アクセスが拒否されました。</output>
-    </text>
-    <text>
-        <source>Error: The parameter passed is not an array.</source>
-        <output>エラーは：渡されたパラメータは配列ではありません。</output>
-    </text>
-    <text>
-        <source>Error: The array passed must contain at least one type.</source>
-        <output>エラー：少なくとも1つのタイプが含まれている必要が渡された配列。</output>
-    </text>
-    <text>
-        <source>Error: The file or directory (%1) is not writable.</source>
-        <output>エラーは：ファイルまたはディレクトリ（%1）が書き込み可能ではありません。</output>
-    </text>
-    <text>
-        <source>Error: There are no form elements declared for this form object.</source>
-        <output>エラーは：no形式の要素は、このフォームオブジェクトの宣言があります。</output>
-    </text>
-    <text>
-        <source>Error: That input type is not allowed.</source>
-        <output>エラーが発生しました：その入力タイプが許可されていません。</output>
-    </text>
-    <text>
-        <source>Error: The required flag must be a boolean value.</source>
-        <output>エラー：必要なフラグはブール値でなければなりません。</output>
-    </text>
-    <text>
-        <source>Error: That type validator is not allowed.</source>
-        <output>エラー：そのタイプのバリデータが許可されていません。</output>
-    </text>
-    <text>
-        <source>Error: The condition must be a boolean.</source>
-        <output>エラー：条件がブール値である必要があります。</output>
-    </text>
-    <text>
         <source>This field is required.</source>
         <output>このフィールドは必須です。</output>
     </text>
     <text>
-        <source>This field value must %1 contain alphanumeric characters.</source>
-        <output>このフィールドの値は%1文字の英数字を使用する必要があります。</output>
+        <source>January</source>
+        <output>月</output>
     </text>
     <text>
-        <source>This field value must %1 contain characters of the alphabet.</source>
-        <output>このフィールドの値は%1はアルファベットの文字が含まれている必要があります。</output>
+        <source>February</source>
+        <output>月</output>
     </text>
     <text>
-        <source>This field value is %1 between %2 and %3.</source>
-        <output>このフィールドの値の間に%1%2%3。</output>
+        <source>March</source>
+        <output>月</output>
     </text>
     <text>
-        <source>This field value format is %1 a correct email format.</source>
-        <output>このフィールドの値の形式は%1正しいメール形式です。</output>
+        <source>April</source>
+        <output>月</output>
     </text>
     <text>
-        <source>This field value does not equal the correct value.</source>
-        <output>このフィールドの値は正しい値と等しくありません。</output>
+        <source>May</source>
+        <output>5月</output>
     </text>
     <text>
-        <source>This field value is %1 greater than %2.</source>
-        <output>このフィールドの値は%2以上%1より大きいです。</output>
+        <source>June</source>
+        <output>月</output>
     </text>
     <text>
-        <source>This field value length is %1 equal to %2 characters long.</source>
-        <output>このフィールドの値の長さは%1%2文字の長さ％に相当する。</output>
+        <source>July</source>
+        <output>月</output>
     </text>
     <text>
-        <source>This field value length is %1 between %2 and %3.</source>
-        <output>このフィールド値の長さの間に%1%2%3。</output>
+        <source>August</source>
+        <output>月</output>
     </text>
     <text>
-        <source>This field value length must be %1 %2 characters long.</source>
-        <output>このフィールドの値の長さは%1長%2文字以下でなければなりません。</output>
+        <source>September</source>
+        <output>月</output>
     </text>
     <text>
-        <source>This field value is %1 less than %2.</source>
-        <output>このフィールドの値は、%1%2未満である。</output>
+        <source>October</source>
+        <output>月</output>
     </text>
     <text>
-        <source>This field value is %1 empty.</source>
-        <output>このフィールドの値は%1は空です。</output>
+        <source>November</source>
+        <output>11月</output>
     </text>
     <text>
-        <source>This field value is %1 a number.</source>
-        <output>このフィールドの値は%1の番号です。</output>
-    </text>
-    <text>
-        <source>This field value format is %1 correct.</source>
-        <output>このフィールドの値の形式は%1正しいことを確認します。</output>
-    </text>
-    <text>
-        <source>The parameter passed must be an array.</source>
-        <output>パラメータは配列でなければなりません渡されます。</output>
-    </text>
-    <text>
-        <source>The array parameter passed must contain an array.</source>
-        <output>配列パラメータは、配列が含まれている必要があります渡されます。</output>
-    </text>
-    <text>
-        <source>not</source>
-        <output>は</output>
-    </text>
-    <text>
-        <source>only</source>
-        <output>のみ</output>
-    </text>
-    <text>
-        <source>under</source>
-        <output>下</output>
-    </text>
-    <text>
-        <source>at least</source>
-        <output>少なくとも</output>
+        <source>December</source>
+        <output>月</output>
     </text>
     <text>
         <source>Sunday</source>
@@ -226,7 +70,7 @@
     </text>
     <text>
         <source>Monday</source>
-        <output>月曜日</output>
+        <output>月</output>
     </text>
     <text>
         <source>Tuesday</source>
@@ -249,592 +93,12 @@
         <output>土曜日</output>
     </text>
     <text>
-        <source>January</source>
-        <output>1月</output>
-    </text>
-    <text>
-        <source>February</source>
-        <output>2月</output>
-    </text>
-    <text>
-        <source>March</source>
-        <output>3月</output>
-    </text>
-    <text>
-        <source>April</source>
-        <output>4月</output>
-    </text>
-    <text>
-        <source>May</source>
-        <output>5月</output>
-    </text>
-    <text>
-        <source>June</source>
-        <output>6月</output>
-    </text>
-    <text>
-        <source>July</source>
-        <output>7月</output>
-    </text>
-    <text>
-        <source>August</source>
-        <output>8月</output>
-    </text>
-    <text>
-        <source>September</source>
-        <output>9月</output>
-    </text>
-    <text>
-        <source>October</source>
-        <output>10月</output>
-    </text>
-    <text>
-        <source>November</source>
-        <output>11月</output>
-    </text>
-    <text>
-        <source>December</source>
-        <output>12月</output>
-    </text>
-    <text>
-        <source>Error: There was an error connecting to the FTP server %1.</source>
-        <output>エラーは：FTPサーバー%1に接続してエラーが発生しました。</output>
-    </text>
-    <text>
-        <source>Error: There was an error connecting to the FTP server %1 with those credentials.</source>
-        <output>エラー：これらの資格情報を使用してFTPサーバー%1に接続してエラーが発生しました。</output>
-    </text>
-    <text>
-        <source>Error: There was an error changing to the directory %1.</source>
-        <output>エラーは：ディレクトリ%1に変更する際にエラーが発生しました。</output>
-    </text>
-    <text>
-        <source>Error: There was an error making the directory %1.</source>
-        <output>エラーは：ディレクトリ%1を作成中にエラーが発生しました。</output>
-    </text>
-    <text>
-        <source>Error: There was an error removing the directory %1.</source>
-        <output>エラーは：ディレクトリ%1を削除中にエラーが発生しました。</output>
-    </text>
-    <text>
-        <source>Error: There was an error getting the file %1.</source>
-        <output>エラーは：ファイル%1を取得中にエラーが発生しました。</output>
-    </text>
-    <text>
-        <source>Error: There was an error putting the file %1.</source>
-        <output>エラーは：ファイル%1を入れてエラーが発生しました。</output>
-    </text>
-    <text>
-        <source>Error: There was an error renaming the file %1.</source>
-        <output>エラー：ファイルの%1の名前を変更中にエラーが発生しました。</output>
-    </text>
-    <text>
-        <source>Error: There was an error changing the permission of %1.</source>
-        <output>エラーが発生：%1のアクセス許可を変更中にエラーが発生しました。</output>
-    </text>
-    <text>
-        <source>Error: There was an error removing the file %1.</source>
-        <output>エラーは：ファイル%1を削除中にエラーが発生しました。</output>
-    </text>
-    <text>
-        <source>Error: You must define a width and height for a new image object.</source>
-        <output>エラー：あなたは幅と高さを新しい画像オブジェクトを定義する必要があります。</output>
-    </text>
-    <text>
-        <source>Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.</source>
-        <output>エラー：そのイメージの種類はサポートされていません。のみのGIF、JPGおよびPNGイメージのタイプがサポートされています。</output>
-    </text>
-    <text>
-        <source>Error: This image file is already a %1 image file.</source>
-        <output>エラー：これはイメージファイルが既に%1イメージファイルです。</output>
-    </text>
-    <text>
-        <source>Error: The language file %1 does not exist.</source>
-        <output>エラーは：言語ファイル%1は存在しません。</output>
-    </text>
-    <text>
-        <source>Error: Your output language selection is not valid.</source>
-        <output>エラー：あなたの出力言語の選択が有効ではありません。</output>
-    </text>
-    <text>
-        <source>Error: Your source language selection is not valid.</source>
-        <output>エラー：あなたのソース言語の選択が有効ではありません。</output>
-    </text>
-    <text>
-        <source>Error: Both the output and source language selections are the same. Please choose again.</source>
-        <output>エラーは：両方の出力、ソース言語の選択は同じです。もう一度選択してください。</output>
-    </text>
-    <text>
-        <source>Error: There was an error processing that Google Translate URL. Please check your API key.</source>
-        <output>エラー：エラーが処理がされたGoogle翻訳のURLを確認します。あなたのAPIキーを確認してください。</output>
-    </text>
-    <text>
-        <source>Error: There was an error processing that XML file.</source>
-        <output>エラーは：そのXMLファイルのエラー処理があった。</output>
-    </text>
-    <text>
-        <source>Error: At least one of the array keys must be 'email'.</source>
-        <output>エラーは：少なくとも配列のキーの1つで'メールアドレス'する必要があります。</output>
-    </text>
-    <text>
-        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
-        <output>エラー：パラメータは、有効なファイルまたはPop\File\Fileのインスタンスである必要があります渡されます。</output>
-    </text>
-    <text>
-        <source>Error: The message body elements are not set.</source>
-        <output>エラー：メッセージ本文の要素が設定されていません。</output>
-    </text>
-    <text>
-        <source>Error: That page does not exist.</source>
-        <output>エラーは：このページには存在しません。</output>
-    </text>
-    <text>
-        <source>Error: The PDF does not have enough pages in which to order.</source>
-        <output>エラー：PDFは、注文するのに十分なページを持っていません。</output>
-    </text>
-    <text>
-        <source>Error: The pages array passed does not contain the same number of pages as the PDF.</source>
-        <output>エラー：PDFとして同じページ番号が含まれていません渡されたページの配列を返します。</output>
-    </text>
-    <text>
-        <source>Error: The pages array passed contains a page that does not exist.</source>
-        <output>エラーは：渡されたページの配列が存在しないページが含まれています。</output>
-    </text>
-    <text>
-        <source>Error: The rotation parameter must be between -90 and 90 degrees.</source>
-        <output>エラー：回転パラメータは、-90度から90度の間である必要があります。</output>
-    </text>
-    <text>
-        <source>Error: The render parameter must be an integer between 0 and 7.</source>
-        <output>エラーは：レンダリングパラメータは0から7までの整数でなければなりません。</output>
-    </text>
-    <text>
-        <source>Error: That font is not contained within the standard PDF fonts.</source>
-        <output>エラー：そのフォントは、標準のPDFフォント内に含まれていない。</output>
-    </text>
-    <text>
-        <source>Error: The font '%1' has not been added to the PDF.</source>
-        <output>エラー：フォント'%1'はPDFに追加されていない。</output>
-    </text>
-    <text>
-        <source>Error: That page has not been defined.</source>
-        <output>エラー：このページには、定義されていません。</output>
-    </text>
-    <text>
-        <source>Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.</source>
-        <output>エラー：PNGのアルファチャネルはサポートされていません。 8ビットのみ透過PNG画像がサポートされています。</output>
-    </text>
-    <text>
-        <source>Error: The file already exists and it cannot be overwritten. Please specify a new filename.</source>
-        <output>エラー：ファイルが既に存在し、それが上書きすることはできません。新しいファイル名を指定してください。</output>
-    </text>
-    <text>
-        <source>Error: The argument passed must be an array.</source>
-        <output>エラー：配列でなければなりません渡される引数。</output>
-    </text>
-    <text>
-        <source>Error: A width and height must be passed.</source>
-        <output>エラー：幅と高さが渡される必要があります。</output>
-    </text>
-    <text>
-        <source>Error: A page index must be passed.</source>
-        <output>エラー：ページのインデックスが渡される必要があります。</output>
-    </text>
-    <text>
-        <source>The field '%1' does not exist.</source>
-        <output>フィールド'%1'は存在しません。</output>
-    </text>
-    <text>
-        <source>The parameter passed must be either an array or null.</source>
-        <output>渡されたパラメータは配列またはnullにする必要があります。</output>
-    </text>
-    <text>
-        <source>This primary ID of this table either is not set or does not exist.</source>
-        <output>このテーブルのこのプライマリIDのいずれか、または設定されていない存在しません。</output>
-    </text>
-    <text>
-        <source>The field and value parameters were not defined to describe the row(s) to delete.</source>
-        <output>フィールドと値のパラメータは、行（s）を削除する方法について説明して定義されていない。</output>
-    </text>
-    <text>
-        <source>The mobile site is not set.</source>
-        <output>モバイルサイトが設定されていません。</output>
-    </text>
-    <text>
-        <source>The standard site is not set.</source>
-        <output>標準的なサイトが設定されていません。</output>
-    </text>
-    <text>
-        <source>That header code '%1' is not allowed.</source>
-        <output>そのヘッダのコードは'%1'は許可されていません。</output>
-    </text>
-    <text>
-        <source>The array parameter passed must contain an array of field values.</source>
-        <output>渡された配列パラメータは、フィールド値の配列が含まれている必要があります。</output>
-    </text>
-    <text>
-        <source>Error: The image resource has not been created.</source>
-        <output>エラー：画像リソースが作成されていない。</output>
-    </text>
-    <text>
-        <source>Error: The image output resource has not been created.</source>
-        <output>エラー：画像の出力のリソースが作成されていない。</output>
-    </text>
-    <text>
-        <source>The argument passed is not valid.</source>
-        <output>渡された引数が無効です。</output>
-    </text>
-    <text>
-        <source>The archive file is compressed. It must only be either a TAR or ZIP archive file.</source>
-        <output>アーカイブファイルは圧縮されています。それは唯一のいずれかをTARまたはZIPアーカイブのファイルでなければなりません。</output>
-    </text>
-    <text>
-        <source>The archive file must be either a TAR or ZIP archive file.</source>
-        <output>アーカイブファイルは、tarやzipのアーカイブファイルでなければなりません。</output>
-    </text>
-    <text>
-        <source>Error: The compression type must either be Flate or LZW.</source>
-        <output>エラー：圧縮のタイプのいずれかFlateアルゴリズムまたはLZWでなければなりません。</output>
-    </text>
-    <text>
-        <source>Error: The font file does not seem to have all of the correct data to parse.</source>
-        <output>エラー：フォントファイルは、解析するために、正しいデータのすべてを持っていないようです。</output>
-    </text>
-    <text>
-        <source>Error: The GD library extension must be installed to use the Gd adapter.</source>
-        <output>エラー：GDライブラリの拡張子はGdのアダプタを使用するためにインストールする必要があります。</output>
-    </text>
-    <text>
-        <source>No source file or database table was passed.</source>
-        <output>ソースファイルまたはデータベーステーブルないが渡されていません。</output>
-    </text>
-    <text>
-        <source>The options parameter must be an array.</source>
-        <output>optionsパラメータは配列でなければなりません。</output>
-    </text>
-    <text>
-        <source>The options parameter must be an array that contains either a 'table' or 'file' key.</source>
-        <output>optionsパラメータには、'テーブル'または'ファイル'キーのいずれかを含む配列でなければなりません。</output>
-    </text>
-    <text>
-        <source>Error: Could not connect to database. %1</source>
-        <output>エラー：データベースに接続できませんでした。 %1</output>
-    </text>
-    <text>
-        <source>Error: The database interface object has not been instaniated.</source>
-        <output>エラー：データベースのインタフェースオブジェクトがinstaniatedされていません。</output>
-    </text>
-    <text>
-        <source>Error: That method does not exist within the database interface object.</source>
-        <output>エラー：データベースのインタフェースオブジェクト内のメソッドが存在しない。</output>
-    </text>
-    <text>
-        <source>Error: The columns parameter must be an array.</source>
-        <output>エラー：列のパラメータは配列でなければなりません。</output>
-    </text>
-    <text>
-        <source>Error: The columns parameter must be an array that contains at least one key/value pair.</source>
-        <output>エラー：列パラメータには、少なくとも1つのキー/値のペアを含む配列でなければなりません。</output>
-    </text>
-    <text>
-        <source>Error: The table must be set.</source>
-        <output>エラー：テーブルがセットされている必要があります。</output>
-    </text>
-    <text>
-        <source>Error: A SQL type must be set.</source>
-        <output>エラー：SQLの型を設定する必要があります。</output>
-    </text>
-    <text>
-        <source>Error: The database statement resource is not currently set.</source>
-        <output>エラー：データベースのステートメントリソースが現在設定されていない。</output>
-    </text>
-    <text>
-        <source>The column and value parameters were not defined to describe the row(s) to delete.</source>
-        <output>列と値のパラメータは、削除する行（複数可）を記述するために定義されませんでした。</output>
-    </text>
-    <text>
-        <source>The column '%1' does not exist.</source>
-        <output>列'%1'は存在しません。</output>
-    </text>
-    <text>
-        <source>Error: That database adapter class does not exist.</source>
-        <output>エラー：そのデータベースアダプタクラスが存在しない。</output>
-    </text>
-    <text>
-        <source>Error: The Imagick library extension must be installed to use the Imagick adapter.</source>
-        <output>エラー：Imagick画像ライブラリの拡張子はImagickをアダプタを使用するためにインストールする必要があります。</output>
-    </text>
-    <text>
-        <source>Error: That image type is not supported.</source>
-        <output>エラー：画像のタイプがサポートされていないこと。</output>
-    </text>
-    <text>
-        <source>Error: The cache type must be 'File', 'Sqlite' or 'Memcached'.</source>
-        <output>エラー：キャッシュのタイプは'sqlite'または'Memcachedの'、'ファイル'でなければなりません。</output>
-    </text>
-    <text>
-        <source>Error: You must pass either a directory or SQLite file store point.</source>
-        <output>エラー：あなたは、ディレクトリまたはSQLiteのファイルストアのポイントのどちらかを渡す必要があります。</output>
-    </text>
-    <text>
-        <source>Error: That cache directory does not exist.</source>
-        <output>エラー：キャッシュディレクトリが存在しないこと。</output>
-    </text>
-    <text>
-        <source>Error: That cache directory is not writable.</source>
-        <output>エラー：キャッシュディレクトリが書き込み可能ではないこと。</output>
-    </text>
-    <text>
-        <source>Error: That cache db file and/or directory is not writable.</source>
-        <output>エラー：そのキャッシュのdbファイルおよび/またはディレクトリが書き込み可能ではない。</output>
-    </text>
-    <text>
-        <source>Error: Memcache is not available on this server.</source>
-        <output>エラー：Memcacheのは、このサーバでは利用できません。</output>
-    </text>
-    <text>
-        <source>Error: Unable to connect to the memcached server.</source>
-        <output>エラー：memcachedサーバに接続できません。</output>
-    </text>
-    <text>
-        <source>That data type is not supported.</source>
-        <output>そのデータ型はサポートされていません。</output>
-    </text>
-    <text>
-        <source>No database adapter was found.</source>
-        <output>データベースアダプタが見つかりませんでした。</output>
-    </text>
-    <text>
-        <source>That font is not available.</source>
-        <output>そのフォントは使用できません。</output>
-    </text>
-    <text>
-        <source>The percentages are greater than 100.</source>
-        <output>パーセンテージの合計は、100よりも大きいです。</output>
-    </text>
-    <text>
-        <source>A proper color array was not passed.</source>
-        <output>適切な色の配列が渡されませんでした。</output>
-    </text>
-    <text>
-        <source>One or more of the color values is out of range.</source>
-        <output>色の値のいずれかまたは複数が範囲外です。</output>
-    </text>
-    <text>
-        <source>The color parameter is not a valid color space object.</source>
-        <output>色のパラメータは、有効なカラースペースのオブジェクトではありません。</output>
-    </text>
-    <text>
-        <source>That color space object does not exist.</source>
-        <output>その色空間のオブジェクトは存在しません。</output>
-    </text>
-    <text>
-        <source>That color space object is already that type.</source>
-        <output>その色空間のオブジェクトは、すでにそのタイプです。</output>
-    </text>
-    <text>
-        <source>The headers have already been sent.</source>
-        <output>ヘッダが既に送信されています。</output>
-    </text>
-    <text>
-        <source>The response was not properly formatted.</source>
-        <output>レスポンスが正しくフォーマットされていませんでした。</output>
-    </text>
-    <text>
-        <source>A template asset has not been assigned.</source>
-        <output>テンプレートの資産が割り当てられていません。</output>
-    </text>
-    <text>
-        <source>That template file either does not exist or is not the correct format.</source>
-        <output>そのテンプレートファイルが存在しないか、または正しい形式ではないではありません。</output>
-    </text>
-    <text>
-        <source>Due to licensing restrictions, RAR files cannot be created and can only be decompressed.</source>
-        <output>ライセンスの制限により、RARファイルを作成できませんとだけ解凍することができます。</output>
-    </text>
-    <text>
-        <source>The value must only contain alphanumeric characters.</source>
-        <output>値は英数字のみを含める必要があります。</output>
-    </text>
-    <text>
-        <source>The value must contain non-alphanumeric characters.</source>
-        <output>値は、英数字以外の文字が含まれている必要があります。</output>
-    </text>
-    <text>
-        <source>The value must only contain characters of the alphabet.</source>
-        <output>値はアルファベットの文字のみが含まれている必要があります。</output>
-    </text>
-    <text>
-        <source>The value must contain characters not in the alphabet.</source>
-        <output>値はないアルファベットの文字が含まれている必要があります。</output>
-    </text>
-    <text>
-        <source>The value must be between %1 and %2.</source>
-        <output>値は%1と%2の間でなければなりません。</output>
-    </text>
-    <text>
-        <source>The value must not be between %1 and %2.</source>
-        <output>値は%1と%2の間であってはなりません。</output>
-    </text>
-    <text>
-        <source>The value must be between or equal to %1 and %2.</source>
-        <output>値の間または%1と%2以下である必要があります。</output>
-    </text>
-    <text>
-        <source>The value must not be between or equal to %1 and %2.</source>
-        <output>値の間または%1と%2に等しくてはならない。</output>
-    </text>
-    <text>
-        <source>The value must be a valid email format.</source>
-        <output>値は有効な電子メール形式である必要があります。</output>
-    </text>
-    <text>
-        <source>The value must not be a valid email format.</source>
-        <output>値は有効な電子メール形式である必要があります。</output>
-    </text>
-    <text>
-        <source>The value must be excluded.</source>
-        <output>値を除外する必要があります。</output>
-    </text>
-    <text>
-        <source>The value must not be excluded.</source>
-        <output>値は除外してはいけません。</output>
-    </text>
-    <text>
-        <source>The value must be included.</source>
-        <output>値が含まれている必要があります。</output>
-    </text>
-    <text>
-        <source>The value must not be included.</source>
-        <output>値を含めてはならない。</output>
-    </text>
-    <text>
-        <source>The value must be equal to %1.</source>
-        <output>値は%1でなければならない。</output>
-    </text>
-    <text>
-        <source>The value must not be equal to %1.</source>
-        <output>値は%1に等しくてはならない。</output>
-    </text>
-    <text>
-        <source>The value must be greater than %1.</source>
-        <output>値は%1より大きくなければなりません。</output>
-    </text>
-    <text>
-        <source>The value must not be greater than %1.</source>
-        <output>値は%1を超えてはなりません。</output>
-    </text>
-    <text>
-        <source>The value must be greater than or equal to %1.</source>
-        <output>値がより大きいまたは%1でなければならない。</output>
-    </text>
-    <text>
-        <source>The value must not be greater than or equal to %1.</source>
-        <output>値がより大きいまたは%1に等しくてはならない。</output>
-    </text>
-    <text>
-        <source>The value length must be equal to %1.</source>
-        <output>値の長さは%1でなければならない。</output>
-    </text>
-    <text>
-        <source>The value length must not be equal to %1.</source>
-        <output>値の長さは%1に等しくてはならない。</output>
-    </text>
-    <text>
-        <source>The value must be less than %1.</source>
-        <output>値は%1未満にする必要があります。</output>
-    </text>
-    <text>
-        <source>The value must not be less than %1.</source>
-        <output>値は%1以上でなければなりません。</output>
-    </text>
-    <text>
-        <source>The value must be less than or equal to %1.</source>
-        <output>値がより小さいか%1でなければならない。</output>
-    </text>
-    <text>
-        <source>The value must not be less than or equal to %1.</source>
-        <output>値がより小さいまたは%1に等しくてはならない。</output>
-    </text>
-    <text>
-        <source>The value length must be between %1 and %2.</source>
-        <output>値の長さは%1と%2の間でなければなりません。</output>
-    </text>
-    <text>
-        <source>The value length must not be between %1 and %2.</source>
-        <output>値の長さは%1と%2の間であってはなりません。</output>
-    </text>
-    <text>
         <source>The value length must be between or equal to %1 and %2.</source>
         <output>値の長さは間または%1と%2以下である必要があります。</output>
     </text>
     <text>
         <source>The value length must not be between or equal to %1 and %2.</source>
         <output>値の長さは間または%1と%2に等しくてはならない。</output>
-    </text>
-    <text>
-        <source>The value length must be greater than %1.</source>
-        <output>値の長さは%1よりも大きくなければなりません。</output>
-    </text>
-    <text>
-        <source>The value length must not be greater than %1.</source>
-        <output>値の長さは%1を超えてはなりません。</output>
-    </text>
-    <text>
-        <source>The value length must be greater than or equal to %1.</source>
-        <output>値の長さより大きいか%1でなければならない。</output>
-    </text>
-    <text>
-        <source>The value length must not be greater than or equal to %1.</source>
-        <output>値の長さより大きいか%1に等しくてはならない。</output>
-    </text>
-    <text>
-        <source>The value length must be less than %1.</source>
-        <output>値の長さは%1未満にする必要があります。</output>
-    </text>
-    <text>
-        <source>The value length must not be less than %1.</source>
-        <output>値の長さは%1以上でなければなりません。</output>
-    </text>
-    <text>
-        <source>The value length must be less than or equal to %1.</source>
-        <output>値の長さがより小さいか%1でなければならない。</output>
-    </text>
-    <text>
-        <source>The value length must not be less than or equal to %1.</source>
-        <output>値の長さがより小さいまたは%1に等しくてはならない。</output>
-    </text>
-    <text>
-        <source>The value must be empty.</source>
-        <output>値は空である必要があります。</output>
-    </text>
-    <text>
-        <source>The value must not be empty.</source>
-        <output>値が空であってはなりません。</output>
-    </text>
-    <text>
-        <source>The value must be numeric.</source>
-        <output>値は数値でなければなりません。</output>
-    </text>
-    <text>
-        <source>The value must not be numeric.</source>
-        <output>値が数字であってはいけません。</output>
-    </text>
-    <text>
-        <source>Error: The file type %1 is not an accepted file format.</source>
-        <output>エラー：ファイルタイプ%1は受け付けられるファイル形式ではありません。</output>
-    </text>
-    <text>
-        <source>The value format is not correct.</source>
-        <output>値の形式が正しくありません。</output>
-    </text>
-    <text>
-        <source>The value must be a valid IPv4 address.</source>
-        <output>値は有効なIPv4アドレスでなければなりません。</output>
-    </text>
-    <text>
-        <source>The value must not be a valid IPv4 address.</source>
-        <output>値は有効なIPv4アドレスでなければなりません。</output>
     </text>
     <text>
         <source>The value must be a valid IPv6 address.</source>
@@ -845,12 +109,28 @@
         <output>値は有効なIPv6アドレスである必要があります。</output>
     </text>
     <text>
-        <source>The user role has not been defined to evaluate against.</source>
-        <output>ユーザーロールは、に対して評価するために定義されていません。</output>
+        <source>The value must be a valid credit card number.</source>
+        <output>値は有効なクレジットカードの番号でなければなりません。</output>
     </text>
     <text>
-        <source>Error: The file type %1 is not an accepted file format.</source>
-        <output>エラー：ファイルタイプ%1は受け付けられるファイル形式ではありません。</output>
+        <source>The value must not be a valid credit card number.</source>
+        <output>値は有効なクレジットカードの番号であってはなりません。</output>
+    </text>
+    <text>
+        <source>The value must be included.</source>
+        <output>値が含まれている必要があります。</output>
+    </text>
+    <text>
+        <source>The value must not be included.</source>
+        <output>値を含めてはならない。</output>
+    </text>
+    <text>
+        <source>The value must be between or equal to %1 and %2.</source>
+        <output>値の間または%1と%2以下である必要があります。</output>
+    </text>
+    <text>
+        <source>The value must not be between or equal to %1 and %2.</source>
+        <output>値の間または%1と%2に等しくてはならない。</output>
     </text>
     <text>
         <source>The value must be part of the subnet %1.</source>
@@ -861,6 +141,86 @@
         <output>値はサブネット%1の一部であってはなりません。</output>
     </text>
     <text>
+        <source>The value must be greater than or equal to %1.</source>
+        <output>値がより大きいまたは%1でなければならない。</output>
+    </text>
+    <text>
+        <source>The value must not be greater than or equal to %1.</source>
+        <output>値がより大きいまたは%1に等しくてはならない。</output>
+    </text>
+    <text>
+        <source>The value length must be greater than %1.</source>
+        <output>値の長さは%1よりも大きくなければなりません。</output>
+    </text>
+    <text>
+        <source>The value length must not be greater than %1.</source>
+        <output>値の長さは%1を超えてはなりません。</output>
+    </text>
+    <text>
+        <source>The value must only contain alphanumeric characters.</source>
+        <output>値は英数字のみを含める必要があります。</output>
+    </text>
+    <text>
+        <source>The value must contain non-alphanumeric characters.</source>
+        <output>値は、英数字以外の文字が含まれている必要があります。</output>
+    </text>
+    <text>
+        <source>The value length must be equal to %1.</source>
+        <output>値の長さは%1でなければならない。</output>
+    </text>
+    <text>
+        <source>The value length must not be equal to %1.</source>
+        <output>値の長さは%1に等しくてはならない。</output>
+    </text>
+    <text>
+        <source>The value length must be greater than or equal to %1.</source>
+        <output>値の長さより大きいか%1でなければならない。</output>
+    </text>
+    <text>
+        <source>The value length must not be greater than or equal to %1.</source>
+        <output>値の長さより大きいか%1に等しくてはならない。</output>
+    </text>
+    <text>
+        <source>The value must be less than or equal to %1.</source>
+        <output>値がより小さいか%1でなければならない。</output>
+    </text>
+    <text>
+        <source>The value must not be less than or equal to %1.</source>
+        <output>値がより小さいまたは%1に等しくてはならない。</output>
+    </text>
+    <text>
+        <source>The value must be between %1 and %2.</source>
+        <output>値は%1と%2の間でなければなりません。</output>
+    </text>
+    <text>
+        <source>The value must not be between %1 and %2.</source>
+        <output>値は%1と%2の間であってはなりません。</output>
+    </text>
+    <text>
+        <source>The value must be greater than %1.</source>
+        <output>値は%1より大きくなければなりません。</output>
+    </text>
+    <text>
+        <source>The value must not be greater than %1.</source>
+        <output>値は%1を超えてはなりません。</output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv4 address.</source>
+        <output>値は有効なIPv4アドレスでなければなりません。</output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv4 address.</source>
+        <output>値は有効なIPv4アドレスでなければなりません。</output>
+    </text>
+    <text>
+        <source>The value must be a valid email format.</source>
+        <output>値は有効な電子メール形式である必要があります。</output>
+    </text>
+    <text>
+        <source>The value must not be a valid email format.</source>
+        <output>値は有効な電子メール形式である必要があります。</output>
+    </text>
+    <text>
         <source>The value must be a valid IPv4 subnet.</source>
         <output>値は有効なIPv4サブネットでなければなりません。</output>
     </text>
@@ -869,8 +229,112 @@
         <output>値は有効なIPv4サブネットであってはならない。</output>
     </text>
     <text>
-        <source>The IP address must be a valid IPv4 address.</source>
-        <output>IPアドレスは有効なIPv4アドレスでなければなりません。</output>
+        <source>The value format is not correct.</source>
+        <output>値の形式が正しくありません。</output>
+    </text>
+    <text>
+        <source>The value must be equal to %1.</source>
+        <output>値は%1でなければならない。</output>
+    </text>
+    <text>
+        <source>The value must not be equal to %1.</source>
+        <output>値は%1に等しくてはならない。</output>
+    </text>
+    <text>
+        <source>The value must be less than %1.</source>
+        <output>値は%1未満にする必要があります。</output>
+    </text>
+    <text>
+        <source>The value must not be less than %1.</source>
+        <output>値は%1以上でなければなりません。</output>
+    </text>
+    <text>
+        <source>The value length must be between %1 and %2.</source>
+        <output>値の長さは%1と%2の間でなければなりません。</output>
+    </text>
+    <text>
+        <source>The value length must not be between %1 and %2.</source>
+        <output>値の長さは%1と%2の間であってはなりません。</output>
+    </text>
+    <text>
+        <source>The value must be numeric.</source>
+        <output>値は数値でなければなりません。</output>
+    </text>
+    <text>
+        <source>The value must not be numeric.</source>
+        <output>値が数字であってはいけません。</output>
+    </text>
+    <text>
+        <source>The value must not be empty.</source>
+        <output>値が空であってはなりません。</output>
+    </text>
+    <text>
+        <source>The value must be empty.</source>
+        <output>値は空である必要があります。</output>
+    </text>
+    <text>
+        <source>The value length must be less than %1.</source>
+        <output>値の長さは%1未満にする必要があります。</output>
+    </text>
+    <text>
+        <source>The value length must not be less than %1.</source>
+        <output>値の長さは%1以上でなければなりません。</output>
+    </text>
+    <text>
+        <source>The value must only contain characters in the alphabet.</source>
+        <output>値はアルファベットの文字のみが含まれている必要があります。</output>
+    </text>
+    <text>
+        <source>The value must only contain characters not in the alphabet.</source>
+        <output>値はアルファベットの文字を唯一ではないが含まれている必要があります。</output>
+    </text>
+    <text>
+        <source>The value must be excluded.</source>
+        <output>値を除外する必要があります。</output>
+    </text>
+    <text>
+        <source>The value must not be excluded.</source>
+        <output>値は除外してはいけません。</output>
+    </text>
+    <text>
+        <source>The value length must be less than or equal to %1.</source>
+        <output>値の長さがより小さいか%1でなければならない。</output>
+    </text>
+    <text>
+        <source>The value length must not be less than or equal to %1.</source>
+        <output>値の長さがより小さいまたは%1に等しくてはならない。</output>
+    </text>
+    <text>
+        <source>The value must not be equal to %1.</source>
+        <output>値は%1に等しくてはならない。</output>
+    </text>
+    <text>
+        <source>The value must be equal to %1.</source>
+        <output>値は%1でなければならない。</output>
+    </text>
+    <text>
+        <source>Creating controller class files...</source>
+        <output>コントローラクラスファイルを作成しています...</output>
+    </text>
+    <text>
+        <source>Creating base folder and file structure...</source>
+        <output>ベースフォルダとファイル構造を作成しています...</output>
+    </text>
+    <text>
+        <source>Creating database table class files...</source>
+        <output>データベースのテーブルのクラスファイルを作成しています...</output>
+    </text>
+    <text>
+        <source>Creating form class files...</source>
+        <output>フォームのクラスファイルを作成しています...</output>
+    </text>
+    <text>
+        <source>You will have to install your web server rewrite configuration manually.</source>
+        <output>手動でWebサーバーの書き換え設定をインストールする必要があります。</output>
+    </text>
+    <text>
+        <source>Install index controller and web configuration files?</source>
+        <output>インデックスのコントローラおよびWeb構成ファイルをインストールするのか？</output>
     </text>
     <text>
         <source>The user is valid.</source>
@@ -903,54 +367,6 @@
     <text>
         <source>The session has expired.</source>
         <output>セッションの有効期限が切れました。</output>
-    </text>
-    <text>
-        <source>The access file does not exist.</source>
-        <output>アクセスファイルが存在しません。</output>
-    </text>
-    <text>
-        <source>The user's role is not defined.</source>
-        <output>ユーザーのロールが定義されていません。</output>
-    </text>
-    <text>
-        <source>That class map file does not exist.</source>
-        <output>そのクラスマップのファイルが存在しません。</output>
-    </text>
-    <text>
-        <source>Unknown error.</source>
-        <output>不明なエラー。</output>
-    </text>
-    <text>
-        <source>You must pass a source folder and a output file to generate a class map file.</source>
-        <output>あなたは、クラスマップファイルを生成するソースフォルダと出力ファイルを渡す必要があります。</output>
-    </text>
-    <text>
-        <source>The source folder passed does not exist.</source>
-        <output>渡されたソースフォルダが存在しません。</output>
-    </text>
-    <text>
-        <source>The output file passed must be a PHP file.</source>
-        <output>渡された出力ファイルはPHPファイルである必要があります。</output>
-    </text>
-    <text>
-        <source>You must pass an install file to install the project.</source>
-        <output>あなたがプロジェクトをインストールするためには、インストールファイルを渡す必要があります。</output>
-    </text>
-    <text>
-        <source>Unknown option:</source>
-        <output>不明なオプション：</output>
-    </text>
-    <text>
-        <source>You must pass at least one argument.</source>
-        <output>あなたは、少なくとも1つの引数を渡す必要があります。</output>
-    </text>
-    <text>
-        <source>Run './pop -h' for help.</source>
-        <output>助けのために"。/ポップアップh'を実行する。</output>
-    </text>
-    <text>
-        <source>Run '.\pop -h' for help.</source>
-        <output>助けのために"。\ポップアップh'を実行します。</output>
     </text>
     <text>
         <source>Aborted.</source>
@@ -989,24 +405,28 @@
         <output>データベースのインストール</output>
     </text>
     <text>
-        <source>Add project to the bootstrap file?</source>
-        <output>ブートストラップファイルにプロジェクトを追加しますか？</output>
-    </text>
-    <text>
         <source>Project install complete.</source>
         <output>完全なインストール投影。</output>
     </text>
     <text>
-        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
-        <output>このプロセスは、インストールファイルで指定されたフォルダの下にプロジェクトのベース基盤を作成し、インストールします。最低限、インストールファイルには、プロジェクト名、フォルダ、フォーム、コントローラー、ビュー、および任意のデータベースの資格情報として、プロジェクトのインストール設定を含むポップ\ Configオブジェクトを返す必要があります。</output>
+        <source>The Pop autoloader class file was not found.</source>
+        <output>ポップオートローダのクラスファイルが見つかりませんでした。</output>
+    </text>
+    <text>
+        <source>Pop PHP Framework found.</source>
+        <output>ポップPHPフレームワークのデータが見つかりました。</output>
+    </text>
+    <text>
+        <source>Project reconfigured.</source>
+        <output>プロジェクトを再構成。</output>
+    </text>
+    <text>
+        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
+        <output>このプロセスは、インストールファイルで指定されたフォルダの下にプロジェクトのベース基盤を作成し、インストールします。最低限、インストールファイルには、プロジェクト名、フォルダ、フォーム、コントローラー、ビュー、および任意のデータベースの資格情報として、プロジェクトのインストール設定を含むポップ\ \ Configオブジェクトを、返さなければなりません。</output>
     </text>
     <text>
         <source>Besides creating the base folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can take advantage of this by having the database SQL files in the same folder as your install file, like so:</source>
         <output>あなたのためのベースフォルダとファイルを作成する以外に、主な利点の一つは、データベースと対応する構成とクラスファイルをテストしてインストールする機能です。次のように、あなたのインストールファイルと同じフォルダにデータベースのSQLファイルを持っていることによってこれを活用することができます。</output>
-    </text>
-    <text>
-        <source>Install a project based on the install file specified</source>
-        <output>指定したインストールファイルに基づいてプロジェクトをインストールします。</output>
     </text>
     <text>
         <source>Check the current configuration for required dependencies</source>
@@ -1017,8 +437,8 @@
         <output>このヘルプを表示する</output>
     </text>
     <text>
-        <source>Show project install instructions</source>
-        <output>プロジェクトのインストール手順を表示</output>
+        <source>Install a project based on the install file specified</source>
+        <output>指定したインストールファイルに基づいてプロジェクトをインストールします。</output>
     </text>
     <text>
         <source>Set the default language for the project</source>
@@ -1029,8 +449,28 @@
         <output>ソースフォルダからクラスマップファイルを作成し、出力ファイルに保存</output>
     </text>
     <text>
+        <source>Reconfigure the project based on the new location of the project</source>
+        <output>プロジェクトの新しい位置に基づいて再構成するプロジェクト</output>
+    </text>
+    <text>
+        <source>Show project install instructions</source>
+        <output>プロジェクトのインストール手順を表示</output>
+    </text>
+    <text>
+        <source>Run the unit tests from a folder</source>
+        <output>フォルダからユニットテストを実行</output>
+    </text>
+    <text>
         <source>Display version of Pop PHP Framework and latest available</source>
         <output>ポップPHPフレームワークと利用可能な最新のバージョンを表示</output>
+    </text>
+    <text>
+        <source>Run './pop -h' for help.</source>
+        <output>助けのために"。/ポップアップh'を実行する。</output>
+    </text>
+    <text>
+        <source>Run '.\pop -h' for help.</source>
+        <output>助けのために"。\ポップアップh'を実行します。</output>
     </text>
     <text>
         <source>Continue?</source>
@@ -1045,82 +485,6 @@
         <output>ブートストラップファイルが見つかりません。もう一度やり直してください。</output>
     </text>
     <text>
-        <source>Creating base folder and file structure...</source>
-        <output>ベースフォルダとファイル構造を作成しています...</output>
-    </text>
-    <text>
-        <source>Creating database table class files...</source>
-        <output>データベースのテーブルのクラスファイルを作成しています...</output>
-    </text>
-    <text>
-        <source>Enter the two-letter code for the default language:</source>
-        <output>デフォルトの言語を表す2文字のコードを入力します。</output>
-    </text>
-    <text>
-        <source>Real-time configuration changes are not allowed.</source>
-        <output>リアルタイムな構成変更は許可されません。</output>
-    </text>
-    <text>
-        <source>Run the unit tests from a folder</source>
-        <output>フォルダからユニットテストを実行</output>
-    </text>
-    <text>
-        <source>That folder does not exist.</source>
-        <output>そのフォルダが存在しません。</output>
-    </text>
-    <text>
-        <source>The folder argument is not a folder.</source>
-        <output>フォルダの引数はフォルダではありません。</output>
-    </text>
-    <text>
-        <source>The module name must be set in the module config.</source>
-        <output>モジュール名はモジュールのconfigで設定する必要があります。</output>
-    </text>
-    <text>
-        <source>Install index controller and web configuration files?</source>
-        <output>インデックスのコントローラおよびWeb構成ファイルをインストールするのか？</output>
-    </text>
-    <text>
-        <source>The docblock is not in the correct format.</source>
-        <output>docblockには、正しい形式ではありません。</output>
-    </text>
-    <text>
-        <source>You will have to install your web server rewrite configuration manually.</source>
-        <output>手動でWebサーバーの書き換え設定をインストールする必要があります。</output>
-    </text>
-    <text>
-        <source>Creating controller class files...</source>
-        <output>コントローラクラスファイルを作成しています...</output>
-    </text>
-    <text>
-        <source>Creating form class files...</source>
-        <output>フォームのクラスファイルを作成しています...</output>
-    </text>
-    <text>
-        <source>The Sqlite database file and folder are not writable.</source>
-        <output>SQLiteデータベースファイルとフォルダが書き込み可能ではありません。</output>
-    </text>
-    <text>
-        <source>Project reconfigured.</source>
-        <output>プロジェクトを再構成。</output>
-    </text>
-    <text>
-        <source>Reconfigure the project based on the new location of the project</source>
-        <output>プロジェクトの新しい位置に基づいて再構成するプロジェクト</output>
-    </text>
-    <text>
-        <source>Database credentials detected.</source>
-        <output>データベースの資格情報が検出されました。</output>
-    </text>
-    <text>
-        <source>Re-test the database(s)?</source>
-        <output>再試験データベース（複数可）？</output>
-    </text>
-    <text>
-        <source>The Pop autoloader class file was not found.</source>
-        <output>ポップオートローダのクラスファイルが見つかりませんでした。</output>
-    </text>
-    <text>
         <source>Enter the folder where the 'vendor' folder is contained in relation to the current folder:</source>
         <output>"ベンダー"フォルダがカレントフォルダとの関係で含まれているフォルダを入力します。</output>
     </text>
@@ -1129,59 +493,43 @@
         <output>ポップPHPフレームワークが見つかりません。もう一度やり直してください。</output>
     </text>
     <text>
-        <source>Pop PHP Framework found.</source>
-        <output>ポップPHPフレームワークのデータが見つかりました。</output>
+        <source>Enter the two-letter code for the default language:</source>
+        <output>デフォルトの言語を表す2文字のコードを入力します。</output>
     </text>
     <text>
-        <source>Error: That cache directory does not exist.</source>
-        <output>エラー：キャッシュディレクトリが存在しないこと。</output>
+        <source>Unknown error.</source>
+        <output>不明なエラー。</output>
     </text>
     <text>
-        <source>Error: That cache directory is not writable.</source>
-        <output>エラー：キャッシュディレクトリが書き込み可能ではないこと。</output>
+        <source>You must pass a source folder and a output file to generate a class map file.</source>
+        <output>あなたは、クラスマップファイルを生成するソースフォルダと出力ファイルを渡す必要があります。</output>
     </text>
     <text>
-        <source>Error: Memcache is not available.</source>
-        <output>エラー：Memcacheは使用できません。</output>
+        <source>The source folder passed does not exist.</source>
+        <output>渡されたソースフォルダが存在しません。</output>
     </text>
     <text>
-        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
-        <output>エラー：パラメータが渡されたか、有効なファイルまたはポップ\ファイル\ファイルのインスタンスである必要があります。</output>
+        <source>The output file passed must be a PHP file.</source>
+        <output>渡された出力ファイルはPHPファイルである必要があります。</output>
     </text>
     <text>
-        <source>You must either pass a Pop\Geo\Geo object or a set of latitude/longitude coordinates.</source>
-        <output>あなたはどちらポップ\ジオ\ジオオブジェクトまたは緯度/経度の座標のセットを渡す必要があります。</output>
+        <source>You must pass an install file to install the project.</source>
+        <output>あなたがプロジェクトをインストールするためには、インストールファイルを渡す必要があります。</output>
     </text>
     <text>
-        <source>The required transaction data has not been set.</source>
-        <output>必須のトランザクションデータが設定されていません。</output>
+        <source>Unknown option:</source>
+        <output>不明なオプション：</output>
     </text>
     <text>
-        <source>The value must be a valid credit card number</source>
-        <output>値は有効なクレジットカードの番号でなければなりません</output>
+        <source>You must pass at least one argument.</source>
+        <output>あなたは、少なくとも1つの引数を渡す必要があります。</output>
     </text>
     <text>
-        <source>The value must not be a valid credit card number</source>
-        <output>値は有効なクレジットカードの番号であってはなりません</output>
+        <source>That folder does not exist.</source>
+        <output>そのフォルダが存在しません。</output>
     </text>
     <text>
-        <source>The array of ID values does not match the number of IDs.</source>
-        <output>IDの値の配列は、IDの数と一致しません。</output>
-    </text>
-    <text>
-        <source>The font file does not exist.</source>
-        <output>フォントファイルが存在しません。</output>
-    </text>
-    <text>
-        <source>That font type is not supported.</source>
-        <output>そのフォントの種類はサポートされていません。</output>
-    </text>
-    <text>
-        <source>The AFM font file was not found.</source>
-        <output>AFMフォントファイルが見つかりませんでした。</output>
-    </text>
-    <text>
-        <source>Error: The font license does not allow for it to be embedded.</source>
-        <output>エラー：それが埋め込まれるためにフォントライセンスが許可されていません。</output>
+        <source>The folder argument is not a folder</source>
+        <output>フォルダの引数はフォルダではない</output>
     </text>
 </language>

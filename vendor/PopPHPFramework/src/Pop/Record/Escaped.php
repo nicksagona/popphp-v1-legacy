@@ -25,8 +25,7 @@
 namespace Pop\Record;
 
 use Pop\Db\Db,
-    Pop\Db\Sql,
-    Pop\Locale\Locale;
+    Pop\Db\Sql;
 
 /**
  * @category   Pop
@@ -50,7 +49,6 @@ class Escaped extends AbstractRecord
      */
     public function __construct(Db $db, $options)
     {
-        $this->_lang = new Locale();
         $this->db = $db;
 
         $type = $this->db->getAdapterType();
@@ -79,33 +77,33 @@ class Escaped extends AbstractRecord
     public function findById($id, $limit = null)
     {
         if (null === $this->_primaryId) {
-            throw new Exception($this->_lang->__('This primary ID of this table either is not set or does not exist.'));
-        } else {
-            // Build the SQL.
-            $this->db->sql->setTable($this->_tableName)
-                          ->setIdQuoteType($this->_idQuote)
-                          ->select();
-
-            if (is_array($this->_primaryId)) {
-                if (!is_array($id) || (count($id) != count($this->_primaryId))) {
-                    throw new Exception($this->_lang->__('The array of ID values does not match the number of IDs.'));
-                }
-                foreach ($id as $key => $value) {
-                    $this->db->sql->where($this->_primaryId[$key], '=', $this->db->adapter->escape($value));
-                }
-            } else {
-                $this->db->sql->where($this->_primaryId, '=', $this->db->adapter->escape($id));
-            }
-
-            if (null !== $limit) {
-                $this->db->sql->limit($this->db->adapter->escape((int)$limit));
-            }
-
-            $this->db->adapter->query($this->db->sql->getSql());
-
-            // Set the return results.
-            $this->_setResults();
+            throw new Exception('This primary ID of this table either is not set or does not exist.');
         }
+
+        // Build the SQL.
+        $this->db->sql->setTable($this->_tableName)
+                      ->setIdQuoteType($this->_idQuote)
+                      ->select();
+
+        if (is_array($this->_primaryId)) {
+            if (!is_array($id) || (count($id) != count($this->_primaryId))) {
+                throw new Exception('The array of ID values does not match the number of IDs.');
+            }
+            foreach ($id as $key => $value) {
+                $this->db->sql->where($this->_primaryId[$key], '=', $this->db->adapter->escape($value));
+            }
+        } else {
+            $this->db->sql->where($this->_primaryId, '=', $this->db->adapter->escape($id));
+        }
+
+        if (null !== $limit) {
+            $this->db->sql->limit($this->db->adapter->escape((int)$limit));
+        }
+
+        $this->db->adapter->query($this->db->sql->getSql());
+
+        // Set the return results.
+        $this->_setResults();
     }
 
     /**
@@ -405,18 +403,18 @@ class Escaped extends AbstractRecord
 
         if (null === $this->_primaryId) {
             if ((null === $column) && (null === $value)) {
-                throw new Exception($this->_lang->__('The column and value parameters were not defined to describe the row(s) to delete.'));
-            } else {
-                $this->db->sql->setTable($this->_tableName)
-                              ->setIdQuoteType($this->_idQuote)
-                              ->delete()
-                              ->where($this->db->adapter->escape($column), '=', $this->db->adapter->escape($value));
-
-                $this->db->adapter->query($this->db->sql->getSql());
-
-                $this->_columns = array();
-                $this->_rows = array();
+                throw new Exception('The column and value parameters were not defined to describe the row(s) to delete.');
             }
+
+            $this->db->sql->setTable($this->_tableName)
+                          ->setIdQuoteType($this->_idQuote)
+                          ->delete()
+                          ->where($this->db->adapter->escape($column), '=', $this->db->adapter->escape($value));
+
+            $this->db->adapter->query($this->db->sql->getSql());
+
+            $this->_columns = array();
+            $this->_rows = array();
         } else {
             $this->db->sql->setTable($this->_tableName)
                           ->setIdQuoteType($this->_idQuote)

@@ -24,8 +24,6 @@
  */
 namespace Pop\Db\Adapter;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Db
@@ -48,17 +46,15 @@ class Mysql extends AbstractAdapter
      */
     public function __construct(array $options)
     {
-        $this->_lang = new Locale();
-
         if (!isset($options['database']) || !isset($options['host']) || !isset($options['username']) || !isset($options['password'])) {
-            throw new Exception($this->_lang->__('Error: The proper database credentials were not passed.'));
-        } else {
-            $this->connection = mysql_connect($options['host'], $options['username'], $options['password']);
+            throw new Exception('Error: The proper database credentials were not passed.');
+        }
 
-            // Select the DB to use, or display the SQL error.
-            if (!(mysql_select_db($options['database'], $this->connection))) {
-                $this->showError();
-            }
+        $this->connection = mysql_connect($options['host'], $options['username'], $options['password']);
+
+        // Select the DB to use, or display the SQL error.
+        if (!(mysql_select_db($options['database'], $this->connection))) {
+            $this->showError();
         }
     }
 
@@ -70,7 +66,7 @@ class Mysql extends AbstractAdapter
      */
     public function showError()
     {
-        throw new Exception($this->_lang->__('Error:') . ' ' . mysql_errno() . ' => ' . mysql_error() . '.');
+        throw new Exception('Error: ' . mysql_errno() . ' => ' . mysql_error() . '.');
     }
 
     /**
@@ -106,10 +102,10 @@ class Mysql extends AbstractAdapter
     public function fetch()
     {
         if (!isset($this->result)) {
-            throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
-        } else {
-            return mysql_fetch_array($this->result, MYSQL_ASSOC);
+            throw new Exception('Error: The database result resource is not currently set.');
         }
+
+        return mysql_fetch_array($this->result, MYSQL_ASSOC);
     }
 
     /**
@@ -142,10 +138,10 @@ class Mysql extends AbstractAdapter
     public function numRows()
     {
         if (!isset($this->result)) {
-            throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
-        } else {
-            return mysql_num_rows($this->result);
+            throw new Exception('Error: The database result resource is not currently set.');
         }
+
+        return mysql_num_rows($this->result);
     }
 
     /**
@@ -157,10 +153,10 @@ class Mysql extends AbstractAdapter
     public function numFields()
     {
         if (!isset($this->result)) {
-            throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
-        } else {
-            return mysql_num_fields($this->result);
+            throw new Exception('Error: The database result resource is not currently set.');
         }
+
+        return mysql_num_fields($this->result);
     }
 
     /**

@@ -24,8 +24,7 @@
  */
 namespace Pop\Feed;
 
-use Pop\File\File,
-    Pop\Locale\Locale;
+use Pop\File\File;
 
 /**
  * @category   Pop
@@ -123,12 +122,6 @@ class Reader
     protected $_dateFormat = 'm/d/Y h:i a';
 
     /**
-     * Language object
-     * @var Pop_Locale
-     */
-    protected $_lang = null;
-
-    /**
      * Constructor
      *
      * Instantiate the feed object.
@@ -140,8 +133,6 @@ class Reader
      */
     public function __construct($url, $limit = null)
     {
-        $this->_lang = new Locale();
-
         // Create the SimpleXMLElement and set the format to either XML or HTML.
         try {
             if (($this->_xml =@ new \SimpleXMLElement($url, LIBXML_NOWARNING, true)) !== false) {
@@ -166,12 +157,12 @@ class Reader
                 // Parse the items from the feed.
                 $this->_parseFeed();
             } else {
-                throw new Exception($this->_lang->__('That feed URL cannot be read at this time. Please try again later.'));
+                throw new Exception('That feed URL cannot be read at this time. Please try again later.');
             }
 
         // Else, throw an exception if there are any failures.
         } catch (\Exception $e) {
-            throw new Exception($this->_lang->__('That feed URL cannot be read at this time. Please try again later.'));
+            throw new Exception('That feed URL cannot be read at this time. Please try again later.');
         }
     }
 
@@ -244,38 +235,38 @@ class Reader
     public function render($ret = false)
     {
         if (null === $this->_template) {
-            throw new Exception($this->_lang->__('Error: The feed item template is not set.'));
+            throw new Exception('Error: The feed item template is not set.');
         } else if (!isset($this->items[0])) {
-            throw new Exception($this->_lang->__('Error: The feed currently has no content.'));
+            throw new Exception('Error: The feed currently has no content.');
+        }
+
+        $output = '';
+
+        if (null !== $this->_limit) {
+            $lim = ($this->_limit > count($this->items)) ? count($this->items) : $this->_limit;
         } else {
-            $output = '';
+            $lim = count($this->items);
+        }
 
-            if (null !== $this->_limit) {
-                $lim = ($this->_limit > count($this->items)) ? count($this->items) : $this->_limit;
-            } else {
-                $lim = count($this->items);
-            }
-
-            // Loop through the items, formatting them into the template as needed, using the proper date format if appropriate.
-            for ($i = 0; $i < $lim; $i++) {
-                $tmpl = $this->_template;
-                foreach ($this->items[$i] as $k => $v) {
-                    if ((null !== $this->_dateFormat) && (stripos($k, 'date') !== false)) {
-                        $val =  date($this->_dateFormat, strtotime($v));
-                    } else {
-                        $val = $v;
-                    }
-                    $tmpl = str_replace('[{' . $k . '}]', $val, $tmpl);
+        // Loop through the items, formatting them into the template as needed, using the proper date format if appropriate.
+        for ($i = 0; $i < $lim; $i++) {
+            $tmpl = $this->_template;
+            foreach ($this->items[$i] as $k => $v) {
+                if ((null !== $this->_dateFormat) && (stripos($k, 'date') !== false)) {
+                    $val =  date($this->_dateFormat, strtotime($v));
+                } else {
+                    $val = $v;
                 }
-                $output .= $tmpl;
+                $tmpl = str_replace('[{' . $k . '}]', $val, $tmpl);
             }
+            $output .= $tmpl;
+        }
 
-            // Return the final output.
-            if ($ret) {
-                return $output;
-            } else {
-                echo $output;
-            }
+        // Return the final output.
+        if ($ret) {
+            return $output;
+        } else {
+            echo $output;
         }
     }
 

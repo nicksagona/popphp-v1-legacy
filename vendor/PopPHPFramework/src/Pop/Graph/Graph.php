@@ -30,7 +30,6 @@ use Pop\Color\ColorInterface,
     Pop\Image\Gd,
     Pop\Image\Imagick,
     Pop\Image\Svg,
-    Pop\Locale\Locale,
     Pop\Pdf\Pdf;
 
 /**
@@ -264,10 +263,10 @@ class Graph
     public function setFont($font = null)
     {
         if ((null !== $font) && !array_key_exists($font, $this->_fonts)) {
-            throw new Exception($this->_lang->__('That font is not available.'));
-        } else {
-            $this->_font = $font;
+            throw new Exception('That font is not available.');
         }
+
+        $this->_font = $font;
 
         return $this;
     }
@@ -673,96 +672,96 @@ class Graph
         }
 
         if ($total > 100) {
-            throw new Exception(Locale::factory()->__('The percentages are greater than 100.'));
-        } else {
-            $start = 0;
-            $end = 0;
-            foreach ($percents as $value) {
-                $amt = round(($value[0] / 100) * 360);
-                if ($start == 0) {
-                    $end = $amt;
-                } else {
-                    $end = $start + $amt;
-                }
-                $this->_adapter->setFillColor($value[1]);
+            throw new Exception('The percentages are greater than 100.');
+        }
 
-                if ($explode != 0) {
-                    $center = array('x' => $pie['x'], 'y' => $pie['y']);
-                    $mid = (($end - $start) / 2) + $start;
-                    $midX = round($pie['x'] + ($pie['w'] * (cos($mid / 180 * pi()))));
-                    $midY = round($pie['y'] + ($pie['h'] * (sin($mid / 180 * pi()))));
-                    $midPt = array('x' => $midX, 'y' => $midY);
-
-                    $quad = $this->_getQuadrant($midPt, $center);
-                    $triangle = $this->_getTriangle($midPt, $center, $quad);
-
-                    $newHypot = $triangle['hypot'] - $explode;
-                    $newSide1 = round(sin(deg2rad($triangle['angle2'])) * $newHypot);
-                    $newSide2 = round(sin(deg2rad($triangle['angle1'])) * $newHypot);
-
-                    if ($this->_adapter instanceof Pdf) {
-                        switch ($quad) {
-                            case 1:
-                                $x = $midX - $newSide1;
-                                $y = $midY + $newSide2;
-                                break;
-
-                            case 2:
-                                $x = $newSide1 + $midX;
-                                $y = $midY + $newSide2;
-                                break;
-
-                            case 3:
-                                $x = $newSide1 + $midX;
-                                $y = $midY - $newSide2;
-                                break;
-
-                            case 4:
-                                $x = $midX - $newSide1;
-                                $y = $midY - $newSide2;
-                                break;
-                        }
-                        $y = $pie['y'] + ($pie['y'] - $y);
-                    } else {
-                        switch ($quad) {
-                            case 1:
-                                $x = $midX - $newSide1;
-                                $y = $midY - $newSide2;
-                                break;
-
-                            case 2:
-                                $x = $newSide1 + $midX;
-                                $y = $midY - $newSide2;
-                                break;
-
-                            case 3:
-                                $x = $newSide1 + $midX;
-                                $y = $midY + $newSide2;
-                                break;
-
-                            case 4:
-                                $x = $midX - $newSide1;
-                                $y = $midY + $newSide2;
-                                break;
-                        }
-                    }
-                } else {
-                    $x = $pie['x'];
-                    $y = $pie['y'];
-                }
-
-                $newMidX = round($x + ($pie['w'] * (cos($mid / 180 * pi()))));
-                $newMidY = round($y + ($pie['h'] * (sin($mid / 180 * pi()))));
-                $newMidPts = array('x' => $newMidX, 'y' => $newMidY);
-                $quad = $this->_getQuadrant($newMidPts, array('x' => $x, 'y' => $y));
-
-                $textMidPts[] = $newMidPts;
-                $textQuads[] = $quad;
-                $textValues[] = $value;
-
-                $this->_adapter->addArc($x, $y, $start, $end, $pie['w'], $pie['h']);
-                $start = $end;
+        $start = 0;
+        $end = 0;
+        foreach ($percents as $value) {
+            $amt = round(($value[0] / 100) * 360);
+            if ($start == 0) {
+                $end = $amt;
+            } else {
+                $end = $start + $amt;
             }
+            $this->_adapter->setFillColor($value[1]);
+
+            if ($explode != 0) {
+                $center = array('x' => $pie['x'], 'y' => $pie['y']);
+                $mid = (($end - $start) / 2) + $start;
+                $midX = round($pie['x'] + ($pie['w'] * (cos($mid / 180 * pi()))));
+                $midY = round($pie['y'] + ($pie['h'] * (sin($mid / 180 * pi()))));
+                $midPt = array('x' => $midX, 'y' => $midY);
+
+                $quad = $this->_getQuadrant($midPt, $center);
+                $triangle = $this->_getTriangle($midPt, $center, $quad);
+
+                $newHypot = $triangle['hypot'] - $explode;
+                $newSide1 = round(sin(deg2rad($triangle['angle2'])) * $newHypot);
+                $newSide2 = round(sin(deg2rad($triangle['angle1'])) * $newHypot);
+
+                if ($this->_adapter instanceof Pdf) {
+                    switch ($quad) {
+                        case 1:
+                            $x = $midX - $newSide1;
+                            $y = $midY + $newSide2;
+                            break;
+
+                        case 2:
+                            $x = $newSide1 + $midX;
+                            $y = $midY + $newSide2;
+                            break;
+
+                        case 3:
+                            $x = $newSide1 + $midX;
+                            $y = $midY - $newSide2;
+                            break;
+
+                        case 4:
+                            $x = $midX - $newSide1;
+                            $y = $midY - $newSide2;
+                            break;
+                    }
+                    $y = $pie['y'] + ($pie['y'] - $y);
+                } else {
+                    switch ($quad) {
+                        case 1:
+                            $x = $midX - $newSide1;
+                            $y = $midY - $newSide2;
+                            break;
+
+                        case 2:
+                            $x = $newSide1 + $midX;
+                            $y = $midY - $newSide2;
+                            break;
+
+                        case 3:
+                            $x = $newSide1 + $midX;
+                            $y = $midY + $newSide2;
+                            break;
+
+                        case 4:
+                            $x = $midX - $newSide1;
+                            $y = $midY + $newSide2;
+                            break;
+                    }
+                }
+            } else {
+                $x = $pie['x'];
+                $y = $pie['y'];
+            }
+
+            $newMidX = round($x + ($pie['w'] * (cos($mid / 180 * pi()))));
+            $newMidY = round($y + ($pie['h'] * (sin($mid / 180 * pi()))));
+            $newMidPts = array('x' => $newMidX, 'y' => $newMidY);
+            $quad = $this->_getQuadrant($newMidPts, array('x' => $x, 'y' => $y));
+
+            $textMidPts[] = $newMidPts;
+            $textQuads[] = $quad;
+            $textValues[] = $value;
+
+            $this->_adapter->addArc($x, $y, $start, $end, $pie['w'], $pie['h']);
+            $start = $end;
         }
 
         // Draw data point text.

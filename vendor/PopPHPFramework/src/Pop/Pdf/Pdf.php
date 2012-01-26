@@ -28,7 +28,6 @@ use Pop\Color\Color,
     Pop\Color\ColorInterface,
     Pop\Color\Rgb,
     Pop\File\File,
-    Pop\Locale\Locale,
     Pop\Pdf\Import,
     Pop\Pdf\Info,
     Pop\Pdf\Object,
@@ -317,29 +316,30 @@ class Pdf extends File
 
         // Check if the page exists.
         if (!array_key_exists($key, $this->_pages)) {
-            throw new Exception($this->_lang->__('Error: That page does not exist.'));
-        } else {
-            $pi = $this->_lastIndex($this->_objects) + 1;
-            $ci = $this->_lastIndex($this->_objects) + 2;
-            $this->_objects[$pi] = new Page($this->_objects[$this->_pages[$key]]);
-            $this->_objects[$pi]->index = $pi;
-
-            // Duplicate the page's content objects.
-            $oldContent = $this->_objects[$pi]->content;
-            unset($this->_objects[$pi]->content);
-            foreach ($oldContent as $key => $value) {
-                $this->_objects[$ci] = new Object((string)$this->_objects[$value]);
-                $this->_objects[$ci]->index = $ci;
-                $this->_objects[$pi]->content[] = $ci;
-                $ci += 1;
-            }
-
-            // Finalize related page variables and objects.
-            $this->_curPage = (null === $this->_curPage) ? 0 : ($this->_lastIndex($this->_pages) + 1);
-            $this->_pages[$this->_curPage] = $pi;
-            $this->_objects[$this->_parent]->count += 1;
-            $this->_objects[$this->_parent]->kids[] = $pi;
+            throw new Exception('Error: That page does not exist.');
         }
+
+        $pi = $this->_lastIndex($this->_objects) + 1;
+        $ci = $this->_lastIndex($this->_objects) + 2;
+        $this->_objects[$pi] = new Page($this->_objects[$this->_pages[$key]]);
+        $this->_objects[$pi]->index = $pi;
+
+        // Duplicate the page's content objects.
+        $oldContent = $this->_objects[$pi]->content;
+        unset($this->_objects[$pi]->content);
+        foreach ($oldContent as $key => $value) {
+            $this->_objects[$ci] = new Object((string)$this->_objects[$value]);
+            $this->_objects[$ci]->index = $ci;
+            $this->_objects[$pi]->content[] = $ci;
+            $ci += 1;
+        }
+
+        // Finalize related page variables and objects.
+        $this->_curPage = (null === $this->_curPage) ? 0 : ($this->_lastIndex($this->_pages) + 1);
+        $this->_pages[$this->_curPage] = $pi;
+        $this->_objects[$this->_parent]->count += 1;
+        $this->_objects[$this->_parent]->kids[] = $pi;
+
 
         return $this;
     }
@@ -357,41 +357,41 @@ class Pdf extends File
 
         // Check if the page exists.
         if (!array_key_exists($key, $this->_pages)) {
-            throw new Exception($this->_lang->__('Error: That page does not exist.'));
-        } else {
-            // Determine the page index and related data.
-            $pi = $this->_pages[$key];
-            $ki =  array_search($pi, $this->_objects[$this->_parent]->kids);
-            $content_objs = $this->_objects[$pi]->content;
+            throw new Exception('Error: That page does not exist.');
+        }
 
-            // Remove the page's content objects.
-            if (count($content_objs) != 0) {
-                foreach ($content_objs as $value) {
-                    unset($this->_objects[$value]);
-                }
+        // Determine the page index and related data.
+        $pi = $this->_pages[$key];
+        $ki =  array_search($pi, $this->_objects[$this->_parent]->kids);
+        $content_objs = $this->_objects[$pi]->content;
+
+        // Remove the page's content objects.
+        if (count($content_objs) != 0) {
+            foreach ($content_objs as $value) {
+                unset($this->_objects[$value]);
             }
+        }
 
-            // Subtract the page from the parent's count property.
-            $this->_objects[$this->_parent]->count -= 1;
+        // Subtract the page from the parent's count property.
+        $this->_objects[$this->_parent]->count -= 1;
 
-            // Remove the page from the kids and pages arrays, and remove the page object.
-            unset($this->_objects[$this->_parent]->kids[$ki]);
-            unset($this->_pages[$key]);
-            unset($this->_objects[$pi]);
+        // Remove the page from the kids and pages arrays, and remove the page object.
+        unset($this->_objects[$this->_parent]->kids[$ki]);
+        unset($this->_pages[$key]);
+        unset($this->_objects[$pi]);
 
-            // Reset the kids array.
-            $tmpAry = $this->_objects[$this->_parent]->kids;
-            $this->_objects[$this->_parent]->kids = array();
-            foreach ($tmpAry as $value) {
-                $this->_objects[$this->_parent]->kids[] = $value;
-            }
+        // Reset the kids array.
+        $tmpAry = $this->_objects[$this->_parent]->kids;
+        $this->_objects[$this->_parent]->kids = array();
+        foreach ($tmpAry as $value) {
+            $this->_objects[$this->_parent]->kids[] = $value;
+        }
 
-            // Reset the pages array.
-            $tmpAry = $this->_pages;
-            $this->_pages = array();
-            foreach ($tmpAry as $value) {
-                $this->_pages[] = $value;
-            }
+        // Reset the pages array.
+        $tmpAry = $this->_pages;
+        $this->_pages = array();
+        foreach ($tmpAry as $value) {
+            $this->_pages[] = $value;
         }
 
         return $this;
@@ -410,22 +410,22 @@ class Pdf extends File
 
         // Check if the PDF has more than one page.
         if (count($this->_pages) <= 1) {
-            throw new Exception($this->_lang->__('Error: The PDF does not have enough pages in which to order.'));
+            throw new Exception('Error: The PDF does not have enough pages in which to order.');
         // Else, check if the numbers of pages passed equals the number of pages in the PDF.
         } else if (count($pgs) != count($this->_pages)) {
-            throw new Exception($this->_lang->__('Error: The pages array passed does not contain the same number of pages as the PDF.'));
-        } else {
-            // Make sure each page passed is within the PDF and not out of range.
-            foreach ($pgs as $value) {
-                if (!array_key_exists(($value - 1), $this->_pages)) {
-                    throw new Exception($this->_lang->__('Error: The pages array passed contains a page that does not exist.'));
-                }
-            }
+            throw new Exception('Error: The pages array passed does not contain the same number of pages as the PDF.');
+        }
 
-            // Set the new order of the page objects.
-            foreach ($pgs as $value) {
-                $newOrder[] = $this->_pages[$value - 1];
+        // Make sure each page passed is within the PDF and not out of range.
+        foreach ($pgs as $value) {
+            if (!array_key_exists(($value - 1), $this->_pages)) {
+                throw new Exception('Error: The pages array passed contains a page that does not exist.');
             }
+        }
+
+        // Set the new order of the page objects.
+        foreach ($pgs as $value) {
+            $newOrder[] = $this->_pages[$value - 1];
         }
 
         // Set the kids and pages arrays to the new order.
@@ -490,10 +490,9 @@ class Pdf extends File
 
         // Check if the page exists.
         if (!array_key_exists($key, $this->_pages)) {
-            throw new Exception($this->_lang->__('Error: That page does not exist.'));
-        } else {
-            $this->_curPage = $pg - 1;
+            throw new Exception('Error: That page does not exist.');
         }
+        $this->_curPage = $pg - 1;
 
         return $this;
     }
@@ -664,12 +663,12 @@ class Pdf extends File
     {
         // Check the rotation parameter.
         if (abs($rot) > 90) {
-            throw new Exception($this->_lang->__('Error: The rotation parameter must be between -90 and 90 degrees.'));
+            throw new Exception('Error: The rotation parameter must be between -90 and 90 degrees.');
         }
 
         // Check the render parameter.
         if ((!is_int($rend)) || (($rend > 7) || ($rend < 0))) {
-            throw new Exception($this->_lang->__('Error: The render parameter must be an integer between 0 and 7.'));
+            throw new Exception('Error: The render parameter must be an integer between 0 and 7.');
         }
 
         // Set the text parameters.
@@ -700,37 +699,35 @@ class Pdf extends File
             $fontParser = new Font($font, $fontIndex, $objectIndex, $this->_compress);
 
             if (!$fontParser->isEmbeddable() && !$embedOverride) {
-                throw new Exception($this->_lang->__('Error: The font license does not allow for it to be embedded.'));
-            } else {
-                $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$fontParser->getFontName()] = $fontParser->getFontRef();
-
-                $fontObjects = $fontParser->getObjects();
-
-                foreach ($fontObjects as $key => $value) {
-                    $this->_objects[$key] = $value;
-                }
-
-                $this->_lastFontName = $fontParser->getFontName();
+                throw new Exception('Error: The font license does not allow for it to be embedded.');
             }
+
+            $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$fontParser->getFontName()] = $fontParser->getFontRef();
+            $fontObjects = $fontParser->getObjects();
+
+            foreach ($fontObjects as $key => $value) {
+                $this->_objects[$key] = $value;
+            }
+
+            $this->_lastFontName = $fontParser->getFontName();
         // Else, use a standard font.
         } else {
             // Check to make sure the font is a standard PDF font.
             if (!array_key_exists($font, $this->_standard_fonts)) {
-                throw new Exception($this->_lang->__('Error: That font is not contained within the standard PDF fonts.'));
-            } else {
-                // Set the font index.
-                $ft_index = (count($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) == 0) ? 1 : count($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) + 1;
-
-                // Set the font name and the next object index.
-                $f = 'MF' . $ft_index;
-                $i = $this->_lastIndex($this->_objects) + 1;
-
-                // Add the font to the current page's fonts and add the font to _objects array.
-                $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$font] = "/{$f} {$i} 0 R";
-                $this->_objects[$i] = new Object("{$i} 0 obj\n<<\n    /Type /Font\n    /Subtype /Type1\n    /Name /{$f}\n    /BaseFont /{$font}\n    /Encoding /StandardEncoding\n>>\nendobj\n\n");
-
-                $this->_lastFontName = $font;
+                throw new Exception('Error: That font is not contained within the standard PDF fonts.');
             }
+            // Set the font index.
+            $ft_index = (count($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) == 0) ? 1 : count($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) + 1;
+
+            // Set the font name and the next object index.
+            $f = 'MF' . $ft_index;
+            $i = $this->_lastIndex($this->_objects) + 1;
+
+            // Add the font to the current page's fonts and add the font to _objects array.
+            $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$font] = "/{$f} {$i} 0 R";
+            $this->_objects[$i] = new Object("{$i} 0 obj\n<<\n    /Type /Font\n    /Subtype /Type1\n    /Name /{$f}\n    /BaseFont /{$font}\n    /Encoding /StandardEncoding\n>>\nendobj\n\n");
+
+            $this->_lastFontName = $font;
         }
 
         return $this;
@@ -765,7 +762,7 @@ class Pdf extends File
             if (array_key_exists($font, $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts)) {
                 $fontObj = substr($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$font], 1, (strpos(' ', $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$font]) + 3));
             } else {
-                throw new Exception($this->_lang->__('Error: The font \'%1\' has not been added to the PDF.', $font));
+                throw new Exception('Error: The font \'' . $font . '\' has not been added to the PDF.');
             }
         }
 
@@ -789,17 +786,17 @@ class Pdf extends File
     public function getStringSize($str, $font, $sz)
     {
         if (!array_key_exists($font, $this->_standard_fonts)) {
-            throw new Exception($this->_lang->__('Error: That font is not contained within the standard PDF fonts.'));
-        } else {
-            // Calculate the approximate width, height and offset baseline values of the string at the certain font.
-            $size = array();
-
-            $size['width'] = round(($sz * $this->_standard_fonts[$font]['width_factor']) * strlen($str));
-            $size['height'] = round($sz * $this->_standard_fonts[$font]['height_factor']);
-            $size['baseline'] = round($sz / 3);
-
-            return $size;
+            throw new Exception('Error: That font is not contained within the standard PDF fonts.');
         }
+
+        // Calculate the approximate width, height and offset baseline values of the string at the certain font.
+        $size = array();
+
+        $size['width'] = round(($sz * $this->_standard_fonts[$font]['width_factor']) * strlen($str));
+        $size['height'] = round($sz * $this->_standard_fonts[$font]['height_factor']);
+        $size['baseline'] = round($sz / 3);
+
+        return $size;
     }
 
     /**
@@ -1336,10 +1333,9 @@ class Pdf extends File
         // Set the destination of the internal link, or default to the current page.
         if (null !== $dest) {
             if (!isset($this->_pages[$dest - 1])) {
-                throw new Exception($this->_lang->__('Error: That page has not been defined.'));
-            } else {
-                $d = $this->_objects[$this->_pages[$dest - 1]]->index;
+                throw new Exception('Error: That page has not been defined.');
             }
+            $d = $this->_objects[$this->_pages[$dest - 1]]->index;
         // Else, set the destination to the current page.
         } else {
             $d = $this->_objects[$this->_pages[$this->_curPage]]->index;
@@ -1624,23 +1620,18 @@ class Pdf extends File
      * Method to return the last object index.
      *
      * @param  array $arr
-     * @throws Exception
      * @return int
      */
-    protected function _lastIndex($arr)
+    protected function _lastIndex(array $arr)
     {
-        if (!is_array($arr)) {
-            throw new Exception($this->_lang->__('Error: The argument passed must be an array.'));
-        } else {
-            $objs = array_keys($arr);
-            sort($objs);
+        $objs = array_keys($arr);
+        sort($objs);
 
-            foreach ($objs as $obj) {
-                $last = $obj;
-            }
-
-            return $last;
+        foreach ($objs as $obj) {
+            $last = $obj;
         }
+
+        return $last;
     }
 
 }

@@ -24,8 +24,7 @@
  */
 namespace Pop\File;
 
-use Pop\Locale\Locale,
-    Pop\Http\Response;
+use Pop\Http\Response;
 
 /**
  * @category   Pop
@@ -97,12 +96,6 @@ class File
      * @var array
      */
     protected $_perm = array();
-
-    /**
-     * Language object
-     * @var Pop_Locale
-     */
-    protected $_lang = null;
 
     /**
      * Array of allowed file types.
@@ -193,7 +186,6 @@ class File
      */
     public function __construct($file, $types = null)
     {
-        $this->_lang = new Locale();
         $this->_setFile($file, $types);
     }
 
@@ -209,16 +201,14 @@ class File
      */
     public static function upload($upload, $file, $size = null, $types = null)
     {
-        $lang = new Locale();
-
         // Check to see if the upload directory exists.
         if (!file_exists(dirname($file))) {
-            throw new Exception($lang->__('Error: The upload directory does not exist.'));
+            throw new Exception('Error: The upload directory does not exist.');
         }
 
         // Check to see if the permissions are set correctly.
         if ((self::_checkPermissions(dirname($file))) != 777) {
-            throw new Exception($lang->__('Error: Permission denied.'));
+            throw new Exception('Error: Permission denied.');
         }
 
         // Move the uploaded file, creating a file object with it.
@@ -229,19 +219,20 @@ class File
             // Check the file size requirement.
             if ((null !== $size) && ($fileSize > $size)) {
                 unlink($file);
-                throw new Exception($lang->__('Error: The file uploaded is too big.'));
+                throw new Exception('Error: The file uploaded is too big.');
             } else if ((null === $size) && (null !== self::MAX) && ($fileSize > self::MAX)) {
                 unlink($file);
-                throw new Exception($lang->__('Error: The file uploaded is too big.'));
-            } else {
-                $fileObj = new static($file);
-                if (null !== $types) {
-                    $fileObj->setAllowedTypes($types);
-                }
-                return $fileObj;
+                throw new Exception('Error: The file uploaded is too big.');
             }
+
+            $fileObj = new static($file);
+            if (null !== $types) {
+                $fileObj->setAllowedTypes($types);
+            }
+
+            return $fileObj;
         } else {
-            throw new Exception($lang->__('Error: There was an error in uploading the file.'));
+            throw new Exception('Error: There was an error in uploading the file.');
         }
     }
 
@@ -303,19 +294,12 @@ class File
      * Set the allowed files types.
      *
      * @param  array $types
-     * @throws Exception
      * @return void
      */
-    public function addAllowedTypes($types)
+    public function addAllowedTypes(array $types)
     {
-        // Check to see if the parameter is an array.
-        if (!is_array($types)) {
-            throw new Exception($this->_lang->__('Error: The parameter passed is not an array.'));
-        // Else, append the additional types to the $_allowed array.
-        } else {
-            foreach ($types as $key => $value) {
-                $this->_allowed[$key] = $value;
-            }
+        foreach ($types as $key => $value) {
+            $this->_allowed[$key] = $value;
         }
     }
 
@@ -416,18 +400,18 @@ class File
     {
         // Check to see if the new file already exists, and if the permissions are set correctly.
         if (file_exists($new)) {
-            throw new Exception($this->_lang->__('Error: The file already exists.'));
+            throw new Exception('Error: The file already exists.');
         } else if ((self::_checkPermissions(dirname($new))) != 777) {
-            throw new Exception($this->_lang->__('Error: Permission denied.'));
-        } else {
-            if (file_exists($this->fullpath)) {
-                copy($this->fullpath, $new);
-            } else {
-                file_put_contents($new, $this->_output);
-            }
-            chmod($new, 0777);
-            $this->_setFile($new);
+            throw new Exception('Error: Permission denied.');
         }
+
+        if (file_exists($this->fullpath)) {
+            copy($this->fullpath, $new);
+        } else {
+            file_put_contents($new, $this->_output);
+        }
+        chmod($new, 0777);
+        $this->_setFile($new);
 
         return $this;
     }
@@ -443,18 +427,18 @@ class File
     {
         // Check to see if the new file already exists, and if the permissions are set correctly.
         if (file_exists($new)) {
-            throw new Exception($this->_lang->__('Error: The file already exists.'));
+            throw new Exception('Error: The file already exists.');
         } else if ((self::_checkPermissions(dirname($new)) != 777) || ($this->_perm['dir'] != 777)) {
             throw new Exception('Error: Permission denied.');
-        } else {
-            if (file_exists($this->fullpath)) {
-                rename($this->fullpath, $new);
-            } else {
-                file_put_contents($new, $this->_output);
-            }
-            chmod($new, 0777);
-            $this->_setFile($new);
         }
+
+        if (file_exists($this->fullpath)) {
+            rename($this->fullpath, $new);
+        } else {
+            file_put_contents($new, $this->_output);
+        }
+        chmod($new, 0777);
+        $this->_setFile($new);
 
         return $this;
     }
@@ -516,16 +500,16 @@ class File
         // Check to make sure the file exists and the permissions are set correctly before attempting to delete it from disk.
         if (file_exists($this->fullpath)) {
             if ((null !== $this->_perm['file']) && ($this->_perm['file'] != 777)) {
-                throw new Exception($this->_lang->__('Error: Permission denied.'));
-            } else {
-                unlink($this->fullpath);
+                throw new Exception('Error: Permission denied.');
+            }
 
-                // Reset file object properties.
-                $props = get_class_vars(get_class($this));
+            unlink($this->fullpath);
 
-                foreach (array_keys($props) as $key) {
-                    $this->{$key} = null;
-                }
+            // Reset file object properties.
+            $props = get_class_vars(get_class($this));
+
+            foreach (array_keys($props) as $key) {
+                $this->{$key} = null;
             }
         }
     }
@@ -545,10 +529,9 @@ class File
             $perm = substr(sprintf('%o', fileperms($file)), -3);
         } else {
             if (!is_writable($file)) {
-               throw new Exception(Locale::factory()->__('Error: The file or directory (%1) is not writable.', $file));
-            } else {
-               $perm = 777;
+               throw new Exception('Error: The file or directory (' . $file . ') is not writable.');
             }
+            $perm = 777;
         }
 
         return $perm;
@@ -591,11 +574,11 @@ class File
 
         // Check to see if the file is an accepted file format.
         if ((null !== $this->_allowed) && (null !== $this->ext) && (count($this->_allowed) > 0) && (!array_key_exists(strtolower($this->ext), $this->_allowed))) {
-            throw new Exception($this->_lang->__('Error: The file type %1 is not an accepted file format.', strtoupper($this->ext)));
-        } else {
-            // Set the mime type of the file.
-            $this->_mime = ((null !== $this->ext) && (count($this->_allowed) > 0) && (null !== $this->_allowed)) ? $this->_allowed[strtolower($this->ext)] : null;
+            throw new Exception('Error: The file type ' . strtoupper($this->ext) . ' is not an accepted file format.');
         }
+
+        // Set the mime type of the file.
+        $this->_mime = ((null !== $this->ext) && (count($this->_allowed) > 0) && (null !== $this->_allowed)) ? $this->_allowed[strtolower($this->ext)] : null;
     }
 
 }

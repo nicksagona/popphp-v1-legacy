@@ -24,8 +24,6 @@
  */
 namespace Pop;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Config
@@ -132,7 +130,7 @@ class Config
         if ($this->_allowChanges) {
             $this->_config[$name] = (is_array($value) ? new Config($value, $this->_allowChanges) : $value);
         } else {
-            throw new \Exception(Locale::factory()->__('Real-time configuration changes are not allowed.'));
+            throw new \Exception('Real-time configuration changes are not allowed.');
         }
     }
 

@@ -25,7 +25,6 @@
 namespace Pop\Web;
 
 use Pop\Http\Response,
-    Pop\Locale\Locale,
     Pop\Web\Session;
 
 /**
@@ -108,10 +107,9 @@ class Mobile
     public function goToMobile()
     {
         if (null === $this->mobile) {
-            throw new Exception(Locale::factory()->__('The mobile site is not set.'));
-        } else {
-            Response::redirect($this->mobile);
+            throw new Exception('The mobile site is not set.');
         }
+        Response::redirect($this->mobile);
     }
 
     /**
@@ -123,10 +121,9 @@ class Mobile
     public function goToStandard()
     {
         if (null === $this->standard) {
-            throw new Exception(Locale::factory()->__('The standard site is not set.'));
-        } else {
-            Response::redirect($this->standard);
+            throw new Exception('The standard site is not set.');
         }
+        Response::redirect($this->standard);
     }
 
     /**

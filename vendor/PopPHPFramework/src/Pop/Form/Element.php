@@ -102,12 +102,6 @@ class Element extends Child
     );
 
     /**
-     * Language object
-     * @var Pop_Locale
-     */
-    protected $_lang = null;
-
-    /**
      * Constructor
      *
      * Instantiate the form element object
@@ -122,118 +116,117 @@ class Element extends Child
      */
     public function __construct($type, $name, $value = null, $marked = null, $indent = null)
     {
-        $this->_lang = new Locale();
         $this->name = $name;
 
         // Check the element type, else set the properties.
         if (!in_array($type, $this->_allowed_types)) {
-            throw new Exception($this->_lang->__('Error: That input type is not allowed.'));
-        } else {
-            // Create the element based on the type passed.
-            switch ($type) {
-                // Textarea element
-                case 'textarea':
-                    parent::__construct('textarea', null, null, false, $indent);
-                    $this->setAttributes(array('name' => $name, 'id' => $name));
-                    $this->_nodeValue = $value;
-                    $this->value = $value;
-                    break;
+            throw new Exception('Error: That input type is not allowed.');
+        }
 
-                // Select element
-                case 'select':
-                    parent::__construct('select', null, null, false, $indent);
-                    $this->setAttributes(array('name' => $name, 'id' => $name));
+        // Create the element based on the type passed.
+        switch ($type) {
+            // Textarea element
+            case 'textarea':
+                parent::__construct('textarea', null, null, false, $indent);
+                $this->setAttributes(array('name' => $name, 'id' => $name));
+                $this->_nodeValue = $value;
+                $this->value = $value;
+                break;
 
-                    // Create the child option elements.
-                    foreach ($value as $k => $v) {
-                        $opt = new Child('option', null, null, false, ($indent . '    '));
-                        $opt->setAttributes('value', $k);
+            // Select element
+            case 'select':
+                parent::__construct('select', null, null, false, $indent);
+                $this->setAttributes(array('name' => $name, 'id' => $name));
 
-                        // Determine if the current option element is selected.
-                        if ($v == $this->marked) {
-                            $opt->setAttributes('selected', 'selected');
-                        }
+                // Create the child option elements.
+                foreach ($value as $k => $v) {
+                    $opt = new Child('option', null, null, false, ($indent . '    '));
+                    $opt->setAttributes('value', $k);
 
-                        $opt->setNodeValue($v);
-                        $this->addChild($opt);
+                    // Determine if the current option element is selected.
+                    if ($v == $this->marked) {
+                        $opt->setAttributes('selected', 'selected');
                     }
 
-                    $this->value = $value;
-                    break;
+                    $opt->setNodeValue($v);
+                    $this->addChild($opt);
+                }
 
-                // Radio element(s)
-                case 'radio':
-                    parent::__construct('fieldset', null, null, false, $indent);
-                    $this->setAttributes('class', 'radioBtnArea');
+                $this->value = $value;
+                break;
 
-                    // Create the radio elements and related span elements.
-                    $i = null;
-                    foreach ($value as $k => $v) {
-                        $rad = new Child('input', null, null, false, ($indent . '    '));
-                        $rad->setAttributes(array(
-                            'type' => $type,
-                            'class' => 'radioBtn',
-                            'name' => $name,
-                            'id' => ($name . $i),
-                            'value' => $k
-                        ));
+            // Radio element(s)
+            case 'radio':
+                parent::__construct('fieldset', null, null, false, $indent);
+                $this->setAttributes('class', 'radioBtnArea');
 
-                        // Determine if the current radio element is checked.
-                        if ($v == $this->marked) {
-                            $rad->setAttributes('checked', 'checked');
-                        }
+                // Create the radio elements and related span elements.
+                $i = null;
+                foreach ($value as $k => $v) {
+                    $rad = new Child('input', null, null, false, ($indent . '    '));
+                    $rad->setAttributes(array(
+                        'type' => $type,
+                        'class' => 'radioBtn',
+                        'name' => $name,
+                        'id' => ($name . $i),
+                        'value' => $k
+                    ));
 
-                        $span = new Child('span', null, null, false, ($indent . '    '));
-                        $span->setAttributes('class', 'radioPad');
-                        $span->setNodeValue($v);
-                        $this->addChildren(array($rad, $span));
-                        $i++;
+                    // Determine if the current radio element is checked.
+                    if ($v == $this->marked) {
+                        $rad->setAttributes('checked', 'checked');
                     }
 
-                    $this->value = $value;
-                    break;
+                    $span = new Child('span', null, null, false, ($indent . '    '));
+                    $span->setAttributes('class', 'radioPad');
+                    $span->setNodeValue($v);
+                    $this->addChildren(array($rad, $span));
+                    $i++;
+                }
 
-                // Checkbox element(s)
-                case 'checkbox':
-                    parent::__construct('fieldset', null, null, false, $indent);
-                    $this->setAttributes('class', 'checkBoxArea');
+                $this->value = $value;
+                break;
 
-                    // Create the checkbox elements and related span elements.
-                    $i = null;
-                    foreach ($value as $k => $v) {
-                        $chk = new Child('input', null, null, false, ($indent . '    '));
-                        $chk->setAttributes(array(
-                            'type' => $type,
-                            'class' => 'checkBox',
-                            'name' => ($name . '[]'),
-                            'id' => ($name . $i),
-                            'value' => $k
-                        ));
+            // Checkbox element(s)
+            case 'checkbox':
+                parent::__construct('fieldset', null, null, false, $indent);
+                $this->setAttributes('class', 'checkBoxArea');
 
-                        // Determine if the current radio element is checked.
-                        if (in_array($v, $this->marked)) {
-                            $chk->setAttributes('checked', 'checked');
-                        }
+                // Create the checkbox elements and related span elements.
+                $i = null;
+                foreach ($value as $k => $v) {
+                    $chk = new Child('input', null, null, false, ($indent . '    '));
+                    $chk->setAttributes(array(
+                        'type' => $type,
+                        'class' => 'checkBox',
+                        'name' => ($name . '[]'),
+                        'id' => ($name . $i),
+                        'value' => $k
+                    ));
 
-                        $span = new Child('span', null, null, false, ($indent . '    '));
-                        $span->setAttributes('class', 'checkPad');
-                        $span->setNodeValue($v);
-                        $this->addChildren(array($chk, $span));
-                        $i++;
+                    // Determine if the current radio element is checked.
+                    if (in_array($v, $this->marked)) {
+                        $chk->setAttributes('checked', 'checked');
                     }
 
-                    $this->value = $value;
-                    break;
+                    $span = new Child('span', null, null, false, ($indent . '    '));
+                    $span->setAttributes('class', 'checkPad');
+                    $span->setNodeValue($v);
+                    $this->addChildren(array($chk, $span));
+                    $i++;
+                }
 
-                // Input element
-                default:
-                    parent::__construct('input', null, null, false, $indent);
-                    $this->setAttributes(array('type' => $type, 'name' => $name, 'id' => $name));
-                    if (!is_array($value)) {
-                        $this->setAttributes('value', $value);
-                    }
-                    $this->value = $value;
-            }
+                $this->value = $value;
+                break;
+
+            // Input element
+            default:
+                parent::__construct('input', null, null, false, $indent);
+                $this->setAttributes(array('type' => $type, 'name' => $name, 'id' => $name));
+                if (!is_array($value)) {
+                    $this->setAttributes('value', $value);
+                }
+                $this->value = $value;
         }
 
         // If a certain value is marked (selected or checked), set the property here.
@@ -292,7 +285,7 @@ class Element extends Child
         if ($this->required == true) {
             $curElemValue = (is_array($this->value)) ? $this->marked : $this->value;
             if (empty($curElemValue)) {
-                $this->errors[] = $this->_lang->__('This field is required.');
+                $this->errors[] = Locale::factory()->__('This field is required.');
             }
         }
 

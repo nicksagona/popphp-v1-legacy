@@ -13,240 +13,8 @@
 ]>
 <language src="en" output="pt" name="Portuguese" native="Português">
     <text>
-        <source>That option is not set.</source>
-        <output>Esta opção não está definida.</output>
-    </text>
-    <text>
-        <source>Error:</source>
-        <output>Erro:</output>
-    </text>
-    <text>
-        <source>Error: The proper database credentials were not passed.</source>
-        <output>Erro: As credenciais do banco de dados adequado não foram passados.</output>
-    </text>
-    <text>
-        <source>Error: The database result resource is not currently set.</source>
-        <output>Erro: O recurso de resultado do banco de dados não está definido.</output>
-    </text>
-    <text>
-        <source>Error: Could not connect to database. Connection Error #%1: %2.</source>
-        <output>Erro: Não foi possível conectar ao banco de dados. Erro de conexão #%1: %2.</output>
-    </text>
-    <text>
-        <source>Error: There was an error connecting to the database.</source>
-        <output>Erro: Ocorreu um erro ao conectar ao banco de dados.</output>
-    </text>
-    <text>
-        <source>Error: The database file was not passed.</source>
-        <output>Erro: O arquivo de banco de dados não foi aprovada.</output>
-    </text>
-    <text>
-        <source>Error: The database file does not exists.</source>
-        <output>Erro: O arquivo de banco de dados não existe.</output>
-    </text>
-    <text>
-        <source>Error: That doctype is not allowed.</source>
-        <output>Erro: Essa doctype não é permitido.</output>
-    </text>
-    <text>
-        <source>The child element passed is not an instance of Pop\Dom\Child.</source>
-        <output>O elemento filho passou não é uma instância de Pop\Dom\Child.</output>
-    </text>
-    <text>
-        <source>One or more of the child elements passed is not an instance of Pop\Dom\Child.</source>
-        <output>Um ou mais dos elementos a criança passou não é uma instância de Pop\Dom\Child.</output>
-    </text>
-    <text>
-        <source>That feed URL cannot be read at this time. Please try again later.</source>
-        <output>URL do feed que não pode ser lido neste momento. Por favor, tente novamente mais tarde.</output>
-    </text>
-    <text>
-        <source>Error: The feed item template is not set.</source>
-        <output>Erro: O modelo de item alimentar não está definido.</output>
-    </text>
-    <text>
-        <source>Error: The feed currently has no content.</source>
-        <output>Erro: A alimentação de hoje não tem nenhum conteúdo.</output>
-    </text>
-    <text>
-        <source>Error: The feed type must be only RSS or ATOM.</source>
-        <output>Erro: O tipo de alimentação deve ser apenas de RSS ou ATOM.</output>
-    </text>
-    <text>
-        <source>Error: The file is not an accepted file format.</source>
-        <output>Erro: O arquivo não é um formato de arquivo aceitos.</output>
-    </text>
-    <text>
-        <source>Error: The file already exists.</source>
-        <output>Erro: O arquivo já existe.</output>
-    </text>
-    <text>
-        <source>Error: The directory does not exist.</source>
-        <output>Erro: O diretório não existe.</output>
-    </text>
-    <text>
-        <source>Error: The upload directory does not exist.</source>
-        <output>Erro: O diretório de upload, não existe.</output>
-    </text>
-    <text>
-        <source>Error: The file uploaded is too big.</source>
-        <output>Erro: O arquivo enviado é muito grande.</output>
-    </text>
-    <text>
-        <source>Error: The image file uploaded is too big.</source>
-        <output>Erro: O arquivo de imagem de upload é muito grande.</output>
-    </text>
-    <text>
-        <source>Error: There was an error in uploading the file.</source>
-        <output>Erro: Ocorreu um erro no upload do arquivo.</output>
-    </text>
-    <text>
-        <source>Error: There was an error in uploading the image file.</source>
-        <output>Erro: Ocorreu um erro ao fazer o upload do arquivo de imagem.</output>
-    </text>
-    <text>
-        <source>Error: Permission denied.</source>
-        <output>Erro: Permissão negada.</output>
-    </text>
-    <text>
-        <source>Error: The parameter passed is not an array.</source>
-        <output>Erro: O parâmetro passado não é um array.</output>
-    </text>
-    <text>
-        <source>Error: The array passed must contain at least one type.</source>
-        <output>Erro: A matriz passada deve conter pelo menos um tipo.</output>
-    </text>
-    <text>
-        <source>Error: The file or directory (%1) is not writable.</source>
-        <output>Erro: O arquivo ou diretório (%1) não é gravável.</output>
-    </text>
-    <text>
-        <source>Error: There are no form elements declared for this form object.</source>
-        <output>Erro: Não há elementos para essa forma declarado objeto de formulário.</output>
-    </text>
-    <text>
-        <source>Error: That input type is not allowed.</source>
-        <output>Erro: Este tipo de entrada não é permitida.</output>
-    </text>
-    <text>
-        <source>Error: The required flag must be a boolean value.</source>
-        <output>Erro: A bandeira deve ser exigido um valor booleano.</output>
-    </text>
-    <text>
-        <source>Error: That type validator is not allowed.</source>
-        <output>Erro: Que tipo de validação não é permitido.</output>
-    </text>
-    <text>
-        <source>Error: The condition must be a boolean.</source>
-        <output>Erro: A condição deve ser um booleano.</output>
-    </text>
-    <text>
         <source>This field is required.</source>
         <output>Este campo é obrigatório.</output>
-    </text>
-    <text>
-        <source>This field value must %1 contain alphanumeric characters.</source>
-        <output>Este valor do campo deve %1 conter caracteres alfanuméricos.</output>
-    </text>
-    <text>
-        <source>This field value must %1 contain characters of the alphabet.</source>
-        <output>Este valor do campo deve conter caracteres de %1 do alfabeto.</output>
-    </text>
-    <text>
-        <source>This field value is %1 between %2 and %3.</source>
-        <output>Este valor do campo é de %1 entre %2 e %3.</output>
-    </text>
-    <text>
-        <source>This field value format is %1 a correct email format.</source>
-        <output>Este formato valor do campo é de %1 um formato de e-mail correto.</output>
-    </text>
-    <text>
-        <source>This field value does not equal the correct value.</source>
-        <output>Este valor de campo não é igual ao valor correto.</output>
-    </text>
-    <text>
-        <source>This field value is %1 greater than %2.</source>
-        <output>Este valor do campo é %1 maior do que %2.</output>
-    </text>
-    <text>
-        <source>This field value length is %1 equal to %2 characters long.</source>
-        <output>Este valor de comprimento do campo é igual a %1 a %2 caracteres.</output>
-    </text>
-    <text>
-        <source>This field value length is %1 between %2 and %3.</source>
-        <output>Este valor de comprimento do campo é de %1 entre %2 e %3.</output>
-    </text>
-    <text>
-        <source>This field value length must be %1 %2 characters long.</source>
-        <output>Este valor de comprimento do campo deve ser de %1 a %2 caracteres.</output>
-    </text>
-    <text>
-        <source>This field value is %1 less than %2.</source>
-        <output>Este valor do campo é de %1 a menos de %2.</output>
-    </text>
-    <text>
-        <source>This field value is %1 empty.</source>
-        <output>Este valor do campo é de %1 vazio.</output>
-    </text>
-    <text>
-        <source>This field value is %1 a number.</source>
-        <output>Este valor do campo é de %1 um número.</output>
-    </text>
-    <text>
-        <source>This field value format is %1 correct.</source>
-        <output>Este formato valor do campo é de %1 correto.</output>
-    </text>
-    <text>
-        <source>The parameter passed must be an array.</source>
-        <output>O parâmetro passado deve ser uma matriz.</output>
-    </text>
-    <text>
-        <source>The array parameter passed must contain an array.</source>
-        <output>O parâmetro matriz passada deve conter uma matriz.</output>
-    </text>
-    <text>
-        <source>not</source>
-        <output>não</output>
-    </text>
-    <text>
-        <source>only</source>
-        <output>apenas</output>
-    </text>
-    <text>
-        <source>under</source>
-        <output>em</output>
-    </text>
-    <text>
-        <source>at least</source>
-        <output>pelo menos</output>
-    </text>
-    <text>
-        <source>Sunday</source>
-        <output>Domingo</output>
-    </text>
-    <text>
-        <source>Monday</source>
-        <output>Segunda-feira</output>
-    </text>
-    <text>
-        <source>Tuesday</source>
-        <output>Terça-feira</output>
-    </text>
-    <text>
-        <source>Wednesday</source>
-        <output>Quarta-feira</output>
-    </text>
-    <text>
-        <source>Thursday</source>
-        <output>Quinta-feira</output>
-    </text>
-    <text>
-        <source>Friday</source>
-        <output>Sexta-feira</output>
-    </text>
-    <text>
-        <source>Saturday</source>
-        <output>Sábado</output>
     </text>
     <text>
         <source>January</source>
@@ -286,7 +54,7 @@
     </text>
     <text>
         <source>October</source>
-        <output>De outubro</output>
+        <output>Outubro</output>
     </text>
     <text>
         <source>November</source>
@@ -297,472 +65,32 @@
         <output>Dezembro</output>
     </text>
     <text>
-        <source>Error: There was an error connecting to the FTP server %1.</source>
-        <output>Erro: Ocorreu um erro ao se conectar ao servidor FTP %1.</output>
+        <source>Sunday</source>
+        <output>Domingo</output>
     </text>
     <text>
-        <source>Error: There was an error connecting to the FTP server %1 with those credentials.</source>
-        <output>Erro: Ocorreu um erro ao se conectar ao servidor FTP %1, com essas credenciais.</output>
+        <source>Monday</source>
+        <output>Segunda-feira</output>
     </text>
     <text>
-        <source>Error: There was an error changing to the directory %1.</source>
-        <output>Erro: Ocorreu um erro ao mudar para o diretório %1.</output>
+        <source>Tuesday</source>
+        <output>Terça-feira</output>
     </text>
     <text>
-        <source>Error: There was an error making the directory %1.</source>
-        <output>Erro: Ocorreu um erro ao fazer o diretório %1.</output>
+        <source>Wednesday</source>
+        <output>Quarta-feira</output>
     </text>
     <text>
-        <source>Error: There was an error removing the directory %1.</source>
-        <output>Erro: Ocorreu um erro ao remover o diretório %1.</output>
+        <source>Thursday</source>
+        <output>Quinta-feira</output>
     </text>
     <text>
-        <source>Error: There was an error getting the file %1.</source>
-        <output>Erro: Ocorreu um erro ao obter o arquivo %1.</output>
+        <source>Friday</source>
+        <output>Sexta-feira</output>
     </text>
     <text>
-        <source>Error: There was an error putting the file %1.</source>
-        <output>Erro: Ocorreu um erro ao colocar o arquivo %1.</output>
-    </text>
-    <text>
-        <source>Error: There was an error renaming the file %1.</source>
-        <output>Erro: Ocorreu um erro ao renomear o arquivo %1.</output>
-    </text>
-    <text>
-        <source>Error: There was an error changing the permission of %1.</source>
-        <output>Erro: Ocorreu um erro ao alterar a permissão de %1.</output>
-    </text>
-    <text>
-        <source>Error: There was an error removing the file %1.</source>
-        <output>Erro: Ocorreu um erro ao remover o arquivo %1.</output>
-    </text>
-    <text>
-        <source>Error: You must define a width and height for a new image object.</source>
-        <output>Erro: Você deve definir uma largura e altura de um objeto de nova imagem.</output>
-    </text>
-    <text>
-        <source>Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.</source>
-        <output>Erro: Que tipo de imagem não é suportado. Só GIF, JPG e PNG tipos de imagem são suportados.</output>
-    </text>
-    <text>
-        <source>Error: This image file is already a %1 image file.</source>
-        <output>Erro: Este arquivo de imagem já é um arquivo de imagem %1.</output>
-    </text>
-    <text>
-        <source>Error: The language file %1 does not exist.</source>
-        <output>Erro: O ficheiro %1 linguagem não existe.</output>
-    </text>
-    <text>
-        <source>Error: Your output language selection is not valid.</source>
-        <output>Erro: a seleção do idioma de saída não é válido.</output>
-    </text>
-    <text>
-        <source>Error: Your source language selection is not valid.</source>
-        <output>Erro: A selecção do idioma de origem não é válido.</output>
-    </text>
-    <text>
-        <source>Error: Both the output and source language selections are the same. Please choose again.</source>
-        <output>Erro: Ambas as seleções de língua de saída e fonte são os mesmos. Por favor, escolha outra vez.</output>
-    </text>
-    <text>
-        <source>Error: There was an error processing that Google Translate URL. Please check your API key.</source>
-        <output>Erro: Ocorreu um erro de processamento de URL que o Google Translate. Por favor, verifique a sua chave API.</output>
-    </text>
-    <text>
-        <source>Error: There was an error processing that XML file.</source>
-        <output>Erro: Ocorreu um erro ao processar o arquivo XML.</output>
-    </text>
-    <text>
-        <source>Error: At least one of the array keys must be 'email'.</source>
-        <output>Erro: Pelo menos uma das chaves do array deve ser 'email'.</output>
-    </text>
-    <text>
-        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
-        <output>Erro: O parâmetro passado deve ser um arquivo válido ou uma instância de Pop\File\File.</output>
-    </text>
-    <text>
-        <source>Error: The message body elements are not set.</source>
-        <output>Erro: Os elementos do corpo da mensagem não estão definidos.</output>
-    </text>
-    <text>
-        <source>Error: That page does not exist.</source>
-        <output>Erro: Esta página não existe.</output>
-    </text>
-    <text>
-        <source>Error: The PDF does not have enough pages in which to order.</source>
-        <output>Erro: O PDF não tem suficiente páginas em que a ordem.</output>
-    </text>
-    <text>
-        <source>Error: The pages array passed does not contain the same number of pages as the PDF.</source>
-        <output>Erro: A matriz passou páginas, não contém o mesmo número de páginas como o PDF.</output>
-    </text>
-    <text>
-        <source>Error: The pages array passed contains a page that does not exist.</source>
-        <output>Erro: A matriz passou páginas contém uma página que não existe.</output>
-    </text>
-    <text>
-        <source>Error: The rotation parameter must be between -90 and 90 degrees.</source>
-        <output>Erro: O parâmetro de rotação deve estar entre -90 e 90 graus.</output>
-    </text>
-    <text>
-        <source>Error: The render parameter must be an integer between 0 and 7.</source>
-        <output>Erro: O parâmetro render deve ser um inteiro entre 0 e 7.</output>
-    </text>
-    <text>
-        <source>Error: That font is not contained within the standard PDF fonts.</source>
-        <output>Erro: Essa fonte não está contido em fontes padrão PDF.</output>
-    </text>
-    <text>
-        <source>Error: The font '%1' has not been added to the PDF.</source>
-        <output>Erro: A fonte '%1' não foi adicionada ao PDF.</output>
-    </text>
-    <text>
-        <source>Error: That page has not been defined.</source>
-        <output>Erro: Essa página ainda não foi definido.</output>
-    </text>
-    <text>
-        <source>Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.</source>
-        <output>Erro: canais alfa PNG não são suportados. Apenas 8-bit imagens PNG transparentes são suportados.</output>
-    </text>
-    <text>
-        <source>Error: The file already exists and it cannot be overwritten. Please specify a new filename.</source>
-        <output>Erro: O arquivo já existe e não pode ser substituído. Por favor, especifique um novo nome.</output>
-    </text>
-    <text>
-        <source>Error: The argument passed must be an array.</source>
-        <output>Erro: O argumento passado deve ser um array.</output>
-    </text>
-    <text>
-        <source>Error: A width and height must be passed.</source>
-        <output>Erro: A largura ea altura deve ser passado.</output>
-    </text>
-    <text>
-        <source>Error: A page index must be passed.</source>
-        <output>Erro: A página de índice deve ser passado.</output>
-    </text>
-    <text>
-        <source>The field '%1' does not exist.</source>
-        <output>'%1' O campo não existe.</output>
-    </text>
-    <text>
-        <source>The parameter passed must be either an array or null.</source>
-        <output>O parâmetro passado deve ser um array ou nulo.</output>
-    </text>
-    <text>
-        <source>This primary ID of this table either is not set or does not exist.</source>
-        <output>Essa identificação primária dessa tabela ou não é definida ou não existe.</output>
-    </text>
-    <text>
-        <source>The field and value parameters were not defined to describe the row(s) to delete.</source>
-        <output>Os parâmetros de campo e valor não foram definidos para descrever a linha (s) para apagar.</output>
-    </text>
-    <text>
-        <source>The mobile site is not set.</source>
-        <output>O site móvel não está definido.</output>
-    </text>
-    <text>
-        <source>The standard site is not set.</source>
-        <output>O site padrão não está definido.</output>
-    </text>
-    <text>
-        <source>That header code '%1' is not allowed.</source>
-        <output>Que o código de cabeçalho '%1' não é permitido.</output>
-    </text>
-    <text>
-        <source>The array parameter passed must contain an array of field values.</source>
-        <output>O parâmetro matriz passada deve conter uma matriz de valores de campo.</output>
-    </text>
-    <text>
-        <source>Error: The image resource has not been created.</source>
-        <output>Erro: O recurso de imagem não foi criado.</output>
-    </text>
-    <text>
-        <source>Error: The image output resource has not been created.</source>
-        <output>Erro: O recurso de saída de imagem não foi criado.</output>
-    </text>
-    <text>
-        <source>The argument passed is not valid.</source>
-        <output>O argumento passado não é válido.</output>
-    </text>
-    <text>
-        <source>The archive file is compressed. It must only be either a TAR or ZIP archive file.</source>
-        <output>O arquivo está compactado. Só deve ser um TAR ou arquivo ZIP.</output>
-    </text>
-    <text>
-        <source>The archive file must be either a TAR or ZIP archive file.</source>
-        <output>O arquivo deve ser um TAR ou arquivo ZIP.</output>
-    </text>
-    <text>
-        <source>Error: The compression type must either be Flate or LZW.</source>
-        <output>Erro: O tipo de compressão ou deve ser Flate ou LZW.</output>
-    </text>
-    <text>
-        <source>Error: The font file does not seem to have all of the correct data to parse.</source>
-        <output>Erro: O arquivo de fonte não parece ter todos os dados corretos para analisar.</output>
-    </text>
-    <text>
-        <source>Error: The GD library extension must be installed to use the Gd adapter.</source>
-        <output>Erro: A extensão da biblioteca GD deve ser instalado para usar o adaptador de D'us.</output>
-    </text>
-    <text>
-        <source>No source file or database table was passed.</source>
-        <output>Nenhum arquivo de origem ou tabela de banco de dados foi aprovada.</output>
-    </text>
-    <text>
-        <source>The options parameter must be an array.</source>
-        <output>O parâmetro de opções deve ser um array.</output>
-    </text>
-    <text>
-        <source>The options parameter must be an array that contains either a 'table' or 'file' key.</source>
-        <output>O parâmetro de opções deve ser um array que contém um 'table' ou um 'arquivo' chave.</output>
-    </text>
-    <text>
-        <source>Error: Could not connect to database. %1</source>
-        <output>Erro: Não foi possível conectar ao banco de dados. %1</output>
-    </text>
-    <text>
-        <source>Error: The database interface object has not been instaniated.</source>
-        <output>Erro: O objeto de interface de banco de dados não foi instaniated.</output>
-    </text>
-    <text>
-        <source>Error: That method does not exist within the database interface object.</source>
-        <output>Erro: Esse método não existe dentro do objeto de interface de banco de dados.</output>
-    </text>
-    <text>
-        <source>Error: The columns parameter must be an array.</source>
-        <output>Erro: O parâmetro colunas deve ser um array.</output>
-    </text>
-    <text>
-        <source>Error: The columns parameter must be an array that contains at least one key/value pair.</source>
-        <output>Erro: O parâmetro colunas deve ser uma matriz que contém pelo menos um par chave / valor.</output>
-    </text>
-    <text>
-        <source>Error: The table must be set.</source>
-        <output>Erro: A tabela deve ser definida.</output>
-    </text>
-    <text>
-        <source>Error: A SQL type must be set.</source>
-        <output>Erro: um tipo SQL deve ser definido.</output>
-    </text>
-    <text>
-        <source>Error: The database statement resource is not currently set.</source>
-        <output>Erro: O recurso de declaração banco de dados não está definido.</output>
-    </text>
-    <text>
-        <source>The column and value parameters were not defined to describe the row(s) to delete.</source>
-        <output>Os parâmetros de coluna e valor não foram definidos para descrever o row (s) para apagar.</output>
-    </text>
-    <text>
-        <source>The column '%1' does not exist.</source>
-        <output>A coluna '%1' não existe.</output>
-    </text>
-    <text>
-        <source>Error: That database adapter class does not exist.</source>
-        <output>Erro: Essa classe do adaptador de banco de dados não existe.</output>
-    </text>
-    <text>
-        <source>Error: The Imagick library extension must be installed to use the Imagick adapter.</source>
-        <output>Erro: A extensão Imagick biblioteca deve ser instalado para usar o adaptador Imagick.</output>
-    </text>
-    <text>
-        <source>Error: That image type is not supported.</source>
-        <output>Erro: Que tipo de imagem não é suportado.</output>
-    </text>
-    <text>
-        <source>Error: The cache type must be 'File', 'Sqlite' or 'Memcached'.</source>
-        <output>Erro: O tipo de cache deve ser 'File', 'Sqlite' ou 'Memcached.</output>
-    </text>
-    <text>
-        <source>Error: You must pass either a directory or SQLite file store point.</source>
-        <output>Erro: Você deve passar um diretório ou SQLite ponto de armazenamento de arquivos.</output>
-    </text>
-    <text>
-        <source>Error: That cache directory does not exist.</source>
-        <output>Erro: diretório de cache Isso não existe.</output>
-    </text>
-    <text>
-        <source>Error: That cache directory is not writable.</source>
-        <output>Erro: Isso diretório de cache não é gravável.</output>
-    </text>
-    <text>
-        <source>Error: That cache db file and/or directory is not writable.</source>
-        <output>Erro: que o cache de arquivos db e / ou diretório não é gravável.</output>
-    </text>
-    <text>
-        <source>Error: Memcache is not available on this server.</source>
-        <output>Erro: Memcache não está disponível neste servidor.</output>
-    </text>
-    <text>
-        <source>Error: Unable to connect to the memcached server.</source>
-        <output>Erro: Não é possível conectar ao servidor memcached.</output>
-    </text>
-    <text>
-        <source>That data type is not supported.</source>
-        <output>Que tipo de dados não é suportado.</output>
-    </text>
-    <text>
-        <source>No database adapter was found.</source>
-        <output>Nenhum adaptador de banco de dados foi encontrado.</output>
-    </text>
-    <text>
-        <source>That font is not available.</source>
-        <output>Essa fonte não está disponível.</output>
-    </text>
-    <text>
-        <source>The percentages are greater than 100.</source>
-        <output>Os percentuais são maiores do que 100.</output>
-    </text>
-    <text>
-        <source>A proper color array was not passed.</source>
-        <output>Uma matriz de cor adequada não foi aprovada.</output>
-    </text>
-    <text>
-        <source>One or more of the color values is out of range.</source>
-        <output>Um ou mais dos valores de cor está fora do intervalo.</output>
-    </text>
-    <text>
-        <source>The color parameter is not a valid color space object.</source>
-        <output>O parâmetro cor não é um objeto espacial válido cor.</output>
-    </text>
-    <text>
-        <source>That color space object does not exist.</source>
-        <output>Esse objeto de espaço de cores não existe.</output>
-    </text>
-    <text>
-        <source>That color space object is already that type.</source>
-        <output>Esse objeto de espaço de cores já está desse tipo.</output>
-    </text>
-    <text>
-        <source>The headers have already been sent.</source>
-        <output>Os cabeçalhos já foram enviados.</output>
-    </text>
-    <text>
-        <source>The response was not properly formatted.</source>
-        <output>A resposta não foi formatado corretamente.</output>
-    </text>
-    <text>
-        <source>A template asset has not been assigned.</source>
-        <output>Um activo modelo não foi atribuído.</output>
-    </text>
-    <text>
-        <source>That template file either does not exist or is not the correct format.</source>
-        <output>Que arquivo de modelo ou não existe ou não é o formato correto.</output>
-    </text>
-    <text>
-        <source>Due to licensing restrictions, RAR files cannot be created and can only be decompressed.</source>
-        <output>Devido a restrições de licenciamento, arquivos RAR não pode ser criado e só pode ser descompactado.</output>
-    </text>
-    <text>
-        <source>The value must only contain alphanumeric characters.</source>
-        <output>O valor deve conter apenas caracteres alfanuméricos.</output>
-    </text>
-    <text>
-        <source>The value must contain non-alphanumeric characters.</source>
-        <output>O valor deve conter caracteres não alfanuméricos.</output>
-    </text>
-    <text>
-        <source>The value must only contain characters of the alphabet.</source>
-        <output>O valor deve conter apenas caracteres do alfabeto.</output>
-    </text>
-    <text>
-        <source>The value must contain characters not in the alphabet.</source>
-        <output>O valor não deve conter caracteres no alfabeto.</output>
-    </text>
-    <text>
-        <source>The value must be between %1 and %2.</source>
-        <output>O valor deve ser entre %1 e %2.</output>
-    </text>
-    <text>
-        <source>The value must not be between %1 and %2.</source>
-        <output>O valor não deve estar entre %1 e %2.</output>
-    </text>
-    <text>
-        <source>The value must be between or equal to %1 and %2.</source>
-        <output>O valor deve ser entre ou igual a %1 e %2.</output>
-    </text>
-    <text>
-        <source>The value must not be between or equal to %1 and %2.</source>
-        <output>O valor não deve estar entre ou igual a %1 e %2.</output>
-    </text>
-    <text>
-        <source>The value must be a valid email format.</source>
-        <output>O valor deve ser um formato de e-mail válido.</output>
-    </text>
-    <text>
-        <source>The value must not be a valid email format.</source>
-        <output>O valor não deve ser um formato de e-mail válido.</output>
-    </text>
-    <text>
-        <source>The value must be excluded.</source>
-        <output>O valor deve ser excluído.</output>
-    </text>
-    <text>
-        <source>The value must not be excluded.</source>
-        <output>O valor não deve ser excluída.</output>
-    </text>
-    <text>
-        <source>The value must be included.</source>
-        <output>O valor deve ser incluído.</output>
-    </text>
-    <text>
-        <source>The value must not be included.</source>
-        <output>O valor não deve ser incluída.</output>
-    </text>
-    <text>
-        <source>The value must be equal to %1.</source>
-        <output>O valor deve ser igual a %1.</output>
-    </text>
-    <text>
-        <source>The value must not be equal to %1.</source>
-        <output>O valor não deve ser igual a %1.</output>
-    </text>
-    <text>
-        <source>The value must be greater than %1.</source>
-        <output>O valor deve ser maior que %1.</output>
-    </text>
-    <text>
-        <source>The value must not be greater than %1.</source>
-        <output>O valor não deve ser maior que %1.</output>
-    </text>
-    <text>
-        <source>The value must be greater than or equal to %1.</source>
-        <output>O valor deve ser maior ou igual a %1.</output>
-    </text>
-    <text>
-        <source>The value must not be greater than or equal to %1.</source>
-        <output>O valor não deve ser maior ou igual a %1.</output>
-    </text>
-    <text>
-        <source>The value length must be equal to %1.</source>
-        <output>O comprimento valor deve ser igual a %1.</output>
-    </text>
-    <text>
-        <source>The value length must not be equal to %1.</source>
-        <output>O comprimento valor não deve ser igual a %1.</output>
-    </text>
-    <text>
-        <source>The value must be less than %1.</source>
-        <output>O valor deve ser inferior a %1.</output>
-    </text>
-    <text>
-        <source>The value must not be less than %1.</source>
-        <output>O valor não deve ser inferior a %1.</output>
-    </text>
-    <text>
-        <source>The value must be less than or equal to %1.</source>
-        <output>O valor deve ser menor ou igual a %1.</output>
-    </text>
-    <text>
-        <source>The value must not be less than or equal to %1.</source>
-        <output>O valor não deve ser inferior ou igual a %1.</output>
-    </text>
-    <text>
-        <source>The value length must be between %1 and %2.</source>
-        <output>O comprimento valor deve estar entre %1 e %2.</output>
-    </text>
-    <text>
-        <source>The value length must not be between %1 and %2.</source>
-        <output>O comprimento valor não deve ser entre %1 e %2.</output>
+        <source>Saturday</source>
+        <output>Sábado</output>
     </text>
     <text>
         <source>The value length must be between or equal to %1 and %2.</source>
@@ -773,70 +101,6 @@
         <output>O comprimento valor não deve estar entre ou igual a %1 e %2.</output>
     </text>
     <text>
-        <source>The value length must be greater than %1.</source>
-        <output>O valor do comprimento deve ser maior que %1.</output>
-    </text>
-    <text>
-        <source>The value length must not be greater than %1.</source>
-        <output>O comprimento valor não deve ser maior que %1.</output>
-    </text>
-    <text>
-        <source>The value length must be greater than or equal to %1.</source>
-        <output>O comprimento valor deve ser maior ou igual a %1.</output>
-    </text>
-    <text>
-        <source>The value length must not be greater than or equal to %1.</source>
-        <output>O comprimento valor não deve ser maior ou igual a %1.</output>
-    </text>
-    <text>
-        <source>The value length must be less than %1.</source>
-        <output>O valor do comprimento deve ser inferior a %1.</output>
-    </text>
-    <text>
-        <source>The value length must not be less than %1.</source>
-        <output>O comprimento valor não deve ser inferior a %1.</output>
-    </text>
-    <text>
-        <source>The value length must be less than or equal to %1.</source>
-        <output>O comprimento valor deve ser menor ou igual a %1.</output>
-    </text>
-    <text>
-        <source>The value length must not be less than or equal to %1.</source>
-        <output>O comprimento valor não deve ser inferior ou igual a %1.</output>
-    </text>
-    <text>
-        <source>The value must be empty.</source>
-        <output>O valor deve estar vazio.</output>
-    </text>
-    <text>
-        <source>The value must not be empty.</source>
-        <output>O valor não deve estar vazio.</output>
-    </text>
-    <text>
-        <source>The value must be numeric.</source>
-        <output>O valor deve ser numérico.</output>
-    </text>
-    <text>
-        <source>The value must not be numeric.</source>
-        <output>O valor não deve ser numérico.</output>
-    </text>
-    <text>
-        <source>Error: The file type %1 is not an accepted file format.</source>
-        <output>Erro: O tipo de arquivo%1 não é um formato de arquivo aceitos.</output>
-    </text>
-    <text>
-        <source>The value format is not correct.</source>
-        <output>O formato de valor não está correto.</output>
-    </text>
-    <text>
-        <source>The value must be a valid IPv4 address.</source>
-        <output>O valor deve ser um endereço IPv4 válido.</output>
-    </text>
-    <text>
-        <source>The value must not be a valid IPv4 address.</source>
-        <output>O valor não deve ser um endereço IPv4 válido.</output>
-    </text>
-    <text>
         <source>The value must be a valid IPv6 address.</source>
         <output>O valor deve ser um endereço válido IPv6.</output>
     </text>
@@ -845,12 +109,28 @@
         <output>O valor não deve ser um endereço IPv6 válido.</output>
     </text>
     <text>
-        <source>The user role has not been defined to evaluate against.</source>
-        <output>O papel do usuário não foi definido para avaliar contra.</output>
+        <source>The value must be a valid credit card number.</source>
+        <output>O valor deve ser um número válido de cartão de crédito.</output>
     </text>
     <text>
-        <source>Error: The file type %1 is not an accepted file format.</source>
-        <output>Erro: O tipo de arquivo%1 não é um formato de arquivo aceitos.</output>
+        <source>The value must not be a valid credit card number.</source>
+        <output>O valor não deve ser um número válido de cartão de crédito.</output>
+    </text>
+    <text>
+        <source>The value must be included.</source>
+        <output>O valor deve ser incluído.</output>
+    </text>
+    <text>
+        <source>The value must not be included.</source>
+        <output>O valor não deve ser incluída.</output>
+    </text>
+    <text>
+        <source>The value must be between or equal to %1 and %2.</source>
+        <output>O valor deve ser entre ou igual a %1 e %2.</output>
+    </text>
+    <text>
+        <source>The value must not be between or equal to %1 and %2.</source>
+        <output>O valor não deve estar entre ou igual a %1 e %2.</output>
     </text>
     <text>
         <source>The value must be part of the subnet %1.</source>
@@ -861,6 +141,86 @@
         <output>O valor não deve ser parte da sub-rede %1.</output>
     </text>
     <text>
+        <source>The value must be greater than or equal to %1.</source>
+        <output>O valor deve ser maior ou igual a %1.</output>
+    </text>
+    <text>
+        <source>The value must not be greater than or equal to %1.</source>
+        <output>O valor não deve ser maior ou igual a %1.</output>
+    </text>
+    <text>
+        <source>The value length must be greater than %1.</source>
+        <output>O valor do comprimento deve ser maior que %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be greater than %1.</source>
+        <output>O comprimento valor não deve ser maior que %1.</output>
+    </text>
+    <text>
+        <source>The value must only contain alphanumeric characters.</source>
+        <output>O valor deve conter apenas caracteres alfanuméricos.</output>
+    </text>
+    <text>
+        <source>The value must contain non-alphanumeric characters.</source>
+        <output>O valor deve conter caracteres não alfanuméricos.</output>
+    </text>
+    <text>
+        <source>The value length must be equal to %1.</source>
+        <output>O comprimento valor deve ser igual a %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be equal to %1.</source>
+        <output>O comprimento valor não deve ser igual a %1.</output>
+    </text>
+    <text>
+        <source>The value length must be greater than or equal to %1.</source>
+        <output>O comprimento valor deve ser maior ou igual a %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be greater than or equal to %1.</source>
+        <output>O comprimento valor não deve ser maior ou igual a %1.</output>
+    </text>
+    <text>
+        <source>The value must be less than or equal to %1.</source>
+        <output>O valor deve ser menor ou igual a %1.</output>
+    </text>
+    <text>
+        <source>The value must not be less than or equal to %1.</source>
+        <output>O valor não deve ser inferior ou igual a %1.</output>
+    </text>
+    <text>
+        <source>The value must be between %1 and %2.</source>
+        <output>O valor deve ser entre %1 e %2.</output>
+    </text>
+    <text>
+        <source>The value must not be between %1 and %2.</source>
+        <output>O valor não deve estar entre %1 e %2.</output>
+    </text>
+    <text>
+        <source>The value must be greater than %1.</source>
+        <output>O valor deve ser maior que %1.</output>
+    </text>
+    <text>
+        <source>The value must not be greater than %1.</source>
+        <output>O valor não deve ser maior que %1.</output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv4 address.</source>
+        <output>O valor deve ser um endereço IPv4 válido.</output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv4 address.</source>
+        <output>O valor não deve ser um endereço IPv4 válido.</output>
+    </text>
+    <text>
+        <source>The value must be a valid email format.</source>
+        <output>O valor deve ser um formato de e-mail válido.</output>
+    </text>
+    <text>
+        <source>The value must not be a valid email format.</source>
+        <output>O valor não deve ser um formato de e-mail válido.</output>
+    </text>
+    <text>
         <source>The value must be a valid IPv4 subnet.</source>
         <output>O valor deve ser uma sub-rede IPv4 válido.</output>
     </text>
@@ -869,8 +229,112 @@
         <output>O valor não deve ser uma sub-rede IPv4 válido.</output>
     </text>
     <text>
-        <source>The IP address must be a valid IPv4 address.</source>
-        <output>O endereço IP deve ser um endereço IPv4 válido.</output>
+        <source>The value format is not correct.</source>
+        <output>O formato de valor não está correto.</output>
+    </text>
+    <text>
+        <source>The value must be equal to %1.</source>
+        <output>O valor deve ser igual a %1.</output>
+    </text>
+    <text>
+        <source>The value must not be equal to %1.</source>
+        <output>O valor não deve ser igual a %1.</output>
+    </text>
+    <text>
+        <source>The value must be less than %1.</source>
+        <output>O valor deve ser inferior a %1.</output>
+    </text>
+    <text>
+        <source>The value must not be less than %1.</source>
+        <output>O valor não deve ser inferior a %1.</output>
+    </text>
+    <text>
+        <source>The value length must be between %1 and %2.</source>
+        <output>O comprimento valor deve estar entre %1 e %2.</output>
+    </text>
+    <text>
+        <source>The value length must not be between %1 and %2.</source>
+        <output>O comprimento valor não deve ser entre %1 e %2.</output>
+    </text>
+    <text>
+        <source>The value must be numeric.</source>
+        <output>O valor deve ser numérico.</output>
+    </text>
+    <text>
+        <source>The value must not be numeric.</source>
+        <output>O valor não deve ser numérico.</output>
+    </text>
+    <text>
+        <source>The value must not be empty.</source>
+        <output>O valor não deve estar vazio.</output>
+    </text>
+    <text>
+        <source>The value must be empty.</source>
+        <output>O valor deve estar vazio.</output>
+    </text>
+    <text>
+        <source>The value length must be less than %1.</source>
+        <output>O valor do comprimento deve ser inferior a %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be less than %1.</source>
+        <output>O comprimento valor não deve ser inferior a %1.</output>
+    </text>
+    <text>
+        <source>The value must only contain characters in the alphabet.</source>
+        <output>O valor deve conter apenas caracteres do alfabeto.</output>
+    </text>
+    <text>
+        <source>The value must only contain characters not in the alphabet.</source>
+        <output>O valor deve conter apenas caracteres não no alfabeto.</output>
+    </text>
+    <text>
+        <source>The value must be excluded.</source>
+        <output>O valor deve ser excluído.</output>
+    </text>
+    <text>
+        <source>The value must not be excluded.</source>
+        <output>O valor não deve ser excluída.</output>
+    </text>
+    <text>
+        <source>The value length must be less than or equal to %1.</source>
+        <output>O comprimento valor deve ser menor ou igual a %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be less than or equal to %1.</source>
+        <output>O comprimento valor não deve ser inferior ou igual a %1.</output>
+    </text>
+    <text>
+        <source>The value must not be equal to %1.</source>
+        <output>O valor não deve ser igual a %1.</output>
+    </text>
+    <text>
+        <source>The value must be equal to %1.</source>
+        <output>O valor deve ser igual a %1.</output>
+    </text>
+    <text>
+        <source>Creating controller class files...</source>
+        <output>Criar arquivos de classe do controlador ...</output>
+    </text>
+    <text>
+        <source>Creating base folder and file structure...</source>
+        <output>Criação de pasta base e estrutura de arquivos ...</output>
+    </text>
+    <text>
+        <source>Creating database table class files...</source>
+        <output>Criação de arquivos de banco de dados de classe de mesa ...</output>
+    </text>
+    <text>
+        <source>Creating form class files...</source>
+        <output>Criar arquivos de classe do formulário ...</output>
+    </text>
+    <text>
+        <source>You will have to install your web server rewrite configuration manually.</source>
+        <output>Você terá que instalar o seu web de configuração do servidor reescrever manualmente.</output>
+    </text>
+    <text>
+        <source>Install index controller and web configuration files?</source>
+        <output>Instalar controlador de índice e arquivos de configuração web?</output>
     </text>
     <text>
         <source>The user is valid.</source>
@@ -903,54 +367,6 @@
     <text>
         <source>The session has expired.</source>
         <output>A sessão expirou.</output>
-    </text>
-    <text>
-        <source>The access file does not exist.</source>
-        <output>O arquivo de acesso não existe.</output>
-    </text>
-    <text>
-        <source>The user's role is not defined.</source>
-        <output>Função do usuário não está definido.</output>
-    </text>
-    <text>
-        <source>That class map file does not exist.</source>
-        <output>Que arquivo de mapa de classes não existe.</output>
-    </text>
-    <text>
-        <source>Unknown error.</source>
-        <output>Erro desconhecido.</output>
-    </text>
-    <text>
-        <source>You must pass a source folder and a output file to generate a class map file.</source>
-        <output>Você deve passar uma pasta de origem e um arquivo de saída para gerar um arquivo de mapa de classe.</output>
-    </text>
-    <text>
-        <source>The source folder passed does not exist.</source>
-        <output>A pasta de origem passado não existe.</output>
-    </text>
-    <text>
-        <source>The output file passed must be a PHP file.</source>
-        <output>O arquivo de saída passado deve ser um arquivo PHP.</output>
-    </text>
-    <text>
-        <source>You must pass an install file to install the project.</source>
-        <output>Você deve passar um arquivo de instalação para instalar o projeto.</output>
-    </text>
-    <text>
-        <source>Unknown option:</source>
-        <output>Opção desconhecida:</output>
-    </text>
-    <text>
-        <source>You must pass at least one argument.</source>
-        <output>Você deve passar pelo menos um argumento.</output>
-    </text>
-    <text>
-        <source>Run './pop -h' for help.</source>
-        <output>Run '. / Pop-h' para ajuda.</output>
-    </text>
-    <text>
-        <source>Run '.\pop -h' for help.</source>
-        <output>Run '. \ Pop-h' para ajuda.</output>
     </text>
     <text>
         <source>Aborted.</source>
@@ -989,24 +405,28 @@
         <output>Instalação de banco de dados</output>
     </text>
     <text>
-        <source>Add project to the bootstrap file?</source>
-        <output>Adicionar projeto para o arquivo bootstrap?</output>
-    </text>
-    <text>
         <source>Project install complete.</source>
         <output>Projeto de instalação completa.</output>
     </text>
     <text>
-        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
-        <output>Este processo irá criar e instalar a base de base de seu projeto na pasta especificada no arquivo de instalação. Minimamente, o arquivo de instalação deve retornar um objeto Pop \ Config contendo as configurações de instalação do projeto, tais como nome do projeto, pastas, formulários, controladores, pontos de vista e as credenciais de banco de dados.</output>
+        <source>The Pop autoloader class file was not found.</source>
+        <output>O arquivo de classe Pop autoloader não foi encontrado.</output>
+    </text>
+    <text>
+        <source>Pop PHP Framework found.</source>
+        <output>Pop PHP Framework encontrado.</output>
+    </text>
+    <text>
+        <source>Project reconfigured.</source>
+        <output>Projeto reconfigurado.</output>
+    </text>
+    <text>
+        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
+        <output>Este processo irá criar e instalar a base de base de seu projeto na pasta especificada no arquivo de instalação. Minimamente, o arquivo de instalação deve retornar um Pop \ \ objeto Configuração contendo as configurações de instalação do projeto, tais como nome do projeto, pastas, formulários, controladores, pontos de vista e as credenciais de banco de dados.</output>
     </text>
     <text>
         <source>Besides creating the base folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can take advantage of this by having the database SQL files in the same folder as your install file, like so:</source>
         <output>Além de criar as pastas base e arquivos para você, um dos principais benefícios é a capacidade de testar e instalar o banco de dados ea configuração correspondente e arquivos de classe. Você pode tirar vantagem desta por ter os arquivos de banco de dados SQL na mesma pasta que o arquivo de instalação, assim:</output>
-    </text>
-    <text>
-        <source>Install a project based on the install file specified</source>
-        <output>Instalar um projeto com base no arquivo de instalação especificado</output>
     </text>
     <text>
         <source>Check the current configuration for required dependencies</source>
@@ -1017,8 +437,8 @@
         <output>Mostrar esta ajuda</output>
     </text>
     <text>
-        <source>Show project install instructions</source>
-        <output>Mostrar instruções de instalação do projeto</output>
+        <source>Install a project based on the install file specified</source>
+        <output>Instalar um projeto com base no arquivo de instalação especificado</output>
     </text>
     <text>
         <source>Set the default language for the project</source>
@@ -1029,8 +449,28 @@
         <output>Criar um arquivo de mapa de classe da pasta de origem e salvar o arquivo de saída</output>
     </text>
     <text>
+        <source>Reconfigure the project based on the new location of the project</source>
+        <output>Reconfigurar o projeto com base na nova localização do projeto</output>
+    </text>
+    <text>
+        <source>Show project install instructions</source>
+        <output>Mostrar instruções de instalação do projeto</output>
+    </text>
+    <text>
+        <source>Run the unit tests from a folder</source>
+        <output>Executar os testes de unidade de uma pasta</output>
+    </text>
+    <text>
         <source>Display version of Pop PHP Framework and latest available</source>
         <output>Mostrar a versão do Pop Framework PHP e os mais recentes disponíveis</output>
+    </text>
+    <text>
+        <source>Run './pop -h' for help.</source>
+        <output>Run '. / Pop-h' para ajuda.</output>
+    </text>
+    <text>
+        <source>Run '.\pop -h' for help.</source>
+        <output>Run '. \ Pop-h' para ajuda.</output>
     </text>
     <text>
         <source>Continue?</source>
@@ -1045,82 +485,6 @@
         <output>Arquivo de inicialização não foi encontrado. Tente novamente.</output>
     </text>
     <text>
-        <source>Creating base folder and file structure...</source>
-        <output>Criação de pasta base e estrutura de arquivos ...</output>
-    </text>
-    <text>
-        <source>Creating database table class files...</source>
-        <output>Criação de arquivos de banco de dados de classe de mesa ...</output>
-    </text>
-    <text>
-        <source>Enter the two-letter code for the default language:</source>
-        <output>Digite o código de duas letras para o idioma padrão:</output>
-    </text>
-    <text>
-        <source>Real-time configuration changes are not allowed.</source>
-        <output>Mudanças de configuração em tempo real não são permitidos.</output>
-    </text>
-    <text>
-        <source>Run the unit tests from a folder</source>
-        <output>Executar os testes de unidade de uma pasta</output>
-    </text>
-    <text>
-        <source>That folder does not exist.</source>
-        <output>Essa pasta não existe.</output>
-    </text>
-    <text>
-        <source>The folder argument is not a folder.</source>
-        <output>O argumento da pasta não é uma pasta.</output>
-    </text>
-    <text>
-        <source>The module name must be set in the module config.</source>
-        <output>O nome do módulo deve ser definido na configuração do módulo.</output>
-    </text>
-    <text>
-        <source>Install index controller and web configuration files?</source>
-        <output>Instalar controlador de índice e arquivos de configuração web?</output>
-    </text>
-    <text>
-        <source>The docblock is not in the correct format.</source>
-        <output>O bloco de documentação não está no formato correto.</output>
-    </text>
-    <text>
-        <source>You will have to install your web server rewrite configuration manually.</source>
-        <output>Você terá que instalar o seu web de configuração do servidor reescrever manualmente.</output>
-    </text>
-    <text>
-        <source>Creating controller class files...</source>
-        <output>Criar arquivos de classe do controlador ...</output>
-    </text>
-    <text>
-        <source>Creating form class files...</source>
-        <output>Criar arquivos de classe do formulário ...</output>
-    </text>
-    <text>
-        <source>The Sqlite database file and folder are not writable.</source>
-        <output>O arquivo de banco de dados SQLite e pasta não são graváveis.</output>
-    </text>
-    <text>
-        <source>Project reconfigured.</source>
-        <output>Projeto reconfigurado.</output>
-    </text>
-    <text>
-        <source>Reconfigure the project based on the new location of the project</source>
-        <output>Reconfigurar o projeto com base na nova localização do projeto</output>
-    </text>
-    <text>
-        <source>Database credentials detected.</source>
-        <output>Credenciais de banco de dados detectados.</output>
-    </text>
-    <text>
-        <source>Re-test the database(s)?</source>
-        <output>Re-teste do banco de dados do (s)?</output>
-    </text>
-    <text>
-        <source>The Pop autoloader class file was not found.</source>
-        <output>O arquivo de classe Pop autoloader não foi encontrado.</output>
-    </text>
-    <text>
         <source>Enter the folder where the 'vendor' folder is contained in relation to the current folder:</source>
         <output>Entrar na pasta onde o 'fornecedor' pasta está contida em relação à pasta atual:</output>
     </text>
@@ -1129,59 +493,43 @@
         <output>Pop PHP Framework não encontrado. Tente novamente.</output>
     </text>
     <text>
-        <source>Pop PHP Framework found.</source>
-        <output>Pop PHP Framework encontrado.</output>
+        <source>Enter the two-letter code for the default language:</source>
+        <output>Digite o código de duas letras para o idioma padrão:</output>
     </text>
     <text>
-        <source>Error: That cache directory does not exist.</source>
-        <output>Erro: diretório de cache Isso não existe.</output>
+        <source>Unknown error.</source>
+        <output>Erro desconhecido.</output>
     </text>
     <text>
-        <source>Error: That cache directory is not writable.</source>
-        <output>Erro: Isso diretório de cache não é gravável.</output>
+        <source>You must pass a source folder and a output file to generate a class map file.</source>
+        <output>Você deve passar uma pasta de origem e um arquivo de saída para gerar um arquivo de mapa de classe.</output>
     </text>
     <text>
-        <source>Error: Memcache is not available.</source>
-        <output>Erro: Memcache não está disponível.</output>
+        <source>The source folder passed does not exist.</source>
+        <output>A pasta de origem passado não existe.</output>
     </text>
     <text>
-        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
-        <output>Erro: O parâmetro passado deve ser um arquivo válido ou uma instância de Pop Arquivo \ \ File.</output>
+        <source>The output file passed must be a PHP file.</source>
+        <output>O arquivo de saída passado deve ser um arquivo PHP.</output>
     </text>
     <text>
-        <source>You must either pass a Pop\Geo\Geo object or a set of latitude/longitude coordinates.</source>
-        <output>Você deve passar por um Pop \ Geo \ Geo objeto ou um conjunto de latitude / longitude.</output>
+        <source>You must pass an install file to install the project.</source>
+        <output>Você deve passar um arquivo de instalação para instalar o projeto.</output>
     </text>
     <text>
-        <source>The required transaction data has not been set.</source>
-        <output>Os dados da transação necessária não foi definido.</output>
+        <source>Unknown option:</source>
+        <output>Opção desconhecida:</output>
     </text>
     <text>
-        <source>The value must be a valid credit card number</source>
-        <output>O valor deve ser um número válido de cartão de crédito</output>
+        <source>You must pass at least one argument.</source>
+        <output>Você deve passar pelo menos um argumento.</output>
     </text>
     <text>
-        <source>The value must not be a valid credit card number</source>
-        <output>O valor não deve ser um número válido de cartão de crédito</output>
+        <source>That folder does not exist.</source>
+        <output>Essa pasta não existe.</output>
     </text>
     <text>
-        <source>The array of ID values does not match the number of IDs.</source>
-        <output>A matriz de valores de ID não corresponde ao número de IDs.</output>
-    </text>
-    <text>
-        <source>The font file does not exist.</source>
-        <output>O arquivo de fonte não existe.</output>
-    </text>
-    <text>
-        <source>That font type is not supported.</source>
-        <output>Que tipo de fonte não é suportado.</output>
-    </text>
-    <text>
-        <source>The AFM font file was not found.</source>
-        <output>O arquivo de fonte AFM não foi encontrado.</output>
-    </text>
-    <text>
-        <source>Error: The font license does not allow for it to be embedded.</source>
-        <output>Erro: A licença de fonte não permite que ele seja incorporado.</output>
+        <source>The folder argument is not a folder</source>
+        <output>O argumento da pasta não é uma pasta</output>
     </text>
 </language>

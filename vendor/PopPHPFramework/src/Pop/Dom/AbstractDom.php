@@ -54,12 +54,6 @@ abstract class AbstractDom
     protected $_output = null;
 
     /**
-     * Language object
-     * @var Pop_Locale
-     */
-    protected $_lang = null;
-
-    /**
      * Method to return the indent.
      *
      * @return void
@@ -94,7 +88,7 @@ abstract class AbstractDom
         } else if (is_array($c)) {
             $this->_childNodes[] = Child::factory($c);
         } else {
-            throw new Exception($this->_lang->__('The argument passed is not valid.'));
+            throw new Exception('The argument passed is not valid.');
         }
     }
 

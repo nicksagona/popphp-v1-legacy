@@ -24,8 +24,6 @@
  */
 namespace Pop\Color;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Color
@@ -72,13 +70,12 @@ class Lab implements ColorInterface
         $min = min($l, $a, $b);
 
         if (($l > 100) || ($l < 0) || ($max > 127) || ($min < -128)) {
-            throw new Exception(Locale::factory()->__('One or more of the color values is out of range.'));
-        } else {
-            $this->_l = (int)$l;
-            $this->_a = (int)$a;
-            $this->_b = (int)$b;
+            throw new Exception('One or more of the color values is out of range.');
         }
 
+        $this->_l = (int)$l;
+        $this->_a = (int)$a;
+        $this->_b = (int)$b;
     }
 
     /**

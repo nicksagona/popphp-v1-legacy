@@ -24,8 +24,6 @@
  */
 namespace Pop\Http;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Http
@@ -125,12 +123,6 @@ class Response
     protected $_body = null;
 
     /**
-     * Language object
-     * @var Pop\Locale\Locale
-     */
-    protected $_lang = null;
-
-    /**
      * Constructor
      *
      * Instantiate the response object.
@@ -145,19 +137,17 @@ class Response
      */
     public function __construct($code, array $headers, $body = null, $message = null, $version = '1.1')
     {
-        $this->_lang = new Locale();
-
         if (!array_key_exists($code, self::$_responseCodes)) {
-            throw new Exception($this->_lang->__("That header code '%1' is not allowed.", $code));
-        } else {
-            $this->_code = $code;
-            $this->_message = (null !== $message) ? $message : self::$_responseCodes[$code];
-            $this->_body = $body;
-            $this->_version = $version;
+            throw new Exception('The header code '. $code . ' is not allowed.');
+        }
 
-            foreach ($headers as $name => $value) {
-                $this->_headers[$name] = $value;
-            }
+        $this->_code = $code;
+        $this->_message = (null !== $message) ? $message : self::$_responseCodes[$code];
+        $this->_body = $body;
+        $this->_version = $version;
+
+        foreach ($headers as $name => $value) {
+            $this->_headers[$name] = $value;
         }
     }
 
@@ -198,7 +188,7 @@ class Response
             $allHeaders = trim(substr($headerStr, strpos($headerStr, "\n")));
             $allHeadersAry = explode("\n", $allHeaders);
         } else {
-            throw new Exception(Locale::factory()->__('The response was not properly formatted.'));
+            throw new Exception('The response was not properly formatted.');
         }
 
         // Get the version, code and message
@@ -238,11 +228,11 @@ class Response
     public static function redirect($url, $version = '1.1')
     {
         if (headers_sent()) {
-            throw new Exception(Locale::factory()->__('The headers have already been sent.'));
-        } else {
-            header("HTTP/{$version} 302 Found");
-            header("Location: {$url}");
+            throw new Exception('The headers have already been sent.');
         }
+
+        header("HTTP/{$version} 302 Found");
+        header("Location: {$url}");
     }
 
     /**
@@ -255,10 +245,10 @@ class Response
     public static function getMessageFromCode($code)
     {
         if (!array_key_exists($code, self::$_responseCodes)) {
-            throw new Exception(Locale::factory()->__("That header code '%1' is not allowed.", $code));
-        } else {
-            return self::$_responseCodes[$code];
+            throw new Exception('The header code ' . $code . ' is not allowed.');
         }
+
+        return self::$_responseCodes[$code];
     }
 
     /**
@@ -275,19 +265,17 @@ class Response
             // GZIP compression
             case 'gzip':
                 if (!function_exists('gzencode')) {
-                    throw new Exception(Locale::factory()->__('Gzip compression is not available.'));
-                } else {
-                    $encodedBody = gzencode($body);
+                    throw new Exception('Gzip compression is not available.');
                 }
+                $encodedBody = gzencode($body);
                 break;
 
             // Deflate compression
             case 'deflate':
                 if (!function_exists('gzdeflate')) {
-                    throw new Exception(Locale::factory()->__('Deflate compression is not available.'));
-                } else {
-                    $encodedBody = gzdeflate($body);
+                    throw new Exception('Deflate compression is not available.');
                 }
+                $encodedBody = gzdeflate($body);
                 break;
 
             // Unknown compression
@@ -313,20 +301,18 @@ class Response
             // GZIP compression
             case 'gzip':
                 if (!function_exists('gzinflate')) {
-                    throw new Exception(Locale::factory()->__('Gzip compression is not available.'));
-                } else {
-                    $decodedBody = gzinflate(substr($body, 10));
+                    throw new Exception('Gzip compression is not available.');
                 }
+                $decodedBody = gzinflate(substr($body, 10));
                 break;
 
             // Deflate compression
             case 'deflate':
                 if (!function_exists('gzinflate')) {
-                    throw new Exception(Locale::factory()->__('Deflate compression is not available.'));
-                } else {
-                    $zlibHeader = unpack('n', substr($body, 0, 2));
-                    $decodedBody = ($zlibHeader[1] % 31 == 0) ? gzuncompress($body) : gzinflate($body);
+                    throw new Exception('Deflate compression is not available.');
                 }
+                $zlibHeader = unpack('n', substr($body, 0, 2));
+                $decodedBody = ($zlibHeader[1] % 31 == 0) ? gzuncompress($body) : gzinflate($body);
                 break;
 
             // Unknown compression
@@ -489,11 +475,11 @@ class Response
     public function setCode($code)
     {
         if (!array_key_exists($code, self::$_responseCodes)) {
-            throw new Exception($this->_lang->__("That header code '%1' is not allowed.", $code));
-        } else {
-            $this->_code = $code;
-            $this->_message = self::$_responseCodes[$code];
+            throw new Exception('That header code ' . $code . ' is not allowed.');
         }
+
+        $this->_code = $code;
+        $this->_message = self::$_responseCodes[$code];
 
         return $this;
     }
@@ -589,18 +575,18 @@ class Response
     public function send()
     {
         if (headers_sent()) {
-            throw new Exception($this->_lang->__('The headers have already been sent.'));
-        } else {
-            $body = $this->_body;
-
-            if (array_key_exists('Content-Encoding', $this->_headers)) {
-                $body = self::encodeBody($body, $this->_headers['Content-Encoding']);
-                $this->_headers['Content-Length'] = strlen($body);
-            }
-
-            $this->sendHeaders();
-            echo $body;
+            throw new Exception('The headers have already been sent.');
         }
+
+        $body = $this->_body;
+
+        if (array_key_exists('Content-Encoding', $this->_headers)) {
+            $body = self::encodeBody($body, $this->_headers['Content-Encoding']);
+            $this->_headers['Content-Length'] = strlen($body);
+        }
+
+        $this->sendHeaders();
+        echo $body;
     }
 
     /**

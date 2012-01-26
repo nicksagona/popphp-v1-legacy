@@ -24,8 +24,6 @@
  */
 namespace Pop\Db\Adapter;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Db
@@ -54,16 +52,14 @@ class Mysqli extends AbstractAdapter
      */
     public function __construct(array $options)
     {
-        $this->_lang = new Locale();
-
         if (!isset($options['database']) || !isset($options['host']) || !isset($options['username']) || !isset($options['password'])) {
-            throw new Exception($this->_lang->__('Error: The proper database credentials were not passed.'));
-        } else {
-            $this->connection = new \mysqli($options['host'], $options['username'], $options['password'], $options['database']);
+            throw new Exception('Error: The proper database credentials were not passed.');
+        }
 
-            if ($this->connection->connect_error != '') {
-                throw new Exception($this->_lang->__('Error: Could not connect to database. Connection Error #%1: %2.', array($this->connection->connect_errno, $this->connection->connect_error)));
-            }
+        $this->connection = new \mysqli($options['host'], $options['username'], $options['password'], $options['database']);
+
+        if ($this->connection->connect_error != '') {
+            throw new Exception('Error: Could not connect to database. Connection Error #' . $this->connection->connect_errno . ': ' . $this->connection->connect_error);
         }
     }
 
@@ -75,7 +71,7 @@ class Mysqli extends AbstractAdapter
      */
     public function showError()
     {
-        throw new Exception($this->_lang->__('Error:') . ' ' . $this->connection->errno . ' => ' . $this->connection->error . '.');
+        throw new Exception('Error: ' . $this->connection->errno . ' => ' . $this->connection->error . '.');
     }
 
     /**
@@ -166,10 +162,10 @@ class Mysqli extends AbstractAdapter
     public function execute()
     {
         if (null === $this->_statement) {
-            throw new Exception($this->_lang->__('Error: The database statement resource is not currently set.'));
-        } else {
-            $this->_statement->execute();
+            throw new Exception('Error: The database statement resource is not currently set.');
         }
+
+        $this->_statement->execute();
     }
 
     /**
@@ -197,10 +193,10 @@ class Mysqli extends AbstractAdapter
             return $this->_statement->fetch();
         } else {
             if (!isset($this->result)) {
-                throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
-            } else {
-                return $this->result->fetch_array(MYSQLI_ASSOC);
+                throw new Exception('Error: The database result resource is not currently set.');
             }
+
+            return $this->result->fetch_array(MYSQLI_ASSOC);
         }
     }
 
@@ -239,7 +235,7 @@ class Mysqli extends AbstractAdapter
         } else if (isset($this->result)) {
             return $this->result->num_rows;
         } else {
-            throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
+            throw new Exception('Error: The database result resource is not currently set.');
         }
     }
 
@@ -257,7 +253,7 @@ class Mysqli extends AbstractAdapter
         } else if (isset($this->result)) {
             return $this->connection->field_count;
         } else {
-            throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
+            throw new Exception('Error: The database result resource is not currently set.');
         }
     }
 

@@ -24,8 +24,6 @@
  */
 namespace Pop\Code;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Code
@@ -101,7 +99,7 @@ class DocblockGenerator
     public static function parse($docblock, $forceIndent = null)
     {
         if ((strpos($docblock, '/*') === false) || (strpos($docblock, '*/') === false)) {
-            throw new Exception(Locale::factory()->__('The docblock is not in the correct format.'));
+            throw new Exception('The docblock is not in the correct format.');
         }
 
         $desc = null;

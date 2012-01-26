@@ -49,7 +49,7 @@ class IsSubnetOf extends AbstractValidator
     {
         // Check to make sure the input is a valid Ipv4 address.
         if (!Validator::factory(new Ipv4())->evaluate($input)) {
-            throw new Exception(Locale::factory()->__('The IP address must be a valid IPv4 address.'));
+            throw new Exception('The IP address must be a valid IPv4 address.');
         }
 
         // Set the input, if passed

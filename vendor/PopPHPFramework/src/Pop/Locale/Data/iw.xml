@@ -13,212 +13,56 @@
 ]>
 <language src="en" output="iw" name="Hebrew" native="עברית">
     <text>
-        <source>That option is not set.</source>
-        <output>אפשרות זו אינה מוגדרת.</output>
-    </text>
-    <text>
-        <source>Error:</source>
-        <output>שגיאה:</output>
-    </text>
-    <text>
-        <source>Error: The proper database credentials were not passed.</source>
-        <output>שגיאה: אישורי מסד נתונים ראוי לא הועברו.</output>
-    </text>
-    <text>
-        <source>Error: The database result resource is not currently set.</source>
-        <output>שגיאה: משאב התוצאה הנתונים לא מוגדר כעת.</output>
-    </text>
-    <text>
-        <source>Error: Could not connect to database. Connection Error #%1: %2.</source>
-        <output>שגיאה: אין אפשרות להתחבר למסד הנתונים. שגיאת התחברות #%1: %2.</output>
-    </text>
-    <text>
-        <source>Error: There was an error connecting to the database.</source>
-        <output>שגיאה: אירעה שגיאה בחיבור למסד הנתונים.</output>
-    </text>
-    <text>
-        <source>Error: The database file was not passed.</source>
-        <output>שגיאה: קובץ מסד הנתונים לא עברו.</output>
-    </text>
-    <text>
-        <source>Error: The database file does not exists.</source>
-        <output>שגיאה: קובץ מסד הנתונים אינו קיים.</output>
-    </text>
-    <text>
-        <source>Error: That doctype is not allowed.</source>
-        <output>שגיאה: DOCTYPE זה אסור.</output>
-    </text>
-    <text>
-        <source>The child element passed is not an instance of Pop\Dom\Child.</source>
-        <output>האלמנט הילד עבר הוא לא מופע של Pop\Dom\Child.</output>
-    </text>
-    <text>
-        <source>One or more of the child elements passed is not an instance of Pop\Dom\Child.</source>
-        <output>אחד או יותר של אלמנטים הילד עבר היא לא מופע של Pop\Dom\Child.</output>
-    </text>
-    <text>
-        <source>That feed URL cannot be read at this time. Please try again later.</source>
-        <output>כתובת שמזינים לא ניתן לקרוא בשלב זה. נסה שוב מאוחר יותר.</output>
-    </text>
-    <text>
-        <source>Error: The feed item template is not set.</source>
-        <output>שגיאה: תבנית פריט להאכיל לא מוגדר.</output>
-    </text>
-    <text>
-        <source>Error: The feed currently has no content.</source>
-        <output>שגיאה: העדכון כרגע אין תוכן.</output>
-    </text>
-    <text>
-        <source>Error: The feed type must be only RSS or ATOM.</source>
-        <output>שגיאה: הסוג להאכיל חייב להיות רק RSS או Atom.</output>
-    </text>
-    <text>
-        <source>Error: The file is not an accepted file format.</source>
-        <output>שגיאה: הקובץ אינו קובץ בפורמט המקובל.</output>
-    </text>
-    <text>
-        <source>Error: The file already exists.</source>
-        <output>שגיאה: הקובץ כבר קיים.</output>
-    </text>
-    <text>
-        <source>Error: The directory does not exist.</source>
-        <output>שגיאה: המדריך אינו קיים.</output>
-    </text>
-    <text>
-        <source>Error: The upload directory does not exist.</source>
-        <output>שגיאה: ההעלאה אינו קיים.</output>
-    </text>
-    <text>
-        <source>Error: The file uploaded is too big.</source>
-        <output>שגיאה: הקובץ שהועלה הוא גדול מדי.</output>
-    </text>
-    <text>
-        <source>Error: The image file uploaded is too big.</source>
-        <output>שגיאה: קובץ התמונה נטען הוא גדול מדי.</output>
-    </text>
-    <text>
-        <source>Error: There was an error in uploading the file.</source>
-        <output>שגיאה: אירעה שגיאה ב העלאת הקובץ.</output>
-    </text>
-    <text>
-        <source>Error: There was an error in uploading the image file.</source>
-        <output>שגיאה: אירעה שגיאה ב העלאת קובץ התמונה.</output>
-    </text>
-    <text>
-        <source>Error: Permission denied.</source>
-        <output>שגיאה: Permission denied.</output>
-    </text>
-    <text>
-        <source>Error: The parameter passed is not an array.</source>
-        <output>שגיאה: הפרמטר עברו אינו מערך.</output>
-    </text>
-    <text>
-        <source>Error: The array passed must contain at least one type.</source>
-        <output>שגיאה: מערך עברו חייב להכיל לפחות סוג אחד.</output>
-    </text>
-    <text>
-        <source>Error: The file or directory (%1) is not writable.</source>
-        <output>שגיאה: קובץ או תיקייה (%1) אינו ניתן לכתיבה.</output>
-    </text>
-    <text>
-        <source>Error: There are no form elements declared for this form object.</source>
-        <output>שגיאה: אין אלמנטים טופס הכריז על אובייקט טופס זה.</output>
-    </text>
-    <text>
-        <source>Error: That input type is not allowed.</source>
-        <output>שגיאה: סוג זה תשומות אינו מותר.</output>
-    </text>
-    <text>
-        <source>Error: The required flag must be a boolean value.</source>
-        <output>שגיאה: דגל הנדרש חייב להיות ערך בוליאני.</output>
-    </text>
-    <text>
-        <source>Error: That type validator is not allowed.</source>
-        <output>שגיאה: validator זה סוג אינה מותרת.</output>
-    </text>
-    <text>
-        <source>Error: The condition must be a boolean.</source>
-        <output>שגיאה: התנאי חייב להיות בוליאני.</output>
-    </text>
-    <text>
         <source>This field is required.</source>
         <output>שדה זה נדרש.</output>
     </text>
     <text>
-        <source>This field value must %1 contain alphanumeric characters.</source>
-        <output>זה ערך השדה %1 חייב להכיל תווים אלפאנומריים.</output>
+        <source>January</source>
+        <output>ינואר</output>
     </text>
     <text>
-        <source>This field value must %1 contain characters of the alphabet.</source>
-        <output>זה ערך השדה %1 חייב להכיל תווים של האלפבית.</output>
+        <source>February</source>
+        <output>פברואר</output>
     </text>
     <text>
-        <source>This field value is %1 between %2 and %3.</source>
-        <output>זה ערך השדה הוא %1 בין %2 לבין %3.</output>
+        <source>March</source>
+        <output>מרץ</output>
     </text>
     <text>
-        <source>This field value format is %1 a correct email format.</source>
-        <output>זה פורמט ערך השדה הוא %1 תבנית הדוא"ל הנכונה.</output>
+        <source>April</source>
+        <output>אפריל</output>
     </text>
     <text>
-        <source>This field value does not equal the correct value.</source>
-        <output>זה ערך השדה אינו שווה את הערך הנכון.</output>
+        <source>May</source>
+        <output>מאי</output>
     </text>
     <text>
-        <source>This field value is %1 greater than %2.</source>
-        <output>זה ערך השדה הוא %1 יותר מ %2.</output>
+        <source>June</source>
+        <output>יוני</output>
     </text>
     <text>
-        <source>This field value length is %1 equal to %2 characters long.</source>
-        <output>זה אורך ערך השדה הוא %1 שווה ל %2 תווים.</output>
+        <source>July</source>
+        <output>יולי</output>
     </text>
     <text>
-        <source>This field value length is %1 between %2 and %3.</source>
-        <output>זה אורך ערך השדה הוא %1 בין %2 לבין %3.</output>
+        <source>August</source>
+        <output>אוגוסט</output>
     </text>
     <text>
-        <source>This field value length must be %1 %2 characters long.</source>
-        <output>זה אורך ערך השדה חייב להיות %1 %2 תווים.</output>
+        <source>September</source>
+        <output>ספטמבר</output>
     </text>
     <text>
-        <source>This field value is %1 less than %2.</source>
-        <output>זה ערך השדה הוא %1 פחות מ %2.</output>
+        <source>October</source>
+        <output>אוקטובר</output>
     </text>
     <text>
-        <source>This field value is %1 empty.</source>
-        <output>זה ערך השדה הוא %1 ריק.</output>
+        <source>November</source>
+        <output>נובמבר</output>
     </text>
     <text>
-        <source>This field value is %1 a number.</source>
-        <output>זה ערך השדה הוא %1 מספר.</output>
-    </text>
-    <text>
-        <source>This field value format is %1 correct.</source>
-        <output>זה פורמט ערך השדה הוא %1 נכונה.</output>
-    </text>
-    <text>
-        <source>The parameter passed must be an array.</source>
-        <output>פרמטר חלפו חייב להיות מערך.</output>
-    </text>
-    <text>
-        <source>The array parameter passed must contain an array.</source>
-        <output>הפרמטר מערך עבר להכיל מערך.</output>
-    </text>
-    <text>
-        <source>not</source>
-        <output>לא</output>
-    </text>
-    <text>
-        <source>only</source>
-        <output>רק</output>
-    </text>
-    <text>
-        <source>under</source>
-        <output>תחת</output>
-    </text>
-    <text>
-        <source>at least</source>
-        <output>לפחות</output>
+        <source>December</source>
+        <output>דצמבר</output>
     </text>
     <text>
         <source>Sunday</source>
@@ -249,592 +93,12 @@
         <output>שבת</output>
     </text>
     <text>
-        <source>January</source>
-        <output>בינואר</output>
-    </text>
-    <text>
-        <source>February</source>
-        <output>בפברואר</output>
-    </text>
-    <text>
-        <source>March</source>
-        <output>במרץ</output>
-    </text>
-    <text>
-        <source>April</source>
-        <output>באפריל</output>
-    </text>
-    <text>
-        <source>May</source>
-        <output>במאי</output>
-    </text>
-    <text>
-        <source>June</source>
-        <output>ביוני</output>
-    </text>
-    <text>
-        <source>July</source>
-        <output>ביולי</output>
-    </text>
-    <text>
-        <source>August</source>
-        <output>באוגוסט</output>
-    </text>
-    <text>
-        <source>September</source>
-        <output>בספטמבר</output>
-    </text>
-    <text>
-        <source>October</source>
-        <output>באוקטובר</output>
-    </text>
-    <text>
-        <source>November</source>
-        <output>בנובמבר</output>
-    </text>
-    <text>
-        <source>December</source>
-        <output>בדצמבר</output>
-    </text>
-    <text>
-        <source>Error: There was an error connecting to the FTP server %1.</source>
-        <output>שגיאה: אירעה שגיאה בהתחברות שרת FTP %1.</output>
-    </text>
-    <text>
-        <source>Error: There was an error connecting to the FTP server %1 with those credentials.</source>
-        <output>שגיאה: אירעה שגיאה בהתחברות שרת FTP %1 עם האישורים הללו.</output>
-    </text>
-    <text>
-        <source>Error: There was an error changing to the directory %1.</source>
-        <output>שגיאה: אירעה שגיאה שינוי כדי במדריך %1.</output>
-    </text>
-    <text>
-        <source>Error: There was an error making the directory %1.</source>
-        <output>שגיאה: אירעה שגיאה עושה את המדריך %1.</output>
-    </text>
-    <text>
-        <source>Error: There was an error removing the directory %1.</source>
-        <output>שגיאה: אירעה שגיאה הסרת %1.</output>
-    </text>
-    <text>
-        <source>Error: There was an error getting the file %1.</source>
-        <output>שגיאה: אירעה שגיאה מקבל את הקובץ %1.</output>
-    </text>
-    <text>
-        <source>Error: There was an error putting the file %1.</source>
-        <output>שגיאה: אירעה שגיאה לשים את הקובץ %1.</output>
-    </text>
-    <text>
-        <source>Error: There was an error renaming the file %1.</source>
-        <output>שגיאה: אירעה שגיאה בעת שינוי שם הקובץ %1.</output>
-    </text>
-    <text>
-        <source>Error: There was an error changing the permission of %1.</source>
-        <output>שגיאה: אירעה שגיאה שינוי ההרשאה של %1.</output>
-    </text>
-    <text>
-        <source>Error: There was an error removing the file %1.</source>
-        <output>שגיאה: אירעה שגיאה הסרת את הקובץ %1.</output>
-    </text>
-    <text>
-        <source>Error: You must define a width and height for a new image object.</source>
-        <output>שגיאה: אתה חייב להגדיר רוחב וגובה עבור אובייקט תמונה חדשה.</output>
-    </text>
-    <text>
-        <source>Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.</source>
-        <output>שגיאה: סוג כי התמונה אינה נתמכת. רק GIF, JPG ו-PNG סוגי התמונה נתמכים.</output>
-    </text>
-    <text>
-        <source>Error: This image file is already a %1 image file.</source>
-        <output>שגיאה: קובץ התמונה הוא כבר %1 קובץ התמונה.</output>
-    </text>
-    <text>
-        <source>Error: The language file %1 does not exist.</source>
-        <output>שגיאה: הקובץ שפה %1 אינו קיים.</output>
-    </text>
-    <text>
-        <source>Error: Your output language selection is not valid.</source>
-        <output>שגיאה: השפה התפוקה שלך הבחירה היא לא חוקית.</output>
-    </text>
-    <text>
-        <source>Error: Your source language selection is not valid.</source>
-        <output>שגיאה: שפת המקור שלך הבחירה היא לא חוקית.</output>
-    </text>
-    <text>
-        <source>Error: Both the output and source language selections are the same. Please choose again.</source>
-        <output>שגיאה: שניהם התוצר המקור בחירות השפה זהים. נא לבחור שוב.</output>
-    </text>
-    <text>
-        <source>Error: There was an error processing that Google Translate URL. Please check your API key.</source>
-        <output>שגיאה: אירעה שגיאה בעיבוד כי כתובת האתר של Google Translate. אנא בדוק את מפתח ה-API שלך.</output>
-    </text>
-    <text>
-        <source>Error: There was an error processing that XML file.</source>
-        <output>שגיאה: אירעה שגיאה בעיבוד כי קובץ ה-XML.</output>
-    </text>
-    <text>
-        <source>Error: At least one of the array keys must be 'email'.</source>
-        <output>שגיאה: לפחות אחד המפתחות מערך חייב להיות "דוא"ל".</output>
-    </text>
-    <text>
-        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
-        <output>שגיאה: הפרמטר עברו חייב להיות או קובץ חוקי או מופע של Pop\File\File.</output>
-    </text>
-    <text>
-        <source>Error: The message body elements are not set.</source>
-        <output>שגיאה: הגוף אלמנטים ההודעה לא מוגדרים.</output>
-    </text>
-    <text>
-        <source>Error: That page does not exist.</source>
-        <output>שגיאה: דף זה אינו קיים.</output>
-    </text>
-    <text>
-        <source>Error: The PDF does not have enough pages in which to order.</source>
-        <output>שגיאה: PDF אין מספיק דפים בהם סדר.</output>
-    </text>
-    <text>
-        <source>Error: The pages array passed does not contain the same number of pages as the PDF.</source>
-        <output>שגיאה: מערך עמודים עברו אינו מכיל את אותו מספר עמודים כמו ה-PDF.</output>
-    </text>
-    <text>
-        <source>Error: The pages array passed contains a page that does not exist.</source>
-        <output>שגיאה: מערך עמודים עברו מכיל דף זה אינו קיים.</output>
-    </text>
-    <text>
-        <source>Error: The rotation parameter must be between -90 and 90 degrees.</source>
-        <output>שגיאה: הפרמטר סיבוב חייב להיות בין -90 ו 90 מעלות.</output>
-    </text>
-    <text>
-        <source>Error: The render parameter must be an integer between 0 and 7.</source>
-        <output>שגיאה: הפרמטר לדקלם חייב להיות מספר שלם בין 0 ל 7.</output>
-    </text>
-    <text>
-        <source>Error: That font is not contained within the standard PDF fonts.</source>
-        <output>שגיאה: גופן שאינו כלול בתוך גופנים תקן PDF.</output>
-    </text>
-    <text>
-        <source>Error: The font '%1' has not been added to the PDF.</source>
-        <output>שגיאה: '%1' הגופן לא נוספה PDF.</output>
-    </text>
-    <text>
-        <source>Error: That page has not been defined.</source>
-        <output>שגיאה: הדף לא הוגדר.</output>
-    </text>
-    <text>
-        <source>Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.</source>
-        <output>שגיאה: PNG ערוצי אלפא אינן נתמכות. רק 8-bit תמונות PNG שקופות נתמכים.</output>
-    </text>
-    <text>
-        <source>Error: The file already exists and it cannot be overwritten. Please specify a new filename.</source>
-        <output>שגיאה: הקובץ כבר קיים, והוא לא יכול להימחק. נא לציין שם קובץ חדש.</output>
-    </text>
-    <text>
-        <source>Error: The argument passed must be an array.</source>
-        <output>שגיאה: הטענה עברו חייב להיות מערך.</output>
-    </text>
-    <text>
-        <source>Error: A width and height must be passed.</source>
-        <output>שגיאה: רוחב וגובה יש עבר.</output>
-    </text>
-    <text>
-        <source>Error: A page index must be passed.</source>
-        <output>שגיאה: דף האינדקס חייב להיות עבר.</output>
-    </text>
-    <text>
-        <source>The field '%1' does not exist.</source>
-        <output>"%1" השדה אינו קיים.</output>
-    </text>
-    <text>
-        <source>The parameter passed must be either an array or null.</source>
-        <output>הפרמטר עברו חייב להיות מערך או ריק.</output>
-    </text>
-    <text>
-        <source>This primary ID of this table either is not set or does not exist.</source>
-        <output>זהות זו הראשי של הטבלה הזו או לא מוגדר או לא קיים.</output>
-    </text>
-    <text>
-        <source>The field and value parameters were not defined to describe the row(s) to delete.</source>
-        <output>הפרמטרים שדה ערך לא הוגדרו לתאר את השורה (ים) למחוק.</output>
-    </text>
-    <text>
-        <source>The mobile site is not set.</source>
-        <output>האתר הסלולרי אינו מוגדר.</output>
-    </text>
-    <text>
-        <source>The standard site is not set.</source>
-        <output>אתר רגיל לא מוגדר.</output>
-    </text>
-    <text>
-        <source>That header code '%1' is not allowed.</source>
-        <output>קוד זה בכותרת '%1' אינו מותר.</output>
-    </text>
-    <text>
-        <source>The array parameter passed must contain an array of field values.</source>
-        <output>הפרמטר מערך עברו חייב לכלול מערך של ערכי השדה.</output>
-    </text>
-    <text>
-        <source>Error: The image resource has not been created.</source>
-        <output>שגיאה: משאב התמונה לא נוצר.</output>
-    </text>
-    <text>
-        <source>Error: The image output resource has not been created.</source>
-        <output>שגיאה: משאב פלט התמונה לא נוצר.</output>
-    </text>
-    <text>
-        <source>The argument passed is not valid.</source>
-        <output>הטענה עברו אינו חוקי.</output>
-    </text>
-    <text>
-        <source>The archive file is compressed. It must only be either a TAR or ZIP archive file.</source>
-        <output>קובץ ארכיון דחוס. הוא חייב רק להיות או TAR או בארכיון קובץ ZIP.</output>
-    </text>
-    <text>
-        <source>The archive file must be either a TAR or ZIP archive file.</source>
-        <output>קובץ ארכיון חייב להיות או TAR או בארכיון קובץ ZIP.</output>
-    </text>
-    <text>
-        <source>Error: The compression type must either be Flate or LZW.</source>
-        <output>שגיאה: סוג דחיסה חייבות להיות Flate או LZW.</output>
-    </text>
-    <text>
-        <source>Error: The font file does not seem to have all of the correct data to parse.</source>
-        <output>שגיאה: הקובץ גופן לא נראה לי את כל הנתונים הנכונים לנתח.</output>
-    </text>
-    <text>
-        <source>Error: The GD library extension must be installed to use the Gd adapter.</source>
-        <output>שגיאה: הארכת ספריית GD חייב להיות מותקן כדי להשתמש במתאם ה '.</output>
-    </text>
-    <text>
-        <source>No source file or database table was passed.</source>
-        <output>אין קובץ המקור או בטבלה בבסיס הנתונים הועבר.</output>
-    </text>
-    <text>
-        <source>The options parameter must be an array.</source>
-        <output>הפרמטר האפשרויות חייב להיות מערך.</output>
-    </text>
-    <text>
-        <source>The options parameter must be an array that contains either a 'table' or 'file' key.</source>
-        <output>הפרמטר האפשרויות חייב להיות מערך המכיל גם "שולחן" או מקש "קובץ".</output>
-    </text>
-    <text>
-        <source>Error: Could not connect to database. %1</source>
-        <output>שגיאה: אין אפשרות להתחבר למסד הנתונים. %1</output>
-    </text>
-    <text>
-        <source>Error: The database interface object has not been instaniated.</source>
-        <output>שגיאה: אובייקט של ממשק מסד הנתונים לא היה instaniated.</output>
-    </text>
-    <text>
-        <source>Error: That method does not exist within the database interface object.</source>
-        <output>שגיאה: שיטה זו אינה קיימת בתוך אובייקט ממשק מסד הנתונים.</output>
-    </text>
-    <text>
-        <source>Error: The columns parameter must be an array.</source>
-        <output>שגיאה: הפרמטר העמודות חייב להיות מערך.</output>
-    </text>
-    <text>
-        <source>Error: The columns parameter must be an array that contains at least one key/value pair.</source>
-        <output>שגיאה: הפרמטר העמודות חייב להיות מערך המכיל לפחות אחד מפתח / ערך זוג.</output>
-    </text>
-    <text>
-        <source>Error: The table must be set.</source>
-        <output>שגיאה: הטבלה חייב להיות מוגדר.</output>
-    </text>
-    <text>
-        <source>Error: A SQL type must be set.</source>
-        <output>שגיאה: סוג SQL חייב להיות מוגדר.</output>
-    </text>
-    <text>
-        <source>Error: The database statement resource is not currently set.</source>
-        <output>שגיאה: משאב הצהרה מסד הנתונים לא מוגדר כעת.</output>
-    </text>
-    <text>
-        <source>The column and value parameters were not defined to describe the row(s) to delete.</source>
-        <output>הפרמטרים עמודה וערך לא הוגדרו לתאר את השורה (ים) למחוק.</output>
-    </text>
-    <text>
-        <source>The column '%1' does not exist.</source>
-        <output>"%1" הטור אינו קיים.</output>
-    </text>
-    <text>
-        <source>Error: That database adapter class does not exist.</source>
-        <output>שגיאה: זה בכיתה מתאם מסד הנתונים אינו קיים.</output>
-    </text>
-    <text>
-        <source>Error: The Imagick library extension must be installed to use the Imagick adapter.</source>
-        <output>שגיאה: הארכת ספריה Imagick חייב להיות מותקן כדי להשתמש במתאם Imagick.</output>
-    </text>
-    <text>
-        <source>Error: That image type is not supported.</source>
-        <output>שגיאה: זה סוג התמונה אינו נתמך.</output>
-    </text>
-    <text>
-        <source>Error: The cache type must be 'File', 'Sqlite' or 'Memcached'.</source>
-        <output>שגיאה: סוג מטמון חייב להיות "קובץ", "SQLite" או "Memcached".</output>
-    </text>
-    <text>
-        <source>Error: You must pass either a directory or SQLite file store point.</source>
-        <output>שגיאה: אתה חייב לעבור גם ספרייה או חנות SQLite נקודת הקובץ.</output>
-    </text>
-    <text>
-        <source>Error: That cache directory does not exist.</source>
-        <output>שגיאה: זה מדריך המטמון לא קיים.</output>
-    </text>
-    <text>
-        <source>Error: That cache directory is not writable.</source>
-        <output>שגיאה: זה מדריך המטמון אינו ניתן לכתיבה.</output>
-    </text>
-    <text>
-        <source>Error: That cache db file and/or directory is not writable.</source>
-        <output>שגיאה: db זה קובץ המטמון ו / או במדריך אינו ניתן לכתיבה.</output>
-    </text>
-    <text>
-        <source>Error: Memcache is not available on this server.</source>
-        <output>שגיאה: Memcache אינו זמין בשרת זה.</output>
-    </text>
-    <text>
-        <source>Error: Unable to connect to the memcached server.</source>
-        <output>שגיאה: אין אפשרות להתחבר לשרת memcached.</output>
-    </text>
-    <text>
-        <source>That data type is not supported.</source>
-        <output>סוג נתונים זה אינו נתמך.</output>
-    </text>
-    <text>
-        <source>No database adapter was found.</source>
-        <output>אין מתאם מסד הנתונים נמצא.</output>
-    </text>
-    <text>
-        <source>That font is not available.</source>
-        <output>גופן זה אינו זמין.</output>
-    </text>
-    <text>
-        <source>The percentages are greater than 100.</source>
-        <output>האחוזים הם יותר מ 100.</output>
-    </text>
-    <text>
-        <source>A proper color array was not passed.</source>
-        <output>מערך הצבע הנכון לא עבר.</output>
-    </text>
-    <text>
-        <source>One or more of the color values is out of range.</source>
-        <output>אחד או יותר של ערכי הצבע הוא מחוץ לטווח.</output>
-    </text>
-    <text>
-        <source>The color parameter is not a valid color space object.</source>
-        <output>הפרמטר צבע אינו חפץ תקף מרחב צבע.</output>
-    </text>
-    <text>
-        <source>That color space object does not exist.</source>
-        <output>זה אובייקט מרחב צבע אינו קיים.</output>
-    </text>
-    <text>
-        <source>That color space object is already that type.</source>
-        <output>זה אובייקט מרחב צבע הוא כבר סוג.</output>
-    </text>
-    <text>
-        <source>The headers have already been sent.</source>
-        <output>כותרות כבר נשלחו.</output>
-    </text>
-    <text>
-        <source>The response was not properly formatted.</source>
-        <output>התגובה לא היה מעוצב כהלכה.</output>
-    </text>
-    <text>
-        <source>A template asset has not been assigned.</source>
-        <output>הנכס תבנית לא הוקצה.</output>
-    </text>
-    <text>
-        <source>That template file either does not exist or is not the correct format.</source>
-        <output>קובץ זה לתבנית או אינו קיים או אינו בפורמט הנכון.</output>
-    </text>
-    <text>
-        <source>Due to licensing restrictions, RAR files cannot be created and can only be decompressed.</source>
-        <output>בשל מגבלות רישוי, קבצי RAR לא ניתן ליצור והוא יכול להיות רק decompressed.</output>
-    </text>
-    <text>
-        <source>The value must only contain alphanumeric characters.</source>
-        <output>הערך חייב להכיל רק תווים אלפאנומריים.</output>
-    </text>
-    <text>
-        <source>The value must contain non-alphanumeric characters.</source>
-        <output>הערך חייב להכיל שאינו אלפאנומרי תווים.</output>
-    </text>
-    <text>
-        <source>The value must only contain characters of the alphabet.</source>
-        <output>הערך חייב להכיל רק תווים של האלפבית.</output>
-    </text>
-    <text>
-        <source>The value must contain characters not in the alphabet.</source>
-        <output>הערך חייב להכיל תווים לא באלף בית.</output>
-    </text>
-    <text>
-        <source>The value must be between %1 and %2.</source>
-        <output>הערך חייב להיות בין %1 ל -%2.</output>
-    </text>
-    <text>
-        <source>The value must not be between %1 and %2.</source>
-        <output>הערך לא חייב להיות בין %1 ל -%2.</output>
-    </text>
-    <text>
-        <source>The value must be between or equal to %1 and %2.</source>
-        <output>הערך חייב להיות בין או שווה ל %1 ל -%2.</output>
-    </text>
-    <text>
-        <source>The value must not be between or equal to %1 and %2.</source>
-        <output>הערך לא חייב להיות בין או שווה ל %1 ל -%2.</output>
-    </text>
-    <text>
-        <source>The value must be a valid email format.</source>
-        <output>הערך חייב להיות בפורמט דוא"ל חוקית.</output>
-    </text>
-    <text>
-        <source>The value must not be a valid email format.</source>
-        <output>הערך לא חייב להיות בפורמט דוא"ל חוקית.</output>
-    </text>
-    <text>
-        <source>The value must be excluded.</source>
-        <output>הערך חייב להיות שליליים.</output>
-    </text>
-    <text>
-        <source>The value must not be excluded.</source>
-        <output>הערך לא חייב להיות שליליים.</output>
-    </text>
-    <text>
-        <source>The value must be included.</source>
-        <output>הערך חייב להיות כלול.</output>
-    </text>
-    <text>
-        <source>The value must not be included.</source>
-        <output>הערך לא חייב להיות כלול.</output>
-    </text>
-    <text>
-        <source>The value must be equal to %1.</source>
-        <output>הערך חייב להיות שווה ל %1.</output>
-    </text>
-    <text>
-        <source>The value must not be equal to %1.</source>
-        <output>הערך לא חייב להיות שווה ל %1.</output>
-    </text>
-    <text>
-        <source>The value must be greater than %1.</source>
-        <output>הערך חייב להיות גדול מ %1.</output>
-    </text>
-    <text>
-        <source>The value must not be greater than %1.</source>
-        <output>הערך לא חייב להיות גדול מ %1.</output>
-    </text>
-    <text>
-        <source>The value must be greater than or equal to %1.</source>
-        <output>הערך חייב להיות גדול או שווה ל -%1.</output>
-    </text>
-    <text>
-        <source>The value must not be greater than or equal to %1.</source>
-        <output>הערך לא חייב להיות גדול או שווה ל -%1.</output>
-    </text>
-    <text>
-        <source>The value length must be equal to %1.</source>
-        <output>אורך הערך חייב להיות שווה ל %1.</output>
-    </text>
-    <text>
-        <source>The value length must not be equal to %1.</source>
-        <output>אורך הערך לא חייב להיות שווה ל %1.</output>
-    </text>
-    <text>
-        <source>The value must be less than %1.</source>
-        <output>הערך חייב להיות פחות מ %1.</output>
-    </text>
-    <text>
-        <source>The value must not be less than %1.</source>
-        <output>הערך לא חייב להיות פחות מ %1.</output>
-    </text>
-    <text>
-        <source>The value must be less than or equal to %1.</source>
-        <output>הערך חייב להיות קטן או שווה ל -%1.</output>
-    </text>
-    <text>
-        <source>The value must not be less than or equal to %1.</source>
-        <output>הערך לא חייב להיות קטן או שווה ל -%1.</output>
-    </text>
-    <text>
-        <source>The value length must be between %1 and %2.</source>
-        <output>אורך הערך חייב להיות בין %1 ל -%2.</output>
-    </text>
-    <text>
-        <source>The value length must not be between %1 and %2.</source>
-        <output>אורך הערך לא חייב להיות בין %1 ל -%2.</output>
-    </text>
-    <text>
         <source>The value length must be between or equal to %1 and %2.</source>
         <output>אורך הערך חייב להיות בין או שווה ל %1 ל -%2.</output>
     </text>
     <text>
         <source>The value length must not be between or equal to %1 and %2.</source>
         <output>אורך הערך לא חייב להיות בין או שווה ל %1 ל -%2.</output>
-    </text>
-    <text>
-        <source>The value length must be greater than %1.</source>
-        <output>אורך הערך חייב להיות גדול מ %1.</output>
-    </text>
-    <text>
-        <source>The value length must not be greater than %1.</source>
-        <output>אורך הערך לא חייב להיות גדול מ %1.</output>
-    </text>
-    <text>
-        <source>The value length must be greater than or equal to %1.</source>
-        <output>אורך הערך חייב להיות גדול או שווה ל -%1.</output>
-    </text>
-    <text>
-        <source>The value length must not be greater than or equal to %1.</source>
-        <output>אורך הערך לא חייב להיות גדול או שווה ל -%1.</output>
-    </text>
-    <text>
-        <source>The value length must be less than %1.</source>
-        <output>אורך הערך חייב להיות פחות מ %1.</output>
-    </text>
-    <text>
-        <source>The value length must not be less than %1.</source>
-        <output>אורך הערך לא חייב להיות פחות מ %1.</output>
-    </text>
-    <text>
-        <source>The value length must be less than or equal to %1.</source>
-        <output>אורך הערך חייב להיות קטן או שווה ל -%1.</output>
-    </text>
-    <text>
-        <source>The value length must not be less than or equal to %1.</source>
-        <output>אורך הערך לא חייב להיות קטן או שווה ל -%1.</output>
-    </text>
-    <text>
-        <source>The value must be empty.</source>
-        <output>הערך חייב להיות ריק.</output>
-    </text>
-    <text>
-        <source>The value must not be empty.</source>
-        <output>הערך אינו יכול להיות ריק.</output>
-    </text>
-    <text>
-        <source>The value must be numeric.</source>
-        <output>הערך חייב להיות מספרי.</output>
-    </text>
-    <text>
-        <source>The value must not be numeric.</source>
-        <output>הערך לא חייב להיות מספרי.</output>
-    </text>
-    <text>
-        <source>Error: The file type %1 is not an accepted file format.</source>
-        <output>שגיאה: סוג הקובץ%1 אינו פורמט קובץ מקובל.</output>
-    </text>
-    <text>
-        <source>The value format is not correct.</source>
-        <output>הפורמט ערך אינה נכונה.</output>
-    </text>
-    <text>
-        <source>The value must be a valid IPv4 address.</source>
-        <output>הערך חייב להיות כתובת IPv4 חוקית.</output>
-    </text>
-    <text>
-        <source>The value must not be a valid IPv4 address.</source>
-        <output>הערך לא חייב להיות כתובת חוקית IPv4.</output>
     </text>
     <text>
         <source>The value must be a valid IPv6 address.</source>
@@ -845,12 +109,28 @@
         <output>הערך לא חייב להיות כתובת IPv6 חוקית.</output>
     </text>
     <text>
-        <source>The user role has not been defined to evaluate against.</source>
-        <output>תפקיד המשתמש לא הוגדר להעריך נגד.</output>
+        <source>The value must be a valid credit card number.</source>
+        <output>הערך חייב להיות מספר חוקי בכרטיסי אשראי.</output>
     </text>
     <text>
-        <source>Error: The file type %1 is not an accepted file format.</source>
-        <output>שגיאה: סוג הקובץ%1 אינו פורמט קובץ מקובל.</output>
+        <source>The value must not be a valid credit card number.</source>
+        <output>הערך לא חייב להיות מספר כרטיס האשראי.</output>
+    </text>
+    <text>
+        <source>The value must be included.</source>
+        <output>הערך חייב להיות כלול.</output>
+    </text>
+    <text>
+        <source>The value must not be included.</source>
+        <output>הערך לא חייב להיות כלול.</output>
+    </text>
+    <text>
+        <source>The value must be between or equal to %1 and %2.</source>
+        <output>הערך חייב להיות בין או שווה ל %1 ל -%2.</output>
+    </text>
+    <text>
+        <source>The value must not be between or equal to %1 and %2.</source>
+        <output>הערך לא חייב להיות בין או שווה ל %1 ל -%2.</output>
     </text>
     <text>
         <source>The value must be part of the subnet %1.</source>
@@ -861,6 +141,86 @@
         <output>הערך לא חייב להיות חלק רשת המשנה %1.</output>
     </text>
     <text>
+        <source>The value must be greater than or equal to %1.</source>
+        <output>הערך חייב להיות גדול או שווה ל -%1.</output>
+    </text>
+    <text>
+        <source>The value must not be greater than or equal to %1.</source>
+        <output>הערך לא חייב להיות גדול או שווה ל -%1.</output>
+    </text>
+    <text>
+        <source>The value length must be greater than %1.</source>
+        <output>אורך הערך חייב להיות גדול מ %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be greater than %1.</source>
+        <output>אורך הערך לא חייב להיות גדול מ %1.</output>
+    </text>
+    <text>
+        <source>The value must only contain alphanumeric characters.</source>
+        <output>הערך חייב להכיל רק תווים אלפאנומריים.</output>
+    </text>
+    <text>
+        <source>The value must contain non-alphanumeric characters.</source>
+        <output>הערך חייב להכיל שאינו אלפאנומרי תווים.</output>
+    </text>
+    <text>
+        <source>The value length must be equal to %1.</source>
+        <output>אורך הערך חייב להיות שווה ל %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be equal to %1.</source>
+        <output>אורך הערך לא חייב להיות שווה ל %1.</output>
+    </text>
+    <text>
+        <source>The value length must be greater than or equal to %1.</source>
+        <output>אורך הערך חייב להיות גדול או שווה ל -%1.</output>
+    </text>
+    <text>
+        <source>The value length must not be greater than or equal to %1.</source>
+        <output>אורך הערך לא חייב להיות גדול או שווה ל -%1.</output>
+    </text>
+    <text>
+        <source>The value must be less than or equal to %1.</source>
+        <output>הערך חייב להיות קטן או שווה ל -%1.</output>
+    </text>
+    <text>
+        <source>The value must not be less than or equal to %1.</source>
+        <output>הערך לא חייב להיות קטן או שווה ל -%1.</output>
+    </text>
+    <text>
+        <source>The value must be between %1 and %2.</source>
+        <output>הערך חייב להיות בין %1 ל -%2.</output>
+    </text>
+    <text>
+        <source>The value must not be between %1 and %2.</source>
+        <output>הערך לא חייב להיות בין %1 ל -%2.</output>
+    </text>
+    <text>
+        <source>The value must be greater than %1.</source>
+        <output>הערך חייב להיות גדול מ %1.</output>
+    </text>
+    <text>
+        <source>The value must not be greater than %1.</source>
+        <output>הערך לא חייב להיות גדול מ %1.</output>
+    </text>
+    <text>
+        <source>The value must be a valid IPv4 address.</source>
+        <output>הערך חייב להיות כתובת IPv4 חוקית.</output>
+    </text>
+    <text>
+        <source>The value must not be a valid IPv4 address.</source>
+        <output>הערך לא חייב להיות כתובת חוקית IPv4.</output>
+    </text>
+    <text>
+        <source>The value must be a valid email format.</source>
+        <output>הערך חייב להיות בפורמט דוא"ל חוקית.</output>
+    </text>
+    <text>
+        <source>The value must not be a valid email format.</source>
+        <output>הערך לא חייב להיות בפורמט דוא"ל חוקית.</output>
+    </text>
+    <text>
         <source>The value must be a valid IPv4 subnet.</source>
         <output>הערך חייב להיות תקף המשנה IPv4.</output>
     </text>
@@ -869,8 +229,112 @@
         <output>הערך לא חייב להיות תקף המשנה IPv4.</output>
     </text>
     <text>
-        <source>The IP address must be a valid IPv4 address.</source>
-        <output>כתובת ה-IP חייבת להיות כתובת IPv4 חוקית.</output>
+        <source>The value format is not correct.</source>
+        <output>הפורמט ערך אינה נכונה.</output>
+    </text>
+    <text>
+        <source>The value must be equal to %1.</source>
+        <output>הערך חייב להיות שווה ל %1.</output>
+    </text>
+    <text>
+        <source>The value must not be equal to %1.</source>
+        <output>הערך לא חייב להיות שווה ל %1.</output>
+    </text>
+    <text>
+        <source>The value must be less than %1.</source>
+        <output>הערך חייב להיות פחות מ %1.</output>
+    </text>
+    <text>
+        <source>The value must not be less than %1.</source>
+        <output>הערך לא חייב להיות פחות מ %1.</output>
+    </text>
+    <text>
+        <source>The value length must be between %1 and %2.</source>
+        <output>אורך הערך חייב להיות בין %1 ל -%2.</output>
+    </text>
+    <text>
+        <source>The value length must not be between %1 and %2.</source>
+        <output>אורך הערך לא חייב להיות בין %1 ל -%2.</output>
+    </text>
+    <text>
+        <source>The value must be numeric.</source>
+        <output>הערך חייב להיות מספרי.</output>
+    </text>
+    <text>
+        <source>The value must not be numeric.</source>
+        <output>הערך לא חייב להיות מספרי.</output>
+    </text>
+    <text>
+        <source>The value must not be empty.</source>
+        <output>הערך אינו יכול להיות ריק.</output>
+    </text>
+    <text>
+        <source>The value must be empty.</source>
+        <output>הערך חייב להיות ריק.</output>
+    </text>
+    <text>
+        <source>The value length must be less than %1.</source>
+        <output>אורך הערך חייב להיות פחות מ %1.</output>
+    </text>
+    <text>
+        <source>The value length must not be less than %1.</source>
+        <output>אורך הערך לא חייב להיות פחות מ %1.</output>
+    </text>
+    <text>
+        <source>The value must only contain characters in the alphabet.</source>
+        <output>הערך חייב להכיל רק תווים האלפבית.</output>
+    </text>
+    <text>
+        <source>The value must only contain characters not in the alphabet.</source>
+        <output>הערך חייב להכיל רק תווים לא באלף בית.</output>
+    </text>
+    <text>
+        <source>The value must be excluded.</source>
+        <output>הערך חייב להיות שליליים.</output>
+    </text>
+    <text>
+        <source>The value must not be excluded.</source>
+        <output>הערך לא חייב להיות שליליים.</output>
+    </text>
+    <text>
+        <source>The value length must be less than or equal to %1.</source>
+        <output>אורך הערך חייב להיות קטן או שווה ל -%1.</output>
+    </text>
+    <text>
+        <source>The value length must not be less than or equal to %1.</source>
+        <output>אורך הערך לא חייב להיות קטן או שווה ל -%1.</output>
+    </text>
+    <text>
+        <source>The value must not be equal to %1.</source>
+        <output>הערך לא חייב להיות שווה ל %1.</output>
+    </text>
+    <text>
+        <source>The value must be equal to %1.</source>
+        <output>הערך חייב להיות שווה ל %1.</output>
+    </text>
+    <text>
+        <source>Creating controller class files...</source>
+        <output>יצירת מעמד קבצים בקר ...</output>
+    </text>
+    <text>
+        <source>Creating base folder and file structure...</source>
+        <output>יצירת תיקיית בסיס מבנה הקבצים ...</output>
+    </text>
+    <text>
+        <source>Creating database table class files...</source>
+        <output>יצירת טבלה בבסיס הנתונים קבצים בכיתה ...</output>
+    </text>
+    <text>
+        <source>Creating form class files...</source>
+        <output>יצירת מעמד קבצים טופס ...</output>
+    </text>
+    <text>
+        <source>You will have to install your web server rewrite configuration manually.</source>
+        <output>אתה תצטרך להתקין שרת האינטרנט שלך תצורה לשכתב באופן ידני.</output>
+    </text>
+    <text>
+        <source>Install index controller and web configuration files?</source>
+        <output>התקנת בקר מדד תצורה קבצים באינטרנט?</output>
     </text>
     <text>
         <source>The user is valid.</source>
@@ -890,7 +354,7 @@
     </text>
     <text>
         <source>The allowed login attempts (%1) have been exceeded.</source>
-        <output>ניסיונות ההתחברות מותר (%1) כבר עלה.</output>
+        <output>ניסיונות ההתחברות מותר (% 1) כבר עלה.</output>
     </text>
     <text>
         <source>That IP address is blocked.</source>
@@ -903,54 +367,6 @@
     <text>
         <source>The session has expired.</source>
         <output>המושב פג.</output>
-    </text>
-    <text>
-        <source>The access file does not exist.</source>
-        <output>הקובץ לגשת אינו קיים.</output>
-    </text>
-    <text>
-        <source>The user's role is not defined.</source>
-        <output>תפקידו של המשתמש אינה מוגדרת.</output>
-    </text>
-    <text>
-        <source>That class map file does not exist.</source>
-        <output>זה קובץ המפה בכיתה אינו קיים.</output>
-    </text>
-    <text>
-        <source>Unknown error.</source>
-        <output>שגיאה לא ידועה.</output>
-    </text>
-    <text>
-        <source>You must pass a source folder and a output file to generate a class map file.</source>
-        <output>אתה צריך לעבור תיקייה מקור קובץ הפלט כדי ליצור קובץ המפה בכיתה.</output>
-    </text>
-    <text>
-        <source>The source folder passed does not exist.</source>
-        <output>תיקיית המקור עבר לא קיים.</output>
-    </text>
-    <text>
-        <source>The output file passed must be a PHP file.</source>
-        <output>קובץ הפלט עברו חייב להיות קובץ PHP.</output>
-    </text>
-    <text>
-        <source>You must pass an install file to install the project.</source>
-        <output>אתה חייב לעבור קובץ התקנה כדי להתקין את הפרויקט.</output>
-    </text>
-    <text>
-        <source>Unknown option:</source>
-        <output>לא ידוע אופציה:</output>
-    </text>
-    <text>
-        <source>You must pass at least one argument.</source>
-        <output>אתה חייב לעבור לפחות טיעון אחד.</output>
-    </text>
-    <text>
-        <source>Run './pop -h' for help.</source>
-        <output>הפעל ". / Pop-h" לעזרה.</output>
-    </text>
-    <text>
-        <source>Run '.\pop -h' for help.</source>
-        <output>הפעל ". \ Pop-h" לעזרה.</output>
     </text>
     <text>
         <source>Aborted.</source>
@@ -989,24 +405,28 @@
         <output>התקנת מסד הנתונים</output>
     </text>
     <text>
-        <source>Add project to the bootstrap file?</source>
-        <output>הוסף את הפרויקט לקובץ bootstrap?</output>
-    </text>
-    <text>
         <source>Project install complete.</source>
         <output>פרויקט להתקין להשלים.</output>
     </text>
     <text>
-        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
-        <output>תהליך זה ייצור והתקנה של תשתית הבסיס של הפרוייקט תחת תיקיית המצוין בקובץ ההתקנה. מינימלית, את קובץ ההתקנה צריך להחזיר אובייקט פופ \ Config המכיל להתקין את הגדרות הפרוייקט, כגון שם הפרוייקט, תיקיות, טפסים, בקרים, תצוגות וכל האישורים מסד הנתונים.</output>
+        <source>The Pop autoloader class file was not found.</source>
+        <output>הקובץ פופ בכיתה AUTOLOADER לא נמצא.</output>
+    </text>
+    <text>
+        <source>Pop PHP Framework found.</source>
+        <output>פופ PHP Framework נמצאו.</output>
+    </text>
+    <text>
+        <source>Project reconfigured.</source>
+        <output>פרויקט מחדש.</output>
+    </text>
+    <text>
+        <source>This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.</source>
+        <output>תהליך זה ייצור והתקנה של תשתית הבסיס של הפרוייקט תחת תיקיית המצוין בקובץ ההתקנה. מינימלית, את קובץ ההתקנה צריך להחזיר פופ \ \ Config אובייקט המכיל להתקין את הגדרות הפרוייקט, כגון שם הפרוייקט, תיקיות, טפסים, בקרים, תצוגות וכל האישורים מסד הנתונים.</output>
     </text>
     <text>
         <source>Besides creating the base folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can take advantage of this by having the database SQL files in the same folder as your install file, like so:</source>
         <output>מלבד יצירת בסיס תיקיות וקבצים בשבילך, אחד היתרונות העיקריים הוא היכולת לבדוק ולהתקין את מסד הנתונים ואת קבצי תצורה המתאים בכיתה. אתה יכול לנצל את זה על ידי כך את מסד הנתונים SQL הקבצים באותה תיקייה כמו קובץ ההתקנה שלך, כך:</output>
-    </text>
-    <text>
-        <source>Install a project based on the install file specified</source>
-        <output>התקן הפרויקט מבוסס על קובץ ההתקנה שצוין</output>
     </text>
     <text>
         <source>Check the current configuration for required dependencies</source>
@@ -1017,8 +437,8 @@
         <output>תצוגה זו עזרה</output>
     </text>
     <text>
-        <source>Show project install instructions</source>
-        <output>הצג להתקין הוראות הפרויקט</output>
+        <source>Install a project based on the install file specified</source>
+        <output>התקן הפרויקט מבוסס על קובץ ההתקנה שצוין</output>
     </text>
     <text>
         <source>Set the default language for the project</source>
@@ -1029,8 +449,28 @@
         <output>יצירת קובץ המפה בכיתה מתיקיית המקור ולשמור לקובץ הפלט</output>
     </text>
     <text>
+        <source>Reconfigure the project based on the new location of the project</source>
+        <output>את הפרויקט מחדש בהתבסס על המיקום החדש של הפרויקט</output>
+    </text>
+    <text>
+        <source>Show project install instructions</source>
+        <output>הצג להתקין הוראות הפרויקט</output>
+    </text>
+    <text>
+        <source>Run the unit tests from a folder</source>
+        <output>הפעל את בדיקות יחידה מתיקייה</output>
+    </text>
+    <text>
         <source>Display version of Pop PHP Framework and latest available</source>
         <output>הצגת גרסה של PHP Framework הפופ העדכני ביותר הזמין</output>
+    </text>
+    <text>
+        <source>Run './pop -h' for help.</source>
+        <output>הפעל ". / Pop-h" לעזרה.</output>
+    </text>
+    <text>
+        <source>Run '.\pop -h' for help.</source>
+        <output>הפעל ". \ Pop-h" לעזרה.</output>
     </text>
     <text>
         <source>Continue?</source>
@@ -1045,82 +485,6 @@
         <output>קובץ המגף לא נמצא. נסה שוב.</output>
     </text>
     <text>
-        <source>Creating base folder and file structure...</source>
-        <output>יצירת תיקיית בסיס מבנה הקבצים ...</output>
-    </text>
-    <text>
-        <source>Creating database table class files...</source>
-        <output>יצירת טבלה בבסיס הנתונים קבצים בכיתה ...</output>
-    </text>
-    <text>
-        <source>Enter the two-letter code for the default language:</source>
-        <output>הזן את קוד בן שתי אותיות עבור שפת ברירת המחדל:</output>
-    </text>
-    <text>
-        <source>Real-time configuration changes are not allowed.</source>
-        <output>בזמן אמת שינויי תצורה לא מורשים.</output>
-    </text>
-    <text>
-        <source>Run the unit tests from a folder</source>
-        <output>הפעל את בדיקות יחידה מתיקייה</output>
-    </text>
-    <text>
-        <source>That folder does not exist.</source>
-        <output>תיקייה זו אינה קיימת.</output>
-    </text>
-    <text>
-        <source>The folder argument is not a folder.</source>
-        <output>הטענה התיקיה לא תיקייה.</output>
-    </text>
-    <text>
-        <source>The module name must be set in the module config.</source>
-        <output>שם המודול יש להגדיר את מודול config.</output>
-    </text>
-    <text>
-        <source>Install index controller and web configuration files?</source>
-        <output>התקנת בקר מדד תצורה קבצים באינטרנט?</output>
-    </text>
-    <text>
-        <source>The docblock is not in the correct format.</source>
-        <output>Docblock אינו בפורמט הנכון.</output>
-    </text>
-    <text>
-        <source>You will have to install your web server rewrite configuration manually.</source>
-        <output>אתה תצטרך להתקין שרת האינטרנט שלך תצורה לשכתב באופן ידני.</output>
-    </text>
-    <text>
-        <source>Creating controller class files...</source>
-        <output>יצירת מעמד קבצים בקר ...</output>
-    </text>
-    <text>
-        <source>Creating form class files...</source>
-        <output>יצירת מעמד קבצים טופס ...</output>
-    </text>
-    <text>
-        <source>The Sqlite database file and folder are not writable.</source>
-        <output>קובץ מסד הנתונים SQLite ותיקיות אינם לכתיבה.</output>
-    </text>
-    <text>
-        <source>Project reconfigured.</source>
-        <output>פרויקט מחדש.</output>
-    </text>
-    <text>
-        <source>Reconfigure the project based on the new location of the project</source>
-        <output>את הפרויקט מחדש בהתבסס על המיקום החדש של הפרויקט</output>
-    </text>
-    <text>
-        <source>Database credentials detected.</source>
-        <output>אישורי מסד הנתונים זוהה.</output>
-    </text>
-    <text>
-        <source>Re-test the database(s)?</source>
-        <output>Re-לבדוק את מסד הנתונים (ים)?</output>
-    </text>
-    <text>
-        <source>The Pop autoloader class file was not found.</source>
-        <output>הקובץ פופ בכיתה AUTOLOADER לא נמצא.</output>
-    </text>
-    <text>
         <source>Enter the folder where the 'vendor' folder is contained in relation to the current folder:</source>
         <output>הזן את התיקייה בה את התיקייה "הספק" הכלול ביחס התיקייה הנוכחית:</output>
     </text>
@@ -1129,59 +493,43 @@
         <output>פופ PHP Framework לא נמצא. נסה שוב.</output>
     </text>
     <text>
-        <source>Pop PHP Framework found.</source>
-        <output>פופ PHP Framework נמצאו.</output>
+        <source>Enter the two-letter code for the default language:</source>
+        <output>הזן את קוד בן שתי אותיות עבור שפת ברירת המחדל:</output>
     </text>
     <text>
-        <source>Error: That cache directory does not exist.</source>
-        <output>שגיאה: זה מדריך המטמון לא קיים.</output>
+        <source>Unknown error.</source>
+        <output>שגיאה לא ידועה.</output>
     </text>
     <text>
-        <source>Error: That cache directory is not writable.</source>
-        <output>שגיאה: זה מדריך המטמון אינו ניתן לכתיבה.</output>
+        <source>You must pass a source folder and a output file to generate a class map file.</source>
+        <output>אתה צריך לעבור תיקייה מקור קובץ הפלט כדי ליצור קובץ המפה בכיתה.</output>
     </text>
     <text>
-        <source>Error: Memcache is not available.</source>
-        <output>שגיאה: Memcache אינו זמין.</output>
+        <source>The source folder passed does not exist.</source>
+        <output>תיקיית המקור עבר לא קיים.</output>
     </text>
     <text>
-        <source>Error: The parameter passed must either be a valid file or an instance of Pop\File\File.</source>
-        <output>שגיאה: הפרמטר עבר חייבות להיות קובץ חוקי או מופע של קובץ פופ \ \ קובץ.</output>
+        <source>The output file passed must be a PHP file.</source>
+        <output>קובץ הפלט עברו חייב להיות קובץ PHP.</output>
     </text>
     <text>
-        <source>You must either pass a Pop\Geo\Geo object or a set of latitude/longitude coordinates.</source>
-        <output>עליך לעבור פופ \ גיאוגרפי \ גיאוגרפי אובייקט או קבוצה של קווי רוחב / אורך קואורדינטות.</output>
+        <source>You must pass an install file to install the project.</source>
+        <output>אתה חייב לעבור קובץ התקנה כדי להתקין את הפרויקט.</output>
     </text>
     <text>
-        <source>The required transaction data has not been set.</source>
-        <output>נתוני העסקה נדרש לא הוגדר.</output>
+        <source>Unknown option:</source>
+        <output>לא ידוע אופציה:</output>
     </text>
     <text>
-        <source>The value must be a valid credit card number</source>
-        <output>הערך חייב להיות מספר כרטיס האשראי</output>
+        <source>You must pass at least one argument.</source>
+        <output>אתה חייב לעבור לפחות טיעון אחד.</output>
     </text>
     <text>
-        <source>The value must not be a valid credit card number</source>
-        <output>הערך לא חייב להיות מספר כרטיס האשראי</output>
+        <source>That folder does not exist.</source>
+        <output>תיקייה זו אינה קיימת.</output>
     </text>
     <text>
-        <source>The array of ID values does not match the number of IDs.</source>
-        <output>מערך של ערכים הזהות אינו תואם את מספר תעודות הזהות.</output>
-    </text>
-    <text>
-        <source>The font file does not exist.</source>
-        <output>קובץ הגופן אינו קיים.</output>
-    </text>
-    <text>
-        <source>That font type is not supported.</source>
-        <output>זה סוג הגופן אינו נתמך.</output>
-    </text>
-    <text>
-        <source>The AFM font file was not found.</source>
-        <output>קובץ הגופן AFM לא נמצא.</output>
-    </text>
-    <text>
-        <source>Error: The font license does not allow for it to be embedded.</source>
-        <output>שגיאה: רישיון גופן אינו מאפשר לו להיות מוטבע.</output>
+        <source>The folder argument is not a folder</source>
+        <output>הטענה התיקיה לא תיקייה</output>
     </text>
 </language>

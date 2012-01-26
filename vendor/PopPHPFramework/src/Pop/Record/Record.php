@@ -25,7 +25,6 @@
 namespace Pop\Record;
 
 use Pop\Db\Db,
-    Pop\Locale\Locale,
     Pop\Filter\String;
 
 /**
@@ -107,12 +106,6 @@ class Record
     protected $_usePrepared = true;
 
     /**
-     * Language object
-     * @var Pop\Locale\Locale
-     */
-    protected $_lang = null;
-
-    /**
      * Constructor
      *
      * Instantiate the database record object.
@@ -124,7 +117,6 @@ class Record
     public function __construct(array $columns = null, Db $db = null)
     {
         $class = get_class($this);
-        $this->_lang = new Locale();
 
         if (null !== $db) {
             $class::setDb($db);
@@ -195,7 +187,7 @@ class Record
         } else if (isset(static::$db['default'])) {
             return static::$db['default'];
         } else {
-            throw new Exception(Locale::factory()->__('No database adapter was found.'));
+            throw new Exception('No database adapter was found.');
         }
     }
 
@@ -412,7 +404,7 @@ class Record
             $this->rows[0] = new \ArrayObject($columns, \ArrayObject::ARRAY_AS_PROPS);
         // Else, throw an exception.
         } else {
-            throw new Exception($this->_lang->__('The parameter passed must be either an array or null.'));
+            throw new Exception('The parameter passed must be either an array or null.');
         }
     }
 

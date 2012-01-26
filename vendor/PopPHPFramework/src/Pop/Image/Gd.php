@@ -86,89 +86,89 @@ class Gd extends AbstractImage
 
         // Check to see if GD is installed.
         if (!self::isGdInstalled()) {
-            throw new Exception($this->_lang->__('Error: The GD library extension must be installed to use the Gd adapter'));
-        } else {
-            $this->_getGdInfo();
+            throw new Exception('Error: The GD library extension must be installed to use the Gd adapter.');
+        }
 
-            // If image exists, get image info and store in an array.
-            if (file_exists($this->fullpath) && ($this->_size > 0)) {
-                $imgSize = getimagesize($img);
+        $this->_getGdInfo();
 
-                // Set image object properties.
-                $this->_width = $imgSize[0];
-                $this->_height = $imgSize[1];
-                $this->_channels = (isset($imgSize['channels'])) ? $imgSize['channels'] : null;
-                $this->_depth = (isset($imgSize['bits'])) ? $imgSize['bits'] : null;
-                $this->setQuality(100);
+        // If image exists, get image info and store in an array.
+        if (file_exists($this->fullpath) && ($this->_size > 0)) {
+            $imgSize = getimagesize($img);
 
-                // If the image is a GIF
-                if ($this->_mime == 'image/gif') {
-                    $this->_mode = 'Indexed';
-                // Else if the image is a PNG
-                } else if ($this->_mime == 'image/png') {
-                    $imgData = $this->read();
-                    $colorType = ord($imgData[25]);
-                    switch ($colorType) {
-                        case 0:
-                            $this->_channels = 1;
-                            $this->_mode = 'Gray';
-                            break;
-                        case 2:
-                            $this->_channels = 3;
-                            $this->_mode = 'RGB';
-                            break;
-                        case 3:
-                            $this->_channels = 3;
-                            $this->_mode = 'Indexed';
-                            break;
-                        case 4:
-                            $this->_channels = 1;
-                            $this->_mode = 'Gray';
-                            $this->_alpha = true;
-                            break;
-                        case 6:
-                            $this->_channels = 3;
-                            $this->_mode = 'RGB';
-                            $this->_alpha = true;
-                            break;
-                    }
-                // Else if the image is a JPEG.
-                } else if ($this->_channels == 1) {
-                    $this->_mode = 'Gray';
-                } else if ($this->_channels == 3) {
-                    $this->_mode = 'RGB';
-                } else if ($this->_channels == 4) {
-                    $this->_mode = 'CMYK';
+            // Set image object properties.
+            $this->_width = $imgSize[0];
+            $this->_height = $imgSize[1];
+            $this->_channels = (isset($imgSize['channels'])) ? $imgSize['channels'] : null;
+            $this->_depth = (isset($imgSize['bits'])) ? $imgSize['bits'] : null;
+            $this->setQuality(100);
+
+            // If the image is a GIF
+            if ($this->_mime == 'image/gif') {
+                $this->_mode = 'Indexed';
+            // Else if the image is a PNG
+            } else if ($this->_mime == 'image/png') {
+                $imgData = $this->read();
+                $colorType = ord($imgData[25]);
+                switch ($colorType) {
+                    case 0:
+                        $this->_channels = 1;
+                        $this->_mode = 'Gray';
+                        break;
+                    case 2:
+                        $this->_channels = 3;
+                        $this->_mode = 'RGB';
+                        break;
+                    case 3:
+                        $this->_channels = 3;
+                        $this->_mode = 'Indexed';
+                        break;
+                    case 4:
+                        $this->_channels = 1;
+                        $this->_mode = 'Gray';
+                        $this->_alpha = true;
+                        break;
+                    case 6:
+                        $this->_channels = 3;
+                        $this->_mode = 'RGB';
+                        $this->_alpha = true;
+                        break;
                 }
-            // If image does not exists, check to make sure the width and
-            // height properties of the new image have been passed.
-            } else {
-                if ((null === $w) || (null === $h)) {
-                    throw new Exception($this->_lang->__('Error: You must define a width and height for a new image object.'));
-                } else {
-                    // Set image object properties.
-                    $this->_width = $w;
-                    $this->_height = $h;
-                    $this->_channels = null;
-
-                    // Create a new image and allocate the background color.
-                    if ($this->_mime == 'image/gif') {
-                        $this->_resource = imagecreate($w, $h);
-                        $this->setBackgroundColor((null === $color) ? new Rgb(255, 255, 255) : $color);
-                        $clr = $this->_setColor($this->_backgroundColor);
-                    } else {
-                        $this->_resource = imagecreatetruecolor($w, $h);
-                        $this->setBackgroundColor((null === $color) ? new Rgb(255, 255, 255) : $color);
-                        $clr = $this->_setColor($this->_backgroundColor);
-                        imagefill($this->_resource, 0, 0, $clr);
-                    }
-
-                    // Set the quality and create a new, blank image file.
-                    unset($clr);
-                    $this->setQuality(100);
-                    $this->_output = $this->_resource;
-                }
+            // Else if the image is a JPEG.
+            } else if ($this->_channels == 1) {
+                $this->_mode = 'Gray';
+            } else if ($this->_channels == 3) {
+                $this->_mode = 'RGB';
+            } else if ($this->_channels == 4) {
+                $this->_mode = 'CMYK';
             }
+        // If image does not exists, check to make sure the width and
+        // height properties of the new image have been passed.
+        } else {
+            if ((null === $w) || (null === $h)) {
+                throw new Exception('Error: You must define a width and height for a new image object.');
+            }
+
+            // Set image object properties.
+            $this->_width = $w;
+            $this->_height = $h;
+            $this->_channels = null;
+
+            // Create a new image and allocate the background color.
+            if ($this->_mime == 'image/gif') {
+                $this->_resource = imagecreate($w, $h);
+                $this->setBackgroundColor((null === $color) ? new Rgb(255, 255, 255) : $color);
+                $clr = $this->_setColor($this->_backgroundColor);
+            } else {
+                $this->_resource = imagecreatetruecolor($w, $h);
+                $this->setBackgroundColor((null === $color) ? new Rgb(255, 255, 255) : $color);
+                $clr = $this->_setColor($this->_backgroundColor);
+                imagefill($this->_resource, 0, 0, $clr);
+            }
+
+            // Set the quality and create a new, blank image file.
+            unset($clr);
+            $this->setQuality(100);
+            $this->_output = $this->_resource;
         }
     }
 
@@ -957,20 +957,49 @@ class Gd extends AbstractImage
 
         // Check if the permissions are set correctly.
         if ((null !== $this->_perm['file']) && ($this->_perm['file'] != 777)) {
-            throw new Exception($this->_lang->__('Error: Permission denied.'));
+            throw new Exception('Error: Permission denied.');
         // Check if the requested image type is supported.
         } else if (!array_key_exists($type, $this->_allowed)) {
-            throw new Exception($this->_lang->__('Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.'));
+            throw new Exception('Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.');
         // Check if the image is already the requested image type.
         } else if (strtolower($this->ext) == $type) {
-            throw new Exception($this->_lang->__('Error: This image file is already a %1 image file.', strtoupper($type)));
+            throw new Exception('Error: This image file is already a ' . strtoupper($type) . ' image file.');
+        }
+
         // Else, save the image as the new type.
+        // Open a new image, maintaining the GIF image's palette and
+        // transparency where applicable.
+        if ($this->_mime == 'image/gif') {
+            $this->_createResource();
+            imageinterlace($this->_resource, 0);
+
+            // Change the type of the image object to the new,
+            // requested image type.
+            $this->ext = $type;
+            $this->_mime = $this->_allowed[$this->ext];
+
+            // Redefine the image object properties with the new values.
+            $this->fullpath = $this->dir . $this->filename . '.' . $this->ext;
+            $this->basename = basename($this->fullpath);
+
+        // Else, open a new true color image.
         } else {
-            // Open a new image, maintaining the GIF image's palette and
-            // transparency where applicable.
-            if ($this->_mime == 'image/gif') {
+            if ($type == 'gif') {
                 $this->_createResource();
-                imageinterlace($this->_resource, 0);
+
+                // Change the type of the image object to the new,
+                // requested image type.
+                $this->ext = $type;
+                $this->_mime = $this->_allowed[$this->ext];
+
+                // Redefine the image object properties with the new values.
+                $this->fullpath = $this->dir . $this->filename . '.' . $this->ext;
+                $this->basename = basename($this->fullpath);
+            } else {
+                $new = imagecreatetruecolor($this->_width, $this->_height);
+
+                // Create a new, blank image file and copy the image over.
+                $this->_createResource();
 
                 // Change the type of the image object to the new,
                 // requested image type.
@@ -981,41 +1010,12 @@ class Gd extends AbstractImage
                 $this->fullpath = $this->dir . $this->filename . '.' . $this->ext;
                 $this->basename = basename($this->fullpath);
 
-            // Else, open a new true color image.
-            } else {
-                if ($type == 'gif') {
-                    $this->_createResource();
-
-                    // Change the type of the image object to the new,
-                    // requested image type.
-                    $this->ext = $type;
-                    $this->_mime = $this->_allowed[$this->ext];
-
-                    // Redefine the image object properties with the new values.
-                    $this->fullpath = $this->dir . $this->filename . '.' . $this->ext;
-                    $this->basename = basename($this->fullpath);
-                } else {
-                    $new = imagecreatetruecolor($this->_width, $this->_height);
-
-                    // Create a new, blank image file and copy the image over.
-                    $this->_createResource();
-
-                    // Change the type of the image object to the new,
-                    // requested image type.
-                    $this->ext = $type;
-                    $this->_mime = $this->_allowed[$this->ext];
-
-                    // Redefine the image object properties with the new values.
-                    $this->fullpath = $this->dir . $this->filename . '.' . $this->ext;
-                    $this->basename = basename($this->fullpath);
-
-                    // Create and save the image in it's new, proper format.
-                    imagecopyresampled($new, $this->_resource, 0, 0, 0, 0, $this->_width, $this->_height, $this->_width, $this->_height);
-                }
+                // Create and save the image in it's new, proper format.
+                imagecopyresampled($new, $this->_resource, 0, 0, 0, 0, $this->_width, $this->_height, $this->_width, $this->_height);
             }
-
-            return $this;
         }
+
+        return $this;
     }
 
     /**
@@ -1067,26 +1067,26 @@ class Gd extends AbstractImage
     public function save($to = null, $append = false)
     {
         if ((null === $this->_output) && (null === $this->_resource)) {
-            throw new Exception($this->_lang->__('Error: The image resource has not been created.'));
-        } else {
-            if (null === $this->_output) {
-                $this->_output = $this->_resource;
-            }
-
-            $this->_createImage($this->_output, ((null === $to) ? $this->fullpath : $to), $this->_quality);
-            clearstatcache();
-
-            $this->_setFile((null === $to) ? $this->fullpath : $to);
-
-            $imgSize = getimagesize($this->fullpath);
-
-            // Set image object properties.
-            $this->_width = $imgSize[0];
-            $this->_height = $imgSize[1];
-            $this->_channels = (isset($imgSize['channels'])) ? $imgSize['channels'] : null;
-
-            return $this;
+            throw new Exception('Error: The image resource has not been created.');
         }
+
+        if (null === $this->_output) {
+            $this->_output = $this->_resource;
+        }
+
+        $this->_createImage($this->_output, ((null === $to) ? $this->fullpath : $to), $this->_quality);
+        clearstatcache();
+
+        $this->_setFile((null === $to) ? $this->fullpath : $to);
+
+        $imgSize = getimagesize($this->fullpath);
+
+        // Set image object properties.
+        $this->_width = $imgSize[0];
+        $this->_height = $imgSize[1];
+        $this->_channels = (isset($imgSize['channels'])) ? $imgSize['channels'] : null;
+
+        return $this;
     }
 
     /**
@@ -1157,14 +1157,14 @@ class Gd extends AbstractImage
     protected function _setColor(ColorInterface $color = null)
     {
         if (null === $this->_resource) {
-            throw new Exception($this->_lang->__('Error: The image resource has not been created.'));
+            throw new Exception('Error: The image resource has not been created.');
+        }
+
+        $opac = (null === $this->_opacity) ? 0 : $this->_opacity;
+        if (null !== $color) {
+            $color = imagecolorallocatealpha($this->_resource, (int)$color->getRed(), (int)$color->getGreen(), (int)$color->getBlue(), $opac);
         } else {
-            $opac = (null === $this->_opacity) ? 0 : $this->_opacity;
-            if (null !== $color) {
-                $color = imagecolorallocatealpha($this->_resource, (int)$color->getRed(), (int)$color->getGreen(), (int)$color->getBlue(), $opac);
-            } else {
-                $color = imagecolorallocatealpha($this->_resource, 0, 0, 0, $opac);
-            }
+            $color = imagecolorallocatealpha($this->_resource, 0, 0, 0, $opac);
         }
 
         return $color;

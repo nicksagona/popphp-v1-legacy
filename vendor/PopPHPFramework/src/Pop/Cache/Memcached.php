@@ -24,8 +24,6 @@
  */
 namespace Pop\Cache;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Cache
@@ -60,15 +58,15 @@ class Memcached implements CacheInterface
     public function __construct($port = 11211)
     {
         if (!class_exists('Memcache')) {
-            throw new Exception(Locale::factory()->__('Error: Memcache is not available.'));
-        } else {
-            $this->_memcache = new \Memcache();
-            if (!$this->_memcache->connect('localhost', (int)$port)) {
-                throw new Exception(Locale::factory()->__('Error: Unable to connect to the memcached server.'));
-            } else {
-                $this->_version = $this->_memcache->getVersion();
-            }
+            throw new Exception('Error: Memcache is not available.');
         }
+
+        $this->_memcache = new \Memcache();
+        if (!$this->_memcache->connect('localhost', (int)$port)) {
+            throw new Exception('Error: Unable to connect to the memcached server.');
+        }
+
+        $this->_version = $this->_memcache->getVersion();
     }
 
     /**

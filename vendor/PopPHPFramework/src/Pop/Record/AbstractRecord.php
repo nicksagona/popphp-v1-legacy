@@ -85,12 +85,6 @@ abstract class AbstractRecord
     protected $_finder = array();
 
     /**
-     * Language object
-     * @var Pop\Locale\Locale
-     */
-    protected $_lang = null;
-
-    /**
      * Get the result rows.
      *
      * @return array

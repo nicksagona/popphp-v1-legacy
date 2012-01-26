@@ -25,8 +25,7 @@
 namespace Pop\Archive\Adapter;
 
 use Pop\Archive\ArchiveInterface,
-    Pop\File\File,
-    Pop\Locale\Locale;
+    Pop\File\File;
 
 /**
  * @category   Pop
@@ -73,7 +72,7 @@ class Rar implements ArchiveInterface
         if (file_exists($this->_path)) {
             $this->archive = \RarArchive::open($this->_path, $this->_password);
         } else {
-            throw new Exception(Locale::factory()->__('Due to licensing restrictions, RAR files cannot be created and can only be decompressed.'));
+            throw new Exception('Due to licensing restrictions, RAR files cannot be created and can only be decompressed.');
         }
     }
 
@@ -102,7 +101,7 @@ class Rar implements ArchiveInterface
      */
     public function addFiles($files)
     {
-        throw new Exception(Locale::factory()->__('Due to licensing restrictions, RAR files cannot be created and can only be decompressed.'));
+        throw new Exception('Due to licensing restrictions, RAR files cannot be created and can only be decompressed.');
     }
 
     /**

@@ -24,8 +24,6 @@
  */
 namespace Pop\Db\Adapter;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Db
@@ -66,16 +64,14 @@ class Sqlite extends AbstractAdapter
      */
     public function __construct(array $options)
     {
-        $this->_lang = new Locale();
-
         // Select the DB to use, or display the SQL error.
         if (!isset($options['database'])) {
-            throw new Exception($this->_lang->__('Error: The database file was not passed.'));
+            throw new Exception('Error: The database file was not passed.');
         } else if (!file_exists($options['database'])) {
-            throw new Exception($this->_lang->__('Error: The database file does not exists.'));
-        } else {
-            $this->connection = new \SQLite3($options['database']);
+            throw new Exception('Error: The database file does not exists.');
         }
+
+        $this->connection = new \SQLite3($options['database']);
     }
 
     /**
@@ -86,7 +82,7 @@ class Sqlite extends AbstractAdapter
      */
     public function showError()
     {
-        throw new Exception($this->_lang->__('Error:') . ' ' . $this->connection->lastErrorCode() . ' => ' . $this->connection->lastErrorMsg() . '.');
+        throw new Exception('Error: ' . $this->connection->lastErrorCode() . ' => ' . $this->connection->lastErrorMsg() . '.');
     }
 
     /**
@@ -143,10 +139,10 @@ class Sqlite extends AbstractAdapter
     public function execute()
     {
         if (null === $this->_statement) {
-            throw new Exception($this->_lang->__('Error: The database statement resource is not currently set.'));
-        } else {
-            $this->result = $this->_statement->execute();
+            throw new Exception('Error: The database statement resource is not currently set.');
         }
+
+        $this->result = $this->_statement->execute();
     }
 
     /**
@@ -177,10 +173,10 @@ class Sqlite extends AbstractAdapter
     public function fetch()
     {
         if (!isset($this->result)) {
-            throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
-        } else {
-            return $this->result->fetchArray(SQLITE3_ASSOC);
+            throw new Exception('Error: The database result resource is not currently set.');
         }
+
+        return $this->result->fetchArray(SQLITE3_ASSOC);
     }
 
     /**
@@ -235,10 +231,10 @@ class Sqlite extends AbstractAdapter
     public function numFields()
     {
         if (!isset($this->result)) {
-            throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
-        } else {
-            return $this->result->numColumns();
+            throw new Exception('Error: The database result resource is not currently set.');
         }
+
+        return $this->result->numColumns();
     }
 
     /**

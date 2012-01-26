@@ -24,8 +24,6 @@
  */
 namespace Pop\Color;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Color
@@ -79,14 +77,13 @@ class Cmyk implements ColorInterface
         $min = min($c, $m, $y, $k);
 
         if (($max > 100) || ($min < 0)) {
-            throw new Exception(Locale::factory()->__('One or more of the color values is out of range.'));
-        } else {
-            $this->_cyan = (int)$c;
-            $this->_magenta = (int)$m;
-            $this->_yellow = (int)$y;
-            $this->_black = (int)$k;
+            throw new Exception('One or more of the color values is out of range.');
         }
 
+        $this->_cyan = (int)$c;
+        $this->_magenta = (int)$m;
+        $this->_yellow = (int)$y;
+        $this->_black = (int)$k;
     }
 
     /**

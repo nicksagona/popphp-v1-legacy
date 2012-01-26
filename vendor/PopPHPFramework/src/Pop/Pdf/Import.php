@@ -24,8 +24,7 @@
  */
 namespace Pop\Pdf;
 
-use Pop\File\File,
-    Pop\Locale\Locale;
+use Pop\File\File;
 
 /**
  * @category   Pop
@@ -337,45 +336,35 @@ class Import
      * Method to return the last object index.
      *
      * @param  array $arr
-     * @throws Exception
      * @return int
      */
-    protected function _lastIndex($arr)
+    protected function _lastIndex(array $arr)
     {
-        if (!is_array($arr)) {
-            throw new Exception(Locale::factory()->__('Error: The argument passed must be an array.'));
-        } else {
-            $objs = array_keys($arr);
-            sort($objs);
+        $objs = array_keys($arr);
+        sort($objs);
 
-            foreach ($objs as $value) {
-                $last = $value;
-            }
-
-            return $last;
+        foreach ($objs as $value) {
+            $last = $value;
         }
+
+        return $last;
     }
 
     /**
      * Method to return the first object index.
      *
      * @param  array $arr
-     * @throws Exception
      * @return int
      */
-    protected function _firstIndex($arr)
+    protected function _firstIndex(array $arr)
     {
-        if (!is_array($arr)) {
-            throw new Exception(Locale::factory()->__('Error: The argument passed must be an array.'));
-        } else {
-            $objs = array_keys($arr);
-            rsort($objs);
+        $objs = array_keys($arr);
+        rsort($objs);
 
-            foreach ($objs as $value) {
-                $first = $value;
-            }
-
-            return $first;
+        foreach ($objs as $value) {
+            $first = $value;
         }
+
+        return $first;
     }
 }

@@ -24,8 +24,6 @@
  */
 namespace Pop\Mvc;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Mvc
@@ -62,12 +60,6 @@ class View
     protected $_output = null;
 
     /**
-     * Language object
-     * @var Pop\Locale\Locale
-     */
-    protected $_lang = null;
-
-    /**
      * Constructor
      *
      * Instantiate the view object.
@@ -78,8 +70,6 @@ class View
      */
     public function __construct($template = null, Model $model = null)
     {
-        $this->_lang = new Locale();
-
         if (null !== $template) {
             if (((substr($template, -6) == '.phtml') ||
                  (substr($template, -5) == '.php3') ||
@@ -154,7 +144,7 @@ class View
                 $this->_templateFile = $template;
 
             } else {
-                throw new Exception($this->_lang->__('That template file either does not exist or is not the correct format.'));
+                throw new Exception('That template file either does not exist or is not the correct format.');
             }
         } else {
             $this->_templateFile = $template;
@@ -197,19 +187,19 @@ class View
     public function render($ret = false)
     {
         if ((null === $this->_templateFile) && (null === $this->_templateString)) {
-            throw new Exception($this->_lang->__('A template asset has not been assigned.'));
-        } else {
-            if (null !== $this->_templateFile) {
-                $this->_renderTemplateFile();
-            } else {
-                $this->_renderTemplateString();
-            }
+            throw new Exception('A template asset has not been assigned.');
+        }
 
-            if ($ret) {
-                return $this->_output;
-            } else {
-                echo $this->_output;
-            }
+        if (null !== $this->_templateFile) {
+            $this->_renderTemplateFile();
+        } else {
+            $this->_renderTemplateString();
+        }
+
+        if ($ret) {
+            return $this->_output;
+        } else {
+            echo $this->_output;
         }
     }
 

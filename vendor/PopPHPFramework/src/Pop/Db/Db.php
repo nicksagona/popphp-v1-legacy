@@ -29,8 +29,7 @@ use Pop\Db\Sql,
     Pop\Db\Adapter\Mysqli,
     Pop\Db\Adapter\Pdo,
     Pop\Db\Adapter\Pgsql,
-    Pop\Db\Adapter\Sqlite,
-    Pop\Locale\Locale;
+    Pop\Db\Adapter\Sqlite;
 
 /**
  * @category   Pop
@@ -71,11 +70,10 @@ class Db
         $class = $prefix . ucfirst(strtolower($type));
 
         if (!class_exists($class)) {
-            throw new Exception(Locale::factory()->__('Error: That database adapter class does not exist.'));
-        } else {
-            $this->sql = new Sql();
-            $this->adapter = new $class($options);
+            throw new Exception('Error: That database adapter class does not exist.');
         }
+        $this->sql = new Sql();
+        $this->adapter = new $class($options);
     }
 
     /**

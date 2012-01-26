@@ -25,8 +25,7 @@
 namespace Pop\Project;
 
 use Pop\Config,
-    Pop\Db\Db,
-    Pop\Locale\Locale;
+    Pop\Db\Db;
 
 /**
  * @category   Pop
@@ -154,7 +153,7 @@ class Project
     public function loadModule(Config $module)
     {
         if (!isset($module->name)) {
-            throw new Exception(Locale::factory()->__('The module name must be set in the module config.'));
+            throw new Exception('The module name must be set in the module config.');
         }
         $this->_modules[$module->name] = $module;
         return $this;

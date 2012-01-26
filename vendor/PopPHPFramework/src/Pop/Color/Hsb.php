@@ -24,8 +24,6 @@
  */
 namespace Pop\Color;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Color
@@ -72,13 +70,12 @@ class Hsb implements ColorInterface
         $min = min($s, $b);
 
         if (($h > 360) || ($h < 0) || ($max > 100) || ($min < 0)) {
-            throw new Exception(Locale::factory()->__('One or more of the color values is out of range.'));
-        } else {
-            $this->_hue = (int)$h;
-            $this->_saturation = (int)$s;
-            $this->_brightness = (int)$b;
+            throw new Exception('One or more of the color values is out of range.');
         }
 
+        $this->_hue = (int)$h;
+        $this->_saturation = (int)$s;
+        $this->_brightness = (int)$b;
     }
 
     /**

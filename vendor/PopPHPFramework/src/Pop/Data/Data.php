@@ -29,8 +29,7 @@ use Pop\Data\Csv,
     Pop\Data\Sql,
     Pop\Data\Xml,
     Pop\Data\Yaml,
-    Pop\File\File,
-    Pop\Locale\Locale;
+    Pop\File\File;
 
 /**
  * @category   Pop
@@ -186,18 +185,20 @@ class Data
         $types = array('csv', 'json', 'sql', 'xml', 'yaml');
 
         if (!in_array($to, $types)) {
-            throw new Exception(Locale::factory()->__('That data type is not supported.'));
-        } else {
-            $class = 'Pop\\Data\\' . ucfirst($to);
-            if ($to == 'sql') {
-                $this->_file = $class::encode($this->_data, $this->_table, $this->_idQuote);
-            } else if ($to == 'xml') {
-                $this->_file = $class::encode($this->_data, $this->_table, $this->_pma);
-            } else {
-                $this->_file = $class::encode($this->_data);
-            }
-            return $this->_file;
+            throw new Exception('That data type is not supported.');
         }
+
+        $class = 'Pop\\Data\\' . ucfirst($to);
+
+        if ($to == 'sql') {
+            $this->_file = $class::encode($this->_data, $this->_table, $this->_idQuote);
+        } else if ($to == 'xml') {
+            $this->_file = $class::encode($this->_data, $this->_table, $this->_pma);
+        } else {
+            $this->_file = $class::encode($this->_data);
+        }
+
+        return $this->_file;
     }
 
 }

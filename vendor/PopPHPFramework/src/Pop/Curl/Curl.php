@@ -24,8 +24,6 @@
  */
 namespace Pop\Curl;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Curl

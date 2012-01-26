@@ -32,15 +32,14 @@ use Pop\Dom\Dom,
     Pop\Form\Element\Checkbox,
     Pop\Form\Element\Radio,
     Pop\Form\Element\Select,
-    Pop\Form\Element\Textarea,
-    Pop\Locale\Locale;
+    Pop\Form\Element\Textarea;
 
 /**
  * @category   Pop
  * @package    Pop_Form
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
- * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ * @license    http://www.popphp.org/LICENSE.TXT   T  New BSD License
  * @version    0.9
  */
 class Form extends Dom
@@ -120,7 +119,7 @@ class Form extends Dom
     public function setFields(array $fields)
     {
         if (isset($fields[0]) && !is_array($fields[0])) {
-            throw new Exception(Locale::factory()->__('The array parameter passed must contain an array of field values.'));
+            throw new Exception('The array parameter passed must contain an array of field values.');
         }
         $this->_initFieldsValues = $fields;
         return $this;
@@ -424,7 +423,7 @@ class Form extends Dom
     {
         // Check to make sure form elements exist.
         if ((count($this->_form->getChildren()) == 0) && (count($this->_initFieldsValues) == 0)) {
-            throw new Exception(Locale::factory()->__('Error: There are no form elements declared for this form object.'));
+            throw new Exception('Error: There are no form elements declared for this form object.');
         } else if ((count($this->_form->getChildren()) == 0) && (count($this->_initFieldsValues) > 0)) {
             $this->setFieldValues();
         }

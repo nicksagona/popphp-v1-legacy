@@ -24,8 +24,6 @@
  */
 namespace Pop\Color;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Color
@@ -99,31 +97,28 @@ class Hex implements ColorInterface
         $min = min($dR, $dG, $dB);
 
         if (($max > 255) || ($min < 0)) {
-            throw new Exception(Locale::factory()->__('One or more of the color values is out of range.'));
-        } else {
-
-            $r = null;
-            $g = null;
-            $b = null;
-
-            if (substr($this->_hex, 0, 1) == substr($this->_hex, 1, 1)) {
-                $r = substr($this->_hex, 0, 1);
-            }
-            if (substr($this->_hex, 2, 1) == substr($this->_hex, 3, 1)) {
-                $g = substr($this->_hex, 2, 1);
-            }
-            if (substr($this->_hex, 4, 1) == substr($this->_hex, 5, 1)) {
-                $b = substr($this->_hex, 4, 1);
-            }
-
-            if ((null !== $r) && (null !== $g) && (null !== $b)) {
-                $this->_shorthand = $r . $g . $b;
-            } else {
-                $this->_shorthand = null;
-            }
-
+            throw new Exception('One or more of the color values is out of range.');
         }
 
+        $r = null;
+        $g = null;
+        $b = null;
+
+        if (substr($this->_hex, 0, 1) == substr($this->_hex, 1, 1)) {
+            $r = substr($this->_hex, 0, 1);
+        }
+        if (substr($this->_hex, 2, 1) == substr($this->_hex, 3, 1)) {
+            $g = substr($this->_hex, 2, 1);
+        }
+        if (substr($this->_hex, 4, 1) == substr($this->_hex, 5, 1)) {
+            $b = substr($this->_hex, 4, 1);
+        }
+
+        if ((null !== $r) && (null !== $g) && (null !== $b)) {
+            $this->_shorthand = $r . $g . $b;
+        } else {
+            $this->_shorthand = null;
+        }
     }
 
     /**

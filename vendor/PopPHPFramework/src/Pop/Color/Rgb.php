@@ -24,8 +24,6 @@
  */
 namespace Pop\Color;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Color
@@ -73,13 +71,12 @@ class Rgb implements ColorInterface
         $min = min($r, $g, $b);
 
         if (($max > 255) || ($min < 0)) {
-            throw new Exception(Locale::factory()->__('One or more of the color values is out of range.'));
-        } else {
-            $this->_red = (int)$r;
-            $this->_green = (int)$g;
-            $this->_blue = (int)$b;
+            throw new Exception('One or more of the color values is out of range.');
         }
 
+        $this->_red = (int)$r;
+        $this->_green = (int)$g;
+        $this->_blue = (int)$b;
     }
 
     /**

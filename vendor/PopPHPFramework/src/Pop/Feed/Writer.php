@@ -25,8 +25,7 @@
 namespace Pop\Feed;
 
 use Pop\Dom\Dom,
-    Pop\Dom\Child,
-    Pop\Locale\Locale;
+    Pop\Dom\Child;
 
 /**
  * @category   Pop
@@ -162,7 +161,7 @@ class Writer extends Dom
             // Add the Feed child node to the DOM.
             $this->addChild($feed);
         } else {
-            throw new Exception(Locale::factory()->__('Error: The feed type must be only RSS or ATOM.'));
+            throw new Exception('Error: The feed type must be only RSS or ATOM.');
         }
     }
 

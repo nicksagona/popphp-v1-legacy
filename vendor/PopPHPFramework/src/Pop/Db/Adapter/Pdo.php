@@ -24,8 +24,6 @@
  */
 namespace Pop\Db\Adapter;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Db
@@ -72,27 +70,25 @@ class Pdo extends AbstractAdapter
      */
     public function __construct(array $options)
     {
-        $this->_lang = new Locale();
-
         if (!isset($options['type']) || !isset($options['database'])) {
-            throw new Exception($this->_lang->__('Error: The proper database credentials were not passed.'));
-        } else {
-            try {
-                $this->_dbtype = $options['type'];
-                if ($this->_dbtype == 'sqlite') {
-                    $this->_dsn = $this->_dbtype . ':' . $options['database'];
-                    $this->connection = new PDO($this->_dsn);
-                } else {
-                    if (!isset($options['host']) || !isset($options['username']) || !isset($options['password'])) {
-                        throw new Exception($this->_lang->__('Error: The proper database credentials were not passed.'));
-                    } else {
-                        $this->_dsn = $this->_dbtype . ':host=' . $options['host'] . ';dbname=' . $options['database'];
-                        $this->connection = new \PDO($this->_dsn, $options['username'], $options['password']);
-                    }
+            throw new Exception('Error: The proper database credentials were not passed.');
+        }
+
+        try {
+            $this->_dbtype = $options['type'];
+            if ($this->_dbtype == 'sqlite') {
+                $this->_dsn = $this->_dbtype . ':' . $options['database'];
+                $this->connection = new PDO($this->_dsn);
+            } else {
+                if (!isset($options['host']) || !isset($options['username']) || !isset($options['password'])) {
+                    throw new Exception('Error: The proper database credentials were not passed.');
                 }
-            } catch (\PDOException $e) {
-                throw new Exception($this->_lang->__('Error: Could not connect to database. %1', $e->getMessage()));
+
+                $this->_dsn = $this->_dbtype . ':host=' . $options['host'] . ';dbname=' . $options['database'];
+                $this->connection = new \PDO($this->_dsn, $options['username'], $options['password']);
             }
+        } catch (\PDOException $e) {
+            throw new Exception('Error: Could not connect to database. ' . $e->getMessage());
         }
     }
 
@@ -148,7 +144,7 @@ class Pdo extends AbstractAdapter
             $errorMessage = $errorInfo;
         }
 
-        throw new Exception($this->_lang->__('Error:') . ' ' . $errorCode . ' => ' . $errorMessage  . '.');
+        throw new Exception('Error: ' . $errorCode . ' => ' . $errorMessage  . '.');
     }
 
     /**
@@ -220,10 +216,10 @@ class Pdo extends AbstractAdapter
     public function execute()
     {
         if (null === $this->_statement) {
-            throw new Exception($this->_lang->__('Error: The database statement resource is not currently set.'));
-        } else {
-            $this->result = $this->_statement->execute();
+            throw new Exception('Error: The database statement resource is not currently set.');
         }
+
+        $this->result = $this->_statement->execute();
     }
 
     /**
@@ -252,10 +248,10 @@ class Pdo extends AbstractAdapter
     public function fetch()
     {
         if (!isset($this->result)) {
-            throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
-        } else {
-            return $this->result->fetch(\PDO::FETCH_ASSOC);
+            throw new Exception('Error: The database result resource is not currently set.');
         }
+
+        return $this->result->fetch(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -288,10 +284,10 @@ class Pdo extends AbstractAdapter
     public function numRows()
     {
         if (!isset($this->result)) {
-            throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
-        } else {
-            return $this->result->rowCount();
+            throw new Exception('Error: The database result resource is not currently set.');
         }
+
+        return $this->result->rowCount();
     }
 
     /**
@@ -303,10 +299,10 @@ class Pdo extends AbstractAdapter
     public function numFields()
     {
         if (!isset($this->result)) {
-            throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
-        } else {
-            return $this->result->columnCount();
+            throw new Exception('Error: The database result resource is not currently set.');
         }
+
+        return $this->result->columnCount();
     }
 
     /**

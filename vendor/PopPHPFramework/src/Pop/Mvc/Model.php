@@ -24,8 +24,6 @@
  */
 namespace Pop\Mvc;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Mvc
@@ -187,7 +185,7 @@ class Model
     {
         if (!is_array($data)) {
             if (null === $name) {
-                throw new Exception(Locale::factory()->__('If you pass a scalar value, then you must pass a name for it.'));
+                throw new Exception('If you pass a scalar value, then you must pass a name for it.');
             }
             $this->_data[$name] = $data;
         } else {

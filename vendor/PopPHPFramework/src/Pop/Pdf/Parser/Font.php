@@ -29,7 +29,6 @@ use Pop\Compress\Zlib,
     Pop\Font\TrueType,
     Pop\Font\TrueType\OpenType,
     Pop\Font\Type1,
-    Pop\Locale\Locale,
     Pop\Pdf\Object;
 
 /**
@@ -116,11 +115,11 @@ class Font
             case '.pfb':
                 $this->_font = new Type1($fle);
                 if (null === $this->_font->afmPath) {
-                    throw new Exception(Locale::factory()->__('The AFM font file was not found.'));
+                    throw new Exception('The AFM font file was not found.');
                 }
                 break;
             default:
-                throw new Exception(Locale::factory()->__('That font type is not supported.'));
+                throw new Exception('That font type is not supported.');
         }
 
         $this->_createFontObjects();

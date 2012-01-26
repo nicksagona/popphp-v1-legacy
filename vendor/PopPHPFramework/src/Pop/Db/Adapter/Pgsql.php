@@ -24,8 +24,6 @@
  */
 namespace Pop\Db\Adapter;
 
-use Pop\Locale\Locale;
-
 /**
  * @category   Pop
  * @package    Pop_Db
@@ -66,17 +64,15 @@ class Pgsql extends AbstractAdapter
      */
     public function __construct(array $options)
     {
-        $this->_lang = new Locale();
-
         if (!isset($options['database']) || !isset($options['host']) || !isset($options['username']) || !isset($options['password'])) {
-            throw new Exception($this->_lang->__('Error: The proper database credentials were not passed.'));
-        } else {
-            $this->connection = pg_connect("host=" . $options['host'] . " dbname=" . $options['database'] . " user=" . $options['username'] . " password=" . $options['password']);
+            throw new Exception('Error: The proper database credentials were not passed.');
+        }
 
-            // Select the DB to use, or display the SQL error.
-            if (!$this->connection) {
-                throw new Exception('Error: There was an error connecting to the database.');
-            }
+        $this->connection = pg_connect("host=" . $options['host'] . " dbname=" . $options['database'] . " user=" . $options['username'] . " password=" . $options['password']);
+
+        // Select the DB to use, or display the SQL error.
+        if (!$this->connection) {
+            throw new Exception('Error: There was an error connecting to the database.');
         }
     }
 
@@ -147,13 +143,13 @@ class Pgsql extends AbstractAdapter
     public function execute()
     {
         if (null === $this->_statement) {
-            throw new Exception($this->_lang->__('Error: The database statement resource is not currently set.'));
+            throw new Exception('Error: The database statement resource is not currently set.');
+        }
+
+        if ((null !== $this->_parameters) && is_array($this->_parameters))  {
+            $this->result = pg_execute($this->connection, 'pop_db_adapter_pgsql_statement', $this->_parameters);
         } else {
-            if ((null !== $this->_parameters) && is_array($this->_parameters))  {
-                $this->result = pg_execute($this->connection, 'pop_db_adapter_pgsql_statement', $this->_parameters);
-            } else {
-                $this->query($this->_sql);
-            }
+            $this->query($this->_sql);
         }
     }
 
@@ -179,10 +175,10 @@ class Pgsql extends AbstractAdapter
     public function fetch()
     {
         if (!isset($this->result)) {
-            throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
-        } else {
-            return pg_fetch_array($this->result, null, PGSQL_ASSOC);
+            throw new Exception('Error: The database result resource is not currently set.');
         }
+
+        return pg_fetch_array($this->result, null, PGSQL_ASSOC);
     }
 
     /**
@@ -218,10 +214,10 @@ class Pgsql extends AbstractAdapter
     public function numRows()
     {
         if (!isset($this->result)) {
-            throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
-        } else {
-            return pg_num_rows($this->result);
+            throw new Exception('Error: The database result resource is not currently set.');
         }
+
+        return pg_num_rows($this->result);
     }
 
     /**
@@ -233,10 +229,10 @@ class Pgsql extends AbstractAdapter
     public function numFields()
     {
         if (!isset($this->result)) {
-            throw new Exception($this->_lang->__('Error: The database result resource is not currently set.'));
-        } else {
-            return pg_num_fields($this->result);
+            throw new Exception('Error: The database result resource is not currently set.');
         }
+
+        return pg_num_fields($this->result);
     }
 
     /**

@@ -181,39 +181,39 @@ class Imagick extends AbstractImage
 
         // Check to see if Imagick is installed.
         if (!self::isImagickInstalled()) {
-            throw new Exception($this->_lang->__('Error: The Imagick library extension must be installed to use the Imagick adapter.'));
+            throw new Exception('Error: The Imagick library extension must be installed to use the Imagick adapter.');
+        }
+
+        // If image exists, get image info and store in an array.
+        if (file_exists($this->fullpath) && ($this->_size > 0)) {
+            $this->_resource = new \Imagick($imagickFile);
+            $this->_setImageInfo();
+            $this->setQuality(100);
+        // If image does not exists, check to make sure the width and height
+        // properties of the new image have been passed.
         } else {
-            // If image exists, get image info and store in an array.
-            if (file_exists($this->fullpath) && ($this->_size > 0)) {
-                $this->_resource = new \Imagick($imagickFile);
-                $this->_setImageInfo();
-                $this->setQuality(100);
-            // If image does not exists, check to make sure the width and height
-            // properties of the new image have been passed.
-            } else {
-                $this->_resource = new \Imagick();
+            $this->_resource = new \Imagick();
 
-                if ((null === $w) || (null === $h)) {
-                    throw new Exception($this->_lang->__('Error: You must define a width and height for a new image object.'));
-                } else {
-                    // Set image object properties.
-                    $this->_width = $w;
-                    $this->_height = $h;
-                    $this->_channels = null;
-
-                    $color = (null === $color) ? new Rgb(255, 255, 255) : $color;
-                    $clr = $this->_setColor($color);
-
-                    // Create a new image and allocate the background color.
-                    $this->_resource->newImage($w, $h, $clr, $this->ext);
-
-                    // Set the quality and create a new, blank image file.
-                    $this->setQuality(100);
-                }
+            if ((null === $w) || (null === $h)) {
+                throw new Exception('Error: You must define a width and height for a new image object.');
             }
 
-            $this->_getImagickInfo();
+            // Set image object properties.
+            $this->_width = $w;
+            $this->_height = $h;
+            $this->_channels = null;
+
+            $color = (null === $color) ? new Rgb(255, 255, 255) : $color;
+            $clr = $this->_setColor($color);
+
+            // Create a new image and allocate the background color.
+            $this->_resource->newImage($w, $h, $clr, $this->ext);
+
+            // Set the quality and create a new, blank image file.
+            $this->setQuality(100);
         }
+
+        $this->_getImagickInfo();
     }
 
     /**
@@ -1115,28 +1115,28 @@ class Imagick extends AbstractImage
 
         // Check if the permissions are set correctly.
         if ((null !== $this->_perm['file']) && ($this->_perm['file'] != 777)) {
-            throw new Exception($this->_lang->__('Error: Permission denied.'));
+            throw new Exception('Error: Permission denied.');
         // Check if the requested image type is supported.
         } else if (!array_key_exists($type, $this->_allowed)) {
-            throw new Exception($this->_lang->__('Error: That image type is not supported.'));
+            throw new Exception('Error: That image type is not supported.');
         // Check if the image is already the requested image type.
         } else if (strtolower($this->ext) == $type) {
-            throw new Exception($this->_lang->__('Error: This image file is already a %1 image file.', strtoupper($type)));
-        // Else, save the image as the new type.
-        } else {
-            $old = $this->ext;
-            $this->ext = $type;
-            $this->_mime = $this->_allowed[$this->ext];
-            $this->fullpath = $this->dir . $this->filename . '.' . $this->ext;
-            $this->basename = basename($this->fullpath);
-
-            if (($old == 'psd') || ($old == 'tif') || ($old == 'tiff')) {
-                $this->flatten();
-            }
-            $this->_resource->setImageFormat($type);
-
-            return $this;
+            throw new Exception('Error: This image file is already a ' . strtoupper($type) . ' image file.');
         }
+
+        // Else, save the image as the new type.
+        $old = $this->ext;
+        $this->ext = $type;
+        $this->_mime = $this->_allowed[$this->ext];
+        $this->fullpath = $this->dir . $this->filename . '.' . $this->ext;
+        $this->basename = basename($this->fullpath);
+
+        if (($old == 'psd') || ($old == 'tif') || ($old == 'tiff')) {
+            $this->flatten();
+        }
+        $this->_resource->setImageFormat($type);
+
+        return $this;
     }
 
     /**
