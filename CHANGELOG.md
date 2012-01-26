@@ -57,8 +57,8 @@ COMPLETED:
         + Payleap
         + Trustcommerce
 * Finish Pdf component and improve font support
-    - Address, test and debug embed fonts and the Font component
-        + Add support for TTF, OTF and PFB (Type1) font files
+    - Address, test and debug the Font component and embedding fonts
+        + Finalize support for TTF, OTF and PFB (Type1) font files
     - Add embed override
 
 
