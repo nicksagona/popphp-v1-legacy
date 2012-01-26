@@ -73,7 +73,9 @@ class Tables
                 $pId = $value['primaryId'];
             }
 
-            $prefix = new PropertyGenerator('_prefix', 'string', $value['prefix'], 'protected');
+            if (isset($value['prefix'])) {
+                $prefix = new PropertyGenerator('_prefix', 'string', $value['prefix'], 'protected');
+            }
             $propId = new PropertyGenerator('_primaryId', $pIdType, $pId, 'protected');
             $propAuto = new PropertyGenerator('_auto', 'boolean', $value['auto'], 'protected');
 
@@ -81,9 +83,12 @@ class Tables
             $tableCls = new Generator($tableDir . '/' . $tableName . '.php', Generator::CREATE_CLASS);
             $tableCls->setNamespace($ns);
             $tableCls->code()->setParent('Record')
-                             ->addProperty($prefix)
                              ->addProperty($propId)
                              ->addProperty($propAuto);
+
+            if (isset($value['prefix'])) {
+                $tableCls->code()->addProperty($prefix);
+            }
 
             $tableCls->save();
         }
