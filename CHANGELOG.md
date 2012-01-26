@@ -49,14 +49,14 @@ COMPLETED:
         + Forms
         + Project
 * Add Geo component
-* Payment component
+* Add Payment component
     - Tested and completed
         + Authorize.net
         + PayPal (Website Payment Pro)
         + UsaEpay
         + Payleap
         + Trustcommerce
-* Pdf Component
+* Finish Pdf component and improve font support
     - Address, test and debug embed fonts and the Font component
         + Add support for TTF, OTF and PFB (Type1) font files
     - Add embed override
