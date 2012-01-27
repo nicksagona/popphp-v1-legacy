@@ -83,7 +83,8 @@ class Controllers
                         'Pop\\Http\\Request',
                         array('Pop\\Mvc\\Controller', 'C'),
                         'Pop\\Mvc\\Model',
-                        'Pop\\Mvc\\View'
+                        'Pop\\Mvc\\View',
+                        'Pop\\Project\\Project'
                     )
                 );
 
