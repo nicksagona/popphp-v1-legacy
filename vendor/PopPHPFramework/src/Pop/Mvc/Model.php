@@ -56,9 +56,11 @@ class Model
      * @param  string $name
      * @return void
      */
-    public function __construct($data, $name = null)
+    public function __construct($data = null, $name = null)
     {
-        $this->_setData($data, $name);
+        if (null !== $data) {
+            $this->_setData($data, $name);
+        }
     }
 
     /**
