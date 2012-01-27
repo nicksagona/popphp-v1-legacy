@@ -86,15 +86,20 @@ class Controller
      *
      * Instantiate the controller object
      *
-     * @param Pop\Http\Request  $request
-     * @param Pop\Http\Response $response
-     * @param string            $viewPath
+     * @param Pop\Http\Request    $request
+     * @param Pop\Http\Response   $response
+     * @param Pop\Project\Project $project
+     * @param string              $viewPath
      * @return void
      */
-    public function __construct(Request $request = null, Response $response = null, $viewPath = null)
+    public function __construct(Request $request = null, Response $response = null, Project $project = null, $viewPath = null)
     {
         $this->_request = (null !== $request) ? $request : new Request();
         $this->_response = (null !== $response) ? $response : new Response(200, array('Content-Type' => 'text/html'));
+
+        if (null !== $project) {
+            $this->_project = $project;
+        }
 
         if (null !== $viewPath) {
             $this->_viewPath = $viewPath;
