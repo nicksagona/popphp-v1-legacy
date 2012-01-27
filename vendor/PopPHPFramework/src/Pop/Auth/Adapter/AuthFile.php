@@ -80,6 +80,7 @@ class AuthFile extends File implements AdapterInterface
     {
         $result = 0;
         $access = null;
+        $user = array('username' => $username);
 
         if (!array_key_exists($username, $this->_users)) {
             $result = Auth::USER_NOT_FOUND;
@@ -90,9 +91,10 @@ class AuthFile extends File implements AdapterInterface
         } else {
             $access = $this->_users[$username]['access'];
             $result = Auth::USER_IS_VALID;
+            $user = array_merge($user, $this->_users[$username]);
         }
 
-        return array('result' => $result, 'access' => $access);
+        return array('result' => $result, 'access' => $access, 'user' => $user);
     }
 
     /**

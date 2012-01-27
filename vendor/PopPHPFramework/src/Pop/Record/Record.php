@@ -409,6 +409,16 @@ class Record
     }
 
     /**
+     * Get all the table column values at once as an associative array.
+     *
+     * @return array
+     */
+    public function getValues()
+    {
+        return (array)$this->_columns;
+    }
+
+    /**
      * Update (save) the existing database record.
      *
      * @return void

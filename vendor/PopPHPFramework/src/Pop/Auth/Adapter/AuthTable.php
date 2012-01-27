@@ -112,7 +112,7 @@ class AuthTable implements AdapterInterface
             $result = Auth::USER_IS_VALID;
         }
 
-        return array('result' => $result, 'access' => $access);
+        return array('result' => $result, 'access' => $access, 'user' => $user);
     }
 
 }

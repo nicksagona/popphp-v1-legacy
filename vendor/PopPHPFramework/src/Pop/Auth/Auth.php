@@ -580,6 +580,12 @@ class Auth
             if ((null !== $result['access']) && isset($this->_allowedRoles[$result['access']])) {
                 $this->_user->setRole($this->_allowedRoles[$result['access']]);
             }
+
+            if (!is_array($result['user'])) {
+                $this->_user->setFields($result['user']->getValues());
+            } else {
+                $this->_user->setFields($result['user']);
+            }
         }
 
         $this->_isValid = ($this->_result == 1) ? true : false;

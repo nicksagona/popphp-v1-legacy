@@ -57,6 +57,12 @@ class User
     protected $_role = null;
 
     /**
+     * User fields
+     * @var array
+     */
+    protected $_fields = array();
+
+    /**
      * Constructor
      *
      * Instantiate the user object
@@ -154,6 +160,20 @@ class User
     }
 
     /**
+     * Method to set the user fields
+     *
+     * @return array $fields
+     * @return Pop\Auth\User
+     */
+    public function setFields(array $fields)
+    {
+        foreach ($fields as $key => $value) {
+            $this->_fields[$key] = $value;
+        }
+        return $this;
+    }
+
+    /**
      * Method to evaluate if the user is authorized
      *
      * @param  Pop\Auth\Role $requiredRole
@@ -169,6 +189,17 @@ class User
         }
 
         return $result;
+    }
+
+    /**
+     * Get method to return the value of _fields[$name].
+     *
+     * @param  string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        return (isset($this->_fields[$name])) ? $this->_fields[$name] : null;
     }
 
 }
