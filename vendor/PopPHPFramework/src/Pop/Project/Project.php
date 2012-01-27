@@ -139,6 +139,7 @@ class Project
         if ((null === $this->_controller) && isset($this->_config->controllers->$name)) {
             $ctrlCls = $this->_config->controllers->$name;
             $this->_controller = new $ctrlCls();
+            $this->_controller->setProject($this);
         }
         return $this->_controller;
     }

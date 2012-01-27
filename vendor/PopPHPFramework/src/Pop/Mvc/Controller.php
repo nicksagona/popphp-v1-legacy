@@ -25,7 +25,8 @@
 namespace Pop\Mvc;
 
 use Pop\Http\Response,
-    Pop\Http\Request;
+    Pop\Http\Request,
+    Pop\Project\Project;
 
 /**
  * @category   Pop
@@ -49,6 +50,12 @@ class Controller
      * @var Pop\Http\Response
      */
     protected $_response = null;
+
+    /**
+     * Project config object
+     * @var Pop\Project\Project
+     */
+    protected $_project = null;
 
     /**
      * Error flag
@@ -97,7 +104,7 @@ class Controller
     /**
      * Set the request object
      *
-     * @param  Pop\Http\Request
+     * @param  Pop\Http\Request $request
      * @return Pop\Mvc\Controller
      */
     public function setRequest(Request $request)
@@ -109,12 +116,24 @@ class Controller
     /**
      * Set the response object
      *
-     * @param  Pop\Http\Response
+     * @param  Pop\Http\Response $response
      * @return Pop\Mvc\Controller
      */
     public function setResponse(Response $response)
     {
         $this->_response = $response;
+        return $this;
+    }
+
+    /**
+     * Set the response object
+     *
+     * @param  Pop\Project\Project
+     * @return Pop\Mvc\Controller
+     */
+    public function setProject(Project $project)
+    {
+        $this->_project = $project;
         return $this;
     }
 
@@ -148,6 +167,16 @@ class Controller
     public function getResponse()
     {
         return $this->_response;
+    }
+
+    /**
+     * Get the project object
+     *
+     * @return Pop\Project\Project
+     */
+    public function getProject()
+    {
+        return $this->_project;
     }
 
     /**
