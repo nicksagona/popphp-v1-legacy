@@ -94,6 +94,7 @@ class Controllers
                     array(
                         array('name' => 'request', 'value' => 'null', 'type' => 'Request'),
                         array('name' => 'response', 'value' => 'null', 'type' => 'Response'),
+                        array('name' => 'project', 'value' => 'null', 'type' => 'Project'),
                         array('name' => 'viewPath', 'value' => 'null', 'type' => 'string')
                     )
                 );
@@ -101,7 +102,7 @@ class Controllers
                 $construct->appendToBody("if (null === \$viewPath) {")
                           ->appendToBody("    \$viewPath = __DIR__ . '/../../../view/{$controller}';")
                           ->appendToBody("}" . PHP_EOL)
-                          ->appendToBody("parent::__construct(\$request, \$response, \$viewPath);");
+                          ->appendToBody("parent::__construct(\$request, \$response, \$project, \$viewPath);");
 
                 if (array_key_exists('index', $views) && array_key_exists('error', $views)) {
                     $construct->appendToBody("if (\$this->_request->getRequestUri() == '/') {")
