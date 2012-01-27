@@ -94,7 +94,7 @@ class Controllers
                     array(
                         array('name' => 'request', 'value' => 'null', 'type' => 'Request'),
                         array('name' => 'response', 'value' => 'null', 'type' => 'Response'),
-                        array('name' => 'viewPath', 'value' => 'null')
+                        array('name' => 'viewPath', 'value' => 'null', 'type' => 'string')
                     )
                 );
 
