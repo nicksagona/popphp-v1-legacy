@@ -329,6 +329,10 @@
         <output>Création de fichiers de classe de formulaire ...</output>
     </text>
     <text>
+        <source>Creating model class files...</source>
+        <output>Création de fichiers de classe modèle ...</output>
+    </text>
+    <text>
         <source>You will have to install your web server rewrite configuration manually.</source>
         <output>Vous devrez installer votre configuration du serveur web réécrire manuellement.</output>
     </text>

@@ -329,6 +329,10 @@
         <output>إنشاء ملفات فئة النموذج...</output>
     </text>
     <text>
+        <source>Creating model class files...</source>
+        <output>إنشاء ملفات فئة النموذج...</output>
+    </text>
+    <text>
         <source>You will have to install your web server rewrite configuration manually.</source>
         <output>سيكون لديك لتثبيت التكوين الخاص كتابة خادم الويب يدويا.</output>
     </text>

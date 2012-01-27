@@ -329,6 +329,10 @@
         <output>フォームのクラスファイルを作成しています...</output>
     </text>
     <text>
+        <source>Creating model class files...</source>
+        <output>モデルクラスのファイルを作成しています...</output>
+    </text>
+    <text>
         <source>You will have to install your web server rewrite configuration manually.</source>
         <output>手動でWebサーバーの書き換え設定をインストールする必要があります。</output>
     </text>

@@ -329,6 +329,10 @@
         <output>Erstellen Form class-Dateien ...</output>
     </text>
     <text>
+        <source>Creating model class files...</source>
+        <output>Erstellen Modell class-Dateien ...</output>
+    </text>
+    <text>
         <source>You will have to install your web server rewrite configuration manually.</source>
         <output>Sie müssen Ihren Webserver rewrite Konfiguration manuell zu installieren.</output>
     </text>

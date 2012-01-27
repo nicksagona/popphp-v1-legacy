@@ -33,6 +33,7 @@ use Pop\Dir\Dir,
     Pop\Project\Install\Controllers,
     Pop\Project\Install\Db,
     Pop\Project\Install\Forms,
+    Pop\Project\Install\Models,
     Pop\Project\Install\Project,
     Pop\Project\Install\Tables;
 
@@ -162,6 +163,11 @@ class Install
             // Install form class files
             if (isset($install->forms)) {
                 Forms::install($install);
+            }
+
+            // Install model class files
+            if (isset($install->models)) {
+                Models::install($install);
             }
 
             // Create 'bootstrap.php' file

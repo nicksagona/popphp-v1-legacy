@@ -329,6 +329,10 @@
         <output>创建窗体类的文件...</output>
     </text>
     <text>
+        <source>Creating model class files...</source>
+        <output>创建模型类文件...</output>
+    </text>
+    <text>
         <source>You will have to install your web server rewrite configuration manually.</source>
         <output>你将不得不手动安装您的Web服务器重写配置。</output>
     </text>

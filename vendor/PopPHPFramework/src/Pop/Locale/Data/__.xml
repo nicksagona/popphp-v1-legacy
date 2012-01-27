@@ -329,6 +329,10 @@
         <output></output>
     </text>
     <text>
+        <source>Creating model class files...</source>
+        <output></output>
+    </text>
+    <text>
         <source>You will have to install your web server rewrite configuration manually.</source>
         <output></output>
     </text>

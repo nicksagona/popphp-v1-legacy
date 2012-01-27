@@ -329,6 +329,10 @@
         <output>Создание файлов класса формы ...</output>
     </text>
     <text>
+        <source>Creating model class files...</source>
+        <output>Создание файлов модели класса ...</output>
+    </text>
+    <text>
         <source>You will have to install your web server rewrite configuration manually.</source>
         <output>Вы должны будете установить ваш веб-сервер переписать конфигурацию вручную.</output>
     </text>

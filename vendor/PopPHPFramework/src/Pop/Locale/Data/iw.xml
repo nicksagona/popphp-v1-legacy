@@ -329,6 +329,10 @@
         <output>יצירת מעמד קבצים טופס ...</output>
     </text>
     <text>
+        <source>Creating model class files...</source>
+        <output>יצירת מעמד קבצים מודל ...</output>
+    </text>
+    <text>
         <source>You will have to install your web server rewrite configuration manually.</source>
         <output>אתה תצטרך להתקין שרת האינטרנט שלך תצורה לשכתב באופן ידני.</output>
     </text>

@@ -329,6 +329,10 @@
         <output>Δημιουργία αρχείων class μορφή ...</output>
     </text>
     <text>
+        <source>Creating model class files...</source>
+        <output>Δημιουργία αρχείων class μοντέλο ...</output>
+    </text>
+    <text>
         <source>You will have to install your web server rewrite configuration manually.</source>
         <output>Θα πρέπει να εγκαταστήσετε το web διαμόρφωση του διακομιστή σας ξαναγράψουμε το χέρι.</output>
     </text>
