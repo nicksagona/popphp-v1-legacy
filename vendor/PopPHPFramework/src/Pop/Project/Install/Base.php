@@ -113,22 +113,8 @@ class Base
             $projectCfg->appendToBody('    )', false);
         }
 
-        // Add the controller config to it
-        if (isset($install->controllers)) {
-            $projectCfg->appendToBody(',' . PHP_EOL . "    'controllers' => array(");
-            $i = 0;
-            $controllers = $install->controllers->asArray();
-            foreach ($controllers as $key => $value) {
-                $i++;
-                $ctrl = "        '" . $key . "' => '" . $install->project->name . "\\\\Controller\\\\" . ucfirst(String::factory($key)->underscoreToCamelcase()) . "Controller'";
-                $ctrl .= ($i < count($controllers)) ? ',' : null;
-                $projectCfg->appendToBody($ctrl);
-            }
-            $projectCfg->appendToBody('    )');
-        }
-
         // Save project config
-        $projectCfg->appendToBody('));', false);
+        $projectCfg->appendToBody(PHP_EOL . '));', false);
         $projectCfg->save();
 
         // Create the module config file

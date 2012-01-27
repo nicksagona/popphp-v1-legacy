@@ -417,6 +417,14 @@ class Request
             $uri = $_SERVER['REQUEST_URI'];
         }
 
+        if (null !== $basePath) {
+            $uri = substr($uri, (strpos($uri, $basePath) + strlen($basePath)));
+        }
+
+        if ($uri == '') {
+            $uri = '/';
+        }
+
         // Some slash clean up
         $this->_docRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
         $dir = str_replace('\\', '/', dirname($this->_docRoot . $_SERVER['PHP_SELF']));

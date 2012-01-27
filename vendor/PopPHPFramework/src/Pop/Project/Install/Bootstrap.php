@@ -24,7 +24,8 @@
  */
 namespace Pop\Project\Install;
 
-use Pop\Code\Generator;
+use Pop\Code\Generator,
+    Pop\Filter\String;
 
 /**
  * @category   Pop
@@ -65,8 +66,25 @@ class Bootstrap
                   ->appendToBody("// Create a project object")
                   ->appendToBody("\$project = {$install->project->name}\\Project::factory(")
                   ->appendToBody("    include '{$projectCfg}',")
-                  ->appendToBody("    include '{$moduleCfg}'")
-                  ->appendToBody(");")
+                  ->appendToBody("    include '{$moduleCfg}',");
+
+        if (isset($install->controllers)) {
+            $controllers = $install->controllers->asArray();
+            $ctrls = array();
+            foreach ($controllers as $key => $value) {
+                $ctrls[] = "'{$key}' => '{$install->project->name}\\Controller\\" . ucfirst(String::factory($key)->underscoreToCamelcase()) . "Controller'";
+            }
+            $bootstrap->appendToBody("    new Pop\\Mvc\\Router(array(");
+            $i = 1;
+            foreach ($ctrls as $c) {
+                $end = ($i < count($ctrls)) ? ',' : null;
+                $bootstrap->appendToBody("        " . $c . $end);
+                $i++;
+            }
+            $bootstrap->appendToBody("    ))");
+        }
+
+        $bootstrap->appendToBody(");")
                   ->save();
     }
 

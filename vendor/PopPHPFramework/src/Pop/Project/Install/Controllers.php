@@ -102,8 +102,15 @@ class Controllers
 
                 $construct->appendToBody("if (null === \$viewPath) {")
                           ->appendToBody("    \$viewPath = __DIR__ . '/../../../view/{$controller}';")
-                          ->appendToBody("}" . PHP_EOL)
-                          ->appendToBody("parent::__construct(\$request, \$response, \$project, \$viewPath);");
+                          ->appendToBody("}" . PHP_EOL);
+
+                if ($controller != 'default') {
+                    $construct->appendToBody("if (null === \$request) {")
+                              ->appendToBody("    \$request = new Request(null, '/{$controller}');")
+                              ->appendToBody("}" . PHP_EOL);
+                }
+
+                $construct->appendToBody("parent::__construct(\$request, \$response, \$project, \$viewPath);" . PHP_EOL);
 
                 if (array_key_exists('index', $views) && array_key_exists('error', $views)) {
                     $construct->appendToBody("if (\$this->_request->getRequestUri() == '/') {")

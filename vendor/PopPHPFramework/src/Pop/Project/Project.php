@@ -25,7 +25,8 @@
 namespace Pop\Project;
 
 use Pop\Config,
-    Pop\Db\Db;
+    Pop\Db\Db,
+    Pop\Mvc\Router;
 
 /**
  * @category   Pop
@@ -51,25 +52,29 @@ class Project
     protected $_modules = array();
 
     /**
-     * Project controller
-     * @var Pop\Mvc\Controller
+     * Project router
+     * @var Pop\Mvc\Router
      */
-    protected $_controller = null;
+    protected $_router = null;
 
     /**
      * Constructor
      *
      * Instantiate a project object
      *
-     * @param  Pop\Config $config
-     * @param  Pop\Config $module
+     * @param  Pop\Config     $config
+     * @param  Pop\Config     $module
+     * @param  Pop\Mvc\Router $router
      * @return void
      */
-    public function __construct(Config $config, Config $module = null)
+    public function __construct(Config $config, Config $module = null, Router $router = null)
     {
         $this->_config = $config;
         if (null !== $module) {
             $this->loadModule($module);
+        }
+        if (null !== $router) {
+            $this->loadRouter($router);
         }
     }
 
@@ -79,11 +84,12 @@ class Project
      *
      * @param  Pop\Config $config
      * @param  Pop\Config $module
+     * @param  Pop\Mvc\Router $router
      * @return Pop\Project\Project
      */
-    public static function factory(Config $config, Config $module = null)
+    public static function factory(Config $config, Config $module = null, Router $router = null)
     {
-        return new self($config, $module);
+        return new self($config, $module, $router);
     }
 
     /**
@@ -129,21 +135,6 @@ class Project
     }
 
     /**
-     * Access the project controller
-     *
-     * @param  string $name
-     * @return Pop\Mvc\Controller
-     */
-    public function controller($name = 'default')
-    {
-        if ((null === $this->_controller) && isset($this->_config->controllers->$name)) {
-            $ctrlCls = $this->_config->controllers->$name;
-            $this->_controller = new $ctrlCls(null, null, $this);
-        }
-        return $this->_controller;
-    }
-
-    /**
      * Load a module config
      *
      * @param  Pop\Config $module
@@ -160,14 +151,24 @@ class Project
     }
 
     /**
-     * Run the project
+     * Load a router
      *
-     * @param  string $controller
      * @return Pop\Project\Project
      */
-    public function run($controller = 'default')
+    public function loadRouter(Router $router)
     {
-        $this->controller($controller);
+        $this->_router = $router;
+        return $this;
+    }
+
+    /**
+     * Run the project
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $this->_router->route($this);
     }
 
 }
