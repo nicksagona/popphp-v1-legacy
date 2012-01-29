@@ -110,20 +110,20 @@ class Controllers
                               ->appendToBody("}" . PHP_EOL);
                 }
 
-                $construct->appendToBody("parent::__construct(\$request, \$response, \$project, \$viewPath);" . PHP_EOL);
+                $construct->appendToBody("parent::__construct(\$request, \$response, \$project, \$viewPath);", false);
 
-                if (array_key_exists('index', $views) && array_key_exists('error', $views)) {
-                    $construct->appendToBody("if (\$this->_request->getRequestUri() == '/') {")
-                              ->appendToBody("    \$this->index();")
-                              ->appendToBody("} else {")
-                              ->appendToBody("    \$this->_isError = true;")
-                              ->appendToBody("    \$this->error();")
-                              ->appendToBody("}", false);
-                } else if (array_key_exists('index', $views)) {
-                    $construct->appendToBody("if (\$this->_request->getRequestUri() == '/') {")
-                              ->appendToBody("    \$this->index();")
-                              ->appendToBody("}", false);
-                }
+                //if (array_key_exists('index', $views) && array_key_exists('error', $views)) {
+                //    $construct->appendToBody("if (\$this->_request->getRequestUri() == '/') {")
+                //              ->appendToBody("    \$this->index();")
+                //              ->appendToBody("} else {")
+                //              ->appendToBody("    \$this->_isError = true;")
+                //              ->appendToBody("    \$this->error();")
+                //              ->appendToBody("}", false);
+                //} else if (array_key_exists('index', $views)) {
+                //    $construct->appendToBody("if (\$this->_request->getRequestUri() == '/') {")
+                //              ->appendToBody("    \$this->index();")
+                //              ->appendToBody("}", false);
+                //}
 
                 $construct->getDocblock()->setReturn('void');
 
@@ -143,7 +143,7 @@ class Controllers
                     $method = new MethodGenerator($key);
                     $method->setDesc('Add your model data here within the \'' . $key . '()\' method to inject into the view.');
                     $method->appendToBody("\$this->_view = View::factory(\$this->_viewPath . '/{$value}');");
-                    $method->appendToBody("\$this->dispatch();", false);
+                    $method->appendToBody("\$this->send();", false);
                     $method->getDocblock()->setReturn('void');
 
                     $controllerCls->code()->addMethod($method);

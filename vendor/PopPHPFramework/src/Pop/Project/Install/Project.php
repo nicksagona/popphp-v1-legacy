@@ -62,7 +62,16 @@ class Project
         // Create 'run' method
         $run = new MethodGenerator('run');
         $run->setDesc('Add any project specific code to this method for run-time use here.');
-        $run->appendToBody('parent::run();', false);
+
+        $run->appendToBody('parent::run();' . PHP_EOL)
+            ->appendToBody("if (\$this->router()->controller()->getRequest()->getRequestUri() == '/') {")
+            ->appendToBody("    \$this->router()->controller()->dispatch();")
+            ->appendToBody("} else if (method_exists(\$this->router()->controller(), \$this->router()->controller()->getRequest()->getPath(0))) {")
+            ->appendToBody("    \$this->router()->controller()->dispatch(\$this->router()->controller()->getRequest()->getPath(0));")
+            ->appendToBody("} else if (method_exists(\$this->router()->controller(), 'error')) {")
+            ->appendToBody("    \$this->router()->controller()->dispatch('error');")
+            ->appendToBody("}");
+
         $run->getDocblock()->setReturn('void');
 
         // Finalize the project config file and save it

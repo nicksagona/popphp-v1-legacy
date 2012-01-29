@@ -89,7 +89,7 @@ class Project
      */
     public static function factory(Config $config, Config $module = null, Router $router = null)
     {
-        return new self($config, $module, $router);
+        return new static($config, $module, $router);
     }
 
     /**
