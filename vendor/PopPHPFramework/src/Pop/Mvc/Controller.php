@@ -195,14 +195,34 @@ class Controller
     }
 
     /**
+     * Dispatch the controller based on the action
+     *
+     * @param  string $action
+     * @throws Exception
+     * @return Pop\Mvc\Controller
+     */
+    public function dispatch($action = 'index')
+    {
+        if (method_exists($this, $action)) {
+            $this->$action();
+        } else {
+            throw new Exception('That action is not defined in the controller.');
+        }
+    }
+
+    /**
      * Finalize the request and send the response.
      *
      * @param  int    $code
      * @param  array  $headers
      * @return void
      */
-    public function dispatch($code = 200, array $headers = null)
+    public function send($code = 200, array $headers = null)
     {
+        if (null === $this->_view) {
+            throw new Exception('The view object is not defined.');
+        }
+
         if ($this->_isError) {
             $code = 404;
         }

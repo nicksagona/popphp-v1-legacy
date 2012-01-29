@@ -135,6 +135,16 @@ class Project
     }
 
     /**
+     * Access the project router
+     *
+     * @return Pop\Mvc\Router
+     */
+    public function router()
+    {
+        return $this->_router;
+    }
+
+    /**
      * Load a module config
      *
      * @param  Pop\Config $module
@@ -168,7 +178,9 @@ class Project
      */
     public function run()
     {
-        $this->_router->route($this);
+        if (null !== $this->_router) {
+            $this->_router->route($this);
+        }
     }
 
 }
