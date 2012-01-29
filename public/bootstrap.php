@@ -39,3 +39,4 @@ $autoloader->splAutoloadRegister();
 
 // $autoloader->register('YourLib', __DIR__ . '/../vendor/YourLib/src');
 // $autoloader->loadClassMap('../vendor/YourLib/classmap.php');
+
