@@ -70,7 +70,7 @@ class Project
             ->appendToBody("    \$this->router()->controller()->dispatch(\$this->router()->controller()->getRequest()->getPath(0));")
             ->appendToBody("} else if (method_exists(\$this->router()->controller(), 'error')) {")
             ->appendToBody("    \$this->router()->controller()->dispatch('error');")
-            ->appendToBody("}");
+            ->appendToBody("}", false);
 
         $run->getDocblock()->setReturn('void');
 
