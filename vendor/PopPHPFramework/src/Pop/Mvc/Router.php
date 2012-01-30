@@ -126,6 +126,20 @@ class Router
     }
 
     /**
+     * Get action from request within the current controller
+     *
+     * @return string
+     */
+    public function getAction()
+    {
+        $action = null;
+        if (null !== $this->_controller) {
+            $action = $this->_controller->getRequest()->getPath(0);
+        }
+        return $action;
+    }
+
+    /**
      * Route to the controller
      *
      * @param  Pop\Project\Project $project

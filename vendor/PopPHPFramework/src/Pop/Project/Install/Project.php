@@ -66,8 +66,8 @@ class Project
         $run->appendToBody('parent::run();' . PHP_EOL)
             ->appendToBody("if (\$this->router()->controller()->getRequest()->getRequestUri() == '/') {")
             ->appendToBody("    \$this->router()->controller()->dispatch();")
-            ->appendToBody("} else if (method_exists(\$this->router()->controller(), \$this->router()->controller()->getRequest()->getPath(0))) {")
-            ->appendToBody("    \$this->router()->controller()->dispatch(\$this->router()->controller()->getRequest()->getPath(0));")
+            ->appendToBody("} else if (method_exists(\$this->router()->controller(), \$this->router()->getAction())) {")
+            ->appendToBody("    \$this->router()->controller()->dispatch(\$this->router()->getAction());")
             ->appendToBody("} else if (method_exists(\$this->router()->controller(), 'error')) {")
             ->appendToBody("    \$this->router()->controller()->dispatch('error');")
             ->appendToBody("}", false);
