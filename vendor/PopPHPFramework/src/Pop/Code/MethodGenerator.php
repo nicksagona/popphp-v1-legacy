@@ -398,7 +398,8 @@ class MethodGenerator
             'integer',
             'boolean',
             'float',
-            'string'
+            'string',
+            'mixed'
         );
         $argType = (!in_array($type, $typeHintsNotAllowed)) ? $type : null;
         $this->_arguments[$name] = array('value' => $value, 'type' => $argType);
