@@ -66,6 +66,7 @@ class Forms
             // Define namespace
             $ns = new NamespaceGenerator($install->project->name . '\\Form');
             $ns->setUse('Pop\\Form\\Form')
+               ->setUse('Pop\\Form\\Element')
                ->setUse('Pop\\Validator\\Validator');
 
             // Create the constructor
@@ -107,6 +108,9 @@ class Forms
                         } else if (($key == 'value') || ($key == 'marked') || ($key == 'attributes')) {
                             $val = var_export($value, true);
                             $val = str_replace(PHP_EOL, PHP_EOL . '        ', $val);
+                            if (strpos($val, 'Select::') !== false) {
+                                $val = 'Element\\' . str_replace("'", '', $val);
+                            }
                             $construct->appendToBody("        '{$key}' => {$val}{$comma}");
                         } else {
                             if (is_bool($value)) {
