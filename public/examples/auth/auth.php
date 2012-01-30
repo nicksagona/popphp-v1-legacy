@@ -23,7 +23,7 @@ try {
 
     // Define some other auth parameters and authenticate the user
     $auth->setRequiredRole('admin')
-         ->setLoginAttempts(3)
+         ->setAttemptLimit(3)
          ->setAllowedIps('127.0.0.1')
          ->authenticate($username, $password);
 

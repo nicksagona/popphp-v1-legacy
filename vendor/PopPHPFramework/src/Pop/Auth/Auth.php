@@ -147,7 +147,7 @@ class Auth
         'allowedSubnets' => null,
         'blockedIps'     => null,
         'blockedSubnets' => null,
-        'loginAttempts'  => null,
+        'attempts'       => null,
         'expiration'     => null
     );
 
@@ -185,7 +185,7 @@ class Auth
      * Current number of login attempts
      * @var int
      */
-    protected $_loginAttempts = 0;
+    protected $_attempts = 0;
 
     /**
      * Current IP address
@@ -270,9 +270,9 @@ class Auth
      *
      * @return int
      */
-    public function getLoginAttempts()
+    public function getAttempts()
     {
-        return $this->_loginAttempts;
+        return $this->_attempts;
     }
 
     /**
@@ -350,7 +350,7 @@ class Auth
             case self::LOGIN_ATTEMPTS_EXCEEDED:
                 $msg = Locale::factory()->__(
                     'The allowed login attempts (%1) have been exceeded.',
-                    $this->_validators['loginAttempts']->getValidator()->getValue()
+                    $this->_validators['attempts']->getValidator()->getValue()
                 );
                 break;
             case self::IP_BLOCKED:
@@ -467,13 +467,25 @@ class Auth
      * @param  int $attempts
      * @return Pop\Auth\Auth
      */
-    public function setLoginAttempts($attempts = 0)
+    public function setAttemptLimit($attempts = 0)
     {
         if ($attempts == 0) {
-            $this->_validators['loginAttempts'] = null;
+            $this->_validators['attempts'] = null;
         } else {
-            $this->_validators['loginAttempts'] = Validator::factory(new LessThan($attempts));
+            $this->_validators['attempts'] = Validator::factory(new LessThan($attempts));
         }
+        return $this;
+    }
+
+    /**
+     * Method to set the number of login attempts allowed
+     *
+     * @param  int $attempts
+     * @return Pop\Auth\Auth
+     */
+    public function setAttempts($attempts = 0)
+    {
+        $this->_attempts = (int)$attempts;
         return $this;
     }
 
@@ -746,8 +758,8 @@ class Auth
                             $this->_result = self::IP_BLOCKED;
                         }
                         break;
-                    case 'loginAttempts':
-                        if (!$validator->evaluate($this->_loginAttempts)) {
+                    case 'attempts':
+                        if (!$validator->evaluate($this->_attempts)) {
                             $this->_result = self::LOGIN_ATTEMPTS_EXCEEDED;
                         }
                         break;
@@ -761,7 +773,7 @@ class Auth
         }
 
         if ($count) {
-            $this->_loginAttempts++;
+            $this->_attempts++;
         }
     }
 
