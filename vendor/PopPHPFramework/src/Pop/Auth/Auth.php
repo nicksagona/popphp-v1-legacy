@@ -24,9 +24,7 @@
  */
 namespace Pop\Auth;
 
-use Pop\Auth\Adapter\AccessFile,
-    Pop\Auth\Adapter\AdapterInterface,
-    Pop\Auth\Adapter\DbTable,
+use Pop\Auth\Adapter\AdapterInterface,
     Pop\Validator\Validator,
     Pop\Validator\Validator\Excluded,
     Pop\Validator\Validator\Included,
