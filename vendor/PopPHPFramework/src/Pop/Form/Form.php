@@ -388,6 +388,76 @@ class Form extends Dom
     }
 
     /**
+     * Get an element of the form object by name.
+     *
+     * @param string $elementName
+     * @return array
+     */
+    public function getElement($elementName)
+    {
+        $name = null;
+        $elem = null;
+        $index = null;
+        $elems =  $this->_form->getChildren();
+
+        foreach ($elems as $i => $e) {
+            if ($e->getNodeName() == 'fieldset') {
+                $children = $e->getChildren();
+                foreach ($children as $c) {
+                    if ($c->getNodeName() == 'input') {
+                        $attribs = $c->getAttributes();
+                        $name = str_replace('[]', '', $attribs['name']);
+                    }
+                }
+            } else {
+                $attribs = $e->getAttributes();
+                $name = $attribs['name'];
+            }
+            if ($name == $elementName) {
+                $index = $i;
+                $elem = $e;
+            }
+        }
+
+        return $elem;
+    }
+
+    /**
+     * Get the index of an element of the form object by name.
+     *
+     * @param string $elementName
+     * @return array
+     */
+    public function getElementIndex($elementName)
+    {
+        $name = null;
+        $elem = null;
+        $index = null;
+        $elems =  $this->_form->getChildren();
+
+        foreach ($elems as $i => $e) {
+            if ($e->getNodeName() == 'fieldset') {
+                $children = $e->getChildren();
+                foreach ($children as $c) {
+                    if ($c->getNodeName() == 'input') {
+                        $attribs = $c->getAttributes();
+                        $name = str_replace('[]', '', $attribs['name']);
+                    }
+                }
+            } else {
+                $attribs = $e->getAttributes();
+                $name = $attribs['name'];
+            }
+            if ($name == $elementName) {
+                $index = $i;
+                $elem = $e;
+            }
+        }
+
+        return $index;
+    }
+
+    /**
      * Determine whether or not the form object is valid and return the result.
      *
      * @return boolean
