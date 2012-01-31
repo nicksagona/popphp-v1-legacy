@@ -264,11 +264,12 @@ class Element extends Child
      * Add a validator the form element object.
      *
      * @param  ValidatorInterface $validator
+     * @param  string $msg
      * @return Pop\Form\Element
      */
-    public function addValidator(ValidatorInterface $validator)
+    public function addValidator(ValidatorInterface $validator, $msg = null)
     {
-        $this->validators[] = new Validator($validator);
+        $this->validators[] = new Validator($validator, $msg);
         return $this;
     }
 
