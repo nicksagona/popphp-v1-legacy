@@ -413,7 +413,7 @@ class Request
      */
     public function setRequestUri($uri = null, $basePath = null)
     {
-        if (null === $uri) {
+        if ((null === $uri) && isset($_SERVER['REQUEST_URI'])) {
             $uri = $_SERVER['REQUEST_URI'];
         }
 
@@ -432,7 +432,9 @@ class Request
         $this->_requestUri = ($dir != $this->_docRoot) ? str_replace(str_replace($this->_docRoot, '', $dir), '', $uri) : $uri;
         $this->_basePath = (null === $basePath) ? str_replace($this->_docRoot, '', $dir) : $basePath;
         $this->_fullPath = $this->_docRoot . $this->_basePath;
-        $this->_isSecure = ($_SERVER['SERVER_PORT'] == '443') ? true : false;
+        if (isset($_SERVER['SERVER_PORT'])) {
+            $this->_isSecure = ($_SERVER['SERVER_PORT'] == '443') ? true : false;
+        }
 
         if (strpos($this->_requestUri, '?') !== false) {
             $this->_requestUri = substr($this->_requestUri, 0, strpos($this->_requestUri, '?'));
