@@ -64,6 +64,7 @@ Some dependencies for the framework to fully function are as follows:
 
 * The Phar, Rar, Tar and Zip extensions for the archive component
 * The Bzip2, Lzf and ZLib extenstions for the compress component
+* The Mcrypt extenstion for the crypt filter component
 * The basic MySQL extension for basic MySQL database connections and transactions
 * The MySQLi extension to utilize MySQLi to connect to and interact with MySQL databases
 * The PostgreSQL extension for PostgreSQL database connections and transactions

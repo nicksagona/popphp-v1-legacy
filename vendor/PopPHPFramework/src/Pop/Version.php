@@ -167,6 +167,9 @@ class Version
         $check['Image Freetype'] = (function_exists('imagettftext'))  ? 'Yes' : 'No';
         $check['Image Imagick'] = (class_exists('Imagick', false))  ? 'Yes' : 'No';
 
+        // Mcrypt
+        $check['Mcrypt'] = (function_exists('mcrypt_encrypt'))  ? 'Yes' : 'No';
+
         // Memcache
         $check['Memcache'] = (class_exists('Memcache', false))  ? 'Yes' : 'No';
 

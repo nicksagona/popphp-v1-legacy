@@ -73,4 +73,5 @@ class Crypt
 
         return $decrypted;
     }
+
 }
