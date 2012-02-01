@@ -119,7 +119,7 @@ abstract class AbstractRecord
             $ord = null;
         }
 
-        return array('by' => $by, 'order' => $order);
+        return array('by' => $by, 'order' => $ord);
     }
 
 }

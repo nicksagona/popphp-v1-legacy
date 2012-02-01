@@ -13,15 +13,15 @@ class Users extends Record { }
 
 try {
     // Define DB credentials
-    $db = Db::factory('Mysqli', array(
-        'database' => 'poptest',
+    $db = Db::factory('Mysql', array(
+        'database' => 'helloworld',
         'host'     => 'localhost',
-        'username' => 'popuser',
-        'password' => '12pop34'
+        'username' => 'hello',
+        'password' => '12world34'
     ));
 
     Users::setDb($db);
-    $users = Users::findAll();
+    $users = Users::findAll('id DESC', 'access', 'admin');
     print_r($users->rows);
 
     echo PHP_EOL . PHP_EOL;
