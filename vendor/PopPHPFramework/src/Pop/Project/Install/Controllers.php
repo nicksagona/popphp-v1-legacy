@@ -111,20 +111,6 @@ class Controllers
                 }
 
                 $construct->appendToBody("parent::__construct(\$request, \$response, \$project, \$viewPath);", false);
-
-                //if (array_key_exists('index', $views) && array_key_exists('error', $views)) {
-                //    $construct->appendToBody("if (\$this->request->getRequestUri() == '/') {")
-                //              ->appendToBody("    \$this->index();")
-                //              ->appendToBody("} else {")
-                //              ->appendToBody("    \$this->isError = true;")
-                //              ->appendToBody("    \$this->error();")
-                //              ->appendToBody("}", false);
-                //} else if (array_key_exists('index', $views)) {
-                //    $construct->appendToBody("if (\$this->request->getRequestUri() == '/') {")
-                //              ->appendToBody("    \$this->index();")
-                //              ->appendToBody("}", false);
-                //}
-
                 $construct->getDocblock()->setReturn('void');
 
                 $controllerCls->setNamespace($ns);
