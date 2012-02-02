@@ -286,7 +286,7 @@ class Element extends Child
         if ($this->required == true) {
             $curElemValue = (is_array($this->value)) ? $this->marked : $this->value;
             if (empty($curElemValue)) {
-                $this->errors[] = Locale::factory()->_('This field is required.');
+                $this->errors[] = Locale::factory()->__('This field is required.');
             }
         }
 

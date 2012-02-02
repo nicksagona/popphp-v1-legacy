@@ -52,9 +52,9 @@ class AlphaNumeric extends AbstractValidator
 
         // Set the default message
         if ($this->condition) {
-            $this->defaultMessage = Locale::factory()->_('The value must only contain alphanumeric characters.');
+            $this->defaultMessage = Locale::factory()->__('The value must only contain alphanumeric characters.');
         } else {
-            $this->defaultMessage = Locale::factory()->_('The value must contain non-alphanumeric characters.');
+            $this->defaultMessage = Locale::factory()->__('The value must contain non-alphanumeric characters.');
         }
 
         // Evaluate the input against the validator

@@ -52,9 +52,9 @@ class NotEmpty extends AbstractValidator
 
         // Set the default message
         if ($this->condition) {
-            $this->defaultMessage = Locale::factory()->_('The value must not be empty.');
+            $this->defaultMessage = Locale::factory()->__('The value must not be empty.');
         } else {
-            $this->defaultMessage = Locale::factory()->_('The value must be empty.');
+            $this->defaultMessage = Locale::factory()->__('The value must be empty.');
         }
 
         // Evaluate the input against the validator

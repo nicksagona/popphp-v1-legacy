@@ -51,7 +51,7 @@ class Forms
      */
     public static function install($install)
     {
-        echo Locale::factory()->_('Creating form class files...') . PHP_EOL;
+        echo Locale::factory()->__('Creating form class files...') . PHP_EOL;
 
         // Create form class folder
         $formDir = $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Form';

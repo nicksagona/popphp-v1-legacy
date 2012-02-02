@@ -334,31 +334,31 @@ class Auth
 
         switch ($this->result) {
             case self::USER_IS_VALID:
-                $msg = Locale::factory()->_('The user is valid.');
+                $msg = Locale::factory()->__('The user is valid.');
                 break;
             case self::USER_NOT_FOUND:
-                $msg = Locale::factory()->_('The user was not found.');
+                $msg = Locale::factory()->__('The user was not found.');
                 break;
             case self::USER_IS_BLOCKED:
-                $msg = Locale::factory()->_('The user is blocked.');
+                $msg = Locale::factory()->__('The user is blocked.');
                 break;
             case self::PASSWORD_INCORRECT:
-                $msg = Locale::factory()->_('The password was incorrect.');
+                $msg = Locale::factory()->__('The password was incorrect.');
                 break;
             case self::LOGIN_ATTEMPTS_EXCEEDED:
-                $msg = Locale::factory()->_(
+                $msg = Locale::factory()->__(
                     'The allowed login attempts (%1) have been exceeded.',
                     $this->validators['attempts']->getValidator()->getValue()
                 );
                 break;
             case self::IP_BLOCKED:
-                $msg = Locale::factory()->_('That IP address is blocked.');
+                $msg = Locale::factory()->__('That IP address is blocked.');
                 break;
             case self::IP_NOT_ALLOWED:
-                $msg = Locale::factory()->_('That IP address is not allowed.');
+                $msg = Locale::factory()->__('That IP address is not allowed.');
                 break;
             case self::SESSION_EXPIRED:
-                $msg = Locale::factory()->_('The session has expired.');
+                $msg = Locale::factory()->__('The session has expired.');
                 break;
         }
 

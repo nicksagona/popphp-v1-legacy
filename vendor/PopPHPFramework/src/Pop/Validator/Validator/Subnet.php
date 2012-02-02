@@ -53,9 +53,9 @@ class Subnet extends AbstractValidator
 
         // Set the default message
         if ($this->condition) {
-            $this->defaultMessage = Locale::factory()->_('The value must be a valid IPv4 subnet.');
+            $this->defaultMessage = Locale::factory()->__('The value must be a valid IPv4 subnet.');
         } else {
-            $this->defaultMessage = Locale::factory()->_('The value must not be a valid IPv4 subnet.');
+            $this->defaultMessage = Locale::factory()->__('The value must not be a valid IPv4 subnet.');
         }
 
         // Evaluate the input against the validator

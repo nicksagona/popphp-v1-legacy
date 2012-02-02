@@ -50,7 +50,7 @@ class Controllers
      */
     public static function install($install, $installDir)
     {
-        echo Locale::factory()->_('Creating controller class files...') . PHP_EOL;
+        echo Locale::factory()->__('Creating controller class files...') . PHP_EOL;
 
         // Make the controller folder
         $ctrlDir = $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Controller';

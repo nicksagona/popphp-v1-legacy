@@ -51,7 +51,7 @@ class Models
      */
     public static function install($install)
     {
-        echo Locale::factory()->_('Creating model class files...') . PHP_EOL;
+        echo Locale::factory()->__('Creating model class files...') . PHP_EOL;
 
         // Create model class folder
         $modelDir = $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Model';

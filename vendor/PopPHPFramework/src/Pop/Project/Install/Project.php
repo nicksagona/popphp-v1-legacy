@@ -101,7 +101,7 @@ class Project
                     copy(__DIR__ . '/Web/web.config', $install->project->docroot . '/web.config');
                 }
             } else {
-                echo Locale::factory()->_('You will have to install your web server rewrite configuration manually.') . PHP_EOL;
+                echo Locale::factory()->__('You will have to install your web server rewrite configuration manually.') . PHP_EOL;
             }
         }
     }
@@ -113,7 +113,7 @@ class Project
      */
     public static function installWeb()
     {
-        $msg = Locale::factory()->_('Install index controller and web configuration files?') . ' ([A]pache/[I]IS/[O]ther/[N]o) ';
+        $msg = Locale::factory()->__('Install index controller and web configuration files?') . ' ([A]pache/[I]IS/[O]ther/[N]o) ';
         echo $msg;
         $input = null;
 

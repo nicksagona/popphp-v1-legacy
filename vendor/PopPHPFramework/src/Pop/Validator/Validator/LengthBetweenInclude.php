@@ -54,9 +54,9 @@ class LengthBetweenInclude extends AbstractValidator
 
         // Set the default message
         if ($this->condition) {
-            $this->defaultMessage = Locale::factory()->_('The value length must be between or equal to %1 and %2.', $nums);
+            $this->defaultMessage = Locale::factory()->__('The value length must be between or equal to %1 and %2.', $nums);
         } else {
-            $this->defaultMessage = Locale::factory()->_('The value length must not be between or equal to %1 and %2.', $nums);
+            $this->defaultMessage = Locale::factory()->__('The value length must not be between or equal to %1 and %2.', $nums);
         }
 
         // Evaluate the input against the validator

@@ -50,7 +50,7 @@ class Tables
      */
     public static function install($install, $dbTables)
     {
-        echo Locale::factory()->_('Creating database table class files...') . PHP_EOL;
+        echo Locale::factory()->__('Creating database table class files...') . PHP_EOL;
 
         // Create table class folder
         $tableDir = $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Table';
