@@ -59,7 +59,7 @@ class Model
     public function __construct($data = null, $name = null)
     {
         if (null !== $data) {
-            $this->setData($data, $name);
+            $this->setModelData($data, $name);
         }
     }
 
@@ -71,7 +71,7 @@ class Model
     public function asArray()
     {
         $this->array = array();
-        $this->getData();
+        $this->getModelData();
         return $this->array;
     }
 
@@ -183,7 +183,7 @@ class Model
      * @throws Exception
      * @return void
      */
-    protected function setData($data, $name = null)
+    protected function setModelData($data, $name = null)
     {
         if (!is_array($data)) {
             if (null === $name) {
@@ -202,7 +202,7 @@ class Model
      *
      * @return void
      */
-    protected function getData()
+    protected function getModelData()
     {
         foreach ($this->data as $key => $value) {
             $this->array[$key] = ($value instanceof Model) ? $value->asArray() : $value;

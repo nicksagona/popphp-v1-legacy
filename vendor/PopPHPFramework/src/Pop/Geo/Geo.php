@@ -91,7 +91,7 @@ class Geo
     {
         $this->host = (null === $host) ? $_SERVER['REMOTE_ADDR'] : $host;
         $this->getAvailableDatabases();
-        $this->getHostInfo();
+        $this->getGeoIpHostInfo();
     }
 
     /**
@@ -224,11 +224,11 @@ class Geo
     }
 
     /**
-     * Get host information
+     * Get GeoIp host information
      *
      * @return void
      */
-    protected function getHostInfo()
+    protected function getGeoIpHostInfo()
     {
         // Get base info by city
         if ($this->databases['city']) {
