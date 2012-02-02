@@ -66,73 +66,73 @@ abstract class AbstractImage extends File
      * Image width
      * @var int
      */
-    protected $_width = 0;
+    protected $width = 0;
 
     /**
      * Image height
      * @var int
      */
-    protected $_height = 0;
+    protected $height = 0;
 
     /**
      * Image channels
      * @var int
      */
-    protected $_channels = null;
+    protected $channels = null;
 
     /**
      * Image bit depth
      * @var int
      */
-    protected $_depth = null;
+    protected $depth = null;
 
     /**
      * Image mode
      * @var string
      */
-    protected $_mode = null;
+    protected $mode = null;
 
     /**
      * Image alpha
      * @var boolean
      */
-    protected $_alpha = false;
+    protected $alpha = false;
 
     /**
      * Image quality
      * @var int|string
      */
-    protected $_quality = null;
+    protected $quality = null;
 
     /**
      * Image fill color
      * @var mixed
      */
-    protected $_fillColor = null;
+    protected $fillColor = null;
 
     /**
      * Image background color
      * @var mixed
      */
-    protected $_backgroundColor = null;
+    protected $backgroundColor = null;
 
     /**
      * Image stroke color
      * @var mixed
      */
-    protected $_strokeColor = null;
+    protected $strokeColor = null;
 
     /**
      * Image stroke width
      * @var int
      */
-    protected $_strokeWidth = null;
+    protected $strokeWidth = null;
 
     /**
      * Image resource
      * @var image
      */
-    protected $_resource = null;
+    protected $resource = null;
 
     /**
      * Constructor
@@ -168,7 +168,7 @@ abstract class AbstractImage extends File
      */
     public function getWidth()
     {
-        return $this->_width;
+        return $this->width;
     }
 
     /**
@@ -178,7 +178,7 @@ abstract class AbstractImage extends File
      */
     public function getHeight()
     {
-        return $this->_height;
+        return $this->height;
     }
 
     /**
@@ -188,7 +188,7 @@ abstract class AbstractImage extends File
      */
     public function getChannels()
     {
-        return $this->_channels;
+        return $this->channels;
     }
 
     /**
@@ -198,7 +198,7 @@ abstract class AbstractImage extends File
      */
     public function getDepth()
     {
-        return $this->_depth;
+        return $this->depth;
     }
 
     /**
@@ -208,7 +208,7 @@ abstract class AbstractImage extends File
      */
     public function getColorMode()
     {
-        return $this->_mode;
+        return $this->mode;
     }
 
     /**
@@ -218,7 +218,7 @@ abstract class AbstractImage extends File
      */
     public function hasAlpha()
     {
-        return $this->_alpha;
+        return $this->alpha;
     }
 
     /**
@@ -229,7 +229,7 @@ abstract class AbstractImage extends File
      */
     public function setFillColor(ColorInterface $color = null)
     {
-        $this->_fillColor = $color;
+        $this->fillColor = $color;
         return $this;
     }
 
@@ -241,7 +241,7 @@ abstract class AbstractImage extends File
      */
     public function setBackgroundColor(ColorInterface $color = null)
     {
-        $this->_backgroundColor = $color;
+        $this->backgroundColor = $color;
         return $this;
     }
 
@@ -253,7 +253,7 @@ abstract class AbstractImage extends File
      */
     public function setStrokeColor(ColorInterface $color = null)
     {
-        $this->_strokeColor = $color;
+        $this->strokeColor = $color;
         return $this;
     }
 
@@ -265,7 +265,7 @@ abstract class AbstractImage extends File
      */
     public function setStrokeWidth($wid = null)
     {
-        $this->_strokeWidth = $wid;
+        $this->strokeWidth = $wid;
         return $this;
     }
 

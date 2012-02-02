@@ -39,7 +39,7 @@ class String
      * String property
      * @var string
      */
-    protected $_string = null;
+    protected $string = null;
 
     /**
      * Constructor
@@ -51,7 +51,7 @@ class String
      */
     public function __construct($str = null)
     {
-        $this->_string = (null !== $str) ? $str : '';
+        $this->string = (null !== $str) ? $str : '';
     }
 
     /**
@@ -74,7 +74,7 @@ class String
      */
     public function lower()
     {
-        $this->_string = strtolower($this->_string);
+        $this->string = strtolower($this->string);
         return $this;
     }
 
@@ -86,7 +86,7 @@ class String
      */
     public function upper()
     {
-        $this->_string = strtoupper($this->_string);
+        $this->string = strtoupper($this->string);
         return $this;
     }
 
@@ -98,7 +98,7 @@ class String
      */
     public function upperWords()
     {
-        $this->_string = ucwords($this->_string);
+        $this->string = ucwords($this->string);
         return $this;
     }
 
@@ -110,7 +110,7 @@ class String
      */
     public function upperFirst()
     {
-        $this->_string = ucfirst($this->_string);
+        $this->string = ucfirst($this->string);
         return $this;
     }
 
@@ -123,12 +123,12 @@ class String
      */
     public function between($start, $end)
     {
-        $startPos = (strpos($this->_string, $start) !== false)
-            ? (strpos($this->_string, $start) + strlen($start)) : 0;
+        $startPos = (strpos($this->string, $start) !== false)
+            ? (strpos($this->string, $start) + strlen($start)) : 0;
 
-        $this->_string = substr($this->_string, $startPos);
-        $this->_string = (strpos($this->_string, $end) !== false)
-            ? substr($this->_string, 0, (strpos($this->_string, $end))) : $this->_string;
+        $this->string = substr($this->string, $startPos);
+        $this->string = (strpos($this->string, $end) !== false)
+            ? substr($this->string, 0, (strpos($this->string, $end))) : $this->string;
 
         return $this;
     }
@@ -148,17 +148,17 @@ class String
             foreach ($search as $value) {
                 if (is_array($value) && isset($value[0]) && isset($value[1])) {
                     if ($caseSenstive) {
-                        $this->_string = str_replace($value[0], $value[1], $this->_string);
+                        $this->string = str_replace($value[0], $value[1], $this->string);
                     } else {
-                        $this->_string = str_ireplace($value[0], $value[1], $this->_string);
+                        $this->string = str_ireplace($value[0], $value[1], $this->string);
                     }
                 }
             }
         } else {
             if ($caseSenstive) {
-                $this->_string = str_replace($search, $replace, $this->_string);
+                $this->string = str_replace($search, $replace, $this->string);
             } else {
-                $this->_string = str_ireplace($search, $replace, $this->_string);
+                $this->string = str_ireplace($search, $replace, $this->string);
             }
         }
         return $this;
@@ -174,7 +174,7 @@ class String
      */
     public function pregReplace($pattern, $replace)
     {
-        $this->_string = preg_replace($pattern, $replace, $this->_string);
+        $this->string = preg_replace($pattern, $replace, $this->string);
         return $this;
     }
 
@@ -187,8 +187,8 @@ class String
      */
     public function trim($chars = null)
     {
-        $this->_string = (null !== $chars)
-            ? trim($this->_string, $chars) : trim($this->_string);
+        $this->string = (null !== $chars)
+            ? trim($this->string, $chars) : trim($this->string);
         return $this;
     }
 
@@ -200,7 +200,7 @@ class String
      */
     public function addSlashes()
     {
-        $this->_string = addslashes($this->_string);
+        $this->string = addslashes($this->string);
         return $this;
     }
 
@@ -212,7 +212,7 @@ class String
      */
     public function stripSlashes()
     {
-        $this->_string = stripslashes($this->_string);
+        $this->string = stripslashes($this->string);
         return $this;
     }
 
@@ -225,8 +225,8 @@ class String
      */
     public function stripTags($allowed = null)
     {
-        $this->_string = (null !== $allowed)
-            ? strip_tags($this->_string, $allowed) : strip_tags($this->_string);
+        $this->string = (null !== $allowed)
+            ? strip_tags($this->string, $allowed) : strip_tags($this->string);
         return $this;
     }
 
@@ -238,7 +238,7 @@ class String
      */
     public function html()
     {
-        $this->_string = htmlentities($this->_string, ENT_QUOTES, 'UTF-8');
+        $this->string = htmlentities($this->string, ENT_QUOTES, 'UTF-8');
         return $this;
     }
 
@@ -250,7 +250,7 @@ class String
      */
     public function dehtml()
     {
-        $this->_string = html_entity_decode($this->_string, ENT_QUOTES, 'UTF-8');
+        $this->string = html_entity_decode($this->string, ENT_QUOTES, 'UTF-8');
         return $this;
     }
 
@@ -262,7 +262,7 @@ class String
      */
     public function br()
     {
-        $this->_string = nl2br($this->_string);
+        $this->string = nl2br($this->string);
         return $this;
     }
 
@@ -314,11 +314,11 @@ class String
             $quot = '"';
         }
 
-        $this->_string = str_replace(chr(146), $apos, $this->_string);
-        $this->_string = str_replace(chr(147), $quot, $this->_string);
-        $this->_string = str_replace(chr(148), $quot, $this->_string);
-        $this->_string = str_replace(chr(150), "&#150;", $this->_string);
-        $this->_string = str_replace(chr(133), "...", $this->_string);
+        $this->string = str_replace(chr(146), $apos, $this->string);
+        $this->string = str_replace(chr(147), $quot, $this->string);
+        $this->string = str_replace(chr(148), $quot, $this->string);
+        $this->string = str_replace(chr(150), "&#150;", $this->string);
+        $this->string = str_replace(chr(133), "...", $this->string);
 
         return $this;
     }
@@ -331,7 +331,7 @@ class String
      */
     public function dosToUnix()
     {
-        $this->_string = str_replace(chr(13) . chr(10), chr(10), $this->_string);
+        $this->string = str_replace(chr(13) . chr(10), chr(10), $this->string);
         return $this;
     }
 
@@ -342,7 +342,7 @@ class String
      */
     public function unixToDos()
     {
-        $this->_string = str_replace(chr(10), chr(13) . chr(10), $this->_string);
+        $this->string = str_replace(chr(10), chr(13) . chr(10), $this->string);
         return $this;
     }
 
@@ -354,9 +354,9 @@ class String
      */
     public function slug($sep = null)
     {
-        if (strlen($this->_string) > 0) {
+        if (strlen($this->string) > 0) {
             if (null !== $sep) {
-                $strAry = explode($sep, $this->_string);
+                $strAry = explode($sep, $this->string);
                 $tmpStrAry = array();
 
                 foreach ($strAry as $value) {
@@ -369,22 +369,22 @@ class String
                     $tmpStrAry[] = $str;
                 }
 
-                $this->_string = '/' . implode('/', $tmpStrAry);
-                $this->_string = str_replace('/-', '/', $this->_string);
-                $this->_string = str_replace('-/', '/', $this->_string);
+                $this->string = '/' . implode('/', $tmpStrAry);
+                $this->string = str_replace('/-', '/', $this->string);
+                $this->string = str_replace('-/', '/', $this->string);
             } else {
-                $this->_string = strtolower($this->_string);
-                $this->_string = str_replace('&', 'and', $this->_string);
-                $this->_string = preg_replace('/([^a-zA-Z0-9 \-\/])/', '', $this->_string);
-                $this->_string = str_replace('/', '-', $this->_string);
-                $this->_string = str_replace(' ', '-', $this->_string);
-                $this->_string = preg_replace('/-*-/', '-', $this->_string);
-                $this->_string = '/' . $this->_string;
+                $this->string = strtolower($this->string);
+                $this->string = str_replace('&', 'and', $this->string);
+                $this->string = preg_replace('/([^a-zA-Z0-9 \-\/])/', '', $this->string);
+                $this->string = str_replace('/', '-', $this->string);
+                $this->string = str_replace(' ', '-', $this->string);
+                $this->string = preg_replace('/-*-/', '-', $this->string);
+                $this->string = '/' . $this->string;
             }
 
             return $this;
         } else {
-            $this->_string = '';
+            $this->string = '';
             return $this;
         }
     }
@@ -399,12 +399,12 @@ class String
     {
         $target = ($tar == true) ? 'target="_blank" ' : '';
 
-        $this->_string = preg_replace('/[f|ht]+tp:\/\/[^\s]*/', '<a href="$0">$0</a>', $this->_string);
-        $this->_string = preg_replace('/\s[\w]+[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,4})/', ' <a href="http://$0">$0</a>', $this->_string);
-        $this->_string = preg_replace('/[a-zA-Z0-9\.\-\_+%]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]{2,4}/', '<a href="mailto:$0">$0</a>', $this->_string);
-        $this->_string = str_replace('href="http:// ', 'href="http://', $this->_string);
-        $this->_string = str_replace('"> ', '">', $this->_string);
-        $this->_string = str_replace('<a ', '<a ' . $target, $this->_string);
+        $this->string = preg_replace('/[f|ht]+tp:\/\/[^\s]*/', '<a href="$0">$0</a>', $this->string);
+        $this->string = preg_replace('/\s[\w]+[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,4})/', ' <a href="http://$0">$0</a>', $this->string);
+        $this->string = preg_replace('/[a-zA-Z0-9\.\-\_+%]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]{2,4}/', '<a href="mailto:$0">$0</a>', $this->string);
+        $this->string = str_replace('href="http:// ', 'href="http://', $this->string);
+        $this->string = str_replace('"> ', '">', $this->string);
+        $this->string = str_replace('<a ', '<a ' . $target, $this->string);
 
         return $this;
     }
@@ -425,9 +425,9 @@ class String
         for ($i = 0; $i < $len; $i++) {
             $num = (rand(1, strlen($chars)) - 1);
             if ($caps) {
-                $this->_string .= strtoupper($chars[$num]);
+                $this->string .= strtoupper($chars[$num]);
             } else {
-                $this->_string .= $chars[$num];
+                $this->string .= $chars[$num];
             }
         }
 
@@ -442,7 +442,7 @@ class String
      */
     public function md5($raw = false)
     {
-        $this->_string = md5($this->_string, $raw);
+        $this->string = md5($this->string, $raw);
         return $this;
     }
 
@@ -454,7 +454,7 @@ class String
      */
     public function sha1($raw = false)
     {
-        $this->_string = sha1($this->_string, $raw);
+        $this->string = sha1($this->string, $raw);
         return $this;
     }
 
@@ -467,9 +467,9 @@ class String
     public function crypt($salt = null)
     {
         if (null === $salt) {
-            $this->_string = crypt($this->_string);
+            $this->string = crypt($this->string);
         } else {
-            $this->_string = crypt($this->_string, $salt);
+            $this->string = crypt($this->string, $salt);
         }
 
         return $this;
@@ -482,7 +482,7 @@ class String
      */
     public function camelCaseToDash()
     {
-       $this->_string = $this->_convertCamelCase('-');
+       $this->string = $this->convertCamelCase('-');
        return $this;
     }
 
@@ -494,7 +494,7 @@ class String
      */
     public function camelCaseToSeparator($sep = DIRECTORY_SEPARATOR)
     {
-        $this->_string = $this->_convertCamelCase($sep);
+        $this->string = $this->convertCamelCase($sep);
         return $this;
     }
 
@@ -505,7 +505,7 @@ class String
      */
     public function camelCaseToUnderscore()
     {
-        $this->_string = $this->_convertCamelCase('_');
+        $this->string = $this->convertCamelCase('_');
         return $this;
     }
 
@@ -516,7 +516,7 @@ class String
      */
     public function dashToCamelcase()
     {
-        $strAry = explode('-', $this->_string);
+        $strAry = explode('-', $this->string);
         $camelCase = null;
         $i = 0;
 
@@ -529,7 +529,7 @@ class String
             $i++;
         }
 
-        $this->_string = $camelCase;
+        $this->string = $camelCase;
 
         return $this;
     }
@@ -542,7 +542,7 @@ class String
      */
     public function dashToSeparator($sep = DIRECTORY_SEPARATOR)
     {
-        $this->_string = str_replace('_', $sep, $this->_string);
+        $this->string = str_replace('_', $sep, $this->string);
         return $this;
     }
 
@@ -553,7 +553,7 @@ class String
      */
     public function dashToUnderscore()
     {
-        $this->_string = str_replace('-', '_', $this->_string);
+        $this->string = str_replace('-', '_', $this->string);
         return $this;
     }
 
@@ -564,7 +564,7 @@ class String
      */
     public function underscoreToCamelcase()
     {
-        $strAry = explode('_', $this->_string);
+        $strAry = explode('_', $this->string);
         $camelCase = null;
         $i = 0;
 
@@ -577,7 +577,7 @@ class String
             $i++;
         }
 
-        $this->_string = $camelCase;
+        $this->string = $camelCase;
 
         return $this;
     }
@@ -589,7 +589,7 @@ class String
      */
     public function underscoreToDash()
     {
-        $this->_string = str_replace('_', '-', $this->_string);
+        $this->string = str_replace('_', '-', $this->string);
         return $this;
     }
 
@@ -601,7 +601,7 @@ class String
      */
     public function underscoreToSeparator($sep = DIRECTORY_SEPARATOR)
     {
-        $this->_string = str_replace('_', $sep, $this->_string);
+        $this->string = str_replace('_', $sep, $this->string);
         return $this;
     }
 
@@ -613,7 +613,7 @@ class String
      */
     protected function _convertCamelCase($sep)
     {
-        $strAry = str_split($this->_string);
+        $strAry = str_split($this->string);
         $convert = null;
         $i = 0;
 
@@ -636,7 +636,7 @@ class String
      */
     public function __toString()
     {
-        return $this->_string;
+        return $this->string;
     }
 
 }

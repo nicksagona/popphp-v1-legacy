@@ -39,13 +39,13 @@ class Geo
      * Host name to look up
      * @var string
      */
-    protected $_host = null;
+    protected $host = null;
 
     /**
      * Host info
      * @var array
      */
-    protected $_hostInfo = array(
+    protected $hostInfo = array(
         'areaCode'      => null,
         'city'          => null,
         'continentCode' => null,
@@ -66,7 +66,7 @@ class Geo
      * Array of available databases
      * @var string
      */
-    protected $_databases = array(
+    protected $databases = array(
         'asnum'      => false,
         'city'       => false,
         'country'    => false,
@@ -89,9 +89,9 @@ class Geo
      */
     public function __construct($host = null)
     {
-        $this->_host = (null === $host) ? $_SERVER['REMOTE_ADDR'] : $host;
-        $this->_getAvailableDatabases();
-        $this->_getHostInfo();
+        $this->host = (null === $host) ? $_SERVER['REMOTE_ADDR'] : $host;
+        $this->getAvailableDatabases();
+        $this->getHostInfo();
     }
 
     /**
@@ -103,8 +103,8 @@ class Geo
     public function isDbAvailable($name)
     {
         $key = strtolower($name);
-        if (array_key_exists($key, $this->_databases)) {
-            return $this->_databases[$key];
+        if (array_key_exists($key, $this->databases)) {
+            return $this->databases[$key];
         } else {
             return false;
         }
@@ -117,7 +117,7 @@ class Geo
      */
     public function getDatabases()
     {
-        return $this->_databases;
+        return $this->databases;
     }
 
     /**
@@ -127,7 +127,7 @@ class Geo
      */
     public function getHostInfo()
     {
-        return $this->_hostInfo;
+        return $this->hostInfo;
     }
 
     /**
@@ -153,14 +153,14 @@ class Geo
         }
 
         // Calculate approximate distance between the two points in miles
-        if ((null !== $this->_hostInfo['latitude']) && (null !== $this->_hostInfo['longitude'])
+        if ((null !== $this->hostInfo['latitude']) && (null !== $this->hostInfo['longitude'])
              && (null !== $latitude) && (null !== $longitude)) {
             $distance = (acos(
-                sin($this->_hostInfo['latitude'] * pi() / 180)
+                sin($this->hostInfo['latitude'] * pi() / 180)
                 * sin($latitude * pi() / 180)
-                + cos($this->_hostInfo['latitude'] * pi() / 180)
+                + cos($this->hostInfo['latitude'] * pi() / 180)
                 * cos($latitude * pi() / 180)
-                * cos(($this->_hostInfo['longitude'] - $longitude) * pi() / 180)
+                * cos(($this->hostInfo['longitude'] - $longitude) * pi() / 180)
                 ) * 180 / pi()
             ) * 60 * 1.1515;
             $distance = abs(round($distance, $round));
@@ -177,7 +177,7 @@ class Geo
      */
     public function __get($name)
     {
-        return (array_key_exists($name, $this->_hostInfo)) ? $this->_hostInfo[$name] : null;
+        return (array_key_exists($name, $this->hostInfo)) ? $this->hostInfo[$name] : null;
     }
 
     /**
@@ -191,34 +191,34 @@ class Geo
 
         foreach ($databases as $db) {
             if ((stripos($db['description'], 'ASNum') !== false) && ($db['available'])) {
-                $this->_databases['asnum'] = true;
+                $this->databases['asnum'] = true;
             }
             if ((stripos($db['description'], 'City') !== false) && ($db['available'])) {
-                $this->_databases['city'] = true;
+                $this->databases['city'] = true;
             }
             if ((stripos($db['description'], 'Country') !== false) && ($db['available'])) {
-                $this->_databases['country'] = true;
+                $this->databases['country'] = true;
             }
             if ((stripos($db['description'], 'Country V6') !== false) && ($db['available'])) {
-                $this->_databases['countryv6'] = true;
+                $this->databases['countryv6'] = true;
             }
             if ((stripos($db['description'], 'Domain Name') !== false) && ($db['available'])) {
-                $this->_databases['domainname'] = true;
+                $this->databases['domainname'] = true;
             }
             if ((stripos($db['description'], 'ISP') !== false) && ($db['available'])) {
-                $this->_databases['isp'] = true;
+                $this->databases['isp'] = true;
             }
             if ((stripos($db['description'], 'Netspeed') !== false) && ($db['available'])) {
-                $this->_databases['netspeed'] = true;
+                $this->databases['netspeed'] = true;
             }
             if ((stripos($db['description'], 'Organization') !== false) && ($db['available'])) {
-                $this->_databases['org'] = true;
+                $this->databases['org'] = true;
             }
             if ((stripos($db['description'], 'Proxy') !== false) && ($db['available'])) {
-                $this->_databases['proxy'] = true;
+                $this->databases['proxy'] = true;
             }
             if ((stripos($db['description'], 'Region') !== false) && ($db['available'])) {
-                $this->_databases['region'] = true;
+                $this->databases['region'] = true;
             }
         }
     }
@@ -231,53 +231,53 @@ class Geo
     protected function _getHostInfo()
     {
         // Get base info by city
-        if ($this->_databases['city']) {
-            $data = geoip_record_by_name($this->_host);
-            $this->_hostInfo['areaCode'] = $data['area_code'];
-            $this->_hostInfo['city'] = $data['city'];
-            $this->_hostInfo['continentCode'] = $data['continent_code'];
-            $this->_hostInfo['country'] = $data['country_name'];
-            $this->_hostInfo['countryCode'] = $data['country_code'];
-            $this->_hostInfo['countryCode3'] = $data['country_code3'];
-            $this->_hostInfo['dmaCode'] = $data['dma_code'];
-            $this->_hostInfo['latitude'] = $data['latitude'];
-            $this->_hostInfo['longitude'] = $data['longitude'];
-            $this->_hostInfo['postalCode'] = $data['postal_code'];
-            $this->_hostInfo['region'] = $data['region'];
+        if ($this->databases['city']) {
+            $data = geoip_record_by_name($this->host);
+            $this->hostInfo['areaCode'] = $data['area_code'];
+            $this->hostInfo['city'] = $data['city'];
+            $this->hostInfo['continentCode'] = $data['continent_code'];
+            $this->hostInfo['country'] = $data['country_name'];
+            $this->hostInfo['countryCode'] = $data['country_code'];
+            $this->hostInfo['countryCode3'] = $data['country_code3'];
+            $this->hostInfo['dmaCode'] = $data['dma_code'];
+            $this->hostInfo['latitude'] = $data['latitude'];
+            $this->hostInfo['longitude'] = $data['longitude'];
+            $this->hostInfo['postalCode'] = $data['postal_code'];
+            $this->hostInfo['region'] = $data['region'];
         // Else, get base info by country
-        } else if ($this->_databases['country']) {
-            $this->_hostInfo['continentCode'] = geoip_continent_code_by_name($this->_host);
-            $this->_hostInfo['country'] = geoip_country_name_by_name($this->_host);
-            $this->_hostInfo['countryCode'] = geoip_country_code_by_name($this->_host);
-            $this->_hostInfo['countryCode3'] = geoip_country_code3_by_name($this->_host);
+        } else if ($this->databases['country']) {
+            $this->hostInfo['continentCode'] = geoip_continent_code_by_name($this->host);
+            $this->hostInfo['country'] = geoip_country_name_by_name($this->host);
+            $this->hostInfo['countryCode'] = geoip_country_code_by_name($this->host);
+            $this->hostInfo['countryCode3'] = geoip_country_code3_by_name($this->host);
         }
 
         // If available, get ISP name
-        if ($this->_databases['isp']) {
-            $this->_hostInfo['isp'] = geoip_isp_by_name($this->_host);
+        if ($this->databases['isp']) {
+            $this->hostInfo['isp'] = geoip_isp_by_name($this->host);
         }
 
         // If available, get internet connection speed
-        if ($this->_databases['netspeed']) {
-            $netspeed = geoip_id_by_name($this->_host);
+        if ($this->databases['netspeed']) {
+            $netspeed = geoip_id_by_name($this->host);
             switch ($netspeed) {
                 case GEOIP_DIALUP_SPEED:
-                    $this->_hostInfo['netspeed'] = 'Dial-Up';
+                    $this->hostInfo['netspeed'] = 'Dial-Up';
                     break;
                 case GEOIP_CABLEDSL_SPEED:
-                    $this->_hostInfo['netspeed'] = 'Cable/DSL';
+                    $this->hostInfo['netspeed'] = 'Cable/DSL';
                     break;
                 case GEOIP_CORPORATE_SPEED:
-                    $this->_hostInfo['netspeed'] = 'Corporate';
+                    $this->hostInfo['netspeed'] = 'Corporate';
                     break;
                 default:
-                    $this->_hostInfo['netspeed'] = 'Unknown';
+                    $this->hostInfo['netspeed'] = 'Unknown';
             }
         }
 
         // If available, get Organization name
-        if ($this->_databases['org']) {
-            $this->_hostInfo['org'] = geoip_org_by_name($this->_host);
+        if ($this->databases['org']) {
+            $this->hostInfo['org'] = geoip_org_by_name($this->host);
         }
     }
 }

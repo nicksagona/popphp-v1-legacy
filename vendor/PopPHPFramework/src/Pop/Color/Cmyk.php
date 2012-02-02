@@ -39,25 +39,25 @@ class Cmyk implements ColorInterface
      * Cyan percentage value
      * @var int
      */
-    protected $_cyan = null;
+    protected $cyan = null;
 
     /**
      * Magenta percentage value
      * @var int
      */
-    protected $_magenta = null;
+    protected $magenta = null;
 
     /**
      * Yellow percentage value
      * @var int
      */
-    protected $_yellow = null;
+    protected $yellow = null;
 
     /**
      * Black percentage value
      * @var int
      */
-    protected $_black = null;
+    protected $black = null;
 
     /**
      * Constructor
@@ -80,10 +80,10 @@ class Cmyk implements ColorInterface
             throw new Exception('One or more of the color values is out of range.');
         }
 
-        $this->_cyan = (int)$c;
-        $this->_magenta = (int)$m;
-        $this->_yellow = (int)$y;
-        $this->_black = (int)$k;
+        $this->cyan = (int)$c;
+        $this->magenta = (int)$m;
+        $this->yellow = (int)$y;
+        $this->black = (int)$k;
     }
 
     /**
@@ -99,13 +99,13 @@ class Cmyk implements ColorInterface
 
         switch ($type) {
             case 1:
-                $cmyk = array('c' => $this->_cyan, 'm' => $this->_magenta, 'y' => $this->_yellow, 'k' => $this->_black);
+                $cmyk = array('c' => $this->cyan, 'm' => $this->magenta, 'y' => $this->yellow, 'k' => $this->black);
                 break;
             case 2:
-                $cmyk = array($this->_cyan, $this->_magenta, $this->_yellow, $this->_black);
+                $cmyk = array($this->cyan, $this->magenta, $this->yellow, $this->black);
                 break;
             case 3:
-                $cmyk = $this->_cyan . ',' . $this->_magenta . ',' . $this->_yellow . ',' . $this->_black;
+                $cmyk = $this->cyan . ',' . $this->magenta . ',' . $this->yellow . ',' . $this->black;
                 break;
         }
 
@@ -120,7 +120,7 @@ class Cmyk implements ColorInterface
      */
     public function getCyan()
     {
-        return $this->_cyan;
+        return $this->cyan;
     }
 
     /**
@@ -130,7 +130,7 @@ class Cmyk implements ColorInterface
      */
     public function getMagenta()
     {
-        return $this->_magenta;
+        return $this->magenta;
     }
 
     /**
@@ -140,7 +140,7 @@ class Cmyk implements ColorInterface
      */
     public function getYellow()
     {
-        return $this->_yellow;
+        return $this->yellow;
     }
 
     /**
@@ -150,7 +150,7 @@ class Cmyk implements ColorInterface
      */
     public function getBlack()
     {
-        return $this->_black;
+        return $this->black;
     }
 
     /**

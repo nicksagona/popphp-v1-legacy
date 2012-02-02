@@ -39,61 +39,61 @@ class ClassGenerator
      * Docblock generator object
      * @var Pop\Code\DocblockGenerator
      */
-    protected $_docblock = null;
+    protected $docblock = null;
 
     /**
      * Namespace generator object
      * @var Pop\Code\NamespaceGenerator
      */
-    protected $_namespace = null;
+    protected $namespace = null;
 
     /**
      * Class name
      * @var string
      */
-    protected $_name = null;
+    protected $name = null;
 
     /**
      * Parent class that is extended
      * @var string
      */
-    protected $_parent = null;
+    protected $parent = null;
 
     /**
      * Interface that is implemented
      * @var string
      */
-    protected $_interface = null;
+    protected $interface = null;
 
     /**
      * Class abstract flag
      * @var boolean
      */
-    protected $_abstract = false;
+    protected $abstract = false;
 
     /**
      * Array of property generator objects
      * @var array
      */
-    protected $_properties = array();
+    protected $properties = array();
 
     /**
      * Array of method generator objects
      * @var array
      */
-    protected $_methods = array();
+    protected $methods = array();
 
     /**
      * Class indent
      * @var string
      */
-    protected $_indent = null;
+    protected $indent = null;
 
     /**
      * Class output
      * @var string
      */
-    protected $_output = null;
+    protected $output = null;
 
     /**
      * Constructor
@@ -108,10 +108,10 @@ class ClassGenerator
      */
     public function __construct($name, $parent = null, $interface = null, $abstract = false)
     {
-        $this->_name = $name;
-        $this->_parent = $parent;
-        $this->_interface = $interface;
-        $this->_abstract = (boolean)$abstract;
+        $this->name = $name;
+        $this->parent = $parent;
+        $this->interface = $interface;
+        $this->abstract = (boolean)$abstract;
     }
 
     /**
@@ -137,7 +137,7 @@ class ClassGenerator
      */
     public function setAbstract($abstract = false)
     {
-        $this->_abstract = (boolean)$abstract;
+        $this->abstract = (boolean)$abstract;
         return $this;
     }
 
@@ -148,7 +148,7 @@ class ClassGenerator
      */
     public function isAbstract()
     {
-        return $this->_abstract;
+        return $this->abstract;
     }
 
     /**
@@ -159,7 +159,7 @@ class ClassGenerator
      */
     public function setIndent($indent = null)
     {
-        $this->_indent = $indent;
+        $this->indent = $indent;
         return $this;
     }
 
@@ -170,7 +170,7 @@ class ClassGenerator
      */
     public function getIndent()
     {
-        return $this->_indent;
+        return $this->indent;
     }
 
     /**
@@ -181,7 +181,7 @@ class ClassGenerator
      */
     public function setName($name)
     {
-        $this->_name = $name;
+        $this->name = $name;
         return $this;
     }
 
@@ -192,7 +192,7 @@ class ClassGenerator
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
@@ -203,7 +203,7 @@ class ClassGenerator
      */
     public function setParent($parent = null)
     {
-        $this->_parent = $parent;
+        $this->parent = $parent;
         return $this;
     }
 
@@ -214,7 +214,7 @@ class ClassGenerator
      */
     public function getParent()
     {
-        return $this->_parent;
+        return $this->parent;
     }
 
     /**
@@ -225,7 +225,7 @@ class ClassGenerator
      */
     public function setInterface($interface = null)
     {
-        $this->_interface = $interface;
+        $this->interface = $interface;
         return $this;
     }
 
@@ -236,7 +236,7 @@ class ClassGenerator
      */
     public function getInterface()
     {
-        return $this->_interface;
+        return $this->interface;
     }
 
     /**
@@ -247,7 +247,7 @@ class ClassGenerator
      */
     public function setNamespace(NamespaceGenerator $namespace)
     {
-        $this->_namespace = $namespace;
+        $this->namespace = $namespace;
         return $this;
     }
 
@@ -258,7 +258,7 @@ class ClassGenerator
      */
     public function getNamespace()
     {
-        return $this->_namespace;
+        return $this->namespace;
     }
 
     /**
@@ -269,7 +269,7 @@ class ClassGenerator
      */
     public function setDocblock(DocblockGenerator $docblock)
     {
-        $this->_docblock = $docblock;
+        $this->docblock = $docblock;
         return $this;
     }
 
@@ -280,7 +280,7 @@ class ClassGenerator
      */
     public function getDocblock()
     {
-        return $this->_docblock;
+        return $this->docblock;
     }
 
     /**
@@ -291,7 +291,7 @@ class ClassGenerator
      */
     public function addProperty(PropertyGenerator $property)
     {
-        $this->_properties[$property->getName()] = $property;
+        $this->properties[$property->getName()] = $property;
         return $this;
     }
 
@@ -304,7 +304,7 @@ class ClassGenerator
     public function getProperty($property)
     {
         $p = ($property instanceof PropertyGenerator) ? $property->getName() : $property;
-        return (isset($this->_properties[$p])) ? $this->_properties[$p] : null;
+        return (isset($this->properties[$p])) ? $this->properties[$p] : null;
     }
 
     /**
@@ -316,8 +316,8 @@ class ClassGenerator
     public function removeProperty($property)
     {
         $p = ($property instanceof PropertyGenerator) ? $property->getName() : $property;
-        if (isset($this->_properties[$p])) {
-            unset($this->_properties[$p]);
+        if (isset($this->properties[$p])) {
+            unset($this->properties[$p]);
         }
         return $this;
     }
@@ -330,7 +330,7 @@ class ClassGenerator
      */
     public function addMethod(MethodGenerator $method)
     {
-        $this->_methods[$method->getName()] = $method;
+        $this->methods[$method->getName()] = $method;
         return $this;
     }
 
@@ -343,7 +343,7 @@ class ClassGenerator
     public function getMethod($method)
     {
         $m = ($method instanceof MethodGenerator) ? $method->getName() : $method;
-        return (isset($this->_methods[$m])) ? $this->_methods[$m] : null;
+        return (isset($this->methods[$m])) ? $this->methods[$m] : null;
     }
 
     /**
@@ -355,8 +355,8 @@ class ClassGenerator
     public function removeMethod($method)
     {
         $m = ($method instanceof MethodGenerator) ? $method->getName() : $method;
-        if (isset($this->_methods[$m])) {
-            unset($this->_methods[$m]);
+        if (isset($this->methods[$m])) {
+            unset($this->methods[$m]);
         }
         return $this;
     }
@@ -369,27 +369,27 @@ class ClassGenerator
      */
     public function render($ret = false)
     {
-        $abstract = ($this->_abstract) ? 'abstract ' : null;
-        $this->_output = (null !== $this->_namespace) ? $this->_namespace->render(true) . PHP_EOL : null;
-        $this->_output .= (null !== $this->_docblock) ? $this->_docblock->render(true) : null;
-        $this->_output .= $abstract . 'class ' . $this->_name;
+        $abstract = ($this->abstract) ? 'abstract ' : null;
+        $this->output = (null !== $this->namespace) ? $this->namespace->render(true) . PHP_EOL : null;
+        $this->output .= (null !== $this->docblock) ? $this->docblock->render(true) : null;
+        $this->output .= $abstract . 'class ' . $this->name;
 
-        if (null !== $this->_parent) {
-            $this->_output .= ' extends ' . $this->_parent;
+        if (null !== $this->parent) {
+            $this->output .= ' extends ' . $this->parent;
         }
-        if (null !== $this->_interface) {
-            $this->_output .= ' implements ' . $this->_interface;
+        if (null !== $this->interface) {
+            $this->output .= ' implements ' . $this->interface;
         }
 
-        $this->_output .= PHP_EOL . '{';
-        $this->_output .= $this->_formatProperties() . PHP_EOL;
-        $this->_output .= $this->_formatMethods() . PHP_EOL;
-        $this->_output .= '}' . PHP_EOL;
+        $this->output .= PHP_EOL . '{';
+        $this->output .= $this->formatProperties() . PHP_EOL;
+        $this->output .= $this->formatMethods() . PHP_EOL;
+        $this->output .= '}' . PHP_EOL;
 
         if ($ret) {
-            return $this->_output;
+            return $this->output;
         } else {
-            echo $this->_output;
+            echo $this->output;
         }
     }
 
@@ -402,7 +402,7 @@ class ClassGenerator
     {
         $props = null;
 
-        foreach ($this->_properties as $prop) {
+        foreach ($this->properties as $prop) {
             $props .= PHP_EOL . $prop->render(true);
         }
 
@@ -418,7 +418,7 @@ class ClassGenerator
     {
         $methods = null;
 
-        foreach ($this->_methods as $method) {
+        foreach ($this->methods as $method) {
             $methods .= PHP_EOL . $method->render(true);
         }
 

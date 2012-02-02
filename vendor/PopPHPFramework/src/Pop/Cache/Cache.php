@@ -41,13 +41,13 @@ class Cache implements CacheInterface
      * Lifetime value
      * @var int
      */
-    protected $_lifetime = 0;
+    protected $lifetime = 0;
 
     /**
      * Cache adapter
      * @var mixed
      */
-    protected $_adapter = null;
+    protected $adapter = null;
 
     /**
      * Constructor
@@ -60,8 +60,8 @@ class Cache implements CacheInterface
      */
     public function __construct(CacheInterface $adapter, $lifetime = 0)
     {
-        $this->_lifetime = $lifetime;
-        $this->_adapter = $adapter;
+        $this->lifetime = $lifetime;
+        $this->adapter = $adapter;
     }
 
     /**
@@ -85,7 +85,7 @@ class Cache implements CacheInterface
      */
     public function setLifetime($time = 0)
     {
-        $this->_lifetime = (int)$time;
+        $this->lifetime = (int)$time;
         return $this;
     }
 
@@ -96,7 +96,7 @@ class Cache implements CacheInterface
      */
     public function getLifetime()
     {
-        return $this->_lifetime;
+        return $this->lifetime;
     }
 
     /**
@@ -109,10 +109,10 @@ class Cache implements CacheInterface
      */
     public function save($id, $value, $time = null)
     {
-        if ($this->_adapter instanceof Memcached) {
-            $this->_adapter->save($id, $value, $this->_lifetime);
+        if ($this->adapter instanceof Memcached) {
+            $this->adapter->save($id, $value, $this->lifetime);
         } else {
-            $this->_adapter->save($id, $value, $time);
+            $this->adapter->save($id, $value, $time);
         }
     }
 
@@ -125,8 +125,8 @@ class Cache implements CacheInterface
      */
     public function load($id, $time = null)
     {
-        $time = (null !== $time) ? $this->_lifetime : $time;
-        return $this->_adapter->load($id, $time);
+        $time = (null !== $time) ? $this->lifetime : $time;
+        return $this->adapter->load($id, $time);
     }
 
     /**
@@ -137,7 +137,7 @@ class Cache implements CacheInterface
      */
     public function remove($id)
     {
-        $this->_adapter->remove($id);
+        $this->adapter->remove($id);
     }
 
     /**
@@ -147,7 +147,7 @@ class Cache implements CacheInterface
      */
     public function clear()
     {
-        $this->_adapter->clear();
+        $this->adapter->clear();
     }
 
 }

@@ -39,43 +39,43 @@ class InterfaceGenerator
      * Docblock generator object
      * @var Pop\Code\DocblockGenerator
      */
-    protected $_docblock = null;
+    protected $docblock = null;
 
     /**
      * Namespace generator object
      * @var Pop\Code\NamespaceGenerator
      */
-    protected $_namespace = null;
+    protected $namespace = null;
 
     /**
      * Class name
      * @var string
      */
-    protected $_name = null;
+    protected $name = null;
 
     /**
      * Parent interface that is extended
      * @var string
      */
-    protected $_parent = null;
+    protected $parent = null;
 
     /**
      * Array of method generator objects
      * @var array
      */
-    protected $_methods = array();
+    protected $methods = array();
 
     /**
      * Class indent
      * @var string
      */
-    protected $_indent = null;
+    protected $indent = null;
 
     /**
      * Class output
      * @var string
      */
-    protected $_output = null;
+    protected $output = null;
 
     /**
      * Constructor
@@ -88,8 +88,8 @@ class InterfaceGenerator
      */
     public function __construct($name, $parent = null)
     {
-        $this->_name = $name;
-        $this->_parent = $parent;
+        $this->name = $name;
+        $this->parent = $parent;
     }
     /**
      * Static method to instantiate the interface generator object and return itself
@@ -112,7 +112,7 @@ class InterfaceGenerator
      */
     public function setIndent($indent = null)
     {
-        $this->_indent = $indent;
+        $this->indent = $indent;
         return $this;
     }
 
@@ -123,7 +123,7 @@ class InterfaceGenerator
      */
     public function getIndent()
     {
-        return $this->_indent;
+        return $this->indent;
     }
 
     /**
@@ -134,7 +134,7 @@ class InterfaceGenerator
      */
     public function setName($name)
     {
-        $this->_name = $name;
+        $this->name = $name;
         return $this;
     }
 
@@ -145,7 +145,7 @@ class InterfaceGenerator
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
@@ -156,7 +156,7 @@ class InterfaceGenerator
      */
     public function setParent($parent = null)
     {
-        $this->_parent = $parent;
+        $this->parent = $parent;
         return $this;
     }
 
@@ -167,7 +167,7 @@ class InterfaceGenerator
      */
     public function getParent()
     {
-        return $this->_parent;
+        return $this->parent;
     }
 
     /**
@@ -178,7 +178,7 @@ class InterfaceGenerator
      */
     public function setNamespace(NamespaceGenerator $namespace)
     {
-        $this->_namespace = $namespace;
+        $this->namespace = $namespace;
         return $this;
     }
 
@@ -189,7 +189,7 @@ class InterfaceGenerator
      */
     public function getNamespace()
     {
-        return $this->_namespace;
+        return $this->namespace;
     }
 
     /**
@@ -200,7 +200,7 @@ class InterfaceGenerator
      */
     public function setDocblock(DocblockGenerator $docblock)
     {
-        $this->_docblock = $docblock;
+        $this->docblock = $docblock;
         return $this;
     }
 
@@ -211,7 +211,7 @@ class InterfaceGenerator
      */
     public function getDocblock()
     {
-        return $this->_docblock;
+        return $this->docblock;
     }
 
     /**
@@ -222,7 +222,7 @@ class InterfaceGenerator
      */
     public function addMethod(MethodGenerator $method)
     {
-        $this->_methods[$method->getName()] = $method;
+        $this->methods[$method->getName()] = $method;
         return $this;
     }
 
@@ -235,7 +235,7 @@ class InterfaceGenerator
     public function getMethod($method)
     {
         $m = ($method instanceof MethodGenerator) ? $method->getName() : $method;
-        return (isset($this->_methods[$m])) ? $this->_methods[$m] : null;
+        return (isset($this->methods[$m])) ? $this->methods[$m] : null;
     }
 
     /**
@@ -247,8 +247,8 @@ class InterfaceGenerator
     public function removeMethod($method)
     {
         $m = ($method instanceof MethodGenerator) ? $method->getName() : $method;
-        if (isset($this->_methods[$m])) {
-            unset($this->_methods[$m]);
+        if (isset($this->methods[$m])) {
+            unset($this->methods[$m]);
         }
         return $this;
     }
@@ -261,22 +261,22 @@ class InterfaceGenerator
      */
     public function render($ret = false)
     {
-        $this->_output = (null !== $this->_namespace) ? $this->_namespace->render(true) . PHP_EOL : null;
-        $this->_output .= (null !== $this->_docblock) ? $this->_docblock->render(true) : null;
-        $this->_output .= 'interface ' . $this->_name;
+        $this->output = (null !== $this->namespace) ? $this->namespace->render(true) . PHP_EOL : null;
+        $this->output .= (null !== $this->docblock) ? $this->docblock->render(true) : null;
+        $this->output .= 'interface ' . $this->name;
 
-        if (null !== $this->_parent) {
-            $this->_output .= ' extends ' . $this->_parent;
+        if (null !== $this->parent) {
+            $this->output .= ' extends ' . $this->parent;
         }
 
-        $this->_output .= PHP_EOL . '{' . PHP_EOL;
-        $this->_output .= $this->_formatMethods() . PHP_EOL;
-        $this->_output .= '}' . PHP_EOL;
+        $this->output .= PHP_EOL . '{' . PHP_EOL;
+        $this->output .= $this->formatMethods() . PHP_EOL;
+        $this->output .= '}' . PHP_EOL;
 
         if ($ret) {
-            return $this->_output;
+            return $this->output;
         } else {
-            echo $this->_output;
+            echo $this->output;
         }
     }
 
@@ -289,7 +289,7 @@ class InterfaceGenerator
     {
         $methods = null;
 
-        foreach ($this->_methods as $method) {
+        foreach ($this->methods as $method) {
             $method->setInterface(true);
             $methods .= PHP_EOL . $method->render(true);
         }

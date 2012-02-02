@@ -99,13 +99,13 @@ class Page
      * PDF page object data
      * @var string
      */
-    protected $_data = null;
+    protected $data = null;
 
     /**
      * Array of page sizes
      * @var array
      */
-    protected $_sizes = array(
+    protected $sizes = array(
         '#10 Envelope' => array('width' => '297', 'height' => '684'),
         'C5 Envelope'  => array('width' => '461', 'height' => '648'),
         'DL Envelope'  => array('width' => '312', 'height' => '624'),
@@ -157,14 +157,14 @@ class Page
         if (null === $str) {
             // If no arguments are passed, default to the Letter size.
             if ((null === $sz) && (null === $w) && (null === $h)) {
-                $this->width = $this->_sizes['Letter']['width'];
-                $this->height = $this->_sizes['Letter']['height'];
+                $this->width = $this->sizes['Letter']['width'];
+                $this->height = $this->sizes['Letter']['height'];
             } else {
                 // Check for a default size setting.
                 if (null !== $sz) {
-                    if (array_key_exists($sz, $this->_sizes)) {
-                        $this->width = $this->_sizes[$sz]['width'];
-                        $this->height = $this->_sizes[$sz]['height'];
+                    if (array_key_exists($sz, $this->sizes)) {
+                        $this->width = $this->sizes[$sz]['width'];
+                        $this->height = $this->sizes[$sz]['height'];
                     } else {
                         // Else, assign a custom width and height.
                         if (((null === $w) && (null !== $h)) || ((null !== $w) && (null === $h))) {
@@ -187,7 +187,7 @@ class Page
                 throw new Exception('Error: A page index must be passed.');
             }
             $this->index = $i;
-            $this->_data = "\n[{page_index}] 0 obj\n<</Type/Page/Parent [{parent}] 0 R[{annotations}]/MediaBox[0 0 {$this->width} {$this->height}]/Contents[[{content_objects}]]/Resources<</ProcSet[/PDF/Text/ImageB/ImageC/ImageI][{xobjects}][{fonts}]>>>>\nendobj\n";
+            $this->data = "\n[{page_index}] 0 obj\n<</Type/Page/Parent [{parent}] 0 R[{annotations}]/MediaBox[0 0 {$this->width} {$this->height}]/Contents[[{content_objects}]]/Resources<</ProcSet[/PDF/Text/ImageB/ImageC/ImageI][{xobjects}][{fonts}]>>>>\nendobj\n";
         } else {
             // Else, determine the page object index.
             $this->index = substr($str, 0, strpos($str, ' '));
@@ -300,7 +300,7 @@ class Page
                 $gs = '';
             }
 
-            $this->_data = "\n[{page_index}] 0 obj\n<</Type/Page/Parent [{parent}] 0 R[{annotations}]/MediaBox[0 0 {$this->width} {$this->height}]/Contents[[{content_objects}]]/Resources<</ProcSet[/PDF/Text/ImageB/ImageC/ImageI][{xobjects}][{fonts}]{$gs}>>>>\nendobj\n";
+            $this->data = "\n[{page_index}] 0 obj\n<</Type/Page/Parent [{parent}] 0 R[{annotations}]/MediaBox[0 0 {$this->width} {$this->height}]/Contents[[{content_objects}]]/Resources<</ProcSet[/PDF/Text/ImageB/ImageC/ImageI][{xobjects}][{fonts}]{$gs}>>>>\nendobj\n";
         }
     }
 
@@ -343,7 +343,7 @@ class Page
         }
 
         // Swap out the placeholders.
-        $obj = str_replace('[{page_index}]', $this->index, $this->_data);
+        $obj = str_replace('[{page_index}]', $this->index, $this->data);
         $obj = str_replace('[{parent}]', $this->parent, $obj);
         $obj = str_replace('[{annotations}]', $annots, $obj);
         $obj = str_replace('[{xobjects}]', $xobjects, $obj);

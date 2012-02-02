@@ -43,61 +43,61 @@ class Image extends Gd
      * Image X Coordinate
      * @var array
      */
-    protected $_x = 0;
+    protected $x = 0;
 
     /**
      * Image Y Coordinate
      * @var array
      */
-    protected $_y = 0;
+    protected $y = 0;
 
     /**
      * PDF next index
      * @var array
      */
-    protected $_index = 0;
+    protected $index = 0;
 
     /**
      * Image objects
      * @var array
      */
-    protected $_objects = array();
+    protected $objects = array();
 
     /**
      * XObject string
      * @var string
      */
-    protected $_xobject = null;
+    protected $xobject = null;
 
     /**
      * Stream string
      * @var string
      */
-    protected $_stream = null;
+    protected $stream = null;
 
     /**
      * Image data
      * @var string
      */
-    protected $_imageData = null;
+    protected $imageData = null;
 
     /**
      * Image data length
      * @var int
      */
-    protected $_imageDataLength = null;
+    protected $imageDataLength = null;
 
     /**
      * Scaled image path
      * @var string
      */
-    protected $_scaledImage = null;
+    protected $scaledImage = null;
 
     /**
      * Converted image path
      * @var string
      */
-    protected $_convertedImage = null;
+    protected $convertedImage = null;
 
     /**
      * Constructor
@@ -113,45 +113,45 @@ class Image extends Gd
      */
     public function __construct($img, $x, $y, $i, $scl = null)
     {
-        $this->_x = $x;
-        $this->_y = $y;
-        $this->_index = $i;
+        $this->x = $x;
+        $this->y = $y;
+        $this->index = $i;
 
         parent::__construct($img);
 
         // If a scale value is passed, scale the image.
         if (null !== $scl) {
-            $this->_scaleImage($scl);
+            $this->scaleImage($scl);
         }
 
         // Set the initial image data and data length.
-        $this->_imageData = $this->read();
-        $this->_imageDataLength = strlen($this->_imageData);
+        $this->imageData = $this->read();
+        $this->imageDataLength = strlen($this->imageData);
 
         // If a JPEG, parse the JPEG
-        if ($this->_mime == 'image/jpeg') {
-            $this->_parseJpeg();
+        if ($this->mime == 'image/jpeg') {
+            $this->parseJpeg();
         // Else parse the PNG or GIF.
-        } else if (($this->_mime == 'image/png') || ($this->_mime == 'image/gif')) {
+        } else if (($this->mime == 'image/png') || ($this->mime == 'image/gif')) {
             // If the image is a GIF, convert to a PNG and re-read image data.
-            if ($this->_mime == 'image/gif') {
-                $this->_convertImage();
+            if ($this->mime == 'image/gif') {
+                $this->convertImage();
             }
-            $this->_parsePng();
+            $this->parsePng();
         } else {
             throw new Exception('Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.');
         }
 
         // Define the xobject object and stream.
-        $this->_xobject = "/I{$this->_index} {$this->_index} 0 R";
-        $this->_stream = "\nq\n" . $this->getWidth() . " 0 0 " . $this->getHeight() . " {$this->_x} {$this->_y} cm\n/I{$this->_index} Do\nQ\n";
+        $this->xobject = "/I{$this->index} {$this->index} 0 R";
+        $this->stream = "\nq\n" . $this->getWidth() . " 0 0 " . $this->getHeight() . " {$this->x} {$this->y} cm\n/I{$this->index} Do\nQ\n";
 
         // Image clean-up.
-        if ((null !== $this->_scaledImage) && file_exists($this->_scaledImage)) {
-            unlink($this->_scaledImage);
+        if ((null !== $this->scaledImage) && file_exists($this->scaledImage)) {
+            unlink($this->scaledImage);
         }
-        if ((null !== $this->_convertedImage) && file_exists($this->_convertedImage)) {
-            unlink($this->_convertedImage);
+        if ((null !== $this->convertedImage) && file_exists($this->convertedImage)) {
+            unlink($this->convertedImage);
         }
     }
 
@@ -162,7 +162,7 @@ class Image extends Gd
      */
     public function getObjects()
     {
-        return $this->_objects;
+        return $this->objects;
     }
 
     /**
@@ -172,7 +172,7 @@ class Image extends Gd
      */
     public function getXObject()
     {
-        return $this->_xobject;
+        return $this->xobject;
     }
 
     /**
@@ -182,7 +182,7 @@ class Image extends Gd
      */
     public function getStream()
     {
-        return $this->_stream;
+        return $this->stream;
     }
 
     /**
@@ -194,7 +194,7 @@ class Image extends Gd
     protected function _scaleImage($scl)
     {
         // Define the temp scaled image.
-        $this->_scaledImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->filename . '_' . time() . '.' . $this->ext;
+        $this->scaledImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->filename . '_' . time() . '.' . $this->ext;
 
         // Scale or resize the image
         if (is_float($scl)) {
@@ -204,11 +204,11 @@ class Image extends Gd
         }
 
         // Save and clear the output buffer.
-        $this->save(100, $this->_scaledImage);
-        $this->_output = null;
+        $this->save(100, $this->scaledImage);
+        $this->output = null;
 
         // Re-instantiate the newly scaled image object.
-        parent::__construct($this->_scaledImage);
+        parent::__construct($this->scaledImage);
     }
 
     /**
@@ -219,15 +219,15 @@ class Image extends Gd
     protected function _convertImage()
     {
         // Define the temp converted image.
-        $this->_convertedImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->filename . '_' . time() . '.png';
+        $this->convertedImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->filename . '_' . time() . '.png';
 
         // Convert the GIF to PNG, save and clear the output buffer.
-        $this->convert('png')->save(null, $this->_convertedImage);
-        $this->_output = null;
+        $this->convert('png')->save(null, $this->convertedImage);
+        $this->output = null;
 
         // Re-instantiate the newly converted image object and re-read the image data.
-        parent::__construct($this->_convertedImage);
-        $this->_imageData = $this->read();
+        parent::__construct($this->convertedImage);
+        $this->imageData = $this->read();
     }
 
     /**
@@ -239,7 +239,7 @@ class Image extends Gd
     {
         // Add the image to the _objects array.
         $colorspace = ($this->getColorMode() == 'CMYK') ? "/DeviceCMYK\n    /Decode [1 0 1 0 1 0 1 0]" : "/Device" . $this->getColorMode();
-        $this->_objects[$this->_index] = new Object("{$this->_index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->getWidth() . "\n    /Height " . $this->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent 8\n    /Filter /DCTDecode\n    /Length {$this->_imageDataLength}\n>>\nstream\n{$this->_imageData}\nendstream\nendobj\n");
+        $this->objects[$this->index] = new Object("{$this->index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->getWidth() . "\n    /Height " . $this->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent 8\n    /Filter /DCTDecode\n    /Length {$this->imageDataLength}\n>>\nstream\n{$this->imageData}\nendstream\nendobj\n");
     }
 
     /**
@@ -273,36 +273,36 @@ class Image extends Gd
             $num_of_colors = 1;
 
             // If the PNG is indexed, parse and read the palette and any transparencies that might exist.
-            if (strpos($this->_imageData, 'PLTE') !== false) {
+            if (strpos($this->imageData, 'PLTE') !== false) {
                 // If a transparency exists, parse it and set the mask accordindly, along with the palette.
-                if (strpos($this->_imageData, 'tRNS') !== false) {
-                    $PLTE = substr($this->_imageData, (strpos($this->_imageData, "PLTE") + 4), (strpos($this->_imageData, "tRNS") - strpos($this->_imageData, "PLTE") - 4));
-                    $TRNS = substr($this->_imageData, (strpos($this->_imageData, "tRNS") + 4), (strpos($this->_imageData, "IDAT") - strpos($this->_imageData, "tRNS") - 4));
+                if (strpos($this->imageData, 'tRNS') !== false) {
+                    $PLTE = substr($this->imageData, (strpos($this->imageData, "PLTE") + 4), (strpos($this->imageData, "tRNS") - strpos($this->imageData, "PLTE") - 4));
+                    $TRNS = substr($this->imageData, (strpos($this->imageData, "tRNS") + 4), (strpos($this->imageData, "IDAT") - strpos($this->imageData, "tRNS") - 4));
                     $mask_index = strpos($TRNS, chr(0));
                     $mask = "    /Mask [" . $mask_index . " " . $mask_index . "]\n";
                 // Else, just set the palette.
                 } else {
-                    $PLTE = substr($this->_imageData, (strpos($this->_imageData, "PLTE") + 4), (strpos($this->_imageData, "IDAT") - strpos($this->_imageData, "PLTE") - 4));
+                    $PLTE = substr($this->imageData, (strpos($this->imageData, "PLTE") + 4), (strpos($this->imageData, "IDAT") - strpos($this->imageData, "PLTE") - 4));
                     $mask = '';
                 }
             }
 
-            $colorspace = "[/Indexed /DeviceRGB " . ($this->colorTotal() - 1) . " " . ($this->_index + 1) . " 0 R]";
+            $colorspace = "[/Indexed /DeviceRGB " . ($this->colorTotal() - 1) . " " . ($this->index + 1) . " 0 R]";
         }
 
         // Parse and set the PNG image data and data length.
-        $IDAT = substr($this->_imageData, (strpos($this->_imageData, "IDAT") + 4), (strpos($this->_imageData, "IEND") - strpos($this->_imageData, "IDAT") - 4));
-        $this->_imageDataLength = strlen($IDAT);
+        $IDAT = substr($this->imageData, (strpos($this->imageData, "IDAT") + 4), (strpos($this->imageData, "IEND") - strpos($this->imageData, "IDAT") - 4));
+        $this->imageDataLength = strlen($IDAT);
 
         // Add the image to the _objects array.
 
-        $this->_objects[$this->_index] = new Object("{$this->_index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->getWidth() . "\n    /Height " . $this->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent " . $this->getDepth() . "\n    /Filter /FlateDecode\n    /DecodeParms <</Predictor 15 /Colors {$num_of_colors} /BitsPerComponent " . $this->getDepth() . " /Columns " . $this->getWidth() . ">>\n{$mask}    /Length {$this->_imageDataLength}\n>>\nstream\n{$IDAT}\nendstream\nendobj\n");
+        $this->objects[$this->index] = new Object("{$this->index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->getWidth() . "\n    /Height " . $this->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent " . $this->getDepth() . "\n    /Filter /FlateDecode\n    /DecodeParms <</Predictor 15 /Colors {$num_of_colors} /BitsPerComponent " . $this->getDepth() . " /Columns " . $this->getWidth() . ">>\n{$mask}    /Length {$this->imageDataLength}\n>>\nstream\n{$IDAT}\nendstream\nendobj\n");
 
         // If it exists, add the image palette to the _objects array.
         if ($PLTE != '') {
-            $j = $this->_index + 1;
-            $this->_objects[$j] = new Object("{$j} 0 obj\n<<\n    /Length " . strlen($PLTE) . "\n>>\nstream\n{$PLTE}\nendstream\nendobj\n");
-            $this->_objects[$j]->setPalette(true);
+            $j = $this->index + 1;
+            $this->objects[$j] = new Object("{$j} 0 obj\n<<\n    /Length " . strlen($PLTE) . "\n>>\nstream\n{$PLTE}\nendstream\nendobj\n");
+            $this->objects[$j]->setPalette(true);
         }
     }
 

@@ -39,7 +39,7 @@ class Ftp
      * FTP resource
      * @var FTP resource
      */
-    protected $_conn = null;
+    protected $conn = null;
 
     /**
      * Constructor
@@ -56,16 +56,16 @@ class Ftp
     public function __construct($ftp, $user, $pass, $ssl = false)
     {
         if ($ssl) {
-            if (!($this->_conn = ftp_ssl_connect($ftp))) {
+            if (!($this->conn = ftp_ssl_connect($ftp))) {
                 throw new Exception('Error: There was an error connecting to the FTP server ' . $ftp);
             }
         } else {
-            if (!($this->_conn = ftp_connect($ftp))) {
+            if (!($this->conn = ftp_connect($ftp))) {
                 throw new Exception('Error: There was an error connecting to the FTP server ' . $ftp);
             }
         }
 
-        if (!ftp_login($this->_conn, $user, $pass)) {
+        if (!ftp_login($this->conn, $user, $pass)) {
             throw new Exception('Error: There was an error connecting to the FTP server ' . $ftp . ' with those credentials.');
         }
     }
@@ -77,7 +77,7 @@ class Ftp
      */
     public function pwd()
     {
-        return ftp_pwd($this->_conn);
+        return ftp_pwd($this->conn);
     }
 
     /**
@@ -89,7 +89,7 @@ class Ftp
      */
     public function chdir($dir)
     {
-        if (!ftp_chdir($this->_conn, $dir)) {
+        if (!ftp_chdir($this->conn, $dir)) {
             throw new Exception('Error: There was an error changing to the directory ' . $dir);
         }
         return $this;
@@ -104,7 +104,7 @@ class Ftp
      */
     public function mkdir($dir)
     {
-        if (!ftp_mkdir($this->_conn, $dir)) {
+        if (!ftp_mkdir($this->conn, $dir)) {
             throw new Exception('Error: There was an error making the directory ' . $dir);
         }
         return $this;
@@ -119,7 +119,7 @@ class Ftp
      */
     public function rmdir($dir)
     {
-        if (!ftp_mkdir($this->_conn, $dir)) {
+        if (!ftp_mkdir($this->conn, $dir)) {
             throw new Exception('Error: There was an error removing the directory ' . $dir);
         }
         return $this;
@@ -136,7 +136,7 @@ class Ftp
      */
     public function get($local, $remote, $mode = FTP_BINARY)
     {
-        if (!ftp_get($this->_conn, $local, $remote, $mode)) {
+        if (!ftp_get($this->conn, $local, $remote, $mode)) {
             throw new Exception('Error: There was an error getting the file ' . $remote);
         }
         return $this;
@@ -153,7 +153,7 @@ class Ftp
      */
     public function put($remote, $local, $mode = FTP_BINARY)
     {
-        if (!ftp_put($this->_conn, $remote, $local, $mode)) {
+        if (!ftp_put($this->conn, $remote, $local, $mode)) {
             throw new Exception('Error: There was an error putting the file ' . $local);
         }
     }
@@ -169,7 +169,7 @@ class Ftp
      */
     public function rename($old, $new)
     {
-        if (!ftp_rename($this->_conn, $old, $new)) {
+        if (!ftp_rename($this->conn, $old, $new)) {
             throw new Exception('Error: There was an error renaming the file ' . $old);
         }
         return $this;
@@ -185,7 +185,7 @@ class Ftp
      */
     public function chmod($file, $mode)
     {
-        if (!ftp_chmod($this->_conn, $mode, $file)) {
+        if (!ftp_chmod($this->conn, $mode, $file)) {
             throw new Exception('Error: There was an error changing the permission of ' . $file);
         }
         return $this;
@@ -200,7 +200,7 @@ class Ftp
      */
     public function delete($file)
     {
-        if (!ftp_delete($this->_conn, $file)) {
+        if (!ftp_delete($this->conn, $file)) {
             throw new Exception('Error: There was an error removing the file ' . $file);
         }
         return $this;
@@ -214,7 +214,7 @@ class Ftp
      */
     public function pasv($flag = true)
     {
-        ftp_pasv($this->_conn, $flag);
+        ftp_pasv($this->conn, $flag);
         return $this;
     }
 
@@ -225,7 +225,7 @@ class Ftp
      */
     public function __destruct()
     {
-        ftp_close($this->_conn);
+        ftp_close($this->conn);
     }
 
 }

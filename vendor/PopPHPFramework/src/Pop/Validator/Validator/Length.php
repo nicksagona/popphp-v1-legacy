@@ -47,24 +47,24 @@ class Length extends AbstractValidator
     {
         // Set the input, if passed
         if (null !== $input) {
-            $this->_input = $input;
+            $this->input = $input;
         }
 
         // Set the default message
-        if ($this->_condition) {
-            $this->_defaultMessage = Locale::factory()->__('The value length must be equal to %1.', $this->_value);
+        if ($this->condition) {
+            $this->defaultMessage = Locale::factory()->_('The value length must be equal to %1.', $this->value);
         } else {
-            $this->_defaultMessage = Locale::factory()->__('The value length must not be equal to %1.', $this->_value);
+            $this->defaultMessage = Locale::factory()->_('The value length must not be equal to %1.', $this->value);
         }
 
         // Evaluate the input against the validator
-        if ((strlen($this->_input) == $this->_value) == $this->_condition) {
-            $this->_result = true;
+        if ((strlen($this->input) == $this->value) == $this->condition) {
+            $this->result = true;
         } else {
-            $this->_result = false;
+            $this->result = false;
         }
 
-        return $this->_result;
+        return $this->result;
     }
 
 }

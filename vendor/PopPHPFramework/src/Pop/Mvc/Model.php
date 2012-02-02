@@ -39,13 +39,13 @@ class Model
      * Model data as model objects
      * @var array
      */
-    protected $_data = array();
+    protected $data = array();
 
     /**
      * Data values as an array
      * @var array
      */
-    protected $_array = array();
+    protected $array = array();
 
     /**
      * Constructor
@@ -59,7 +59,7 @@ class Model
     public function __construct($data = null, $name = null)
     {
         if (null !== $data) {
-            $this->_setData($data, $name);
+            $this->setData($data, $name);
         }
     }
 
@@ -70,9 +70,9 @@ class Model
      */
     public function asArray()
     {
-        $this->_array = array();
-        $this->_getData();
-        return $this->_array;
+        $this->array = array();
+        $this->getData();
+        return $this->array;
     }
 
     /**
@@ -82,9 +82,9 @@ class Model
      */
     public function asArrayObject()
     {
-        $this->_array = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
-        $this->_getDataObject();
-        return $this->_array;
+        $this->array = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+        $this->getDataObject();
+        return $this->array;
     }
 
     /**
@@ -94,7 +94,7 @@ class Model
      */
     public function getData()
     {
-        return $this->_data;
+        return $this->data;
     }
 
     /**
@@ -105,7 +105,7 @@ class Model
      */
     public function get($name)
     {
-        return (isset($this->_data[$name])) ? $this->_data[$name] : null;
+        return (isset($this->data[$name])) ? $this->data[$name] : null;
     }
 
     /**
@@ -116,7 +116,7 @@ class Model
      */
     public function key($key)
     {
-        return (isset($this->_data[(int)$key])) ? $this->_data[(int)$key] : null;
+        return (isset($this->data[(int)$key])) ? $this->data[(int)$key] : null;
     }
 
     /**
@@ -128,7 +128,7 @@ class Model
      */
     public function set($name, $value)
     {
-        $this->_data[$name] = (is_array($value) ? new Model($value) : $value);
+        $this->data[$name] = (is_array($value) ? new Model($value) : $value);
     }
 
     /**
@@ -162,7 +162,7 @@ class Model
      */
     public function __isset($name)
     {
-        return isset($this->_data[$name]);
+        return isset($this->data[$name]);
     }
 
     /**
@@ -173,7 +173,7 @@ class Model
      */
     public function __unset($name)
     {
-        unset($this->_data[$name]);
+        unset($this->data[$name]);
     }
 
     /**
@@ -189,10 +189,10 @@ class Model
             if (null === $name) {
                 throw new Exception('If you pass a scalar value, then you must pass a name for it.');
             }
-            $this->_data[$name] = $data;
+            $this->data[$name] = $data;
         } else {
             foreach ($data as $key => $value) {
-                $this->_data[$key] = (is_array($value) ? new Model($value) : $value);
+                $this->data[$key] = (is_array($value) ? new Model($value) : $value);
             }
         }
     }
@@ -204,8 +204,8 @@ class Model
      */
     protected function _getData()
     {
-        foreach ($this->_data as $key => $value) {
-            $this->_array[$key] = ($value instanceof Model) ? $value->asArray() : $value;
+        foreach ($this->data as $key => $value) {
+            $this->array[$key] = ($value instanceof Model) ? $value->asArray() : $value;
         }
     }
 
@@ -216,8 +216,8 @@ class Model
      */
     protected function _getDataObject()
     {
-        foreach ($this->_data as $key => $value) {
-            $this->_array[$key] = ($value instanceof Model) ? $value->asArrayObject() : $value;
+        foreach ($this->data as $key => $value) {
+            $this->array[$key] = ($value instanceof Model) ? $value->asArrayObject() : $value;
         }
     }
 

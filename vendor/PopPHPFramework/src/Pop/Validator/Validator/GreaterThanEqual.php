@@ -47,26 +47,26 @@ class GreaterThanEqual extends AbstractValidator
     {
         // Set the input, if passed
         if (null !== $input) {
-            $this->_input = $input;
+            $this->input = $input;
         }
 
-        $nums = explode('|', $this->_value);
+        $nums = explode('|', $this->value);
 
         // Set the default message
-        if ($this->_condition) {
-            $this->_defaultMessage = Locale::factory()->__('The value must be greater than or equal to %1.', $this->_value);
+        if ($this->condition) {
+            $this->defaultMessage = Locale::factory()->_('The value must be greater than or equal to %1.', $this->value);
         } else {
-            $this->_defaultMessage = Locale::factory()->__('The value must not be greater than or equal to %1.', $this->_value);
+            $this->defaultMessage = Locale::factory()->_('The value must not be greater than or equal to %1.', $this->value);
         }
 
         // Evaluate the input against the validator
-        if (($this->_input >= $this->_value) == $this->_condition) {
-            $this->_result = true;
+        if (($this->input >= $this->value) == $this->condition) {
+            $this->result = true;
         } else {
-            $this->_result = false;
+            $this->result = false;
         }
 
-        return $this->_result;
+        return $this->result;
     }
 
 }

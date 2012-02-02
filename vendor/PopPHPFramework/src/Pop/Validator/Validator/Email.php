@@ -47,24 +47,24 @@ class Email extends AbstractValidator
     {
         // Set the input, if passed
         if (null !== $input) {
-            $this->_input = $input;
+            $this->input = $input;
         }
 
         // Set the default message
-        if ($this->_condition) {
-            $this->_defaultMessage = Locale::factory()->__('The value must be a valid email format.');
+        if ($this->condition) {
+            $this->defaultMessage = Locale::factory()->_('The value must be a valid email format.');
         } else {
-            $this->_defaultMessage = Locale::factory()->__('The value must not be a valid email format.');
+            $this->defaultMessage = Locale::factory()->_('The value must not be a valid email format.');
         }
 
         // Evaluate the input against the validator
-        if (preg_match('/[a-zA-Z0-9\.\-\_+%]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]{2,4}/', $this->_input) == $this->_condition) {
-            $this->_result = true;
+        if (preg_match('/[a-zA-Z0-9\.\-\_+%]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]{2,4}/', $this->input) == $this->condition) {
+            $this->result = true;
         } else {
-            $this->_result = false;
+            $this->result = false;
         }
 
-        return $this->_result;
+        return $this->result;
     }
 
 }

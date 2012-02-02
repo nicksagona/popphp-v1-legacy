@@ -41,25 +41,25 @@ class AuthTable implements AdapterInterface
      * DB table name / class name
      * @var string
      */
-    protected $_tableName = null;
+    protected $tableName = null;
 
     /**
      * Username field
      * @var string
      */
-    protected $_usernameField = null;
+    protected $usernameField = null;
 
     /**
      * Password field
      * @var string
      */
-    protected $_passwordField = null;
+    protected $passwordField = null;
 
     /**
      * Access field
      * @var string
      */
-    protected $_accessField = null;
+    protected $accessField = null;
 
     /**
      * Constructor
@@ -74,10 +74,10 @@ class AuthTable implements AdapterInterface
      */
     public function __construct($tableName, $usernameField = 'username', $passwordField = 'password', $accessField = null)
     {
-        $this->_tableName = $tableName;
-        $this->_usernameField = $usernameField;
-        $this->_passwordField = $passwordField;
-        $this->_accessField = $accessField;
+        $this->tableName = $tableName;
+        $this->usernameField = $usernameField;
+        $this->passwordField = $passwordField;
+        $this->accessField = $accessField;
     }
 
     /**
@@ -92,12 +92,12 @@ class AuthTable implements AdapterInterface
         $result = 0;
         $access = null;
 
-        $table = $this->_tableName;
-        $usernameField = $this->_usernameField;
-        $passwordField = $this->_passwordField;
-        $accessField = $this->_accessField;
+        $table = $this->tableName;
+        $usernameField = $this->usernameField;
+        $passwordField = $this->passwordField;
+        $accessField = $this->accessField;
 
-        $user = $table::findBy($this->_usernameField, $username);
+        $user = $table::findBy($this->usernameField, $username);
 
         if (!isset($user->$usernameField)) {
             $result = Auth::USER_NOT_FOUND;

@@ -50,7 +50,7 @@ class Phar implements ArchiveInterface
      * Archive path
      * @var string
      */
-    protected $_path = null;
+    protected $path = null;
 
     /**
      * Method to instantiate an archive adapter object
@@ -60,8 +60,8 @@ class Phar implements ArchiveInterface
      */
     public function __construct($archive)
     {
-        $this->_path = $archive->fullpath;
-        $this->archive = new \Phar($this->_path);
+        $this->path = $archive->fullpath;
+        $this->archive = new \Phar($this->path);
     }
 
     /**

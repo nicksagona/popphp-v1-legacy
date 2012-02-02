@@ -63,13 +63,13 @@ class Root
      * PDF header
      * @var string
      */
-    protected $_header = '%PDF-';
+    protected $header = '%PDF-';
 
     /**
      * PDF root object data
      * @var string
      */
-    protected $_data = null;
+    protected $data = null;
 
     /**
      * Constructor
@@ -83,7 +83,7 @@ class Root
     {
         // Use default settings for a new PDF and its root object.
         if (null === $str) {
-            $this->_data = "1 0 obj\n<</Pages 2 0 R/Type/Catalog>>\nendobj\n";
+            $this->data = "1 0 obj\n<</Pages 2 0 R/Type/Catalog>>\nendobj\n";
         } else {
             // Else, parse out any metadata and determine the root and parent object indices.
             $this->index = substr($str, 0, strpos($str, ' '));
@@ -109,7 +109,7 @@ class Root
 
             // Set the root object parent index and the data.
             $this->parent = $p;
-            $this->_data = $str . "\n";
+            $this->data = $str . "\n";
         }
     }
 
@@ -121,7 +121,7 @@ class Root
     public function __toString()
     {
         // Set the PDF header and version.
-        $obj = $this->_header . $this->version . "\n" . $this->_data;
+        $obj = $this->header . $this->version . "\n" . $this->data;
 
         return $obj;
     }

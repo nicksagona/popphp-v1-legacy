@@ -43,19 +43,19 @@ class Project
      * Project config
      * @var Pop\Config
      */
-    protected $_config = null;
+    protected $config = null;
 
     /**
      * Project module configs
      * @var array
      */
-    protected $_modules = array();
+    protected $modules = array();
 
     /**
      * Project router
      * @var Pop\Mvc\Router
      */
-    protected $_router = null;
+    protected $router = null;
 
     /**
      * Constructor
@@ -69,7 +69,7 @@ class Project
      */
     public function __construct(Config $config, Config $module = null, Router $router = null)
     {
-        $this->_config = $config;
+        $this->config = $config;
         if (null !== $module) {
             $this->loadModule($module);
         }
@@ -99,7 +99,7 @@ class Project
      */
     public function config()
     {
-        return $this->_config;
+        return $this->config;
     }
 
     /**
@@ -110,10 +110,10 @@ class Project
      */
     public function database($dbname)
     {
-        if (isset($this->_config->databases) &&
-            isset($this->_config->databases->$dbname) &&
-            ($this->_config->databases->$dbname instanceof Db)) {
-            return $this->_config->databases->$dbname;
+        if (isset($this->config->databases) &&
+            isset($this->config->databases->$dbname) &&
+            ($this->config->databases->$dbname instanceof Db)) {
+            return $this->config->databases->$dbname;
         } else {
             return null;
         }
@@ -128,8 +128,8 @@ class Project
     public function module($name)
     {
         $module = null;
-        if (array_key_exists($name, $this->_modules)) {
-            $module =  $this->_modules[$name];
+        if (array_key_exists($name, $this->modules)) {
+            $module =  $this->modules[$name];
         }
         return $module;
     }
@@ -141,7 +141,7 @@ class Project
      */
     public function router()
     {
-        return $this->_router;
+        return $this->router;
     }
 
     /**
@@ -156,7 +156,7 @@ class Project
         if (!isset($module->name)) {
             throw new Exception('The module name must be set in the module config.');
         }
-        $this->_modules[$module->name] = $module;
+        $this->modules[$module->name] = $module;
         return $this;
     }
 
@@ -167,7 +167,7 @@ class Project
      */
     public function loadRouter(Router $router)
     {
-        $this->_router = $router;
+        $this->router = $router;
         return $this;
     }
 
@@ -178,8 +178,8 @@ class Project
      */
     public function run()
     {
-        if (null !== $this->_router) {
-            $this->_router->route($this);
+        if (null !== $this->router) {
+            $this->router->route($this);
         }
     }
 

@@ -43,43 +43,43 @@ class Controller
      * Request
      * @var Pop\Http\Request
      */
-    protected $_request = null;
+    protected $request = null;
 
     /**
      * Response
      * @var Pop\Http\Response
      */
-    protected $_response = null;
+    protected $response = null;
 
     /**
      * Project config object
      * @var Pop\Project\Project
      */
-    protected $_project = null;
+    protected $project = null;
 
     /**
      * Error flag
      * @var boolean
      */
-    protected $_isError = false;
+    protected $isError = false;
 
     /**
      * Data model object
      * @var Pop\Mvc\Model
      */
-    protected $_model = null;
+    protected $model = null;
 
     /**
      * View object
      * @var Pop\Mvc\View
      */
-    protected $_view = null;
+    protected $view = null;
 
     /**
      * View path
      * @var string
      */
-    protected $_viewPath = null;
+    protected $viewPath = null;
 
     /**
      * Constructor
@@ -94,15 +94,15 @@ class Controller
      */
     public function __construct(Request $request = null, Response $response = null, Project $project = null, $viewPath = null)
     {
-        $this->_request = (null !== $request) ? $request : new Request();
-        $this->_response = (null !== $response) ? $response : new Response(200, array('Content-Type' => 'text/html'));
+        $this->request = (null !== $request) ? $request : new Request();
+        $this->response = (null !== $response) ? $response : new Response(200, array('Content-Type' => 'text/html'));
 
         if (null !== $project) {
-            $this->_project = $project;
+            $this->project = $project;
         }
 
         if (null !== $viewPath) {
-            $this->_viewPath = $viewPath;
+            $this->viewPath = $viewPath;
         }
     }
 
@@ -114,7 +114,7 @@ class Controller
      */
     public function setRequest(Request $request)
     {
-        $this->_request = $request;
+        $this->request = $request;
         return $this;
     }
 
@@ -126,7 +126,7 @@ class Controller
      */
     public function setResponse(Response $response)
     {
-        $this->_response = $response;
+        $this->response = $response;
         return $this;
     }
 
@@ -138,7 +138,7 @@ class Controller
      */
     public function setProject(Project $project)
     {
-        $this->_project = $project;
+        $this->project = $project;
         return $this;
     }
 
@@ -150,7 +150,7 @@ class Controller
      */
     public function setViewPath($viewPath)
     {
-        $this->_viewPath = $viewPath;
+        $this->viewPath = $viewPath;
         return $this;
     }
 
@@ -161,7 +161,7 @@ class Controller
      */
     public function getRequest()
     {
-        return $this->_request;
+        return $this->request;
     }
 
     /**
@@ -171,7 +171,7 @@ class Controller
      */
     public function getResponse()
     {
-        return $this->_response;
+        return $this->response;
     }
 
     /**
@@ -181,7 +181,7 @@ class Controller
      */
     public function getProject()
     {
-        return $this->_project;
+        return $this->project;
     }
 
     /**
@@ -191,7 +191,7 @@ class Controller
      */
     public function getViewPath()
     {
-        return $this->_viewPath;
+        return $this->viewPath;
     }
 
     /**
@@ -219,23 +219,23 @@ class Controller
      */
     public function send($code = 200, array $headers = null)
     {
-        if (null === $this->_view) {
+        if (null === $this->view) {
             throw new Exception('The view object is not defined.');
         }
 
-        if ($this->_isError) {
+        if ($this->isError) {
             $code = 404;
         }
-        $this->_response->setCode($code);
+        $this->response->setCode($code);
 
         if (null !== $headers) {
             foreach ($headers as $name => $value) {
-                $this->_response->setHeader($name, $value);
+                $this->response->setHeader($name, $value);
             }
         }
 
-        $this->_response->setBody($this->_view->render(true));
-        $this->_response->send();
+        $this->response->setBody($this->view->render(true));
+        $this->response->send();
     }
 
 }

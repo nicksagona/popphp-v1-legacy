@@ -47,7 +47,7 @@ class Payment
      * Payment adapter
      * @var mixed
      */
-    protected $_adapter = null;
+    protected $adapter = null;
 
     /**
      * Common transaction fields.
@@ -65,7 +65,7 @@ class Payment
      *
      * @var array
      */
-    protected $_fields = array(
+    protected $fields = array(
         'amount'          => null,
         'cardNum'         => null,
         'expDate'         => null,
@@ -101,7 +101,7 @@ class Payment
      */
     public function __construct(AbstractAdapter $adapter)
     {
-        $this->_adapter = $adapter;
+        $this->adapter = $adapter;
     }
 
     /**
@@ -111,7 +111,7 @@ class Payment
      */
     public function adapter()
     {
-        return $this->_adapter;
+        return $this->adapter;
     }
 
     /**
@@ -122,8 +122,8 @@ class Payment
      */
     public function send($verifyPeer = true)
     {
-        $this->_adapter->set($this->_fields);
-        $this->_adapter->send();
+        $this->adapter->set($this->fields);
+        $this->adapter->send();
     }
 
     /**
@@ -133,7 +133,7 @@ class Payment
      */
     public function isValid()
     {
-        return $this->_adapter->isValid();
+        return $this->adapter->isValid();
     }
 
     /**
@@ -143,7 +143,7 @@ class Payment
      */
     public function isTest()
     {
-        return $this->_adapter->isTest();
+        return $this->adapter->isTest();
     }
 
     /**
@@ -153,7 +153,7 @@ class Payment
      */
     public function isApproved()
     {
-        return $this->_adapter->isApproved();
+        return $this->adapter->isApproved();
     }
 
     /**
@@ -163,7 +163,7 @@ class Payment
      */
     public function isDeclined()
     {
-        return $this->_adapter->isDeclined();
+        return $this->adapter->isDeclined();
     }
 
     /**
@@ -173,7 +173,7 @@ class Payment
      */
     public function isError()
     {
-        return $this->_adapter->isError();
+        return $this->adapter->isError();
     }
 
     /**
@@ -183,7 +183,7 @@ class Payment
      */
     public function getResponse()
     {
-        return $this->_adapter->getResponse();
+        return $this->adapter->getResponse();
     }
 
     /**
@@ -193,7 +193,7 @@ class Payment
      */
     public function getResponseCodes()
     {
-        return $this->_adapter->getResponseCodes();
+        return $this->adapter->getResponseCodes();
     }
 
     /**
@@ -203,7 +203,7 @@ class Payment
      */
     public function getCode($key)
     {
-        return $this->_adapter->getCode($key);
+        return $this->adapter->getCode($key);
     }
 
     /**
@@ -213,7 +213,7 @@ class Payment
      */
     public function getResponseCode()
     {
-        return $this->_adapter->getResponseCode();
+        return $this->adapter->getResponseCode();
     }
 
     /**
@@ -223,7 +223,7 @@ class Payment
      */
     public function getMessage()
     {
-        return $this->_adapter->getMessage();
+        return $this->adapter->getMessage();
     }
 
     /**
@@ -233,14 +233,14 @@ class Payment
      */
     public function billingSameAsShipping()
     {
-        $this->_fields['shipToFirstName'] = $this->_fields['firstName'];
-        $this->_fields['shipToLastName'] = $this->_fields['lastName'];
-        $this->_fields['shipToCompany'] = $this->_fields['company'];
-        $this->_fields['shipToAddress'] = $this->_fields['address'];
-        $this->_fields['shipToCity'] = $this->_fields['city'];
-        $this->_fields['shipToState'] = $this->_fields['state'];
-        $this->_fields['shipToZip'] = $this->_fields['zip'];
-        $this->_fields['shipToCountry'] = $this->_fields['country'];
+        $this->fields['shipToFirstName'] = $this->fields['firstName'];
+        $this->fields['shipToLastName'] = $this->fields['lastName'];
+        $this->fields['shipToCompany'] = $this->fields['company'];
+        $this->fields['shipToAddress'] = $this->fields['address'];
+        $this->fields['shipToCity'] = $this->fields['city'];
+        $this->fields['shipToState'] = $this->fields['state'];
+        $this->fields['shipToZip'] = $this->fields['zip'];
+        $this->fields['shipToCountry'] = $this->fields['country'];
 
         return $this;
     }
@@ -254,7 +254,7 @@ class Payment
      */
     public function __set($name, $value)
     {
-        $this->_fields[$name] = $value;
+        $this->fields[$name] = $value;
     }
 
     /**
@@ -266,7 +266,7 @@ class Payment
      */
     public function __get($name)
     {
-        return (isset($this->_fields[$name])) ? $this->_fields[$name] : null;
+        return (isset($this->fields[$name])) ? $this->fields[$name] : null;
     }
 
     /**
@@ -277,7 +277,7 @@ class Payment
      */
     public function __isset($name)
     {
-        return isset($this->_fields[$name]);
+        return isset($this->fields[$name]);
     }
 
     /**
@@ -288,7 +288,7 @@ class Payment
      */
     public function __unset($name)
     {
-        $this->_fields[$name] = null;
+        $this->fields[$name] = null;
     }
 
 }

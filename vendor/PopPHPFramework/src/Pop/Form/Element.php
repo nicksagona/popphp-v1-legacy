@@ -86,7 +86,7 @@ class Element extends Child
      * Form element allowed types
      * @var array
      */
-    protected $_allowed_types = array(
+    protected $allowed_types = array(
         'button',
         'checkbox',
         'file',
@@ -119,7 +119,7 @@ class Element extends Child
         $this->name = $name;
 
         // Check the element type, else set the properties.
-        if (!in_array($type, $this->_allowed_types)) {
+        if (!in_array($type, $this->allowed_types)) {
             throw new Exception('Error: That input type is not allowed.');
         }
 
@@ -129,7 +129,7 @@ class Element extends Child
             case 'textarea':
                 parent::__construct('textarea', null, null, false, $indent);
                 $this->setAttributes(array('name' => $name, 'id' => $name));
-                $this->_nodeValue = $value;
+                $this->nodeValue = $value;
                 $this->value = $value;
                 break;
 
@@ -286,7 +286,7 @@ class Element extends Child
         if ($this->required == true) {
             $curElemValue = (is_array($this->value)) ? $this->marked : $this->value;
             if (empty($curElemValue)) {
-                $this->errors[] = Locale::factory()->__('This field is required.');
+                $this->errors[] = Locale::factory()->_('This field is required.');
             }
         }
 
@@ -320,7 +320,7 @@ class Element extends Child
         // Add error messages if there are any.
         if (count($this->errors) > 0) {
             foreach ($this->errors as $msg) {
-                $output .= "{$indent}{$this->_indent}<div class=\"error\">{$msg}</div>\n";
+                $output .= "{$indent}{$this->indent}<div class=\"error\">{$msg}</div>\n";
             }
         }
 

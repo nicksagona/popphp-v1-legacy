@@ -39,13 +39,13 @@ class Cookie
      * Instance of the cookie object
      * @var Pop\Web\Cookie
      */
-    static private $_instance;
+    static private $instance;
 
     /**
      * Cookie IP
      * @var string
      */
-    private $_ip = null;
+    private $ip = null;
 
     /**
      * Constructor
@@ -57,7 +57,7 @@ class Cookie
     private function __construct()
     {
         // Set the cookie owner's IP address.
-        $this->_ip = $_SERVER['REMOTE_ADDR'];
+        $this->ip = $_SERVER['REMOTE_ADDR'];
     }
 
     /**
@@ -68,11 +68,11 @@ class Cookie
      */
     public static function getInstance()
     {
-        if (empty(self::$_instance)) {
-            self::$_instance = new Cookie();
+        if (empty(self::$instance)) {
+            self::$instance = new Cookie();
         }
 
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
@@ -95,7 +95,7 @@ class Cookie
      */
     public function getIp()
     {
-        return $this->_ip;
+        return $this->ip;
     }
 
     /**

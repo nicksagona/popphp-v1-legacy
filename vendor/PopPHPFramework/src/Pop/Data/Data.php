@@ -46,37 +46,37 @@ class Data
      * Data file stream
      * @var string
      */
-    protected $_file = null;
+    protected $file = null;
 
     /**
      * Data file type
      * @var string
      */
-    protected $_type = null;
+    protected $type = null;
 
     /**
      * Data stream
      * @var string
      */
-    protected $_data = null;
+    protected $data = null;
 
     /**
      * Data table
      * @var string
      */
-    protected $_table = null;
+    protected $table = null;
 
     /**
      * Data identifier quote
      * @var string
      */
-    protected $_idQuote = null;
+    protected $idQuote = null;
 
     /**
      * PMA compatible XML flag
      * @var boolean
      */
-    protected $_pma = false;
+    protected $pma = false;
 
     /**
      * Constructor
@@ -97,10 +97,10 @@ class Data
              (stripos($data, '.yaml') !== false)) && file_exists($data)) {
 
             $file = new File($data);
-            $this->_file = $file->read();
-            $this->_type = ($file->ext == 'yml') ? 'Yaml' : ucfirst(strtolower($file->ext));
+            $this->file = $file->read();
+            $this->type = ($file->ext == 'yml') ? 'Yaml' : ucfirst(strtolower($file->ext));
         } else {
-            $this->_data = $data;
+            $this->data = $data;
         }
     }
 
@@ -111,7 +111,7 @@ class Data
      */
     public function getFile()
     {
-        return $this->_file;
+        return $this->file;
     }
 
     /**
@@ -121,7 +121,7 @@ class Data
      */
     public function getData()
     {
-        return $this->_data;
+        return $this->data;
     }
 
     /**
@@ -132,7 +132,7 @@ class Data
      */
     public function setTable($table)
     {
-        $this->_table = $table;
+        $this->table = $table;
         return $this;
     }
 
@@ -144,7 +144,7 @@ class Data
      */
     public function setIdQuote($quote)
     {
-        $this->_idQuote = $quote;
+        $this->idQuote = $quote;
         return $this;
     }
 
@@ -156,7 +156,7 @@ class Data
      */
     public function setPma($comp)
     {
-        $this->_pma = (boolean)$comp;
+        $this->pma = (boolean)$comp;
         return $this;
     }
 
@@ -167,9 +167,9 @@ class Data
      */
     public function parseFile()
     {
-        $class = 'Pop\\Data\\' . $this->_type;
-        $this->_data = $class::decode($this->_file);
-        return $this->_data;
+        $class = 'Pop\\Data\\' . $this->type;
+        $this->data = $class::decode($this->file);
+        return $this->data;
     }
 
     /**
@@ -191,14 +191,14 @@ class Data
         $class = 'Pop\\Data\\' . ucfirst($to);
 
         if ($to == 'sql') {
-            $this->_file = $class::encode($this->_data, $this->_table, $this->_idQuote);
+            $this->file = $class::encode($this->data, $this->table, $this->idQuote);
         } else if ($to == 'xml') {
-            $this->_file = $class::encode($this->_data, $this->_table, $this->_pma);
+            $this->file = $class::encode($this->data, $this->table, $this->pma);
         } else {
-            $this->_file = $class::encode($this->_data);
+            $this->file = $class::encode($this->data);
         }
 
-        return $this->_file;
+        return $this->file;
     }
 
 }

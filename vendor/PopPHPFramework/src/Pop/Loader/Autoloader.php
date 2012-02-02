@@ -39,13 +39,13 @@ class Autoloader
      * Array of available namespaces prefixes.
      * @var array
      */
-    protected $_prefixes = array();
+    protected $prefixes = array();
 
     /**
      * Class map array.
      * @var array
      */
-    protected $_classmap = array();
+    protected $classmap = array();
 
     /**
      * Constructor
@@ -88,10 +88,10 @@ class Autoloader
 
         $newClassMap = include $classmap;
 
-        if (count($this->_classmap) > 0) {
-            $ary = array_merge($this->_classmap, $newClassMap);
+        if (count($this->classmap) > 0) {
+            $ary = array_merge($this->classmap, $newClassMap);
         } else {
-            $this->_classmap = $newClassMap;
+            $this->classmap = $newClassMap;
         }
 
         return $this;
@@ -106,7 +106,7 @@ class Autoloader
      */
     public function register($namespace, $directory)
     {
-        $this->_prefixes[$namespace] = realpath($directory);
+        $this->prefixes[$namespace] = realpath($directory);
         return $this;
     }
 
@@ -129,13 +129,13 @@ class Autoloader
      */
     public function __invoke($class)
     {
-        if (array_key_exists($class, $this->_classmap)) {
-            $classPath = $this->_classmap[$class];
+        if (array_key_exists($class, $this->classmap)) {
+            $classPath = $this->classmap[$class];
         } else {
             $sep = (strpos($class, '\\') !== false) ? '\\' : '_';
             $prefix = substr($class, 0, strpos($class, $sep));
             $classFile = str_replace($sep, DIRECTORY_SEPARATOR, $class) . '.php';
-            $classPath = (isset($this->_prefixes[$prefix])) ? $this->_prefixes[$prefix] . DIRECTORY_SEPARATOR . $classFile : $classFile;
+            $classPath = (isset($this->prefixes[$prefix])) ? $this->prefixes[$prefix] . DIRECTORY_SEPARATOR . $classFile : $classFile;
         }
 
         require_once $classPath;

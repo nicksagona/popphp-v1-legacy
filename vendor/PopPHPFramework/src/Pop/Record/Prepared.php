@@ -42,7 +42,7 @@ class Prepared extends AbstractRecord
      * Prepared statement placeholder
      * @var boolean
      */
-    protected $_placeholder = null;
+    protected $placeholder = null;
 
     /**
      * Constructor
@@ -60,19 +60,19 @@ class Prepared extends AbstractRecord
         $type = $this->db->getAdapterType();
 
         if (($type == 'Sqlite') || ($type == 'Pdo_Sqlite')) {
-            $this->_placeholder = ':';
-            $this->_idQuote = (null === $this->_idQuote) ? Sql::DOUBLE_QUOTE : $this->_idQuote;
+            $this->placeholder = ':';
+            $this->idQuote = (null === $this->idQuote) ? Sql::DOUBLE_QUOTE : $this->idQuote;
         } else if ($type == 'Pgsql') {
-            $this->_placeholder = '$';
-            $this->_idQuote = (null === $this->_idQuote) ? Sql::DOUBLE_QUOTE : $this->_idQuote;
+            $this->placeholder = '$';
+            $this->idQuote = (null === $this->idQuote) ? Sql::DOUBLE_QUOTE : $this->idQuote;
         } else {
-            $this->_placeholder = '?';
-            $this->_idQuote = (null === $this->_idQuote) ? Sql::BACKTICK : $this->_idQuote;
+            $this->placeholder = '?';
+            $this->idQuote = (null === $this->idQuote) ? Sql::BACKTICK : $this->idQuote;
         }
 
-        $this->_tableName = $options['tableName'];
-        $this->_primaryId = $options['primaryId'];
-        $this->_auto = $options['auto'];
+        $this->tableName = $options['tableName'];
+        $this->primaryId = $options['primaryId'];
+        $this->auto = $options['auto'];
     }
 
     /**
@@ -85,25 +85,25 @@ class Prepared extends AbstractRecord
      */
     public function findById($id, $limit = null)
     {
-        if (null === $this->_primaryId) {
+        if (null === $this->primaryId) {
             throw new Exception('This primary ID of this table either is not set or does not exist.');
         }
 
         // Build the SQL.
-        $this->db->sql->setTable($this->_tableName)
-                      ->setIdQuoteType($this->_idQuote)
+        $this->db->sql->setTable($this->tableName)
+                      ->setIdQuoteType($this->idQuote)
                       ->select();
-                      //->where($this->_primaryId, '=', $this->_getPlaceholder($this->_primaryId));
+                      //->where($this->primaryId, '=', $this->getPlaceholder($this->primaryId));
 
-        if (is_array($this->_primaryId)) {
-            if (!is_array($id) || (count($id) != count($this->_primaryId))) {
+        if (is_array($this->primaryId)) {
+            if (!is_array($id) || (count($id) != count($this->primaryId))) {
                 throw new Exception('The array of ID values does not match the number of IDs.');
             }
             foreach ($id as $key => $value) {
-                $this->db->sql->where($this->_primaryId[$key], '=', $this->_getPlaceholder($this->_primaryId[$key], ($key + 1)));
+                $this->db->sql->where($this->primaryId[$key], '=', $this->getPlaceholder($this->primaryId[$key], ($key + 1)));
             }
         } else {
-            $this->db->sql->where($this->_primaryId, '=', $this->_getPlaceholder($this->_primaryId));
+            $this->db->sql->where($this->primaryId, '=', $this->getPlaceholder($this->primaryId));
         }
 
         if (null !== $limit) {
@@ -112,20 +112,20 @@ class Prepared extends AbstractRecord
 
         $this->db->adapter->prepare($this->db->sql->getSql());
 
-        if (is_array($this->_primaryId)) {
+        if (is_array($this->primaryId)) {
             $params = array();
             foreach ($id as $key => $value) {
-                $params[$this->_primaryId[$key]] = $value;
+                $params[$this->primaryId[$key]] = $value;
             }
         } else {
-            $params = array($this->_primaryId => $id);
+            $params = array($this->primaryId => $id);
         }
 
         $this->db->adapter->bindParams($params);
         $this->db->adapter->execute();
 
         // Set the return results.
-        $this->_setResults();
+        $this->setResults();
     }
 
     /**
@@ -138,13 +138,13 @@ class Prepared extends AbstractRecord
      */
     public function findBy($column, $value, $limit = null)
     {
-        $this->_finder = array($column, $value);
+        $this->finder = array($column, $value);
 
         // Build the SQL.
-        $this->db->sql->setTable($this->_tableName)
-                      ->setIdQuoteType($this->_idQuote)
+        $this->db->sql->setTable($this->tableName)
+                      ->setIdQuoteType($this->idQuote)
                       ->select()
-                      ->where($column, '=', $this->_getPlaceholder($column));
+                      ->where($column, '=', $this->getPlaceholder($column));
 
         if (null !== $limit) {
             $this->db->sql->limit($this->db->adapter->escape((int)$limit));
@@ -155,7 +155,7 @@ class Prepared extends AbstractRecord
         $this->db->adapter->execute();
 
         // Set the return results.
-        $this->_setResults();
+        $this->setResults();
     }
 
     /**
@@ -170,21 +170,21 @@ class Prepared extends AbstractRecord
     public function findAll($order = null, $column = null, $value = null, $limit = null)
     {
         // Build the SQL.
-        $this->db->sql->setTable($this->_tableName)
-                      ->setIdQuoteType($this->_idQuote)
+        $this->db->sql->setTable($this->tableName)
+                      ->setIdQuoteType($this->idQuote)
                       ->select();
 
         // If a specific column and value are passde.
         if ((null !== $column) && (null !== $value)) {
-            $this->_finder = array($column, $value);
-            $this->db->sql->where($column, '=', $this->_getPlaceholder($column));
+            $this->finder = array($column, $value);
+            $this->db->sql->where($column, '=', $this->getPlaceholder($column));
         } else {
-            $this->_finder = array();
+            $this->finder = array();
         }
 
         // Set the SQL query to a specific order, if given.
         if (null !== $order) {
-            $ord = $this->_getOrder($order);
+            $ord = $this->getOrder($order);
             $this->db->sql->order($this->db->adapter->escape($ord['by']), $this->db->adapter->escape($ord['order']));
         }
 
@@ -200,7 +200,7 @@ class Prepared extends AbstractRecord
         $this->db->adapter->execute();
 
         // Set the return results.
-        $this->_setResults();
+        $this->setResults();
     }
 
     /**
@@ -220,21 +220,21 @@ class Prepared extends AbstractRecord
         }
 
         // Build the SQL.
-        $this->db->sql->setTable($this->_tableName)
-                      ->setIdQuoteType($this->_idQuote)
+        $this->db->sql->setTable($this->tableName)
+                      ->setIdQuoteType($this->idQuote)
                       ->select($distinctColumns)->distinct();
 
         // If a specific column and value are passed.
         if ((null !== $column) && (null !== $value)) {
-            $this->_finder = array($column, $value);
-            $this->db->sql->where($column, '=', $this->_getPlaceholder($column));
+            $this->finder = array($column, $value);
+            $this->db->sql->where($column, '=', $this->getPlaceholder($column));
         } else {
-            $this->_finder = array();
+            $this->finder = array();
         }
 
         // Set the SQL query to a specific order, if given.
         if (null !== $order) {
-            $ord = $this->_getOrder($order);
+            $ord = $this->getOrder($order);
             $this->db->sql->order($this->db->adapter->escape($ord['by']), $this->db->adapter->escape($ord['order']));
         }
 
@@ -250,7 +250,7 @@ class Prepared extends AbstractRecord
         $this->db->adapter->execute();
 
         // Set the return results.
-        $this->_setResults();
+        $this->setResults();
     }
 
     /**
@@ -268,23 +268,23 @@ class Prepared extends AbstractRecord
         }
 
         // Build the SQL.
-        $this->db->sql->setTable($this->_tableName)
-                      ->setIdQuoteType($this->_idQuote)
+        $this->db->sql->setTable($this->tableName)
+                      ->setIdQuoteType($this->idQuote)
                       ->select();
 
         $i = 1;
         foreach ($searchColumns as $search) {
             if (isset($search[3])) {
-                $this->db->sql->where($search[0], $search[1], $this->_getPlaceholder($search[2], $i), $search[3]);
+                $this->db->sql->where($search[0], $search[1], $this->getPlaceholder($search[2], $i), $search[3]);
             } else {
-                $this->db->sql->where($search[0], $search[1], $this->_getPlaceholder($search[2], $i));
+                $this->db->sql->where($search[0], $search[1], $this->getPlaceholder($search[2], $i));
             }
             $i++;
         }
 
         // Set the SQL query to a specific order, if given.
         if (null !== $order) {
-            $ord = $this->_getOrder($order);
+            $ord = $this->getOrder($order);
             $this->db->sql->order($this->db->adapter->escape($ord['by']), $this->db->adapter->escape($ord['order']));
         }
 
@@ -300,7 +300,7 @@ class Prepared extends AbstractRecord
         $this->db->adapter->execute();
 
         // Set the return results.
-        $this->_setResults();
+        $this->setResults();
     }
 
     /**
@@ -317,23 +317,23 @@ class Prepared extends AbstractRecord
     public function join($tableToJoin, $commonColumn, $order = null, $column = null, $value = null, $limit = null)
     {
         // Build the SQL.
-        $this->db->sql->setTable($this->_tableName)
-                      ->setIdQuoteType($this->_idQuote)
+        $this->db->sql->setTable($this->tableName)
+                      ->setIdQuoteType($this->idQuote)
                       ->select()
                       ->join($tableToJoin, $commonColumn, 'LEFT JOIN');
 
         // If a specific column and value are passed.
         if ((null !== $column) && (null !== $value)) {
-            $this->_finder = array($column, $value);
-            $this->db->sql->where($column, '=', $this->_getPlaceholder($column));
+            $this->finder = array($column, $value);
+            $this->db->sql->where($column, '=', $this->getPlaceholder($column));
         } else {
-            $this->_finder = array();
+            $this->finder = array();
         }
 
         // Set the SQL query to a specific order, if given.
         if (null !== $order) {
-            $ord = $this->_getOrder($order);
-            $this->db->sql->order($this->_tableName . '.' . $this->db->adapter->escape($ord['by']), $this->db->adapter->escape($ord['order']));
+            $ord = $this->getOrder($order);
+            $this->db->sql->order($this->tableName . '.' . $this->db->adapter->escape($ord['by']), $this->db->adapter->escape($ord['order']));
         }
 
         // Set any limit to the SQL query.
@@ -348,7 +348,7 @@ class Prepared extends AbstractRecord
         $this->db->adapter->execute();
 
         // Set the return results.
-        $this->_setResults();
+        $this->setResults();
     }
 
     /**
@@ -360,93 +360,93 @@ class Prepared extends AbstractRecord
      */
     public function save($columnsPassed, $type = Record::INSERT)
     {
-        $this->_columns = $columnsPassed;
+        $this->columns = $columnsPassed;
 
-        if (null === $this->_primaryId) {
+        if (null === $this->primaryId) {
             if ($type == Record::UPDATE) {
-                $this->db->sql->setTable($this->_tableName)
-                              ->setIdQuoteType($this->_idQuote);
+                $this->db->sql->setTable($this->tableName)
+                              ->setIdQuoteType($this->idQuote);
 
-                if (count($this->_finder) > 0) {
+                if (count($this->finder) > 0) {
                     $columns = array();
-                    $params = $this->_columns;
+                    $params = $this->columns;
                     $i = 1;
-                    foreach ($this->_columns as $key => $value) {
-                        if ($key != $this->_finder[0]) {
-                            $columns[$key] = $this->_getPlaceholder($key, $i);
+                    foreach ($this->columns as $key => $value) {
+                        if ($key != $this->finder[0]) {
+                            $columns[$key] = $this->getPlaceholder($key, $i);
                             $i++;
                         }
                     }
-                    if (isset($params[$this->_finder[0]])) {
-                        $val = $params[$this->_finder[0]];
-                        unset($params[$this->_finder[0]]);
+                    if (isset($params[$this->finder[0]])) {
+                        $val = $params[$this->finder[0]];
+                        unset($params[$this->finder[0]]);
                     }
-                    $params[$this->_finder[0]] = $val;
+                    $params[$this->finder[0]] = $val;
                     $this->db->sql->update((array)$columns)
-                                  ->where($this->_finder[0], '=', $this->_getPlaceholder($this->_finder[0], $i));
+                                  ->where($this->finder[0], '=', $this->getPlaceholder($this->finder[0], $i));
                     $this->db->adapter->prepare($this->db->sql->getSql());
                     $this->db->adapter->bindParams($params);
                 } else {
                     $columns = array();
                     $i = 1;
-                    foreach ($this->_columns as $key => $value) {
-                        $columns[$key] = $this->_getPlaceholder($key, $i);
+                    foreach ($this->columns as $key => $value) {
+                        $columns[$key] = $this->getPlaceholder($key, $i);
                         $i++;
                     }
                     $this->db->sql->update((array)$columns);
                     $this->db->adapter->prepare($this->db->sql->getSql());
-                    $this->db->adapter->bindParams($this->_columns);
+                    $this->db->adapter->bindParams($this->columns);
                 }
                 $this->db->adapter->execute();
             } else {
-                $this->db->sql->setTable($this->_tableName)
-                              ->setIdQuoteType($this->_idQuote);
+                $this->db->sql->setTable($this->tableName)
+                              ->setIdQuoteType($this->idQuote);
 
                 $columns = array();
                 $i = 1;
-                foreach ($this->_columns as $key => $value) {
-                    $columns[$key] = $this->_getPlaceholder($key, $i);
+                foreach ($this->columns as $key => $value) {
+                    $columns[$key] = $this->getPlaceholder($key, $i);
                     $i++;
                 }
                 $this->db->sql->insert((array)$columns);
                 $this->db->adapter->prepare($this->db->sql->getSql());
-                $this->db->adapter->bindParams($this->_columns);
+                $this->db->adapter->bindParams($this->columns);
                 $this->db->adapter->execute();
             }
         } else {
-            if ($this->_auto == false) {
+            if ($this->auto == false) {
                 $action = ($type == Record::INSERT) ? 'insert' : 'update';
             } else {
-                if (is_array($this->_primaryId)) {
+                if (is_array($this->primaryId)) {
                     $isset = true;
-                    foreach ($this->_primaryId as $value) {
-                        if (!isset($this->_columns[$value])) {
+                    foreach ($this->primaryId as $value) {
+                        if (!isset($this->columns[$value])) {
                             $isset = false;
                         }
                     }
                     $action = ($isset) ? 'update' : 'insert';
                 } else {
-                    $action = (isset($this->_columns[$this->_primaryId])) ? 'update' : 'insert';
+                    $action = (isset($this->columns[$this->primaryId])) ? 'update' : 'insert';
                 }
             }
 
             if ($action == 'update') {
-                $this->db->sql->setTable($this->_tableName)
-                              ->setIdQuoteType($this->_idQuote);
+                $this->db->sql->setTable($this->tableName)
+                              ->setIdQuoteType($this->idQuote);
 
                 $columns = array();
-                $params = $this->_columns;
+                $params = $this->columns;
 
                 $i = 1;
-                foreach ($this->_columns as $key => $value) {
-                    if (is_array($this->_primaryId)) {
-                        if (!in_array($key, $this->_primaryId)) {
-                            $columns[$key] = $this->_getPlaceholder($key, $i);
+                foreach ($this->columns as $key => $value) {
+                    if (is_array($this->primaryId)) {
+                        if (!in_array($key, $this->primaryId)) {
+                            $columns[$key] = $this->getPlaceholder($key, $i);
                             $i++;
                         }
                     } else {
-                        if ($key != $this->_primaryId) {
-                            $columns[$key] = $this->_getPlaceholder($key, $i);
+                        if ($key != $this->primaryId) {
+                            $columns[$key] = $this->getPlaceholder($key, $i);
                             $i++;
                         }
                     }
@@ -454,8 +454,8 @@ class Prepared extends AbstractRecord
 
                 $this->db->sql->update((array)$columns);
 
-                if (is_array($this->_primaryId)) {
-                    foreach ($this->_primaryId as $key => $value) {
+                if (is_array($this->primaryId)) {
+                    foreach ($this->primaryId as $key => $value) {
                         if (isset($params[$value])) {
                             $id = $params[$value];
                             unset($params[$value]);
@@ -463,42 +463,42 @@ class Prepared extends AbstractRecord
                             $id = $params[$value];
                         }
                         $params[$value] = $id;
-                        $this->db->sql->where($value, '=', $this->_getPlaceholder($value, ($i + $key + 1)));
+                        $this->db->sql->where($value, '=', $this->getPlaceholder($value, ($i + $key + 1)));
                     }
                 } else {
-                    if (isset($params[$this->_primaryId])) {
-                        $id = $params[$this->_primaryId];
-                        unset($params[$this->_primaryId]);
+                    if (isset($params[$this->primaryId])) {
+                        $id = $params[$this->primaryId];
+                        unset($params[$this->primaryId]);
                     } else {
-                        $id = $params[$this->_primaryId];
+                        $id = $params[$this->primaryId];
                     }
-                    $params[$this->_primaryId] = $id;
-                    $this->db->sql->where($this->_primaryId, '=', $this->_getPlaceholder($this->_primaryId, $i));
+                    $params[$this->primaryId] = $id;
+                    $this->db->sql->where($this->primaryId, '=', $this->getPlaceholder($this->primaryId, $i));
                 }
 
                 $this->db->adapter->prepare($this->db->sql->getSql());
                 $this->db->adapter->bindParams($params);
                 $this->db->adapter->execute();
             } else {
-                $this->db->sql->setTable($this->_tableName)
-                              ->setIdQuoteType($this->_idQuote);
+                $this->db->sql->setTable($this->tableName)
+                              ->setIdQuoteType($this->idQuote);
 
                 $columns = array();
                 $i = 1;
 
-                foreach ($this->_columns as $key => $value) {
-                    $columns[$key] = $this->_getPlaceholder($key, $i);
+                foreach ($this->columns as $key => $value) {
+                    $columns[$key] = $this->getPlaceholder($key, $i);
                     $i++;
                 }
 
                 $this->db->sql->insert((array)$columns);
                 $this->db->adapter->prepare($this->db->sql->getSql());
-                $this->db->adapter->bindParams($this->_columns);
+                $this->db->adapter->bindParams($this->columns);
                 $this->db->adapter->execute();
 
-                if ($this->_auto) {
-                    $this->_columns[$this->_primaryId] = $this->db->adapter->lastId();
-                    $this->_rows[0][$this->_primaryId] = $this->db->adapter->lastId();
+                if ($this->auto) {
+                    $this->columns[$this->primaryId] = $this->db->adapter->lastId();
+                    $this->rows[0][$this->primaryId] = $this->db->adapter->lastId();
                 }
             }
         }
@@ -515,51 +515,51 @@ class Prepared extends AbstractRecord
      */
     public function delete($columnsPassed, $column = null, $value = null)
     {
-        $this->_columns = $columnsPassed;
+        $this->columns = $columnsPassed;
 
-        if (null === $this->_primaryId) {
+        if (null === $this->primaryId) {
             if ((null === $column) && (null === $value)) {
                 throw new Exception('The column and value parameters were not defined to describe the row(s) to delete.');
             }
 
-            $this->db->sql->setTable($this->_tableName)
-                          ->setIdQuoteType($this->_idQuote)
+            $this->db->sql->setTable($this->tableName)
+                          ->setIdQuoteType($this->idQuote)
                           ->delete()
-                          ->where($this->db->adapter->escape($column), '=', $this->_getPlaceholder($column));
+                          ->where($this->db->adapter->escape($column), '=', $this->getPlaceholder($column));
 
             $this->db->adapter->prepare($this->db->sql->getSql());
             $this->db->adapter->bindParams(array($column => $value));
             $this->db->adapter->execute();
 
-            $this->_columns = array();
-            $this->_rows = array();
+            $this->columns = array();
+            $this->rows = array();
         } else {
-            $this->db->sql->setTable($this->_tableName)
-                          ->setIdQuoteType($this->_idQuote)
+            $this->db->sql->setTable($this->tableName)
+                          ->setIdQuoteType($this->idQuote)
                           ->delete();
-            if (is_array($this->_primaryId)) {
-                foreach ($this->_primaryId as $key => $value) {
-                    $this->db->sql->where($this->db->adapter->escape($value), '=', $this->_getPlaceholder($value, ($key + 1)));
+            if (is_array($this->primaryId)) {
+                foreach ($this->primaryId as $key => $value) {
+                    $this->db->sql->where($this->db->adapter->escape($value), '=', $this->getPlaceholder($value, ($key + 1)));
                 }
             } else {
-                $this->db->sql->where($this->db->adapter->escape($this->_primaryId), '=', $this->_getPlaceholder($this->_primaryId));
+                $this->db->sql->where($this->db->adapter->escape($this->primaryId), '=', $this->getPlaceholder($this->primaryId));
             }
 
             $this->db->adapter->prepare($this->db->sql->getSql());
 
-            if (is_array($this->_primaryId)) {
+            if (is_array($this->primaryId)) {
                 $params = array();
-                foreach ($this->_primaryId as $value) {
-                    $params[$value] = $this->_columns[$value];
+                foreach ($this->primaryId as $value) {
+                    $params[$value] = $this->columns[$value];
                 }
             } else {
-                $params = array($this->_primaryId => $this->_columns[$this->_primaryId]);
+                $params = array($this->primaryId => $this->columns[$this->primaryId]);
             }
             $this->db->adapter->bindParams($params);
             $this->db->adapter->execute();
 
-            $this->_columns = array();
-            $this->_rows = array();
+            $this->columns = array();
+            $this->rows = array();
         }
     }
 
@@ -582,10 +582,10 @@ class Prepared extends AbstractRecord
 
         // Set the return results.
         if (stripos($sql, 'select') !== false) {
-            $this->_setResults();
+            $this->setResults();
         } else if (stripos($sql, 'delete') !== false) {
-            $this->_columns = array();
-            $this->_rows = array();
+            $this->columns = array();
+            $this->rows = array();
         }
     }
 
@@ -604,17 +604,17 @@ class Prepared extends AbstractRecord
             // If there is more than one result returned, create an array of results.
             if ($this->db->adapter->numRows() > 1) {
                 while (($row = $this->db->adapter->fetch()) != false) {
-                    $this->_rows[] = new \ArrayObject($row, \ArrayObject::ARRAY_AS_PROPS);
+                    $this->rows[] = new \ArrayObject($row, \ArrayObject::ARRAY_AS_PROPS);
                 }
             // Else, set the _columns array to the single returned result.
             } else {
                 while (($row = $this->db->adapter->fetch()) != false) {
-                    $this->_rows[0] = new \ArrayObject($row, \ArrayObject::ARRAY_AS_PROPS);
+                    $this->rows[0] = new \ArrayObject($row, \ArrayObject::ARRAY_AS_PROPS);
                 }
             }
         } else if (stripos($sql, 'delete') !== false) {
-            $this->_columns = array();
-            $this->_rows = array();
+            $this->columns = array();
+            $this->rows = array();
         }
     }
 
@@ -627,11 +627,11 @@ class Prepared extends AbstractRecord
      */
     protected function _getPlaceholder($column, $i = 1)
     {
-        $placeholder =  $this->_placeholder;
+        $placeholder =  $this->placeholder;
 
-        if ($this->_placeholder == ':') {
+        if ($this->placeholder == ':') {
             $placeholder .= $column;
-        } else if ($this->_placeholder == '$') {
+        } else if ($this->placeholder == '$') {
             $placeholder .= $i;
         }
 
@@ -645,11 +645,11 @@ class Prepared extends AbstractRecord
      */
     protected function _setResults()
     {
-        $this->_rows = array();
+        $this->rows = array();
 
         $rows = $this->db->adapter->fetchResult();
         foreach ($rows as $row) {
-            $this->_rows[] = new \ArrayObject($row, \ArrayObject::ARRAY_AS_PROPS);
+            $this->rows[] = new \ArrayObject($row, \ArrayObject::ARRAY_AS_PROPS);
         }
     }
 

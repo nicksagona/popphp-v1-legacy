@@ -47,24 +47,24 @@ class AlphaNumeric extends AbstractValidator
     {
         // Set the input, if passed
         if (null !== $input) {
-            $this->_input = $input;
+            $this->input = $input;
         }
 
         // Set the default message
-        if ($this->_condition) {
-            $this->_defaultMessage = Locale::factory()->__('The value must only contain alphanumeric characters.');
+        if ($this->condition) {
+            $this->defaultMessage = Locale::factory()->_('The value must only contain alphanumeric characters.');
         } else {
-            $this->_defaultMessage = Locale::factory()->__('The value must contain non-alphanumeric characters.');
+            $this->defaultMessage = Locale::factory()->_('The value must contain non-alphanumeric characters.');
         }
 
         // Evaluate the input against the validator
-        if (preg_match('/^\w+$/', $this->_input) == $this->_condition) {
-            $this->_result = true;
+        if (preg_match('/^\w+$/', $this->input) == $this->condition) {
+            $this->result = true;
         } else {
-            $this->_result = false;
+            $this->result = false;
         }
 
-        return $this->_result;
+        return $this->result;
     }
 
 }

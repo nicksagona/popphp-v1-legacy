@@ -39,13 +39,13 @@ class Name
      * Font info
      * @var array
      */
-    protected $_fontInfo = array();
+    protected $fontInfo = array();
 
     /**
      * TrueType font info names
      * @var array
      */
-    protected $_names = array(
+    protected $names = array(
         0  => 'copyright',
         1  => 'fontFamily',
         2  => 'fontSubFamily',
@@ -106,7 +106,7 @@ class Name
                 $ttfValue = @iconv('UTF-16be', 'UTF-8//TRANSLIT', $ttfValue);
             }
             if ($ttfValue != '') {
-                $this->_fontInfo[$this->_names[$ttfRecord['nameId']]] = $ttfValue;
+                $this->fontInfo[$this->names[$ttfRecord['nameId']]] = $ttfValue;
             }
 
             $bytePos = $ttfRecordOffset;
@@ -123,7 +123,7 @@ class Name
      */
     public function __set($name, $value)
     {
-        $this->_fontInfo[$name] = $value;
+        $this->fontInfo[$name] = $value;
     }
 
     /**
@@ -134,7 +134,7 @@ class Name
      */
     public function __get($name)
     {
-        return (array_key_exists($name, $this->_fontInfo)) ? $this->_fontInfo[$name] : null;
+        return (array_key_exists($name, $this->fontInfo)) ? $this->fontInfo[$name] : null;
     }
 
     /**
@@ -145,7 +145,7 @@ class Name
      */
     public function __isset($name)
     {
-        return isset($this->_fontInfo[$name]);
+        return isset($this->fontInfo[$name]);
     }
 
     /**
@@ -156,7 +156,7 @@ class Name
      */
     public function __unset($name)
     {
-        $this->_fontInfo[$name] = null;
+        $this->fontInfo[$name] = null;
     }
 
 }

@@ -42,19 +42,19 @@ class Router
      * Request object
      * @var Pop\Http\Request
      */
-    protected $_request = null;
+    protected $request = null;
 
     /**
      * Current controller object
      * @var Pop\Mvc\Controller
      */
-    protected $_controller = null;
+    protected $controller = null;
 
     /**
      * Array of available controllers class names
      * @var array
      */
-    protected $_controllers = array();
+    protected $controllers = array();
 
     /**
      * Constructor
@@ -66,8 +66,8 @@ class Router
      */
     public function __construct(array $controllers)
     {
-        $this->_request = new Request();
-        $this->_controllers = $controllers;
+        $this->request = new Request();
+        $this->controllers = $controllers;
     }
 
     /**
@@ -90,7 +90,7 @@ class Router
     public function addControllers(array $controller)
     {
         foreach ($controller as $key => $value) {
-            $this->_controllers[$key] = $value;
+            $this->controllers[$key] = $value;
         }
         return $this;
     }
@@ -102,7 +102,7 @@ class Router
      */
     public function controller()
     {
-        return $this->_controller;
+        return $this->controller;
     }
 
     /**
@@ -112,7 +112,7 @@ class Router
      */
     public function getController($controller)
     {
-        return (isset($this->_controllers[$controller])) ? $this->_controllers[$controller] : null;
+        return (isset($this->controllers[$controller])) ? $this->controllers[$controller] : null;
     }
 
     /**
@@ -122,7 +122,7 @@ class Router
      */
     public function getControllers()
     {
-        return $this->_controllers;
+        return $this->controllers;
     }
 
     /**
@@ -133,8 +133,8 @@ class Router
     public function getAction()
     {
         $action = null;
-        if (null !== $this->_controller) {
-            $action = $this->_controller->getRequest()->getPath(0);
+        if (null !== $this->controller) {
+            $action = $this->controller->getRequest()->getPath(0);
         }
         return $action;
     }
@@ -149,14 +149,14 @@ class Router
     {
         $ctrlCls = null;
 
-        if (array_key_exists($this->_request->getPath(0), $this->_controllers)) {
-            $ctrlCls =  $this->_controllers[$this->_request->getPath(0)];
-        } else if (array_key_exists('default', $this->_controllers)) {
-            $ctrlCls =  $this->_controllers['default'];
+        if (array_key_exists($this->request->getPath(0), $this->controllers)) {
+            $ctrlCls =  $this->controllers[$this->request->getPath(0)];
+        } else if (array_key_exists('default', $this->controllers)) {
+            $ctrlCls =  $this->controllers['default'];
         }
 
         if ((null !== $ctrlCls) && class_exists($ctrlCls)) {
-            $this->_controller = new $ctrlCls(null, null, $project);
+            $this->controller = new $ctrlCls(null, null, $project);
         }
     }
 

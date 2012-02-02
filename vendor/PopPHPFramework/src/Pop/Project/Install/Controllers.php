@@ -50,7 +50,7 @@ class Controllers
      */
     public static function install($install, $installDir)
     {
-        echo Locale::factory()->__('Creating controller class files...') . PHP_EOL;
+        echo Locale::factory()->_('Creating controller class files...') . PHP_EOL;
 
         // Make the controller folder
         $ctrlDir = $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Controller';
@@ -113,14 +113,14 @@ class Controllers
                 $construct->appendToBody("parent::__construct(\$request, \$response, \$project, \$viewPath);", false);
 
                 //if (array_key_exists('index', $views) && array_key_exists('error', $views)) {
-                //    $construct->appendToBody("if (\$this->_request->getRequestUri() == '/') {")
+                //    $construct->appendToBody("if (\$this->request->getRequestUri() == '/') {")
                 //              ->appendToBody("    \$this->index();")
                 //              ->appendToBody("} else {")
-                //              ->appendToBody("    \$this->_isError = true;")
+                //              ->appendToBody("    \$this->isError = true;")
                 //              ->appendToBody("    \$this->error();")
                 //              ->appendToBody("}", false);
                 //} else if (array_key_exists('index', $views)) {
-                //    $construct->appendToBody("if (\$this->_request->getRequestUri() == '/') {")
+                //    $construct->appendToBody("if (\$this->request->getRequestUri() == '/') {")
                 //              ->appendToBody("    \$this->index();")
                 //              ->appendToBody("}", false);
                 //}
@@ -142,7 +142,7 @@ class Controllers
 
                     $method = new MethodGenerator($key);
                     $method->setDesc('Add your model data here within the \'' . $key . '()\' method to inject into the view.');
-                    $method->appendToBody("\$this->_view = View::factory(\$this->_viewPath . '/{$value}');");
+                    $method->appendToBody("\$this->view = View::factory(\$this->viewPath . '/{$value}');");
                     $method->appendToBody("\$this->send();", false);
                     $method->getDocblock()->setReturn('void');
 

@@ -52,7 +52,7 @@ class Gd extends AbstractImage
      * Array of allowed file types.
      * @var array
      */
-    protected $_allowed = array(
+    protected $allowed = array(
         'gif'  => 'image/gif',
         'jpe'  => 'image/jpeg',
         'jpg'  => 'image/jpeg',
@@ -64,7 +64,7 @@ class Gd extends AbstractImage
      * Image color opacity
      * @var int
      */
-    protected $_opacity = 0;
+    protected $opacity = 0;
 
     /**
      * Constructor
@@ -89,57 +89,57 @@ class Gd extends AbstractImage
             throw new Exception('Error: The GD library extension must be installed to use the Gd adapter.');
         }
 
-        $this->_getGdInfo();
+        $this->getGdInfo();
 
         // If image exists, get image info and store in an array.
-        if (file_exists($this->fullpath) && ($this->_size > 0)) {
+        if (file_exists($this->fullpath) && ($this->size > 0)) {
             $imgSize = getimagesize($img);
 
             // Set image object properties.
-            $this->_width = $imgSize[0];
-            $this->_height = $imgSize[1];
-            $this->_channels = (isset($imgSize['channels'])) ? $imgSize['channels'] : null;
-            $this->_depth = (isset($imgSize['bits'])) ? $imgSize['bits'] : null;
+            $this->width = $imgSize[0];
+            $this->height = $imgSize[1];
+            $this->channels = (isset($imgSize['channels'])) ? $imgSize['channels'] : null;
+            $this->depth = (isset($imgSize['bits'])) ? $imgSize['bits'] : null;
             $this->setQuality(100);
 
             // If the image is a GIF
-            if ($this->_mime == 'image/gif') {
-                $this->_mode = 'Indexed';
+            if ($this->mime == 'image/gif') {
+                $this->mode = 'Indexed';
             // Else if the image is a PNG
-            } else if ($this->_mime == 'image/png') {
+            } else if ($this->mime == 'image/png') {
                 $imgData = $this->read();
                 $colorType = ord($imgData[25]);
                 switch ($colorType) {
                     case 0:
-                        $this->_channels = 1;
-                        $this->_mode = 'Gray';
+                        $this->channels = 1;
+                        $this->mode = 'Gray';
                         break;
                     case 2:
-                        $this->_channels = 3;
-                        $this->_mode = 'RGB';
+                        $this->channels = 3;
+                        $this->mode = 'RGB';
                         break;
                     case 3:
-                        $this->_channels = 3;
-                        $this->_mode = 'Indexed';
+                        $this->channels = 3;
+                        $this->mode = 'Indexed';
                         break;
                     case 4:
-                        $this->_channels = 1;
-                        $this->_mode = 'Gray';
-                        $this->_alpha = true;
+                        $this->channels = 1;
+                        $this->mode = 'Gray';
+                        $this->alpha = true;
                         break;
                     case 6:
-                        $this->_channels = 3;
-                        $this->_mode = 'RGB';
-                        $this->_alpha = true;
+                        $this->channels = 3;
+                        $this->mode = 'RGB';
+                        $this->alpha = true;
                         break;
                 }
             // Else if the image is a JPEG.
-            } else if ($this->_channels == 1) {
-                $this->_mode = 'Gray';
-            } else if ($this->_channels == 3) {
-                $this->_mode = 'RGB';
-            } else if ($this->_channels == 4) {
-                $this->_mode = 'CMYK';
+            } else if ($this->channels == 1) {
+                $this->mode = 'Gray';
+            } else if ($this->channels == 3) {
+                $this->mode = 'RGB';
+            } else if ($this->channels == 4) {
+                $this->mode = 'CMYK';
             }
         // If image does not exists, check to make sure the width and
         // height properties of the new image have been passed.
@@ -149,26 +149,26 @@ class Gd extends AbstractImage
             }
 
             // Set image object properties.
-            $this->_width = $w;
-            $this->_height = $h;
-            $this->_channels = null;
+            $this->width = $w;
+            $this->height = $h;
+            $this->channels = null;
 
             // Create a new image and allocate the background color.
-            if ($this->_mime == 'image/gif') {
-                $this->_resource = imagecreate($w, $h);
+            if ($this->mime == 'image/gif') {
+                $this->resource = imagecreate($w, $h);
                 $this->setBackgroundColor((null === $color) ? new Rgb(255, 255, 255) : $color);
-                $clr = $this->_setColor($this->_backgroundColor);
+                $clr = $this->setColor($this->backgroundColor);
             } else {
-                $this->_resource = imagecreatetruecolor($w, $h);
+                $this->resource = imagecreatetruecolor($w, $h);
                 $this->setBackgroundColor((null === $color) ? new Rgb(255, 255, 255) : $color);
-                $clr = $this->_setColor($this->_backgroundColor);
-                imagefill($this->_resource, 0, 0, $clr);
+                $clr = $this->setColor($this->backgroundColor);
+                imagefill($this->resource, 0, 0, $clr);
             }
 
             // Set the quality and create a new, blank image file.
             unset($clr);
             $this->setQuality(100);
-            $this->_output = $this->_resource;
+            $this->output = $this->resource;
         }
     }
 
@@ -190,15 +190,15 @@ class Gd extends AbstractImage
      */
     public function setQuality($q = null)
     {
-        switch ($this->_mime) {
+        switch ($this->mime) {
             case 'image/png':
-                $this->_quality = ($q < 10) ? 9 : 10 - round(($q / 10), PHP_ROUND_HALF_DOWN);
+                $this->quality = ($q < 10) ? 9 : 10 - round(($q / 10), PHP_ROUND_HALF_DOWN);
                 break;
             case 'image/jpeg':
-                $this->_quality = round($q);
+                $this->quality = round($q);
                 break;
             default:
-                $this->_quality = null;
+                $this->quality = null;
         }
 
         return $this;
@@ -212,7 +212,7 @@ class Gd extends AbstractImage
      */
     public function setOpacity($opac)
     {
-        $this->_opacity = round((127 - (127 * ($opac / 100))));
+        $this->opacity = round((127 - (127 * ($opac / 100))));
         return $this;
     }
 
@@ -224,15 +224,15 @@ class Gd extends AbstractImage
      */
     public function resizeToWidth($wid)
     {
-        $scale = $wid / $this->_width;
-        $hgt = round($this->_height * $scale);
+        $scale = $wid / $this->width;
+        $hgt = round($this->height * $scale);
 
         // Create a new image output resource.
-        $this->_createResource();
-        $this->_output = imagecreatetruecolor($wid, $hgt);
+        $this->createResource();
+        $this->output = imagecreatetruecolor($wid, $hgt);
 
         // Copy newly sized image to the output resource.
-        $this->_copyImage($wid, $hgt);
+        $this->copyImage($wid, $hgt);
 
         return $this;
     }
@@ -245,15 +245,15 @@ class Gd extends AbstractImage
      */
     public function resizeToHeight($hgt)
     {
-        $scale = $hgt / $this->_height;
-        $wid = round($this->_width * $scale);
+        $scale = $hgt / $this->height;
+        $wid = round($this->width * $scale);
 
         // Create a new image output resource.
-        $this->_createResource();
-        $this->_output = imagecreatetruecolor($wid, $hgt);
+        $this->createResource();
+        $this->output = imagecreatetruecolor($wid, $hgt);
 
         // Copy newly sized image to the output resource.
-        $this->_copyImage($wid, $hgt);
+        $this->copyImage($wid, $hgt);
 
         return $this;
     }
@@ -272,17 +272,17 @@ class Gd extends AbstractImage
         // Determine whether or not the image is landscape or portrait and set
         // the scale, new width and new height accordingly, with the largest
         // dimension being scaled to the value of the $px argument.
-        $scale = ($this->_width > $this->_height) ? ($px / $this->_width) : ($px / $this->_height);
+        $scale = ($this->width > $this->height) ? ($px / $this->width) : ($px / $this->height);
 
-        $wid = round($this->_width * $scale);
-        $hgt = round($this->_height * $scale);
+        $wid = round($this->width * $scale);
+        $hgt = round($this->height * $scale);
 
         // Create a new image output resource.
-        $this->_createResource();
-        $this->_output = imagecreatetruecolor($wid, $hgt);
+        $this->createResource();
+        $this->output = imagecreatetruecolor($wid, $hgt);
 
         // Copy newly sized image to the output resource.
-        $this->_copyImage($wid, $hgt);
+        $this->copyImage($wid, $hgt);
 
         return $this;
     }
@@ -300,15 +300,15 @@ class Gd extends AbstractImage
     {
         // Determine the new width and height of the image based on the
         // value of the $scl argument.
-        $wid = round($this->_width * $scl);
-        $hgt = round($this->_height * $scl);
+        $wid = round($this->width * $scl);
+        $hgt = round($this->height * $scl);
 
         // Create a new image output resource.
-        $this->_createResource();
-        $this->_output = imagecreatetruecolor($wid, $hgt);
+        $this->createResource();
+        $this->output = imagecreatetruecolor($wid, $hgt);
 
         // Copy newly sized image to the output resource.
-        $this->_copyImage($wid, $hgt);
+        $this->copyImage($wid, $hgt);
 
         return $this;
     }
@@ -328,11 +328,11 @@ class Gd extends AbstractImage
     public function crop($wid, $hgt, $x = 0, $y = 0)
     {
         // Create a new image output resource.
-        $this->_createResource();
-        $this->_output = imagecreatetruecolor($wid, $hgt);
+        $this->createResource();
+        $this->output = imagecreatetruecolor($wid, $hgt);
 
         // Copy newly sized image to the output resource.
-        $this->_copyImage($this->_width, $this->_height, $x, $y);
+        $this->copyImage($this->width, $this->height, $x, $y);
 
         return $this;
     }
@@ -356,17 +356,17 @@ class Gd extends AbstractImage
         // the scale, new width and new height accordingly, with the smallest
         // dimension being scaled to the value of the $px argument to allow
         // for a complete crop.
-        $scale = ($this->_width > $this->_height) ? ($px / $this->_height) : ($px / $this->_width);
+        $scale = ($this->width > $this->height) ? ($px / $this->height) : ($px / $this->width);
 
-        $wid = round($this->_width * $scale);
-        $hgt = round($this->_height * $scale);
+        $wid = round($this->width * $scale);
+        $hgt = round($this->height * $scale);
 
         // Create a new image output resource.
-        $this->_createResource();
-        $this->_output = imagecreatetruecolor($px, $px);
+        $this->createResource();
+        $this->output = imagecreatetruecolor($px, $px);
 
         // Copy newly sized image to the output resource.
-        $this->_copyImage($wid, $hgt, $x, $y);
+        $this->copyImage($wid, $hgt, $x, $y);
 
         return $this;
     }
@@ -381,10 +381,10 @@ class Gd extends AbstractImage
     public function rotate($deg)
     {
         // Create a new image resource and rotate it.
-        $this->_createResource();
-        $color = $this->_setColor($this->_backgroundColor);
-        $this->_output = imagerotate($this->_resource, $deg, $color);
-        $this->_resource = $this->_output;
+        $this->createResource();
+        $color = $this->setColor($this->backgroundColor);
+        $this->output = imagerotate($this->resource, $deg, $color);
+        $this->resource = $this->output;
 
         return $this;
     }
@@ -408,24 +408,24 @@ class Gd extends AbstractImage
     public function text($str, $size, $x, $y, $font = null, $rotate = null, $stroke = false)
     {
         // Set the image resource and color.
-        $this->_createResource();
-        $color = $this->_setColor($this->_fillColor);
+        $this->createResource();
+        $color = $this->setColor($this->fillColor);
 
         // Write the text to the image.
         if ((null !== $font) && function_exists('imagettftext')) {
             if ($stroke) {
-                $stroke = $this->_setColor($this->_strokeColor);
-                imagettftext($this->_resource, $size, $rotate, $x, ($y - 1), $stroke, $font, $str);
-                imagettftext($this->_resource, $size, $rotate, $x, ($y + 1), $stroke, $font, $str);
-                imagettftext($this->_resource, $size, $rotate, ($x - 1), $y, $stroke, $font, $str);
-                imagettftext($this->_resource, $size, $rotate, ($x + 1), $y, $stroke, $font, $str);
+                $stroke = $this->setColor($this->strokeColor);
+                imagettftext($this->resource, $size, $rotate, $x, ($y - 1), $stroke, $font, $str);
+                imagettftext($this->resource, $size, $rotate, $x, ($y + 1), $stroke, $font, $str);
+                imagettftext($this->resource, $size, $rotate, ($x - 1), $y, $stroke, $font, $str);
+                imagettftext($this->resource, $size, $rotate, ($x + 1), $y, $stroke, $font, $str);
             }
-            imagettftext($this->_resource, $size, $rotate, $x, $y, $color, $font, $str);
+            imagettftext($this->resource, $size, $rotate, $x, $y, $color, $font, $str);
         } else {
-            imagestring($this->_resource, $size, $x, $y,  $str, $color);
+            imagestring($this->resource, $size, $x, $y,  $str, $color);
         }
 
-        $this->_output = $this->_resource;
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -442,15 +442,15 @@ class Gd extends AbstractImage
     public function addLine($x1, $y1, $x2, $y2)
     {
         // Create an image resource and set the stroke color.
-        $this->_createResource();
+        $this->createResource();
 
-        $strokeWidth = (null === $this->_strokeWidth) ? 1 : $this->_strokeWidth;
-        $strokeColor = (null === $this->_strokeColor) ? $this->_setColor(new Rgb(0, 0, 0)) : $this->_setColor($this->_strokeColor);
+        $strokeWidth = (null === $this->strokeWidth) ? 1 : $this->strokeWidth;
+        $strokeColor = (null === $this->strokeColor) ? $this->setColor(new Rgb(0, 0, 0)) : $this->setColor($this->strokeColor);
 
         // Draw the line.
-        imagesetthickness($this->_resource, $strokeWidth);
-        imageline($this->_resource, $x1, $y1, $x2, $y2, $strokeColor);
-        $this->_output = $this->_resource;
+        imagesetthickness($this->resource, $strokeWidth);
+        imageline($this->resource, $x1, $y1, $x2, $y2, $strokeColor);
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -470,29 +470,29 @@ class Gd extends AbstractImage
         $y2 = $y + ((null === $h) ? $w : $h);
 
         // Create an image resource.
-        $this->_createResource();
+        $this->createResource();
 
         // Set fill color and create rectangle.
-        if ((null === $this->_fillColor) && (null === $this->_backgroundColor)) {
-            $fill = $this->_setColor(new Rgb(255, 255, 255));
-        } else if (null === $this->_fillColor) {
-            $fill = $this->_setColor($this->_backgroundColor);
+        if ((null === $this->fillColor) && (null === $this->backgroundColor)) {
+            $fill = $this->setColor(new Rgb(255, 255, 255));
+        } else if (null === $this->fillColor) {
+            $fill = $this->setColor($this->backgroundColor);
         } else {
-            $fill = $this->_setColor($this->_fillColor);
+            $fill = $this->setColor($this->fillColor);
         }
 
-        imagefilledrectangle($this->_resource, $x, $y, $x2, $y2, $fill);
+        imagefilledrectangle($this->resource, $x, $y, $x2, $y2, $fill);
 
             // Create stroke, if applicable.
-        if (null !== $this->_strokeColor) {
-            $stroke = $this->_setColor($this->_strokeColor);
-            if (null === $this->_strokeWidth) {
-                $this->_strokeWidth = 1;
+        if (null !== $this->strokeColor) {
+            $stroke = $this->setColor($this->strokeColor);
+            if (null === $this->strokeWidth) {
+                $this->strokeWidth = 1;
             }
-            imagesetthickness($this->_resource, $this->_strokeWidth);
-            imagerectangle($this->_resource, $x, $y, $x2, $y2, $stroke);
+            imagesetthickness($this->resource, $this->strokeWidth);
+            imagerectangle($this->resource, $x, $y, $x2, $y2, $stroke);
         }
-        $this->_output = $this->_resource;
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -526,29 +526,29 @@ class Gd extends AbstractImage
         $hgt = ((null === $h) ? $w : $h) * 2;
 
         // Create an image resource.
-        $this->_createResource();
+        $this->createResource();
 
         // Create stroke, if applicable.
-        if (null !== $this->_strokeColor) {
-            $stroke = $this->_setColor($this->_strokeColor);
-            if (null === $this->_strokeWidth) {
-                $this->_strokeWidth = 1;
+        if (null !== $this->strokeColor) {
+            $stroke = $this->setColor($this->strokeColor);
+            if (null === $this->strokeWidth) {
+                $this->strokeWidth = 1;
             }
-            imagefilledellipse($this->_resource, $x, $y, ($wid + $this->_strokeWidth), ($hgt + $this->_strokeWidth), $stroke);
+            imagefilledellipse($this->resource, $x, $y, ($wid + $this->strokeWidth), ($hgt + $this->strokeWidth), $stroke);
         }
 
         // Set fill color and create ellipse.
-        if ((null === $this->_fillColor) && (null === $this->_backgroundColor)) {
-            $fill = $this->_setColor(new Rgb(255, 255, 255));
-        } else if (null === $this->_fillColor) {
-            $fill = $this->_setColor($this->_backgroundColor);
+        if ((null === $this->fillColor) && (null === $this->backgroundColor)) {
+            $fill = $this->setColor(new Rgb(255, 255, 255));
+        } else if (null === $this->fillColor) {
+            $fill = $this->setColor($this->backgroundColor);
         } else {
-            $fill = $this->_setColor($this->_fillColor);
+            $fill = $this->setColor($this->fillColor);
         }
 
-        imagefilledellipse($this->_resource, $x, $y, $wid, $hgt, $fill);
+        imagefilledellipse($this->resource, $x, $y, $wid, $hgt, $fill);
 
-        $this->_output = $this->_resource;
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -583,39 +583,39 @@ class Gd extends AbstractImage
         $hgt = ((null === $h) ? $w : $h) * 2;
 
         // Create an image resource.
-        $this->_createResource();
+        $this->createResource();
 
         // Set fill color and create rectangle.
-        if ((null === $this->_fillColor) && (null === $this->_backgroundColor)) {
-            $fill = $this->_setColor(new Rgb(255, 255, 255));
-        } else if (null === $this->_fillColor) {
-            $fill = $this->_setColor($this->_backgroundColor);
+        if ((null === $this->fillColor) && (null === $this->backgroundColor)) {
+            $fill = $this->setColor(new Rgb(255, 255, 255));
+        } else if (null === $this->fillColor) {
+            $fill = $this->setColor($this->backgroundColor);
         } else {
-            $fill = $this->_setColor($this->_fillColor);
+            $fill = $this->setColor($this->fillColor);
         }
 
-        imagefilledarc($this->_resource, $x, $y, $wid, $hgt, $start, $end, $fill, IMG_ARC_PIE);
+        imagefilledarc($this->resource, $x, $y, $wid, $hgt, $start, $end, $fill, IMG_ARC_PIE);
 
         // Create stroke, if applicable.
-        if (null !== $this->_strokeColor) {
+        if (null !== $this->strokeColor) {
             $x1 = $w * cos($start / 180 * pi());
             $y1 = $h * sin($start / 180 * pi());
             $x2 = $w * cos($end / 180 * pi());
             $y2 = $h * sin($end / 180 * pi());
 
-            $stroke = $this->_setColor($this->_strokeColor);
+            $stroke = $this->setColor($this->strokeColor);
 
-            if (null === $this->_strokeWidth) {
-                $this->_strokeWidth = 1;
+            if (null === $this->strokeWidth) {
+                $this->strokeWidth = 1;
             }
 
-            imagesetthickness($this->_resource, $this->_strokeWidth);
-            imagearc($this->_resource, $x, $y, $wid, $hgt, $start, $end, $stroke);
-            imageline($this->_resource, $x, $y, $x + $x1, $y + $y1, $stroke);
-            imageline($this->_resource, $x, $y, $x + $x2, $y + $y2, $stroke);
+            imagesetthickness($this->resource, $this->strokeWidth);
+            imagearc($this->resource, $x, $y, $wid, $hgt, $start, $end, $stroke);
+            imageline($this->resource, $x, $y, $x + $x1, $y + $y1, $stroke);
+            imageline($this->resource, $x, $y, $x + $x2, $y + $y2, $stroke);
         }
 
-        $this->_output = $this->_resource;
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -637,30 +637,30 @@ class Gd extends AbstractImage
         }
 
         // Create an image resource.
-        $this->_createResource();
+        $this->createResource();
 
         // Set fill color and create rectangle.
-        if ((null === $this->_fillColor) && (null === $this->_backgroundColor)) {
-            $fill = $this->_setColor(new Rgb(255, 255, 255));
-        } else if (null === $this->_fillColor) {
-            $fill = $this->_setColor($this->_backgroundColor);
+        if ((null === $this->fillColor) && (null === $this->backgroundColor)) {
+            $fill = $this->setColor(new Rgb(255, 255, 255));
+        } else if (null === $this->fillColor) {
+            $fill = $this->setColor($this->backgroundColor);
         } else {
-            $fill = $this->_setColor($this->_fillColor);
+            $fill = $this->setColor($this->fillColor);
         }
 
-        imagefilledpolygon($this->_resource, $realPoints, count($points), $fill);
+        imagefilledpolygon($this->resource, $realPoints, count($points), $fill);
 
         // Create stroke, if applicable.
-        if (null !== $this->_strokeColor) {
-            $stroke = $this->_setColor($this->_strokeColor);
-            if (null === $this->_strokeWidth) {
-                $this->_strokeWidth = 1;
+        if (null !== $this->strokeColor) {
+            $stroke = $this->setColor($this->strokeColor);
+            if (null === $this->strokeWidth) {
+                $this->strokeWidth = 1;
             }
-            imagesetthickness($this->_resource, $this->_strokeWidth);
-            imagepolygon($this->_resource, $realPoints, count($points), $stroke);
+            imagesetthickness($this->resource, $this->strokeWidth);
+            imagepolygon($this->resource, $realPoints, count($points), $stroke);
         }
 
-        $this->_output = $this->_resource;
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -674,9 +674,9 @@ class Gd extends AbstractImage
     public function brightness($b)
     {
         // Create an image resource.
-        $this->_createResource();
-        imagefilter($this->_resource, IMG_FILTER_BRIGHTNESS, $b);
-        $this->_output = $this->_resource;
+        $this->createResource();
+        imagefilter($this->resource, IMG_FILTER_BRIGHTNESS, $b);
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -690,9 +690,9 @@ class Gd extends AbstractImage
     public function contrast($amount)
     {
         // Create an image resource.
-        $this->_createResource();
-        imagefilter($this->_resource, IMG_FILTER_CONTRAST, (0 - $amount));
-        $this->_output = $this->_resource;
+        $this->createResource();
+        imagefilter($this->resource, IMG_FILTER_CONTRAST, (0 - $amount));
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -705,9 +705,9 @@ class Gd extends AbstractImage
     public function desaturate()
     {
         // Create an image resource.
-        $this->_createResource();
-        imagefilter($this->_resource, IMG_FILTER_GRAYSCALE);
-        $this->_output = $this->_resource;
+        $this->createResource();
+        imagefilter($this->resource, IMG_FILTER_GRAYSCALE);
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -721,9 +721,9 @@ class Gd extends AbstractImage
     public function sharpen($amount)
     {
         // Create an image resource.
-        $this->_createResource();
-        imagefilter($this->_resource, IMG_FILTER_SMOOTH, (0 - $amount));
-        $this->_output = $this->_resource;
+        $this->createResource();
+        imagefilter($this->resource, IMG_FILTER_SMOOTH, (0 - $amount));
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -737,14 +737,14 @@ class Gd extends AbstractImage
     public function blur($amount, $type = Gd::GAUSSIAN_BLUR)
     {
         // Create an image resource.
-        $this->_createResource();
+        $this->createResource();
         $blurType = ($type == self::GAUSSIAN_BLUR) ? IMG_FILTER_GAUSSIAN_BLUR : IMG_FILTER_SELECTIVE_BLUR;
 
         for ($i = 1; $i <= $amount; $i++) {
-            imagefilter($this->_resource, $blurType);
+            imagefilter($this->resource, $blurType);
         }
 
-        $this->_output = $this->_resource;
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -761,25 +761,25 @@ class Gd extends AbstractImage
     {
         $h = (null === $h) ? $w : $h;
 
-        $this->_fillColor = $this->_strokeColor;
+        $this->fillColor = $this->strokeColor;
         $this->setOpacity(100);
 
         if ($type == self::INNER_BORDER) {
-            $this->addRectangle(0, 0, $this->_width, $h);
-            $this->addRectangle(0, ($this->_height - $h), $this->_width, $this->_height);
-            $this->addRectangle(0, 0, $w, $this->_height);
-            $this->addRectangle(($this->_width - $w), 0, $this->_width, $this->_height);
+            $this->addRectangle(0, 0, $this->width, $h);
+            $this->addRectangle(0, ($this->height - $h), $this->width, $this->height);
+            $this->addRectangle(0, 0, $w, $this->height);
+            $this->addRectangle(($this->width - $w), 0, $this->width, $this->height);
         } else {
-            $newWidth = $this->_width + ($w * 2);
-            $newHeight = $this->_height + ($h * 2);
-            $this->_createResource();
-            $oldResource = $this->_resource;
-            $this->_resource = imagecreatetruecolor($newWidth, $newHeight);
-            $color = $this->_setColor($this->_fillColor);
-            imagefill($this->_resource, 0, 0, $color);
-            imagealphablending($this->_resource, true);
-            imagecopy($this->_resource, $oldResource, $w, $h, 0, 0, imagesx($oldResource), imagesy($oldResource));
-            $this->_output = $this->_resource;
+            $newWidth = $this->width + ($w * 2);
+            $newHeight = $this->height + ($h * 2);
+            $this->createResource();
+            $oldResource = $this->resource;
+            $this->resource = imagecreatetruecolor($newWidth, $newHeight);
+            $color = $this->setColor($this->fillColor);
+            imagefill($this->resource, 0, 0, $color);
+            imagealphablending($this->resource, true);
+            imagecopy($this->resource, $oldResource, $w, $h, 0, 0, imagesx($oldResource), imagesy($oldResource));
+            $this->output = $this->resource;
         }
 
         return $this;
@@ -796,8 +796,8 @@ class Gd extends AbstractImage
     public function overlay($ovr, $x = 0, $y = 0)
     {
         // Create image resource and turn on alpha blending
-        $this->_createResource();
-        imagealphablending($this->_resource, true);
+        $this->createResource();
+        imagealphablending($this->resource, true);
 
         // Create an image resource from the overlay image.
         if (stripos($ovr, '.gif') !== false) {
@@ -809,9 +809,9 @@ class Gd extends AbstractImage
         }
 
         // Copy the overlay image ontop of the main image resource.
-        imagecopy($this->_resource, $overlay, $x, $y, 0, 0, imagesx($overlay), imagesy($overlay));
+        imagecopy($this->resource, $overlay, $x, $y, 0, 0, imagesx($overlay), imagesy($overlay));
 
-        $this->_output = $this->_resource;
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -825,9 +825,9 @@ class Gd extends AbstractImage
     public function colorize(ColorInterface $color)
     {
         // Create an image resource.
-        $this->_createResource();
-        imagefilter($this->_resource, IMG_FILTER_COLORIZE, $color->getRed(), $color->getGreen(), $color->getBlue());
-        $this->_output = $this->_resource;
+        $this->createResource();
+        imagefilter($this->resource, IMG_FILTER_COLORIZE, $color->getRed(), $color->getGreen(), $color->getBlue());
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -840,9 +840,9 @@ class Gd extends AbstractImage
     public function invert()
     {
         // Create an image resource.
-        $this->_createResource();
-        imagefilter($this->_resource, IMG_FILTER_NEGATE);
-        $this->_output = $this->_resource;
+        $this->createResource();
+        imagefilter($this->resource, IMG_FILTER_NEGATE);
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -856,9 +856,9 @@ class Gd extends AbstractImage
     public function pixelate($px)
     {
         // Create an image resource.
-        $this->_createResource();
-        imagefilter($this->_resource, IMG_FILTER_PIXELATE, $px, true);
-        $this->_output = $this->_resource;
+        $this->createResource();
+        imagefilter($this->resource, IMG_FILTER_PIXELATE, $px, true);
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -871,9 +871,9 @@ class Gd extends AbstractImage
     public function pencil()
     {
         // Create an image resource.
-        $this->_createResource();
-        imagefilter($this->_resource, IMG_FILTER_MEAN_REMOVAL);
-        $this->_output = $this->_resource;
+        $this->createResource();
+        imagefilter($this->resource, IMG_FILTER_MEAN_REMOVAL);
+        $this->output = $this->resource;
 
         return $this;
     }
@@ -887,8 +887,8 @@ class Gd extends AbstractImage
     public function colorTotal()
     {
         // Set the image resource and get the total number of colors.
-        $this->_createResource();
-        $colors = imagecolorstotal($this->_resource);
+        $this->createResource();
+        $colors = imagecolorstotal($this->resource);
 
         // Destroy the image resource.
         $this->destroy();
@@ -912,16 +912,16 @@ class Gd extends AbstractImage
     {
         // Initialize the colors array and the image resource.
         $colors = array();
-        $this->_createResource();
+        $this->createResource();
 
         // Loop through each pixel of the image, recording the color result
         // in the color array.
-        for ($h = 0; $h < $this->_height; $h++) {
-            for ($w = 0; $w < $this->_width; $w++) {
+        for ($h = 0; $h < $this->height; $h++) {
+            for ($w = 0; $w < $this->width; $w++) {
                 // Get the color index at the pixel location, translating
                 // into human readable form.
-                $color_index = imagecolorat($this->_resource, $w, $h);
-                $color_trans = imagecolorsforindex($this->_resource, $color_index);
+                $color_index = imagecolorat($this->resource, $w, $h);
+                $color_trans = imagecolorsforindex($this->resource, $color_index);
 
                 // Convert to the proper HEX or RGB format.
                 if ($format == 'HEX') {
@@ -956,10 +956,10 @@ class Gd extends AbstractImage
         $type = strtolower($type);
 
         // Check if the permissions are set correctly.
-        if ((null !== $this->_perm['file']) && ($this->_perm['file'] != 777)) {
+        if ((null !== $this->perm['file']) && ($this->perm['file'] != 777)) {
             throw new Exception('Error: Permission denied.');
         // Check if the requested image type is supported.
-        } else if (!array_key_exists($type, $this->_allowed)) {
+        } else if (!array_key_exists($type, $this->allowed)) {
             throw new Exception('Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.');
         // Check if the image is already the requested image type.
         } else if (strtolower($this->ext) == $type) {
@@ -969,14 +969,14 @@ class Gd extends AbstractImage
         // Else, save the image as the new type.
         // Open a new image, maintaining the GIF image's palette and
         // transparency where applicable.
-        if ($this->_mime == 'image/gif') {
-            $this->_createResource();
-            imageinterlace($this->_resource, 0);
+        if ($this->mime == 'image/gif') {
+            $this->createResource();
+            imageinterlace($this->resource, 0);
 
             // Change the type of the image object to the new,
             // requested image type.
             $this->ext = $type;
-            $this->_mime = $this->_allowed[$this->ext];
+            $this->mime = $this->allowed[$this->ext];
 
             // Redefine the image object properties with the new values.
             $this->fullpath = $this->dir . $this->filename . '.' . $this->ext;
@@ -985,33 +985,33 @@ class Gd extends AbstractImage
         // Else, open a new true color image.
         } else {
             if ($type == 'gif') {
-                $this->_createResource();
+                $this->createResource();
 
                 // Change the type of the image object to the new,
                 // requested image type.
                 $this->ext = $type;
-                $this->_mime = $this->_allowed[$this->ext];
+                $this->mime = $this->allowed[$this->ext];
 
                 // Redefine the image object properties with the new values.
                 $this->fullpath = $this->dir . $this->filename . '.' . $this->ext;
                 $this->basename = basename($this->fullpath);
             } else {
-                $new = imagecreatetruecolor($this->_width, $this->_height);
+                $new = imagecreatetruecolor($this->width, $this->height);
 
                 // Create a new, blank image file and copy the image over.
-                $this->_createResource();
+                $this->createResource();
 
                 // Change the type of the image object to the new,
                 // requested image type.
                 $this->ext = $type;
-                $this->_mime = $this->_allowed[$this->ext];
+                $this->mime = $this->allowed[$this->ext];
 
                 // Redefine the image object properties with the new values.
                 $this->fullpath = $this->dir . $this->filename . '.' . $this->ext;
                 $this->basename = basename($this->fullpath);
 
                 // Create and save the image in it's new, proper format.
-                imagecopyresampled($new, $this->_resource, 0, 0, 0, 0, $this->_width, $this->_height, $this->_width, $this->_height);
+                imagecopyresampled($new, $this->resource, 0, 0, 0, 0, $this->width, $this->height, $this->width, $this->height);
             }
         }
 
@@ -1029,7 +1029,7 @@ class Gd extends AbstractImage
         // Determine if the force download argument has been passed.
         $attach = ($download) ? 'attachment; ' : null;
         $headers = array(
-            'Content-type' => $this->_mime,
+            'Content-type' => $this->mime,
             'Content-disposition' => $attach . 'filename=' . $this->basename
         );
 
@@ -1039,17 +1039,17 @@ class Gd extends AbstractImage
             $response->setSslHeaders();
         }
 
-        if (null === $this->_resource) {
-            $this->_createResource();
+        if (null === $this->resource) {
+            $this->createResource();
         }
 
-        if (null === $this->_output) {
-            $this->_output = $this->_resource;
+        if (null === $this->output) {
+            $this->output = $this->resource;
         }
 
         // Create the image resource and output it
         $response->sendHeaders();
-        $this->_createImage($this->_output, null, $this->_quality);
+        $this->createImage($this->output, null, $this->quality);
 
         // Destroy the image resource.
         $this->destroy();
@@ -1066,25 +1066,25 @@ class Gd extends AbstractImage
      */
     public function save($to = null, $append = false)
     {
-        if ((null === $this->_output) && (null === $this->_resource)) {
+        if ((null === $this->output) && (null === $this->resource)) {
             throw new Exception('Error: The image resource has not been created.');
         }
 
-        if (null === $this->_output) {
-            $this->_output = $this->_resource;
+        if (null === $this->output) {
+            $this->output = $this->resource;
         }
 
-        $this->_createImage($this->_output, ((null === $to) ? $this->fullpath : $to), $this->_quality);
+        $this->createImage($this->output, ((null === $to) ? $this->fullpath : $to), $this->quality);
         clearstatcache();
 
-        $this->_setFile((null === $to) ? $this->fullpath : $to);
+        $this->setFile((null === $to) ? $this->fullpath : $to);
 
         $imgSize = getimagesize($this->fullpath);
 
         // Set image object properties.
-        $this->_width = $imgSize[0];
-        $this->_height = $imgSize[1];
-        $this->_channels = (isset($imgSize['channels'])) ? $imgSize['channels'] : null;
+        $this->width = $imgSize[0];
+        $this->height = $imgSize[1];
+        $this->channels = (isset($imgSize['channels'])) ? $imgSize['channels'] : null;
 
         return $this;
     }
@@ -1098,18 +1098,18 @@ class Gd extends AbstractImage
     public function destroy($file = false)
     {
         // Destroy the image resource.
-        if (null !== $this->_resource) {
-            if (!is_string($this->_resource)) {
-                imagedestroy($this->_resource);
+        if (null !== $this->resource) {
+            if (!is_string($this->resource)) {
+                imagedestroy($this->resource);
             }
-            $this->_resource = null;
+            $this->resource = null;
         }
         // Destroy the image output resource.
-        if (null !== $this->_output) {
-            if (!is_string($this->_output)) {
-                imagedestroy($this->_output);
+        if (null !== $this->output) {
+            if (!is_string($this->output)) {
+                imagedestroy($this->output);
             }
-            $this->_output = null;
+            $this->output = null;
         }
 
         // Clear PHP's file status cache.
@@ -1156,15 +1156,15 @@ class Gd extends AbstractImage
      */
     protected function _setColor(ColorInterface $color = null)
     {
-        if (null === $this->_resource) {
+        if (null === $this->resource) {
             throw new Exception('Error: The image resource has not been created.');
         }
 
-        $opac = (null === $this->_opacity) ? 0 : $this->_opacity;
+        $opac = (null === $this->opacity) ? 0 : $this->opacity;
         if (null !== $color) {
-            $color = imagecolorallocatealpha($this->_resource, (int)$color->getRed(), (int)$color->getGreen(), (int)$color->getBlue(), $opac);
+            $color = imagecolorallocatealpha($this->resource, (int)$color->getRed(), (int)$color->getGreen(), (int)$color->getBlue(), $opac);
         } else {
-            $color = imagecolorallocatealpha($this->_resource, 0, 0, 0, $opac);
+            $color = imagecolorallocatealpha($this->resource, 0, 0, 0, $opac);
         }
 
         return $color;
@@ -1178,18 +1178,18 @@ class Gd extends AbstractImage
      */
     protected function _createResource()
     {
-        if (null !== $this->_output) {
-            $this->_resource = (is_string($this->_output)) ? imagecreatefromstring($this->_output) : $this->_output;
+        if (null !== $this->output) {
+            $this->resource = (is_string($this->output)) ? imagecreatefromstring($this->output) : $this->output;
         } else if (file_exists($this->fullpath)) {
-            switch ($this->_mime) {
+            switch ($this->mime) {
                 case 'image/gif':
-                    $this->_resource = imagecreatefromgif($this->fullpath);
+                    $this->resource = imagecreatefromgif($this->fullpath);
                     break;
                 case 'image/png':
-                    $this->_resource = imagecreatefrompng($this->fullpath);
+                    $this->resource = imagecreatefrompng($this->fullpath);
                     break;
                 case 'image/jpeg':
-                    $this->_resource = imagecreatefromjpeg($this->fullpath);
+                    $this->resource = imagecreatefromjpeg($this->fullpath);
                     break;
             }
         }
@@ -1209,7 +1209,7 @@ class Gd extends AbstractImage
             $new = imagecreatefromstring($new);
         }
 
-        switch ($this->_mime) {
+        switch ($this->mime) {
             case 'image/gif':
                 imagegif($new, $img);
                 break;
@@ -1233,9 +1233,9 @@ class Gd extends AbstractImage
      */
     protected function _copyImage($w, $h, $x = 0, $y = 0)
     {
-        imagecopyresampled($this->_output, $this->_resource, 0, 0, $x, $y, $w, $h, $this->_width, $this->_height);
-        $this->_width = imagesx($this->_output);
-        $this->_height = imagesy($this->_output);
+        imagecopyresampled($this->output, $this->resource, 0, 0, $x, $y, $w, $h, $this->width, $this->height);
+        $this->width = imagesx($this->output);
+        $this->height = imagesy($this->output);
     }
 
 }

@@ -41,67 +41,67 @@ class MethodGenerator
      * Docblock generator object
      * @var Pop\Code\DocblockGenerator
      */
-    protected $_docblock = null;
+    protected $docblock = null;
 
     /**
      * Method arguments
      * @var array
      */
-    protected $_arguments = array();
+    protected $arguments = array();
 
     /**
      * Method name
      * @var string
      */
-    protected $_name = null;
+    protected $name = null;
 
     /**
      * Method visibility
      * @var string
      */
-    protected $_visibility = 'public';
+    protected $visibility = 'public';
 
     /**
      * Method static flag
      * @var boolean
      */
-    protected $_static = false;
+    protected $static = false;
 
     /**
      * Method abstract flag
      * @var boolean
      */
-    protected $_abstract = false;
+    protected $abstract = false;
 
     /**
      * Method final flag
      * @var boolean
      */
-    protected $_final = false;
+    protected $final = false;
 
     /**
      * Method interface flag
      * @var boolean
      */
-    protected $_interface = false;
+    protected $interface = false;
 
     /**
      * Method body
      * @var string
      */
-    protected $_body = null;
+    protected $body = null;
 
     /**
      * Method indent
      * @var string
      */
-    protected $_indent = '    ';
+    protected $indent = '    ';
 
     /**
      * Method output
      * @var string
      */
-    protected $_output = null;
+    protected $output = null;
 
     /**
      * Constructor
@@ -115,9 +115,9 @@ class MethodGenerator
      */
     public function __construct($name, $visibility = 'public', $static = false)
     {
-        $this->_name = $name;
-        $this->_visibility = $visibility;
-        $this->_static = (boolean)$static;
+        $this->name = $name;
+        $this->visibility = $visibility;
+        $this->static = (boolean)$static;
     }
 
     /**
@@ -142,7 +142,7 @@ class MethodGenerator
      */
     public function setStatic($static = false)
     {
-        $this->_static = (boolean)$static;
+        $this->static = (boolean)$static;
         return $this;
     }
 
@@ -153,7 +153,7 @@ class MethodGenerator
      */
     public function isStatic()
     {
-        return $this->_static;
+        return $this->static;
     }
 
     /**
@@ -164,7 +164,7 @@ class MethodGenerator
      */
     public function setAbstract($abstract = false)
     {
-        $this->_abstract = (boolean)$abstract;
+        $this->abstract = (boolean)$abstract;
         return $this;
     }
 
@@ -175,7 +175,7 @@ class MethodGenerator
      */
     public function isAbstract()
     {
-        return $this->_abstract;
+        return $this->abstract;
     }
 
     /**
@@ -186,7 +186,7 @@ class MethodGenerator
      */
     public function setFinal($final = false)
     {
-        $this->_final = (boolean)$final;
+        $this->final = (boolean)$final;
         return $this;
     }
 
@@ -197,7 +197,7 @@ class MethodGenerator
      */
     public function isFinal()
     {
-        return $this->_final;
+        return $this->final;
     }
 
     /**
@@ -208,7 +208,7 @@ class MethodGenerator
      */
     public function setInterface($interface = false)
     {
-        $this->_interface = (boolean)$interface;
+        $this->interface = (boolean)$interface;
         return $this;
     }
 
@@ -219,7 +219,7 @@ class MethodGenerator
      */
     public function isInterface()
     {
-        return $this->_interface;
+        return $this->interface;
     }
 
     /**
@@ -230,10 +230,10 @@ class MethodGenerator
      */
     public function setDesc($desc = null)
     {
-        if (null !== $this->_docblock) {
-            $this->_docblock->setDesc($desc);
+        if (null !== $this->docblock) {
+            $this->docblock->setDesc($desc);
         } else {
-            $this->_docblock = new DocblockGenerator($desc, $this->_indent);
+            $this->docblock = new DocblockGenerator($desc, $this->indent);
         }
         return $this;
     }
@@ -246,8 +246,8 @@ class MethodGenerator
     public function getDesc()
     {
         $desc = null;
-        if (null !== $this->_docblock) {
-            $desc = $this->_docblock->getDesc();
+        if (null !== $this->docblock) {
+            $desc = $this->docblock->getDesc();
         }
         return $desc;
     }
@@ -260,7 +260,7 @@ class MethodGenerator
      */
     public function setIndent($indent = null)
     {
-        $this->_indent = $indent;
+        $this->indent = $indent;
         return $this;
     }
 
@@ -271,7 +271,7 @@ class MethodGenerator
      */
     public function getIndent()
     {
-        return $this->_indent;
+        return $this->indent;
     }
 
     /**
@@ -282,7 +282,7 @@ class MethodGenerator
      */
     public function setName($name)
     {
-        $this->_name = $name;
+        $this->name = $name;
         return $this;
     }
 
@@ -293,7 +293,7 @@ class MethodGenerator
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
@@ -305,9 +305,9 @@ class MethodGenerator
      */
     public function setBody($body, $newline = true)
     {
-        $this->_body = $this->_indent . '    ' .  str_replace(PHP_EOL, PHP_EOL . $this->_indent . '    ', $body);
+        $this->body = $this->indent . '    ' .  str_replace(PHP_EOL, PHP_EOL . $this->indent . '    ', $body);
         if ($newline) {
-            $this->_body .= PHP_EOL;
+            $this->body .= PHP_EOL;
         }
         return $this;
     }
@@ -321,10 +321,10 @@ class MethodGenerator
      */
     public function appendToBody($body, $newline = true)
     {
-        $body = str_replace(PHP_EOL, PHP_EOL . $this->_indent . '    ', $body);
-        $this->_body .= $this->_indent . '    ' . $body;
+        $body = str_replace(PHP_EOL, PHP_EOL . $this->indent . '    ', $body);
+        $this->body .= $this->indent . '    ' . $body;
         if ($newline) {
-            $this->_body .= PHP_EOL;
+            $this->body .= PHP_EOL;
         }
         return $this;
     }
@@ -336,7 +336,7 @@ class MethodGenerator
      */
     public function getBody()
     {
-        return $this->_body;
+        return $this->body;
     }
 
     /**
@@ -347,7 +347,7 @@ class MethodGenerator
      */
     public function setDocblock(DocblockGenerator $docblock)
     {
-        $this->_docblock = $docblock;
+        $this->docblock = $docblock;
         return $this;
     }
 
@@ -358,7 +358,7 @@ class MethodGenerator
      */
     public function getDocblock()
     {
-        return $this->_docblock;
+        return $this->docblock;
     }
 
     /**
@@ -369,7 +369,7 @@ class MethodGenerator
      */
     public function setVisibility($visibility = 'public')
     {
-        $this->_visibility = $visibility;
+        $this->visibility = $visibility;
         return $this;
     }
 
@@ -380,7 +380,7 @@ class MethodGenerator
      */
     public function getVisibility()
     {
-        return $this->_visibility;
+        return $this->visibility;
     }
 
     /**
@@ -402,15 +402,15 @@ class MethodGenerator
             'mixed'
         );
         $argType = (!in_array($type, $typeHintsNotAllowed)) ? $type : null;
-        $this->_arguments[$name] = array('value' => $value, 'type' => $argType);
-        if (null === $this->_docblock) {
-            $this->_docblock = new DocblockGenerator(null, $this->_indent);
+        $this->arguments[$name] = array('value' => $value, 'type' => $argType);
+        if (null === $this->docblock) {
+            $this->docblock = new DocblockGenerator(null, $this->indent);
         }
         if (null !== $type) {
             if (substr($name, 0, 1) != '$') {
                 $name = '$' . $name;
             }
-            $this->_docblock->setParam($type, $name);
+            $this->docblock->setParam($type, $name);
         }
         return $this;
     }
@@ -464,7 +464,7 @@ class MethodGenerator
      */
     public function getArgument($name)
     {
-        return (isset($this->_arguments[$name])) ? $this->_arguments[$name] : null;
+        return (isset($this->arguments[$name])) ? $this->arguments[$name] : null;
     }
 
     /**
@@ -474,7 +474,7 @@ class MethodGenerator
      */
     public function getArguments()
     {
-        return $this->_arguments;
+        return $this->arguments;
     }
 
     /**
@@ -484,7 +484,7 @@ class MethodGenerator
      */
     public function getParameter($name)
     {
-        return (isset($this->_arguments[$name])) ? $this->_arguments[$name] : null;
+        return (isset($this->arguments[$name])) ? $this->arguments[$name] : null;
     }
 
     /**
@@ -494,7 +494,7 @@ class MethodGenerator
      */
     public function getParameters()
     {
-        return $this->_arguments;
+        return $this->arguments;
     }
 
     /**
@@ -505,29 +505,29 @@ class MethodGenerator
      */
     public function render($ret = false)
     {
-        $final = ($this->_final) ? 'final ' : null;
-        $abstract = ($this->_abstract) ? 'abstract ' : null;
-        $static = ($this->_static) ? ' static' : null;
-        $args = $this->_formatArguments();
+        $final = ($this->final) ? 'final ' : null;
+        $abstract = ($this->abstract) ? 'abstract ' : null;
+        $static = ($this->static) ? ' static' : null;
+        $args = $this->formatArguments();
 
-        $this->_output = PHP_EOL . (null !== $this->_docblock) ? $this->_output = $this->_docblock->render(true) : null;
-        $this->_output .= $this->_indent . $final . $abstract . $this->_visibility .
-           $static . ' function ' . $this->_name . '(' . $args . ')';
+        $this->output = PHP_EOL . (null !== $this->docblock) ? $this->output = $this->docblock->render(true) : null;
+        $this->output .= $this->indent . $final . $abstract . $this->visibility .
+           $static . ' function ' . $this->name . '(' . $args . ')';
 
-        if ((!$this->_abstract) && (!$this->_interface)) {
-            $this->_output .= PHP_EOL . $this->_indent . '{' . PHP_EOL;
-            $this->_output .= $this->_body. PHP_EOL;
-            $this->_output .= $this->_indent . '}';
+        if ((!$this->abstract) && (!$this->interface)) {
+            $this->output .= PHP_EOL . $this->indent . '{' . PHP_EOL;
+            $this->output .= $this->body. PHP_EOL;
+            $this->output .= $this->indent . '}';
         } else {
-            $this->_output .= ';';
+            $this->output .= ';';
         }
 
-        $this->_output .= PHP_EOL;
+        $this->output .= PHP_EOL;
 
         if ($ret) {
-            return $this->_output;
+            return $this->output;
         } else {
-            echo $this->_output;
+            echo $this->output;
         }
     }
 
@@ -541,12 +541,12 @@ class MethodGenerator
         $args = null;
 
         $i = 0;
-        foreach ($this->_arguments as $name => $arg) {
+        foreach ($this->arguments as $name => $arg) {
             $i++;
             $args .= (null !== $arg['type']) ? $arg['type'] . ' ' : null;
             $args .= (substr($name, 0, 1) != '$') ? "\$" . $name : $name;
             $args .= (null !== $arg['value']) ? " = " . $arg['value'] : null;
-            if ($i < count($this->_arguments)) {
+            if ($i < count($this->arguments)) {
                 $args .= ', ';
             }
         }

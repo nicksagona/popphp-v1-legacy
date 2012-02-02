@@ -45,13 +45,13 @@ class Curl
      * cURL resource
      * @var cURL resource
      */
-    protected $_curl = null;
+    protected $curl = null;
 
     /**
      * cURL options
      * @var array
      */
-    protected $_options = array();
+    protected $options = array();
 
     /**
      * Constructor
@@ -64,7 +64,7 @@ class Curl
      */
     public function __construct($opts, $val = null)
     {
-        $this->_curl = curl_init();
+        $this->curl = curl_init();
         $this->setOption($opts, $val);
     }
 
@@ -86,23 +86,23 @@ class Curl
             }
 
             // Set the cURL options in the array.
-            curl_setopt_array($this->_curl, $opt);
+            curl_setopt_array($this->curl, $opt);
 
             // Set the protected property to the cURL options.
             foreach ($opt as $k => $v) {
-                $this->_options[$k] = $v;
+                $this->options[$k] = $v;
             }
         // Else, set the single option.
         } else {
             // Special case for the CURLOPT_WRITEFUNCTION, setting the
             // callback function to the internal method 'processData'.
             if ($opt == CURLOPT_WRITEFUNCTION) {
-                curl_setopt($this->_curl, CURLOPT_WRITEFUNCTION, array($this, 'processData'));
-                $this->_options[$opt] = array($this, 'processData');
+                curl_setopt($this->curl, CURLOPT_WRITEFUNCTION, array($this, 'processData'));
+                $this->options[$opt] = array($this, 'processData');
             // Else, set the cURL option.
             } else {
-                curl_setopt($this->_curl, $opt, $vl);
-                $this->_options[$opt] = $vl;
+                curl_setopt($this->curl, $opt, $vl);
+                $this->options[$opt] = $vl;
             }
         }
 
@@ -117,7 +117,7 @@ class Curl
      */
     public function getOption($opt)
     {
-        return (isset($this->_options[$opt])) ? $this->_options[$opt] : null;
+        return (isset($this->options[$opt])) ? $this->options[$opt] : null;
     }
 
     /**
@@ -128,12 +128,12 @@ class Curl
     public function execute()
     {
         // If the CURLOPT_RETURNTRANSFER option is set, return the data.
-        if (isset($this->_options[CURLOPT_RETURNTRANSFER]) && ($this->_options[CURLOPT_RETURNTRANSFER] == true)) {
-            $output = curl_exec($this->_curl);
-            return ($output === false) ? $this->_showError() : $output;
+        if (isset($this->options[CURLOPT_RETURNTRANSFER]) && ($this->options[CURLOPT_RETURNTRANSFER] == true)) {
+            $output = curl_exec($this->curl);
+            return ($output === false) ? $this->showError() : $output;
         // Else, execute the cURL session.
-        } else if (curl_exec($this->_curl) === false) {
-            $this->_showError();
+        } else if (curl_exec($this->curl) === false) {
+            $this->showError();
         }
     }
 
@@ -157,7 +157,7 @@ class Curl
      */
     public function getinfo($opt = null)
     {
-        return (null !== $opt) ? curl_getinfo($this->_curl, $opt) : curl_getinfo($this->_curl);
+        return (null !== $opt) ? curl_getinfo($this->curl, $opt) : curl_getinfo($this->curl);
     }
 
     /**
@@ -178,7 +178,7 @@ class Curl
      */
     protected function _showError()
     {
-        throw new Exception('Error: ' . curl_errno($this->_curl) . ' => ' . curl_error($this->_curl) . '.');
+        throw new Exception('Error: ' . curl_errno($this->curl) . ' => ' . curl_error($this->curl) . '.');
     }
 
     /**
@@ -188,7 +188,7 @@ class Curl
      */
     public function __destruct()
     {
-        curl_close($this->_curl);
+        curl_close($this->curl);
     }
 
 }

@@ -39,7 +39,7 @@ class Response
      * Response codes & messages
      * @var array
      */
-    protected static $_responseCodes = array(
+    protected static $responseCodes = array(
         // Informational 1xx
         100 => 'Continue',
         101 => 'Switching Protocols',
@@ -96,31 +96,31 @@ class Response
      * HTTP version
      * @var string
      */
-    protected $_version = '1.1';
+    protected $version = '1.1';
 
     /**
      * Response codes
      * @var int
      */
-    protected $_code = null;
+    protected $code = null;
 
     /**
      * Response message
      * @var string
      */
-    protected $_message = null;
+    protected $message = null;
 
     /**
      * Response headers
      * @var array
      */
-    protected $_headers = array();
+    protected $headers = array();
 
     /**
      * Response body
      * @var string
      */
-    protected $_body = null;
+    protected $body = null;
 
     /**
      * Constructor
@@ -137,17 +137,17 @@ class Response
      */
     public function __construct($code, array $headers, $body = null, $message = null, $version = '1.1')
     {
-        if (!array_key_exists($code, self::$_responseCodes)) {
+        if (!array_key_exists($code, self::$responseCodes)) {
             throw new Exception('The header code '. $code . ' is not allowed.');
         }
 
-        $this->_code = $code;
-        $this->_message = (null !== $message) ? $message : self::$_responseCodes[$code];
-        $this->_body = $body;
-        $this->_version = $version;
+        $this->code = $code;
+        $this->message = (null !== $message) ? $message : self::$responseCodes[$code];
+        $this->body = $body;
+        $this->version = $version;
 
         foreach ($headers as $name => $value) {
-            $this->_headers[$name] = $value;
+            $this->headers[$name] = $value;
         }
     }
 
@@ -244,11 +244,11 @@ class Response
      */
     public static function getMessageFromCode($code)
     {
-        if (!array_key_exists($code, self::$_responseCodes)) {
+        if (!array_key_exists($code, self::$responseCodes)) {
             throw new Exception('The header code ' . $code . ' is not allowed.');
         }
 
-        return self::$_responseCodes[$code];
+        return self::$responseCodes[$code];
     }
 
     /**
@@ -368,7 +368,7 @@ class Response
      */
     public function isSuccessful()
     {
-        $type = floor($this->_code / 100);
+        $type = floor($this->code / 100);
         return (($type == 3) || ($type == 2) || ($type == 1)) ? true : false;
     }
 
@@ -379,7 +379,7 @@ class Response
      */
     public function isRedirect()
     {
-        $type = floor($this->_code / 100);
+        $type = floor($this->code / 100);
         return ($type == 3) ? true : false;
     }
 
@@ -390,7 +390,7 @@ class Response
      */
     public function isError()
     {
-        $type = floor($this->_code / 100);
+        $type = floor($this->code / 100);
         return (($type == 5) || ($type == 4)) ? true : false;
     }
 
@@ -401,7 +401,7 @@ class Response
      */
     public function getCode()
     {
-        return $this->_code;
+        return $this->code;
     }
 
     /**
@@ -411,7 +411,7 @@ class Response
      */
     public function getMessage()
     {
-        return $this->_message;
+        return $this->message;
     }
 
     /**
@@ -421,7 +421,7 @@ class Response
      */
     public function getBody()
     {
-        return $this->_body;
+        return $this->body;
     }
 
     /**
@@ -431,7 +431,7 @@ class Response
      */
     public function getHeaders()
     {
-        return $this->_headers;
+        return $this->headers;
     }
 
     /**
@@ -442,7 +442,7 @@ class Response
      */
     public function getHeader($name)
     {
-        return (isset($this->_headers[$name])) ? $this->_headers[$name] : null;
+        return (isset($this->headers[$name])) ? $this->headers[$name] : null;
     }
 
     /**
@@ -455,10 +455,10 @@ class Response
         $headers = '';
 
         if ($status) {
-            $headers = "HTTP/{$this->_version} {$this->_code} {$this->_message}{$br}";
+            $headers = "HTTP/{$this->version} {$this->code} {$this->message}{$br}";
         }
 
-        foreach ($this->_headers as $name => $value) {
+        foreach ($this->headers as $name => $value) {
             $headers .= "{$name}: {$value}{$br}";
         }
 
@@ -474,12 +474,12 @@ class Response
      */
     public function setCode($code)
     {
-        if (!array_key_exists($code, self::$_responseCodes)) {
+        if (!array_key_exists($code, self::$responseCodes)) {
             throw new Exception('That header code ' . $code . ' is not allowed.');
         }
 
-        $this->_code = $code;
-        $this->_message = self::$_responseCodes[$code];
+        $this->code = $code;
+        $this->message = self::$responseCodes[$code];
 
         return $this;
     }
@@ -492,7 +492,7 @@ class Response
      */
     public function setMessage($message)
     {
-        $this->_message = $message;
+        $this->message = $message;
         return $this;
     }
 
@@ -504,7 +504,7 @@ class Response
      */
     public function setBody($body = null)
     {
-        $this->_body = $body;
+        $this->body = $body;
         return $this;
     }
 
@@ -518,7 +518,7 @@ class Response
      */
     public function setHeader($name, $value)
     {
-        $this->_headers[$name] = $value;
+        $this->headers[$name] = $value;
         return $this;
     }
 
@@ -532,7 +532,7 @@ class Response
     public function setHeaders(array $headers)
     {
         foreach ($headers as $name => $value) {
-            $this->_headers[$name] = $value;
+            $this->headers[$name] = $value;
         }
 
         return $this;
@@ -545,9 +545,9 @@ class Response
      */
     public function setSslHeaders()
     {
-        $this->_headers['Expires'] = 0;
-        $this->_headers['Cache-Control'] = 'private, must-revalidate';
-        $this->_headers['Pragma'] = 'cache';
+        $this->headers['Expires'] = 0;
+        $this->headers['Cache-Control'] = 'private, must-revalidate';
+        $this->headers['Pragma'] = 'cache';
 
         return $this;
     }
@@ -560,8 +560,8 @@ class Response
      */
     public function sendHeaders()
     {
-        header("HTTP/{$this->_version} {$this->_code} {$this->_message}");
-        foreach ($this->_headers as $name => $value) {
+        header("HTTP/{$this->version} {$this->code} {$this->message}");
+        foreach ($this->headers as $name => $value) {
             header($name . ": " . $value);
         }
     }
@@ -578,11 +578,11 @@ class Response
             throw new Exception('The headers have already been sent.');
         }
 
-        $body = $this->_body;
+        $body = $this->body;
 
-        if (array_key_exists('Content-Encoding', $this->_headers)) {
-            $body = self::encodeBody($body, $this->_headers['Content-Encoding']);
-            $this->_headers['Content-Length'] = strlen($body);
+        if (array_key_exists('Content-Encoding', $this->headers)) {
+            $body = self::encodeBody($body, $this->headers['Content-Encoding']);
+            $this->headers['Content-Length'] = strlen($body);
         }
 
         $this->sendHeaders();
@@ -596,11 +596,11 @@ class Response
      */
     public function __toString()
     {
-        $body = $this->_body;
+        $body = $this->body;
 
-        if (array_key_exists('Content-Encoding', $this->_headers)) {
-            $body = self::encodeBody($body, $this->_headers['Content-Encoding']);
-            $this->_headers['Content-Length'] = strlen($body);
+        if (array_key_exists('Content-Encoding', $this->headers)) {
+            $body = self::encodeBody($body, $this->headers['Content-Encoding']);
+            $this->headers['Content-Length'] = strlen($body);
         }
 
         return $this->getHeadersAsString() . "\n" . $body;

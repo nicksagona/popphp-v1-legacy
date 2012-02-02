@@ -48,13 +48,13 @@ class Rar implements ArchiveInterface
      * Archive path
      * @var string
      */
-    protected $_path = null;
+    protected $path = null;
 
     /**
      * Archive password
      * @var string
      */
-    protected $_password = null;
+    protected $password = null;
 
     /**
      * Method to instantiate an archive adapter object
@@ -66,11 +66,11 @@ class Rar implements ArchiveInterface
      */
     public function __construct($archive, $password = null)
     {
-        $this->_path = $archive->fullpath;
-        $this->_password = $password;
+        $this->path = $archive->fullpath;
+        $this->password = $password;
 
-        if (file_exists($this->_path)) {
-            $this->archive = \RarArchive::open($this->_path, $this->_password);
+        if (file_exists($this->path)) {
+            $this->archive = \RarArchive::open($this->path, $this->password);
         } else {
             throw new Exception('Due to licensing restrictions, RAR files cannot be created and can only be decompressed.');
         }

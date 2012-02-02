@@ -41,31 +41,31 @@ class PayLeap extends AbstractAdapter
      * API Login ID
      * @var string
      */
-    protected $_apiLoginId = null;
+    protected $apiLoginId = null;
 
     /**
      * Transaction Key
      * @var string
      */
-    protected $_transKey = null;
+    protected $transKey = null;
 
     /**
      * Test URL
      * @var string
      */
-    protected $_testUrl = 'https://uat.payleap.com/TransactServices.svc/ProcessCreditCard';
+    protected $testUrl = 'https://uat.payleap.com/TransactServices.svc/ProcessCreditCard';
 
     /**
      * Live URL
      * @var string
      */
-    protected $_liveUrl = 'https://secure1.payleap.com/TransactServices.svc/ProcessCreditCard';
+    protected $liveUrl = 'https://secure1.payleap.com/TransactServices.svc/ProcessCreditCard';
 
     /**
      * Transaction data
      * @var array
      */
-    protected $_transaction = array(
+    protected $transaction = array(
         'UserName'    => null,
         'Password'    => null,
         'TransType'   => 'Sale',
@@ -93,7 +93,7 @@ class PayLeap extends AbstractAdapter
      * Transaction fields for normalization purposes
      * @var array
      */
-    protected $_fields = array(
+    protected $fields = array(
         'amount'          => 'Amount',
         'cardNum'         => 'CardNum',
         'expDate'         => 'ExpDate',
@@ -114,7 +114,7 @@ class PayLeap extends AbstractAdapter
      * Required fields
      * @var array
      */
-    protected $_requiredFields = array(
+    protected $requiredFields = array(
         'UserName',
         'Password',
         'TransType',
@@ -135,11 +135,11 @@ class PayLeap extends AbstractAdapter
      */
     public function __construct($apiLoginId, $transKey, $test = false)
     {
-        $this->_apiLoginId = $apiLoginId;
-        $this->_transKey = $transKey;
-        $this->_transaction['UserName'] = $apiLoginId;
-        $this->_transaction['Password'] = $transKey;
-        $this->_test = $test;
+        $this->apiLoginId = $apiLoginId;
+        $this->transKey = $transKey;
+        $this->transaction['UserName'] = $apiLoginId;
+        $this->transaction['Password'] = $transKey;
+        $this->test = $test;
     }
 
     /**
@@ -151,12 +151,12 @@ class PayLeap extends AbstractAdapter
      */
     public function send($verifyPeer = true)
     {
-        if (!$this->_validate()) {
+        if (!$this->validate()) {
             throw new Exception('The required transaction data has not been set.');
         }
 
-        $url = ($this->_test) ? $this->_testUrl : $this->_liveUrl;
-        $url .= '?' . $this->_buildQueryString();
+        $url = ($this->test) ? $this->testUrl : $this->liveUrl;
+        $url .= '?' . $this->buildQueryString();
 
         $options = array(
             CURLOPT_URL            => $url,
@@ -168,22 +168,22 @@ class PayLeap extends AbstractAdapter
         }
 
         $curl = new Curl($options);
-        $this->_response = $curl->execute();
-        $this->_responseCodes = $this->_parseResponseCodes();
-        $this->_responseCode = $this->_responseCodes['Result'];
-        $this->_message = $this->_responseCodes['RespMSG'];
+        $this->response = $curl->execute();
+        $this->responseCodes = $this->parseResponseCodes();
+        $this->responseCode = $this->responseCodes['Result'];
+        $this->message = $this->responseCodes['RespMSG'];
 
-        switch ($this->_message) {
+        switch ($this->message) {
             case 'Approved':
-                $this->_approved = true;
+                $this->approved = true;
                 break;
             case 'Declined':
-                $this->_declined = true;
+                $this->declined = true;
                 break;
         }
 
-        if ($this->_responseCode > 0) {
-            $this->_error = true;
+        if ($this->responseCode > 0) {
+            $this->error = true;
         }
     }
 
@@ -194,9 +194,9 @@ class PayLeap extends AbstractAdapter
      */
     protected function _buildQueryString()
     {
-        $query = $this->_transaction;
-        $query['CardNum'] = $this->_filterCardNum($query['CardNum']);
-        $query['ExpDate'] = $this->_filterExpDate($query['ExpDate']);
+        $query = $this->transaction;
+        $query['CardNum'] = $this->filterCardNum($query['CardNum']);
+        $query['ExpDate'] = $this->filterExpDate($query['ExpDate']);
 
         if ((null !== $query['FNameOnCard']) || (null !== $query['LNameOnCard'])) {
             $query['NameOnCard'] = $query['FNameOnCard'] . ' ' . $query['LNameOnCard'];
@@ -205,7 +205,7 @@ class PayLeap extends AbstractAdapter
         }
 
         $query['MagData'] = null;
-        $query['ExtData'] = $this->_buildExtData();
+        $query['ExtData'] = $this->buildExtData();
         $query['PNRef'] = null;
 
         unset($query['FNameOnCard']);
@@ -237,50 +237,50 @@ class PayLeap extends AbstractAdapter
     {
         $ext = null;
 
-        if (null !== $this->_transaction['TaxAmt']) {
-            $ext .= '<TaxAmt>' . $this->_transaction['TaxAmt'] . '</TaxAmt>';
+        if (null !== $this->transaction['TaxAmt']) {
+            $ext .= '<TaxAmt>' . $this->transaction['TaxAmt'] . '</TaxAmt>';
         }
-        if (null !== $this->_transaction['CustomerID']) {
-            $ext .= '<CustomerID>' . $this->_transaction['CustomerID'] . '</CustomerID>';
+        if (null !== $this->transaction['CustomerID']) {
+            $ext .= '<CustomerID>' . $this->transaction['CustomerID'] . '</CustomerID>';
         }
-        if (null !== $this->_transaction['PONum']) {
-            $ext .= '<PONum>' . $this->_transaction['PONum'] . '</PONum>';
+        if (null !== $this->transaction['PONum']) {
+            $ext .= '<PONum>' . $this->transaction['PONum'] . '</PONum>';
         }
-        if ((null !== $this->_transaction['FNameOnCard']) ||
-            (null !== $this->_transaction['LNameOnCard']) ||
-            (null !== $this->_transaction['Street']) ||
-            (null !== $this->_transaction['City']) ||
-            (null !== $this->_transaction['State']) ||
-            (null !== $this->_transaction['Zip']) ||
-            (null !== $this->_transaction['Country']) ||
-            (null !== $this->_transaction['Email']) ||
-            (null !== $this->_transaction['Phone']) ||
-            (null !== $this->_transaction['Fax'])) {
+        if ((null !== $this->transaction['FNameOnCard']) ||
+            (null !== $this->transaction['LNameOnCard']) ||
+            (null !== $this->transaction['Street']) ||
+            (null !== $this->transaction['City']) ||
+            (null !== $this->transaction['State']) ||
+            (null !== $this->transaction['Zip']) ||
+            (null !== $this->transaction['Country']) ||
+            (null !== $this->transaction['Email']) ||
+            (null !== $this->transaction['Phone']) ||
+            (null !== $this->transaction['Fax'])) {
             $ext .= '<Invoice><BillTo>';
-            if (null !== $this->_transaction['CustomerID']) {
-                $ext .= '<CustomerID>' . $this->_transaction['CustomerID'] . '</CustomerID>';
+            if (null !== $this->transaction['CustomerID']) {
+                $ext .= '<CustomerID>' . $this->transaction['CustomerID'] . '</CustomerID>';
             }
-            if ((null !== $this->_transaction['FNameOnCard']) || (null !== $this->_transaction['LNameOnCard'])) {
-                $ext .= '<Name>' . $this->_transaction['FNameOnCard'] . ' ' . $this->_transaction['LNameOnCard'] . '</Name>';
+            if ((null !== $this->transaction['FNameOnCard']) || (null !== $this->transaction['LNameOnCard'])) {
+                $ext .= '<Name>' . $this->transaction['FNameOnCard'] . ' ' . $this->transaction['LNameOnCard'] . '</Name>';
             }
             $ext .= '<Address>';
-            $ext .= '<Street>' . $this->_transaction['Street'] . '</Street>';
-            $ext .= '<City>' . $this->_transaction['City'] . '</City>';
-            $ext .= '<State>' . $this->_transaction['State'] . '</State>';
-            $ext .= '<Zip>' . $this->_transaction['Zip'] . '</Zip>';
-            $ext .= '<Country>' . $this->_transaction['Country'] . '</Country>';
+            $ext .= '<Street>' . $this->transaction['Street'] . '</Street>';
+            $ext .= '<City>' . $this->transaction['City'] . '</City>';
+            $ext .= '<State>' . $this->transaction['State'] . '</State>';
+            $ext .= '<Zip>' . $this->transaction['Zip'] . '</Zip>';
+            $ext .= '<Country>' . $this->transaction['Country'] . '</Country>';
             $ext .= '</Address>';
-            if (null !== $this->_transaction['Email']) {
-                $ext .= '<Email>' . $this->_transaction['Email'] . '</Email>';
+            if (null !== $this->transaction['Email']) {
+                $ext .= '<Email>' . $this->transaction['Email'] . '</Email>';
             }
-            if (null !== $this->_transaction['Phone']) {
-                $ext .= '<Phone>' . $this->_transaction['Phone'] . '</Phone>';
+            if (null !== $this->transaction['Phone']) {
+                $ext .= '<Phone>' . $this->transaction['Phone'] . '</Phone>';
             }
-            if (null !== $this->_transaction['Fax']) {
-                $ext .= '<Fax>' . $this->_transaction['Fax'] . '</Fax>';
+            if (null !== $this->transaction['Fax']) {
+                $ext .= '<Fax>' . $this->transaction['Fax'] . '</Fax>';
             }
-            if (null !== $this->_transaction['PONum']) {
-                $ext .= '<PONum>' . $this->_transaction['PONum'] . '</PONum>';
+            if (null !== $this->transaction['PONum']) {
+                $ext .= '<PONum>' . $this->transaction['PONum'] . '</PONum>';
             }
             $ext .= '</BillTo></Invoice>';
         }
@@ -294,7 +294,7 @@ class PayLeap extends AbstractAdapter
      */
     protected function _parseResponseCodes()
     {
-        $responseCodes = new \SimpleXMLElement($this->_response);
+        $responseCodes = new \SimpleXMLElement($this->response);
         return (array)$responseCodes;
     }
 

@@ -39,25 +39,25 @@ class View
      * View template file
      * @var string
      */
-    protected $_templateFile = null;
+    protected $templateFile = null;
 
     /**
      * View template string
      * @var string
      */
-    protected $_templateString = null;
+    protected $templateString = null;
 
     /**
      * Data model
      * @var Pop\Mvc\Model
      */
-    protected $_model = null;
+    protected $model = null;
 
     /**
      * View output string
      * @var string
      */
-    protected $_output = null;
+    protected $output = null;
 
     /**
      * Constructor
@@ -75,14 +75,14 @@ class View
                  (substr($template, -5) == '.php3') ||
                  (substr($template, -4) == '.php')) && (file_exists($template))) {
 
-                $this->_templateFile = $template;
+                $this->templateFile = $template;
 
             } else {
-                $this->_templateString = $template;
+                $this->templateString = $template;
             }
         }
 
-        $this->_model = $model;
+        $this->model = $model;
     }
 
     /**
@@ -104,7 +104,7 @@ class View
      */
     public function getModel()
     {
-        return $this->_model;
+        return $this->model;
     }
 
     /**
@@ -114,7 +114,7 @@ class View
      */
     public function getTemplateFile()
     {
-        return $this->_templateFile;
+        return $this->templateFile;
     }
 
     /**
@@ -124,7 +124,7 @@ class View
      */
     public function getTemplateString()
     {
-        return $this->_templateString;
+        return $this->templateString;
     }
 
     /**
@@ -141,13 +141,13 @@ class View
                  (substr($template, -5) == '.php3') ||
                  (substr($template, -4) == '.php')) && (file_exists($template))) {
 
-                $this->_templateFile = $template;
+                $this->templateFile = $template;
 
             } else {
                 throw new Exception('That template file either does not exist or is not the correct format.');
             }
         } else {
-            $this->_templateFile = $template;
+            $this->templateFile = $template;
         }
 
         return $this;
@@ -161,7 +161,7 @@ class View
      */
     public function setTemplateString($template = null)
     {
-        $this->_templateString = $template;
+        $this->templateString = $template;
         return $this;
     }
 
@@ -173,7 +173,7 @@ class View
      */
     public function setModel(Model $model)
     {
-        $this->_model = $model;
+        $this->model = $model;
         return $this;
     }
 
@@ -186,20 +186,20 @@ class View
      */
     public function render($ret = false)
     {
-        if ((null === $this->_templateFile) && (null === $this->_templateString)) {
+        if ((null === $this->templateFile) && (null === $this->templateString)) {
             throw new Exception('A template asset has not been assigned.');
         }
 
-        if (null !== $this->_templateFile) {
-            $this->_renderTemplateFile();
+        if (null !== $this->templateFile) {
+            $this->renderTemplateFile();
         } else {
-            $this->_renderTemplateString();
+            $this->renderTemplateString();
         }
 
         if ($ret) {
-            return $this->_output;
+            return $this->output;
         } else {
-            echo $this->_output;
+            echo $this->output;
         }
     }
 
@@ -210,16 +210,16 @@ class View
      */
     protected function _renderTemplateFile()
     {
-        if (null !== $this->_model) {
-            $data = $this->_model->asArrayObject();
+        if (null !== $this->model) {
+            $data = $this->model->asArrayObject();
             foreach ($data as $key => $value) {
                 ${$key} = $value;
             }
         }
 
         ob_start();
-        include $this->_templateFile;
-        $this->_output = ob_get_clean();
+        include $this->templateFile;
+        $this->output = ob_get_clean();
     }
 
     /**
@@ -229,17 +229,17 @@ class View
      */
     protected function _renderTemplateString()
     {
-        $this->_output = $this->_templateString;
+        $this->output = $this->templateString;
 
-        if (null !== $this->_model) {
-            $data = $this->_model->asArrayObject();
+        if (null !== $this->model) {
+            $data = $this->model->asArrayObject();
 
             foreach ($data as $key => $value) {
                 if ($value instanceof \ArrayObject) {
                     $start = '[{' . $key . '}]';
                     $end = '[{/' . $key . '}]';
 
-                    $loopCode = substr($this->_templateString, strpos($this->_templateString, $start));
+                    $loopCode = substr($this->templateString, strpos($this->templateString, $start));
                     $loopCode = substr($loopCode, 0, (strpos($loopCode, $end) + strlen($end)));
 
                     $loop = str_replace($start, '', $loopCode);
@@ -258,9 +258,9 @@ class View
                         }
                     }
 
-                    $this->_output = str_replace($loopCode, substr($outputLoop, 0, -2), $this->_output);
+                    $this->output = str_replace($loopCode, substr($outputLoop, 0, -2), $this->output);
                 } else {
-                    $this->_output = str_replace('[{' . $key . '}]', $value, $this->_output);
+                    $this->output = str_replace('[{' . $key . '}]', $value, $this->output);
                 }
             }
         }

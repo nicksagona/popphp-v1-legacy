@@ -131,7 +131,7 @@ abstract class AbstractFont extends File
      * Array of allowed file types.
      * @var array
      */
-    protected $_allowed = array(
+    protected $allowed = array(
         'afm' => 'application/x-font-afm',
         'otf' => 'application/x-font-otf',
         'pfb' => 'application/x-font-pfb',

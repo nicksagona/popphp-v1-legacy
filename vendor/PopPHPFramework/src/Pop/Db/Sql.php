@@ -63,73 +63,73 @@ class Sql
      * Current selected table
      * @var string
      */
-    protected $_table = null;
+    protected $table = null;
 
     /**
      * SQL type
      * @var string
      */
-    protected $_type = null;
+    protected $type = null;
 
     /**
      * SQL distinct flag
      * @var boolean
      */
-    protected $_distinct = false;
+    protected $distinct = false;
 
     /**
      * SQL select columns
      * @var array
      */
-    protected $_selectColumns = array();
+    protected $selectColumns = array();
 
     /**
      * SQL insert columns
      * @var array
      */
-    protected $_insertColumns = array();
+    protected $insertColumns = array();
 
     /**
      * SQL update columns
      * @var array
      */
-    protected $_updateColumns = array();
+    protected $updateColumns = array();
 
     /**
      * SQL join parameters
      * @var array
      */
-    protected $_join = array();
+    protected $join = array();
 
     /**
      * SQL where parameters
      * @var array
      */
-    protected $_where = array();
+    protected $where = array();
 
     /**
      * SQL order parameter
      * @var string
      */
-    protected $_order = null;
+    protected $order = null;
 
     /**
      * SQL limit parameter
      * @var int
      */
-    protected $_limit = null;
+    protected $limit = null;
 
     /**
      * SQL clause
      * @var string
      */
-    protected $_sql = null;
+    protected $sql = null;
 
     /**
      * Column identifier quote type
      * @var int
      */
-    protected $_idQuoteType = 0;
+    protected $idQuoteType = 0;
 
     /**
      * Constructor
@@ -154,17 +154,17 @@ class Sql
      */
     public function setTable($table)
     {
-        $this->_table = $table;
-        $this->_sql = null;
-        $this->_type = null;
-        $this->_distinct = false;
-        $this->_selectColumns = array();
-        $this->_insertColumns = array();
-        $this->_updateColumns = array();
-        $this->_join = array();
-        $this->_where = array();
-        $this->_order = null;
-        $this->_limit = null;
+        $this->table = $table;
+        $this->sql = null;
+        $this->type = null;
+        $this->distinct = false;
+        $this->selectColumns = array();
+        $this->insertColumns = array();
+        $this->updateColumns = array();
+        $this->join = array();
+        $this->where = array();
+        $this->order = null;
+        $this->limit = null;
 
         return $this;
     }
@@ -179,23 +179,23 @@ class Sql
     {
         switch ($type) {
             case self::BACKTICK:
-                $this->_idQuoteType = self::BACKTICK;
+                $this->idQuoteType = self::BACKTICK;
                 break;
 
             case self::SINGLE_QUOTE:
-                $this->_idQuoteType = self::SINGLE_QUOTE;
+                $this->idQuoteType = self::SINGLE_QUOTE;
                 break;
 
             case self::DOUBLE_QUOTE:
-                $this->_idQuoteType = self::DOUBLE_QUOTE;
+                $this->idQuoteType = self::DOUBLE_QUOTE;
                 break;
 
             case self::BRACKET:
-                $this->_idQuoteType = self::BRACKET;
+                $this->idQuoteType = self::BRACKET;
                 break;
 
             default:
-                $this->_idQuoteType = 0;
+                $this->idQuoteType = 0;
 
         }
 
@@ -212,7 +212,7 @@ class Sql
     {
         $quote = null;
 
-        switch ($this->_idQuoteType) {
+        switch ($this->idQuoteType) {
             case self::BACKTICK:
                 $quote = '`';
                 break;
@@ -244,8 +244,8 @@ class Sql
      */
     public function getSql()
     {
-        $this->_buildSql();
-        return $this->_sql;
+        $this->buildSql();
+        return $this->sql;
     }
 
     /**
@@ -256,8 +256,8 @@ class Sql
      */
     public function select($columns = '*')
     {
-        $this->_type = 'SELECT';
-        $this->_selectColumns = (!is_array($columns)) ? array($columns) : $columns;
+        $this->type = 'SELECT';
+        $this->selectColumns = (!is_array($columns)) ? array($columns) : $columns;
 
         return $this;
     }
@@ -270,7 +270,7 @@ class Sql
      */
     public function distinct($distinct = true)
     {
-        $this->_distinct = $distinct;
+        $this->distinct = $distinct;
         return $this;
     }
 
@@ -287,8 +287,8 @@ class Sql
             throw new Exception('Error: The columns parameter must be an array that contains at least one key/value pair.');
         }
 
-        $this->_type = 'INSERT';
-        $this->_insertColumns = $this->_quote($columns);
+        $this->type = 'INSERT';
+        $this->insertColumns = $this->quote($columns);
 
         return $this;
     }
@@ -306,8 +306,8 @@ class Sql
             throw new Exception('Error: The columns parameter must be an array that contains at least one key/value pair.');
         }
 
-        $this->_type = 'UPDATE';
-        $this->_updateColumns = $this->_quote($columns);
+        $this->type = 'UPDATE';
+        $this->updateColumns = $this->quote($columns);
 
         return $this;
     }
@@ -319,7 +319,7 @@ class Sql
      */
     public function delete()
     {
-        $this->_type = 'DELETE';
+        $this->type = 'DELETE';
         return $this;
     }
 
@@ -342,15 +342,15 @@ class Sql
         $join = (in_array(strtoupper($typeOfJoin), $allowedJoins)) ? strtoupper($typeOfJoin) : 'JOIN';
 
         if (is_array($commonColumn)) {
-            $col1 = $this->_quoteId($commonColumn[0]);
-            $col2 = $this->_quoteId($commonColumn[1]);
+            $col1 = $this->quoteId($commonColumn[0]);
+            $col2 = $this->quoteId($commonColumn[1]);
             $cols = array($col1, $col2);
         } else {
-            $cols = $this->_quoteId($commonColumn);
+            $cols = $this->quoteId($commonColumn);
         }
 
-        $this->_join = array(
-            'tableToJoin' => $this->_quoteId($tableToJoin),
+        $this->join = array(
+            'tableToJoin' => $this->quoteId($tableToJoin),
             'commonColumn' => $cols,
             'typeOfJoin'  => $join
         );
@@ -376,8 +376,8 @@ class Sql
 
         $quote = (($value == '?') || (substr($value, 0, 1) == ':') || (preg_match('/^\$\d*\d$/', $value) != 0)) ? null : "'";
 
-        $this->_where[] = array(
-            'column'      => $this->_quoteId($column),
+        $this->where[] = array(
+            'column'      => $this->quoteId($column),
             'comparison'  => $comp,
             'value'       => $quote . $value . $quote,
             'conjunction' => $conj
@@ -401,14 +401,14 @@ class Sql
         if (is_array($by)) {
             $byAry = array();
             foreach ($by as $value) {
-                $byAry[] = $this->_quoteId($value);
+                $byAry[] = $this->quoteId($value);
             }
-            $this->_order = implode(', ', $byAry);
+            $this->order = implode(', ', $byAry);
         } else {
-            $this->_order = $this->_quoteId($by);
+            $this->order = $this->quoteId($by);
         }
 
-        $this->_order .= ' ' . $ord;
+        $this->order .= ' ' . $ord;
 
         return $this;
     }
@@ -421,7 +421,7 @@ class Sql
      */
     public function limit($limit)
     {
-        $this->_limit = (int)$limit;
+        $this->limit = (int)$limit;
         return $this;
     }
 
@@ -433,80 +433,80 @@ class Sql
      */
     protected function _buildSql()
     {
-        if (null === $this->_table) {
+        if (null === $this->table) {
             throw new Exception('Error: The table must be set.');
-        } else if (null === $this->_type) {
+        } else if (null === $this->type) {
             throw new Exception('Error: A SQL type must be set.');
         }
 
-        switch ($this->_type) {
+        switch ($this->type) {
             // Build a SELECT query.
             case 'SELECT':
-                $selectColumns = ($this->_distinct) ? 'DISTINCT ' : null;
-                if ((count($this->_selectColumns) == 1) && ($this->_selectColumns[0] == '*')) {
+                $selectColumns = ($this->distinct) ? 'DISTINCT ' : null;
+                if ((count($this->selectColumns) == 1) && ($this->selectColumns[0] == '*')) {
                     $selectColumns .= '*';
                 } else {
                     $selAry = array();
-                    foreach ($this->_selectColumns as $value) {
-                        $selAry[] = $this->_quoteId($value);
+                    foreach ($this->selectColumns as $value) {
+                        $selAry[] = $this->quoteId($value);
                     }
                     $selectColumns .= implode(', ', $selAry);
                 }
 
-                $this->_sql = $this->_type . ' ' . $selectColumns . ' FROM ' . $this->_quoteId($this->_table);
+                $this->sql = $this->type . ' ' . $selectColumns . ' FROM ' . $this->quoteId($this->table);
 
                 // If there is a join clause.
-                if (count($this->_join) > 0) {
-                    if (is_array($this->_join['commonColumn'])) {
-                        $col1 = $this->_join['commonColumn'][0];
-                        $col2 = $this->_join['commonColumn'][1];
+                if (count($this->join) > 0) {
+                    if (is_array($this->join['commonColumn'])) {
+                        $col1 = $this->join['commonColumn'][0];
+                        $col2 = $this->join['commonColumn'][1];
                     } else {
-                        $col1 = $this->_join['commonColumn'];
-                        $col2 = $this->_join['commonColumn'];
+                        $col1 = $this->join['commonColumn'];
+                        $col2 = $this->join['commonColumn'];
                     }
-                    $this->_sql .= ' ' . $this->_join['typeOfJoin'] . ' ' . $this->_join['tableToJoin'] . ' ON ' . $this->_quoteId($this->_table) . '.' . $col1 . ' = ' . $this->_join['tableToJoin'] . '.' . $col2;
+                    $this->sql .= ' ' . $this->join['typeOfJoin'] . ' ' . $this->join['tableToJoin'] . ' ON ' . $this->quoteId($this->table) . '.' . $col1 . ' = ' . $this->join['tableToJoin'] . '.' . $col2;
                 }
 
                 // If there is a where clause.
-                if (count($this->_where) > 0) {
-                    $this->_sql .= ' WHERE ' . $this->_formatWhereConditions();
+                if (count($this->where) > 0) {
+                    $this->sql .= ' WHERE ' . $this->formatWhereConditions();
                 }
 
                 // If there is an order clause.
-                if (null !== $this->_order) {
-                    $this->_sql .= ' ORDER BY ' . $this->_order;
+                if (null !== $this->order) {
+                    $this->sql .= ' ORDER BY ' . $this->order;
                 }
 
                 // If there is a limit clause.
-                if (null !== $this->_limit) {
-                    $this->_sql .= ' LIMIT ' . $this->_limit;
+                if (null !== $this->limit) {
+                    $this->sql .= ' LIMIT ' . $this->limit;
                 }
 
                 break;
 
             // Build an INSERT query.
             case 'INSERT':
-                $this->_sql = $this->_type . ' INTO ' . $this->_quoteId($this->_table) . ' ' . $this->_formatInsertValues();
+                $this->sql = $this->type . ' INTO ' . $this->quoteId($this->table) . ' ' . $this->formatInsertValues();
                 break;
 
             // Build an UPDATE query.
             case 'UPDATE':
-                $this->_sql = $this->_type . ' ' . $this->_quoteId($this->_table) . ' SET ' . $this->_formatUpdateValues();
+                $this->sql = $this->type . ' ' . $this->quoteId($this->table) . ' SET ' . $this->formatUpdateValues();
 
                 // If there is a where clause.
-                if (count($this->_where) > 0) {
-                    $this->_sql .= ' WHERE ' . $this->_formatWhereConditions();
+                if (count($this->where) > 0) {
+                    $this->sql .= ' WHERE ' . $this->formatWhereConditions();
                 }
 
                 break;
 
             // Build a DELETE query.
             case 'DELETE':
-                $this->_sql = $this->_type . ' FROM ' . $this->_quoteId($this->_table);
+                $this->sql = $this->type . ' FROM ' . $this->quoteId($this->table);
 
                 // If there is a where clause.
-                if (count($this->_where) > 0) {
-                    $this->_sql .= ' WHERE ' . $this->_formatWhereConditions();
+                if (count($this->where) > 0) {
+                    $this->sql .= ' WHERE ' . $this->formatWhereConditions();
                 }
 
                 break;
@@ -524,7 +524,7 @@ class Sql
         $ary = array();
 
         foreach ($columns as $key => $value) {
-            $k = $this->_quoteId($key);
+            $k = $this->quoteId($key);
             $quote = (($value == '?') || (substr($value, 0, 1) == ':') || (preg_match('/^\$\d*\d$/', $value) != 0)) ? null : "'";
             $v = $quote . $value . $quote;
             $ary[$k] = $v;
@@ -563,7 +563,7 @@ class Sql
         $sqlColumns = array();
         $sqlValues = array();
 
-        foreach ($this->_insertColumns as $key => $value) {
+        foreach ($this->insertColumns as $key => $value) {
             $sqlColumns[] = $key;
             $sqlValues[] = $value;
         }
@@ -580,7 +580,7 @@ class Sql
     {
         $sqlColumns = array();
 
-        foreach ($this->_updateColumns as $key => $value) {
+        foreach ($this->updateColumns as $key => $value) {
             $sqlColumns[] = $key . ' = ' . $value;
         }
 
@@ -596,10 +596,10 @@ class Sql
     {
         $whereSql = null;
 
-        for ($i = 0; $i < count($this->_where); $i++) {
-            $whereSql .= '(' . $this->_where[$i]['column'] . ' ' . $this->_where[$i]['comparison'] . ' ' . $this->_where[$i]['value'] . ')';
-            if ($i < (count($this->_where) - 1)) {
-                $whereSql .= ' ' . $this->_where[$i]['conjunction'] . ' ';
+        for ($i = 0; $i < count($this->where); $i++) {
+            $whereSql .= '(' . $this->where[$i]['column'] . ' ' . $this->where[$i]['comparison'] . ' ' . $this->where[$i]['value'] . ')';
+            if ($i < (count($this->where) - 1)) {
+                $whereSql .= ' ' . $this->where[$i]['conjunction'] . ' ';
             }
         }
 
@@ -613,8 +613,8 @@ class Sql
      */
     public function __toString()
     {
-        $this->_buildSql();
-        return $this->_sql;
+        $this->buildSql();
+        return $this->sql;
     }
 
 }

@@ -39,78 +39,79 @@ class Request
      * Request URI
      * @var string
      */
-    protected $_requestUri = null;
+    protected $requestUri = null;
 
     /**
      * Path segments
      * @var array
      */
-    protected $_path = array();
+    protected $path = array();
+
     /**
      * Base path
      * @var string
      */
-    protected $_basePath = null;
+    protected $basePath = null;
 
     /**
      * Document root
      * @var string
      */
-    protected $_docRoot = null;
+    protected $docRoot = null;
 
     /**
      * Full path
      * @var string
      */
-    protected $_fullPath = null;
+    protected $fullPath = null;
 
     /**
      * Request filename
      * @var string
      */
-    protected $_filename = null;
+    protected $filename = null;
 
     /**
      * Is the request a real file
      * @var boolean
      */
-    protected $_isFile = false;
+    protected $isFile = false;
 
     /**
      * Is the request secure
      * @var boolean
      */
-    protected $_isSecure = false;
+    protected $isSecure = false;
 
     /**
      * $_GET vars
      * @var array
      */
-    protected $_get = array();
+    protected $get = array();
 
     /**
      * $_POST vars
      * @var array
      */
-    protected $_post = array();
+    protected $post = array();
 
     /**
      * $_COOKIE vars
      * @var array
      */
-    protected $_cookie = array();
+    protected $cookie = array();
 
     /**
      * $_SERVER vars
      * @var array
      */
-    protected $_server = array();
+    protected $server = array();
 
     /**
      * $_ENV vars
      * @var array
      */
-    protected $_env = array();
+    protected $env = array();
 
     /**
      * Constructor
@@ -125,11 +126,11 @@ class Request
     {
         $this->setRequestUri($uri, $basePath);
 
-        $this->_get = (isset($_GET)) ? $_GET : array();
-        $this->_post = (isset($_POST)) ? $_POST : array();
-        $this->_cookie = (isset($_COOKIE)) ? $_COOKIE : array();
-        $this->_server = (isset($_SERVER)) ? $_SERVER : array();
-        $this->_env = (isset($_ENV)) ? $_ENV : array();
+        $this->get = (isset($_GET)) ? $_GET : array();
+        $this->post = (isset($_POST)) ? $_POST : array();
+        $this->cookie = (isset($_COOKIE)) ? $_COOKIE : array();
+        $this->server = (isset($_SERVER)) ? $_SERVER : array();
+        $this->env = (isset($_ENV)) ? $_ENV : array();
     }
 
     /**
@@ -139,7 +140,7 @@ class Request
      */
     public function isFile()
     {
-        return $this->_isFile;
+        return $this->isFile;
     }
 
     /**
@@ -149,7 +150,7 @@ class Request
      */
     public function isPost()
     {
-        return ($this->_server['REQUEST_METHOD'] == 'POST');
+        return ($this->server['REQUEST_METHOD'] == 'POST');
     }
 
     /**
@@ -159,7 +160,7 @@ class Request
      */
     public function isGet()
     {
-        return ($this->_server['REQUEST_METHOD'] == 'GET');
+        return ($this->server['REQUEST_METHOD'] == 'GET');
     }
 
     /**
@@ -169,7 +170,7 @@ class Request
      */
     public function isPut()
     {
-        return ($this->_server['REQUEST_METHOD'] == 'PUT');
+        return ($this->server['REQUEST_METHOD'] == 'PUT');
     }
 
     /**
@@ -179,7 +180,7 @@ class Request
      */
     public function isDelete()
     {
-        return ($this->_server['REQUEST_METHOD'] == 'DELETE');
+        return ($this->server['REQUEST_METHOD'] == 'DELETE');
     }
 
     /**
@@ -189,7 +190,7 @@ class Request
      */
     public function isSecure()
     {
-        return $this->_isSecure;
+        return $this->isSecure;
     }
 
     /**
@@ -199,7 +200,7 @@ class Request
      */
     public function getRequestUri()
     {
-        return $this->_requestUri;
+        return $this->requestUri;
     }
 
     /**
@@ -219,11 +220,11 @@ class Request
         $path = null;
 
         if (null !== $num) {
-            if (isset($this->_path[(int)$num])) {
-                $path = $this->_path[(int)$num];
+            if (isset($this->path[(int)$num])) {
+                $path = $this->path[(int)$num];
             }
         } else {
-            $path = $this->_path;
+            $path = $this->path;
         }
 
         return $path;
@@ -236,7 +237,7 @@ class Request
      */
     public function getBasePath()
     {
-        return $this->_basePath;
+        return $this->basePath;
     }
 
     /**
@@ -246,7 +247,7 @@ class Request
      */
     public function getDocRoot()
     {
-        return $this->_docRoot;
+        return $this->docRoot;
     }
 
     /**
@@ -256,7 +257,7 @@ class Request
      */
     public function getFullPath()
     {
-        return $this->_fullPath;
+        return $this->fullPath;
     }
 
     /**
@@ -266,7 +267,7 @@ class Request
      */
     public function getMethod($key = null)
     {
-        return $this->_server['REQUEST_METHOD'];
+        return $this->server['REQUEST_METHOD'];
     }
 
     /**
@@ -276,7 +277,7 @@ class Request
      */
     public function getFilename()
     {
-        return $this->_filename;
+        return $this->filename;
     }
 
     /**
@@ -286,7 +287,7 @@ class Request
      */
     public function getScheme()
     {
-        return ($this->_isSecure) ? 'https' : 'http';
+        return ($this->isSecure) ? 'https' : 'http';
     }
 
     /**
@@ -296,9 +297,9 @@ class Request
      */
     public function getHost()
     {
-        $host = $this->_server['HTTP_HOST'];
-        $name = $this->_server['SERVER_NAME'];
-        $port = $this->_server['SERVER_PORT'];
+        $host = $this->server['HTTP_HOST'];
+        $name = $this->server['SERVER_NAME'];
+        $port = $this->server['SERVER_PORT'];
 
         $hostname = null;
         if (!empty($host)) {
@@ -318,12 +319,12 @@ class Request
      */
     public function getIp($proxy = true)
     {
-        if ($proxy && isset($this->_server['HTTP_CLIENT_IP'])) {
-            $ip = $this->_server['HTTP_CLIENT_IP'];
-        } else if ($proxy && isset($this->_server['HTTP_X_FORWARDED_FOR'])) {
-            $ip = $this->_server['HTTP_X_FORWARDED_FOR'];
+        if ($proxy && isset($this->server['HTTP_CLIENT_IP'])) {
+            $ip = $this->server['HTTP_CLIENT_IP'];
+        } else if ($proxy && isset($this->server['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $this->server['HTTP_X_FORWARDED_FOR'];
         } else {
-            $ip = $this->_server['REMOTE_ADDR'];
+            $ip = $this->server['REMOTE_ADDR'];
         }
 
         return $ip;
@@ -338,9 +339,9 @@ class Request
     public function getQuery($key = null)
     {
         if (null === $key) {
-            return $this->_get;
+            return $this->get;
         } else {
-            return (isset($this->_get[$key])) ? $this->_get[$key] : null;
+            return (isset($this->get[$key])) ? $this->get[$key] : null;
         }
     }
 
@@ -353,9 +354,9 @@ class Request
     public function getPost($key = null)
     {
         if (null === $key) {
-            return $this->_post;
+            return $this->post;
         } else {
-            return (isset($this->_post[$key])) ? $this->_post[$key] : null;
+            return (isset($this->post[$key])) ? $this->post[$key] : null;
         }
     }
 
@@ -368,9 +369,9 @@ class Request
     public function getCookie($key = null)
     {
         if (null === $key) {
-            return $this->_cookie;
+            return $this->cookie;
         } else {
-            return (isset($this->_cookie[$key])) ? $this->_cookie[$key] : null;
+            return (isset($this->cookie[$key])) ? $this->cookie[$key] : null;
         }
     }
 
@@ -383,9 +384,9 @@ class Request
     public function getServer($key = null)
     {
         if (null === $key) {
-            return $this->_server;
+            return $this->server;
         } else {
-            return (isset($this->_server[$key])) ? $this->_server[$key] : null;
+            return (isset($this->server[$key])) ? $this->server[$key] : null;
         }
     }
 
@@ -398,9 +399,9 @@ class Request
     public function getEnv($key = null)
     {
         if (null === $key) {
-            return $this->_server;
+            return $this->server;
         } else {
-            return (isset($this->_env[$key])) ? $this->_env[$key] : null;
+            return (isset($this->env[$key])) ? $this->env[$key] : null;
         }
     }
 
@@ -426,31 +427,31 @@ class Request
         }
 
         // Some slash clean up
-        $this->_docRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
-        $dir = str_replace('\\', '/', dirname($this->_docRoot . $_SERVER['PHP_SELF']));
+        $this->docRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
+        $dir = str_replace('\\', '/', dirname($this->docRoot . $_SERVER['PHP_SELF']));
 
-        $this->_requestUri = ($dir != $this->_docRoot) ? str_replace(str_replace($this->_docRoot, '', $dir), '', $uri) : $uri;
-        $this->_basePath = (null === $basePath) ? str_replace($this->_docRoot, '', $dir) : $basePath;
-        $this->_fullPath = $this->_docRoot . $this->_basePath;
+        $this->requestUri = ($dir != $this->docRoot) ? str_replace(str_replace($this->docRoot, '', $dir), '', $uri) : $uri;
+        $this->basePath = (null === $basePath) ? str_replace($this->docRoot, '', $dir) : $basePath;
+        $this->fullPath = $this->docRoot . $this->basePath;
         if (isset($_SERVER['SERVER_PORT'])) {
-            $this->_isSecure = ($_SERVER['SERVER_PORT'] == '443') ? true : false;
+            $this->isSecure = ($_SERVER['SERVER_PORT'] == '443') ? true : false;
         }
 
-        if (strpos($this->_requestUri, '?') !== false) {
-            $this->_requestUri = substr($this->_requestUri, 0, strpos($this->_requestUri, '?'));
+        if (strpos($this->requestUri, '?') !== false) {
+            $this->requestUri = substr($this->requestUri, 0, strpos($this->requestUri, '?'));
         }
 
-        if (file_exists($this->_fullPath . $this->_requestUri)) {
-            $this->_isFile = true;
-            $this->_filename = str_replace('/', '', $this->_requestUri);
+        if (file_exists($this->fullPath . $this->requestUri)) {
+            $this->isFile = true;
+            $this->filename = str_replace('/', '', $this->requestUri);
         } else {
-            $this->_isFile = false;
-            $this->_filename = null;
+            $this->isFile = false;
+            $this->filename = null;
         }
 
-        if (($this->_requestUri != '/') && (strpos($this->_requestUri, '/') !== false)) {
-            $uri = (substr($this->_requestUri, 0, 1) == '/') ? substr($this->_requestUri, 1) : $this->_requestUri;
-            $this->_path = explode('/', $uri);
+        if (($this->requestUri != '/') && (strpos($this->requestUri, '/') !== false)) {
+            $uri = (substr($this->requestUri, 0, 1) == '/') ? substr($this->requestUri, 1) : $this->requestUri;
+            $this->path = explode('/', $uri);
         }
 
         return $this;
@@ -464,7 +465,7 @@ class Request
      */
     public function setBasePath($path = null)
     {
-        $this->_basePath = $path;
+        $this->basePath = $path;
         return $this;
     }
 
@@ -477,7 +478,7 @@ class Request
      */
     public function setQuery($key, $value)
     {
-        $this->_get[$key] = $value;
+        $this->get[$key] = $value;
         $_GET[$key] = $value;
         return $this;
     }
@@ -491,7 +492,7 @@ class Request
      */
     public function setPost($key, $value)
     {
-        $this->_post[$key] = $value;
+        $this->post[$key] = $value;
         $_POST[$key] = $value;
         return $this;
     }

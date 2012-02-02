@@ -39,7 +39,7 @@ class Mysqli extends AbstractAdapter
      * Prepared statement
      * @var MySQLi_STMT
      */
-    protected $_statement = null;
+    protected $statement = null;
 
     /**
      * Constructor
@@ -82,8 +82,8 @@ class Mysqli extends AbstractAdapter
      */
     public function prepare($sql)
     {
-        $this->_statement = $this->connection->stmt_init();
-        $this->_statement->prepare($sql);
+        $this->statement = $this->connection->stmt_init();
+        $this->statement->prepare($sql);
 
         return $this;
     }
@@ -114,7 +114,7 @@ class Mysqli extends AbstractAdapter
             $bindParams[] = &${$key};
         }
 
-        call_user_func_array(array($this->_statement, 'bind_param'), $bindParams);
+        call_user_func_array(array($this->statement, 'bind_param'), $bindParams);
 
         return $this;
     }
@@ -129,7 +129,7 @@ class Mysqli extends AbstractAdapter
         $params = array();
         $bindParams = array();
 
-        $metaData = $this->_statement->result_metadata();
+        $metaData = $this->statement->result_metadata();
 
         foreach ($metaData->fetch_fields() as $col) {
             ${$col->name} = null;
@@ -137,11 +137,11 @@ class Mysqli extends AbstractAdapter
             $params[] = $col->name;
         }
 
-        call_user_func_array(array($this->_statement, 'bind_result'), $bindParams);
+        call_user_func_array(array($this->statement, 'bind_result'), $bindParams);
 
         $rows = array();
 
-        while (($row = $this->_statement->fetch()) != false) {
+        while (($row = $this->statement->fetch()) != false) {
             $ary = array();
             foreach ($bindParams as $key => $value) {
                 $ary[$params[$key]] = $value;
@@ -161,11 +161,11 @@ class Mysqli extends AbstractAdapter
      */
     public function execute()
     {
-        if (null === $this->_statement) {
+        if (null === $this->statement) {
             throw new Exception('Error: The database statement resource is not currently set.');
         }
 
-        $this->_statement->execute();
+        $this->statement->execute();
     }
 
     /**
@@ -189,8 +189,8 @@ class Mysqli extends AbstractAdapter
      */
     public function fetch()
     {
-        if (null !== $this->_statement) {
-            return $this->_statement->fetch();
+        if (null !== $this->statement) {
+            return $this->statement->fetch();
         } else {
             if (!isset($this->result)) {
                 throw new Exception('Error: The database result resource is not currently set.');
@@ -229,9 +229,9 @@ class Mysqli extends AbstractAdapter
      */
     public function numRows()
     {
-        if (isset($this->_statement)) {
-            $this->_statement->store_result();
-            return $this->_statement->num_rows;
+        if (isset($this->statement)) {
+            $this->statement->store_result();
+            return $this->statement->num_rows;
         } else if (isset($this->result)) {
             return $this->result->num_rows;
         } else {
@@ -247,9 +247,9 @@ class Mysqli extends AbstractAdapter
      */
     public function numFields()
     {
-        if (isset($this->_statement)) {
-            $this->_statement->store_result();
-            return $this->_statement->field_count;
+        if (isset($this->statement)) {
+            $this->statement->store_result();
+            return $this->statement->field_count;
         } else if (isset($this->result)) {
             return $this->connection->field_count;
         } else {

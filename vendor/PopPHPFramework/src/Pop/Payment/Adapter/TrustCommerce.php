@@ -41,25 +41,25 @@ class TrustCommerce extends AbstractAdapter
      * Customer ID
      * @var string
      */
-    protected $_custId = null;
+    protected $custId = null;
 
     /**
      * Password
      * @var string
      */
-    protected $_password = null;
+    protected $password = null;
 
     /**
      * URL
      * @var string
      */
-    protected $_url = 'https://vault.trustcommerce.com/trans/';
+    protected $url = 'https://vault.trustcommerce.com/trans/';
 
     /**
      * Transaction data
      * @var array
      */
-    protected $_transaction = array(
+    protected $transaction = array(
         'custid'           => null,
         'password'         => null,
         'action'           => 'sale',
@@ -98,7 +98,7 @@ class TrustCommerce extends AbstractAdapter
      * Transaction fields for normalization purposes
      * @var array
      */
-    protected $_fields = array(
+    protected $fields = array(
         'amount'          => 'amount',
         'cardNum'         => 'cc',
         'expDate'         => 'exp',
@@ -126,7 +126,7 @@ class TrustCommerce extends AbstractAdapter
      * Required fields
      * @var array
      */
-    protected $_requiredFields = array(
+    protected $requiredFields = array(
         'custid',
         'password',
         'action',
@@ -147,11 +147,11 @@ class TrustCommerce extends AbstractAdapter
      */
     public function __construct($custId, $password, $test = false)
     {
-        $this->_custId = $custId;
-        $this->_password = $password;
-        $this->_transaction['custid'] = $custId;
-        $this->_transaction['password'] = $password;
-        $this->_test = $test;
+        $this->custId = $custId;
+        $this->password = $password;
+        $this->transaction['custid'] = $custId;
+        $this->transaction['password'] = $password;
+        $this->test = $test;
     }
     /**
      * Send transaction
@@ -162,16 +162,16 @@ class TrustCommerce extends AbstractAdapter
      */
     public function send($verifyPeer = true)
     {
-        if (!$this->_validate()) {
+        if (!$this->validate()) {
             throw new Exception('The required transaction data has not been set.');
         }
 
-        $this->_transaction['demo'] = ($this->_test) ? 'y' : 'n';
+        $this->transaction['demo'] = ($this->test) ? 'y' : 'n';
 
         $options = array(
-            CURLOPT_URL            => $this->_url,
+            CURLOPT_URL            => $this->url,
             CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => $this->_buildPostString(),
+            CURLOPT_POSTFIELDS     => $this->buildPostString(),
             CURLOPT_HEADER         => false,
             CURLOPT_RETURNTRANSFER => true
         );
@@ -181,20 +181,20 @@ class TrustCommerce extends AbstractAdapter
         }
 
         $curl = new Curl($options);
-        $this->_response = $curl->execute();
-        $this->_responseCodes = $this->_parseResponseCodes();
-        $this->_responseCode = $this->_responseCodes['transid'];
-        $this->_message = $this->_responseCodes['status'];
+        $this->response = $curl->execute();
+        $this->responseCodes = $this->parseResponseCodes();
+        $this->responseCode = $this->responseCodes['transid'];
+        $this->message = $this->responseCodes['status'];
 
-        switch ($this->_responseCodes['status']) {
+        switch ($this->responseCodes['status']) {
             case 'approved':
-                $this->_approved = true;
+                $this->approved = true;
                 break;
             case 'decline':
-                $this->_declined = true;
+                $this->declined = true;
                 break;
             case 'error':
-                $this->_error = true;
+                $this->error = true;
                 break;
         }
     }
@@ -206,10 +206,10 @@ class TrustCommerce extends AbstractAdapter
      */
     protected function _buildPostString()
     {
-        $post = $this->_transaction;
+        $post = $this->transaction;
 
-        $post['cc'] = $this->_filterCardNum($post['cc']);
-        $post['exp'] = $this->_filterExpDate($post['exp']);
+        $post['cc'] = $this->filterCardNum($post['cc']);
+        $post['exp'] = $this->filterExpDate($post['exp']);
         $post['amount'] = str_replace('.', '', $post['amount']);
 
         if ((null !== $post['fname']) && (null !== $post['lname'])) {
@@ -234,7 +234,7 @@ class TrustCommerce extends AbstractAdapter
      */
     protected function _parseResponseCodes()
     {
-        $responseCodes = explode(PHP_EOL, $this->_response);
+        $responseCodes = explode(PHP_EOL, $this->response);
         $codes = array();
 
         foreach ($responseCodes as $key => $value) {

@@ -82,7 +82,7 @@ class Server
     {
         $this->software = $_SERVER['SERVER_SOFTWARE'];
         $this->php = PHP_VERSION;
-        $this->_detect();
+        $this->detect();
     }
 
     /**

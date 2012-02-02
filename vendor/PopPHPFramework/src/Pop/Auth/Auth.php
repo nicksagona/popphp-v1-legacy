@@ -122,25 +122,25 @@ class Auth
      * Auth user object
      * @var Pop\Auth\User
      */
-    protected $_user = null;
+    protected $user = null;
 
     /**
      * Allowed roles.
      * @var array
      */
-    protected $_allowedRoles = array();
+    protected $allowedRoles = array();
 
     /**
      * Required role for authorization
      * @var Pop\Auth\Role
      */
-    protected $_requiredRole = null;
+    protected $requiredRole = null;
 
     /**
      * Array of validator objects
      * @var array
      */
-    protected $_validators = array(
+    protected $validators = array(
         'allowedIps'     => null,
         'allowedSubnets' => null,
         'blockedIps'     => null,
@@ -153,61 +153,61 @@ class Auth
      * Auth adapter object
      * @var mixed
      */
-    protected $_adapter = null;
+    protected $adapter = null;
 
     /**
      * Session start timestamp
      * @var int
      */
-    protected $_start = 0;
+    protected $start = 0;
 
     /**
      * Expiration time in minutes
      * @var int
      */
-    protected $_expiration = 0;
+    protected $expiration = 0;
 
     /**
      * Encryption method to use
      * @var int
      */
-    protected $_encryption = 0;
+    protected $encryption = 0;
 
     /**
      * Encryption salt
      * @var string
      */
-    protected $_salt = null;
+    protected $salt = null;
 
     /**
      * Current number of login attempts
      * @var int
      */
-    protected $_attempts = 0;
+    protected $attempts = 0;
 
     /**
      * Current IP address
      * @var string
      */
-    protected $_ip = null;
+    protected $ip = null;
 
     /**
      * Current subnet
      * @var array
      */
-    protected $_subnet = null;
+    protected $subnet = null;
 
     /**
      * Authentication result
      * @var int
      */
-    protected $_result = 0;
+    protected $result = 0;
 
     /**
      * User validation result from authentication
      * @var boolean
      */
-    protected $_isValid = false;
+    protected $isValid = false;
 
     /**
      * Constructor
@@ -220,10 +220,10 @@ class Auth
      */
     public function __construct(AdapterInterface $adapter, $encryption = 0, $salt = null)
     {
-        $this->_adapter = $adapter;
-        $this->_start = time();
+        $this->adapter = $adapter;
+        $this->start = time();
         $this->setEncryption($encryption);
-        $this->_salt = $salt;
+        $this->salt = $salt;
     }
 
     /**
@@ -237,11 +237,11 @@ class Auth
         if (is_array($role)) {
             foreach ($role as $r) {
                 if ($r instanceof Role) {
-                    $this->_allowedRoles[$r->getName()] = $r;
+                    $this->allowedRoles[$r->getName()] = $r;
                 }
             }
         } else if ($role instanceof Role) {
-            $this->_allowedRoles[$role->getName()] = $role;
+            $this->allowedRoles[$role->getName()] = $role;
         }
         return $this;
     }
@@ -256,8 +256,8 @@ class Auth
     {
         $roleName = ($role instanceof Role) ? $role->getName() : $role;
 
-        if (array_key_exists($roleName, $this->_allowedRoles)) {
-            unset($this->_allowedRoles[$roleName]);
+        if (array_key_exists($roleName, $this->allowedRoles)) {
+            unset($this->allowedRoles[$roleName]);
         }
 
         return $this;
@@ -270,7 +270,7 @@ class Auth
      */
     public function getAttempts()
     {
-        return $this->_attempts;
+        return $this->attempts;
     }
 
     /**
@@ -280,7 +280,7 @@ class Auth
      */
     public function getStart()
     {
-        return $this->_start;
+        return $this->start;
     }
 
     /**
@@ -290,7 +290,7 @@ class Auth
      */
     public function getExpiration()
     {
-        return $this->_expiration;
+        return $this->expiration;
     }
 
     /**
@@ -300,7 +300,7 @@ class Auth
      */
     public function getEncryption()
     {
-        return $this->_encryption;
+        return $this->encryption;
     }
 
     /**
@@ -310,7 +310,7 @@ class Auth
      */
     public function getSalt()
     {
-        return $this->_salt;
+        return $this->salt;
     }
 
     /**
@@ -320,7 +320,7 @@ class Auth
      */
     public function getResult()
     {
-        return $this->_result;
+        return $this->result;
     }
 
     /**
@@ -332,33 +332,33 @@ class Auth
     {
         $msg = null;
 
-        switch ($this->_result) {
+        switch ($this->result) {
             case self::USER_IS_VALID:
-                $msg = Locale::factory()->__('The user is valid.');
+                $msg = Locale::factory()->_('The user is valid.');
                 break;
             case self::USER_NOT_FOUND:
-                $msg = Locale::factory()->__('The user was not found.');
+                $msg = Locale::factory()->_('The user was not found.');
                 break;
             case self::USER_IS_BLOCKED:
-                $msg = Locale::factory()->__('The user is blocked.');
+                $msg = Locale::factory()->_('The user is blocked.');
                 break;
             case self::PASSWORD_INCORRECT:
-                $msg = Locale::factory()->__('The password was incorrect.');
+                $msg = Locale::factory()->_('The password was incorrect.');
                 break;
             case self::LOGIN_ATTEMPTS_EXCEEDED:
-                $msg = Locale::factory()->__(
+                $msg = Locale::factory()->_(
                     'The allowed login attempts (%1) have been exceeded.',
-                    $this->_validators['attempts']->getValidator()->getValue()
+                    $this->validators['attempts']->getValidator()->getValue()
                 );
                 break;
             case self::IP_BLOCKED:
-                $msg = Locale::factory()->__('That IP address is blocked.');
+                $msg = Locale::factory()->_('That IP address is blocked.');
                 break;
             case self::IP_NOT_ALLOWED:
-                $msg = Locale::factory()->__('That IP address is not allowed.');
+                $msg = Locale::factory()->_('That IP address is not allowed.');
                 break;
             case self::SESSION_EXPIRED:
-                $msg = Locale::factory()->__('The session has expired.');
+                $msg = Locale::factory()->_('The session has expired.');
                 break;
         }
 
@@ -372,7 +372,7 @@ class Auth
      */
     public function getRequiredRole()
     {
-        return $this->_requiredRole;
+        return $this->requiredRole;
     }
 
     /**
@@ -382,7 +382,7 @@ class Auth
      */
     public function getUser()
     {
-        return $this->_user;
+        return $this->user;
     }
 
     /**
@@ -393,12 +393,12 @@ class Auth
      */
     public function setExpiration($expiration = 0)
     {
-        $this->_expiration = (int)$expiration;
-        if ($this->_expiration == 0) {
-            $this->_validators['expiration'] = null;
+        $this->expiration = (int)$expiration;
+        if ($this->expiration == 0) {
+            $this->validators['expiration'] = null;
         } else {
-            $exp = time() + ($this->_expiration * 60);
-            $this->_validators['expiration'] = Validator::factory(new LessThan($exp));
+            $exp = time() + ($this->expiration * 60);
+            $this->validators['expiration'] = Validator::factory(new LessThan($exp));
         }
         return $this;
     }
@@ -413,7 +413,7 @@ class Auth
     {
         $enc = (int)$encryption;
         if (($enc >= 0) && ($enc <= 3)) {
-            $this->_encryption = $enc;
+            $this->encryption = $enc;
         }
 
         return $this;
@@ -427,7 +427,7 @@ class Auth
      */
     public function setSalt($salt = null)
     {
-        $this->_salt = $salt;
+        $this->salt = $salt;
         return $this;
     }
 
@@ -441,18 +441,18 @@ class Auth
     public function setRequiredRole($role = null, $level = 0)
     {
         if (null === $role) {
-            $this->_requiredRole = null;
+            $this->requiredRole = null;
         } else {
             if ($role instanceof Role) {
-                if (!array_key_exists($role->getName(), $this->_allowedRoles)) {
-                    $this->_allowedRoles[$role->getName()] = $role;
+                if (!array_key_exists($role->getName(), $this->allowedRoles)) {
+                    $this->allowedRoles[$role->getName()] = $role;
                 }
-                $this->_requiredRole = $role;
+                $this->requiredRole = $role;
             } else {
-                if (!array_key_exists($role, $this->_allowedRoles)) {
-                    $this->_allowedRoles[$role] = Role::factory($role, $level);
+                if (!array_key_exists($role, $this->allowedRoles)) {
+                    $this->allowedRoles[$role] = Role::factory($role, $level);
                 }
-                $this->_requiredRole = $this->_allowedRoles[$role];
+                $this->requiredRole = $this->allowedRoles[$role];
             }
         }
 
@@ -468,9 +468,9 @@ class Auth
     public function setAttemptLimit($attempts = 0)
     {
         if ($attempts == 0) {
-            $this->_validators['attempts'] = null;
+            $this->validators['attempts'] = null;
         } else {
-            $this->_validators['attempts'] = Validator::factory(new LessThan($attempts));
+            $this->validators['attempts'] = Validator::factory(new LessThan($attempts));
         }
         return $this;
     }
@@ -483,7 +483,7 @@ class Auth
      */
     public function setAttempts($attempts = 0)
     {
-        $this->_attempts = (int)$attempts;
+        $this->attempts = (int)$attempts;
         return $this;
     }
 
@@ -496,11 +496,11 @@ class Auth
     public function setBlockedIps($ips = null)
     {
         if (null === $ips) {
-            $this->_validators['blockedIps'] = null;
+            $this->validators['blockedIps'] = null;
         } else {
-            $validIps = $this->_filterIps($ips);
+            $validIps = $this->filterIps($ips);
             if (count($validIps) > 0) {
-                $this->_validators['blockedIps'] = Validator::factory(new Excluded($validIps));
+                $this->validators['blockedIps'] = Validator::factory(new Excluded($validIps));
             }
         }
         return $this;
@@ -515,11 +515,11 @@ class Auth
     public function setBlockedSubnets($subnets = null)
     {
         if (null === $subnets) {
-            $this->_validators['blockedSubnets'] = null;
+            $this->validators['blockedSubnets'] = null;
         } else {
-            $validSubnets = $this->_filterSubnets($subnets);
+            $validSubnets = $this->filterSubnets($subnets);
             if (count($validSubnets) > 0) {
-                $this->_validators['blockedSubnets'] = Validator::factory(new Excluded($validSubnets));
+                $this->validators['blockedSubnets'] = Validator::factory(new Excluded($validSubnets));
             }
         }
         return $this;
@@ -534,11 +534,11 @@ class Auth
     public function setAllowedIps($ips = null)
     {
         if (null === $ips) {
-            $this->_validators['allowedIps'] = null;
+            $this->validators['allowedIps'] = null;
         } else {
-            $validIps = $this->_filterIps($ips);
+            $validIps = $this->filterIps($ips);
             if (count($validIps) > 0) {
-                $this->_validators['allowedIps'] = Validator::factory(new Included($validIps));
+                $this->validators['allowedIps'] = Validator::factory(new Included($validIps));
             }
         }
         return $this;
@@ -553,11 +553,11 @@ class Auth
     public function setAllowedSubnets($subnets = null)
     {
         if (null === $subnets) {
-            $this->_validators['allowedSubnets'] = null;
+            $this->validators['allowedSubnets'] = null;
         } else {
-            $validSubnets = $this->_filterSubnets($subnets);
+            $validSubnets = $this->filterSubnets($subnets);
             if (count($validSubnets) > 0) {
-                $this->_validators['allowedSubnets'] = Validator::factory(new Included($validSubnets));
+                $this->validators['allowedSubnets'] = Validator::factory(new Included($validSubnets));
             }
         }
         return $this;
@@ -572,35 +572,35 @@ class Auth
      */
     public function authenticate($username, $password)
     {
-        $this->_result = 0;
+        $this->result = 0;
 
         if (isset($_SERVER['REMOTE_ADDR'])) {
-            $this->_ip = $_SERVER['REMOTE_ADDR'];
-            $this->_subnet = substr($this->_ip, 0, strrpos($this->_ip, '.'));
+            $this->ip = $_SERVER['REMOTE_ADDR'];
+            $this->subnet = substr($this->ip, 0, strrpos($this->ip, '.'));
         }
 
-        $this->_processValidators();
+        $this->processValidators();
 
-        if ($this->_result == 0) {
-            $this->_user = new User($username, $this->_encryptPassword($password));
+        if ($this->result == 0) {
+            $this->user = new User($username, $this->encryptPassword($password));
 
-            $result = $this->_adapter->authenticate($this->_user->getUsername(), $this->_user->getPassword());
-            $this->_result = $result['result'];
+            $result = $this->adapter->authenticate($this->user->getUsername(), $this->user->getPassword());
+            $this->result = $result['result'];
 
-            if ((null !== $result['access']) && isset($this->_allowedRoles[$result['access']])) {
-                $this->_user->setRole($this->_allowedRoles[$result['access']]);
+            if ((null !== $result['access']) && isset($this->allowedRoles[$result['access']])) {
+                $this->user->setRole($this->allowedRoles[$result['access']]);
             }
 
             if (!is_array($result['user'])) {
-                $this->_user->setFields($result['user']->getValues());
+                $this->user->setFields($result['user']->getValues());
             } else {
-                $this->_user->setFields($result['user']);
+                $this->user->setFields($result['user']);
             }
         }
 
-        $this->_isValid = ($this->_result == 1) ? true : false;
+        $this->isValid = ($this->result == 1) ? true : false;
 
-        return $this->_result;
+        return $this->result;
     }
 
     /**
@@ -610,23 +610,23 @@ class Auth
      */
     public function validate()
     {
-        $this->_result = 0;
+        $this->result = 0;
 
         if (isset($_SERVER['REMOTE_ADDR'])) {
-            $this->_ip = $_SERVER['REMOTE_ADDR'];
-            $this->_subnet = substr($this->_ip, 0, strrpos($this->_ip, '.'));
+            $this->ip = $_SERVER['REMOTE_ADDR'];
+            $this->subnet = substr($this->ip, 0, strrpos($this->ip, '.'));
         }
 
-        $this->_processValidators(false);
+        $this->processValidators(false);
 
-        if (($this->_result == 0) && ($this->_isValid)) {
-            $this->setExpiration($this->_expiration);
-            $this->_result = 1;
+        if (($this->result == 0) && ($this->isValid)) {
+            $this->setExpiration($this->expiration);
+            $this->result = 1;
         } else {
-            $this->_isValid = false;
+            $this->isValid = false;
         }
 
-        return $this->_result;
+        return $this->result;
     }
 
     /**
@@ -636,7 +636,7 @@ class Auth
      */
     public function isValid()
     {
-        return $this->_isValid;
+        return $this->isValid;
     }
 
     /**
@@ -648,10 +648,10 @@ class Auth
     {
         $result = false;
 
-        if (null === $this->_requiredRole) {
+        if (null === $this->requiredRole) {
             $result = true;
         } else {
-            $result = $this->_user->isAuthorizedAs($this->_requiredRole);
+            $result = $this->user->isAuthorizedAs($this->requiredRole);
         }
 
         return $result;
@@ -714,12 +714,12 @@ class Auth
     {
         $encrypted = $pwd;
 
-        if ($this->_encryption == self::ENCRYPT_MD5) {
+        if ($this->encryption == self::ENCRYPT_MD5) {
             $encrypted = md5($pwd);
-        } else if ($this->_encryption == self::ENCRYPT_SHA1) {
+        } else if ($this->encryption == self::ENCRYPT_SHA1) {
             $encrypted = sha1($pwd);
-        } else if ($this->_encryption == self::ENCRYPT_CRYPT) {
-            $encrypted = crypt($pwd, $this->_salt);
+        } else if ($this->encryption == self::ENCRYPT_CRYPT) {
+            $encrypted = crypt($pwd, $this->salt);
         }
 
         return $encrypted;
@@ -733,37 +733,37 @@ class Auth
      */
     protected function _processValidators($count = true)
     {
-        foreach ($this->_validators as $name => $validator) {
+        foreach ($this->validators as $name => $validator) {
             if (null !== $validator) {
                 switch ($name) {
                     case 'allowedIps':
-                        if ((null !== $this->_ip) && (!$validator->evaluate($this->_ip))) {
-                            $this->_result = self::IP_NOT_ALLOWED;
+                        if ((null !== $this->ip) && (!$validator->evaluate($this->ip))) {
+                            $this->result = self::IP_NOT_ALLOWED;
                         }
                         break;
                     case 'allowedSubnets':
-                        if ((null !== $this->_subnet) && (!$validator->evaluate($this->_subnet))) {
-                            $this->_result = self::IP_NOT_ALLOWED;
+                        if ((null !== $this->subnet) && (!$validator->evaluate($this->subnet))) {
+                            $this->result = self::IP_NOT_ALLOWED;
                         }
                         break;
                     case 'blockedIps':
-                        if ((null !== $this->_ip) && (!$validator->evaluate($this->_ip))) {
-                            $this->_result = self::IP_BLOCKED;
+                        if ((null !== $this->ip) && (!$validator->evaluate($this->ip))) {
+                            $this->result = self::IP_BLOCKED;
                         }
                         break;
                     case 'blockedSubnets':
-                        if ((null !== $this->_subnet) && (!$validator->evaluate($this->_subnet))) {
-                            $this->_result = self::IP_BLOCKED;
+                        if ((null !== $this->subnet) && (!$validator->evaluate($this->subnet))) {
+                            $this->result = self::IP_BLOCKED;
                         }
                         break;
                     case 'attempts':
-                        if (!$validator->evaluate($this->_attempts)) {
-                            $this->_result = self::LOGIN_ATTEMPTS_EXCEEDED;
+                        if (!$validator->evaluate($this->attempts)) {
+                            $this->result = self::LOGIN_ATTEMPTS_EXCEEDED;
                         }
                         break;
                     case 'expiration':
                         if (!$validator->evaluate(time())) {
-                            $this->_result = self::SESSION_EXPIRED;
+                            $this->result = self::SESSION_EXPIRED;
                         }
                         break;
                 }
@@ -771,7 +771,7 @@ class Auth
         }
 
         if ($count) {
-            $this->_attempts++;
+            $this->attempts++;
         }
     }
 

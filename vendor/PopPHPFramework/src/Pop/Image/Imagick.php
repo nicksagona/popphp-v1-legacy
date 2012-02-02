@@ -70,7 +70,7 @@ class Imagick extends AbstractImage
      * Array of allowed file types.
      * @var array
      */
-    protected $_allowed = array(
+    protected $allowed = array(
         'afm'   => 'application/x-font-afm',
         'ai'    => 'application/postscript',
         'avi'   => 'video/x-msvideo',
@@ -110,31 +110,31 @@ class Imagick extends AbstractImage
      * Image color opacity
      * @var float
      */
-    protected $_opacity = 1.0;
+    protected $opacity = 1.0;
 
     /**
      * Image compression
      * @var int|string
      */
-    protected $_compression = null;
+    protected $compression = null;
 
     /**
      * Image filter
      * @var int
      */
-    protected $_filter = \Imagick::FILTER_LANCZOS;
+    protected $filter = \Imagick::FILTER_LANCZOS;
 
     /**
      * Image blur
      * @var int
      */
-    protected $_blur = 1;
+    protected $blur = 1;
 
     /**
      * Image overlay
      * @var int
      */
-    protected $_overlay = \Imagick::COMPOSITE_ATOP;
+    protected $overlay = \Imagick::COMPOSITE_ATOP;
 
     /**
      * Constructor
@@ -185,35 +185,35 @@ class Imagick extends AbstractImage
         }
 
         // If image exists, get image info and store in an array.
-        if (file_exists($this->fullpath) && ($this->_size > 0)) {
-            $this->_resource = new \Imagick($imagickFile);
-            $this->_setImageInfo();
+        if (file_exists($this->fullpath) && ($this->size > 0)) {
+            $this->resource = new \Imagick($imagickFile);
+            $this->setImageInfo();
             $this->setQuality(100);
         // If image does not exists, check to make sure the width and height
         // properties of the new image have been passed.
         } else {
-            $this->_resource = new \Imagick();
+            $this->resource = new \Imagick();
 
             if ((null === $w) || (null === $h)) {
                 throw new Exception('Error: You must define a width and height for a new image object.');
             }
 
             // Set image object properties.
-            $this->_width = $w;
-            $this->_height = $h;
-            $this->_channels = null;
+            $this->width = $w;
+            $this->height = $h;
+            $this->channels = null;
 
             $color = (null === $color) ? new Rgb(255, 255, 255) : $color;
-            $clr = $this->_setColor($color);
+            $clr = $this->setColor($color);
 
             // Create a new image and allocate the background color.
-            $this->_resource->newImage($w, $h, $clr, $this->ext);
+            $this->resource->newImage($w, $h, $clr, $this->ext);
 
             // Set the quality and create a new, blank image file.
             $this->setQuality(100);
         }
 
-        $this->_getImagickInfo();
+        $this->getImagickInfo();
     }
 
     /**
@@ -234,7 +234,7 @@ class Imagick extends AbstractImage
      */
     public function setQuality($q = null)
     {
-        $this->_quality = (null !== $q) ? (int)$q : null;
+        $this->quality = (null !== $q) ? (int)$q : null;
         return $this;
     }
 
@@ -246,7 +246,7 @@ class Imagick extends AbstractImage
      */
     public function setOpacity($opac)
     {
-        $this->_opacity = $opac;
+        $this->opacity = $opac;
         return $this;
     }
 
@@ -258,7 +258,7 @@ class Imagick extends AbstractImage
      */
     public function setCompression($comp = null)
     {
-        $this->_compression = (null !== $comp) ? (int)$comp : null;
+        $this->compression = (null !== $comp) ? (int)$comp : null;
         return $this;
     }
 
@@ -270,7 +270,7 @@ class Imagick extends AbstractImage
      */
     public function setFilter($filter = null)
     {
-        $this->_filter = $filter;
+        $this->filter = $filter;
         return $this;
     }
 
@@ -282,7 +282,7 @@ class Imagick extends AbstractImage
      */
     public function setBlur($blur = null)
     {
-        $this->_blur = $blur;
+        $this->blur = $blur;
         return $this;
     }
 
@@ -294,7 +294,7 @@ class Imagick extends AbstractImage
      */
     public function setOverlay($ovr = null)
     {
-        $this->_overlay = $ovr;
+        $this->overlay = $ovr;
         return $this;
     }
 
@@ -305,7 +305,7 @@ class Imagick extends AbstractImage
      */
     public function imagick()
     {
-        return $this->_resource;
+        return $this->resource;
     }
 
     /**
@@ -316,15 +316,15 @@ class Imagick extends AbstractImage
      */
     public function resizeToWidth($wid)
     {
-        $this->_setImageInfo();
+        $this->setImageInfo();
 
-        $scale = $wid / $this->_width;
-        $hgt = round($this->_height * $scale);
+        $scale = $wid / $this->width;
+        $hgt = round($this->height * $scale);
 
         // Create a new image output resource.
-        $this->_resource->resizeImage($wid, $hgt, $this->_filter, $this->_blur);
+        $this->resource->resizeImage($wid, $hgt, $this->filter, $this->blur);
 
-        $this->_setImageInfo();
+        $this->setImageInfo();
 
         return $this;
     }
@@ -337,15 +337,15 @@ class Imagick extends AbstractImage
      */
     public function resizeToHeight($hgt)
     {
-        $this->_setImageInfo();
+        $this->setImageInfo();
 
-        $scale = $hgt / $this->_height;
-        $wid = round($this->_width * $scale);
+        $scale = $hgt / $this->height;
+        $wid = round($this->width * $scale);
 
         // Create a new image output resource.
-        $this->_resource->resizeImage($wid, $hgt, $this->_filter, $this->_blur);
+        $this->resource->resizeImage($wid, $hgt, $this->filter, $this->blur);
 
-        $this->_setImageInfo();
+        $this->setImageInfo();
 
         return $this;
     }
@@ -364,16 +364,16 @@ class Imagick extends AbstractImage
         // Determine whether or not the image is landscape or portrait and set
         // the scale, new width and new height accordingly, with the largest
         // dimension being scaled to the value of the $px argument.
-        $this->_setImageInfo();
-        $scale = ($this->_width > $this->_height) ? ($px / $this->_width) : ($px / $this->_height);
+        $this->setImageInfo();
+        $scale = ($this->width > $this->height) ? ($px / $this->width) : ($px / $this->height);
 
-        $wid = round($this->_width * $scale);
-        $hgt = round($this->_height * $scale);
+        $wid = round($this->width * $scale);
+        $hgt = round($this->height * $scale);
 
         // Create a new image output resource.
-        $this->_resource->resizeImage($wid, $hgt, $this->_filter, $this->_blur);
+        $this->resource->resizeImage($wid, $hgt, $this->filter, $this->blur);
 
-        $this->_setImageInfo();
+        $this->setImageInfo();
 
         return $this;
     }
@@ -391,14 +391,14 @@ class Imagick extends AbstractImage
     {
         // Determine the new width and height of the image based on the
         // value of the $scl argument.
-        $this->_setImageInfo();
-        $wid = round($this->_width * $scl);
-        $hgt = round($this->_height * $scl);
+        $this->setImageInfo();
+        $wid = round($this->width * $scl);
+        $hgt = round($this->height * $scl);
 
         // Create a new image output resource.
-        $this->_resource->resizeImage($wid, $hgt, $this->_filter, $this->_blur);
+        $this->resource->resizeImage($wid, $hgt, $this->filter, $this->blur);
 
-        $this->_setImageInfo();
+        $this->setImageInfo();
 
         return $this;
     }
@@ -418,8 +418,8 @@ class Imagick extends AbstractImage
     public function crop($wid, $hgt, $x = 0, $y = 0)
     {
         // Create a new image output resource.
-        $this->_resource->cropImage($wid, $hgt, $x, $y);
-        $this->_setImageInfo();
+        $this->resource->cropImage($wid, $hgt, $x, $y);
+        $this->setImageInfo();
 
         return $this;
     }
@@ -443,17 +443,17 @@ class Imagick extends AbstractImage
         // the scale, new width and new height accordingly, with the smallest
         // dimension being scaled to the value of the $px argument to allow
         // for a complete crop.
-        $this->_setImageInfo();
-        $scale = ($this->_width > $this->_height) ? ($px / $this->_height) : ($px / $this->_width);
+        $this->setImageInfo();
+        $scale = ($this->width > $this->height) ? ($px / $this->height) : ($px / $this->width);
 
-        $wid = round($this->_width * $scale);
-        $hgt = round($this->_height * $scale);
+        $wid = round($this->width * $scale);
+        $hgt = round($this->height * $scale);
 
         // Create a new image output resource.
-        $this->_resource->resizeImage($wid, $hgt, $this->_filter, $this->_blur);
-        $this->_resource->cropImage($px, $px, $x, $y);
+        $this->resource->resizeImage($wid, $hgt, $this->filter, $this->blur);
+        $this->resource->cropImage($px, $px, $x, $y);
 
-        $this->_setImageInfo();
+        $this->setImageInfo();
 
         return $this;
     }
@@ -468,10 +468,10 @@ class Imagick extends AbstractImage
     public function rotate($deg)
     {
         // Create a new image resource and rotate it.
-        $color = $this->_setColor($this->_backgroundColor);
-        $this->_resource->rotateImage($color, $deg);
+        $color = $this->setColor($this->backgroundColor);
+        $this->resource->rotateImage($color, $deg);
 
-        $this->_setImageInfo();
+        $this->setImageInfo();
 
         return $this;
     }
@@ -497,19 +497,19 @@ class Imagick extends AbstractImage
         $draw = new \ImagickDraw();
         $draw->setFont($font);
         $draw->setFontSize($size);
-        $draw->setFillColor($this->_setColor($this->_fillColor));
+        $draw->setFillColor($this->setColor($this->fillColor));
 
         if (null !== $rotate) {
             $draw->rotate($rotate);
         }
 
         if ($stroke) {
-            $draw->setStrokeColor($this->_setColor($this->_strokeColor));
-            $draw->setStrokeWidth((null === $this->_strokeWidth) ? 1 : $this->_strokeWidth);
+            $draw->setStrokeColor($this->setColor($this->strokeColor));
+            $draw->setStrokeWidth((null === $this->strokeWidth) ? 1 : $this->strokeWidth);
         }
 
         $draw->annotation($x, $y, $str);
-        $this->_resource->drawImage($draw);
+        $this->resource->drawImage($draw);
 
         return $this;
     }
@@ -526,10 +526,10 @@ class Imagick extends AbstractImage
     public function addLine($x1, $y1, $x2, $y2)
     {
         $draw = new \ImagickDraw();
-        $draw->setStrokeColor($this->_setColor($this->_strokeColor));
-        $draw->setStrokeWidth((null === $this->_strokeWidth) ? 1 : $this->_strokeWidth);
+        $draw->setStrokeColor($this->setColor($this->strokeColor));
+        $draw->setStrokeWidth((null === $this->strokeWidth) ? 1 : $this->strokeWidth);
         $draw->line($x1, $y1, $x2, $y2);
-        $this->_resource->drawImage($draw);
+        $this->resource->drawImage($draw);
 
         return $this;
     }
@@ -549,15 +549,15 @@ class Imagick extends AbstractImage
         $y2 = $y + ((null === $h) ? $w : $h);
 
         $draw = new \ImagickDraw();
-        $draw->setFillColor($this->_setColor($this->_fillColor));
+        $draw->setFillColor($this->setColor($this->fillColor));
 
-        if (null !== $this->_strokeWidth) {
-            $draw->setStrokeColor($this->_setColor($this->_strokeColor));
-            $draw->setStrokeWidth((null === $this->_strokeWidth) ? 1 : $this->_strokeWidth);
+        if (null !== $this->strokeWidth) {
+            $draw->setStrokeColor($this->setColor($this->strokeColor));
+            $draw->setStrokeWidth((null === $this->strokeWidth) ? 1 : $this->strokeWidth);
         }
 
         $draw->rectangle($x, $y, $x2, $y2);
-        $this->_resource->drawImage($draw);
+        $this->resource->drawImage($draw);
 
         return $this;
     }
@@ -591,15 +591,15 @@ class Imagick extends AbstractImage
         $hgt = (null === $h) ? $w : $h;
 
         $draw = new \ImagickDraw();
-        $draw->setFillColor($this->_setColor($this->_fillColor));
+        $draw->setFillColor($this->setColor($this->fillColor));
 
-        if (null !== $this->_strokeWidth) {
-            $draw->setStrokeColor($this->_setColor($this->_strokeColor));
-            $draw->setStrokeWidth((null === $this->_strokeWidth) ? 1 : $this->_strokeWidth);
+        if (null !== $this->strokeWidth) {
+            $draw->setStrokeColor($this->setColor($this->strokeColor));
+            $draw->setStrokeWidth((null === $this->strokeWidth) ? 1 : $this->strokeWidth);
         }
 
         $draw->ellipse($x, $y, $wid, $hgt, 0, 360);
-        $this->_resource->drawImage($draw);
+        $this->resource->drawImage($draw);
 
         return $this;
     }
@@ -633,7 +633,7 @@ class Imagick extends AbstractImage
         $hgt = (null === $h) ? $w : $h;
 
         $draw = new \ImagickDraw();
-        $draw->setFillColor($this->_setColor($this->_fillColor));
+        $draw->setFillColor($this->setColor($this->fillColor));
 
         $x1 = $w * cos($start / 180 * pi());
         $y1 = $h * sin($start / 180 * pi());
@@ -649,20 +649,20 @@ class Imagick extends AbstractImage
         $draw->polygon($points);
 
         $draw->ellipse($x, $y, $wid, $hgt, $start, $end);
-        $this->_resource->drawImage($draw);
+        $this->resource->drawImage($draw);
 
-        if (null !== $this->_strokeWidth) {
+        if (null !== $this->strokeWidth) {
             $draw = new \ImagickDraw();
 
-            $draw->setFillColor($this->_setColor($this->_fillColor));
-            $draw->setStrokeColor($this->_setColor($this->_strokeColor));
-            $draw->setStrokeWidth((null === $this->_strokeWidth) ? 1 : $this->_strokeWidth);
+            $draw->setFillColor($this->setColor($this->fillColor));
+            $draw->setStrokeColor($this->setColor($this->strokeColor));
+            $draw->setStrokeWidth((null === $this->strokeWidth) ? 1 : $this->strokeWidth);
 
             $draw->ellipse($x, $y, $wid, $hgt, $start, $end);
             $draw->line($x, $y, $x + $x1, $y + $y1);
             $draw->line($x, $y, $x + $x2, $y + $y2);
 
-            $this->_resource->drawImage($draw);
+            $this->resource->drawImage($draw);
         }
 
         return $this;
@@ -677,15 +677,15 @@ class Imagick extends AbstractImage
     public function addPolygon($points)
     {
         $draw = new \ImagickDraw();
-        $draw->setFillColor($this->_setColor($this->_fillColor));
+        $draw->setFillColor($this->setColor($this->fillColor));
 
-        if (null !== $this->_strokeWidth) {
-            $draw->setStrokeColor($this->_setColor($this->_strokeColor));
-            $draw->setStrokeWidth((null === $this->_strokeWidth) ? 1 : $this->_strokeWidth);
+        if (null !== $this->strokeWidth) {
+            $draw->setStrokeColor($this->setColor($this->strokeColor));
+            $draw->setStrokeWidth((null === $this->strokeWidth) ? 1 : $this->strokeWidth);
         }
 
         $draw->polygon($points);
-        $this->_resource->drawImage($draw);
+        $this->resource->drawImage($draw);
 
         return $this;
     }
@@ -698,7 +698,7 @@ class Imagick extends AbstractImage
      */
     public function hue($h)
     {
-        $this->_resource->modulateImage(100, 100, $h);
+        $this->resource->modulateImage(100, 100, $h);
         return $this;
     }
 
@@ -710,7 +710,7 @@ class Imagick extends AbstractImage
      */
     public function saturation($s)
     {
-        $this->_resource->modulateImage(100, $s, 100);
+        $this->resource->modulateImage(100, $s, 100);
         return $this;
     }
 
@@ -722,7 +722,7 @@ class Imagick extends AbstractImage
      */
     public function brightness($b)
     {
-        $this->_resource->modulateImage($b, 100, 100);
+        $this->resource->modulateImage($b, 100, 100);
         return $this;
     }
 
@@ -736,7 +736,7 @@ class Imagick extends AbstractImage
      */
     public function hsb($h, $s, $b)
     {
-        $this->_resource->modulateImage($h, $s, $b);
+        $this->resource->modulateImage($h, $s, $b);
         return $this;
     }
 
@@ -750,7 +750,7 @@ class Imagick extends AbstractImage
      */
     public function level($black, $gamma, $white)
     {
-        $quantumRange = $this->_resource->getQuantumRange();
+        $quantumRange = $this->resource->getQuantumRange();
 
         if ($black < 0) {
             $black = 0;
@@ -762,7 +762,7 @@ class Imagick extends AbstractImage
         $blackPoint = ($black / 255) * $quantumRange['quantumRangeLong'];
         $whitePoint = ($white / 255) * $quantumRange['quantumRangeLong'];
 
-        $this->_resource->levelImage($blackPoint, $gamma, $whitePoint);
+        $this->resource->levelImage($blackPoint, $gamma, $whitePoint);
 
         return $this;
     }
@@ -777,11 +777,11 @@ class Imagick extends AbstractImage
     {
         if ($amount > 0) {
             for ($i = 1; $i <= $amount; $i++) {
-                $this->_resource->contrastImage(1);
+                $this->resource->contrastImage(1);
             }
         } else if ($amount < 0) {
             for ($i = -1; $i >= $amount; $i--) {
-                $this->_resource->contrastImage(0);
+                $this->resource->contrastImage(0);
             }
         }
 
@@ -797,7 +797,7 @@ class Imagick extends AbstractImage
      */
     public function sharpen($radius = 0, $sigma = 0)
     {
-        $this->_resource->sharpenImage($radius, $sigma);
+        $this->resource->sharpenImage($radius, $sigma);
         return $this;
     }
 
@@ -814,16 +814,16 @@ class Imagick extends AbstractImage
     {
         switch ($type) {
             case self::BLUR:
-                $this->_resource->blurImage($radius, $sigma);
+                $this->resource->blurImage($radius, $sigma);
                 break;
             case self::GAUSSIAN_BLUR:
-                $this->_resource->gaussianBlurImage($radius, $sigma);
+                $this->resource->gaussianBlurImage($radius, $sigma);
                 break;
             case self::MOTION_BLUR:
-                $this->_resource->motionBlurImage($radius, $sigma, $angle);
+                $this->resource->motionBlurImage($radius, $sigma, $angle);
                 break;
             case self::RADIAL_BLUR:
-                $this->_resource->radialBlurImage($angle);
+                $this->resource->radialBlurImage($angle);
                 break;
         }
 
@@ -844,13 +844,13 @@ class Imagick extends AbstractImage
 
         if ($type == self::INNER_BORDER) {
             $this->setStrokeWidth(($h * 2));
-            $this->addLine(0, 0, $this->_width, 0);
-            $this->addLine(0, $this->_height, $this->_width, $this->_height);
+            $this->addLine(0, 0, $this->width, 0);
+            $this->addLine(0, $this->height, $this->width, $this->height);
             $this->setStrokeWidth(($w * 2));
-            $this->addLine(0, 0, 0, $this->_height);
-            $this->addLine($this->_width, 0, $this->_width, $this->_height);
+            $this->addLine(0, 0, 0, $this->height);
+            $this->addLine($this->width, 0, $this->width, $this->height);
         } else {
-            $this->_resource->borderImage($this->_setColor($this->_strokeColor), $w, $h);
+            $this->resource->borderImage($this->setColor($this->strokeColor), $w, $h);
         }
 
         return $this;
@@ -867,11 +867,11 @@ class Imagick extends AbstractImage
     public function overlay($ovr, $x = 0, $y = 0)
     {
         $overlayImage = new \Imagick($ovr);
-        if ($this->_opacity < 1) {
-            $overlayImage->setImageOpacity($this->_opacity);
+        if ($this->opacity < 1) {
+            $overlayImage->setImageOpacity($this->opacity);
         }
 
-        $this->_resource->compositeImage($overlayImage, $this->_overlay, $x, $y);
+        $this->resource->compositeImage($overlayImage, $this->overlay, $x, $y);
         return $this;
     }
 
@@ -883,7 +883,7 @@ class Imagick extends AbstractImage
      */
     public function colorize(ColorInterface $color)
     {
-        $this->_resource->colorizeImage($color->getRgb(Color::STRING, true), $this->_opacity);
+        $this->resource->colorizeImage($color->getRgb(Color::STRING, true), $this->opacity);
         return $this;
     }
 
@@ -894,7 +894,7 @@ class Imagick extends AbstractImage
      */
     public function invert()
     {
-        $this->_resource->negateImage(false);
+        $this->resource->negateImage(false);
         return $this;
     }
 
@@ -905,7 +905,7 @@ class Imagick extends AbstractImage
      */
     public function flip()
     {
-        $this->_resource->flipImage();
+        $this->resource->flipImage();
         return $this;
     }
 
@@ -916,7 +916,7 @@ class Imagick extends AbstractImage
      */
     public function flop()
     {
-        $this->_resource->flopImage();
+        $this->resource->flopImage();
         return $this;
     }
 
@@ -927,7 +927,7 @@ class Imagick extends AbstractImage
      */
     public function flatten()
     {
-        $this->_resource->mergeImageLayers(\Imagick::LAYERMETHOD_FLATTEN);
+        $this->resource->mergeImageLayers(\Imagick::LAYERMETHOD_FLATTEN);
         return $this;
     }
 
@@ -939,7 +939,7 @@ class Imagick extends AbstractImage
      */
     public function paint($radius)
     {
-        $this->_resource->oilPaintImage($radius);
+        $this->resource->oilPaintImage($radius);
         return $this;
     }
 
@@ -952,7 +952,7 @@ class Imagick extends AbstractImage
      */
     public function posterize($levels, $dither = false)
     {
-        $this->_resource->posterizeImage($levels, $dither);
+        $this->resource->posterizeImage($levels, $dither);
         return $this;
     }
 
@@ -964,7 +964,7 @@ class Imagick extends AbstractImage
      */
     public function noise($type = \Imagick::NOISE_MULTIPLICATIVEGAUSSIAN)
     {
-        $this->_resource->addNoiseImage($type);
+        $this->resource->addNoiseImage($type);
         return $this;
     }
 
@@ -976,7 +976,7 @@ class Imagick extends AbstractImage
      */
     public function diffuse($radius)
     {
-        $this->_resource->spreadImage($radius);
+        $this->resource->spreadImage($radius);
         return $this;
     }
 
@@ -990,7 +990,7 @@ class Imagick extends AbstractImage
      */
     public function skew(ColorInterface $color, $x, $y)
     {
-        $this->_resource->shearImage($color->getRgb(Color::STRING, true), $x, $y);
+        $this->resource->shearImage($color->getRgb(Color::STRING, true), $x, $y);
         return $this;
     }
 
@@ -1003,11 +1003,11 @@ class Imagick extends AbstractImage
      */
     public function pixelate($w, $h = null)
     {
-        $x = $this->_width / $w;
-        $y = $this->_height / ((null === $h) ? $w : $h);
+        $x = $this->width / $w;
+        $y = $this->height / ((null === $h) ? $w : $h);
 
-        $this->_resource->scaleImage($x, $y);
-        $this->_resource->scaleImage($this->_width, $this->_height);
+        $this->resource->scaleImage($x, $y);
+        $this->resource->scaleImage($this->width, $this->height);
 
         return $this;
     }
@@ -1022,7 +1022,7 @@ class Imagick extends AbstractImage
      */
     public function pencil($radius, $sigma, $angle)
     {
-        $this->_resource->sketchImage($radius, $sigma, $angle);
+        $this->resource->sketchImage($radius, $sigma, $angle);
         return $this;
     }
 
@@ -1034,7 +1034,7 @@ class Imagick extends AbstractImage
      */
     public function swirl($degrees)
     {
-        $this->_resource->swirlImage($degrees);
+        $this->resource->swirlImage($degrees);
         return $this;
     }
 
@@ -1047,7 +1047,7 @@ class Imagick extends AbstractImage
      */
     public function wave($amp, $length)
     {
-        $this->_resource->waveImage($amp, $length);
+        $this->resource->waveImage($amp, $length);
         return $this;
     }
 
@@ -1058,7 +1058,7 @@ class Imagick extends AbstractImage
      */
     public function colorTotal()
     {
-        return $this->_resource->getImageColors();
+        return $this->resource->getImageColors();
     }
 
     /**
@@ -1080,9 +1080,9 @@ class Imagick extends AbstractImage
 
         // Loop through each pixel of the image, recording the color result
         // in the color array.
-        for ($h = 0; $h < $this->_height; $h++) {
-            for ($w = 0; $w < $this->_width; $w++) {
-                $point = $this->_resource->getImagePixelColor($w, $h);
+        for ($h = 0; $h < $this->height; $h++) {
+            for ($w = 0; $w < $this->width; $w++) {
+                $point = $this->resource->getImagePixelColor($w, $h);
                 $color = $point->getColor();
 
                 // Convert to the proper HEX or RGB format.
@@ -1114,10 +1114,10 @@ class Imagick extends AbstractImage
         $type = strtolower($type);
 
         // Check if the permissions are set correctly.
-        if ((null !== $this->_perm['file']) && ($this->_perm['file'] != 777)) {
+        if ((null !== $this->perm['file']) && ($this->perm['file'] != 777)) {
             throw new Exception('Error: Permission denied.');
         // Check if the requested image type is supported.
-        } else if (!array_key_exists($type, $this->_allowed)) {
+        } else if (!array_key_exists($type, $this->allowed)) {
             throw new Exception('Error: That image type is not supported.');
         // Check if the image is already the requested image type.
         } else if (strtolower($this->ext) == $type) {
@@ -1127,14 +1127,14 @@ class Imagick extends AbstractImage
         // Else, save the image as the new type.
         $old = $this->ext;
         $this->ext = $type;
-        $this->_mime = $this->_allowed[$this->ext];
+        $this->mime = $this->allowed[$this->ext];
         $this->fullpath = $this->dir . $this->filename . '.' . $this->ext;
         $this->basename = basename($this->fullpath);
 
         if (($old == 'psd') || ($old == 'tif') || ($old == 'tiff')) {
             $this->flatten();
         }
-        $this->_resource->setImageFormat($type);
+        $this->resource->setImageFormat($type);
 
         return $this;
     }
@@ -1151,7 +1151,7 @@ class Imagick extends AbstractImage
         // Determine if the force download argument has been passed.
         $attach = ($download) ? 'attachment; ' : null;
         $headers = array(
-            'Content-type' => $this->_mime,
+            'Content-type' => $this->mime,
             'Content-disposition' => $attach . 'filename=' . $this->basename
         );
 
@@ -1161,15 +1161,15 @@ class Imagick extends AbstractImage
             $response->setSslHeaders();
         }
 
-        if (null !== $this->_compression) {
-            $this->_resource->setImageCompression($this->_compression);
+        if (null !== $this->compression) {
+            $this->resource->setImageCompression($this->compression);
         }
-        if (null !== $this->_quality) {
-            $this->_resource->setImageCompressionQuality($this->_quality);
+        if (null !== $this->quality) {
+            $this->resource->setImageCompressionQuality($this->quality);
         }
 
         $response->sendHeaders();
-        echo $this->_resource;
+        echo $this->resource;
 
         return $this;
     }
@@ -1183,19 +1183,19 @@ class Imagick extends AbstractImage
      */
     public function save($to = null, $append = false)
     {
-        if (null !== $this->_compression) {
-            $this->_resource->setImageCompression($this->_compression);
+        if (null !== $this->compression) {
+            $this->resource->setImageCompression($this->compression);
         }
-        if (null !== $this->_quality) {
-            $this->_resource->setImageCompressionQuality($this->_quality);
+        if (null !== $this->quality) {
+            $this->resource->setImageCompressionQuality($this->quality);
         }
         $img = (null !== $to) ? $to : $this->fullpath;
-        $this->_resource->writeImage($img);
+        $this->resource->writeImage($img);
 
         clearstatcache();
 
-        $this->_setFile($img);
-        $this->_setImageInfo();
+        $this->setFile($img);
+        $this->setImageInfo();
 
         return $this;
     }
@@ -1208,8 +1208,8 @@ class Imagick extends AbstractImage
      */
     public function destroy($file = false)
     {
-        $this->_resource->clear();
-        $this->_resource->destroy();
+        $this->resource->clear();
+        $this->resource->destroy();
 
         // Clear PHP's file status cache.
         clearstatcache();
@@ -1231,12 +1231,12 @@ class Imagick extends AbstractImage
 
         foreach ($formats as $format) {
             $frmt = strtolower($format);
-            if (!array_key_exists($frmt, $this->_allowed)) {
-                $this->_allowed[$frmt] = 'image/' . $frmt;
+            if (!array_key_exists($frmt, $this->allowed)) {
+                $this->allowed[$frmt] = 'image/' . $frmt;
             }
         }
 
-        ksort($this->_allowed);
+        ksort($this->allowed);
     }
 
     /**
@@ -1246,7 +1246,7 @@ class Imagick extends AbstractImage
      */
     public function getFormats()
     {
-        return $this->_resource->queryFormats();
+        return $this->resource->queryFormats();
     }
 
     /**
@@ -1256,7 +1256,7 @@ class Imagick extends AbstractImage
      */
     public function getNumberOfFormats()
     {
-        return count($this->_resource->queryFormats());
+        return count($this->resource->queryFormats());
     }
 
     /**
@@ -1266,7 +1266,7 @@ class Imagick extends AbstractImage
      */
     protected function _getImagickInfo()
     {
-        $imagickVersion = $this->_resource->getVersion();
+        $imagickVersion = $this->resource->getVersion();
         $this->versionString = trim(substr($imagickVersion['versionString'], 0, stripos($imagickVersion['versionString'], 'http://')));
         $this->version = substr($this->versionString, (strpos($this->versionString, ' ') + 1));
         $this->version = substr($this->version, 0, strpos($this->version, '-'));
@@ -1280,113 +1280,113 @@ class Imagick extends AbstractImage
     protected function _setImageInfo()
     {
         // Set image object properties.
-        $this->_width = $this->_resource->getImageWidth();
-        $this->_height = $this->_resource->getImageHeight();
-        $this->_depth = $this->_resource->getImageDepth();
-        $this->_quality = null;
+        $this->width = $this->resource->getImageWidth();
+        $this->height = $this->resource->getImageHeight();
+        $this->depth = $this->resource->getImageDepth();
+        $this->quality = null;
 
-        $this->_alpha = ($this->_resource->getImageAlphaChannel() == 1) ? true : false;
-        $colorSpace = $this->_resource->getImageColorspace();
-        $type = $this->_resource->getImageType();
+        $this->alpha = ($this->resource->getImageAlphaChannel() == 1) ? true : false;
+        $colorSpace = $this->resource->getImageColorspace();
+        $type = $this->resource->getImageType();
 
         switch ($colorSpace) {
             case \Imagick::COLORSPACE_UNDEFINED:
-                $this->_channels = 0;
-                $this->_mode = '';
+                $this->channels = 0;
+                $this->mode = '';
                 break;
             case \Imagick::COLORSPACE_RGB:
                 if ($type == \Imagick::IMGTYPE_PALETTE) {
-                    $this->_channels = 3;
-                    $this->_mode = 'Indexed';
+                    $this->channels = 3;
+                    $this->mode = 'Indexed';
                 } else if ($type == \Imagick::IMGTYPE_PALETTEMATTE) {
-                    $this->_channels = 3;
-                    $this->_mode = 'Indexed';
+                    $this->channels = 3;
+                    $this->mode = 'Indexed';
                 } else if ($type == \Imagick::IMGTYPE_GRAYSCALE) {
-                    $this->_channels = 1;
-                    $this->_mode = 'Gray';
+                    $this->channels = 1;
+                    $this->mode = 'Gray';
                 } else if ($type == \Imagick::IMGTYPE_GRAYSCALEMATTE) {
-                    $this->_channels = 1;
-                    $this->_mode = 'Gray';
+                    $this->channels = 1;
+                    $this->mode = 'Gray';
                 } else {
-                    $this->_channels = 3;
-                    $this->_mode = 'RGB';
+                    $this->channels = 3;
+                    $this->mode = 'RGB';
                 }
                 break;
             case \Imagick::COLORSPACE_GRAY:
-                $this->_channels = 1;
-                $this->_mode = (($type == \Imagick::IMGTYPE_PALETTE) || ($type == \Imagick::IMGTYPE_PALETTEMATTE)) ? 'Indexed' : 'Gray';
+                $this->channels = 1;
+                $this->mode = (($type == \Imagick::IMGTYPE_PALETTE) || ($type == \Imagick::IMGTYPE_PALETTEMATTE)) ? 'Indexed' : 'Gray';
                 break;
             case \Imagick::COLORSPACE_TRANSPARENT:
-                $this->_channels = 1;
-                $this->_mode = 'Transparent';
+                $this->channels = 1;
+                $this->mode = 'Transparent';
                 break;
             case \Imagick::COLORSPACE_OHTA:
-                $this->_channels = 3;
-                $this->_mode = 'OHTA';
+                $this->channels = 3;
+                $this->mode = 'OHTA';
                 break;
             case \Imagick::COLORSPACE_LAB:
-                $this->_channels = 3;
-                $this->_mode = 'LAB';
+                $this->channels = 3;
+                $this->mode = 'LAB';
                 break;
             case \Imagick::COLORSPACE_XYZ:
-                $this->_channels = 3;
-                $this->_mode = 'XYZ';
+                $this->channels = 3;
+                $this->mode = 'XYZ';
                 break;
             case \Imagick::COLORSPACE_YCBCR:
-                $this->_channels = 3;
-                $this->_mode = 'YCbCr';
+                $this->channels = 3;
+                $this->mode = 'YCbCr';
                 break;
             case \Imagick::COLORSPACE_YCC:
-                $this->_channels = 3;
-                $this->_mode = 'YCC';
+                $this->channels = 3;
+                $this->mode = 'YCC';
                 break;
             case \Imagick::COLORSPACE_YIQ:
-                $this->_channels = 3;
-                $this->_mode = 'YIQ';
+                $this->channels = 3;
+                $this->mode = 'YIQ';
                 break;
             case \Imagick::COLORSPACE_YPBPR:
-                $this->_channels = 3;
-                $this->_mode = 'YPbPr';
+                $this->channels = 3;
+                $this->mode = 'YPbPr';
                 break;
             case \Imagick::COLORSPACE_YUV:
-                $this->_channels = 3;
-                $this->_mode = 'YUV';
+                $this->channels = 3;
+                $this->mode = 'YUV';
                 break;
             case \Imagick::COLORSPACE_CMYK:
-                $this->_channels = 4;
-                $this->_mode = 'CMYK';
+                $this->channels = 4;
+                $this->mode = 'CMYK';
                 break;
             case \Imagick::COLORSPACE_SRGB:
-                $this->_channels = 3;
-                $this->_mode = 'sRGB';
+                $this->channels = 3;
+                $this->mode = 'sRGB';
                 break;
             case \Imagick::COLORSPACE_HSB:
-                $this->_channels = 3;
-                $this->_mode = 'HSB';
+                $this->channels = 3;
+                $this->mode = 'HSB';
                 break;
             case \Imagick::COLORSPACE_HSL:
-                $this->_channels = 3;
-                $this->_mode = 'HSL';
+                $this->channels = 3;
+                $this->mode = 'HSL';
                 break;
             case \Imagick::COLORSPACE_HWB:
-                $this->_channels = 3;
-                $this->_mode = 'HWB';
+                $this->channels = 3;
+                $this->mode = 'HWB';
                 break;
             case \Imagick::COLORSPACE_REC601LUMA:
-                $this->_channels = 3;
-                $this->_mode = 'Rec601';
+                $this->channels = 3;
+                $this->mode = 'Rec601';
                 break;
             case \Imagick::COLORSPACE_REC709LUMA:
-                $this->_channels = 3;
-                $this->_mode = 'Rec709';
+                $this->channels = 3;
+                $this->mode = 'Rec709';
                 break;
             case \Imagick::COLORSPACE_LOG:
-                $this->_channels = 3;
-                $this->_mode = 'LOG';
+                $this->channels = 3;
+                $this->mode = 'LOG';
                 break;
             case \Imagick::COLORSPACE_CMY:
-                $this->_channels = 3;
-                $this->_mode = 'CMY';
+                $this->channels = 3;
+                $this->mode = 'CMY';
                 break;
         }
     }

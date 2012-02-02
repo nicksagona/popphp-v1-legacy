@@ -67,43 +67,43 @@ class Record
      * Database adapter
      * @var Pop\Record\Escaped|Pop\Record\Prepared
      */
-    protected $_interface = null;
+    protected $interface = null;
 
     /**
      * Table prefix
      * @var string
      */
-    protected $_prefix = null;
+    protected $prefix = null;
 
     /**
      * Table name of the database tablel
      * @var string
      */
-    protected $_tableName = null;
+    protected $tableName = null;
 
     /**
      * Primary ID column name of the database table
      * @var string|array
      */
-    protected $_primaryId = 'id';
+    protected $primaryId = 'id';
 
     /**
      * Property that determines whether or not the primary ID is auto-increment or not
      * @var boolean
      */
-    protected $_auto = true;
+    protected $auto = true;
 
     /**
      * Column names of the database table
      * @var array
      */
-    protected $_columns = array();
+    protected $columns = array();
 
     /**
      * Flag on whether or not to use prepared statements
      * @var boolean
      */
-    protected $_usePrepared = true;
+    protected $usePrepared = true;
 
     /**
      * Constructor
@@ -124,10 +124,10 @@ class Record
 
         // If the $columns argument is set, set the _columns properties.
         if (null !== $columns) {
-            $this->_columns = $columns;
+            $this->columns = $columns;
         }
 
-        if (null === $this->_tableName) {
+        if (null === $this->tableName) {
             if (strpos($class, '_') !== false) {
                 $cls = substr($class, (strrpos($class, '_') + 1));
             } else if (strpos($class, '\\') !== false) {
@@ -135,23 +135,23 @@ class Record
             } else {
                 $cls = $class;
             }
-            $this->_tableName = $this->_prefix . (string)String::factory($cls)->camelCaseToUnderscore();
+            $this->tableName = $this->prefix . (string)String::factory($cls)->camelCaseToUnderscore();
         } else {
-            $this->_tableName = $this->_prefix . $this->_tableName;
+            $this->tableName = $this->prefix . $this->tableName;
         }
 
         $options = array(
-            'tableName' => $this->_tableName,
-            'primaryId' => $this->_primaryId,
-            'auto'      => $this->_auto
+            'tableName' => $this->tableName,
+            'primaryId' => $this->primaryId,
+            'auto'      => $this->auto
         );
 
         $type = self::getDb()->getAdapterType();
 
-        if (($type == 'Mysql') || (!$this->_usePrepared)) {
-            $this->_interface = new Escaped(self::getDb(), $options);
+        if (($type == 'Mysql') || (!$this->usePrepared)) {
+            $this->interface = new Escaped(self::getDb(), $options);
         } else {
-            $this->_interface = new Prepared(self::getDb(), $options);
+            $this->interface = new Prepared(self::getDb(), $options);
         }
     }
 
@@ -202,8 +202,8 @@ class Record
     public static function findById($id, $limit = null)
     {
         $record = new static();
-        $record->_interface->findById($id, $limit);
-        $record->_setResults($record->_interface->getResult());
+        $record->interface->findById($id, $limit);
+        $record->setResults($record->interface->getResult());
 
         return $record;
     }
@@ -219,8 +219,8 @@ class Record
     public static function findBy($column, $value, $limit = null)
     {
         $record = new static();
-        $record->_interface->findBy($column, $value, $limit);
-        $record->_setResults($record->_interface->getResult());
+        $record->interface->findBy($column, $value, $limit);
+        $record->setResults($record->interface->getResult());
 
         return $record;
     }
@@ -238,8 +238,8 @@ class Record
     public static function findAll($order = null, $column = null, $value = null, $limit = null)
     {
         $record = new static();
-        $record->_interface->findAll($order, $column, $value, $limit);
-        $record->_setResults($record->_interface->getResult());
+        $record->interface->findAll($order, $column, $value, $limit);
+        $record->setResults($record->interface->getResult());
 
         return $record;
     }
@@ -257,8 +257,8 @@ class Record
     public static function distinct($distinctColumns, $order = null, $column = null, $value = null, $limit = null)
     {
         $record = new static();
-        $record->_interface->distinct($distinctColumns, $order, $column, $value, $limit);
-        $record->_setResults($record->_interface->getResult());
+        $record->interface->distinct($distinctColumns, $order, $column, $value, $limit);
+        $record->setResults($record->interface->getResult());
 
         return $record;
     }
@@ -274,8 +274,8 @@ class Record
     public static function search($searchColumns, $order = null, $limit = null)
     {
         $record = new static();
-        $record->_interface->search($searchColumns, $order, $limit);
-        $record->_setResults($record->_interface->getResult());
+        $record->interface->search($searchColumns, $order, $limit);
+        $record->setResults($record->interface->getResult());
 
         return $record;
     }
@@ -294,8 +294,8 @@ class Record
     public static function join($tableToJoin, $commonColumn, $order = null, $column = null, $value = null, $limit = null)
     {
         $record = new static();
-        $record->_interface->join($tableToJoin, $commonColumn, $order, $column, $value, $limit);
-        $record->_setResults($record->_interface->getResult());
+        $record->interface->join($tableToJoin, $commonColumn, $order, $column, $value, $limit);
+        $record->setResults($record->interface->getResult());
 
         return $record;
     }
@@ -310,8 +310,8 @@ class Record
     public static function execute($sql, $params = null)
     {
         $record = new static();
-        $record->_interface->execute($sql, $params);
-        $record->_setResults($record->_interface->getResult());
+        $record->interface->execute($sql, $params);
+        $record->setResults($record->interface->getResult());
 
         return $record;
     }
@@ -325,8 +325,8 @@ class Record
     public static function query($sql)
     {
         $record = new static();
-        $record->_interface->query($sql);
-        $record->_setResults($record->_interface->getResult());
+        $record->interface->query($sql);
+        $record->setResults($record->interface->getResult());
 
         return $record;
     }
@@ -338,7 +338,7 @@ class Record
      */
     public function isAuto()
     {
-        return $this->_auto;
+        return $this->auto;
     }
 
     /**
@@ -348,7 +348,7 @@ class Record
      */
     public function getId()
     {
-        return $this->_primaryId;
+        return $this->primaryId;
     }
 
     /**
@@ -358,7 +358,7 @@ class Record
      */
     public function getPrefix()
     {
-        return $this->_prefix;
+        return $this->prefix;
     }
 
     /**
@@ -368,10 +368,10 @@ class Record
      */
     public function getTableName()
     {
-        if (null !== $this->_prefix) {
-            return str_replace($this->_prefix, '', $this->_tableName);
+        if (null !== $this->prefix) {
+            return str_replace($this->prefix, '', $this->tableName);
         } else {
-            return $this->_tableName;
+            return $this->tableName;
         }
     }
 
@@ -396,11 +396,11 @@ class Record
     {
         // If null, clear the columns.
         if (null === $columns) {
-            $this->_columns = array();
+            $this->columns = array();
             $this->rows = array();
         // Else, if an array, set the columns.
         } else if (is_array($columns)) {
-            $this->_columns = $columns;
+            $this->columns = $columns;
             $this->rows[0] = new \ArrayObject($columns, \ArrayObject::ARRAY_AS_PROPS);
         // Else, throw an exception.
         } else {
@@ -415,7 +415,7 @@ class Record
      */
     public function getValues()
     {
-        return (array)$this->_columns;
+        return (array)$this->columns;
     }
 
     /**
@@ -436,8 +436,8 @@ class Record
      */
     public function save($type = Record::INSERT)
     {
-        $this->_interface->save($this->_columns, $type);
-        $this->_setResults($this->_interface->getResult());
+        $this->interface->save($this->columns, $type);
+        $this->setResults($this->interface->getResult());
     }
 
     /**
@@ -450,8 +450,8 @@ class Record
      */
     public function delete($column = null, $value = null)
     {
-        $this->_interface->delete($this->_columns, $column, $value);
-        $this->_setResults($this->_interface->getResult());
+        $this->interface->delete($this->columns, $column, $value);
+        $this->setResults($this->interface->getResult());
     }
 
     /**
@@ -462,7 +462,7 @@ class Record
      */
     public function escape($value)
     {
-        return $this->_interface->db->adapter->escape($value);
+        return $this->interface->db->adapter->escape($value);
     }
 
     /**
@@ -472,7 +472,7 @@ class Record
      */
     public function lastId()
     {
-        return $this->_interface->db->adapter->lastId();
+        return $this->interface->db->adapter->lastId();
     }
 
     /**
@@ -482,7 +482,7 @@ class Record
      */
     public function numRows()
     {
-        return $this->_interface->db->adapter->numRows();
+        return $this->interface->db->adapter->numRows();
     }
 
     /**
@@ -492,7 +492,7 @@ class Record
      */
     public function numFields()
     {
-        return $this->_interface->db->adapter->numFields();
+        return $this->interface->db->adapter->numFields();
     }
 
     /**
@@ -504,7 +504,7 @@ class Record
     protected function _setResults($rows)
     {
         $this->rows = $rows;
-        $this->_columns = (count($rows) == 1) ? $rows[0] : array();
+        $this->columns = (count($rows) == 1) ? $rows[0] : array();
     }
 
     /**
@@ -516,7 +516,7 @@ class Record
      */
     public function __set($name, $value)
     {
-        $this->_columns[$name] = $value;
+        $this->columns[$name] = $value;
     }
 
     /**
@@ -527,7 +527,7 @@ class Record
      */
     public function __get($name)
     {
-        return (isset($this->_columns[$name])) ? $this->_columns[$name] : null;
+        return (isset($this->columns[$name])) ? $this->columns[$name] : null;
     }
 
     /**
@@ -538,7 +538,7 @@ class Record
      */
     public function __isset($name)
     {
-        return isset($this->_columns[$name]);
+        return isset($this->columns[$name]);
     }
 
     /**
@@ -549,7 +549,7 @@ class Record
      */
     public function __unset($name)
     {
-        $this->_columns[$name] = null;
+        $this->columns[$name] = null;
     }
 
 }

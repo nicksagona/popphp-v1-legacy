@@ -51,7 +51,7 @@ class Sqlite extends AbstractAdapter
      * Prepared statement
      * @var SQLite3Stmt
      */
-    protected $_statement = null;
+    protected $statement = null;
 
     /**
      * Constructor
@@ -93,7 +93,7 @@ class Sqlite extends AbstractAdapter
      */
     public function prepare($sql)
     {
-        $this->_statement = $this->connection->prepare($sql);
+        $this->statement = $this->connection->prepare($sql);
         return $this;
     }
 
@@ -107,7 +107,7 @@ class Sqlite extends AbstractAdapter
     {
         foreach ($params as $key => $value) {
             ${$key} = $value;
-            $this->_statement->bindParam(':' . $key, ${$key});
+            $this->statement->bindParam(':' . $key, ${$key});
         }
 
         return $this;
@@ -138,11 +138,11 @@ class Sqlite extends AbstractAdapter
      */
     public function execute()
     {
-        if (null === $this->_statement) {
+        if (null === $this->statement) {
             throw new Exception('Error: The database statement resource is not currently set.');
         }
 
-        $this->result = $this->_statement->execute();
+        $this->result = $this->statement->execute();
     }
 
     /**

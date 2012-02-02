@@ -108,25 +108,25 @@ class Type1 extends AbstractFont
 
         if (strtolower($this->ext) == 'pfb') {
             $this->pfbPath = $this->fullpath;
-            $this->_parsePfb($this->fullpath);
+            $this->parsePfb($this->fullpath);
             if (file_exists($dir . DIRECTORY_SEPARATOR . $this->filename . '.afm')) {
                 $this->afmPath = $dir . DIRECTORY_SEPARATOR . $this->filename . '.afm';
             } else if (file_exists($dir . DIRECTORY_SEPARATOR . $this->filename . '.AFM')) {
                 $this->afmPath = $dir . DIRECTORY_SEPARATOR . $this->filename . '.AFM';
             }
             if (null !== $this->afmPath) {
-                $this->_parseAfm($this->afmPath);
+                $this->parseAfm($this->afmPath);
             }
         } else if (strtolower($this->ext) == 'afm') {
             $this->afmPath = $this->fullpath;
-            $this->_parseAfm($this->afmPath);
+            $this->parseAfm($this->afmPath);
             if (file_exists($dir . DIRECTORY_SEPARATOR . $this->filename . '.pfb')) {
                 $this->pfbPath = $dir . DIRECTORY_SEPARATOR . $this->filename . '.pfb';
             } else if (file_exists($dir . DIRECTORY_SEPARATOR . $this->filename . '.PFB')) {
                 $this->pfbPath = $dir . DIRECTORY_SEPARATOR . $this->filename . '.PFB';
             }
             if (null !== $this->pfbPath) {
-                $this->_parsePfb($this->pfbPath);
+                $this->parsePfb($this->pfbPath);
             }
         }
     }
@@ -158,30 +158,30 @@ class Type1 extends AbstractFont
         $this->data = substr($data, (stripos($data, 'currentfile eexec') + 18));
         $this->data = substr($this->data, 0, (stripos($this->data, '0000000000000000000000000000000000000000000000000000000000000000') - 1));
 
-        $this->_convertToHex();
+        $this->convertToHex();
 
         if (stripos($this->dict, '/FullName') !== false) {
             $name = substr($this->dict, (stripos($this->dict, '/FullName ') + 10));
             $name = trim(substr($name, 0, stripos($name, 'readonly def')));
-            $info['fullName'] = $this->_strip($name);
+            $info['fullName'] = $this->strip($name);
         }
 
         if (stripos($this->dict, '/FamilyName') !== false) {
             $family = substr($this->dict, (stripos($this->dict, '/FamilyName ') + 12));
             $family = trim(substr($family, 0, stripos($family, 'readonly def')));
-            $info['fontFamily'] = $this->_strip($family);
+            $info['fontFamily'] = $this->strip($family);
         }
 
         if (stripos($this->dict, '/FontName') !== false) {
             $font = substr($this->dict, (stripos($this->dict, '/FontName ') + 10));
             $font = trim(substr($font, 0, stripos($font, 'def')));
-            $info['postscriptName'] = $this->_strip($font);
+            $info['postscriptName'] = $this->strip($font);
         }
 
         if (stripos($this->dict, '/version') !== false) {
             $version = substr($this->dict, (stripos($this->dict, '/version ') + 9));
             $version = trim(substr($version, 0, stripos($version, 'readonly def')));
-            $info['version'] = $this->_strip($version);
+            $info['version'] = $this->strip($version);
         }
 
         if (stripos($this->dict, '/UniqueId') !== false) {
@@ -189,7 +189,7 @@ class Type1 extends AbstractFont
             preg_match('/UniqueID\s\d/', $this->dict, $matches, PREG_OFFSET_CAPTURE);
             $id = substr($this->dict, ($matches[0][1] + 9));
             $id = trim(substr($id, 0, stripos($id, 'def')));
-            $info['uniqueId'] = $this->_strip($id);
+            $info['uniqueId'] = $this->strip($id);
         }
 
         if (stripos($this->dict, '/Notice') !== false) {
@@ -197,7 +197,7 @@ class Type1 extends AbstractFont
             $copyright = substr($copyright, 0, stripos($copyright, 'readonly def'));
             $copyright = str_replace('\\(', '(', $copyright);
             $copyright = trim(str_replace('\\)', ')', $copyright));
-            $info['copyright'] = $this->_strip($copyright);
+            $info['copyright'] = $this->strip($copyright);
         }
 
         $this->info = new \ArrayObject($info, \ArrayObject::ARRAY_AS_PROPS);
@@ -205,7 +205,7 @@ class Type1 extends AbstractFont
         if (stripos($this->dict, '/FontBBox') !== false) {
             $bbox = substr($this->dict, (stripos($this->dict, '/FontBBox') + 9));
             $bbox = substr($bbox, 0, stripos($bbox, 'readonly def'));
-            $bbox = trim($this->_strip($bbox));
+            $bbox = trim($this->strip($bbox));
             $bboxAry = explode(' ', $bbox);
             $this->bBox = new \ArrayObject(array(
                 'xMin' => str_replace('{', '', $bboxAry[0]),

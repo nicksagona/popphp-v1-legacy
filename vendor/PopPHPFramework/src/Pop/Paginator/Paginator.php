@@ -65,55 +65,55 @@ class Paginator
      * Header template
      * @var string
      */
-    protected $_header = null;
+    protected $header = null;
 
     /**
      * Row template
      * @var string
      */
-    protected $_rowTemplate = null;
+    protected $rowTemplate = null;
 
     /**
      * Footer template
      * @var string
      */
-    protected $_footer = null;
+    protected $footer = null;
 
     /**
      * Page links property
      * @var array
      */
-    protected $_links = array();
+    protected $links = array();
 
     /**
      * Content items
      * @var array
      */
-    protected $_items = array();
+    protected $items = array();
 
     /**
      * Items per page property
      * @var int
      */
-    protected $_perPage = 10;
+    protected $perPage = 10;
 
     /**
      * Page range property
      * @var int
      */
-    protected $_range = 10;
+    protected $range = 10;
 
     /**
      * Total item count property
      * @var int
      */
-    protected $_total = null;
+    protected $total = null;
 
     /**
      * Page bookends
      * @var array
      */
-    protected $_bookends = array(
+    protected $bookends = array(
         array('prev' => '&lt;', 'next' => '&gt;'),
         array('prev' => '&lt;&lt;', 'next' => '&gt;&gt;'),
         array('prev' => 'Prev', 'next' => 'Next'),
@@ -124,61 +124,61 @@ class Paginator
      * Page bookend key
      * @var int
      */
-    protected $_bookendKey = 0;
+    protected $bookendKey = 0;
 
     /**
      * Bookend separator
      * @var string
      */
-    protected $_separator = ' | ';
+    protected $separator = ' | ';
 
     /**
      * Date format for handle date strings
      * @var string
      */
-    protected $_dateFormat = 'D, M j Y';
+    protected $dateFormat = 'D, M j Y';
 
     /**
      * Class 'on' name for page link <a> tags
      * @var string
      */
-    protected $_classOn = null;
+    protected $classOn = null;
 
     /**
      * Class 'off' name for page link <a> tags
      * @var string
      */
-    protected $_classOff = null;
+    protected $classOff = null;
 
     /**
      * Number of pages property
      * @var int
      */
-    protected $_numPages = null;
+    protected $numPages = null;
 
     /**
      * Current page start index property
      * @var int
      */
-    protected $_start = null;
+    protected $start = null;
 
     /**
      * Current page end index property
      * @var int
      */
-    protected $_end = null;
+    protected $end = null;
 
     /**
      * Remainder property
      * @var int
      */
-    protected $_rem = 0;
+    protected $rem = 0;
 
     /**
      * Page ouput
      * @var string
      */
-    protected $_output = null;
+    protected $output = null;
 
     /**
      * Constructor
@@ -193,10 +193,10 @@ class Paginator
      */
     public function __construct(array $items, $perPage = 10, $range = 10, $total = null)
     {
-        $this->_items = $items;
-        $this->_perPage = (int)$perPage;
-        $this->_range = ($range > 0) ? (int)$range : 10;
-        $this->_total = (null !== $total) ? (int)$total : null;
+        $this->items = $items;
+        $this->perPage = (int)$perPage;
+        $this->range = ($range > 0) ? (int)$range : 10;
+        $this->total = (null !== $total) ? (int)$total : null;
     }
 
     /**
@@ -207,7 +207,7 @@ class Paginator
      */
     public function setItems($items)
     {
-        $this->_items = $items;
+        $this->items = $items;
         return $this;
     }
 
@@ -219,7 +219,7 @@ class Paginator
      */
     public function setPerPage($perPage = 10)
     {
-        $this->_perPage = (int)$perPage;
+        $this->perPage = (int)$perPage;
         return $this;
     }
 
@@ -231,7 +231,7 @@ class Paginator
      */
     public function setRange($range = 10)
     {
-        $this->_range = ($range > 0) ? (int)$range : 10;
+        $this->range = ($range > 0) ? (int)$range : 10;
         return $this;
     }
 
@@ -243,7 +243,7 @@ class Paginator
      */
     public function setTotal($total = null)
     {
-        $this->_total = (null !== $total) ? (int)$total : null;
+        $this->total = (null !== $total) ? (int)$total : null;
         return $this;
     }
 
@@ -255,7 +255,7 @@ class Paginator
      */
     public function setBookend($key = Paginator::SINGLE_ARROWS)
     {
-        $this->_bookendKey = (int)$key;
+        $this->bookendKey = (int)$key;
         return $this;
     }
 
@@ -267,7 +267,7 @@ class Paginator
      */
     public function setSeparator($sep = ' | ')
     {
-        $this->_separator = $sep;
+        $this->separator = $sep;
         return $this;
     }
 
@@ -279,7 +279,7 @@ class Paginator
      */
     public function setDateformat($date = 'D, M j Y')
     {
-        $this->_dateFormat = $date;
+        $this->dateFormat = $date;
         return $this;
     }
 
@@ -291,7 +291,7 @@ class Paginator
      */
     public function setClassOn($cls)
     {
-        $this->_classOn = $cls;
+        $this->classOn = $cls;
         return $this;
     }
 
@@ -303,7 +303,7 @@ class Paginator
      */
     public function setClassOff($cls)
     {
-        $this->_classOff = $cls;
+        $this->classOff = $cls;
         return $this;
     }
 
@@ -315,7 +315,7 @@ class Paginator
      */
     public function setHeader($hdr)
     {
-        $this->_header = $hdr;
+        $this->header = $hdr;
         return $this;
     }
 
@@ -327,7 +327,7 @@ class Paginator
      */
     public function setRowTemplate($tmpl)
     {
-        $this->_rowTemplate = $tmpl;
+        $this->rowTemplate = $tmpl;
         return $this;
     }
 
@@ -339,7 +339,7 @@ class Paginator
      */
     public function setFooter($ftr)
     {
-        $this->_footer = $ftr;
+        $this->footer = $ftr;
         return $this;
     }
 
@@ -350,7 +350,7 @@ class Paginator
      */
     public function getItems()
     {
-        return $this->_items;
+        return $this->items;
     }
 
     /**
@@ -360,7 +360,7 @@ class Paginator
      */
     public function getItemCount()
     {
-        return count($this->_items);
+        return count($this->items);
     }
 
     /**
@@ -370,7 +370,7 @@ class Paginator
      */
     public function getPerPage()
     {
-        return $this->_perPage;
+        return $this->perPage;
     }
 
     /**
@@ -380,7 +380,7 @@ class Paginator
      */
     public function getRange()
     {
-        return $this->_range;
+        return $this->range;
     }
 
     /**
@@ -390,7 +390,7 @@ class Paginator
      */
     public function getTotal()
     {
-        return $this->_total;
+        return $this->total;
     }
 
     /**
@@ -400,7 +400,7 @@ class Paginator
      */
     public function getSeparator()
     {
-        return $this->_separator;
+        return $this->separator;
     }
 
     /**
@@ -410,7 +410,7 @@ class Paginator
      */
     public function getDateFormat()
     {
-        return $this->_dateFormat;
+        return $this->dateFormat;
     }
 
     /**
@@ -420,7 +420,7 @@ class Paginator
      */
     public function getClassOn()
     {
-        return $this->_classOn;
+        return $this->classOn;
     }
 
     /**
@@ -430,7 +430,7 @@ class Paginator
      */
     public function getClassOff()
     {
-        return $this->_classOff;
+        return $this->classOff;
     }
 
     /**
@@ -440,7 +440,7 @@ class Paginator
      */
     public function getHeader()
     {
-        return $this->_header;
+        return $this->header;
     }
 
     /**
@@ -450,7 +450,7 @@ class Paginator
      */
     public function getRowTemplate()
     {
-        return $this->_rowTemplate;
+        return $this->rowTemplate;
     }
 
     /**
@@ -460,7 +460,7 @@ class Paginator
      */
     public function getFooter()
     {
-        return $this->_footer;
+        return $this->footer;
     }
 
     /**
@@ -473,13 +473,13 @@ class Paginator
     public function render($pg, $ret = false)
     {
         // Initialize the output.
-        $this->_output = null;
+        $this->output = null;
 
         // Calculate the necessary properties.
-        $this->_calcItems($pg);
+        $this->calcItems($pg);
 
         // Generate the page links.
-        $this->_links = array();
+        $this->links = array();
 
         // Preserve any passed GET parameters.
         $query = null;
@@ -493,95 +493,95 @@ class Paginator
         }
 
         // Calculate page range links.
-        $pageRange = $this->_calcRange($pg);
+        $pageRange = $this->calcRange($pg);
 
         for ($i = $pageRange['start']; $i <= $pageRange['end']; $i++) {
             $newLink = null;
             $prevLink = null;
             $nextLink = null;
-            $classOff = (null !== $this->_classOff) ? " class=\"{$this->_classOff}\"" : null;
-            $classOn = (null !== $this->_classOn) ? " class=\"{$this->_classOn}\"" : null;
+            $classOff = (null !== $this->classOff) ? " class=\"{$this->classOff}\"" : null;
+            $classOn = (null !== $this->classOn) ? " class=\"{$this->classOn}\"" : null;
 
             $newLink = ($i == $pg) ? "<span{$classOff}>{$i}</span>" : "<a{$classOn} href=\"" . $_SERVER['PHP_SELF'] . "?page={$i}{$query}\">{$i}</a>";
 
             if (($i == $pageRange['start']) && ($pageRange['prev'])) {
-                $prevLink = "<a{$classOn} href=\"" . $_SERVER['PHP_SELF'] . "?page=" . ($i - 1) . "{$query}\">" . $this->_bookends[$this->_bookendKey]['prev'] . "</a>";
-                $this->_links[] = $prevLink;
+                $prevLink = "<a{$classOn} href=\"" . $_SERVER['PHP_SELF'] . "?page=" . ($i - 1) . "{$query}\">" . $this->bookends[$this->bookendKey]['prev'] . "</a>";
+                $this->links[] = $prevLink;
             }
-            $this->_links[] = $newLink;
+            $this->links[] = $newLink;
             if (($i == $pageRange['end']) && ($pageRange['next'])) {
-                $nextLink = "<a{$classOn} href=\"" . $_SERVER['PHP_SELF'] . "?page=" . ($i + 1) . "{$query}\">" . $this->_bookends[$this->_bookendKey]['next'] . "</a>";
-                $this->_links[] = $nextLink;
+                $nextLink = "<a{$classOn} href=\"" . $_SERVER['PHP_SELF'] . "?page=" . ($i + 1) . "{$query}\">" . $this->bookends[$this->bookendKey]['next'] . "</a>";
+                $this->links[] = $nextLink;
             }
         }
 
         // Format and output the header.
-        if (null === $this->_header) {
-            if (count($this->_links) > 1) {
-                $this->_output .= implode($this->_separator, $this->_links) . PHP_EOL;
+        if (null === $this->header) {
+            if (count($this->links) > 1) {
+                $this->output .= implode($this->separator, $this->links) . PHP_EOL;
             }
-            $this->_output .= '<table class="paged-table" cellpadding="0" cellspacing="0">' . PHP_EOL;
+            $this->output .= '<table class="paged-table" cellpadding="0" cellspacing="0">' . PHP_EOL;
         } else {
-            $hdr = new String($this->_header);
-            if (count($this->_links) > 1) {
-                $hdr->replace('[{page_links}]', implode($this->_separator, $this->_links));
+            $hdr = new String($this->header);
+            if (count($this->links) > 1) {
+                $hdr->replace('[{page_links}]', implode($this->separator, $this->links));
             } else {
                 $hdr->replace('[{page_links}]', '');
             }
-            $this->_output .= $hdr;
+            $this->output .= $hdr;
         }
 
         // Format and output the rows.
-        for ($i = $this->_start; $i < $this->_end; $i++) {
-            if (null === $this->_rowTemplate) {
-                $this->_output .= "    <tr>";
-                if (isset($this->_items[$i])) {
-                    foreach ($this->_items[$i] as $value) {
-                        if (null !== $this->_dateFormat) {
-                            $val = (strtotime($value) !== false) ? date($this->_dateFormat, strtotime($value)) : $value;
+        for ($i = $this->start; $i < $this->end; $i++) {
+            if (null === $this->rowTemplate) {
+                $this->output .= "    <tr>";
+                if (isset($this->items[$i])) {
+                    foreach ($this->items[$i] as $value) {
+                        if (null !== $this->dateFormat) {
+                            $val = (strtotime($value) !== false) ? date($this->dateFormat, strtotime($value)) : $value;
                         } else {
                             $val = $value;
                         }
-                        $this->_output .= "<td>{$val}</td>";
+                        $this->output .= "<td>{$val}</td>";
                     }
-                    $this->_output .= "</tr>" . PHP_EOL;
+                    $this->output .= "</tr>" . PHP_EOL;
                 }
             } else {
-                $tmpl = new String($this->_rowTemplate);
-                if (isset($this->_items[$i])) {
-                    foreach ($this->_items[$i] as $key => $value) {
-                        if (null !== $this->_dateFormat) {
-                            $val = ((strtotime($value) !== false) || (stripos($key, 'date') !== false)) ? date($this->_dateFormat, strtotime($value)) : $value;
+                $tmpl = new String($this->rowTemplate);
+                if (isset($this->items[$i])) {
+                    foreach ($this->items[$i] as $key => $value) {
+                        if (null !== $this->dateFormat) {
+                            $val = ((strtotime($value) !== false) || (stripos($key, 'date') !== false)) ? date($this->dateFormat, strtotime($value)) : $value;
                         } else {
                             $val = $value;
                         }
                         $tmpl->replace('[{' . $key . '}]', $val);
                     }
-                    $this->_output .= $tmpl;
+                    $this->output .= $tmpl;
                 }
             }
         }
 
         // Format and output the footer.
-        if (null === $this->_footer) {
-            $this->_output .= "</table>" . PHP_EOL;
-            if (count($this->_links) > 1) {
-                $this->_output .= implode($this->_separator, $this->_links) . PHP_EOL;
+        if (null === $this->footer) {
+            $this->output .= "</table>" . PHP_EOL;
+            if (count($this->links) > 1) {
+                $this->output .= implode($this->separator, $this->links) . PHP_EOL;
             }
         } else {
-            $ftr = new String($this->_footer);
-            if (count($this->_links) > 1) {
-                $ftr->replace('[{page_links}]', implode($this->_separator, $this->_links));
+            $ftr = new String($this->footer);
+            if (count($this->links) > 1) {
+                $ftr->replace('[{page_links}]', implode($this->separator, $this->links));
             } else {
                 $ftr->replace('[{page_links}]', '');
             }
-            $this->_output .= $ftr;
+            $this->output .= $ftr;
         }
 
         if ($ret) {
-            return $this->_output;
+            return $this->output;
         } else {
-            echo $this->_output;
+            echo $this->output;
         }
     }
 
@@ -594,30 +594,30 @@ class Paginator
     protected function _calcItems($p)
     {
         // Calculate the number of pages based on the remainder.
-        if ((null !== $this->_total) && ((int)$this->_total > 0)) {
-            $this->_rem = $this->_total % $this->_perPage;
-            $this->_numPages = ($this->_rem != 0) ? (floor(($this->_total / $this->_perPage)) + 1) : floor(($this->_total / $this->_perPage));
+        if ((null !== $this->total) && ((int)$this->total > 0)) {
+            $this->rem = $this->total % $this->perPage;
+            $this->numPages = ($this->rem != 0) ? (floor(($this->total / $this->perPage)) + 1) : floor(($this->total / $this->perPage));
         } else {
-            $this->_rem = (count($this->_items)) % $this->_perPage;
-            $this->_numPages = ($this->_rem != 0) ? (floor((count($this->_items) / $this->_perPage)) + 1) : floor((count($this->_items) / $this->_perPage));
+            $this->rem = (count($this->items)) % $this->perPage;
+            $this->numPages = ($this->rem != 0) ? (floor((count($this->items) / $this->perPage)) + 1) : floor((count($this->items) / $this->perPage));
         }
 
         // Calculate the start index.
-        $this->_start = ($p * $this->_perPage) - $this->_perPage;
+        $this->start = ($p * $this->perPage) - $this->perPage;
 
         // Calculate the end index.
-        if (($p == $this->_numPages) && ($this->_rem == 0)) {
-            $this->_end = $this->_start + $this->_perPage;
-        } else if ($p == $this->_numPages) {
-            $this->_end = (($p * $this->_perPage) - ($this->_perPage - $this->_rem));
+        if (($p == $this->numPages) && ($this->rem == 0)) {
+            $this->end = $this->start + $this->perPage;
+        } else if ($p == $this->numPages) {
+            $this->end = (($p * $this->perPage) - ($this->perPage - $this->rem));
         } else {
-            $this->_end = ($p * $this->_perPage);
+            $this->end = ($p * $this->perPage);
         }
 
         // Calculate if out of range.
-        if ($this->_start >= count($this->_items)) {
-            $this->_start = 0;
-            $this->_end = $this->_perPage;
+        if ($this->start >= count($this->items)) {
+            $this->start = 0;
+            $this->end = $this->perPage;
         }
     }
 
@@ -632,53 +632,53 @@ class Paginator
         $range = array();
 
         // Check and calculate for any page ranges.
-        if (((null === $this->_range) || ($this->_range > $this->_numPages)) && (null === $this->_total)) {
+        if (((null === $this->range) || ($this->range > $this->numPages)) && (null === $this->total)) {
             $range = array(
                 'start' => 1,
-                'end'   => $this->_numPages,
+                'end'   => $this->numPages,
                 'prev'  => false,
                 'next'  => false
             );
         } else {
             // If page is within the first range block.
-            if (($pg <= $this->_range) && ($this->_numPages <= $this->_range)) {
+            if (($pg <= $this->range) && ($this->numPages <= $this->range)) {
                 $range = array(
                     'start' => 1,
-                    'end'   => $this->_numPages,
+                    'end'   => $this->numPages,
                     'prev'  => false,
                     'next'  => false
                 );
             // If page is within the first range block, with a next range.
-            } else if (($pg <= $this->_range) && ($this->_numPages > $this->_range)) {
+            } else if (($pg <= $this->range) && ($this->numPages > $this->range)) {
                 $range = array(
                     'start' => 1,
-                    'end'   => $this->_range,
+                    'end'   => $this->range,
                     'prev'  => false,
                     'next'  => true
                 );
             // Else, if page is within the last range block, with an uneven remainder.
-            } else if ($pg > ($this->_range * floor($this->_numPages / $this->_range))) {
+            } else if ($pg > ($this->range * floor($this->numPages / $this->range))) {
                 $range = array(
-                    'start' => ($this->_range * floor($this->_numPages / $this->_range)) + 1,
-                    'end'   => $this->_numPages,
+                    'start' => ($this->range * floor($this->numPages / $this->range)) + 1,
+                    'end'   => $this->numPages,
                     'prev'  => true,
                     'next'  => false
                 );
             // Else, if page is within the last range block, with no remainder.
-            } else if ((($this->_numPages % $this->_range) == 0) && ($pg > ($this->_range * (($this->_numPages / $this->_range) - 1)))) {
+            } else if ((($this->numPages % $this->range) == 0) && ($pg > ($this->range * (($this->numPages / $this->range) - 1)))) {
                 $range = array(
-                    'start' => ($this->_range * (($this->_numPages / $this->_range) - 1)) + 1,
-                    'end'   => $this->_numPages,
+                    'start' => ($this->range * (($this->numPages / $this->range) - 1)) + 1,
+                    'end'   => $this->numPages,
                     'prev'  => true,
                     'next'  => false
                 );
             // Else, if page is within a middle range block.
             } else {
-                $posInRange = (($pg % $this->_range) == 0) ? ($this->_range - 1) : (($pg % $this->_range) - 1);
+                $posInRange = (($pg % $this->range) == 0) ? ($this->range - 1) : (($pg % $this->range) - 1);
                 $linkStart = $pg - $posInRange;
                 $range = array(
                     'start' => $linkStart,
-                    'end'   => $linkStart + ($this->_range - 1),
+                    'end'   => $linkStart + ($this->range - 1),
                     'prev'  => true,
                     'next'  => true
                 );

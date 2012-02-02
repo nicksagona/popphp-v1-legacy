@@ -51,13 +51,13 @@ class Dir
      * Flag to store the full path.
      * @var boolean
      */
-    protected $_full = false;
+    protected $full = false;
 
     /**
      * Flag to dig recursively.
      * @var boolean
      */
-    protected $_rec = false;
+    protected $rec = false;
 
     /**
      * Constructor
@@ -76,8 +76,8 @@ class Dir
         if (!file_exists(dirname($dir))) {
             throw new Exception('Error: The directory does not exist.');
         }
-        $this->_full = $full;
-        $this->_rec = $rec;
+        $this->full = $full;
+        $this->rec = $rec;
 
         // Set the directory path.
         if ((strpos($dir, '/') !== false) && (DIRECTORY_SEPARATOR != '/')) {
@@ -94,12 +94,12 @@ class Dir
         }
 
         // If the recursive flag is passed, traverse recursively.
-        if ($this->_rec) {
+        if ($this->rec) {
             $objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->path), \RecursiveIteratorIterator::SELF_FIRST);
             foreach ($objects as $fileInfo) {
                 if (($fileInfo->getFilename() != '.') && ($fileInfo->getFilename() != '..')) {
                     // If full path flag was passed, store the full path.
-                    if ($this->_full) {
+                    if ($this->full) {
                         $this->files[] = realpath(($fileInfo->isDir()) ? ($fileInfo->getPathname() . DIRECTORY_SEPARATOR) : $fileInfo->getPathname());
                     // Else, store only the directory or file name.
                     } else {
@@ -112,7 +112,7 @@ class Dir
             foreach (new \DirectoryIterator($this->path) as $fileInfo) {
                 if(!$fileInfo->isDot()) {
                     // If full path flag was passed, store the full path.
-                    if ($this->_full) {
+                    if ($this->full) {
                         $this->files[] = realpath(($fileInfo->isDir()) ? ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename() . DIRECTORY_SEPARATOR) : ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename()));
                     // Else, store only the directory or file name.
                     } else {
@@ -176,7 +176,7 @@ class Dir
     {
         if (file_exists($this->path)) {
             chmod($this->path, $mode);
-            self::__construct($this->path, $this->_full, $this->_rec);
+            self::__construct($this->path, $this->full, $this->rec);
         }
     }
 

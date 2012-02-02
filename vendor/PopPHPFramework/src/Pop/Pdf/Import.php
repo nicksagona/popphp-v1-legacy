@@ -53,19 +53,19 @@ class Import
      * PDF imported data
      * @var string
      */
-    protected $_data = null;
+    protected $data = null;
 
     /**
      * PDF imported kids indices
      * @var array
      */
-    protected $_kids = array();
+    protected $kids = array();
 
     /**
      * PDF imported thumb objects
      * @var array
      */
-    protected $_thumbs = array();
+    protected $thumbs = array();
 
     /**
      * Constructor
@@ -80,18 +80,18 @@ class Import
     {
         // Read the file data from the imported PDF.
         $import_file = new File($pdf);
-        $this->_data = $import_file->read();
+        $this->data = $import_file->read();
 
         // Strip any and all XREF tables, as the structure of the PDF will change.
-        while (strpos($this->_data, 'xref') !== false) {
-            $xref = substr($this->_data, 0, (strpos($this->_data, '%%EOF') + 5));
+        while (strpos($this->data, 'xref') !== false) {
+            $xref = substr($this->data, 0, (strpos($this->data, '%%EOF') + 5));
             $xref = substr($xref, strpos($xref, 'xref'));
-            $this->_data = str_replace($xref, '', $this->_data);
+            $this->data = str_replace($xref, '', $this->data);
         }
 
         // Get the PDF objects.
-        $this->_getObjects($this->_data);
-        $this->pages = $this->_kids;
+        $this->getObjects($this->data);
+        $this->pages = $this->kids;
 
         // If the page argument was passed, parse out the desired page(s), removing any unwanted pages and their content.
         if (null !== $pgs) {
@@ -125,9 +125,9 @@ class Import
 
                     unset($this->objects[$value]);
 
-                    if (in_array($value, $this->_kids)) {
-                        $k = array_search($value, $this->_kids);
-                        unset($this->_kids[$k]);
+                    if (in_array($value, $this->kids)) {
+                        $k = array_search($value, $this->kids);
+                        unset($this->kids[$k]);
                     }
 
                     foreach ($content_objs as $val) {
@@ -135,7 +135,7 @@ class Import
                     }
                 }
 
-                $this->pages = $this->_kids;
+                $this->pages = $this->kids;
             }
         }
     }
@@ -149,7 +149,7 @@ class Import
      */
     public function shiftObjects($si)
     {
-        if ($this->_firstIndex($this->objects) <= $si) {
+        if ($this->firstIndex($this->objects) <= $si) {
             ksort($this->objects);
             $keyChanges = array();
             $newObjects = array();
@@ -178,11 +178,11 @@ class Import
             }
 
             foreach ($this->pages as $k => $v) {
-                $this->_kids[$k] = $keyChanges[$v];
+                $this->kids[$k] = $keyChanges[$v];
             }
 
             $this->objects = $newObjects;
-            $this->pages = $this->_kids;
+            $this->pages = $this->kids;
         }
     }
 
@@ -263,7 +263,7 @@ class Import
                     $kids = str_replace(' ', '', $kids);
                     $kids = substr($kids, 0, -1);
                     $kids_objs = explode('|', $kids);
-                    $this->_kids = $kids_objs;
+                    $this->kids = $kids_objs;
                     $type = 'parent';
                 } else if ((strpos($obj_data, '/MediaBox') !== false) || (strpos($obj_data, '/Contents') !== false)) {
                     if (strpos($obj_data, '/Thumb') !== false) {
@@ -274,7 +274,7 @@ class Import
                         $thumbindex = substr($thumbdata, strpos($thumbdata, ' '));
                         $thumbindex = str_replace(' 0 R', '', $thumbindex);
                         $thumbindex = str_replace(' ', '', $thumbindex);
-                        $this->_thumbs[] = $thumbindex;
+                        $this->thumbs[] = $thumbindex;
 
                         $obj_data = str_replace($thumbdata, '', $obj_data);
                     }
@@ -282,7 +282,7 @@ class Import
                 } else {
                     $type = 'content';
                 }
-                $this->objects[$index] = array('type' => $type, 'data' => $obj_data, 'refs' => $this->_getRefs($obj_data));
+                $this->objects[$index] = array('type' => $type, 'data' => $obj_data, 'refs' => $this->getRefs($obj_data));
             }
         }
 
@@ -296,13 +296,13 @@ class Import
             }
         }
 
-        foreach ($this->_kids as $value) {
+        foreach ($this->kids as $value) {
             $this->objects[$value] = $pageOrder[$value];
         }
 
         // Remove any thumbnail objects.
-        if (count($this->_thumbs) != 0) {
-            foreach ($this->_thumbs as $value) {
+        if (count($this->thumbs) != 0) {
+            foreach ($this->thumbs as $value) {
                 unset($this->objects[$value]);
             }
         }

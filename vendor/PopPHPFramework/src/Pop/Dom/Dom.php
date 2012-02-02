@@ -108,25 +108,25 @@ class Dom extends AbstractDom
      * Document type
      * @var string
      */
-    protected $_doctype = 7;
+    protected $doctype = 7;
 
     /**
      * Document content type
      * @var string
      */
-    protected $_contentType = 'application/xml';
+    protected $contentType = 'application/xml';
 
     /**
      * Document charset
      * @var string
      */
-    protected $_charset = 'utf-8';
+    protected $charset = 'utf-8';
 
     /**
      * Document doctypes
      * @var array
      */
-    protected static $_doctypes = array(
+    protected static $doctypes = array(
         "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n",
         "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n",
         "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\" \"http://www.w3.org/TR/html4/frameset.dtd\">\n",
@@ -153,11 +153,11 @@ class Dom extends AbstractDom
      */
     public function __construct($doctype = null, $charset = 'utf-8', $childNode = null, $indent = null)
     {
-        $this->_lang = new Locale();
+        $this->lang = new Locale();
 
         $this->setDoctype($doctype);
-        $this->_charset = $charset;
-        $this->_indent = $indent;
+        $this->charset = $charset;
+        $this->indent = $indent;
 
         if (null !== $childNode) {
             $this->addChild($childNode);
@@ -171,7 +171,7 @@ class Dom extends AbstractDom
      */
     public function getDoctype()
     {
-        return Dom::$_doctypes[$this->_doctype];
+        return Dom::$doctypes[$this->doctype];
     }
 
     /**
@@ -181,7 +181,7 @@ class Dom extends AbstractDom
      */
     public function getCharset()
     {
-        return $this->_charset;
+        return $this->charset;
     }
 
     /**
@@ -191,7 +191,7 @@ class Dom extends AbstractDom
      */
     public function getContentType()
     {
-        return $this->_contentType;
+        return $this->contentType;
     }
 
     /**
@@ -205,24 +205,24 @@ class Dom extends AbstractDom
         if (null !== $doctype) {
             $doctype = (int)$doctype;
 
-            if (array_key_exists($doctype, Dom::$_doctypes)) {
-                $this->_doctype = $doctype;
-                switch ($this->_doctype) {
+            if (array_key_exists($doctype, Dom::$doctypes)) {
+                $this->doctype = $doctype;
+                switch ($this->doctype) {
                     case Dom::ATOM:
-                        $this->_contentType = 'application/atom+xml';
+                        $this->contentType = 'application/atom+xml';
                         break;
                     case Dom::RSS:
-                        $this->_contentType = 'application/rss+xml';
+                        $this->contentType = 'application/rss+xml';
                         break;
                     case Dom::XML:
-                        $this->_contentType = 'application/xml';
+                        $this->contentType = 'application/xml';
                         break;
                     default:
-                        $this->_contentType = 'text/html';
+                        $this->contentType = 'text/html';
                 }
             }
         } else {
-            $this->_doctype = null;
+            $this->doctype = null;
         }
 
         return $this;
@@ -236,7 +236,7 @@ class Dom extends AbstractDom
      */
     public function setCharset($chr)
     {
-        $this->_charset = $chr;
+        $this->charset = $chr;
         return $this;
     }
 
@@ -248,7 +248,7 @@ class Dom extends AbstractDom
      */
     public function setContentType($content)
     {
-        $this->_contentType = $content;
+        $this->contentType = $content;
         return $this;
     }
 
@@ -262,26 +262,26 @@ class Dom extends AbstractDom
     {
         // If the return flag is passed, return output.
         if ($ret) {
-            $this->_output = '';
-            if (null !== $this->_doctype) {
-                $this->_output .= str_replace('[{charset}]', $this->_charset, Dom::$_doctypes[$this->_doctype]);
+            $this->output = '';
+            if (null !== $this->doctype) {
+                $this->output .= str_replace('[{charset}]', $this->charset, Dom::$doctypes[$this->doctype]);
             }
-            foreach ($this->_childNodes as $child) {
-                $this->_output .= $child->render(true, 0, $this->_indent);
+            foreach ($this->childNodes as $child) {
+                $this->output .= $child->render(true, 0, $this->indent);
             }
-            return $this->_output;
+            return $this->output;
         // Else, print output.
         } else {
-            if (null !== $this->_doctype) {
+            if (null !== $this->doctype) {
                 if (!headers_sent()) {
-                    $response = new Response(200, array('Content-type' => $this->_contentType));
+                    $response = new Response(200, array('Content-type' => $this->contentType));
                     $response->sendHeaders();
                 }
-                echo str_replace('[{charset}]', $this->_charset, Dom::$_doctypes[$this->_doctype]);
+                echo str_replace('[{charset}]', $this->charset, Dom::$doctypes[$this->doctype]);
             }
 
-            foreach ($this->_childNodes as $child) {
-                $child->render(false, 0, $this->_indent);
+            foreach ($this->childNodes as $child) {
+                $child->render(false, 0, $this->indent);
             }
         }
     }

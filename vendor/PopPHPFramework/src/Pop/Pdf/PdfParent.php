@@ -57,7 +57,7 @@ class PdfParent
      * PDF parent object data
      * @var string
      */
-    protected $_data = null;
+    protected $data = null;
 
     /**
      * Constructor
@@ -73,7 +73,7 @@ class PdfParent
 
         // Use default settings for a new PDF and its parent object.
         if (null === $str) {
-            $this->_data = "2 0 obj\n<</Type/Pages/Count [{count}]/Kids[[{kids}]]>>\nendobj\n";
+            $this->data = "2 0 obj\n<</Type/Pages/Count [{count}]/Kids[[{kids}]]>>\nendobj\n";
         } else {
             // Else, determine the parent object index.
             $this->index = substr($str, 0, strpos($str, ' '));
@@ -105,7 +105,7 @@ class PdfParent
             // Set the kids array, the count and the parent data.
             $this->kids = $kAry;
             $this->count = $c;
-            $this->_data = $str . "\n";
+            $this->data = $str . "\n";
         }
     }
 
@@ -121,7 +121,7 @@ class PdfParent
         $kids .= " 0 R";
 
         // Swap out the placeholders.
-        $obj = str_replace('[{count}]', $this->count, $this->_data);
+        $obj = str_replace('[{count}]', $this->count, $this->data);
         $obj = str_replace('[{kids}]', $kids, $obj);
 
         return $obj;

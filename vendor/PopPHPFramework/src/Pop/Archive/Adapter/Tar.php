@@ -51,13 +51,13 @@ class Tar implements ArchiveInterface
      * Archive path
      * @var string
      */
-    protected $_path = null;
+    protected $path = null;
 
     /**
      * Archive compression
      * @var string
      */
-    protected $_compression = null;
+    protected $compression = null;
 
     /**
      * Method to instantiate an archive adapter object
@@ -68,12 +68,12 @@ class Tar implements ArchiveInterface
     public function __construct($archive)
     {
         if (stripos($archive->ext, 'bz') !== false) {
-            $this->_compression = 'bz';
+            $this->compression = 'bz';
         } else if (stripos($archive->ext, 'gz') !== false) {
-            $this->_compression = 'gz';
+            $this->compression = 'gz';
         }
-        $this->_path = $archive->fullpath;
-        $this->archive = new \Archive_Tar($this->_path);
+        $this->path = $archive->fullpath;
+        $this->archive = new \Archive_Tar($this->path);
     }
 
     /**
@@ -84,12 +84,12 @@ class Tar implements ArchiveInterface
      */
     public function extract($to = null)
     {
-        if ($this->_compression == 'bz') {
-            $this->_path = Bzip2::decompress($this->_path);
-            $this->archive = new \Archive_Tar($this->_path);
-        } else if ($this->_compression == 'gz') {
-            $this->_path = Gzip::decompress($this->_path);
-            $this->archive = new \Archive_Tar($this->_path);
+        if ($this->compression == 'bz') {
+            $this->path = Bzip2::decompress($this->path);
+            $this->archive = new \Archive_Tar($this->path);
+        } else if ($this->compression == 'gz') {
+            $this->path = Gzip::decompress($this->path);
+            $this->archive = new \Archive_Tar($this->path);
         }
         $this->archive->extract((null !== $to) ? $to : './');
     }

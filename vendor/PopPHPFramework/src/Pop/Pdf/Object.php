@@ -47,37 +47,37 @@ class Object
      * PDF object data
      * @var string
      */
-    protected $_data = null;
+    protected $data = null;
 
     /**
      * PDF object definition
      * @var string
      */
-    protected $_def = null;
+    protected $def = null;
 
     /**
      * PDF object stream
      * @var string
      */
-    protected $_stream = null;
+    protected $stream = null;
 
     /**
      * Compression property
      * @var boolean
      */
-    protected $_compress = false;
+    protected $compress = false;
 
     /**
      * Compressed flag property
      * @var boolean
      */
-    protected $_isCompressed = false;
+    protected $isCompressed = false;
 
     /**
      * Palette object property
      * @var boolean
      */
-    protected $_isPalette = false;
+    protected $isPalette = false;
 
     /**
      * Constructor
@@ -92,7 +92,7 @@ class Object
         // Use default settings for a new PDF object.
         if (is_int($i)) {
             $this->index = $i;
-            $this->_data = "\n[{obj_index}] 0 obj\n[{obj_def}]\n[{obj_stream}]\nendobj\n\n";
+            $this->data = "\n[{obj_index}] 0 obj\n[{obj_def}]\n[{obj_stream}]\nendobj\n\n";
         } else if (is_string($i)) {
             // Else, determine the object index.
             $this->index = substr($i, 0, strpos($i, ' '));
@@ -110,7 +110,7 @@ class Object
                 $this->define($s);
             }
 
-            $this->_data = "\n[{obj_index}] 0 obj\n[{obj_def}]\n[{obj_stream}]\nendobj\n\n";
+            $this->data = "\n[{obj_index}] 0 obj\n[{obj_def}]\n[{obj_stream}]\nendobj\n\n";
         }
     }
 
@@ -124,26 +124,26 @@ class Object
         $matches = array();
 
         // Set the content stream.
-        $stream = (null !== $this->_stream) ? "stream" . $this->_stream . "endstream\n" : '';
+        $stream = (null !== $this->stream) ? "stream" . $this->stream . "endstream\n" : '';
 
         // Set up the Length definition.
-        if ((strpos($this->_def, '/Length ') !== false) && (strpos($this->_def, '/Length1') === false)) {
-            preg_match('/\/Length\s\d*/', $this->_def, $matches);
+        if ((strpos($this->def, '/Length ') !== false) && (strpos($this->def, '/Length1') === false)) {
+            preg_match('/\/Length\s\d*/', $this->def, $matches);
             if (isset($matches[0])) {
                 $len = $matches[0];
                 $len = str_replace('/Length', '', $len);
                 $len = str_replace(' ', '', $len);
-                $this->_def = str_replace($len, '[{byte_length}]', $this->_def);
+                $this->def = str_replace($len, '[{byte_length}]', $this->def);
             }
-        } else if (strpos($this->_def, '/Length') === false) {
-            $this->_def .= "<</Length [{byte_length}]>>\n";
+        } else if (strpos($this->def, '/Length') === false) {
+            $this->def .= "<</Length [{byte_length}]>>\n";
         }
 
         // Calculate the byte length of the content stream and swap out the placeholders.
-        $byteLength = (($this->_compress) && (function_exists('gzcompress')) && (strpos($this->_def, ' /Image') === false) && (strpos($this->_def, '/FlateDecode') === false)) ? $this->_calcByteLength($this->_stream) . " /Filter /FlateDecode" : $this->_calcByteLength($this->_stream);
-        $data = str_replace('[{obj_index}]', $this->index, $this->_data);
+        $byteLength = (($this->compress) && (function_exists('gzcompress')) && (strpos($this->def, ' /Image') === false) && (strpos($this->def, '/FlateDecode') === false)) ? $this->calcByteLength($this->stream) . " /Filter /FlateDecode" : $this->calcByteLength($this->stream);
+        $data = str_replace('[{obj_index}]', $this->index, $this->data);
         $data = str_replace('[{obj_stream}]', $stream, $data);
-        $data = str_replace('[{obj_def}]', $this->_def, $data);
+        $data = str_replace('[{obj_def}]', $this->def, $data);
         $data = str_replace('[{byte_length}]', $byteLength, $data);
 
         // Clear Length definition if it is zero.
@@ -162,7 +162,7 @@ class Object
      */
     public function define($str)
     {
-        $this->_def = $str;
+        $this->def = $str;
     }
 
     /**
@@ -172,7 +172,7 @@ class Object
      */
     public function getDef()
     {
-        return $this->_def;
+        return $this->def;
     }
 
     /**
@@ -183,7 +183,7 @@ class Object
      */
     public function setStream($str)
     {
-        $this->_stream .= $str;
+        $this->stream .= $str;
     }
 
     /**
@@ -193,7 +193,7 @@ class Object
      */
     public function getStream()
     {
-        return $this->_stream;
+        return $this->stream;
     }
 
     /**
@@ -203,10 +203,10 @@ class Object
      */
     public function compress()
     {
-        if (($this->_stream != '') && (function_exists('gzcompress')) && (strpos($this->_def, ' /Image') === false) && (strpos($this->_def, '/FlateDecode') === false)) {
-            $this->_compress = true;
-            $this->_stream = "\n" . Zlib::compress($this->_stream) . "\n";
-            $this->_isCompressed = true;
+        if (($this->stream != '') && (function_exists('gzcompress')) && (strpos($this->def, ' /Image') === false) && (strpos($this->def, '/FlateDecode') === false)) {
+            $this->compress = true;
+            $this->stream = "\n" . Zlib::compress($this->stream) . "\n";
+            $this->isCompressed = true;
         }
     }
 
@@ -218,7 +218,7 @@ class Object
      */
     public function isCompressed()
     {
-        return $this->_isCompressed;
+        return $this->isCompressed;
     }
 
     /**
@@ -229,7 +229,7 @@ class Object
      */
     public function setPalette($is)
     {
-        $this->_isPalette = $is;
+        $this->isPalette = $is;
     }
 
     /**
@@ -239,7 +239,7 @@ class Object
      */
     public function isPalette()
     {
-        return $this->_isPalette;
+        return $this->isPalette;
     }
 
     /**
@@ -250,7 +250,7 @@ class Object
      */
     public function getByteLength()
     {
-        return $this->_calcByteLength($this);
+        return $this->calcByteLength($this);
     }
 
     /**

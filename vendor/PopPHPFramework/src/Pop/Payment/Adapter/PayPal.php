@@ -41,37 +41,37 @@ class PayPal extends AbstractAdapter
      * API username
      * @var string
      */
-    protected $_apiUsername = null;
+    protected $apiUsername = null;
 
     /**
      * API password
      * @var string
      */
-    protected $_apiPassword = null;
+    protected $apiPassword = null;
 
     /**
      * API signature
      * @var string
      */
-    protected $_signature = null;
+    protected $signature = null;
 
     /**
      * Test URL
      * @var string
      */
-    protected $_testUrl = 'https://api-3t.sandbox.paypal.com/nvp';
+    protected $testUrl = 'https://api-3t.sandbox.paypal.com/nvp';
 
     /**
      * Live URL
      * @var string
      */
-    protected $_liveUrl = 'https://api-3t.paypal.com/nvp';
+    protected $liveUrl = 'https://api-3t.paypal.com/nvp';
 
     /**
      * Transaction data
      * @var array
      */
-    protected $_transaction = array(
+    protected $transaction = array(
         'USER'             => null,
         'PWD'              => null,
         'SIGNATURE'        => null,
@@ -116,7 +116,7 @@ class PayPal extends AbstractAdapter
      * Transaction fields for normalization purposes
      * @var array
      */
-    protected $_fields = array(
+    protected $fields = array(
         'amount'          => 'AMT',
         'cardNum'         => 'ACCT',
         'expDate'         => 'EXPDATE',
@@ -146,7 +146,7 @@ class PayPal extends AbstractAdapter
      * Required fields
      * @var array
      */
-    protected $_requiredFields = array(
+    protected $requiredFields = array(
         'USER',
         'PWD',
         'SIGNATURE',
@@ -178,13 +178,13 @@ class PayPal extends AbstractAdapter
      */
     public function __construct($apiUser, $apiPass, $sign, $test = false)
     {
-        $this->_apiUsername = $apiUser;
-        $this->_apiPassword = $apiPass;
-        $this->_signature = $sign;
-        $this->_transaction['USER'] = $apiUser;
-        $this->_transaction['PWD'] = $apiPass;
-        $this->_transaction['SIGNATURE'] = $sign;
-        $this->_test = $test;
+        $this->apiUsername = $apiUser;
+        $this->apiPassword = $apiPass;
+        $this->signature = $sign;
+        $this->transaction['USER'] = $apiUser;
+        $this->transaction['PWD'] = $apiPass;
+        $this->transaction['SIGNATURE'] = $sign;
+        $this->test = $test;
     }
 
     /**
@@ -196,19 +196,19 @@ class PayPal extends AbstractAdapter
      */
     public function send($verifyPeer = true)
     {
-        if (null === $this->_transaction['IPADDRESS']) {
-            $this->_transaction['IPADDRESS'] = $_SERVER['REMOTE_ADDR'];
+        if (null === $this->transaction['IPADDRESS']) {
+            $this->transaction['IPADDRESS'] = $_SERVER['REMOTE_ADDR'];
         }
 
-        if (!$this->_validate()) {
+        if (!$this->validate()) {
             throw new Exception('The required transaction data has not been set.');
         }
 
-        $url = ($this->_test) ? $this->_testUrl : $this->_liveUrl;
+        $url = ($this->test) ? $this->testUrl : $this->liveUrl;
         $options = array(
             CURLOPT_URL            => $url,
             CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => $this->_buildPostString(),
+            CURLOPT_POSTFIELDS     => $this->buildPostString(),
             CURLOPT_HEADER         => false,
             CURLOPT_RETURNTRANSFER => true
         );
@@ -218,21 +218,21 @@ class PayPal extends AbstractAdapter
         }
 
         $curl = new Curl($options);
-        $this->_response = $curl->execute();
-        $this->_responseCodes = $this->_parseResponseCodes();
+        $this->response = $curl->execute();
+        $this->responseCodes = $this->parseResponseCodes();
 
-        if (stripos($this->_responseCodes['ACK'], 'Success') !== false) {
-            $this->_approved = true;
-            $this->_message = 'The transaction has been approved.';
+        if (stripos($this->responseCodes['ACK'], 'Success') !== false) {
+            $this->approved = true;
+            $this->message = 'The transaction has been approved.';
         } else {
-            if (isset($this->_responseCodes['L_SHORTMESSAGE0']) && (stripos($this->_responseCodes['L_SHORTMESSAGE0'], 'Decline') !== false)) {
-                $this->_declined = true;
+            if (isset($this->responseCodes['L_SHORTMESSAGE0']) && (stripos($this->responseCodes['L_SHORTMESSAGE0'], 'Decline') !== false)) {
+                $this->declined = true;
             }
-            if (isset($this->_responseCodes['L_SEVERITYCODE0']) && (stripos($this->_responseCodes['L_SEVERITYCODE0'], 'Error') !== false)) {
-                $this->_error = true;
+            if (isset($this->responseCodes['L_SEVERITYCODE0']) && (stripos($this->responseCodes['L_SEVERITYCODE0'], 'Error') !== false)) {
+                $this->error = true;
             }
-            if (isset($this->_responseCodes['L_LONGMESSAGE0'])) {
-                $this->_message = $this->_responseCodes['L_LONGMESSAGE0'];
+            if (isset($this->responseCodes['L_LONGMESSAGE0'])) {
+                $this->message = $this->responseCodes['L_LONGMESSAGE0'];
             }
         }
     }
@@ -244,10 +244,10 @@ class PayPal extends AbstractAdapter
      */
     protected function _buildPostString()
     {
-        $post = $this->_transaction;
+        $post = $this->transaction;
 
-        $post['ACCT'] = $this->_filterCardNum($post['ACCT']);
-        $post['EXPDATE'] = $this->_filterExpDate($post['EXPDATE'], 6);
+        $post['ACCT'] = $this->filterCardNum($post['ACCT']);
+        $post['EXPDATE'] = $this->filterExpDate($post['EXPDATE'], 6);
 
         if ((null !== $post['SHIPTOFNAME']) || (null !== $post['SHIPTOLNAME'])) {
             $post['SHIPTONAME'] = $post['SHIPTOFNAME'] . ' ' . $post['SHIPTOLNAME'];
@@ -265,7 +265,7 @@ class PayPal extends AbstractAdapter
      */
     protected function _parseResponseCodes()
     {
-        $responseCodes = explode('&', $this->_response);
+        $responseCodes = explode('&', $this->response);
         $codes = array();
 
         foreach ($responseCodes as $key => $value) {

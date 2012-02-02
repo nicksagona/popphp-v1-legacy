@@ -42,25 +42,25 @@ class Child extends AbstractDom
      * Child element node name
      * @var string
      */
-    protected $_nodeName = null;
+    protected $nodeName = null;
 
     /**
      * Child element node value
      * @var string
      */
-    protected $_nodeValue = null;
+    protected $nodeValue = null;
 
     /**
      * Flag to render children before node value or not.
      * @var boolean
      */
-    protected $_childrenFirst = false;
+    protected $childrenFirst = false;
 
     /**
      * Child element attributes
      * @var array
      */
-    protected $_attributes = array();
+    protected $attributes = array();
 
     /**
      * Constructor
@@ -76,17 +76,17 @@ class Child extends AbstractDom
      */
     public function __construct($name, $value = null, $childNode = null, $first = false, $indent = null)
     {
-        $this->_lang = new Locale();
+        $this->lang = new Locale();
 
-        $this->_nodeName = strtolower($name);
-        $this->_nodeValue = $value;
-        $this->_childrenFirst = $first;
+        $this->nodeName = strtolower($name);
+        $this->nodeValue = $value;
+        $this->childrenFirst = $first;
 
         if (null !== $childNode) {
             $this->addChild($childNode);
         }
 
-        $this->_indent = $indent;
+        $this->indent = $indent;
     }
 
     /**
@@ -121,7 +121,7 @@ class Child extends AbstractDom
      */
     public function getNodeName()
     {
-        return $this->_nodeName;
+        return $this->nodeName;
     }
 
     /**
@@ -131,7 +131,7 @@ class Child extends AbstractDom
      */
     public function getNodeValue()
     {
-        return $this->_nodeValue;
+        return $this->nodeValue;
     }
 
     /**
@@ -142,7 +142,7 @@ class Child extends AbstractDom
      */
     public function setNodeName($name)
     {
-        $this->_nodeName = strtolower($name);
+        $this->nodeName = strtolower($name);
         return $this;
     }
 
@@ -154,7 +154,7 @@ class Child extends AbstractDom
      */
     public function setNodeValue($value)
     {
-        $this->_nodeValue = $value;
+        $this->nodeValue = $value;
         return $this;
     }
 
@@ -169,10 +169,10 @@ class Child extends AbstractDom
     {
         if (is_array($a)) {
             foreach ($a as $name => $value) {
-                $this->_attributes[strtolower($name)] = $value;
+                $this->attributes[strtolower($name)] = $value;
             }
         } else {
-            $this->_attributes[strtolower($a)] = $v;
+            $this->attributes[strtolower($a)] = $v;
         }
         return $this;
     }
@@ -185,7 +185,7 @@ class Child extends AbstractDom
      */
     public function getAttribute($name)
     {
-        return (isset($this->_attributes[$name])) ? $this->_attributes[$name] : null;
+        return (isset($this->attributes[$name])) ? $this->attributes[$name] : null;
     }
 
     /**
@@ -195,7 +195,7 @@ class Child extends AbstractDom
      */
     public function getAttributes()
     {
-        return $this->_attributes;
+        return $this->attributes;
     }
 
     /**
@@ -209,56 +209,56 @@ class Child extends AbstractDom
     public function render($ret = false, $depth = 0, $indent = null)
     {
         // Initialize child object properties and variables.
-        $this->_output = '';
-        $this->_indent = (null === $this->_indent) ? str_repeat('    ', $depth) : $this->_indent;
+        $this->output = '';
+        $this->indent = (null === $this->indent) ? str_repeat('    ', $depth) : $this->indent;
         $attribs = '';
         $attribAry = array();
 
         // Format child attributes, if applicable.
-        if (count($this->_attributes) > 0) {
-            foreach ($this->_attributes as $key => $value) {
+        if (count($this->attributes) > 0) {
+            foreach ($this->attributes as $key => $value) {
                 $attribAry[] = $key . "=\"" . $value . "\"";
             }
             $attribs = ' ' . implode(' ', $attribAry);
         }
 
         // Initialize the node.
-        $this->_output .= "{$indent}{$this->_indent}<{$this->_nodeName}{$attribs}";
+        $this->output .= "{$indent}{$this->indent}<{$this->nodeName}{$attribs}";
 
         // If current child element has child nodes, format and render.
-        if (count($this->_childNodes) > 0) {
-            $this->_output .= ">\n";
+        if (count($this->childNodes) > 0) {
+            $this->output .= ">\n";
             $new_depth = $depth + 1;
 
             // Render node value before the child nodes.
-            if (!$this->_childrenFirst) {
-                $this->_output .= (null !== $this->_nodeValue) ? (str_repeat('    ', $new_depth) . "{$indent}{$this->_nodeValue}\n") : '';
-                foreach ($this->_childNodes as $child) {
-                    $this->_output .= $child->render(true, $new_depth, $indent);
+            if (!$this->childrenFirst) {
+                $this->output .= (null !== $this->nodeValue) ? (str_repeat('    ', $new_depth) . "{$indent}{$this->nodeValue}\n") : '';
+                foreach ($this->childNodes as $child) {
+                    $this->output .= $child->render(true, $new_depth, $indent);
                 }
-                $this->_output .= "{$indent}{$this->_indent}</{$this->_nodeName}>\n";
+                $this->output .= "{$indent}{$this->indent}</{$this->nodeName}>\n";
             // Else, render child nodes first, then node value.
             } else {
-                foreach ($this->_childNodes as $child) {
-                    $this->_output .= $child->render(true, $new_depth, $indent);
+                foreach ($this->childNodes as $child) {
+                    $this->output .= $child->render(true, $new_depth, $indent);
                 }
-                $this->_output .= (null !== $this->_nodeValue) ? (str_repeat('    ', $new_depth) . "{$indent}{$this->_nodeValue}\n{$indent}{$this->_indent}</{$this->_nodeName}>\n") : "{$indent}{$this->_indent}</{$this->_nodeName}>\n";
+                $this->output .= (null !== $this->nodeValue) ? (str_repeat('    ', $new_depth) . "{$indent}{$this->nodeValue}\n{$indent}{$this->indent}</{$this->nodeName}>\n") : "{$indent}{$this->indent}</{$this->nodeName}>\n";
             }
         // Else, render the child node.
         } else {
-            if ((null !== $this->_nodeValue) || ($this->_nodeName == 'textarea')) {
-                $this->_output .= ">";
-                $this->_output .= "{$this->_nodeValue}</{$this->_nodeName}>\n";
+            if ((null !== $this->nodeValue) || ($this->nodeName == 'textarea')) {
+                $this->output .= ">";
+                $this->output .= "{$this->nodeValue}</{$this->nodeName}>\n";
             } else {
-                $this->_output .= " />\n";
+                $this->output .= " />\n";
             }
         }
 
         // Return or print the rendered child node output.
         if ($ret) {
-            return $this->_output;
+            return $this->output;
         } else {
-            echo $this->_output;
+            echo $this->output;
         }
     }
 

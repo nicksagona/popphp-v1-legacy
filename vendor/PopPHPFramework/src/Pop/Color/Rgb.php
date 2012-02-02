@@ -39,19 +39,19 @@ class Rgb implements ColorInterface
      * Red value
      * @var int
      */
-    protected $_red = null;
+    protected $red = null;
 
     /**
      * Green value
      * @var int
      */
-    protected $_green = null;
+    protected $green = null;
 
     /**
      * Blue value
      * @var int
      */
-    protected $_blue = null;
+    protected $blue = null;
 
     /**
      * Constructor
@@ -74,9 +74,9 @@ class Rgb implements ColorInterface
             throw new Exception('One or more of the color values is out of range.');
         }
 
-        $this->_red = (int)$r;
-        $this->_green = (int)$g;
-        $this->_blue = (int)$b;
+        $this->red = (int)$r;
+        $this->green = (int)$g;
+        $this->blue = (int)$b;
     }
 
     /**
@@ -93,16 +93,16 @@ class Rgb implements ColorInterface
 
         switch ($type) {
             case 1:
-                $rgb = array('r' => $this->_red, 'g' => $this->_green, 'b' => $this->_blue);
+                $rgb = array('r' => $this->red, 'g' => $this->green, 'b' => $this->blue);
                 break;
             case 2:
-                $rgb = array($this->_red, $this->_green, $this->_blue);
+                $rgb = array($this->red, $this->green, $this->blue);
                 break;
             case 3:
                 if ($css) {
-                    $rgb = 'rgb(' . $this->_red . ',' . $this->_green . ',' . $this->_blue . ')';
+                    $rgb = 'rgb(' . $this->red . ',' . $this->green . ',' . $this->blue . ')';
                 } else {
-                    $rgb = $this->_red . ',' . $this->_green . ',' . $this->_blue;
+                    $rgb = $this->red . ',' . $this->green . ',' . $this->blue;
                 }
                 break;
         }
@@ -118,7 +118,7 @@ class Rgb implements ColorInterface
      */
     public function getRed()
     {
-        return $this->_red;
+        return $this->red;
     }
 
     /**
@@ -128,7 +128,7 @@ class Rgb implements ColorInterface
      */
     public function getGreen()
     {
-        return $this->_green;
+        return $this->green;
     }
 
     /**
@@ -138,7 +138,7 @@ class Rgb implements ColorInterface
      */
     public function getBlue()
     {
-        return $this->_blue;
+        return $this->blue;
     }
 
     /**

@@ -59,43 +59,43 @@ class Generator extends File
      * Code object
      * @var Pop\Code\ClassGenerator|Pop\Code\InterfaceGenerator
      */
-    protected $_code = null;
+    protected $code = null;
 
     /**
      * Docblock generator object
      * @var Pop\Code\DocblockGenerator
      */
-    protected $_docblock = null;
+    protected $docblock = null;
 
     /**
      * Namespace generator object
      * @var Pop\Code\NamespaceGenerator
      */
-    protected $_namespace = null;
+    protected $namespace = null;
 
     /**
      * Code body
      * @var string
      */
-    protected $_body = null;
+    protected $body = null;
 
     /**
      * Code indent
      * @var string
      */
-    protected $_indent = null;
+    protected $indent = null;
 
     /**
      * Flag to close the code file with ?>
      * @var boolean
      */
-    protected $_close = false;
+    protected $close = false;
 
     /**
      * Array of allowed file types.
      * @var array
      */
-    protected $_allowed = array(
+    protected $allowed = array(
         'php'    => 'text/plain',
         'php3'   => 'text/plain',
         'phtml'  => 'text/plain'
@@ -118,8 +118,8 @@ class Generator extends File
         } else if ($type == self::CREATE_INTERFACE) {
             $this->createInterface();
         } else if (($type == self::CREATE_NONE) && file_exists($file)) {
-            $this->_body = str_replace('<?php', '', $this->read());
-            $this->_body = trim(str_replace('?>', '', $this->_body)) . PHP_EOL . PHP_EOL;
+            $this->body = str_replace('<?php', '', $this->read());
+            $this->body = trim(str_replace('?>', '', $this->body)) . PHP_EOL . PHP_EOL;
         }
     }
 
@@ -130,7 +130,7 @@ class Generator extends File
      */
     public function createInterface()
     {
-        $this->_code = new InterfaceGenerator($this->filename);
+        $this->code = new InterfaceGenerator($this->filename);
     }
 
     /**
@@ -140,7 +140,7 @@ class Generator extends File
      */
     public function createClass()
     {
-        $this->_code = new ClassGenerator($this->filename);
+        $this->code = new ClassGenerator($this->filename);
     }
 
     /**
@@ -150,7 +150,7 @@ class Generator extends File
      */
     public function code()
     {
-        return $this->_code;
+        return $this->code;
     }
 
     /**
@@ -161,7 +161,7 @@ class Generator extends File
      */
     public function setClose($close = false)
     {
-        $this->_close = (boolean)$close;
+        $this->close = (boolean)$close;
         return $this;
     }
 
@@ -173,7 +173,7 @@ class Generator extends File
      */
     public function setIndent($indent = null)
     {
-        $this->_indent = $indent;
+        $this->indent = $indent;
         return $this;
     }
 
@@ -184,7 +184,7 @@ class Generator extends File
      */
     public function getIndent()
     {
-        return $this->_indent;
+        return $this->indent;
     }
 
     /**
@@ -195,7 +195,7 @@ class Generator extends File
      */
     public function setNamespace(NamespaceGenerator $namespace)
     {
-        $this->_namespace = $namespace;
+        $this->namespace = $namespace;
         return $this;
     }
 
@@ -206,7 +206,7 @@ class Generator extends File
      */
     public function getNamespace()
     {
-        return $this->_namespace;
+        return $this->namespace;
     }
 
     /**
@@ -217,7 +217,7 @@ class Generator extends File
      */
     public function setDocblock(DocblockGenerator $docblock)
     {
-        $this->_docblock = $docblock;
+        $this->docblock = $docblock;
         return $this;
     }
 
@@ -228,7 +228,7 @@ class Generator extends File
      */
     public function getDocblock()
     {
-        return $this->_docblock;
+        return $this->docblock;
     }
 
     /**
@@ -240,9 +240,9 @@ class Generator extends File
      */
     public function setBody($body, $newline = true)
     {
-        $this->_body = $this->_indent . str_replace(PHP_EOL, PHP_EOL . $this->_indent, $body);
+        $this->body = $this->indent . str_replace(PHP_EOL, PHP_EOL . $this->indent, $body);
         if ($newline) {
-            $this->_body .= PHP_EOL;
+            $this->body .= PHP_EOL;
         }
         return $this;
     }
@@ -256,10 +256,10 @@ class Generator extends File
      */
     public function appendToBody($body, $newline = true)
     {
-        $body = str_replace(PHP_EOL, PHP_EOL . $this->_indent, $body);
-        $this->_body .= $this->_indent . $body;
+        $body = str_replace(PHP_EOL, PHP_EOL . $this->indent, $body);
+        $this->body .= $this->indent . $body;
         if ($newline) {
-            $this->_body .= PHP_EOL;
+            $this->body .= PHP_EOL;
         }
         return $this;
     }
@@ -271,7 +271,7 @@ class Generator extends File
      */
     public function getBody()
     {
-        return $this->_body;
+        return $this->body;
     }
 
     /**
@@ -282,29 +282,29 @@ class Generator extends File
      */
     public function render($ret = false)
     {
-        $this->_output = '<?php' . PHP_EOL;
-        $this->_output .= (null !== $this->_docblock) ? $this->_docblock->render(true) . PHP_EOL : null;
+        $this->output = '<?php' . PHP_EOL;
+        $this->output .= (null !== $this->docblock) ? $this->docblock->render(true) . PHP_EOL : null;
 
-        if (null !== $this->_namespace) {
-            $this->_output .= $this->_namespace->render(true) . PHP_EOL;
+        if (null !== $this->namespace) {
+            $this->output .= $this->namespace->render(true) . PHP_EOL;
         }
 
-        if (null !== $this->_code) {
-            $this->_output .= $this->_code->render(true) . PHP_EOL;
+        if (null !== $this->code) {
+            $this->output .= $this->code->render(true) . PHP_EOL;
         }
 
-        if (null !== $this->_body) {
-            $this->_output .= PHP_EOL . $this->_body . PHP_EOL . PHP_EOL;
+        if (null !== $this->body) {
+            $this->output .= PHP_EOL . $this->body . PHP_EOL . PHP_EOL;
         }
 
-        if ($this->_close) {
-            $this->_output .= '?>' . PHP_EOL;
+        if ($this->close) {
+            $this->output .= '?>' . PHP_EOL;
         }
 
         if ($ret) {
-            return $this->_output;
+            return $this->output;
         } else {
-            echo $this->_output;
+            echo $this->output;
         }
     }
     /**

@@ -41,31 +41,31 @@ class NamespaceGenerator
      * Namespace
      * @var string
      */
-    protected $_namespace = null;
+    protected $namespace = null;
 
     /**
      * Array of namespaces to use
      * @var array
      */
-    protected $_use = array();
+    protected $use = array();
 
     /**
      * Docblock generator object
      * @var Pop\Code\DocblockGenerator
      */
-    protected $_docblock = null;
+    protected $docblock = null;
 
     /**
      * Namespace indent
      * @var string
      */
-    protected $_indent = null;
+    protected $indent = null;
 
     /**
      * Namespace output
      * @var string
      */
-    protected $_output = null;
+    protected $output = null;
 
     /**
      * Constructor
@@ -78,7 +78,7 @@ class NamespaceGenerator
 
     public function __construct($namespace)
     {
-        $this->_namespace = $namespace;
+        $this->namespace = $namespace;
     }
 
     /**
@@ -101,7 +101,7 @@ class NamespaceGenerator
      */
     public function setNamespace($namespace)
     {
-        $this->_namespace = $namespace;
+        $this->namespace = $namespace;
         return $this;
     }
 
@@ -112,7 +112,7 @@ class NamespaceGenerator
      */
     public function getNamespace()
     {
-        return $this->_namespace;
+        return $this->namespace;
     }
 
     /**
@@ -124,7 +124,7 @@ class NamespaceGenerator
      */
     public function setUse($use, $as = null)
     {
-        $this->_use[$use] = $as;
+        $this->use[$use] = $as;
         return $this;
     }
 
@@ -138,9 +138,9 @@ class NamespaceGenerator
     {
         foreach ($uses as $use) {
             if (is_array($use)) {
-                $this->_use[$use[0]] = (isset($use[1])) ? $use[1] : null;
+                $this->use[$use[0]] = (isset($use[1])) ? $use[1] : null;
             } else {
-                $this->_use[$use] = null;
+                $this->use[$use] = null;
             }
         }
         return $this;
@@ -153,39 +153,39 @@ class NamespaceGenerator
      */
     public function render($ret = false)
     {
-        $this->_docblock = new DocblockGenerator(null, $this->_indent);
-        $this->_docblock->setTag('namespace');
-        $this->_output = $this->_docblock->render(true);
-        $this->_output .= $this->_indent . 'namespace ' . $this->_namespace . ';' . PHP_EOL;
+        $this->docblock = new DocblockGenerator(null, $this->indent);
+        $this->docblock->setTag('namespace');
+        $this->output = $this->docblock->render(true);
+        $this->output .= $this->indent . 'namespace ' . $this->namespace . ';' . PHP_EOL;
 
-        if (count($this->_use) > 0) {
-            $this->_output .= PHP_EOL . $this->_indent . 'use ';
+        if (count($this->use) > 0) {
+            $this->output .= PHP_EOL . $this->indent . 'use ';
             $i = 0;
-            foreach ($this->_use as $ns => $as) {
+            foreach ($this->use as $ns => $as) {
                 if ($i == 0) {
-                    $this->_output .= $ns;
+                    $this->output .= $ns;
                     if (null !== $as) {
-                        $this->_output .= ' as ' . $as;
+                        $this->output .= ' as ' . $as;
                     }
                 } else {
-                    $this->_output .= $this->_indent . '    '. $ns;
+                    $this->output .= $this->indent . '    '. $ns;
                     if (null !== $as) {
-                        $this->_output .= ' as ' . $as;
+                        $this->output .= ' as ' . $as;
                     }
                 }
                 $i++;
-                if ($i < count($this->_use)) {
-                    $this->_output .= ',' . PHP_EOL;
+                if ($i < count($this->use)) {
+                    $this->output .= ',' . PHP_EOL;
                 } else {
-                    $this->_output .= ';' . PHP_EOL;
+                    $this->output .= ';' . PHP_EOL;
                 }
             }
         }
 
         if ($ret) {
-            return $this->_output;
+            return $this->output;
         } else {
-            echo $this->_output;
+            echo $this->output;
         }
     }
 

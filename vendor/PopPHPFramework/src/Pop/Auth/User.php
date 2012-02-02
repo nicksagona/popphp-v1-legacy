@@ -42,25 +42,25 @@ class User
      * Username
      * @var string
      */
-    protected $_username = null;
+    protected $username = null;
 
     /**
      * Password
      * @var string
      */
-    protected $_password = null;
+    protected $password = null;
 
     /**
      * User role
      * @var Pop\Auth\Role
      */
-    protected $_role = null;
+    protected $role = null;
 
     /**
      * User fields
      * @var array
      */
-    protected $_fields = array();
+    protected $fields = array();
 
     /**
      * Constructor
@@ -74,9 +74,9 @@ class User
      */
     public function __construct($username = null, $password = null, Role $role = null)
     {
-        $this->_username = $username;
-        $this->_password = $password;
-        $this->_role = $role;
+        $this->username = $username;
+        $this->password = $password;
+        $this->role = $role;
     }
 
     /**
@@ -100,7 +100,7 @@ class User
      */
     public function getUsername()
     {
-        return $this->_username;
+        return $this->username;
     }
 
     /**
@@ -110,7 +110,7 @@ class User
      */
     public function getPassword()
     {
-        return $this->_password;
+        return $this->password;
     }
 
     /**
@@ -120,7 +120,7 @@ class User
      */
     public function getRole()
     {
-        return $this->_role;
+        return $this->role;
     }
 
     /**
@@ -131,7 +131,7 @@ class User
      */
     public function setUsername($username)
     {
-        $this->_username = $username;
+        $this->username = $username;
         return $this;
     }
 
@@ -143,7 +143,7 @@ class User
      */
     public function setPassword($password)
     {
-        $this->_password = $password;
+        $this->password = $password;
         return $this;
     }
 
@@ -155,7 +155,7 @@ class User
      */
     public function setRole(Role $role)
     {
-        $this->_role = $role;
+        $this->role = $role;
         return $this;
     }
 
@@ -168,7 +168,7 @@ class User
     public function setFields(array $fields)
     {
         foreach ($fields as $key => $value) {
-            $this->_fields[$key] = $value;
+            $this->fields[$key] = $value;
         }
         return $this;
     }
@@ -184,7 +184,7 @@ class User
         $result = false;
 
         // If user role is defined and is greater than or equal to required role
-        if ((null !== $this->_role) && ($this->_role->compare($requiredRole) >= 0)) {
+        if ((null !== $this->role) && ($this->role->compare($requiredRole) >= 0)) {
             $result = true;
         }
 
@@ -199,7 +199,7 @@ class User
      */
     public function __get($name)
     {
-        return (isset($this->_fields[$name])) ? $this->_fields[$name] : null;
+        return (isset($this->fields[$name])) ? $this->fields[$name] : null;
     }
 
 }

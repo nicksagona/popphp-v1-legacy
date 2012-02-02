@@ -89,7 +89,7 @@ class Mobile
         $this->ua = $_SERVER['HTTP_USER_AGENT'];
         $this->mobile = $mobile;
         $this->standard = $full;
-        $this->isMobile = $this->_detect();
+        $this->isMobile = $this->detect();
 
         $sess = Session::getInstance();
 

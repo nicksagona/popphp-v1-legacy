@@ -39,31 +39,31 @@ class Hex implements ColorInterface
      * Red value
      * @var string
      */
-    protected $_red = null;
+    protected $red = null;
 
     /**
      * Green value
      * @var string
      */
-    protected $_green = null;
+    protected $green = null;
 
     /**
      * Blue value
      * @var string
      */
-    protected $_blue = null;
+    protected $blue = null;
 
     /**
      * Hex value
      * @var string
      */
-    protected $_hex = null;
+    protected $hex = null;
 
     /**
      * Shorthand hex value
      * @var string
      */
-    protected $_shorthand = null;
+    protected $shorthand = null;
 
     /**
      * Constructor
@@ -80,18 +80,18 @@ class Hex implements ColorInterface
         $hex = (substr($hex, 0, 1) == '#') ? substr($hex, 1) : $hex;
 
         if (strlen($hex) == 3) {
-            $this->_hex = str_repeat(substr($hex, 0, 1), 2) . str_repeat(substr($hex, 1, 1), 2) . str_repeat(substr($hex, 2, 1), 2);
-            $this->_shorthand = $hex;
+            $this->hex = str_repeat(substr($hex, 0, 1), 2) . str_repeat(substr($hex, 1, 1), 2) . str_repeat(substr($hex, 2, 1), 2);
+            $this->shorthand = $hex;
         } else {
-            $this->_hex = $hex;
+            $this->hex = $hex;
         }
-        $this->_red = substr($this->_hex, 0, 2);
-        $this->_green = substr($this->_hex, 2, 2);
-        $this->_blue = substr($this->_hex, 4, 2);
+        $this->red = substr($this->hex, 0, 2);
+        $this->green = substr($this->hex, 2, 2);
+        $this->blue = substr($this->hex, 4, 2);
 
-        $dR = base_convert($this->_red, 16, 10);
-        $dG = base_convert($this->_green, 16, 10);
-        $dB = base_convert($this->_blue, 16, 10);
+        $dR = base_convert($this->red, 16, 10);
+        $dG = base_convert($this->green, 16, 10);
+        $dB = base_convert($this->blue, 16, 10);
 
         $max = max($dR, $dG, $dB);
         $min = min($dR, $dG, $dB);
@@ -104,20 +104,20 @@ class Hex implements ColorInterface
         $g = null;
         $b = null;
 
-        if (substr($this->_hex, 0, 1) == substr($this->_hex, 1, 1)) {
-            $r = substr($this->_hex, 0, 1);
+        if (substr($this->hex, 0, 1) == substr($this->hex, 1, 1)) {
+            $r = substr($this->hex, 0, 1);
         }
-        if (substr($this->_hex, 2, 1) == substr($this->_hex, 3, 1)) {
-            $g = substr($this->_hex, 2, 1);
+        if (substr($this->hex, 2, 1) == substr($this->hex, 3, 1)) {
+            $g = substr($this->hex, 2, 1);
         }
-        if (substr($this->_hex, 4, 1) == substr($this->_hex, 5, 1)) {
-            $b = substr($this->_hex, 4, 1);
+        if (substr($this->hex, 4, 1) == substr($this->hex, 5, 1)) {
+            $b = substr($this->hex, 4, 1);
         }
 
         if ((null !== $r) && (null !== $g) && (null !== $b)) {
-            $this->_shorthand = $r . $g . $b;
+            $this->shorthand = $r . $g . $b;
         } else {
-            $this->_shorthand = null;
+            $this->shorthand = null;
         }
     }
 
@@ -133,10 +133,10 @@ class Hex implements ColorInterface
 
         $hex = null;
 
-        if (($short) && (null !== $this->_shorthand)) {
-            $hex = ($hash) ? '#' . $this->_shorthand : $this->_shorthand;
+        if (($short) && (null !== $this->shorthand)) {
+            $hex = ($hash) ? '#' . $this->shorthand : $this->shorthand;
         } else {
-            $hex = ($hash) ? '#' . $this->_hex : $this->_hex;
+            $hex = ($hash) ? '#' . $this->hex : $this->hex;
         }
 
         return $hex;
@@ -150,7 +150,7 @@ class Hex implements ColorInterface
      */
     public function getRed()
     {
-        return $this->_red;
+        return $this->red;
     }
 
     /**
@@ -160,7 +160,7 @@ class Hex implements ColorInterface
      */
     public function getGreen()
     {
-        return $this->_green;
+        return $this->green;
     }
 
     /**
@@ -170,7 +170,7 @@ class Hex implements ColorInterface
      */
     public function getBlue()
     {
-        return $this->_blue;
+        return $this->blue;
     }
 
     /**

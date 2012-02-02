@@ -41,67 +41,67 @@ abstract class AbstractAdapter implements AdapterInterface
      * Transaction data
      * @var array
      */
-    protected $_transaction = array();
+    protected $transaction = array();
 
     /**
      * Transaction fields for normalization purposes
      * @var array
      */
-    protected $_fields = array();
+    protected $fields = array();
 
     /**
      * Required fields
      * @var array
      */
-    protected $_requiredFields = array();
+    protected $requiredFields = array();
 
     /**
      * Boolean flag to use test environment or not
      * @var boolean
      */
-    protected $_test = true;
+    protected $test = true;
 
     /**
      * Boolean flag for approved transaction
      * @var boolean
      */
-    protected $_approved = false;
+    protected $approved = false;
 
     /**
      * Boolean flag for declined transaction
      * @var boolean
      */
-    protected $_declined = false;
+    protected $declined = false;
 
     /**
      * Boolean flag for error transaction
      * @var boolean
      */
-    protected $_error = false;
+    protected $error = false;
 
     /**
      * Response string
      * @var string
      */
-    protected $_response = null;
+    protected $response = null;
 
     /**
      * Response codes
      * @var array
      */
-    protected $_responseCodes = array();
+    protected $responseCodes = array();
 
     /**
      * Response code
      * @var string
      */
-    protected $_responseCode = null;
+    protected $responseCode = null;
 
     /**
      * Response message
      * @var string
      */
-    protected $_message = null;
+    protected $message = null;
 
     /**
      * Send transaction
@@ -119,7 +119,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function getResponse()
     {
-        return $this->_response;
+        return $this->response;
     }
 
     /**
@@ -129,7 +129,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function getResponseCodes()
     {
-        return $this->_responseCodes;
+        return $this->responseCodes;
     }
 
     /**
@@ -139,7 +139,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function getCode($key)
     {
-        return (isset($this->_responseCodes[$key])) ? $this->_responseCodes[$key] : null;
+        return (isset($this->responseCodes[$key])) ? $this->responseCodes[$key] : null;
     }
 
     /**
@@ -149,7 +149,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function getResponseCode()
     {
-        return $this->_responseCode;
+        return $this->responseCode;
     }
 
     /**
@@ -159,7 +159,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function getMessage()
     {
-        return $this->_message;
+        return $this->message;
     }
 
     /**
@@ -169,7 +169,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function isTest()
     {
-        return $this->_test;
+        return $this->test;
     }
 
     /**
@@ -179,7 +179,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function isApproved()
     {
-        return $this->_approved;
+        return $this->approved;
     }
 
     /**
@@ -189,7 +189,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function isDeclined()
     {
-        return $this->_declined;
+        return $this->declined;
     }
 
     /**
@@ -199,7 +199,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function isError()
     {
-        return $this->_error;
+        return $this->error;
     }
 
     /**
@@ -209,7 +209,7 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     public function isValid()
     {
-        return $this->_validate();
+        return $this->validate();
     }
 
     /**
@@ -227,10 +227,10 @@ abstract class AbstractAdapter implements AdapterInterface
 
         foreach ($data as $key => $value) {
             if (null !== $value) {
-                if (array_key_exists($key, $this->_fields)) {
-                    $this->_transaction[$this->_fields[$key]] = $value;
+                if (array_key_exists($key, $this->fields)) {
+                    $this->transaction[$this->fields[$key]] = $value;
                 } else {
-                    $this->_transaction[$key] = $value;
+                    $this->transaction[$key] = $value;
                 }
             }
         }
@@ -247,9 +247,9 @@ abstract class AbstractAdapter implements AdapterInterface
     {
         $valid = true;
 
-        if (count($this->_requiredFields) > 0) {
-            foreach ($this->_requiredFields as $field) {
-                if (null === $this->_transaction[$field]) {
+        if (count($this->requiredFields) > 0) {
+            foreach ($this->requiredFields as $field) {
+                if (null === $this->transaction[$field]) {
                     $valid = false;
                 }
             }

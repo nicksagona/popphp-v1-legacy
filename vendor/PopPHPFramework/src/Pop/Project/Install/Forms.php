@@ -51,7 +51,7 @@ class Forms
      */
     public static function install($install)
     {
-        echo Locale::factory()->__('Creating form class files...') . PHP_EOL;
+        echo Locale::factory()->_('Creating form class files...') . PHP_EOL;
 
         // Create form class folder
         $formDir = $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Form';
@@ -84,7 +84,7 @@ class Forms
 
             // Create the init values array within the constructor
             if (isset($form['fields'])) {
-                $construct->appendToBody("\$this->_initFieldsValues = array (");
+                $construct->appendToBody("\$this->initFieldsValues = array (");
                 $i = 0;
                 foreach ($form['fields'] as $field) {
                     $i++;

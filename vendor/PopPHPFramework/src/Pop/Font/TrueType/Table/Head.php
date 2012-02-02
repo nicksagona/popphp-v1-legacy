@@ -41,7 +41,7 @@ class Head
      * Header info
      * @var array
      */
-    protected $_headerInfo = array();
+    protected $headerInfo = array();
 
     /**
      * Constructor
@@ -90,7 +90,7 @@ class Head
         $indexToLocFormat = unpack('nindexToLocFormat', $font->read($bytePos, 2));
         $headerArray['indexToLocFormat'] = $font->shiftToSigned($indexToLocFormat['indexToLocFormat']);
 
-        $this->_headerInfo = array_merge($versionArray, $headerArray, $bBox);
+        $this->headerInfo = array_merge($versionArray, $headerArray, $bBox);
     }
 
     /**
@@ -102,7 +102,7 @@ class Head
      */
     public function __set($name, $value)
     {
-        $this->_headerInfo[$name] = $value;
+        $this->headerInfo[$name] = $value;
     }
 
     /**
@@ -113,7 +113,7 @@ class Head
      */
     public function __get($name)
     {
-        return (array_key_exists($name, $this->_headerInfo)) ? $this->_headerInfo[$name] : null;
+        return (array_key_exists($name, $this->headerInfo)) ? $this->headerInfo[$name] : null;
     }
 
     /**
@@ -124,7 +124,7 @@ class Head
      */
     public function __isset($name)
     {
-        return isset($this->_headerInfo[$name]);
+        return isset($this->headerInfo[$name]);
     }
 
     /**
@@ -135,7 +135,7 @@ class Head
      */
     public function __unset($name)
     {
-        $this->_headerInfo[$name] = null;
+        $this->headerInfo[$name] = null;
     }
 
 }

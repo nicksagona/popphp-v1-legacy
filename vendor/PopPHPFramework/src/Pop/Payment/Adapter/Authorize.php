@@ -41,31 +41,31 @@ class Authorize extends AbstractAdapter
      * API Login ID
      * @var string
      */
-    protected $_apiLoginId = null;
+    protected $apiLoginId = null;
 
     /**
      * Transaction Key
      * @var string
      */
-    protected $_transKey = null;
+    protected $transKey = null;
 
     /**
      * Test URL
      * @var string
      */
-    protected $_testUrl = 'https://test.authorize.net/gateway/transact.dll';
+    protected $testUrl = 'https://test.authorize.net/gateway/transact.dll';
 
     /**
      * Live URL
      * @var string
      */
-    protected $_liveUrl = 'https://secure.authorize.net/gateway/transact.dll';
+    protected $liveUrl = 'https://secure.authorize.net/gateway/transact.dll';
 
     /**
      * Transaction data
      * @var array
      */
-    protected $_transaction = array(
+    protected $transaction = array(
         'x_login'                           => null,
         'x_tran_key'                        => null,
         'x_allow_partial_Auth'              => null,
@@ -120,7 +120,7 @@ class Authorize extends AbstractAdapter
      * Transaction fields for normalization purposes
      * @var array
      */
-    protected $_fields = array(
+    protected $fields = array(
         'amount'          => 'x_amount',
         'cardNum'         => 'x_card_num',
         'expDate'         => 'x_exp_date',
@@ -150,7 +150,7 @@ class Authorize extends AbstractAdapter
      * Required fields
      * @var array
      */
-    protected $_requiredFields = array(
+    protected $requiredFields = array(
         'x_login',
         'x_tran_key',
         'x_version',
@@ -163,13 +163,13 @@ class Authorize extends AbstractAdapter
      * Response subcode
      * @var int
      */
-    protected $_responseSubcode = 0;
+    protected $responseSubcode = 0;
 
     /**
      * Reason code
      * @var int
      */
-    protected $_reasonCode = 0;
+    protected $reasonCode = 0;
 
     /**
      * Constructor
@@ -183,14 +183,14 @@ class Authorize extends AbstractAdapter
      */
     public function __construct($apiLoginId, $transKey, $test = false)
     {
-        $this->_apiLoginId = $apiLoginId;
-        $this->_transKey = $transKey;
-        $this->_transaction['x_login'] = $apiLoginId;
-        $this->_transaction['x_tran_key'] = $transKey;
+        $this->apiLoginId = $apiLoginId;
+        $this->transKey = $transKey;
+        $this->transaction['x_login'] = $apiLoginId;
+        $this->transaction['x_tran_key'] = $transKey;
 
-        $this->_test = $test;
-        if ($this->_test) {
-            $this->_transaction['x_test_request'] = 'TRUE';
+        $this->test = $test;
+        if ($this->test) {
+            $this->transaction['x_test_request'] = 'TRUE';
         }
     }
 
@@ -203,15 +203,15 @@ class Authorize extends AbstractAdapter
      */
     public function send($verifyPeer = true)
     {
-        if (!$this->_validate()) {
+        if (!$this->validate()) {
             throw new Exception('The required transaction data has not been set.');
         }
 
-        $url = ($this->_test) ? $this->_testUrl : $this->_liveUrl;
+        $url = ($this->test) ? $this->testUrl : $this->liveUrl;
         $options = array(
             CURLOPT_URL            => $url,
             CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => $this->_buildPostString(),
+            CURLOPT_POSTFIELDS     => $this->buildPostString(),
             CURLOPT_HEADER         => false,
             CURLOPT_RETURNTRANSFER => true
         );
@@ -221,22 +221,22 @@ class Authorize extends AbstractAdapter
         }
 
         $curl = new Curl($options);
-        $this->_response = $curl->execute();
-        $this->_responseCodes = explode('|', $this->_response);
-        $this->_responseCode = $this->_responseCodes[0];
-        $this->_responseSubcode = $this->_responseCodes[1];
-        $this->_reasonCode = $this->_responseCodes[2];
-        $this->_message = $this->_responseCodes[3];
+        $this->response = $curl->execute();
+        $this->responseCodes = explode('|', $this->response);
+        $this->responseCode = $this->responseCodes[0];
+        $this->responseSubcode = $this->responseCodes[1];
+        $this->reasonCode = $this->responseCodes[2];
+        $this->message = $this->responseCodes[3];
 
-        switch ($this->_responseCode) {
+        switch ($this->responseCode) {
             case 1:
-                $this->_approved = true;
+                $this->approved = true;
                 break;
             case 2:
-                $this->_declined = true;
+                $this->declined = true;
                 break;
             case 3:
-                $this->_error = true;
+                $this->error = true;
                 break;
         }
     }
@@ -248,7 +248,7 @@ class Authorize extends AbstractAdapter
      */
     public function getResponseSubcode()
     {
-        return $this->_responseSubcode;
+        return $this->responseSubcode;
     }
 
     /**
@@ -258,7 +258,7 @@ class Authorize extends AbstractAdapter
      */
     public function getReasonCode()
     {
-        return $this->_reasonCode;
+        return $this->reasonCode;
     }
 
     /**
@@ -268,8 +268,8 @@ class Authorize extends AbstractAdapter
      */
     protected function _buildPostString()
     {
-        $post = $this->_transaction;
-        $post['x_card_num'] = $this->_filterCardNum($post['x_card_num']);
+        $post = $this->transaction;
+        $post['x_card_num'] = $this->filterCardNum($post['x_card_num']);
         $post['x_delim_data'] = 'TRUE';
         $post['x_delim_char'] = '|';
 

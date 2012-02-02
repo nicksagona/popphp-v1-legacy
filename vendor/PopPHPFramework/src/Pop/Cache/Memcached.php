@@ -39,13 +39,13 @@ class Memcached implements CacheInterface
      * Memcache object
      * @var Memcache
      */
-    protected $_memcache = null;
+    protected $memcache = null;
 
     /**
      * Memcache version
      * @var string
      */
-    protected $_version = null;
+    protected $version = null;
     /**
      * Constructor
      *
@@ -61,12 +61,12 @@ class Memcached implements CacheInterface
             throw new Exception('Error: Memcache is not available.');
         }
 
-        $this->_memcache = new \Memcache();
-        if (!$this->_memcache->connect('localhost', (int)$port)) {
+        $this->memcache = new \Memcache();
+        if (!$this->memcache->connect('localhost', (int)$port)) {
             throw new Exception('Error: Unable to connect to the memcached server.');
         }
 
-        $this->_version = $this->_memcache->getVersion();
+        $this->version = $this->memcache->getVersion();
     }
 
     /**
@@ -76,7 +76,7 @@ class Memcached implements CacheInterface
      */
     public function getVersion()
     {
-        return $this->_version;
+        return $this->version;
     }
 
     /**
@@ -90,7 +90,7 @@ class Memcached implements CacheInterface
     public function save($id, $value, $time = null)
     {
         $time = (null === $time) ? time() : time() + $time;
-        $this->_memcache->set($id, $value, false, $time);
+        $this->memcache->set($id, $value, false, $time);
     }
 
     /**
@@ -102,7 +102,7 @@ class Memcached implements CacheInterface
      */
     public function load($id, $time = null)
     {
-        return $this->_memcache->get($id);
+        return $this->memcache->get($id);
     }
 
     /**
@@ -113,7 +113,7 @@ class Memcached implements CacheInterface
      */
     public function remove($id)
     {
-        $this->_memcache->delete($id);
+        $this->memcache->delete($id);
     }
 
     /**
@@ -123,7 +123,7 @@ class Memcached implements CacheInterface
      */
     public function clear()
     {
-        $this->_memcache->flush();
+        $this->memcache->flush();
     }
 
 }

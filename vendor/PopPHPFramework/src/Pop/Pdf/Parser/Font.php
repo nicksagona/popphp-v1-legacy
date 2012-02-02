@@ -46,43 +46,43 @@ class Font
      * Font object
      * @var Pop_Font
      */
-    protected $_font = null;
+    protected $font = null;
 
     /**
      * Font reference index
      * @var int
      */
-    protected $_fontIndex = 0;
+    protected $fontIndex = 0;
 
     /**
      * Font object index
      * @var int
      */
-    protected $_objectIndex = 0;
+    protected $objectIndex = 0;
 
     /**
      * Font descriptor index
      * @var int
      */
-    protected $_fontDescIndex = 0;
+    protected $fontDescIndex = 0;
 
     /**
      * Font file index
      * @var int
      */
-    protected $_fontFileIndex = 0;
+    protected $fontFileIndex = 0;
 
     /**
      * Font objects
      * @var array
      */
-    protected $_objects = array();
+    protected $objects = array();
 
     /**
      * Font compress flag
      * @var boolean
      */
-    protected $_compress = false;
+    protected $compress = false;
 
     /**
      * Constructor
@@ -98,23 +98,23 @@ class Font
      */
     public function __construct($fle, $fi, $oi, $comp = false)
     {
-        $this->_fontIndex = $fi;
-        $this->_objectIndex = $oi;
-        $this->_fontDescIndex = $oi + 1;
-        $this->_fontFileIndex = $oi + 2;
-        $this->_compress = $comp;
+        $this->fontIndex = $fi;
+        $this->objectIndex = $oi;
+        $this->fontDescIndex = $oi + 1;
+        $this->fontFileIndex = $oi + 2;
+        $this->compress = $comp;
 
         $ext = strtolower(substr($fle, -4));
         switch ($ext) {
             case '.ttf':
-                $this->_font = new TrueType($fle);
+                $this->font = new TrueType($fle);
                 break;
             case '.otf':
-                $this->_font = new OpenType($fle);
+                $this->font = new OpenType($fle);
                 break;
             case '.pfb':
-                $this->_font = new Type1($fle);
-                if (null === $this->_font->afmPath) {
+                $this->font = new Type1($fle);
+                if (null === $this->font->afmPath) {
                     throw new Exception('The AFM font file was not found.');
                 }
                 break;
@@ -122,7 +122,7 @@ class Font
                 throw new Exception('That font type is not supported.');
         }
 
-        $this->_createFontObjects();
+        $this->createFontObjects();
     }
 
     /**
@@ -132,7 +132,7 @@ class Font
      */
     public function getObjects()
     {
-        return $this->_objects;
+        return $this->objects;
     }
 
     /**
@@ -142,7 +142,7 @@ class Font
      */
     public function getFontRef()
     {
-        return "/TT{$this->_fontIndex} {$this->_objectIndex} 0 R";
+        return "/TT{$this->fontIndex} {$this->objectIndex} 0 R";
     }
 
     /**
@@ -152,7 +152,7 @@ class Font
      */
     public function getFontName()
     {
-        $fontName = ($this->_font instanceof Type1) ? $this->_font->info->postscriptName : $this->_font->tables['name']->postscriptName;
+        $fontName = ($this->font instanceof Type1) ? $this->font->info->postscriptName : $this->font->tables['name']->postscriptName;
         return $fontName;
     }
 
@@ -163,7 +163,7 @@ class Font
      */
     public function isEmbeddable()
     {
-        return $this->_font->embeddable;
+        return $this->font->embeddable;
     }
 
     /**
@@ -173,36 +173,36 @@ class Font
      */
     protected function _createFontObjects()
     {
-        if ($this->_font instanceof Type1) {
+        if ($this->font instanceof Type1) {
             $fontType = 'Type1';
-            $fontName = $this->_font->info->postscriptName;
+            $fontName = $this->font->info->postscriptName;
             $fontFile = 'FontFile';
-            $glyphWidths = array('encoding' => 'StandardEncoding', 'widths' => $this->_font->glyphWidths);
-            $unCompStream = $this->_font->fontData;
-            $length1 = $this->_font->length1;
-            $length2 = " /Length2 " . $this->_font->length2 . " /Length3 0";
+            $glyphWidths = array('encoding' => 'StandardEncoding', 'widths' => $this->font->glyphWidths);
+            $unCompStream = $this->font->fontData;
+            $length1 = $this->font->length1;
+            $length2 = " /Length2 " . $this->font->length2 . " /Length3 0";
         } else {
             $fontType = 'TrueType';
-            $fontName = $this->_font->tables['name']->postscriptName;
+            $fontName = $this->font->tables['name']->postscriptName;
             $fontFile = 'FontFile2';
-            $glyphWidths = $this->_getGlyphWidths($this->_font->tables['cmap']);
-            $unCompStream = $this->_font->read();
+            $glyphWidths = $this->getGlyphWidths($this->font->tables['cmap']);
+            $unCompStream = $this->font->read();
             $length1 = strlen($unCompStream);
             $length2 = null;
         }
 
-        $this->_objects[$this->_objectIndex] = new Object("{$this->_objectIndex} 0 obj\n<<\n    /Type /Font\n    /Subtype /{$fontType}\n    /FontDescriptor {$this->_fontDescIndex} 0 R\n    /Name /TT{$this->_fontIndex}\n    /BaseFont /" . $fontName . "\n    /FirstChar 32\n    /LastChar 255\n    /Widths [" . implode(' ', $glyphWidths['widths']) . "]\n    /Encoding /" . $glyphWidths['encoding'] . "\n>>\nendobj\n\n");
-        $bBox = '[' . $this->_font->bBox->xMin . ' ' . $this->_font->bBox->yMin . ' ' . $this->_font->bBox->xMax . ' ' . $this->_font->bBox->yMax . ']';
+        $this->objects[$this->objectIndex] = new Object("{$this->objectIndex} 0 obj\n<<\n    /Type /Font\n    /Subtype /{$fontType}\n    /FontDescriptor {$this->fontDescIndex} 0 R\n    /Name /TT{$this->fontIndex}\n    /BaseFont /" . $fontName . "\n    /FirstChar 32\n    /LastChar 255\n    /Widths [" . implode(' ', $glyphWidths['widths']) . "]\n    /Encoding /" . $glyphWidths['encoding'] . "\n>>\nendobj\n\n");
+        $bBox = '[' . $this->font->bBox->xMin . ' ' . $this->font->bBox->yMin . ' ' . $this->font->bBox->xMax . ' ' . $this->font->bBox->yMax . ']';
 
         $compStream = (function_exists('gzcompress')) ? Zlib::compress($unCompStream) : null;
-        if ($this->_compress) {
-            $fontFileObj = "{$this->_fontFileIndex} 0 obj\n<</Length " . strlen($compStream) . " /Filter /FlateDecode /Length1 " . $length1 . $length2 . ">>\nstream\n" . $compStream . "\nendstream\nendobj\n\n";
+        if ($this->compress) {
+            $fontFileObj = "{$this->fontFileIndex} 0 obj\n<</Length " . strlen($compStream) . " /Filter /FlateDecode /Length1 " . $length1 . $length2 . ">>\nstream\n" . $compStream . "\nendstream\nendobj\n\n";
         } else {
-            $fontFileObj = "{$this->_fontFileIndex} 0 obj\n<</Length " . strlen($unCompStream) . " /Length1 " . $length1 . $length2 . ">>\nstream\n" . $unCompStream . "\nendstream\nendobj\n\n";
+            $fontFileObj = "{$this->fontFileIndex} 0 obj\n<</Length " . strlen($unCompStream) . " /Length1 " . $length1 . $length2 . ">>\nstream\n" . $unCompStream . "\nendstream\nendobj\n\n";
         }
 
-        $this->_objects[$this->_fontDescIndex] = new Object("{$this->_fontDescIndex} 0 obj\n<<\n    /Type /FontDescriptor\n    /FontName /" . $fontName . "\n    /{$fontFile} {$this->_fontFileIndex} 0 R\n    /MissingWidth {$this->_font->missingWidth}\n    /StemV {$this->_font->stemV}\n    /Flags " . $this->_font->calcFlags() . "\n    /FontBBox {$bBox}\n    /Descent {$this->_font->descent}\n    /Ascent {$this->_font->ascent}\n    /CapHeight {$this->_font->capHeight}\n    /ItalicAngle {$this->_font->italicAngle}\n>>\nendobj\n\n");
-        $this->_objects[$this->_fontFileIndex] = new Object($fontFileObj);
+        $this->objects[$this->fontDescIndex] = new Object("{$this->fontDescIndex} 0 obj\n<<\n    /Type /FontDescriptor\n    /FontName /" . $fontName . "\n    /{$fontFile} {$this->fontFileIndex} 0 R\n    /MissingWidth {$this->font->missingWidth}\n    /StemV {$this->font->stemV}\n    /Flags " . $this->font->calcFlags() . "\n    /FontBBox {$bBox}\n    /Descent {$this->font->descent}\n    /Ascent {$this->font->ascent}\n    /CapHeight {$this->font->capHeight}\n    /ItalicAngle {$this->font->italicAngle}\n>>\nendobj\n\n");
+        $this->objects[$this->fontFileIndex] = new Object($fontFileObj);
     }
 
     /**
@@ -233,18 +233,18 @@ class Font
         if (null !== $msTable) {
             $gw['encoding'] = 'WinAnsiEncoding';
             foreach ($cmap->subTables[$msTable]->parsed['glyphNumbers'] as $key => $value) {
-                $gw['widths'][$key] = $this->_font->glyphWidths[$value];
+                $gw['widths'][$key] = $this->font->glyphWidths[$value];
             }
         } else if (null !== $uniTable) {
             $gw['encoding'] = 'WinAnsiEncoding';
             foreach ($cmap->subTables[$uniTable]->parsed['glyphNumbers'] as $key => $value) {
-                $gw['widths'][$key] = $this->_font->glyphWidths[$value];
+                $gw['widths'][$key] = $this->font->glyphWidths[$value];
             }
         } else if (null !== $macTable) {
             $gw['encoding'] = 'MacRomanEncoding';
             foreach ($cmap->subTables[$macTable]->parsed as $key => $value) {
-                if (($this->_font->glyphWidths[$value->ascii] != 0) && ($this->_font->glyphWidths[$value->ascii] != $this->_font->missingWidth)) {
-                    $gw['widths'][$key] = $this->_font->glyphWidths[$value->ascii];
+                if (($this->font->glyphWidths[$value->ascii] != 0) && ($this->font->glyphWidths[$value->ascii] != $this->font->missingWidth)) {
+                    $gw['widths'][$key] = $this->font->glyphWidths[$value->ascii];
                 }
             }
         }

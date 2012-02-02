@@ -63,7 +63,7 @@ class Color
      * Color space objects
      * @var array
      */
-    protected $_colors = array();
+    protected $colors = array();
 
     /**
      * Constructor
@@ -107,7 +107,7 @@ class Color
         $class = get_class($color);
 
         $type = strtolower(substr($class, (strrpos($class, '\\') + 1)));
-        $this->_colors[$type] = $color;
+        $this->colors[$type] = $color;
 
         if ($convert) {
             if ($type != 'cmyk') {
@@ -126,7 +126,7 @@ class Color
                 $this->convertToRgb($color, true);
             }
 
-            ksort($this->_colors);
+            ksort($this->colors);
         }
 
         return $this;
@@ -153,7 +153,7 @@ class Color
         $cmyk = $this->$method($color);
 
         if ($save) {
-            $this->_colors['cmyk'] = $cmyk;
+            $this->colors['cmyk'] = $cmyk;
         }
 
         return $cmyk;
@@ -180,7 +180,7 @@ class Color
         $hex = $this->$method($color);
 
         if ($save) {
-            $this->_colors['hex'] = $hex;
+            $this->colors['hex'] = $hex;
         }
 
         return $hex;
@@ -207,7 +207,7 @@ class Color
         $hsb = $this->$method($color);
 
         if ($save) {
-            $this->_colors['hsb'] = $hsb;
+            $this->colors['hsb'] = $hsb;
         }
 
         return $hsb;
@@ -234,7 +234,7 @@ class Color
         $lab = $this->$method($color);
 
         if ($save) {
-            $this->_colors['lab'] = $lab;
+            $this->colors['lab'] = $lab;
         }
 
         return $lab;
@@ -261,7 +261,7 @@ class Color
         $rgb = $this->$method($color);
 
         if ($save) {
-            $this->_colors['rgb'] = $rgb;
+            $this->colors['rgb'] = $rgb;
         }
 
         return $rgb;
@@ -685,11 +685,11 @@ class Color
         $name = strtolower($name);
 
         // Check to see if the color space object exists.
-        if (!array_key_exists($name, $this->_colors)) {
+        if (!array_key_exists($name, $this->colors)) {
             throw new Exception('That color space object does not exist.');
         }
 
-        return $this->_colors[$name];
+        return $this->colors[$name];
     }
 
     /**
@@ -700,7 +700,7 @@ class Color
      */
     public function __isset($name)
     {
-        return isset($this->_colors[strtolower($name)]);
+        return isset($this->colors[strtolower($name)]);
     }
 
     /**
@@ -713,8 +713,8 @@ class Color
     {
         $name = strtolower($name);
 
-        if (isset($this->_colors[$name])) {
-            unset($this->_colors[$name]);
+        if (isset($this->colors[$name])) {
+            unset($this->colors[$name]);
         }
     }
 

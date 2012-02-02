@@ -39,19 +39,19 @@ class Pgsql extends AbstractAdapter
      * Prepared statement
      * @var resource
      */
-    protected $_statement = null;
+    protected $statement = null;
 
     /**
      * Prepared statement parameters
      * @var array
      */
-    protected $_parameters = null;
+    protected $parameters = null;
 
     /**
      * Prepared SQL string
      * @var string
      */
-    protected $_sql = null;
+    protected $sql = null;
 
     /**
      * Constructor
@@ -95,8 +95,8 @@ class Pgsql extends AbstractAdapter
      */
     public function prepare($sql)
     {
-        $this->_sql = $sql;
-        $this->_statement = pg_prepare($this->connection, 'pop_db_adapter_pgsql_statement', $this->_sql);
+        $this->sql = $sql;
+        $this->statement = pg_prepare($this->connection, 'pop_db_adapter_pgsql_statement', $this->sql);
         return $this;
     }
 
@@ -112,7 +112,7 @@ class Pgsql extends AbstractAdapter
             $params = array($params);
         }
 
-        $this->_parameters = $params;
+        $this->parameters = $params;
 
         return $this;
     }
@@ -142,14 +142,14 @@ class Pgsql extends AbstractAdapter
      */
     public function execute()
     {
-        if (null === $this->_statement) {
+        if (null === $this->statement) {
             throw new Exception('Error: The database statement resource is not currently set.');
         }
 
-        if ((null !== $this->_parameters) && is_array($this->_parameters))  {
-            $this->result = pg_execute($this->connection, 'pop_db_adapter_pgsql_statement', $this->_parameters);
+        if ((null !== $this->parameters) && is_array($this->parameters))  {
+            $this->result = pg_execute($this->connection, 'pop_db_adapter_pgsql_statement', $this->parameters);
         } else {
-            $this->query($this->_sql);
+            $this->query($this->sql);
         }
     }
 

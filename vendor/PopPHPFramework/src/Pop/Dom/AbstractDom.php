@@ -39,19 +39,19 @@ abstract class AbstractDom
      * Object child nodes
      * @var array
      */
-    protected $_childNodes = array();
+    protected $childNodes = array();
 
     /**
      * Indentation for formatting purposes.
      * @var string
      */
-    protected $_indent = null;
+    protected $indent = null;
 
     /**
      * Child output
      * @var string
      */
-    protected $_output = null;
+    protected $output = null;
 
     /**
      * Method to return the indent.
@@ -60,7 +60,7 @@ abstract class AbstractDom
      */
     public function getIndent()
     {
-        return $this->_indent;
+        return $this->indent;
     }
 
     /**
@@ -71,7 +71,7 @@ abstract class AbstractDom
      */
     public function setIndent($indent)
     {
-        $this->_indent = $indent;
+        $this->indent = $indent;
     }
 
     /**
@@ -84,9 +84,9 @@ abstract class AbstractDom
     public function addChild($c)
     {
         if ($c instanceof Child) {
-            $this->_childNodes[] = $c;
+            $this->childNodes[] = $c;
         } else if (is_array($c)) {
-            $this->_childNodes[] = Child::factory($c);
+            $this->childNodes[] = Child::factory($c);
         } else {
             throw new Exception('The argument passed is not valid.');
         }
@@ -113,7 +113,7 @@ abstract class AbstractDom
      */
     public function hasChildren()
     {
-        return (count($this->_childNodes) > 0) ? true : false;
+        return (count($this->childNodes) > 0) ? true : false;
     }
 
     /**
@@ -124,7 +124,7 @@ abstract class AbstractDom
      */
     public function getChild($i)
     {
-        return (isset($this->_childNodes[(int)$i])) ? $this->_childNodes[(int)$i] : null;
+        return (isset($this->childNodes[(int)$i])) ? $this->childNodes[(int)$i] : null;
     }
 
     /**
@@ -134,7 +134,7 @@ abstract class AbstractDom
      */
     public function getChildren()
     {
-        return $this->_childNodes;
+        return $this->childNodes;
     }
 
     /**
@@ -144,7 +144,7 @@ abstract class AbstractDom
      */
     public function removeChildren()
     {
-        $this->_childNodes = array();
+        $this->childNodes = array();
     }
 
 }

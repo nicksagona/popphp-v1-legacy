@@ -39,25 +39,25 @@ class Pdo extends AbstractAdapter
      * PDO DSN
      * @var string
      */
-    protected $_dsn = null;
+    protected $dsn = null;
 
     /**
      * PDO DB Type
      * @var string
      */
-    protected $_dbtype = null;
+    protected $dbtype = null;
 
     /**
      * Prepared statement
      * @var PDOStatement
      */
-    protected $_statement = null;
+    protected $statement = null;
 
     /**
      * Statement placeholder
      * @var string
      */
-    protected $_placeholder = null;
+    protected $placeholder = null;
 
     /**
      * Constructor
@@ -75,17 +75,17 @@ class Pdo extends AbstractAdapter
         }
 
         try {
-            $this->_dbtype = $options['type'];
-            if ($this->_dbtype == 'sqlite') {
-                $this->_dsn = $this->_dbtype . ':' . $options['database'];
-                $this->connection = new PDO($this->_dsn);
+            $this->dbtype = $options['type'];
+            if ($this->dbtype == 'sqlite') {
+                $this->dsn = $this->dbtype . ':' . $options['database'];
+                $this->connection = new PDO($this->dsn);
             } else {
                 if (!isset($options['host']) || !isset($options['username']) || !isset($options['password'])) {
                     throw new Exception('Error: The proper database credentials were not passed.');
                 }
 
-                $this->_dsn = $this->_dbtype . ':host=' . $options['host'] . ';dbname=' . $options['database'];
-                $this->connection = new \PDO($this->_dsn, $options['username'], $options['password']);
+                $this->dsn = $this->dbtype . ':host=' . $options['host'] . ';dbname=' . $options['database'];
+                $this->connection = new \PDO($this->dsn, $options['username'], $options['password']);
             }
         } catch (\PDOException $e) {
             throw new Exception('Error: Could not connect to database. ' . $e->getMessage());
@@ -99,7 +99,7 @@ class Pdo extends AbstractAdapter
      */
     public function getDsn()
     {
-        return $this->_dsn;
+        return $this->dsn;
     }
 
     /**
@@ -109,7 +109,7 @@ class Pdo extends AbstractAdapter
      */
     public function getDbtype()
     {
-        return $this->_dbtype;
+        return $this->dbtype;
     }
 
     /**
@@ -157,15 +157,15 @@ class Pdo extends AbstractAdapter
     public function prepare($sql, $attribs = null)
     {
         if (strpos($sql, '?') !== false) {
-            $this->_placeholder = '?';
+            $this->placeholder = '?';
         } else if (strpos($sql, ':') !== false) {
-            $this->_placeholder = ':';
+            $this->placeholder = ':';
         }
 
         if ((null !== $attribs) && is_array($attribs)) {
-            $this->_statement = $this->connection->prepare($sql, $attribs);
+            $this->statement = $this->connection->prepare($sql, $attribs);
         } else {
-            $this->_statement = $this->connection->prepare($sql);
+            $this->statement = $this->connection->prepare($sql);
         }
 
         return $this;
@@ -179,17 +179,17 @@ class Pdo extends AbstractAdapter
      */
     public function bindParams($params)
     {
-        if ($this->_placeholder == '?') {
+        if ($this->placeholder == '?') {
             $i = 1;
             foreach ($params as $key => $value) {
                 ${$key} = $value;
-                $this->_statement->bindParam($i, ${$key});
+                $this->statement->bindParam($i, ${$key});
                 $i++;
             }
-        } else if ($this->_placeholder == ':') {
+        } else if ($this->placeholder == ':') {
             foreach ($params as $key => $value) {
                 ${$key} = $value;
-                $this->_statement->bindParam(':' . $key, ${$key});
+                $this->statement->bindParam(':' . $key, ${$key});
             }
         }
 
@@ -203,7 +203,7 @@ class Pdo extends AbstractAdapter
      */
     public function fetchResult()
     {
-        return $this->_statement->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -215,11 +215,11 @@ class Pdo extends AbstractAdapter
      */
     public function execute()
     {
-        if (null === $this->_statement) {
+        if (null === $this->statement) {
             throw new Exception('Error: The database statement resource is not currently set.');
         }
 
-        $this->result = $this->_statement->execute();
+        $this->result = $this->statement->execute();
     }
 
     /**
@@ -312,7 +312,7 @@ class Pdo extends AbstractAdapter
      */
     public function version()
     {
-        return 'PDO ' . substr($this->_dsn, 0, strpos($this->_dsn, ':'));
+        return 'PDO ' . substr($this->dsn, 0, strpos($this->dsn, ':'));
     }
 
     /**

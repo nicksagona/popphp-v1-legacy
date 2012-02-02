@@ -54,24 +54,24 @@ class IsSubnetOf extends AbstractValidator
 
         // Set the input, if passed
         if (null !== $input) {
-            $this->_input = $input;
+            $this->input = $input;
         }
 
         // Set the default message
-        if ($this->_condition) {
-            $this->_defaultMessage = Locale::factory()->__('The value must be part of the subnet %1.', $this->_value);
+        if ($this->condition) {
+            $this->defaultMessage = Locale::factory()->_('The value must be part of the subnet %1.', $this->value);
         } else {
-            $this->_defaultMessage = Locale::factory()->__('The value must not be part of the subnet %1.', $this->_value);
+            $this->defaultMessage = Locale::factory()->_('The value must not be part of the subnet %1.', $this->value);
         }
 
         // Evaluate the input against the validator
-        if ((substr($this->_input, 0, strrpos($this->_input, '.')) == $this->_value) == $this->_condition) {
-            $this->_result = true;
+        if ((substr($this->input, 0, strrpos($this->input, '.')) == $this->value) == $this->condition) {
+            $this->result = true;
         } else {
-            $this->_result = false;
+            $this->result = false;
         }
 
-        return $this->_result;
+        return $this->result;
     }
 
 }

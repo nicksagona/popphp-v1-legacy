@@ -49,37 +49,37 @@ class Form extends Dom
      * Form element node
      * @var Child
      */
-    protected $_form = null;
+    protected $form = null;
 
     /**
      * Form action
      * @var string
      */
-    protected $_action = null;
+    protected $action = null;
 
     /**
      * Form method
      * @var string
      */
-    protected $_method = null;
+    protected $method = null;
 
     /**
      * Form template for HTML formatting.
      * @var string
      */
-    protected $_template = null;
+    protected $template = null;
 
     /**
      * Field names of the database table
      * @var array
      */
-    protected $_fields = array();
+    protected $fields = array();
 
     /**
      * Form init field values
      * @var array
      */
-    protected $_initFieldsValues = array();
+    protected $initFieldsValues = array();
 
     /**
      * Constructor
@@ -95,14 +95,14 @@ class Form extends Dom
     public function __construct($action, $method, array $fields = null, $indent = null)
     {
         // Set the form's action and method.
-        $this->_action = $action;
-        $this->_method = $method;
+        $this->action = $action;
+        $this->method = $method;
 
         // Create the parent DOM element and the form child element.
         parent::__construct(null, 'utf-8', null, $indent);
-        $this->_form = new Child('form', null, null, false, $indent);
-        $this->_form->setAttributes(array('action' => $this->_action, 'method' => $this->_method));
-        $this->addChild($this->_form);
+        $this->form = new Child('form', null, null, false, $indent);
+        $this->form->setAttributes(array('action' => $this->action, 'method' => $this->method));
+        $this->addChild($this->form);
 
         if (null !== $fields) {
             $this->setFields($fields);
@@ -121,7 +121,7 @@ class Form extends Dom
         if (isset($fields[0]) && !is_array($fields[0])) {
             throw new Exception('The array parameter passed must contain an array of field values.');
         }
-        $this->_initFieldsValues = $fields;
+        $this->initFieldsValues = $fields;
         return $this;
     }
 
@@ -132,7 +132,7 @@ class Form extends Dom
      */
     public function getFields()
     {
-        return $this->_fields;
+        return $this->fields;
     }
 
     /**
@@ -146,13 +146,13 @@ class Form extends Dom
     {
         // Filter values if passed
         if ((null !== $values) && (null !== $filters)) {
-            $values = $this->_filterValues($values, $filters);
+            $values = $this->filterValues($values, $filters);
         }
 
         // Loop through the initial fields values and build the fields
         // based on the _initFieldsValues property.
-        if (isset($this->_initFieldsValues[0])) {
-            foreach ($this->_initFieldsValues as $field) {
+        if (isset($this->initFieldsValues[0])) {
+            foreach ($this->initFieldsValues as $field) {
                 if (is_array($field) && isset($field['type']) && isset($field['name'])) {
                     $type = $field['type'];
                     $name = $field['name'];
@@ -240,7 +240,7 @@ class Form extends Dom
                     if (isset($values[$field->name])) {
                         if (isset($field->values)) {
                             $field->marked = $values[$field->name];
-                            $this->_fields[$field->name] = $values[$field->name];
+                            $this->fields[$field->name] = $values[$field->name];
                             // Loop through the field's children
                             if ($field->hasChildren()) {
                                 $children = $field->getChildren();
@@ -263,7 +263,7 @@ class Form extends Dom
                         // Else, if a single-value form element
                         } else {
                             $field->value = $values[$field->name];
-                            $this->_fields[$field->name] = $values[$field->name];
+                            $this->fields[$field->name] = $values[$field->name];
                             if ($field->getNodeName() == 'textarea') {
                                 $field->setNodeValue($values[$field->name]);
                             } else {
@@ -288,9 +288,9 @@ class Form extends Dom
     {
         if (file_exists($tmpl)) {
             $tmplFile = new File($tmpl);
-            $this->_template = $tmplFile->read();
+            $this->template = $tmplFile->read();
         } else {
-            $this->_template = $tmpl;
+            $this->template = $tmpl;
         }
         return $this;
     }
@@ -302,7 +302,7 @@ class Form extends Dom
      */
     public function getTemplate()
     {
-        return $this->_template;
+        return $this->template;
     }
 
     /**
@@ -314,7 +314,7 @@ class Form extends Dom
      */
     public function setAttributes($a, $v = null)
     {
-        $this->_form->setAttributes($a, $v);
+        $this->form->setAttributes($a, $v);
         return $this;
     }
 
@@ -325,7 +325,7 @@ class Form extends Dom
      */
     public function getAttributes()
     {
-        return $this->_form->getAttributes();
+        return $this->form->getAttributes();
     }
 
     /**
@@ -337,39 +337,39 @@ class Form extends Dom
     public function addElements($e)
     {
         if (is_array($e)) {
-            $this->_form->addChildren($e);
+            $this->form->addChildren($e);
         } else {
-            $this->_form->addChild($e);
+            $this->form->addChild($e);
         }
 
-        $children = $this->_form->getChildren();
+        $children = $this->form->getChildren();
 
         foreach ($children as $child) {
             $attribs = $child->getAttributes();
             if ($child instanceof Textarea) {
                 if (isset($attribs['name'])) {
-                    $this->_fields[$attribs['name']] = (isset($child->value) ? $child->value : null);
+                    $this->fields[$attribs['name']] = (isset($child->value) ? $child->value : null);
                 }
             } else if ($child instanceof Select) {
                 if (isset($attribs['name'])) {
-                    $this->_fields[$attribs['name']] = (isset($child->marked) ? $child->marked : null);
+                    $this->fields[$attribs['name']] = (isset($child->marked) ? $child->marked : null);
                 }
             } else if ($child instanceof Radio) {
                 $radioChildren = $child->getChildren();
                 $childAttribs = $radioChildren[0]->getAttributes();
                 if (isset($childAttribs['name'])) {
-                    $this->_fields[$childAttribs['name']] = (isset($child->marked) ? $child->marked : null);
+                    $this->fields[$childAttribs['name']] = (isset($child->marked) ? $child->marked : null);
                 }
             } else if ($child instanceof Checkbox) {
                 $radioChildren = $child->getChildren();
                 $childAttribs = $radioChildren[0]->getAttributes();
                 if (isset($childAttribs['name'])) {
                     $key = str_replace('[]', '', $childAttribs['name']);
-                    $this->_fields[$key] = (isset($child->marked) ? $child->marked : null);
+                    $this->fields[$key] = (isset($child->marked) ? $child->marked : null);
                 }
             } else {
                 if (isset($attribs['name'])) {
-                    $this->_fields[$attribs['name']] = (isset($attribs['value']) ? $attribs['value'] : null);
+                    $this->fields[$attribs['name']] = (isset($attribs['value']) ? $attribs['value'] : null);
                 }
             }
         }
@@ -384,7 +384,7 @@ class Form extends Dom
      */
     public function getElements()
     {
-        return $this->_form->getChildren();
+        return $this->form->getChildren();
     }
 
     /**
@@ -395,7 +395,7 @@ class Form extends Dom
      */
     public function getElement($elementName)
     {
-        return $this->_form->getChild($this->getElementIndex($elementName));
+        return $this->form->getChild($this->getElementIndex($elementName));
     }
 
     /**
@@ -409,7 +409,7 @@ class Form extends Dom
         $name = null;
         $elem = null;
         $index = null;
-        $elems =  $this->_form->getChildren();
+        $elems =  $this->form->getChildren();
 
         foreach ($elems as $i => $e) {
             if ($e->getNodeName() == 'fieldset') {
@@ -441,7 +441,7 @@ class Form extends Dom
     public function isValid()
     {
         $noErrors = true;
-        $children = $this->_form->getChildren();
+        $children = $this->form->getChildren();
 
         // Check each element for validators, validate them and return the result.
         foreach ($children as $child) {
@@ -468,25 +468,25 @@ class Form extends Dom
     public function render($ret = false)
     {
         // Check to make sure form elements exist.
-        if ((count($this->_form->getChildren()) == 0) && (count($this->_initFieldsValues) == 0)) {
+        if ((count($this->form->getChildren()) == 0) && (count($this->initFieldsValues) == 0)) {
             throw new Exception('Error: There are no form elements declared for this form object.');
-        } else if ((count($this->_form->getChildren()) == 0) && (count($this->_initFieldsValues) > 0)) {
+        } else if ((count($this->form->getChildren()) == 0) && (count($this->initFieldsValues) > 0)) {
             $this->setFieldValues();
         }
 
         // If the template is not set, default to the basic output.
-        if (null === $this->_template) {
-            $this->_renderWithoutTemplate();
+        if (null === $this->template) {
+            $this->renderWithoutTemplate();
         // Else, start building the form's HTML output based on the template.
         } else {
-            $this->_renderWithTemplate();
+            $this->renderWithTemplate();
         }
 
         // Return or print the form output.
         if ($ret) {
-            return $this->_output;
+            return $this->output;
         } else {
-            echo $this->_output;
+            echo $this->output;
         }
 
     }
@@ -535,24 +535,24 @@ class Form extends Dom
     protected function _renderWithoutTemplate()
     {
         // Initialize properties.
-        $this->_output = null;
-        $children = $this->_form->getChildren();
-        $this->_form->removeChildren();
+        $this->output = null;
+        $children = $this->form->getChildren();
+        $this->form->removeChildren();
 
         // Create DL element.
-        $dl = new Child('dl', null, null, false, ($this->_form->getIndent() . '    '));
+        $dl = new Child('dl', null, null, false, ($this->form->getIndent() . '    '));
 
         // Loop through the children and create and attach the appropriate DT and DT elements, with labels where applicable.
         foreach ($children as $child) {
             // If the element label is set, render the appropriate DT and DD elements.
             if (null !== $child->label) {
                 // Create the DT and DD elements.
-                $dt = new Child('dt', null, null, false, ($this->_form->getIndent() . '        '));
-                $dd = new Child('dd', null, null, false, ($this->_form->getIndent() . '        '));
+                $dt = new Child('dt', null, null, false, ($this->form->getIndent() . '        '));
+                $dd = new Child('dd', null, null, false, ($this->form->getIndent() . '        '));
 
                 // Format the label name.
                 $lbl_name = ($child->getNodeName() == 'fieldset') ? '1' : '';
-                $label = new Child('label', $child->label, null, false, ($this->_form->getIndent() . '            '));
+                $label = new Child('label', $child->label, null, false, ($this->form->getIndent() . '            '));
 
                 if ($child->getNodeName() == 'fieldset') {
                     $chdrn = $child->getChildren();
@@ -572,12 +572,12 @@ class Form extends Dom
 
                 // Add the appropriate children to the appropriate elements.
                 $dt->addChild($label);
-                $child->setIndent(($this->_form->getIndent() . '            '));
+                $child->setIndent(($this->form->getIndent() . '            '));
                 $childChildren = $child->getChildren();
                 $child->removeChildren();
 
                 foreach ($childChildren as $cChild) {
-                    $cChild->setIndent(($this->_form->getIndent() . '                '));
+                    $cChild->setIndent(($this->form->getIndent() . '                '));
                     $child->addChild($cChild);
                 }
 
@@ -585,16 +585,16 @@ class Form extends Dom
                 $dl->addChildren(array($dt, $dd));
             // Else, render only a DD element.
             } else {
-                $dd = new Child('dd', null, null, false, ($this->_form->getIndent() . '        '));
-                $child->setIndent(($this->_form->getIndent() . '            '));
+                $dd = new Child('dd', null, null, false, ($this->form->getIndent() . '        '));
+                $child->setIndent(($this->form->getIndent() . '            '));
                 $dd->addChild($child);
                 $dl->addChild($dd);
             }
         }
 
         // Add the DL element and its children to the form element.
-        $this->_form->addChild($dl);
-        $this->_output = $this->_form->render(true);
+        $this->form->addChild($dl);
+        $this->output = $this->form->render(true);
     }
 
     /**
@@ -605,8 +605,8 @@ class Form extends Dom
     protected function _renderWithTemplate()
     {
         // Initialize properties and variables.
-        $this->_output = null;
-        $children = $this->_form->getChildren();
+        $this->output = null;
+        $children = $this->form->getChildren();
 
         // Loop through the child elements of the form.
         foreach ($children as $child) {
@@ -635,12 +635,12 @@ class Form extends Dom
                 // Swap the element's label placeholder with the rendered label element.
                 $labelSearch = '[{' . $name . '_label}]';
                 $labelReplace = $label->render(true);
-                $this->_template = str_replace($labelSearch, substr($labelReplace, 0, -1), $this->_template);
+                $this->template = str_replace($labelSearch, substr($labelReplace, 0, -1), $this->template);
             }
 
             // Calculate the element's indentation.
             $indent = '';
-            $indent = substr($this->_template, 0, strpos($this->_template, ('[{' . $name . '}]')));
+            $indent = substr($this->template, 0, strpos($this->template, ('[{' . $name . '}]')));
             $indent = substr($indent, (strrpos($indent, "\n") + 1));
 
             $matches = array();
@@ -665,13 +665,13 @@ class Form extends Dom
             $elementReplace = substr($elementReplace, 0, -1);
             $elementReplace = str_replace('</select>', $indent . '</select>', $elementReplace);
             $elementReplace = str_replace('</fieldset>', $indent . '</fieldset>', $elementReplace);
-            $this->_template = str_replace($elementSearch, $elementReplace, $this->_template);
+            $this->template = str_replace($elementSearch, $elementReplace, $this->template);
         }
 
         // Set the rendered form content and remove the children.
-        $this->_form->setNodeValue("\n" . $this->_template . "\n" . $this->_form->getIndent());
-        $this->_form->removeChildren();
-        $this->_output = $this->_form->render(true);
+        $this->form->setNodeValue("\n" . $this->template . "\n" . $this->form->getIndent());
+        $this->form->removeChildren();
+        $this->output = $this->form->render(true);
     }
 
     /**
@@ -684,7 +684,7 @@ class Form extends Dom
      */
     public function __set($name, $value)
     {
-        $this->_fields[$name] = $value;
+        $this->fields[$name] = $value;
     }
 
     /**
@@ -696,7 +696,7 @@ class Form extends Dom
      */
     public function __get($name)
     {
-        return (!array_key_exists($name, $this->_fields)) ? null : $this->_fields[$name];
+        return (!array_key_exists($name, $this->fields)) ? null : $this->fields[$name];
     }
 
     /**

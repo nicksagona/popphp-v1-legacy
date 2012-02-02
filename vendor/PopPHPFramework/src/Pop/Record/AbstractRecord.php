@@ -46,43 +46,43 @@ abstract class AbstractRecord
      * in an ArrayObject format.
      * @var array
      */
-    protected $_rows = array();
+    protected $rows = array();
 
     /**
      * Column names of the database table
      * @var array
      */
-    protected $_columns = array();
+    protected $columns = array();
 
     /**
      * Table name of the database table
      * @var string
      */
-    protected $_tableName = null;
+    protected $tableName = null;
 
     /**
      * Primary ID column name of the database table
      * @var string
      */
-    protected $_primaryId = 'id';
+    protected $primaryId = 'id';
 
     /**
      * Property that determines whether or not the primary ID is auto-increment or not
      * @var boolean
      */
-    protected $_auto = true;
+    protected $auto = true;
 
     /**
      * Flag on which quote identifier to use.
      * @var int
      */
-    protected $_idQuote = null;
+    protected $idQuote = null;
 
     /**
      * Original query finder, if primary ID is not set.
      * @var array
      */
-    protected $_finder = array();
+    protected $finder = array();
 
     /**
      * Get the result rows.
@@ -91,7 +91,7 @@ abstract class AbstractRecord
      */
     public function getResult()
     {
-        return $this->_rows;
+        return $this->rows;
     }
 
     /**

@@ -90,7 +90,7 @@ class Browser
         $this->ip = $_SERVER['REMOTE_ADDR'];
         $this->subnet = substr($_SERVER['REMOTE_ADDR'], 0, strrpos($_SERVER['REMOTE_ADDR'], '.'));
         $this->ua = $_SERVER['HTTP_USER_AGENT'];
-        $this->_detect();
+        $this->detect();
     }
 
     /**

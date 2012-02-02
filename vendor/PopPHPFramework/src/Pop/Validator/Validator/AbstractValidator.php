@@ -41,31 +41,31 @@ abstract class AbstractValidator implements ValidatorInterface
      * Validator value to test against
      * @var mixed
      */
-    protected $_value = null;
+    protected $value = null;
 
     /**
      * Validator condition
      * @var boolean
      */
-    protected $_condition = true;
+    protected $condition = true;
 
     /**
      * Input value to test
      * @var mixed
      */
-    protected $_input = null;
+    protected $input = null;
 
     /**
      * Validator test result
      * @var boolean
      */
-    protected $_result = false;
+    protected $result = false;
 
     /**
      * Validator default message
      * @var string
      */
-    protected $_defaultMessage = null;
+    protected $defaultMessage = null;
 
     /**
      * Constructor
@@ -78,8 +78,8 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     public function __construct($value = null, $condition = true)
     {
-        $this->_value = $value;
-        $this->_condition = (boolean)$condition;
+        $this->value = $value;
+        $this->condition = (boolean)$condition;
     }
 
     /**
@@ -89,7 +89,7 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     public function getValue()
     {
-        return $this->_value;
+        return $this->value;
     }
 
     /**
@@ -99,7 +99,7 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     public function getCondition()
     {
-        return $this->_condition;
+        return $this->condition;
     }
 
     /**
@@ -109,7 +109,7 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     public function getDefaultMessage()
     {
-        return $this->_defaultMessage;
+        return $this->defaultMessage;
     }
 
     /**
@@ -119,7 +119,7 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     public function getInput()
     {
-        return $this->_input;
+        return $this->input;
     }
 
     /**
@@ -130,7 +130,7 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     public function setValue($value)
     {
-        $this->_value = $value;
+        $this->value = $value;
         return $this;
     }
 
@@ -142,7 +142,7 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     public function setCondition($condition)
     {
-        $this->_condition = (boolean)$condition;
+        $this->condition = (boolean)$condition;
         return $this;
     }
 
@@ -154,7 +154,7 @@ abstract class AbstractValidator implements ValidatorInterface
      */
     public function setInput($input)
     {
-        $this->_input = $input;
+        $this->input = $input;
         return $this;
     }
 

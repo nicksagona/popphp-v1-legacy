@@ -39,13 +39,13 @@ class Reflection extends \ReflectionClass
      * Code to reflect
      * @var string
      */
-    protected $_code = null;
+    protected $code = null;
 
     /**
      * Code generator object
      * @var Pop\Code\Generator
      */
-    protected $_generator = null;
+    protected $generator = null;
 
     /**
      * Constructor
@@ -57,9 +57,9 @@ class Reflection extends \ReflectionClass
      */
     public function __construct($code)
     {
-        $this->_code = $code;
+        $this->code = $code;
         parent::__construct($code);
-        $this->_buildGenerator();
+        $this->buildGenerator();
     }
 
     /**
@@ -81,7 +81,7 @@ class Reflection extends \ReflectionClass
      */
     public function getCode()
     {
-        return $this->_code;
+        return $this->code;
     }
 
     /**
@@ -91,7 +91,7 @@ class Reflection extends \ReflectionClass
      */
     public function getGenerator()
     {
-        return $this->_generator;
+        return $this->generator;
     }
 
     /**
@@ -104,29 +104,29 @@ class Reflection extends \ReflectionClass
 
         // Create generator object
         $type = ($this->isInterface()) ? Generator::CREATE_INTERFACE : Generator::CREATE_CLASS;
-        $this->_generator = new Generator($this->getShortName() . '.php', $type);
+        $this->generator = new Generator($this->getShortName() . '.php', $type);
 
         // Get the namespace
-        $this->_getNamespace();
+        $this->getNamespace();
 
         // Detect and set the class docblock
         $classDocBlock = $this->getDocComment();
         if (!empty($classDocBlock)) {
-            $this->_generator->code()->setDocblock(DocblockGenerator::parse($classDocBlock));
+            $this->generator->code()->setDocblock(DocblockGenerator::parse($classDocBlock));
         }
 
         // Detect and set if the class is abstract
         if (!$this->isInterface() && $this->isAbstract()) {
-            $this->_generator->code()->setAbstract(true);
+            $this->generator->code()->setAbstract(true);
         }
 
         // Detect and set if the class is a child class
         $parent = $this->getParentClass();
         if ($parent !== false) {
             if ($parent->inNamespace()) {
-                $this->_generator->getNamespace()->setUse($parent->getNamespaceName() . '\\' . $parent->getShortName());
+                $this->generator->getNamespace()->setUse($parent->getNamespaceName() . '\\' . $parent->getShortName());
             }
-            $this->_generator->code()->setParent($parent->getShortName());
+            $this->generator->code()->setParent($parent->getShortName());
         }
 
         // Detect and set if the class implements any interfaces
@@ -136,11 +136,11 @@ class Reflection extends \ReflectionClass
                 $interfacesAry = array();
                 foreach ($interfaces as $interface) {
                     if ($interface->inNamespace()) {
-                        $this->_generator->getNamespace()->setUse($interface->getNamespaceName() . '\\' . $interface->getShortName());
+                        $this->generator->getNamespace()->setUse($interface->getNamespaceName() . '\\' . $interface->getShortName());
                     }
                     $interfacesAry[] = $interface->getShortName();
                 }
-                $this->_generator->code()->setInterface(implode(', ', $interfacesAry));
+                $this->generator->code()->setInterface(implode(', ', $interfacesAry));
             }
         }
 
@@ -148,15 +148,15 @@ class Reflection extends \ReflectionClass
         $constants = $this->getConstants();
         if (count($constants) > 0) {
             foreach ($constants as $key => $value) {
-                $this->_generator->code()->addProperty(new PropertyGenerator($key, gettype($value), $value, 'const'));
+                $this->generator->code()->addProperty(new PropertyGenerator($key, gettype($value), $value, 'const'));
             }
         }
 
         // Get properties
-        $this->_getProperties();
+        $this->getProperties();
 
         // Get Methods
-        $this->_getMethods();
+        $this->getMethods();
     }
 
     /**
@@ -170,7 +170,7 @@ class Reflection extends \ReflectionClass
 
         // Detect and set namespace
         if ($this->inNamespace()) {
-            $this->_generator->setNamespace(new NamespaceGenerator($this->getNamespaceName()));
+            $this->generator->setNamespace(new NamespaceGenerator($this->getNamespaceName()));
             if (null !== $fileContents) {
                 $matches = array();
                 preg_match('/^use(.*)/m', $fileContents, $matches, PREG_OFFSET_CAPTURE);
@@ -185,7 +185,7 @@ class Reflection extends \ReflectionClass
                             $as = trim(substr($use, (strpos($use, 'as') + 2)));
                             $use = trim(substr($use, 0, strpos($use, 'as')));
                         }
-                        $this->_generator->getNamespace()->setUse($use, $as);
+                        $this->generator->getNamespace()->setUse($use, $as);
                     }
                 }
             }
@@ -232,7 +232,7 @@ class Reflection extends \ReflectionClass
                 $prop = new PropertyGenerator($property->getName(), $type, $formattedValue, $visibility);
                 $prop->setStatic($property->isStatic());
                 $prop->setDesc($desc);
-                $this->_generator->code()->addProperty($prop);
+                $this->generator->code()->addProperty($prop);
             }
         }
     }
@@ -338,7 +338,7 @@ class Reflection extends \ReflectionClass
                     }
                 }
 
-                $this->_generator->code()->addMethod($mthd);
+                $this->generator->code()->addMethod($mthd);
             }
         }
     }

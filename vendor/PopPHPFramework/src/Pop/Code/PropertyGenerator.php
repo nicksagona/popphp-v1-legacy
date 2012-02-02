@@ -41,49 +41,49 @@ class PropertyGenerator
      * Docblock generator object
      * @var Pop\Code\DocblockGenerator
      */
-    protected $_docblock = null;
+    protected $docblock = null;
 
     /**
      * Property type
      * @var string
      */
-    protected $_type = null;
+    protected $type = null;
 
     /**
      * Property name
      * @var string
      */
-    protected $_name = null;
+    protected $name = null;
 
     /**
      * Property visibility
      * @var string
      */
-    protected $_visibility = 'public';
+    protected $visibility = 'public';
 
     /**
      * Property static flag
      * @var boolean
      */
-    protected $_static = false;
+    protected $static = false;
 
     /**
      * Property value
      * @var mixed
      */
-    protected $_value = null;
+    protected $value = null;
 
     /**
      * Property indent
      * @var string
      */
-    protected $_indent = '    ';
+    protected $indent = '    ';
 
     /**
      * Property output
      * @var string
      */
-    protected $_output = null;
+    protected $output = null;
 
     /**
      * Constructor
@@ -98,10 +98,10 @@ class PropertyGenerator
      */
     public function __construct($name, $type, $value = null, $visibility = 'public')
     {
-        $this->_type = $type;
-        $this->_name = $name;
-        $this->_value = $value;
-        $this->_visibility = $visibility;
+        $this->type = $type;
+        $this->name = $name;
+        $this->value = $value;
+        $this->visibility = $visibility;
     }
 
     /**
@@ -127,7 +127,7 @@ class PropertyGenerator
      */
     public function setStatic($static = false)
     {
-        $this->_static = (boolean)$static;
+        $this->static = (boolean)$static;
         return $this;
     }
 
@@ -138,7 +138,7 @@ class PropertyGenerator
      */
     public function isStatic()
     {
-        return $this->_static;
+        return $this->static;
     }
 
     /**
@@ -149,10 +149,10 @@ class PropertyGenerator
      */
     public function setDesc($desc = null)
     {
-        if (null !== $this->_docblock) {
-            $this->_docblock->setDesc($desc);
+        if (null !== $this->docblock) {
+            $this->docblock->setDesc($desc);
         } else {
-            $this->_docblock = new DocblockGenerator($desc, $this->_indent);
+            $this->docblock = new DocblockGenerator($desc, $this->indent);
         }
         return $this;
     }
@@ -165,8 +165,8 @@ class PropertyGenerator
     public function getDesc()
     {
         $desc = null;
-        if (null !== $this->_docblock) {
-            $desc = $this->_docblock->getDesc();
+        if (null !== $this->docblock) {
+            $desc = $this->docblock->getDesc();
         }
         return $desc;
     }
@@ -179,7 +179,7 @@ class PropertyGenerator
      */
     public function setIndent($indent = null)
     {
-        $this->_indent = $indent;
+        $this->indent = $indent;
         return $this;
     }
 
@@ -190,7 +190,7 @@ class PropertyGenerator
      */
     public function getIndent()
     {
-        return $this->_indent;
+        return $this->indent;
     }
 
     /**
@@ -201,7 +201,7 @@ class PropertyGenerator
      */
     public function setType($type)
     {
-        $this->_type = $type;
+        $this->type = $type;
         return $this;
     }
 
@@ -212,7 +212,7 @@ class PropertyGenerator
      */
     public function getType()
     {
-        return $this->_type;
+        return $this->type;
     }
 
     /**
@@ -223,7 +223,7 @@ class PropertyGenerator
      */
     public function setName($name)
     {
-        $this->_name = $name;
+        $this->name = $name;
         return $this;
     }
 
@@ -234,7 +234,7 @@ class PropertyGenerator
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
@@ -245,7 +245,7 @@ class PropertyGenerator
      */
     public function setValue($value = null)
     {
-        $this->_value = $value;
+        $this->value = $value;
         return $this;
     }
 
@@ -256,7 +256,7 @@ class PropertyGenerator
      */
     public function getValue()
     {
-        return $this->_value;
+        return $this->value;
     }
 
     /**
@@ -267,7 +267,7 @@ class PropertyGenerator
      */
     public function setVisibility($visibility = 'public')
     {
-        $this->_visibility = $visibility;
+        $this->visibility = $visibility;
         return $this;
     }
 
@@ -278,7 +278,7 @@ class PropertyGenerator
      */
     public function getVisibility()
     {
-        return $this->_visibility;
+        return $this->visibility;
     }
 
     /**
@@ -289,7 +289,7 @@ class PropertyGenerator
      */
     public function setDocblock(DocblockGenerator $docblock)
     {
-        $this->_docblock = $docblock;
+        $this->docblock = $docblock;
         return $this;
     }
 
@@ -300,7 +300,7 @@ class PropertyGenerator
      */
     public function getDocblock()
     {
-        return $this->_docblock;
+        return $this->docblock;
     }
 
     /**
@@ -312,43 +312,43 @@ class PropertyGenerator
     public function render($ret = false)
     {
         $static = null;
-        if ($this->_visibility != 'const') {
+        if ($this->visibility != 'const') {
             $varDeclaration = ' $';
-            if ($this->_static) {
+            if ($this->static) {
                 $static = ' static';
             }
         } else {
             $varDeclaration = ' ';
         }
 
-        if (null === $this->_docblock) {
-            $this->_docblock = new DocblockGenerator(null, $this->_indent);
+        if (null === $this->docblock) {
+            $this->docblock = new DocblockGenerator(null, $this->indent);
         }
-        $this->_docblock->setTag('var', $this->_type);
-        $this->_output = PHP_EOL . $this->_docblock->render(true);
-        $this->_output .= $this->_indent . $this->_visibility . $static . $varDeclaration . $this->_name;
+        $this->docblock->setTag('var', $this->type);
+        $this->output = PHP_EOL . $this->docblock->render(true);
+        $this->output .= $this->indent . $this->visibility . $static . $varDeclaration . $this->name;
 
-        if (null !== $this->_value) {
-            if ($this->_type == 'array') {
-                $val = (count($this->_value) == 0) ? 'array()' : $this->_formatArrayValues();
-                $this->_output .= ' = ' . $val . PHP_EOL;
-            } else if (($this->_type == 'integer') || ($this->_type == 'int') || ($this->_type == 'float')) {
-                $this->_output .= ' = ' . $this->_value . ';';
-            } else if ($this->_type == 'boolean') {
-                $val = ($this->_value) ? 'true' : 'false';
-                $this->_output .= " = " . $val . ";";
+        if (null !== $this->value) {
+            if ($this->type == 'array') {
+                $val = (count($this->value) == 0) ? 'array()' : $this->formatArrayValues();
+                $this->output .= ' = ' . $val . PHP_EOL;
+            } else if (($this->type == 'integer') || ($this->type == 'int') || ($this->type == 'float')) {
+                $this->output .= ' = ' . $this->value . ';';
+            } else if ($this->type == 'boolean') {
+                $val = ($this->value) ? 'true' : 'false';
+                $this->output .= " = " . $val . ";";
             } else {
-                $this->_output .= " = '" . $this->_value . "';";
+                $this->output .= " = '" . $this->value . "';";
             }
         } else {
-            $val = ($this->_type == 'array') ? 'array()' : 'null';
-            $this->_output .= ' = ' . $val . ';';
+            $val = ($this->type == 'array') ? 'array()' : 'null';
+            $this->output .= ' = ' . $val . ';';
         }
 
         if ($ret) {
-            return $this->_output;
+            return $this->output;
         } else {
-            echo $this->_output;
+            echo $this->output;
         }
     }
 
@@ -359,12 +359,12 @@ class PropertyGenerator
      */
     protected function _formatArrayValues()
     {
-        $ary = str_replace(PHP_EOL, PHP_EOL . $this->_indent . '  ', var_export($this->_value, true));
+        $ary = str_replace(PHP_EOL, PHP_EOL . $this->indent . '  ', var_export($this->value, true));
         $ary .= ';';
         $ary = str_replace('  );', ');', $ary);
         $ary = str_replace('NULL', 'null', $ary);
 
-        $keys = array_keys($this->_value);
+        $keys = array_keys($this->value);
 
         $isAssoc = false;
 
@@ -391,7 +391,7 @@ class PropertyGenerator
     protected function _getKeyLength()
     {
         $length = 0;
-        $keys = array_keys($this->_value);
+        $keys = array_keys($this->value);
 
         foreach ($keys as $key => $value) {
             if (strlen($key) > $length) {

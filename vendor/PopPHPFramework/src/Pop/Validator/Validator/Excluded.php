@@ -47,24 +47,24 @@ class Excluded extends AbstractValidator
     {
         // Set the input, if passed
         if (null !== $input) {
-            $this->_input = $input;
+            $this->input = $input;
         }
 
         // Set the default message
-        if ($this->_condition) {
-            $this->_defaultMessage = Locale::factory()->__('The value must be excluded.');
+        if ($this->condition) {
+            $this->defaultMessage = Locale::factory()->_('The value must be excluded.');
         } else {
-            $this->_defaultMessage = Locale::factory()->__('The value must not be excluded.');
+            $this->defaultMessage = Locale::factory()->_('The value must not be excluded.');
         }
 
         // Evaluate the input against the validator
-        if ((!in_array($this->_input, $this->_value)) == $this->_condition) {
-            $this->_result = true;
+        if ((!in_array($this->input, $this->value)) == $this->condition) {
+            $this->result = true;
         } else {
-            $this->_result = false;
+            $this->result = false;
         }
 
-        return $this->_result;
+        return $this->result;
     }
 
 }

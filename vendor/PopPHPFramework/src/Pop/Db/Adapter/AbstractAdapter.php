@@ -51,13 +51,13 @@ abstract class AbstractAdapter
      * Database tables
      * @var array
      */
-    protected $_tables = array();
+    protected $tables = array();
 
     /**
      * Language object
      * @var Pop_Locale
      */
-    protected $_lang = null;
+    protected $lang = null;
 
     /**
      * Constructor
@@ -132,11 +132,11 @@ abstract class AbstractAdapter
      */
     public function getTables()
     {
-        if (count($this->_tables) == 0) {
-            $this->_tables = $this->_loadTables();
+        if (count($this->tables) == 0) {
+            $this->tables = $this->loadTables();
         }
 
-        return $this->_tables;
+        return $this->tables;
     }
 
     /**

@@ -70,7 +70,7 @@ class Cmap
         );
 
         $this->header = new \ArrayObject($cmapTableHeader, \ArrayObject::ARRAY_AS_PROPS);
-        $this->_parseSubTables($font);
+        $this->parseSubTables($font);
     }
 
     /**

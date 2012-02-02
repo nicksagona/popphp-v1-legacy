@@ -47,7 +47,7 @@ class Archive extends File implements ArchiveInterface
      * Array of allowed file types.
      * @var array
      */
-    protected $_allowed = array(
+    protected $allowed = array(
         'bz2'  => 'application/bzip2',
         'gz'   => 'application/x-gzip',
         'phar' => 'application/x-phar',
@@ -63,7 +63,7 @@ class Archive extends File implements ArchiveInterface
      * Archive adapter
      * @var mixed
      */
-    protected $_adapter = null;
+    protected $adapter = null;
 
     /**
      * Constructor
@@ -78,34 +78,34 @@ class Archive extends File implements ArchiveInterface
     {
         // Check if Bzip2 is available.
         if (!function_exists('bzcompress')) {
-            unset($this->_allowed['bz2']);
-            unset($this->_allowed['tbz2']);
+            unset($this->allowed['bz2']);
+            unset($this->allowed['tbz2']);
         }
         // Check if Gzip is available.
         if (!function_exists('gzcompress')) {
-            unset($this->_allowed['gz']);
-            unset($this->_allowed['tgz']);
+            unset($this->allowed['gz']);
+            unset($this->allowed['tgz']);
         }
         // Check if Phar is available.
         if (!class_exists('Phar')) {
-            unset($this->_allowed['phar']);
+            unset($this->allowed['phar']);
         }
         // Check if Rar is available.
         if (!class_exists('RarArchive')) {
-            unset($this->_allowed['tar']);
+            unset($this->allowed['tar']);
         }
         // Check if Tar is available.
         if (!class_exists('Archive_Tar')) {
-            unset($this->_allowed['tar']);
+            unset($this->allowed['tar']);
         }
         // Check if Zip is available.
         if (!class_exists('ZipArchive')) {
-            unset($this->_allowed['zip']);
+            unset($this->allowed['zip']);
         }
 
         parent::__construct($archive);
 
-        $this->_setAdapter($password);
+        $this->setAdapter($password);
     }
 
     /**
@@ -127,7 +127,7 @@ class Archive extends File implements ArchiveInterface
      */
     public function adapter()
     {
-        return $this->_adapter->archive;
+        return $this->adapter->archive;
     }
 
     /**
@@ -138,7 +138,7 @@ class Archive extends File implements ArchiveInterface
      */
     public function extract($to = null)
     {
-        $this->_adapter->extract($to);
+        $this->adapter->extract($to);
         return $this;
     }
 
@@ -150,7 +150,7 @@ class Archive extends File implements ArchiveInterface
      */
     public function addFiles($files)
     {
-        $this->_adapter->addFiles($files);
+        $this->adapter->addFiles($files);
         self::__construct($this->fullpath);
         return $this;
     }
@@ -163,7 +163,7 @@ class Archive extends File implements ArchiveInterface
      */
     public function listFiles($full = false)
     {
-        return $this->_adapter->listFiles($full);
+        return $this->adapter->listFiles($full);
     }
 
     /**
@@ -220,13 +220,13 @@ class Archive extends File implements ArchiveInterface
         $ext = strtolower($this->ext);
 
         if ($ext == 'phar') {
-            $this->_adapter = new Phar($this);
+            $this->adapter = new Phar($this);
         } else if ($ext == 'rar') {
-            $this->_adapter = new Rar($this, $password);
+            $this->adapter = new Rar($this, $password);
         } else if (($ext == 'tar') || (stripos($ext, 'bz') !== false) || (stripos($ext, 'gz') !== false)) {
-            $this->_adapter = new Tar($this);
+            $this->adapter = new Tar($this);
         } else if ($ext == 'zip') {
-            $this->_adapter = new Zip($this);
+            $this->adapter = new Zip($this);
         }
     }
 

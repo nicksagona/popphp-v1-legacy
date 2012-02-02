@@ -39,19 +39,19 @@ class Hsb implements ColorInterface
      * Hue angle value in degrees
      * @var int
      */
-    protected $_hue = null;
+    protected $hue = null;
 
     /**
      * Saturation percentage value
      * @var int
      */
-    protected $_saturation = null;
+    protected $saturation = null;
 
     /**
      * Brightness percentage value
      * @var int
      */
-    protected $_brightness = null;
+    protected $brightness = null;
 
     /**
      * Constructor
@@ -73,9 +73,9 @@ class Hsb implements ColorInterface
             throw new Exception('One or more of the color values is out of range.');
         }
 
-        $this->_hue = (int)$h;
-        $this->_saturation = (int)$s;
-        $this->_brightness = (int)$b;
+        $this->hue = (int)$h;
+        $this->saturation = (int)$s;
+        $this->brightness = (int)$b;
     }
 
     /**
@@ -91,13 +91,13 @@ class Hsb implements ColorInterface
 
         switch ($type) {
             case 1:
-                $hsb = array('h' => $this->_hue, 's' => $this->_saturation, 'b' => $this->_brightness);
+                $hsb = array('h' => $this->hue, 's' => $this->saturation, 'b' => $this->brightness);
                 break;
             case 2:
-                $hsb = array($this->_hue, $this->_saturation, $this->_brightness);
+                $hsb = array($this->hue, $this->saturation, $this->brightness);
                 break;
             case 3:
-                $hsb = $this->_hue . ',' . $this->_saturation . ',' . $this->_brightness;
+                $hsb = $this->hue . ',' . $this->saturation . ',' . $this->brightness;
                 break;
         }
 
@@ -112,7 +112,7 @@ class Hsb implements ColorInterface
      */
     public function getHue()
     {
-        return $this->_hue;
+        return $this->hue;
     }
 
     /**
@@ -122,7 +122,7 @@ class Hsb implements ColorInterface
      */
     public function getSaturation()
     {
-        return $this->_saturation;
+        return $this->saturation;
     }
 
     /**
@@ -132,7 +132,7 @@ class Hsb implements ColorInterface
      */
     public function getBrightness()
     {
-        return $this->_brightness;
+        return $this->brightness;
     }
 
     /**

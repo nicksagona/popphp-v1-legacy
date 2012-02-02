@@ -42,7 +42,7 @@ class File implements CacheInterface
      * Cache dir
      * @var string
      */
-    protected $_dir = null;
+    protected $dir = null;
 
     /**
      * Constructor
@@ -61,7 +61,7 @@ class File implements CacheInterface
             throw new Exception('Error: That cache directory is not writable.');
         }
 
-        $this->_dir = realpath($dir);
+        $this->dir = realpath($dir);
     }
 
     /**
@@ -71,7 +71,7 @@ class File implements CacheInterface
      */
     public function getDir()
     {
-        return $this->_dir;
+        return $this->dir;
     }
 
     /**
@@ -86,7 +86,7 @@ class File implements CacheInterface
     {
         $time = (null === $time) ? time() : time() + $time;
 
-        $file = new PopFile($this->_dir . DIRECTORY_SEPARATOR . sha1($id));
+        $file = new PopFile($this->dir . DIRECTORY_SEPARATOR . sha1($id));
         $file->write($time . '|' . serialize($value));
         $file->save();
     }
@@ -100,7 +100,7 @@ class File implements CacheInterface
      */
     public function load($id, $time = null)
     {
-        $fileId = $this->_dir . DIRECTORY_SEPARATOR . sha1($id);
+        $fileId = $this->dir . DIRECTORY_SEPARATOR . sha1($id);
         $value = false;
 
         if (file_exists($fileId)) {
@@ -124,7 +124,7 @@ class File implements CacheInterface
      */
     public function remove($id)
     {
-        $fileId = $this->_dir . DIRECTORY_SEPARATOR . sha1($id);
+        $fileId = $this->dir . DIRECTORY_SEPARATOR . sha1($id);
         if (file_exists($fileId)) {
             unlink($fileId);
         }
@@ -137,7 +137,7 @@ class File implements CacheInterface
      */
     public function clear()
     {
-        $dir = new Dir($this->_dir);
+        $dir = new Dir($this->dir);
         $dir->emptyDir();
     }
 

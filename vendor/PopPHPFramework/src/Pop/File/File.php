@@ -77,31 +77,31 @@ class File
      * File size in bytes
      * @var int
      */
-    protected $_size = 0;
+    protected $size = 0;
 
     /**
      * File mime type
      * @var string
      */
-    protected $_mime = null;
+    protected $mime = null;
 
     /**
      * File output data.
      * @var string
      */
-    protected $_output = null;
+    protected $output = null;
 
     /**
      * Directory and file permissions, based on chmod, when and if applicable.
      * @var array
      */
-    protected $_perm = array();
+    protected $perm = array();
 
     /**
      * Array of allowed file types.
      * @var array
      */
-    protected $_allowed = array(
+    protected $allowed = array(
         'afm'    => 'application/x-font-afm',
         'ai'     => 'application/postscript',
         'aif'    => 'audio/x-aiff',
@@ -186,7 +186,7 @@ class File
      */
     public function __construct($file, $types = null)
     {
-        $this->_setFile($file, $types);
+        $this->setFile($file, $types);
     }
 
     /**
@@ -244,7 +244,7 @@ class File
      */
     public function isAllowed($type)
     {
-        return (array_key_exists(strtolower($type), $this->_allowed)) ? true : false;
+        return (array_key_exists(strtolower($type), $this->allowed)) ? true : false;
     }
 
     /**
@@ -254,7 +254,7 @@ class File
      */
     public function getSize()
     {
-        return $this->_size;
+        return $this->size;
     }
 
     /**
@@ -264,7 +264,7 @@ class File
      */
     public function getMime()
     {
-        return $this->_mime;
+        return $this->mime;
     }
 
     /**
@@ -274,7 +274,7 @@ class File
      */
     public function getAllowedTypes()
     {
-        return $this->_allowed;
+        return $this->allowed;
     }
 
     /**
@@ -285,7 +285,7 @@ class File
      */
     public function setAllowedTypes($types = null)
     {
-        $this->_allowed = array();
+        $this->allowed = array();
         $ary = ((null === $types) || !is_array($types)) ? array() : $types;
         $this->addAllowedTypes($ary);
     }
@@ -299,7 +299,7 @@ class File
     public function addAllowedTypes(array $types)
     {
         foreach ($types as $key => $value) {
-            $this->_allowed[$key] = $value;
+            $this->allowed[$key] = $value;
         }
     }
 
@@ -311,7 +311,7 @@ class File
      */
     public function getMode($dir = false)
     {
-        return ($dir) ? $this->_perm['dir'] : $this->_perm['file'];
+        return ($dir) ? $this->perm['dir'] : $this->perm['file'];
     }
 
     /**
@@ -326,12 +326,12 @@ class File
         if ($dir) {
             if (file_exists($this->dir)) {
                 chmod($this->dir, $mode);
-                $this->_setFile($this->fullpath);
+                $this->setFile($this->fullpath);
             }
         } else {
             if (file_exists($this->fullpath)) {
                 chmod($this->fullpath, $mode);
-                $this->_setFile($this->fullpath);
+                $this->setFile($this->fullpath);
             }
         }
     }
@@ -348,16 +348,16 @@ class File
         $data = null;
 
         // Read from the output buffer
-        if (null !== $this->_output) {
+        if (null !== $this->output) {
             if (null !== $off) {
-                $data = (null !== $len) ? substr($this->_output, $off, $len) : substr($this->_output, $off);
+                $data = (null !== $len) ? substr($this->output, $off, $len) : substr($this->output, $off);
             } else {
-                $data = $this->_output;
+                $data = $this->output;
             }
         // Else, if the file exists, then read the data from the actual file
         } else if (file_exists($this->fullpath)) {
             if (null !== $off) {
-                $data = (null !== $len) ? file_get_contents($this->fullpath, null, null, $off, $len) : $this->_output = file_get_contents($this->fullpath, null, null, $off);
+                $data = (null !== $len) ? file_get_contents($this->fullpath, null, null, $off, $len) : $this->output = file_get_contents($this->fullpath, null, null, $off);
             } else {
                 $data = file_get_contents($this->fullpath);
             }
@@ -377,13 +377,13 @@ class File
     {
         // If the file is to be appended.
         if ($append) {
-            if ((null === $this->_output) && file_exists($this->fullpath)) {
-                $this->_output = file_get_contents($this->fullpath);
+            if ((null === $this->output) && file_exists($this->fullpath)) {
+                $this->output = file_get_contents($this->fullpath);
             }
-            $this->_output .= $data;
+            $this->output .= $data;
         //Else, overwrite the file contents.
         } else {
-            $this->_output = $data;
+            $this->output = $data;
         }
 
         return $this;
@@ -408,10 +408,10 @@ class File
         if (file_exists($this->fullpath)) {
             copy($this->fullpath, $new);
         } else {
-            file_put_contents($new, $this->_output);
+            file_put_contents($new, $this->output);
         }
         chmod($new, 0777);
-        $this->_setFile($new);
+        $this->setFile($new);
 
         return $this;
     }
@@ -428,17 +428,17 @@ class File
         // Check to see if the new file already exists, and if the permissions are set correctly.
         if (file_exists($new)) {
             throw new Exception('Error: The file already exists.');
-        } else if ((self::_checkPermissions(dirname($new)) != 777) || ($this->_perm['dir'] != 777)) {
+        } else if ((self::_checkPermissions(dirname($new)) != 777) || ($this->perm['dir'] != 777)) {
             throw new Exception('Error: Permission denied.');
         }
 
         if (file_exists($this->fullpath)) {
             rename($this->fullpath, $new);
         } else {
-            file_put_contents($new, $this->_output);
+            file_put_contents($new, $this->output);
         }
         chmod($new, 0777);
-        $this->_setFile($new);
+        $this->setFile($new);
 
         return $this;
     }
@@ -454,7 +454,7 @@ class File
         // Determine if the force download argument has been passed.
         $attach = ($download) ? 'attachment; ' : null;
         $headers = array(
-                       'Content-type' => $this->_mime,
+                       'Content-type' => $this->mime,
                        'Content-disposition' => $attach . 'filename=' . $this->basename
                    );
 
@@ -499,7 +499,7 @@ class File
     {
         // Check to make sure the file exists and the permissions are set correctly before attempting to delete it from disk.
         if (file_exists($this->fullpath)) {
-            if ((null !== $this->_perm['file']) && ($this->_perm['file'] != 777)) {
+            if ((null !== $this->perm['file']) && ($this->perm['file'] != 777)) {
                 throw new Exception('Error: Permission denied.');
             }
 
@@ -551,7 +551,7 @@ class File
         $file_parts = pathinfo($file);
 
         if (null !== $types) {
-            $this->_allowed = $types;
+            $this->allowed = $types;
         }
 
         $this->fullpath = $file;
@@ -559,26 +559,26 @@ class File
         $this->basename = $file_parts['basename'];
         $this->filename = $file_parts['filename'];
         $this->ext = (isset($file_parts['extension'])) ? $file_parts['extension'] : null;
-        $this->_perm['dir'] = self::_checkPermissions($this->dir);
+        $this->perm['dir'] = self::_checkPermissions($this->dir);
 
         // Check if the file exists, and set the size and permissions accordingly.
         if (file_exists($file)) {
             // Check if the server is a Linux/Unix server or a Windows server.
-            $this->_perm['file'] = self::_checkPermissions($this->fullpath);
-            $this->_size = filesize($file);
+            $this->perm['file'] = self::_checkPermissions($this->fullpath);
+            $this->size = filesize($file);
         } else {
             // Check if the server is a Linux/Unix server or a Windows server.
-            $this->_perm['file'] = 777;
-            $this->_size = 0;
+            $this->perm['file'] = 777;
+            $this->size = 0;
         }
 
         // Check to see if the file is an accepted file format.
-        if ((null !== $this->_allowed) && (null !== $this->ext) && (count($this->_allowed) > 0) && (!array_key_exists(strtolower($this->ext), $this->_allowed))) {
+        if ((null !== $this->allowed) && (null !== $this->ext) && (count($this->allowed) > 0) && (!array_key_exists(strtolower($this->ext), $this->allowed))) {
             throw new Exception('Error: The file type ' . strtoupper($this->ext) . ' is not an accepted file format.');
         }
 
         // Set the mime type of the file.
-        $this->_mime = ((null !== $this->ext) && (count($this->_allowed) > 0) && (null !== $this->_allowed)) ? $this->_allowed[strtolower($this->ext)] : null;
+        $this->mime = ((null !== $this->ext) && (count($this->allowed) > 0) && (null !== $this->allowed)) ? $this->allowed[strtolower($this->ext)] : null;
     }
 
 }

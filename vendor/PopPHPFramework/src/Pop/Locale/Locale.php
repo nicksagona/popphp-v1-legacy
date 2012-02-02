@@ -42,13 +42,13 @@ class Locale
      * Default system language
      * @var string
      */
-    protected $_language = null;
+    protected $language = null;
 
     /**
      * Language content
      * @var array
      */
-    protected $_content = array('source' => array(), 'output' => array());
+    protected $content = array('source' => array(), 'output' => array());
 
     /**
      * Constructor
@@ -61,13 +61,13 @@ class Locale
     public function __construct($lng = null)
     {
         if (null !== $lng) {
-            $this->_language = $lng;
+            $this->language = $lng;
         } else if (defined('POP_DEFAULT_LANG')) {
-            $this->_language = POP_DEFAULT_LANG;
+            $this->language = POP_DEFAULT_LANG;
         } else {
-            $this->_language = 'en';
+            $this->language = 'en';
         }
-        $this->_loadCurrentLanguage();
+        $this->loadCurrentLanguage();
     }
 
     /**
@@ -88,7 +88,7 @@ class Locale
      */
     public function getLanguage()
     {
-        return $this->_language;
+        return $this->language;
     }
 
     /**
@@ -104,8 +104,8 @@ class Locale
             if (($xml =@ new \SimpleXMLElement($langFile, LIBXML_NOWARNING, true)) !== false) {
                 foreach ($xml->text as $text) {
                     if (isset($text->source) && isset($text->output)) {
-                        $this->_content['source'][] = (string)$text->source;
-                        $this->_content['output'][] = (string)$text->output;
+                        $this->content['source'][] = (string)$text->source;
+                        $this->content['output'][] = (string)$text->output;
                     }
                 }
             } else {
@@ -125,7 +125,7 @@ class Locale
      */
     public function __($str, $params = null)
     {
-        return $this->_translate($str, $params);
+        return $this->translate($str, $params);
     }
 
     /**
@@ -137,7 +137,7 @@ class Locale
      */
     public function _e($str, $params = null)
     {
-        echo $this->_translate($str, $params);
+        echo $this->translate($str, $params);
     }
 
     /**
@@ -179,8 +179,8 @@ class Locale
      */
     protected function _translate($str, $params = null)
     {
-        $key = array_search($str, $this->_content['source']);
-        $trans = ($key !== false) ? $this->_content['output'][$key] : $str;
+        $key = array_search($str, $this->content['source']);
+        $trans = ($key !== false) ? $this->content['output'][$key] : $str;
 
         if (null !== $params) {
             if (is_array($params)) {
@@ -202,7 +202,7 @@ class Locale
      */
     protected function _loadCurrentLanguage()
     {
-        $this->loadFile(__DIR__ . '/Data/' . $this->_language . '.xml');
+        $this->loadFile(__DIR__ . '/Data/' . $this->language . '.xml');
     }
 
 }

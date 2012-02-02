@@ -52,67 +52,67 @@ class Pdf extends File
      * PDF root index.
      * @var int
      */
-    protected $_root = 1;
+    protected $root = 1;
 
     /**
      * PDF parent index.
      * @var int
      */
-    protected $_parent = 2;
+    protected $parent = 2;
 
     /**
      * PDF info index.
      * @var int
      */
-    protected $_info = 3;
+    protected $info = 3;
 
     /**
      * Array of allowed file types.
      * @var array
      */
-    protected $_allowed = array('pdf' => 'application/pdf');
+    protected $allowed = array('pdf' => 'application/pdf');
 
     /**
      * Array of PDF page object indices.
      * @var array
      */
-    protected $_pages = array();
+    protected $pages = array();
 
     /**
      * Array of PDF objects.
      * @var array
      */
-    protected $_objects = array();
+    protected $objects = array();
 
     /**
      * PDF trailer.
      * @var string
      */
-    protected $_trailer = null;
+    protected $trailer = null;
 
     /**
      * Current PDF page.
      * @var int
      */
-    protected $_curPage = null;
+    protected $curPage = null;
 
     /**
      * PDF text parameters.
      * @var array
      */
-    protected $_textParams = array('c' => 0, 'w' => 0, 'h' => 100, 'v' => 100, 'rot' => 0, 'rend' => 0);
+    protected $textParams = array('c' => 0, 'w' => 0, 'h' => 100, 'v' => 100, 'rot' => 0, 'rend' => 0);
 
     /**
      * PDF bytelength
      * @var int
      */
-    protected $_bytelength = null;
+    protected $bytelength = null;
 
     /**
      * Standard PDF fonts with their approximate character width and height factors.
      * @var array
      */
-    protected $_standard_fonts = array(
+    protected $standard_fonts = array(
         'Arial'                    => array('width_factor' => 0.5, 'height_factor' => 1),
         'Arial,Italic'             => array('width_factor' => 0.5, 'height_factor' => 1.12),
         'Arial,Bold'               => array('width_factor' => 0.55, 'height_factor' => 1.12),
@@ -145,55 +145,55 @@ class Pdf extends File
      * Last font name
      * @var string
      */
-    protected $_lastFontName = null;
+    protected $lastFontName = null;
 
     /**
      * Stroke ON or OFF flag
      * @var boolean
      */
-    protected $_stroke = false;
+    protected $stroke = false;
 
     /**
      * Stroke width
      * @var int
      */
-    protected $_strokeWidth = null;
+    protected $strokeWidth = null;
 
     /**
      * Stroke dash length
      * @var int
      */
-    protected $_strokeDashLength = null;
+    protected $strokeDashLength = null;
 
     /**
      * Stroke dash gap
      * @var int
      */
-    protected $_strokeDashGap = null;
+    protected $strokeDashGap = null;
 
     /**
      * Stroke color of the document
      * @var mixed
      */
-    protected $_strokeColor = null;
+    protected $strokeColor = null;
 
     /**
      * Fill color of the document
      * @var mixed
      */
-    protected $_fillColor = null;
+    protected $fillColor = null;
 
     /**
      * Background color of the document
      * @var mixed
      */
-    protected $_backgroundColor = null;
+    protected $backgroundColor = null;
 
     /**
      * Compression property
      * @var boolean
      */
-    protected $_compress = false;
+    protected $compress = false;
 
     /**
      * Constructor
@@ -210,17 +210,17 @@ class Pdf extends File
      */
     public function __construct($pdf, $sz = null, $w = null, $h = null)
     {
-        $this->_fillColor = new Rgb(0, 0, 0);
-        $this->_backgroundColor = new Rgb(255, 255, 255);
+        $this->fillColor = new Rgb(0, 0, 0);
+        $this->backgroundColor = new Rgb(255, 255, 255);
 
         parent::__construct($pdf);
 
-        $this->_objects[1] = new Root();
-        $this->_objects[2] = new PdfParent();
-        $this->_objects[3] = new Info();
+        $this->objects[1] = new Root();
+        $this->objects[2] = new PdfParent();
+        $this->objects[3] = new Info();
 
         // If the PDF file already exists, import it.
-        if ($this->_size != 0) {
+        if ($this->size != 0) {
             $this->importPdf($this->fullpath);
         }
 
@@ -243,29 +243,29 @@ class Pdf extends File
         $pdfi = new Import($pdf, $pg);
 
         // Shift the imported objects indices based on existing indices in this PDF.
-        $pdfi->shiftObjects(($this->_lastIndex($this->_objects) + 1));
+        $pdfi->shiftObjects(($this->lastIndex($this->objects) + 1));
 
         // Fetch the imported objects.
-        $importedObjs = $pdfi->returnObjects($this->_parent);
+        $importedObjs = $pdfi->returnObjects($this->parent);
 
         // Loop through the imported objects, adding the pages or objects as applicable.
         foreach($importedObjs as $key => $value) {
             if ($value['type'] == 'page') {
                 // Add the page object.
-                $this->_objects[$key] = new Page($value['data']);
+                $this->objects[$key] = new Page($value['data']);
 
                 // Finalize related page variables and objects.
-                $this->_curPage = (null === $this->_curPage) ? 0 : ($this->_lastIndex($this->_pages) + 1);
-                $this->_pages[$this->_curPage] = $key;
-                $this->_objects[$this->_parent]->count += 1;
+                $this->curPage = (null === $this->curPage) ? 0 : ($this->lastIndex($this->pages) + 1);
+                $this->pages[$this->curPage] = $key;
+                $this->objects[$this->parent]->count += 1;
             } else {
                 // Else, add the content object.
-                $this->_objects[$key] = new Object($value['data']);
+                $this->objects[$key] = new Object($value['data']);
             }
         }
 
         foreach ($pdfi->pages as $value) {
-            $this->_objects[$this->_parent]->kids[] = $value;
+            $this->objects[$this->parent]->kids[] = $value;
         }
 
         return $this;
@@ -282,23 +282,23 @@ class Pdf extends File
     public function addPage($sz = null, $w = null, $h = null)
     {
         // Define the next page and content object indices.
-        $pi = $this->_lastIndex($this->_objects) + 1;
-        $ci = $this->_lastIndex($this->_objects) + 2;
+        $pi = $this->lastIndex($this->objects) + 1;
+        $ci = $this->lastIndex($this->objects) + 2;
 
         // Create the page object.
-        $this->_objects[$pi] = new Page(null, $sz, $w, $h, $pi);
-        $this->_objects[$pi]->content[] = $ci;
-        $this->_objects[$pi]->curContent = $ci;
-        $this->_objects[$pi]->parent = $this->_parent;
+        $this->objects[$pi] = new Page(null, $sz, $w, $h, $pi);
+        $this->objects[$pi]->content[] = $ci;
+        $this->objects[$pi]->curContent = $ci;
+        $this->objects[$pi]->parent = $this->parent;
 
         // Create the content object.
-        $this->_objects[$ci] = new Object($ci);
+        $this->objects[$ci] = new Object($ci);
 
         // Finalize related page variables and objects.
-        $this->_curPage = (null === $this->_curPage) ? 0 : ($this->_lastIndex($this->_pages) + 1);
-        $this->_pages[$this->_curPage] = $pi;
-        $this->_objects[$this->_parent]->count += 1;
-        $this->_objects[$this->_parent]->kids[] = $pi;
+        $this->curPage = (null === $this->curPage) ? 0 : ($this->lastIndex($this->pages) + 1);
+        $this->pages[$this->curPage] = $pi;
+        $this->objects[$this->parent]->count += 1;
+        $this->objects[$this->parent]->kids[] = $pi;
 
         return $this;
     }
@@ -315,30 +315,30 @@ class Pdf extends File
         $key = $pg - 1;
 
         // Check if the page exists.
-        if (!array_key_exists($key, $this->_pages)) {
+        if (!array_key_exists($key, $this->pages)) {
             throw new Exception('Error: That page does not exist.');
         }
 
-        $pi = $this->_lastIndex($this->_objects) + 1;
-        $ci = $this->_lastIndex($this->_objects) + 2;
-        $this->_objects[$pi] = new Page($this->_objects[$this->_pages[$key]]);
-        $this->_objects[$pi]->index = $pi;
+        $pi = $this->lastIndex($this->objects) + 1;
+        $ci = $this->lastIndex($this->objects) + 2;
+        $this->objects[$pi] = new Page($this->objects[$this->pages[$key]]);
+        $this->objects[$pi]->index = $pi;
 
         // Duplicate the page's content objects.
-        $oldContent = $this->_objects[$pi]->content;
-        unset($this->_objects[$pi]->content);
+        $oldContent = $this->objects[$pi]->content;
+        unset($this->objects[$pi]->content);
         foreach ($oldContent as $key => $value) {
-            $this->_objects[$ci] = new Object((string)$this->_objects[$value]);
-            $this->_objects[$ci]->index = $ci;
-            $this->_objects[$pi]->content[] = $ci;
+            $this->objects[$ci] = new Object((string)$this->objects[$value]);
+            $this->objects[$ci]->index = $ci;
+            $this->objects[$pi]->content[] = $ci;
             $ci += 1;
         }
 
         // Finalize related page variables and objects.
-        $this->_curPage = (null === $this->_curPage) ? 0 : ($this->_lastIndex($this->_pages) + 1);
-        $this->_pages[$this->_curPage] = $pi;
-        $this->_objects[$this->_parent]->count += 1;
-        $this->_objects[$this->_parent]->kids[] = $pi;
+        $this->curPage = (null === $this->curPage) ? 0 : ($this->lastIndex($this->pages) + 1);
+        $this->pages[$this->curPage] = $pi;
+        $this->objects[$this->parent]->count += 1;
+        $this->objects[$this->parent]->kids[] = $pi;
 
 
         return $this;
@@ -356,42 +356,42 @@ class Pdf extends File
         $key = $pg - 1;
 
         // Check if the page exists.
-        if (!array_key_exists($key, $this->_pages)) {
+        if (!array_key_exists($key, $this->pages)) {
             throw new Exception('Error: That page does not exist.');
         }
 
         // Determine the page index and related data.
-        $pi = $this->_pages[$key];
-        $ki =  array_search($pi, $this->_objects[$this->_parent]->kids);
-        $content_objs = $this->_objects[$pi]->content;
+        $pi = $this->pages[$key];
+        $ki =  array_search($pi, $this->objects[$this->parent]->kids);
+        $content_objs = $this->objects[$pi]->content;
 
         // Remove the page's content objects.
         if (count($content_objs) != 0) {
             foreach ($content_objs as $value) {
-                unset($this->_objects[$value]);
+                unset($this->objects[$value]);
             }
         }
 
         // Subtract the page from the parent's count property.
-        $this->_objects[$this->_parent]->count -= 1;
+        $this->objects[$this->parent]->count -= 1;
 
         // Remove the page from the kids and pages arrays, and remove the page object.
-        unset($this->_objects[$this->_parent]->kids[$ki]);
-        unset($this->_pages[$key]);
-        unset($this->_objects[$pi]);
+        unset($this->objects[$this->parent]->kids[$ki]);
+        unset($this->pages[$key]);
+        unset($this->objects[$pi]);
 
         // Reset the kids array.
-        $tmpAry = $this->_objects[$this->_parent]->kids;
-        $this->_objects[$this->_parent]->kids = array();
+        $tmpAry = $this->objects[$this->parent]->kids;
+        $this->objects[$this->parent]->kids = array();
         foreach ($tmpAry as $value) {
-            $this->_objects[$this->_parent]->kids[] = $value;
+            $this->objects[$this->parent]->kids[] = $value;
         }
 
         // Reset the pages array.
-        $tmpAry = $this->_pages;
-        $this->_pages = array();
+        $tmpAry = $this->pages;
+        $this->pages = array();
         foreach ($tmpAry as $value) {
-            $this->_pages[] = $value;
+            $this->pages[] = $value;
         }
 
         return $this;
@@ -409,28 +409,28 @@ class Pdf extends File
         $newOrder = array();
 
         // Check if the PDF has more than one page.
-        if (count($this->_pages) <= 1) {
+        if (count($this->pages) <= 1) {
             throw new Exception('Error: The PDF does not have enough pages in which to order.');
         // Else, check if the numbers of pages passed equals the number of pages in the PDF.
-        } else if (count($pgs) != count($this->_pages)) {
+        } else if (count($pgs) != count($this->pages)) {
             throw new Exception('Error: The pages array passed does not contain the same number of pages as the PDF.');
         }
 
         // Make sure each page passed is within the PDF and not out of range.
         foreach ($pgs as $value) {
-            if (!array_key_exists(($value - 1), $this->_pages)) {
+            if (!array_key_exists(($value - 1), $this->pages)) {
                 throw new Exception('Error: The pages array passed contains a page that does not exist.');
             }
         }
 
         // Set the new order of the page objects.
         foreach ($pgs as $value) {
-            $newOrder[] = $this->_pages[$value - 1];
+            $newOrder[] = $this->pages[$value - 1];
         }
 
         // Set the kids and pages arrays to the new order.
-        $this->_objects[$this->_parent]->kids = $newOrder;
-        $this->_pages = $newOrder;
+        $this->objects[$this->parent]->kids = $newOrder;
+        $this->pages = $newOrder;
 
         return $this;
     }
@@ -442,7 +442,7 @@ class Pdf extends File
      */
     public function curPage()
     {
-        return ($this->_curPage + 1);
+        return ($this->curPage + 1);
     }
 
     /**
@@ -452,7 +452,7 @@ class Pdf extends File
      */
     public function numPages()
     {
-        return count($this->_pages);
+        return count($this->pages);
     }
 
     /**
@@ -462,7 +462,7 @@ class Pdf extends File
      */
     public function getLastFontName()
     {
-        return $this->_lastFontName;
+        return $this->lastFontName;
     }
 
     /**
@@ -473,7 +473,7 @@ class Pdf extends File
      */
     public function setCompression($comp = false)
     {
-        $this->_compress = $comp;
+        $this->compress = $comp;
         return $this;
     }
 
@@ -489,10 +489,10 @@ class Pdf extends File
         $key = $pg - 1;
 
         // Check if the page exists.
-        if (!array_key_exists($key, $this->_pages)) {
+        if (!array_key_exists($key, $this->pages)) {
             throw new Exception('Error: That page does not exist.');
         }
-        $this->_curPage = $pg - 1;
+        $this->curPage = $pg - 1;
 
         return $this;
     }
@@ -505,7 +505,7 @@ class Pdf extends File
      */
     public function setVersion($ver)
     {
-        $this->_objects[$this->_root]->version = $ver;
+        $this->objects[$this->root]->version = $ver;
         return $this;
     }
 
@@ -517,7 +517,7 @@ class Pdf extends File
      */
     public function setTitle($tle)
     {
-        $this->_objects[$this->_info]->title = $tle;
+        $this->objects[$this->info]->title = $tle;
         return $this;
     }
 
@@ -529,7 +529,7 @@ class Pdf extends File
      */
     public function setAuthor($auth)
     {
-        $this->_objects[$this->_info]->author = $auth;
+        $this->objects[$this->info]->author = $auth;
         return $this;
     }
 
@@ -541,7 +541,7 @@ class Pdf extends File
      */
     public function setSubject($subj)
     {
-        $this->_objects[$this->_info]->subject = $subj;
+        $this->objects[$this->info]->subject = $subj;
         return $this;
     }
 
@@ -553,7 +553,7 @@ class Pdf extends File
      */
     public function setCreateDate($dt)
     {
-        $this->_objects[$this->_info]->create_date = $dt;
+        $this->objects[$this->info]->create_date = $dt;
         return $this;
     }
 
@@ -565,7 +565,7 @@ class Pdf extends File
      */
     public function setModDate($dt)
     {
-        $this->_objects[$this->_info]->mod_date = $dt;
+        $this->objects[$this->info]->mod_date = $dt;
         return $this;
     }
 
@@ -577,7 +577,7 @@ class Pdf extends File
      */
     public function setBackgroundColor(ColorInterface $color)
     {
-        $this->_backgroundColor = $color;
+        $this->backgroundColor = $color;
         return $this;
     }
 
@@ -589,10 +589,10 @@ class Pdf extends File
      */
     public function setFillColor(ColorInterface $color)
     {
-        $this->_fillColor = $color;
+        $this->fillColor = $color;
 
-        $co_index = $this->_getContentObject();
-        $this->_objects[$co_index]->setStream("\n" . $this->_convertColor($color->getRed()) . " " . $this->_convertColor($color->getGreen()) . " " . $this->_convertColor($color->getBlue()) . " rg\n");
+        $co_index = $this->getContentObject();
+        $this->objects[$co_index]->setStream("\n" . $this->convertColor($color->getRed()) . " " . $this->convertColor($color->getGreen()) . " " . $this->convertColor($color->getBlue()) . " rg\n");
 
         return $this;
     }
@@ -605,10 +605,10 @@ class Pdf extends File
      */
     public function setStrokeColor(ColorInterface $color)
     {
-        $this->_strokeColor = $color;
+        $this->strokeColor = $color;
 
-        $co_index = $this->_getContentObject();
-        $this->_objects[$co_index]->setStream("\n" . $this->_convertColor($color->getRed()) . " " . $this->_convertColor($color->getGreen()) . " " . $this->_convertColor($color->getBlue()) . " RG\n");
+        $co_index = $this->getContentObject();
+        $this->objects[$co_index]->setStream("\n" . $this->convertColor($color->getRed()) . " " . $this->convertColor($color->getGreen()) . " " . $this->convertColor($color->getBlue()) . " RG\n");
 
         return $this;
     }
@@ -624,15 +624,15 @@ class Pdf extends File
     public function setStrokeWidth($w = null, $dash_len = null, $dash_gap = null)
     {
         if ((null === $w) || ($w == false) || ($w == 0)) {
-            $this->_stroke = false;
-            $this->_strokeWidth = null;
-            $this->_strokeDashLength = null;
-            $this->_strokeDashGap = null;
+            $this->stroke = false;
+            $this->strokeWidth = null;
+            $this->strokeDashLength = null;
+            $this->strokeDashGap = null;
         } else {
-            $this->_stroke = true;
-            $this->_strokeWidth = $w;
-            $this->_strokeDashLength = $dash_len;
-            $this->_strokeDashGap = $dash_gap;
+            $this->stroke = true;
+            $this->strokeWidth = $w;
+            $this->strokeDashLength = $dash_len;
+            $this->strokeDashGap = $dash_gap;
 
             // Set stroke to the $w argument, or else default it to 1pt.
             $new_str = "\n{$w} w\n";
@@ -640,8 +640,8 @@ class Pdf extends File
             // Set the dash properties of the stroke, or else default it to a solid line.
             $new_str .= ((null !== $dash_len) && (null !== $dash_gap)) ? "[{$dash_len} {$dash_gap}] 0 d\n" : "[] 0 d\n";
 
-            $co_index = $this->_getContentObject();
-            $this->_objects[$co_index]->setStream($new_str);
+            $co_index = $this->getContentObject();
+            $this->objects[$co_index]->setStream($new_str);
         }
 
         return $this;
@@ -672,12 +672,12 @@ class Pdf extends File
         }
 
         // Set the text parameters.
-        $this->_textParams['c'] = $c;
-        $this->_textParams['w'] = $w;
-        $this->_textParams['h'] = $h;
-        $this->_textParams['v'] = $v;
-        $this->_textParams['rot'] = $rot;
-        $this->_textParams['rend'] = $rend;
+        $this->textParams['c'] = $c;
+        $this->textParams['w'] = $w;
+        $this->textParams['h'] = $h;
+        $this->textParams['v'] = $v;
+        $this->textParams['rot'] = $rot;
+        $this->textParams['rend'] = $rend;
 
         return $this;
     }
@@ -693,41 +693,41 @@ class Pdf extends File
     {
         // Embed the font file.
         if (file_exists($font)) {
-            $fontIndex = (count($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) == 0) ? 1 : count($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) + 1;
-            $objectIndex = $this->_lastIndex($this->_objects) + 1;
+            $fontIndex = (count($this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts) == 0) ? 1 : count($this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts) + 1;
+            $objectIndex = $this->lastIndex($this->objects) + 1;
 
-            $fontParser = new Font($font, $fontIndex, $objectIndex, $this->_compress);
+            $fontParser = new Font($font, $fontIndex, $objectIndex, $this->compress);
 
             if (!$fontParser->isEmbeddable() && !$embedOverride) {
                 throw new Exception('Error: The font license does not allow for it to be embedded.');
             }
 
-            $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$fontParser->getFontName()] = $fontParser->getFontRef();
+            $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts[$fontParser->getFontName()] = $fontParser->getFontRef();
             $fontObjects = $fontParser->getObjects();
 
             foreach ($fontObjects as $key => $value) {
-                $this->_objects[$key] = $value;
+                $this->objects[$key] = $value;
             }
 
-            $this->_lastFontName = $fontParser->getFontName();
+            $this->lastFontName = $fontParser->getFontName();
         // Else, use a standard font.
         } else {
             // Check to make sure the font is a standard PDF font.
-            if (!array_key_exists($font, $this->_standard_fonts)) {
+            if (!array_key_exists($font, $this->standard_fonts)) {
                 throw new Exception('Error: That font is not contained within the standard PDF fonts.');
             }
             // Set the font index.
-            $ft_index = (count($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) == 0) ? 1 : count($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts) + 1;
+            $ft_index = (count($this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts) == 0) ? 1 : count($this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts) + 1;
 
             // Set the font name and the next object index.
             $f = 'MF' . $ft_index;
-            $i = $this->_lastIndex($this->_objects) + 1;
+            $i = $this->lastIndex($this->objects) + 1;
 
             // Add the font to the current page's fonts and add the font to _objects array.
-            $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$font] = "/{$f} {$i} 0 R";
-            $this->_objects[$i] = new Object("{$i} 0 obj\n<<\n    /Type /Font\n    /Subtype /Type1\n    /Name /{$f}\n    /BaseFont /{$font}\n    /Encoding /StandardEncoding\n>>\nendobj\n\n");
+            $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts[$font] = "/{$f} {$i} 0 R";
+            $this->objects[$i] = new Object("{$i} 0 obj\n<<\n    /Type /Font\n    /Subtype /Type1\n    /Name /{$f}\n    /BaseFont /{$font}\n    /Encoding /StandardEncoding\n>>\nendobj\n\n");
 
-            $this->_lastFontName = $font;
+            $this->lastFontName = $font;
         }
 
         return $this;
@@ -749,26 +749,26 @@ class Pdf extends File
         // Check to see if the font already exists on another page.
         $fontExists = false;
 
-        foreach ($this->_pages as $value) {
-            if (array_key_exists($font, $this->_objects[$value]->fonts)) {
-                $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$font] = $this->_objects[$value]->fonts[$font];
-                $fontObj = substr($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$font], 1, (strpos(' ', $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$font]) + 3));
+        foreach ($this->pages as $value) {
+            if (array_key_exists($font, $this->objects[$value]->fonts)) {
+                $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts[$font] = $this->objects[$value]->fonts[$font];
+                $fontObj = substr($this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts[$font], 1, (strpos(' ', $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts[$font]) + 3));
                 $fontExists = true;
             }
         }
 
         // If the font does not already exist, add it.
         if (!$fontExists) {
-            if (array_key_exists($font, $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts)) {
-                $fontObj = substr($this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$font], 1, (strpos(' ', $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->fonts[$font]) + 3));
+            if (array_key_exists($font, $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts)) {
+                $fontObj = substr($this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts[$font], 1, (strpos(' ', $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts[$font]) + 3));
             } else {
                 throw new Exception('Error: The font \'' . $font . '\' has not been added to the PDF.');
             }
         }
 
         // Add the text to the current page's content stream.
-        $co_index = $this->_getContentObject();
-        $this->_objects[$co_index]->setStream("\nBT\n    /{$fontObj} {$size} Tf\n    " . $this->_calcTextMatrix() . " {$x} {$y} Tm\n    " . $this->_textParams['c'] . " Tc " . $this->_textParams['w'] . " Tw " . $this->_textParams['rend'] . " Tr\n    ({$str})Tj\nET\n");
+        $co_index = $this->getContentObject();
+        $this->objects[$co_index]->setStream("\nBT\n    /{$fontObj} {$size} Tf\n    " . $this->calcTextMatrix() . " {$x} {$y} Tm\n    " . $this->textParams['c'] . " Tc " . $this->textParams['w'] . " Tw " . $this->textParams['rend'] . " Tr\n    ({$str})Tj\nET\n");
 
         return $this;
     }
@@ -785,15 +785,15 @@ class Pdf extends File
      */
     public function getStringSize($str, $font, $sz)
     {
-        if (!array_key_exists($font, $this->_standard_fonts)) {
+        if (!array_key_exists($font, $this->standard_fonts)) {
             throw new Exception('Error: That font is not contained within the standard PDF fonts.');
         }
 
         // Calculate the approximate width, height and offset baseline values of the string at the certain font.
         $size = array();
 
-        $size['width'] = round(($sz * $this->_standard_fonts[$font]['width_factor']) * strlen($str));
-        $size['height'] = round($sz * $this->_standard_fonts[$font]['height_factor']);
+        $size['width'] = round(($sz * $this->standard_fonts[$font]['width_factor']) * strlen($str));
+        $size['height'] = round($sz * $this->standard_fonts[$font]['height_factor']);
         $size['baseline'] = round($sz / 3);
 
         return $size;
@@ -810,8 +810,8 @@ class Pdf extends File
      */
     public function addLine($x1, $y1, $x2, $y2)
     {
-        $co_index = $this->_getContentObject();
-        $this->_objects[$co_index]->setStream("\n{$x1} {$y1} m\n{$x2} {$y2} l\nS\n");
+        $co_index = $this->getContentObject();
+        $this->objects[$co_index]->setStream("\n{$x1} {$y1} m\n{$x2} {$y2} l\nS\n");
 
         return $this;
     }
@@ -832,8 +832,8 @@ class Pdf extends File
             $h = $w;
         }
 
-        $co_index = $this->_getContentObject();
-        $this->_objects[$co_index]->setStream("\n{$x} {$y} {$w} {$h} re\n" . $this->_setStyle($fill) . "\n");
+        $co_index = $this->getContentObject();
+        $this->objects[$co_index]->setStream("\n{$x} {$y} {$w} {$h} re\n" . $this->setStyle($fill) . "\n");
 
         return $this;
     }
@@ -905,8 +905,8 @@ class Pdf extends File
         $coor4_bez2_x = (round(0.45 * ($x4 - $x1))) + $x1;
         $coor4_bez2_y = $y4;
 
-        $co_index = $this->_getContentObject();
-        $this->_objects[$co_index]->setStream("\n{$x1} {$y1} m\n{$coor1_bez1_x} {$coor1_bez1_y} {$coor2_bez1_x} {$coor2_bez1_y} {$x2} {$y2} c\n{$coor2_bez2_x} {$coor2_bez2_y} {$coor3_bez1_x} {$coor3_bez1_y} {$x3} {$y3} c\n{$coor3_bez2_x} {$coor3_bez2_y} {$coor4_bez1_x} {$coor4_bez1_y} {$x4} {$y4} c\n{$coor4_bez2_x} {$coor4_bez2_y} {$coor1_bez2_x} {$coor1_bez2_y} {$x1} {$y1} c\n" . $this->_setStyle($fill) . "\n");
+        $co_index = $this->getContentObject();
+        $this->objects[$co_index]->setStream("\n{$x1} {$y1} m\n{$coor1_bez1_x} {$coor1_bez1_y} {$coor2_bez1_x} {$coor2_bez1_y} {$x2} {$y2} c\n{$coor2_bez2_x} {$coor2_bez2_y} {$coor3_bez1_x} {$coor3_bez1_y} {$x3} {$y3} c\n{$coor3_bez2_x} {$coor3_bez2_y} {$coor4_bez1_x} {$coor4_bez1_y} {$x4} {$y4} c\n{$coor4_bez2_x} {$coor4_bez2_y} {$coor1_bez2_x} {$coor1_bez2_y} {$x1} {$y1} c\n" . $this->setStyle($fill) . "\n");
 
         return $this;
     }
@@ -948,8 +948,8 @@ class Pdf extends File
         }
         $polygon .= "h\n";
 
-        $co_index = $this->_getContentObject();
-        $this->_objects[$co_index]->setStream("\n{$polygon}\n" . $this->_setStyle($fill) . "\n");
+        $co_index = $this->getContentObject();
+        $this->objects[$co_index]->setStream("\n{$polygon}\n" . $this->setStyle($fill) . "\n");
 
         return $this;
     }
@@ -979,8 +979,8 @@ class Pdf extends File
         $startPoint = array('x' => $x + $sX, 'y' => $y - $sY);
         $endPoint = array('x' => $x + $eX, 'y' => $y - $eY);
 
-        $startQuad = $this->_getQuadrant($startPoint, $centerPoint);
-        $endQuad = $this->_getQuadrant($endPoint, $centerPoint);
+        $startQuad = $this->getQuadrant($startPoint, $centerPoint);
+        $endQuad = $this->getQuadrant($endPoint, $centerPoint);
 
         $maskPoint1 = array('x' => ($x + $w + 50), 'y' => ($y - $h - 50));
         $maskPoint2 = array('x' => ($x - $w - 50), 'y' => ($y - $h - 50));
@@ -1084,8 +1084,8 @@ class Pdf extends File
      */
     public function openLayer()
     {
-        $co_index = $this->_getContentObject();
-        $this->_objects[$co_index]->setStream("\nq\n");
+        $co_index = $this->getContentObject();
+        $this->objects[$co_index]->setStream("\nq\n");
 
         return $this;
     }
@@ -1098,8 +1098,8 @@ class Pdf extends File
      */
     public function closeLayer()
     {
-        $co_index = $this->_getContentObject();
-        $this->_objects[$co_index]->setStream("\nQ\n");
+        $co_index = $this->getContentObject();
+        $this->objects[$co_index]->setStream("\nQ\n");
 
         return $this;
     }
@@ -1116,18 +1116,18 @@ class Pdf extends File
      */
     public function addClippingRectangle($x, $y, $w, $h = null)
     {
-        $oldFillColor = $this->_fillColor;
-        $oldStrokeColor = $this->_strokeColor;
-        $oldStrokeWidth = $this->_strokeWidth;
-        $oldStrokeDashLength = $this->_strokeDashLength;
-        $oldStrokeDashGap = $this->_strokeDashGap;
+        $oldFillColor = $this->fillColor;
+        $oldStrokeColor = $this->strokeColor;
+        $oldStrokeWidth = $this->strokeWidth;
+        $oldStrokeDashLength = $this->strokeDashLength;
+        $oldStrokeDashGap = $this->strokeDashGap;
 
-        $this->setFillColor($this->_backgroundColor);
+        $this->setFillColor($this->backgroundColor);
         $this->setStrokeWidth(false);
 
         $h = (null === $h) ? $w : $h;
-        $co_index = $this->_getContentObject();
-        $this->_objects[$co_index]->setStream("\n{$x} {$y} {$w} {$h} re\nW\nF\n");
+        $co_index = $this->getContentObject();
+        $this->objects[$co_index]->setStream("\n{$x} {$y} {$w} {$h} re\nW\nF\n");
 
         $this->setFillColor($oldFillColor);
         if (null !== $oldStrokeColor) {
@@ -1165,13 +1165,13 @@ class Pdf extends File
      */
     public function addClippingEllipse($x, $y, $w, $h = null)
     {
-        $oldFillColor = $this->_fillColor;
-        $oldStrokeColor = $this->_strokeColor;
-        $oldStrokeWidth = $this->_strokeWidth;
-        $oldStrokeDashLength = $this->_strokeDashLength;
-        $oldStrokeDashGap = $this->_strokeDashGap;
+        $oldFillColor = $this->fillColor;
+        $oldStrokeColor = $this->strokeColor;
+        $oldStrokeWidth = $this->strokeWidth;
+        $oldStrokeDashLength = $this->strokeDashLength;
+        $oldStrokeDashGap = $this->strokeDashGap;
 
-        $this->setFillColor($this->_backgroundColor);
+        $this->setFillColor($this->backgroundColor);
         $this->setStrokeWidth(false);
 
         if (null === $h) {
@@ -1214,8 +1214,8 @@ class Pdf extends File
         $coor4_bez2_x = (round(0.45 * ($x4 - $x1))) + $x1;
         $coor4_bez2_y = $y4;
 
-        $co_index = $this->_getContentObject();
-        $this->_objects[$co_index]->setStream("\n{$x1} {$y1} m\n{$coor1_bez1_x} {$coor1_bez1_y} {$coor2_bez1_x} {$coor2_bez1_y} {$x2} {$y2} c\n{$coor2_bez2_x} {$coor2_bez2_y} {$coor3_bez1_x} {$coor3_bez1_y} {$x3} {$y3} c\n{$coor3_bez2_x} {$coor3_bez2_y} {$coor4_bez1_x} {$coor4_bez1_y} {$x4} {$y4} c\n{$coor4_bez2_x} {$coor4_bez2_y} {$coor1_bez2_x} {$coor1_bez2_y} {$x1} {$y1} c\nW\nF\n");
+        $co_index = $this->getContentObject();
+        $this->objects[$co_index]->setStream("\n{$x1} {$y1} m\n{$coor1_bez1_x} {$coor1_bez1_y} {$coor2_bez1_x} {$coor2_bez1_y} {$x2} {$y2} c\n{$coor2_bez2_x} {$coor2_bez2_y} {$coor3_bez1_x} {$coor3_bez1_y} {$x3} {$y3} c\n{$coor3_bez2_x} {$coor3_bez2_y} {$coor4_bez1_x} {$coor4_bez1_y} {$x4} {$y4} c\n{$coor4_bez2_x} {$coor4_bez2_y} {$coor1_bez2_x} {$coor1_bez2_y} {$x1} {$y1} c\nW\nF\n");
 
         $this->setFillColor($oldFillColor);
         if (null !== $oldStrokeColor) {
@@ -1250,13 +1250,13 @@ class Pdf extends File
      */
     public function addClippingPolygon($points)
     {
-        $oldFillColor = $this->_fillColor;
-        $oldStrokeColor = $this->_strokeColor;
-        $oldStrokeWidth = $this->_strokeWidth;
-        $oldStrokeDashLength = $this->_strokeDashLength;
-        $oldStrokeDashGap = $this->_strokeDashGap;
+        $oldFillColor = $this->fillColor;
+        $oldStrokeColor = $this->strokeColor;
+        $oldStrokeWidth = $this->strokeWidth;
+        $oldStrokeDashLength = $this->strokeDashLength;
+        $oldStrokeDashGap = $this->strokeDashGap;
 
-        $this->setFillColor($this->_backgroundColor);
+        $this->setFillColor($this->backgroundColor);
         $this->setStrokeWidth(false);
 
         $i = 1;
@@ -1273,8 +1273,8 @@ class Pdf extends File
         $polygon .= "h\n";
         $polygon .= "W\n";
 
-        $co_index = $this->_getContentObject();
-        $this->_objects[$co_index]->setStream("\n{$polygon}\nF\n");
+        $co_index = $this->getContentObject();
+        $this->objects[$co_index]->setStream("\n{$polygon}\nF\n");
 
         $this->setFillColor($oldFillColor);
         if (null !== $oldStrokeColor) {
@@ -1300,11 +1300,11 @@ class Pdf extends File
         $x2 = $x + $w;
         $y2 = $y + $h;
 
-        $i = $this->_lastIndex($this->_objects) + 1;
+        $i = $this->lastIndex($this->objects) + 1;
 
         // Add the annotation index to the current page's annotations and add the annotation to _objects array.
-        $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->annots[] = $i;
-        $this->_objects[$i] = new Object("{$i} 0 obj\n<<\n    /Type /Annot\n    /Subtype /Link\n    /Rect [{$x} {$y} {$x2} {$y2}]\n    /Border [0 0 0]\n    /A <</S /URI /URI ({$url})>>\n>>\nendobj\n\n");
+        $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->annots[] = $i;
+        $this->objects[$i] = new Object("{$i} 0 obj\n<<\n    /Type /Annot\n    /Subtype /Link\n    /Rect [{$x} {$y} {$x2} {$y2}]\n    /Border [0 0 0]\n    /A <</S /URI /URI ({$url})>>\n>>\nendobj\n\n");
 
         return $this;
     }
@@ -1328,22 +1328,22 @@ class Pdf extends File
         $x2 = $x + $w;
         $y2 = $y + $h;
 
-        $i = $this->_lastIndex($this->_objects) + 1;
+        $i = $this->lastIndex($this->objects) + 1;
 
         // Set the destination of the internal link, or default to the current page.
         if (null !== $dest) {
-            if (!isset($this->_pages[$dest - 1])) {
+            if (!isset($this->pages[$dest - 1])) {
                 throw new Exception('Error: That page has not been defined.');
             }
-            $d = $this->_objects[$this->_pages[$dest - 1]]->index;
+            $d = $this->objects[$this->pages[$dest - 1]]->index;
         // Else, set the destination to the current page.
         } else {
-            $d = $this->_objects[$this->_pages[$this->_curPage]]->index;
+            $d = $this->objects[$this->pages[$this->curPage]]->index;
         }
 
         // Add the annotation index to the current page's annotations and add the annotation to _objects array.
-        $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->annots[] = $i;
-        $this->_objects[$i] = new Object("{$i} 0 obj\n<<\n    /Type /Annot\n    /Subtype /Link\n    /Rect [{$x} {$y} {$x2} {$y2}]\n    /Border [0 0 0]\n    /Dest [{$d} 0 R /XYZ {$X} {$Y} {$Z}]\n>>\nendobj\n\n");
+        $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->annots[] = $i;
+        $this->objects[$i] = new Object("{$i} 0 obj\n<<\n    /Type /Annot\n    /Subtype /Link\n    /Rect [{$x} {$y} {$x2} {$y2}]\n    /Border [0 0 0]\n    /Dest [{$d} 0 R /XYZ {$X} {$Y} {$Z}]\n>>\nendobj\n\n");
 
         return $this;
     }
@@ -1361,20 +1361,20 @@ class Pdf extends File
     public function addImage($image, $x, $y, $scl = null)
     {
         // Create image parser object
-        $i = $this->_lastIndex($this->_objects) + 1;
+        $i = $this->lastIndex($this->objects) + 1;
         $imageParser = new Image($image, $x, $y, $i, $scl);
 
         $imageObjects = $imageParser->getObjects();
 
         foreach ($imageObjects as $key => $value) {
-            $this->_objects[$key] = $value;
+            $this->objects[$key] = $value;
         }
 
         // Add the image to the current page's xobject array and content stream.
-        $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->xobjs[] = $imageParser->getXObject();
+        $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->xobjs[] = $imageParser->getXObject();
 
-        $co_index = $this->_getContentObject();
-        $this->_objects[$co_index]->setStream($imageParser->getStream());
+        $co_index = $this->getContentObject();
+        $this->objects[$co_index]->setStream($imageParser->getStream());
 
         return $this;
     }
@@ -1415,39 +1415,39 @@ class Pdf extends File
      */
     public function finalize()
     {
-        $this->_output = null;
+        $this->output = null;
 
         // Define some variables and initialize the trailer.
-        $numObjs = count($this->_objects) + 1;
-        $this->_trailer = "xref\n0 {$numObjs}\n0000000000 65535 f \n";
+        $numObjs = count($this->objects) + 1;
+        $this->trailer = "xref\n0 {$numObjs}\n0000000000 65535 f \n";
 
         // Calculate the root object lead off.
-        $byteLength = $this->_calcByteLength($this->_objects[$this->_root]);
-        $this->_bytelength += $byteLength;
-        $this->_trailer .= $this->_formatByteLength($this->_bytelength) . " 00000 n \n";
-        $this->_output .= $this->_objects[$this->_root];
+        $byteLength = $this->calcByteLength($this->objects[$this->root]);
+        $this->bytelength += $byteLength;
+        $this->trailer .= $this->formatByteLength($this->bytelength) . " 00000 n \n";
+        $this->output .= $this->objects[$this->root];
 
         // Loop through the rest of the objects, calculate their size and length for the xref table and add their data to the output.
-        foreach ($this->_objects as $obj) {
-            if ($obj->index != $this->_root) {
-                if (($obj instanceof Object) && ($this->_compress) && (!$obj->isPalette()) && (!$obj->isCompressed())) {
+        foreach ($this->objects as $obj) {
+            if ($obj->index != $this->root) {
+                if (($obj instanceof Object) && ($this->compress) && (!$obj->isPalette()) && (!$obj->isCompressed())) {
                     $obj->compress();
                 }
-                $byteLength = $this->_calcByteLength($obj);
-                $this->_bytelength += $byteLength;
-                $this->_trailer .= $this->_formatByteLength($this->_bytelength) . " 00000 n \n";
-                $this->_output .= $obj;
+                $byteLength = $this->calcByteLength($obj);
+                $this->bytelength += $byteLength;
+                $this->trailer .= $this->formatByteLength($this->bytelength) . " 00000 n \n";
+                $this->output .= $obj;
             }
         }
 
         // Finalize the trailer.
-        $this->_trailer .= "trailer\n<</Size {$numObjs}/Root {$this->_root} 0 R/Info {$this->_info} 0 R>>\nstartxref\n" . ($this->_bytelength + 68) . "\n%%EOF";
+        $this->trailer .= "trailer\n<</Size {$numObjs}/Root {$this->root} 0 R/Info {$this->info} 0 R>>\nstartxref\n" . ($this->bytelength + 68) . "\n%%EOF";
 
         // Append the trailer to the final output.
-        $this->_output .= $this->_trailer;
+        $this->output .= $this->trailer;
 
         // Write to the file.
-        $this->write($this->_output);
+        $this->write($this->output);
 
         return $this;
     }
@@ -1460,14 +1460,14 @@ class Pdf extends File
     protected function _getContentObject()
     {
         // If the page's current content object index is not set, create one.
-        if (null === $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->curContent) {
-            $coi = $this->_lastIndex($this->_objects) + 1;
-            $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->content[] = $coi;
-            $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->curContent = $coi;
-            $this->_objects[$coi] = new Object($coi);
+        if (null === $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->curContent) {
+            $coi = $this->lastIndex($this->objects) + 1;
+            $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->content[] = $coi;
+            $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->curContent = $coi;
+            $this->objects[$coi] = new Object($coi);
         // Else, set and return the page's current content object index.
         } else {
-            $coi = $this->_objects[$this->_objects[$this->_pages[$this->_curPage]]->index]->curContent;
+            $coi = $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->curContent;
         }
 
         return $coi;
@@ -1489,10 +1489,10 @@ class Pdf extends File
         $neg = null;
 
         // Determine is the rotate parameter is negative or not.
-        $neg = ($this->_textParams['rot'] < 0) ? true : false;
+        $neg = ($this->textParams['rot'] < 0) ? true : false;
 
         // Calculate the text matrix parameters.
-        $rot = abs($this->_textParams['rot']);
+        $rot = abs($this->textParams['rot']);
 
         if (($rot >= 0) && ($rot <= 45)) {
             $factor = round(($rot / 45), 2);
@@ -1523,14 +1523,14 @@ class Pdf extends File
         }
 
         // Adjust the text matrix parameters according to the horizontal and vertical scale parameters.
-        if ($this->_textParams['h'] != 100) {
-            $a = round(($a * ($this->_textParams['h'] / 100)), 2);
-            $b = round(($b * ($this->_textParams['h'] / 100)), 2);
+        if ($this->textParams['h'] != 100) {
+            $a = round(($a * ($this->textParams['h'] / 100)), 2);
+            $b = round(($b * ($this->textParams['h'] / 100)), 2);
         }
 
-        if ($this->_textParams['v'] != 100) {
-            $c = round(($c * ($this->_textParams['v'] / 100)), 2);
-            $d = round(($d * ($this->_textParams['v'] / 100)), 2);
+        if ($this->textParams['v'] != 100) {
+            $c = round(($c * ($this->textParams['v'] / 100)), 2);
+            $d = round(($d * ($this->textParams['v'] / 100)), 2);
         }
 
         // Set the text matrix and return it.
@@ -1605,7 +1605,7 @@ class Pdf extends File
     {
         $style = null;
 
-        if (($fill) && ($this->_stroke)) {
+        if (($fill) && ($this->stroke)) {
             $style = 'B';
         } else if ($fill) {
             $style = 'F';

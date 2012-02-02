@@ -89,10 +89,10 @@ class TrueType extends AbstractFont
     {
         parent::__construct($font);
 
-        $this->_parseTtfTable();
-        $this->_parseName();
-        $this->_parseCommonTables();
-        $this->_parseRequiredTables();
+        $this->parseTtfTable();
+        $this->parseName();
+        $this->parseCommonTables();
+        $this->parseRequiredTables();
     }
 
     /**

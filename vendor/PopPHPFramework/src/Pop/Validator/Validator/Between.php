@@ -47,26 +47,26 @@ class Between extends AbstractValidator
     {
         // Set the input, if passed
         if (null !== $input) {
-            $this->_input = $input;
+            $this->input = $input;
         }
 
-        $nums = explode('|', $this->_value);
+        $nums = explode('|', $this->value);
 
         // Set the default message
-        if ($this->_condition) {
-            $this->_defaultMessage = Locale::factory()->__('The value must be between %1 and %2.', $nums);
+        if ($this->condition) {
+            $this->defaultMessage = Locale::factory()->_('The value must be between %1 and %2.', $nums);
         } else {
-            $this->_defaultMessage = Locale::factory()->__('The value must not be between %1 and %2.', $nums);
+            $this->defaultMessage = Locale::factory()->_('The value must not be between %1 and %2.', $nums);
         }
 
         // Evaluate the input against the validator
-        if ((($this->_input > $nums[0]) && ($this->_input < $nums[1])) == $this->_condition) {
-            $this->_result = true;
+        if ((($this->input > $nums[0]) && ($this->input < $nums[1])) == $this->condition) {
+            $this->result = true;
         } else {
-            $this->_result = false;
+            $this->result = false;
         }
 
-        return $this->_result;
+        return $this->result;
     }
 
 }

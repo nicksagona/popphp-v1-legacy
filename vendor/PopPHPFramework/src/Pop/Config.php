@@ -38,19 +38,19 @@ class Config
      * Flag for whether or not changes are allowed after object instantiation
      * @var boolean
      */
-    protected $_allowChanges = false;
+    protected $allowChanges = false;
 
     /**
      * Config values as config objects
      * @var array
      */
-    protected $_config = array();
+    protected $config = array();
 
     /**
      * Config values as an array
      * @var array
      */
-    protected $_array = array();
+    protected $array = array();
 
     /**
      * Constructor
@@ -63,8 +63,8 @@ class Config
      */
     public function __construct(array $config, $changes = false)
     {
-        $this->_allowChanges = $changes;
-        $this->_setConfig($config);
+        $this->allowChanges = $changes;
+        $this->setConfig($config);
     }
 
     /**
@@ -74,9 +74,9 @@ class Config
      */
     public function asArray()
     {
-        $this->_array = array();
-        $this->_getConfig();
-        return $this->_array;
+        $this->array = array();
+        $this->getConfig();
+        return $this->array;
     }
 
     /**
@@ -86,9 +86,9 @@ class Config
      */
     public function asArrayObject()
     {
-        $this->_array = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
-        $this->_getConfigObject();
-        return $this->_array;
+        $this->array = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+        $this->getConfigObject();
+        return $this->array;
     }
 
     /**
@@ -100,8 +100,8 @@ class Config
     public function get($name)
     {
         $value = null;
-        if (array_key_exists($name, $this->_config)) {
-            $value =  $this->_config[$name];
+        if (array_key_exists($name, $this->config)) {
+            $value =  $this->config[$name];
         }
         return $value;
     }
@@ -127,8 +127,8 @@ class Config
      */
     public function __set($name, $value)
     {
-        if ($this->_allowChanges) {
-            $this->_config[$name] = (is_array($value) ? new Config($value, $this->_allowChanges) : $value);
+        if ($this->allowChanges) {
+            $this->config[$name] = (is_array($value) ? new Config($value, $this->allowChanges) : $value);
         } else {
             throw new \Exception('Real-time configuration changes are not allowed.');
         }
@@ -142,7 +142,7 @@ class Config
      */
     public function __isset($name)
     {
-        return isset($this->_config[$name]);
+        return isset($this->config[$name]);
     }
 
     /**
@@ -153,7 +153,7 @@ class Config
      */
     public function __unset($name)
     {
-        unset($this->_config[$name]);
+        unset($this->config[$name]);
     }
 
     /**model data as an array
@@ -165,7 +165,7 @@ class Config
     protected function _setConfig($config)
     {
         foreach ($config as $key => $value) {
-            $this->_config[$key] = (is_array($value) ? new Config($value, $this->_allowChanges) : $value);
+            $this->config[$key] = (is_array($value) ? new Config($value, $this->allowChanges) : $value);
         }
     }
 
@@ -176,8 +176,8 @@ class Config
      */
     protected function _getConfig()
     {
-        foreach ($this->_config as $key => $value) {
-            $this->_array[$key] = ($value instanceof Config) ? $value->asArray() : $value;
+        foreach ($this->config as $key => $value) {
+            $this->array[$key] = ($value instanceof Config) ? $value->asArray() : $value;
         }
     }
 
@@ -188,8 +188,8 @@ class Config
      */
     protected function _getConfigObject()
     {
-        foreach ($this->_config as $key => $value) {
-            $this->_array[$key] = ($value instanceof Config) ? $value->asArrayObject() : $value;
+        foreach ($this->config as $key => $value) {
+            $this->array[$key] = ($value instanceof Config) ? $value->asArrayObject() : $value;
         }
     }
 

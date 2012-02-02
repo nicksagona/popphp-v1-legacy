@@ -75,7 +75,7 @@ class Info
      * PDF info object data
      * @var string
      */
-    protected $_data = null;
+    protected $data = null;
 
     /**
      * Constructor
@@ -91,7 +91,7 @@ class Info
         if (null === $str) {
             $this->create_date = date('D, M j, Y h:i A');
             $this->mod_date = date('D, M j, Y h:i A');
-            $this->_data = "3 0 obj\n<</Creator(Pop PDF)/CreationDate([{pdf_create_date}])/ModDate([{pdf_mod_date}])/Author([{pdf_author}])/Title([{pdf_title}])/Subject([{pdf_subject}])/Producer(Pop PDF)>>\nendobj\n";
+            $this->data = "3 0 obj\n<</Creator(Pop PDF)/CreationDate([{pdf_create_date}])/ModDate([{pdf_mod_date}])/Author([{pdf_author}])/Title([{pdf_title}])/Subject([{pdf_subject}])/Producer(Pop PDF)>>\nendobj\n";
         } else {
             // Else, determine the info object index.
             $this->index = substr($str, 0, strpos($str, ' '));
@@ -178,7 +178,7 @@ class Info
                 $str =  str_replace('>>', '/Producer(Pop PDF)>>', $str);
             }
 
-            $this->_data = $str;
+            $this->data = $str;
         }
     }
 
@@ -198,7 +198,7 @@ class Info
         }
 
         // Swap out the placeholders.
-        $data = str_replace('[{pdf_mod_date}]', $this->mod_date, $this->_data);
+        $data = str_replace('[{pdf_mod_date}]', $this->mod_date, $this->data);
         $data = str_replace('[{pdf_create_date}]', $this->create_date, $data);
         $data = str_replace('[{pdf_author}]', $this->author, $data);
         $data = str_replace('[{pdf_title}]', $this->title, $data);

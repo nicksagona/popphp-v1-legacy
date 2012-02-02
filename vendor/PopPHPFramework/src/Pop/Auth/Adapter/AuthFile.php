@@ -42,13 +42,13 @@ class AuthFile extends File implements AdapterInterface
      * Field delimiter
      * @var string
      */
-    protected $_delimiter = null;
+    protected $delimiter = null;
 
     /**
      * Users
      * @var array
      */
-    protected $_users = array();
+    protected $users = array();
 
     /**
      * Constructor
@@ -65,8 +65,8 @@ class AuthFile extends File implements AdapterInterface
             throw new Exception('The access file does not exist.');
         }
         parent::__construct($filename, array());
-        $this->_delimiter = $delimiter;
-        $this->_parse();
+        $this->delimiter = $delimiter;
+        $this->parse();
     }
 
     /**
@@ -82,16 +82,16 @@ class AuthFile extends File implements AdapterInterface
         $access = null;
         $user = array('username' => $username);
 
-        if (!array_key_exists($username, $this->_users)) {
+        if (!array_key_exists($username, $this->users)) {
             $result = Auth::USER_NOT_FOUND;
-        } else if ($this->_users[$username]['password'] != $password) {
+        } else if ($this->users[$username]['password'] != $password) {
             $result = Auth::PASSWORD_INCORRECT;
-        } else if (strtolower($this->_users[$username]['access']) == 'blocked') {
+        } else if (strtolower($this->users[$username]['access']) == 'blocked') {
             $result = Auth::USER_IS_BLOCKED;
         } else {
-            $access = $this->_users[$username]['access'];
+            $access = $this->users[$username]['access'];
             $result = Auth::USER_IS_VALID;
-            $user = array_merge($user, $this->_users[$username]);
+            $user = array_merge($user, $this->users[$username]);
         }
 
         return array('result' => $result, 'access' => $access, 'user' => $user);
@@ -108,9 +108,9 @@ class AuthFile extends File implements AdapterInterface
 
         foreach ($entries as $entry) {
             $ent = trim($entry);
-            $entAry = explode($this->_delimiter , $ent);
+            $entAry = explode($this->delimiter , $ent);
             if (isset($entAry[0]) && isset($entAry[1])) {
-                $this->_users[$entAry[0]] = array(
+                $this->users[$entAry[0]] = array(
                     'password' => $entAry[1],
                     'access'   => (isset($entAry[2]) ? $entAry[2] : null)
                 );

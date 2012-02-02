@@ -42,25 +42,25 @@ class Writer extends Dom
      * Feed headers
      * @var array
      */
-    protected $_headers = array();
+    protected $headers = array();
 
     /**
      * Feed items
      * @var array
      */
-    protected $_items = array();
+    protected $items = array();
 
     /**
      * Feed type
      * @var string
      */
-    protected $_feedType = null;
+    protected $feedType = null;
 
     /**
      * Feed date format
      * @var string
      */
-    protected $_date = null;
+    protected $date = null;
 
     /**
      * Constructor
@@ -75,13 +75,13 @@ class Writer extends Dom
      */
     public function __construct($hdrs, $itms, $type = Dom::RSS, $dt = 'D, j M Y H:i:s O')
     {
-        $this->_headers = $hdrs;
-        $this->_items = $itms;
-        $this->_feedType = $type;
-        $this->_date = $dt;
+        $this->headers = $hdrs;
+        $this->items = $itms;
+        $this->feedType = $type;
+        $this->date = $dt;
 
-        parent::__construct($this->_feedType, 'utf-8');
-        $this->_init();
+        parent::__construct($this->feedType, 'utf-8');
+        $this->init();
     }
 
     /**
@@ -92,7 +92,7 @@ class Writer extends Dom
      */
     protected function _init()
     {
-        if ($this->_feedType == Dom::RSS) {
+        if ($this->feedType == Dom::RSS) {
             // Set up the RSS child node.
             $rss = new Child('rss');
             $rss->setAttributes('version', '2.0');
@@ -101,12 +101,12 @@ class Writer extends Dom
 
             // Set up the Channel child node and the header children.
             $channel = new Child('channel');
-            foreach ($this->_headers as $key => $value) {
+            foreach ($this->headers as $key => $value) {
                 $channel->addChild(new Child($key, $value));
             }
 
             // Set up the Item child nodes and add them to the Channel child node.
-            foreach ($this->_items as $itm) {
+            foreach ($this->items as $itm) {
                 $item = new Child('item');
                 foreach ($itm as $key => $value) {
                     $item->addChild(new Child($key, $value));
@@ -117,17 +117,17 @@ class Writer extends Dom
             // Add the Channel child node to the RSS child node, add the RSS child node to the DOM.
             $rss->addChild($channel);
             $this->addChild($rss);
-        } else if ($this->_feedType == Dom::ATOM) {
+        } else if ($this->feedType == Dom::ATOM) {
             // Set up the Feed child node.
             $feed = new Child('feed');
             $feed->setAttributes('xmlns', 'http://www.w3.org/2005/Atom');
 
-            if (isset($this->_headers['language'])) {
-                $feed->setAttributes('xml:lang', $this->_headers['language']);
+            if (isset($this->headers['language'])) {
+                $feed->setAttributes('xml:lang', $this->headers['language']);
             }
 
             // Set up the header children.
-            foreach ($this->_headers as $key => $value) {
+            foreach ($this->headers as $key => $value) {
                 if ($key == 'author') {
                     $auth = new Child($key);
                     $auth->addChild(new Child('name', $value));
@@ -137,13 +137,13 @@ class Writer extends Dom
                     $link->setAttributes('href', $value);
                     $feed->addChild($link);
                 } else if ($key != 'language') {
-                    $val = (stripos($key, 'date') !== false) ? date($this->_date, strtotime($value)) : $value;
+                    $val = (stripos($key, 'date') !== false) ? date($this->date, strtotime($value)) : $value;
                     $feed->addChild(new Child($key, $val));
                 }
             }
 
             // Set up the Entry child nodes and add them to the Feed child node.
-            foreach ($this->_items as $itm) {
+            foreach ($this->items as $itm) {
                 $item = new Child('entry');
                 foreach ($itm as $key => $value) {
                     if ($key == 'link') {
@@ -151,7 +151,7 @@ class Writer extends Dom
                         $link->setAttributes('href', $value);
                         $item->addChild($link);
                     } else {
-                        $val = (stripos($key, 'date') !== false) ? date($this->_date, strtotime($value)) : $value;
+                        $val = (stripos($key, 'date') !== false) ? date($this->date, strtotime($value)) : $value;
                         $item->addChild(new Child($key, $val));
                     }
                 }

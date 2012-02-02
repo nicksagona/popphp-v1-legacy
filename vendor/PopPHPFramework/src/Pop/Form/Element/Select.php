@@ -174,7 +174,7 @@ class Select extends Element
                     break;
                 // Months, long name values.
                 case Select::MONTHS_LONG:
-                    $val = array('--' => '------', '01' => $lang->__('January'), '02' => $lang->__('February'), '03' => $lang->__('March'), '04' => $lang->__('April'), '05' => $lang->__('May'), '06' => $lang->__('June'), '07' => $lang->__('July'), '08' => $lang->__('August'), '09' => $lang->__('September'), '10' => $lang->__('October'), '11' => $lang->__('November'), '12' => $lang->__('December'));
+                    $val = array('--' => '------', '01' => $lang->_('January'), '02' => $lang->_('February'), '03' => $lang->_('March'), '04' => $lang->_('April'), '05' => $lang->_('May'), '06' => $lang->_('June'), '07' => $lang->_('July'), '08' => $lang->_('August'), '09' => $lang->_('September'), '10' => $lang->_('October'), '11' => $lang->_('November'), '12' => $lang->_('December'));
                     break;
                 // Days of Month, numeric short values.
                 case Select::DAYS_OF_MONTH:
@@ -182,13 +182,13 @@ class Select extends Element
                     break;
                 // Days of Week, long name values.
                 case Select::DAYS_OF_WEEK:
-                    $sun = $lang->__('Sunday');
-                    $mon = $lang->__('Monday');
-                    $tue = $lang->__('Tuesday');
-                    $wed = $lang->__('Wednesday');
-                    $thu = $lang->__('Thursday');
-                    $fri = $lang->__('Friday');
-                    $sat = $lang->__('Saturday');
+                    $sun = $lang->_('Sunday');
+                    $mon = $lang->_('Monday');
+                    $tue = $lang->_('Tuesday');
+                    $wed = $lang->_('Wednesday');
+                    $thu = $lang->_('Thursday');
+                    $fri = $lang->_('Friday');
+                    $sat = $lang->_('Saturday');
                     $val = array('--' => '------', $sun => $sun, $mon => $mon, $tue => $tue, $wed => $wed, $thu => $thu, $fri => $fri, $sat => $sat);
                     break;
                 // Hours, 12-hour values.

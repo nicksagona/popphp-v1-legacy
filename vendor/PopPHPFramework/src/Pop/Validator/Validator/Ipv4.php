@@ -47,24 +47,24 @@ class Ipv4 extends AbstractValidator
     {
         // Set the input, if passed
         if (null !== $input) {
-            $this->_input = $input;
+            $this->input = $input;
         }
 
         // Set the default message
-        if ($this->_condition) {
-            $this->_defaultMessage = Locale::factory()->__('The value must be a valid IPv4 address.');
+        if ($this->condition) {
+            $this->defaultMessage = Locale::factory()->_('The value must be a valid IPv4 address.');
         } else {
-            $this->_defaultMessage = Locale::factory()->__('The value must not be a valid IPv4 address.');
+            $this->defaultMessage = Locale::factory()->_('The value must not be a valid IPv4 address.');
         }
 
         // Evaluate the input against the validator
-        if (preg_match('/\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/', $this->_input) == $this->_condition) {
-            $this->_result = true;
+        if (preg_match('/\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/', $this->input) == $this->condition) {
+            $this->result = true;
         } else {
-            $this->_result = false;
+            $this->result = false;
         }
 
-        return $this->_result;
+        return $this->result;
     }
 
 }

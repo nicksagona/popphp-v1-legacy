@@ -39,19 +39,19 @@ class Lab implements ColorInterface
      * Lightness value
      * @var int
      */
-    protected $_l = null;
+    protected $l = null;
 
     /**
      * A value
      * @var int
      */
-    protected $_a = null;
+    protected $a = null;
 
     /**
      * B value
      * @var int
      */
-    protected $_b = null;
+    protected $b = null;
 
     /**
      * Constructor
@@ -73,9 +73,9 @@ class Lab implements ColorInterface
             throw new Exception('One or more of the color values is out of range.');
         }
 
-        $this->_l = (int)$l;
-        $this->_a = (int)$a;
-        $this->_b = (int)$b;
+        $this->l = (int)$l;
+        $this->a = (int)$a;
+        $this->b = (int)$b;
     }
 
     /**
@@ -91,13 +91,13 @@ class Lab implements ColorInterface
 
         switch ($type) {
             case 1:
-                $lab = array('l' => $this->_l, 'a' => $this->_a, 'b' => $this->_b);
+                $lab = array('l' => $this->l, 'a' => $this->a, 'b' => $this->b);
                 break;
             case 2:
-                $lab = array($this->_l, $this->_a, $this->_b);
+                $lab = array($this->l, $this->a, $this->b);
                 break;
             case 3:
-                $lab = $this->_l . ',' . $this->_a . ',' . $this->_b;
+                $lab = $this->l . ',' . $this->a . ',' . $this->b;
                 break;
         }
 
@@ -112,7 +112,7 @@ class Lab implements ColorInterface
      */
     public function getL()
     {
-        return $this->_l;
+        return $this->l;
     }
 
     /**
@@ -122,7 +122,7 @@ class Lab implements ColorInterface
      */
     public function getA()
     {
-        return $this->_a;
+        return $this->a;
     }
 
     /**
@@ -132,7 +132,7 @@ class Lab implements ColorInterface
      */
     public function getB()
     {
-        return $this->_b;
+        return $this->b;
     }
 
     /**

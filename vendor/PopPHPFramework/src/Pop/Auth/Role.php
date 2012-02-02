@@ -39,13 +39,13 @@ class Role
      * Role name
      * @var string
      */
-    protected $_name = null;
+    protected $name = null;
 
     /**
      * Role level value
      * @var int
      */
-    protected $_level = 0;
+    protected $level = 0;
 
     /**
      * Constructor
@@ -58,8 +58,8 @@ class Role
      */
     public function __construct($name, $level)
     {
-        $this->_name = $name;
-        $this->_level = (int)$level;
+        $this->name = $name;
+        $this->level = (int)$level;
     }
 
     /**
@@ -82,7 +82,7 @@ class Role
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
@@ -92,7 +92,7 @@ class Role
      */
     public function getLevel()
     {
-        return $this->_level;
+        return $this->level;
     }
 
     /**
@@ -103,7 +103,7 @@ class Role
      */
     public function setName($name)
     {
-        $this->_name = $name;
+        $this->name = $name;
         return $this;
     }
 
@@ -115,7 +115,7 @@ class Role
      */
     public function setLevel($level)
     {
-        $this->_level = (int)$level;
+        $this->level = (int)$level;
         return $this;
     }
 
@@ -128,9 +128,9 @@ class Role
     {
         $value = 0;
 
-        if ($this->_level < $role->getLevel()) {
+        if ($this->level < $role->getLevel()) {
             $value = -1;
-        } else if ($this->_level > $role->getLevel()) {
+        } else if ($this->level > $role->getLevel()) {
             $value = 1;
         }
 
@@ -146,8 +146,8 @@ class Role
     public function __get($name)
     {
         $level = 0;
-        if ($name == $this->_name) {
-            $level = $this->_level;
+        if ($name == $this->name) {
+            $level = $this->level;
         }
 
         return $level;
@@ -160,7 +160,7 @@ class Role
      */
     public function __toString()
     {
-        return $this->_name;
+        return $this->name;
     }
 
 }

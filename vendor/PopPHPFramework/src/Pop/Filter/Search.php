@@ -39,31 +39,31 @@ class Search
      * Data to search
      * @var array
      */
-    protected $_data = null;
+    protected $data = null;
 
     /**
      * Delimiter
      * @var string
      */
-    protected $_delim = null;
+    protected $delim = null;
 
     /**
      * Search property
      * @var string
      */
-    protected $_search = null;
+    protected $search = null;
 
     /**
      * Case search property
      * @var boolean
      */
-    protected $_case = false;
+    protected $case = false;
 
     /**
      * Search pattern property
      * @var string
      */
-    protected $_pattern = null;
+    protected $pattern = null;
 
     /**
      * Constructor
@@ -77,9 +77,9 @@ class Search
     public function __construct($data, $delim = "\n")
     {
         if (is_array($data)) {
-            $this->_data = $data;
+            $this->data = $data;
         } else {
-            $this->_data = explode($delim, trim($data));
+            $this->data = explode($delim, trim($data));
         }
     }
 
@@ -112,21 +112,21 @@ class Search
      */
     public function search($search, $case = false)
     {
-       $this->_case = $case;
+       $this->case = $case;
 
         if (substr($search, 0, 1) == '*') {
-            $this->_pattern = 'back';
-            $this->_search = substr($search, 1);
+            $this->pattern = 'back';
+            $this->search = substr($search, 1);
         } else if (substr($search, -1) == '*') {
-            $this->_pattern = 'front';
-            $this->_search = substr($search, 0, -1);
+            $this->pattern = 'front';
+            $this->search = substr($search, 0, -1);
         } else {
-            $this->_pattern = 'all';
-            $this->_search = $search;
+            $this->pattern = 'all';
+            $this->search = $search;
         }
 
         // Execute the array filter to search the array.
-        return array_filter($this->_data, array($this, '_searchArray'));
+        return array_filter($this->data, array($this, '_searchArray'));
     }
 
     /**
@@ -138,49 +138,49 @@ class Search
     protected function _searchArray($val)
     {
         // If case sensitive.
-        if ($this->_case) {
-            switch ($this->_pattern) {
+        if ($this->case) {
+            switch ($this->pattern) {
                 // For 'string*'
                 case 'front':
-                    if (substr($val, 0, strlen($this->_search)) == $this->_search) {
+                    if (substr($val, 0, strlen($this->search)) == $this->search) {
                         return $val;
                     }
                     break;
 
                 // For '*string'
                 case 'back':
-                    if (substr($val, (0 - strlen($this->_search)), strlen($this->_search)) == $this->_search) {
+                    if (substr($val, (0 - strlen($this->search)), strlen($this->search)) == $this->search) {
                         return $val;
                     }
                     break;
 
                 // For 'string' (all-inclusive)
                 case 'all':
-                    if (strpos($val, $this->_search) !== false) {
+                    if (strpos($val, $this->search) !== false) {
                         return $val;
                     }
                     break;
             }
         // Else, case insensitive.
         } else {
-            switch ($this->_pattern) {
+            switch ($this->pattern) {
                 // For 'string*'
                 case 'front':
-                    if (substr(strtolower($val), 0, strlen($this->_search)) == strtolower($this->_search)) {
+                    if (substr(strtolower($val), 0, strlen($this->search)) == strtolower($this->search)) {
                         return $val;
                     }
                     break;
 
                 // For '*string'
                 case 'back':
-                    if (substr(strtolower($val), (0 - strlen($this->_search)), strlen($this->_search)) == strtolower($this->_search)) {
+                    if (substr(strtolower($val), (0 - strlen($this->search)), strlen($this->search)) == strtolower($this->search)) {
                         return $val;
                     }
                     break;
 
                 // For 'string' (all-inclusive)
                 case 'all':
-                    if (stripos($val, $this->_search) !== false) {
+                    if (stripos($val, $this->search) !== false) {
                         return $val;
                     }
                     break;

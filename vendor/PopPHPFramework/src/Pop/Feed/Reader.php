@@ -83,43 +83,43 @@ class Reader
      * Feed limit
      * @var array
      */
-    protected $_limit = array();
+    protected $limit = array();
 
     /**
      * XML Object
      * @var SimpleXMLElement
      */
-    protected $_xml = null;
+    protected $xml = null;
 
     /**
      * Feed type
      * @var string
      */
-    protected $_feedType = null;
+    protected $feedType = null;
 
     /**
      * Playlist flag
      * @var boolean
      */
-    protected $_isPlaylist = false;
+    protected $isPlaylist = false;
 
     /**
      * Feed source
      * @var string
      */
-    protected $_feedSrc = null;
+    protected $feedSrc = null;
 
     /**
      * Feed item template
      * @var string
      */
-    protected $_template = null;
+    protected $template = null;
 
     /**
      * Feed date format
      * @var string
      */
-    protected $_dateFormat = 'm/d/Y h:i a';
+    protected $dateFormat = 'm/d/Y h:i a';
 
     /**
      * Constructor
@@ -135,27 +135,27 @@ class Reader
     {
         // Create the SimpleXMLElement and set the format to either XML or HTML.
         try {
-            if (($this->_xml =@ new \SimpleXMLElement($url, LIBXML_NOWARNING, true)) !== false) {
-                $this->_feedType = (isset($this->_xml->entry)) ? $this->_feedType = 'atom' : $this->_feedType = 'rss';
+            if (($this->xml =@ new \SimpleXMLElement($url, LIBXML_NOWARNING, true)) !== false) {
+                $this->feedType = (isset($this->xml->entry)) ? $this->feedType = 'atom' : $this->feedType = 'rss';
 
                 // Set the type of feed, either a YouTube, Vimeo or normal RSS feed.
                 if (strpos($url, 'youtube') !== false) {
-                    $this->_feedSrc = 'youtube';
+                    $this->feedSrc = 'youtube';
                     if (strpos($url, 'playlist') !== false) {
-                        $this->_isPlaylist = true;
+                        $this->isPlaylist = true;
                     }
                 } else if (strpos($url, 'vimeo') !== false) {
-                    $this->_feedSrc = 'vimeo';
+                    $this->feedSrc = 'vimeo';
                 } else if (strpos($url, 'viddler') !== false) {
-                    $this->_feedSrc = 'viddler';
+                    $this->feedSrc = 'viddler';
                 } else {
-                    $this->_youtube = false;
+                    $this->youtube = false;
                 }
 
-                $this->_limit = $limit;
+                $this->limit = $limit;
 
                 // Parse the items from the feed.
-                $this->_parseFeed();
+                $this->parseFeed();
             } else {
                 throw new Exception('That feed URL cannot be read at this time. Please try again later.');
             }
@@ -176,9 +176,9 @@ class Reader
     {
         if (file_exists($tmpl)) {
             $tmplFile = new File($tmpl);
-            $this->_template = $tmpl->read();
+            $this->template = $tmpl->read();
         } else {
-            $this->_template = $tmpl;
+            $this->template = $tmpl;
         }
         return $this;
     }
@@ -191,7 +191,7 @@ class Reader
      */
     public function setDateFormat($date)
     {
-        $this->_dateFormat = $date;
+        $this->dateFormat = $date;
         return $this;
     }
 
@@ -202,7 +202,7 @@ class Reader
      */
     public function getTemplate()
     {
-        return $this->_template;
+        return $this->template;
     }
 
     /**
@@ -212,7 +212,7 @@ class Reader
      */
     public function getDateFormat()
     {
-        return $this->_dateFormat;
+        return $this->dateFormat;
     }
 
     /**
@@ -222,7 +222,7 @@ class Reader
      */
     public function getFeedType()
     {
-        return $this->_feedType;
+        return $this->feedType;
     }
 
     /**
@@ -234,7 +234,7 @@ class Reader
      */
     public function render($ret = false)
     {
-        if (null === $this->_template) {
+        if (null === $this->template) {
             throw new Exception('Error: The feed item template is not set.');
         } else if (!isset($this->items[0])) {
             throw new Exception('Error: The feed currently has no content.');
@@ -242,18 +242,18 @@ class Reader
 
         $output = '';
 
-        if (null !== $this->_limit) {
-            $lim = ($this->_limit > count($this->items)) ? count($this->items) : $this->_limit;
+        if (null !== $this->limit) {
+            $lim = ($this->limit > count($this->items)) ? count($this->items) : $this->limit;
         } else {
             $lim = count($this->items);
         }
 
         // Loop through the items, formatting them into the template as needed, using the proper date format if appropriate.
         for ($i = 0; $i < $lim; $i++) {
-            $tmpl = $this->_template;
+            $tmpl = $this->template;
             foreach ($this->items[$i] as $k => $v) {
-                if ((null !== $this->_dateFormat) && (stripos($k, 'date') !== false)) {
-                    $val =  date($this->_dateFormat, strtotime($v));
+                if ((null !== $this->dateFormat) && (stripos($k, 'date') !== false)) {
+                    $val =  date($this->dateFormat, strtotime($v));
                 } else {
                     $val = $v;
                 }
@@ -278,15 +278,15 @@ class Reader
     protected function _parseFeed()
     {
         // If the feed type is YouTube, parse accordingly.
-        if ($this->_feedSrc == 'youtube') {
-            if ($this->_isPlaylist) {
-                $this->title = (string)$this->_xml->title;
-                $this->url = (string)$this->_xml->link[1]->attributes()->href;
-                $this->desc = (string)$this->_xml->subtitle;
-                $this->date = $this->_calcElapsedTime((string)$this->_xml->updated);
-                $this->generator = (string)$this->_xml->generator;
-                $this->editor = (string)$this->_xml->author->name;
-                foreach ($this->_xml->entry as $value) {
+        if ($this->feedSrc == 'youtube') {
+            if ($this->isPlaylist) {
+                $this->title = (string)$this->xml->title;
+                $this->url = (string)$this->xml->link[1]->attributes()->href;
+                $this->desc = (string)$this->xml->subtitle;
+                $this->date = $this->calcElapsedTime((string)$this->xml->updated);
+                $this->generator = (string)$this->xml->generator;
+                $this->editor = (string)$this->xml->author->name;
+                foreach ($this->xml->entry as $value) {
                     // Parse the video ID and description.
                     $id = substr($value->link[0]->attributes()->href, (strpos($value->link[0]->attributes()->href, '?v=') + 3));
                     $id = substr($id, 0, strpos($id, '&'));
@@ -299,20 +299,20 @@ class Reader
                         'description' => $desc,
                         'link'        => 'http://www.youtube.com/watch?v=' . $id,
                         'pubDate'     => (string)$value->updated,
-                        'timeElapsed' => $this->_calcElapsedTime($value->updated),
+                        'timeElapsed' => $this->calcElapsedTime($value->updated),
                         'id'          => $id,
                         'image'       => $image
                     );
                 }
             } else {
-                $this->title = (string)$this->_xml->title;
-                $this->url = (string)$this->_xml->link->attributes()->href;
-                $this->desc = (string)$this->_xml->subtitle;
-                $this->date = (string)$this->_xml->updated;
-                $this->generator = (string)$this->_xml->generator;
-                $this->editor = (string)$this->_xml->author->name;
+                $this->title = (string)$this->xml->title;
+                $this->url = (string)$this->xml->link->attributes()->href;
+                $this->desc = (string)$this->xml->subtitle;
+                $this->date = (string)$this->xml->updated;
+                $this->generator = (string)$this->xml->generator;
+                $this->editor = (string)$this->xml->author->name;
 
-                foreach ($this->_xml->entry as $value) {
+                foreach ($this->xml->entry as $value) {
                     // Parse the video ID and description.
                     $id = substr($value->id, (strrpos($value->id, '/') + 1));
                     $desc = substr($value->content, (strpos($value->content, '<span>') + 6));
@@ -325,22 +325,22 @@ class Reader
                         'description' => $desc,
                         'link'        => 'http://www.youtube.com/watch?v=' . $id,
                         'pubDate'     => (string)$value->published,
-                        'timeElapsed' => $this->_calcElapsedTime($value->published),
+                        'timeElapsed' => $this->calcElapsedTime($value->published),
                         'id'          => $id,
                         'image'       => $image
                     );
                 }
             }
         // Else, if the feed type is Vimeo, parse accordingly.
-        } else if ($this->_feedSrc == 'vimeo') {
-            $this->title = (string)$this->_xml->channel->title;
-            $this->url = (string)$this->_xml->channel->link;
-            $this->desc = (string)$this->_xml->channel->description;
-            $this->date = (string)$this->_xml->channel->pubDate;
-            $this->generator = (string)$this->_xml->channel->generator;
-            $this->editor = (string)$this->_xml->channel->generator;
+        } else if ($this->feedSrc == 'vimeo') {
+            $this->title = (string)$this->xml->channel->title;
+            $this->url = (string)$this->xml->channel->link;
+            $this->desc = (string)$this->xml->channel->description;
+            $this->date = (string)$this->xml->channel->pubDate;
+            $this->generator = (string)$this->xml->channel->generator;
+            $this->editor = (string)$this->xml->channel->generator;
 
-            foreach ($this->_xml->channel->item as $value) {
+            foreach ($this->xml->channel->item as $value) {
                 $id = substr($value->link, (strrpos($value->link, '/') + 1));
                 $image = substr($value->description, (strpos($value->description, '<img src="') + 10));
                 $image = substr($image, 0, strpos($image, '"'));
@@ -351,22 +351,22 @@ class Reader
                     'description' => (string)$value->description,
                     'link'        => (string)$value->link,
                     'pubDate'     => (string)$value->pubDate,
-                    'timeElapsed' => $this->_calcElapsedTime($value->pubDate),
+                    'timeElapsed' => $this->calcElapsedTime($value->pubDate),
                     'id'          => $id,
                     'image'       => $image
                 );
             }
 
         // Else, if the feed type is Viddler, parse accordingly.
-        } else if ($this->_feedSrc == 'viddler') {
-            $this->title = (string)$this->_xml->channel->title;
-            $this->url = (string)$this->_xml->channel->link;
-            $this->desc = (string)$this->_xml->channel->description;
-            $this->date = (string)$this->_xml->channel->pubDate;
-            $this->generator = (string)$this->_xml->channel->generator;
-            $this->editor = (string)$this->_xml->channel->generator;
+        } else if ($this->feedSrc == 'viddler') {
+            $this->title = (string)$this->xml->channel->title;
+            $this->url = (string)$this->xml->channel->link;
+            $this->desc = (string)$this->xml->channel->description;
+            $this->date = (string)$this->xml->channel->pubDate;
+            $this->generator = (string)$this->xml->channel->generator;
+            $this->editor = (string)$this->xml->channel->generator;
 
-            foreach ($this->_xml->channel->item as $value) {
+            foreach ($this->xml->channel->item as $value) {
                 $id = substr($value->enclosure->attributes()->url, 0, -1);
                 $id = substr($id, (strrpos($id, '/') + 1));
                 $image = substr($value->description, (strpos($value->description, '<img src="') + 10));
@@ -378,47 +378,47 @@ class Reader
                     'description' => (string)$value->description,
                     'link'        => (string)$value->link,
                     'pubDate'     => (string)$value->pubDate,
-                    'timeElapsed' => $this->_calcElapsedTime($value->pubDate),
+                    'timeElapsed' => $this->calcElapsedTime($value->pubDate),
                     'id'          => $id,
                     'image'       => $image
                 );
             }
         // Else, parse as a regular Atom feed.
-        } else if ($this->_feedType == 'atom') {
-            $this->title = (string)$this->_xml->title;
-            $this->url = (string)$this->_xml->link->attributes()->href;
-            $this->desc = (string)$this->_xml->subtitle;
-            $this->date = (string)$this->_xml->updated;
-            $this->generator = (string)$this->_xml->generator;
-            $this->editor = (string)$this->_xml->author->name;
+        } else if ($this->feedType == 'atom') {
+            $this->title = (string)$this->xml->title;
+            $this->url = (string)$this->xml->link->attributes()->href;
+            $this->desc = (string)$this->xml->subtitle;
+            $this->date = (string)$this->xml->updated;
+            $this->generator = (string)$this->xml->generator;
+            $this->editor = (string)$this->xml->author->name;
 
-            foreach ($this->_xml->entry as $value) {
+            foreach ($this->xml->entry as $value) {
                 // Add the values to the associative array.
                 $this->items[] = array(
                     'title'       => (string)$value->title,
                     'description' => (string)$value->summary,
                     'link'        => (string)$value->link->attributes()->href,
                     'pubDate'     => (string)$value->published,
-                    'timeElapsed' => $this->_calcElapsedTime($value->published)
+                    'timeElapsed' => $this->calcElapsedTime($value->published)
                 );
             }
         // Else, parse as a regular RSS feed.
         } else {
-            $this->title = (string)$this->_xml->channel->title;
-            $this->url = (string)$this->_xml->channel->link;
-            $this->desc = (string)$this->_xml->channel->description;
-            $this->date = (string)$this->_xml->channel->lastBuildDate;
-            $this->generator = (string)$this->_xml->channel->generator;
-            $this->editor = (string)$this->_xml->channel->managingEditor;
+            $this->title = (string)$this->xml->channel->title;
+            $this->url = (string)$this->xml->channel->link;
+            $this->desc = (string)$this->xml->channel->description;
+            $this->date = (string)$this->xml->channel->lastBuildDate;
+            $this->generator = (string)$this->xml->channel->generator;
+            $this->editor = (string)$this->xml->channel->managingEditor;
 
-            foreach ($this->_xml->channel->item as $value) {
+            foreach ($this->xml->channel->item as $value) {
                 // Add the values to the associative array.
                 $this->items[] = array(
                     'title'       => (string)$value->title,
                     'description' => (string)$value->description,
                     'link'        => (string)$value->link,
                     'pubDate'     => (string)$value->pubDate,
-                    'timeElapsed' => $this->_calcElapsedTime($value->pubDate)
+                    'timeElapsed' => $this->calcElapsedTime($value->pubDate)
                 );
             }
         }

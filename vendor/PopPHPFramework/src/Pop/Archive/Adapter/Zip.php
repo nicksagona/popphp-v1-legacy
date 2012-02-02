@@ -50,7 +50,7 @@ class Zip implements ArchiveInterface
      * Archive path
      * @var string
      */
-    protected $_path = null;
+    protected $path = null;
 
     /**
      * Method to instantiate an archive adapter object
@@ -60,7 +60,7 @@ class Zip implements ArchiveInterface
      */
     public function __construct($archive)
     {
-        $this->_path = $archive->fullpath;
+        $this->path = $archive->fullpath;
         $this->archive = new \ZipArchive();
     }
 
@@ -72,7 +72,7 @@ class Zip implements ArchiveInterface
      */
     public function extract($to = null)
     {
-        if ($this->archive->open($this->_path) === true) {
+        if ($this->archive->open($this->path) === true) {
             $this->archive->extractTo((null !== $to) ? $to : './');
             $this->archive->close();
         }
@@ -90,10 +90,10 @@ class Zip implements ArchiveInterface
             $files = array($files);
         }
 
-        if (!file_exists($this->_path)) {
-            $result = $this->archive->open($this->_path, \ZipArchive::CREATE);
+        if (!file_exists($this->path)) {
+            $result = $this->archive->open($this->path, \ZipArchive::CREATE);
         } else {
-            $result = $this->archive->open($this->_path);
+            $result = $this->archive->open($this->path);
         }
 
         if ($result === true) {
@@ -136,7 +136,7 @@ class Zip implements ArchiveInterface
         $files = array();
         $list = array();
 
-        if ($this->archive->open($this->_path) === true) {
+        if ($this->archive->open($this->path) === true) {
             $i = 0;
             while ($this->archive->statIndex($i)) {
                 $list[] = $this->archive->statIndex($i);

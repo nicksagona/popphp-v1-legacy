@@ -42,13 +42,13 @@ class Validator
      * Validator object
      * @var mixed
      */
-    protected $_validator = null;
+    protected $validator = null;
 
     /**
      * Validator test result message
      * @var string
      */
-    protected $_message = null;
+    protected $message = null;
 
     /**
      * Constructor
@@ -61,8 +61,8 @@ class Validator
      */
     public function __construct(ValidatorInterface $validator, $message = null)
     {
-        $this->_validator = $validator;
-        $this->_message = $message;
+        $this->validator = $validator;
+        $this->message = $message;
     }
 
     /**
@@ -85,7 +85,7 @@ class Validator
      */
     public function getValidator()
     {
-        return $this->_validator;
+        return $this->validator;
     }
 
     /**
@@ -96,10 +96,10 @@ class Validator
     public function getMessage()
     {
         $msg = null;
-        if (null !== $this->_message) {
-            $msg = $this->_message;
+        if (null !== $this->message) {
+            $msg = $this->message;
         } else {
-            $msg = $this->_validator->getDefaultMessage();
+            $msg = $this->validator->getDefaultMessage();
         }
         return $msg;
     }
@@ -112,7 +112,7 @@ class Validator
      */
     public function setMessage($message)
     {
-        $this->_message = $message;
+        $this->message = $message;
         return $this;
     }
 
@@ -124,7 +124,7 @@ class Validator
      */
     public function evaluate($input = null)
     {
-        return $this->_validator->evaluate($input);
+        return $this->validator->evaluate($input);
     }
 
 }

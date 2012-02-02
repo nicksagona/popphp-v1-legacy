@@ -39,13 +39,13 @@ class Session
      * Instance of the session
      * @var object
      */
-    private static $_instance;
+    private static $instance;
 
     /**
      * Session ID
      * @var string
      */
-    private $_session_id = null;
+    private $session_id = null;
 
     /**
      * Constructor
@@ -59,7 +59,7 @@ class Session
     {
         // Start a session and set the session id.
         session_start();
-        $this->_session_id = session_id();
+        $this->session_id = session_id();
     }
 
     /**
@@ -70,11 +70,11 @@ class Session
      */
     public static function getInstance()
     {
-        if (empty(self::$_instance)) {
-            self::$_instance = new Session();
+        if (empty(self::$instance)) {
+            self::$instance = new Session();
         }
 
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
@@ -84,7 +84,7 @@ class Session
      */
     public function getId()
     {
-        return $this->_session_id;
+        return $this->session_id;
     }
 
     /**
@@ -95,7 +95,7 @@ class Session
     public function regenerateId()
     {
         session_regenerate_id();
-        $this->_session_id = session_id();
+        $this->session_id = session_id();
     }
 
     /**
@@ -108,7 +108,7 @@ class Session
         $_SESSION = null;
         session_unset();
         session_destroy();
-        unset($this->_session_id);
+        unset($this->session_id);
     }
 
     /**

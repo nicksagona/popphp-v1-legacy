@@ -47,24 +47,24 @@ class CreditCard extends AbstractValidator
     {
         // Set the input, if passed
         if (null !== $input) {
-            $this->_input = $input;
-            if (strpos($this->_input, ' ') !== false) {
-                $this->_input = str_replace(' ', '', $this->_input);
+            $this->input = $input;
+            if (strpos($this->input, ' ') !== false) {
+                $this->input = str_replace(' ', '', $this->input);
             }
-            if (strpos($this->_input, '-') !== false) {
-                $this->_input = str_replace('-', '', $this->_input);
+            if (strpos($this->input, '-') !== false) {
+                $this->input = str_replace('-', '', $this->input);
             }
         }
 
         // Set the default message
-        if ($this->_condition) {
-            $this->_defaultMessage = Locale::factory()->__('The value must be a valid credit card number.');
+        if ($this->condition) {
+            $this->defaultMessage = Locale::factory()->_('The value must be a valid credit card number.');
         } else {
-            $this->_defaultMessage = Locale::factory()->__('The value must not be a valid credit card number.');
+            $this->defaultMessage = Locale::factory()->_('The value must not be a valid credit card number.');
         }
 
         // Evaluate the input against the validator
-        $nums = str_split($this->_input);
+        $nums = str_split($this->input);
         $check = $nums[count($nums) - 1];
         $start = count($nums) - 2;
         $sum = 0;
@@ -87,13 +87,13 @@ class CreditCard extends AbstractValidator
         $sum += $check;
         $rem = $sum % 10;
 
-        if (($rem == 0) == $this->_condition) {
-            $this->_result = true;
+        if (($rem == 0) == $this->condition) {
+            $this->result = true;
         } else {
-            $this->_result = false;
+            $this->result = false;
         }
 
-        return $this->_result;
+        return $this->result;
     }
 
 }
