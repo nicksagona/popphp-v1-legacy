@@ -5,7 +5,7 @@ require_once '../../bootstrap.php';
 use Pop\Filter\Crypt;
 
 try {
-    $key = 'This is my key.';
+    $key = md5('Pop PHP Framework');
 
     $encrypted = Crypt::encrypt('Hello World!', $key);
     echo $encrypted . '<br />' . PHP_EOL;
