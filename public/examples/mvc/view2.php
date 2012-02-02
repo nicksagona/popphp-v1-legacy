@@ -31,7 +31,7 @@ TMPL;
 
     $data = array(
         'title' => 'Hello World',
-        'body'  => 'This is the body (from template file)',
+        'body'  => 'This is the body (from template string)',
         'list'  => array(
             'Thing #1',
             'Something Else',
