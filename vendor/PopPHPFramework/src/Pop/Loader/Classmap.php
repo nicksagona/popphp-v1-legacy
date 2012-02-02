@@ -64,8 +64,8 @@ class Classmap
                 $ary = array();
                 if (isset($classMatch[0])) {
                     $ary['file'] = $file;
-                    $ary['class'] = self::_parseClass($classMatch[0]);
-                    $ary['namespace'] = (isset($namespaceMatch[0])) ? self::_parseNamespace($namespaceMatch[0]) : null;
+                    $ary['class'] = self::parseClass($classMatch[0]);
+                    $ary['namespace'] = (isset($namespaceMatch[0])) ? self::parseNamespace($namespaceMatch[0]) : null;
                     $matches[] = $ary;
                 }
             }

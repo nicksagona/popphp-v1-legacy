@@ -207,7 +207,7 @@ class File
         }
 
         // Check to see if the permissions are set correctly.
-        if ((self::_checkPermissions(dirname($file))) != 777) {
+        if ((self::checkPermissions(dirname($file))) != 777) {
             throw new Exception('Error: Permission denied.');
         }
 
@@ -401,7 +401,7 @@ class File
         // Check to see if the new file already exists, and if the permissions are set correctly.
         if (file_exists($new)) {
             throw new Exception('Error: The file already exists.');
-        } else if ((self::_checkPermissions(dirname($new))) != 777) {
+        } else if ((self::checkPermissions(dirname($new))) != 777) {
             throw new Exception('Error: Permission denied.');
         }
 
@@ -428,7 +428,7 @@ class File
         // Check to see if the new file already exists, and if the permissions are set correctly.
         if (file_exists($new)) {
             throw new Exception('Error: The file already exists.');
-        } else if ((self::_checkPermissions(dirname($new)) != 777) || ($this->perm['dir'] != 777)) {
+        } else if ((self::checkPermissions(dirname($new)) != 777) || ($this->perm['dir'] != 777)) {
             throw new Exception('Error: Permission denied.');
         }
 
@@ -559,12 +559,12 @@ class File
         $this->basename = $file_parts['basename'];
         $this->filename = $file_parts['filename'];
         $this->ext = (isset($file_parts['extension'])) ? $file_parts['extension'] : null;
-        $this->perm['dir'] = self::_checkPermissions($this->dir);
+        $this->perm['dir'] = self::checkPermissions($this->dir);
 
         // Check if the file exists, and set the size and permissions accordingly.
         if (file_exists($file)) {
             // Check if the server is a Linux/Unix server or a Windows server.
-            $this->perm['file'] = self::_checkPermissions($this->fullpath);
+            $this->perm['file'] = self::checkPermissions($this->fullpath);
             $this->size = filesize($file);
         } else {
             // Check if the server is a Linux/Unix server or a Windows server.
