@@ -7,10 +7,10 @@ use Pop\Db\Db;
 try {
     // Define DB credentials
     $creds = array(
-        'database' => 'poptest',
+        'database' => 'helloworld',
         'host'     => 'localhost',
-        'username' => 'popuser',
-        'password' => '12pop34'
+        'username' => 'hello',
+        'password' => '12world34'
     );
 
     // Create DB object

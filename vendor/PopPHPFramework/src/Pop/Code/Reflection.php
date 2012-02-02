@@ -107,7 +107,7 @@ class Reflection extends \ReflectionClass
         $this->generator = new Generator($this->getShortName() . '.php', $type);
 
         // Get the namespace
-        $this->getNamespace();
+        $this->getClassNamespace();
 
         // Detect and set the class docblock
         $classDocBlock = $this->getDocComment();
@@ -153,10 +153,10 @@ class Reflection extends \ReflectionClass
         }
 
         // Get properties
-        $this->getProperties();
+        $this->getClassProperties();
 
         // Get Methods
-        $this->getMethods();
+        $this->getClassMethods();
     }
 
     /**
@@ -164,7 +164,7 @@ class Reflection extends \ReflectionClass
      *
      * @return void
      */
-    protected function getNamespace()
+    protected function getClassNamespace()
     {
         $fileContents = (file_exists($this->getFilename())) ? file_get_contents($this->getFilename()) : null;
 
@@ -197,7 +197,7 @@ class Reflection extends \ReflectionClass
      *
      * @return void
      */
-    protected function getProperties()
+    protected function getClassProperties()
     {
         // Detect and set properties
         $properties = $this->getDefaultProperties();
@@ -242,7 +242,7 @@ class Reflection extends \ReflectionClass
      *
      * @return void
      */
-    protected function getMethods()
+    protected function getClassMethods()
     {
         // Detect and set methods
         $methods = $this->getMethods();
