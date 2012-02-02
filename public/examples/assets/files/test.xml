@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE users [
+    <!ELEMENT users ANY>
+    <!ELEMENT row (username,password,email)>
+    <!ELEMENT username ANY>
+    <!ELEMENT password ANY>
+    <!ELEMENT email ANY>
+]>
 <users>
     <row>
         <username>Test1</username>
