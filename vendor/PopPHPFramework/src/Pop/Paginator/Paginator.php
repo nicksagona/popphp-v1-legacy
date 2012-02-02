@@ -591,7 +591,7 @@ class Paginator
      * @param  int|string $p
      * @return void
      */
-    protected function _calcItems($p)
+    protected function calcItems($p)
     {
         // Calculate the number of pages based on the remainder.
         if ((null !== $this->total) && ((int)$this->total > 0)) {
@@ -627,7 +627,7 @@ class Paginator
      * @param  int|string $pg
      * @return array
      */
-    protected function _calcRange($pg)
+    protected function calcRange($pg)
     {
         $range = array();
 

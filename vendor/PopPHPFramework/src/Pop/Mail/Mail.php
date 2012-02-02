@@ -566,7 +566,7 @@ class Mail
      *
      * @return string
      */
-    protected function _getMessageType()
+    protected function getMessageType()
     {
         if ((count($this->attachments) > 0) && (null === $this->html) && (null === $this->text)) {
             $type = null;
@@ -592,7 +592,7 @@ class Mail
      *
      * @return string
      */
-    protected function _buildHeaders()
+    protected function buildHeaders()
     {
         $headers = null;
         foreach ($this->headers as $key => $value) {

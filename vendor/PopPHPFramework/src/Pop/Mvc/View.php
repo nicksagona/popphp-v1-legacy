@@ -208,7 +208,7 @@ class View
      *
      * @return void
      */
-    protected function _renderTemplateFile()
+    protected function renderTemplateFile()
     {
         if (null !== $this->model) {
             $data = $this->model->asArrayObject();
@@ -227,7 +227,7 @@ class View
      *
      * @return void
      */
-    protected function _renderTemplateString()
+    protected function renderTemplateString()
     {
         $this->output = $this->templateString;
 

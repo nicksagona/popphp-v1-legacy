@@ -471,7 +471,7 @@ class Escaped extends AbstractRecord
      *
      * @return void
      */
-    protected function _setResults()
+    protected function setResults()
     {
         $this->rows = array();
 

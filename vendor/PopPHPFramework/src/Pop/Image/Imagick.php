@@ -1264,7 +1264,7 @@ class Imagick extends AbstractImage
      *
      * @return void
      */
-    protected function _getImagickInfo()
+    protected function getImagickInfo()
     {
         $imagickVersion = $this->resource->getVersion();
         $this->versionString = trim(substr($imagickVersion['versionString'], 0, stripos($imagickVersion['versionString'], 'http://')));
@@ -1277,7 +1277,7 @@ class Imagick extends AbstractImage
      *
      * @return void
      */
-    protected function _setImageInfo()
+    protected function setImageInfo()
     {
         // Set image object properties.
         $this->width = $this->resource->getImageWidth();
@@ -1398,7 +1398,7 @@ class Imagick extends AbstractImage
      * @throws Exception
      * @return mixed
      */
-    protected function _setColor(ColorInterface $color = null)
+    protected function setColor(ColorInterface $color = null)
     {
         $clr = (null !== $color) ? $color->getRgb(Color::STRING, true) : 'rgb(0,0,0)';
         return new \ImagickPixel($clr);

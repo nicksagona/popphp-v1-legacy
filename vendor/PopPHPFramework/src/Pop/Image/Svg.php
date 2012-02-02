@@ -868,7 +868,7 @@ class Svg extends File
      * @param  SimpleXMLElement
      * @return SimpleXMLElement
      */
-    protected function _setStyles($obj)
+    protected function setStyles($obj)
     {
         if (null !== $this->curClippingPath) {
             $obj->addAttribute('style', 'clip-path: url(#clip' . $this->curClippingPath .');');
@@ -900,7 +900,7 @@ class Svg extends File
      * @param  array $center
      * @return int
      */
-    protected function _getQuadrant($point, $center)
+    protected function getQuadrant($point, $center)
     {
         $quad = 0;
 

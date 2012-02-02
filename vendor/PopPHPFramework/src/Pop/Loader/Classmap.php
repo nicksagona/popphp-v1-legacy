@@ -96,7 +96,7 @@ class Classmap
      * @param  string $classString
      * @return string
      */
-    protected static function _parseClass($classString)
+    protected static function parseClass($classString)
     {
         $cls = str_replace('class ', '', $classString);
         if (strpos($cls, ' ') !== false) {
@@ -111,7 +111,7 @@ class Classmap
      * @param  string $namespaceString
      * @return string
      */
-    protected static function _parseNamespace($namespaceString)
+    protected static function parseNamespace($namespaceString)
     {
         $ns = trim(str_replace(';', '', str_replace('namespace ', '', $namespaceString)));
         return $ns;

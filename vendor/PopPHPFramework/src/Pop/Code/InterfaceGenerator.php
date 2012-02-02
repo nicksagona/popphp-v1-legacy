@@ -285,7 +285,7 @@ class InterfaceGenerator
      *
      * @return string
      */
-    protected function _formatMethods()
+    protected function formatMethods()
     {
         $methods = null;
 

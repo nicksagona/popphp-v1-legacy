@@ -215,7 +215,7 @@ class Archive extends File implements ArchiveInterface
      * @param  string $password
      * @return void
      */
-    protected function _setAdapter($password = null)
+    protected function setAdapter($password = null)
     {
         $ext = strtolower($this->ext);
 

@@ -275,7 +275,7 @@ class Reader
      *
      * @return void
      */
-    protected function _parseFeed()
+    protected function parseFeed()
     {
         // If the feed type is YouTube, parse accordingly.
         if ($this->feedSrc == 'youtube') {
@@ -430,7 +430,7 @@ class Reader
      * @param  string $dt
      * @return void
      */
-    protected function _calcElapsedTime($dt)
+    protected function calcElapsedTime($dt)
     {
         // Calculate the difference.
         $elapsedTime = '';

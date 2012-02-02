@@ -183,7 +183,7 @@ class Model
      * @throws Exception
      * @return void
      */
-    protected function _setData($data, $name = null)
+    protected function setData($data, $name = null)
     {
         if (!is_array($data)) {
             if (null === $name) {
@@ -202,7 +202,7 @@ class Model
      *
      * @return void
      */
-    protected function _getData()
+    protected function getData()
     {
         foreach ($this->data as $key => $value) {
             $this->array[$key] = ($value instanceof Model) ? $value->asArray() : $value;
@@ -214,7 +214,7 @@ class Model
      *
      * @return void
      */
-    protected function _getDataObject()
+    protected function getDataObject()
     {
         foreach ($this->data as $key => $value) {
             $this->array[$key] = ($value instanceof Model) ? $value->asArrayObject() : $value;

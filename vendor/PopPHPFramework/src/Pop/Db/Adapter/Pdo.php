@@ -320,7 +320,7 @@ class Pdo extends AbstractAdapter
      *
      * @return array
      */
-    protected function _loadTables()
+    protected function loadTables()
     {
         $tables = array();
 

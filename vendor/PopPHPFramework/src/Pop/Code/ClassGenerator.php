@@ -398,7 +398,7 @@ class ClassGenerator
      *
      * @return string
      */
-    protected function _formatProperties()
+    protected function formatProperties()
     {
         $props = null;
 
@@ -414,7 +414,7 @@ class ClassGenerator
      *
      * @return string
      */
-    protected function _formatMethods()
+    protected function formatMethods()
     {
         $methods = null;
 

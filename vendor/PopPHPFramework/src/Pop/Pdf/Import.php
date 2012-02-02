@@ -223,7 +223,7 @@ class Import
      * @param  string $data
      * @return void
      */
-    protected function _getObjects($data)
+    protected function getObjects($data)
     {
         $matches = array();
         $obj_start = array();
@@ -314,7 +314,7 @@ class Import
      * @param  string $data
      * @return array
      */
-    protected function _getRefs($data)
+    protected function getRefs($data)
     {
         $r = array();
         $refs = array();
@@ -338,7 +338,7 @@ class Import
      * @param  array $arr
      * @return int
      */
-    protected function _lastIndex(array $arr)
+    protected function lastIndex(array $arr)
     {
         $objs = array_keys($arr);
         sort($objs);
@@ -356,7 +356,7 @@ class Import
      * @param  array $arr
      * @return int
      */
-    protected function _firstIndex(array $arr)
+    protected function firstIndex(array $arr)
     {
         $objs = array_keys($arr);
         rsort($objs);

@@ -151,6 +151,6 @@ abstract class AbstractAdapter
      *
      * @return array
      */
-    abstract protected function _loadTables();
+    abstract protected function loadTables();
 
 }

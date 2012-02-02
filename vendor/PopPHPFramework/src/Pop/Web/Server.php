@@ -90,7 +90,7 @@ class Server
      *
      * @return void
      */
-    protected function _detect()
+    protected function detect()
     {
         $matches = array();
 

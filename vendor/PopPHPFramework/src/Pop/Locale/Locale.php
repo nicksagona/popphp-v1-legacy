@@ -177,7 +177,7 @@ class Locale
      * @param  string|array $params
      * @return $str
      */
-    protected function _translate($str, $params = null)
+    protected function translate($str, $params = null)
     {
         $key = array_search($str, $this->content['source']);
         $trans = ($key !== false) ? $this->content['output'][$key] : $str;
@@ -200,7 +200,7 @@ class Locale
      *
      * @return void
      */
-    protected function _loadCurrentLanguage()
+    protected function loadCurrentLanguage()
     {
         $this->loadFile(__DIR__ . '/Data/' . $this->language . '.xml');
     }

@@ -78,7 +78,7 @@ class Cmap
      *
      * @return void
      */
-    protected function _parseSubTables($font)
+    protected function parseSubTables($font)
     {
         $bytePos = $font->tableInfo['cmap']->offset + 4;
 

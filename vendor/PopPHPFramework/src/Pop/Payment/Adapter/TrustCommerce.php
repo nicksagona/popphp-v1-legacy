@@ -204,7 +204,7 @@ class TrustCommerce extends AbstractAdapter
      *
      * @return string
      */
-    protected function _buildPostString()
+    protected function buildPostString()
     {
         $post = $this->transaction;
 
@@ -232,7 +232,7 @@ class TrustCommerce extends AbstractAdapter
      *
      * @return void
      */
-    protected function _parseResponseCodes()
+    protected function parseResponseCodes()
     {
         $responseCodes = explode(PHP_EOL, $this->response);
         $codes = array();

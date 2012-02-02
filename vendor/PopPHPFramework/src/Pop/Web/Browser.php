@@ -98,7 +98,7 @@ class Browser
      *
      * @return void
      */
-    protected function _detect()
+    protected function detect()
     {
         // Determine system platform and OS version.
         if (stripos($this->ua, 'Windows') !== false) {

@@ -272,7 +272,7 @@ class Mysqli extends AbstractAdapter
      *
      * @return array
      */
-    protected function _loadTables()
+    protected function loadTables()
     {
         $tables = array();
 

@@ -142,7 +142,7 @@ class Mobile
      *
      * @return boolean
      */
-    protected function _detect()
+    protected function detect()
     {
         $matches = array();
         $is = false;

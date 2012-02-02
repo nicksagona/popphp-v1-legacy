@@ -431,7 +431,7 @@ class Sql
      * @throws Exception
      * @return void
      */
-    protected function _buildSql()
+    protected function buildSql()
     {
         if (null === $this->table) {
             throw new Exception('Error: The table must be set.');
@@ -519,7 +519,7 @@ class Sql
      * @param  array $columns
      * @return array
      */
-    protected function _quote($columns)
+    protected function quote($columns)
     {
         $ary = array();
 
@@ -539,7 +539,7 @@ class Sql
      * @param  string $columns
      * @return string
      */
-    protected function _quoteId($id)
+    protected function quoteId($id)
     {
         $quotedId = null;
 
@@ -558,7 +558,7 @@ class Sql
      *
      * @return string
      */
-    protected function _formatInsertValues()
+    protected function formatInsertValues()
     {
         $sqlColumns = array();
         $sqlValues = array();
@@ -576,7 +576,7 @@ class Sql
      *
      * @return string
      */
-    protected function _formatUpdateValues()
+    protected function formatUpdateValues()
     {
         $sqlColumns = array();
 
@@ -592,7 +592,7 @@ class Sql
      *
      * @return string
      */
-    protected function _formatWhereConditions()
+    protected function formatWhereConditions()
     {
         $whereSql = null;
 

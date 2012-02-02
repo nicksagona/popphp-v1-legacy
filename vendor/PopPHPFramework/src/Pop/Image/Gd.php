@@ -1126,7 +1126,7 @@ class Gd extends AbstractImage
      *
      * @return void
      */
-    protected function _getGdInfo()
+    protected function getGdInfo()
     {
         $gd = gd_info();
         $gdInfo = array(
@@ -1154,7 +1154,7 @@ class Gd extends AbstractImage
      * @throws Exception
      * @return mixed
      */
-    protected function _setColor(ColorInterface $color = null)
+    protected function setColor(ColorInterface $color = null)
     {
         if (null === $this->resource) {
             throw new Exception('Error: The image resource has not been created.');
@@ -1176,7 +1176,7 @@ class Gd extends AbstractImage
      *
      * @return void
      */
-    protected function _createResource()
+    protected function createResource()
     {
         if (null !== $this->output) {
             $this->resource = (is_string($this->output)) ? imagecreatefromstring($this->output) : $this->output;
@@ -1203,7 +1203,7 @@ class Gd extends AbstractImage
      * @param  int|string $q
      * @return void
      */
-    protected function _createImage($new, $img = null, $q = null)
+    protected function createImage($new, $img = null, $q = null)
     {
         if (is_string($new)) {
             $new = imagecreatefromstring($new);
@@ -1231,7 +1231,7 @@ class Gd extends AbstractImage
      * @param  int|string $y
      * @return void
      */
-    protected function _copyImage($w, $h, $x = 0, $y = 0)
+    protected function copyImage($w, $h, $x = 0, $y = 0)
     {
         imagecopyresampled($this->output, $this->resource, 0, 0, $x, $y, $w, $h, $this->width, $this->height);
         $this->width = imagesx($this->output);

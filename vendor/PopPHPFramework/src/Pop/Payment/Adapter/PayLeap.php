@@ -192,7 +192,7 @@ class PayLeap extends AbstractAdapter
      *
      * @return string
      */
-    protected function _buildQueryString()
+    protected function buildQueryString()
     {
         $query = $this->transaction;
         $query['CardNum'] = $this->filterCardNum($query['CardNum']);
@@ -233,7 +233,7 @@ class PayLeap extends AbstractAdapter
      *
      * @return string
      */
-    protected function _buildExtData()
+    protected function buildExtData()
     {
         $ext = null;
 
@@ -292,7 +292,7 @@ class PayLeap extends AbstractAdapter
      *
      * @return void
      */
-    protected function _parseResponseCodes()
+    protected function parseResponseCodes()
     {
         $responseCodes = new \SimpleXMLElement($this->response);
         return (array)$responseCodes;

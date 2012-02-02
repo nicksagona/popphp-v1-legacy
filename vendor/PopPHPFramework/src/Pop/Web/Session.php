@@ -45,7 +45,7 @@ class Session
      * Session ID
      * @var string
      */
-    private $session_id = null;
+    private $sessionId = null;
 
     /**
      * Constructor
@@ -59,7 +59,7 @@ class Session
     {
         // Start a session and set the session id.
         session_start();
-        $this->session_id = session_id();
+        $this->sessionId = session_id();
     }
 
     /**
@@ -84,7 +84,7 @@ class Session
      */
     public function getId()
     {
-        return $this->session_id;
+        return $this->sessionId;
     }
 
     /**
@@ -95,7 +95,7 @@ class Session
     public function regenerateId()
     {
         session_regenerate_id();
-        $this->session_id = session_id();
+        $this->sessionId = session_id();
     }
 
     /**
@@ -108,7 +108,7 @@ class Session
         $_SESSION = null;
         session_unset();
         session_destroy();
-        unset($this->session_id);
+        unset($this->sessionId);
     }
 
     /**

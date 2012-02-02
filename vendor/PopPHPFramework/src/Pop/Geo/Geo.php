@@ -185,7 +185,7 @@ class Geo
      *
      * @return void
      */
-    protected function _getAvailableDatabases()
+    protected function getAvailableDatabases()
     {
         $databases = geoip_db_get_all_info();
 
@@ -228,7 +228,7 @@ class Geo
      *
      * @return void
      */
-    protected function _getHostInfo()
+    protected function getHostInfo()
     {
         // Get base info by city
         if ($this->databases['city']) {

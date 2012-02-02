@@ -100,7 +100,7 @@ abstract class AbstractRecord
      * @param  string $order
      * @return array
      */
-    protected function _getOrder($order)
+    protected function getOrder($order)
     {
         $by = null;
         $ord = null;

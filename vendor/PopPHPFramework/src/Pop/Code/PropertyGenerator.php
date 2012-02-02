@@ -357,7 +357,7 @@ class PropertyGenerator
      *
      * @return string
      */
-    protected function _formatArrayValues()
+    protected function formatArrayValues()
     {
         $ary = str_replace(PHP_EOL, PHP_EOL . $this->indent . '  ', var_export($this->value, true));
         $ary .= ';';
@@ -388,7 +388,7 @@ class PropertyGenerator
      *
      * @return int
      */
-    protected function _getKeyLength()
+    protected function getKeyLength()
     {
         $length = 0;
         $keys = array_keys($this->value);

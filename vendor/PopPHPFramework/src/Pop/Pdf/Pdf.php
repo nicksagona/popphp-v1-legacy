@@ -1457,7 +1457,7 @@ class Pdf extends File
      *
      * @return int
      */
-    protected function _getContentObject()
+    protected function getContentObject()
     {
         // If the page's current content object index is not set, create one.
         if (null === $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->curContent) {
@@ -1478,7 +1478,7 @@ class Pdf extends File
      *
      * @return string
      */
-    protected function _calcTextMatrix()
+    protected function calcTextMatrix()
     {
         // Define some variables.
         $tm = '';
@@ -1547,7 +1547,7 @@ class Pdf extends File
      * @param  array $center
      * @return int
      */
-    protected function _getQuadrant($point, $center)
+    protected function getQuadrant($point, $center)
     {
         $quad = 0;
 
@@ -1566,7 +1566,7 @@ class Pdf extends File
      * @param  string $str
      * @return int
      */
-    protected function _calcByteLength($str)
+    protected function calcByteLength($str)
     {
         $bytes = str_replace("\n", "", $str);
         return strlen($bytes);
@@ -1578,7 +1578,7 @@ class Pdf extends File
      * @param  int|string $num
      * @return string
      */
-    protected function _formatByteLength($num)
+    protected function formatByteLength($num)
     {
         return sprintf('%010d', $num);
     }
@@ -1589,7 +1589,7 @@ class Pdf extends File
      * @param  int|string $color
      * @return float
      */
-    protected function _convertColor($color)
+    protected function convertColor($color)
     {
         $c = round(($color / 256), 2);
         return $c;
@@ -1601,7 +1601,7 @@ class Pdf extends File
      * @param  boolean $fill
      * @return string
      */
-    protected function _setStyle($fill)
+    protected function setStyle($fill)
     {
         $style = null;
 
@@ -1622,7 +1622,7 @@ class Pdf extends File
      * @param  array $arr
      * @return int
      */
-    protected function _lastIndex(array $arr)
+    protected function lastIndex(array $arr)
     {
         $objs = array_keys($arr);
         sort($objs);

@@ -498,7 +498,7 @@ class Form extends Dom
      * @param  mixed $filters
      * @return array
      */
-    protected function _filterValues($values, $filters)
+    protected function filterValues($values, $filters)
     {
         $filteredValues = array();
 
@@ -532,7 +532,7 @@ class Form extends Dom
      *
      * @return void
      */
-    protected function _renderWithoutTemplate()
+    protected function renderWithoutTemplate()
     {
         // Initialize properties.
         $this->output = null;
@@ -602,7 +602,7 @@ class Form extends Dom
      *
      * @return void
      */
-    protected function _renderWithTemplate()
+    protected function renderWithTemplate()
     {
         // Initialize properties and variables.
         $this->output = null;

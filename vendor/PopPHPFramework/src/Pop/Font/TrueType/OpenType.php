@@ -56,7 +56,7 @@ class OpenType extends TrueType
      *
      * @return void
      */
-    protected function _parseRequiredTables()
+    protected function parseRequiredTables()
     {
         // OS/2
         if (isset($this->tableInfo['OS/2'])) {

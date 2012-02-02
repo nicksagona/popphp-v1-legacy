@@ -611,7 +611,7 @@ class String
      * @param string $sep
      * @return string
      */
-    protected function _convertCamelCase($sep)
+    protected function convertCamelCase($sep)
     {
         $strAry = str_split($this->string);
         $convert = null;

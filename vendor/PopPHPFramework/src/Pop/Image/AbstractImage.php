@@ -540,6 +540,6 @@ abstract class AbstractImage extends File
      * @throws Exception
      * @return mixed
      */
-    abstract protected function _setColor(ColorInterface $color = null);
+    abstract protected function setColor(ColorInterface $color = null);
 
 }

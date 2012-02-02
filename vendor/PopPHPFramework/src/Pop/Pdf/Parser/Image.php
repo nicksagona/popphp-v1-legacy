@@ -191,7 +191,7 @@ class Image extends Gd
      * @param $int|float $scl
      * @return void
      */
-    protected function _scaleImage($scl)
+    protected function scaleImage($scl)
     {
         // Define the temp scaled image.
         $this->scaledImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->filename . '_' . time() . '.' . $this->ext;
@@ -216,7 +216,7 @@ class Image extends Gd
      *
      * @return void
      */
-    protected function _convertImage()
+    protected function convertImage()
     {
         // Define the temp converted image.
         $this->convertedImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->filename . '_' . time() . '.png';
@@ -235,7 +235,7 @@ class Image extends Gd
      *
      * @return void
      */
-    protected function _parseJpeg()
+    protected function parseJpeg()
     {
         // Add the image to the _objects array.
         $colorspace = ($this->getColorMode() == 'CMYK') ? "/DeviceCMYK\n    /Decode [1 0 1 0 1 0 1 0]" : "/Device" . $this->getColorMode();
@@ -248,7 +248,7 @@ class Image extends Gd
      * @throws Exception
      * @return void
      */
-    protected function _parsePng()
+    protected function parsePng()
     {
         // Define some PNG image-specific variables.
         $PLTE = null;

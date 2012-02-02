@@ -102,7 +102,7 @@ class AuthFile extends File implements AdapterInterface
      *
      * @return void
      */
-    protected function _parse()
+    protected function parse()
     {
         $entries = explode(PHP_EOL, trim($this->read()));
 

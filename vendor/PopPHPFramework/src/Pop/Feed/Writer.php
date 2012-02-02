@@ -90,7 +90,7 @@ class Writer extends Dom
      * @throws Exception
      * @return void
      */
-    protected function _init()
+    protected function init()
     {
         if ($this->feedType == Dom::RSS) {
             // Set up the RSS child node.

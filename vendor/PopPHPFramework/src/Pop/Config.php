@@ -162,7 +162,7 @@ class Config
      * @param  array $config
      * @return void
      */
-    protected function _setConfig($config)
+    protected function setConfig($config)
     {
         foreach ($config as $key => $value) {
             $this->config[$key] = (is_array($value) ? new Config($value, $this->allowChanges) : $value);
@@ -174,7 +174,7 @@ class Config
      *
      * @return void
      */
-    protected function _getConfig()
+    protected function getConfig()
     {
         foreach ($this->config as $key => $value) {
             $this->array[$key] = ($value instanceof Config) ? $value->asArray() : $value;
@@ -186,7 +186,7 @@ class Config
      *
      * @return void
      */
-    protected function _getConfigObject()
+    protected function getConfigObject()
     {
         foreach ($this->config as $key => $value) {
             $this->array[$key] = ($value instanceof Config) ? $value->asArrayObject() : $value;

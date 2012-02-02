@@ -501,7 +501,7 @@ class Record
      * @param  array $rows
      * @return void
      */
-    protected function _setResults($rows)
+    protected function setResults($rows)
     {
         $this->rows = $rows;
         $this->columns = (count($rows) == 1) ? $rows[0] : array();

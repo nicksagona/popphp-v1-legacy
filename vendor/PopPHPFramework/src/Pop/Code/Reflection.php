@@ -99,7 +99,7 @@ class Reflection extends \ReflectionClass
      *
      * @return void
      */
-    protected function _buildGenerator()
+    protected function buildGenerator()
     {
 
         // Create generator object
@@ -164,7 +164,7 @@ class Reflection extends \ReflectionClass
      *
      * @return void
      */
-    protected function _getNamespace()
+    protected function getNamespace()
     {
         $fileContents = (file_exists($this->getFilename())) ? file_get_contents($this->getFilename()) : null;
 
@@ -197,7 +197,7 @@ class Reflection extends \ReflectionClass
      *
      * @return void
      */
-    protected function _getProperties()
+    protected function getProperties()
     {
         // Detect and set properties
         $properties = $this->getDefaultProperties();
@@ -242,7 +242,7 @@ class Reflection extends \ReflectionClass
      *
      * @return void
      */
-    protected function _getMethods()
+    protected function getMethods()
     {
         // Detect and set methods
         $methods = $this->getMethods();

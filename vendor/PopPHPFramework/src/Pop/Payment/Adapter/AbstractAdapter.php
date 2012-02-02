@@ -243,7 +243,7 @@ abstract class AbstractAdapter implements AdapterInterface
      *
      * @return boolean
      */
-    protected function _validate()
+    protected function validate()
     {
         $valid = true;
 
@@ -264,7 +264,7 @@ abstract class AbstractAdapter implements AdapterInterface
      * @param  string $ccNum
      * @return string
      */
-    protected function _filterCardNum($ccNum)
+    protected function filterCardNum($ccNum)
     {
         $filtered = $ccNum;
 
@@ -285,7 +285,7 @@ abstract class AbstractAdapter implements AdapterInterface
      * @param  int    $length
      * @return string
      */
-    protected function _filterExpDate($date, $length = 4)
+    protected function filterExpDate($date, $length = 4)
     {
         $filtered = $date;
 

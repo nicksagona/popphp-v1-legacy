@@ -135,7 +135,7 @@ class Search
      * @param  string $val
      * @return string
      */
-    protected function _searchArray($val)
+    protected function searchArray($val)
     {
         // If case sensitive.
         if ($this->case) {

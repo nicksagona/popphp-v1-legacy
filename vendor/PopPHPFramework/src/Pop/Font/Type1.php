@@ -137,7 +137,7 @@ class Type1 extends AbstractFont
      * @param  string $pfb
      * @return void
      */
-    protected function _parsePfb($pfb)
+    protected function parsePfb($pfb)
     {
         $pfbFile = new File($pfb);
         $data = $pfbFile->read();
@@ -262,7 +262,7 @@ class Type1 extends AbstractFont
      * @param  string $afm
      * @return void
      */
-    protected function _parseAfm($afm)
+    protected function parseAfm($afm)
     {
         $afmFile = new File($afm);
         $data = $afmFile->read();
@@ -332,7 +332,7 @@ class Type1 extends AbstractFont
      *
      * @return void
      */
-    protected function _convertToHex()
+    protected function convertToHex()
     {
         $ary = str_split($this->data);
         $length = count($ary);
@@ -348,7 +348,7 @@ class Type1 extends AbstractFont
      * @param  string $str
      * @return string
      */
-    protected function _strip($str)
+    protected function strip($str)
     {
         // Strip parentheses
         if (substr($str, 0, 1) == '(') {

@@ -259,7 +259,7 @@ class Object
      * @param  string $str
      * @return int
      */
-    protected function _calcByteLength($str)
+    protected function calcByteLength($str)
     {
         $bytes = str_replace("\n", "", $str);
         return strlen($bytes);

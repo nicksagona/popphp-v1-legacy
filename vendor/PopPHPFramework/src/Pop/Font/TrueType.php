@@ -100,7 +100,7 @@ class TrueType extends AbstractFont
      *
      * @return void
      */
-    protected function _parseTtfTable()
+    protected function parseTtfTable()
     {
         $ttfHeader = unpack(
             'nmajorVersion/' .
@@ -147,7 +147,7 @@ class TrueType extends AbstractFont
      *
      * @return void
      */
-    protected function _parseName()
+    protected function parseName()
     {
         if (isset($this->tableInfo['name'])) {
             $this->tables['name'] = new Name($this);
@@ -167,7 +167,7 @@ class TrueType extends AbstractFont
      *
      * @return void
      */
-    protected function _parseCommonTables()
+    protected function parseCommonTables()
     {
         // head
         if (isset($this->tableInfo['head'])) {
@@ -242,7 +242,7 @@ class TrueType extends AbstractFont
      *
      * @return void
      */
-    protected function _parseRequiredTables()
+    protected function parseRequiredTables()
     {
         // loca
         if (isset($this->tableInfo['loca'])) {

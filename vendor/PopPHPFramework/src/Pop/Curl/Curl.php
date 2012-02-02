@@ -176,7 +176,7 @@ class Curl
      * @throws Exception
      * @return void
      */
-    protected function _showError()
+    protected function showError()
     {
         throw new Exception('Error: ' . curl_errno($this->curl) . ' => ' . curl_error($this->curl) . '.');
     }

@@ -789,7 +789,7 @@ class Graph
      * @param  array $yAxis
      * @return ArrayObject
      */
-    protected function _getPoints($xAxis, $yAxis)
+    protected function getPoints($xAxis, $yAxis)
     {
         if ($this->adapter instanceof Pdf) {
             $zeroPoint = array('x' => $this->padding, 'y' => $this->padding);
@@ -840,7 +840,7 @@ class Graph
      * @param  int         $offset
      * @return void
      */
-    protected function _showXAxis($xAxis, $points, $offset = 0)
+    protected function showXAxis($xAxis, $points, $offset = 0)
     {
         $this->adapter->setStrokeWidth(1);
         $this->adapter->setStrokeColor($this->showYColor);
@@ -875,7 +875,7 @@ class Graph
      * @param  int         $offset
      * @return void
      */
-    protected function _showYAxis($yAxis, $points, $offset = 0)
+    protected function showYAxis($yAxis, $points, $offset = 0)
     {
         $this->adapter->setStrokeWidth(1);
         $this->adapter->setStrokeColor($this->showXColor);
@@ -910,7 +910,7 @@ class Graph
      * @param  int         $offset
      * @return void
      */
-    protected function _drawXAxis($xAxis, $points, $offset = 0)
+    protected function drawXAxis($xAxis, $points, $offset = 0)
     {
         $this->adapter->setStrokeWidth($this->axisWidth);
         $this->adapter->setStrokeColor($this->axisColor);
@@ -962,7 +962,7 @@ class Graph
      * @param  int         $offset
      * @return void
      */
-    protected function _drawYAxis($yAxis, $points, $offset = 0)
+    protected function drawYAxis($yAxis, $points, $offset = 0)
     {
         $this->adapter->setStrokeWidth($this->axisWidth);
         $this->adapter->setStrokeColor($this->axisColor);
@@ -1016,7 +1016,7 @@ class Graph
      * @param  array  $points
      * @return void
      */
-    protected function _drawDataText($dataPoints, $xAxis, $yAxis, $type, $points = null, $skip = 1)
+    protected function drawDataText($dataPoints, $xAxis, $yAxis, $type, $points = null, $skip = 1)
     {
         switch ($type) {
             // Draw data point text on a line graph.
@@ -1182,7 +1182,7 @@ class Graph
      * @param  array $center
      * @return int
      */
-    protected function _getQuadrant($point, $center)
+    protected function getQuadrant($point, $center)
     {
         $quad = 0;
 
@@ -1211,7 +1211,7 @@ class Graph
      * @param  int   $quad
      * @return array
      */
-    protected function _getTriangle($point, $center, $quad)
+    protected function getTriangle($point, $center, $quad)
     {
         $tri = array();
 

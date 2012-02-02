@@ -266,7 +266,7 @@ class Authorize extends AbstractAdapter
      *
      * @return string
      */
-    protected function _buildPostString()
+    protected function buildPostString()
     {
         $post = $this->transaction;
         $post['x_card_num'] = $this->filterCardNum($post['x_card_num']);

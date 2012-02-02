@@ -359,7 +359,7 @@ class DocblockGenerator
      *
      * @return string
      */
-    protected function _formatTags()
+    protected function formatTags()
     {
         $tags = null;
         $tagLength = $this->getTagLength();
@@ -414,7 +414,7 @@ class DocblockGenerator
      *
      * @return int
      */
-    protected function _getTagLength()
+    protected function getTagLength()
     {
         $length = 0;
 
@@ -432,7 +432,7 @@ class DocblockGenerator
      *
      * @return int
      */
-    protected function _getParamLength()
+    protected function getParamLength()
     {
         $length = 0;
 

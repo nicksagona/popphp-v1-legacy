@@ -536,7 +536,7 @@ class MethodGenerator
      *
      * @return string
      */
-    protected function _formatArguments()
+    protected function formatArguments()
     {
         $args = null;
 

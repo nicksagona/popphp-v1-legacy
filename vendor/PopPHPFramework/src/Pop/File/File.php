@@ -521,7 +521,7 @@ class File
      * @throws Exception
      * @return string
      */
-    protected static function _checkPermissions($file)
+    protected static function checkPermissions($file)
     {
         $perm = '';
 
@@ -545,7 +545,7 @@ class File
      * @throws Exception
      * @return void
      */
-    protected function _setFile($file, $types = null)
+    protected function setFile($file, $types = null)
     {
         // Set file object properties.
         $file_parts = pathinfo($file);

@@ -625,7 +625,7 @@ class Prepared extends AbstractRecord
      * @param  int    $i
      * @return string
      */
-    protected function _getPlaceholder($column, $i = 1)
+    protected function getPlaceholder($column, $i = 1)
     {
         $placeholder =  $this->placeholder;
 
@@ -643,7 +643,7 @@ class Prepared extends AbstractRecord
      *
      * @return void
      */
-    protected function _setResults()
+    protected function setResults()
     {
         $this->rows = array();
 

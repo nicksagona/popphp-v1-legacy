@@ -663,7 +663,7 @@ class Auth
      * @param  string|array $ips
      * @return array
      */
-    protected function _filterIps($ips)
+    protected function filterIps($ips)
     {
         $validIps = array();
 
@@ -687,7 +687,7 @@ class Auth
      * @param  string|array $subnets
      * @return array
      */
-    protected function _filterSubnets($subnets)
+    protected function filterSubnets($subnets)
     {
         $validSubnets = array();
 
@@ -710,7 +710,7 @@ class Auth
      * @param  string $pwd
      * @return string
      */
-    protected function _encryptPassword($pwd)
+    protected function encryptPassword($pwd)
     {
         $encrypted = $pwd;
 
@@ -731,7 +731,7 @@ class Auth
      * @param  boolean $count
      * @return void
      */
-    protected function _processValidators($count = true)
+    protected function processValidators($count = true)
     {
         foreach ($this->validators as $name => $validator) {
             if (null !== $validator) {

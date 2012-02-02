@@ -171,7 +171,7 @@ class Font
      *
      * @return void
      */
-    protected function _createFontObjects()
+    protected function createFontObjects()
     {
         if ($this->font instanceof Type1) {
             $fontType = 'Type1';
@@ -211,7 +211,7 @@ class Font
      * @param  Pop\Font\TrueType\Table\Cmap $cmap
      * @return array
      */
-    protected function _getGlyphWidths($cmap)
+    protected function getGlyphWidths($cmap)
     {
         $gw = array('encoding' => null, 'widths' => array());
         $uniTable = null;
@@ -258,7 +258,7 @@ class Font
      * @param  string $str
      * @return int
      */
-    protected function _calcByteLength($str)
+    protected function calcByteLength($str)
     {
         $bytes = str_replace("\n", "", $str);
         return strlen($bytes);
