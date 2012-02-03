@@ -386,6 +386,10 @@ class Escaped extends AbstractRecord
                 }
             }
         }
+
+        if (count($this->columns) > 0) {
+            $this->rows[0] = $this->columns;
+        }
     }
 
     /**

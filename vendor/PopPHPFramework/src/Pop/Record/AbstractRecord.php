@@ -91,7 +91,10 @@ abstract class AbstractRecord
      */
     public function getResult()
     {
-        return $this->rows;
+        return array(
+        	'columns' => $this->columns,
+            'rows'    => $this->rows
+        );
     }
 
     /**

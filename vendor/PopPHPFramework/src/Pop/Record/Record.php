@@ -498,13 +498,13 @@ class Record
     /**
      * Set the query results.
      *
-     * @param  array $rows
+     * @param  array $result
      * @return void
      */
-    protected function setResults($rows)
+    protected function setResults($result)
     {
-        $this->rows = $rows;
-        $this->columns = (count($rows) == 1) ? $rows[0] : array();
+        $this->rows = $result['rows'];
+        $this->columns = $result['columns'];
     }
 
     /**
