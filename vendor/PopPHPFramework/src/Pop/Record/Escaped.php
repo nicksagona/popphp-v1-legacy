@@ -482,6 +482,10 @@ class Escaped extends AbstractRecord
         while (($row = $this->db->adapter->fetch()) != false) {
             $this->rows[] = new \ArrayObject($row, \ArrayObject::ARRAY_AS_PROPS);
         }
+
+        if (isset($this->rows[0])) {
+            $this->columns = $this->rows[0];
+        }
     }
 
 }

@@ -655,6 +655,10 @@ class Prepared extends AbstractRecord
         foreach ($rows as $row) {
             $this->rows[] = new \ArrayObject($row, \ArrayObject::ARRAY_AS_PROPS);
         }
+
+        if (isset($this->rows[0])) {
+            $this->columns = $this->rows[0];
+        }
     }
 
 }
