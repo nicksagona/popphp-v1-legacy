@@ -44,7 +44,7 @@ class Db
     /**
      * Check the database
      *
-     * @param array $db
+     * @param  array  $db
      * @throws Exception
      * @return string
      */
