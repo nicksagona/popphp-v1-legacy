@@ -68,6 +68,7 @@ class Bootstrap
                   ->appendToBody("    include '{$projectCfg}',")
                   ->appendToBody("    include '{$moduleCfg}',");
 
+        // Set up any controllers via a router object
         if (isset($install->controllers)) {
             $controllers = $install->controllers->asArray();
             $ctrls = array();
@@ -84,8 +85,23 @@ class Bootstrap
             $bootstrap->appendToBody("    ))");
         }
 
-        $bootstrap->appendToBody(");")
-                  ->save();
+        $bootstrap->appendToBody(");");
+
+        if (isset($install->databases)) {
+            $default = null;
+            $databases = $install->databases->asArray();
+            foreach ($databases as $name => $database) {
+                if ($database['default']) {
+                    $default = $name;
+                }
+            }
+            if (null !== $default) {
+                $bootstrap->appendToBody(PHP_EOL . "// Set the default database adapter for the project")
+                          ->appendToBody("Pop\\Record\\Record::setDb(\$project->database('{$default}'));", false);
+            }
+        }
+
+        $bootstrap->save();
     }
 
 }

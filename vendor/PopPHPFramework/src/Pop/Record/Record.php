@@ -167,7 +167,7 @@ class Record
         $class = get_called_class();
 
         static::$db[$class] = $db;
-        if ($isDefault) {
+        if (($isDefault) || ($class === __CLASS__)) {
             static::$db['default'] = $db;
         }
     }
