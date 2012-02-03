@@ -84,14 +84,17 @@ class Base
             $projectCfg->appendToBody(",")
                        ->appendToBody("    'databases' => array(");
             $databases = $install->databases->asArray();
+            $default = null;
             $i = 0;
             foreach ($databases as $dbname => $db) {
                 $projectCfg->appendToBody("        '" . $dbname . "' => Pop\\Db\\Db::factory('" . $db['type'] . "', array (");
                 $j = 0;
                 $isSqlite = ($db['type'] == 'Sqlite') ? true : false;
+                $default = ($db['default']) ? $dbname : null;
                 $dbCreds = $db;
                 unset($dbCreds['type']);
                 unset($dbCreds['prefix']);
+                unset($dbCreds['default']);
                 foreach ($dbCreds as $key => $value) {
                     $j++;
                     if ($isSqlite) {
@@ -111,6 +114,10 @@ class Base
                 $projectCfg->appendToBody($end);
             }
             $projectCfg->appendToBody('    )', false);
+
+            if (null !== $default) {
+                $projectCfg->appendToBody("," . PHP_EOL . "    'defaultDb' => '" . $default . "'", false);
+            }
         }
 
         // Save project config

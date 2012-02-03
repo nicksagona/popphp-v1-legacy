@@ -74,10 +74,10 @@ class Tables
             }
 
             if (isset($value['prefix'])) {
-                $prefix = new PropertyGenerator('_prefix', 'string', $value['prefix'], 'protected');
+                $prefix = new PropertyGenerator('prefix', 'string', $value['prefix'], 'protected');
             }
-            $propId = new PropertyGenerator('_primaryId', $pIdType, $pId, 'protected');
-            $propAuto = new PropertyGenerator('_auto', 'boolean', $value['auto'], 'protected');
+            $propId = new PropertyGenerator('primaryId', $pIdType, $pId, 'protected');
+            $propAuto = new PropertyGenerator('auto', 'boolean', $value['auto'], 'protected');
 
             // Create and save table class file
             $tableCls = new Generator($tableDir . '/' . $tableName . '.php', Generator::CREATE_CLASS);

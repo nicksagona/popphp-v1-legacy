@@ -85,25 +85,9 @@ class Bootstrap
             $bootstrap->appendToBody("    ))");
         }
 
-        $bootstrap->appendToBody(");");
-
-        // Set up any default database
-        if (isset($install->databases)) {
-            $default = null;
-            $databases = $install->databases->asArray();
-            foreach ($databases as $name => $database) {
-                if ($database['default']) {
-                    $default = $name;
-                }
-            }
-            if (null !== $default) {
-                $bootstrap->appendToBody(PHP_EOL . "// Set the default database adapter for the project")
-                          ->appendToBody("Pop\\Record\\Record::setDb(\$project->database('{$default}'));", false);
-            }
-        }
-
-        // Save the bootstrap file
-        $bootstrap->save();
+        // Finalize and save the bootstrap file
+        $bootstrap->appendToBody(");")
+                  ->save();
     }
 
 }

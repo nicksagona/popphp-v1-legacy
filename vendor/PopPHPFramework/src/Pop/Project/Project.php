@@ -26,7 +26,8 @@ namespace Pop\Project;
 
 use Pop\Config,
     Pop\Db\Db,
-    Pop\Mvc\Router;
+    Pop\Mvc\Router,
+    Pop\Record\Record;
 
 /**
  * @category   Pop
@@ -75,6 +76,11 @@ class Project
         }
         if (null !== $router) {
             $this->loadRouter($router);
+        }
+
+        if (isset($this->config->defaultDb)) {
+            $default = $this->config->defaultDb;
+            Record::setDb($this->config->databases->$default);
         }
     }
 
