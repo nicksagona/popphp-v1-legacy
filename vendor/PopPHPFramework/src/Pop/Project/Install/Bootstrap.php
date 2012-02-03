@@ -87,6 +87,7 @@ class Bootstrap
 
         $bootstrap->appendToBody(");");
 
+        // Set up any default database
         if (isset($install->databases)) {
             $default = null;
             $databases = $install->databases->asArray();
@@ -101,6 +102,7 @@ class Bootstrap
             }
         }
 
+        // Save the bootstrap file
         $bootstrap->save();
     }
 
