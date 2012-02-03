@@ -230,7 +230,7 @@ class Mail
      */
     public function addRecipients(array $rcpts)
     {
-        if (is_array($rcpts[0])) {
+        if (isset($rcpts[0]) && (is_array($rcpts[0]))) {
             foreach ($rcpts as $rcpt) {
                 if (!array_key_exists('email', $rcpt)) {
                     throw new Exception("Error: At least one of the array keys must be 'email'.");
