@@ -126,7 +126,7 @@ class Search
         }
 
         // Execute the array filter to search the array.
-        return array_filter($this->data, array($this, '_searchArray'));
+        return array_filter($this->data, array($this, 'searchArray'));
     }
 
     /**

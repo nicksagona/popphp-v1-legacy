@@ -17,7 +17,7 @@
 namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\File\File;
+    Pop\Validator\Validator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
@@ -25,14 +25,15 @@ require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructor()
+    public function testFactory()
     {
-        $f = new File('test.txt');
-        $class = 'Pop\\File\\File';
-        $this->assertTrue($f instanceof $class);
+        $v = Validator::factory(new Validator\AlphaNumeric());
+        $class = 'Pop\\Validator\\Validator';
+        $this->assertTrue($v instanceof $class);
+        $this->assertTrue($v->evaluate('abcd1234'));
     }
 
 }

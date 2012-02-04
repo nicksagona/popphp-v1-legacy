@@ -17,7 +17,8 @@
 namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\File\File;
+    Pop\Payment\Payment,
+    Pop\Payment\Adapter\Authorize;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
@@ -25,14 +26,14 @@ require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class PaymentTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testConstructor()
     {
-        $f = new File('test.txt');
-        $class = 'Pop\\File\\File';
-        $this->assertTrue($f instanceof $class);
+        $p = new Payment(new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST));
+        $class = 'Pop\\Payment\\Payment';
+        $this->assertTrue($p instanceof $class);
     }
 
 }

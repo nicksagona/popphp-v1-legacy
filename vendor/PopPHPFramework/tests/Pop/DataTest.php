@@ -17,7 +17,7 @@
 namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\File\File;
+    Pop\Data\Data;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
@@ -25,14 +25,23 @@ require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class DataTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testConstructor()
     {
-        $f = new File('test.txt');
-        $class = 'Pop\\File\\File';
-        $this->assertTrue($f instanceof $class);
+        $d = new Data('data/test.sql');
+        $class = 'Pop\\Data\\Data';
+        $this->assertTrue($d instanceof $class);
+    }
+
+    public function testData()
+    {
+        $d = new Data('data/test.sql');
+        $ary = $d->parseFile();
+        $keys = array('id', 'username', 'password', 'email', 'access');
+        $this->assertEquals(9, count($ary));
+        $this->assertEquals($keys, array_keys($ary['row_1']));
     }
 
 }

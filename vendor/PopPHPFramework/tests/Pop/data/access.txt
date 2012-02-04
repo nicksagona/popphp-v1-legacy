@@ -1,0 +1,4 @@
+testuser1|12test34|admin
+testuser2|56test78|editor
+testuser3|90test12|reader
+testuser4|test1234|publisher

@@ -17,7 +17,7 @@
 namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\File\File;
+    Pop\Form\Form;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
@@ -25,13 +25,13 @@ require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class FormTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testConstructor()
     {
-        $f = new File('test.txt');
-        $class = 'Pop\\File\\File';
+        $f = new Form('/submit', 'post');
+        $class = 'Pop\\Form\\Form';
         $this->assertTrue($f instanceof $class);
     }
 

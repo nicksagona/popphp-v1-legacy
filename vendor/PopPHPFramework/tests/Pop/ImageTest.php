@@ -17,7 +17,9 @@
 namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\File\File;
+    Pop\Image\Gd,
+    Pop\Image\Imagick,
+    Pop\Image\Svg;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
@@ -25,14 +27,28 @@ require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class ImageTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructor()
+    public function testGdConstructor()
     {
-        $f = new File('test.txt');
-        $class = 'Pop\\File\\File';
-        $this->assertTrue($f instanceof $class);
+        $i = new Gd('graph.gif', 640, 480);
+        $class = 'Pop\\Image\\Gd';
+        $this->assertTrue($i instanceof $class);
+    }
+
+    public function testImagickConstructor()
+    {
+        $i = new Imagick('graph.gif', 640, 480);
+        $class = 'Pop\\Image\\Imagick';
+        $this->assertTrue($i instanceof $class);
+    }
+
+    public function testSvgConstructor()
+    {
+        $i = new Svg('graph.svg', 640, 480);
+        $class = 'Pop\\Image\\Svg';
+        $this->assertTrue($i instanceof $class);
     }
 
 }

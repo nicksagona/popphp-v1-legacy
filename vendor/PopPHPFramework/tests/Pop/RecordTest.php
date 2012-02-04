@@ -17,7 +17,8 @@
 namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\File\File;
+    Pop\Db\Db,
+    Pop\Record\Record;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
@@ -25,14 +26,14 @@ require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class RecordTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testConstructor()
     {
-        $f = new File('test.txt');
-        $class = 'Pop\\File\\File';
-        $this->assertTrue($f instanceof $class);
+        $r = new Record(null, Db::factory('Sqlite', array('database' => __DIR__ . '/data/test.sqlite')));
+        $class = 'Pop\\Record\\Record';
+        $this->assertTrue($r instanceof $class);
     }
 
 }

@@ -17,7 +17,8 @@
 namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\File\File;
+    Pop\Http\Request,
+    Pop\Http\Response;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
@@ -25,14 +26,21 @@ require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class HttpTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructor()
+    public function testRequestConstructor()
     {
-        $f = new File('test.txt');
-        $class = 'Pop\\File\\File';
-        $this->assertTrue($f instanceof $class);
+        $h = new Request();
+        $class = 'Pop\\Http\\Request';
+        $this->assertTrue($h instanceof $class);
+    }
+
+    public function testResponseConstructor()
+    {
+        $h = new Response(200, array('Content-Type' => 'text/plain'));
+        $class = 'Pop\\Http\\Response';
+        $this->assertTrue($h instanceof $class);
     }
 
 }

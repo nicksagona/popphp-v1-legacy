@@ -17,7 +17,8 @@
 namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\File\File;
+    Pop\Dom\Dom,
+    Pop\Dom\Child;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
@@ -25,14 +26,21 @@ require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class DomTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructor()
+    public function testDomConstructor()
     {
-        $f = new File('test.txt');
-        $class = 'Pop\\File\\File';
-        $this->assertTrue($f instanceof $class);
+        $d = new Dom(Dom::XHTML11);
+        $class = 'Pop\\Dom\\Dom';
+        $this->assertTrue($d instanceof $class);
+    }
+
+    public function testChildConstructor()
+    {
+        $c = new Child('p', 'This is a paragraph');
+        $class = 'Pop\\Dom\\Child';
+        $this->assertTrue($c instanceof $class);
     }
 
 }

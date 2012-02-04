@@ -17,7 +17,8 @@
 namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\File\File;
+    Pop\Loader\Classmap,
+    Pop\Filter\String;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
@@ -25,14 +26,28 @@ require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class LoaderTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructor()
+    public function testAutoloader()
     {
-        $f = new File('test.txt');
-        $class = 'Pop\\File\\File';
-        $this->assertTrue($f instanceof $class);
+        $s = new String('string');
+        $class = 'Pop\\Filter\\String';
+        $this->assertTrue($s instanceof $class);
+    }
+
+    public function testClassmap()
+    {
+        $classmap = __DIR__ . '/data/classmap.php';
+
+        if (file_exists($classmap)) {
+            unlink($classmap);
+        }
+
+        Classmap::generate(__DIR__ . '/../../src', $classmap);
+        $this->fileExists($classmap);
+
+        unlink($classmap);
     }
 
 }

@@ -55,7 +55,9 @@ class Ftp
      */
     public function __construct($ftp, $user, $pass, $ssl = false)
     {
-        if ($ssl) {
+        if (!function_exists('ftp_connect')) {
+            throw new Exception('Error: The FTP extension is not available.');
+        } else if ($ssl) {
             if (!($this->conn = ftp_ssl_connect($ftp))) {
                 throw new Exception('Error: There was an error connecting to the FTP server ' . $ftp);
             }

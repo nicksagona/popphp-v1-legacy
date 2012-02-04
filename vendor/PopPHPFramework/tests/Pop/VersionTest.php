@@ -17,7 +17,7 @@
 namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\File\File;
+    Pop\Version;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
@@ -25,14 +25,18 @@ require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class VersionTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructor()
+    public function testVersion()
     {
-        $f = new File('test.txt');
-        $class = 'Pop\\File\\File';
-        $this->assertTrue($f instanceof $class);
+        $this->assertEquals('0.9', Version::getVersion());
+    }
+
+    public function testCheck()
+    {
+        $results = Version::check(Version::DATA);
+        $this->assertGreaterThan(0, count($results));
     }
 
 }

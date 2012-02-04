@@ -17,7 +17,7 @@
 namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\File\File;
+    Pop\Locale\Locale;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
@@ -25,14 +25,15 @@ require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class LocaleTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructor()
+    public function testFactory()
     {
-        $f = new File('test.txt');
-        $class = 'Pop\\File\\File';
-        $this->assertTrue($f instanceof $class);
+        $l = Locale::factory('fr');
+        $class = 'Pop\\Locale\\Locale';
+        $this->assertTrue($l instanceof $class);
+        $this->assertEquals('Ce champ est obligatoire.', $l->__('This field is required.'));
     }
 
 }

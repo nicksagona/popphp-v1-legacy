@@ -17,7 +17,7 @@
 namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\Filter\String;
+    Pop\Geo\Geo;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
@@ -25,14 +25,14 @@ require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class AutoloaderTest extends \PHPUnit_Framework_TestCase
+class GeoTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testAutoloader()
+    public function testConstructor()
     {
-        $s = new String('string');
-        $class = 'Pop\\Filter\\String';
-        $this->assertTrue($s instanceof $class);
+        $g = new Geo('www.google.com');
+        $class = 'Pop\\Geo\\Geo';
+        $this->assertTrue($g instanceof $class);
     }
 
 }
