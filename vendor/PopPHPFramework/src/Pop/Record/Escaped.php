@@ -406,8 +406,11 @@ class Escaped extends AbstractRecord
         $this->columns = $columnsPassed;
 
         if (null === $this->primaryId) {
-            if ((null === $column) && (null === $value)) {
+            if ((null === $column) && (null === $value) && (count($this->finder) == 0)) {
                 throw new Exception('The column and value parameters were not defined to describe the row(s) to delete.');
+            } else if ((null === $column) && (null === $value)) {
+                $column = $this->finder[0];
+                $value = $this->finder[1];
             }
 
             $this->db->sql->setTable($this->tableName)
