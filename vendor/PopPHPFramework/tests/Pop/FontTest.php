@@ -30,7 +30,7 @@ class FontTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $f = new TrueType('data/times.ttf');
+        $f = new TrueType(__DIR__ . '/data/times.ttf');
         $class = 'Pop\\Font\\TrueType';
         $this->assertTrue($f instanceof $class);
     }

@@ -30,14 +30,14 @@ class DataTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $d = new Data('data/test.sql');
+        $d = new Data(__DIR__ . '/data/test.sql');
         $class = 'Pop\\Data\\Data';
         $this->assertTrue($d instanceof $class);
     }
 
     public function testData()
     {
-        $d = new Data('data/test.sql');
+        $d = new Data(__DIR__ . '/data/test.sql');
         $ary = $d->parseFile();
         $keys = array('id', 'username', 'password', 'email', 'access');
         $this->assertEquals(9, count($ary));
