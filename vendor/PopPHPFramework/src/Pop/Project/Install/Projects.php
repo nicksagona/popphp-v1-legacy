@@ -37,7 +37,7 @@ use Pop\Code\Generator,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-class Project
+class Projects
 {
 
     /**

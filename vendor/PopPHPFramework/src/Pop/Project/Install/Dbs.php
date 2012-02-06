@@ -25,7 +25,7 @@
 namespace Pop\Project\Install;
 
 use Pop\Data\Sql,
-    Pop\Db\Db as PopDb,
+    Pop\Db\Db,
     Pop\Dir\Dir,
     Pop\File\File,
     Pop\Locale\Locale;
@@ -38,7 +38,7 @@ use Pop\Data\Sql,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-class Db
+class Dbs
 {
 
     /**
@@ -61,7 +61,7 @@ class Db
                 $result = null;
                 // Test the db connection
                 if ($db['type'] != 'Sqlite') {
-                    $dbconn = PopDb::factory($db['type'], $db);
+                    $dbconn = Db::factory($db['type'], $db);
                 }
                 return $result;
             } catch (\Exception $e) {
@@ -115,7 +115,7 @@ class Db
         }
 
         // Create DB connection
-        $popdb = PopDb::factory($db['type'], $db);
+        $popdb = Db::factory($db['type'], $db);
 
         // If there are SQL files, parse them and execute the SQL queries
         if (count($sqlFiles) > 0) {

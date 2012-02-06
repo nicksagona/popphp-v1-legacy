@@ -31,10 +31,10 @@ use Pop\Dir\Dir,
     Pop\Project\Install\Base,
     Pop\Project\Install\Bootstrap,
     Pop\Project\Install\Controllers,
-    Pop\Project\Install\Db,
+    Pop\Project\Install\Dbs,
     Pop\Project\Install\Forms,
     Pop\Project\Install\Models,
-    Pop\Project\Install\Project,
+    Pop\Project\Install\Projects,
     Pop\Project\Install\Tables;
 
 /**
@@ -127,14 +127,14 @@ class Install
                         echo Locale::factory()->__('The database type and database name must be set for the database ') . '\'' . $dbname . '\'.' . PHP_EOL . PHP_EOL;
                         exit(0);
                     }
-                    $check = Db::check($db);
+                    $check = Dbs::check($db);
                     if (null !== $check) {
                         echo $check . PHP_EOL . PHP_EOL;
                         exit(0);
                     } else {
                         echo Locale::factory()->__('Database') . ' \'' . $dbname . '\' passed.' . PHP_EOL;
                         echo Locale::factory()->__('Installing database') .' \'' . $dbname . '\'...' . PHP_EOL;
-                        $tables = Db::install($dbname, $db, $installDir, $install);
+                        $tables = Dbs::install($dbname, $db, $installDir, $install);
                         if (count($tables) > 0) {
                             $dbTables = array_merge($dbTables, $tables);
                         }
@@ -148,7 +148,7 @@ class Install
             Base::install($install);
 
             // Install project files
-            Project::install($install, $installDir);
+            Projects::install($install, $installDir);
 
             // Install table class files
             if (count($dbTables) > 0) {
