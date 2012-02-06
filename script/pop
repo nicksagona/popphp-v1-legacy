@@ -38,7 +38,7 @@ if [ "$1" == "-t" ] || [ "$1" == "--test" ]; then
             TEST_DIR="$2"
         fi
     else
-        TEST_DIR="$SCRIPT_DIR/../vendor/PopPHPFramework/tests/Pop"
+        TEST_DIR="$SCRIPT_DIR/../vendor/PopPHPFramework/tests/PopTest"
     fi
     PHP_UNIT="$( which phpunit )"
     if [ "$PHP_UNIT" == "" ]; then
