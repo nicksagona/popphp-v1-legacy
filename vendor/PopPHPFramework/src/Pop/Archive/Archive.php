@@ -87,19 +87,19 @@ class Archive extends File implements ArchiveInterface
             unset($this->allowed['tgz']);
         }
         // Check if Phar is available.
-        if (!class_exists('Phar')) {
+        if (!class_exists('Phar', false)) {
             unset($this->allowed['phar']);
         }
         // Check if Rar is available.
-        if (!class_exists('RarArchive')) {
-            unset($this->allowed['tar']);
+        if (!class_exists('RarArchive', false)) {
+            unset($this->allowed['rar']);
         }
         // Check if Tar is available.
         if (!class_exists('Archive_Tar')) {
             unset($this->allowed['tar']);
         }
         // Check if Zip is available.
-        if (!class_exists('ZipArchive')) {
+        if (!class_exists('ZipArchive', false)) {
             unset($this->allowed['zip']);
         }
 

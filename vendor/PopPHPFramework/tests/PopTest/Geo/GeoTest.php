@@ -30,9 +30,11 @@ class GeoTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $g = new Geo('www.google.com');
-        $class = 'Pop\\Geo\\Geo';
-        $this->assertTrue($g instanceof $class);
+        if (function_exists('geoip_db_get_all_info')) {
+            $g = new Geo('www.google.com');
+            $class = 'Pop\\Geo\\Geo';
+            $this->assertTrue($g instanceof $class);
+        }
     }
 
 }

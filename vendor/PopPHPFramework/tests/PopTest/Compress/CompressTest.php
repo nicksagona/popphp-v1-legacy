@@ -36,37 +36,47 @@ class CompressTest extends \PHPUnit_Framework_TestCase
 
     public function testBzip2()
     {
-        $compressed = Bzip2::compress($this->string);
-        $decompressed = Bzip2::decompress($compressed);
-        $this->assertEquals($this->string, $decompressed);
+        if (function_exists('bzopen')) {
+            $compressed = Bzip2::compress($this->string);
+            $decompressed = Bzip2::decompress($compressed);
+            $this->assertEquals($this->string, $decompressed);
+        }
     }
 
     public function testDeflate()
     {
-        $compressed = Deflate::compress($this->string);
-        $decompressed = Deflate::decompress($compressed);
-        $this->assertEquals($this->string, $decompressed);
+        if (function_exists('gzdeflate')) {
+            $compressed = Deflate::compress($this->string);
+            $decompressed = Deflate::decompress($compressed);
+            $this->assertEquals($this->string, $decompressed);
+        }
     }
 
     public function testGzip()
     {
-        $compressed = Gzip::compress($this->string);
-        $decompressed = Gzip::decompress($compressed);
-        $this->assertEquals($this->string, $decompressed);
+        if (function_exists('gzencode')) {
+            $compressed = Gzip::compress($this->string);
+            $decompressed = Gzip::decompress($compressed);
+            $this->assertEquals($this->string, $decompressed);
+        }
     }
 
     public function testLzf()
     {
-        $compressed = Lzf::compress($this->string);
-        $decompressed = Lzf::decompress($compressed);
-        $this->assertEquals($this->string, $decompressed);
+        if (function_exists('lzf_compress')) {
+            $compressed = Lzf::compress($this->string);
+            $decompressed = Lzf::decompress($compressed);
+            $this->assertEquals($this->string, $decompressed);
+        }
     }
 
     public function testZlib()
     {
-        $compressed = Zlib::compress($this->string);
-        $decompressed = Zlib::decompress($compressed);
-        $this->assertEquals($this->string, $decompressed);
+        if (function_exists('gzcompress')) {
+            $compressed = Zlib::compress($this->string);
+            $decompressed = Zlib::decompress($compressed);
+            $this->assertEquals($this->string, $decompressed);
+        }
     }
 
 }
