@@ -31,7 +31,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../Test/access.txt'));
+        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
         $class = 'Pop\\Auth\\Auth';
         $this->assertTrue($a instanceof $class);
     }

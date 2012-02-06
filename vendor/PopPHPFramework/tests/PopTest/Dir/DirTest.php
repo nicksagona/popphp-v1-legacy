@@ -30,14 +30,14 @@ class DirTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $d = new Dir(__DIR__ . '/../Test');
+        $d = new Dir(__DIR__ . '/../tmp');
         $class = 'Pop\\Dir\\Dir';
         $this->assertTrue($d instanceof $class);
     }
 
     public function testFiles()
     {
-        $d = new Dir(__DIR__ . '/../Test');
+        $d = new Dir(__DIR__ . '/../tmp');
         $this->assertEquals(6, count($d->files));
     }
 }

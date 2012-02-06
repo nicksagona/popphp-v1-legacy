@@ -30,7 +30,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $a = new Archive(__DIR__ . '/../Test/test.tar');
+        $a = new Archive(__DIR__ . '/../tmp/test.tar');
         $class = 'Pop\\Archive\\Archive';
         $this->assertTrue($a instanceof $class);
     }

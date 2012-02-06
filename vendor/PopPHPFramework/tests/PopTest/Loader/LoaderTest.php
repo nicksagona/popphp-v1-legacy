@@ -38,7 +38,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testClassmap()
     {
-        $classmap = __DIR__ . '/../Test/classmap.php';
+        $classmap = __DIR__ . '/../tmp/classmap.php';
 
         if (file_exists($classmap)) {
             unlink($classmap);

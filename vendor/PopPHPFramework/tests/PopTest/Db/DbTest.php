@@ -30,7 +30,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $d = Db::factory('Sqlite', array('database' => __DIR__ . '/../Test/test.sqlite'));
+        $d = Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite'));
         $class = 'Pop\\Db\\Db';
         $this->assertTrue($d instanceof $class);
     }

@@ -31,7 +31,7 @@ class RecordTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $r = new Record(null, Db::factory('Sqlite', array('database' => __DIR__ . '/../Test/test.sqlite')));
+        $r = new Record(null, Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')));
         $class = 'Pop\\Record\\Record';
         $this->assertTrue($r instanceof $class);
     }
