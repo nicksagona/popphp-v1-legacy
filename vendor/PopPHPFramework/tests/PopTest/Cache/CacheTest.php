@@ -36,6 +36,24 @@ class CacheTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($c instanceof $class);
     }
 
+    public function testSaveAndLoad()
+    {
+        if (!file_exists(__DIR__ . '/../tmp/cache')) {
+            mkdir(__DIR__ . '/../tmp/cache');
+            chmod(__DIR__ . '/../tmp/cache', 0777);
+        }
+
+        $str = 'This is my test variable. It contains a string.';
+        $c = Cache::factory(new File(__DIR__ . '/../tmp/cache'), 30);
+        $c->save('str', $str);
+        $this->assertEquals($str, $c->load('str'));
+
+        $c->clear();
+        if (file_exists(__DIR__ . '/../tmp/cache')) {
+            rmdir(__DIR__ . '/../tmp/cache');
+        }
+    }
+
 }
 
 ?>

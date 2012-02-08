@@ -17,7 +17,7 @@
 namespace PopTest\Code;
 
 use Pop\Loader\Autoloader,
-    Pop\Code\Generator;
+    Pop\Code\InterfaceGenerator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -25,14 +25,27 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class CodeTest extends \PHPUnit_Framework_TestCase
+class InterfaceTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructor()
+    public function testFactory()
     {
-        $c = new Generator('TestClass.php');
-        $class = 'Pop\\Code\\Generator';
-        $this->assertTrue($c instanceof $class);
+        $i = InterfaceGenerator::factory('TestInterface');
+        $class = 'Pop\\Code\\InterfaceGenerator';
+        $this->assertTrue($i instanceof $class);
+    }
+
+    public function testGetName()
+    {
+        $i = InterfaceGenerator::factory('TestInterface');
+        $this->assertEquals('TestInterface', $i->getName());
+    }
+
+    public function testParent()
+    {
+        $i = InterfaceGenerator::factory('TestInterface');
+        $i->setParent('TestParent');
+        $this->assertEquals('TestParent', $i->getParent());
     }
 
 }

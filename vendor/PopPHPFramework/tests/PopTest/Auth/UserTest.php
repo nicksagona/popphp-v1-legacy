@@ -17,9 +17,8 @@
 namespace PopTest\Auth;
 
 use Pop\Loader\Autoloader,
-    Pop\Auth\Auth,
     Pop\Auth\Role,
-    Pop\Auth\Adapter\AuthFile;
+    Pop\Auth\User;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -27,30 +26,31 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class AuthTest extends \PHPUnit_Framework_TestCase
+class UserTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testConstructor()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
-        $class = 'Pop\\Auth\\Auth';
-        $this->assertTrue($a instanceof $class);
+        $r = Role::factory('editor', 5);
+        $u = new User('John', '12john34', $r);
+        $class = 'Pop\\Auth\\User';
+        $this->assertTrue($u instanceof $class);
     }
 
-    public function testIsValid()
+    public function testGetUsernameAndPassword()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
-        $a->authenticate('testuser1', '12test34');
-        $this->assertTrue($a->isValid());
+        $r = Role::factory('editor', 5);
+        $u = new User('John', '12john34', $r);
+        $this->assertEquals('John', $u->getUsername());
+        $this->assertEquals('12john34', $u->getPassword());
     }
 
-    public function testIsAuthorized()
+    public function testIsAuthorizedAs()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
-        $a->addRoles(Role::factory('admin', 3));
-        $a->setRequiredRole('admin')
-          ->authenticate('testuser1', '12test34');
-        $this->assertTrue($a->isAuthorized());
+        $e = Role::factory('editor', 5);
+        $r = Role::factory('reader', 1);
+        $u = new User('John', '12john34', $e);
+        $this->assertTrue($u->isAuthorizedAs($r));
     }
 
 }

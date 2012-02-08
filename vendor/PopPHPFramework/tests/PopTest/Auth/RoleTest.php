@@ -14,10 +14,10 @@
  *
  */
 
-namespace PopTest\Code;
+namespace PopTest\Auth;
 
 use Pop\Loader\Autoloader,
-    Pop\Code\Generator;
+    Pop\Auth\Role;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -25,14 +25,33 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class CodeTest extends \PHPUnit_Framework_TestCase
+class RoleTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructor()
+    public function testFactory()
     {
-        $c = new Generator('TestClass.php');
-        $class = 'Pop\\Code\\Generator';
-        $this->assertTrue($c instanceof $class);
+        $r = Role::factory('editor', 5);
+        $class = 'Pop\\Auth\\Role';
+        $this->assertTrue($r instanceof $class);
+    }
+
+    public function testCompare()
+    {
+        $e = Role::factory('editor', 5);
+        $r = Role::factory('reader', 1);
+        $this->assertGreaterThan(0, $e->compare($r));
+    }
+
+    public function testGetLevel()
+    {
+        $e = Role::factory('editor', 5);
+        $this->assertEquals(5, $e->getLevel());
+    }
+
+    public function testGetName()
+    {
+        $e = Role::factory('editor', 5);
+        $this->assertEquals('editor', $e->getName());
     }
 
 }

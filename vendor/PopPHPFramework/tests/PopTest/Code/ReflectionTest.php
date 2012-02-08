@@ -17,7 +17,7 @@
 namespace PopTest\Code;
 
 use Pop\Loader\Autoloader,
-    Pop\Code\Generator;
+    Pop\Code\Reflection;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -25,14 +25,23 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class CodeTest extends \PHPUnit_Framework_TestCase
+class ReflectionTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructor()
+    public function testFactory()
     {
-        $c = new Generator('TestClass.php');
+        $r = Reflection::factory('Pop\\Auth\\Auth');
+        $class = 'Pop\\Code\\Reflection';
+        $this->assertTrue($r instanceof $class);
+    }
+
+    public function testGetGenerator()
+    {
+        $r = Reflection::factory('Pop\\Auth\\Auth');
+        $g = $r->getGenerator();
         $class = 'Pop\\Code\\Generator';
-        $this->assertTrue($c instanceof $class);
+        $this->assertTrue($g instanceof $class);
+        $this->assertEquals('Pop\\Auth', $g->getNamespace()->getNamespace());
     }
 
 }

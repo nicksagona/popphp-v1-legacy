@@ -35,6 +35,44 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($a instanceof $class);
     }
 
+    public function testTgz()
+    {
+        $tar = false;
+        $includePath = explode(PATH_SEPARATOR, get_include_path());
+
+        foreach ($includePath as $path) {
+            if (file_exists($path . DIRECTORY_SEPARATOR . 'Archive' . DIRECTORY_SEPARATOR . 'Tar.php')) {
+                $tar = true;
+            }
+        }
+
+        if (($tar) && function_exists('gzcompress')) {
+            $a = new Archive(__DIR__ . '/../tmp/test.tar');
+            $a->addFiles(__DIR__ . '/../tmp');
+            $a->compress();
+            $this->assertFileExists(__DIR__ . '/../tmp/test.tar.gz');
+            $this->assertGreaterThan(60000, $a->getSize());
+
+            if (file_exists(__DIR__ . '/../tmp/test.tar.gz')) {
+                unlink(__DIR__ . '/../tmp/test.tar.gz');
+            }
+        }
+    }
+
+    public function testZip()
+    {
+        if (class_exists('ZipArchive', false)) {
+            $a = new Archive(__DIR__ . '/../tmp/test.zip');
+            $a->addFiles(__DIR__ . '/../tmp');
+            $this->assertFileExists(__DIR__ . '/../tmp/test.zip');
+            $this->assertGreaterThan(60000, $a->getSize());
+
+            if (file_exists(__DIR__ . '/../tmp/test.zip')) {
+                unlink(__DIR__ . '/../tmp/test.zip');
+            }
+        }
+    }
+
 }
 
 ?>
