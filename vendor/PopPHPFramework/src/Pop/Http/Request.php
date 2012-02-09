@@ -418,7 +418,7 @@ class Request
             $uri = $_SERVER['REQUEST_URI'];
         }
 
-        if (null !== $basePath) {
+        if ((null !== $basePath) && (substr($uri, 0, strlen($basePath)) == $basePath)) {
             $uri = substr($uri, (strpos($uri, $basePath) + strlen($basePath)));
         }
 
@@ -427,7 +427,7 @@ class Request
         }
 
         // Some slash clean up
-        $this->docRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
+        $this->docRoot = (isset($_SERVER['DOCUMENT_ROOT'])) ? str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']) : null;
         $dir = str_replace('\\', '/', dirname($this->docRoot . $_SERVER['PHP_SELF']));
 
         $this->requestUri = ($dir != $this->docRoot) ? str_replace(str_replace($this->docRoot, '', $dir), '', $uri) : $uri;

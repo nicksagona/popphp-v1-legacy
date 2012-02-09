@@ -37,6 +37,24 @@ class GeoTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testGetDatabases()
+    {
+        if (function_exists('geoip_db_get_all_info')) {
+            $g = new Geo('www.google.com');
+            $this->assertEquals(10, count($g->getDatabases()));
+            $this->assertTrue(is_bool($g->isDbAvailable('asnum')));
+        }
+    }
+
+    public function testGetHostInfo()
+    {
+        if (function_exists('geoip_db_get_all_info')) {
+            $g = new Geo('www.google.com');
+            $info = $g->getHostInfo();
+            $this->assertTrue(is_array($info));
+        }
+    }
+
 }
 
 ?>

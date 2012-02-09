@@ -14,11 +14,10 @@
  *
  */
 
-namespace PopTest\Http;
+namespace PopTest\Form;
 
 use Pop\Loader\Autoloader,
-    Pop\Http\Request,
-    Pop\Http\Response;
+    Pop\Form\Element\Textarea;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -26,21 +25,14 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class HttpTest extends \PHPUnit_Framework_TestCase
+class TextareaTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testRequestConstructor()
+    public function testConstructor()
     {
-        $h = new Request();
-        $class = 'Pop\\Http\\Request';
-        $this->assertTrue($h instanceof $class);
-    }
-
-    public function testResponseConstructor()
-    {
-        $h = new Response(200, array('Content-Type' => 'text/plain'));
-        $class = 'Pop\\Http\\Response';
-        $this->assertTrue($h instanceof $class);
+        $t = new Textarea('comments');
+        $class = 'Pop\\Form\\Element\\Textarea';
+        $this->assertTrue($t instanceof $class);
     }
 
 }

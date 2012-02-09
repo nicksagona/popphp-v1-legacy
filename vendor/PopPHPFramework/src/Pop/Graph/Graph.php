@@ -218,7 +218,7 @@ class Graph
     }
 
     /**
-     * Set the font to use from the available fonts
+     * Set the axis options
      *
      * @param  mixed $color
      * @param  int   $width
@@ -296,7 +296,7 @@ class Graph
     }
 
     /**
-     * Set the font color
+     * Set the reverse font color
      *
      * @param  mixed $color
      * @return Pop\Graph\Graph
@@ -405,6 +405,106 @@ class Graph
         $this->showY = (boolean)$showY;
         $this->showYColor = (null === $color) ? new Rgb(200, 200, 200) : $color;
         return $this;
+    }
+
+    /**
+     * Get the axis color
+     *
+     * @return Pop\Color\ColorInterface
+     */
+    public function getAxisColor()
+    {
+        return $this->axisColor;
+    }
+
+    /**
+     * Get the axis width
+     *
+     * @return int
+     */
+    public function getAxisWidth()
+    {
+        return $this->axisWidth;
+    }
+
+    /**
+     * Get the font size
+     *
+     * @return int
+     */
+    public function getFontSize()
+    {
+        return $this->fontSize;
+    }
+
+    /**
+     * Get the font color
+     *
+     * @return mixed
+     */
+    public function getFontColor()
+    {
+        return $this->fontColor;
+    }
+
+    /**
+     * Get the reverse font color
+     *
+     * @return mixed
+     */
+    public function getReverseFontColor()
+    {
+        return $this->reverseFontColor;
+    }
+
+    /**
+     * Get the fill color
+     *
+     * @return mixed
+     */
+    public function getFillColor()
+    {
+        return $this->fillColor;
+    }
+
+    /**
+     * Get the stroke color
+     *
+     * @return mixed
+     */
+    public function getStrokeColor()
+    {
+        return $this->strokeColor;
+    }
+
+    /**
+     * Get the stroke width
+     *
+     * @return int
+     */
+    public function getStrokeWidth()
+    {
+        return $this->strokeWidth;
+    }
+
+    /**
+     * Get the graph canvas padding
+     *
+     * @return int
+     */
+    public function getPadding()
+    {
+        return $this->padding;
+    }
+
+    /**
+     * Get the bar width
+     *
+     * @return int
+     */
+    public function getBarWidth()
+    {
+        return $this->barWidth;
     }
 
     /**

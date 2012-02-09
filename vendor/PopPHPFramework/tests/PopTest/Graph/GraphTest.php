@@ -17,6 +17,7 @@
 namespace PopTest\Graph;
 
 use Pop\Loader\Autoloader,
+    Pop\Color\Rgb,
     Pop\Graph\Graph;
 
 // Require the library's autoloader.
@@ -33,6 +34,70 @@ class GraphTest extends \PHPUnit_Framework_TestCase
         $g = new Graph('graph.gif', 640, 480);
         $class = 'Pop\\Graph\\Graph';
         $this->assertTrue($g instanceof $class);
+    }
+
+    public function testSetAxisOptions()
+    {
+        $g = new Graph('graph.gif', 640, 480);
+        $g->setAxisOptions(new Rgb(128, 128, 128), 5);
+        $this->assertEquals(new Rgb(128, 128, 128), $g->getAxisColor());
+        $this->assertEquals(5, $g->getAxisWidth());
+    }
+
+    public function testSetFontSize()
+    {
+        $g = new Graph('graph.gif', 640, 480);
+        $g->setFontSize(24);
+        $this->assertEquals(24, $g->getFontSize());
+    }
+
+    public function testSetFontColor()
+    {
+        $g = new Graph('graph.gif', 640, 480);
+        $g->setFontColor(new Rgb(128, 128, 128));
+        $this->assertEquals(new Rgb(128, 128, 128), $g->getFontColor());
+    }
+
+    public function testSetReverseFontColor()
+    {
+        $g = new Graph('graph.gif', 640, 480);
+        $g->setReverseFontColor(new Rgb(128, 128, 128));
+        $this->assertEquals(new Rgb(128, 128, 128), $g->getReverseFontColor());
+    }
+
+    public function testSetFillColor()
+    {
+        $g = new Graph('graph.gif', 640, 480);
+        $g->setFillColor(new Rgb(128, 128, 128));
+        $this->assertEquals(new Rgb(128, 128, 128), $g->getFillColor());
+    }
+
+    public function testSetStrokeColor()
+    {
+        $g = new Graph('graph.gif', 640, 480);
+        $g->setStrokeColor(new Rgb(128, 128, 128));
+        $this->assertEquals(new Rgb(128, 128, 128), $g->getStrokeColor());
+    }
+
+    public function testSetStrokeWidth()
+    {
+        $g = new Graph('graph.gif', 640, 480);
+        $g->setStrokeWidth(5);
+        $this->assertEquals(5, $g->getStrokeWidth());
+    }
+
+    public function testSetPadding()
+    {
+        $g = new Graph('graph.gif', 640, 480);
+        $g->setPadding(50);
+        $this->assertEquals(50, $g->getPadding());
+    }
+
+    public function testSetBarWidth()
+    {
+        $g = new Graph('graph.gif', 640, 480);
+        $g->setBarWidth(5);
+        $this->assertEquals(5, $g->getBarWidth());
     }
 
 }
