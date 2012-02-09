@@ -149,7 +149,7 @@ class String
             $str .= $chars[$index][$subIndex];
         }
 
-        return $str;
+        return new self($str);
     }
 
     /**
