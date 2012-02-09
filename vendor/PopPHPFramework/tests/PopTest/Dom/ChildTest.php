@@ -17,7 +17,6 @@
 namespace PopTest\Dom;
 
 use Pop\Loader\Autoloader,
-    Pop\Dom\Dom,
     Pop\Dom\Child;
 
 // Require the library's autoloader.
@@ -26,22 +25,23 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class DomTest extends \PHPUnit_Framework_TestCase
+class ChildTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testDomConstructor()
+    public function testChildConstructor()
     {
-        $d = new Dom(Dom::XHTML11);
-        $class = 'Pop\\Dom\\Dom';
-        $this->assertTrue($d instanceof $class);
+        $c = new Child('p', 'This is a paragraph');
+        $class = 'Pop\\Dom\\Child';
+        $this->assertTrue($c instanceof $class);
     }
 
-    public function testAddChildren()
+    public function testChild()
     {
-        $d = new Dom(Dom::XHTML11);
-        $d->addChild(new Child('p', 'This is a paragraph'));
-        $this->assertEquals(1, count($d->getChildren()));
-        $this->assertEquals('p', $d->getChild(0)->getNodeName());
+        $c = new Child('p', 'This is a paragraph');
+        $c->setAttributes('class', 'some-class');
+        $this->assertEquals('p', $c->getNodeName());
+        $this->assertEquals('This is a paragraph', $c->getNodeValue());
+        $this->assertEquals('some-class', $c->getAttribute('class'));
     }
 
 }

@@ -486,6 +486,7 @@ class File
             file_put_contents($file, $this->read());
         }
 
+        $this->setFile($this->fullpath, $this->allowed);
         return $this;
     }
 

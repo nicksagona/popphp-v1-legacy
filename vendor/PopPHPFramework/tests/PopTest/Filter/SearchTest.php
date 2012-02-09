@@ -14,11 +14,10 @@
  *
  */
 
-namespace PopTest\Dom;
+namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\Dom\Dom,
-    Pop\Dom\Child;
+    Pop\Filter\Search;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -26,22 +25,16 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class DomTest extends \PHPUnit_Framework_TestCase
+class SearchTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testDomConstructor()
+    public function testSearch()
     {
-        $d = new Dom(Dom::XHTML11);
-        $class = 'Pop\\Dom\\Dom';
-        $this->assertTrue($d instanceof $class);
-    }
-
-    public function testAddChildren()
-    {
-        $d = new Dom(Dom::XHTML11);
-        $d->addChild(new Child('p', 'This is a paragraph'));
-        $this->assertEquals(1, count($d->getChildren()));
-        $this->assertEquals('p', $d->getChild(0)->getNodeName());
+        $s = Search::factory('1|2|3|4|5', '|');
+        $class = 'Pop\\Filter\\Search';
+        $r = $s->search('1');
+        $this->assertTrue($s instanceof $class);
+        $this->assertTrue(in_array('1', $r));
     }
 
 }

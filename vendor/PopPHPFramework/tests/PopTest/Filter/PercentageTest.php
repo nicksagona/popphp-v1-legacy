@@ -14,11 +14,10 @@
  *
  */
 
-namespace PopTest\Dom;
+namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\Dom\Dom,
-    Pop\Dom\Child;
+    Pop\Filter\Percentage;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -26,22 +25,13 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class DomTest extends \PHPUnit_Framework_TestCase
+class PercentageTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testDomConstructor()
+    public function testPercentage()
     {
-        $d = new Dom(Dom::XHTML11);
-        $class = 'Pop\\Dom\\Dom';
-        $this->assertTrue($d instanceof $class);
-    }
-
-    public function testAddChildren()
-    {
-        $d = new Dom(Dom::XHTML11);
-        $d->addChild(new Child('p', 'This is a paragraph'));
-        $this->assertEquals(1, count($d->getChildren()));
-        $this->assertEquals('p', $d->getChild(0)->getNodeName());
+        $p = Percentage::calculate(array(15, 25, 30, 20, 10));
+        $this->assertEquals(100, $p['total']);
     }
 
 }

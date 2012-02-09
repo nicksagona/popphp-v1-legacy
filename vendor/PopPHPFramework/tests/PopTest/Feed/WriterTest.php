@@ -17,7 +17,6 @@
 namespace PopTest\Feed;
 
 use Pop\Loader\Autoloader,
-    Pop\Feed\Reader,
     Pop\Feed\Writer;
 
 // Require the library's autoloader.
@@ -26,17 +25,10 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class FeedTest extends \PHPUnit_Framework_TestCase
+class WriterTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testReaderConstructor()
-    {
-        $f = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
-        $class = 'Pop\\Feed\\Reader';
-        $this->assertTrue($f instanceof $class);
-    }
-
-    public function testWriterConstructor()
+    public function testConstructor()
     {
         $headers = array(
             'title'     => 'Test Feed Title',

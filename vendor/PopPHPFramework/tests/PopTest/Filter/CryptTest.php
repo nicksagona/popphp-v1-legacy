@@ -17,10 +17,7 @@
 namespace Pop;
 
 use Pop\Loader\Autoloader,
-    Pop\Filter\Crypt,
-    Pop\Filter\Percentage,
-    Pop\Filter\Search,
-    Pop\Filter\String;
+    Pop\Filter\Crypt;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -28,7 +25,7 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class FilterTest extends \PHPUnit_Framework_TestCase
+class CryptTest extends \PHPUnit_Framework_TestCase
 {
 
     public $string = 'Hello World';
@@ -40,28 +37,6 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $encrypted = Crypt::encrypt($this->string, $this->key);
         $decrypted = Crypt::decrypt($encrypted, $this->key);
         $this->assertEquals($this->string, $decrypted);
-    }
-
-    public function testPercentage()
-    {
-        $p = Percentage::calculate(array(15, 25, 30, 20, 10));
-        $this->assertEquals(100, $p['total']);
-    }
-
-    public function testSearch()
-    {
-        $s = Search::factory('1|2|3|4|5', '|');
-        $class = 'Pop\\Filter\\Search';
-        $r = $s->search('1');
-        $this->assertTrue($s instanceof $class);
-        $this->assertTrue(in_array('1', $r));
-    }
-
-    public function testStringFactory()
-    {
-        $s = String::factory($this->string);
-        $class = 'Pop\\Filter\\String';
-        $this->assertTrue($s instanceof $class);
     }
 
 }

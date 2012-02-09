@@ -41,6 +41,25 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue((strpos($f->read(), '12test34') !== false));
     }
 
+    public function testWriteSaveAndDelete()
+    {
+        if (file_exists(__DIR__ . '/../tmp/file.txt')) {
+            unlink(__DIR__ . '/../tmp/file.txt');
+        }
+
+        $f = new File(__DIR__ . '/../tmp/file.txt');
+        $f->write('123')->save();
+        $f->setMode(0777);
+
+        $this->fileExists(__DIR__ . '/../tmp/file.txt');
+        $this->assertEquals('123', $f->read());
+        $this->assertEquals(3, $f->getSize());
+        $this->assertEquals('text/plain', $f->getMime());
+
+        $f->delete();
+        $this->assertFalse(file_exists(__DIR__ . '/../tmp/file.txt'));
+    }
+
 }
 
 ?>
