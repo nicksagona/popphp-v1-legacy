@@ -35,6 +35,23 @@ class FontTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($f instanceof $class);
     }
 
+
+    public function testFont()
+    {
+        $f = new TrueType(__DIR__ . '/../tmp/times.ttf');
+        $this->assertEquals(250, $f->missingWidth);
+        $this->assertEquals(399, $f->numberOfHMetrics);
+        $this->assertEquals(0, $f->italicAngle);
+        $this->assertEquals(1000, $f->unitsPerEm);
+        $this->assertEquals(810, $f->ascent);
+        $this->assertEquals(-189, $f->descent);
+        $this->assertEquals(-168, $f->bBox->xMin);
+        $this->assertEquals(-218, $f->bBox->yMin);
+        $this->assertEquals(1000, $f->bBox->xMax);
+        $this->assertEquals(934, $f->bBox->yMax);
+        $this->assertEquals('Times-Bold', $f->info->fullName);
+    }
+
 }
 
 ?>
