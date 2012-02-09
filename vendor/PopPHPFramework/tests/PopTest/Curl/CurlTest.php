@@ -32,10 +32,22 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     {
         $c = new Curl(array(
             CURLOPT_URL    => 'http://www.popphp.org/LICENSE.TXT',
-            CURLOPT_HEADER => FALSE
+            CURLOPT_HEADER => false
         ));
         $class = 'Pop\\Curl\\Curl';
         $this->assertTrue($c instanceof $class);
+    }
+
+    public function testCurl()
+    {
+        $c = new Curl(array(
+            CURLOPT_URL    => 'http://www.popphp.org/version.txt',
+            CURLOPT_HEADER => false,
+            CURLOPT_RETURNTRANSFER => true
+        ));
+        $result = trim($c->execute());
+        unset($c);
+        $this->assertEquals('0.9', $result);
     }
 
 }

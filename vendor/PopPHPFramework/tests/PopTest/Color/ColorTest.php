@@ -36,6 +36,24 @@ class ColorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($c instanceof $class);
     }
 
+    public function testConvert()
+    {
+        $c = new Color(new Rgb(112, 124, 228));
+        $this->assertEquals(51, $c->cmyk->getCyan());
+        $this->assertEquals(46, $c->cmyk->getMagenta());
+        $this->assertEquals(0, $c->cmyk->getYellow());
+        $this->assertEquals(11, $c->cmyk->getBlack());
+        $this->assertEquals('70', $c->hex->getRed());
+        $this->assertEquals('7c', $c->hex->getGreen());
+        $this->assertEquals('e4', $c->hex->getBlue());
+        $this->assertEquals(234, $c->hsb->getHue());
+        $this->assertEquals(51, $c->hsb->getSaturation());
+        $this->assertEquals(89, $c->hsb->getBrightness());
+        $this->assertEquals(55, $c->lab->getL());
+        $this->assertEquals(23, $c->lab->getA());
+        $this->assertEquals(-54, $c->lab->getB());
+    }
+
 }
 
 ?>

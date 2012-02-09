@@ -14,11 +14,10 @@
  *
  */
 
-namespace PopTest\Dom;
+namespace PopTest\Db;
 
 use Pop\Loader\Autoloader,
-    Pop\Dom\Dom,
-    Pop\Dom\Child;
+    Pop\Db\Sql;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -26,23 +25,23 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class DomTest extends \PHPUnit_Framework_TestCase
+class SqlTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testDomConstructor()
+    public function testConstructor()
     {
-        $d = new Dom(Dom::XHTML11);
-        $class = 'Pop\\Dom\\Dom';
-        $this->assertTrue($d instanceof $class);
+        $s = new Sql('users');
+        $class = 'Pop\\Db\\Sql';
+        $this->assertTrue($s instanceof $class);
     }
 
-    public function testChildConstructor()
+    public function testSql()
     {
-        $c = new Child('p', 'This is a paragraph');
-        $class = 'Pop\\Dom\\Child';
-        $this->assertTrue($c instanceof $class);
-        $this->assertEquals('p', $c->getNodeName());
-        $this->assertEquals('This is a paragraph', $c->getNodeValue());
+        $s = new Sql('users');
+        $s->setIdQuoteType(Sql::BACKTICK)
+          ->select()
+          ->where('id', '=', 1);
+        $this->assertEquals('SELECT * FROM `users` WHERE (`id` = \'1\')', $s->getSql());
     }
 
 }

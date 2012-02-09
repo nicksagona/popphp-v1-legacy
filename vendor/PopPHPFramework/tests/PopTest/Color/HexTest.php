@@ -14,11 +14,10 @@
  *
  */
 
-namespace PopTest\Dom;
+namespace PopTest\Color;
 
 use Pop\Loader\Autoloader,
-    Pop\Dom\Dom,
-    Pop\Dom\Child;
+    Pop\Color\Hex;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -26,23 +25,17 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class DomTest extends \PHPUnit_Framework_TestCase
+class HexTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testDomConstructor()
+    public function testConstructor()
     {
-        $d = new Dom(Dom::XHTML11);
-        $class = 'Pop\\Dom\\Dom';
-        $this->assertTrue($d instanceof $class);
-    }
-
-    public function testChildConstructor()
-    {
-        $c = new Child('p', 'This is a paragraph');
-        $class = 'Pop\\Dom\\Child';
-        $this->assertTrue($c instanceof $class);
-        $this->assertEquals('p', $c->getNodeName());
-        $this->assertEquals('This is a paragraph', $c->getNodeValue());
+        $h = new Hex('#ee1c2d');
+        $class = 'Pop\\Color\\Hex';
+        $this->assertTrue($h instanceof $class);
+        $this->assertEquals('ee', $h->getRed());
+        $this->assertEquals('1c', $h->getGreen());
+        $this->assertEquals('2d', $h->getBlue());
     }
 
 }

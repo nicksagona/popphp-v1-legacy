@@ -35,6 +35,21 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($d instanceof $class);
     }
 
+    public function testQuery()
+    {
+        $d = Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite'));
+        $d->adapter->query('SELECT * FROM users WHERE id = 1');
+        $r = null;
+        while (($row = $d->adapter->fetch()) != false) {
+            $r = $row;
+        }
+        $this->assertEquals(1, $r['id']);
+        $this->assertEquals('test1', $r['username']);
+        $this->assertEquals('password1', $r['password']);
+        $this->assertEquals('test1@test.com', $r['email']);
+        $this->assertEquals('reader', $r['access']);
+    }
+
 }
 
 ?>
