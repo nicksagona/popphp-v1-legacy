@@ -36,6 +36,42 @@ class String
 {
 
     /**
+     * Constant for alpha-numeric + special characters
+     * @var int
+     */
+    const ALL = 1;
+
+    /**
+     * Constant for alpha-numeric
+     * @var int
+     */
+    const ALPHANUM = 2;
+
+    /**
+     * Constant for alpha
+     * @var int
+     */
+    const ALPHA = 3;
+
+    /**
+     * Constant for mixed case
+     * @var int
+     */
+    const MIXED = 4;
+
+    /**
+     * Constant for lower case only
+     * @var int
+     */
+    const LOWER = 5;
+
+    /**
+     * Constant for upper case only
+     * @var int
+     */
+    const UPPER = 6;
+
+    /**
      * String property
      * @var string
      */
@@ -64,6 +100,56 @@ class String
     public static function factory($str = null)
     {
         return new self($str);
+    }
+
+    /**
+     * Method to generate a random alphanumeric string of a predefined length.
+     *
+     * @param  int  $length
+     * @param  int  $type
+     * @param  int  $case
+     * @return Pop\Filter\String
+     */
+    public static function random($length, $type = String::ALL, $case = String::MIXED)
+    {
+        $str = null;
+
+        $chars = array(
+            0 => str_split('abcdefghjkmnpqrstuvwxyz'),
+            1 => str_split('ABCDEFGHJKLMNPQRSTUVWXYZ'),
+            2 => str_split('23456789'),
+            3 => str_split('!#$%&()*+-,.:;=?@[]^_{|}')
+        );
+
+        $indices = array(0, 1, 2, 3);
+
+        switch ($type) {
+            case self::ALPHANUM:
+                $indices = array(0, 1, 2);
+                break;
+            case self::ALPHA:
+                $indices = array(0, 1);
+                break;
+        }
+
+        switch ($case) {
+            case self::LOWER:
+                unset($indices[1]);
+                break;
+            case self::UPPER:
+                unset($indices[0]);
+                break;
+        }
+
+        $indices = array_values($indices);
+
+        for ($i = 0; $i < $length; $i++) {
+            $index = $indices[rand(0, (count($indices) - 1))];
+            $subIndex = rand(0, (count($chars[$index]) - 1));
+            $str .= $chars[$index][$subIndex];
+        }
+
+        return $str;
     }
 
     /**
@@ -405,31 +491,6 @@ class String
         $this->string = str_replace('href="http:// ', 'href="http://', $this->string);
         $this->string = str_replace('"> ', '">', $this->string);
         $this->string = str_replace('<a ', '<a ' . $target, $this->string);
-
-        return $this;
-    }
-
-    /**
-     * Method to generate a random alphanumeric string of a predefined length.
-     *
-     * @param  int     $len
-     * @param  boolean $caps
-     * @return Pop\Filter\String
-     */
-    public function random($len, $caps = false)
-    {
-        // Array of alphanumeric characters. The O, 0, I and 1 have been
-        // removed to eliminate confusion.
-        $chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz';
-
-        for ($i = 0; $i < $len; $i++) {
-            $num = (rand(1, strlen($chars)) - 1);
-            if ($caps) {
-                $this->string .= strtoupper($chars[$num]);
-            } else {
-                $this->string .= $chars[$num];
-            }
-        }
 
         return $this;
     }
