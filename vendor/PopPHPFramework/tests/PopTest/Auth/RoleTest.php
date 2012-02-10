@@ -40,18 +40,33 @@ class RoleTest extends \PHPUnit_Framework_TestCase
         $e = Role::factory('editor', 5);
         $r = Role::factory('reader', 1);
         $this->assertGreaterThan(0, $e->compare($r));
+        $this->assertLessThan(0, $r->compare($e));
     }
 
-    public function testGetLevel()
+    public function testSetAndGetLevel()
     {
         $e = Role::factory('editor', 5);
-        $this->assertEquals(5, $e->getLevel());
+        $e->setLevel(10);
+        $this->assertEquals(10, $e->getLevel());
     }
 
-    public function testGetName()
+    public function testSetAndGetName()
     {
         $e = Role::factory('editor', 5);
-        $this->assertEquals('editor', $e->getName());
+        $e->setName('admin');
+        $this->assertEquals('admin', $e->getName());
+    }
+
+    public function testGetter()
+    {
+        $e = Role::factory('editor', 5);
+        $this->assertEquals(5, $e->editor);
+    }
+
+    public function testToString()
+    {
+        $e = Role::factory('editor', 5);
+        $this->assertEquals('editor', (string)$e);
     }
 
 }

@@ -37,12 +37,36 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($u instanceof $class);
     }
 
-    public function testGetUsernameAndPassword()
+    public function testFactory()
+    {
+        $r = Role::factory('editor', 5);
+        $u = User::factory('John', '12john34', $r);
+        $class = 'Pop\\Auth\\User';
+        $this->assertTrue($u instanceof $class);
+    }
+
+    public function testGetRole()
+    {
+        $r = Role::factory('editor', 5);
+        $u = User::factory('John', '12john34', $r);
+        $this->assertEquals('editor', $u->getRole()->getName());
+    }
+
+    public function testSetAndGetUsernameAndPassword()
     {
         $r = Role::factory('editor', 5);
         $u = new User('John', '12john34', $r);
-        $this->assertEquals('John', $u->getUsername());
-        $this->assertEquals('12john34', $u->getPassword());
+        $u->setUsername('Bubba');
+        $u->setPassword('12bubba34');
+        $this->assertEquals('Bubba', $u->getUsername());
+        $this->assertEquals('12bubba34', $u->getPassword());
+    }
+
+    public function testFields()
+    {
+        $r = Role::factory('editor', 5);
+        $u = new User('John', '12john34', $r);
+        $this->assertEquals('John', $u->username);
     }
 
     public function testIsAuthorizedAs()

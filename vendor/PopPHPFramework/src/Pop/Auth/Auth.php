@@ -266,6 +266,17 @@ class Auth
     /**
      * Method to get the current number of login attempts
      *
+     * @param  string $name
+     * @return mixed
+     */
+    public function getValidator($name)
+    {
+        return $this->validators[$name];
+    }
+
+    /**
+     * Method to get the current number of login attempts
+     *
      * @return int
      */
     public function getAttempts()

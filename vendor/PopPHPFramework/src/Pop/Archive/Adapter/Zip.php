@@ -99,10 +99,10 @@ class Zip implements ArchiveInterface
         if ($result === true) {
             // Directory separator clean up
             $seps = array(
-                        array('\\', '/'),
-                        array('../', ''),
-                        array('./', '')
-                    );
+                array('\\', '/'),
+                array('../', ''),
+                array('./', '')
+            );
 
             foreach ($files as $file) {
                 // If file is a directory, loop through and add the files.

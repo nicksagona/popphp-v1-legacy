@@ -77,6 +77,8 @@ class User
         $this->username = $username;
         $this->password = $password;
         $this->role = $role;
+        $this->fields['username'] = $username;
+        $this->fields['password'] = $password;
     }
 
     /**

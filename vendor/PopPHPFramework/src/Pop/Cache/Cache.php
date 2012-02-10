@@ -78,6 +78,16 @@ class Cache implements CacheInterface
     }
 
     /**
+     * Method to get the adapter
+     *
+     * @return mixed
+     */
+    public function adapter()
+    {
+        return $this->adapter;
+    }
+
+    /**
      * Method to set the cache lifetime.
      *
      * @param  int $time

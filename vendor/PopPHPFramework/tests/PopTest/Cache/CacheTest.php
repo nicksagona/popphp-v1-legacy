@@ -36,6 +36,19 @@ class CacheTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($c instanceof $class);
     }
 
+    public function testSetAndGetLifetime()
+    {
+        $c = Cache::factory(new File(__DIR__ . '/../tmp'), 30);
+        $c->setLifetime(30);
+        $this->assertEquals(30, $c->getLifetime());
+    }
+
+    public function testCacheDir()
+    {
+        $this->setExpectedException('Pop\\Cache\\Exception');
+        $c = Cache::factory(new File(__DIR__ . '/../test'), 30);
+    }
+
     public function testSaveAndLoad()
     {
         if (!file_exists(__DIR__ . '/../tmp/cache')) {
@@ -45,8 +58,12 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 
         $str = 'This is my test variable. It contains a string.';
         $c = Cache::factory(new File(__DIR__ . '/../tmp/cache'), 30);
+        $this->fileExists($c->adapter()->getDir());
         $c->save('str', $str);
         $this->assertEquals($str, $c->load('str'));
+        $c->remove('str');
+
+
 
         $c->clear();
         if (file_exists(__DIR__ . '/../tmp/cache')) {

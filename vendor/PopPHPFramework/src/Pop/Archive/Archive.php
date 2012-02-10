@@ -127,6 +127,16 @@ class Archive extends File implements ArchiveInterface
      */
     public function adapter()
     {
+        return $this->adapter;
+    }
+
+    /**
+     * Method to return the archive adapter object
+     *
+     * @return mixed
+     */
+    public function archive()
+    {
         return $this->adapter->archive;
     }
 
