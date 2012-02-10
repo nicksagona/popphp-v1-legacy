@@ -170,9 +170,9 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
             $a->addFiles(__DIR__ . '/../tmp');
             $this->assertFileExists(__DIR__ . '/../tmp/test.zip');
             $this->assertGreaterThan(60000, $a->getSize());
+            chmod(__DIR__ . '/../tmp/test.zip', 0777);
 
             unset($a);
-
 
             mkdir(__DIR__ . '/../tmp/test');
             mkdir(__DIR__ . '/../tmp/test/test');
@@ -220,6 +220,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
             $a = new Archive(__DIR__ . '/../tmp/test.tar');
             $a->addFiles(__DIR__ . '/../tmp');
             $a->compress();
+            chmod(__DIR__ . '/../tmp/test.tar.gz', 0777);
 
             unset($a);
 
@@ -261,6 +262,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
             $a = new Archive(__DIR__ . '/../tmp/test.tar');
             $a->addFiles(__DIR__ . '/../tmp');
             $a->compress('bz2');
+            chmod(__DIR__ . '/../tmp/test.tar.bz2', 0777);
 
             unset($a);
 
@@ -295,6 +297,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 
             mkdir(__DIR__ . '/../tmp/test');
             chmod(__DIR__ . '/../tmp/test', 0777);
+            chmod(__DIR__ . '/../tmp/test.zip', 0777);
 
             $a->extract(__DIR__ . '/../tmp/test');
 
