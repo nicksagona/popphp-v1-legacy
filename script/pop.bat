@@ -34,7 +34,7 @@ if "%1" == "--test" (goto :test) else (goto :cli)
 REM Run tests via PHP Unit
 :test
 if "%2"=="" (
-    SET TEST_DIR=%SCRIPT_DIR%..\vendor\PopPHPFramework\tests\PopTest
+    SET TEST_DIR=%SCRIPT_DIR%..\vendor\PopPHPFramework\tests
 ) else (
     SET TEST_DIR=%2
 )
