@@ -25,9 +25,7 @@
 namespace Pop\Cache;
 
 use Pop\Db\Db,
-    Pop\Db\Sql,
-    Pop\Dir\Dir,
-    Pop\File\File;
+    Pop\Db\Sql;
 
 /**
  * @category   Pop
