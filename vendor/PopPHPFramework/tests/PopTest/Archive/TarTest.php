@@ -28,9 +28,10 @@ Autoloader::factory()->splAutoloadRegister();
 
 class TarTest extends \PHPUnit_Framework_TestCase
 {
-/*
+
     public function testTgz()
     {
+
         $tar = false;
         $includePath = explode(PATH_SEPARATOR, get_include_path());
 
@@ -196,7 +197,7 @@ class TarTest extends \PHPUnit_Framework_TestCase
             }
         }
     }
-*/
+
 }
 
 ?>

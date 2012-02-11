@@ -46,6 +46,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
                 $tar = true;
             }
         }
+
         if ($tar) {
             $a = Archive::factory(__DIR__ . '/../tmp/test.tar');
             $class = 'Pop\\Archive\\Adapter\\Tar';

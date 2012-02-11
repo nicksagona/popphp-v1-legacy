@@ -28,7 +28,7 @@ Autoloader::factory()->splAutoloadRegister();
 
 class ZipTest extends \PHPUnit_Framework_TestCase
 {
-/*
+
     public function testZip()
     {
         if (class_exists('ZipArchive', false)) {
@@ -36,6 +36,8 @@ class ZipTest extends \PHPUnit_Framework_TestCase
             $a->addFiles(__DIR__ . '/../tmp');
             $this->assertFileExists(__DIR__ . '/../tmp/test.zip');
             $this->assertGreaterThan(60000, $a->getSize());
+        
+
             chmod(__DIR__ . '/../tmp/test.zip', 0777);
 
             unset($a);
@@ -58,7 +60,7 @@ class ZipTest extends \PHPUnit_Framework_TestCase
             $files = $a->listFiles();
             $files = $a->listFiles(true);
             $this->assertTrue(is_array($files));
-
+            unset($a);
             if (file_exists(__DIR__ . '/../tmp/test.zip')) {
                 unlink(__DIR__ . '/../tmp/test.zip');
             }
@@ -68,7 +70,9 @@ class ZipTest extends \PHPUnit_Framework_TestCase
             $dir = new Dir(__DIR__ . '/../tmp/test');
             $dir->emptyDir();
             rmdir(__DIR__ . '/../tmp/test');
+
         }
+
     }
 
     public function testZipExtract()
@@ -83,18 +87,20 @@ class ZipTest extends \PHPUnit_Framework_TestCase
 
             $a->extract(__DIR__ . '/../tmp/test');
 
-            $dir = new Dir(__DIR__ . '/../tmp/test');
-            $this->assertGreaterThan(0, count($dir->files));
-            $dir->emptyDir();
-
-            rmdir(__DIR__ . '/../tmp/test');
-
-            if (file_exists(__DIR__ . '/../tmp/test.zip')) {
-                unlink(__DIR__ . '/../tmp/test.zip');
-            }
+            //unset($a);
+            
+            //$dir = new Dir(__DIR__ . '/../tmp/test');
+            //$this->assertGreaterThan(0, count($dir->files));
+            //$dir->emptyDir();
+            //
+            //rmdir(__DIR__ . '/../tmp/test');
+            //
+            //if (file_exists(__DIR__ . '/../tmp/test.zip')) {
+            //    unlink(__DIR__ . '/../tmp/test.zip');
+            //}
         }
     }
-*/
+
 }
 
 ?>

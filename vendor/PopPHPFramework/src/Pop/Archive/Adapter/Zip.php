@@ -73,7 +73,8 @@ class Zip implements ArchiveInterface
     public function extract($to = null)
     {
         if ($this->archive->open($this->path) === true) {
-            $this->archive->extractTo((null !== $to) ? $to : './');
+            $path = (null !== $to) ? realpath($to) : './';
+            $this->archive->extractTo($path);
             $this->archive->close();
         }
     }
