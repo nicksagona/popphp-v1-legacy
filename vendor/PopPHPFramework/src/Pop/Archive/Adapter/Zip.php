@@ -70,7 +70,7 @@ class Zip implements ArchiveInterface
         if ((substr($archive->fullpath, 0, 1) == '/') || (substr($archive->fullpath, 1, 2) == ':')) {
             $this->path = $this->workingDir . DIRECTORY_SEPARATOR . $archive->fullpath;
         } else {
-            $this->path = $archive->fullpath;
+            $this->path = realpath(dirname($archive->fullpath)) . DIRECTORY_SEPARATOR . $archive->basename;
         }
         $this->archive = new \ZipArchive();
     }
