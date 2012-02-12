@@ -234,7 +234,7 @@ class TrustCommerce extends AbstractAdapter
      */
     protected function parseResponseCodes()
     {
-        $responseCodes = explode(PHP_EOL, $this->response);
+        $responseCodes = explode("\n", $this->response);
         $codes = array();
 
         foreach ($responseCodes as $key => $value) {

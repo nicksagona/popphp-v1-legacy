@@ -66,7 +66,14 @@ class Zip implements ArchiveInterface
      */
     public function __construct($archive)
     {
-        $this->workingDir = getcwd();
+        if (strpos($archive->fullpath, '/.') !== false) {
+            $this->workingDir = substr($archive->fullpath, 0, strpos($archive->fullpath, '/.'));
+        } else if (strpos($archive->fullpath, '\\.') !== false) {
+            $this->workingDir = substr($archive->fullpath, 0, strpos($archive->fullpath, '\\.'));
+        } else {
+            $this->workingDir = getcwd();
+        }
+
         if ((substr($archive->fullpath, 0, 1) == '/') || (substr($archive->fullpath, 1, 2) == ':')) {
             $this->path = $this->workingDir . DIRECTORY_SEPARATOR . $archive->fullpath;
         } else {
@@ -104,7 +111,7 @@ class Zip implements ArchiveInterface
                 $dir = new Dir($files, true, true, false);
                 $files = $this->filterDirFiles($dir->files, $files);
             } else {
-                $files = array($files);
+                $files = $this->filterDirFiles(array(realpath($files)), dirname($files));
             }
         } else {
             $allFiles = array();
@@ -220,7 +227,16 @@ class Zip implements ArchiveInterface
      */
     protected function filterDirFiles($dirFiles, $dir)
     {
-        $origDir = $dir;
+        if (strpos($dir, '../') !== false) {
+            $origDir = substr($dir, strpos($dir, '../'));
+            $dir = realpath($dir);
+        } else if (strpos($dir, '../') !== false) {
+            $origDir = substr($dir, strpos($dir, './'));
+            $dir = realpath($dir);
+        } else {
+            $origDir = $dir;
+        }
+
         $seps = array(
             array('\\', '/'),
             array('../', ''),

@@ -104,7 +104,7 @@ class AuthFile extends File implements AdapterInterface
      */
     protected function parse()
     {
-        $entries = explode(PHP_EOL, trim($this->read()));
+        $entries = explode("\n", trim($this->read()));
 
         foreach ($entries as $entry) {
             $ent = trim($entry);

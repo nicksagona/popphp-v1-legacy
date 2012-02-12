@@ -62,7 +62,6 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $a->getResult());
         $this->assertEquals('The user is valid.', $a->getResultMessage());
 
-
         $a->authenticate('baduser', '123456');
         $this->assertFalse($a->isValid());
         $this->assertEquals(2, $a->getResult());

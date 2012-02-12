@@ -114,7 +114,7 @@ class DocblockGenerator
             $desc = str_replace('*/', '', $desc);
             $desc = str_replace(PHP_EOL . ' * ', ' ', $desc);
             $desc = trim(str_replace('*', '', $desc));
-            $descAry = explode(PHP_EOL, $desc);
+            $descAry = explode("\n", $desc);
             $formattedDesc = null;
             foreach ($descAry as $line) {
                 $formattedDesc .= ' ' . trim($line);
@@ -131,7 +131,7 @@ class DocblockGenerator
             $tags = substr($docblock, strpos($docblock, '@'));
             $tags = substr($tags, 0, strpos($tags, '*/'));
             $tags = str_replace('*', '', $tags);
-            $tagsAry = explode(PHP_EOL, $tags);
+            $tagsAry = explode("\n", $tags);
 
             foreach ($tagsAry as $key => $value) {
                 $value = trim(str_replace('@', '', $value));
@@ -333,7 +333,7 @@ class DocblockGenerator
 
         if (!empty($this->desc)) {
             $desc = trim($this->desc);
-            $descAry = explode(PHP_EOL, $desc);
+            $descAry = explode("\n", $desc);
             $i = 0;
             foreach ($descAry as $d) {
                 $i++;
