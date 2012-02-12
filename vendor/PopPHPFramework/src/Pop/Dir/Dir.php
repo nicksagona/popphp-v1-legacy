@@ -60,6 +60,12 @@ class Dir
     protected $rec = false;
 
     /**
+     * Flag to include sub directories.
+     * @var boolean
+     */
+    protected $dirs = true;
+
+    /**
      * Constructor
      *
      * Instantiate a directory object
@@ -70,7 +76,7 @@ class Dir
      * @throws Exception
      * @return void
      */
-    public function __construct($dir, $full = false, $rec = false)
+    public function __construct($dir, $full = false, $rec = false, $dirs = true)
     {
         // Check to see if the directory exists.
         if (!file_exists(dirname($dir))) {
@@ -78,6 +84,7 @@ class Dir
         }
         $this->full = $full;
         $this->rec = $rec;
+        $this->dirs = $dirs;
 
         // Set the directory path.
         if ((strpos($dir, '/') !== false) && (DIRECTORY_SEPARATOR != '/')) {
@@ -100,10 +107,18 @@ class Dir
                 if (($fileInfo->getFilename() != '.') && ($fileInfo->getFilename() != '..')) {
                     // If full path flag was passed, store the full path.
                     if ($this->full) {
-                        $this->files[] = realpath(($fileInfo->isDir()) ? ($fileInfo->getPathname() . DIRECTORY_SEPARATOR) : $fileInfo->getPathname());
+                        if ($this->dirs) {
+                            $this->files[] = ($fileInfo->isDir()) ? (realpath($fileInfo->getPathname())) : realpath($fileInfo->getPathname());
+                        } else if (!$fileInfo->isDir()) {
+                            $this->files[] = realpath($fileInfo->getPathname());
+                        }
                     // Else, store only the directory or file name.
                     } else {
-                        $this->files[] = ($fileInfo->isDir()) ? ($fileInfo->getFilename() . DIRECTORY_SEPARATOR) : $fileInfo->getFilename();
+                        if ($this->dirs) {
+                            $this->files[] = ($fileInfo->isDir()) ? ($fileInfo->getFilename()) : $fileInfo->getFilename();
+                        } else if (!$fileInfo->isDir()) {
+                            $this->files[] = $fileInfo->getFilename();
+                        }
                     }
                 }
             }
@@ -113,10 +128,18 @@ class Dir
                 if(!$fileInfo->isDot()) {
                     // If full path flag was passed, store the full path.
                     if ($this->full) {
-                        $this->files[] = realpath(($fileInfo->isDir()) ? ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename() . DIRECTORY_SEPARATOR) : ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename()));
+                        if ($this->dirs) {
+                            $this->files[] = ($fileInfo->isDir()) ? ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename() . DIRECTORY_SEPARATOR) : ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename());
+                        } else if (!$fileInfo->isDir()) {
+                            $this->files[] = $this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
+                        }
                     // Else, store only the directory or file name.
                     } else {
-                        $this->files[] = ($fileInfo->isDir()) ? ($fileInfo->getFilename() . DIRECTORY_SEPARATOR) : $fileInfo->getFilename();
+                        if ($this->dirs) {
+                            $this->files[] = ($fileInfo->isDir()) ? ($fileInfo->getFilename()) : $fileInfo->getFilename();
+                        } else if (!$fileInfo->isDir()) {
+                            $this->files[] = $fileInfo->getFilename();
+                        }
                     }
                 }
             }
