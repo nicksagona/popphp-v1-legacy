@@ -41,7 +41,7 @@ if "%2"=="" (
     SET TEST_DIR=%2
     if exist "%TEST_DIR%\phpunit.xml" (
         SET TEST_CFG=-c %TEST_DIR%\phpunit.xml
-    }
+    )
 )
 if not exist %TEST_DIR% (
     goto :nodir
