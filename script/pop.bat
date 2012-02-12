@@ -32,7 +32,7 @@ SET TEST_CFG=
 if "%1" == "-t" (goto :test)
 if "%1" == "--test" (goto :test) else (goto :cli)
 
-REM Run tests via PHP Unit
+REM Run tests via PHPUnit
 :test
 if "%2"=="" (
     SET TEST_DIR=%SCRIPT_DIR%..\vendor\PopPHPFramework\tests
@@ -66,5 +66,5 @@ goto:eof
 
 REM PHPUnit not found error
 :nophpunit
-echo PHP Unit was not found.
+echo PHPUnit was not found.
 goto:eof

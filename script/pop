@@ -30,7 +30,7 @@ CYG_PATH="$( which cygpath )"
 TEST_DIR=
 TEST_CFG=
 
-# Run tests via PHP Unit
+# Run tests via PHPUnit
 if [ "$1" == "-t" ] || [ "$1" == "--test" ]; then
     if [ "$2" != "" ]; then
         if [ ! -d "$2" ]; then
@@ -50,7 +50,7 @@ if [ "$1" == "-t" ] || [ "$1" == "--test" ]; then
     PHP_UNIT="$( which phpunit )"
 
     if [ "$PHP_UNIT" == "" ]; then
-        echo -e "PHP Unit was not found.\n"
+        echo -e "PHPUnit was not found.\n"
     else
         if [ -f "$PHP_UNIT.bat" ]; then
             PHP_UNIT="phpunit.bat"
