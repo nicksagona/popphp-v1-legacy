@@ -27,6 +27,7 @@ REM
 
 SET SCRIPT_DIR=%~dp0
 SET TEST_DIR=
+SET TEST_CFG=
 
 if "%1" == "-t" (goto :test)
 if "%1" == "--test" (goto :test) else (goto :cli)
@@ -35,6 +36,7 @@ REM Run tests via PHP Unit
 :test
 if "%2"=="" (
     SET TEST_DIR=%SCRIPT_DIR%..\vendor\PopPHPFramework\tests
+    SET TEST_CFG=-c %SCRIPT_DIR%..\vendor\PopPHPFramework\tests\phpunit-win.xml
 ) else (
     SET TEST_DIR=%2
 )
@@ -42,9 +44,9 @@ if not exist %TEST_DIR% (
     goto :nodir
 ) else (
     if not exist "%PHP_PEAR_BIN_DIR%\phpunit.bat" (
-        echo PHP Unit was not found.
+        goto :nophpunit
     ) else (
-        "%PHP_PEAR_BIN_DIR%\phpunit.bat" %TEST_DIR%
+        "%PHP_PEAR_BIN_DIR%\phpunit.bat" %TEST_CFG% %TEST_DIR%
     )
 )
 goto:eof
@@ -57,4 +59,9 @@ goto:eof
 REM Test directory not found error
 :nodir
 echo The folder '%TEST_DIR%' does not exists.
+goto:eof
+
+REM PHPUnit not found error
+:nophpunit
+echo PHP Unit was not found.
 goto:eof

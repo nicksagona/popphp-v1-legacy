@@ -26,6 +26,7 @@
 #
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CYG_PATH="$( which cygpath )"
 TEST_DIR=
 TEST_CFG=
 
@@ -37,13 +38,13 @@ if [ "$1" == "-t" ] || [ "$1" == "--test" ]; then
             exit 1
         else
             TEST_DIR="$2"
+            if [ -f "$TEST_DIR/phpunit.xml" ]; then
+                TEST_CFG="$TEST_DIR/phpunit.xml"
+            fi
         fi
     else
         TEST_DIR="$SCRIPT_DIR/../vendor/PopPHPFramework/tests"
-    fi
-
-    if [ -f "$TEST_DIR/phpunit.xml" ]; then
-        TEST_CFG="$TEST_DIR/phpunit.xml"
+        TEST_CFG="$TEST_DIR/phpunit-bash.xml"
     fi
 
     PHP_UNIT="$( which phpunit )"
@@ -51,8 +52,19 @@ if [ "$1" == "-t" ] || [ "$1" == "--test" ]; then
     if [ "$PHP_UNIT" == "" ]; then
         echo -e "PHP Unit was not found.\n"
     else
+        if [ -f "$PHP_UNIT.bat" ]; then
+            PHP_UNIT="phpunit.bat"
+        else
+            PHP_UNIT="phpunit"
+        fi
         echo -e "Testing folder '$TEST_DIR'...\n"
         if [ "$TEST_CFG" != "" ]; then
+            if [ "$CYG_PATH" != "" ]; then
+                TEST_CFG="$( cygpath -w $TEST_CFG )"
+                TEST_CFG=${TEST_CFG//\\/\/}
+                TEST_DIR="$( cygpath -w $TEST_DIR )"
+                TEST_DIR=${TEST_DIR//\\/\/}
+            fi
             $PHP_UNIT -c "$TEST_CFG" "$TEST_DIR"
         else
             $PHP_UNIT "$TEST_DIR"
@@ -60,5 +72,12 @@ if [ "$1" == "-t" ] || [ "$1" == "--test" ]; then
     fi
 # Else, run the Pop CLI script
 else
-    "$SCRIPT_DIR"/pop.php "$1" "$2" "$3"
+    PHP_BIN="$( which php )"
+    if [ "$CYG_PATH" != "" ]; then
+        SCRIPT_PATH="$( cygpath -w $SCRIPT_DIR )\\pop.php $1 $2 $3"
+        SCRIPT_PATH=${SCRIPT_PATH//\\/\/}
+    else
+        SCRIPT_PATH="$SCRIPT_DIR/pop.php $1 $2 $3"
+    fi
+    $PHP_BIN $SCRIPT_PATH
 fi
