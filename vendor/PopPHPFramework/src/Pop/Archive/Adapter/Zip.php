@@ -74,7 +74,7 @@ class Zip implements ArchiveInterface
             $this->workingDir = getcwd();
         }
 
-        if ((substr($archive->fullpath, 0, 1) == '/') || (substr($archive->fullpath, 1, 2) == ':')) {
+        if ((substr($archive->fullpath, 0, 1) != '/') && (substr($archive->fullpath, 1, 2) != ':')) {
             $this->path = $this->workingDir . DIRECTORY_SEPARATOR . $archive->fullpath;
         } else {
             $this->path = realpath(dirname($archive->fullpath)) . DIRECTORY_SEPARATOR . $archive->basename;

@@ -69,6 +69,7 @@ class ZipTest extends \PHPUnit_Framework_TestCase
             $dir = new Dir(__DIR__ . '/../tmp/test');
             $dir->emptyDir();
             rmdir(__DIR__ . '/../tmp/test');
+
         }
     }
 
