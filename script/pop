@@ -72,12 +72,11 @@ if [ "$1" == "-t" ] || [ "$1" == "--test" ]; then
     fi
 # Else, run the Pop CLI script
 else
-    PHP_BIN="$( which php )"
     if [ "$CYG_PATH" != "" ]; then
         SCRIPT_PATH="$( cygpath -w $SCRIPT_DIR )\\pop.php $1 $2 $3"
         SCRIPT_PATH=${SCRIPT_PATH//\\/\/}
     else
         SCRIPT_PATH="$SCRIPT_DIR/pop.php $1 $2 $3"
     fi
-    $PHP_BIN $SCRIPT_PATH
+    php $SCRIPT_PATH
 fi

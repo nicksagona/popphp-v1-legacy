@@ -52,7 +52,7 @@ class Sqlite implements CacheInterface
 
     /**
      * Cache db adapter
-     * @var Pop_Db
+     * @var Pop\Db\Db
      */
     protected $sqlite = null;
 
@@ -144,8 +144,8 @@ class Sqlite implements CacheInterface
 
         // Determine if the value already exists.
         $this->sqlite->sql->setTable($this->table)
-                           ->select()
-                           ->where('id', '=', $this->sqlite->adapter->escape(sha1($id)));
+                          ->select()
+                          ->where('id', '=', $this->sqlite->adapter->escape(sha1($id)));
 
         $this->sqlite->adapter->query($this->sqlite->sql->getSql());
 
@@ -157,23 +157,19 @@ class Sqlite implements CacheInterface
         // If the value exists, update it.
         if (count($rows) > 0) {
             $this->sqlite->sql->setTable($this->table)
-                               ->update(
-                                        array(
-                                            'value' => $this->sqlite->adapter->escape(serialize($value)),
-                                            'time'  => $time
-                                        )
-                                        )
+                              ->update(array(
+                                  'value' => $this->sqlite->adapter->escape(serialize($value)),
+                                  'time'  => $time
+                               ))
                                ->where('id', '=', $this->sqlite->adapter->escape(sha1($id)));
         // Else, save the new value.
         } else {
             $this->sqlite->sql->setTable($this->table)
-                               ->insert(
-                                        array(
-                                            'id'    => $this->sqlite->adapter->escape(sha1($id)),
-                                            'value' => $this->sqlite->adapter->escape(serialize($value)),
-                                            'time'  => $time
-                                        )
-                                        );
+                              ->insert(array(
+                                'id'    => $this->sqlite->adapter->escape(sha1($id)),
+                                'value' => $this->sqlite->adapter->escape(serialize($value)),
+                                'time'  => $time
+                              ));
         }
 
         $this->sqlite->adapter->query($this->sqlite->sql->getSql());
@@ -223,8 +219,8 @@ class Sqlite implements CacheInterface
     public function remove($id)
     {
         $this->sqlite->sql->setTable($this->table)
-                           ->delete()
-                           ->where('id', '=', $this->sqlite->adapter->escape(sha1($id)));
+                          ->delete()
+                          ->where('id', '=', $this->sqlite->adapter->escape(sha1($id)));
 
         $this->sqlite->adapter->query($this->sqlite->sql->getSql());
     }
@@ -247,6 +243,7 @@ class Sqlite implements CacheInterface
     public function delete()
     {
         if (file_exists($this->db)) {
+            unset($this->sqlite);
             unlink($this->db);
         }
     }
