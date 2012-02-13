@@ -6,6 +6,7 @@
     </testsuites>
     <filter>
         <blacklist>
+            <directory suffix=".php">C:\PHP</directory>
             <directory suffix=".php">C:\PROGRA~1\PHP</directory>
         </blacklist>
         <whitelist addUncoveredFilesFromWhitelist="true">
