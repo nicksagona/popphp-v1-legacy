@@ -41,4 +41,3 @@ class DeflateTest extends \PHPUnit_Framework_TestCase
 
 }
 
-?>

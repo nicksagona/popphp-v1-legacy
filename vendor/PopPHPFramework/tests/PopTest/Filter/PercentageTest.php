@@ -36,4 +36,3 @@ class PercentageTest extends \PHPUnit_Framework_TestCase
 
 }
 
-?>

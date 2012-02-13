@@ -71,4 +71,3 @@ class RoleTest extends \PHPUnit_Framework_TestCase
 
 }
 
-?>

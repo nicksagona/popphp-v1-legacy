@@ -50,4 +50,3 @@ class InterfaceTest extends \PHPUnit_Framework_TestCase
 
 }
 
-?>

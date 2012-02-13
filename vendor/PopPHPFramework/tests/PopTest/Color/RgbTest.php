@@ -40,4 +40,3 @@ class RgbTest extends \PHPUnit_Framework_TestCase
 
 }
 
-?>

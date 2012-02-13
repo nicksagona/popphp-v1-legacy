@@ -38,4 +38,3 @@ class RecordTest extends \PHPUnit_Framework_TestCase
 
 }
 
-?>

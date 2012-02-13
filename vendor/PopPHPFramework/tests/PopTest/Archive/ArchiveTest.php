@@ -66,4 +66,3 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 
 }
 
-?>

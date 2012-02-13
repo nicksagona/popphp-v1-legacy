@@ -42,4 +42,3 @@ class DirTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-?>

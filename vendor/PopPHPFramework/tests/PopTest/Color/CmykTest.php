@@ -41,4 +41,3 @@ class CmykTest extends \PHPUnit_Framework_TestCase
 
 }
 
-?>

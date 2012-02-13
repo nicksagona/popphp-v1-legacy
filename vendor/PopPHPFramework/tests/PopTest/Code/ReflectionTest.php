@@ -46,4 +46,3 @@ class ReflectionTest extends \PHPUnit_Framework_TestCase
 
 }
 
-?>

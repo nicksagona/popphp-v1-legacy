@@ -132,4 +132,3 @@ class ClassTest extends \PHPUnit_Framework_TestCase
 
 }
 
-?>

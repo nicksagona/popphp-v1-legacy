@@ -40,4 +40,3 @@ class HsbTest extends \PHPUnit_Framework_TestCase
 
 }
 
-?>

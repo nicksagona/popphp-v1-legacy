@@ -39,4 +39,3 @@ class SearchTest extends \PHPUnit_Framework_TestCase
 
 }
 
-?>

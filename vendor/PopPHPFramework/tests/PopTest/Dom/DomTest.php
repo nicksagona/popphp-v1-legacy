@@ -46,4 +46,3 @@ class DomTest extends \PHPUnit_Framework_TestCase
 
 }
 
-?>

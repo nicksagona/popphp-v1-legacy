@@ -54,4 +54,3 @@ class FontTest extends \PHPUnit_Framework_TestCase
 
 }
 
-?>

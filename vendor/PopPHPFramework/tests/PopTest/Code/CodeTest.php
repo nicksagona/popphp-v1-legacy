@@ -17,7 +17,8 @@
 namespace PopTest\Code;
 
 use Pop\Loader\Autoloader,
-    Pop\Code\Generator;
+    Pop\Code\Generator,
+    Pop\Code\DocblockGenerator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -30,11 +31,52 @@ class CodeTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $c = new Generator('TestClass.php');
+        $c = new Generator('TestClass.php', Generator::CREATE_CLASS);
+        $c = new Generator('TestInterface.php', Generator::CREATE_INTERFACE);
+        $c = new Generator('Test.php');
+        $c->setClose(true);
         $class = 'Pop\\Code\\Generator';
         $this->assertTrue($c instanceof $class);
     }
 
+    public function testSetAndGetIndent()
+    {
+        $c = new Generator('TestClass.php', Generator::CREATE_CLASS);
+        $c->setIndent('    ');
+        $this->assertEquals('    ', $c->getIndent());
+    }
+
+    public function testSetAndGetDocblock()
+    {
+        $c = new Generator('TestClass.php', Generator::CREATE_CLASS);
+        $c->setDocblock(new DocblockGenerator('This is a test desc.'));
+        $this->assertEquals('This is a test desc.', $c->getDocblock()->getDesc());
+    }
+
+    public function testSetAppendAndGetDocblock()
+    {
+        $c = new Generator('TestClass.php', Generator::CREATE_CLASS);
+        $c->setBody('test body');
+        $c->appendToBody('more code');
+        $body = $c->getBody();
+        $this->assertTrue((strpos($body, 'test body') !== false));
+        $this->assertTrue((strpos($body, 'more code') !== false));
+    }
+
+    public function testRenderAndSave()
+    {
+        $c = new Generator(__DIR__ . '/../tmp/test.php');
+        $c->setBody('test body');
+        $c->appendToBody('more code');
+        $body = $c->render(true);
+        $c->save();
+        $this->assertTrue((strpos($body, 'test body') !== false));
+        $this->assertTrue((strpos($body, 'more code') !== false));
+        $this->fileExists(__DIR__ . '/../tmp/test.php');
+        if (file_exists(__DIR__ . '/../tmp/test.php')) {
+            unlink(__DIR__ . '/../tmp/test.php');
+        }
+    }
+
 }
 
-?>
