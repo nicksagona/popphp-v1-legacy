@@ -18,7 +18,7 @@ namespace PopTest\Cache;
 
 use Pop\Loader\Autoloader,
     Pop\Cache\Cache,
-    Pop\Cache\File;
+    Pop\Cache\Sqlite;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -26,47 +26,53 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class CacheTest extends \PHPUnit_Framework_TestCase
+class SqliteTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testConstructor()
     {
-        $c = Cache::factory(new File(__DIR__ . '/../tmp'), 30);
+        $c = Cache::factory(new Sqlite(__DIR__ . '/../tmp/cache.sqlite'), 30);
         $class = 'Pop\\Cache\\Cache';
         $this->assertTrue($c instanceof $class);
     }
 
     public function testSetAndGetLifetime()
     {
-        $c = Cache::factory(new File(__DIR__ . '/../tmp'), 30);
+        $c = Cache::factory(new Sqlite(__DIR__ . '/../tmp/cache.sqlite'), 30);
         $c->setLifetime(30);
         $this->assertEquals(30, $c->getLifetime());
+    }
+
+    public function testSetAndGetTable()
+    {
+        $c = Cache::factory(new Sqlite(__DIR__ . '/../tmp/cache.sqlite'), 30);
+        $c->adapter()->setTable('pop_cache');
+        $this->assertEquals('pop_cache', $c->adapter()->getTable());
     }
 
     public function testCacheDir()
     {
         $this->setExpectedException('Pop\\Cache\\Exception');
-        $c = Cache::factory(new File(__DIR__ . '/../test'), 30);
+        $c = Cache::factory(new Sqlite(__DIR__ . '/../test/cache.sqlite'), 30);
     }
 
     public function testSaveAndLoad()
     {
-        if (!file_exists(__DIR__ . '/../tmp/cache')) {
-            mkdir(__DIR__ . '/../tmp/cache');
-            chmod(__DIR__ . '/../tmp/cache', 0777);
-        }
-
         $str = 'This is my test variable. It contains a string.';
-        $c = Cache::factory(new File(__DIR__ . '/../tmp/cache'), 30);
-        $this->fileExists($c->adapter()->getDir());
+        $c = Cache::factory(new Sqlite(__DIR__ . '/../tmp/cache.sqlite'), 30);
+        $this->assertTrue((strpos($c->adapter()->getDb(), 'cache.sqlite') !== false));
+        $this->assertEquals('pop_cache', $c->adapter()->getTable());
         $c->save('str', $str);
         $this->assertEquals($str, $c->load('str'));
         $c->remove('str');
         $c->clear();
+    }
 
-        if (file_exists(__DIR__ . '/../tmp/cache')) {
-            rmdir(__DIR__ . '/../tmp/cache');
-        }
+    public function testDelete()
+    {
+        $c = Cache::factory(new Sqlite(__DIR__ . '/../tmp/cache.sqlite'), 30);
+        $c->adapter()->delete();
+        $this->assertFalse(file_exists(__DIR__ . '/../tmp/cache.sqlite'));
     }
 
 }

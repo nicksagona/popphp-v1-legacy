@@ -262,7 +262,8 @@ class DocblockGenerator
     /**
      * Add a param tag
      *
-     * @param  string $name
+     * @param  string $type
+     * @param  string $var
      * @param  string $desc
      * @return Pop\Code\DocblockGenerator
      */
@@ -280,6 +281,7 @@ class DocblockGenerator
      */
     public function setParams(array $params)
     {
+        $params = (isset($params[0]) && is_array($params[0])) ? $params : array($params);
         foreach ($params as $param) {
             $this->tags['param'][] = $param;
         }
@@ -289,12 +291,12 @@ class DocblockGenerator
     /**
      * Get a param
      *
-     * @param  string $name
-     * @return string
+     * @param  int $index
+     * @return array
      */
-    public function getParam($name)
+    public function getParam($index)
     {
-        return (isset($this->tags['param'][$name])) ? $this->tags['param'][$name] : null;
+        return (isset($this->tags['param'][$index])) ? $this->tags['param'][$index] : null;
     }
 
     /**
@@ -313,8 +315,7 @@ class DocblockGenerator
     /**
      * Get the return
      *
-     * @param  string $name
-     * @return string
+     * @return array
      */
     public function getReturn()
     {

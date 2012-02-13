@@ -120,6 +120,9 @@ class Zip implements ArchiveInterface
                     $dir = new Dir($value, true, true, false);
                     $allFiles = array_merge($allFiles, $this->filterDirFiles($dir->files, $value));
                     unset($files[$key]);
+                } else {
+                    $allFiles = array_merge($allFiles, $this->filterDirFiles(array(realpath($value)), dirname($value)));
+                    unset($files[$key]);
                 }
             }
             $files = array_merge($files, $allFiles);

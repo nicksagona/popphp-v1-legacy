@@ -239,4 +239,16 @@ class Sqlite implements CacheInterface
         $this->sqlite->adapter->query('DELETE FROM "' . $this->table . '"');
     }
 
+    /**
+     * Method to delete the entire database file
+     *
+     * @return void
+     */
+    public function delete()
+    {
+        if (file_exists($this->db)) {
+            unlink($this->db);
+        }
+    }
+
 }

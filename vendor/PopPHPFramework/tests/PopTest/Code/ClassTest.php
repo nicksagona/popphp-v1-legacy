@@ -17,7 +17,11 @@
 namespace PopTest\Code;
 
 use Pop\Loader\Autoloader,
-    Pop\Code\ClassGenerator;
+    Pop\Code\ClassGenerator,
+    Pop\Code\DocblockGenerator,
+    Pop\Code\MethodGenerator,
+    Pop\Code\NamespaceGenerator,
+    Pop\Code\PropertyGenerator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -62,13 +66,65 @@ class ClassTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('TestInterface', $c->getInterface());
     }
 
+    public function testSetAndGetIndent()
+    {
+        $c = ClassGenerator::factory('TestClass');
+        $c->setIndent('    ');
+        $this->assertEquals('    ', $c->getIndent());
+    }
+
+    public function testSetAndGetName()
+    {
+        $c = ClassGenerator::factory('TestClass');
+        $c->setName('MyTestClass');
+        $this->assertEquals('MyTestClass', $c->getName());
+    }
+
+    public function testSetAndGetNamespace()
+    {
+        $c = ClassGenerator::factory('TestClass');
+        $c->setNamespace(new NamespaceGenerator('Test\\Space'));
+        $this->assertEquals('Test\\Space', $c->getNamespace()->getNamespace());
+    }
+
+    public function testSetAndGetDocblock()
+    {
+        $c = ClassGenerator::factory('TestClass');
+        $c->setDocblock(new DocblockGenerator('This is a test desc.'));
+        $this->assertEquals('This is a test desc.', $c->getDocblock()->getDesc());
+    }
+
+    public function testAddGetAndRemoveProperty()
+    {
+        $c = ClassGenerator::factory('TestClass');
+        $c->addProperty(new PropertyGenerator('testProp', 'string', 'This is a test string'));
+        $this->assertEquals('testProp', $c->getProperty('testProp')->getName());
+        $c->removeProperty('testProp');
+        $this->assertNull($c->getProperty('testProp'));
+    }
+
+    public function testAddGetAndRemoveMethod()
+    {
+        $c = ClassGenerator::factory('TestClass');
+        $c->addMethod(new MethodGenerator('testMethod'));
+        $this->assertEquals('testMethod', $c->getMethod('testMethod')->getName());
+        $c->removeMethod('testMethod');
+        $this->assertNull($c->getMethod('testMethod'));
+    }
+
     public function testRender()
     {
         $c = ClassGenerator::factory('TestClass');
         $c->setAbstract(true)
           ->setParent('TestParent')
-          ->setInterface('TestInterface');
+          ->setInterface('TestInterface')
+          ->addProperty(new PropertyGenerator('testProp', 'string', 'This is a test string'))
+          ->addMethod(new MethodGenerator('testMethod'));
         $code = $c->render(true);
+        $this->assertTrue((strpos($code, 'abstract') !== false));
+        $this->assertTrue((strpos($code, 'TestParent') !== false));
+        $this->assertTrue((strpos($code, 'TestInterface') !== false));
+        $code = (string)$c;
         $this->assertTrue((strpos($code, 'abstract') !== false));
         $this->assertTrue((strpos($code, 'TestParent') !== false));
         $this->assertTrue((strpos($code, 'TestInterface') !== false));

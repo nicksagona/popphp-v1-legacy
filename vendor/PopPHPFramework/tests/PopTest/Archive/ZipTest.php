@@ -32,6 +32,21 @@ class ZipTest extends \PHPUnit_Framework_TestCase
     public function testZip()
     {
         if (class_exists('ZipArchive', false)) {
+            $a = new Archive('test.zip');
+            unset($a);
+
+            $a = new Archive('C:\\Projects\\..\\test.zip');
+            unset($a);
+
+            $a = new Archive(__DIR__ . '/../tmp/test.zip');
+            $a->addFiles(array(
+                __DIR__ . '/../tmp/access.txt',
+                __DIR__ . '/../tmp/test.jpg',
+                './TarTest.php',
+                __DIR__ . '/../../../../../public/examples/assets'
+            ));
+            unset($a);
+
             $a = new Archive(__DIR__ . '/../tmp/test.zip');
             $a->addFiles(__DIR__ . '/../tmp');
             $this->assertFileExists(__DIR__ . '/../tmp/test.zip');

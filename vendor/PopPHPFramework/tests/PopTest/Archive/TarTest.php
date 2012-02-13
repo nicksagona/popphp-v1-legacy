@@ -56,6 +56,7 @@ class TarTest extends \PHPUnit_Framework_TestCase
 
             $a = new Archive(__DIR__ . '/../tmp/test.tar');
             $a->addFiles(__DIR__ . '/../tmp');
+            $a->addFiles(__DIR__ . '/ZipTest.php');
             $a->compress('tgz');
             $this->assertFileExists(__DIR__ . '/../tmp/test.tgz');
             $this->assertGreaterThan(60000, $a->getSize());
@@ -137,6 +138,11 @@ class TarTest extends \PHPUnit_Framework_TestCase
 
             mkdir(__DIR__ . '/../tmp/test');
             chmod(__DIR__ . '/../tmp/test', 0777);
+
+            $files = $a->listFiles();
+            $files = $a->listFiles(true);
+
+            $this->assertTrue(is_array($files));
 
             $a->extract(__DIR__ . '/../tmp/test');
 

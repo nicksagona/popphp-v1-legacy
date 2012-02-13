@@ -58,6 +58,46 @@ class DocblockTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue((strpos($doc, '* @return   mixed') !== false));
     }
 
+    public function testSetAndGetDesc()
+    {
+        $d = DocblockGenerator::factory('This is the description');
+        $d->setDesc('This is the new description');
+        $this->assertEquals('This is the new description', $d->getDesc());
+    }
+
+    public function testSetAndGetIndent()
+    {
+        $d = DocblockGenerator::factory('This is the description');
+        $d->setIndent('    ');
+        $this->assertEquals('    ', $d->getIndent());
+    }
+
+    public function testSetAndGetTags()
+    {
+        $d = DocblockGenerator::factory('This is the description');
+        $d->setTags(array('Company' => 'Test Company'));
+        $this->assertEquals('Test Company', $d->getTag('Company'));
+    }
+
+    public function testSetAndGetParams()
+    {
+        $d = DocblockGenerator::factory('This is the description');
+        $d->setParams(array('type' => 'string', 'var' => 'testString', 'desc' => 'Test desc'));
+        $p = $d->getParam(0);
+        $this->assertTrue(is_array($p));
+        $this->assertEquals('string', $p['type']);
+        $this->assertEquals('testString', $p['var']);
+        $this->assertEquals('Test desc', $p['desc']);
+    }
+
+    public function testSetAndGetReturn()
+    {
+        $d = DocblockGenerator::factory('This is the description');
+        $d->setReturn('void');
+        $r = $d->getReturn();
+        $this->assertEquals('void', $r['type']);
+    }
+
 }
 
 ?>

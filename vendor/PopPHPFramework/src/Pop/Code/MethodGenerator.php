@@ -510,7 +510,7 @@ class MethodGenerator
         $static = ($this->static) ? ' static' : null;
         $args = $this->formatArguments();
 
-        $this->output = PHP_EOL . (null !== $this->docblock) ? $this->output = $this->docblock->render(true) : null;
+        $this->output = PHP_EOL . ((null !== $this->docblock) ? $this->docblock->render(true) : null);
         $this->output .= $this->indent . $final . $abstract . $this->visibility .
            $static . ' function ' . $this->name . '(' . $args . ')';
 
