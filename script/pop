@@ -21,62 +21,16 @@
 # -m --map folder file.php       Create a class map file from the source folder and save to the output file
 # -r --reconfig projectfolder    Reconfigure the project based on the new location of the project
 # -s --show                      Show project install instructions
-# -t --test folder               Run the unit tests from a folder
 # -v --version                   Display version of Pop PHP Framework
 #
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 CYG_PATH="$( which cygpath )"
-TEST_DIR=
-TEST_CFG=
 
-# Run tests via PHPUnit
-if [ "$1" == "-t" ] || [ "$1" == "--test" ]; then
-    if [ "$2" != "" ]; then
-        if [ ! -d "$2" ]; then
-            echo -e "The folder '$2' does not exist.\n"
-            exit 1
-        else
-            TEST_DIR="$2"
-            if [ -f "$TEST_DIR/phpunit.xml" ]; then
-                TEST_CFG="$TEST_DIR/phpunit.xml"
-            fi
-        fi
-    else
-        TEST_DIR="$SCRIPT_DIR/../vendor/PopPHPFramework/tests"
-        TEST_CFG="$TEST_DIR/phpunit-bash.xml"
-    fi
-
-    PHP_UNIT="$( which phpunit )"
-
-    if [ "$PHP_UNIT" == "" ]; then
-        echo -e "PHPUnit was not found.\n"
-    else
-        if [ -f "$PHP_UNIT.bat" ]; then
-            PHP_UNIT="phpunit.bat"
-        else
-            PHP_UNIT="phpunit"
-        fi
-        echo -e "Testing folder '$TEST_DIR'...\n"
-        if [ "$TEST_CFG" != "" ]; then
-            if [ "$CYG_PATH" != "" ]; then
-                TEST_CFG="$( cygpath -w $TEST_CFG )"
-                TEST_CFG=${TEST_CFG//\\/\/}
-                TEST_DIR="$( cygpath -w $TEST_DIR )"
-                TEST_DIR=${TEST_DIR//\\/\/}
-            fi
-            $PHP_UNIT -c "$TEST_CFG" "$TEST_DIR"
-        else
-            $PHP_UNIT "$TEST_DIR"
-        fi
-    fi
-# Else, run the Pop CLI script
+if [ "$CYG_PATH" != "" ]; then
+    SCRIPT_PATH="$( cygpath -w $SCRIPT_DIR )\\pop.php $1 $2 $3"
+    SCRIPT_PATH=${SCRIPT_PATH//\\/\/}
 else
-    if [ "$CYG_PATH" != "" ]; then
-        SCRIPT_PATH="$( cygpath -w $SCRIPT_DIR )\\pop.php $1 $2 $3"
-        SCRIPT_PATH=${SCRIPT_PATH//\\/\/}
-    else
-        SCRIPT_PATH="$SCRIPT_DIR/pop.php $1 $2 $3"
-    fi
-    php $SCRIPT_PATH
+    SCRIPT_PATH="$SCRIPT_DIR/pop.php $1 $2 $3"
 fi
+php $SCRIPT_PATH

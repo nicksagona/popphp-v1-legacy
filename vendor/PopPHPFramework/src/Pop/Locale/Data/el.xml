@@ -461,10 +461,6 @@
         <output>Δείτε τις οδηγίες εγκατάστασης του έργου</output>
     </text>
     <text>
-        <source>Run the unit tests from a folder</source>
-        <output>Εκτελέστε τις δοκιμές μονάδα από ένα φάκελο</output>
-    </text>
-    <text>
         <source>Display version of Pop PHP Framework and latest available</source>
         <output>Εμφάνιση έκδοση του Πλαισίου Pop PHP και πιο πρόσφατα διαθέσιμα</output>
     </text>

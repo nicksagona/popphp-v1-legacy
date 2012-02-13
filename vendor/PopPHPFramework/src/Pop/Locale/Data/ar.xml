@@ -461,10 +461,6 @@
         <output>تظهر تعليمات تثبيت المشروع</output>
     </text>
     <text>
-        <source>Run the unit tests from a folder</source>
-        <output>تشغيل وحدة الاختبارات من مجلد</output>
-    </text>
-    <text>
         <source>Display version of Pop PHP Framework and latest available</source>
         <output>عرض نسخة من الإطار PHP البوب ​​وتتوفر أحدث</output>
     </text>

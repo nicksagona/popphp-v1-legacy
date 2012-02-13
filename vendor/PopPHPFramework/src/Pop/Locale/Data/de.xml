@@ -461,10 +461,6 @@
         <output>Zeigen Projekt Installationsanweisungen</output>
     </text>
     <text>
-        <source>Run the unit tests from a folder</source>
-        <output>Führen Sie die Unit-Tests aus einem Ordner</output>
-    </text>
-    <text>
         <source>Display version of Pop PHP Framework and latest available</source>
         <output>Display-Version der Pop-PHP-Framework und neuesten verfügbaren</output>
     </text>

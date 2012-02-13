@@ -461,10 +461,6 @@
         <output>显示项目的安装说明</output>
     </text>
     <text>
-        <source>Run the unit tests from a folder</source>
-        <output>从文件夹中运行单元测试</output>
-    </text>
-    <text>
         <source>Display version of Pop PHP Framework and latest available</source>
         <output>显示流行的PHP框架和最新的可用版本</output>
     </text>

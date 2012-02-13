@@ -461,10 +461,6 @@
         <output>Показать инструкции проекта установки</output>
     </text>
     <text>
-        <source>Run the unit tests from a folder</source>
-        <output>Запуск модульных тестов из папки</output>
-    </text>
-    <text>
         <source>Display version of Pop PHP Framework and latest available</source>
         <output>Показать версию Framework Поп и PHP последней доступной</output>
     </text>

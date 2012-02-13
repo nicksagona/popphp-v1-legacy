@@ -461,10 +461,6 @@
         <output>Mostrar instrucciones de instalación del proyecto</output>
     </text>
     <text>
-        <source>Run the unit tests from a folder</source>
-        <output>Ejecutar las pruebas unitarias de una carpeta</output>
-    </text>
-    <text>
         <source>Display version of Pop PHP Framework and latest available</source>
         <output>Muestra la versión del Framework de PHP y Pop más recientes disponibles</output>
     </text>

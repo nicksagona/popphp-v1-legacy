@@ -21,50 +21,8 @@ REM -l --lang fr                   Set the default language for the project
 REM -m --map folder file.php       Create a class map file from the source folder and save to the output file
 REM -r --reconfig projectfolder    Reconfigure the project based on the new location of the project
 REM -s --show                      Show project install instructions
-REM -t --test folder               Run the unit tests from a folder
 REM -v --version                   Display version of Pop PHP Framework
 REM
 
 SET SCRIPT_DIR=%~dp0
-SET TEST_DIR=
-SET TEST_CFG=
-
-if "%1" == "-t" (goto :test)
-if "%1" == "--test" (goto :test) else (goto :cli)
-
-REM Run tests via PHPUnit
-:test
-if "%2"=="" (
-    SET TEST_DIR=%SCRIPT_DIR%..\vendor\PopPHPFramework\tests
-    SET TEST_CFG=-c %SCRIPT_DIR%..\vendor\PopPHPFramework\tests\phpunit-win.xml
-) else (
-    SET TEST_DIR=%2
-    if exist "%TEST_DIR%\phpunit.xml" (
-        SET TEST_CFG=-c %TEST_DIR%\phpunit.xml
-    )
-)
-if not exist %TEST_DIR% (
-    goto :nodir
-) else (
-    if not exist "%PHP_PEAR_BIN_DIR%\phpunit.bat" (
-        goto :nophpunit
-    ) else (
-        "%PHP_PEAR_BIN_DIR%\phpunit.bat" %TEST_CFG% %TEST_DIR%
-    )
-)
-goto:eof
-
-REM Else, run the Pop CLI script
-:cli
 php %SCRIPT_DIR%pop.php %1 %2 %3
-goto:eof
-
-REM Test directory not found error
-:nodir
-echo The folder '%TEST_DIR%' does not exists.
-goto:eof
-
-REM PHPUnit not found error
-:nophpunit
-echo PHPUnit was not found.
-goto:eof

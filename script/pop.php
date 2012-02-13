@@ -22,7 +22,6 @@
  * -m --map folder file.php       Create a class map file from the source folder and save to the output file
  * -r --reconfig projectfolder    Reconfigure the project based on the new location of the project
  * -s --show                      Show project install instructions
- * -t --test folder               Run the unit tests from a folder
  * -v --version                   Display version of Pop PHP Framework
  *
  * IMPORTANT!

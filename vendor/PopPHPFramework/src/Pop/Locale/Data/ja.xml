@@ -461,10 +461,6 @@
         <output>プロジェクトのインストール手順を表示</output>
     </text>
     <text>
-        <source>Run the unit tests from a folder</source>
-        <output>フォルダからユニットテストを実行</output>
-    </text>
-    <text>
         <source>Display version of Pop PHP Framework and latest available</source>
         <output>ポップPHPフレームワークと利用可能な最新のバージョンを表示</output>
     </text>

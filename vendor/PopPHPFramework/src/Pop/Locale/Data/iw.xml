@@ -461,10 +461,6 @@
         <output>הצג להתקין הוראות הפרויקט</output>
     </text>
     <text>
-        <source>Run the unit tests from a folder</source>
-        <output>הפעל את בדיקות יחידה מתיקייה</output>
-    </text>
-    <text>
         <source>Display version of Pop PHP Framework and latest available</source>
         <output>הצגת גרסה של PHP Framework הפופ העדכני ביותר הזמין</output>
     </text>

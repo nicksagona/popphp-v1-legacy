@@ -461,10 +461,6 @@
         <output></output>
     </text>
     <text>
-        <source>Run the unit tests from a folder</source>
-        <output></output>
-    </text>
-    <text>
         <source>Display version of Pop PHP Framework and latest available</source>
         <output></output>
     </text>
