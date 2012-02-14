@@ -30,9 +30,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $r = new Response(200, array('Content-Type' => 'text/plain'));
-        $class = 'Pop\\Http\\Response';
-        $this->assertTrue($r instanceof $class);
+        $this->assertInstanceOf('Pop\\Http\\Response', $r = new Response(200, array('Content-Type' => 'text/plain')));
     }
 
     public function testSetCode()
@@ -68,9 +66,10 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $r = new Response(200, array('Content-Type' => 'text/plain'));
         $r->setBody('This is a test.');
         $response = $r->getHeadersAsString() . PHP_EOL . $r->getBody();
-        $this->assertTrue((strpos($response, 'HTTP/1.1 200 OK') !== false));
-        $this->assertTrue((strpos($response, 'Content-Type: text/plain') !== false));
-        $this->assertTrue((strpos($response, 'This is a test') !== false));
+
+        $this->assertContains('HTTP/1.1 200 OK', $response);
+        $this->assertContains('Content-Type: text/plain', $response);
+        $this->assertContains('This is a test', $response);
     }
 
     public function testParse()

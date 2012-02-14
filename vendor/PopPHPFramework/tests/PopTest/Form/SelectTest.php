@@ -30,9 +30,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $s = new Select('colors', array('Red', 'Blue', 'Green'));
-        $class = 'Pop\\Form\\Element\\Select';
-        $this->assertTrue($s instanceof $class);
+        $this->assertInstanceOf('Pop\\Form\\Element\\Select', new Select('colors', array('Red', 'Blue', 'Green')));
     }
 
     public function testMarked()

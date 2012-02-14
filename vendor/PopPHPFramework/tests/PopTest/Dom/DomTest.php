@@ -31,9 +31,7 @@ class DomTest extends \PHPUnit_Framework_TestCase
 
     public function testDomConstructor()
     {
-        $d = new Dom(Dom::XHTML11);
-        $class = 'Pop\\Dom\\Dom';
-        $this->assertTrue($d instanceof $class);
+        $this->assertInstanceOf('Pop\\Dom\\Dom', new Dom(Dom::XHTML11));
     }
 
     public function testAddChildren()

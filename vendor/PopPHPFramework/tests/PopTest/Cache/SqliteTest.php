@@ -31,9 +31,7 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $c = Cache::factory(new Sqlite(__DIR__ . '/../tmp/cache.sqlite'), 30);
-        $class = 'Pop\\Cache\\Cache';
-        $this->assertTrue($c instanceof $class);
+        $this->assertInstanceOf('Pop\\Cache\\Cache', Cache::factory(new Sqlite(__DIR__ . '/../tmp/cache.sqlite'), 30));
     }
 
     public function testSetAndGetLifetime()
@@ -60,7 +58,7 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
     {
         $str = 'This is my test variable. It contains a string.';
         $c = Cache::factory(new Sqlite(__DIR__ . '/../tmp/cache.sqlite'), 30);
-        $this->assertTrue((strpos($c->adapter()->getDb(), 'cache.sqlite') !== false));
+        $this->assertContains('cache.sqlite', $c->adapter()->getDb());
         $this->assertEquals('pop_cache', $c->adapter()->getTable());
         $c->save('str', $str);
         $this->assertEquals($str, $c->load('str'));

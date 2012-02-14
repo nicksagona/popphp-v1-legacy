@@ -307,6 +307,7 @@ class Generator extends File
             echo $this->output;
         }
     }
+
     /**
      * Output the code object directly.
      *

@@ -31,9 +31,8 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     public function testSearch()
     {
         $s = Search::factory('1|2|3|4|5', '|');
-        $class = 'Pop\\Filter\\Search';
+        $this->assertInstanceOf('Pop\\Filter\\Search', $s);
         $r = $s->search('1');
-        $this->assertTrue($s instanceof $class);
         $this->assertTrue(in_array('1', $r));
     }
 

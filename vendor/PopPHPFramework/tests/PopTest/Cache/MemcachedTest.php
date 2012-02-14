@@ -32,9 +32,7 @@ class MemcachedTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         if (class_exists('Memcache')) {
-            $c = Cache::factory(new Memcached(), 30);
-            $class = 'Pop\\Cache\\Cache';
-            $this->assertTrue($c instanceof $class);
+            $this->assertInstanceOf('Pop\\Cache\\Cache', Cache::factory(new Memcached(), 30));
         }
     }
 

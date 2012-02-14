@@ -30,9 +30,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $p = new Pdf('doc.pdf');
-        $class = 'Pop\\Pdf\\Pdf';
-        $this->assertTrue($p instanceof $class);
+        $this->assertInstanceOf('Pop\\Pdf\\Pdf', new Pdf('doc.pdf'));
     }
 
 }

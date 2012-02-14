@@ -30,9 +30,7 @@ class SqlTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $s = new Sql('users');
-        $class = 'Pop\\Db\\Sql';
-        $this->assertTrue($s instanceof $class);
+        $this->assertInstanceOf('Pop\\Db\\Sql', new Sql('users'));
     }
 
     public function testSql()

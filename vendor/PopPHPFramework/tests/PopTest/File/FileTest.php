@@ -38,7 +38,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
     public function testRead()
     {
         $f = new File(__DIR__ . '/../tmp/access.txt');
-        $this->assertTrue((strpos($f->read(), '12test34') !== false));
+        $this->assertContains('12test34', $f->read());
     }
 
     public function testWriteSaveAndDelete()

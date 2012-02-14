@@ -30,9 +30,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $p = new Paginator(array());
-        $class = 'Pop\\Paginator\\Paginator';
-        $this->assertTrue($p instanceof $class);
+        $this->assertInstanceOf('Pop\\Paginator\\Paginator', new Paginator(array()));
     }
 
 }

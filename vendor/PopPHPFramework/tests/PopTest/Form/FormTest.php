@@ -30,9 +30,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $f = new Form('/submit', 'post');
-        $class = 'Pop\\Form\\Form';
-        $this->assertTrue($f instanceof $class);
+        $this->assertInstanceOf('Pop\\Form\\Form', new Form('/submit', 'post'));
     }
 
 }

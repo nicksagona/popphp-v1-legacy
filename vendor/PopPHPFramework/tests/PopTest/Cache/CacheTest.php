@@ -31,9 +31,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $c = Cache::factory(new File(__DIR__ . '/../tmp'), 30);
-        $class = 'Pop\\Cache\\Cache';
-        $this->assertTrue($c instanceof $class);
+        $this->assertInstanceOf('Pop\\Cache\\Cache', Cache::factory(new File(__DIR__ . '/../tmp'), 30));
     }
 
     public function testSetAndGetLifetime()

@@ -35,6 +35,15 @@ class DocblockTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($d instanceof $class);
     }
 
+    public function testDocblockParse()
+    {
+        $this->setExpectedException('Pop\\Code\\Exception');
+        $d = DocblockGenerator::parse('Bad doc block');
+        $docBlock = "/*\n * @param \$var\n * @return array\n */";
+        $d = DocblockGenerator::parse($docBlock);
+        $this->assertEquals('array', $d->getReturn());
+    }
+
     public function testDocblock()
     {
         $d = DocblockGenerator::factory('This is the description');
@@ -48,14 +57,19 @@ class DocblockTest extends \PHPUnit_Framework_TestCase
 
         $doc = (string)$d;
 
-        $this->assertTrue((strpos($doc, '* This is the description') !== false));
-        $this->assertTrue((strpos($doc, '* @category Category') !== false));
-        $this->assertTrue((strpos($doc, '* @package  Package_Name') !== false));
-        $this->assertTrue((strpos($doc, '* @author   John Doe') !== false));
-        $this->assertTrue((strpos($doc, '* @param    array   $ary') !== false));
-        $this->assertTrue((strpos($doc, '* @param    boolean $blah') !== false));
-        $this->assertTrue((strpos($doc, '* @throws   Exception') !== false));
-        $this->assertTrue((strpos($doc, '* @return   mixed') !== false));
+        ob_start();
+        $d->render();
+        $output = ob_get_clean();
+        $this->assertContains('* @package  Package_Name', $output);
+
+        $this->assertContains('* This is the description', $doc);
+        $this->assertContains('* @category Category', $doc);
+        $this->assertContains('* @package  Package_Name', $doc);
+        $this->assertContains('* @author   John Doe', $doc);
+        $this->assertContains('* @param    array   $ary', $doc);
+        $this->assertContains('* @param    boolean $blah', $doc);
+        $this->assertContains('* @throws   Exception', $doc);
+        $this->assertContains('* @return   mixed', $doc);
     }
 
     public function testSetAndGetDesc()

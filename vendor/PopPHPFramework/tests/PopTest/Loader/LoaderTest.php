@@ -31,9 +31,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testAutoloader()
     {
-        $s = new String('string');
-        $class = 'Pop\\Filter\\String';
-        $this->assertTrue($s instanceof $class);
+        $this->assertInstanceOf('Pop\\Filter\\String', new String('string'));
     }
 
     public function testClassmap()

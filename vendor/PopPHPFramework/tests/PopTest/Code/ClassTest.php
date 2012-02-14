@@ -121,13 +121,19 @@ class ClassTest extends \PHPUnit_Framework_TestCase
           ->addProperty(new PropertyGenerator('testProp', 'string', 'This is a test string'))
           ->addMethod(new MethodGenerator('testMethod'));
         $code = $c->render(true);
-        $this->assertTrue((strpos($code, 'abstract') !== false));
-        $this->assertTrue((strpos($code, 'TestParent') !== false));
-        $this->assertTrue((strpos($code, 'TestInterface') !== false));
+
+        ob_start();
+        $c->render();
+        $output = ob_get_clean();
+        $this->assertContains('class TestClass extends TestParent implements TestInterface', $output);
+
+        $this->assertContains('abstract', $code);
+        $this->assertContains('TestParent', $code);
+        $this->assertContains('TestInterface', $code);
         $code = (string)$c;
-        $this->assertTrue((strpos($code, 'abstract') !== false));
-        $this->assertTrue((strpos($code, 'TestParent') !== false));
-        $this->assertTrue((strpos($code, 'TestInterface') !== false));
+        $this->assertContains('abstract', $code);
+        $this->assertContains('TestParent', $code);
+        $this->assertContains('TestInterface', $code);
     }
 
 }

@@ -31,9 +31,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $e = new Element('text', 'email');
-        $class = 'Pop\\Form\\Element';
-        $this->assertTrue($e instanceof $class);
+        $this->assertInstanceOf('Pop\\Form\\Element', new Element('text', 'email'));
     }
 
     public function testLabel()
@@ -62,7 +60,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     {
         $e = new Element('text', 'email');
         $element = $e->render(true);
-        $this->assertTrue((strpos($element, '<input') !== false));
+        $this->assertContains('<input', $element);
     }
 
 }

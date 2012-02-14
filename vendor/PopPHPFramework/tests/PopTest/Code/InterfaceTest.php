@@ -17,7 +17,10 @@
 namespace PopTest\Code;
 
 use Pop\Loader\Autoloader,
-    Pop\Code\InterfaceGenerator;
+    Pop\Code\DocblockGenerator,
+    Pop\Code\InterfaceGenerator,
+    Pop\Code\MethodGenerator,
+    Pop\Code\NamespaceGenerator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -46,6 +49,59 @@ class InterfaceTest extends \PHPUnit_Framework_TestCase
         $i = InterfaceGenerator::factory('TestInterface');
         $i->setParent('TestParent');
         $this->assertEquals('TestParent', $i->getParent());
+    }
+
+    public function testSetAndGetIndent()
+    {
+        $i = InterfaceGenerator::factory('TestInterface');
+        $i->setIndent('    ');
+        $this->assertEquals('    ', $i->getIndent());
+    }
+
+    public function testSetAndGetName()
+    {
+        $i = InterfaceGenerator::factory('TestInterface');
+        $i->setName('NewTestInterface');
+        $this->assertEquals('NewTestInterface', $i->getName());
+    }
+
+    public function testSetAndGetNamespace()
+    {
+        $i = InterfaceGenerator::factory('TestInterface');
+        $i->setNamespace(new NamespaceGenerator('Test\\Space'));
+        $this->assertEquals('Test\\Space', $i->getNamespace()->getNamespace());
+    }
+
+    public function testSetAndGetDocblock()
+    {
+        $i = InterfaceGenerator::factory('TestInterface');
+        $i->setDocblock(new DocblockGenerator('This is a test desc.'));
+        $this->assertEquals('This is a test desc.', $i->getDocblock()->getDesc());
+    }
+
+    public function testAddGetAndRemoveMethod()
+    {
+        $i = InterfaceGenerator::factory('TestInterface');
+        $i->addMethod(new MethodGenerator('testMethod'));
+        $this->assertEquals('testMethod', $i->getMethod('testMethod')->getName());
+        $i->removeMethod('testMethod');
+        $this->assertNull($i->getMethod('testMethod'));
+    }
+
+    public function testRender()
+    {
+        $i = InterfaceGenerator::factory('TestInterface');
+        $i->setNamespace(new NamespaceGenerator('Test\\Space'))
+          ->setDocblock(new DocblockGenerator('This is a test desc.'))
+          ->addMethod(new MethodGenerator('testMethod'));
+
+        $code = $i->render(true);
+
+        ob_start();
+        $i->render();
+        $output = ob_get_clean();
+        $this->assertContains('interface TestInterface', $output);
+        $this->assertContains('interface TestInterface', $code);
     }
 
 }

@@ -32,9 +32,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 
     public function testStringFactory()
     {
-        $s = String::factory($this->string);
-        $class = 'Pop\\Filter\\String';
-        $this->assertTrue($s instanceof $class);
+        $this->assertInstanceOf('Pop\\Filter\\String', String::factory($this->string));
     }
 
     public function testStringBasic()

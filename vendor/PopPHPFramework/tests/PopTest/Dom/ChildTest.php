@@ -30,9 +30,7 @@ class ChildTest extends \PHPUnit_Framework_TestCase
 
     public function testChildConstructor()
     {
-        $c = new Child('p', 'This is a paragraph');
-        $class = 'Pop\\Dom\\Child';
-        $this->assertTrue($c instanceof $class);
+        $this->assertInstanceOf('Pop\\Dom\\Child', new Child('p', 'This is a paragraph'));
     }
 
     public function testChild()

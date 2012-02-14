@@ -30,9 +30,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $r = new Request();
-        $class = 'Pop\\Http\\Request';
-        $this->assertTrue($r instanceof $class);
+        $this->assertInstanceOf('Pop\\Http\\Request', new Request());
     }
 
     public function testSetRequestUri()

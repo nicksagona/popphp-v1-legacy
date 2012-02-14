@@ -30,9 +30,7 @@ class RadioTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $r = new Radio('colors', array('Red', 'Blue', 'Green'));
-        $class = 'Pop\\Form\\Element\\Radio';
-        $this->assertTrue($r instanceof $class);
+        $this->assertInstanceOf('Pop\\Form\\Element\\Radio', new Radio('colors', array('Red', 'Blue', 'Green')));
     }
 
     public function testMarked()

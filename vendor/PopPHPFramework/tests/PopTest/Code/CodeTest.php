@@ -16,6 +16,8 @@
 
 namespace PopTest\Code;
 
+use Pop\Code\NamespaceGenerator;
+
 use Pop\Loader\Autoloader,
     Pop\Code\Generator,
     Pop\Code\DocblockGenerator;
@@ -33,7 +35,7 @@ class CodeTest extends \PHPUnit_Framework_TestCase
     {
         $c = new Generator('TestClass.php', Generator::CREATE_CLASS);
         $c = new Generator('TestInterface.php', Generator::CREATE_INTERFACE);
-        $c = new Generator('Test.php');
+        $c = new Generator(__FILE__);
         $c->setClose(true);
         $class = 'Pop\\Code\\Generator';
         $this->assertTrue($c instanceof $class);
@@ -59,22 +61,30 @@ class CodeTest extends \PHPUnit_Framework_TestCase
         $c->setBody('test body');
         $c->appendToBody('more code');
         $body = $c->getBody();
-        $this->assertTrue((strpos($body, 'test body') !== false));
-        $this->assertTrue((strpos($body, 'more code') !== false));
+        $this->assertContains('test body', $body);
+        $this->assertContains('more code', $body);
     }
 
     public function testRenderAndSave()
     {
-        $c = new Generator(__DIR__ . '/../tmp/test.php');
-        $c->setBody('test body');
+        $c = new Generator(__DIR__ . '/../tmp/Test.php', Generator::CREATE_CLASS);
+        $c->setNamespace(new NamespaceGenerator('Test\\Space'));
+        $c->setBody('test body')
+          ->setClose(true);
         $c->appendToBody('more code');
         $body = $c->render(true);
+
+        ob_start();
+        $c->render();
+        $output = ob_get_clean();
+        $this->assertContains('namespace Test\\Space', $output);
+
         $c->save();
-        $this->assertTrue((strpos($body, 'test body') !== false));
-        $this->assertTrue((strpos($body, 'more code') !== false));
-        $this->fileExists(__DIR__ . '/../tmp/test.php');
-        if (file_exists(__DIR__ . '/../tmp/test.php')) {
-            unlink(__DIR__ . '/../tmp/test.php');
+        $this->assertContains('test body', $body);
+        $this->assertContains('more code', $body);
+        $this->fileExists(__DIR__ . '/../tmp/Test.php');
+        if (file_exists(__DIR__ . '/../tmp/Test.php')) {
+            unlink(__DIR__ . '/../tmp/Test.php');
         }
     }
 

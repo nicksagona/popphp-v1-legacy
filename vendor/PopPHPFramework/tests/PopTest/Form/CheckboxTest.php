@@ -30,9 +30,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $c = new Checkbox('colors', array('Red', 'Blue', 'Green'));
-        $class = 'Pop\\Form\\Element\\Checkbox';
-        $this->assertTrue($c instanceof $class);
+        $this->assertInstanceOf('Pop\\Form\\Element\\Checkbox', new Checkbox('colors', array('Red', 'Blue', 'Green')));
     }
 
     public function testMarked()
