@@ -67,5 +67,43 @@ class MethodTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('testMethod', $m->getName());
     }
 
+    public function testSetAndGetIsInterface()
+    {
+        $m = MethodGenerator::factory('testMethod');
+        $m->setInterface(true);
+        $this->assertTrue($m->isInterface());
+    }
+
+    public function testSetAndGetDesc()
+    {
+        $m = MethodGenerator::factory('testMethod');
+        $m->setDesc('This is the desc.');
+        $this->assertEquals('This is the desc.', $m->getDesc());
+        $this->assertInstanceOf('Pop\\Code\\DocblockGenerator', $m->getDocblock());
+    }
+
+    public function testSetAndGetIndent()
+    {
+        $m = MethodGenerator::factory('testMethod');
+        $m->setIndent('    ');
+        $this->assertEquals('    ', $m->getIndent());
+    }
+
+    public function testSetAndGetName()
+    {
+        $m = MethodGenerator::factory('testMethod');
+        $m->setName('newTestMethod');
+        $this->assertEquals('newTestMethod', $m->getName());
+    }
+
+    public function testSetAndGetBody()
+    {
+        $m = MethodGenerator::factory('testMethod');
+        $m->setBody('some body code', true);
+        $m->appendToBody('some more body code');
+        $m->appendToBody('even more body code', false);
+        $this->assertContains('body code', $m->getBody());
+    }
+
 }
 

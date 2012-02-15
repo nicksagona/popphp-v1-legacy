@@ -90,10 +90,13 @@ class InterfaceTest extends \PHPUnit_Framework_TestCase
     {
         $i = InterfaceGenerator::factory('TestInterface');
         $i->setNamespace(new NamespaceGenerator('Test\\Space'))
+          ->setParent('TestParent')
           ->setDocblock(new DocblockGenerator('This is a test desc.'))
           ->addMethod(new MethodGenerator('testMethod'));
 
+        $code = (string)$i;
         $code = $i->render(true);
+
 
         ob_start();
         $i->render();
