@@ -49,5 +49,50 @@ class CurlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('0.9', $result);
     }
 
+    public function testSetAndGetOptions()
+    {
+        $c = new Curl(array(
+            CURLOPT_URL    => 'http://www.popphp.org/version.txt',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_WRITEFUNCTION => true
+        ));
+        $c->setOption(CURLOPT_HEADER, false);
+        $c->setOption(CURLOPT_WRITEFUNCTION, true);
+        $this->assertEquals(1, $c->getOption(CURLOPT_RETURNTRANSFER));
+        $this->assertEquals(0, $c->getOption(CURLOPT_HEADER));
+
+    }
+
+    public function testCurlNoReturn()
+    {
+        $c = new Curl(array(
+            CURLOPT_URL    => 'http://www.popphp.org/version.txt',
+            CURLOPT_HEADER => false,
+            CURLOPT_RETURNTRANSFER => false
+        ));
+
+        ob_start();
+        $c->execute();
+        $output = ob_get_clean();
+        $info = $c->getinfo();
+        $version = $c->version();
+        unset($c);
+        $this->assertEquals('0.9', trim($output));
+        $this->assertEquals('http://www.popphp.org/version.txt', $info['url']);
+        $this->assertEquals('text/plain', $info['content_type']);
+        $this->assertTrue(isset($version['version']));
+    }
+
+    public function testCurlError()
+    {
+        $c = new Curl(array(
+            CURLOPT_URL    => 'http://blahblah.bla/',
+            CURLOPT_HEADER => false,
+            CURLOPT_RETURNTRANSFER => false
+        ));
+        $this->setExpectedException('Pop\\Curl\\Exception');
+        $c->execute();
+    }
+
 }
 

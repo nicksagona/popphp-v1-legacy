@@ -614,7 +614,7 @@ class Color
         $z = ($z * 108.883) / 100;
 
         $r = ($x * 3.2406) + ($y * -1.5372) + ($z * -0.4986);
-        $g = ($x * -0.9689) + ($y *  1.8758) + ($z *  0.0415);
+        $g = ($x * -0.9689) + ($y * 1.8758) + ($z *  0.0415);
         $b = ($x * 0.0557) + ($y * -0.2040) + ($z *  1.0570);
 
         if ($r > 0.0031308) {
@@ -631,6 +631,16 @@ class Color
             $b = 1.055 * (pow($b, (1 / 2.4)) - 0.055);
         } else {
             $b = 12.92 * $b;
+        }
+
+        if ($r > 1) {
+            $r -= 1;
+        }
+        if ($g > 1) {
+            $g -= 1;
+        }
+        if ($b > 1) {
+            $b -= 1;
         }
 
         $r = round($r * 255);
@@ -677,19 +687,12 @@ class Color
      * Get method to return the value of _colors[$name].
      *
      * @param  string $name
-     * @throws Exception
      * @return mixed
      */
     public function __get($name)
     {
         $name = strtolower($name);
-
-        // Check to see if the color space object exists.
-        if (!array_key_exists($name, $this->colors)) {
-            throw new Exception('That color space object does not exist.');
-        }
-
-        return $this->colors[$name];
+        return array_key_exists($name, $this->colors) ? $this->colors[$name] : null;
     }
 
     /**
