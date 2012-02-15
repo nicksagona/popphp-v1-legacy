@@ -32,7 +32,7 @@ class LocaleTest extends \PHPUnit_Framework_TestCase
     {
         $l = Locale::factory('fr');
         $class = 'Pop\\Locale\\Locale';
-        $this->assertTrue($l instanceof $class);
+        $this->assertInstanceOf('Pop\\Locale\\Locale', $l);
         $this->assertEquals('Ce champ est obligatoire.', $l->__('This field is required.'));
     }
 

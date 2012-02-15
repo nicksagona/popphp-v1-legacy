@@ -30,9 +30,7 @@ class DocblockTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $d = DocblockGenerator::factory();
-        $class = 'Pop\\Code\\DocblockGenerator';
-        $this->assertTrue($d instanceof $class);
+        $this->assertInstanceOf('Pop\\Code\\DocblockGenerator', DocblockGenerator::factory());
     }
 
     public function testDocblockParse()

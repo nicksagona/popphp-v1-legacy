@@ -30,9 +30,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $f = new File('test.txt');
-        $class = 'Pop\\File\\File';
-        $this->assertTrue($f instanceof $class);
+        $this->assertInstanceOf('Pop\\File\\File', new File('test.txt'));
     }
 
     public function testRead()

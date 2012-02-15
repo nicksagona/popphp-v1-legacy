@@ -31,9 +31,7 @@ class PaymentTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $p = new Payment(new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST));
-        $class = 'Pop\\Payment\\Payment';
-        $this->assertTrue($p instanceof $class);
+        $this->assertInstanceOf('Pop\\Payment\\Payment', new Payment(new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST)));
     }
 
 }

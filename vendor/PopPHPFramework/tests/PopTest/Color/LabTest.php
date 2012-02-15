@@ -31,11 +31,11 @@ class LabTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $l = new Lab(100, 100, 100);
-        $class = 'Pop\\Color\\Lab';
-        $this->assertTrue($l instanceof $class);
+        $this->assertInstanceOf('Pop\\Color\\Lab', $l);
         $this->assertEquals(100, $l->getL());
         $this->assertEquals(100, $l->getA());
         $this->assertEquals(100, $l->getB());
+
     }
 
 }

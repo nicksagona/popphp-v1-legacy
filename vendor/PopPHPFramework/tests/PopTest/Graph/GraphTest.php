@@ -31,9 +31,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $g = new Graph('graph.gif', 640, 480);
-        $class = 'Pop\\Graph\\Graph';
-        $this->assertTrue($g instanceof $class);
+        $this->assertInstanceOf('Pop\\Graph\\Graph', new Graph('graph.gif', 640, 480));
     }
 
     public function testSetAxisOptions()

@@ -30,9 +30,7 @@ class NamespaceTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $n = NamespaceGenerator::factory('TestNamespace');
-        $class = 'Pop\\Code\\NamespaceGenerator';
-        $this->assertTrue($n instanceof $class);
+        $this->assertInstanceOf('Pop\\Code\\NamespaceGenerator', NamespaceGenerator::factory('TestNamespace'));
     }
 
     public function testGetNamespace()

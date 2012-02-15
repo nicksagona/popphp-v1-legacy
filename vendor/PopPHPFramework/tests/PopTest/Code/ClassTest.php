@@ -34,9 +34,7 @@ class ClassTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $c = ClassGenerator::factory('TestClass');
-        $class = 'Pop\\Code\\ClassGenerator';
-        $this->assertTrue($c instanceof $class);
+        $this->assertInstanceOf('Pop\\Code\\ClassGenerator', ClassGenerator::factory('TestClass'));
     }
 
     public function testGetName()

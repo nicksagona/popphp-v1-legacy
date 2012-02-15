@@ -30,9 +30,7 @@ class RoleTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $r = Role::factory('editor', 5);
-        $class = 'Pop\\Auth\\Role';
-        $this->assertTrue($r instanceof $class);
+        $this->assertInstanceOf('Pop\\Auth\\Role', Role::factory('editor', 5));
     }
 
     public function testCompare()

@@ -31,8 +31,7 @@ class HexTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $h = new Hex('#ee1c2d');
-        $class = 'Pop\\Color\\Hex';
-        $this->assertTrue($h instanceof $class);
+        $this->assertInstanceOf('Pop\\Color\\Hex', $h);
         $this->assertEquals('ee', $h->getRed());
         $this->assertEquals('1c', $h->getGreen());
         $this->assertEquals('2d', $h->getBlue());

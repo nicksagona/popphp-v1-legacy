@@ -30,17 +30,14 @@ class ReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $r = Reflection::factory('Pop\\Auth\\Auth');
-        $class = 'Pop\\Code\\Reflection';
-        $this->assertTrue($r instanceof $class);
+        $this->assertInstanceOf('Pop\\Code\\Reflection', Reflection::factory('Pop\\Auth\\Auth'));
     }
 
     public function testGetGenerator()
     {
         $r = Reflection::factory('Pop\\Auth\\Auth');
         $g = $r->getGenerator();
-        $class = 'Pop\\Code\\Generator';
-        $this->assertTrue($g instanceof $class);
+        $this->assertInstanceOf('Pop\\Code\\Generator', $g);
         $this->assertEquals('Pop\\Auth', $g->getNamespace()->getNamespace());
     }
 

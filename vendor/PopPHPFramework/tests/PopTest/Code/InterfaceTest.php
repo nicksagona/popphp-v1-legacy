@@ -33,9 +33,7 @@ class InterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $i = InterfaceGenerator::factory('TestInterface');
-        $class = 'Pop\\Code\\InterfaceGenerator';
-        $this->assertTrue($i instanceof $class);
+        $this->assertInstanceOf('Pop\\Code\\InterfaceGenerator', InterfaceGenerator::factory('TestInterface'));
     }
 
     public function testGetName()

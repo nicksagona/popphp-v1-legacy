@@ -37,8 +37,7 @@ class CodeTest extends \PHPUnit_Framework_TestCase
         $c = new Generator('TestInterface.php', Generator::CREATE_INTERFACE);
         $c = new Generator(__FILE__);
         $c->setClose(true);
-        $class = 'Pop\\Code\\Generator';
-        $this->assertTrue($c instanceof $class);
+        $this->assertInstanceOf('Pop\\Code\\Generator', $c);
     }
 
     public function testSetAndGetIndent()

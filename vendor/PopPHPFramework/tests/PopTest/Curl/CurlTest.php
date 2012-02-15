@@ -34,8 +34,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
             CURLOPT_URL    => 'http://www.popphp.org/LICENSE.TXT',
             CURLOPT_HEADER => false
         ));
-        $class = 'Pop\\Curl\\Curl';
-        $this->assertTrue($c instanceof $class);
+        $this->assertInstanceOf('Pop\\Curl\\Curl', $c);
     }
 
     public function testCurl()

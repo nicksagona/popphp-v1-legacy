@@ -31,8 +31,7 @@ class CmykTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $c = new Cmyk(20, 40, 60, 80);
-        $class = 'Pop\\Color\\Cmyk';
-        $this->assertTrue($c instanceof $class);
+        $this->assertInstanceOf('Pop\\Color\\Cmyk', $c);
         $this->assertEquals(20, $c->getCyan());
         $this->assertEquals(40, $c->getMagenta());
         $this->assertEquals(60, $c->getYellow());

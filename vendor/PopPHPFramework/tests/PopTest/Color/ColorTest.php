@@ -31,9 +31,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $c = new Color(new Rgb(112, 124, 228));
-        $class = 'Pop\\Color\\Color';
-        $this->assertTrue($c instanceof $class);
+        $this->assertInstanceOf('Pop\\Color\\Color', new Color(new Rgb(112, 124, 228)));
     }
 
     public function testConvert()

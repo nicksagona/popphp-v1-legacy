@@ -30,9 +30,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $p = PropertyGenerator::factory('testProp', 'string', 123);
-        $class = 'Pop\\Code\\PropertyGenerator';
-        $this->assertTrue($p instanceof $class);
+        $this->assertInstanceOf('Pop\\Code\\PropertyGenerator', PropertyGenerator::factory('testProp', 'string', 123));
     }
 
     public function testStatic()

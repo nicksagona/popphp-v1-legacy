@@ -30,9 +30,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $m = new Mail();
-        $class = 'Pop\\Mail\\Mail';
-        $this->assertTrue($m instanceof $class);
+        $this->assertInstanceOf('Pop\\Mail\\Mail', new Mail());
     }
 
 }

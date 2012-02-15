@@ -33,30 +33,22 @@ class MvcTest extends \PHPUnit_Framework_TestCase
 
     public function testControllerConstructor()
     {
-        $c = new Controller();
-        $class = 'Pop\\Mvc\\Controller';
-        $this->assertTrue($c instanceof $class);
+        $this->assertInstanceOf('Pop\\Mvc\\Controller', new Controller());
     }
 
     public function testModelConstructor()
     {
-        $m = new Model();
-        $class = 'Pop\\Mvc\\Model';
-        $this->assertTrue($m instanceof $class);
+        $this->assertInstanceOf('Pop\\Mvc\\Model', new Model());
     }
 
     public function testRouterConstructor()
     {
-        $r = new Router(array('Pop\\Mvc\\Controller' => new Controller()));
-        $class = 'Pop\\Mvc\\Router';
-        $this->assertTrue($r instanceof $class);
+        $this->assertInstanceOf('Pop\\Mvc\\Router', new Router(array('Pop\\Mvc\\Controller' => new Controller())));
     }
 
     public function testViewConstructor()
     {
-        $v = new View();
-        $class = 'Pop\\Mvc\\View';
-        $this->assertTrue($v instanceof $class);
+        $this->assertInstanceOf('Pop\\Mvc\\View', new View());
     }
 
 }

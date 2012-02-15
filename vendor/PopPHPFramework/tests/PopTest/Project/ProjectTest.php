@@ -31,9 +31,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $p = new Project(new Config(array()));
-        $class = 'Pop\\Project\\Project';
-        $this->assertTrue($p instanceof $class);
+        $this->assertInstanceOf('Pop\\Project\\Project', new Project(new Config(array())));
     }
 
 }

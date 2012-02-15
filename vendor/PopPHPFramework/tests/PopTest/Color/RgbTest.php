@@ -31,8 +31,7 @@ class RgbTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $r = new Rgb(112, 124, 228);
-        $class = 'Pop\\Color\\Rgb';
-        $this->assertTrue($r instanceof $class);
+        $this->assertInstanceOf('Pop\\Color\\Rgb', $r);
         $this->assertEquals(112, $r->getRed());
         $this->assertEquals(124, $r->getGreen());
         $this->assertEquals(228, $r->getBlue());

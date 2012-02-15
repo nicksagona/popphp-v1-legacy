@@ -30,9 +30,7 @@ class MethodTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $m = MethodGenerator::factory('testMethod');
-        $class = 'Pop\\Code\\MethodGenerator';
-        $this->assertTrue($m instanceof $class);
+        $this->assertInstanceOf('Pop\\Code\\MethodGenerator', MethodGenerator::factory('testMethod'));
     }
 
     public function testStatic()

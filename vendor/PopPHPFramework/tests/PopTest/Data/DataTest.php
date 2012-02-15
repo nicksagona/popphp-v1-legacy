@@ -30,9 +30,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $d = new Data(__DIR__ . '/../tmp/test.sql');
-        $class = 'Pop\\Data\\Data';
-        $this->assertTrue($d instanceof $class);
+        $this->assertInstanceOf('Pop\\Data\\Data', new Data(__DIR__ . '/../tmp/test.sql'));
     }
 
     public function testData()

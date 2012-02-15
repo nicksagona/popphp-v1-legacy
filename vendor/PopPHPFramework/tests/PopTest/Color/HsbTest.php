@@ -31,8 +31,7 @@ class HsbTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $h = new Hsb(180, 50, 50);
-        $class = 'Pop\\Color\\Hsb';
-        $this->assertTrue($h instanceof $class);
+        $this->assertInstanceOf('Pop\\Color\\Hsb', $h);
         $this->assertEquals(180, $h->getHue());
         $this->assertEquals(50, $h->getSaturation());
         $this->assertEquals(50, $h->getBrightness());

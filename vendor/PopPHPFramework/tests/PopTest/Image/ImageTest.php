@@ -32,23 +32,17 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 
     public function testGdConstructor()
     {
-        $i = new Gd('graph.gif', 640, 480);
-        $class = 'Pop\\Image\\Gd';
-        $this->assertTrue($i instanceof $class);
+        $this->assertInstanceOf('Pop\\Image\\Gd', new Gd('graph.gif', 640, 480));
     }
 
     public function testImagickConstructor()
     {
-        $i = new Imagick('graph.gif', 640, 480);
-        $class = 'Pop\\Image\\Imagick';
-        $this->assertTrue($i instanceof $class);
+        $this->assertInstanceOf('Pop\\Image\\Imagick', new Imagick('graph.gif', 640, 480));
     }
 
     public function testSvgConstructor()
     {
-        $i = new Svg('graph.svg', 640, 480);
-        $class = 'Pop\\Image\\Svg';
-        $this->assertTrue($i instanceof $class);
+        $this->assertInstanceOf('Pop\\Image\\Svg', new Svg('graph.svg', 640, 480));
     }
 
 }

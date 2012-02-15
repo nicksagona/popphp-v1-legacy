@@ -31,8 +31,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
     public function testFactory()
     {
         $v = Validator::factory(new Validator\AlphaNumeric());
-        $class = 'Pop\\Validator\\Validator';
-        $this->assertTrue($v instanceof $class);
+        $this->assertInstanceOf('Pop\\Validator\\Validator', $v);
         $this->assertTrue($v->evaluate('abcd1234'));
     }
 

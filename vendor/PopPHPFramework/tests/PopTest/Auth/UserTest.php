@@ -33,16 +33,14 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $r = Role::factory('editor', 5);
         $u = new User('John', '12john34', $r);
-        $class = 'Pop\\Auth\\User';
-        $this->assertTrue($u instanceof $class);
+        $this->assertInstanceOf('Pop\\Auth\\User', $u);
     }
 
     public function testFactory()
     {
         $r = Role::factory('editor', 5);
         $u = User::factory('John', '12john34', $r);
-        $class = 'Pop\\Auth\\User';
-        $this->assertTrue($u instanceof $class);
+        $this->assertInstanceOf('Pop\\Auth\\User', $u);
     }
 
     public function testGetRole()

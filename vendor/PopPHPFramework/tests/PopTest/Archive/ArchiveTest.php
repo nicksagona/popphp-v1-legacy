@@ -47,11 +47,8 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 
         if ($tar) {
             $a = Archive::factory(__DIR__ . '/../tmp/test.tar');
-            $class = 'Pop\\Archive\\Adapter\\Tar';
-            $this->assertTrue($a->adapter() instanceof $class);
-
-            $class = 'Archive_Tar';
-            $this->assertTrue($a->archive() instanceof $class);
+            $this->assertInstanceOf('Pop\\Archive\\Adapter\\Tar', $a->adapter());
+            $this->assertInstanceOf('Archive_Tar', $a->archive());
 
             $files = $a->listFiles();
             $files = $a->listFiles(true);
