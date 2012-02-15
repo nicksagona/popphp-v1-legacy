@@ -35,6 +35,27 @@ class HexTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('ee', $h->getRed());
         $this->assertEquals('1c', $h->getGreen());
         $this->assertEquals('2d', $h->getBlue());
+
+        $h = new Hex('#def');
+        $this->assertInstanceOf('Pop\\Color\\Hex', $h);
+        $this->assertEquals('dd', $h->getRed());
+        $this->assertEquals('ee', $h->getGreen());
+        $this->assertEquals('ff', $h->getBlue());
+    }
+
+    public function testConstructorOutOfRange()
+    {
+        $this->setExpectedException('Pop\\Color\\Exception');
+        $h = new Hex('#gggggg');
+    }
+
+    public function testGetHex()
+    {
+        $h = new Hex('#ee1c2d');
+        $this->assertEquals('#ee1c2d', (string)$h);
+        $this->assertEquals('#ee1c2d', $h->getHex(true));
+        $h = new Hex('#def');
+        $this->assertEquals('def', $h->getHex(false, true));
     }
 
 }

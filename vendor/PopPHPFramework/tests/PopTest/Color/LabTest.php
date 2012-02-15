@@ -17,6 +17,7 @@
 namespace PopTest\Color;
 
 use Pop\Loader\Autoloader,
+    Pop\Color\Color,
     Pop\Color\Lab;
 
 // Require the library's autoloader.
@@ -35,7 +36,21 @@ class LabTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(100, $l->getL());
         $this->assertEquals(100, $l->getA());
         $this->assertEquals(100, $l->getB());
+    }
 
+    public function testConstructorOutOfRange()
+    {
+        $this->setExpectedException('Pop\\Color\\Exception');
+        $l = new Lab(120, 150, 150);
+    }
+
+    public function testGetLab()
+    {
+        $l = new Lab(100, 100, 100);
+        $this->assertEquals('100,100,100', (string)$l);
+        $this->assertEquals('100,100,100', $l->getLab(Color::STRING));
+        $this->assertEquals(array(100, 100, 100), $l->getLab(Color::NUM_ARRAY));
+        $this->assertEquals(array('l' => 100, 'a' => 100, 'b' => 100), $l->getLab());
     }
 
 }

@@ -16,6 +16,8 @@
 
 namespace PopTest\Code;
 
+use Pop\Code\DocblockGenerator;
+
 use Pop\Loader\Autoloader,
     Pop\Code\PropertyGenerator;
 
@@ -54,11 +56,69 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('protected', $p->getVisibility());
     }
 
+    public function testSetAndGetName()
+    {
+        $p = PropertyGenerator::factory('testProp', 'string', 123);
+        $p->setName('newTestProp');
+        $this->assertEquals('newTestProp', $p->getName());
+    }
+
     public function testGetNameAndValue()
     {
         $p = PropertyGenerator::factory('testProp', 'string', 123);
-        $this->assertEquals('testProp', $p->getName());
-        $this->assertEquals(123, $p->getValue());
+        $p->setValue(456);
+        $this->assertEquals(456, $p->getValue());
+    }
+
+    public function testSetAndGetDesc()
+    {
+        $p = PropertyGenerator::factory('testProp', 'string', 123);
+        $p->setDesc('This is the desc.');
+        $p->setDesc('This is the new desc.');
+        $this->assertEquals('This is the new desc.', $p->getDesc());
+        $this->assertInstanceOf('Pop\\Code\\DocblockGenerator', $p->getDocblock());
+    }
+
+    public function testSetAndGetDocblock()
+    {
+        $p = PropertyGenerator::factory('testProp', 'string', 123);
+        $p->setDocblock(new DocblockGenerator('This is the desc.'));
+        $this->assertEquals('This is the desc.', $p->getDocblock()->getDesc());
+    }
+
+    public function testSetAndGetIndent()
+    {
+        $p = PropertyGenerator::factory('testProp', 'string', 123);
+        $p->setIndent('    ');
+        $this->assertEquals('    ', $p->getIndent());
+    }
+
+    public function testRender()
+    {
+        $p = PropertyGenerator::factory('testProp', 'array', array(0, 1, 2));
+        $this->assertContains('array', $p->render(true));
+        $p = PropertyGenerator::factory('testProp', 'array', array('prop1' => 1, 'prop2' => 2));
+        $this->assertContains('array', $p->render(true));
+        $p = PropertyGenerator::factory('testProp', 'int', 0);
+        $this->assertContains('int', $p->render(true));
+        $p = PropertyGenerator::factory('testProp', 'boolean', true);
+        $this->assertContains('boolean', $p->render(true));
+        $p = PropertyGenerator::factory('testProp', 'string', 0, 'const');
+        $this->assertContains('const', $p->render(true));
+        $p = PropertyGenerator::factory('testProp', 'string', 123);
+        $p = PropertyGenerator::factory('testProp', 'array');
+        $p->setStatic(true);
+        $this->assertTrue($p->isStatic());
+
+        $codeStr = (string)$p;
+        $code = $p->render(true);
+
+        ob_start();
+        $p->render();
+        $output = ob_get_clean();
+        $this->assertContains('static', $code);
+        $this->assertContains('static', $codeStr);
+        $this->assertContains('static', $output);
     }
 
 }

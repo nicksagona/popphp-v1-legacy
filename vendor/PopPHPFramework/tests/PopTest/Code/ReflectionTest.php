@@ -41,5 +41,23 @@ class ReflectionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Pop\\Auth', $g->getNamespace()->getNamespace());
     }
 
+    public function testGetCode()
+    {
+        $r = Reflection::factory('Pop\\Auth\\Auth');
+        $this->assertEquals('Pop\\Auth\\Auth', $r->getCode());
+    }
+
+    public function testBuildGenerator()
+    {
+        $r = Reflection::factory('Pop\\File\\File');
+        $r = Reflection::factory('Pop\\Web\\Session');
+        $r = Reflection::factory('Pop\\Dom\\AbstractDom');
+        $this->assertTrue($r->isAbstract());
+        $r = Reflection::factory('Pop\\Form\\Form');
+        $this->assertEquals('Dom', $r->getGenerator()->code()->getParent());
+        $r = Reflection::factory('Pop\\Cache\\File');
+        $this->assertTrue(is_array($r->getInterfaces()));
+    }
+
 }
 

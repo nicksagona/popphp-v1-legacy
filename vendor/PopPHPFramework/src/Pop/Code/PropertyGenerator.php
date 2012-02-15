@@ -384,25 +384,6 @@ class PropertyGenerator
     }
 
     /**
-     * Get the longest key length
-     *
-     * @return int
-     */
-    protected function getKeyLength()
-    {
-        $length = 0;
-        $keys = array_keys($this->value);
-
-        foreach ($keys as $key => $value) {
-            if (strlen($key) > $length) {
-                $length = strlen($key);
-            }
-        }
-
-        return $length;
-    }
-
-    /**
      * Print property
      *
      * @return string

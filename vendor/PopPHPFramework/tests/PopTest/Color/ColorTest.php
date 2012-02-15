@@ -18,6 +18,7 @@ namespace PopTest\Color;
 
 use Pop\Loader\Autoloader,
     Pop\Color\Color,
+    Pop\Color\Cmyk,
     Pop\Color\Rgb;
 
 // Require the library's autoloader.
@@ -29,9 +30,10 @@ Autoloader::factory()->splAutoloadRegister();
 class ColorTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructor()
+    public function testConstructorAndFactory()
     {
         $this->assertInstanceOf('Pop\\Color\\Color', new Color(new Rgb(112, 124, 228)));
+        $this->assertInstanceOf('Pop\\Color\\Color', Color::factory(new Cmyk(20, 40, 60, 80)));
     }
 
     public function testConvert()

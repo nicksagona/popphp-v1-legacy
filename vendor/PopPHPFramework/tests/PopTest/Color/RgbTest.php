@@ -17,6 +17,7 @@
 namespace PopTest\Color;
 
 use Pop\Loader\Autoloader,
+    Pop\Color\Color,
     Pop\Color\Rgb;
 
 // Require the library's autoloader.
@@ -35,6 +36,21 @@ class RgbTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(112, $r->getRed());
         $this->assertEquals(124, $r->getGreen());
         $this->assertEquals(228, $r->getBlue());
+    }
+
+    public function testConstructorOutOfRange()
+    {
+        $this->setExpectedException('Pop\\Color\\Exception');
+        $r = new Rgb(275, 320, 400);
+    }
+
+    public function testGetRgb()
+    {
+        $r = new Rgb(112, 124, 228);
+        $this->assertEquals('112,124,228', (string)$r);
+        $this->assertEquals('112,124,228', $r->getRgb(Color::STRING));
+        $this->assertEquals(array(112, 124, 228), $r->getRgb(Color::NUM_ARRAY));
+        $this->assertEquals(array('r' => 112, 'g' => 124, 'b' => 228), $r->getRgb());
     }
 
 }

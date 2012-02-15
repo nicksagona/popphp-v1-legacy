@@ -78,7 +78,8 @@ class MethodTest extends \PHPUnit_Framework_TestCase
     {
         $m = MethodGenerator::factory('testMethod');
         $m->setDesc('This is the desc.');
-        $this->assertEquals('This is the desc.', $m->getDesc());
+        $m->setDesc('This is the new desc.');
+        $this->assertEquals('This is the new desc.', $m->getDesc());
         $this->assertInstanceOf('Pop\\Code\\DocblockGenerator', $m->getDocblock());
     }
 
@@ -96,6 +97,25 @@ class MethodTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('newTestMethod', $m->getName());
     }
 
+    public function testAddAndGetArguments()
+    {
+        $m = MethodGenerator::factory('testMethod');
+        $m->addArgument('testVar', 123, 'int');
+        $m->addParameter('oneMoreTestVar', 789, 'int');
+        $m->addArguments(array(
+        	array('name' => 'anotherTestVar', 'value' => 456, 'type' => 'int')
+        ));
+        $m->addParameters(array(
+        	array('name' => 'yetAnotherTestVar', 'value' => 987, 'type' => 'int')
+        ));
+        $this->assertTrue(is_array($m->getArguments()));
+        $this->assertTrue(is_array($m->getParameters()));
+        $arg = $m->getArgument('testVar');
+        $par = $m->getParameter('oneMoreTestVar');
+        $this->assertEquals(123, $arg['value']);
+        $this->assertEquals(789, $par['value']);
+    }
+
     public function testSetAndGetBody()
     {
         $m = MethodGenerator::factory('testMethod');
@@ -103,6 +123,26 @@ class MethodTest extends \PHPUnit_Framework_TestCase
         $m->appendToBody('some more body code');
         $m->appendToBody('even more body code', false);
         $this->assertContains('body code', $m->getBody());
+    }
+
+    public function testRender()
+    {
+        $m = MethodGenerator::factory('testMethod');
+        $m->setBody('some body code', true);
+        $m->appendToBody('some more body code');
+        $m->appendToBody('even more body code', false);
+        $m->addArgument('testVar', 123, 'int');
+        $m->addParameter('oneMoreTestVar', 789, 'int');
+
+        $codeStr = (string)$m;
+        $code = $m->render(true);
+
+        ob_start();
+        $m->render();
+        $output = ob_get_clean();
+        $this->assertContains('function testMethod($testVar = 123, $oneMoreTestVar = 789)', $output);
+        $this->assertContains('function testMethod($testVar = 123, $oneMoreTestVar = 789)', $code);
+        $this->assertContains('function testMethod($testVar = 123, $oneMoreTestVar = 789)', $codeStr);
     }
 
 }

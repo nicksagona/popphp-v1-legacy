@@ -75,8 +75,6 @@ class Hex implements ColorInterface
      */
     public function __construct($hex)
     {
-
-
         $hex = (substr($hex, 0, 1) == '#') ? substr($hex, 1) : $hex;
 
         if (strlen($hex) == 3) {
@@ -96,7 +94,7 @@ class Hex implements ColorInterface
         $max = max($dR, $dG, $dB);
         $min = min($dR, $dG, $dB);
 
-        if (($max > 255) || ($min < 0)) {
+        if (!$this->isValid()) {
             throw new Exception('One or more of the color values is out of range.');
         }
 
@@ -181,6 +179,27 @@ class Hex implements ColorInterface
     public function __toString()
     {
         return $this->getHex(true);
+    }
+
+    /**
+     * Method to determine if the hex value is valid.
+     *
+     * @return boolean
+     */
+    protected function isValid()
+    {
+        $valid = true;
+
+        $hexValues = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
+        $hex = str_split($this->hex);
+
+        foreach ($hex as $h) {
+            if (!in_array($h, $hexValues)) {
+                $valid = false;
+            }
+        }
+
+        return $valid;
     }
 
 }

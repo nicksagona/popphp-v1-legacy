@@ -17,6 +17,7 @@
 namespace PopTest\Color;
 
 use Pop\Loader\Autoloader,
+    Pop\Color\Color,
     Pop\Color\Cmyk;
 
 // Require the library's autoloader.
@@ -36,6 +37,21 @@ class CmykTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(40, $c->getMagenta());
         $this->assertEquals(60, $c->getYellow());
         $this->assertEquals(80, $c->getBlack());
+    }
+
+    public function testConstructorOutOfRange()
+    {
+        $this->setExpectedException('Pop\\Color\\Exception');
+        $c = new Cmyk(333, 234, 123, 120);
+    }
+
+    public function testGetCmyk()
+    {
+        $c = new Cmyk(20, 40, 60, 80);
+        $this->assertEquals('20,40,60,80', (string)$c);
+        $this->assertEquals('20,40,60,80', $c->getCmyk(Color::STRING));
+        $this->assertEquals(array(20, 40, 60, 80), $c->getCmyk(Color::NUM_ARRAY));
+        $this->assertEquals(array('c' => 20, 'm' => 40, 'y' => 60, 'k' => 80), $c->getCmyk());
     }
 
 }

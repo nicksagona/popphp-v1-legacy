@@ -17,6 +17,7 @@
 namespace PopTest\Color;
 
 use Pop\Loader\Autoloader,
+    Pop\Color\Color,
     Pop\Color\Hsb;
 
 // Require the library's autoloader.
@@ -35,6 +36,21 @@ class HsbTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(180, $h->getHue());
         $this->assertEquals(50, $h->getSaturation());
         $this->assertEquals(50, $h->getBrightness());
+    }
+
+    public function testConstructorOutOfRange()
+    {
+        $this->setExpectedException('Pop\\Color\\Exception');
+        $h = new Hsb(400, 120, 150);
+    }
+
+    public function testGetHsb()
+    {
+        $h = new Hsb(180, 50, 50);
+        $this->assertEquals('180,50,50', (string)$h);
+        $this->assertEquals('180,50,50', $h->getHsb(Color::STRING));
+        $this->assertEquals(array(180, 50, 50), $h->getHsb(Color::NUM_ARRAY));
+        $this->assertEquals(array('h' => 180, 's' => 50, 'b' => 50), $h->getHsb());
     }
 
 }
