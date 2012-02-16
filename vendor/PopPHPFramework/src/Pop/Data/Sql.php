@@ -37,12 +37,6 @@ use Pop\Filter\String;
 class Sql implements DataInterface
 {
 
-     /**
-     * Constant for SQL values row divide
-     * @var int
-     */
-    const ROWS = 100;
-
     /**
      * Decode the data into PHP.
      *
@@ -56,11 +50,11 @@ class Sql implements DataInterface
         $fields = substr($data, (strpos($data, '(') + 1));
         $fields = substr($fields, 0, strpos($fields, ')'));
         $fields = (string)String::factory($fields)->replace(', ', ',')
-                                                        ->replace('`', '')
-                                                        ->replace('"', '')
-                                                        ->replace("'", "")
-                                                        ->replace('[', '')
-                                                        ->replace(']', '');
+                                                  ->replace('`', '')
+                                                  ->replace('"', '')
+                                                  ->replace("'", "")
+                                                  ->replace('[', '')
+                                                  ->replace(']', '');
 
         $fieldsAry = explode(',', $fields);
 
@@ -135,9 +129,10 @@ class Sql implements DataInterface
      * @param  mixed  $data
      * @param  string $table
      * @param  string $idQuote
+     * @param  int    $divide
      * @return string
      */
-    public static function encode($data, $table = null, $idQuote = null)
+    public static function encode($data, $table = null, $idQuote = null, $divide = 100)
     {
         foreach ($data as $ary) {
             $fields = array_keys($ary);
@@ -155,7 +150,7 @@ class Sql implements DataInterface
 
             $sql .= "(" . implode(', ', $ary) . ")";
 
-            if (($i % self::ROWS) == 0) {
+            if (($i % $divide) == 0) {
                 $sql .= ";\n";
                 if ($i < (count($data))) {
                     $sql .= "INSERT INTO {$idQuote}{$table}{$idQuoteEnd} ({$idQuote}" . implode("{$idQuoteEnd}, {$idQuote}", $fields). "{$idQuoteEnd}) VALUES\n";

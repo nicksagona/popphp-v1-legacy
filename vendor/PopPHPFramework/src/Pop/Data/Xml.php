@@ -84,9 +84,13 @@ class Xml implements DataInterface
         } else {
             foreach($data as $key => $ary) {
                 $table = (null === $table) ? substr($key, 0, strrpos($key, '_')) : $table;
+                if (empty($table)) {
+                    $table = 'row';
+                }
                 $xml .= "    <" . $table . ">\n";
                 foreach ($ary as $k => $v) {
                     $xml .= "        <" . $k . ">" . $v . "</" . $k . ">\n";
+
                 }
                 $xml .= "    </" . $table . ">\n";
             }

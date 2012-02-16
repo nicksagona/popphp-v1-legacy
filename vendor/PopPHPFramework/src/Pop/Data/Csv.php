@@ -111,7 +111,7 @@ class Csv implements DataInterface
         }
 
         foreach ($tempAry as $key => $value) {
-            if (!in_array($key, $omit)) {
+            if (!in_array($value, $omit)) {
                 $v = new String((string)$value);
                 if (strpos($v, $esc) !== false) {
                     $v->replace($esc, $esc . $esc);
