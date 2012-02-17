@@ -125,6 +125,36 @@ class Data
     }
 
     /**
+     * Get the table name
+     *
+     * @return string
+     */
+    public function getTable()
+    {
+        return $this->table;
+    }
+
+    /**
+     * Get the ID quote
+     *
+     * @return string
+     */
+    public function getIdQuote()
+    {
+        return $this->idQuote;
+    }
+
+    /**
+     * Get the PMA flag
+     *
+     * @return boolean
+     */
+    public function getPma()
+    {
+        return $this->pma;
+    }
+
+    /**
      * Set the table name
      *
      * @param  string $table

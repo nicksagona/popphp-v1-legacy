@@ -132,8 +132,13 @@ class Curl
             $output = curl_exec($this->curl);
             return ($output === false) ? $this->showError() : $output;
         // Else, execute the cURL session.
-        } else if (curl_exec($this->curl) === false) {
-            $this->showError();
+        } else {
+            $result = curl_exec($this->curl);
+            if ($result === false) {
+                $this->showError();
+            } else {
+                return $result;
+            }
         }
     }
 

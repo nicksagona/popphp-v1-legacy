@@ -32,9 +32,16 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     {
         $c = new Curl(array(
             CURLOPT_URL    => 'http://www.popphp.org/LICENSE.TXT',
-            CURLOPT_HEADER => false
+            CURLOPT_HEADER => false,
+            CURLOPT_RETURNTRANSFER => false
         ));
         $this->assertInstanceOf('Pop\\Curl\\Curl', $c);
+
+        ob_start();
+        $result = $c->execute();
+        $output = ob_get_clean();
+        $this->assertTrue($result);
+        $this->assertContains('New BSD', $output);
     }
 
     public function testCurl()
@@ -81,6 +88,18 @@ class CurlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://www.popphp.org/version.txt', $info['url']);
         $this->assertEquals('text/plain', $info['content_type']);
         $this->assertTrue(isset($version['version']));
+    }
+
+    public function testCurlData()
+    {
+        $c = new Curl(array(
+            CURLOPT_URL    => 'http://www.popphp.org/version.txt',
+            CURLOPT_HEADER => false,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_WRITEFUNCTION => true
+        ));
+        $c->execute();
+        $this->assertEquals('0.9', trim($c->data));
     }
 
     public function testCurlError()

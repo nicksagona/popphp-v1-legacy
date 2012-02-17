@@ -102,7 +102,7 @@ class Child extends AbstractDom
         $childFirst = (isset($c['childrenFirst']) ? $c['childrenFirst'] : false);
         $indent = (isset($c['indent']) ? $c['indent'] : null);
 
-        $child = new Child($nodeName, $nodeValue, null, $childFirst, $indent);
+        $child = new static($nodeName, $nodeValue, null, $childFirst, $indent);
         if (isset($c['attributes'])) {
             $child->setAttributes($c['attributes']);
         }

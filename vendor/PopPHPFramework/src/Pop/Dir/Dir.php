@@ -60,7 +60,7 @@ class Dir
     protected $rec = false;
 
     /**
-     * Flag to include sub directories.
+     * Flag to include base sub directory listings or just the files.
      * @var boolean
      */
     protected $dirs = true;
@@ -73,6 +73,7 @@ class Dir
      * @param  string $dir
      * @param  boolean $full
      * @param  boolean $rec
+     * @param  boolean $dirs
      * @throws Exception
      * @return void
      */

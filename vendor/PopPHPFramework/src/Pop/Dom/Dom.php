@@ -135,8 +135,8 @@ class Dom extends AbstractDom
         "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\">\n",
         "<?xml version=\"1.0\" encoding=\"[{charset}]\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n",
         "<?xml version=\"1.0\" encoding=\"[{charset}]\"?>\n",
-        "<?xml version=\"1.0\" encoding=\"[{charset}]\"?>\n",
         "<!DOCTYPE html>\n",
+        "<?xml version=\"1.0\" encoding=\"[{charset}]\"?>\n",
         "<?xml version=\"1.0\" encoding=\"[{charset}]\"?>\n"
     );
 
@@ -171,7 +171,7 @@ class Dom extends AbstractDom
      */
     public function getDoctype()
     {
-        return Dom::$doctypes[$this->doctype];
+        return str_replace('[{charset}]', $this->charset, Dom::$doctypes[$this->doctype]);
     }
 
     /**

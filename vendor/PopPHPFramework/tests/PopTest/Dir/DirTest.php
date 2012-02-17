@@ -33,10 +33,42 @@ class DirTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Pop\\Dir\\Dir', new Dir(__DIR__ . '/../tmp'));
     }
 
+    public function testConstructorException()
+    {
+        $this->setExpectedException('UnexpectedValueException');
+        $d = new Dir(__DIR__ . '/../baddir');
+    }
+
     public function testFiles()
     {
-        $d = new Dir(__DIR__ . '/../tmp');
+        $d = new Dir(__DIR__ . '/../tmp/');
+        $this->assertEquals(6, count($d->files));
+        $d = new Dir(__DIR__ . '/../tmp/', true);
+        $this->assertEquals(6, count($d->files));
+        $d = new Dir(__DIR__ . '/../tmp/', true, true);
+        $this->assertEquals(6, count($d->files));
+        $d = new Dir(__DIR__ . '/../tmp/', true, true, true);
         $this->assertEquals(6, count($d->files));
     }
+
+    public function testGetSystemTemp()
+    {
+        $this->assertNotNull(Dir::getSystemTemp());
+        $this->assertContains(DIRECTORY_SEPARATOR, Dir::getSystemTemp());
+    }
+
+    public function testGetUploadTemp()
+    {
+        $this->assertNotNull(Dir::getUploadTemp());
+        $this->assertContains(DIRECTORY_SEPARATOR, Dir::getUploadTemp());
+    }
+
+    public function testMode()
+    {
+        $d = new Dir(__DIR__ . '/../tmp/');
+        $d->setMode(0777);
+        $this->assertTrue(is_numeric($d->getMode()));
+    }
+
 }
 
