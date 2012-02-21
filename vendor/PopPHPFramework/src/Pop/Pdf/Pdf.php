@@ -1351,18 +1351,19 @@ class Pdf extends File
     /**
      * Method to add an image to the PDF.
      *
-     * @param  string    $image
-     * @param  int       $x
-     * @param  int       $y
-     * @param  int|float $scl
+     * @param  string  $image
+     * @param  int     $x
+     * @param  int     $y
+     * @param  mixed   $scl
+     * @param  boolean $preserveRes
      * @throws Exception
      * @return Pop\Pdf\Pdf
      */
-    public function addImage($image, $x, $y, $scl = null)
+    public function addImage($image, $x, $y, $scl = null, $preserveRes = false)
     {
         // Create image parser object
         $i = $this->lastIndex($this->objects) + 1;
-        $imageParser = new Image($image, $x, $y, $i, $scl);
+        $imageParser = new Image($image, $x, $y, $i, $scl, $preserveRes);
 
         $imageObjects = $imageParser->getObjects();
 

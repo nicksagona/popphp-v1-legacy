@@ -1113,11 +1113,8 @@ class Imagick extends AbstractImage
     {
         $type = strtolower($type);
 
-        // Check if the permissions are set correctly.
-        if ((null !== $this->perm['file']) && ($this->perm['file'] != 777)) {
-            throw new Exception('Error: Permission denied.');
         // Check if the requested image type is supported.
-        } else if (!array_key_exists($type, $this->allowed)) {
+        if (!array_key_exists($type, $this->allowed)) {
             throw new Exception('Error: That image type is not supported.');
         // Check if the image is already the requested image type.
         } else if (strtolower($this->ext) == $type) {

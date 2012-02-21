@@ -26,6 +26,7 @@ namespace Pop\Pdf\Parser;
 
 use Pop\Dir\Dir,
     Pop\Image\Gd,
+    Pop\Image\Imagick,
     Pop\Pdf\Object;
 
 /**
@@ -36,8 +37,14 @@ use Pop\Dir\Dir,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-class Image extends Gd
+class Image
 {
+
+    /**
+     * Image object
+     * @var mixed
+     */
+    protected $img = 0;
 
     /**
      * Image X Coordinate
@@ -104,37 +111,51 @@ class Image extends Gd
      *
      * Instantiate a image parser object to be used by Pop_Pdf.
      *
-     * @param  string    $img
-     * @param  int       $x
-     * @param  int       $y
-     * @param  int       $i
-     * @param  int|float $scl
+     * @param  string  $img
+     * @param  int     $x
+     * @param  int     $y
+     * @param  int     $i
+     * @param  mixed   $scl
+     * @param  boolean $preserveRes
      * @return void
      */
-    public function __construct($img, $x, $y, $i, $scl = null)
+    public function __construct($img, $x, $y, $i, $scl = null, $preserveRes = false)
     {
         $this->x = $x;
         $this->y = $y;
         $this->index = $i;
 
-        parent::__construct($img);
+        //$this->img = (Imagick::isImagickInstalled()) ? new Imagick($img) : new Gd($img);
+        //$this->img = new Imagick($img);
+        $this->img = new Gd($img);
 
         // If a scale value is passed, scale the image.
         if (null !== $scl) {
-            $this->scaleImage($scl);
+            if ($preserveRes) {
+                $dims = $this->getScaledDimensions($scl);
+                $imgWidth = $dims['w'];
+                $imgHeight = $dims['h'];
+            } else {
+                $this->scaleImage($scl);
+                $imgWidth = $this->img->getWidth();
+                $imgHeight = $this->img->getHeight();
+            }
+        } else {
+            $imgWidth = $this->img->getWidth();
+            $imgHeight = $this->img->getHeight();
         }
 
         // Set the initial image data and data length.
-        $this->imageData = $this->read();
+        $this->imageData = $this->img->read();
         $this->imageDataLength = strlen($this->imageData);
 
         // If a JPEG, parse the JPEG
-        if ($this->mime == 'image/jpeg') {
+        if ($this->img->getMime() == 'image/jpeg') {
             $this->parseJpeg();
         // Else parse the PNG or GIF.
-        } else if (($this->mime == 'image/png') || ($this->mime == 'image/gif')) {
+        } else if (($this->img->getMime() == 'image/png') || ($this->img->getMime() == 'image/gif')) {
             // If the image is a GIF, convert to a PNG and re-read image data.
-            if ($this->mime == 'image/gif') {
+            if ($this->img->getMime() == 'image/gif') {
                 $this->convertImage();
             }
             $this->parsePng();
@@ -144,7 +165,7 @@ class Image extends Gd
 
         // Define the xobject object and stream.
         $this->xobject = "/I{$this->index} {$this->index} 0 R";
-        $this->stream = "\nq\n" . $this->getWidth() . " 0 0 " . $this->getHeight() . " {$this->x} {$this->y} cm\n/I{$this->index} Do\nQ\n";
+        $this->stream = "\nq\n" . $imgWidth . " 0 0 " . $imgHeight. " {$this->x} {$this->y} cm\n/I{$this->index} Do\nQ\n";
 
         // Image clean-up.
         if ((null !== $this->scaledImage) && file_exists($this->scaledImage)) {
@@ -186,29 +207,73 @@ class Image extends Gd
     }
 
     /**
+     * Method to get scaled dimensions of the image, while preserving the resolution.
+     *
+     * @param mixed $scl
+     * @throws Exception
+     * @return array
+     */
+    protected function getScaledDimensions($scl)
+    {
+        // Scale or resize the image
+        if (is_array($scl) && (isset($scl['w']) || isset($scl['h']))) {
+            if (isset($scl['w'])) {
+                $wid = $scl['w'];
+                $scale = $wid / $this->img->getWidth();
+                $hgt = round($this->img->getHeight() * $scale);
+            } else if (isset($scl['h'])) {
+                $hgt = $scl['h'];
+                $scale = $hgt / $this->img->getHeight();
+                $wid = round($this->img->getWidth() * $scale);
+            }
+        } else if (is_float($scl)) {
+            $wid = round($this->img->getWidth() * $scl);
+            $hgt = round($this->img->getHeight() * $scl);
+        } else if (is_int($scl)) {
+            $scale = ($this->img->getWidth() > $this->img->getHeight()) ? ($scl / $this->img->getWidth()) : ($scl / $this->img->getHeight());
+            $wid = round($this->img->getWidth() * $scale);
+            $hgt = round($this->img->getHeight() * $scale);
+        } else {
+            throw new Exception('Error: The image scale value is not valid.');
+        }
+
+        $dims = array('w' => $wid, 'h' => $hgt);
+
+        return $dims;
+    }
+
+    /**
      * Method to scale or resize the image.
      *
-     * @param $int|float $scl
+     * @param mixed $scl
+     * @throws Exception
      * @return void
      */
     protected function scaleImage($scl)
     {
         // Define the temp scaled image.
-        $this->scaledImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->filename . '_' . time() . '.' . $this->ext;
+        $this->scaledImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->img->filename . '_' . time() . '.' . $this->img->ext;
 
         // Scale or resize the image
-        if (is_float($scl)) {
-            $this->scale($scl);
+        if (is_array($scl) && (isset($scl['w']) || isset($scl['h']))) {
+            if (isset($scl['w'])) {
+                $this->img->resizeToWidth($scl['w']);
+            } else if (isset($scl['h'])) {
+                $this->img->resizeToHeight($scl['h']);
+            }
+        } else if (is_float($scl)) {
+            $this->img->scale($scl);
+        } else if (is_int($scl)) {
+            $this->img->resize($scl);
         } else {
-            $this->resize($scl);
+            throw new Exception('Error: The image scale value is not valid.');
         }
 
         // Save and clear the output buffer.
-        $this->save(100, $this->scaledImage);
-        $this->output = null;
+        $this->img->save($this->scaledImage);
 
         // Re-instantiate the newly scaled image object.
-        parent::__construct($this->scaledImage);
+        $this->img = (Imagick::isImagickInstalled()) ? new Imagick($this->scaledImage) : new Gd($this->scaledImage);
     }
 
     /**
@@ -219,15 +284,14 @@ class Image extends Gd
     protected function convertImage()
     {
         // Define the temp converted image.
-        $this->convertedImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->filename . '_' . time() . '.png';
+        $this->convertedImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->img->filename . '_' . time() . '.png';
 
         // Convert the GIF to PNG, save and clear the output buffer.
-        $this->convert('png')->save(null, $this->convertedImage);
-        $this->output = null;
+        $this->img->convert('png')->save($this->convertedImage);
 
         // Re-instantiate the newly converted image object and re-read the image data.
-        parent::__construct($this->convertedImage);
-        $this->imageData = $this->read();
+        $this->img = (Imagick::isImagickInstalled()) ? new Imagick($this->convertedImage) : new Gd($this->convertedImage);
+        $this->imageData = $this->img->read();
     }
 
     /**
@@ -238,8 +302,8 @@ class Image extends Gd
     protected function parseJpeg()
     {
         // Add the image to the _objects array.
-        $colorspace = ($this->getColorMode() == 'CMYK') ? "/DeviceCMYK\n    /Decode [1 0 1 0 1 0 1 0]" : "/Device" . $this->getColorMode();
-        $this->objects[$this->index] = new Object("{$this->index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->getWidth() . "\n    /Height " . $this->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent 8\n    /Filter /DCTDecode\n    /Length {$this->imageDataLength}\n>>\nstream\n{$this->imageData}\nendstream\nendobj\n");
+        $colorspace = ($this->img->getColorMode() == 'CMYK') ? "/DeviceCMYK\n    /Decode [1 0 1 0 1 0 1 0]" : "/Device" . $this->img->getColorMode();
+        $this->objects[$this->index] = new Object("{$this->index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->img->getWidth() . "\n    /Height " . $this->img->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent 8\n    /Filter /DCTDecode\n    /Length {$this->imageDataLength}\n>>\nstream\n{$this->imageData}\nendstream\nendobj\n");
     }
 
     /**
@@ -257,18 +321,18 @@ class Image extends Gd
         $mask = null;
 
         // Make sure the PNG does not contain a true alpha channel.
-        if ($this->alpha) {
+        if ($this->img->hasAlpha()) {
             throw new Exception('Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.');
         }
 
         // Determine the PNG colorspace.
-        if ($this->getColorMode() == 'Gray') {
+        if ($this->img->getColorMode() == 'Gray') {
             $colorspace = '/DeviceGray';
             $num_of_colors = 1;
-        } else if ($this->getColorMode() == 'RGB') {
+        } else if ($this->img->getColorMode() == 'RGB') {
             $colorspace = '/DeviceRGB';
             $num_of_colors = 3;
-        } else if ($this->getColorMode() == 'Indexed') {
+        } else if ($this->img->getColorMode() == 'Indexed') {
             $colorspace = '/Indexed';
             $num_of_colors = 1;
 
@@ -287,7 +351,7 @@ class Image extends Gd
                 }
             }
 
-            $colorspace = "[/Indexed /DeviceRGB " . ($this->colorTotal() - 1) . " " . ($this->index + 1) . " 0 R]";
+            $colorspace = "[/Indexed /DeviceRGB " . ($this->img->colorTotal() - 1) . " " . ($this->index + 1) . " 0 R]";
         }
 
         // Parse and set the PNG image data and data length.
@@ -296,7 +360,7 @@ class Image extends Gd
 
         // Add the image to the _objects array.
 
-        $this->objects[$this->index] = new Object("{$this->index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->getWidth() . "\n    /Height " . $this->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent " . $this->getDepth() . "\n    /Filter /FlateDecode\n    /DecodeParms <</Predictor 15 /Colors {$num_of_colors} /BitsPerComponent " . $this->getDepth() . " /Columns " . $this->getWidth() . ">>\n{$mask}    /Length {$this->imageDataLength}\n>>\nstream\n{$IDAT}\nendstream\nendobj\n");
+        $this->objects[$this->index] = new Object("{$this->index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->img->getWidth() . "\n    /Height " . $this->img->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent " . $this->img->getDepth() . "\n    /Filter /FlateDecode\n    /DecodeParms <</Predictor 15 /Colors {$num_of_colors} /BitsPerComponent " . $this->img->getDepth() . " /Columns " . $this->img->getWidth() . ">>\n{$mask}    /Length {$this->imageDataLength}\n>>\nstream\n{$IDAT}\nendstream\nendobj\n");
 
         // If it exists, add the image palette to the _objects array.
         if ($PLTE != '') {
