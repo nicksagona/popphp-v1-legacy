@@ -17,6 +17,7 @@
 namespace PopTest\Feed;
 
 use Pop\Loader\Autoloader,
+    Pop\Dom\Dom,
     Pop\Feed\Writer;
 
 // Require the library's autoloader.
@@ -50,6 +51,54 @@ class WriterTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertInstanceOf('Pop\\Feed\\Writer', new Writer($headers, array($entry)));
+    }
+
+    public function testAtom()
+    {
+        $headers = array(
+            'title'     => 'Test Feed Title',
+            'subtitle'  => 'Test Feed Description',
+            'link'      => 'http://www.testfeed.com/',
+            'language'  => 'en',
+            'updated'   => '2010-01-12 13:01:32',
+            'generator' => 'http://www.website.com/',
+            'author'    => 'Some Editor'
+        );
+
+        $entry = array(
+            'title'    => 'Entry Title 1',
+            'link'     => 'http://www.testfeed.com/entry1',
+            'comments' => 'http://www.testfeed.com/entry1#comments',
+            'author'   => 'Entry Author 1',
+            'updated'  => '2010-01-13 14:12:24',
+            'summary'  => 'Entry Desc 1'
+        );
+        $feed = new Writer($headers, array($entry), Dom::ATOM);
+        $this->assertContains('http://www.w3.org/2005/Atom', $feed->render(true));
+    }
+
+    public function testException()
+    {
+        $headers = array(
+            'title'     => 'Test Feed Title',
+            'subtitle'  => 'Test Feed Description',
+            'link'      => 'http://www.testfeed.com/',
+            'language'  => 'en',
+            'updated'   => '2010-01-12 13:01:32',
+            'generator' => 'http://www.website.com/',
+            'author'    => 'Some Editor'
+        );
+
+        $entry = array(
+            'title'    => 'Entry Title 1',
+            'link'     => 'http://www.testfeed.com/entry1',
+            'comments' => 'http://www.testfeed.com/entry1#comments',
+            'author'   => 'Entry Author 1',
+            'updated'  => '2010-01-13 14:12:24',
+            'summary'  => 'Entry Desc 1'
+        );
+        $this->setExpectedException('Pop\Feed\Exception');
+        $feed = new Writer($headers, array($entry), 25);
     }
 
 }

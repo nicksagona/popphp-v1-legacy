@@ -31,6 +31,46 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $this->assertInstanceOf('Pop\\Feed\\Reader', new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4));
+        $this->assertInstanceOf('Pop\\Feed\\Reader', new Reader('http://vimeo.com/tag:mostviewed/rss', 4));
+    }
+
+    public function testException()
+    {
+        $this->setExpectedException('Pop\Feed\Exception');
+        $feed = new Reader('http://blahblahblah/', 4);
+    }
+
+    public function testSetAndGetTemplate()
+    {
+        $feed = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
+        $feed->setTemplate('This is a template');
+        $this->assertEquals('This is a template', $feed->getTemplate());
+    }
+
+    public function testSetAndGetDatFormat()
+    {
+        $feed = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
+        $feed->setDateFormat('m/d/Y');
+        $this->assertEquals('m/d/Y', $feed->getDateFormat());
+    }
+
+    public function testFeedType()
+    {
+        $feed = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
+        $this->assertEquals('atom', $feed->getFeedType());
+    }
+
+    public function testRender()
+    {
+        $tmpl = '        <div class="feedDiv">\n            <a href="[{link}]" target="_blank">[{title}]</a><br />\n            <strong>[{pubDate}]</strong> ([{timeElapsed}])<br /><br />\n        </div>\n';
+        $feed = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
+        $feed->setTemplate($tmpl);
+        $code = $feed->render(true);
+        ob_start();
+        $feed->render();
+        $output = ob_get_clean();
+        $this->assertContains('<a href="http://www.youtube.com/', $code);
+        $this->assertContains('<a href="http://www.youtube.com/', $output);
     }
 
 }
