@@ -177,7 +177,7 @@ class Imagick extends AbstractImage
             $imagickFile = $img;
         }
 
-        parent::__construct($img, $types);
+        parent::__construct($img, $w, $h, $color, $types);
 
         // Check to see if Imagick is installed.
         if (!self::isImagickInstalled()) {

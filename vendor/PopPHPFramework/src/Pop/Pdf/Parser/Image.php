@@ -125,7 +125,15 @@ class Image
         $this->y = $y;
         $this->index = $i;
 
-        $this->img = (Imagick::isImagickInstalled()) ? new Imagick($img) : new Gd($img);
+        $allowed = array(
+            'gif'  => 'image/gif',
+            'jpe'  => 'image/jpeg',
+            'jpg'  => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'png'  => 'image/png'
+        );
+
+        $this->img = (Imagick::isImagickInstalled()) ? new Imagick($img, null, null, null, $allowed) : new Gd($img);
 
         // If a scale value is passed, scale the image.
         if (null !== $scl) {

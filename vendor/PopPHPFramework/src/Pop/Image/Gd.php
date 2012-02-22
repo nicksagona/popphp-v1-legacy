@@ -82,7 +82,7 @@ class Gd extends AbstractImage
      */
     public function __construct($img, $w = null, $h = null, ColorInterface $color = null, $types = null)
     {
-        parent::__construct($img, $types);
+        parent::__construct($img, $w, $h, $color, $types);
 
         // Check to see if GD is installed.
         if (!self::isGdInstalled()) {

@@ -143,12 +143,12 @@ abstract class AbstractImage extends File
      * @param  string     $img
      * @param  int|string $w
      * @param  int|string $h
-     * @param  array      $rgb
+     * @param  mixed      $color
      * @param  array      $types
      * @throws Exception
      * @return void
      */
-    public function __construct($img, $w = null, $h = null, $rgb = null, $types = null)
+    public function __construct($img, $w = null, $h = null, ColorInterface $rgb = null, $types = null)
     {
         parent::__construct($img, $types);
     }
