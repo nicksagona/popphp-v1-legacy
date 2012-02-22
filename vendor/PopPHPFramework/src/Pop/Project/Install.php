@@ -289,7 +289,6 @@ class Install
         echo ' -m --map folder file.php       ' . Locale::factory()->__('Create a class map file from the source folder and save to the output file') . PHP_EOL;
         echo ' -r --reconfig projectfolder    ' . Locale::factory()->__('Reconfigure the project based on the new location of the project') . PHP_EOL;
         echo ' -s --show                      ' . Locale::factory()->__('Show project install instructions') . PHP_EOL;
-        echo ' -t --test folder               ' . Locale::factory()->__('Run the unit tests from a folder') . PHP_EOL;
         echo ' -v --version                   ' . Locale::factory()->__('Display version of Pop PHP Framework and latest available') . PHP_EOL . PHP_EOL;
     }
 
