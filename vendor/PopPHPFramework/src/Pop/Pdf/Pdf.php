@@ -1359,7 +1359,7 @@ class Pdf extends File
      * @throws Exception
      * @return Pop\Pdf\Pdf
      */
-    public function addImage($image, $x, $y, $scl = null, $preserveRes = false)
+    public function addImage($image, $x, $y, $scl = null, $preserveRes = true)
     {
         // Create image parser object
         $i = $this->lastIndex($this->objects) + 1;

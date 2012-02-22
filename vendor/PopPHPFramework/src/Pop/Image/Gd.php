@@ -978,7 +978,6 @@ class Gd extends AbstractImage
             // Redefine the image object properties with the new values.
             $this->fullpath = $this->dir . $this->filename . '.' . $this->ext;
             $this->basename = basename($this->fullpath);
-
         // Else, open a new true color image.
         } else {
             if ($type == 'gif') {
@@ -1211,7 +1210,11 @@ class Gd extends AbstractImage
                 imagegif($new, $img);
                 break;
             case 'image/png':
-                imagepng($new, $img, $q);
+                if (null !== $q) {
+                    imagepng($new, $img, $q);
+                } else {
+                    imagepng($new, $img);
+                }
                 break;
             case 'image/jpeg':
                 imagejpeg($new, $img, $q);

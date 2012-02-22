@@ -125,9 +125,7 @@ class Image
         $this->y = $y;
         $this->index = $i;
 
-        //$this->img = (Imagick::isImagickInstalled()) ? new Imagick($img) : new Gd($img);
-        //$this->img = new Imagick($img);
-        $this->img = new Gd($img);
+        $this->img = (Imagick::isImagickInstalled()) ? new Imagick($img) : new Gd($img);
 
         // If a scale value is passed, scale the image.
         if (null !== $scl) {
@@ -270,6 +268,9 @@ class Image
         }
 
         // Save and clear the output buffer.
+        if (($this->img->getMime() == 'image/jpeg') || (($this->img->getMime() == 'image/png') && ($this->img->getColorMode() == 'RGB'))) {
+            $this->img->setQuality(90);
+        }
         $this->img->save($this->scaledImage);
 
         // Re-instantiate the newly scaled image object.
@@ -317,57 +318,76 @@ class Image
         // Define some PNG image-specific variables.
         $PLTE = null;
         $TRNS = null;
-        $mask_index = null;
+        $maskIndex = null;
         $mask = null;
-
-        // Make sure the PNG does not contain a true alpha channel.
-        if ($this->img->hasAlpha()) {
-            throw new Exception('Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.');
-        }
 
         // Determine the PNG colorspace.
         if ($this->img->getColorMode() == 'Gray') {
             $colorspace = '/DeviceGray';
-            $num_of_colors = 1;
+            $numOfColors = 1;
         } else if ($this->img->getColorMode() == 'RGB') {
             $colorspace = '/DeviceRGB';
-            $num_of_colors = 3;
+            $numOfColors = 3;
         } else if ($this->img->getColorMode() == 'Indexed') {
             $colorspace = '/Indexed';
-            $num_of_colors = 1;
+            $numOfColors = 1;
 
             // If the PNG is indexed, parse and read the palette and any transparencies that might exist.
             if (strpos($this->imageData, 'PLTE') !== false) {
+                $lenByte = substr($this->imageData, (strpos($this->imageData, "PLTE") - 4), 4);
+                $palLength = $this->readInt($lenByte);
+                $PLTE = substr($this->imageData, (strpos($this->imageData, "PLTE") + 4), $palLength);
+                $mask = null;
+
                 // If a transparency exists, parse it and set the mask accordindly, along with the palette.
                 if (strpos($this->imageData, 'tRNS') !== false) {
-                    $PLTE = substr($this->imageData, (strpos($this->imageData, "PLTE") + 4), (strpos($this->imageData, "tRNS") - strpos($this->imageData, "PLTE") - 4));
-                    $TRNS = substr($this->imageData, (strpos($this->imageData, "tRNS") + 4), (strpos($this->imageData, "IDAT") - strpos($this->imageData, "tRNS") - 4));
-                    $mask_index = strpos($TRNS, chr(0));
-                    $mask = "    /Mask [" . $mask_index . " " . $mask_index . "]\n";
-                // Else, just set the palette.
-                } else {
-                    $PLTE = substr($this->imageData, (strpos($this->imageData, "PLTE") + 4), (strpos($this->imageData, "IDAT") - strpos($this->imageData, "PLTE") - 4));
-                    $mask = '';
+                    $lenByte = substr($this->imageData, (strpos($this->imageData, "tRNS") - 4), 4);
+                    $TRNS = substr($this->imageData, (strpos($this->imageData, "tRNS") + 4), $this->readInt($lenByte));
+                    $maskIndex = strpos($TRNS, chr(0));
+                    $mask = "    /Mask [" . $maskIndex . " " . $maskIndex . "]\n";
                 }
             }
 
             $colorspace = "[/Indexed /DeviceRGB " . ($this->img->colorTotal() - 1) . " " . ($this->index + 1) . " 0 R]";
         }
 
+        // Parse header data, bits and color type
+        $lenByte = substr($this->imageData, (strpos($this->imageData, "IHDR") - 4), 4);
+        $header = substr($this->imageData, (strpos($this->imageData, "IHDR") + 4), $this->readInt($lenByte));
+        $bits = ord(substr($header, 8, 1));
+        $colorType = ord(substr($header, 9, 1));
+
+        // Make sure the PNG does not contain a true alpha channel.
+        if (($colorType >= 4) && ((bits == 8) || ($bits == 16))) {
+            throw new Exception('Error: PNG alpha channels are not supported. Only 8-bit transparent PNG images are supported.');
+        }
+
         // Parse and set the PNG image data and data length.
-        $IDAT = substr($this->imageData, (strpos($this->imageData, "IDAT") + 4), (strpos($this->imageData, "IEND") - strpos($this->imageData, "IDAT") - 4));
-        $this->imageDataLength = strlen($IDAT);
+        $lenByte = substr($this->imageData, (strpos($this->imageData, "IDAT") - 4), 4);
+        $this->imageDataLength = $this->readInt($lenByte);
+        $IDAT = substr($this->imageData, (strpos($this->imageData, "IDAT") + 4), $this->imageDataLength);
 
         // Add the image to the _objects array.
-
-        $this->objects[$this->index] = new Object("{$this->index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->img->getWidth() . "\n    /Height " . $this->img->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent " . $this->img->getDepth() . "\n    /Filter /FlateDecode\n    /DecodeParms <</Predictor 15 /Colors {$num_of_colors} /BitsPerComponent " . $this->img->getDepth() . " /Columns " . $this->img->getWidth() . ">>\n{$mask}    /Length {$this->imageDataLength}\n>>\nstream\n{$IDAT}\nendstream\nendobj\n");
+        $this->objects[$this->index] = new Object("{$this->index} 0 obj\n<<\n    /Type /XObject\n    /Subtype /Image\n    /Width " . $this->img->getWidth() . "\n    /Height " . $this->img->getHeight() . "\n    /ColorSpace {$colorspace}\n    /BitsPerComponent " . $bits . "\n    /Filter /FlateDecode\n    /DecodeParms <</Predictor 15 /Colors {$numOfColors} /BitsPerComponent " . $bits . " /Columns " . $this->img->getWidth() . ">>\n{$mask}    /Length {$this->imageDataLength}\n>>\nstream\n{$IDAT}\nendstream\nendobj\n");
 
         // If it exists, add the image palette to the _objects array.
         if ($PLTE != '') {
             $j = $this->index + 1;
-            $this->objects[$j] = new Object("{$j} 0 obj\n<<\n    /Length " . strlen($PLTE) . "\n>>\nstream\n{$PLTE}\nendstream\nendobj\n");
+            $this->objects[$j] = new Object("{$j} 0 obj\n<<\n    /Length " . $palLength . "\n>>\nstream\n{$PLTE}\nendstream\nendobj\n");
             $this->objects[$j]->setPalette(true);
         }
+    }
+
+    /**
+     * Method to read an unsigned integer.
+     *
+     * @param  string $data
+     * @return int
+     */
+    protected function readInt($data)
+    {
+        $ary = unpack('Nlength', $data);
+        return $ary['length'];
     }
 
 }

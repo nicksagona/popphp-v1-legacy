@@ -127,7 +127,7 @@ class Object
         $stream = (null !== $this->stream) ? "stream" . $this->stream . "endstream\n" : '';
 
         // Set up the Length definition.
-        if ((strpos($this->def, '/Length ') !== false) && (strpos($this->def, '/Length1') === false)) {
+        if ((strpos($this->def, '/Length ') !== false) && (strpos($this->def, '/Length1') === false) && (strpos($this->def, '/Image') === false)) {
             preg_match('/\/Length\s\d*/', $this->def, $matches);
             if (isset($matches[0])) {
                 $len = $matches[0];
