@@ -1397,11 +1397,13 @@ class Pdf extends File
 
             $co_index = $this->getContentObject();
             $this->objects[$co_index]->setStream($imageParser->getStream());
-            $this->images[$image] = array(
-                'index' => $i,
-                'origW' => $imageParser->getOrigW(),
-            	'origH' => $imageParser->getOrigH()
-            );
+            if ($preserveRes) {
+                $this->images[$image] = array(
+                    'index' => $i,
+                    'origW' => $imageParser->getOrigW(),
+                	'origH' => $imageParser->getOrigH()
+                );
+            }
         }
 
         return $this;
