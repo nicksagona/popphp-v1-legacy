@@ -112,7 +112,7 @@ class Pdf extends File
      * Standard PDF fonts with their approximate character width and height factors.
      * @var array
      */
-    protected $standard_fonts = array(
+    protected $standardFonts = array(
         'Arial'                    => array('width_factor' => 0.5, 'height_factor' => 1),
         'Arial,Italic'             => array('width_factor' => 0.5, 'height_factor' => 1.12),
         'Arial,Bold'               => array('width_factor' => 0.55, 'height_factor' => 1.12),
@@ -146,6 +146,12 @@ class Pdf extends File
      * @var string
      */
     protected $lastFontName = null;
+
+    /**
+     * Array of images added to the PDF
+     * @var string
+     */
+    protected $images = array();
 
     /**
      * Stroke ON or OFF flag
@@ -713,7 +719,7 @@ class Pdf extends File
         // Else, use a standard font.
         } else {
             // Check to make sure the font is a standard PDF font.
-            if (!array_key_exists($font, $this->standard_fonts)) {
+            if (!array_key_exists($font, $this->standardFonts)) {
                 throw new Exception('Error: That font is not contained within the standard PDF fonts.');
             }
             // Set the font index.
@@ -785,15 +791,15 @@ class Pdf extends File
      */
     public function getStringSize($str, $font, $sz)
     {
-        if (!array_key_exists($font, $this->standard_fonts)) {
+        if (!array_key_exists($font, $this->standardFonts)) {
             throw new Exception('Error: That font is not contained within the standard PDF fonts.');
         }
 
         // Calculate the approximate width, height and offset baseline values of the string at the certain font.
         $size = array();
 
-        $size['width'] = round(($sz * $this->standard_fonts[$font]['width_factor']) * strlen($str));
-        $size['height'] = round($sz * $this->standard_fonts[$font]['height_factor']);
+        $size['width'] = round(($sz * $this->standardFonts[$font]['width_factor']) * strlen($str));
+        $size['height'] = round($sz * $this->standardFonts[$font]['height_factor']);
         $size['baseline'] = round($sz / 3);
 
         return $size;
@@ -1361,21 +1367,42 @@ class Pdf extends File
      */
     public function addImage($image, $x, $y, $scl = null, $preserveRes = true)
     {
-        // Create image parser object
-        $i = $this->lastIndex($this->objects) + 1;
-        $imageParser = new Image($image, $x, $y, $i, $scl, $preserveRes);
+        if (array_key_exists($image, $this->images) && ($preserveRes)) {
+            $i = $this->lastIndex($this->objects) + 1;
+            $co_index = $this->images[$image]['index'];
+            if (null !== $scl) {
+                $dims = Image::getScaledDimensions($scl, $this->images[$image]['origW'], $this->images[$image]['origH']);
+                $imgWidth = $dims['w'];
+                $imgHeight = $dims['h'];
+            } else {
+                $imgWidth = $this->images[$image]['origW'];
+                $imgHeight = $this->images[$image]['origH'];
+            }
+            $this->objects[$i] = new Object($i);
+            $this->objects[$i]->setStream("\nq\n" . $imgWidth . " 0 0 " . $imgHeight. " {$x} {$y} cm\n/I{$co_index} Do\nQ\n");
+            $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->content[] = $i;
+        } else {
+            // Create image parser object
+            $i = $this->lastIndex($this->objects) + 1;
+            $imageParser = new Image($image, $x, $y, $i, $scl, $preserveRes);
 
-        $imageObjects = $imageParser->getObjects();
+            $imageObjects = $imageParser->getObjects();
 
-        foreach ($imageObjects as $key => $value) {
-            $this->objects[$key] = $value;
+            foreach ($imageObjects as $key => $value) {
+                $this->objects[$key] = $value;
+            }
+
+            // Add the image to the current page's xobject array and content stream.
+            $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->xobjs[] = $imageParser->getXObject();
+
+            $co_index = $this->getContentObject();
+            $this->objects[$co_index]->setStream($imageParser->getStream());
+            $this->images[$image] = array(
+                'index' => $i,
+                'origW' => $imageParser->getOrigW(),
+            	'origH' => $imageParser->getOrigH()
+            );
         }
-
-        // Add the image to the current page's xobject array and content stream.
-        $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->xobjs[] = $imageParser->getXObject();
-
-        $co_index = $this->getContentObject();
-        $this->objects[$co_index]->setStream($imageParser->getStream());
 
         return $this;
     }

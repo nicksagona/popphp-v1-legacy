@@ -89,6 +89,18 @@ class Image
     protected $imageData = null;
 
     /**
+     * Image original width
+     * @var int
+     */
+    protected $origW = null;
+
+    /**
+     * Image original height
+     * @var int
+     */
+    protected $origH = null;
+
+    /**
      * Image data length
      * @var int
      */
@@ -138,7 +150,7 @@ class Image
         // If a scale value is passed, scale the image.
         if (null !== $scl) {
             if ($preserveRes) {
-                $dims = $this->getScaledDimensions($scl);
+                $dims = self::getScaledDimensions($scl, $this->img->getWidth(), $this->img->getHeight());
                 $imgWidth = $dims['w'];
                 $imgHeight = $dims['h'];
             } else {
@@ -168,6 +180,10 @@ class Image
         } else {
             throw new Exception('Error: That image type is not supported. Only GIF, JPG and PNG image types are supported.');
         }
+
+        // Get the image original dimensions
+        $this->origW = $this->img->getWidth();
+        $this->origH = $this->img->getHeight();
 
         // Define the xobject object and stream.
         $this->xobject = "/I{$this->index} {$this->index} 0 R";
@@ -213,32 +229,52 @@ class Image
     }
 
     /**
+     * Method to get the original image width.
+     *
+     * @return string
+     */
+    public function getOrigW()
+    {
+        return $this->origW;
+    }
+
+    /**
+     * Method to get the original image height.
+     *
+     * @return string
+     */
+    public function getOrigH()
+    {
+        return $this->origH;
+    }
+
+    /**
      * Method to get scaled dimensions of the image, while preserving the resolution.
      *
      * @param mixed $scl
      * @throws Exception
      * @return array
      */
-    protected function getScaledDimensions($scl)
+    public static function getScaledDimensions($scl, $origW, $origH)
     {
         // Scale or resize the image
         if (is_array($scl) && (isset($scl['w']) || isset($scl['h']))) {
             if (isset($scl['w'])) {
                 $wid = $scl['w'];
-                $scale = $wid / $this->img->getWidth();
-                $hgt = round($this->img->getHeight() * $scale);
+                $scale = $wid / $origW;
+                $hgt = round($origH * $scale);
             } else if (isset($scl['h'])) {
                 $hgt = $scl['h'];
-                $scale = $hgt / $this->img->getHeight();
-                $wid = round($this->img->getWidth() * $scale);
+                $scale = $hgt / $origH;
+                $wid = round($origW * $scale);
             }
         } else if (is_float($scl)) {
-            $wid = round($this->img->getWidth() * $scl);
-            $hgt = round($this->img->getHeight() * $scl);
+            $wid = round($origW * $scl);
+            $hgt = round($origH * $scl);
         } else if (is_int($scl)) {
-            $scale = ($this->img->getWidth() > $this->img->getHeight()) ? ($scl / $this->img->getWidth()) : ($scl / $this->img->getHeight());
-            $wid = round($this->img->getWidth() * $scale);
-            $hgt = round($this->img->getHeight() * $scale);
+            $scale = ($origW > $origH) ? ($scl / $origW) : ($scl / $origH);
+            $wid = round($origW * $scale);
+            $hgt = round($origH * $scale);
         } else {
             throw new Exception('Error: The image scale value is not valid.');
         }

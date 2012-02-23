@@ -80,6 +80,12 @@ class Object
     protected $isPalette = false;
 
     /**
+     * XObject object property
+     * @var boolean
+     */
+    protected $isXObject = false;
+
+    /**
      * Constructor
      *
      * Instantiate a PDF object.
@@ -108,6 +114,10 @@ class Object
                 $this->setStream($str);
             } else {
                 $this->define($s);
+            }
+
+            if (stripos($this->def, '/xobject') !== false) {
+                $this->isXObject = true;
             }
 
             $this->data = "\n[{obj_index}] 0 obj\n[{obj_def}]\n[{obj_stream}]\nendobj\n\n";
@@ -163,6 +173,9 @@ class Object
     public function define($str)
     {
         $this->def = $str;
+        if (stripos($this->def, '/xobject') !== false) {
+            $this->isXObject = true;
+        }
     }
 
     /**
@@ -240,6 +253,16 @@ class Object
     public function isPalette()
     {
         return $this->isPalette;
+    }
+
+    /**
+     * Method to get whether the PDF object is an XObject.
+     *
+     * @return boolean
+     */
+    public function isXObject()
+    {
+        return $this->isXObject;
     }
 
     /**
