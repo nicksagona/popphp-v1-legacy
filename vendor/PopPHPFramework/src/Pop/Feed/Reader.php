@@ -146,8 +146,6 @@ class Reader
                     }
                 } else if (strpos($url, 'vimeo') !== false) {
                     $this->feedSrc = 'vimeo';
-                } else if (strpos($url, 'viddler') !== false) {
-                    $this->feedSrc = 'viddler';
                 } else {
                     $this->youtube = false;
                 }
@@ -357,32 +355,6 @@ class Reader
                 );
             }
 
-        // Else, if the feed type is Viddler, parse accordingly.
-        } else if ($this->feedSrc == 'viddler') {
-            $this->title = (string)$this->xml->channel->title;
-            $this->url = (string)$this->xml->channel->link;
-            $this->desc = (string)$this->xml->channel->description;
-            $this->date = (string)$this->xml->channel->pubDate;
-            $this->generator = (string)$this->xml->channel->generator;
-            $this->editor = (string)$this->xml->channel->generator;
-
-            foreach ($this->xml->channel->item as $value) {
-                $id = substr($value->enclosure->attributes()->url, 0, -1);
-                $id = substr($id, (strrpos($id, '/') + 1));
-                $image = substr($value->description, (strpos($value->description, '<img src="') + 10));
-                $image = substr($image, 0, strpos($image, '"'));
-
-                // Add the values to the associative array.
-                $this->items[] = array(
-                    'title'       => (string)$value->title,
-                    'description' => (string)$value->description,
-                    'link'        => (string)$value->link,
-                    'pubDate'     => (string)$value->pubDate,
-                    'timeElapsed' => $this->calcElapsedTime($value->pubDate),
-                    'id'          => $id,
-                    'image'       => $image
-                );
-            }
         // Else, parse as a regular Atom feed.
         } else if ($this->feedType == 'atom') {
             $this->title = (string)$this->xml->title;

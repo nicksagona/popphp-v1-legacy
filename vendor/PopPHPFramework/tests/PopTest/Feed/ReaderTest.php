@@ -32,12 +32,20 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('Pop\\Feed\\Reader', new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4));
         $this->assertInstanceOf('Pop\\Feed\\Reader', new Reader('http://vimeo.com/tag:mostviewed/rss', 4));
+        $this->assertInstanceOf('Pop\\Feed\\Reader', new Reader('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4));
     }
 
-    public function testException()
+    public function testConstructorException()
     {
         $this->setExpectedException('Pop\Feed\Exception');
         $feed = new Reader('http://blahblahblah/', 4);
+    }
+
+    public function testRenderException()
+    {
+        $this->setExpectedException('Pop\Feed\Exception');
+        $feed = new Reader('http://vimeo.com/tag:mostviewed/rss', 4);
+        $code = $feed->render(true);
     }
 
     public function testSetAndGetTemplate()
@@ -54,13 +62,21 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('m/d/Y', $feed->getDateFormat());
     }
 
+    public function testYouTubePlaylist()
+    {
+        $tmpl = '        <div class="feedDiv">\n            <a href="[{link}]" target="_blank">[{title}]</a><br />\n            <strong>[{pubDate}]</strong> ([{timeElapsed}])<br /><br />\n        </div>\n';
+        $feed = new Reader('https://gdata.youtube.com/feeds/api/playlists/7F36BD9E41AB1AC5?v=2', 4);
+        $feed->setTemplate($tmpl);
+        $this->assertContains('<a href="http://www.youtube.com/', $feed->render(true));
+    }
+
     public function testFeedType()
     {
         $feed = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
         $this->assertEquals('atom', $feed->getFeedType());
     }
 
-    public function testRender()
+    public function testYouTubeRender()
     {
         $tmpl = '        <div class="feedDiv">\n            <a href="[{link}]" target="_blank">[{title}]</a><br />\n            <strong>[{pubDate}]</strong> ([{timeElapsed}])<br /><br />\n        </div>\n';
         $feed = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
@@ -71,6 +87,32 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $output = ob_get_clean();
         $this->assertContains('<a href="http://www.youtube.com/', $code);
         $this->assertContains('<a href="http://www.youtube.com/', $output);
+    }
+
+    public function testRssRender()
+    {
+        $tmpl = '        <div class="feedDiv">\n            <a href="[{link}]" target="_blank">[{title}]</a><br />\n            <strong>[{pubDate}]</strong> ([{timeElapsed}])<br /><br />\n        </div>\n';
+        $feed = new Reader('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4);
+        $feed->setTemplate($tmpl);
+        $code = $feed->render(true);
+        ob_start();
+        $feed->render();
+        $output = ob_get_clean();
+        $this->assertContains('<div class="feedDiv">', $code);
+        $this->assertContains('<div class="feedDiv">', $output);
+    }
+
+    public function testAtomRender()
+    {
+        $tmpl = '        <div class="feedDiv">\n            <a href="[{link}]" target="_blank">[{title}]</a><br />\n            <strong>[{pubDate}]</strong> ([{timeElapsed}])<br /><br />\n        </div>\n';
+        $feed = new Reader('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=atom', 4);
+        $feed->setTemplate($tmpl);
+        $code = $feed->render(true);
+        ob_start();
+        $feed->render();
+        $output = ob_get_clean();
+        $this->assertContains('<div class="feedDiv">', $code);
+        $this->assertContains('<div class="feedDiv">', $output);
     }
 
 }

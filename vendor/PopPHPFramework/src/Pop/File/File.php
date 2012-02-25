@@ -454,9 +454,9 @@ class File
         // Determine if the force download argument has been passed.
         $attach = ($download) ? 'attachment; ' : null;
         $headers = array(
-                       'Content-type' => $this->mime,
-                       'Content-disposition' => $attach . 'filename=' . $this->basename
-                   );
+            'Content-type' => $this->mime,
+            'Content-disposition' => $attach . 'filename=' . $this->basename
+        );
 
         $response = new Response(200, $headers, $this->read());
 
