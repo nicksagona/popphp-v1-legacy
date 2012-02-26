@@ -51,7 +51,7 @@ class Crypt
         $iv = mcrypt_create_iv($ivSize, MCRYPT_RAND);
 
         if (strlen($key) > $ivSize) {
-            throw new \Exception('Error: The length of the key is too long. It must not be longer than ' . $ivSize . ' characters.');
+            throw new Exception('Error: The length of the key is too long. It must not be longer than ' . $ivSize . ' characters.');
         }
 
         $encrypted = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $string, MCRYPT_MODE_ECB, $iv);
@@ -76,7 +76,7 @@ class Crypt
         $iv = mcrypt_create_iv($ivSize, MCRYPT_RAND);
 
         if (strlen($key) > $ivSize) {
-            throw new \Exception('Error: The length of the key is too long. It must not be longer than ' . $ivSize . ' characters.');
+            throw new Exception('Error: The length of the key is too long. It must not be longer than ' . $ivSize . ' characters.');
         }
 
         $decrypted = base64_decode($string);

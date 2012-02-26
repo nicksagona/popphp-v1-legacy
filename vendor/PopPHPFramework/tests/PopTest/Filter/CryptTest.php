@@ -39,5 +39,18 @@ class CryptTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->string, $decrypted);
     }
 
+    public function testEncrpytIvTooLong()
+    {
+        $this->setExpectedException('Pop\\Filter\\Exception');
+        $encrypted = Crypt::encrypt($this->string, '2132454847894651432132123156423132');
+    }
+
+    public function testDecrpytIvTooLong()
+    {
+        $this->setExpectedException('Pop\\Filter\\Exception');
+        $encrypted = Crypt::encrypt($this->string, $this->key);
+        $decrypted = Crypt::decrypt($encrypted, '2132454847894651432132123156423132');
+    }
+
 }
 

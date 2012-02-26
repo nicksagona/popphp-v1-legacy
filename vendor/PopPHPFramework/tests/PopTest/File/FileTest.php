@@ -74,6 +74,20 @@ class FileTest extends \PHPUnit_Framework_TestCase
         unlink(__DIR__ . '/../tmp/access3.txt');
     }
 
+    public function testReadNewFile()
+    {
+        $f = new File(__DIR__ . '/../tmp/file.txt');
+        $f->write('123456');
+        $this->assertEquals('345', $f->read(2, 3));
+    }
+
+    public function testWrite()
+    {
+        $f = new File(__DIR__ . '/../tmp/access.txt');
+        $f->write('123456', true);
+        $this->assertContains('123456', $f->read());
+    }
+
     public function testOutput()
     {
         if (file_exists(__DIR__ . '/../tmp/file.txt')) {
