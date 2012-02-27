@@ -603,7 +603,7 @@ class String
      */
     public function dashToSeparator($sep = DIRECTORY_SEPARATOR)
     {
-        $this->string = str_replace('_', $sep, $this->string);
+        $this->string = str_replace('-', $sep, $this->string);
         return $this;
     }
 
