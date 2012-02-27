@@ -41,6 +41,7 @@ class GeoTest extends \PHPUnit_Framework_TestCase
             $g = new Geo('www.google.com');
             $this->assertEquals(10, count($g->getDatabases()));
             $this->assertTrue(is_bool($g->isDbAvailable('asnum')));
+            $this->assertFalse($g->isDbAvailable('bogus'));
         }
     }
 

@@ -259,7 +259,7 @@ class Response
      * @throws Exception
      * @return string
      */
-    public static function encodeBody($body, $encode)
+    public static function encodeBody($body, $encode = 'gzip')
     {
         switch ($encode) {
             // GZIP compression
@@ -295,7 +295,7 @@ class Response
      * @throws Exception
      * @return string
      */
-    public static function decodeBody($body, $decode)
+    public static function decodeBody($body, $decode = 'gzip')
     {
         switch ($decode) {
             // GZIP compression

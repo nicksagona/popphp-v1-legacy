@@ -13,6 +13,8 @@
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">../src</directory>
             <exclude>
+                <directory>../src/Pop/Ftp</directory>
+                <directory>../src/Pop/Web</directory>
                 <file>../src/Pop/Project/Install/Web/index.php</file>
             </exclude>
         </whitelist>
