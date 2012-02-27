@@ -118,9 +118,17 @@ class Form extends Dom
      */
     public function setFields(array $fields)
     {
-        if (isset($fields[0]) && !is_array($fields[0])) {
+        $isValid = true;
+        foreach ($fields as $key => $value) {
+            if (!is_array($value)) {
+                $isValid = false;
+            }
+        }
+
+        if (!$isValid) {
             throw new Exception('The array parameter passed must contain an array of field values.');
         }
+
         $this->initFieldsValues = $fields;
         return $this;
     }

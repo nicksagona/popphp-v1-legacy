@@ -137,6 +137,7 @@ class Select extends Element
             $years = array('----' => '----');
             $yearAry = array();
             $yearAry = explode('_', $value);
+            // YEAR_1111_2222 (from year 1111 to 2222)
             if (isset($yearAry[1]) && isset($yearAry[2])) {
                 if ($yearAry[1] < $yearAry[2]) {
                     for ($i = $yearAry[1]; $i <= $yearAry[2]; $i++) {
@@ -147,6 +148,9 @@ class Select extends Element
                         $years[$i] = $i;
                     }
                 }
+            // YEAR_1111
+            // If 1111 is less than today's year, then 1111 to present year,
+            // else from present year to 1111
             } else if (isset($yearAry[1])) {
                 $year = date('Y');
                 if ($year < $yearAry[1]) {
@@ -158,6 +162,7 @@ class Select extends Element
                         $years[$i] = $i;
                     }
                 }
+            // YEAR, from present year to 10+ years
             } else {
                 $year = date('Y');
                 for ($i = $year; $i <= ($year + 10); $i++) {
@@ -240,9 +245,9 @@ class Select extends Element
                                     $xmlValues[(string)$node->attributes()->name][(string)$opt->attributes()->value] = (string)$opt;
                                 }
                             }
-                            $val = (array_key_exists($value, $xmlValues)) ? $xmlValues[$value] : $value;
+                            $val = (array_key_exists($value, $xmlValues)) ? $xmlValues[$value] : array($value);
                         } else {
-                            $val = $value;
+                            $val = array($value);
                         }
                     }
             }

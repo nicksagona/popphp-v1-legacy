@@ -39,5 +39,11 @@ class RadioTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Green', $r->marked);
     }
 
+    public function testSetMarked()
+    {
+        $r = new Radio('colors', array('Red' => 'Red', 'Blue' => 'Blue', 'Green' => 'Green'), 'Green');
+        $this->assertEquals('Green', $r->marked);
+    }
+
 }
 

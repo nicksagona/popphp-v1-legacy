@@ -34,6 +34,12 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Pop\\Form\\Element', new Element('text', 'email'));
     }
 
+    public function testConstructorException()
+    {
+        $this->setExpectedException('Pop\\Form\\Exception');
+        $e = new Element('bogus', 'email');
+    }
+
     public function testLabel()
     {
         $e = new Element('text', 'email');
@@ -54,13 +60,24 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $e->addValidator(new Email());
         $e->value = 'test@test.com';
         $this->assertTrue($e->validate());
+        $e = new Element('text', 'email');
+        $e->addValidator(new Email());
+        $e->value = 'testtest.com';
+        $this->assertFalse($e->validate());
+        $this->assertContains('class="error"', $e->render(true));
     }
 
     public function testRender()
     {
         $e = new Element('text', 'email');
         $element = $e->render(true);
+
+        ob_start();
+        $e->output();
+        $output = ob_get_clean();
+
         $this->assertContains('<input', $element);
+        $this->assertContains('<input', $output);
     }
 
 }
