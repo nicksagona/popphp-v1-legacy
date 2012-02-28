@@ -17,9 +17,7 @@
 namespace PopTest\Image;
 
 use Pop\Loader\Autoloader,
-    Pop\Image\Gd,
-    Pop\Image\Imagick,
-    Pop\Image\Svg;
+    Pop\Image\Imagick;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -27,22 +25,12 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class ImageTest extends \PHPUnit_Framework_TestCase
+class ImagickTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function testGdConstructor()
-    {
-        $this->assertInstanceOf('Pop\\Image\\Gd', new Gd('graph.gif', 640, 480));
-    }
 
     public function testImagickConstructor()
     {
         $this->assertInstanceOf('Pop\\Image\\Imagick', new Imagick('graph.gif', 640, 480));
-    }
-
-    public function testSvgConstructor()
-    {
-        $this->assertInstanceOf('Pop\\Image\\Svg', new Svg('graph.svg', 640, 480));
     }
 
 }
