@@ -39,13 +39,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($c->data);
     }
 
-    //public function testSetException()
-    //{
-    //    $this->setExpectedException('Exception');
-    //    $c = new Config(array('data' => 123));
-    //    $c->data = 456;
-    //}
-
     public function testAsArrayObject()
     {
         $c = new Config(array('data' => 123));
