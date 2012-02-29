@@ -59,6 +59,22 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $v = View::factory(null, new Model());
         $v->setTemplateFile(__DIR__ . '/ModelTest.php');
         $this->assertEquals(__DIR__ . '/ModelTest.php', $v->getTemplateFile());
+        $v->setTemplateFile();
+        $this->assertNull($v->getTemplateFile());
+    }
+
+    public function testSetTemplateFileException1()
+    {
+        $this->setExpectedException('Pop\\Mvc\\Exception');
+        $v = View::factory(null, new Model());
+        $v->setTemplateFile(__DIR__ . '/ModelTest.bad');
+    }
+
+    public function testSetTemplateFileException2()
+    {
+        $this->setExpectedException('Pop\\Mvc\\Exception');
+        $v = View::factory(null, new Model());
+        $v->setTemplateFile(__DIR__ . '/ModelTestBad.php');
     }
 
     public function testSetTemplateString()
@@ -66,6 +82,41 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $v = View::factory(null, new Model());
         $v->setTemplateString('some template');
         $this->assertEquals('some template', $v->getTemplateString());
+    }
+
+    public function testRenderException()
+    {
+        $this->setExpectedException('Pop\\Mvc\\Exception');
+        $v = View::factory(null, new Model());
+        $v->render();
+    }
+
+    public function testRender()
+    {
+        $v = View::factory('some template with a [{var}]', new Model('variable', 'var'));
+        $view = $v->render(true);
+
+        ob_start();
+        $v->render();
+        $output = ob_get_clean();
+
+        $this->assertEquals('some template with a variable', $view);
+        $this->assertEquals('some template with a variable', (string)$v);
+        $this->assertEquals('some template with a variable', $output);
+    }
+
+    public function testRenderStringWithLoop()
+    {
+        $data = new Model(array('list' => array('Thing #1', 'Thing #2')));
+        $template = <<<TMPL
+    <ul>
+[{list}]        <li>[{value}]</li>[{/list}]
+    </ul>
+TMPL;
+        $v = View::factory($template, $data);
+        $view = $v->render(true);
+        $this->assertContains('<li>Thing #1</li>', $view);
+        $this->assertContains('<li>Thing #2</li>', $view);
     }
 
 }

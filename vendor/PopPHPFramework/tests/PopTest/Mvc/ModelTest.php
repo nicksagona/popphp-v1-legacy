@@ -54,6 +54,12 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('123', $ary['data']);
     }
 
+    public function testKey()
+    {
+        $m = new Model('123', 'data');
+        $this->assertNull($m->key(0));
+    }
+
     public function testGet()
     {
         $m = new Model('123', 'data');
@@ -63,11 +69,17 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
     public function testSet()
     {
-        $m = new Model();
+        $m = new Model(array('other' => 789, 'onemorething' => 098));
         $m->set('data', '123');
         $m->something = 456;
         $this->assertEquals('123', $m->data);
         $this->assertEquals('456', $m->something);
+    }
+
+    public function testSetException()
+    {
+        $this->setExpectedException('Pop\\Mvc\\Exception');
+        $m = new Model(123);
     }
 
     public function testIsset()

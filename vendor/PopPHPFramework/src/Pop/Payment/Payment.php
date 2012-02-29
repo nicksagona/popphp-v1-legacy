@@ -231,7 +231,7 @@ class Payment
      *
      * @return Pop\Payment\Payment
      */
-    public function billingSameAsShipping()
+    public function shippingSameAsBilling()
     {
         $this->fields['shipToFirstName'] = $this->fields['firstName'];
         $this->fields['shipToLastName'] = $this->fields['lastName'];

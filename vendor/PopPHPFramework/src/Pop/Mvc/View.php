@@ -245,20 +245,23 @@ class View
                     $loop = str_replace($start, '', $loopCode);
                     $loop = str_replace($end, '', $loop);
                     $outputLoop = '';
-
+                    $i = 0;
                     foreach ($value as $val) {
                         if ($val instanceof \ArrayObject) {
                             $l = $loop;
                             foreach ($val as $k => $v) {
                                 $l = str_replace('[{' . $k . '}]', $v, $l);
                             }
-                            $outputLoop .= $l . PHP_EOL;
+                            $outputLoop .= $l;
                         } else {
-                            $outputLoop .= str_replace('[{value}]', $val, $loop) . PHP_EOL;
+                            $outputLoop .= str_replace('[{value}]', $val, $loop);
+                        }
+                        $i++;
+                        if ($i < count($value)) {
+                            $outputLoop .= PHP_EOL;
                         }
                     }
-
-                    $this->output = str_replace($loopCode, substr($outputLoop, 0, -2), $this->output);
+                    $this->output = str_replace($loopCode, $outputLoop, $this->output);
                 } else {
                     $this->output = str_replace('[{' . $key . '}]', $value, $this->output);
                 }

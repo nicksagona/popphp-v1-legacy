@@ -73,5 +73,12 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
         $c->dispatch();
     }
 
+    public function testSendException()
+    {
+        $this->setExpectedException('Pop\\Mvc\\Exception');
+        $c = new Controller();
+        $c->send();
+    }
+
 }
 

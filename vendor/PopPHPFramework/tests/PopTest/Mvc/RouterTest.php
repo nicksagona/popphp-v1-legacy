@@ -42,6 +42,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $r = new Router(array('Pop\\Mvc\\Controller' => new Controller()));
         $r->addControllers(array('Some\\Other\\Controller' => new Controller()));
         $this->assertInstanceOf('Pop\\Mvc\\Controller', $r->getController('Some\\Other\\Controller'));
+        $this->assertEquals(2, count($r->getControllers()));
     }
 
     public function testAction()

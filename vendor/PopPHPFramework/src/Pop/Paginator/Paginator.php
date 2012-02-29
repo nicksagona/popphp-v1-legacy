@@ -277,7 +277,7 @@ class Paginator
      * @param  string $date
      * @return Pop\Paginator\Paginator
      */
-    public function setDateformat($date = 'D, M j Y')
+    public function setDateFormat($date = 'D, M j Y')
     {
         $this->dateFormat = $date;
         return $this;
