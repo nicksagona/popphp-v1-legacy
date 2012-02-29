@@ -17,6 +17,7 @@
 namespace PopTest\Image;
 
 use Pop\Loader\Autoloader,
+    Pop\Color\Rgb,
     Pop\Image\Svg;
 
 // Require the library's autoloader.
@@ -30,7 +31,179 @@ class SvgTest extends \PHPUnit_Framework_TestCase
 
     public function testSvgConstructor()
     {
-        $this->assertInstanceOf('Pop\\Image\\Svg', new Svg('graph.svg', 640, 480));
+        $this->assertInstanceOf('Pop\\Image\\Svg', new Svg('graph.svg', 640, 480, new Rgb(255, 0, 0)));
+    }
+
+    public function testGdConstructorException()
+    {
+        $this->setExpectedException('Pop\\Image\\Exception');
+        $i = new Svg('graph.svg');
+    }
+
+    public function testSvgConstructorUnits()
+    {
+        $s = new Svg('graph.svg', '5in', '4in', new Rgb(255, 0, 0));
+        $s = new Svg('graph.svg', '90%', '90%', new Rgb(255, 0, 0));
+    }
+
+    public function testImageAttributes()
+    {
+        $s = new Svg('graph.svg', '640px', '480px', new Rgb(255, 0, 0));
+        $s->setFillColor(new Rgb(255, 0, 0));
+        $s->setBackgroundColor(new Rgb(0, 0, 255));
+        $s->setStrokeColor(new Rgb(0, 0, 0));
+        $s->setStrokeWidth();
+        $s->setStrokeWidth(5, 6, 4);
+        $s->setOpacity(50);
+        $this->assertEquals(640, $s->getWidth());
+        $this->assertEquals(480, $s->getHeight());
+        $this->assertEquals('px', $s->getUnits());
+    }
+
+    public function testGradients()
+    {
+        $s = new Svg('graph.svg', '640px', '480px');
+        $s->addGradient(new Rgb(255, 0, 0), new Rgb(0, 0, 255));
+        $s->addGradient(new Rgb(255, 0, 0), new Rgb(0, 0, 255), Svg::VERTICAL);
+        $s->addGradient(new Rgb(255, 0, 0), new Rgb(0, 0, 255), Svg::RADIAL);
+        $s->setGradient(0);
+        $this->assertEquals(640, $s->getWidth());
+    }
+
+    public function testAddClippingRectangle()
+    {
+        $s = new Svg('graph.svg', '640px', '480px');
+        $s->addClippingRectangle(10, 10, 320, 240);
+        $this->assertEquals(640, $s->getWidth());
+    }
+
+    public function testAddClippingSquare()
+    {
+        $s = new Svg('graph.svg', '640px', '480px');
+        $s->addClippingSquare(10, 10, 240);
+        $this->assertEquals(640, $s->getWidth());
+    }
+
+    public function testAddClippingEllipse()
+    {
+        $s = new Svg('graph.svg', '640px', '480px');
+        $s->addClippingEllipse(10, 10, 320, 240)
+          ->setClippingPath(0);
+        $this->assertEquals(640, $s->getWidth());
+    }
+
+    public function testAddClippingCircle()
+    {
+        $s = new Svg('graph.svg', '640px', '480px');
+        $s->addClippingCircle(10, 10, 240);
+        $this->assertEquals(640, $s->getWidth());
+    }
+
+    public function testAddClippingPolygon()
+    {
+        $points = array(
+            array('x' => 320, 'y' => 50),
+            array('x' => 400, 'y' => 100),
+            array('x' => 420, 'y' => 200),
+            array('x' => 280, 'y' => 320),
+            array('x' => 200, 'y' => 180)
+        );
+        $s = new Svg('graph.svg', '640px', '480px');
+        $s->addClippingPolygon($points)
+          ->setClippingPath(0);
+        $this->assertEquals(640, $s->getWidth());
+    }
+
+    public function testText()
+    {
+        $s = new Svg('graph.svg', '640px', '480px');
+        $s->setFillColor(new Rgb(255, 0, 0));
+        $s->text('Hello World', 36, 10, 100, 'Arial', 10, true);
+        $this->assertEquals(640, $s->getWidth());
+    }
+
+    public function testAddLine()
+    {
+        $s = new Svg('graph.svg', '640px', '480px');
+        $s->addLine(10, 10, 100, 100);
+        $this->assertEquals(640, $s->getWidth());
+    }
+
+    public function testAddRectangle()
+    {
+        $s = new Svg('graph.svg', '640px', '480px');
+        $s->setStrokeColor(new Rgb(0, 0, 0))
+          ->addRectangle(10, 10, 100, 100);
+        $s->setBackgroundColor(new Rgb(255, 0, 0));
+        $s->addRectangle(10, 10, 100, 100);
+        $s->setFillColor(new Rgb(255, 0, 0));
+        $s->addRectangle(10, 10, 100, 100);
+        $this->assertEquals(640, $s->getWidth());
+    }
+
+    public function testAddSquare()
+    {
+        $s = new Svg('graph.svg', '640px', '480px');
+        $s->addSquare(10, 10, 100);
+        $this->assertEquals(640, $s->getWidth());
+    }
+
+    public function testAddEllipse()
+    {
+        $s = new Svg('graph.svg', '640px', '480px');
+        $s->setStrokeColor(new Rgb(0, 0, 0))
+          ->addEllipse(10, 10, 100, 100);
+        $s->setBackgroundColor(new Rgb(255, 0, 0));
+        $s->addEllipse(10, 10, 100, 100);
+        $s->setFillColor(new Rgb(255, 0, 0));
+        $s->addEllipse(10, 10, 100, 100);
+        $this->assertEquals(640, $s->getWidth());
+    }
+
+    public function testAddCircle()
+    {
+        $s = new Svg('graph.svg', '640px', '480px');
+        $s->addCircle(10, 10, 100);
+        $this->assertEquals(640, $s->getWidth());
+    }
+
+    public function testAddArc()
+    {
+        $s = new Svg('graph.svg', '640px', '480px');
+        $s->setStrokeColor(new Rgb(0, 0, 0))
+          ->addArc(320, 240, 0, 120, 100);
+        $s->setBackgroundColor(new Rgb(255, 0, 0));
+        $s->addArc(320, 240, 0, 120, 100, 100);
+        $s->setFillColor(new Rgb(255, 0, 0));
+        $s->addArc(320, 240, 0, 120, 100, 100);
+        $this->assertEquals(640, $s->getWidth());
+    }
+
+    public function testAddPolygon()
+    {
+        $s = new Svg('graph.svg', '640px', '480px');
+        $points = array(
+            array('x' => 320, 'y' => 50),
+            array('x' => 400, 'y' => 100),
+            array('x' => 420, 'y' => 200),
+            array('x' => 280, 'y' => 320),
+            array('x' => 200, 'y' => 180)
+        );
+        $s->setStrokeColor(new Rgb(0, 0, 0))
+          ->addPolygon($points);
+        $s->setBackgroundColor(new Rgb(255, 0, 0));
+        $s->addPolygon($points);
+        $s->setFillColor(new Rgb(255, 0, 0));
+        $s->addPolygon($points);
+        $this->assertEquals(640, $s->getWidth());
+    }
+
+    public function testBorder()
+    {
+        $s = new Svg('graph.svg', '640px', '480px');
+        $s->setStrokeWidth(5, 6, 4);
+        $s->border(5);
+        $this->assertEquals(640, $s->getWidth());
     }
 
 }

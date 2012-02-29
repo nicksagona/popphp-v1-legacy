@@ -126,6 +126,11 @@ class GdTest extends \PHPUnit_Framework_TestCase
     public function testAddRectangle()
     {
         $i = new Gd(__DIR__ . '/../tmp/test.jpg');
+        $i->setStrokeColor(new Rgb(0, 0, 0))
+          ->addRectangle(10, 10, 100, 100);
+        $i->setBackgroundColor(new Rgb(255, 0, 0));
+        $i->addRectangle(10, 10, 100, 100);
+        $i->setFillColor(new Rgb(255, 0, 0));
         $i->addRectangle(10, 10, 100, 100);
         $this->assertEquals(640, $i->getWidth());
     }
@@ -140,6 +145,11 @@ class GdTest extends \PHPUnit_Framework_TestCase
     public function testAddEllipse()
     {
         $i = new Gd(__DIR__ . '/../tmp/test.jpg');
+        $i->setStrokeColor(new Rgb(0, 0, 0))
+          ->addEllipse(10, 10, 100, 100);
+        $i->setBackgroundColor(new Rgb(255, 0, 0));
+        $i->addEllipse(10, 10, 100, 100);
+        $i->setFillColor(new Rgb(255, 0, 0));
         $i->addEllipse(10, 10, 100, 100);
         $this->assertEquals(640, $i->getWidth());
     }
@@ -154,8 +164,94 @@ class GdTest extends \PHPUnit_Framework_TestCase
     public function testAddArc()
     {
         $i = new Gd(__DIR__ . '/../tmp/test.jpg');
+        $i->setStrokeColor(new Rgb(0, 0, 0))
+          ->addArc(320, 240, 0, 120, 100, 100);
+        $i->setBackgroundColor(new Rgb(255, 0, 0));
+        $i->addArc(320, 240, 0, 120, 100, 100);
+        $i->setFillColor(new Rgb(255, 0, 0));
         $i->addArc(320, 240, 0, 120, 100, 100);
         $this->assertEquals(640, $i->getWidth());
+    }
+
+    public function testAddPolygon()
+    {
+        $i = new Gd(__DIR__ . '/../tmp/test.jpg');
+        $points = array(
+            array('x' => 320, 'y' => 50),
+            array('x' => 400, 'y' => 100),
+            array('x' => 420, 'y' => 200),
+            array('x' => 280, 'y' => 320),
+            array('x' => 200, 'y' => 180)
+        );
+        $i->setStrokeColor(new Rgb(0, 0, 0))
+          ->addPolygon($points);
+        $i->setBackgroundColor(new Rgb(255, 0, 0));
+        $i->addPolygon($points);
+        $i->setFillColor(new Rgb(255, 0, 0));
+        $i->addPolygon($points);
+        $this->assertEquals(640, $i->getWidth());
+    }
+
+    public function testFilters()
+    {
+        $i = new Gd(__DIR__ . '/../tmp/test.jpg');
+        $i->brightness(50)
+          ->contrast(50)
+          ->desaturate()
+          ->sharpen(10)
+          ->blur(10)
+          ->border(5, 5)
+          ->border(5, 5, Gd::OUTER_BORDER)
+          ->overlay(__DIR__ . '/../tmp/test.png')
+          ->colorize(new Rgb(255, 0, 0))
+          ->invert()
+          ->pixelate(10)
+          ->pencil();
+        $this->assertEquals(640, $i->getWidth());
+    }
+
+    public function testColorTotal()
+    {
+        $i = new Gd(__DIR__ . '/../tmp/test.gif');
+        $this->assertEquals(16, $i->colorTotal());
+    }
+
+    public function testGetColors()
+    {
+        $i = new Gd(__DIR__ . '/../tmp/test.gif');
+        $hex = $i->getColors();
+        $rgb = $i->getColors('RGB');
+        $this->assertEquals(16, count($hex));
+        $this->assertEquals(16, count($rgb));
+        $this->assertTrue(in_array('113405', $hex));
+        $this->assertTrue(in_array('17,52,5', $rgb));
+    }
+
+    public function testConvert()
+    {
+        $i = new Gd(__DIR__ . '/../tmp/test.gif');
+        $i->convert('png');
+        $this->assertEquals(640, $i->getWidth());
+        $i = new Gd(__DIR__ . '/../tmp/test.png');
+        $i->convert('gif');
+        $this->assertEquals(640, $i->getWidth());
+        $i = new Gd(__DIR__ . '/../tmp/test.jpg');
+        $i->convert('png');
+        $this->assertEquals(640, $i->getWidth());
+    }
+
+    public function testConvertExceptionBadType()
+    {
+        $this->setExpectedException('Pop\\Image\\Exception');
+        $i = new Gd(__DIR__ . '/../tmp/test.gif');
+        $i->convert('tif');
+    }
+
+    public function testConvertExceptionDupeType()
+    {
+        $this->setExpectedException('Pop\\Image\\Exception');
+        $i = new Gd(__DIR__ . '/../tmp/test.gif');
+        $i->convert('gif');
     }
 
 }
