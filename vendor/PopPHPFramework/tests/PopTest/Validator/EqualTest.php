@@ -14,11 +14,10 @@
  *
  */
 
-namespace PopTest\Payment;
+namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Payment\Payment,
-    Pop\Payment\Adapter\UsaEpay;
+    Pop\Validator\Validator\Equal;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -26,12 +25,21 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class UsaEpayTest extends \PHPUnit_Framework_TestCase
+class EqualTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructor()
+    public function testEvaluateTrue()
     {
-        $this->assertInstanceOf('Pop\\Payment\\Adapter\\UsaEpay', new UsaEpay('SOURCE_KEY', Payment::TEST));
+        $v = new Equal(10);
+        $this->assertTrue($v->evaluate(10));
+        $this->assertFalse($v->evaluate(9));
+    }
+
+    public function testEvaluateFalse()
+    {
+        $v = new Equal(10, false);
+        $this->assertFalse($v->evaluate(10));
+        $this->assertTrue($v->evaluate(9));
     }
 
 }

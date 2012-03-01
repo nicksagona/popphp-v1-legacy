@@ -116,6 +116,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $f->addElements(array($c, $r, $s, $t));
         $this->assertEquals(5, count($f->getElements()));
         $this->assertInstanceOf('Pop\\Form\\Element', $f->getElement('username'));
+        $this->assertTrue($f->isValid());
     }
 
     public function testRender()

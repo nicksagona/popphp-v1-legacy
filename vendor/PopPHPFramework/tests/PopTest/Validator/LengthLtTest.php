@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator;
+    Pop\Validator\Validator\LengthLt;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -25,21 +25,21 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class ValidatorTest extends \PHPUnit_Framework_TestCase
+class LengthLtTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testFactory()
+    public function testEvaluateTrue()
     {
-        $v = Validator::factory(new Validator\AlphaNumeric());
-        $this->assertInstanceOf('Pop\\Validator\\Validator', $v);
-        $this->assertTrue($v->evaluate('abcd1234'));
+        $v = new LengthLt(5);
+        $this->assertTrue($v->evaluate('abc'));
+        $this->assertFalse($v->evaluate('123456'));
     }
 
-    public function testSetAndGetMessage()
+    public function testEvaluateFalse()
     {
-        $v = Validator::factory(new Validator\AlphaNumeric());
-        $v->setMessage('This is a test message.');
-        $this->assertEquals('This is a test message.', $v->getMessage());
+        $v = new LengthLt(5, false);
+        $this->assertFalse($v->evaluate('abc'));
+        $this->assertTrue($v->evaluate('123456'));
     }
 
 }

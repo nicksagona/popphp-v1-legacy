@@ -15,6 +15,14 @@
             <exclude>
                 <directory>../src/Pop/Ftp</directory>
                 <directory>../src/Pop/Web</directory>
+                <file>../src/Pop/Archive/Adapter/Rar.php</file>
+                <file>../src/Pop/Db/Adapter/MySql.php</file>
+                <file>../src/Pop/Db/Adapter/PgSql.php</file>
+                <file>../src/Pop/Payment/Adapter/Authorize.php</file>
+                <file>../src/Pop/Payment/Adapter/PayLeap.php</file>
+                <file>../src/Pop/Payment/Adapter/PayPal.php</file>
+                <file>../src/Pop/Payment/Adapter/TrustCommerce.php</file>
+                <file>../src/Pop/Payment/Adapter/UsaEpay.php</file>
                 <file>../src/Pop/Project/Install/Web/index.php</file>
             </exclude>
         </whitelist>

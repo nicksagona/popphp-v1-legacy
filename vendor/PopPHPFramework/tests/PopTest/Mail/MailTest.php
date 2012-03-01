@@ -160,5 +160,12 @@ class MailTest extends \PHPUnit_Framework_TestCase
         $m->init();
     }
 
+    public function testInitException()
+    {
+        $this->setExpectedException('PHPUnit_Framework_Error_Notice');
+        $m = new Mail(array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
+        $m->init();
+    }
+
 }
 

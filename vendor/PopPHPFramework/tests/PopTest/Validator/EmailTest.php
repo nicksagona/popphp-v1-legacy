@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator;
+    Pop\Validator\Validator\Email;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -25,21 +25,21 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class ValidatorTest extends \PHPUnit_Framework_TestCase
+class EmailTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testFactory()
+    public function testEvaluateTrue()
     {
-        $v = Validator::factory(new Validator\AlphaNumeric());
-        $this->assertInstanceOf('Pop\\Validator\\Validator', $v);
-        $this->assertTrue($v->evaluate('abcd1234'));
+        $v = new Email();
+        $this->assertTrue($v->evaluate('test@test.com'));
+        $this->assertFalse($v->evaluate('testtestcom'));
     }
 
-    public function testSetAndGetMessage()
+    public function testEvaluateFalse()
     {
-        $v = Validator::factory(new Validator\AlphaNumeric());
-        $v->setMessage('This is a test message.');
-        $this->assertEquals('This is a test message.', $v->getMessage());
+        $v = new Email(null, false);
+        $this->assertFalse($v->evaluate('test@test.com'));
+        $this->assertTrue($v->evaluate('testtestcom'));
     }
 
 }

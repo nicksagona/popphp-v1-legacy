@@ -14,11 +14,10 @@
  *
  */
 
-namespace PopTest\Payment;
+namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Payment\Payment,
-    Pop\Payment\Adapter\PayPal;
+    Pop\Validator\Validator\AlphaNumeric;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -26,12 +25,21 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class PayPalTest extends \PHPUnit_Framework_TestCase
+class AlphaNumericTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructor()
+    public function testEvaluateTrue()
     {
-        $this->assertInstanceOf('Pop\\Payment\\Adapter\\PayPal', new PayPal('USERNAME', 'PASSWORD', 'SIGNATURE', Payment::TEST));
+        $v = new AlphaNumeric();
+        $this->assertTrue($v->evaluate('abcdef123'));
+        $this->assertFalse($v->evaluate('123456$#@'));
+    }
+
+    public function testEvaluateFalse()
+    {
+        $v = new AlphaNumeric(null, false);
+        $this->assertFalse($v->evaluate('abcdef123'));
+        $this->assertTrue($v->evaluate('123456$#@'));
     }
 
 }

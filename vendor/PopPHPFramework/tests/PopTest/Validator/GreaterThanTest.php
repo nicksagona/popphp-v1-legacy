@@ -14,11 +14,10 @@
  *
  */
 
-namespace PopTest\Payment;
+namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Payment\Payment,
-    Pop\Payment\Adapter\Authorize;
+    Pop\Validator\Validator\GreaterThan;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -26,24 +25,21 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class AuthorizeTest extends \PHPUnit_Framework_TestCase
+class GreaterThanTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testConstructor()
+    public function testEvaluateTrue()
     {
-        $this->assertInstanceOf('Pop\\Payment\\Adapter\\Authorize', new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST));
+        $v = new GreaterThan(10);
+        $this->assertTrue($v->evaluate(12));
+        $this->assertFalse($v->evaluate(9));
     }
 
-    public function testGetResponseSubCode()
+    public function testEvaluateFalse()
     {
-        $a = new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST);
-        $this->assertEquals(0, $a->getResponseSubCode());
-    }
-
-    public function testGetReasonCode()
-    {
-        $a = new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST);
-        $this->assertEquals(0, $a->getReasonCode());
+        $v = new GreaterThan(10, false);
+        $this->assertFalse($v->evaluate(12));
+        $this->assertTrue($v->evaluate(9));
     }
 
 }

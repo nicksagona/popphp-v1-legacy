@@ -33,12 +33,49 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Pop\\Http\\Request', new Request());
     }
 
-    public function testSetRequestUri()
+    public function testGetAndSetBasePath()
+    {
+        $r = new Request();
+        $r->setBasePath('/admin');
+        $this->assertEquals('/admin', $r->getBasePath());
+    }
+
+    public function testGetAndSetQuery()
+    {
+        $r = new Request();
+        $r->setQuery('test', 123);
+        $this->assertEquals(123, $r->getQuery('test'));
+    }
+
+    public function testGetAndSetPost()
+    {
+        $r = new Request();
+        $r->setPost('test', 123);
+        $this->assertEquals(123, $r->getPost('test'));
+    }
+
+    public function testRequest()
     {
         $r = new Request();
         $r->setRequestUri('/test', '/admin');
         $this->assertEquals('/test', $r->getRequestUri());
         $this->assertEquals('/admin', $r->getBasePath());
+        $this->assertFalse($r->isFile());
+        $this->assertFalse($r->isSecure());
+        $this->assertEquals('', $r->getDocRoot());
+        $this->assertEquals('/admin', $r->getFullPath());
+        $this->assertNull($r->getFilename());
+        $this->assertEquals('http', $r->getScheme());
+        $this->assertTrue(is_array($r->getQuery()));
+        $this->assertNull($r->getQuery('test'));
+        $this->assertTrue(is_array($r->getPost()));
+        $this->assertNull($r->getPost('test'));
+        $this->assertTrue(is_array($r->getCookie()));
+        $this->assertNull($r->getCookie('test'));
+        $this->assertTrue(is_array($r->getServer()));
+        $this->assertNull($r->getServer('test'));
+        $this->assertTrue(is_array($r->getEnv()));
+        $this->assertNull($r->getEnv('test'));
     }
 
 }

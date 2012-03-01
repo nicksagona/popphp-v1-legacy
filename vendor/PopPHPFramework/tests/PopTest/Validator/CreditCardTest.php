@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator;
+    Pop\Validator\Validator\CreditCard;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -25,21 +25,23 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class ValidatorTest extends \PHPUnit_Framework_TestCase
+class CreditCardTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testFactory()
+    public function testEvaluateTrue()
     {
-        $v = Validator::factory(new Validator\AlphaNumeric());
-        $this->assertInstanceOf('Pop\\Validator\\Validator', $v);
-        $this->assertTrue($v->evaluate('abcd1234'));
+        $v = new CreditCard();
+        $this->assertTrue($v->evaluate(4111111111111111));
+        $this->assertTrue($v->evaluate('4111 1111 1111 1111'));
+        $this->assertTrue($v->evaluate('4111-1111-1111-1111'));
+        $this->assertFalse($v->evaluate(123456789));
     }
 
-    public function testSetAndGetMessage()
+    public function testEvaluateFalse()
     {
-        $v = Validator::factory(new Validator\AlphaNumeric());
-        $v->setMessage('This is a test message.');
-        $this->assertEquals('This is a test message.', $v->getMessage());
+        $v = new CreditCard(null, false);
+        $this->assertFalse($v->evaluate(4111111111111111));
+        $this->assertTrue($v->evaluate(123456789));
     }
 
 }

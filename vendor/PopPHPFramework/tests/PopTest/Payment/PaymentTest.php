@@ -18,7 +18,11 @@ namespace PopTest\Payment;
 
 use Pop\Loader\Autoloader,
     Pop\Payment\Payment,
-    Pop\Payment\Adapter\Authorize;
+    Pop\Payment\Adapter\Authorize,
+    Pop\Payment\Adapter\PayLeap,
+    Pop\Payment\Adapter\PayPal,
+    Pop\Payment\Adapter\TrustCommerce,
+    Pop\Payment\Adapter\UsaEpay;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -36,6 +40,43 @@ class PaymentTest extends \PHPUnit_Framework_TestCase
         $p->adapter()->set(array('address' => '123 Main St.', 'city' => 'New Orleans'));
         $this->assertInstanceOf('Pop\\Payment\\Payment', $p);
         $this->assertInstanceOf('Pop\\Payment\\Adapter\\Authorize', $p->adapter());
+    }
+
+    public function testAuthorizeConstructor()
+    {
+        $this->assertInstanceOf('Pop\\Payment\\Adapter\\Authorize', new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST));
+    }
+
+    public function testAuthorizeGetResponseSubCode()
+    {
+        $a = new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST);
+        $this->assertEquals(0, $a->getResponseSubCode());
+    }
+
+    public function testAuthorizeGetReasonCode()
+    {
+        $a = new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST);
+        $this->assertEquals(0, $a->getReasonCode());
+    }
+
+    public function testPayLeapConstructor()
+    {
+        $this->assertInstanceOf('Pop\\Payment\\Adapter\\PayLeap', new PayLeap('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST));
+    }
+
+    public function testPayPalConstructor()
+    {
+        $this->assertInstanceOf('Pop\\Payment\\Adapter\\PayPal', new PayPal('USERNAME', 'PASSWORD', 'SIGNATURE', Payment::TEST));
+    }
+
+    public function testTrustCommerceConstructor()
+    {
+        $this->assertInstanceOf('Pop\\Payment\\Adapter\\TrustCommerce', new TrustCommerce('CUSTID', 'PASSWORD', Payment::TEST));
+    }
+
+    public function testUsaEpayConstructor()
+    {
+        $this->assertInstanceOf('Pop\\Payment\\Adapter\\UsaEpay', new UsaEpay('SOURCE_KEY', Payment::TEST));
     }
 
     public function testIsTest()
