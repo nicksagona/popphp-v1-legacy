@@ -472,6 +472,16 @@ class Pdf extends File
     }
 
     /**
+     * Method to get the compression of the PDF.
+     *
+     * @return boolean
+     */
+    public function getCompression()
+    {
+        return $this->compress;
+    }
+
+    /**
      * Method to set the compression of the PDF.
      *
      * @param  boolean $comp
@@ -765,7 +775,10 @@ class Pdf extends File
 
         // If the font does not already exist, add it.
         if (!$fontExists) {
-            if (array_key_exists($font, $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts)) {
+            if (isset($this->pages[$this->curPage]) &&
+                isset($this->objects[$this->pages[$this->curPage]]) &&
+                isset($this->objects[$this->objects[$this->pages[$this->curPage]]->index]) &&
+                (array_key_exists($font, $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts))) {
                 $fontObj = substr($this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts[$font], 1, (strpos(' ', $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts[$font]) + 3));
             } else {
                 throw new Exception('Error: The font \'' . $font . '\' has not been added to the PDF.');
