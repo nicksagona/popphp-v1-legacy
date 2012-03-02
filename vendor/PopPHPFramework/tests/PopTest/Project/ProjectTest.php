@@ -17,6 +17,9 @@
 namespace PopTest\Project;
 
 use Pop\Loader\Autoloader,
+    Pop\Db\Db,
+    Pop\Mvc\Controller,
+    Pop\Mvc\Router,
     Pop\Project\Project,
     Pop\Config;
 
@@ -31,7 +34,138 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Project\\Project', new Project(new Config(array())));
+        $p = new Project(
+            new Config(array(
+                'databases' => array(
+                    'testdb' => Db::factory('Sqlite', array (
+                        'database' => __DIR__ . '/../tmp/test.sqlite'
+                    ))
+                ),
+
+            	'defaultDb' => 'testdb'
+            )),
+            new Config(array('name' => 'Test')),
+            new Router(array('Pop\\Mvc\\Controller' => new Controller()))
+        );
+        $p->run();
+        $this->assertInstanceOf('Pop\\Project\\Project', $p);
+    }
+
+    public function testFactory()
+    {
+        $this->assertInstanceOf('Pop\\Project\\Project', Project::factory(new Config(array())));
+    }
+
+    public function testDatabase()
+    {
+        $p = new Project(
+            new Config(array(
+                'databases' => array(
+                    'testdb' => Db::factory('Sqlite', array (
+                        'database' => __DIR__ . '/../tmp/test.sqlite'
+                    ))
+                ),
+
+            	'defaultDb' => 'testdb'
+            )),
+            new Config(array('name' => 'Test')),
+            new Router(array('Pop\\Mvc\\Controller' => new Controller()))
+        );
+        $this->assertInstanceOf('Pop\\Db\\Db', $p->database('testdb'));
+        $this->assertNull($p->database('baddb'));
+    }
+
+    public function testModule()
+    {
+        $p = new Project(
+            new Config(array(
+                'databases' => array(
+                    'testdb' => Db::factory('Sqlite', array (
+                        'database' => __DIR__ . '/../tmp/test.sqlite'
+                    ))
+                ),
+
+            	'defaultDb' => 'testdb'
+            )),
+            new Config(array('name' => 'Test')),
+            new Router(array('Pop\\Mvc\\Controller' => new Controller()))
+        );
+        $this->assertInstanceOf('Pop\\Config', $p->module('Test'));
+        $this->assertNull($p->module('BadModule'));
+    }
+
+    public function testRouter()
+    {
+        $p = new Project(
+            new Config(array(
+                'databases' => array(
+                    'testdb' => Db::factory('Sqlite', array (
+                        'database' => __DIR__ . '/../tmp/test.sqlite'
+                    ))
+                ),
+
+            	'defaultDb' => 'testdb'
+            )),
+            new Config(array('name' => 'Test')),
+            new Router(array('Pop\\Mvc\\Controller' => new Controller()))
+        );
+        $this->assertInstanceOf('Pop\\Mvc\\Router', $p->router());
+    }
+
+    public function testLoadModule()
+    {
+        $p = new Project(
+            new Config(array(
+                'databases' => array(
+                    'testdb' => Db::factory('Sqlite', array (
+                        'database' => __DIR__ . '/../tmp/test.sqlite'
+                    ))
+                ),
+
+            	'defaultDb' => 'testdb'
+            )),
+            null,
+            new Router(array('Pop\\Mvc\\Controller' => new Controller()))
+        );
+        $p->loadModule(new Config(array('name' => 'Test')));
+        $this->assertInstanceOf('Pop\\Config', $p->module('Test'));
+    }
+
+    public function testLoadModuleException()
+    {
+        $this->setExpectedException('PHPUnit_Framework_Error');
+        $p = new Project(
+            new Config(array(
+                'databases' => array(
+                    'testdb' => Db::factory('Sqlite', array (
+                        'database' => __DIR__ . '/../tmp/test.sqlite'
+                    ))
+                ),
+
+            	'defaultDb' => 'testdb'
+            )),
+            null,
+            new Router(array('Pop\\Mvc\\Controller' => new Controller()))
+        );
+        $p->loadModule(new Config());
+    }
+
+    public function testLoadRouter()
+    {
+        $p = new Project(
+            new Config(array(
+                'databases' => array(
+                    'testdb' => Db::factory('Sqlite', array (
+                        'database' => __DIR__ . '/../tmp/test.sqlite'
+                    ))
+                ),
+
+            	'defaultDb' => 'testdb'
+            )),
+            new Config(array('name' => 'Test'))
+        );
+        $p->loadRouter(new Router(array('Pop\\Mvc\\Controller' => new Controller())));
+        $this->assertInstanceOf('Pop\\Mvc\\Router', $p->router());
     }
 
 }

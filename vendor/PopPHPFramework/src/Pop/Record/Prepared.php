@@ -275,9 +275,9 @@ class Prepared extends AbstractRecord
         $i = 1;
         foreach ($searchColumns as $search) {
             if (isset($search[3])) {
-                $this->db->sql->where($search[0], $search[1], $this->getPlaceholder($search[2], $i), $search[3]);
+                $this->db->sql->where($search[0], $search[1], $this->getPlaceholder($search[0], $i), $search[3]);
             } else {
-                $this->db->sql->where($search[0], $search[1], $this->getPlaceholder($search[2], $i));
+                $this->db->sql->where($search[0], $search[1], $this->getPlaceholder($search[0], $i));
             }
             $i++;
         }

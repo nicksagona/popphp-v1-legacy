@@ -116,7 +116,7 @@ abstract class AbstractRecord
             $ord = 'DESC';
         } else if (stripos($order, 'RAND()') !== false) {
             $by = trim(str_replace('RAND()', '', $order));
-            $ord = 'RAND()';
+            $ord = ($this->db->getAdapterType() == 'Sqlite') ? 'RANDOM()' : 'RAND()';
         } else {
             $by = $order;
             $ord = null;

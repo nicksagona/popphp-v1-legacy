@@ -60,9 +60,8 @@ COMPLETED:
     - Address, test and debug the Font component and embedding fonts
         + Finalize support for TTF, OTF and PFB (Type1) font files
     - Add embed override
-
+* Write unit tests
 
 CURRENTLY BEING WORKED ON:
 --------------------------
-* Testing, testing & more testing
 * Documentation
