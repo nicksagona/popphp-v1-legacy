@@ -16,6 +16,7 @@ easy-to-use API to access and utilize the following components:
 * Archive
 * Auth
 * Cache
+* Cli
 * Code
 * Color
 * Compress
