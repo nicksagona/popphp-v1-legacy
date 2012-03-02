@@ -61,4 +61,7 @@ COMPLETED:
         + Finalize support for TTF, OTF and PFB (Type1) font files
     - Add embed override
 * Write unit tests
+
+CURRENTLY BEING WORKED ON:
+--------------------------
 * Generate new documentation
