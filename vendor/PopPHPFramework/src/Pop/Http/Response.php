@@ -178,8 +178,8 @@ class Response
         // Else, if a response string, parse the headers and contents
         } else if (substr($response, 0, 5) == 'HTTP/'){
             if (strpos($response, "\r") !== false) {
-                $headerStr = substr($response, 0, strpos($response, "\r\n\r\n"));
-                $bodyStr = substr($response, (strpos($response, "\r\n\r\n") + 4));
+                $headerStr = substr($response, 0, strpos($response, "\r\n"));
+                $bodyStr = substr($response, (strpos($response, "\r\n") + 2));
             } else {
                 $headerStr = substr($response, 0, strpos($response, "\n\n"));
                 $bodyStr = substr($response, (strpos($response, "\n\n") + 2));
@@ -192,10 +192,9 @@ class Response
         } else {
             throw new Exception('The response was not properly formatted.');
         }
-
         // Get the version, code and message
         $version = substr($firstLine, 0, strpos($firstLine, ' '));
-        preg_match('/\d\d\d/', $firstLine, $match);
+        preg_match('/\d\d\d/', trim($firstLine), $match);
         $code = $match[0];
         $message = str_replace($version . ' ' . $code . ' ', '', $firstLine);
 

@@ -53,14 +53,18 @@ class FileTest extends \PHPUnit_Framework_TestCase
     public function testSetAndGetMode()
     {
         $f = new File(__DIR__ . '/../tmp/access.txt');
-        $this->assertEquals(777, $f->getMode());
-        $f->setMode(0775);
-        $this->assertEquals(775, $f->getMode());
-        $f->setMode(0777);
-        $this->assertEquals(777, $f->getMode(true));
-        $f->setMode(0775, true);
-        $this->assertEquals(775, $f->getMode(true));
-        $f->setMode(0777, true);
+        if (DIRECTORY_SEPARATOR == '/') {
+            $this->assertEquals(777, $f->getMode());
+            $f->setMode(0775);
+            $this->assertEquals(775, $f->getMode());
+            $f->setMode(0777);
+            $this->assertEquals(777, $f->getMode(true));
+            $f->setMode(0775, true);
+            $this->assertEquals(775, $f->getMode(true));
+            $f->setMode(0777, true);
+        } else {
+            $this->assertEquals(777, $f->getMode());
+        }
 
     }
 
