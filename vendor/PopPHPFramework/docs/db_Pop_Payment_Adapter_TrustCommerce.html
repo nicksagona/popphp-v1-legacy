@@ -1,0 +1,1095 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>DocBlox Documentation</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Pop/Payment/Adapter/TrustCommerce.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CPop%5CPayment%5CAdapter%5CTrustCommerce">\Pop\Payment\Adapter\TrustCommerce</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Pop PHP Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.TXT.
+It is also available through the world-wide-web at this URL:
+http://www.popphp.org/LICENSE.TXT
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to info@popphp.org so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Author</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="mailto:nick@popphp.org">Nick Sagona, III</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Pop
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://www.popphp.org/LICENSE.TXT">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Pop_Payment
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Pop\Payment\Adapter\TrustCommerce" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Pop\Payment\Adapter\TrustCommerce<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Pop\Payment</small><p class="short-description">This is the TrustCommerce adapter for the Payment component.</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd>
+<a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter">\Pop\Payment\Adapter\AbstractAdapter</a>
+            &lt;
+            <a href="db_Pop_Payment_Adapter_AdapterInterface.html#%5CPop%5CPayment%5CAdapter%5CAdapterInterface" style="color: gray; font-size: 0.8em
+                ">\Pop\Payment\Adapter\AdapterInterface</a>
+</dd>
+<dt>Author</dt>
+<dd>
+<a href="mailto:nick@popphp.org">Nick Sagona, III</a>
+         
+    </dd>
+<dt>Category</dt>
+<dd>Pop
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://www.popphp.org/LICENSE.TXT">New BSD License</a>
+         
+    </dd>
+<dt>Version</dt>
+<dd>0.9
+         
+    </dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::$approved" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">boolean
+                 <span class="highlight">$approved</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Boolean flag for approved transaction</p><small>Inherited from:
+                        <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24approved">\Pop\Payment\Adapter\AbstractAdapter::$$approved</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24approved">\Pop\Payment\Adapter\AbstractAdapter::$$approved</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::$custId" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$custId</span>= 'null'
+                </code><div class="description">
+<p class="short-description">Customer ID</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::$declined" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">boolean
+                 <span class="highlight">$declined</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Boolean flag for declined transaction</p><small>Inherited from:
+                        <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24declined">\Pop\Payment\Adapter\AbstractAdapter::$$declined</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24declined">\Pop\Payment\Adapter\AbstractAdapter::$$declined</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::$error" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">boolean
+                 <span class="highlight">$error</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Boolean flag for error transaction</p><small>Inherited from:
+                        <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24error">\Pop\Payment\Adapter\AbstractAdapter::$$error</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24error">\Pop\Payment\Adapter\AbstractAdapter::$$error</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::$fields" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$fields</span>= 'array(
+        'amount'          =&gt; 'amount',
+        'cardNum'         =&gt; 'cc',
+        'expDate'         =&gt; 'exp',
+        'ccv'             =&gt; 'cvv',
+        'firstName'       =&gt; 'fname',
+        'lastName'        =&gt; 'lname',
+        'address'         =&gt; 'address1',
+        'city'            =&gt; 'city',
+        'state'           =&gt; 'state',
+        'zip'             =&gt; 'zip',
+        'country'         =&gt; 'country',
+        'phone'           =&gt; 'phone',
+        'fax'             =&gt; 'fax',
+        'email'           =&gt; 'email',
+        'shipToFirstName' =&gt; 'shipto_fname',
+        'shipToLastName'  =&gt; 'shipto_lname',
+        'shipToAddress'   =&gt; 'shipto_address1',
+        'shipToCity'      =&gt; 'shipto_city',
+        'shipToState'     =&gt; 'shipto_state',
+        'shipToZip'       =&gt; 'shipto_zip',
+        'shipToCountry'   =&gt; 'shipto_country'
+    )'
+                </code><div class="description">
+<p class="short-description">Transaction fields for normalization purposes</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'amount'          =&gt; 'amount',
+        'cardNum'         =&gt; 'cc',
+        'expDate'         =&gt; 'exp',
+        'ccv'             =&gt; 'cvv',
+        'firstName'       =&gt; 'fname',
+        'lastName'        =&gt; 'lname',
+        'address'         =&gt; 'address1',
+        'city'            =&gt; 'city',
+        'state'           =&gt; 'state',
+        'zip'             =&gt; 'zip',
+        'country'         =&gt; 'country',
+        'phone'           =&gt; 'phone',
+        'fax'             =&gt; 'fax',
+        'email'           =&gt; 'email',
+        'shipToFirstName' =&gt; 'shipto_fname',
+        'shipToLastName'  =&gt; 'shipto_lname',
+        'shipToAddress'   =&gt; 'shipto_address1',
+        'shipToCity'      =&gt; 'shipto_city',
+        'shipToState'     =&gt; 'shipto_state',
+        'shipToZip'       =&gt; 'shipto_zip',
+        'shipToCountry'   =&gt; 'shipto_country'
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::$message" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$message</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Response message</p><small>Inherited from:
+                        <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24message">\Pop\Payment\Adapter\AbstractAdapter::$$message</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24message">\Pop\Payment\Adapter\AbstractAdapter::$$message</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::$password" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$password</span>= 'null'
+                </code><div class="description">
+<p class="short-description">Password</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::$requiredFields" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$requiredFields</span>= 'array(
+        'custid',
+        'password',
+        'action',
+        'cc',
+        'exp',
+        'amount'
+    )'
+                </code><div class="description">
+<p class="short-description">Required fields</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'custid',
+        'password',
+        'action',
+        'cc',
+        'exp',
+        'amount'
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::$response" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$response</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Response string</p><small>Inherited from:
+                        <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24response">\Pop\Payment\Adapter\AbstractAdapter::$$response</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24response">\Pop\Payment\Adapter\AbstractAdapter::$$response</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::$responseCode" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$responseCode</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Response code</p><small>Inherited from:
+                        <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24responseCode">\Pop\Payment\Adapter\AbstractAdapter::$$responseCode</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24responseCode">\Pop\Payment\Adapter\AbstractAdapter::$$responseCode</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::$responseCodes" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$responseCodes</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Response codes</p><small>Inherited from:
+                        <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24responseCodes">\Pop\Payment\Adapter\AbstractAdapter::$$responseCodes</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24responseCodes">\Pop\Payment\Adapter\AbstractAdapter::$$responseCodes</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::$test" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">boolean
+                 <span class="highlight">$test</span>= 'true'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Boolean flag to use test environment or not</p><small>Inherited from:
+                        <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24test">\Pop\Payment\Adapter\AbstractAdapter::$$test</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>true</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::%24%24test">\Pop\Payment\Adapter\AbstractAdapter::$$test</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::$transaction" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$transaction</span>= 'array(
+        'custid'           =&gt; null,
+        'password'         =&gt; null,
+        'action'           =&gt; 'sale',
+        'cc'               =&gt; null,
+        'amount'           =&gt; null,
+        'exp'              =&gt; null,
+        'cvv'              =&gt; null,
+        'checkcvv'         =&gt; 'n',
+        'avs'              =&gt; 'n',
+        'transid'          =&gt; null,
+        'avs'              =&gt; null,
+        'fname'            =&gt; null,
+        'lname'            =&gt; null,
+        'address1'         =&gt; null,
+        'city'             =&gt; null,
+        'state'            =&gt; null,
+        'zip'              =&gt; null,
+        'country'          =&gt; null,
+        'phone'            =&gt; null,
+        'email'            =&gt; null,
+        'ip'               =&gt; null,
+        'shipto_fname'     =&gt; null,
+        'shipto_lname'     =&gt; null,
+        'shipto_address1'  =&gt; null,
+        'shipto_city'      =&gt; null,
+        'shipto_state'     =&gt; null,
+        'shipto_zip'       =&gt; null,
+        'shipto_country'   =&gt; null,
+        'tax'              =&gt; null,
+        'duty'             =&gt; null,
+        'shippinghandling' =&gt; null,
+        'partialauth'      =&gt; null
+    )'
+                </code><div class="description">
+<p class="short-description">Transaction data</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'custid'           =&gt; null,
+        'password'         =&gt; null,
+        'action'           =&gt; 'sale',
+        'cc'               =&gt; null,
+        'amount'           =&gt; null,
+        'exp'              =&gt; null,
+        'cvv'              =&gt; null,
+        'checkcvv'         =&gt; 'n',
+        'avs'              =&gt; 'n',
+        'transid'          =&gt; null,
+        'avs'              =&gt; null,
+        'fname'            =&gt; null,
+        'lname'            =&gt; null,
+        'address1'         =&gt; null,
+        'city'             =&gt; null,
+        'state'            =&gt; null,
+        'zip'              =&gt; null,
+        'country'          =&gt; null,
+        'phone'            =&gt; null,
+        'email'            =&gt; null,
+        'ip'               =&gt; null,
+        'shipto_fname'     =&gt; null,
+        'shipto_lname'     =&gt; null,
+        'shipto_address1'  =&gt; null,
+        'shipto_city'      =&gt; null,
+        'shipto_state'     =&gt; null,
+        'shipto_zip'       =&gt; null,
+        'shipto_country'   =&gt; null,
+        'tax'              =&gt; null,
+        'duty'             =&gt; null,
+        'shippinghandling' =&gt; null,
+        'partialauth'      =&gt; null
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::$url" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$url</span>= ''https://vault.trustcommerce.com/trans/''
+                </code><div class="description">
+<p class="short-description">URL</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>'https://vault.trustcommerce.com/trans/'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          string $custId, string $password, boolean $test
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Constructor</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Method to instantiate an TrustCommerce payment adapter object</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$custId</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$password</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$test</th>
+<td>boolean</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::buildPostString()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">buildPostString</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Build the POST string</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::filterCardNum()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">filterCardNum</span><span class="nb-faded-text">(
+          string $ccNum
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Filter the card num to remove dashes or spaces</p>
+<small>Inherited from:
+                    <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::filterCardNum()">\Pop\Payment\Adapter\AbstractAdapter::filterCardNum()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$ccNum</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::filterExpDate()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">filterExpDate</span><span class="nb-faded-text">(
+          string $date, int $length
+              =
+              4
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Filter the exp date</p>
+<small>Inherited from:
+                    <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::filterExpDate()">\Pop\Payment\Adapter\AbstractAdapter::filterExpDate()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$date</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$length</th>
+<td>int</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::getCode()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCode</span><span class="nb-faded-text">(
+          string $key
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get specific response code from a field in the array</p>
+<small>Inherited from:
+                    <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::getCode()">\Pop\Payment\Adapter\AbstractAdapter::getCode()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::getMessage()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getMessage</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get response message</p>
+<small>Inherited from:
+                    <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::getMessage()">\Pop\Payment\Adapter\AbstractAdapter::getMessage()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::getResponse()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getResponse</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get raw response</p>
+<small>Inherited from:
+                    <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::getResponse()">\Pop\Payment\Adapter\AbstractAdapter::getResponse()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::getResponseCode()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getResponseCode</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get response code</p>
+<small>Inherited from:
+                    <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::getResponseCode()">\Pop\Payment\Adapter\AbstractAdapter::getResponseCode()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::getResponseCodes()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getResponseCodes</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get response codes</p>
+<small>Inherited from:
+                    <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::getResponseCodes()">\Pop\Payment\Adapter\AbstractAdapter::getResponseCodes()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::isApproved()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isApproved</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return whether the transaction is approved</p>
+<small>Inherited from:
+                    <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::isApproved()">\Pop\Payment\Adapter\AbstractAdapter::isApproved()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::isDeclined()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isDeclined</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return whether the transaction is declined</p>
+<small>Inherited from:
+                    <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::isDeclined()">\Pop\Payment\Adapter\AbstractAdapter::isDeclined()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::isError()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isError</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return whether the transaction is an error</p>
+<small>Inherited from:
+                    <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::isError()">\Pop\Payment\Adapter\AbstractAdapter::isError()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::isTest()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isTest</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return whether currently set to test environment</p>
+<small>Inherited from:
+                    <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::isTest()">\Pop\Payment\Adapter\AbstractAdapter::isTest()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::isValid()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isValid</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return whether the required transaction data is valid</p>
+<small>Inherited from:
+                    <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::isValid()">\Pop\Payment\Adapter\AbstractAdapter::isValid()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::parseResponseCodes()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">parseResponseCodes</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Parse the response codes</p></div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::send()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">send</span><span class="nb-faded-text">(
+          boolean $verifyPeer
+              =
+              true
+          )
+        </span>
+        :
+          <a href="db_Pop_Payment_Adapter_Authorize.html#%5CPop%5CPayment%5CAdapter%5CAuthorize">\Pop\Payment\Adapter\Authorize</a></code><div class="description"><p class="short_description">Send transaction</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$verifyPeer</th>
+<td>boolean</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Pop_Payment_Adapter_Authorize.html#%5CPop%5CPayment%5CAdapter%5CAuthorize">\Pop\Payment\Adapter\Authorize</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Pop_Payment_Adapter_Exception.html#%5CPop%5CPayment%5CAdapter%5CException">\Pop\Payment\Adapter\Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::set()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">set</span><span class="nb-faded-text">(
+          array | string $data, string $value
+              =
+              null
+          )
+        </span>
+        :
+          mixed</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set transaction data</p>
+<small>Inherited from:
+                    <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::set()">\Pop\Payment\Adapter\AbstractAdapter::set()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>array | string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\Payment\Adapter\TrustCommerce::validate()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">validate</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Validate that the required transaction data is set</p>
+<small>Inherited from:
+                    <a href="db_Pop_Payment_Adapter_AbstractAdapter.html#%5CPop%5CPayment%5CAdapter%5CAbstractAdapter::validate()">\Pop\Payment\Adapter\AbstractAdapter::validate()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

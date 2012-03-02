@@ -1,0 +1,1144 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>DocBlox Documentation</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Pop/File/File.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CPop%5CFile%5CFile">\Pop\File\File</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Pop PHP Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.TXT.
+It is also available through the world-wide-web at this URL:
+http://www.popphp.org/LICENSE.TXT
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to info@popphp.org so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Author</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="mailto:nick@popphp.org">Nick Sagona, III</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Pop
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://www.popphp.org/LICENSE.TXT">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Pop_File
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Pop\File\File" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Pop\File\File<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Pop\File</small><p class="short-description">This is the File class for the File component.</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Children</dt>
+<dd><a href="db_Pop_Image_AbstractImage.html#%5CPop%5CImage%5CAbstractImage">\Pop\Image\AbstractImage</a></dd>
+<dd><a href="db_Pop_Image_Svg.html#%5CPop%5CImage%5CSvg">\Pop\Image\Svg</a></dd>
+<dd><a href="db_Pop_Auth_Adapter_AuthFile.html#%5CPop%5CAuth%5CAdapter%5CAuthFile">\Pop\Auth\Adapter\AuthFile</a></dd>
+<dd><a href="db_Pop_Pdf_Pdf.html#%5CPop%5CPdf%5CPdf">\Pop\Pdf\Pdf</a></dd>
+<dd><a href="db_Pop_Archive_Archive.html#%5CPop%5CArchive%5CArchive">\Pop\Archive\Archive</a></dd>
+<dd><a href="db_Pop_Font_AbstractFont.html#%5CPop%5CFont%5CAbstractFont">\Pop\Font\AbstractFont</a></dd>
+<dd><a href="db_Pop_Code_Generator.html#%5CPop%5CCode%5CGenerator">\Pop\Code\Generator</a></dd>
+<dt>Author</dt>
+<dd>
+<a href="mailto:nick@popphp.org">Nick Sagona, III</a>
+         
+    </dd>
+<dt>Category</dt>
+<dd>Pop
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://www.popphp.org/LICENSE.TXT">New BSD License</a>
+         
+    </dd>
+<dt>Version</dt>
+<dd>0.9
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Pop\File\File::MAX" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant">int 
+                <span class="highlight">MAX</span>
+                = 10000000</code><div class="description"><p class="short-description">Max file size for uploads. Can be overridden via the upload() method.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info">
+<dt></dt>
+<dd>int<br><em></em>
+</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Pop\File\File::$allowed" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$allowed</span>= 'array(
+        'afm'    =&gt; 'application/x-font-afm',
+        'ai'     =&gt; 'application/postscript',
+        'aif'    =&gt; 'audio/x-aiff',
+        'aiff'   =&gt; 'audio/x-aiff',
+        'avi'    =&gt; 'video/x-msvideo',
+        'bmp'    =&gt; 'image/x-ms-bmp',
+        'bz2'    =&gt; 'application/bzip2',
+        'css'    =&gt; 'text/css',
+        'csv'    =&gt; 'text/csv',
+        'doc'    =&gt; 'application/msword',
+        'docx'   =&gt; 'application/msword',
+        'eps'    =&gt; 'application/octet-stream',
+        'fla'    =&gt; 'application/octet-stream',
+        'flv'    =&gt; 'application/octet-stream',
+        'gif'    =&gt; 'image/gif',
+        'gz'     =&gt; 'application/x-gzip',
+        'html'   =&gt; 'text/html',
+        'htm'    =&gt; 'text/html',
+        'jpe'    =&gt; 'image/jpeg',
+        'jpg'    =&gt; 'image/jpeg',
+        'jpeg'   =&gt; 'image/jpeg',
+        'js'     =&gt; 'text/plain',
+        'json'   =&gt; 'text/plain',
+        'mov'    =&gt; 'video/quicktime',
+        'mp2'    =&gt; 'audio/mpeg',
+        'mp3'    =&gt; 'audio/mpeg',
+        'mp4'    =&gt; 'video/mp4',
+        'mpg'    =&gt; 'video/mpeg',
+        'mpeg'   =&gt; 'video/mpeg',
+        'otf'    =&gt; 'application/x-font-otf',
+        'pdf'    =&gt; 'application/pdf',
+        'pfb'    =&gt; 'application/x-font-pfb',
+        'pfm'    =&gt; 'application/x-font-pfm',
+        'pgsql'  =&gt; 'text/plain',
+        'phar'   =&gt; 'application/x-phar',
+        'php'    =&gt; 'text/plain',
+        'php3'   =&gt; 'text/plain',
+        'phtml'  =&gt; 'text/plain',
+        'png'    =&gt; 'image/png',
+        'ppt'    =&gt; 'application/msword',
+        'pptx'   =&gt; 'application/msword',
+        'psb'    =&gt; 'image/x-photoshop',
+        'psd'    =&gt; 'image/x-photoshop',
+        'rar'    =&gt; 'application/x-rar-compressed',
+        'shtml'  =&gt; 'text/html',
+        'shtm'   =&gt; 'text/html',
+        'sit'    =&gt; 'application/x-stuffit',
+        'sitx'   =&gt; 'application/x-stuffit',
+        'sql'    =&gt; 'text/plain',
+        'sqlite' =&gt; 'application/octet-stream',
+        'svg'    =&gt; 'image/svg+xml',
+        'swf'    =&gt; 'application/x-shockwave-flash',
+        'tar'    =&gt; 'application/x-tar',
+        'tbz'    =&gt; 'application/bzip2',
+        'tbz2'   =&gt; 'application/bzip2',
+        'tgz'    =&gt; 'application/x-gzip',
+        'tif'    =&gt; 'image/tiff',
+        'tiff'   =&gt; 'image/tiff',
+        'tsv'    =&gt; 'text/tsv',
+        'ttf'    =&gt; 'application/x-font-ttf',
+        'txt'    =&gt; 'text/plain',
+        'wav'    =&gt; 'audio/x-wav',
+        'wma'    =&gt; 'audio/x-ms-wma',
+        'wmv'    =&gt; 'audio/x-ms-wmv',
+        'xls'    =&gt; 'application/msword',
+        'xlsx'   =&gt; 'application/msword',
+        'xhtml'  =&gt; 'application/xhtml+xml',
+        'xml'    =&gt; 'application/xml',
+        'yaml'   =&gt; 'text/plain',
+        'yml'    =&gt; 'text/plain',
+        'zip'    =&gt; 'application/x-zip'
+    )'
+                </code><div class="description">
+<p class="short-description">Array of allowed file types.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'afm'    =&gt; 'application/x-font-afm',
+        'ai'     =&gt; 'application/postscript',
+        'aif'    =&gt; 'audio/x-aiff',
+        'aiff'   =&gt; 'audio/x-aiff',
+        'avi'    =&gt; 'video/x-msvideo',
+        'bmp'    =&gt; 'image/x-ms-bmp',
+        'bz2'    =&gt; 'application/bzip2',
+        'css'    =&gt; 'text/css',
+        'csv'    =&gt; 'text/csv',
+        'doc'    =&gt; 'application/msword',
+        'docx'   =&gt; 'application/msword',
+        'eps'    =&gt; 'application/octet-stream',
+        'fla'    =&gt; 'application/octet-stream',
+        'flv'    =&gt; 'application/octet-stream',
+        'gif'    =&gt; 'image/gif',
+        'gz'     =&gt; 'application/x-gzip',
+        'html'   =&gt; 'text/html',
+        'htm'    =&gt; 'text/html',
+        'jpe'    =&gt; 'image/jpeg',
+        'jpg'    =&gt; 'image/jpeg',
+        'jpeg'   =&gt; 'image/jpeg',
+        'js'     =&gt; 'text/plain',
+        'json'   =&gt; 'text/plain',
+        'mov'    =&gt; 'video/quicktime',
+        'mp2'    =&gt; 'audio/mpeg',
+        'mp3'    =&gt; 'audio/mpeg',
+        'mp4'    =&gt; 'video/mp4',
+        'mpg'    =&gt; 'video/mpeg',
+        'mpeg'   =&gt; 'video/mpeg',
+        'otf'    =&gt; 'application/x-font-otf',
+        'pdf'    =&gt; 'application/pdf',
+        'pfb'    =&gt; 'application/x-font-pfb',
+        'pfm'    =&gt; 'application/x-font-pfm',
+        'pgsql'  =&gt; 'text/plain',
+        'phar'   =&gt; 'application/x-phar',
+        'php'    =&gt; 'text/plain',
+        'php3'   =&gt; 'text/plain',
+        'phtml'  =&gt; 'text/plain',
+        'png'    =&gt; 'image/png',
+        'ppt'    =&gt; 'application/msword',
+        'pptx'   =&gt; 'application/msword',
+        'psb'    =&gt; 'image/x-photoshop',
+        'psd'    =&gt; 'image/x-photoshop',
+        'rar'    =&gt; 'application/x-rar-compressed',
+        'shtml'  =&gt; 'text/html',
+        'shtm'   =&gt; 'text/html',
+        'sit'    =&gt; 'application/x-stuffit',
+        'sitx'   =&gt; 'application/x-stuffit',
+        'sql'    =&gt; 'text/plain',
+        'sqlite' =&gt; 'application/octet-stream',
+        'svg'    =&gt; 'image/svg+xml',
+        'swf'    =&gt; 'application/x-shockwave-flash',
+        'tar'    =&gt; 'application/x-tar',
+        'tbz'    =&gt; 'application/bzip2',
+        'tbz2'   =&gt; 'application/bzip2',
+        'tgz'    =&gt; 'application/x-gzip',
+        'tif'    =&gt; 'image/tiff',
+        'tiff'   =&gt; 'image/tiff',
+        'tsv'    =&gt; 'text/tsv',
+        'ttf'    =&gt; 'application/x-font-ttf',
+        'txt'    =&gt; 'text/plain',
+        'wav'    =&gt; 'audio/x-wav',
+        'wma'    =&gt; 'audio/x-ms-wma',
+        'wmv'    =&gt; 'audio/x-ms-wmv',
+        'xls'    =&gt; 'application/msword',
+        'xlsx'   =&gt; 'application/msword',
+        'xhtml'  =&gt; 'application/xhtml+xml',
+        'xml'    =&gt; 'application/xml',
+        'yaml'   =&gt; 'text/plain',
+        'yml'    =&gt; 'text/plain',
+        'zip'    =&gt; 'application/x-zip'
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::$basename" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
+                 <span class="highlight">$basename</span>= 'null'
+                </code><div class="description">
+<p class="short-description">Full basename of file, i.e. 'file.ext'</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::$dir" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
+                 <span class="highlight">$dir</span>= 'null'
+                </code><div class="description">
+<p class="short-description">Full, absolute directory of file, i.e. '/some/dir/'</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::$ext" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
+                 <span class="highlight">$ext</span>= 'null'
+                </code><div class="description">
+<p class="short-description">File extension, i.e. 'ext'</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::$filename" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
+                 <span class="highlight">$filename</span>= 'null'
+                </code><div class="description">
+<p class="short-description">Full filename of file, i.e. 'file'</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::$fullpath" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
+                 <span class="highlight">$fullpath</span>= 'null'
+                </code><div class="description">
+<p class="short-description">Full path and name of the file, i.e. '/some/dir/file.ext'</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::$mime" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$mime</span>= 'null'
+                </code><div class="description">
+<p class="short-description">File mime type</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::$output" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$output</span>= 'null'
+                </code><div class="description">
+<p class="short-description">File output data.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::$perm" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$perm</span>= 'array()'
+                </code><div class="description">
+<p class="short-description">Directory and file permissions, based on chmod, when and if applicable.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::$size" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">int
+                 <span class="highlight">$size</span>= '0'
+                </code><div class="description">
+<p class="short-description">File size in bytes</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Pop\File\File::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          string $file, array $types
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Constructor</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Instantiate the file object, either from a file on disk or as a new file.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$file</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$types</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::addAllowedTypes()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addAllowedTypes</span><span class="nb-faded-text">(
+          array $types
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the allowed files types.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$types</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::checkPermissions()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">checkPermissions</span><span class="nb-faded-text">(
+          string $file
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Check file or directory permissions.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$file</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Pop_File_Exception.html#%5CPop%5CFile%5CException">\Pop\File\Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::copy()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">copy</span><span class="nb-faded-text">(
+          string $new
+          )
+        </span>
+        :
+          \Pop\File\Pop_File</code><div class="description"><p class="short_description">Copy the file object directly to another file on disk.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$new</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\Pop\File\Pop_File</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Pop_File_Exception.html#%5CPop%5CFile%5CException">\Pop\File\Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::delete()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">delete</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Delete the file object directly from disk.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Pop_File_Exception.html#%5CPop%5CFile%5CException">\Pop\File\Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::getAllowedTypes()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getAllowedTypes</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Get the current allowed files types.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::getMime()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getMime</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get the current file mime type.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::getMode()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getMode</span><span class="nb-faded-text">(
+          boolean $dir
+              =
+              false
+          )
+        </span>
+        :
+          int | boolean</code><div class="description"><p class="short_description">Get the permissions of the file.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$dir</th>
+<td>boolean</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int | boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::getSize()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getSize</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get the current file size.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::isAllowed()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isAllowed</span><span class="nb-faded-text">(
+          string $type
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">Test if a certain file type is allowed.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::move()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">move</span><span class="nb-faded-text">(
+          string $new
+          )
+        </span>
+        :
+          \Pop\File\Pop_File</code><div class="description"><p class="short_description">Move the file object directly to another location on disk.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$new</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\Pop\File\Pop_File</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Pop_File_Exception.html#%5CPop%5CFile%5CException">\Pop\File\Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::output()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">output</span><span class="nb-faded-text">(
+          boolean $download
+              =
+              false
+          )
+        </span>
+        :
+          \Pop\File\Pop_File</code><div class="description"><p class="short_description">Output the file object directly.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$download</th>
+<td>boolean</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\Pop\File\Pop_File</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::read()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">read</span><span class="nb-faded-text">(
+          int | string $off
+              =
+              null, int | string $len
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Read data from a file.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$off</th>
+<td>int | string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$len</th>
+<td>int | string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::save()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">save</span><span class="nb-faded-text">(
+          string $to
+              =
+              null, boolean $append
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Save the file object to disk.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$to</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$append</th>
+<td>boolean</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::setAllowedTypes()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setAllowedTypes</span><span class="nb-faded-text">(
+          array $types
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the allowed files types, overriding any previously allowed types.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$types</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::setFile()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">setFile</span><span class="nb-faded-text">(
+          string $file, array $types
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the file and its properties.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$file</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$types</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Pop_File_Exception.html#%5CPop%5CFile%5CException">\Pop\File\Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::setMode()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setMode</span><span class="nb-faded-text">(
+          string | \Pop\File\oct $mode, boolean $dir
+              =
+              false
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Change the permissions of the file.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$mode</th>
+<td>string | \Pop\File\oct</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$dir</th>
+<td>boolean</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::upload()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">upload</span><span class="nb-faded-text">(
+          string $upload, string $file, int $size
+              =
+              null, array $types
+              =
+              null
+          )
+        </span>
+        :
+          \Pop\File\Pop_File</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Static method to upload a file and return a file object.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$upload</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$file</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$size</th>
+<td>int</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$types</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\Pop\File\Pop_File</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Pop_File_Exception.html#%5CPop%5CFile%5CException">\Pop\File\Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Pop\File\File::write()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">write</span><span class="nb-faded-text">(
+          string $data, boolean $append
+              =
+              false
+          )
+        </span>
+        :
+          \Pop\File\Pop_File</code><div class="description"><p class="short_description">Write data to a file.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$append</th>
+<td>boolean</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\Pop\File\Pop_File</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>
