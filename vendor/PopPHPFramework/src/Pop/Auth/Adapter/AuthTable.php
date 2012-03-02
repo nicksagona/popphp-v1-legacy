@@ -27,6 +27,8 @@ namespace Pop\Auth\Adapter;
 use Pop\Auth\Auth;
 
 /**
+ * This is the AuthTable adapter class for the Auth component.
+ *
  * @category   Pop
  * @package    Pop_Auth
  * @author     Nick Sagona, III <nick@popphp.org>

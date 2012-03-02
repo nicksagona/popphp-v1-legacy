@@ -33,6 +33,8 @@ use Pop\Color\ColorInterface,
     Pop\Pdf\Pdf;
 
 /**
+ * This is the Graph class for the Graph component.
+ *
  * @category   Pop
  * @package    Pop_Graph
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -180,11 +182,11 @@ class Graph
      *
      * Instantiate the graph object.
      *
-     * @param  string $filename
-     * @param  int    $w
-     * @param  int    $h
-     * @param  int    $type
-     * @param  mixed  $bgcolor
+     * @param  string         $filename
+     * @param  int            $w
+     * @param  int            $h
+     * @param  int            $type
+     * @param  ColorInterface $bgcolor
      * @return void
      */
     public function __construct($filename, $w, $h, $type = Graph::GD, ColorInterface $bgcolor = null)
@@ -220,8 +222,8 @@ class Graph
     /**
      * Set the axis options
      *
-     * @param  mixed $color
-     * @param  int   $width
+     * @param  ColorInterface $color
+     * @param  int            $width
      * @return Pop\Graph\Graph
      */
     public function setAxisOptions(ColorInterface $color = null, $width = 2)
@@ -286,7 +288,7 @@ class Graph
     /**
      * Set the font color
      *
-     * @param  mixed $color
+     * @param  ColorInterface $color
      * @return Pop\Graph\Graph
      */
     public function setFontColor(ColorInterface $color)
@@ -298,7 +300,7 @@ class Graph
     /**
      * Set the reverse font color
      *
-     * @param  mixed $color
+     * @param  ColorInterface $color
      * @return Pop\Graph\Graph
      */
     public function setReverseFontColor(ColorInterface $color)
@@ -310,7 +312,7 @@ class Graph
     /**
      * Set the fill color
      *
-     * @param  mixed $color
+     * @param  ColorInterface $color
      * @return Pop\Graph\Graph
      */
     public function setFillColor(ColorInterface $color)
@@ -322,7 +324,7 @@ class Graph
     /**
      * Set the stroke color
      *
-     * @param  mixed $color
+     * @param  ColorInterface $color
      * @return Pop\Graph\Graph
      */
     public function setStrokeColor(ColorInterface $color)
@@ -382,8 +384,8 @@ class Graph
     /**
      * Set the 'show X-axis increment lines' flag
      *
-     * @param  boolean $showX
-     * @param  mixed   $color
+     * @param  boolean        $showX
+     * @param  ColorInterface $color
      * @return Pop\Graph\Graph
      */
     public function showX($showX, ColorInterface $color = null)
@@ -396,8 +398,8 @@ class Graph
     /**
      * Set the 'show Y-axis increment lines' flag
      *
-     * @param  boolean $showY
-     * @param  mixed   $color
+     * @param  boolean        $showY
+     * @param  ColorInterface $color
      * @return Pop\Graph\Graph
      */
     public function showY($showY, ColorInterface $color = null)
@@ -1114,6 +1116,7 @@ class Graph
      * @param  array  $yAxis
      * @param  string $type
      * @param  array  $points
+     * @param  int    $skip
      * @return void
      */
     protected function drawDataText($dataPoints, $xAxis, $yAxis, $type, $points = null, $skip = 1)

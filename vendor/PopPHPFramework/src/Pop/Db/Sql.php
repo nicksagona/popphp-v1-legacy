@@ -25,6 +25,8 @@
 namespace Pop\Db;
 
 /**
+ * This is the Sql adapter class for the Db component.
+ *
  * @category   Pop
  * @package    Pop_Db
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -536,7 +538,7 @@ class Sql
     /**
      * Method to add id quotes to a column id
      *
-     * @param  string $columns
+     * @param  string $id
      * @return string
      */
     protected function quoteId($id)

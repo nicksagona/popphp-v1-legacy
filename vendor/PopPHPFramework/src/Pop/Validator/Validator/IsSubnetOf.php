@@ -28,6 +28,8 @@ use Pop\Validator\Validator,
     Pop\Locale\Locale;
 
 /**
+ * This is the IsSubnetOf class for the Validator component.
+ *
  * @category   Pop
  * @package    Pop_Validator
  * @author     Nick Sagona, III <nick@popphp.org>

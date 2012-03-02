@@ -28,6 +28,8 @@ use Pop\Code\Generator,
     Pop\Filter\String;
 
 /**
+ * This is the Bootstrap class for the Project Install component.
+ *
  * @category   Pop
  * @package    Pop_Project
  * @author     Nick Sagona, III <nick@popphp.org>

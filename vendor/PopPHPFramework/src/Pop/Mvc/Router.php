@@ -28,6 +28,8 @@ use Pop\Http\Request,
     Pop\Project\Project;
 
 /**
+ * This is the Router class for the Mvc component.
+ *
  * @category   Pop
  * @package    Pop_Mvc
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -84,7 +86,7 @@ class Router
     /**
      * Add controllers
      *
-     * @param array $controllers
+     * @param array $controller
      * @return Pop\Mvc\Router
      */
     public function addControllers(array $controller)
@@ -108,6 +110,7 @@ class Router
     /**
      * Get an available controller class name
      *
+     * @param  string $controller
      * @return string
      */
     public function getController($controller)
@@ -142,7 +145,7 @@ class Router
     /**
      * Route to the controller
      *
-     * @param  Pop\Project\Project $project
+     * @param  Project $project
      * @return void
      */
     public function route(Project $project)

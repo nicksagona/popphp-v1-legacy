@@ -25,6 +25,8 @@
 namespace Pop\Code;
 
 /**
+ * This is the Interface class of the Code component.
+ *
  * @category   Pop
  * @package    Pop_Code
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -173,7 +175,7 @@ class InterfaceGenerator
     /**
      * Set the namespace generator object
      *
-     * @param  Pop\Code\NamespaceGenerator $namespace
+     * @param  NamespaceGenerator $namespace
      * @return Pop\Code\ClassGenerator
      */
     public function setNamespace(NamespaceGenerator $namespace)
@@ -195,7 +197,7 @@ class InterfaceGenerator
     /**
      * Set the docblock generator object
      *
-     * @param  Pop\Code\DocblockGenerator $docblock
+     * @param  DocblockGenerator $docblock
      * @return Pop\Code\ClassGenerator
      */
     public function setDocblock(DocblockGenerator $docblock)
@@ -217,7 +219,7 @@ class InterfaceGenerator
     /**
      * Add a class method
      *
-     * @param  Pop\Code\MethodGenerator $method
+     * @param  MethodGenerator $method
      * @return Pop\Code\ClassGenerator
      */
     public function addMethod(MethodGenerator $method)

@@ -28,6 +28,8 @@ use Pop\Dir\Dir,
     Pop\File\File;
 
 /**
+ * This is the Locale class for the Locale component. *
+ *
  * @category   Pop
  * @package    Pop_Locale
  * @author     Nick Sagona, III <nick@popphp.org>

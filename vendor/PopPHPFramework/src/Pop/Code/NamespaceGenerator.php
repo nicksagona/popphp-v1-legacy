@@ -27,6 +27,8 @@ namespace Pop\Code;
 use Pop\Code\DocblockGenerator;
 
 /**
+ * This is the Namespace class for the Code component.
+ *
  * @category   Pop
  * @package    Pop_Code
  * @author     Nick Sagona, III <nick@popphp.org>

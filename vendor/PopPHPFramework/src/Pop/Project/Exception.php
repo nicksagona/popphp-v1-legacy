@@ -25,6 +25,8 @@
 namespace Pop\Project;
 
 /**
+ * This is the Project Exception class for the Project component.
+ *
  * @category   Pop
  * @package    Pop_Project
  * @author     Nick Sagona, III <nick@popphp.org>

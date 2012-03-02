@@ -25,6 +25,8 @@
 namespace Pop\Graph;
 
 /**
+ * This is the Exception class for the Graph component.
+ *
  * @category   Pop
  * @package    Pop_Graph
  * @author     Nick Sagona, III <nick@popphp.org>

@@ -25,6 +25,8 @@
 namespace Pop\Ftp;
 
 /**
+ * This is the Ftp Exception class for the Ftp component.
+ *
  * @category   Pop
  * @package    Pop_Ftp
  * @author     Nick Sagona, III <nick@popphp.org>

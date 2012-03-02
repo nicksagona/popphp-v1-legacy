@@ -31,6 +31,8 @@ use Pop\Color\Cmyk,
     Pop\Color\Rgb;
 
 /**
+ * This is the Color class for the Color component.
+ *
  * @category   Pop
  * @package    Pop_Color
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -70,8 +72,8 @@ class Color
      *
      * Instantiate the color object
      *
-     * @param  Pop\Color\ColorInterface   $color
-     * @param  boolean                    $convert
+     * @param  ColorInterface $color
+     * @param  boolean        $convert
      * @return void
      */
     public function __construct(ColorInterface $color = null, $convert = true)
@@ -85,7 +87,7 @@ class Color
      * Static method to instantiate the color object and return itself
      * to facilitate chaining methods together.
      *
-     * @param  Pop\Color\ColorInterface   $color
+     * @param  ColorInterface   $color
      * @param  boolean                    $convert
      * @return Pop\Color\Color
      */
@@ -97,7 +99,7 @@ class Color
     /**
      * Method to add a new color space object to the color object.
      *
-     * @param  Pop\Color\ColorInterface  $color
+     * @param  ColorInterface  $color
      * @param  boolean $convert
      * @throws
      * @return Pop\Color\Color
@@ -135,8 +137,9 @@ class Color
     /**
      * Method to convert a color space object to a CMYK object
      *
-     * @param  mixed $color
-     * @throws
+     * @param  mixed   $color
+     * @param  boolean $save
+     * @throws Exception
      * @return Pop\Color\Cmyk
      */
     public function convertToCmyk($color, $save = false)
@@ -162,8 +165,9 @@ class Color
     /**
      * Method to convert a color space object to a hex RGB object
      *
-     * @param  mixed $color
-     * @throws
+     * @param  mixed   $color
+     * @param  boolean $save
+     * @throws Exception
      * @return Pop\Color\Hex
      */
     public function convertToHex($color, $save = false)
@@ -189,8 +193,9 @@ class Color
     /**
      * Method to convert a color space object to an HSB object
      *
-     * @param  mixed $color
-     * @throws
+     * @param  mixed   $color
+     * @param  boolean $save
+     * @throws Exception
      * @return Pop\Color\Hsb
      */
     public function convertToHsb($color, $save = false)
@@ -216,8 +221,9 @@ class Color
     /**
      * Method to convert a color space object to a LAB object
      *
-     * @param  mixed $color
-     * @throws
+     * @param  mixed   $color
+     * @param  boolean $save
+     * @throws Exception
      * @return Pop\Color\Lab
      */
     public function convertToLab($color, $save = false)
@@ -243,8 +249,9 @@ class Color
     /**
      * Method to convert a color space object to an integer RGB object
      *
-     * @param  mixed $color
-     * @throws
+     * @param  mixed   $color
+     * @param  boolean $save
+     * @throws Exception
      * @return Pop\Color\Rgb
      */
     public function convertToRgb($color, $save = false)
@@ -270,7 +277,7 @@ class Color
     /**
      * Method to convert an integer RGB object to a hex RGB object
      *
-     * @param  Pop\Color\Rgb $rgb
+     * @param  Rgb $rgb
      * @return Pop\Color\Hex
      */
     public function rgbToHex(Rgb $rgb)
@@ -282,7 +289,7 @@ class Color
     /**
      * Method to convert an integer RGB object to a CMYK object
      *
-     * @param  Pop\Color\Rgb $rgb
+     * @param  Rgb $rgb
      * @return Pop\Color\Cmyk
      */
     public function rgbToCmyk(Rgb $rgb)
@@ -323,7 +330,7 @@ class Color
     /**
      * Method to convert an integer RGB object to an HSB object
      *
-     * @param  Pop\Color\Rgb $rgb
+     * @param  Rgb $rgb
      * @return Pop\Color\Hsb
      */
     public function rgbToHsb(Rgb $rgb)
@@ -364,7 +371,7 @@ class Color
     /**
      * Method to convert an integer RGB object to a LAB object
      *
-     * @param  Pop\Color\Rgb $rgb
+     * @param  Rgb $rgb
      * @return Pop\Color\Lab
      */
     public function rgbToLab(Rgb $rgb)
@@ -423,7 +430,7 @@ class Color
     /**
      * Method to convert a CMYK object to an integer RGB object
      *
-     * @param  Pop\Color\Cmyk $cmyk
+     * @param  Cmyk $cmyk
      * @return Pop\Color\Rgb
      */
     public function cmykToRgb(Cmyk $cmyk)
@@ -451,7 +458,7 @@ class Color
     /**
      * Method to convert a CMYK object to a hex RGB object
      *
-     * @param  Pop\Color\Cmyk $cmyk
+     * @param  Cmyk $cmyk
      * @return Pop\Color\Hex
      */
     public function cmykToHex(Cmyk $cmyk)
@@ -462,7 +469,7 @@ class Color
     /**
      * Method to convert a CMYK object to an HSB object
      *
-     * @param  Pop\Color\Cmyk $cmyk
+     * @param  Cmyk $cmyk
      * @return Pop\Color\Hsb
      */
     public function cmykToHsb(Cmyk $cmyk)
@@ -473,7 +480,7 @@ class Color
     /**
      * Method to convert a CMYK object to a LAB object
      *
-     * @param  Pop\Color\Cmyk $cmyk
+     * @param  Cmyk $cmyk
      * @return Pop\Color\Lab
      */
     public function cmykToLab(Cmyk $cmyk)
@@ -484,7 +491,7 @@ class Color
     /**
      * Method to convert an HSB object to an integer RGB object
      *
-     * @param  Pop\Color\Hsb $hsb
+     * @param  Hsb $hsb
      * @return Pop\Color\Rgb
      */
     public function hsbToRgb(Hsb $hsb)
@@ -551,7 +558,7 @@ class Color
     /**
      * Method to convert an HSB object to a hex RGB object
      *
-     * @param  Pop\Color\Hsb $hsb
+     * @param  Hsb $hsb
      * @return Pop\Color\Hex
      */
     public function hsbToHex(Hsb $hsb)
@@ -562,7 +569,7 @@ class Color
     /**
      * Method to convert an HSB object to a CMYK object
      *
-     * @param  Pop\Color\Hsb $hsb
+     * @param  Hsb $hsb
      * @return Pop\Color\Cmyk
      */
     public function hsbToCmyk(Hsb $hsb)
@@ -573,7 +580,7 @@ class Color
     /**
      * Method to convert an HSB object to a LAB object
      *
-     * @param  Pop\Color\Hsb $hsb
+     * @param  Hsb $hsb
      * @return Pop\Color\Lab
      */
     public function hsbToLab(Hsb $hsb)
@@ -584,7 +591,7 @@ class Color
     /**
      * Method to convert a LAB object to an integer RGB object
      *
-     * @param  Pop\Color\Lab $lab
+     * @param  Lab $lab
      * @return Pop\Color\Rgb
      */
     public function labToRgb(Lab $lab)
@@ -653,7 +660,7 @@ class Color
     /**
      * Method to convert a LAB object to a hex RGB object
      *
-     * @param  Pop\Color\Lab $lab
+     * @param  Lab $lab
      * @return Pop\Color\Hex
      */
     public function labToHex(Lab $lab)
@@ -664,7 +671,7 @@ class Color
     /**
      * Method to convert a LAB object to a CMYK object
      *
-     * @param  Pop\Color\Lab $lab
+     * @param  Lab $lab
      * @return Pop\Color\Cmyk
      */
     public function labToCmyk(Lab $lab)
@@ -675,7 +682,7 @@ class Color
     /**
      * Method to convert a LAB object to an HSB object
      *
-     * @param  Pop\Color\Lab $lab
+     * @param  Lab $lab
      * @return Pop\Color\Hsb
      */
     public function labToHsb(Lab $lab)

@@ -25,6 +25,8 @@
 namespace Pop\Form;
 
 /**
+ * This is the Form Exception class for the Form component.
+ *
  * @category   Pop
  * @package    Pop_Form
  * @author     Nick Sagona, III <nick@popphp.org>

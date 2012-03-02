@@ -25,6 +25,8 @@
 namespace Pop\Mvc;
 
 /**
+ * This is the View class for the Mvc component.
+ *
  * @category   Pop
  * @package    Pop_Mvc
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -64,8 +66,8 @@ class View
      *
      * Instantiate the view object.
      *
-     * @param string        $template
-     * @param Pop\Mvc\Model $model
+     * @param string $template
+     * @param Model  $model
      * @return void
      */
     public function __construct($template = null, Model $model = null)
@@ -88,8 +90,8 @@ class View
     /**
      * Create a Pop\Mvc\View object
      *
-     * @param  string        $template
-     * @param  Pop\Mvc\Model $model
+     * @param  string $template
+     * @param  Model  $model
      * @return Pop\Mvc\View
      */
     public static function factory($template = null, Model $model = null)
@@ -168,7 +170,7 @@ class View
     /**
      * Set data model
      *
-     * @param  Pop\Mvc\Model $model
+     * @param  Model $model
      * @return Pop\Mvc\View
      */
     public function setModel(Model $model)

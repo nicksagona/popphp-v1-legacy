@@ -25,6 +25,8 @@
 namespace Pop\Curl;
 
 /**
+ * This is the Exception class for the Curl component.
+ *
  * @category   Pop
  * @package    Pop_Curl
  * @author     Nick Sagona, III <nick@popphp.org>

@@ -27,6 +27,8 @@ namespace Pop\Code;
 use Pop\Code\DocblockGenerator;
 
 /**
+ * This is the Method class for the Code component.
+ *
  * @category   Pop
  * @package    Pop_Code
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -342,7 +344,7 @@ class MethodGenerator
     /**
      * Set the docblock generator object
      *
-     * @param  Pop\Code\DocblockGenerator $docblock
+     * @param  DocblockGenerator $docblock
      * @return Pop\Code\ClassGenerator
      */
     public function setDocblock(DocblockGenerator $docblock)
@@ -460,6 +462,7 @@ class MethodGenerator
     /**
      * Get a method argument
      *
+     * @param  string $name
      * @return array
      */
     public function getArgument($name)
@@ -480,6 +483,7 @@ class MethodGenerator
     /**
      * Get a method argument (synonym method for convenience)
      *
+     * @param  string $name
      * @return array
      */
     public function getParameter($name)

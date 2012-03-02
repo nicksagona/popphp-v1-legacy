@@ -25,6 +25,8 @@
 namespace Pop\Font;
 
 /**
+ * This is the Exception class for the Font component.
+ *
  * @category   Pop
  * @package    Pop_Font
  * @author     Nick Sagona, III <nick@popphp.org>

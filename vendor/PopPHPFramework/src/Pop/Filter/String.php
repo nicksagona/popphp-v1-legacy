@@ -25,6 +25,8 @@
 namespace Pop\Filter;
 
 /**
+ * This is the String class for the Filter component.
+ *
  * @category   Pop
  * @package    Pop_Filter
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -412,7 +414,6 @@ class String
     /**
      * Method to convert newlines from DOS to UNIX
      *
-     * @param  boolean $html
      * @return Pop\Filter\String
      */
     public function dosToUnix()
@@ -522,7 +523,7 @@ class String
     /**
      * Method to convert the string to a hash using the crypt functions
      *
-     * @param  boolean $raw
+     * @param  string $salt
      * @return Pop\Filter\String
      */
     public function crypt($salt = null)

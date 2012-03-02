@@ -28,6 +28,8 @@ use Pop\Form\Element,
     Pop\Locale\Locale;
 
 /**
+ * This is the Select Element class for the Form component.
+ *
  * @category   Pop
  * @package    Pop_Form
  * @author     Nick Sagona, III <nick@popphp.org>

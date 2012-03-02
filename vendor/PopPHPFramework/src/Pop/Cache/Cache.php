@@ -27,6 +27,8 @@ namespace Pop\Cache;
 use Pop\Locale\Locale;
 
 /**
+ * This is the Cache class for the Cache component.
+ *
  * @category   Pop
  * @package    Pop_Cache
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -54,8 +56,8 @@ class Cache implements CacheInterface
      *
      * Instantiate the cache object
      *
-     * @param  Pop\Cache\CacheInterface $adapter
-     * @param  int                      $lifetime
+     * @param  CacheInterface $adapter
+     * @param  int            $lifetime
      * @return void
      */
     public function __construct(CacheInterface $adapter, $lifetime = 0)
@@ -68,8 +70,8 @@ class Cache implements CacheInterface
      * Static method to instantiate the cache object and return itself
      * to facilitate chaining methods together.
      *
-     * @param  Pop\Cache\CacheInterface $adapter
-     * @param  int                      $lifetime
+     * @param  CacheInterface $adapter
+     * @param  int            $lifetime
      * @return Pop\Cache\Cache
      */
     public static function factory(CacheInterface $adapter, $lifetime = 0)

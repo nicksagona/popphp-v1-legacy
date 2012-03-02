@@ -25,6 +25,8 @@
 namespace Pop\Db\Adapter;
 
 /**
+ * This is the MySqli adapter class for the Db component.
+ *
  * @category   Pop
  * @package    Pop_Db
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -155,7 +157,6 @@ class Mysqli extends AbstractAdapter
     /**
      * Execute the prepared SQL query.
      *
-     * @param  string $sql
      * @throws Exception
      * @return void
      */

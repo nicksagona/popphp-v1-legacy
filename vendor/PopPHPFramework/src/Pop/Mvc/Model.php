@@ -25,6 +25,8 @@
 namespace Pop\Mvc;
 
 /**
+ * This is the Model class for the Mvc component.
+ *
  * @category   Pop
  * @package    Pop_Mvc
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -179,7 +181,8 @@ class Model
     /**
      * Set the model data
      *
-     * @param  mixed $data
+     * @param  mixed  $data
+     * @param  string $name
      * @throws Exception
      * @return void
      */

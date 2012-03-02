@@ -30,6 +30,8 @@ use Pop\Config,
     Pop\Record\Record;
 
 /**
+ * This is the Project class for the Project component.
+ *
  * @category   Pop
  * @package    Pop_Project
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -63,9 +65,9 @@ class Project
      *
      * Instantiate a project object
      *
-     * @param  Pop\Config     $config
-     * @param  Pop\Config     $module
-     * @param  Pop\Mvc\Router $router
+     * @param  Config $config
+     * @param  Config $module
+     * @param  Router $router
      * @return void
      */
     public function __construct(Config $config, Config $module = null, Router $router = null)
@@ -88,9 +90,9 @@ class Project
      * Static method to instantiate the project object and return itself
      * to facilitate chaining methods together.
      *
-     * @param  Pop\Config $config
-     * @param  Pop\Config $module
-     * @param  Pop\Mvc\Router $router
+     * @param  Config $config
+     * @param  Config $module
+     * @param  Router $router
      * @return Pop\Project\Project
      */
     public static function factory(Config $config, Config $module = null, Router $router = null)
@@ -153,7 +155,7 @@ class Project
     /**
      * Load a module config
      *
-     * @param  Pop\Config $module
+     * @param  Config $module
      * @throws Exception
      * @return Pop\Project\Project
      */
@@ -169,6 +171,7 @@ class Project
     /**
      * Load a router
      *
+     * @param Router $router
      * @return Pop\Project\Project
      */
     public function loadRouter(Router $router)

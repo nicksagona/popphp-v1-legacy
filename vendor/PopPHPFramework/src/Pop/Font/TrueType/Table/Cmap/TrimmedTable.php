@@ -25,6 +25,8 @@
 namespace Pop\Font\TrueType\Table\Cmap;
 
 /**
+ * This is the TrimmedTable class for the Font component.
+ *
  * @category   Pop
  * @package    Pop_Font
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -38,6 +40,7 @@ class TrimmedTable
     /**
      * Method to parse the Trimmed Table (Format 6) CMAP data
      *
+     * @param  string $data
      * @return array
      */
     public static function parseData($data)

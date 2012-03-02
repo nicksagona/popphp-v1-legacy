@@ -25,6 +25,8 @@
 namespace Pop\Payment;
 
 /**
+ * This is the Payment Exception class for the Payment component.
+ *
  * @category   Pop
  * @package    Pop_Payment
  * @author     Nick Sagona, III <nick@popphp.org>

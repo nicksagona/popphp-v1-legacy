@@ -27,6 +27,8 @@ namespace Pop\Font;
 use Pop\File\File;
 
 /**
+ * This is the Abstract Font class for the Font component.
+ *
  * @category   Pop
  * @package    Pop_Font
  * @author     Nick Sagona, III <nick@popphp.org>

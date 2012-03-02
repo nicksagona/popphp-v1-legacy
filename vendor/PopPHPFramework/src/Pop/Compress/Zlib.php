@@ -27,6 +27,8 @@ namespace Pop\Compress;
 use Pop\File\File;
 
 /**
+ * This is the Zlib class for the Compress component.
+ *
  * @category   Pop
  * @package    Pop_Compress
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -42,8 +44,6 @@ class Zlib implements CompressInterface
      *
      * @param  string $data
      * @param  int    $level
-     * @param  int    $type
-     * @param  int    $mode
      * @return mixed
      */
     public static function compress($data, $level = 9)

@@ -35,6 +35,8 @@ use Pop\Dom\Dom,
     Pop\Form\Element\Textarea;
 
 /**
+ * This is the Form class for the Form component.
+ *
  * @category   Pop
  * @package    Pop_Form
  * @author     Nick Sagona, III <nick@popphp.org>

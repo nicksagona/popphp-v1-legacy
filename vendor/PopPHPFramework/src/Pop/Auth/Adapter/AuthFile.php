@@ -28,6 +28,8 @@ use Pop\Auth\Auth,
     Pop\File\File;
 
 /**
+ * This is the AuthFile adapter class for the Auth component.
+ *
  * @category   Pop
  * @package    Pop_Auth
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -56,6 +58,7 @@ class AuthFile extends File implements AdapterInterface
      * Instantiate the AccessFile object
      *
      * @param string $filename
+     * @param string $delimiter
      * @throws Exception
      * @return void
      */

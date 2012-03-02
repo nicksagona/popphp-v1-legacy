@@ -32,6 +32,8 @@ use Pop\Data\Csv,
     Pop\File\File;
 
 /**
+ * This is the Data class for the Data component.
+ *
  * @category   Pop
  * @package    Pop_Data
  * @author     Nick Sagona, III <nick@popphp.org>

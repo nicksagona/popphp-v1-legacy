@@ -27,6 +27,8 @@ namespace Pop\Data;
 use Pop\Filter\String;
 
 /**
+ * This is the Csv class for the Data component.
+ *
  * @category   Pop
  * @package    Pop_Data
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -41,6 +43,8 @@ class Csv implements DataInterface
      * Decode the data into PHP.
      *
      * @param  string $data
+     * @param  string $delim
+     * @param  string $esc
      * @return mixed
      */
     public static function decode($data, $delim = ',', $esc = '"')
@@ -91,6 +95,10 @@ class Csv implements DataInterface
      * Encode the data into its native format.
      *
      * @param  mixed  $data
+     * @param  mixed  $omit
+     * @param  string $delim
+     * @param  string $esc
+     * @param  string $dt
      * @return string
      */
     public static function encode($data, $omit = null, $delim = ',', $esc = '"', $dt = null)

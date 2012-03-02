@@ -32,6 +32,8 @@ use Pop\Color\Color,
     Pop\Image\Exception;
 
 /**
+ * This is the Imagick class for the Image component.
+ *
  * @category   Pop
  * @package    Pop_Image
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -152,11 +154,11 @@ class Imagick extends AbstractImage
      * Any variation in the versions of the required software may contribute to
      * the Pop\Image\Imagick component not functioning properly.
      *
-     * @param  string     $img
-     * @param  int|string $w
-     * @param  int|string $h
-     * @param  mixed      $color
-     * @param  array      $types
+     * @param  string         $img
+     * @param  int|string     $w
+     * @param  int|string     $h
+     * @param  ColorInterface $color
+     * @param  array          $types
      * @throws Exception
      * @return void
      */
@@ -623,6 +625,8 @@ class Imagick extends AbstractImage
      *
      * @param  int $x
      * @param  int $y
+     * @param  int $start
+     * @param  int $end
      * @param  int $w
      * @param  int $h
      * @return Pop\Image\Imagick
@@ -878,7 +882,7 @@ class Imagick extends AbstractImage
     /**
      * Method to colorize the image with the color passed.
      *
-     * @param  mixed $color
+     * @param  ColorInterface $color
      * @return Pop\Image\Imagick
      */
     public function colorize(ColorInterface $color)
@@ -983,9 +987,9 @@ class Imagick extends AbstractImage
     /**
      * Apply a skew effect to the image
      *
-     * @param  mixed $color
-     * @param  int   $x
-     * @param  int   $y
+     * @param  ColorInterface $color
+     * @param  int            $x
+     * @param  int            $y
      * @return Pop\Image\Imagick
      */
     public function skew(ColorInterface $color, $x, $y)
@@ -1139,7 +1143,6 @@ class Imagick extends AbstractImage
     /**
      * Output the image object directly.
      *
-     * @param  int|string $q
      * @param  boolean $download
      * @return Pop\Image\Imagick
      */
@@ -1391,7 +1394,7 @@ class Imagick extends AbstractImage
     /**
      * Set and return a color identifier.
      *
-     * @param  mixed $color
+     * @param  ColorInterface $color
      * @throws Exception
      * @return mixed
      */

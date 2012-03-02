@@ -25,6 +25,8 @@
 namespace Pop\Db\Adapter;
 
 /**
+ * This is the abstract adapter class for the Db component.
+ *
  * @category   Pop
  * @package    Pop_Db
  * @author     Nick Sagona, III <nick@popphp.org>

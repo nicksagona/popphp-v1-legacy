@@ -25,6 +25,8 @@
 namespace Pop;
 
 /**
+ * This is the Config class for the Pop PHP Framework.
+ *
  * @category   Pop
  * @package    Pop_Config
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -156,7 +158,7 @@ class Config
         unset($this->config[$name]);
     }
 
-    /**model data as an array
+    /**
      * Method to set the config values
      *
      * @param  array $config

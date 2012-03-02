@@ -25,6 +25,8 @@
 namespace Pop\Mail;
 
 /**
+ * This is the Mail Exception class for the Mail component.
+ *
  * @category   Pop
  * @package    Pop_Mail
  * @author     Nick Sagona, III <nick@popphp.org>

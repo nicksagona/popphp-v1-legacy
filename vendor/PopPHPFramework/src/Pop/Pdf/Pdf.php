@@ -38,6 +38,8 @@ use Pop\Color\Color,
     Pop\Pdf\Parser\Image;
 
 /**
+ * This is the Pdf class for the Pdf component.
+ *
  * @category   Pop
  * @package    Pop_Pdf
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -588,7 +590,7 @@ class Pdf extends File
     /**
      * Method to set the background of the document.
      *
-     * @param  mixed $color
+     * @param  ColorInterface $color
      * @return Pop\Pdf\Pdf
      */
     public function setBackgroundColor(ColorInterface $color)
@@ -600,7 +602,7 @@ class Pdf extends File
     /**
      * Method to set the fill color of objects and text in the PDF.
      *
-     * @param  mixed $color
+     * @param  ColorInterface $color
      * @return Pop\Pdf\Pdf
      */
     public function setFillColor(ColorInterface $color)
@@ -616,7 +618,7 @@ class Pdf extends File
     /**
      * Method to set the stroke color of paths in the PDF.
      *
-     * @param  mixed $color
+     * @param  ColorInterface $color
      * @return Pop\Pdf\Pdf
      */
     public function setStrokeColor(ColorInterface $color)
@@ -701,7 +703,8 @@ class Pdf extends File
     /**
      * Method to add a font to the PDF.
      *
-     * @param  string $font
+     * @param  string  $font
+     * @param  boolean $embedOverride
      * @throws Exception
      * @return Pop\Pdf\Pdf
      */
@@ -978,6 +981,8 @@ class Pdf extends File
      *
      * @param  int $x
      * @param  int $y
+     * @param  int $start
+     * @param  int $end
      * @param  int $w
      * @param  int $h
      * @param  boolean $fill
@@ -1130,7 +1135,6 @@ class Pdf extends File
      * @param  int $y
      * @param  int $w
      * @param  int $h
-     * @param  boolean $fill
      * @return Pop\Pdf\Pdf
      */
     public function addClippingRectangle($x, $y, $w, $h = null)
@@ -1163,7 +1167,6 @@ class Pdf extends File
      * @param  int     $x
      * @param  int     $y
      * @param  int     $w
-     * @param  boolean $fill
      * @return Pop\Pdf\Pdf
      */
     public function addClippingSquare($x, $y, $w)
@@ -1179,7 +1182,6 @@ class Pdf extends File
      * @param  int     $y
      * @param  int     $w
      * @param  int     $h
-     * @param  boolean $fill
      * @return Pop\Pdf\Pdf
      */
     public function addClippingEllipse($x, $y, $w, $h = null)
@@ -1251,7 +1253,6 @@ class Pdf extends File
      * @param  int     $x
      * @param  int     $y
      * @param  int     $w
-     * @param  boolean $fill
      * @return Pop\Pdf\Pdf
      */
     public function addClippingCircle($x, $y, $w)
@@ -1264,7 +1265,6 @@ class Pdf extends File
      * Method to add a clipping polygon to the PDF.
      *
      * @param  array $points
-     * @param  boolean $fill
      * @return Pop\Pdf\Pdf
      */
     public function addClippingPolygon($points)
@@ -1438,7 +1438,8 @@ class Pdf extends File
     /**
      * Save the PDF directly to the server.
      *
-     * @param  string $to
+     * @param  string  $to
+     * @param  boolean $append
      * @throws Exception
      * @return void
      */

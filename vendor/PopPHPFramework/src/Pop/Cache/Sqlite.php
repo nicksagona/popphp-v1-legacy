@@ -28,6 +28,8 @@ use Pop\Db\Db,
     Pop\Db\Sql;
 
 /**
+ * This is the Sqlite class for the Cache component.
+ *
  * @category   Pop
  * @package    Pop_Cache
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -123,6 +125,7 @@ class Sqlite implements CacheInterface
     /**
      * Method to Set the cache db table.
      *
+     * @param  string $table
      * @return Pop\Cache\Sqlite
      */
     public function setTable($table = 'pop_cache')

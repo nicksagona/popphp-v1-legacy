@@ -27,6 +27,8 @@ namespace Pop\Payment\Adapter;
 use Pop\Curl\Curl;
 
 /**
+ * This is the PayPal adapter for the Payment component.
+ *
  * @category   Pop
  * @package    Pop_Payment
  * @author     Nick Sagona, III <nick@popphp.org>

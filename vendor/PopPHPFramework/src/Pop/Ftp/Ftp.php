@@ -25,6 +25,8 @@
 namespace Pop\Ftp;
 
 /**
+ * This is the Ftp class for the Ftp component.
+ *
  * @category   Pop
  * @package    Pop_Ftp
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -165,7 +167,6 @@ class Ftp
      *
      * @param  string $old
      * @param  string $new
-     * @param  string $mode
      * @throws Exception
      * @return Pop\Ftp\Ftp
      */

@@ -32,6 +32,8 @@ use Pop\Db\Sql,
     Pop\Db\Adapter\Sqlite;
 
 /**
+ * This is the Db class for the Db component.
+ *
  * @category   Pop
  * @package    Pop_Db
  * @author     Nick Sagona, III <nick@popphp.org>

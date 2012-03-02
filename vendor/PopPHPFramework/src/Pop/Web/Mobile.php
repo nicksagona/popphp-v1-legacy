@@ -28,6 +28,8 @@ use Pop\Http\Response,
     Pop\Web\Session;
 
 /**
+ * This is the Mobile class for the Web component.
+ *
  * @category   Pop
  * @package    Pop_Web
  * @author     Nick Sagona, III <nick@popphp.org>

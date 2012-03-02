@@ -36,6 +36,8 @@ use Pop\Auth\Adapter\AdapterInterface,
     Pop\Locale\Locale;
 
 /**
+ * This is the Auth class for the Auth component.
+ *
  * @category   Pop
  * @package    Pop_Auth
  * @author     Nick Sagona, III <nick@popphp.org>

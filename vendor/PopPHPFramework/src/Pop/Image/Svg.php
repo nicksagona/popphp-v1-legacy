@@ -30,6 +30,8 @@ use Pop\Color\Color,
     Pop\File\File;
 
 /**
+ * This is the Svg class for the Image component.
+ *
  * @category   Pop
  * @package    Pop_Image
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -166,10 +168,10 @@ class Svg extends File
      * Instantiate an SVG image object based on either a pre-existing SVG image
      * file on disk, or a new SVG image file.
      *
-     * @param  string     $svg
-     * @param  int|string $w
-     * @param  int|string $h
-     * @param  mixed      $color
+     * @param  string         $svg
+     * @param  int|string     $w
+     * @param  int|string     $h
+     * @param  ColorInterface $color
      * @throws Exception
      * @return void
      */
@@ -253,7 +255,7 @@ class Svg extends File
     /**
      * Set the fill color.
      *
-     * @param  mixed $color
+     * @param  ColorInterface $color
      * @return Pop\Image\Svg
      */
     public function setFillColor(ColorInterface $color = null)
@@ -266,7 +268,7 @@ class Svg extends File
     /**
      * Set the background color.
      *
-     * @param  mixed $color
+     * @param  ColorInterface $color
      * @return Pop\Image\Svg
      */
     public function setBackgroundColor(ColorInterface $color = null)
@@ -278,7 +280,7 @@ class Svg extends File
     /**
      * Set the stroke color.
      *
-     * @param  mixed $color
+     * @param  ColorInterface $color
      * @return Pop\Image\Svg
      */
     public function setStrokeColor(ColorInterface $color = null)
@@ -325,9 +327,9 @@ class Svg extends File
     /**
      * Add a gradient.
      *
-     * @param  mixed $color1
-     * @param  mixed $color2
-     * @param  int   $type
+     * @param  ColorInterface $color1
+     * @param  ColorInterface $color2
+     * @param  int            $type
      * @return Pop\Image\Svg
      */
     public function addGradient(ColorInterface $color1, ColorInterface $color2, $type = Svg::HORIZONTAL)
@@ -665,6 +667,8 @@ class Svg extends File
      *
      * @param  int $x
      * @param  int $y
+     * @param  int $start
+     * @param  int $end
      * @param  int $w
      * @param  int $h
      * @return Pop\Image\Svg

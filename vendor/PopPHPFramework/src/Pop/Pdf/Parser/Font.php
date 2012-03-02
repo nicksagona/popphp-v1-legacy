@@ -32,6 +32,8 @@ use Pop\Compress\Zlib,
     Pop\Pdf\Object;
 
 /**
+ * This is the Font Parser class for the Pdf component.
+ *
  * @category   Pop
  * @package    Pop_Pdf
  * @author     Nick Sagona, III <nick@popphp.org>

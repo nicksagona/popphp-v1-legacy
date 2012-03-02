@@ -28,6 +28,8 @@ use Pop\Locale\Locale,
     Pop\Http\Response;
 
 /**
+ * This is the Dom class for the Dom component.
+ *
  * @category   Pop
  * @package    Pop_Dom
  * @author     Nick Sagona, III <nick@popphp.org>

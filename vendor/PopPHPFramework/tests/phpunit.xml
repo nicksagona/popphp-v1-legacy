@@ -18,6 +18,8 @@
                 <directory>../src/Pop/Web</directory>
                 <file>../src/Pop/Archive/Adapter/Rar.php</file>
                 <file>../src/Pop/Db/Adapter/MySql.php</file>
+                <file>../src/Pop/Db/Adapter/MySqli.php</file>
+                <file>../src/Pop/Db/Adapter/Pdo.php</file>
                 <file>../src/Pop/Db/Adapter/PgSql.php</file>
                 <file>../src/Pop/Payment/Adapter/Authorize.php</file>
                 <file>../src/Pop/Payment/Adapter/PayLeap.php</file>

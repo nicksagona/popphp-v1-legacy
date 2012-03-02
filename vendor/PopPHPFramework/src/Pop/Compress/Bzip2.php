@@ -27,6 +27,8 @@ namespace Pop\Compress;
 use Pop\File\File;
 
 /**
+ * This is the Bzip2 class for the Compress component.
+ *
  * @category   Pop
  * @package    Pop_Compress
  * @author     Nick Sagona, III <nick@popphp.org>

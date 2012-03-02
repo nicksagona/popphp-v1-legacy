@@ -25,6 +25,8 @@
 namespace Pop\Record;
 
 /**
+ * This is the Exception class for the Record component.
+ *
  * @category   Pop
  * @package    Pop_Record
  * @author     Nick Sagona, III <nick@popphp.org>

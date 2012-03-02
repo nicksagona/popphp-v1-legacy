@@ -25,6 +25,8 @@
 namespace Pop\Filter;
 
 /**
+ * This is the Search class for the Filter component.
+ *
  * @category   Pop
  * @package    Pop_Filter
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -88,7 +90,7 @@ class Search
      * to facilitate chaining methods together.
      *
      * @param  mixed  $data
-     * @param  string $des
+     * @param  string $delim
      * @return Pop\Filter\Search
      */
     public static function factory($data, $delim = "\n")

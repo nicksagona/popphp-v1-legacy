@@ -25,6 +25,8 @@
 namespace Pop\Loader;
 
 /**
+ * This is the Loader Exception class for the Loader component.
+ *
  * @category   Pop
  * @package    Pop_Loader
  * @author     Nick Sagona, III <nick@popphp.org>

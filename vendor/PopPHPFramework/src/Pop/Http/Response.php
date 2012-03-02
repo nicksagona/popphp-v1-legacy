@@ -25,6 +25,8 @@
 namespace Pop\Http;
 
 /**
+ * This is the Response class for the Http component.
+ *
  * @category   Pop
  * @package    Pop_Http
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -448,6 +450,8 @@ class Response
     /**
      * Get the response headers as a string
      *
+     * @param  boolean $status
+     * @param  string  $br
      * @return string
      */
     public function getHeadersAsString($status = true, $br = "\n")

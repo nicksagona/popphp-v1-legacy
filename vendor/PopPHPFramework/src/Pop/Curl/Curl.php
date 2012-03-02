@@ -25,6 +25,8 @@
 namespace Pop\Curl;
 
 /**
+ * This is the Curl class for the Curl component.
+ *
  * @category   Pop
  * @package    Pop_Curl
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -158,6 +160,7 @@ class Curl
     /**
      * Return the cURL session last info.
      *
+     * @param  int $opt
      * @return array|string
      */
     public function getinfo($opt = null)

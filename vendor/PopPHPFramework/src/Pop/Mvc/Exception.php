@@ -25,6 +25,8 @@
 namespace Pop\Mvc;
 
 /**
+ * This is the Exception class for the Mvc component.
+ *
  * @category   Pop
  * @package    Pop_Mvc
  * @author     Nick Sagona, III <nick@popphp.org>

@@ -27,6 +27,8 @@ namespace Pop\Validator\Validator;
 use Pop\Locale\Locale;
 
 /**
+ * This is the Included class for the Validator component.
+ *
  * @category   Pop
  * @package    Pop_Validator
  * @author     Nick Sagona, III <nick@popphp.org>

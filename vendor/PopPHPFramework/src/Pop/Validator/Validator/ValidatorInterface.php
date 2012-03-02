@@ -25,6 +25,8 @@
 namespace Pop\Validator\Validator;
 
 /**
+ * This is the Validator interface for the Validator component.
+ *
  * @category   Pop
  * @package    Pop_Validator
  * @author     Nick Sagona, III <nick@popphp.org>

@@ -25,6 +25,8 @@
 namespace Pop\Http;
 
 /**
+ * This is the Exception class for the Http component.
+ *
  * @category   Pop
  * @package    Pop_Http
  * @author     Nick Sagona, III <nick@popphp.org>

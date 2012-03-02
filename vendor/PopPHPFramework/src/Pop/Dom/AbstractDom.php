@@ -25,6 +25,8 @@
 namespace Pop\Dom;
 
 /**
+ * This is the abstract class for the Dom component.
+ *
  * @category   Pop
  * @package    Pop_Dom
  * @author     Nick Sagona, III <nick@popphp.org>

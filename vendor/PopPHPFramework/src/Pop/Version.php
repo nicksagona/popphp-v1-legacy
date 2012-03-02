@@ -25,6 +25,8 @@
 namespace Pop;
 
 /**
+ * This is the Version class of the Pop PHP Framework.
+ *
  * @category   Pop
  * @package    Pop_Version
  * @author     Nick Sagona, III <nick@popphp.org>

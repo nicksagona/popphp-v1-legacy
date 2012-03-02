@@ -25,6 +25,8 @@
 namespace Pop\Auth;
 
 /**
+ * This is the Role class for the Auth component.
+ *
  * @category   Pop
  * @package    Pop_Auth
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -122,6 +124,7 @@ class Role
     /**
      * Method to compare role object to another role object
      *
+     * @param Role $role
      * @return int
      */
     public function compare(Role $role)

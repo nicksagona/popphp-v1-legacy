@@ -25,6 +25,8 @@
 namespace Pop\Dir;
 
 /**
+ * This is the Exception class for the Dir component.
+ *
  * @category   Pop
  * @package    Pop_Dir
  * @author     Nick Sagona, III <nick@popphp.org>

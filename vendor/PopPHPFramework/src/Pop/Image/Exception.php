@@ -25,6 +25,8 @@
 namespace Pop\Image;
 
 /**
+ * This is the Image Exception class for the Image component.
+ *
  * @category   Pop
  * @package    Pop_Image
  * @author     Nick Sagona, III <nick@popphp.org>

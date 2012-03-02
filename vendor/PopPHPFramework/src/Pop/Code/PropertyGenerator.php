@@ -27,6 +27,8 @@ namespace Pop\Code;
 use Pop\Code\DocblockGenerator;
 
 /**
+ * This is the Property class for the Code component.
+ *
  * @category   Pop
  * @package    Pop_Code
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -284,7 +286,7 @@ class PropertyGenerator
     /**
      * Set the docblock generator object
      *
-     * @param  Pop\Code\DocblockGenerator $docblock
+     * @param  DocblockGenerator $docblock
      * @return Pop\Code\PropertyGenerator
      */
     public function setDocblock(DocblockGenerator $docblock)

@@ -28,6 +28,8 @@ use Pop\Archive\ArchiveInterface,
     Pop\File\File;
 
 /**
+ * This is the Rar class for the Archive component.
+ *
  * @category   Pop
  * @package    Pop_Archive
  * @author     Nick Sagona, III <nick@popphp.org>

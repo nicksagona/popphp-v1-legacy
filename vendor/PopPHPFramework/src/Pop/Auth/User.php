@@ -28,6 +28,8 @@ use Pop\Auth\Role,
     Pop\Locale\Locale;
 
 /**
+ * This is the User class for the Auth component.
+ *
  * @category   Pop
  * @package    Pop_Auth
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -67,9 +69,9 @@ class User
      *
      * Instantiate the user object
      *
-     * @param  string        $username
-     * @param  string        $password
-     * @param  Pop\Auth\Role $role
+     * @param  string $username
+     * @param  string $password
+     * @param  Role   $role
      * @return void
      */
     public function __construct($username = null, $password = null, Role $role = null)
@@ -85,9 +87,9 @@ class User
      * Static method to instantiate the user object and return itself
      * to facilitate chaining methods together.
      *
-     * @param  string        $username
-     * @param  string        $password
-     * @param  Pop\Auth\Role $role
+     * @param  string $username
+     * @param  string $password
+     * @param  Role   $role
      * @return Pop\Auth\User
      */
     public static function factory($username = null, $password = null, Role $role = null)
@@ -128,7 +130,7 @@ class User
     /**
      * Method to set the username
      *
-     * @return string $username
+     * @param  string $username
      * @return Pop\Auth\User
      */
     public function setUsername($username)
@@ -140,7 +142,7 @@ class User
     /**
      * Method to set the password
      *
-     * @return string $password
+     * @param  string $password
      * @return Pop\Auth\User
      */
     public function setPassword($password)
@@ -152,7 +154,7 @@ class User
     /**
      * Method to set the role
      *
-     * @return Pop\Auth\Role $role
+     * @param  Role $role
      * @return Pop\Auth\User
      */
     public function setRole(Role $role)
@@ -164,7 +166,7 @@ class User
     /**
      * Method to set the user fields
      *
-     * @return array $fields
+     * @param  array $fields
      * @return Pop\Auth\User
      */
     public function setFields(array $fields)
@@ -178,7 +180,7 @@ class User
     /**
      * Method to evaluate if the user is authorized
      *
-     * @param  Pop\Auth\Role $requiredRole
+     * @param  Role $requiredRole
      * @return boolean
      */
     public function isAuthorizedAs(Role $requiredRole)

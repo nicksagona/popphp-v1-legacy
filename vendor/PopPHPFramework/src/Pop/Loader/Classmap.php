@@ -28,6 +28,8 @@ use Pop\Dir\Dir,
     Pop\File\File;
 
 /**
+ * This is the Classmap class for the Loader component.
+ *
  * @category   Pop
  * @package    Pop_Loader
  * @author     Nick Sagona, III <nick@popphp.org>

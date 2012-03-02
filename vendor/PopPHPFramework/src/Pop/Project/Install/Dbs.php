@@ -31,6 +31,8 @@ use Pop\Data\Sql,
     Pop\Locale\Locale;
 
 /**
+ * This is the Dbs class for the Project Install component.
+ *
  * @category   Pop
  * @package    Pop_Project
  * @author     Nick Sagona, III <nick@popphp.org>

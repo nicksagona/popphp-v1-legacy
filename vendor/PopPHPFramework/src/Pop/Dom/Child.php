@@ -28,6 +28,8 @@ namespace Pop\Dom;
 use Pop\Locale\Locale;
 
 /**
+ * This is the Child class for the Dom component.
+ *
  * @category   Pop
  * @package    Pop_Dom
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -149,7 +151,7 @@ class Child extends AbstractDom
     /**
      * Method to set the child node value.
      *
-     * @param  string $name
+     * @param  string $value
      * @return Pop\Dom\Child
      */
     public function setNodeValue($value)

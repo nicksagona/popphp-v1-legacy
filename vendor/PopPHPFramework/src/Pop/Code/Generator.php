@@ -27,6 +27,8 @@ namespace Pop\Code;
 use Pop\File\File;
 
 /**
+ * This is the Generator class of the Code component.
+ *
  * @category   Pop
  * @package    Pop_Code
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -107,7 +109,7 @@ class Generator extends File
      * Instantiate the code generator object
      *
      * @param  string $file
-     * @param  array  $types
+     * @param  int    $type
      * @return void
      */
     public function __construct($file, $type = Generator::CREATE_NONE)
@@ -190,7 +192,7 @@ class Generator extends File
     /**
      * Set the namespace generator object
      *
-     * @param  Pop\Code\NamespaceGenerator $namespace
+     * @param  NamespaceGenerator $namespace
      * @return Pop\Code\Generator
      */
     public function setNamespace(NamespaceGenerator $namespace)
@@ -212,7 +214,7 @@ class Generator extends File
     /**
      * Set the docblock generator object
      *
-     * @param  Pop\Code\DocblockGenerator $docblock
+     * @param  DocblockGenerator $docblock
      * @return Pop\Code\Generator
      */
     public function setDocblock(DocblockGenerator $docblock)

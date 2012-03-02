@@ -29,6 +29,8 @@ use Pop\Http\Response,
     Pop\Project\Project;
 
 /**
+ * This is the Controller class for the Mvc component.
+ *
  * @category   Pop
  * @package    Pop_Mvc
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -86,10 +88,10 @@ class Controller
      *
      * Instantiate the controller object
      *
-     * @param Pop\Http\Request    $request
-     * @param Pop\Http\Response   $response
-     * @param Pop\Project\Project $project
-     * @param string              $viewPath
+     * @param Request  $request
+     * @param Response $response
+     * @param Project  $project
+     * @param string   $viewPath
      * @return void
      */
     public function __construct(Request $request = null, Response $response = null, Project $project = null, $viewPath = null)
@@ -109,7 +111,7 @@ class Controller
     /**
      * Set the request object
      *
-     * @param  Pop\Http\Request $request
+     * @param  Request $request
      * @return Pop\Mvc\Controller
      */
     public function setRequest(Request $request)
@@ -121,7 +123,7 @@ class Controller
     /**
      * Set the response object
      *
-     * @param  Pop\Http\Response $response
+     * @param  Response $response
      * @return Pop\Mvc\Controller
      */
     public function setResponse(Response $response)
@@ -133,7 +135,7 @@ class Controller
     /**
      * Set the response object
      *
-     * @param  Pop\Project\Project
+     * @param  Project $project
      * @return Pop\Mvc\Controller
      */
     public function setProject(Project $project)

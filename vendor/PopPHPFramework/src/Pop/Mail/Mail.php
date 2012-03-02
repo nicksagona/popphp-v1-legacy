@@ -27,6 +27,8 @@ namespace Pop\Mail;
 use Pop\File\File;
 
 /**
+ * This is the Mail class for the Mail component.
+ *
  * @category   Pop
  * @package    Pop_Mail
  * @author     Nick Sagona, III <nick@popphp.org>

@@ -25,6 +25,8 @@
 namespace Pop\Feed;
 
 /**
+ * This is the Feed Exception class for the Feed component.
+ *
  * @category   Pop
  * @package    Pop_Feed
  * @author     Nick Sagona, III <nick@popphp.org>

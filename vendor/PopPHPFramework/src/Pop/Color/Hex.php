@@ -25,6 +25,8 @@
 namespace Pop\Color;
 
 /**
+ * This is the Hex class for the Color component.
+ *
  * @category   Pop
  * @package    Pop_Color
  * @author     Nick Sagona, III <nick@popphp.org>

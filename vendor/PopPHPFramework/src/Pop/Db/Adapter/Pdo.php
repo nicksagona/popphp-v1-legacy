@@ -25,6 +25,8 @@
 namespace Pop\Db\Adapter;
 
 /**
+ * This is the Pdo adapter class for the Db component.
+ *
  * @category   Pop
  * @package    Pop_Db
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -209,7 +211,6 @@ class Pdo extends AbstractAdapter
     /**
      * Execute the prepared SQL query.
      *
-     * @param  string $sql
      * @throws Exception
      * @return void
      */

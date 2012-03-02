@@ -25,6 +25,8 @@
 namespace Pop\Compress;
 
 /**
+ * This is the Deflate class for the Compress component.
+ *
  * @category   Pop
  * @package    Pop_Compress
  * @author     Nick Sagona, III <nick@popphp.org>

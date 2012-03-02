@@ -25,6 +25,8 @@
 namespace Pop\Payment\Adapter;
 
 /**
+ * This is the abstract adapter class for the Payment component.
+ *
  * @category   Pop
  * @package    Pop_Payment
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -135,6 +137,7 @@ abstract class AbstractAdapter implements AdapterInterface
     /**
      * Get specific response code from a field in the array
      *
+     * @param  string $key
      * @return string
      */
     public function getCode($key)

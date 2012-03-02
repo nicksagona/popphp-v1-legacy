@@ -25,6 +25,8 @@
 namespace Pop\Data;
 
 /**
+ * This is the interface for the Data component.
+ *
  * @category   Pop
  * @package    Pop_Data
  * @author     Nick Sagona, III <nick@popphp.org>

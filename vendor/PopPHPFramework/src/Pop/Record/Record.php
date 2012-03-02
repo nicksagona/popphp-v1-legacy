@@ -28,6 +28,8 @@ use Pop\Db\Db,
     Pop\Filter\String;
 
 /**
+ * This is the Record class for the Record component.
+ *
  * @category   Pop
  * @package    Pop_Record
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -110,8 +112,8 @@ class Record
      *
      * Instantiate the database record object.
      *
-     * @param  array     $columns
-     * @param  Pop\Db\Db $db
+     * @param  array $columns
+     * @param  Db    $db
      * @return void
      */
     public function __construct(array $columns = null, Db $db = null)
@@ -158,8 +160,8 @@ class Record
     /**
      * Set DB connection
      *
-     * @param  Pop\Db\Db $name
-     * @param  boolean   $isDefault
+     * @param  Db      $db
+     * @param  boolean $isDefault
      * @return void
      */
     public static function setDb(Db $db, $isDefault = false)

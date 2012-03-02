@@ -28,6 +28,8 @@ use Pop\Dir\Dir,
     Pop\File\File as PopFile;
 
 /**
+ * This is the File class for the Cache component.
+ *
  * @category   Pop
  * @package    Pop_Cache
  * @author     Nick Sagona, III <nick@popphp.org>

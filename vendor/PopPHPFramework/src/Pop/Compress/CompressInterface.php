@@ -25,6 +25,8 @@
 namespace Pop\Compress;
 
 /**
+ * This is the compress interface for the Compress component.
+ *
  * @category   Pop
  * @package    Pop_Compress
  * @author     Nick Sagona, III <nick@popphp.org>

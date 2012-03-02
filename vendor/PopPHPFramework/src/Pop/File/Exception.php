@@ -25,6 +25,8 @@
 namespace Pop\File;
 
 /**
+ * This is the File Exception class for the File component.
+ *
  * @category   Pop
  * @package    Pop_File
  * @author     Nick Sagona, III <nick@popphp.org>

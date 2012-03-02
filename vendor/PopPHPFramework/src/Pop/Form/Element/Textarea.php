@@ -27,6 +27,8 @@ namespace Pop\Form\Element;
 use Pop\Form\Element;
 
 /**
+ * This is the Textarea Element class for the Form component.
+ *
  * @category   Pop
  * @package    Pop_Form
  * @author     Nick Sagona, III <nick@popphp.org>

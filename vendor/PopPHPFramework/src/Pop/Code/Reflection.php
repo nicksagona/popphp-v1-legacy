@@ -25,6 +25,8 @@
 namespace Pop\Code;
 
 /**
+ * This is the Reflection class for the Code component.
+ *
  * @category   Pop
  * @package    Pop_Code
  * @author     Nick Sagona, III <nick@popphp.org>

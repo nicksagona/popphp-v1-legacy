@@ -30,6 +30,8 @@ use Pop\Dir\Dir,
     Pop\Pdf\Object;
 
 /**
+ * This is the Image Parser class for the Pdf component.
+ *
  * @category   Pop
  * @package    Pop_Pdf
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -251,7 +253,9 @@ class Image
     /**
      * Method to get scaled dimensions of the image, while preserving the resolution.
      *
-     * @param mixed $scl
+     * @param  mixed $scl
+     * @param  int   $origW
+     * @param  int   $origH
      * @throws Exception
      * @return array
      */

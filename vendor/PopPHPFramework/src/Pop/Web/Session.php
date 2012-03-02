@@ -25,6 +25,8 @@
 namespace Pop\Web;
 
 /**
+ * This is the Session class for the Web component.
+ *
  * @category   Pop
  * @package    Pop_Web
  * @author     Nick Sagona, III <nick@popphp.org>

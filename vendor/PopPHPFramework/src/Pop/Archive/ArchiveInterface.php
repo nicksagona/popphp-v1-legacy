@@ -25,6 +25,8 @@
 namespace Pop\Archive;
 
 /**
+ * This is the Archive interface for the Archive component.
+ *
  * @category   Pop
  * @package    Pop_Archive
  * @author     Nick Sagona, III <nick@popphp.org>

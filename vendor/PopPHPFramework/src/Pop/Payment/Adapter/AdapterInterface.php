@@ -25,6 +25,8 @@
 namespace Pop\Payment\Adapter;
 
 /**
+ * This is the adapter interface for the Payment component.
+ *
  * @category   Pop
  * @package    Pop_Payment
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -52,6 +54,7 @@ interface AdapterInterface
     /**
      * Get specific response code from a field in the array
      *
+     * @param string $key
      * @return string
      */
     public function getCode($key);

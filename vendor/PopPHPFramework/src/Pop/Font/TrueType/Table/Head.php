@@ -25,6 +25,8 @@
 namespace Pop\Font\TrueType\Table;
 
 /**
+ * This is the Head class for the Font component.
+ *
  * @category   Pop
  * @package    Pop_Font
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -32,8 +34,6 @@ namespace Pop\Font\TrueType\Table;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    0.9
  */
-use Pop\File\File;
-
 class Head
 {
 

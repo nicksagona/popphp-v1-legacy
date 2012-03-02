@@ -27,6 +27,8 @@ namespace Pop\Paginator;
 use Pop\Filter\String;
 
 /**
+ * This is the Paginator class to paginate result sets.
+ *
  * @category   Pop
  * @package    Pop_Paginator
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -185,7 +187,7 @@ class Paginator
      *
      * Instantiate the paginator object.
      *
-     * @param  array $content
+     * @param  array $items
      * @param  int $perPage
      * @param  int $range
      * @param  int $total
@@ -214,7 +216,7 @@ class Paginator
     /**
      * Method to set the page range.
      *
-     * @param  int $range
+     * @param  int $perPage
      * @return Pop\Paginator\Paginator
      */
     public function setPerPage($perPage = 10)

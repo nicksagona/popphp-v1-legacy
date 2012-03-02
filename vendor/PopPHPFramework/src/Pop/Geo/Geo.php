@@ -25,6 +25,8 @@
 namespace Pop\Geo;
 
 /**
+ * This is the Geo class for the Geo component.
+ *
  * @category   Pop
  * @package    Pop_Geo
  * @author     Nick Sagona, III <nick@popphp.org>

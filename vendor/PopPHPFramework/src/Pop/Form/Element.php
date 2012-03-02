@@ -30,6 +30,8 @@ use Pop\Dom\Child,
     Pop\Validator\Validator\ValidatorInterface;
 
 /**
+ * This is the Element class for the Form component.
+ *
  * @category   Pop
  * @package    Pop_Form
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -331,9 +333,6 @@ class Element extends Child
     /**
      * Method to render the child and its child nodes.
      *
-     * @param  boolean $ret
-     * @param  int $depth
-     * @param  string $indent
      * @return string
      */
     public function output()

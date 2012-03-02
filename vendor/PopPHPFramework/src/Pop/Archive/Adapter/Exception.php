@@ -25,6 +25,8 @@
 namespace Pop\Archive\Adapter;
 
 /**
+ * This is the Exception class for the Archive component.
+ *
  * @category   Pop
  * @package    Pop_Archive
  * @author     Nick Sagona, III <nick@popphp.org>

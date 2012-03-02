@@ -28,6 +28,8 @@ use Pop\Validator\Validator,
     Pop\Validator\Validator\ValidatorInterface;
 
 /**
+ * This is the Validator class for the Validator component.
+ *
  * @category   Pop
  * @package    Pop_Validator
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -55,8 +57,8 @@ class Validator
      *
      * Instantiate the validator object
      *
-     * @param  mixed   $validator
-     * @param  string  $message
+     * @param  ValidatorInterface $validator
+     * @param  string             $message
      * @return void
      */
     public function __construct(ValidatorInterface $validator, $message = null)
@@ -69,8 +71,8 @@ class Validator
      * Static method to instantiate the validator object and return itself
      * to facilitate chaining methods together.
      *
-     * @param  mixed   $validator
-     * @param  string  $message
+     * @param  ValidatorInterface $validator
+     * @param  string             $message
      * @return Pop\Validator\Validator
      */
     public static function factory(ValidatorInterface $validator, $message = null)

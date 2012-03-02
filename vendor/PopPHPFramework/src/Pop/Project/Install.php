@@ -38,6 +38,8 @@ use Pop\Dir\Dir,
     Pop\Project\Install\Tables;
 
 /**
+ * This is the Install class for the Project component.
+ *
  * @category   Pop
  * @package    Pop_Project
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -313,6 +315,7 @@ class Install
     /**
      * Return the (Y/N) input from STDIN
      *
+     * @param  string $msg
      * @return string
      */
     public static function cliInput($msg = null)

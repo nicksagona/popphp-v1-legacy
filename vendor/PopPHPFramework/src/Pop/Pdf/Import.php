@@ -27,6 +27,8 @@ namespace Pop\Pdf;
 use Pop\File\File;
 
 /**
+ * This is the Import class for the Pdf component.
+ *
  * @category   Pop
  * @package    Pop_Pdf
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -143,7 +145,6 @@ class Import
     /**
      * Method to shift the objects' indices based on the array of indices passed to the method, to prevent duplication.
      *
-     * @param  array $ind
      * @param  int $si
      * @return void
      */

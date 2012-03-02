@@ -25,6 +25,8 @@
 namespace Pop\Db;
 
 /**
+ * This is the Db Exception class for the Db component.
+ *
  * @category   Pop
  * @package    Pop_Db
  * @author     Nick Sagona, III <nick@popphp.org>

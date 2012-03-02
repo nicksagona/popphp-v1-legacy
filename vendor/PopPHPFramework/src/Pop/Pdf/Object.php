@@ -27,6 +27,8 @@ namespace Pop\Pdf;
 use Pop\Compress\Zlib;
 
 /**
+ * This is the Object class for the Pdf component.
+ *
  * @category   Pop
  * @package    Pop_Pdf
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -268,7 +270,6 @@ class Object
     /**
      * Method to get the PDF object byte length.
      *
-     * @param  string $str
      * @return void
      */
     public function getByteLength()

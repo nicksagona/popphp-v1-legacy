@@ -37,6 +37,8 @@ use Pop\Font\Font,
     Pop\Font\TrueType\Table\Post;
 
 /**
+ * This is the TrueType class for the Font component.
+ *
  * @category   Pop
  * @package    Pop_Font
  * @author     Nick Sagona, III <nick@popphp.org>

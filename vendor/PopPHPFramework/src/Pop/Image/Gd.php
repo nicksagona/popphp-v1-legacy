@@ -32,6 +32,8 @@ use Pop\Color\Color,
     Pop\Image\Exception;
 
 /**
+ * This is the Gd class for the Image component.
+ *
  * @category   Pop
  * @package    Pop_Image
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -72,11 +74,11 @@ class Gd extends AbstractImage
      * Instantiate an image file object based on either a pre-existing
      * image file on disk, or a new image file.
      *
-     * @param  string     $img
-     * @param  int|string $w
-     * @param  int|string $h
-     * @param  mixed      $color
-     * @param  array      $types
+     * @param  string         $img
+     * @param  int|string     $w
+     * @param  int|string     $h
+     * @param  ColorInterface $color
+     * @param  array          $types
      * @throws Exception
      * @return void
      */
@@ -573,6 +575,8 @@ class Gd extends AbstractImage
      *
      * @param  int $x
      * @param  int $y
+     * @param  int $start
+     * @param  int $end
      * @param  int $w
      * @param  int $h
      * @return Pop\Image\Gd
@@ -819,7 +823,7 @@ class Gd extends AbstractImage
     /**
      * Method to colorize the image with the color passed.
      *
-     * @param  mixed $color
+     * @param  ColorInterface $color
      * @return Pop\Image\Gd
      */
     public function colorize(ColorInterface $color)
@@ -1146,7 +1150,7 @@ class Gd extends AbstractImage
     /**
      * Set and return a color identifier.
      *
-     * @param  mixed $color
+     * @param  ColorInterface $color
      * @throws Exception
      * @return mixed
      */

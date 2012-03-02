@@ -25,6 +25,8 @@
 namespace Pop\Cache;
 
 /**
+ * This is the Memcached class for the Cache component.
+ *
  * @category   Pop
  * @package    Pop_Cache
  * @author     Nick Sagona, III <nick@popphp.org>

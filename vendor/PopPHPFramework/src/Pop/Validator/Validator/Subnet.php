@@ -28,6 +28,8 @@ use Pop\Validator\Validator\Ipv4,
     Pop\Locale\Locale;
 
 /**
+ * This is the Subnet class for the Validator component.
+ *
  * @category   Pop
  * @package    Pop_Validator
  * @author     Nick Sagona, III <nick@popphp.org>

@@ -25,6 +25,8 @@
 namespace Pop\Http;
 
 /**
+ * This is the Request class for the Http component.
+ *
  * @category   Pop
  * @package    Pop_Http
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -263,6 +265,7 @@ class Request
     /**
      * Get the method
      *
+     * @param  string $key
      * @return string
      */
     public function getMethod($key = null)

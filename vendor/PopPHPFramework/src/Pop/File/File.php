@@ -27,6 +27,8 @@ namespace Pop\File;
 use Pop\Http\Response;
 
 /**
+ * This is the File class for the File component.
+ *
  * @category   Pop
  * @package    Pop_File
  * @author     Nick Sagona, III <nick@popphp.org>

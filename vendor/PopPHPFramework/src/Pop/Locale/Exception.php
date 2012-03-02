@@ -25,6 +25,8 @@
 namespace Pop\Locale;
 
 /**
+ * This is the Exception class for the Locale component.
+ *
  * @category   Pop
  * @package    Pop_Locale
  * @author     Nick Sagona, III <nick@popphp.org>

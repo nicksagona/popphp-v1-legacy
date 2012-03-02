@@ -25,6 +25,8 @@
 namespace Pop\Filter;
 
 /**
+ * This is the Exception class for the Filter component.
+ *
  * @category   Pop
  * @package    Pop_Filter
  * @author     Nick Sagona, III <nick@popphp.org>

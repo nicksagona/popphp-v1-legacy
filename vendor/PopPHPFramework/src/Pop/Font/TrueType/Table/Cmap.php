@@ -29,6 +29,8 @@ use Pop\Font\TrueType\Table\Cmap\ByteEncoding,
     Pop\Font\TrueType\Table\Cmap\TrimmedTable;
 
 /**
+ * This is the Cmap class for the Font component.
+ *
  * @category   Pop
  * @package    Pop_Font
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -56,7 +58,7 @@ class Cmap
      *
      * Instantiate a TTF 'cmap table object.
      *
-     * @param  Pop_Font $font
+     * @param  AbstractFont $font
      * @return void
      */
     public function __construct($font)
@@ -76,6 +78,7 @@ class Cmap
     /**
      * Method to parse the CMAP subtables.
      *
+     * @param  AbstractFont $font
      * @return void
      */
     protected function parseSubTables($font)

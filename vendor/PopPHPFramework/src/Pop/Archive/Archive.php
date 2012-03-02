@@ -33,6 +33,8 @@ use Pop\Archive\Adapter\Phar,
     Pop\File\File;
 
 /**
+ * This is the Archive class for the Archive component.
+ *
  * @category   Pop
  * @package    Pop_Archive
  * @author     Nick Sagona, III <nick@popphp.org>

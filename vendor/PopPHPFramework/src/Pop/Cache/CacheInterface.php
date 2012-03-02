@@ -25,6 +25,8 @@
 namespace Pop\Cache;
 
 /**
+ * This is the Cache interface for the Cache component.
+ *
  * @category   Pop
  * @package    Pop_Cache
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -49,6 +51,7 @@ interface CacheInterface
      * Method to load a value from cache.
      *
      * @param  string $id
+     * @param  string $time
      * @return mixed
      */
     public function load($id, $time = null);

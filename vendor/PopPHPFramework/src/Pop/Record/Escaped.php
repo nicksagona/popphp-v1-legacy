@@ -28,6 +28,8 @@ use Pop\Db\Db,
     Pop\Db\Sql;
 
 /**
+ * This is the Escaped class for the Record component.
+ *
  * @category   Pop
  * @package    Pop_Record
  * @author     Nick Sagona, III <nick@popphp.org>
@@ -43,7 +45,7 @@ class Escaped extends AbstractRecord
      *
      * Instantiate the record escaped object.
      *
-     * @param  Pop\Db\Db $db
+     * @param  Db $db
      * @param  array     $options
      * @return void
      */
