@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <head>
-
     <title>
         Pop PHP Framework : Documentation
     </title>
@@ -14,6 +13,17 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
+    <style type="text/css">
+        pre {
+            margin: 0 auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.9em;
+            font-family: monospace, courier;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,8 +34,21 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Payment overview can go here.
+            The Payment component provides standardized functionality to process credit card payment requests via a 3rd party gateway.  The current built-in and supported gateways are:
         </p>
+        <ul>
+            <li>Authorize.net</li>
+            <li>PayLeap</li>
+            <li>PayPal</li>
+            <li>TrustCommerce</li>
+            <li>UsaEpay</li>
+        </ul>
+        <p>
+            However, if support for a different gateway is required, then it would simple to just write an adapter for it.
+        </p>
+<pre>
+Example code goes here.
+</pre>
     </div>
     <div id="doc-footer">
         <p>

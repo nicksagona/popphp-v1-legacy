@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <head>
-
     <title>
         Pop PHP Framework : Documentation
     </title>
@@ -14,6 +13,17 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
+    <style type="text/css">
+        pre {
+            margin: 0 auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.9em;
+            font-family: monospace, courier;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,8 +34,24 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Db overview can go here.
+            The Db component provides normalized access to query databases. The supported adapters are:
         </p>
+        <ul>
+            <li>mysql</li>
+            <li>mysqli</li>
+            <li>pdo</li>
+            <li>pgsql</li>
+            <li>sqlite</li>
+        </ul>
+        <p>
+            Prepared statements are supported with the Mysqli, Pdo, Pgsql and Sqlite adapaters. Escaped values are available for all of the adapters.
+        </p>
+        <p>
+            In addition to database access, the Db component also features a useful Sql abstraction object that assists you in creating standardized SQL queries.
+        </p>
+<pre>
+Example code goes here.
+</pre>
     </div>
     <div id="doc-footer">
         <p>
