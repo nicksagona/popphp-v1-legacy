@@ -6,9 +6,6 @@ Documentation : Overview
 
 The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use API that will allow you to utilize a wide range of functionality. You can use it as a toolbox to assist with quickly writing basic scripts, or you can use it as a full-fledged framework to build and customize large-scale, robust applications. At the core of the framework is a group of components, of which, some can be used independently and some can be used in tandem to leverage the full power of the framework and PHP.
 
-<table style="width: 33%;" cellpadding="0" cellspacing="0" border="0">
-<tr>
-<td style="vertical-align: top; width: 33%;">
 * Archive
 * Auth
 * Cache
@@ -21,8 +18,6 @@ The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use AP
 * Data
 * Db
 * Dir
-</td>
-<td style="vertical-align: top; width: 33%;">
 * Dom
 * Feed
 * File
@@ -35,8 +30,6 @@ The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use AP
 * Http
 * Image
 * Loader
-</td>
-<td style="vertical-align: top; width: 33%;">
 * Locale
 * Mail
 * Mvc
@@ -48,9 +41,6 @@ The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use AP
 * Validator
 * Version
 * Web
-</td>
-</tr>
-</table>
 
 QuickStart
 ----------
