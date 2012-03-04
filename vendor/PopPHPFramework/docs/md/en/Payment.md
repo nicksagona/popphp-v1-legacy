@@ -12,7 +12,7 @@ The Payment component provides standardized functionality to process credit card
 * TrustCommerce
 * UsaEpay
 
-However, if support for a different gateway is required, then it would simple to just write an adapter for it.
+However, if support for a different gateway is required, then it would be simple to just write an adapter for it.
 
 <pre>
 Example code goes here.
