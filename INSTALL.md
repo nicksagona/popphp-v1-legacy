@@ -11,7 +11,7 @@ in the 'bootstrap.php' file.
 SYSTEM REQUIREMENTS
 -------------------
 
-Please see README.TXT.
+Please see README.md.
 
 
 DEVELOPMENT VERSIONS
