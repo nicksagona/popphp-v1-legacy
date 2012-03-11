@@ -20,7 +20,7 @@
             width: 96%;
             background-color: #f8f8f8;
             border: solid 1px #ccc;
-            font-size: 0.9em;
+            font-size: 0.825em;
             font-family: monospace, courier;
         }
     </style>
@@ -45,7 +45,18 @@
             <li>rar</li>
         </ul>
 <pre>
-Example code goes here.
+// Create a new TAR archive and add some files to it
+$archive = new Archive('../tmp/test.tar');
+$archive->addFiles('../files');
+
+// Compress the archive, gzip by default,
+// will produce '../tmp/test.tar.gz'
+$archive->compress();
+
+// Extract an existing archive file to specified folder,
+// will automatically uncompress the gzip file first
+$archive = new Archive('../tmp/existing.tar.gz');
+$archive->extract('/tmp');
 </pre>
     </div>
     <div id="doc-footer">

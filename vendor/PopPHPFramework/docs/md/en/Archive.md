@@ -14,7 +14,18 @@ The Archive component is designed to normalize the creation and manipulation of 
 * rar
 
 <pre>
-Example code goes here.
+// Create a new TAR archive and add some files to it
+$archive = new Archive('../tmp/test.tar');
+$archive->addFiles('../files');
+
+// Compress the archive, gzip by default,
+// will produce '../tmp/test.tar.gz'
+$archive->compress();
+
+// Extract an existing archive file to specified folder,
+// will automatically uncompress the gzip file first
+$archive = new Archive('../tmp/existing.tar');
+$archive->extract('/tmp');
 </pre>
 
 (c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
