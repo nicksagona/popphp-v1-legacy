@@ -484,6 +484,7 @@ class Paginator
         $this->links = array();
 
         // Preserve any passed GET parameters.
+        $uri = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '?'));
         $query = null;
 
         if (count($_GET) > 0) {
@@ -504,15 +505,15 @@ class Paginator
             $classOff = (null !== $this->classOff) ? " class=\"{$this->classOff}\"" : null;
             $classOn = (null !== $this->classOn) ? " class=\"{$this->classOn}\"" : null;
 
-            $newLink = ($i == $pg) ? "<span{$classOff}>{$i}</span>" : "<a{$classOn} href=\"" . $_SERVER['PHP_SELF'] . "?page={$i}{$query}\">{$i}</a>";
+            $newLink = ($i == $pg) ? "<span{$classOff}>{$i}</span>" : "<a{$classOn} href=\"" . $uri . "?page={$i}{$query}\">{$i}</a>";
 
             if (($i == $pageRange['start']) && ($pageRange['prev'])) {
-                $prevLink = "<a{$classOn} href=\"" . $_SERVER['PHP_SELF'] . "?page=" . ($i - 1) . "{$query}\">" . $this->bookends[$this->bookendKey]['prev'] . "</a>";
+                $prevLink = "<a{$classOn} href=\"" . $uri . "?page=" . ($i - 1) . "{$query}\">" . $this->bookends[$this->bookendKey]['prev'] . "</a>";
                 $this->links[] = $prevLink;
             }
             $this->links[] = $newLink;
             if (($i == $pageRange['end']) && ($pageRange['next'])) {
-                $nextLink = "<a{$classOn} href=\"" . $_SERVER['PHP_SELF'] . "?page=" . ($i + 1) . "{$query}\">" . $this->bookends[$this->bookendKey]['next'] . "</a>";
+                $nextLink = "<a{$classOn} href=\"" . $uri . "?page=" . ($i + 1) . "{$query}\">" . $this->bookends[$this->bookendKey]['next'] . "</a>";
                 $this->links[] = $nextLink;
             }
         }
