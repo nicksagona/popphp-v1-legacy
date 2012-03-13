@@ -138,7 +138,7 @@ class Paginator
      * Date format for handle date strings
      * @var string
      */
-    protected $dateFormat = 'D, M j Y';
+    protected $dateFormat = null;
 
     /**
      * Class 'on' name for page link <a> tags
@@ -279,7 +279,7 @@ class Paginator
      * @param  string $date
      * @return Pop\Paginator\Paginator
      */
-    public function setDateFormat($date = 'D, M j Y')
+    public function setDateFormat($date = null)
     {
         $this->dateFormat = $date;
         return $this;
