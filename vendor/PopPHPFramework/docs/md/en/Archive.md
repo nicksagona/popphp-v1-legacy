@@ -24,7 +24,7 @@ $archive->compress();
 
 // Extract an existing archive file to specified folder,
 // will automatically uncompress the gzip file first
-$archive = new Archive('../tmp/existing.tar');
+$archive = new Archive('../tmp/existing.tar.gz');
 $archive->extract('/tmp');
 </pre>
 
