@@ -546,7 +546,12 @@ class Prepared extends AbstractRecord
             $this->db->sql->setTable($this->tableName)
                           ->setIdQuoteType($this->idQuote)
                           ->delete();
-            if (is_array($this->primaryId)) {
+
+            // Specific column override.
+            if ((null !== $column) && (null !== $value)) {
+                $this->db->sql->where($this->db->adapter->escape($column), '=', $this->getPlaceholder($column));
+            // Else, continue with the primaryId column(s)
+            } else if (is_array($this->primaryId)) {
                 foreach ($this->primaryId as $key => $value) {
                     $this->db->sql->where($this->db->adapter->escape($value), '=', $this->getPlaceholder($value, ($key + 1)));
                 }
@@ -556,7 +561,11 @@ class Prepared extends AbstractRecord
 
             $this->db->adapter->prepare($this->db->sql->getSql());
 
-            if (is_array($this->primaryId)) {
+            //Specific column override.
+            if ((null !== $column) && (null !== $value)) {
+                $params = array($column => $value);
+            // Else, continue with the primaryId column(s)
+            } else if (is_array($this->primaryId)) {
                 $params = array();
                 foreach ($this->primaryId as $value) {
                     $params[$value] = $this->columns[$value];
@@ -564,6 +573,7 @@ class Prepared extends AbstractRecord
             } else {
                 $params = array($this->primaryId => $this->columns[$this->primaryId]);
             }
+
             $this->db->adapter->bindParams($params);
             $this->db->adapter->execute();
 

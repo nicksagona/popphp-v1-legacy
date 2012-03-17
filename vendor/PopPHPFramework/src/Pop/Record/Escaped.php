@@ -429,7 +429,11 @@ class Escaped extends AbstractRecord
                           ->setIdQuoteType($this->idQuote)
                           ->delete();
 
-            if (is_array($this->primaryId)) {
+            // Specific column override.
+            if ((null !== $column) && (null !== $value)) {
+                $this->db->sql->where($this->db->adapter->escape($column), '=', $this->db->adapter->escape($value));
+            // Else, continue with the primaryId column(s)
+            } else if (is_array($this->primaryId)) {
                 foreach ($this->primaryId as $value) {
                     $this->db->sql->where($this->db->adapter->escape($value), '=', $this->db->adapter->escape($this->columns[$value]));
                 }
