@@ -14,6 +14,8 @@ The Archive component is designed to normalize the creation and manipulation of 
 * rar
 
 <pre>
+use Pop\Archive\Archive;
+
 // Create a new TAR archive and add some files to it
 $archive = new Archive('../tmp/test.tar');
 $archive->addFiles('../files');
