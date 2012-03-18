@@ -37,7 +37,13 @@
             The Ftp component simply provides an object-oriented API wrapper to PHP's FTP extension.
         </p>
 <pre>
-Example code goes here.
+use Pop\Ftp\Ftp;
+
+$ftp = new Ftp('ftp.yourserver.com', 'username', 'password');
+$ftp->pasv(true)
+    ->chdir('./httpdocs/')
+    ->put('test.txt', '../assets/files/test.txt', FTP_ASCII);
+echo 'File Sent!';
 </pre>
     </div>
     <div id="doc-footer">

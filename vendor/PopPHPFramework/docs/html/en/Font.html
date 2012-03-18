@@ -42,7 +42,16 @@
             <li>Type1</li>
         </ul>
 <pre>
-Example code goes here.
+use Pop\Font\TrueType;
+
+$font = new TrueType('fonts/times.ttf');
+
+// You then have access to all of the parsed font data and metrics.
+echo $font->info->fullName;
+echo $font->bBox->xMin;
+echo $font->bBox->yMin;
+echo $font->bBox->xMax;
+echo $font->bBox->yMax;
 </pre>
     </div>
     <div id="doc-footer">
