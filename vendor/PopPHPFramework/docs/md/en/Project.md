@@ -6,7 +6,7 @@ Documentation : Project
 
 The Project component contains the Project class in which you can extend and encapsulate your application's specifications, such as the router, controllers, databases and modules. Once, set up properly, the project can "run" and successfully route the user's request to the correct area of your application. View the Mvc Component doc file to see an example of an extended Project class file.
 
-Also, the Project component contains the install classes that the CLI component uses to build and install your project scaffolding. An example is below.
+Also, the Project component contains the install classes that the CLI component uses to build and install your project scaffolding. An example of a project install configuration file is below.
 
 <pre>
 &lt;?php
