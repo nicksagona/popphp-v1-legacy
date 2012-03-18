@@ -45,13 +45,17 @@
             The goal of the Cache component is to speed up access to data that is more static and does not change often. By storing it by one of the methods listed above, access speed can be increased because a more expensive process call can be avoided, such as accessing a large database or an external web address to retrieve data.
         </p>
 <pre>
-use Pop\Cache\Cache
-    Pop\Cache\Memcached;
+use Pop\Cache\Cache,
+    Pop\Cache\File,
+    Pop\Cache\Memcached,
+    Pop\Cache\Sqlite;
 
 $test = 'This is my test variable. It contains a string.';
 
-// Create Cache object
+// Create Cache object, using either Memcached, File or Sqlite
 $cache = Cache::factory(new Memcached(), 30);
+//$cache = Cache::factory(new File('../tmp'), 30);
+//$cache = Cache::factory(new Sqlite('../tmp/cache.sqlite'), 30);
 
 // Save value to cache
 $cache->save('test', $test);

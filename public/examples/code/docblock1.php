@@ -11,7 +11,7 @@ try {
     // Create docblock object and set tags
     $doc = DocblockGenerator::factory($desc)->setTag('category', 'Pop')
                                             ->setTag('package', 'Pop_Code')
-                                            ->setTag('author', 'Nick Sagona, III')
+                                            ->setTag('author', 'Joe Author')
                                             ->setTag('throws', 'Exception')
                                             ->setParam('array', '$ary')
                                             ->setParam('boolean', '$blah')

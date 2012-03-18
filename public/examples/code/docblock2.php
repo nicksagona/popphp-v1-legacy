@@ -12,7 +12,7 @@ try {
      *
      * @category Pop
      * @package  Pop_Code
-     * @author   Nick Sagona, III
+     * @author   Joe Author
      * @param    array   \$ary
      * @param    boolean \$blah
      * @throws   Exception

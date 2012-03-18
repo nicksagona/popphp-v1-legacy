@@ -15,7 +15,7 @@ try {
     $code->setDocblock(new DocblockGenerator('This is my test class file'))
          ->getDocblock()->setTag('category', 'Pop')
                         ->setTag('package', 'Pop_Code')
-                        ->setTag('author', 'Nick Sagona, III');
+                        ->setTag('author', 'Joe Author');
 
     // Create namespace object
     $ns = new NamespaceGenerator('Some\\Other');
@@ -40,7 +40,7 @@ try {
     $code->code()->setDocblock(new DocblockGenerator('This is my test class'))
                  ->getDocblock()->setTag('category', 'Pop')
                                 ->setTag('package', 'Pop_Code')
-                                ->setTag('author', 'Nick Sagona, III');
+                                ->setTag('author', 'Joe Author');
 
     $code->code()->addProperty($prop);
     $code->code()->addMethod($method);
