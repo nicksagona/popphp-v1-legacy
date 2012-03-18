@@ -14,8 +14,6 @@ The Db component provides normalized access to query databases. The supported ad
 
 Prepared statements are supported with the Mysqli, Pdo, Pgsql and Sqlite adapaters. Escaped values are available for all of the adapters.
 
-In addition to database access, the Db component also features a useful Sql abstraction object that assists you in creating standardized SQL queries.
-
 <pre>
 use Pop\Db\Db;
 
@@ -38,6 +36,8 @@ while (($row = $db->adapter->fetch()) != false) {
     print_r($row);
 }
 </pre>
+
+In addition to database access, the Db component also features a useful Sql abstraction object that assists you in creating standardized SQL queries.
 
 <pre>
 use Pop\Db\Sql;
