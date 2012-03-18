@@ -6,6 +6,8 @@ Documentation : Mvc
 
 The Mvc component, as outlined in the documentation overview, is an implementation of the MVC design pattern, with the additional layer of a router to facilitate multiple user paths and controllers. Simply put, the controller handles the delegation of requests, the model handles the business logic and the view determines how to display the output to the user. All of these classes within this component are very easy to extend to leverage them within your own application.
 
+While this may look overly complex, if you use the CLI component project installation feature, most of this code can be written and installed for you. You just have to define the project name and settings in the install configuration file.
+
 <pre>
 use Pop\Mvc\Controller,
     Pop\Mvc\Model,
