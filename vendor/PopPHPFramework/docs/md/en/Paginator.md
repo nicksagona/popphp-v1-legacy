@@ -50,6 +50,7 @@ $pages = new Paginator($rows, 3, 3);
 $pages->setHeader($header)
       ->setRowTemplate($rowTemplate)
       ->setFooter($footer);
+
 echo $pages;
 </pre>
 
