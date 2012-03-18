@@ -45,7 +45,18 @@
             <li>yaml</li>
         </ul>
 <pre>
-Example code goes here.
+use Pop\Data\Data;
+
+// Parses the data file into a usable PHP array
+$data = new Data('../assets/files/test-import.csv');
+$csv = $data->parseFile();
+
+// Takes the PHP array and creates an XML file from it
+$data = new Data($csv);
+$obj = $data->parseData('xml');
+
+// Prints out the data in the new XML format
+echo $obj;
 </pre>
     </div>
     <div id="doc-footer">
