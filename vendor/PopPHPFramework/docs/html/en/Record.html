@@ -57,6 +57,24 @@ protected $auto = true;
 // Whether to use prepared statements or not, defaults to true
 protected $usePrepared = true;
 </pre>
+        <p>
+            From there, basic usage is as follows:
+        </p>
+<pre>
+use Users;
+
+// Get a single user
+$user = Users::findById(1001);
+echo $user->name;
+echo $user->email;
+
+// Get multiple users
+$users = Users::findAll('last_name ASC');
+foreach ($users->rows as $user) {
+    echo $user->name;
+    echo $user->email;
+}
+</pre>
     </div>
     <div id="doc-footer">
         <p>

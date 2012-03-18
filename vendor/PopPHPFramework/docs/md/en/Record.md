@@ -28,4 +28,22 @@ protected $auto = true;
 protected $usePrepared = true;
 </pre>
 
+From there, basic usage is as follows:
+
+<pre>
+use Users;
+
+// Get a single user
+$user = Users::findById(1001);
+echo $user->name;
+echo $user->email;
+
+// Get multiple users
+$users = Users::findAll('last_name ASC');
+foreach ($users->rows as $user) {
+    echo $user->name;
+    echo $user->email;
+}
+</pre>
+
 (c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
