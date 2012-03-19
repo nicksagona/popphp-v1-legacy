@@ -6,7 +6,6 @@ Documentation : Archive
 
 Il componente Archive è stato progettato per normalizzare la creazione e la manipolazione di file di archivio comuni attraverso una singola API. Tipi di archivio supportati sono:
 
-
 * tar
 * tar.gz
 * tar.bz2

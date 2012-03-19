@@ -6,7 +6,6 @@ Documentation : Geo
 
 מרכיב גיאוגרפי פשוט מספק מעטפת מונחה עצמים API להארכת GeoIp של PHP.
 
-
 <pre>
 use Pop\Geo\Geo;
 

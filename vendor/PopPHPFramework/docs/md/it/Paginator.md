@@ -6,7 +6,6 @@ Documentation : Paginator
 
 Il componente paginator fornisce semplicemente la funzionalità alla pagina un set di risultati di grandi dimensioni. Molti diverse impostazioni e attributi possono essere applicati, ma la più utile è il supporto modello che ha costruito dentro
 
-
 <pre>
 use Pop\Paginator\Paginator;
 

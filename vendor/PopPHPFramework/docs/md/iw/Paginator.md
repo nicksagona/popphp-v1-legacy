@@ -6,7 +6,6 @@ Documentation : Paginator
 
 מרכיב Paginator פשוט מספק פונקציונליות לדף את מערכת תוצאה גדולה. הגדרות שונות ותכונות ניתן ליישם, אבל שימושי ביותר הוא תמיכת הערכה כי מוכללת
 
-
 <pre>
 use Pop\Paginator\Paginator;
 

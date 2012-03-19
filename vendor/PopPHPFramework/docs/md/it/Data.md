@@ -6,7 +6,6 @@ Documentation : Data
 
 Il componente dati fornisce la capacità di convertire insiemi di dati da un formato comune all'altro. I formati supportati sono:
 
-
 * csv
 * json
 * php

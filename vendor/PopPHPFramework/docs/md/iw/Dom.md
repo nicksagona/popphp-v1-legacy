@@ -6,7 +6,6 @@ Documentation : Dom
 
 מרכיב דום מספק דרך קלה ליצור ולטפל במסמכים DOM ו וילדיהם.
 
-
 <pre>
 use Pop\Dom\Child,
     Pop\Dom\Dom;
@@ -38,7 +37,6 @@ $doc->render();
 </pre>
 
 ניתן גם להוסיף ילדים באמצעות מערך מובנה של ערכים.
-
 
 <pre>
 use Pop\Dom\Dom;

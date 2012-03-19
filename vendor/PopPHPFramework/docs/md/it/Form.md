@@ -6,7 +6,6 @@ Documentation : Form
 
 Il componente Form è un componente potente che estende il componente Dom. Esso fornisce robuste funzionalità per creare, eseguire il rendering HTML e valide forme e gli elementi dei moduli.
 
-
 <pre>
 use Pop\Form\Form,
     Pop\Form\Element,

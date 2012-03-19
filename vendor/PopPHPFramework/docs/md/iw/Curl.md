@@ -6,7 +6,6 @@ Documentation : Curl
 
 מרכיב קורל פשוט מספק מעטפת מונחה עצמים API להארכת CURL של PHP.
 
-
 <pre>
 use Pop\Curl\Curl;
 

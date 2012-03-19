@@ -6,7 +6,6 @@ Documentation : Filter
 
 מרכיב מסנן מספק פונקציונליות סינון שימושי מניפולציה מחרוזת, הצפנה, חיפוש מערך קצת מתמטיקה בסיסית.
 
-
 <pre>
 use Pop\Filter\String;
 
@@ -22,7 +21,6 @@ echo $str2;
 </pre>
 
 הנה דוגמה של המסנן קריפטה.
-
 
 <pre>
 use Pop\Filter\Crypt;

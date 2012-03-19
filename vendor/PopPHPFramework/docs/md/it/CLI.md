@@ -6,19 +6,12 @@ Documentation : Cli
 
 La riga di comando (CLI) componente è un componente molto utile che permette di eseguire alcune attività utili, quali:
 
-
 * valutare l'ambiente delle dipendenze richieste
-</li>
 * installare un progetto da un file di installazione di progetto
-</li>
 * impostare la lingua predefinita di un'applicazione
-</li>
 * creare una mappa di classe
-</li>
 * riconfigurare un progetto che è stato spostato
-</li>
 * controllare la versione corrente contro l'ultima versione disponibile
-</li>
 
 <pre>
 script/pop --check                     // Check the current configuration for required dependencies

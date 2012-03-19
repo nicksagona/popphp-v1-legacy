@@ -6,7 +6,6 @@ Documentation : Ftp
 
 Il componente Ftp fornisce semplicemente un object-oriented wrapper API per l'estensione FTP PHP.
 
-
 <pre>
 use Pop\Ftp\Ftp;
 

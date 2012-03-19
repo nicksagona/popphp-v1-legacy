@@ -6,7 +6,6 @@ Documentation : Color
 
 Il componente del colore è una componente utile per gestire e utilizzare gli oggetti di valore di colore. Esso prevede inoltre la funzionalità per convertire i valori di colore agli spazi di colore diversi, per esempio, la conversione da RGB a CMYK.
 
-
 <pre>
 use Pop\Color\Color,
     Pop\Color\Rgb;

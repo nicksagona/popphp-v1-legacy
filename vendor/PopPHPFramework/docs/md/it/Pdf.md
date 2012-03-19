@@ -6,21 +6,13 @@ Documentation : Pdf
 
 Il componente fornisce Pdf ricco di funzioni funzionalità per la generazione di PDF e la manipolazione. Lungo la creazione di nuovi file PDF, è anche possibile importare quelli già esistenti e aggiungere contenuti ad essi da lì. Alcune delle funzioni disponibili sono:
 
-
 * disegno di forme
-
 * l'aggiunta di tracciati di ritaglio
-
 * l'aggiunta di testo
-
 * immagini di incorporamento
-
 * font embedding
-
 * URL di collegamento
-
 * interna di collegamento
-
 
 <pre>
 use Pop\Color\Rgb,

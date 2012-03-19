@@ -6,7 +6,6 @@ Documentation : Http
 
 מרכיב Http מספק קל לשימוש API לנהל, לגשת ולטפל בקשות HTTP ותגובות. הוא משמש מספר מרכיבים, אך היא משולבת באופן הדוק ביותר עם הרכיב MVC לניהול בקשות ותגובות בתוך רכיב.
 
-
 <pre>
 use Pop\Http\Request,
     Pop\Http\Response;

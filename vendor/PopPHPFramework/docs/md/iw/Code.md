@@ -6,7 +6,6 @@ Documentation : Code
 
 רכיב קוד הוא דור קוד רכיב לא רק מאפשר לך ליצור סטנדרטית, מובנה היטב קוד PHP על לטוס, אלא גם מאפשר לך לשנות ולהרחיב את הקוד הקיים על ידי מינוף הרחבה השתקפות של PHP.
 
-
 <pre>
 use Pop\Code\ClassGenerator,
     Pop\Code\DocblockGenerator,

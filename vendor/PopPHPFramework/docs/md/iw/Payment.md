@@ -14,7 +14,6 @@ Documentation : Payment
 
 עם זאת, אם התמיכה שער אחר נדרש, אז זה יהיה פשוט לכתוב פשוט מתאם את זה.
 
-
 <pre>
 use Pop\Payment\Payment,
     Pop\Payment\Adapter\Authorize;

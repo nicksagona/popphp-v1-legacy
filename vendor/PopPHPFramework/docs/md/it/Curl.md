@@ -6,7 +6,6 @@ Documentation : Curl
 
 Il componente Curl offre semplicemente un object-oriented wrapper API per l'estensione cURL PHP.
 
-
 <pre>
 use Pop\Curl\Curl;
 

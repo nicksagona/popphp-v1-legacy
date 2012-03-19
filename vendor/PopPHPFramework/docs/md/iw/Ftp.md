@@ -6,7 +6,6 @@ Documentation : Ftp
 
 מרכיב Ftp פשוט מספק מעטפת מונחה עצמים API להארכת FTP של PHP.
 
-
 <pre>
 use Pop\Ftp\Ftp;
 

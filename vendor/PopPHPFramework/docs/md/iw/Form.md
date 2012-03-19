@@ -6,7 +6,6 @@ Documentation : Form
 
 רכיב טופס הוא מרכיב רב עוצמה, המשתרע מרכיב דום. הוא מספק פונקציונליות חזקה ליצור, לעבד טופסי HTML חוקיים וגורמים הטופס.
 
-
 <pre>
 use Pop\Form\Form,
     Pop\Form\Element,

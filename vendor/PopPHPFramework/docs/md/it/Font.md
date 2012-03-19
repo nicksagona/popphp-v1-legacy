@@ -6,7 +6,6 @@ Documentation : Font
 
 Il componente Font è un parser dei font in profondità che estrae i dati importanti dei font e metriche per le altre componenti e programmi da utilizzare. I tipi di carattere supportati sono:
 
-
 * TrueType
 * OpenType
 * Type1

@@ -6,7 +6,6 @@ Documentation : Db
 
 מרכיב Db מספק גישה למאגרי מידע מנורמל השאילתה. מתאמי הנתמכים הם:
 
-
 * mysql
 * mysqli
 * pdo
@@ -14,7 +13,6 @@ Documentation : Db
 * sqlite
 
 דוחות מוכנים נתמכים עם Mysqli, PDO, Pgsql ו adapaters SQLite. ערכים נמלטים זמינים עבור כל המתאמים את.
-
 
 <pre>
 use Pop\Db\Db;
@@ -40,7 +38,6 @@ while (($row = $db->adapter->fetch()) != false) {
 </pre>
 
 בנוסף גישה למסדי נתונים, המרכיב Db גם תכונות אובייקט מופשט Sql שימושי המסייע לך ליצור שאילתות SQL סטנדרטי.
-
 
 <pre>
 use Pop\Db\Sql;

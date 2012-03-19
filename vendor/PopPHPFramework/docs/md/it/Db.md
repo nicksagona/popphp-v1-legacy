@@ -6,7 +6,6 @@ Documentation : Db
 
 Il componente Db fornisce l'accesso normalizzato per interrogare i database. Le schede supportate sono:
 
-
 * mysql
 * mysqli
 * pdo
@@ -14,7 +13,6 @@ Il componente Db fornisce l'accesso normalizzato per interrogare i database. Le 
 * sqlite
 
 Dichiarazioni preparate sono supportati con il mysqli, DOP, pgsql e adapaters SQLite. I valori di escape sono disponibili per tutte le schede.
-
 
 <pre>
 use Pop\Db\Db;
@@ -40,7 +38,6 @@ while (($row = $db->adapter->fetch()) != false) {
 </pre>
 
 Oltre a l'accesso al database, il componente Db dispone anche di un utile oggetto di astrazione Sql che si assiste nella creazione di query SQL standard.
-
 
 <pre>
 use Pop\Db\Sql;

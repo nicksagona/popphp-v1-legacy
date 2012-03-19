@@ -6,7 +6,6 @@ Documentation : Code
 
 Il componente del codice è un componente di generazione di codice che non solo consente di generare standardizzati, ben strutturato codice PHP al volo, ma permette anche di modificare ed estendere il codice esistente, sfruttando l'estensione di riflessione PHP.
 
-
 <pre>
 use Pop\Code\ClassGenerator,
     Pop\Code\DocblockGenerator,

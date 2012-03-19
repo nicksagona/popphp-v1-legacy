@@ -14,7 +14,6 @@ Il componente di pagamento fornisce funzionalità standard per elaborare le rich
 
 Tuttavia, se il supporto per un gateway diverso è necessario, allora sarebbe facile scrivere solo un adattatore per esso.
 
-
 <pre>
 use Pop\Payment\Payment,
     Pop\Payment\Adapter\Authorize;

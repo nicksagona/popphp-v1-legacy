@@ -6,7 +6,6 @@ Documentation : File
 
 Il componente File API fornisce un utile strumento per gestire e manipolare i file su disco. Esso prevede inoltre la funzionalità di gestire facilmente il caricamento di file.
 
-
 <pre>
 use Pop\File\File;
 
