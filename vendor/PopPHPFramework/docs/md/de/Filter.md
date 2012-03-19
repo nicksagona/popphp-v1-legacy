@@ -6,7 +6,6 @@ Documentation : Filter
 
 Die Filter-Komponente bietet einige nützliche Filterfunktion für String-Manipulation, Verschlüsselung, Array suchen und einige grundlegende Mathematik.
 
-
 <pre>
 use Pop\Filter\String;
 
@@ -22,7 +21,6 @@ echo $str2;
 </pre>
 
 Hier ist ein Beispiel der Crypt-Filter.
-
 
 <pre>
 use Pop\Filter\Crypt;

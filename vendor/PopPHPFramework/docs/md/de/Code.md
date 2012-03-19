@@ -6,7 +6,6 @@ Documentation : Code
 
 Der Code-Komponente ist eine Komponente, die Code-Generierung erlaubt es nicht nur um standardisierte, gut strukturierte PHP-Code on the fly zu generieren, sondern auch ermöglicht es Ihnen, ändern und erweitern vorhandenen Code durch den Einsatz von PHP-Reflection-Erweiterung.
 
-
 <pre>
 use Pop\Code\ClassGenerator,
     Pop\Code\DocblockGenerator,

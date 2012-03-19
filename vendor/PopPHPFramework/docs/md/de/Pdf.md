@@ -6,21 +6,13 @@ Documentation : Pdf
 
 Die Pdf-Komponente bietet umfassende Funktionalität für PDF-Erzeugung und Manipulation. Neben der Schaffung neuer PDF-Dateien können Sie auch bestehende zu importieren und Inhalte hinzufügen, um sie von dort aus. Einige der Funktionen sind verfügbar:
 
-
 * Zeichnen von Formen
-
 * Hinzufügen Beschneidungspfade
-
 * Hinzufügen von Text
-
 * Einbetten von Bildern
-
 * Einbetten von Schriften
-
 * URL-Verlinkung
-
 * interne Verlinkung
-
 
 <pre>
 use Pop\Color\Rgb,

@@ -6,7 +6,6 @@ Documentation : Geo
 
 Η συνιστώσα Geo παρέχει απλώς ένα object-oriented περιτύλιγμα API για την επέκταση της PHP GeoIP.
 
-
 <pre>
 use Pop\Geo\Geo;
 

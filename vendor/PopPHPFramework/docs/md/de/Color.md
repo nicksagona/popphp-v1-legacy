@@ -6,7 +6,6 @@ Documentation : Color
 
 Die Color-Komponente ist eine nützliche Komponente zu verwalten und zu nutzen Farbwert Objekte. Es bietet auch die Funktionalität, um Farbwerte zu anderen Farbräumen zu konvertieren, zum Beispiel Umwandlung von RGB zu CMYK.
 
-
 <pre>
 use Pop\Color\Color,
     Pop\Color\Rgb;

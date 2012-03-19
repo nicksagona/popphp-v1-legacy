@@ -6,7 +6,6 @@ Documentation : Db
 
 Der DB-Komponente bietet Zugang zu den normalisierten Datenbanken abzufragen. Die unterstützten Adapter sind:
 
-
 * mysql
 * mysqli
 * pdo
@@ -14,7 +13,6 @@ Der DB-Komponente bietet Zugang zu den normalisierten Datenbanken abzufragen. Di
 * sqlite
 
 Prepared Statements werden mit der mysqli, PDO, pgsql und sqlite adapaters unterstützt. Entkommen Werte sind für alle Adapter.
-
 
 <pre>
 use Pop\Db\Db;
@@ -40,7 +38,6 @@ while (($row = $db->adapter->fetch()) != false) {
 </pre>
 
 Neben Zugriff auf die Datenbank, die DB-Komponente bietet auch eine nützliche Abstraktion Sql-Objekt, das Sie beim Erstellen von standardisierten SQL-Abfragen.
-
 
 <pre>
 use Pop\Db\Sql;

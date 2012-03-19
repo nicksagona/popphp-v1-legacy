@@ -6,7 +6,6 @@ Documentation : Curl
 
 Η Curl στοιχείο παρέχει απλώς ένα object-oriented περιτύλιγμα API για την επέκταση της PHP cURL.
 
-
 <pre>
 use Pop\Curl\Curl;
 

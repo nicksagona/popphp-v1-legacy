@@ -6,7 +6,6 @@ Documentation : Form
 
 Der Formular-Komponente ist eine leistungsfähige Komponente, die die Dom-Komponente erweitert. Er bietet robuste Funktionalität zu erstellen, zu machen und gültige HTML-Formulare und Formularelemente.
 
-
 <pre>
 use Pop\Form\Form,
     Pop\Form\Element,

@@ -6,7 +6,6 @@ Documentation : Record
 
 Die Record-Komponente, wie in der Dokumentation Überblick skizziert, ist ein "Hybrid" von Art zwischen dem Active Record und Table Data Gateway-Muster. Über eine standardisierte API, kann er den Zugriff auf eine einzelne Zeile oder Datensatz in einer Datenbank-Tabelle oder mehrere Zeilen oder Datensätze auf einmal liefern. Die häufigste Methode ist, ein Kind zu Klasse, die die Record-Klasse, die eine Tabelle in der Datenbank repräsentiert erstreckt schreiben. Der Name des Kindes Klasse sollte der Name der Tabelle sein. Durch einfaches Anlegen
 
-
 <pre>
 use Pop\Record\Record;
 
@@ -30,7 +29,6 @@ protected $usePrepared = true;
 </pre>
 
 Von dort aus ist die grundlegende Anwendung wie folgt:
-
 
 <pre>
 use Users;

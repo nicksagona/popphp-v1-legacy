@@ -6,19 +6,12 @@ Documentation : Cli
 
 Die Command-Line Interface (CLI)-Komponente ist eine sehr nützliche Komponente, die Sie durchführen einige hilfreiche Aufgaben wie erlaubt:
 
-
 * Bewertung der aktuellen Umgebung zur erforderlichen Abhängigkeiten
-</li>
 * Installieren Sie ein Projekt aus einem Projekt Installationsdatei
-</li>
 * die voreingestellte Sprache des Antrags
-</li>
 * erstellen Sie eine Klasse Karte
-</li>
 * reconfigure ein Projekt, das verschoben wurde
-</li>
 * überprüfen Sie die aktuelle Version gegen die neueste verfügbare Version
-</li>
 
 <pre>
 script/pop --check                     // Check the current configuration for required dependencies

@@ -6,7 +6,6 @@ Documentation : Font
 
 Die Font-Komponente ist eine tiefer gehende font font-Parser, der wichtige Daten und Metriken für andere Komponenten und Programme zu verwenden, extrahiert. Die unterstützten Schriftarten sind:
 
-
 * TrueType
 * OpenType
 * Type1

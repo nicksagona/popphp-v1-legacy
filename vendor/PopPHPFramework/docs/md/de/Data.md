@@ -6,7 +6,6 @@ Documentation : Data
 
 Die Daten-Komponente bietet die Möglichkeit, Datensätze von einem gemeinsamen Format in ein anderes. Die unterstützten Formate sind:
 
-
 * csv
 * json
 * php

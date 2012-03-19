@@ -6,7 +6,6 @@ Documentation : Paginator
 
 Die Paginator Komponente stellt lediglich die Funktionalität zu Seite aus einer großen Ergebnismenge. Viele verschiedene Einstellungen und Attribute können angewendet werden, aber die am nützlichsten ist, die Vorlage zu unterstützen, die auf gebaut
 
-
 <pre>
 use Pop\Paginator\Paginator;
 

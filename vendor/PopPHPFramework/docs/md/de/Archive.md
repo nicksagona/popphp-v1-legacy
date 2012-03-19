@@ -6,7 +6,6 @@ Documentation : Archive
 
 Das Archiv-Komponente wurde entwickelt, um die Erstellung und Bearbeitung von gemeinsamen Archiv-Dateien durch ein einziges API zu normalisieren. Archiv-Typen werden unterstützt:
 
-
 * tar
 * tar.gz
 * tar.bz2

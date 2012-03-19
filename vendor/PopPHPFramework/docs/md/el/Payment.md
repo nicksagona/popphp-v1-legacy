@@ -14,7 +14,6 @@ Documentation : Payment
 
 Ωστόσο, εάν η υποστήριξη για μια διαφορετική πύλη απαιτείται, τότε θα ήταν εύκολο να γράψει μόνο ένα προσαρμογέα για αυτό.
 
-
 <pre>
 use Pop\Payment\Payment,
     Pop\Payment\Adapter\Authorize;

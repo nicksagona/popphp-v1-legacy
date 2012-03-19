@@ -6,7 +6,6 @@ Documentation : Graph
 
 Der Graph-Komponente ermöglicht die robuste Grafik-Funktionalität, die eine der in der grafischen Komponenten wie Image gebaut nutzen können, um SVG und Pdf Grafiken in einer Vielzahl von Formaten zu zeichnen. Sie können eine breite Palette von Grafik-Attribute zu erstellen und zu rendern Liniendiagramme, Balkendiagramme und Kreisdiagramme. Da die API unter den verschiedenen Grafik-Komponenten standardisiert ist, ist es sehr einfach, zwischen verschiedenen Datei-und Bildformaten, in denen um eine Grafik zu erzeugen auszutauschen.
 
-
 <pre>
 use Pop\Color\Rgb,
     Pop\Graph\Graph;

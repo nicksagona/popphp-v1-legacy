@@ -6,13 +6,11 @@ Documentation : Cache
 
 Der Cache-Komponente ermöglicht die einfache Speicherung von dauerhaften Daten über drei Methoden:
 
-
 * a file on disk
 * a sqlite database
 * memcache
 
 Das Ziel des Cache-Komponente ist, um schnelleren Zugriff auf Daten, die eher statisch ist und sich nicht oft ändern. Durch Speicherung von einem der oben aufgeführten Methoden können Zugriffsgeschwindigkeit erhöht, weil ein teurer Prozess Anruf kann vermieden werden, wie den Zugriff auf eine große Datenbank oder eine externe Web-Adresse zum Abrufen von Daten werden kann.
-
 
 <pre>
 use Pop\Cache\Cache,

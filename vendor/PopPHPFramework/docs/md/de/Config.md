@@ -6,7 +6,6 @@ Documentation : Config
 
 Die Config-Komponente stellt einen Datenwert-Objekt, das durch andere Komponenten wie die Projekt-Komponente verwendet wird. Typischerweise werden Dinge wie Datenbank-Anmeldeinformationen in einer Config Objekt definiert und an einem Projekt zum Objekt während des gesamten Lebenszyklus des Projekts oder Skript verwendet werden.
 
-
 <pre>
 use Pop\Config;
 

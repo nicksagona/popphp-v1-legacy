@@ -6,7 +6,6 @@ Documentation : Ftp
 
 Η Ftp στοιχείο παρέχει απλώς ένα object-oriented περιτύλιγμα API για την επέκταση της PHP FTP.
 
-
 <pre>
 use Pop\Ftp\Ftp;
 

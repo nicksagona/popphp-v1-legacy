@@ -6,9 +6,7 @@ Documentation : Feed
 
 Die Feed-Komponente bietet die Funktionalität zu lesen und zu analysieren, externe Feeds und stellen die Daten in einer nützlichen Weise, sowie die Funktionalität zum Schreiben und Content-Feeds anzuzeigen.
 
-
 Hier ist ein Beispiel des Lesens (dh Parsen) eine externe Zuführung.
-
 
 <pre>
 use Pop\Feed\Reader;
@@ -29,7 +27,6 @@ $feed->render();
 </pre>
 
 Hier ist ein Beispiel für das Schreiben eines Feed.
-
 
 <pre>
 use Pop\Dom\Dom,

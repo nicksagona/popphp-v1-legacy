@@ -6,7 +6,6 @@ Documentation : File
 
 Das File-Komponente bietet eine nützliche API zur Verwaltung und Bearbeitung von Dateien auf der Festplatte. Es bietet auch die Funktionalität die einfache Verwaltung Datei-Uploads.
 
-
 <pre>
 use Pop\File\File;
 

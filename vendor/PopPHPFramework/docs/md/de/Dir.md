@@ -6,7 +6,6 @@ Documentation : Dir
 
 Die Regie-Komponenten ist nützlich für die Auflistung von Dateien in einem Verzeichnis rekursiv oder nicht rekursiv. Außerdem gibt es eine Methode, um vollständig zu entleeren Sie ein Verzeichnis, aber das sollte natürlich mit Vorsicht verwendet werden.
 
-
 <pre>
 use Pop\Dir\Dir;
 
