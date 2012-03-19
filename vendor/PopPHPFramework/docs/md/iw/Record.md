@@ -13,7 +13,7 @@ use Pop\Record\Record;
 class Users extends Record { }
 </pre>
 
-you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) From there, you can fine-tune the child class that represents the table with various class properties such as:
+יצירת המעמד שיש לו את כל הפונקציונליות של רכיב הקלטה מובנה ומעמד יודע את השם של הטבלה במסד הנתונים לשאילתה של שם המחלקה. כך, למשל, מתרגם "של משתמשים אל תוך ג` המשתמשים `או מתרגם של DbUsers של אל ג` db_users `(CamelCase מומר אוטומטית lower_case_underscore). משם, ניתן לכוונן את מעמד הילד המייצג את הטבלה עם תכונות ברמה שונים כגון :
 
 <pre>
 // Table prefix, if applicable

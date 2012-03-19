@@ -79,7 +79,7 @@ if ($_POST) {
 }
 </pre>
 
-Or, you can create form elements via a structured  array of values.
+Ou, vous pouvez créer des éléments de formulaire via un réseau structuré de valeurs.
 
 <pre>
 use Pop\Form\Form,

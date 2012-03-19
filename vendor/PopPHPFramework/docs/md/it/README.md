@@ -53,7 +53,7 @@ Ci sono due modi che si possono ottenere installato e funzionante con il quadro 
 Se stai solo cercando di scrivere alcuni script veloci, si può semplicemente eliminare la cartella di origine nella cartella del progetto di lavoro, fare riferimento alla 'bootstrap.php' di conseguenza in uno script e iniziare a scrivere codice. Troverete tutti i riferimenti ed esempi in tutta questa documentazione che spiegherà i vari componenti e come si possono usare.
 
 
-If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or scaffolding. This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and - voila! - Pop does all the dirty work for you and you can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
+Se stai cercando di costruire una più vasta scala dell'applicazione, è possibile utilizzare il componente CLI per creare basi di base del progetto, o "impalcature". In questo modo, è possibile iniziare a scrivere codice di progetto in modo rapido e non devono gravati da ottenere tutto attivo e funzionante. Tutto quello che dovete fare è definire il progetto in unico file di installazione, eseguire il comando Pop CLI usando il file e - voilà! - Pop fa tutto il lavoro sporco per voi e si può arrivare alla scrittura di codice del progetto più velocemente. Esaminare la documentazione relativa al componente CLI di esplorare ulteriormente come trarre vantaggio da questo componente robusto.
 
 Il MVC Component
 
@@ -85,6 +85,6 @@ use Pop\Record\Record;
 class Users extends Record { }
 </pre>
 
-you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+si crea una classe che ha tutte le funzionalità del componente Record costruito e la classe conosce il nome della tabella di database da interrogare dal nome della classe. Ad esempio, si traduce 'utenti' in `utenti` o traduce dei DbUsers 'in `db_users` (CamelCase viene automaticamente convertito in lower_case_underscore.) Esaminare la documentazione Record per vedere come si può regolare con precisione la classe tabella figlio.
 
 (c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
