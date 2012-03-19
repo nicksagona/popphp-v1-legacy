@@ -6,7 +6,6 @@ Documentation : Config
 
 Le composant de configuration fournit un objet de valeur des données qui est utilisée par d'autres composants tels que la composante du projet. En règle générale, des choses comme les informations d'identification de base de données sont définies dans un objet de configuration et transmis à un objet du projet qui sera utilisé pendant le cycle de vie du projet ou d'un script.
 
-
 <pre>
 use Pop\Config;
 

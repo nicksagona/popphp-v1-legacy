@@ -6,13 +6,11 @@ Documentation : Cache
 
 La composante Cache permet le stockage des données persistantes facile via trois méthodes:
 
-
 * a file on disk
 * a sqlite database
 * memcache
 
 L'objectif de la composante du cache est d'accélérer l'accès aux données qui est plus statique et ne change pas souvent. En les stockant par l'une des méthodes énumérées ci-dessus, la vitesse d'accès peut être augmenté en raison d'un appel procédé plus coûteux peuvent être évités, tels que l'accès à une vaste base de données ou une adresse Web externe pour récupérer des données.
-
 
 <pre>
 use Pop\Cache\Cache,

@@ -6,7 +6,6 @@ Documentation : Db
 
 La composante Db offre un accès normalisé aux bases de données de la requête. Les cartes prises en charge sont les suivants:
 
-
 * mysql
 * mysqli
 * pdo
@@ -14,7 +13,6 @@ La composante Db offre un accès normalisé aux bases de données de la requête
 * sqlite
 
 Les requêtes préparées sont pris en charge avec le Mysqli, PDO, PgSQL et adapaters Sqlite. Les valeurs d'échappement sont disponibles pour tous les adaptateurs.
-
 
 <pre>
 use Pop\Db\Db;
@@ -40,7 +38,6 @@ while (($row = $db->adapter->fetch()) != false) {
 </pre>
 
 En plus de l'accès base de données, le composant Db dispose également d'un objet utile abstraction Sql qui vous assiste dans la création de requêtes SQL normalisées.
-
 
 <pre>
 use Pop\Db\Sql;

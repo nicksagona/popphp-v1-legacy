@@ -6,7 +6,6 @@ Documentation : Form
 
 La composante formulaire est un composant puissant qui étend la composante Dom. Il offre des fonctionnalités robustes pour créer, rendre et valides des formulaires HTML et les éléments de formulaire.
 
-
 <pre>
 use Pop\Form\Form,
     Pop\Form\Element,

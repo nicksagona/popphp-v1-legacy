@@ -6,7 +6,6 @@ Documentation : Data
 
 Le composant de données fournit la capacité de convertir des ensembles de données d'un format commun à l'autre. Les formats supportés sont:
 
-
 * csv
 * json
 * php

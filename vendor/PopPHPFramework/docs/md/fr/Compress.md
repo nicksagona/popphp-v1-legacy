@@ -6,7 +6,6 @@ Documentation : Compress
 
 La composante Compress offre une méthode normalisée pour compresser et décompresser des données et des fichiers via les méthodes prises en charge:
 
-
 * bzip2
 * gzip &amp; zlib
 * lzf

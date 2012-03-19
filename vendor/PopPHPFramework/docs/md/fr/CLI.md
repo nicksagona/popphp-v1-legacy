@@ -6,19 +6,12 @@ Documentation : Cli
 
 La ligne de commande (CLI) composant est un composant très utile qui vous permet d'effectuer certaines tâches utiles telles que:
 
-
 * d'évaluer l'environnement actuel des dépendances requises
-</li>
 * installer un projet à partir d'un fichier d'installation du projet
-</li>
 * définir la langue par défaut d'une demande
-</li>
 * créer une carte de classe
-</li>
 * reconfigurer un projet qui a été déplacé
-</li>
 * vérifier la version actuelle contre la dernière version disponible
-</li>
 
 <pre>
 script/pop --check                     // Check the current configuration for required dependencies

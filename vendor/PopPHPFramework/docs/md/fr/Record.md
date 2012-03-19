@@ -6,7 +6,6 @@ Documentation : Record
 
 La composante d'enregistrement, comme indiqué dans la vue d'ensemble de la documentation, est un «hybride» de toutes sortes entre les Active Record et les modèles Table Data Gateway. Via une API normalisée, elle peut donner accès à une seule ligne ou enregistrement dans une table de base de données, ou plusieurs lignes ou des dossiers à la fois. L'approche la plus courante est d'écrire une classe enfant qui étend la classe d'enregistrement qui représente une table dans la base de données. Le nom de la classe enfant doit être le nom de la table. En créant simplement
 
-
 <pre>
 use Pop\Record\Record;
 
@@ -30,7 +29,6 @@ protected $usePrepared = true;
 </pre>
 
 De là, l'utilisation de base est la suivante:
-
 
 <pre>
 use Users;

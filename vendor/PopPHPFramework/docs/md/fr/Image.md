@@ -6,7 +6,6 @@ Documentation : Image
 
 Le composant Image fournit un wrapper API standardisée pour la création et la manipulation d'images qui tire parti de GD de PHP et des extensions Imagick, ainsi que le format d'image SVG. Dans cette composante est une API riche en fonctionnalités pour effectuer de nombreux différents basés sur l'image des fonctions. Et, depuis l'API est normalisée, si un projet se déplace dans un environnement différent, il devrait se dégrader facilement.
 
-
 <pre>
 use Pop\Color\Rgb,
     Pop\Image\Gd;

@@ -14,7 +14,6 @@ Le composant offre une fonctionnalité de paiement standardisé pour traiter les
 
 Toutefois, si le support pour une passerelle différente est nécessaire, alors il serait simple d'y écrire un adaptateur pour elle.
 
-
 <pre>
 use Pop\Payment\Payment,
     Pop\Payment\Adapter\Authorize;

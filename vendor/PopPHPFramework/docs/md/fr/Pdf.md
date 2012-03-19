@@ -6,21 +6,13 @@ Documentation : Pdf
 
 Le composant PDF fournit des fonctionnalités complètes pour générer des PDF et de manipulation. Le long de la création de nouveaux fichiers PDF, vous pouvez également importer existants et leur ajouter du contenu à partir de là. Certaines des fonctions disponibles sont les suivants:
 
-
 * dessiner des formes
-
 * ajoutant des chemins de détourage
-
 * l'ajout de texte
-
 * intégration d'images
-
 * l'incorporation des polices
-
 * Lien URL
-
 * liens internes
-
 
 <pre>
 use Pop\Color\Rgb,

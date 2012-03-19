@@ -6,9 +6,7 @@ Documentation : Feed
 
 La composante alimentation fournit la fonctionnalité de lire et d'analyser flux externes et de fournir les données d'une façon utile, ainsi que la fonctionnalité d'écrire et d'afficher des flux de contenu.
 
-
 Voici un exemple de la lecture (c.-à-analyse) une alimentation externe.
-
 
 <pre>
 use Pop\Feed\Reader;
@@ -29,7 +27,6 @@ $feed->render();
 </pre>
 
 Voici un exemple d'écriture d'un flux.
-
 
 <pre>
 use Pop\Dom\Dom,

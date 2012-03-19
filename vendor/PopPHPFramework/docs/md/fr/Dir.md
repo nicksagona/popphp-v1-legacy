@@ -6,7 +6,6 @@ Documentation : Dir
 
 Les composants Dir est utile pour le listage des fichiers dans un répertoire, récursivement ou non récursive. En outre, il existe une méthode pour vider complètement un répertoire, mais cela ne devrait évidemment être utilisée avec prudence.
 
-
 <pre>
 use Pop\Dir\Dir;
 

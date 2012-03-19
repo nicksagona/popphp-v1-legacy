@@ -6,7 +6,6 @@ Documentation : Archive
 
 La composante Archive est conçu pour normaliser la création et la manipulation des fichiers d'archives communes à travers une API unique. Types d'archives qui sont pris en charge sont:
 
-
 * tar
 * tar.gz
 * tar.bz2

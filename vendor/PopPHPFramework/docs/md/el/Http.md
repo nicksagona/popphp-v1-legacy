@@ -21,7 +21,7 @@ if ($request->isPost()) {
 $response = new Response();
 $response->setHeader('content-type', 'text/html')
          ->setBody('<html><body>This is some HTML.</body></html>')
-         -send();
+         ->send();
 </pre>
 
 (c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

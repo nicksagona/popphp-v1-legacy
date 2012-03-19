@@ -6,7 +6,6 @@ Documentation : Code
 
 La composante de code est un élément de génération de code qui vous permet non seulement de générer normalisé, bien structurée du code PHP à la volée, mais vous permet également de modifier et d'étendre le code existant en s'appuyant sur l'extension de réflexion de PHP.
 
-
 <pre>
 use Pop\Code\ClassGenerator,
     Pop\Code\DocblockGenerator,

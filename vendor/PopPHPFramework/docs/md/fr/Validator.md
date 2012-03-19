@@ -6,7 +6,6 @@ Documentation : Validator
 
 La composante Validator fournit simplement une fonctionnalité de validation de nombreux cas d'utilisation différentes, telles que la validation ou non d'un nombre est d'une certaine valeur ou une chaîne est alphanumérique. Validateurs plus avancées sont disponibles aussi bien, comme la validation d'une adresse e-mail, et l'adresse IP ou un numéro de carte de crédit. Et, si ce dont vous avez besoin n'est pas disponible, de la composante peut être facilement étendu.
 
-
 <pre>
 use Pop\Validator\Validator,
     Pop\Validator\Validator\AlphaNumeric;

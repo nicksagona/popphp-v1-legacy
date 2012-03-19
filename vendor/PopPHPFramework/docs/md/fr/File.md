@@ -6,7 +6,6 @@ Documentation : File
 
 La composante du fichier fournit une API utile pour gérer et manipuler des fichiers sur le disque. Il fournit également une fonctionnalité pour gérer facilement les fichiers téléchargés.
 
-
 <pre>
 use Pop\File\File;
 

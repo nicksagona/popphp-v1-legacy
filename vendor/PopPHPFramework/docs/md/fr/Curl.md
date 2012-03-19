@@ -6,7 +6,6 @@ Documentation : Curl
 
 La composante Curl fournit simplement un wrapper API orientée objet à l'extension cURL.
 
-
 <pre>
 use Pop\Curl\Curl;
 
