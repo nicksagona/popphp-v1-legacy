@@ -61,10 +61,9 @@ QuickStart
 
 Компонент MVC доступен и особенно полезна при построении крупномасштабных приложений. MVC означает Model-View-Controller и шаблонов проектирования, что способствует хорошо организованное разделение интересов. Это позволяет презентации, бизнес-логики и доступа к данным для всех храниться отдельно.
 
+Контроллер получает данные (например, веб-запроса) от пользователя и на основе этого ввода, сообщает, что с моделью. Модель может обработать запрос, чтобы определить, какие данные или ответ не требуется. В тот момент, модели и представления общаются так, что точка зрения может создать презентацию или "взгляд", основанный на данных, полученных от модели. Затем контроллер будет общаться с целью отображения соответствующего вывода пользователю.
 
-The controller receives input (i.e. a web request) from the user and based on that input, communicates that with the model. The model can then process the request to determine what data or response is needed. At that point, the model and view communicate so that the view can build the presentation, or view, based on the data obtained from the model. Then, the controller will communicate with the view to display the appropriate output to the user.
-
-One extra piece of the MVC component that is available with the Pop PHP Framework is a router. The router is simply an additional layer on top that does exactly what its name suggests  it routes different types of user requests to their corresponding controllers. In other words, it provides an easy way to manage multiple user paths and controllers.
+Один лишний кусок компонента MVC, которая доступна с поп PHP Framework является маршрутизатором. Маршрутизатор это просто дополнительный слой, который делает именно то, что предполагает его название - это маршруты различных типов пользовательских запросов в соответствующие контроллеры. Другими словами, это позволяет легко управлять несколькими путями пользователей и контроллеров.
 
 Зачастую, это может быть трудно понять MVC шаблон дизайна, пока вы на самом деле начать использовать его. Как только вы сделаете хотя, вы сразу видите преимущество иметь все выделяется в легкой в ​​управлении понятия очень мало, если таковые имеются, перекрытия. Ваш контроллер обрабатывает запросы делегации, ваша модель обрабатывает бизнес-логику и ваше мнение определяет способ отображения выходной для пользователя. До сих пор эта модель козыри старину зубрежки все в одном сценарии или различные сценарии, которые включены повсюду создания большой беспорядок. Просто попробуйте, и вы увидите!
 

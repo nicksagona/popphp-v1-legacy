@@ -61,10 +61,9 @@ MVCコンポーネント
 
 大規模なアプリケーションを構築する際にMVCコンポーネントが利用可能で、特に便利です。 MVCは、Model-View-Controllerの略で、懸念の計画的な分離を容易にするデザインパターンです。それはあなたのプレゼンテーション、ビジネスロジックとデータアクセスは、すべて別々に保持することができます。
 
+コントローラは、ユーザからの入力（すなわち、Web要求）を受信し、その入力に基づいて、モデルとそれを通信します。モデルは、必要とされているデータや応答を決定するための要求を処理することができます。その時点で、モデルとビューの通信は、そのビューは、モデルから得られたデータに基づいて、プレゼンテーション、または "ビュー"を構築することができます。その後、コントローラは、ユーザに適切な出力を表示するビューと通信します。
 
-The controller receives input (i.e. a web request) from the user and based on that input, communicates that with the model. The model can then process the request to determine what data or response is needed. At that point, the model and view communicate so that the view can build the presentation, or view, based on the data obtained from the model. Then, the controller will communicate with the view to display the appropriate output to the user.
-
-One extra piece of the MVC component that is available with the Pop PHP Framework is a router. The router is simply an additional layer on top that does exactly what its name suggests  it routes different types of user requests to their corresponding controllers. In other words, it provides an easy way to manage multiple user paths and controllers.
+ポップPHPフレームワークで使用可能なMVCコンポーネントのいずれかの余分な部分はルータです。ルータは、単にその名前が示唆しているかを正確にしない上に付加的な層である - それはそれらに対応するコントローラにユーザー要求の異なるタイプをルーティングします。言い換えれば、それは複数のユーザのパスとコントローラを管理する簡単な方法を提供します。
 
 しばしば、それはあなたが実際にそれを使用して起動するまで、MVCデザインパターンを把握することが困難な場合があります。一度でも行うには、すぐに非常に小さな、もしあれば、重複した概念を管理するために簡単に分離し、すべてを持つことの利点を見ることができます。コントローラが要求の委任を処理し、モデルはビジネスロジックを処理し、ビューは、ユーザーに出力を表示する方法を決定します。はるかに、このパターンは切り札大きな混乱を作成するあらゆる場所に含まれており、単一のスクリプトや様々なスクリプトにすべてを詰め込むの昔を。ちょうどそれをしようとすると次のように表示されます！
 

@@ -61,10 +61,9 @@ Documentation : Overview
 
 מרכיב MVC זמין ושימושי במיוחד כאשר בניית יישומים בקנה מידה גדול. MVC מייצג דגם Controller-View והוא דפוס עיצוב המאפשר הפרדה מאורגנת היטב של חששות. היא מאפשרת, את המצגת העסקית ההיגיון גישה לנתונים לכל להישמר בנפרד.
 
+הבקר מקבל קלט (כלומר בקשה לאינטרנט) מהמשתמש, המבוסס על קלט, כי מתקשר עם המודל. המודל יכול לעבד את הבקשה כדי לקבוע אילו נתונים או תגובה נדרשת. בשלב זה, לתקשר המודל התצוגה כך צפה יכול לבנות את המצגת, או "מבט", בהתבסס על הנתונים שהתקבלו מהמודל. לאחר מכן, בקר יתקשרו עם נוף כדי להציג את הפלט המתאים למשתמש.
 
-The controller receives input (i.e. a web request) from the user and based on that input, communicates that with the model. The model can then process the request to determine what data or response is needed. At that point, the model and view communicate so that the view can build the presentation, or view, based on the data obtained from the model. Then, the controller will communicate with the view to display the appropriate output to the user.
-
-One extra piece of the MVC component that is available with the Pop PHP Framework is a router. The router is simply an additional layer on top that does exactly what its name suggests  it routes different types of user requests to their corresponding controllers. In other words, it provides an easy way to manage multiple user paths and controllers.
+חתיכה אחת נוספת של הרכיב MVC הזמין עם פופ PHP Framework הוא נתב. הנתב היא פשוט שכבה נוספת על גבי שעושה בדיוק את מה ששמה מרמז - זה מסלולים סוגים שונים של בקשות המשתמש בקרים המתאימים. במילים אחרות, הוא מספק דרך קלה לניהול נתיבים משתמש רבים בקרי.
 
 פעמים רבות, זה יכול להיות קשה להבין את דפוס עיצוב MVC עד למעשה להתחיל להשתמש בה. ברגע שאתה עושה זאת, אתה מיד רואה את היתרון שיש דבר נפרדו החוצה קל לנהל מושגים עם מעט מאוד, אם בכלל, חפיפה. הבקר שלך מטפל משלחת של בקשות, המודל שלך מטפל ההיגיון העסקי התצוגה קובע כיצד להציג פלט למשתמש. במידה רבה, דפוס זה גוברת בימים ההם של לדחוס הכל לתוך התסריט יחיד או תסריטים שונים הכלולים בכל מקום ליצור בלגן גדול. פשוט לנסות את זה ואתה תראה!
 
