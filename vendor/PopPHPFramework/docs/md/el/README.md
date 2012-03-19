@@ -53,7 +53,7 @@ QuickStart
 Αν είστε απλά ψάχνουν για να γράψει κάποιες γρήγορες σενάρια, μπορείτε να ρίξετε απλά το φάκελο προέλευσης στον φάκελο του έργου σας, την αναφορά του «bootstrap.php» ανάλογα με το σενάριο και να αρχίσετε να γράφετε κώδικα. Θα βρείτε αναφορές και παραδείγματα σε όλη τη διάρκεια αυτής της τεκμηρίωσης που θα σας εξηγήσει τα διάφορα στοιχεία και το πώς μπορείτε να τα χρησιμοποιήσετε.
 
 
-If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or scaffolding. This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and - voila! - Pop does all the dirty work for you and you can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
+Αν ψάχνετε για την οικοδόμηση μιας μεγαλύτερης κλίμακας εφαρμογή, μπορείτε να χρησιμοποιήσετε το στοιχείο CLI για τη δημιουργία βάσης θεμελίωσης του έργου, ή «σκαλωσιές». Με αυτό τον τρόπο, μπορείτε να αρχίσετε να γράφετε κώδικα έργο γρήγορα και δεν πρέπει να επιβαρυνθεί με πάρει πάντα και να δουλεύουν. Το μόνο που έχετε να κάνετε είναι να ορίσετε το έργο σας σε ένα αρχείο εγκατάστασης, εκτελέστε την εντολή CLI Ποπ χρησιμοποιεί αυτό το αρχείο - και ιδού! - Pop κάνει όλη τη βρώμικη δουλειά για σας και μπορείτε να πάρετε για να γράφετε κώδικα του έργου γρηγορότερα. Εξετάστε την τεκμηρίωση σχετικά με την έγκριση CLI για να διερευνήσει περαιτέρω πώς να επωφεληθούν από αυτή την ισχυρή συνιστώσα.
 
 Η συνιστώσα MVC
 
@@ -61,10 +61,9 @@ If you're looking to build a larger-scale application, you can use the CLI compo
 
 Η συνιστώσα MVC είναι διαθέσιμο και ιδιαίτερα χρήσιμο κατά την κατασκευή μεγάλης κλίμακας εφαρμογή. MVC σημαίνει Μοντέλο-Προβολή-Ελεγκτής και είναι ένα πρότυπο σχέδιο που διευκολύνει μια καλά οργανωμένη διαχωρισμό των ανησυχιών. Επιτρέπει την παρουσίασή σας, επιχειρηματική λογική και η πρόσβαση σε όλα τα δεδομένα πρέπει να διατηρούνται χωριστά.
 
+Ο ελεγκτής λαμβάνει εισόδου (δηλαδή μια αίτηση στο διαδίκτυο) από τον χρήστη και με βάση την είσοδο, ανακοινώνει ότι με το μοντέλο. Το μοντέλο μπορεί να επεξεργαστεί στη συνέχεια το αίτημα να προσδιορίσει ποια δεδομένα ή απάντηση είναι απαραίτητη. Σε εκείνο το σημείο, η επικοινωνία και το μοντέλο ', έτσι ώστε η προβολή να οικοδομήσουμε την παρουσίαση, ή «άποψη», με βάση τα στοιχεία που προκύπτουν από το μοντέλο. Στη συνέχεια, ο ελεγκτής θα επικοινωνεί με σκοπό να εμφανιστεί η κατάλληλη έξοδο στο χρήστη.
 
-The controller receives input (i.e. a web request) from the user and based on that input, communicates that with the model. The model can then process the request to determine what data or response is needed. At that point, the model and view communicate so that the view can build the presentation, or view, based on the data obtained from the model. Then, the controller will communicate with the view to display the appropriate output to the user.
-
-One extra piece of the MVC component that is available with the Pop PHP Framework is a router. The router is simply an additional layer on top that does exactly what its name suggests  it routes different types of user requests to their corresponding controllers. In other words, it provides an easy way to manage multiple user paths and controllers.
+Ένα επιπλέον κομμάτι του στοιχείου MVC που είναι διαθέσιμες με την Ποπ PHP-πλαίσιο είναι ένα router. Ο δρομολογητής είναι απλά ένα πρόσθετο στρώμα στην κορυφή, που κάνει ακριβώς αυτό που υποδηλώνει το όνομά του - το δρομολογεί διαφορετικούς τύπους των αιτημάτων των χρηστών με τους αντίστοιχους ελεγκτές τους. Με άλλα λόγια, παρέχει έναν εύκολο τρόπο να διαχειριστεί πολλαπλές διαδρομές των χρηστών και των ελεγκτών.
 
 Πολλές φορές, μπορεί να είναι δύσκολο να γίνει αντιληπτό το πρότυπο σχεδίασης MVC μέχρι να αρχίσετε πραγματικά τη χρήση του. Μόλις το κάνετε όμως, θα δείτε αμέσως το όφελος που έχουν τα πάντα διαχωρίζονται σε εύκολο στη διαχείριση των εννοιών με πολύ λίγα, εάν υπάρχουν, επικάλυψη. Το χειριστήριο χειρίζεται την αντιπροσωπεία των αιτήσεων, το μοντέλο σας χειρίζεται την επιχειρηματική λογική και την άποψή σας καθορίζει τον τρόπο εμφάνισης της εξόδου στο χρήστη. Μέχρι στιγμής, αυτό το πρότυπο ατού τις παλιές ημέρες της εσπευσμένο τα πάντα σε ένα ενιαίο σενάριο ή διάφορα σενάρια που περιλαμβάνονται σε όλη τη χώρα δημιουργώντας ένα μεγάλο χάος. Απλά να το δοκιμάσετε και θα δείτε!
 
@@ -85,6 +84,6 @@ use Pop\Record\Record;
 class Users extends Record { }
 </pre>
 
-you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+μπορείτε να δημιουργήσετε μια κατηγορία που έχει όλες τις λειτουργίες του στοιχείου εγγραφής χτίστηκε και η τάξη γνωρίζει το όνομα του πίνακα της βάσης δεδομένων για την υποβολή ερωτημάτων από το όνομα της κλάσης. Για παράδειγμα, μεταφράζει «Χρήστες» σε χρήστες `` ή μεταφράζεται «DbUsers» σε db_users `` (CamelCase μετατρέπεται αυτόματα σε lower_case_underscore.) Εξετάστε την τεκμηρίωση εγγραφής για να δείτε πώς μπορείτε να ρυθμίσετε τις την τάξη πίνακα παιδί.
 
 (c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

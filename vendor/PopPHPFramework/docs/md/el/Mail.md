@@ -4,7 +4,7 @@ Pop PHP Framework
 Documentation : Mail
 --------------------
 
-The Mail component provides the functionality necessary to manage outgoing mail via PHP. This includes support for text-based and HTML-based email,  multiple mail recipients, templates and file attachments.
+Η συνιστώσα Mail παρέχει την αναγκαία λειτουργικότητα για τη διαχείριση εξερχόμενης αλληλογραφίας μέσω PHP. Αυτό περιλαμβάνει υποστήριξη για το κείμενο-με βάση και HTML email, πολλαπλούς παραλήπτες αλληλογραφίας, πρότυπα και τα συνημμένα αρχεία.
 
 <pre>
 use Pop\Mail\Mail;

@@ -79,7 +79,7 @@ if ($_POST) {
 }
 </pre>
 
-Or, you can create form elements via a structured  array of values.
+Ή, μπορείτε να δημιουργήσετε στοιχεία της φόρμας μέσω ενός δομημένου πίνακα τιμών.
 
 <pre>
 use Pop\Form\Form,
