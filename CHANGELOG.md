@@ -1,4 +1,4 @@
-Pop PHP Framework 0.9
+Pop PHP Framework 1.0
 =====================
 
 COMPLETED:

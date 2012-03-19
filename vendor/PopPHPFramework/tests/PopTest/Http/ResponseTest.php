@@ -100,7 +100,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $r = Response::parse('http://www.popphp.org/version.txt');
         $this->assertEquals('200', $r->getCode());
         $this->assertEquals('OK', $r->getMessage());
-        $this->assertEquals('0.9', trim($r->getBody()));
+        $this->assertEquals('1.0', trim($r->getBody()));
         $this->assertEquals('text/plain', $r->getHeader('Content-Type'));
         $this->assertTrue($r->isSuccessful());
         $this->assertTrue(is_array($r->getHeaders()));
