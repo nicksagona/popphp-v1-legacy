@@ -12,7 +12,7 @@ The Payment component provides standardized functionality to process credit card
 * TrustCommerce
 * UsaEpay
 
-Allerdings, wenn die Unterstützung für ein anderes Gateway benötigt wird, dann wäre es einfach, schreiben Sie einfach einen Adapter dafür.
+Der Payment-Komponente bietet standardisierte Funktionalität zur Kreditkartenzahlung Zugriffe über eine 3rd-Party-Gateway verarbeitet werden. Die aktuellen eingebauten und unterstützten Gateways sind:
 
 
 <pre>
