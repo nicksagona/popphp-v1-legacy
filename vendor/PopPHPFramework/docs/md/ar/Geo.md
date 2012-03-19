@@ -6,7 +6,6 @@ Documentation : Geo
 
 العنصر الجغرافي يوفر المجمع API مجرد وجوه المنحى إلى تمديد GeoIp PHP و.
 
-
 <pre>
 use Pop\Geo\Geo;
 

@@ -6,7 +6,6 @@ Documentation : Filter
 
 المكون تصفية يوفر بعض وظائف مفيدة تصفية للتلاعب سلسلة، والتشفير، بحث مجموعة وبعض الرياضيات الأساسية.
 
-
 <pre>
 use Pop\Filter\String;
 
@@ -22,7 +21,6 @@ echo $str2;
 </pre>
 
 وهنا مثال على مرشح القبو.
-
 
 <pre>
 use Pop\Filter\Crypt;

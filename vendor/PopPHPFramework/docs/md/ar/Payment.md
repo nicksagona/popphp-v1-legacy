@@ -14,7 +14,6 @@ Documentation : Payment
 
 ومع ذلك، إذا كان المطلوب دعم لبوابة مختلفة، ثم لكان من السهل أن يكتب مجرد محول لذلك.
 
-
 <pre>
 use Pop\Payment\Payment,
     Pop\Payment\Adapter\Authorize;

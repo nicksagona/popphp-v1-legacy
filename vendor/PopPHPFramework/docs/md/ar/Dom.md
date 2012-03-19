@@ -6,7 +6,6 @@ Documentation : Dom
 
 المكون دوم يوفر طريقة سهلة لإنشاء والتعامل مع وثائق DOM وأطفالهم.
 
-
 <pre>
 use Pop\Dom\Child,
     Pop\Dom\Dom;
@@ -38,7 +37,6 @@ $doc->render();
 </pre>
 
 يمكنك أيضا إضافة الأطفال من خلال مجموعة وتنظيما من القيم.
-
 
 <pre>
 use Pop\Dom\Dom;

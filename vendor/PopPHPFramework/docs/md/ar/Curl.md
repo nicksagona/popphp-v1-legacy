@@ -6,7 +6,6 @@ Documentation : Curl
 
 المكون الضفيرة يوفر المجمع API مجرد وجوه المنحى على امتداد PHP لحليقة.
 
-
 <pre>
 use Pop\Curl\Curl;
 
