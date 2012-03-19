@@ -13,7 +13,7 @@ use Pop\Record\Record;
 class Users extends Record { }
 </pre>
 
-you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) From there, you can fine-tune the child class that represents the table with various class properties such as:
+あなたは、年に建てられ、クラスはクラス名からクエリを実行するデータベーステーブルの名前を知っているレコード·コンポーネントのすべての機能を持つクラスを作成します。たとえば、そこから `db_users`（キャメルケースは自動的にlower_case_underscoreに変換されます。）に `ユーザー`または 'DbUsers'変換に 'ユーザー'に変換するには、などのさまざまなクラスのプロパティを持つテーブルを表す子クラスを微調整することができます：
 
 <pre>
 // Table prefix, if applicable

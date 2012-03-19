@@ -53,7 +53,7 @@ Documentation : Overview
 如果你只是写一些快速的脚本，你可以简单地拖放到你的工作项目文件夹中的源文件夹，在脚本中引用“bootstrap.php”据此，并开始编写代码。你会发现所有在本文档将解释不同的组件，以及如何你可以用它们的引用和例子。
 
 
-If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or scaffolding. This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and - voila! - Pop does all the dirty work for you and you can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
+如果你正在寻找建立一个较大规模的应用程序，您可以使用CLI组件创建项目的基础的基础，或“脚手架”这样，您就可以迅速开始写项目代码，并没有与一切和运行负担。所有您需要做的是你的项目定义在单个安装文件，运行流行的CLI命令，使用该文件 - 瞧！ - 流行音乐做了所有你肮脏的工作，你可以得到更快地编写项目代码。检讨对CLI组件的文件，进一步探索如何利用这种强大的组件的优势。
 
 MVC组件
 
@@ -85,6 +85,6 @@ use Pop\Record\Record;
 class Users extends Record { }
 </pre>
 
-you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+你创建一个类，有建于类，知道类的名称来查询数据库表的名称记录组件的所有功能。例如，用户'转化为'用户'或'DbUsers'转化为'`db_users`（驼峰被自动转换成lower_case_underscore。）审核备案文件，就看你怎么可以微调子表类。
 
 (c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

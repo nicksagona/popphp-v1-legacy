@@ -4,7 +4,7 @@ Pop PHP Framework
 Documentation : Payment
 -----------------------
 
-The Payment component provides standardized functionality to process credit card payment requests via a 3rd party gateway.  The current built-in and supported gateways are:
+支払コンポーネントは、サードパーティ製のゲートウェイを介してクレジットカードでの支払い要求を処理するために標準化された機能を提供します。現在内蔵され、サポートされているゲートウェイは、次のとおりです。
 
 * Authorize.net
 * PayLeap

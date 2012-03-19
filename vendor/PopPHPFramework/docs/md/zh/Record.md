@@ -13,7 +13,7 @@ use Pop\Record\Record;
 class Users extends Record { }
 </pre>
 
-you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) From there, you can fine-tune the child class that represents the table with various class properties such as:
+你创建一个类，有建于类，知道类的名称来查询数据库表的名称记录组件的所有功能。例如，`用户`或`db_users`（驼峰被自动转换成lower_case_underscore。）从那里进入DbUsers“翻译成”用户的转换，你可以精细调整的子类，如各种类的属性表：
 
 <pre>
 // Table prefix, if applicable

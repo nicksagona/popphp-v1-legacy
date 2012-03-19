@@ -53,7 +53,7 @@ Documentation : Overview
 あなただけのいくつかの簡単なスクリプトを記述しようとしている場合は、単に、作業プロジェクトフォルダにソースフォルダをドロップしてスクリプトに応じて "bootstrap.phpを '参照し、コードを書き始めることができます。すべてのさまざまなコンポーネントを説明し、この文書全体を通して、どのようにあなたがそれらを使用することができます参照し、例を見つけることができます。
 
 
-If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or scaffolding. This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and - voila! - Pop does all the dirty work for you and you can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
+あなたが大規模なアプリケーションを構築するために探している場合は、プロジェクトのベース基盤、または作成するためのCLIコンポーネントを使用することができます "足場"をこの方法では、迅速にプロジェクトのコードを書き始めると、すべての起動と動作に負担することはできません。ほら - あなたがしなければならないすべては、単一のインストール·ファイルにプロジェクトを定義し、そのファイルを使用してポップのCLIコマンドを実行している！ - ポップはあなたのためにすべての汚い仕事をして、あなたが速く、プロジェクトのコードを書くことに得ることができます。さらに、この堅牢なコンポーネントを活用する方法を探求するためのCLIコンポーネントのドキュメントを参照してください。
 
 MVCコンポーネント
 
@@ -85,6 +85,6 @@ use Pop\Record\Record;
 class Users extends Record { }
 </pre>
 
-you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+あなたは、年に建てられ、クラスはクラス名からクエリを実行するデータベーステーブルの名前を知っているレコード·コンポーネントのすべての機能を持つクラスを作成します。たとえば、 'ユーザー'に変換 `ユーザー`または 'DbUsers'変換にdb_users `には`（キャメルケースは自動的にlower_case_underscoreに変換されます。）は、子テーブルのクラスを微調整する方法を参照するレコードのドキュメントを参照してください。
 
 (c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

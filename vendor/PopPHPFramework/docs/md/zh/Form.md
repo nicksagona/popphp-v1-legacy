@@ -79,7 +79,7 @@ if ($_POST) {
 }
 </pre>
 
-Or, you can create form elements via a structured  array of values.
+或者，您可以创建表单元素通过一个结构数组值。
 
 <pre>
 use Pop\Form\Form,

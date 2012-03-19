@@ -4,7 +4,7 @@ Pop PHP Framework
 Documentation : Version
 -----------------------
 
-The Version component simply provides the ability to determine which version of Pop you current have, and what the latest available is. Also, this component is used by the CLI component to perform the dependency-check.
+Версия компонент просто дает возможность определить, какую версию вы Поп текущих есть, и то, что последняя доступна. Кроме того, этот компонент используется компонентом CLI для выполнения проверки зависимостей.
 
 <pre>
 use Pop\Version;
