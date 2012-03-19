@@ -61,10 +61,9 @@ MVC组件
 
 MVC组件和建设一个大型的应用程序时特别有用。 MVC的模型 - 视图 - 控制器和代表的关注，有利于有组织的分离是一种设计模式。它可以让你的演讲，业务逻辑和数据访问都可以分开存放。
 
+控制器接收来自用户的输入（即Web请求），并基于该输入，通信模型。然后，该模型可以处理的请求，以确定什么样的数据或响应需要。在这一点上，模型和视图的沟通，以便该视图可以建介绍，“认为，”从模型获得的数据为基础。然后，控制器将沟通与视图显示相应的输出给用户。
 
-The controller receives input (i.e. a web request) from the user and based on that input, communicates that with the model. The model can then process the request to determine what data or response is needed. At that point, the model and view communicate so that the view can build the presentation, or view, based on the data obtained from the model. Then, the controller will communicate with the view to display the appropriate output to the user.
-
-One extra piece of the MVC component that is available with the Pop PHP Framework is a router. The router is simply an additional layer on top that does exactly what its name suggests  it routes different types of user requests to their corresponding controllers. In other words, it provides an easy way to manage multiple user paths and controllers.
+额外的一块是与流行的PHP框架的MVC组件之一，是一个路由器。路由器仅仅是一个附加层顶部，不正是顾名思义 - 不同类型用户请求路由到相应的控制器。换句话说，它提供了一个简单的方法来管理多个用户的路径和控制器。
 
 很多时候，它可以是很难掌握MVC设计模式，直到你真正开始使用它。一旦你这样做，虽然，你会立即看到一切在易于管理的概念与分离出来的很少，如果有的话，重叠的利益。您的控制器处理代表团的请求，你的模型处理业务逻辑和你的看法决定如何显示给用户的输出。到目前为止，这个模式胜过一切塞进一个脚本或各种脚本，创建一个大混乱的地方都包括昔日。只是尝试一下，你会看到！
 
