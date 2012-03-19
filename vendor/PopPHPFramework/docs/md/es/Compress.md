@@ -6,7 +6,6 @@ Documentation : Compress
 
 El componente de la compresa proporciona un método normalizado para comprimir y descomprimir datos y archivos a través de los métodos admitidos:
 
-
 * bzip2
 * gzip &amp; zlib
 * lzf

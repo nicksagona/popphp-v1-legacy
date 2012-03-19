@@ -6,7 +6,6 @@ Documentation : Form
 
 El componente de formulario es un componente de gran alcance que se extiende el componente Dom. Ofrece una sólida funcionalidad para crear, procesar y válidos los formularios HTML y elementos de formulario.
 
-
 <pre>
 use Pop\Form\Form,
     Pop\Form\Element,

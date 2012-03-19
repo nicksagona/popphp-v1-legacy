@@ -6,7 +6,6 @@ Documentation : Dir
 
 Los componentes de Dir es útil para crear listas de archivos en un directorio, de forma recursiva o no recursiva. Además, hay un método para vaciar completamente un directorio, pero que, obviamente, se debe utilizar con precaución.
 
-
 <pre>
 use Pop\Dir\Dir;
 

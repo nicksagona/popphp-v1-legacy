@@ -6,7 +6,6 @@ Documentation : Db
 
 El componente DB proporciona un acceso normalizado a bases de datos de consulta. Los adaptadores soportados son:
 
-
 * mysql
 * mysqli
 * pdo
@@ -14,7 +13,6 @@ El componente DB proporciona un acceso normalizado a bases de datos de consulta.
 * sqlite
 
 Declaraciones preparadas son compatibles con el mysqli, DOP, pgsql y adapaters SQLite. Los valores de escape están disponibles para todos los adaptadores.
-
 
 <pre>
 use Pop\Db\Db;
@@ -40,7 +38,6 @@ while (($row = $db->adapter->fetch()) != false) {
 </pre>
 
 Además del acceso a la base de datos, el componente de Db también cuenta con un útil objeto SQL abstracción que le asiste en la creación de consultas SQL estándar.
-
 
 <pre>
 use Pop\Db\Sql;

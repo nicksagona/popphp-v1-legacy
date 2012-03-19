@@ -14,7 +14,6 @@ El componente de pago ofrece una funcionalidad estándar para procesar las solic
 
 Sin embargo, si el soporte para una puerta de entrada diferente se requiere, entonces sería fácil de escribir sólo un adaptador para ello.
 
-
 <pre>
 use Pop\Payment\Payment,
     Pop\Payment\Adapter\Authorize;

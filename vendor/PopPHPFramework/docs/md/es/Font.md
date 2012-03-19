@@ -6,7 +6,6 @@ Documentation : Font
 
 El componente de fuente es un analizador de la fuente de profundidad que extrae los datos importantes de la fuente y métricas para los demás componentes y programas a utilizar. Los tipos de fuentes compatibles son los siguientes:
 
-
 * TrueType
 * OpenType
 * Type1

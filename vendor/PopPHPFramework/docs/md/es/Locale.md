@@ -6,9 +6,7 @@ Documentation : Locale
 
 El componente de configuración regional proporciona compatibilidad con el idioma y la funcionalidad de traducción para su aplicación. Usted puede simplemente crear y cargar sus propios archivos XML de las traducciones de idiomas requeridos en el formato que se perfiladas en las propias Pop archivos de idioma XML.
 
-
 Usted puede cargar sus propios archivos de traducción de idiomas, siempre y cuando el se adhieren al estándar XML creado en la carpeta de Pop / locale / Datos.
-
 
 <pre>
 use Pop\Locale\Locale;

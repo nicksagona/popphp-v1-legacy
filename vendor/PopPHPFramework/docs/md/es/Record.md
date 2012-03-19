@@ -6,7 +6,6 @@ Documentation : Record
 
 El componente de registro, como se indica en el resumen de la documentación, es un "híbrido" de clases entre el registro activo y los patrones de datos de tabla de puerta de enlace. A través de una API estandarizada, puede proporcionar acceso a una sola fila o registro dentro de una tabla de base de datos o varias filas o registros a la vez. El enfoque más común es la de escribir una clase de niño que extiende la clase Registro que representa una tabla en la base de datos. El nombre de la clase niño debe ser el nombre de la mesa. Por la simple creación de
 
-
 <pre>
 use Pop\Record\Record;
 
@@ -30,7 +29,6 @@ protected $usePrepared = true;
 </pre>
 
 Desde allí, el uso básico es como sigue:
-
 
 <pre>
 use Users;

@@ -6,7 +6,6 @@ Documentation : Ftp
 
 El componente del ftp simplemente proporciona una capa API orientada a objetos a la extensión ftp de PHP.
 
-
 <pre>
 use Pop\Ftp\Ftp;
 

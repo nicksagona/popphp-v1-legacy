@@ -6,7 +6,6 @@ Documentation : Archive
 
 El componente de Archivo se ha diseñado para normalizar la creación y manipulación de los ficheros de archivo comunes a través de una única API. Los tipos de archivo que son compatibles son los siguientes:
 
-
 * tar
 * tar.gz
 * tar.bz2

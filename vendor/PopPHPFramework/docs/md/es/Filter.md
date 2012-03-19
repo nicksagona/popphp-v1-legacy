@@ -6,7 +6,6 @@ Documentation : Filter
 
 El componente de filtro proporciona algunas funciones útiles para la manipulación de cadenas de filtrado, cifrado, la búsqueda de matriz y un poco de matemática básica.
 
-
 <pre>
 use Pop\Filter\String;
 
@@ -22,7 +21,6 @@ echo $str2;
 </pre>
 
 He aquí un ejemplo del filtro de la cripta.
-
 
 <pre>
 use Pop\Filter\Crypt;

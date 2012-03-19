@@ -6,7 +6,6 @@ Documentation : Http
 
 El componente HTTP proporciona un fácil de usar API para gestionar, acceder y manipular las solicitudes y respuestas HTTP. Se utiliza en varios componentes, pero está más estrechamente integrado con el componente MVC para la gestión de peticiones y respuestas dentro de ese componente.
 
-
 <pre>
 use Pop\Http\Request,
     Pop\Http\Response;

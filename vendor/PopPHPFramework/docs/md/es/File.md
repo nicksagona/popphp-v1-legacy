@@ -6,7 +6,6 @@ Documentation : File
 
 El componente de archivos proporciona una API útil para gestionar y manipular los archivos en el disco. También proporciona la funcionalidad para administrar fácilmente la carga de archivos.
 
-
 <pre>
 use Pop\File\File;
 

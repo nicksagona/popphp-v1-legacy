@@ -6,21 +6,13 @@ Documentation : Pdf
 
 El componente de PDF proporciona la funcionalidad rica en características para la generación de PDF y la manipulación. A lo largo de la creación de nuevos archivos PDF, también puede importar los ya existentes y agregar contenido a partir de ahí. Algunas de las características disponibles son:
 
-
 * dibujar formas
-
 * la adición de trazados de recorte
-
 * la adición de texto
-
 * Incorporación de imágenes
-
 * incrustación de fuentes
-
 * URL de enlace
-
 * la vinculación interna
-
 
 <pre>
 use Pop\Color\Rgb,

@@ -6,7 +6,6 @@ Documentation : Validator
 
 El componente de validación sólo proporciona la funcionalidad de validación para infinidad de usos, tales como la validación de si un número es de un cierto valor o una cadena es alfanumérico. Validadores más avanzados están disponibles, así como validar una dirección de correo electrónico, y la dirección IP o un número de tarjeta de crédito. Y, si lo que usted necesita no está disponible, el componente se puede extender fácilmente.
 
-
 <pre>
 use Pop\Validator\Validator,
     Pop\Validator\Validator\AlphaNumeric;
