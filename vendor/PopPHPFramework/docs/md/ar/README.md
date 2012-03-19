@@ -53,7 +53,7 @@ Documentation : Overview
 إذا كنت تبحث فقط لكتابة بعض النصوص السريعة، يمكنك ببساطة إسقاط المجلد المصدر إلى مجلد مشروع العمل، والرجوع إلى "bootstrap.php 'وفقا لذلك في السيناريو والبدء في كتابة التعليمات البرمجية. ستجد إشارات وأمثلة كل أنحاء هذه الوثائق التي تشرح العناصر المختلفة، وكيف يمكنك استخدامها.
 
 
-If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or scaffolding. This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and - voila! - Pop does all the dirty work for you and you can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
+إذا كنت تبحث لبناء تطبيق على نطاق أوسع، يمكنك استخدام عنصر المبادرة القطرية لخلق أساس للمشروع قاعدة، أو "سقالة". بهذه الطريقة، يمكنك البدء في كتابة رمز المشروع بسرعة وليس من الضروري أن مثقلة الحصول على كل شيء وتشغيلها. كل ما عليك فعله هو تحديد المشروع الخاص بك في ملف تثبيت واحد، قم بتشغيل الأمر CLI البوب ​​استخدام هذا الملف و- فويلا! - بوب يعمل كل عمل قذر لديك ويمكنك الحصول على كتابة رمز المشروع بشكل أسرع. مراجعة وثائق عن عنصر المبادرة القطرية على مواصلة استكشاف كيفية الاستفادة من هذا العنصر قوي.
 
 وMVC مكون
 
@@ -62,9 +62,9 @@ If you're looking to build a larger-scale application, you can use the CLI compo
 المكون MVC هو متاح ومفيد خصوصا عند بناء تطبيق على نطاق واسع. MVC لتقف على نموذج وحدة تحكم، وعرض هو نمط التصميم الذي يسهل فصل منظمة تنظيما جيدا من المخاوف. لأنها تتيح لجميع منطقك عرض الأعمال، والوصول إلى البيانات أن تظل على حدة.
 
 
-The controller receives input (i.e. a web request) from the user and based on that input, communicates that with the model. The model can then process the request to determine what data or response is needed. At that point, the model and view communicate so that the view can build the presentation, or view, based on the data obtained from the model. Then, the controller will communicate with the view to display the appropriate output to the user.
+وحدة تحكم يتلقى مساهمات (أي طلب على الإنترنت) من المستخدم ويقوم على هذا المدخل، الذي يتواصل مع هذا النموذج. يمكن للنموذج عملية ثم طلب لتحديد ما هو مطلوب بيانات أو استجابة. عند هذه النقطة، والتواصل وعرض نموذج بحيث يمكن أن يرى بناء هذا العرض، أو "وجهة نظر"، استنادا إلى البيانات التي تم الحصول عليها من هذا النموذج. ثم، ستقوم وحدة تحكم اتصال مع عرض لعرض الإخراج المناسبة للمستخدم.
 
-One extra piece of the MVC component that is available with the Pop PHP Framework is a router. The router is simply an additional layer on top that does exactly what its name suggests  it routes different types of user requests to their corresponding controllers. In other words, it provides an easy way to manage multiple user paths and controllers.
+قطعة واحدة اضافية للعنصر MVC الذي يتوفر مع الإطار PHP البوب ​​هو جهاز التوجيه. جهاز التوجيه هو مجرد طبقة إضافية على رأس أن يفعل بالضبط ما يوحي اسمها - إنه بتوجيه أنواع مختلفة من طلبات المستخدمين إلى ما يقابلها من وحدات التحكم. وبعبارة أخرى، فإنه يوفر وسيلة سهلة لإدارة المسارات المستخدم متعددة وحدات التحكم.
 
 في كثير من الأحيان، يمكن أن يكون من الصعب فهم نمط تصميم MVC حتى تبدأ فعليا استخدامه. ذات مرة كنت تفعل الرغم من ذلك، سترى على الفور الاستفادة من وجود كل شيء يفصل في سهل إلى إدارة المفاهيم، مع القليل جدا، إن وجدت، والتداخل. جهاز تحكم يعالج وفد من الطلبات، والنموذج الخاص بك يتعامل مع منطق الأعمال وجهة نظركم يحدد كيفية عرض الإخراج للمستخدم. حتى الآن، هذا النمط ينسخ الأيام الخوالي من هدفهم كل شيء في نصي واحد أو النصوص المختلفة التي تم تضمينها في كل مكان خلق فوضى كبيرة. انها مجرد محاولة وسترون!
 
@@ -85,6 +85,6 @@ use Pop\Record\Record;
 class Users extends Record { }
 </pre>
 
-you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+يمكنك إنشاء فئة التي لديها كل من وظائف المكون سجل بنيت في والطبقة يعرف اسم جدول قاعدة البيانات للاستعلام عن اسم الفئة. على سبيل المثال، يترجم "المستخدمين إلى المستخدمين` `أو يترجم 'DbUsers' الى` db_users `(يتم تحويلها تلقائيا إلى CamelCase lower_case_underscore.) استعراض وثائق السجل لمعرفة كيف يمكنك صقل الطبقة الجدول التابع.
 
 (c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

@@ -28,23 +28,24 @@
 
 <body>
     <h1>Pop PHP Framework</h1>
-    <h2>Documentation : Web</h2>
+    <h2>Documentation : Version</h2>
     <div id="doc-content">
         <p>
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            مكون ويب عبارة عن مجموعة من على شبكة الإنترنت احتياجات وظائف، مثل دورات إدارة والخوادم والمتصفحات والكوكيز. أيضا، فإنه يشمل وظائف للكشف عن الأجهزة المحمولة بحيث أن التطبيق الخاص بك يمكن أن تستجيب وفقا لذلك.
+            The Version component simply provides the ability to determine which version of Pop you current have, and what the latest available is. Also, this component is used by the CLI component to perform the dependency-check.
         </p>
 <pre>
-use Pop\Web\Session;
+use Pop\Version;
 
-$sess = Session::getInstance();
-$sess->username = 'yourname';
-print_r($sess);
-print_r($_SESSION);
+echo Version::getVersion();
 
-echo $sess->getId();
+if (Version::compareVersion(1.0) == 1) {
+    echo 'The current version is less than 1.0';
+} else {
+    echo 'The current version is greater than or equal to 1.0';
+}
 </pre>
     </div>
     <div id="doc-footer">

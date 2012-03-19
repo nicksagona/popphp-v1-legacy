@@ -79,7 +79,7 @@ if ($_POST) {
 }
 </pre>
 
-Or, you can create form elements via a structured  array of values.
+أو، يمكنك إنشاء عناصر النموذج من خلال مجموعة وتنظيما من القيم.
 
 <pre>
 use Pop\Form\Form,
