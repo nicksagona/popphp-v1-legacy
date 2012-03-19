@@ -3,9 +3,32 @@ Welcome to the Pop PHP Framework 0.9 Release!
 
 RELEASE INFORMATION
 -------------------
-Pop PHP Framework 0.9 Release  
-Released TBD
+Pop PHP Framework 1.0 Release
+Released March 19, 2012
 
+
+OVERVIEW
+--------
+
+The Pop PHP Framework is a robust, yet easy-to-use PHP framework
+with a verbose API. It was forked from the Moc10 PHP Library, which
+is now at its end of life. With the adoption of PHP 5.3 gaining, the
+decision was made to build the next version of the library as a
+full-fledged framework that supports only PHP 5.3+ moving forward.
+
+The beginnings of this framework were humble. Originally containing only
+9 components, the focus was placed in simplicity and being lightweight.
+It attempted to provide solutions in areas such as graphics and images,
+which were found lacking (or completely ignored) in other frameworks
+and libraries.
+
+Today, the Pop PHP Framework maintains its simplicity and is still
+lightweight. And, even though many new features have been built in,
+the framework can still easily be used as merely a toolbox, or as a
+major framework for the foundation of your applications.
+
+To see a list of the new and vastly improved features in the framework,
+view the CHANGELOG.md file.
 
 FEATURES
 --------
@@ -107,7 +130,7 @@ be thrown within any of the following components:
     - Pop\Font\Font
     - Pop\Image\Gd
     - Pop\Image\Imagick
-    - Pop\Image\Svg  
+    - Pop\Image\Svg
     - Pop\Pdf\Pdf
 
 

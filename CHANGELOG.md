@@ -46,6 +46,7 @@ COMPLETED:
     - Generate config files and code for project classes
         + DB Tables
         + Controllers
+        + Models
         + Forms
         + Project
 * Add Geo component
