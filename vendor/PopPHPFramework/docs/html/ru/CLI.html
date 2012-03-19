@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : CLI</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            Интерфейс командной строки (CLI) компонент является очень полезным компонентом, который позволяет выполнять некоторые полезные задачи, такие как:
+
+        </p>
+        <ul>
+            <li>оценки текущей среды для необходимых зависимостей
+</li>
+            <li>Установка проекта из установочного файла проекта
+</li>
+            <li>установить язык по умолчанию для приложений
+</li>
+            <li>Создание класса карты
+</li>
+            <li>перенастроить проект, который был перемещен
+</li>
+            <li>проверить текущую версию на последнюю доступную версию
+</li>
+        </ul>
+<pre>
+script/pop --check                     // Check the current configuration for required dependencies
+script/pop --help                      // Display this help
+script/pop --install file.php          // Install a project based on the install file specified
+script/pop --lang fr                   // Set the default language for the project
+script/pop --map folder file.php       // Create a class map file from the source folder and save to the output file
+script/pop --reconfig projectfolder    // Reconfigure the project based on the new location of the project
+script/pop --show                      // Show project install instructions
+script/pop --version                   // Display version of Pop PHP Framework and latest available
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

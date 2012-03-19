@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Overview</h2>
+    <div id="doc-content">
+        <p>
+            Поп Framework PHP представляет собой объектно-ориентированный PHP рамки с помощью простого в использовании API, которые позволят вам использовать широкий спектр функциональных возможностей. Вы можете использовать его в качестве инструментов для оказания помощи в написании быстро основных сценариев, или вы можете использовать его в качестве полноценной платформы для создания и настройки большого масштаба, надежные приложения. В центре рамки группы компонентов, из которых некоторые могут быть использованы самостоятельно, а некоторые из них могут быть использованы в тандеме, чтобы использовать все возможности базы и PHP.
+
+        </p>
+        <table style="width: 33%;" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td style="vertical-align: top; width: 33%;">
+                    <ul>
+                        <li><a href="Archive.html">Archive</a></li>
+                        <li><a href="Auth.html">Auth</a></li>
+                        <li><a href="Cache.html">Cache</a></li>
+                        <li><a href="CLI.html">CLI</a></li>
+                        <li><a href="Code.html">Code</a></li>
+                        <li><a href="Color.html">Color</a></li>
+                        <li><a href="Compress.html">Compress</a></li>
+                        <li><a href="Config.html">Config</a></li>
+                        <li><a href="Curl.html">Curl</a></li>
+                        <li><a href="Data.html">Data</a></li>
+                        <li><a href="Db.html">Db</a></li>
+                        <li><a href="Dir.html">Dir</a></li>
+                    </ul>
+                </td>
+                <td style="vertical-align: top; width: 33%;">
+                    <ul>
+                        <li><a href="Dom.html">Dom</a></li>
+                        <li><a href="Feed.html">Feed</a></li>
+                        <li><a href="File.html">File</a></li>
+                        <li><a href="Filter.html">Filter</a></li>
+                        <li><a href="Font.html">Font</a></li>
+                        <li><a href="Form.html">Form</a></li>
+                        <li><a href="Ftp.html">Ftp</a></li>
+                        <li><a href="Geo.html">Geo</a></li>
+                        <li><a href="Graph.html">Graph</a></li>
+                        <li><a href="Http.html">Http</a></li>
+                        <li><a href="Image.html">Image</a></li>
+                        <li><a href="Loader.html">Loader</a></li>
+                    </ul>
+                </td>
+                <td style="vertical-align: top; width: 33%;">
+                    <ul>
+                        <li><a href="Locale.html">Locale</a></li>
+                        <li><a href="Mail.html">Mail</a></li>
+                        <li><a href="Mvc.html">Mvc</a></li>
+                        <li><a href="Paginator.html">Paginator</a></li>
+                        <li><a href="Payment.html">Payment</a></li>
+                        <li><a href="Pdf.html">Pdf</a></li>
+                        <li><a href="Project.html">Project</a></li>
+                        <li><a href="Record.html">Record</a></li>
+                        <li><a href="Validator.html">Validator</a></li>
+                        <li><a href="Version.html">Version</a></li>
+                        <li><a href="Web.html">Web</a></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <h3>QuickStart
+</h3>
+        <p>
+            Есть два способа, которые можно получить и работает с поп Framework PHP.
+
+        </p>
+        <p>
+            Если вы просто хотите написать несколько сценариев быстро, вы можете просто отказаться от исходной папки в вашу рабочую папку проекта, ссылка на "bootstrap.php 'соответственно в сценарий и начать писать код. Вы найдете ссылки и примеры на протяжении всей этой документации, которая будет объяснить различные компоненты и как вы можете их использовать.
+
+        </p>
+        <p>
+            If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or "scaffolding." This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and - voil&#224;! - Pop does all the dirty work for you and you can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
+        </p>
+        <h3>Компонент MVC
+</h3>
+        <p>
+            Компонент MVC доступен и особенно полезна при построении крупномасштабных приложений. MVC означает Model-View-Controller и шаблонов проектирования, что способствует хорошо организованное разделение интересов. Это позволяет презентации, бизнес-логики и доступа к данным для всех храниться отдельно.
+
+        </p>
+        <p>
+            Контроллер получает данные (например, веб-запроса) от пользователя и на основе этого ввода, сообщает, что с моделью. Модель может обработать запрос, чтобы определить, какие данные или ответ не требуется. В тот момент, модели и представления общаются так, что точка зрения может создать презентацию или "взгляд", основанный на данных, полученных от модели. Затем контроллер будет общаться с целью отображения соответствующего вывода пользователю.
+
+        </p>
+        <p>
+            Один лишний кусок компонента MVC, которая доступна с поп PHP Framework является маршрутизатором. Маршрутизатор это просто дополнительный слой, который делает именно то, что предполагает его название - это маршруты различных типов пользовательских запросов в соответствующие контроллеры. Другими словами, это позволяет легко управлять несколькими путями пользователей и контроллеров.
+
+        </p>
+        <p>
+            Зачастую, это может быть трудно понять MVC шаблон дизайна, пока вы на самом деле начать использовать его. Как только вы сделаете хотя, вы сразу видите преимущество иметь все выделяется в легкой в ​​управлении понятия очень мало, если таковые имеются, перекрытия. Ваш контроллер обрабатывает запросы делегации, ваша модель обрабатывает бизнес-логику и ваше мнение определяет способ отображения выходной для пользователя. До сих пор эта модель козыри старину зубрежки все в одном сценарии или различные сценарии, которые включены повсюду создания большой беспорядок. Просто попробуйте, и вы увидите!
+
+        </p>
+        <h3>Db и записи компоненты
+</h3>
+        <p>
+            Db и записи компоненты состоят из двух компонентов, которые могут быть использованы совсем немного в любом приложении. Очевидно, что компоненты БД обеспечивает прямой доступ к базе данных запросов. Поддерживаемых адаптеров включает родной MySQL, MySQLi, PgSQL, SQLite и PDO. Они служат для нормализации доступа к базам данных в разных средах, так что вам не придется беспокоиться, как много о повторной инструментов приложения для работы с различными типами баз данных в различных средах.
+
+        </p>
+        <p>
+            Запись компонент представляет собой мощный компонент, который обеспечивает унифицированный доступ к данным в базе данных, в частности, таблицы базы данных и отдельных записей в таблицах. Запись компонент действительно гибрид Active Record и в таблице данных моделей Gateway. Это может обеспечить доступ к одной строки или записи как модели активной записи будет, или несколько строк в свое время, как шлюз таблицы данных будет. С поп Framework PHP, наиболее распространенный подход заключается в написании дочерний класс, который расширяет класс, запись представляет собой таблицу в базе данных. Имя ребенку класса должны быть имя таблицы. Просто создание
+
+        <p>
+<pre>
+use Pop\Record\Record;
+
+class Users extends Record { }
+</pre>
+        <p>
+            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+        </p>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Auth</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            El componente Auth facilita la autenticación y autorización de usuarios en función de un conjunto básico de las credenciales y los roles definidos. El aspecto de autenticación se encarga de autenticar a un usuario para determinar si o no que el usuario puede en absoluto. El aspecto de la autorización se encarga de determinar si el usuario autenticado tiene acceso suficiente a permitir dentro de un área determinada. Funciones pueden ser fácilmente definidos y evaluados para determinar el nivel de un usuario de acceso. El componente Auth puede vincular a una tabla de base de datos o un archivo en el disco para recuperar las credenciales de usuario e información.
+
+        </p>
+<pre>
+use Pop\Auth\Auth,
+    Pop\Auth\Role,
+    Pop\Auth\Adapter\AuthFile,
+    Pop\Auth\Adapter\AuthTable;
+
+// Create the Auth object using a table in the database or a local access file.
+$auth = new Auth(new AuthTable('MyApp\\Table\\Users'), 0, Auth::ENCRYPT_SHA1);
+//$auth = new Auth(new AuthFile('../access/users.txt'), 0, Auth::ENCRYPT_SHA1);
+
+// Add some roles
+$auth->addRoles(array(
+    Role::factory('admin', 3),
+    Role::factory('editor', 2),
+    Role::factory('reader', 1)
+));
+
+// Define some other auth parameters and authenticate the user
+$auth->setRequiredRole('admin')
+     ->setAttemptLimit(3)
+     ->setAllowedIps('127.0.0.1')
+     ->authenticate($username, $password);
+
+// Check if the user is authorized to be in this area
+if ($auth->isValid()) {
+    if ($auth->isAuthorized()) {
+        echo 'The user is authorized in this area.';
+    } else {
+        echo 'The user is NOT authorized in this area.';
+    }
+} else {
+    echo 'Authenication failed. The user is not valid. ' . $auth->getResultMessage();
+}
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

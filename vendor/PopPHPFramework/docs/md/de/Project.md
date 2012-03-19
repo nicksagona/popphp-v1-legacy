@@ -1,0 +1,72 @@
+Pop PHP Framework
+=================
+
+Documentation : Project
+-----------------------
+
+Das Projekt Komponente enthält die Project-Klasse, in der Sie zu erweitern und kapseln Ihre Anwendung den Spezifikationen, wie der Router, Controller, Datenbanken und Module. Einmal richtig eingerichtet, kann das Projekt "run" und erfolgreich leiten die Anfrage des Benutzers an den richtigen Bereich der Anwendung. Zeige das MVC-Komponenten-doc-Datei, um ein Beispiel eines erweiterten Projekt-Class-Datei zu sehen.
+
+
+Außerdem enthält das Projekt Bestandteil der Installations-Klassen, dass die CLI-Komponente verwendet, zu bauen und zu installieren, Ihr Projekt Gerüst. Ein Beispiel für ein Projekt install Konfigurationsdatei ist unten.
+
+
+<pre>
+&lt;?php
+return new Pop\Config(array(
+    'project' => array(
+        'name'    => 'HelloWorld',
+        'base'    => __DIR__ . '/../../',
+        'docroot' => __DIR__ . '/../../public'
+    ),
+    'databases' => array(
+        'helloworld' => array(
+            'type'     => 'Mysqli',
+            'database' => 'helloworld',
+            'host'     => 'localhost',
+            'username' => 'hello',
+            'password' => '12world34',
+            'prefix'   => 'pop_',
+            'default'  => true
+        )
+    ),
+    'forms' => array(
+        'login' => array(
+            'fields' => array(
+                array(
+                    'type'       => 'text',
+                    'name'       => 'username',
+                    'label'      => 'Username:',
+                    'required'   => true,
+                    'attributes' => array('size', 40),
+                    'validators' => 'AlphaNumeric()'
+                ),
+                array(
+                    'type'       => 'password',
+                    'name'       => 'password',
+                    'label'      => 'Password:',
+                    'required'   => true,
+                    'attributes' => array('size', 40),
+                    'validators' => array('NotEmpty()', 'LengthGt(6)')
+                ),
+                array(
+                    'type'       => 'submit',
+                    'name'       => 'submit',
+                    'value'      => 'LOGIN'
+                )
+            )
+        )
+    ),
+    'controllers' => array(
+        'default' => array(
+            'index' => 'index.phtml',
+            'error' => 'error.phtml'
+        ),
+        'admin' => array(
+            'index' => 'index.phtml',
+            'error' => 'error.phtml'
+        )
+    )
+));
+</pre>
+
+(c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

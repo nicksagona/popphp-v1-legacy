@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Loader</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            מרכיב Loader הוא כנראה מרכיב בסיסי ביותר, אך החשוב ביותר של המסגרת PHP פופ. זה מרכיב שמניע יכולות autoloading של מסגרת, ויישום שלך יכול בקלות להיות רשומים AUTOLOADER לטעון כיתות משלך. זה במו מחליף את כל ההצהרות הישנות כוללות פעם היה לך בכל מקום. עכשיו, כל מה שאתה צריך הוא אחד דורשים הצהרה של "bootstrap.php" בראש ואתה טוב ללכת. כברירת מחדל, קובץ bootstrap מכיל התייחסות לשיעור הנדרש AUTOLOADER של המסגרת ולאחר מכן טוען את זה. בתוך הקובץ bootstrap, אתה יכול בקלות לבצע פעולות טעינה אחרות, כגון רישום מרחב שם היישום שלך עם AUTOLOADER, או טוען קובץ classmap כדי להקטין את זמן הטעינה.
+
+        </p>
+<pre>
+// Instantiate the autoloader object
+$autoloader = new Pop\Loader\Autoloader();
+$autoloader->splAutoloadRegister();
+
+$autoloader->register('YourLib', '../vendor/YourLib/src');
+$autoloader->loadClassMap('../vendor/YourLib/classmap.php');
+</pre>
+        <p>
+            ואם אתה צריך קובץ classmap שנוצר, המרכיב Loader יש פונקציונליות בקלות ליצור קובץ classmap גם לך.
+
+        </p>
+<pre>
+// Generate a classmap file
+Pop\Loader\Classmap::generate('your/src/folder', 'your/src/folder/classmap.php');
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

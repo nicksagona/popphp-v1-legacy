@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Feed</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            フィード·コンポーネントは、読み込みと解析、外部フィードを、有用な方法でデータと同様に、コンテンツ·フィードを作成し、表示する機能を提供する機能を提供します。
+
+        </p>
+        <p>
+            ここに読書の例（すなわち、構文解析）外部フィードです。
+
+        </p>
+<pre>
+use Pop\Feed\Reader;
+$feed = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
+
+$htmlTemplate = &lt;&lt;&lt;HTML
+    &lt;div&gt;
+        &lt;a href="[{link}]"&gt;&lt;img src="[{image}]" alt="[{title}]" border="0" /&gt;&lt;/a&gt;&lt;br /&gt;
+        &lt;a href="[{link}]"&gt;[{title}]&lt;/a&gt;&lt;br /&gt;
+        &lt;strong&gt;[{pubDate}]&lt;/strong&gt; ([{timeElapsed}])&lt;br /&gt;
+        &lt;p&gt;[{description}]&lt;/p&gt;
+    &lt;/div&gt;
+
+HTML;
+
+$feed->setTemplate($htmlTemplate);
+$feed->render();
+</pre>
+        <p>
+            ここでフィードを書き込む例です。
+
+        </p>
+<pre>
+use Pop\Dom\Dom,
+    Pop\Feed\Writer;
+
+$feedHeaders = array(
+    'title'     => 'Test Feed Title',
+    'subtitle'  => 'Test Feed Description',
+    'link'      => 'http://www.testfeed.com/',
+    'language'  => 'en',
+    'updated'   => '2010-01-12 13:01:32',
+    'generator' => 'http://www.website.com/',
+    'author'    => 'Some Editor'
+);
+
+$entry1 = array(
+    'title'    => 'Entry Title 1',
+    'link'     => 'http://www.testfeed.com/entry1',
+    'comments' => 'http://www.testfeed.com/entry1#comments',
+    'author'   => 'Entry Author 1',
+    'updated'  => '2010-01-13 14:12:24',
+    'summary'  => 'Entry Desc 1'
+);
+
+$entry2 = array(
+    'title'    => 'Entry Title 2',
+    'link'     => 'http://www.testfeed.com/entry2',
+    'comments' => 'http://www.testfeed.com/entry2#comments',
+    'author'   => 'Entry Author 2',
+    'updated'  => '2010-01-12 14:12:24',
+    'summary'  => 'Entry Desc 2'
+);
+
+$entry3 = array(
+    'title'    => 'Entry Title 3',
+    'link'     => 'http://www.testfeed.com/entry3',
+    'comments' => 'http://www.testfeed.com/entry3#comments',
+    'author'   => 'Entry Author 3',
+    'updated'  => '2010-01-11 14:12:24',
+    'summary'  => 'Entry Desc 3'
+);
+
+$feedEntries = array($entry1, $entry2, $entry3);
+$feed = new Writer($feedHeaders, $feedEntries, Dom::ATOM);
+$feed->render();
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

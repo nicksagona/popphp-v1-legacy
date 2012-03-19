@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Db</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            El componente DB proporciona un acceso normalizado a bases de datos de consulta. Los adaptadores soportados son:
+
+        </p>
+        <ul>
+            <li>mysql</li>
+            <li>mysqli</li>
+            <li>pdo</li>
+            <li>pgsql</li>
+            <li>sqlite</li>
+        </ul>
+        <p>
+            Declaraciones preparadas son compatibles con el mysqli, DOP, pgsql y adapaters SQLite. Los valores de escape están disponibles para todos los adaptadores.
+
+        </p>
+<pre>
+use Pop\Db\Db;
+
+// Define DB credentials
+$creds = array(
+    'database' => 'helloworld',
+    'host'     => 'localhost',
+    'username' => 'hello',
+    'password' => '12world34'
+);
+
+// Create DB object
+$db = Db::factory('Mysqli', $creds);
+
+// Perform the query
+$db->adapter->query('SELECT * FROM users');
+
+// Fetch the results
+while (($row = $db->adapter->fetch()) != false) {
+    print_r($row);
+}
+</pre>
+        <p>
+            Además del acceso a la base de datos, el componente de Db también cuenta con un útil objeto SQL abstracción que le asiste en la creación de consultas SQL estándar.
+
+        </p>
+<pre>
+use Pop\Db\Sql;
+
+$sql = new Sql('users');
+$sql->setIdQuoteType(Sql::BACKTICK)
+    ->select()
+    ->where('id', '=', 1);
+
+// Outputs 'SELECT * FROM `users` WHERE `id` = 1'
+echo $sql;
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

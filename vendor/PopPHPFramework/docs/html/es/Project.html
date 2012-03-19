@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Project</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            El componente del proyecto contiene la clase de proyecto en el que se puede extender y encapsular las especificaciones de su aplicación, como por ejemplo el router, los controladores de bases de datos y los módulos. Una vez que, configurado correctamente, el proyecto puede "ejecutar" y con éxito enrutar la solicitud del usuario para el área correcta de la aplicación. Ver el componente MVC doc para ver un ejemplo de un archivo de proyecto de clase extendida.
+
+        </p>
+        <p>
+            Además, el componente del proyecto de instalación contiene las clases que el componente de la CLI utiliza para construir e instalar el andamiaje del proyecto. Un ejemplo de un archivo de configuración del proyecto de instalación está por debajo.
+
+        </p>
+<pre>
+&lt;?php
+return new Pop\Config(array(
+    'project' => array(
+        'name'    => 'HelloWorld',
+        'base'    => __DIR__ . '/../../',
+        'docroot' => __DIR__ . '/../../public'
+    ),
+    'databases' => array(
+        'helloworld' => array(
+            'type'     => 'Mysqli',
+            'database' => 'helloworld',
+            'host'     => 'localhost',
+            'username' => 'hello',
+            'password' => '12world34',
+            'prefix'   => 'pop_',
+            'default'  => true
+        )
+    ),
+    'forms' => array(
+        'login' => array(
+            'fields' => array(
+                array(
+                    'type'       => 'text',
+                    'name'       => 'username',
+                    'label'      => 'Username:',
+                    'required'   => true,
+                    'attributes' => array('size', 40),
+                    'validators' => 'AlphaNumeric()'
+                ),
+                array(
+                    'type'       => 'password',
+                    'name'       => 'password',
+                    'label'      => 'Password:',
+                    'required'   => true,
+                    'attributes' => array('size', 40),
+                    'validators' => array('NotEmpty()', 'LengthGt(6)')
+                ),
+                array(
+                    'type'       => 'submit',
+                    'name'       => 'submit',
+                    'value'      => 'LOGIN'
+                )
+            )
+        )
+    ),
+    'controllers' => array(
+        'default' => array(
+            'index' => 'index.phtml',
+            'error' => 'error.phtml'
+        ),
+        'admin' => array(
+            'index' => 'index.phtml',
+            'error' => 'error.phtml'
+        )
+    )
+));
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

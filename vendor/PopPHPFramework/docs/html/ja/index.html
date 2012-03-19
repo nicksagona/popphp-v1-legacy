@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Overview</h2>
+    <div id="doc-content">
+        <p>
+            ポップPHPフレームワークを使用すると、幅広い機能を利用することができるようになり、使いやすいAPIを使用してオブジェクト指向のPHPフレームワークです。あなたはすぐに基本的なスクリプトを書くことを支援するためのツールボックスとして使用することができ、または、大規模で堅牢なアプリケーションを構築し、カスタマイズするための本格的なフレームワークとして使用することができます。フレームワークの中核となるのは、一部が独立して使用することができ、一部は活用するためにタンデムでフレームワークやPHPのフルパワーを使用することができる、のコンポーネントのグループです。
+
+        </p>
+        <table style="width: 33%;" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td style="vertical-align: top; width: 33%;">
+                    <ul>
+                        <li><a href="Archive.html">Archive</a></li>
+                        <li><a href="Auth.html">Auth</a></li>
+                        <li><a href="Cache.html">Cache</a></li>
+                        <li><a href="CLI.html">CLI</a></li>
+                        <li><a href="Code.html">Code</a></li>
+                        <li><a href="Color.html">Color</a></li>
+                        <li><a href="Compress.html">Compress</a></li>
+                        <li><a href="Config.html">Config</a></li>
+                        <li><a href="Curl.html">Curl</a></li>
+                        <li><a href="Data.html">Data</a></li>
+                        <li><a href="Db.html">Db</a></li>
+                        <li><a href="Dir.html">Dir</a></li>
+                    </ul>
+                </td>
+                <td style="vertical-align: top; width: 33%;">
+                    <ul>
+                        <li><a href="Dom.html">Dom</a></li>
+                        <li><a href="Feed.html">Feed</a></li>
+                        <li><a href="File.html">File</a></li>
+                        <li><a href="Filter.html">Filter</a></li>
+                        <li><a href="Font.html">Font</a></li>
+                        <li><a href="Form.html">Form</a></li>
+                        <li><a href="Ftp.html">Ftp</a></li>
+                        <li><a href="Geo.html">Geo</a></li>
+                        <li><a href="Graph.html">Graph</a></li>
+                        <li><a href="Http.html">Http</a></li>
+                        <li><a href="Image.html">Image</a></li>
+                        <li><a href="Loader.html">Loader</a></li>
+                    </ul>
+                </td>
+                <td style="vertical-align: top; width: 33%;">
+                    <ul>
+                        <li><a href="Locale.html">Locale</a></li>
+                        <li><a href="Mail.html">Mail</a></li>
+                        <li><a href="Mvc.html">Mvc</a></li>
+                        <li><a href="Paginator.html">Paginator</a></li>
+                        <li><a href="Payment.html">Payment</a></li>
+                        <li><a href="Pdf.html">Pdf</a></li>
+                        <li><a href="Project.html">Project</a></li>
+                        <li><a href="Record.html">Record</a></li>
+                        <li><a href="Validator.html">Validator</a></li>
+                        <li><a href="Version.html">Version</a></li>
+                        <li><a href="Web.html">Web</a></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <h3>クイックスタート
+</h3>
+        <p>
+            あなたが立ち上がってポップPHPフレームワークを使用して実行できる2つの方法があります。
+
+        </p>
+        <p>
+            あなただけのいくつかの簡単なスクリプトを記述しようとしている場合は、単に、作業プロジェクトフォルダにソースフォルダをドロップしてスクリプトに応じて "bootstrap.phpを '参照し、コードを書き始めることができます。すべてのさまざまなコンポーネントを説明し、この文書全体を通して、どのようにあなたがそれらを使用することができます参照し、例を見つけることができます。
+
+        </p>
+        <p>
+            If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or "scaffolding." This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and - voil&#224;! - Pop does all the dirty work for you and you can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
+        </p>
+        <h3>MVCコンポーネント
+</h3>
+        <p>
+            大規模なアプリケーションを構築する際にMVCコンポーネントが利用可能で、特に便利です。 MVCは、Model-View-Controllerの略で、懸念の計画的な分離を容易にするデザインパターンです。それはあなたのプレゼンテーション、ビジネスロジックとデータアクセスは、すべて別々に保持することができます。
+
+        </p>
+        <p>
+            コントローラは、ユーザからの入力（すなわち、Web要求）を受信し、その入力に基づいて、モデルとそれを通信します。モデルは、必要とされているデータや応答を決定するための要求を処理することができます。その時点で、モデルとビューの通信は、そのビューは、モデルから得られたデータに基づいて、プレゼンテーション、または "ビュー"を構築することができます。その後、コントローラは、ユーザに適切な出力を表示するビューと通信します。
+
+        </p>
+        <p>
+            ポップPHPフレームワークで使用可能なMVCコンポーネントのいずれかの余分な部分はルータです。ルータは、単にその名前が示唆しているかを正確にしない上に付加的な層である - それはそれらに対応するコントローラにユーザー要求の異なるタイプをルーティングします。言い換えれば、それは複数のユーザのパスとコントローラを管理する簡単な方法を提供します。
+
+        </p>
+        <p>
+            しばしば、それはあなたが実際にそれを使用して起動するまで、MVCデザインパターンを把握することが困難な場合があります。一度でも行うには、すぐに非常に小さな、もしあれば、重複した概念を管理するために簡単に分離し、すべてを持つことの利点を見ることができます。コントローラが要求の委任を処理し、モデルはビジネスロジックを処理し、ビューは、ユーザーに出力を表示する方法を決定します。はるかに、このパターンは切り札大きな混乱を作成するあらゆる場所に含まれており、単一のスクリプトや様々なスクリプトにすべてを詰め込むの昔を。ちょうどそれをしようとすると次のように表示されます！
+
+        </p>
+        <h3>DB＆レコードのコンポーネント
+</h3>
+        <p>
+            Dbとレコードのコンポーネントは、どのアプリケーションでもかなり使用される可能性を持つ2つのコンポーネントです。明らかに、DBコンポーネントは、データベースを照会するための直接アクセスを提供します。サポートされているアダプタは、ネイティブのMySQLには、MySQLi、PgSQLの、SQLiteとPDOが含まれています。彼らはあなたが別の環境でデータベースの別のタイプで動作するように再ツーリングアプリケーションに関する限り心配する必要はありませんように複数の異なる環境をまたがったデータベースへのアクセスを正規化するのに役立つ。
+
+        </p>
+        <p>
+            レコード·コンポーネントは、データベース内のデータ、特にデータベースのテーブルとテーブル内の個々のレコードへの標準化されたアクセスを提供する強力なコンポーネントです。レコードの構成要素は、本当にアクティブレコードとテーブルデータゲートウェイパターンのハイブリッドです。テーブルデータゲートウェイがあるかのように、それは、一度になり、または複数の行Active Recordパターンのような単一の行またはレコードへのアクセスを提供することができます。ポップPHPのフレームワークを使用した、最も一般的なアプローチは、データベース内のテーブルを表すレコードクラスを拡張子クラスを作成することです。子クラスの名前は、テーブルの名前でなければなりません。単に作成することにより、
+
+        <p>
+<pre>
+use Pop\Record\Record;
+
+class Users extends Record { }
+</pre>
+        <p>
+            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+        </p>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

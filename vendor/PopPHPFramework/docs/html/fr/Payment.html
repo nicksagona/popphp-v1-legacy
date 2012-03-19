@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Payment</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            The Payment component provides standardized functionality to process credit card payment requests via a 3rd party gateway.  The current built-in and supported gateways are:
+        </p>
+        <ul>
+            <li>Authorize.net</li>
+            <li>PayLeap</li>
+            <li>PayPal</li>
+            <li>TrustCommerce</li>
+            <li>UsaEpay</li>
+        </ul>
+        <p>
+            Toutefois, si le support pour une passerelle différente est nécessaire, alors il serait simple d'y écrire un adaptateur pour elle.
+
+        </p>
+<pre>
+use Pop\Payment\Payment,
+    Pop\Payment\Adapter\Authorize;
+
+$payment = new Payment(new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST));
+
+$payment->cardNum = 'XXXXXXXXXXXXXXXX';
+$payment->amount = '27.00';
+$payment->expDate = '12/13';
+
+$payment->send();
+
+if ($payment->isApproved()) {
+    echo "You're approved!" . PHP_EOL;
+    echo $payment->getMessage();
+} else if ($payment->isDeclined()) {
+    echo "You were declined!" . PHP_EOL;
+    echo $payment->getMessage();
+} else if ($payment->isError()) {
+    echo "There was an error!" . PHP_EOL;
+    echo $payment->getMessage();
+}
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

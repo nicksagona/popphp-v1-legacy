@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Dom</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            La composante Dom fournit un moyen facile de créer et manipuler des documents DOM et leurs enfants.
+
+        </p>
+<pre>
+use Pop\Dom\Child,
+    Pop\Dom\Dom;
+
+$title = new Child('title', 'This is the title');
+
+$meta = new Child('meta');
+$meta->setAttributes(array('http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8'));
+
+$head = new Child('head');
+$head->addChildren(array($title, $meta));
+
+$h1 = new Child('h1', 'This is a header');
+$p = new Child('p', 'This is a paragraph.');
+
+$div = new Child('div');
+$div->setAttributes('id', 'contentDiv');
+$div->addChildren(array($h1, $p));
+
+$body = new Child('body');
+$body->addChild($div);
+
+$html = new Child('html');
+$html->setAttributes(array('xmlns' => 'http://www.w3.org/1999/xhtml', 'xml:lang' => 'en'));
+$html->addChildren(array($head, $body));
+
+$doc = new Dom(Dom::XHTML11, 'utf-8', $html);
+$doc->render();
+</pre>
+        <p>
+            Vous pouvez également ajouter des enfants par l'intermédiaire d'un réseau structuré de valeurs.
+
+        </p>
+<pre>
+use Pop\Dom\Dom;
+
+$children = array(
+    array(
+        'nodeName'      => 'h1',
+        'nodeValue'     => 'This is a header',
+        'attributes'    => array('class' => 'headerClass', 'style' => 'font-size: 3.0em;'),
+        'childrenFirst' => false,
+        'childNodes'    => null
+    ),
+    array(
+        'nodeName'      => 'div',
+        'nodeValue'     => 'This is a div element',
+        'attributes'    => array('id' => 'contentDiv'),
+        'childrenFirst' => false,
+        'childNodes'    => array(
+            array(
+                 'nodeName'      => 'p',
+                 'nodeValue'     => 'This is a paragraph1',
+                 'attributes'    => array('style' => 'font-size: 0.9em;'),
+                 'childrenFirst' => false,
+                 'childNodes'    => array(
+                     array(
+                         'nodeName'   => 'strong',
+                         'nodeValue'  => 'This is bold!',
+                         'attributes' => array('style' => 'font-size: 1.2em;')
+                     )
+                 )
+            ),
+            array(
+                'nodeName'   => 'p',
+                'nodeValue'  => 'This is another paragraph!',
+                'attributes' => array('style' => 'font-size: 0.9em;')
+            )
+        ),
+    )
+);
+
+$doc = new Dom(Dom::XHTML11);
+$doc->addChildren($children);
+$doc->render();
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

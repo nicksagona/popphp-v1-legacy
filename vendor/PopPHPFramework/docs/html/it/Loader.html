@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Loader</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            Il componente Loader è probabilmente il componente più semplice ma più importante del quadro Pop PHP. E 'il componente che spinge le funzionalità autocaricamento il quadro, e la propria applicazione possono essere facilmente registrati con il caricatore automatico per caricare proprie classi. Questo sostituisce da solo tutte quelle vecchie dichiarazioni di inclusione che hai usato per avere tutto il luogo. Ora, tutto ciò che serve è una richiedono dichiarazione del 'bootstrap.php' in alto e sei a posto. Per impostazione predefinita, il file di bootstrap contiene il riferimento alla classe richiesta Autoloader il quadro e poi lo carica su. All'interno del file di bootstrap, è possibile eseguire facilmente funzioni di caricamento di altri, quali la registrazione dello spazio dei nomi dell'applicazione con il caricatore automatico, o il caricamento di un file classmap per diminuire il tempo di caricamento.
+
+        </p>
+<pre>
+// Instantiate the autoloader object
+$autoloader = new Pop\Loader\Autoloader();
+$autoloader->splAutoloadRegister();
+
+$autoloader->register('YourLib', '../vendor/YourLib/src');
+$autoloader->loadClassMap('../vendor/YourLib/classmap.php');
+</pre>
+        <p>
+            E se avete bisogno di un file generato classmap, il componente Loader ha la funzionalità di generare facilmente un file classmap per voi pure.
+
+        </p>
+<pre>
+// Generate a classmap file
+Pop\Loader\Classmap::generate('your/src/folder', 'your/src/folder/classmap.php');
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

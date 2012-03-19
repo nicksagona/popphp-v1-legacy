@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Overview</h2>
+    <div id="doc-content">
+        <p>
+            מסגרת פופ PHP היא מסגרת מונחה עצמים PHP עם ה-API לשימוש קל שיאפשר לך לנצל מגוון רחב של פונקציונליות. אתה יכול להשתמש בו בתור ארגז כלים כדי לסייע במהירות כתיבת סקריפטים בסיסיים, או שאתה יכול להשתמש בו כמסגרת לכל דבר לבנות ולהתאים אישית בקנה מידה גדול, יישומים חזקים. במרכזו של המסגרת הוא קבוצה של רכיבים, מתוכם, חלקם ניתן להשתמש באופן עצמאי וחלקם ניתן להשתמש במקביל למנף את העוצמה המלאה של מסגרת ו-PHP.
+
+        </p>
+        <table style="width: 33%;" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td style="vertical-align: top; width: 33%;">
+                    <ul>
+                        <li><a href="Archive.html">Archive</a></li>
+                        <li><a href="Auth.html">Auth</a></li>
+                        <li><a href="Cache.html">Cache</a></li>
+                        <li><a href="CLI.html">CLI</a></li>
+                        <li><a href="Code.html">Code</a></li>
+                        <li><a href="Color.html">Color</a></li>
+                        <li><a href="Compress.html">Compress</a></li>
+                        <li><a href="Config.html">Config</a></li>
+                        <li><a href="Curl.html">Curl</a></li>
+                        <li><a href="Data.html">Data</a></li>
+                        <li><a href="Db.html">Db</a></li>
+                        <li><a href="Dir.html">Dir</a></li>
+                    </ul>
+                </td>
+                <td style="vertical-align: top; width: 33%;">
+                    <ul>
+                        <li><a href="Dom.html">Dom</a></li>
+                        <li><a href="Feed.html">Feed</a></li>
+                        <li><a href="File.html">File</a></li>
+                        <li><a href="Filter.html">Filter</a></li>
+                        <li><a href="Font.html">Font</a></li>
+                        <li><a href="Form.html">Form</a></li>
+                        <li><a href="Ftp.html">Ftp</a></li>
+                        <li><a href="Geo.html">Geo</a></li>
+                        <li><a href="Graph.html">Graph</a></li>
+                        <li><a href="Http.html">Http</a></li>
+                        <li><a href="Image.html">Image</a></li>
+                        <li><a href="Loader.html">Loader</a></li>
+                    </ul>
+                </td>
+                <td style="vertical-align: top; width: 33%;">
+                    <ul>
+                        <li><a href="Locale.html">Locale</a></li>
+                        <li><a href="Mail.html">Mail</a></li>
+                        <li><a href="Mvc.html">Mvc</a></li>
+                        <li><a href="Paginator.html">Paginator</a></li>
+                        <li><a href="Payment.html">Payment</a></li>
+                        <li><a href="Pdf.html">Pdf</a></li>
+                        <li><a href="Project.html">Project</a></li>
+                        <li><a href="Record.html">Record</a></li>
+                        <li><a href="Validator.html">Validator</a></li>
+                        <li><a href="Version.html">Version</a></li>
+                        <li><a href="Web.html">Web</a></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <h3>התחלה מהירה
+</h3>
+        <p>
+            ישנן שתי דרכים בהן ניתן להתחיל לעבוד עם Framework PHP פופ.
+
+        </p>
+        <p>
+            אם אתה רק מסתכל על מנת לכתוב כמה תסריטים מהירים, אתה יכול פשוט להוריד את תיקיית המקור לתוך תיקיית העבודה שלך הפרויקט, ההפניה "bootstrap.php" בהתאם בכתב ולהתחיל לכתוב קוד. אתה תמצא הפניות ודוגמאות לאורך כל התיעוד הזה יסביר את המרכיבים השונים וכיצד ניתן להשתמש בהם.
+
+        </p>
+        <p>
+            If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or "scaffolding." This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and - voil&#224;! - Pop does all the dirty work for you and you can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
+        </p>
+        <h3>רכיב MVC
+</h3>
+        <p>
+            מרכיב MVC זמין ושימושי במיוחד כאשר בניית יישומים בקנה מידה גדול. MVC מייצג דגם Controller-View והוא דפוס עיצוב המאפשר הפרדה מאורגנת היטב של חששות. היא מאפשרת, את המצגת העסקית ההיגיון גישה לנתונים לכל להישמר בנפרד.
+
+        </p>
+        <p>
+            הבקר מקבל קלט (כלומר בקשה לאינטרנט) מהמשתמש, המבוסס על קלט, כי מתקשר עם המודל. המודל יכול לעבד את הבקשה כדי לקבוע אילו נתונים או תגובה נדרשת. בשלב זה, לתקשר המודל התצוגה כך צפה יכול לבנות את המצגת, או "מבט", בהתבסס על הנתונים שהתקבלו מהמודל. לאחר מכן, בקר יתקשרו עם נוף כדי להציג את הפלט המתאים למשתמש.
+
+        </p>
+        <p>
+            חתיכה אחת נוספת של הרכיב MVC הזמין עם פופ PHP Framework הוא נתב. הנתב היא פשוט שכבה נוספת על גבי שעושה בדיוק את מה ששמה מרמז - זה מסלולים סוגים שונים של בקשות המשתמש בקרים המתאימים. במילים אחרות, הוא מספק דרך קלה לניהול נתיבים משתמש רבים בקרי.
+
+        </p>
+        <p>
+            פעמים רבות, זה יכול להיות קשה להבין את דפוס עיצוב MVC עד למעשה להתחיל להשתמש בה. ברגע שאתה עושה זאת, אתה מיד רואה את היתרון שיש דבר נפרדו החוצה קל לנהל מושגים עם מעט מאוד, אם בכלל, חפיפה. הבקר שלך מטפל משלחת של בקשות, המודל שלך מטפל ההיגיון העסקי התצוגה קובע כיצד להציג פלט למשתמש. במידה רבה, דפוס זה גוברת בימים ההם של לדחוס הכל לתוך התסריט יחיד או תסריטים שונים הכלולים בכל מקום ליצור בלגן גדול. פשוט לנסות את זה ואתה תראה!
+
+        </p>
+        <h3>את Db & Record רכיבי
+</h3>
+        <p>
+            הרכיבים דציבלים שיא שני רכיבים בעלי פוטנציאל לשמש לא מעט בכל יישום. כמובן, מרכיב Db מספק גישה ישירה שאילתות למסד הנתונים. מתאמי הנתמכות כוללות MySQL הילידים, MySQLi, PgSQL, SQLite ו PDO. הם משרתים לנרמל גישה למסדי נתונים ברחבי סביבות שונות, כך שאתה לא צריך לדאוג כל כך הרבה על נוסע מחדש בקשה לעבוד עם סוג אחר של מסד נתונים בסביבה שונה.
+
+        </p>
+        <p>
+            רכיב הקלט הוא מרכיב רב עוצמה המספק גישה סטנדרטית נתונים בתוך מסד הנתונים, במיוחד את טבלאות מסד נתונים ורשומות בודדים בתוך השולחנות. מרכיב שיא היא באמת הכלאה של הרשומה פעילה נתונים מהטבלה דפוסי השער. זה יכול לספק גישה לשורה רשומה בודדת או כמו דפוס שיא פעילות היה, או מספר שורות בו זמנית, כמו שער נתונים טבלה יהיה. מסגרת PHP פופ, הגישה הנפוצה ביותר היא לכתוב בכיתה הילד מרחיב את המעמד שיא המייצג טבלה במסד הנתונים. שם בכיתה ילד צריך להיות שם הטבלה. פשוט על ידי יצירת
+
+        <p>
+<pre>
+use Pop\Record\Record;
+
+class Users extends Record { }
+</pre>
+        <p>
+            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+        </p>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

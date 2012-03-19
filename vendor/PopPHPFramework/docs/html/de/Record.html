@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Record</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            Die Record-Komponente, wie in der Dokumentation Überblick skizziert, ist ein "Hybrid" von Art zwischen dem Active Record und Table Data Gateway-Muster. Über eine standardisierte API, kann er den Zugriff auf eine einzelne Zeile oder Datensatz in einer Datenbank-Tabelle oder mehrere Zeilen oder Datensätze auf einmal liefern. Die häufigste Methode ist, ein Kind zu Klasse, die die Record-Klasse, die eine Tabelle in der Datenbank repräsentiert erstreckt schreiben. Der Name des Kindes Klasse sollte der Name der Tabelle sein. Durch einfaches Anlegen
+
+        </p>
+<pre>
+use Pop\Record\Record;
+
+class Users extends Record { }
+</pre>
+        <p>
+            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) From there, you can fine-tune the child class that represents the table with various class properties such as:
+        </p>
+<pre>
+// Table prefix, if applicable
+protected $prefix = null;
+
+// Primary ID, if applicable, defaults to 'id'
+protected $primaryId = 'id';
+
+// Whether the table is auto-incrementing or not
+protected $auto = true;
+
+// Whether to use prepared statements or not, defaults to true
+protected $usePrepared = true;
+</pre>
+        <p>
+            Von dort aus ist die grundlegende Anwendung wie folgt:
+
+        </p>
+<pre>
+use Users;
+
+// Get a single user
+$user = Users::findById(1001);
+echo $user->name;
+echo $user->email;
+
+// Get multiple users
+$users = Users::findAll('last_name ASC');
+foreach ($users->rows as $user) {
+    echo $user->name;
+    echo $user->email;
+}
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

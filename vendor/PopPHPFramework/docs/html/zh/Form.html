@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Form</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            表格组件是一个功能强大的组件，扩展了DOM组件。它提供了强大的功能来创建，渲染和有效的HTML表单和表单元素。
+
+        </p>
+<pre>
+use Pop\Form\Form,
+    Pop\Form\Element,
+    Pop\Form\Element\Checkbox,
+    Pop\Form\Element\Radio,
+    Pop\Form\Element\Select,
+    Pop\Form\Element\Textarea,
+    Pop\Validator\Validator,
+    Pop\Validator\Validator\AlphaNumeric,
+    Pop\Validator\Validator\Email,
+    Pop\Validator\Validator\LengthGt;
+
+$form = new Form($_SERVER['PHP_SELF'], 'post', null, '    ');
+
+$username = new Element('text', 'username', 'Username here...');
+$username->setLabel('Username:')
+         ->setRequired(true)
+         ->setAttributes('size', 40)
+         ->addValidator(new AlphaNumeric());
+
+$email = new Element('text', 'email');
+$email->setLabel('Email:')
+      ->setRequired(true)
+      ->setAttributes('size', 40)
+      ->addValidator(new Email());
+
+$password = new Element('password', 'password');
+$password->setLabel('Password:')
+         ->setRequired(true)
+         ->setAttributes('size', 40)
+         ->addValidator(new LengthGt(6));
+
+$checkbox = new Checkbox('colors', array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'));
+$checkbox->setLabel('Colors:');
+
+$radio = new Radio('answer', array('Yes' => 'Yes', 'No' => 'No', 'Maybe' => 'Maybe'));
+$radio->setLabel('Answer:');
+
+$select = new Select('days', Select::DAYS_OF_WEEK);
+$select->setLabel('Day:');
+
+$textarea = new Textarea('comments', 'Please type a comment...');
+$textarea->setAttributes('rows', '5')
+         ->setAttributes('cols', '40')
+         ->setLabel('Comments:');
+
+$submit = new Element('submit', 'submit', 'SUBMIT');
+$submit->setAttributes('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;');
+
+$form->addElements(array(
+    $username,
+    $email,
+    $password,
+    $checkbox,
+    $radio,
+    $select,
+    $textarea,
+    $submit
+));
+
+if ($_POST) {
+    $form->setFieldValues($_POST);
+    if (!$form->isValid()) {
+        $form->render();
+    } else {
+        echo 'Form is valid.';
+    }
+} else {
+    $form->render();
+}
+</pre>
+    <p>
+        Or, you can create form elements via a structured  array of values.
+    </p>
+<pre>
+use Pop\Form\Form,
+    Pop\Form\Element,
+    Pop\Form\Element\Checkbox,
+    Pop\Form\Element\Radio,
+    Pop\Form\Element\Select,
+    Pop\Form\Element\Textarea,
+    Pop\Validator\Validator,
+    Pop\Validator\Validator\AlphaNumeric,
+    Pop\Validator\Validator\Email,
+    Pop\Validator\Validator\LengthGt;
+
+$fields = array(
+    array(
+        'type'       => 'text',
+        'name'       => 'username',
+        'value'      => 'Username here...',
+        'label'      => 'Username:',
+        'required'   => true,
+        'attributes' => array('size', 40),
+        'validators' => new AlphaNumeric()
+    ),
+    array(
+        'type'       => 'text',
+        'name'       => 'email',
+        'label'      => 'Email:',
+        'required'   => true,
+        'attributes' => array('size', 40),
+        'validators' => new Email()
+    ),
+    array(
+        'type'       => 'password',
+        'name'       => 'password',
+        'label'      => 'Password:',
+        'required'   => true,
+        'attributes' => array('size', 40),
+        'validators' => new LengthGt(6)
+    ),
+    array(
+        'type'       => 'checkbox',
+        'name'       => 'colors',
+        'label'      => 'Colors:',
+        'value'      => array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue')
+    ),
+    array(
+        'type'       => 'submit',
+        'name'       => 'submit',
+        'value'      => 'SUBMIT',
+        'attributes' => array('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;')
+    )
+);
+
+$form = new Form($_SERVER['PHP_SELF'], 'post', $fields, '    ');
+$form->setTemplate('form.phtml');
+
+if ($_POST) {
+    $form->setFieldValues($_POST);
+    if (!$form->isValid()) {
+        $form->render();
+    } else {
+        echo 'Form is valid.';
+    }
+} else {
+    $form->render();
+}
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

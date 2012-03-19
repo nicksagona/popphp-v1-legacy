@@ -1,0 +1,90 @@
+Pop PHP Framework
+=================
+
+Documentation : Overview
+------------------------
+
+O Quadro PHP Pop é um objeto orientado a framework PHP com um fácil de usar API que permitirá que você utilize uma ampla gama de funcionalidades. Você pode usá-lo como uma caixa de ferramentas para auxiliar na rápida criação de scripts de base, ou você pode usá-lo como um quadro de pleno direito de construir e personalizar de grande escala, aplicações robustas. No centro do quadro é um grupo de componentes, dos quais alguns podem ser utilizados de forma independente e alguns podem ser usados ​​em conjunto para aproveitar o poder completo do quadro e PHP.
+
+
+* Archive
+* Auth
+* Cache
+* Cli
+* Code
+* Color
+* Compress
+* Config
+* Curl
+* Data
+* Db
+* Dir
+* Dom
+* Feed
+* File
+* Filter
+* Font
+* Form
+* Ftp
+* Geo
+* Graph
+* Http
+* Image
+* Loader
+* Locale
+* Mail
+* Mvc
+* Paginator
+* Payment
+* Pdf
+* Project
+* Record
+* Validator
+* Version
+* Web
+
+QuickStart
+
+----------
+
+Há duas maneiras que você pode começar a trabalhar com o quadro Pop PHP.
+
+
+Se você está olhando apenas para escrever alguns scripts rápidos, você pode simplesmente largar a pasta de origem para a pasta do projeto de trabalho, faz referência a 'bootstrap.php' de acordo em um script e começar a escrever código. Você vai encontrar referências e exemplos por toda esta documentação que vai explicar os diferentes componentes e como você pode usá-los.
+
+
+If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or scaffolding. This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and - voila! - Pop does all the dirty work for you and you can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
+
+O Componente MVC
+
+-----------------
+
+O componente MVC está disponível e especialmente útil quando a construção de uma aplicação em larga escala. MVC significa Model-View-Controller e é um padrão de design que facilita a separação bem organizada de preocupações. Ele permite que a sua apresentação lógica de negócios e acesso a dados para tudo ser mantidos separadamente.
+
+
+The controller receives input (i.e. a web request) from the user and based on that input, communicates that with the model. The model can then process the request to determine what data or response is needed. At that point, the model and view communicate so that the view can build the presentation, or view, based on the data obtained from the model. Then, the controller will communicate with the view to display the appropriate output to the user.
+
+One extra piece of the MVC component that is available with the Pop PHP Framework is a router. The router is simply an additional layer on top that does exactly what its name suggests  it routes different types of user requests to their corresponding controllers. In other words, it provides an easy way to manage multiple user paths and controllers.
+
+Muitas vezes, pode ser difícil de entender o padrão de projeto MVC até que você realmente começar a usar. Uma vez que você faz, porém, você verá imediatamente o benefício de ter tudo separado em fáceis de gerenciar conceitos com muito pouco, se for o caso, se sobrepõem. O controlador manipula a delegação de pedidos, o modelo lida com a lógica de negócios e sua visão determina como exibir a saída para o usuário. De longe, este padrão trunfos antigamente de colocar tudo em um único script ou vários scripts que estão incluídos em todo o lugar, criando uma grande confusão. Basta experimentá-lo e você vai ver!
+
+
+Os Componentes Db & Record
+
+--------------------------
+
+Os componentes Db e Record são dois componentes que têm o potencial de ser usado um pouco em qualquer aplicação. Obviamente, o componente Db fornece acesso direto para consultar um banco de dados. Os adaptadores suportados incluem MySQL nativa, MySQLi, PgSQL, Sqlite e DOP. Eles servem para normalizar o acesso de dados em ambientes diferentes para que você não precisa se preocupar tanto com novos equipamentos de um aplicativo para trabalhar com um tipo diferente de banco de dados em um ambiente diferente.
+
+
+O componente de Registro é um componente poderoso que fornece acesso padronizado aos dados em um banco de dados, especificamente as tabelas de banco de dados e registros individuais dentro das tabelas. O componente de registro é realmente um híbrido do Active Record e padrões da tabela de dados do Gateway. Ele pode fornecer acesso a uma única linha ou registro como um padrão Active Record seria, ou várias linhas de uma só vez, como um Gateway de Tabela de Dados faria. Com o Framework PHP Pop, a abordagem mais comum é escrever uma classe filha que estende a classe Record que representa uma tabela no banco de dados. O nome de classe criança deve ser o nome da tabela. Simplesmente criando
+
+
+<pre>
+use Pop\Record\Record;
+
+class Users extends Record { }
+</pre>
+
+you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+
+(c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

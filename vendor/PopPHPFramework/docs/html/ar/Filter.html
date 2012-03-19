@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Filter</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            المكون تصفية يوفر بعض وظائف مفيدة تصفية للتلاعب سلسلة، والتشفير، بحث مجموعة وبعض الرياضيات الأساسية.
+
+        </p>
+<pre>
+use Pop\Filter\String;
+
+$unfiltered1 = "Hello You &lt;script type=\"text/javascript\"&gt;alert('Something Bad');&lt;/script&gt;283 &^%$ 'Dud\\e798(*0:";
+$unfiltered2 = "Hello What's &lt;script type=\"text/javascript\"&gt;alert('Something Else Bad');&lt;/script&gt; happening hot stuf!";
+
+$str1 = String::factory($unfiltered1)->stripTags()->html();
+$str2 = String::factory($unfiltered2)->upper()->stripTags()->html();
+
+// Outputs the filtered strings
+echo $str1;
+echo $str2;
+</pre>
+        <p>
+            وهنا مثال على مرشح القبو.
+
+        </p>
+<pre>
+use Pop\Filter\Crypt;
+
+$key = md5('Pop PHP Framework');
+
+$encrypted = Crypt::encrypt('Hello World!', $key);
+echo $encrypted;
+
+$decrypted = Crypt::decrypt($encrypted, $key);
+echo $decrypted;
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Locale</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            Locale компонент обеспечивает поддержку языка и перевода функциональность для вашего приложения. Вы можете просто создавать и загружать свои собственные XML-файлы необходимые языковые переводы в формате, который он изложил в собственных XML-поп в языковые файлы.
+
+        </p>
+        <p>
+            Вы можете загружать свои собственные файлы языка перевода, если придерживаться стандартных XML создан в Pop / Locale / Data папку.
+
+        </p>
+<pre>
+use Pop\Locale\Locale;
+
+// Create a Locale object to translate to French, using your own language file.
+$lang = Locale::factory('fr')->loadFile('folder/mylangfile.xml);
+
+// Will output 'Ce champ est obligatoire.'
+$lang->_e('This field is required.');
+
+// Will return and output 'Ce champ est obligatoire.'
+echo $lang->__('This field is required.');
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

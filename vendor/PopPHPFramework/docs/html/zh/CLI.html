@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : CLI</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            命令行界面（CLI）的组成部分，是一个非常有用的组件，它允许你执行一些有用的任务，如：
+
+        </p>
+        <ul>
+            <li>评估目前的环境所需的依赖
+</li>
+            <li>安装一个项目，从项目的安装文件
+</li>
+            <li>设置应用程序的默认语言
+</li>
+            <li>创建一个类图
+</li>
+            <li>重新配置项目已移至
+</li>
+            <li>检查当前版本对最新版本
+</li>
+        </ul>
+<pre>
+script/pop --check                     // Check the current configuration for required dependencies
+script/pop --help                      // Display this help
+script/pop --install file.php          // Install a project based on the install file specified
+script/pop --lang fr                   // Set the default language for the project
+script/pop --map folder file.php       // Create a class map file from the source folder and save to the output file
+script/pop --reconfig projectfolder    // Reconfigure the project based on the new location of the project
+script/pop --show                      // Show project install instructions
+script/pop --version                   // Display version of Pop PHP Framework and latest available
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

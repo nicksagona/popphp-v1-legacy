@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Mail</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            The Mail component provides the functionality necessary to manage outgoing mail via PHP. This includes support for text-based and HTML-based email,  multiple mail recipients, templates and file attachments.
+        </p>
+<pre>
+use Pop\Mail\Mail;
+
+$rcpts = array(
+    array(
+        'name'  => 'Test Smith',
+        'email' => 'test@email.com'
+    ),
+    array(
+        'name'  => 'Someone Else',
+        'email' => 'someone@email.com'
+    )
+);
+
+$mail = new Mail($rcpts, 'Hello World!');
+$mail->setHeaders(array(
+    'From'        => array('name' => 'Bob', 'email' => 'bob123@gmail.com'),
+    'Reply-To'    => array('name' => 'Bob', 'email' => 'bob123@gmail.com'),
+    'X-Mailer'    => 'PHP/' . phpversion(),
+    'X-Priority'  => '3',
+));
+
+$html = &lt;&lt;&lt;HTMLMSG
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;
+        Test HTML Email
+    &lt;/title&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello [{name}]&lt;/h1&gt;
+    &lt;p&gt;
+        I'm just trying out this new Pop Mail Library component.
+    &lt;/p&gt;
+    &lt;p&gt;
+        Thanks,&lt;br /&gt;
+        Bob
+    &lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+HTMLMSG;
+
+$mail->setText("Hello [{name}],\n\nI'm just trying out this new Pop Mail component.\n\nThanks,\nBob\n\n");
+$mail->setHtml($html);
+$mail->attachFile('../assets/files/test.pdf');
+$mail->send();
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

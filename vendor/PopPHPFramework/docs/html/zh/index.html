@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Overview</h2>
+    <div id="doc-content">
+        <p>
+            流行的PHP框架是一个面向对象的PHP框架，将用一个简单的，使用的API允许你利用广泛的功能。您可以使用它作为一个工具箱，以协助迅速编写基本的脚本，或者你可以使用它作为一个完整的框架，建立和大规模定制，强大的应用程序。在该框架的核心是一组元件，其中一些可独立使用，有的可利用的框架和PHP的全功率串联使用。
+
+        </p>
+        <table style="width: 33%;" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td style="vertical-align: top; width: 33%;">
+                    <ul>
+                        <li><a href="Archive.html">Archive</a></li>
+                        <li><a href="Auth.html">Auth</a></li>
+                        <li><a href="Cache.html">Cache</a></li>
+                        <li><a href="CLI.html">CLI</a></li>
+                        <li><a href="Code.html">Code</a></li>
+                        <li><a href="Color.html">Color</a></li>
+                        <li><a href="Compress.html">Compress</a></li>
+                        <li><a href="Config.html">Config</a></li>
+                        <li><a href="Curl.html">Curl</a></li>
+                        <li><a href="Data.html">Data</a></li>
+                        <li><a href="Db.html">Db</a></li>
+                        <li><a href="Dir.html">Dir</a></li>
+                    </ul>
+                </td>
+                <td style="vertical-align: top; width: 33%;">
+                    <ul>
+                        <li><a href="Dom.html">Dom</a></li>
+                        <li><a href="Feed.html">Feed</a></li>
+                        <li><a href="File.html">File</a></li>
+                        <li><a href="Filter.html">Filter</a></li>
+                        <li><a href="Font.html">Font</a></li>
+                        <li><a href="Form.html">Form</a></li>
+                        <li><a href="Ftp.html">Ftp</a></li>
+                        <li><a href="Geo.html">Geo</a></li>
+                        <li><a href="Graph.html">Graph</a></li>
+                        <li><a href="Http.html">Http</a></li>
+                        <li><a href="Image.html">Image</a></li>
+                        <li><a href="Loader.html">Loader</a></li>
+                    </ul>
+                </td>
+                <td style="vertical-align: top; width: 33%;">
+                    <ul>
+                        <li><a href="Locale.html">Locale</a></li>
+                        <li><a href="Mail.html">Mail</a></li>
+                        <li><a href="Mvc.html">Mvc</a></li>
+                        <li><a href="Paginator.html">Paginator</a></li>
+                        <li><a href="Payment.html">Payment</a></li>
+                        <li><a href="Pdf.html">Pdf</a></li>
+                        <li><a href="Project.html">Project</a></li>
+                        <li><a href="Record.html">Record</a></li>
+                        <li><a href="Validator.html">Validator</a></li>
+                        <li><a href="Version.html">Version</a></li>
+                        <li><a href="Web.html">Web</a></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <h3>快速入门
+</h3>
+        <p>
+            有两种方法，你可以起床和运行流行的PHP框架。
+
+        </p>
+        <p>
+            如果你只是写一些快速的脚本，你可以简单地拖放到你的工作项目文件夹中的源文件夹，在脚本中引用“bootstrap.php”据此，并开始编写代码。你会发现所有在本文档将解释不同的组件，以及如何你可以用它们的引用和例子。
+
+        </p>
+        <p>
+            If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or "scaffolding." This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and - voil&#224;! - Pop does all the dirty work for you and you can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
+        </p>
+        <h3>MVC组件
+</h3>
+        <p>
+            MVC组件和建设一个大型的应用程序时特别有用。 MVC的模型 - 视图 - 控制器和代表的关注，有利于有组织的分离是一种设计模式。它可以让你的演讲，业务逻辑和数据访问都可以分开存放。
+
+        </p>
+        <p>
+            控制器接收来自用户的输入（即Web请求），并基于该输入，通信模型。然后，该模型可以处理的请求，以确定什么样的数据或响应需要。在这一点上，模型和视图的沟通，以便该视图可以建介绍，“认为，”从模型获得的数据为基础。然后，控制器将沟通与视图显示相应的输出给用户。
+
+        </p>
+        <p>
+            额外的一块是与流行的PHP框架的MVC组件之一，是一个路由器。路由器仅仅是一个附加层顶部，不正是顾名思义 - 不同类型用户请求路由到相应的控制器。换句话说，它提供了一个简单的方法来管理多个用户的路径和控制器。
+
+        </p>
+        <p>
+            很多时候，它可以是很难掌握MVC设计模式，直到你真正开始使用它。一旦你这样做，虽然，你会立即看到一切在易于管理的概念与分离出来的很少，如果有的话，重叠的利益。您的控制器处理代表团的请求，你的模型处理业务逻辑和你的看法决定如何显示给用户的输出。到目前为止，这个模式胜过一切塞进一个脚本或各种脚本，创建一个大混乱的地方都包括昔日。只是尝试一下，你会看到！
+
+        </p>
+        <h3>DB记录组件
+</h3>
+        <p>
+            DB和记录组件由两部分组成，有可能用于在任何应用中颇有几分。显然，DB组件提供查询数据库的直接访问。支持的适配器包括本地MySQL的MySQLi，PGSQL时，SQLite和PDO。他们服务正常化在不同环境下的数据库访问，让你不必担心重新加工的应用程序，工作在不同的环境不同类型的数据库。
+
+        </p>
+        <p>
+            记录组件是一个功能强大的组件，它提供标准化的访问数据库内的数据，特别是数据库表和表内的个人记录。记录组件是真正的活动记录表数据网关模式的混合体。像一个Active Record模式，在同一时间或多个行就像一个表数据网关，它可以提供一个单一的行或记录的访问。与流行的PHP框架，最常用的方法是写一个子类，扩展类，它代表了数据库中的表的记录。子类的名称应该是表的名称。通过简单地创建
+
+        <p>
+<pre>
+use Pop\Record\Record;
+
+class Users extends Record { }
+</pre>
+        <p>
+            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+        </p>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

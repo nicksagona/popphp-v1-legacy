@@ -1,0 +1,90 @@
+Pop PHP Framework
+=================
+
+Documentation : Overview
+------------------------
+
+מסגרת פופ PHP היא מסגרת מונחה עצמים PHP עם ה-API לשימוש קל שיאפשר לך לנצל מגוון רחב של פונקציונליות. אתה יכול להשתמש בו בתור ארגז כלים כדי לסייע במהירות כתיבת סקריפטים בסיסיים, או שאתה יכול להשתמש בו כמסגרת לכל דבר לבנות ולהתאים אישית בקנה מידה גדול, יישומים חזקים. במרכזו של המסגרת הוא קבוצה של רכיבים, מתוכם, חלקם ניתן להשתמש באופן עצמאי וחלקם ניתן להשתמש במקביל למנף את העוצמה המלאה של מסגרת ו-PHP.
+
+
+* Archive
+* Auth
+* Cache
+* Cli
+* Code
+* Color
+* Compress
+* Config
+* Curl
+* Data
+* Db
+* Dir
+* Dom
+* Feed
+* File
+* Filter
+* Font
+* Form
+* Ftp
+* Geo
+* Graph
+* Http
+* Image
+* Loader
+* Locale
+* Mail
+* Mvc
+* Paginator
+* Payment
+* Pdf
+* Project
+* Record
+* Validator
+* Version
+* Web
+
+התחלה מהירה
+
+----------
+
+ישנן שתי דרכים בהן ניתן להתחיל לעבוד עם Framework PHP פופ.
+
+
+אם אתה רק מסתכל על מנת לכתוב כמה תסריטים מהירים, אתה יכול פשוט להוריד את תיקיית המקור לתוך תיקיית העבודה שלך הפרויקט, ההפניה "bootstrap.php" בהתאם בכתב ולהתחיל לכתוב קוד. אתה תמצא הפניות ודוגמאות לאורך כל התיעוד הזה יסביר את המרכיבים השונים וכיצד ניתן להשתמש בהם.
+
+
+If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or scaffolding. This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and - voila! - Pop does all the dirty work for you and you can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
+
+רכיב MVC
+
+-----------------
+
+מרכיב MVC זמין ושימושי במיוחד כאשר בניית יישומים בקנה מידה גדול. MVC מייצג דגם Controller-View והוא דפוס עיצוב המאפשר הפרדה מאורגנת היטב של חששות. היא מאפשרת, את המצגת העסקית ההיגיון גישה לנתונים לכל להישמר בנפרד.
+
+
+The controller receives input (i.e. a web request) from the user and based on that input, communicates that with the model. The model can then process the request to determine what data or response is needed. At that point, the model and view communicate so that the view can build the presentation, or view, based on the data obtained from the model. Then, the controller will communicate with the view to display the appropriate output to the user.
+
+One extra piece of the MVC component that is available with the Pop PHP Framework is a router. The router is simply an additional layer on top that does exactly what its name suggests  it routes different types of user requests to their corresponding controllers. In other words, it provides an easy way to manage multiple user paths and controllers.
+
+פעמים רבות, זה יכול להיות קשה להבין את דפוס עיצוב MVC עד למעשה להתחיל להשתמש בה. ברגע שאתה עושה זאת, אתה מיד רואה את היתרון שיש דבר נפרדו החוצה קל לנהל מושגים עם מעט מאוד, אם בכלל, חפיפה. הבקר שלך מטפל משלחת של בקשות, המודל שלך מטפל ההיגיון העסקי התצוגה קובע כיצד להציג פלט למשתמש. במידה רבה, דפוס זה גוברת בימים ההם של לדחוס הכל לתוך התסריט יחיד או תסריטים שונים הכלולים בכל מקום ליצור בלגן גדול. פשוט לנסות את זה ואתה תראה!
+
+
+את Db & Record רכיבי
+
+--------------------------
+
+הרכיבים דציבלים שיא שני רכיבים בעלי פוטנציאל לשמש לא מעט בכל יישום. כמובן, מרכיב Db מספק גישה ישירה שאילתות למסד הנתונים. מתאמי הנתמכות כוללות MySQL הילידים, MySQLi, PgSQL, SQLite ו PDO. הם משרתים לנרמל גישה למסדי נתונים ברחבי סביבות שונות, כך שאתה לא צריך לדאוג כל כך הרבה על נוסע מחדש בקשה לעבוד עם סוג אחר של מסד נתונים בסביבה שונה.
+
+
+רכיב הקלט הוא מרכיב רב עוצמה המספק גישה סטנדרטית נתונים בתוך מסד הנתונים, במיוחד את טבלאות מסד נתונים ורשומות בודדים בתוך השולחנות. מרכיב שיא היא באמת הכלאה של הרשומה פעילה נתונים מהטבלה דפוסי השער. זה יכול לספק גישה לשורה רשומה בודדת או כמו דפוס שיא פעילות היה, או מספר שורות בו זמנית, כמו שער נתונים טבלה יהיה. מסגרת PHP פופ, הגישה הנפוצה ביותר היא לכתוב בכיתה הילד מרחיב את המעמד שיא המייצג טבלה במסד הנתונים. שם בכיתה ילד צריך להיות שם הטבלה. פשוט על ידי יצירת
+
+
+<pre>
+use Pop\Record\Record;
+
+class Users extends Record { }
+</pre>
+
+you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+
+(c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
