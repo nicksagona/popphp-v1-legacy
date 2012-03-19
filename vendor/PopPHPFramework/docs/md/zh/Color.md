@@ -6,7 +6,6 @@ Documentation : Color
 
 颜色分量是一个有用的成分，管理和使用的颜色值对象。它还提供了其他的色彩空间转换颜色值，例如，转换RGB到CMYK的功能。
 
-
 <pre>
 use Pop\Color\Color,
     Pop\Color\Rgb;

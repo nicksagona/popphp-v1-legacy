@@ -6,7 +6,6 @@ Documentation : Dom
 
 的DOM组件提供了一个简单的方法来创建和操纵DOM文档和他们的孩子。
 
-
 <pre>
 use Pop\Dom\Child,
     Pop\Dom\Dom;
@@ -38,7 +37,6 @@ $doc->render();
 </pre>
 
 您还可以通过结构数组的值添加的儿童。
-
 
 <pre>
 use Pop\Dom\Dom;

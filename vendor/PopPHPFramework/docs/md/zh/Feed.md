@@ -6,9 +6,7 @@ Documentation : Feed
 
 饲料组件提供的功能读取和解析外部供稿和提供一个有用的数据，以及功能编写和显示内容的饲料。
 
-
 这里是一个阅读的例子（即解析）外部的饲料。
-
 
 <pre>
 use Pop\Feed\Reader;
@@ -29,7 +27,6 @@ $feed->render();
 </pre>
 
 这里有一个撰写提要的例子。
-
 
 <pre>
 use Pop\Dom\Dom,

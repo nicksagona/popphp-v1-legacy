@@ -6,7 +6,6 @@ Documentation : Geo
 
 简单地缘组件到PHP的GeoIp扩展名提供了一个面向对象的API的包装。
 
-
 <pre>
 use Pop\Geo\Geo;
 

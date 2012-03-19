@@ -6,7 +6,6 @@ Documentation : Curl
 
 卷曲的部分，只是提供一个PHP的cURL扩展的面向对象的API的包装。
 
-
 <pre>
 use Pop\Curl\Curl;
 

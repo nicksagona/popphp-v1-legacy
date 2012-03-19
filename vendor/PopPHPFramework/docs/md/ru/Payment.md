@@ -14,7 +14,6 @@ Documentation : Payment
 
 Однако, если поддержка различных шлюзов требуется, то это было бы просто, чтобы просто написать адаптер для него.
 
-
 <pre>
 use Pop\Payment\Payment,
     Pop\Payment\Adapter\Authorize;

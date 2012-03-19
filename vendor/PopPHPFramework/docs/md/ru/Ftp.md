@@ -6,7 +6,6 @@ Documentation : Ftp
 
 Ftp компонент просто обеспечивает объектно-ориентированный API оболочки для FTP расширения PHP.
 
-
 <pre>
 use Pop\Ftp\Ftp;
 

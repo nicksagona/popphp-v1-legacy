@@ -6,7 +6,6 @@ Documentation : Ftp
 
 简单的FTP组件提供了一个PHP的FTP扩展的面向对象的API的包装。
 
-
 <pre>
 use Pop\Ftp\Ftp;
 

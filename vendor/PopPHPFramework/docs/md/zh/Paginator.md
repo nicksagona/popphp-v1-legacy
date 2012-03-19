@@ -6,7 +6,6 @@ Documentation : Paginator
 
 简单Paginator组件页面提供了一个大型的结果集的功能。许多不同的设置和属性可以应用，但最有用的是它内置的模板支持
 
-
 <pre>
 use Pop\Paginator\Paginator;
 

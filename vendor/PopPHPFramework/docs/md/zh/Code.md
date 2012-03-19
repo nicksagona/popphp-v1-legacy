@@ -6,7 +6,6 @@ Documentation : Code
 
 代码组件是一个代码生成组件，不仅可让​​您产生标准化，动态结构的PHP代码，也可以让你利用PHP的思考扩展现有代码的修改和扩展。
 
-
 <pre>
 use Pop\Code\ClassGenerator,
     Pop\Code\DocblockGenerator,

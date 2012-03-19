@@ -6,7 +6,6 @@ Documentation : Geo
 
 Компонент Geo просто обеспечивает объектно-ориентированный API оболочки для GeoIP расширения PHP.
 
-
 <pre>
 use Pop\Geo\Geo;
 

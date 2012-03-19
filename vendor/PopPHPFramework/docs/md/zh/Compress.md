@@ -6,7 +6,6 @@ Documentation : Compress
 
 压缩组件提供了一个标准化的方法来压缩和解压文件支持的方法，并通过数据：
 
-
 * bzip2
 * gzip &amp; zlib
 * lzf

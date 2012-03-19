@@ -6,7 +6,6 @@ Documentation : Data
 
 数据组件提供了一个共同的格式转换到另一个数据集的能力。支持的格式是：
 
-
 * csv
 * json
 * php

@@ -6,9 +6,7 @@ Documentation : Locale
 
 区域设置组件提供语言支持，为您的应用和翻译功能。你可以简单地创建和加载自己的XML文件格式所需的语言，这是在流行的XML语言文件概述翻译。
 
-
 你可以加载自己的语言翻译文件，只要坚持以流行/现场/ Data文件夹中建立的XML标准。
-
 
 <pre>
 use Pop\Locale\Locale;

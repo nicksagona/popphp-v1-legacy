@@ -6,19 +6,12 @@ Documentation : Cli
 
 命令行界面（CLI）的组成部分，是一个非常有用的组件，它允许你执行一些有用的任务，如：
 
-
 * 评估目前的环境所需的依赖
-</li>
 * 安装一个项目，从项目的安装文件
-</li>
 * 设置应用程序的默认语言
-</li>
 * 创建一个类图
-</li>
 * 重新配置项目已移至
-</li>
 * 检查当前版本对最新版本
-</li>
 
 <pre>
 script/pop --check                     // Check the current configuration for required dependencies

@@ -6,7 +6,6 @@ Documentation : Dir
 
 迪尔组件是上市文件在一个目录，递归和非递归。此外，还有一种方法来完全清空目录，但显然应该谨慎使用。
 
-
 <pre>
 use Pop\Dir\Dir;
 

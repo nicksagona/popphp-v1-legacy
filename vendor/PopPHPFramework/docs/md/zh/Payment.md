@@ -14,7 +14,6 @@ Documentation : Payment
 
 然而，如果需要支持不同的网关，然后它会简单地只写它的适配器。
 
-
 <pre>
 use Pop\Payment\Payment,
     Pop\Payment\Adapter\Authorize;

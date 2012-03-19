@@ -6,7 +6,6 @@ Documentation : Filter
 
 过滤器组件提供了一些有用的字符串操作的过滤功能，加密，阵列搜索和一些基本的数学。
 
-
 <pre>
 use Pop\Filter\String;
 
@@ -22,7 +21,6 @@ echo $str2;
 </pre>
 
 下面是一个地穴过滤器的例子。
-
 
 <pre>
 use Pop\Filter\Crypt;

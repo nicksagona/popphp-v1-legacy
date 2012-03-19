@@ -6,7 +6,6 @@ Documentation : Record
 
 文档中概述的概述，记录组件，是一种“混合”的各种活动记录和表数据网关模式之间。通过标准化的API，它可以在一个数据库表，或多个行或记录一次访问一个单一的行或记录。最常用的方法是写一个子类，扩展类，它代表了数据库中的表的记录。子类的名称应该是表的名称。通过简单地创建
 
-
 <pre>
 use Pop\Record\Record;
 
@@ -30,7 +29,6 @@ protected $usePrepared = true;
 </pre>
 
 从那里，基本用法如下：
-
 
 <pre>
 use Users;

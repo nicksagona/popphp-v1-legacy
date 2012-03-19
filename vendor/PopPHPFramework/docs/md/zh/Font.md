@@ -6,7 +6,6 @@ Documentation : Font
 
 字体部分是在深入字体解析器，提取重要的字体数据和指标，使用其他组件和程序。支持的字体类型是：
 
-
 * TrueType
 * OpenType
 * Type1

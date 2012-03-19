@@ -13,7 +13,6 @@ Documentation : Cache
 
 缓存组件的目的是加快访问数据是静态和不经常更改。上面列出的方法之一，它通过储存，存取速度可以增加，因为更昂贵的过程调用，如访问一个大型数据库或外部的网络地址来检索数据，可避免。
 
-
 <pre>
 use Pop\Cache\Cache,
     Pop\Cache\File,

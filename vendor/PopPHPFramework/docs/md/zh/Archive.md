@@ -6,7 +6,6 @@ Documentation : Archive
 
 存档组件设计正常化共同归档文件的创建和操纵，通过一个单一的API。所支持的存档类型是：
 
-
 * tar
 * tar.gz
 * tar.bz2

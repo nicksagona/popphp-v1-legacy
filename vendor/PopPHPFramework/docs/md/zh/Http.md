@@ -6,7 +6,6 @@ Documentation : Http
 
 HTTP组件提供了一个易于使用的API来管理，访问和操纵HTTP请求和响应。它被用来在几个组件，但最紧密集成MVC组件的管理要求，并在该组件的响应。
 
-
 <pre>
 use Pop\Http\Request,
     Pop\Http\Response;

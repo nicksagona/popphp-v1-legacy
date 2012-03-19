@@ -6,7 +6,6 @@ Documentation : Curl
 
 Curl компонент просто обеспечивает объектно-ориентированный API оболочку собирает расширением PHP.
 
-
 <pre>
 use Pop\Curl\Curl;
 
