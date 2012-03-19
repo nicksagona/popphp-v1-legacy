@@ -6,7 +6,6 @@ Documentation : Curl
 
 カールコンポーネントは、単にPHPのcURL拡張モジュールにオブジェクト指向のAPIのラッパーを提供します。
 
-
 <pre>
 use Pop\Curl\Curl;
 

@@ -6,9 +6,7 @@ Documentation : Project
 
 O componente do projeto contém a classe de projetos em que você pode estender e encapsular as especificações de sua aplicação, como o router, controladores, bancos de dados e módulos. Uma vez, configurado corretamente, o projeto pode "correr" e com êxito Encaminhe a solicitação do usuário para a área correta de sua aplicação. Ver o componente Mvc arquivo doc para ver um exemplo de um arquivo de extensão Projeto classe.
 
-
 Além disso, o componente do projeto contém as classes que o componente de instalação CLI usa para construir e instalar o andaime projeto. Um exemplo de um arquivo de configuração do projeto de instalação está abaixo.
-
 
 <pre>
 &lt;?php

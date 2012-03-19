@@ -6,7 +6,6 @@ Documentation : Record
 
 O componente Record, conforme descrito na visão geral da documentação, é um "híbrido" de tipos entre o Active Record e padrões da tabela de dados do Gateway. Através de uma API padronizada, que pode fornecer acesso a uma única linha ou registro em uma tabela de banco de dados, ou várias linhas ou registros de uma vez. A abordagem mais comum é escrever uma classe filha que estende a classe Record que representa uma tabela no banco de dados. O nome de classe criança deve ser o nome da tabela. Simplesmente criando
 
-
 <pre>
 use Pop\Record\Record;
 
@@ -30,7 +29,6 @@ protected $usePrepared = true;
 </pre>
 
 A partir daí, o uso de base é como se segue:
-
 
 <pre>
 use Users;

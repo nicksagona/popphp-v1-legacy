@@ -6,7 +6,6 @@ Documentation : Code
 
 コー​​ドコンポーネントを使用すると、その場で標準化され、十分に構造化されたPHPコードを生成することができますが、また、PHPのリフレクションの拡張機能を活用することにより、既存のコードを変更して拡張することができますだけでなく、コード生成コンポーネントです。
 
-
 <pre>
 use Pop\Code\ClassGenerator,
     Pop\Code\DocblockGenerator,

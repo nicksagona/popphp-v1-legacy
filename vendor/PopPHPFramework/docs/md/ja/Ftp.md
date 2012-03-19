@@ -6,7 +6,6 @@ Documentation : Ftp
 
 FTPコンポーネントは、単にPHPのftp拡張機能のオブジェクト指向のAPIのラッパーを提供します。
 
-
 <pre>
 use Pop\Ftp\Ftp;
 

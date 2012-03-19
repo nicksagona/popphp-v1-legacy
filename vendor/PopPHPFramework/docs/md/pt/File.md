@@ -6,7 +6,6 @@ Documentation : File
 
 O componente File fornece uma API útil para gerenciar e manipular arquivos no disco. Ele também fornece a funcionalidade para gerenciar facilmente o upload de arquivos.
 
-
 <pre>
 use Pop\File\File;
 

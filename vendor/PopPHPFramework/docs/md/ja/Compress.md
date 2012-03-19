@@ -6,7 +6,6 @@ Documentation : Compress
 
 圧縮コンポーネントがサポートされているメソッドを介してデータやファイルを圧縮し、解凍するために正規化されたメソッドを提供します。
 
-
 * bzip2
 * gzip &amp; zlib
 * lzf

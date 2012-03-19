@@ -6,19 +6,12 @@ Documentation : Cli
 
 A linha de comando interface do componente (CLI) é um componente muito útil que permite executar algumas tarefas úteis, tais como:
 
-
 * avaliar o ambiente atual para as dependências necessárias
-</li>
 * instalar um projeto de um arquivo de instalação do projeto
-</li>
 * definir o idioma de uma aplicação
-</li>
 * criar um mapa de classe
-</li>
 * reconfigurar um projeto que foi movido
-</li>
 * verificar a versão atual com a última versão disponível
-</li>
 
 <pre>
 script/pop --check                     // Check the current configuration for required dependencies

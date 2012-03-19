@@ -6,7 +6,6 @@ Documentation : Graph
 
 O componente de gráfico permite a funcionalidade de gráficos robusto que pode utilizar qualquer um dos componentes construído em gráficos, tais como imagem, SVG e PDF para desenhar gráficos numa variedade de formatos. Você pode definir uma vasta gama de atributos gráficos para criar e renderizar gráficos de linha, gráficos de barras e gráficos de pizza. Como a API entre os diferentes componentes gráficos é padronizado, é muito fácil de trocar entre o arquivo diferente e formatos de imagem em que para produzir um gráfico.
 
-
 <pre>
 use Pop\Color\Rgb,
     Pop\Graph\Graph;

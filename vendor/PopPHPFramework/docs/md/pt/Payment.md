@@ -14,7 +14,6 @@ O componente de pagamento fornece funcionalidade padronizado para processar os p
 
 No entanto, se o suporte para um gateway diferente é necessária, então seria simples escrever apenas um adaptador para ele.
 
-
 <pre>
 use Pop\Payment\Payment,
     Pop\Payment\Adapter\Authorize;

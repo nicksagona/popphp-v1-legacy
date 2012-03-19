@@ -6,7 +6,6 @@ Documentation : Http
 
 HTTPコンポーネントは、管理アクセスおよびHTTP要求と応答を操作するための使いやすいAPIを提供します。それはいくつかのコンポーネントで使用されていますが、ほとんどのしっかりとそのコンポーネント内で要求と応答を管理するためのMVCコンポーネントと統合されています。
 
-
 <pre>
 use Pop\Http\Request,
     Pop\Http\Response;

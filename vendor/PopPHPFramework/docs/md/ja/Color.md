@@ -6,7 +6,6 @@ Documentation : Color
 
 色成分は色の値オブジェクトを管理し、活用するのに便利なコンポーネントです。また、RGBからCMYKへの変換は、例えば、他のカラースペースにカラー値を変換する機能を提供します。
 
-
 <pre>
 use Pop\Color\Color,
     Pop\Color\Rgb;

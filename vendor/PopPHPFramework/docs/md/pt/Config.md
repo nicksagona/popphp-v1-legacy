@@ -6,7 +6,6 @@ Documentation : Config
 
 O componente de configuração fornece um objeto valor de dados que é utilizado por outros componentes, tais como o componente do projecto. Normalmente, coisas como credenciais de banco de dados são definidos em um objeto de configuração e passado para um objeto de projeto a ser usado durante o ciclo de vida do projeto ou script.
 
-
 <pre>
 use Pop\Config;
 

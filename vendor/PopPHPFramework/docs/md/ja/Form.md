@@ -6,7 +6,6 @@ Documentation : Form
 
 Formコンポーネントは、DOMコンポーネントを拡張する強力なコンポーネントです。これは、作成しレンダリングするための堅牢な機能と有効なHTMLフォームとフォーム要素を提供します。
 
-
 <pre>
 use Pop\Form\Form,
     Pop\Form\Element,

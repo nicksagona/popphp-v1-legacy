@@ -6,9 +6,7 @@ Documentation : Feed
 
 O componente de alimentação proporciona a funcionalidade para ler e analisar alimentações externo e fornecer os dados de uma forma útil, bem como a funcionalidade para escrever e exibir alimentações de conteúdo.
 
-
 Aqui está um exemplo de leitura (ie, análise) uma alimentação externa.
-
 
 <pre>
 use Pop\Feed\Reader;
@@ -29,7 +27,6 @@ $feed->render();
 </pre>
 
 Aqui está um exemplo de escrever um feed.
-
 
 <pre>
 use Pop\Dom\Dom,

@@ -6,13 +6,11 @@ Documentation : Cache
 
 O componente Cache permite a facilidade de armazenamento de dados persistentes através de três métodos:
 
-
 * a file on disk
 * a sqlite database
 * memcache
 
 O objetivo do componente Cache é para acelerar o acesso a dados que é mais estática e não muda com freqüência. Ao armazená-lo por um dos métodos listados acima, a velocidade de acesso pode ser aumentada porque uma chamada processo mais caro pode ser evitado, como acessar um banco de dados grande ou um endereço web externo para recuperar dados.
-
 
 <pre>
 use Pop\Cache\Cache,

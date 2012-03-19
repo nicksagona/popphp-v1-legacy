@@ -6,7 +6,6 @@ Documentation : Font
 
 O componente Font é um analisador font profundidade que extrai dados de fontes importantes e métricas para outros componentes e programas a serem usados. Os tipos de fonte suportados são:
 
-
 * TrueType
 * OpenType
 * Type1

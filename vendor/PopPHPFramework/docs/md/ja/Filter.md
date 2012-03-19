@@ -6,7 +6,6 @@ Documentation : Filter
 
 フィルタコンポーネントは、いくつかの有用なフィルタリング文字列操作のための機能、暗号化、配列検索、いくつかの基本的な数学を提供しています。
 
-
 <pre>
 use Pop\Filter\String;
 
@@ -22,7 +21,6 @@ echo $str2;
 </pre>
 
 ここでクリプトフィルタの例です。
-
 
 <pre>
 use Pop\Filter\Crypt;

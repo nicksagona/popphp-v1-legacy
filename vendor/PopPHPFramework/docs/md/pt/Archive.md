@@ -5,8 +5,7 @@ Documentation : Archive
 -----------------------
 
 O componente de Arquivo é projetado para normalizar a criação e manipulação de arquivos de arquivo comuns através de uma única API. Tipos de arquivos suportados são:
-
-
+</li>
 * tar
 * tar.gz
 * tar.bz2

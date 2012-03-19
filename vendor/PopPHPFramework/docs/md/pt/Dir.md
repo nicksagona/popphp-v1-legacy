@@ -6,7 +6,6 @@ Documentation : Dir
 
 Os componentes Dir é útil para listar arquivos em um diretório, recursivamente ou não-recursivamente. Além disso, existe um método para esvaziar completamente um directório, mas que devem, evidentemente, ser usado com cuidado.
 
-
 <pre>
 use Pop\Dir\Dir;
 

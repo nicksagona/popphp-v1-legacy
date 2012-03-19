@@ -6,7 +6,6 @@ Documentation : Paginator
 
 paginatorのコンポーネントは、単純に大きな結果セットをページアウトする機能を提供します。多くの異なる設定や属性が適用されますが、最も有用なのは、それが組み込まれてテンプレートのサポートです。することができます
 
-
 <pre>
 use Pop\Paginator\Paginator;
 

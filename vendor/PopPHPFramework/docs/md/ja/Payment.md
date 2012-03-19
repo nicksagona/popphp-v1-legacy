@@ -14,7 +14,6 @@ Documentation : Payment
 
 別のゲートウェイのサポートが必要な場合しかし、それはちょうどそれのためのアダプタを記述する単純なものだろう。
 
-
 <pre>
 use Pop\Payment\Payment,
     Pop\Payment\Adapter\Authorize;

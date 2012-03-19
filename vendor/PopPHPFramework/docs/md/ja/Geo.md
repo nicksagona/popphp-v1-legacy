@@ -6,7 +6,6 @@ Documentation : Geo
 
 ジオ·コンポーネントは、単にPHPのGeoIP拡張モジュールをオブジェクト指向のAPIのラッパーを提供します。
 
-
 <pre>
 use Pop\Geo\Geo;
 

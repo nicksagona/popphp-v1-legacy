@@ -6,7 +6,6 @@ Documentation : Curl
 
 O componente da onda simplesmente fornece um wrapper API orientada a objetos para extensão cURL.
 
-
 <pre>
 use Pop\Curl\Curl;
 

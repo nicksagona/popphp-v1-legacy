@@ -6,7 +6,6 @@ Documentation : Db
 
 DBコンポーネントは、クエリのデータベースへの正規化されたアクセスを提供します。サポートされているアダプタは以下のとおりです。
 
-
 * mysql
 * mysqli
 * pdo
@@ -14,7 +13,6 @@ DBコンポーネントは、クエリのデータベースへの正規化され
 * sqlite
 
 プリペアドステートメントは、のMysqli、PDO、pgsqlで、SQLiteのadapatersでサポートされています。逃げられた値は、アダプタのすべての利用可能です。
-
 
 <pre>
 use Pop\Db\Db;
@@ -40,7 +38,6 @@ while (($row = $db->adapter->fetch()) != false) {
 </pre>
 
 データベースへのアクセスに加えて、DBコンポーネントはまた、標準化されたSQLクエリを作成するのに役立ち便利なSQLの抽象化オブジェクトを提供しています。
-
 
 <pre>
 use Pop\Db\Sql;

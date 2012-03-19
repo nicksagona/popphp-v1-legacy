@@ -6,7 +6,6 @@ Documentation : Dom
 
 ドム·コンポーネントは、DOMドキュメントとその子を作成および操作する簡単な方法を提供します。
 
-
 <pre>
 use Pop\Dom\Child,
     Pop\Dom\Dom;
@@ -38,7 +37,6 @@ $doc->render();
 </pre>
 
 また、値の構造化された配列を介して子供を追加することができます。
-
 
 <pre>
 use Pop\Dom\Dom;

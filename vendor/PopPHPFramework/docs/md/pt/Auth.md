@@ -6,7 +6,6 @@ Documentation : Auth
 
 O componente Auth facilita autenticação e autorização de usuários com base em um conjunto básico de credenciais e papéis definidos. O aspecto de autenticação lida com autenticação de um usuário para determinar se ou não que o usuário é permitido a todos. O aspecto de autorização lida determinar se o usuário autenticado tem acesso suficiente a ser permitido dentro de uma determinada área. As funções podem ser facilmente definida e avaliada para determinar o nível de um usuário de acesso. O componente Auth pode facilmente amarrar em uma tabela de banco de dados ou um arquivo em disco para recuperar as credenciais do usuário e informação.
 
-
 <pre>
 use Pop\Auth\Auth,
     Pop\Auth\Role,

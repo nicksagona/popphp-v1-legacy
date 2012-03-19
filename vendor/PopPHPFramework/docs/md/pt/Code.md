@@ -6,7 +6,6 @@ Documentation : Code
 
 O componente de código é um componente de geração de código que não só lhe permite gerar padronizado, bem estruturado código PHP na mosca, mas também permite que você modificar e estender o código existente, aproveitando extensão PHP Reflexão.
 
-
 <pre>
 use Pop\Code\ClassGenerator,
     Pop\Code\DocblockGenerator,

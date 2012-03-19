@@ -6,7 +6,6 @@ Documentation : Dom
 
 O componente de Dom fornece uma maneira fácil de criar e manipular documentos DOM e seus filhos.
 
-
 <pre>
 use Pop\Dom\Child,
     Pop\Dom\Dom;
@@ -38,7 +37,6 @@ $doc->render();
 </pre>
 
 Você também pode adicionar as crianças através de um conjunto estruturado de valores.
-
 
 <pre>
 use Pop\Dom\Dom;
