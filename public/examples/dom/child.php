@@ -2,11 +2,9 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Dom\Dom;
+use Pop\Dom\Child;
 
 try {
-
-    $doc = new Dom(Dom::XHTML11);
 
     $children = array(
         array(
@@ -44,8 +42,9 @@ try {
         )
     );
 
-    $doc->addChildren($children);
-    $doc->render();
+    $parent = new Child('div');
+    $parent->addChildren($children);
+    $parent->render();
 
     echo PHP_EOL . PHP_EOL;
 } catch (\Exception $e) {
