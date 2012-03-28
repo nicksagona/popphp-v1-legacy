@@ -43,7 +43,8 @@ try {
     );
 
     $parent = new Child('div');
-    $parent->addChildren($children);
+    $parent->setIndent('    ')
+           ->addChildren($children);
     $parent->render();
 
     echo PHP_EOL . PHP_EOL;

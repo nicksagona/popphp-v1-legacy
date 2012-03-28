@@ -24,8 +24,7 @@
  */
 namespace Pop\Dom;
 
-use Pop\Locale\Locale,
-    Pop\Http\Response;
+use Pop\Http\Response;
 
 /**
  * This is the Dom class for the Dom component.
@@ -155,8 +154,6 @@ class Dom extends AbstractDom
      */
     public function __construct($doctype = null, $charset = 'utf-8', $childNode = null, $indent = null)
     {
-        $this->lang = new Locale();
-
         $this->setDoctype($doctype);
         $this->charset = $charset;
         $this->indent = $indent;

@@ -550,19 +550,19 @@ class Form extends Dom
         $this->form->removeChildren();
 
         // Create DL element.
-        $dl = new Child('dl', null, null, false, ($this->form->getIndent() . '    '));
+        $dl = new Child('dl', null, null, false, $this->form->getIndent());
 
         // Loop through the children and create and attach the appropriate DT and DT elements, with labels where applicable.
         foreach ($children as $child) {
             // If the element label is set, render the appropriate DT and DD elements.
             if (null !== $child->label) {
                 // Create the DT and DD elements.
-                $dt = new Child('dt', null, null, false, ($this->form->getIndent() . '        '));
-                $dd = new Child('dd', null, null, false, ($this->form->getIndent() . '        '));
+                $dt = new Child('dt', null, null, false, ($this->form->getIndent() . '    '));
+                $dd = new Child('dd', null, null, false, ($this->form->getIndent() . '    '));
 
                 // Format the label name.
                 $lbl_name = ($child->getNodeName() == 'fieldset') ? '1' : '';
-                $label = new Child('label', $child->label, null, false, ($this->form->getIndent() . '            '));
+                $label = new Child('label', $child->label, null, false, ($this->form->getIndent() . '        '));
 
                 if ($child->getNodeName() == 'fieldset') {
                     $chdrn = $child->getChildren();
@@ -582,12 +582,12 @@ class Form extends Dom
 
                 // Add the appropriate children to the appropriate elements.
                 $dt->addChild($label);
-                $child->setIndent(($this->form->getIndent() . '            '));
+                $child->setIndent(($this->form->getIndent() . '        '));
                 $childChildren = $child->getChildren();
                 $child->removeChildren();
 
                 foreach ($childChildren as $cChild) {
-                    $cChild->setIndent(($this->form->getIndent() . '                '));
+                    $cChild->setIndent(($this->form->getIndent() . '            '));
                     $child->addChild($cChild);
                 }
 
@@ -595,8 +595,8 @@ class Form extends Dom
                 $dl->addChildren(array($dt, $dd));
             // Else, render only a DD element.
             } else {
-                $dd = new Child('dd', null, null, false, ($this->form->getIndent() . '        '));
-                $child->setIndent(($this->form->getIndent() . '            '));
+                $dd = new Child('dd', null, null, false, ($this->form->getIndent() . '    '));
+                $child->setIndent(($this->form->getIndent() . '        '));
                 $dd->addChild($child);
                 $dl->addChild($dd);
             }
@@ -649,15 +649,15 @@ class Form extends Dom
             }
 
             // Calculate the element's indentation.
-            $indent = '';
-            $indent = substr($this->template, 0, strpos($this->template, ('[{' . $name . '}]')));
-            $indent = substr($indent, (strrpos($indent, "\n") + 1));
+            $indent = null;
+            $childIndent = substr($this->template, 0, strpos($this->template, ('[{' . $name . '}]')));
+            $childIndent = substr($childIndent, (strrpos($childIndent, "\n") + 1));
 
             $matches = array();
-            preg_match_all('/[^\s]/', $indent, $matches);
+            preg_match_all('/[^\s]/', $childIndent, $matches);
             if (isset($matches[0])) {
                 foreach ($matches[0] as $str) {
-                    $indent = str_replace($str, ' ', $indent);
+                    $childIndent = str_replace($str, ' ', $childIndent);
                 }
             }
 
@@ -665,16 +665,16 @@ class Form extends Dom
             $childChildren = $child->getChildren();
             $child->removeChildren();
             foreach ($childChildren as $cChild) {
-                $cChild->setIndent(($indent . '    '));
+                $cChild->setIndent(($childIndent . '    '));
                 $child->addChild($cChild);
             }
 
             // Swap the element's placeholder with the rendered element.
             $elementSearch = '[{' . $name . '}]';
-            $elementReplace = $child->render(true, 0, $indent);
+            $elementReplace = $child->render(true, 0, $indent, $childIndent);
             $elementReplace = substr($elementReplace, 0, -1);
-            $elementReplace = str_replace('</select>', $indent . '</select>', $elementReplace);
-            $elementReplace = str_replace('</fieldset>', $indent . '</fieldset>', $elementReplace);
+            $elementReplace = str_replace('</select>', $childIndent . '</select>', $elementReplace);
+            $elementReplace = str_replace('</fieldset>', $childIndent . '</fieldset>', $elementReplace);
             $this->template = str_replace($elementSearch, $elementReplace, $this->template);
         }
 

@@ -6,7 +6,8 @@ use Pop\Form\Form,
     Pop\Validator\Validator,
     Pop\Validator\Validator\AlphaNumeric,
     Pop\Validator\Validator\Email,
-    Pop\Validator\Validator\LengthGt;
+    Pop\Validator\Validator\LengthGt,
+    Pop\Validator\Validator\NotEqual;
 
 try {
     $fields = array(
@@ -37,9 +38,24 @@ try {
         ),
         array(
             'type'       => 'checkbox',
-            'name'       => 'colors',
+            'name'       => 'checkbox_colors',
             'label'      => 'Colors:',
+            'required'   => true,
             'value'      => array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue')
+        ),
+        array(
+            'type'       => 'radio',
+            'name'       => 'radio_colors',
+            'label'      => 'Colors:',
+            'required'   => true,
+            'value'      => array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue')
+        ),
+        array(
+            'type'       => 'select',
+            'name'       => 'select_colors',
+            'label'      => 'Colors:',
+            'value'      => array('--' => '--', 'Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'),
+            'validators' => new NotEqual('--')
         ),
         array(
             'type'       => 'submit',

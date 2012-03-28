@@ -142,7 +142,7 @@ class Element extends Child
 
                 // Create the child option elements.
                 foreach ($value as $k => $v) {
-                    $opt = new Child('option', null, null, false, ($indent . '    '));
+                    $opt = new Child('option', null, null, false, $indent);
                     $opt->setAttributes('value', $k);
 
                     // Determine if the current option element is selected.
@@ -165,7 +165,7 @@ class Element extends Child
                 // Create the radio elements and related span elements.
                 $i = null;
                 foreach ($value as $k => $v) {
-                    $rad = new Child('input', null, null, false, ($indent . '    '));
+                    $rad = new Child('input', null, null, false, $indent);
                     $rad->setAttributes(array(
                         'type' => $type,
                         'class' => 'radioBtn',
@@ -179,7 +179,7 @@ class Element extends Child
                         $rad->setAttributes('checked', 'checked');
                     }
 
-                    $span = new Child('span', null, null, false, ($indent . '    '));
+                    $span = new Child('span', null, null, false, $indent);
                     $span->setAttributes('class', 'radioPad');
                     $span->setNodeValue($v);
                     $this->addChildren(array($rad, $span));
@@ -197,7 +197,7 @@ class Element extends Child
                 // Create the checkbox elements and related span elements.
                 $i = null;
                 foreach ($value as $k => $v) {
-                    $chk = new Child('input', null, null, false, ($indent . '    '));
+                    $chk = new Child('input', null, null, false, $indent);
                     $chk->setAttributes(array(
                         'type' => $type,
                         'class' => 'checkBox',
@@ -211,7 +211,7 @@ class Element extends Child
                         $chk->setAttributes('checked', 'checked');
                     }
 
-                    $span = new Child('span', null, null, false, ($indent . '    '));
+                    $span = new Child('span', null, null, false, $indent);
                     $span->setAttributes('class', 'checkPad');
                     $span->setNodeValue($v);
                     $this->addChildren(array($chk, $span));
@@ -311,18 +311,19 @@ class Element extends Child
      * Method to render the child and its child nodes.
      *
      * @param  boolean $ret
-     * @param  int $depth
-     * @param  string $indent
+     * @param  int     $depth
+     * @param  string  $indent
+     * @param  string  $errorIndent
      * @return string
      */
-    public function render($ret = false, $depth = 0, $indent = null)
+    public function render($ret = false, $depth = 0, $indent = null, $errorIndent = null)
     {
-        $output = parent::render(true);
+        $output = parent::render(true, $depth, $indent);
 
         // Add error messages if there are any.
         if (count($this->errors) > 0) {
             foreach ($this->errors as $msg) {
-                $output .= "{$indent}{$this->indent}<div class=\"error\">{$msg}</div>\n";
+                $output .= "{$errorIndent}{$indent}{$this->indent}<div class=\"error\">{$msg}</div>\n";
             }
         }
 

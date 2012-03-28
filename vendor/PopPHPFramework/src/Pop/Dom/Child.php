@@ -22,10 +22,7 @@
 /**
  * @namespace
  */
-
 namespace Pop\Dom;
-
-use Pop\Locale\Locale;
 
 /**
  * This is the Child class for the Dom component.
@@ -78,8 +75,6 @@ class Child extends AbstractDom
      */
     public function __construct($name, $value = null, $childNode = null, $first = false, $indent = null)
     {
-        $this->lang = new Locale();
-
         $this->nodeName = strtolower($name);
         $this->nodeValue = $value;
         $this->childrenFirst = $first;
@@ -227,6 +222,13 @@ class Child extends AbstractDom
         // Initialize the node.
         $this->output .= "{$indent}{$this->indent}<{$this->nodeName}{$attribs}";
 
+        if ((null === $indent) && (null !== $this->indent)) {
+            $indent = $this->indent;
+            $origIndent = $this->indent;
+        } else {
+            $origIndent = $indent . $this->indent;
+        }
+
         // If current child element has child nodes, format and render.
         if (count($this->childNodes) > 0) {
             $this->output .= ">\n";
@@ -238,15 +240,16 @@ class Child extends AbstractDom
                 foreach ($this->childNodes as $child) {
                     $this->output .= $child->render(true, $new_depth, $indent);
                 }
-                $this->output .= "{$indent}{$this->indent}</{$this->nodeName}>\n";
+                $this->output .= "{$origIndent}</{$this->nodeName}>\n";
             // Else, render child nodes first, then node value.
             } else {
                 foreach ($this->childNodes as $child) {
                     $this->output .= $child->render(true, $new_depth, $indent);
                 }
-                $this->output .= (null !== $this->nodeValue) ? (str_repeat('    ', $new_depth) . "{$indent}{$this->nodeValue}\n{$indent}{$this->indent}</{$this->nodeName}>\n") : "{$indent}{$this->indent}</{$this->nodeName}>\n";
+                $this->output .= (null !== $this->nodeValue) ? (str_repeat('    ', $new_depth) . "{$indent}{$this->nodeValue}\n{$origIndent}</{$this->nodeName}>\n") : "{$origIndent}</{$this->nodeName}>\n";
             }
-        // Else, render the child node.
+
+            // Else, render the child node.
         } else {
             if ((null !== $this->nodeValue) || ($this->nodeName == 'textarea')) {
                 $this->output .= ">";

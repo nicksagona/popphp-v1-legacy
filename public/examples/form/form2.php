@@ -36,10 +36,12 @@ try {
              ->addValidator(new LengthGt(6));
 
     $checkbox = new Checkbox('colors', array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'));
-    $checkbox->setLabel('Colors:');
+    $checkbox->setLabel('Colors:')
+          ->setRequired(true);
 
     $radio = new Radio('answer', array('Yes' => 'Yes', 'No' => 'No', 'Maybe' => 'Maybe'));
-    $radio->setLabel('Answer:');
+    $radio->setLabel('Answer:')
+          ->setRequired(true);
 
     $select = new Select('days', Select::DAYS_OF_WEEK);
     $select->setLabel('Day:');

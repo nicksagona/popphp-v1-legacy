@@ -69,11 +69,12 @@ abstract class AbstractDom
      * Method to set the indent.
      *
      * @param  string $indent
-     * @return void
+     * @return mixed
      */
     public function setIndent($indent)
     {
         $this->indent = $indent;
+        return $this;
     }
 
     /**
@@ -81,7 +82,7 @@ abstract class AbstractDom
      *
      * @param  array|Pop_Dom_Child $c
      * @throws Exception
-     * @return void
+     * @return mixed
      */
     public function addChild($c)
     {
@@ -92,6 +93,8 @@ abstract class AbstractDom
         } else {
             throw new Exception('The argument passed is not valid.');
         }
+
+        return $this;
     }
 
     /**
@@ -99,13 +102,15 @@ abstract class AbstractDom
      *
      * @param  array $c
      * @throws Exception
-     * @return void
+     * @return mixed
      */
     public function addChildren($c)
     {
         foreach ($c as $child) {
             $this->addChild($child);
         }
+
+        return $this;
     }
 
     /**
