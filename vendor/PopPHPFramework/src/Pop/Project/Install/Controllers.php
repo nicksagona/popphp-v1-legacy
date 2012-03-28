@@ -130,6 +130,11 @@ class Controllers
 
                     $method = new MethodGenerator($key);
                     $method->setDesc('Add your model data here within the \'' . $key . '()\' method to inject into the view.');
+
+                    if ($key == 'error') {
+                        $method->appendToBody("\$this->isError = true;");
+                    }
+
                     $method->appendToBody("\$this->view = View::factory(\$this->viewPath . '/{$value}');");
                     $method->appendToBody("\$this->send();", false);
                     $method->getDocblock()->setReturn('void');
