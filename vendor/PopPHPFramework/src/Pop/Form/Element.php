@@ -160,7 +160,7 @@ class Element extends Child
             // Radio element(s)
             case 'radio':
                 parent::__construct('fieldset', null, null, false, $indent);
-                $this->setAttributes('class', 'radioBtnArea');
+                $this->setAttributes('class', 'radio-btn-fieldset');
 
                 // Create the radio elements and related span elements.
                 $i = null;
@@ -168,7 +168,7 @@ class Element extends Child
                     $rad = new Child('input', null, null, false, $indent);
                     $rad->setAttributes(array(
                         'type' => $type,
-                        'class' => 'radioBtn',
+                        'class' => 'radio-btn',
                         'name' => $name,
                         'id' => ($name . $i),
                         'value' => $k
@@ -180,7 +180,7 @@ class Element extends Child
                     }
 
                     $span = new Child('span', null, null, false, $indent);
-                    $span->setAttributes('class', 'radioPad');
+                    $span->setAttributes('class', 'radio-span');
                     $span->setNodeValue($v);
                     $this->addChildren(array($rad, $span));
                     $i++;
@@ -192,7 +192,7 @@ class Element extends Child
             // Checkbox element(s)
             case 'checkbox':
                 parent::__construct('fieldset', null, null, false, $indent);
-                $this->setAttributes('class', 'checkBoxArea');
+                $this->setAttributes('class', 'check-box-fieldset');
 
                 // Create the checkbox elements and related span elements.
                 $i = null;
@@ -200,7 +200,7 @@ class Element extends Child
                     $chk = new Child('input', null, null, false, $indent);
                     $chk->setAttributes(array(
                         'type' => $type,
-                        'class' => 'checkBox',
+                        'class' => 'check-box',
                         'name' => ($name . '[]'),
                         'id' => ($name . $i),
                         'value' => $k
@@ -212,7 +212,7 @@ class Element extends Child
                     }
 
                     $span = new Child('span', null, null, false, $indent);
-                    $span->setAttributes('class', 'checkPad');
+                    $span->setAttributes('class', 'check-span');
                     $span->setNodeValue($v);
                     $this->addChildren(array($chk, $span));
                     $i++;
