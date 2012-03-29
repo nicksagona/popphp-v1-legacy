@@ -388,6 +388,16 @@ class Form extends Dom
     }
 
     /**
+     * Get the main form element.
+     *
+     * @return array
+     */
+    public function getFormElement()
+    {
+        return $this->form;
+    }
+
+    /**
      * Get the elements of the form object.
      *
      * @return array

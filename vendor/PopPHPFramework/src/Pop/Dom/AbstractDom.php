@@ -147,6 +147,19 @@ abstract class AbstractDom
     /**
      * Remove all child nodes from the object.
      *
+     * @param  int  $i
+     * @return void
+     */
+    public function removeChild($i)
+    {
+        if (isset($this->childNodes[$i])) {
+            unset($this->childNodes[$i]);
+        }
+    }
+
+    /**
+     * Remove all child nodes from the object.
+     *
      * @return void
      */
     public function removeChildren()
