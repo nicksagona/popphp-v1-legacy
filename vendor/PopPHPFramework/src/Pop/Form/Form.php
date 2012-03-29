@@ -555,7 +555,7 @@ class Form extends Dom
         // Loop through the children and create and attach the appropriate DT and DT elements, with labels where applicable.
         foreach ($children as $child) {
             // If the element label is set, render the appropriate DT and DD elements.
-            if (null !== $child->label) {
+            if (isset($child->label) && (null !== $child->label)) {
                 // Create the DT and DD elements.
                 $dt = new Child('dt', null, null, false, ($this->form->getIndent() . '    '));
                 $dd = new Child('dd', null, null, false, ($this->form->getIndent() . '    '));
