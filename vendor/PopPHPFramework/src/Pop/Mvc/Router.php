@@ -63,24 +63,26 @@ class Router
      *
      * Instantiate the router object
      *
-     * @param array $controllers
+     * @param array            $controllers
+     * @param Pop\Http\Request $request
      * @return void
      */
-    public function __construct(array $controllers)
+    public function __construct(array $controllers, $request = null)
     {
-        $this->request = new Request();
+        $this->request = (null !== $request) ? $request : new Request();
         $this->controllers = $controllers;
     }
 
     /**
      * Create a Pop\Mvc\Router object
      *
-     * @param array $controllers
+     * @param array            $controllers
+     * @param Pop\Http\Request $request
      * @return Pop\Mvc\Router
      */
-    public static function factory(array $controllers)
+    public static function factory(array $controllers, $request = null)
     {
-        return new self($controllers);
+        return new self($controllers, $request);
     }
 
     /**
