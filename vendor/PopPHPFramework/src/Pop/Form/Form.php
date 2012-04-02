@@ -535,8 +535,10 @@ class Form extends Dom
                             $filteredAry[$k] = (string)String::factory($v)->$filter();
                         }
                         $filteredValues[$key] = $filteredAry;
+                        $value = $filteredAry;
                     } else {
                         $filteredValues[$key] = (string)String::factory($value)->$filter();
+                        $value = $filteredValues[$key];
                     }
                 } else {
                     $filteredValues[$key] = $value;
