@@ -100,20 +100,20 @@ class Mysqli extends AbstractAdapter
     {
         $bindParams = array('');
 
-        foreach ($params as $key => $value) {
-            ${$key} = $value;
+        foreach ($params as $dbColumnName => $dbColumnValue) {
+            ${$dbColumnName} = $dbColumnValue;
 
-            if (is_int($value)) {
+            if (is_int($dbColumnValue)) {
                 $bindParams[0] .= 'i';
-            } else if (is_double($value)) {
+            } else if (is_double($dbColumnValue)) {
                 $bindParams[0] .= 'd';
-            } else if (is_string($value)) {
+            } else if (is_string($dbColumnValue)) {
                 $bindParams[0] .= 's';
             } else {
                 $bindParams[0] .= 'b';
             }
 
-            $bindParams[] = &${$key};
+            $bindParams[] = &${$dbColumnName};
         }
 
         call_user_func_array(array($this->statement, 'bind_param'), $bindParams);
@@ -145,8 +145,8 @@ class Mysqli extends AbstractAdapter
 
         while (($row = $this->statement->fetch()) != false) {
             $ary = array();
-            foreach ($bindParams as $key => $value) {
-                $ary[$params[$key]] = $value;
+            foreach ($bindParams as $dbColumnName => $dbColumnValue) {
+                $ary[$params[$dbColumnName]] = $dbColumnValue;
             }
             $rows[] = $ary;
         }
