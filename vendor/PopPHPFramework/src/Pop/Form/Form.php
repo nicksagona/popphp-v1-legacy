@@ -529,6 +529,9 @@ class Form extends Dom
         foreach ($values as $key => $value) {
             foreach ($filters as $filter) {
                 if (method_exists('Pop\\Filter\\String', $filter)) {
+                    if ($value instanceof \ArrayObject) {
+                        $value = (array)$value;
+                    }
                     if (is_array($value)) {
                         $filteredAry = array();
                         foreach ($value as $k => $v) {
