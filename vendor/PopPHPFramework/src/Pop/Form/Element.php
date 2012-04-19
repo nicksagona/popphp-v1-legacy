@@ -296,8 +296,14 @@ class Element extends Child
         if (isset($this->validators[0])) {
             foreach ($this->validators as $validator) {
                 $curElemValue = (is_array($this->value)) ? $this->marked : $this->value;
-                if (!empty($curElemValue) && !$validator->evaluate($curElemValue)) {
-                    $this->errors[] = $validator->getMessage();
+                if ('Pop\\Validator\\Validator\\NotEmpty' == get_class($validator->getValidator())) {
+                    if (!$validator->evaluate($curElemValue)) {
+                        $this->errors[] = $validator->getMessage();
+                    }
+                } else {
+                    if (!empty($curElemValue) && !$validator->evaluate($curElemValue)) {
+                        $this->errors[] = $validator->getMessage();
+                    }
                 }
             }
         }
