@@ -81,6 +81,7 @@ class Imagick extends AbstractImage
         'gif'   => 'image/gif',
         'html'  => 'text/html',
         'htm'   => 'text/html',
+        'ico'   => 'image/ico',
         'jpe'   => 'image/jpeg',
         'jpg'   => 'image/jpeg',
         'jpeg'  => 'image/jpeg',
@@ -188,7 +189,7 @@ class Imagick extends AbstractImage
 
         // If image exists, get image info and store in an array.
         if (file_exists($this->fullpath) && ($this->size > 0)) {
-            $this->resource = new \Imagick($imagickFile);
+            $this->resource = new \Imagick(realpath($imagickFile));
             $this->setImageInfo();
             $this->setQuality(100);
         // If image does not exists, check to make sure the width and height
