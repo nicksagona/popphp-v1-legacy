@@ -53,10 +53,12 @@ class LengthLte extends AbstractValidator
         }
 
         // Set the default message
-        if ($this->condition) {
-            $this->defaultMessage = Locale::factory()->__('The value length must be less than or equal to %1.', $this->value);
-        } else {
-            $this->defaultMessage = Locale::factory()->__('The value length must not be less than or equal to %1.', $this->value);
+        if (null === $this->defaultMessage) {
+            if ($this->condition) {
+                $this->defaultMessage = Locale::factory()->__('The value length must be less than or equal to %1.', $this->value);
+            } else {
+                $this->defaultMessage = Locale::factory()->__('The value length must not be less than or equal to %1.', $this->value);
+            }
         }
 
         // Evaluate the input against the validator

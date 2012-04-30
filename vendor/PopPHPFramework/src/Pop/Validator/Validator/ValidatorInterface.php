@@ -82,6 +82,14 @@ interface ValidatorInterface
     public function setCondition($condition);
 
     /**
+     * Method to set the validator default message
+     *
+     * @param  string $message
+     * @return Pop\Validator\Validator
+     */
+    public function setDefaultMessage($message);
+
+    /**
      * Method to set the validator input
      *
      * @param  mixed $input

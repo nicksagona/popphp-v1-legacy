@@ -53,10 +53,12 @@ class Alpha extends AbstractValidator
         }
 
         // Set the default message
-        if ($this->condition) {
-            $this->defaultMessage = Locale::factory()->__('The value must only contain characters of the alphabet.');
-        } else {
-            $this->defaultMessage = Locale::factory()->__('The value must contain characters not in the alphabet.');
+        if (null === $this->defaultMessage) {
+            if ($this->condition) {
+                $this->defaultMessage = Locale::factory()->__('The value must only contain characters of the alphabet.');
+            } else {
+                $this->defaultMessage = Locale::factory()->__('The value must contain characters not in the alphabet.');
+            }
         }
 
         // Evaluate the input against the validator

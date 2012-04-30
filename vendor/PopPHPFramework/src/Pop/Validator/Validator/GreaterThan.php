@@ -55,10 +55,12 @@ class GreaterThan extends AbstractValidator
         $nums = explode('|', $this->value);
 
         // Set the default message
-        if ($this->condition) {
-            $this->defaultMessage = Locale::factory()->__('The value must be greater than %1.', $this->value);
-        } else {
-            $this->defaultMessage = Locale::factory()->__('The value must not be greater than %1.', $this->value);
+        if (null === $this->defaultMessage) {
+            if ($this->condition) {
+                $this->defaultMessage = Locale::factory()->__('The value must be greater than %1.', $this->value);
+            } else {
+                $this->defaultMessage = Locale::factory()->__('The value must not be greater than %1.', $this->value);
+            }
         }
 
         // Evaluate the input against the validator

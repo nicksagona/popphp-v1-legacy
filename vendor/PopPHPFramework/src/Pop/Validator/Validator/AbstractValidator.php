@@ -78,10 +78,14 @@ abstract class AbstractValidator implements ValidatorInterface
      * @param  boolean $condition
      * @return void
      */
-    public function __construct($value = null, $condition = true)
+    public function __construct($value = null, $condition = true, $msg = null)
     {
         $this->value = $value;
         $this->condition = (boolean)$condition;
+        
+        if (null !== $msg) {
+            $this->defaultMessage = $msg;
+        }
     }
 
     /**
@@ -145,6 +149,18 @@ abstract class AbstractValidator implements ValidatorInterface
     public function setCondition($condition)
     {
         $this->condition = (boolean)$condition;
+        return $this;
+    }
+
+    /**
+     * Method to set the validator condition
+     *
+     * @param  string $message
+     * @return Pop\Validator\Validator
+     */
+    public function setDefaultMessage($message)
+    {
+        $this->defaultMessage = $message;
         return $this;
     }
 

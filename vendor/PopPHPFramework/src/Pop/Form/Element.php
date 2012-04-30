@@ -286,7 +286,14 @@ class Element extends Child
 
         // Check if the element is required.
         if ($this->required == true) {
-            $curElemValue = (is_array($this->value)) ? $this->marked : $this->value;
+            if (is_array($this->value)) {
+                $curElemValue = $this->marked;
+            } else if (isset($_FILES[$this->name]['name'])) {
+                $curElemValue = $_FILES[$this->name]['name'];
+            } else {
+                $curElemValue = $this->value;
+            }
+
             if (empty($curElemValue)) {
                 $this->errors[] = Locale::factory()->__('This field is required.');
             }
@@ -295,7 +302,15 @@ class Element extends Child
         // Check the element's validators.
         if (isset($this->validators[0])) {
             foreach ($this->validators as $validator) {
-                $curElemValue = (is_array($this->value)) ? $this->marked : $this->value;
+                //$curElemValue = (is_array($this->value)) ? $this->marked : $this->value;
+                if (is_array($this->value)) {
+                    $curElemValue = $this->marked;
+                } else if (isset($_FILES[$this->name]['name'])) {
+                    $curElemValue = $_FILES[$this->name]['name'];
+                } else {
+                    $curElemValue = $this->value;
+                }
+                
                 if ('Pop\\Validator\\Validator\\NotEmpty' == get_class($validator->getValidator())) {
                     if (!$validator->evaluate($curElemValue)) {
                         $this->errors[] = $validator->getMessage();

@@ -55,10 +55,12 @@ class BetweenInclude extends AbstractValidator
         $nums = explode('|', $this->value);
 
         // Set the default message
-        if ($this->condition) {
-            $this->defaultMessage = Locale::factory()->__('The value must be between or equal to %1 and %2.', $nums);
-        } else {
-            $this->defaultMessage = Locale::factory()->__('The value must not be between or equal to %1 and %2.', $nums);
+        if (null === $this->defaultMessage) {
+            if ($this->condition) {
+                $this->defaultMessage = Locale::factory()->__('The value must be between or equal to %1 and %2.', $nums);
+            } else {
+                $this->defaultMessage = Locale::factory()->__('The value must not be between or equal to %1 and %2.', $nums);
+            }
         }
 
         // Evaluate the input against the validator

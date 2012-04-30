@@ -59,10 +59,12 @@ class CreditCard extends AbstractValidator
         }
 
         // Set the default message
-        if ($this->condition) {
-            $this->defaultMessage = Locale::factory()->__('The value must be a valid credit card number.');
-        } else {
-            $this->defaultMessage = Locale::factory()->__('The value must not be a valid credit card number.');
+        if (null === $this->defaultMessage) {
+            if ($this->condition) {
+                $this->defaultMessage = Locale::factory()->__('The value must be a valid credit card number.');
+            } else {
+                $this->defaultMessage = Locale::factory()->__('The value must not be a valid credit card number.');
+            }
         }
 
         // Evaluate the input against the validator

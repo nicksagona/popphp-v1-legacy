@@ -53,10 +53,12 @@ class Numeric extends AbstractValidator
         }
 
         // Set the default message
-        if ($this->condition) {
-            $this->defaultMessage = Locale::factory()->__('The value must be numeric.');
-        } else {
-            $this->defaultMessage = Locale::factory()->__('The value must not be numeric.');
+        if (null === $this->defaultMessage) {
+            if ($this->condition) {
+                $this->defaultMessage = Locale::factory()->__('The value must be numeric.');
+            } else {
+                $this->defaultMessage = Locale::factory()->__('The value must not be numeric.');
+            }
         }
 
         // Evaluate the input against the validator

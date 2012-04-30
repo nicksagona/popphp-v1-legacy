@@ -53,10 +53,12 @@ class RegEx extends AbstractValidator
         }
 
         // Set the default message
-        if ($this->condition) {
-            $this->defaultMessage = Locale::factory()->__('The value format is not correct.');
-        } else {
-            $this->defaultMessage = Locale::factory()->__('The value format is not correct.');
+        if (null === $this->defaultMessage) {
+            if ($this->condition) {
+                $this->defaultMessage = Locale::factory()->__('The value format is not correct.');
+            } else {
+                $this->defaultMessage = Locale::factory()->__('The value format is not correct.');
+            }
         }
 
         // Evaluate the input against the validator

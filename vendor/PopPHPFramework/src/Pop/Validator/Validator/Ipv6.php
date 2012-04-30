@@ -53,10 +53,12 @@ class Ipv6 extends AbstractValidator
         }
 
         // Set the default message
-        if ($this->condition) {
-            $this->defaultMessage = Locale::factory()->__('The value must be a valid IPv6 address.');
-        } else {
-            $this->defaultMessage = Locale::factory()->__('The value must not be a valid IPv6 address.');
+        if (null === $this->defaultMessage) {
+            if ($this->condition) {
+                $this->defaultMessage = Locale::factory()->__('The value must be a valid IPv6 address.');
+            } else {
+                $this->defaultMessage = Locale::factory()->__('The value must not be a valid IPv6 address.');
+            }
         }
 
         // Evaluate the input against the validator
