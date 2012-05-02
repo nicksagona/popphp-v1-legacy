@@ -233,4 +233,38 @@ class Data
         return $this->file;
     }
 
+    /**
+     * Write the data stream to a file
+     *
+     * @param  string $to
+     * @throws Exception
+     * @return Pop\Data\Data
+     */
+    public function writeData($toFile)
+    {
+        $file = new File($toFile);
+        
+        $to = strtolower($file->ext);
+        $types = array('csv', 'json', 'sql', 'xml', 'yaml');
+
+        if (!in_array($to, $types)) {
+            throw new Exception('That data type is not supported.');
+        }
+
+        $class = 'Pop\\Data\\' . ucfirst($to);
+
+        if ($to == 'sql') {
+            $this->file = $class::encode($this->data, $this->table, $this->idQuote);
+        } else if ($to == 'xml') {
+            $this->file = $class::encode($this->data, $this->table, $this->pma);
+        } else {
+            $this->file = $class::encode($this->data);
+        }
+
+        $file->write($this->file)
+             ->save();
+             
+        return $this;
+    }
+
 }

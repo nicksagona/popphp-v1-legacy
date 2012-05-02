@@ -31,13 +31,13 @@ try {
     $data = new Data($sql);
     $obj = $data->parseData('csv');
     echo $obj;
-
+    
     echo PHP_EOL . '<br /><br />' . PHP_EOL;
     echo 'SQL data to YAML file<br />-------------------<br />' . PHP_EOL;
     $data = new Data($sql);
     $obj = $data->parseData('yaml');
     echo $obj;
-
+    
     echo PHP_EOL . '<br /><br />' . PHP_EOL;
     echo 'XML data to SQL file<br />-------------------<br />' . PHP_EOL;
     $data = new Data($xml);
@@ -45,7 +45,7 @@ try {
          ->setIdQuote('`');
     $obj = $data->parseData('sql');
     echo $obj;
-
+    
     echo PHP_EOL . '<br /><br />' . PHP_EOL;
     echo 'YAML data to JSON file<br />-------------------<br />' . PHP_EOL;
     $data = new Data($yml);
