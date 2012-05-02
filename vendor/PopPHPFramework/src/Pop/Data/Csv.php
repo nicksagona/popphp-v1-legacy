@@ -115,7 +115,7 @@ class Csv implements DataInterface
 
         // Initialize and clean the header fields.
         foreach ($data as $ary) {
-            $tempAry = array_keys($ary);
+            $tempAry = array_keys((array)$ary);
         }
 
         foreach ($tempAry as $key => $value) {
