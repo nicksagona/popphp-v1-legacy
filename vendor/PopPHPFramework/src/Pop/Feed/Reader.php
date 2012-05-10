@@ -148,8 +148,8 @@ class Reader
                     }
                 } else if (strpos($url, 'vimeo') !== false) {
                     $this->feedSrc = 'vimeo';
-                } else {
-                    $this->youtube = false;
+                } else if (strpos($url, 'twitter') !== false) {
+                    $this->feedSrc = 'twitter';                    
                 }
 
                 $this->limit = $limit;
@@ -387,13 +387,20 @@ class Reader
 
             foreach ($this->xml->channel->item as $value) {
                 // Add the values to the associative array.
-                $this->items[] = array(
+                $ary = array(
                     'title'       => (string)$value->title,
                     'description' => (string)$value->description,
                     'link'        => (string)$value->link,
                     'pubDate'     => (string)$value->pubDate,
                     'timeElapsed' => $this->calcElapsedTime($value->pubDate)
                 );
+                
+                if ($this->feedSrc == 'twitter') {
+                    $ary['handle'] = substr($ary['title'], 0, strpos($ary['title'], ':'));
+                    $ary['title'] = trim(str_replace($ary['handle'] . ':', '', $ary['title']));
+                    $ary['description'] = trim(str_replace($ary['handle'] . ':', '', $ary['description']));
+                }
+                $this->items[] = $ary;
             }
         }
     }
