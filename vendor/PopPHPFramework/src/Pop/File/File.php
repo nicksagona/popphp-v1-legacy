@@ -239,6 +239,24 @@ class File
     }
 
     /**
+     * Static method to check for a duplicate file, returning
+     * the next incremented filename, i.e. filename_1.txt
+     *
+     * @param  string $file
+     * @param  string $dir
+     * @return string
+     */
+    public static function checkDupe($file, $dir = null)
+    {
+        if (null === $dir) {
+            $dir = getcwd();
+        }
+        
+        $parts = pathinfo($file);
+        
+    }
+
+    /**
      * Test if a certain file type is allowed.
      *
      * @param  string $type
