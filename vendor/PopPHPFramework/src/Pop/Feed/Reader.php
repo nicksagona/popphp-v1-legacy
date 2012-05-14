@@ -396,7 +396,8 @@ class Reader
                 );
                 
                 if ($this->feedSrc == 'twitter') {
-                    $ary['handle'] = substr($ary['title'], 0, strpos($ary['title'], ':'));
+                    $ary['handle'] = substr($ary['link'], (strpos($ary['link'], 'http://twitter.com/') + 19));
+                    $ary['handle'] = substr($ary['handle'], 0, strpos($ary['handle'], '/'));
                     $ary['title'] = trim(str_replace($ary['handle'] . ':', '', $ary['title']));
                     $ary['description'] = trim(str_replace($ary['handle'] . ':', '', $ary['description']));
                 }
