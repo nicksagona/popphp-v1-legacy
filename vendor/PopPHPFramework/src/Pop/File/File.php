@@ -251,9 +251,20 @@ class File
         if (null === $dir) {
             $dir = getcwd();
         }
-        
+
+        $newFilename = $file;
         $parts = pathinfo($file);
-        
+        $origFilename = $parts['filename'];
+        $ext = (isset($parts['extension']) && ($parts['extension'] != '')) ? '.' . $parts['extension'] : null;
+
+        $i = 1;
+
+        while (file_exists($dir . DIRECTORY_SEPARATOR . $newFilename)) {
+            $newFilename = $origFilename . '_' . $i . $ext;
+            $i++;
+        }
+
+        return $newFilename;
     }
 
     /**
