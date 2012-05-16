@@ -1066,8 +1066,8 @@ class Gd extends AbstractImage
      */
     public function save($to = null, $append = false)
     {
-        if ((null === $this->output) && (null === $this->resource)) {
-            throw new Exception('Error: The image resource has not been created.');
+        if (null === $this->resource) {
+            $this->createResource();
         }
 
         if (null === $this->output) {
