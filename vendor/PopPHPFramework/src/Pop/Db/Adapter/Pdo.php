@@ -80,7 +80,7 @@ class Pdo extends AbstractAdapter
             $this->dbtype = $options['type'];
             if ($this->dbtype == 'sqlite') {
                 $this->dsn = $this->dbtype . ':' . $options['database'];
-                $this->connection = new PDO($this->dsn);
+                $this->connection = new \PDO($this->dsn);
             } else {
                 if (!isset($options['host']) || !isset($options['username']) || !isset($options['password'])) {
                     throw new Exception('Error: The proper database credentials were not passed.');
@@ -263,7 +263,7 @@ class Pdo extends AbstractAdapter
      */
     public function escape($value)
     {
-        return $this->connection->quote($value);
+        return substr($this->connection->quote($value), 1, -1);
     }
 
     /**
