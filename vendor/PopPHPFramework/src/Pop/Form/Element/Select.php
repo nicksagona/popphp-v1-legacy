@@ -238,19 +238,7 @@ class Select extends Element
                     // Else, check for the values in the XML options file.
                     } else {
                         $xmlFile = __DIR__ . DIRECTORY_SEPARATOR . 'Data' . DIRECTORY_SEPARATOR . 'options.xml';
-                        if (file_exists($xmlFile)) {
-                            $xml = new \SimpleXMLElement($xmlFile, null, true);
-                            $xmlValues = array();
-                            foreach ($xml->set as $node) {
-                                $xmlValues[(string)$node->attributes()->name] = array();
-                                foreach ($node->opt as $opt) {
-                                    $xmlValues[(string)$node->attributes()->name][(string)$opt->attributes()->value] = (string)$opt;
-                                }
-                            }
-                            $val = (array_key_exists($value, $xmlValues)) ? $xmlValues[$value] : array($value);
-                        } else {
-                            $val = array($value);
-                        }
+                        $val = self::parseXml($xmlFile, $value);
                     }
             }
         }
@@ -274,6 +262,32 @@ class Select extends Element
         if (array_key_exists($val, $this->values) !==  false) {
             $this->marked = $this->values[$val];
         }
+    }
+
+    /**
+     * Static method to parse an XML file of options
+     *
+     * @param  string $xmlFile
+     * @param  string $value
+     * @return void
+     */
+    public static function parseXml($xmlFile, $value)
+    {
+        if (file_exists($xmlFile)) {
+            $xml = new \SimpleXMLElement($xmlFile, null, true);
+            $xmlValues = array();
+            foreach ($xml->set as $node) {
+                $xmlValues[(string)$node->attributes()->name] = array();
+                foreach ($node->opt as $opt) {
+                    $xmlValues[(string)$node->attributes()->name][(string)$opt->attributes()->value] = (string)$opt;
+                }
+            }
+            $val = (array_key_exists($value, $xmlValues)) ? $xmlValues[$value] : array($value);
+        } else {
+            $val = array($value);
+        }
+
+        return $val;
     }
 
 }
