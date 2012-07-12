@@ -152,7 +152,7 @@ class Sql
      * Set current table to operate on.
      *
      * @param  string $table
-     * @return Pop_Db_Sql
+     * @return Pop\Db\Sql
      */
     public function setTable($table)
     {
@@ -175,7 +175,7 @@ class Sql
      * Set the id quote type.
      *
      * @param  int $type
-     * @return Pop_Db_Sql
+     * @return Pop\Db\Sql
      */
     public function setIdQuoteType($type = 0)
     {
@@ -254,7 +254,7 @@ class Sql
      * Set the query verb to SELECT.
      *
      * @param  string|array $columns
-     * @return Pop_Db_Sql
+     * @return Pop\Db\Sql
      */
     public function select($columns = '*')
     {
@@ -268,7 +268,7 @@ class Sql
      * Set the distinct flag
      *
      * @param  boolean $distinct
-     * @return Pop_Db_Sql
+     * @return Pop\Db\Sql
      */
     public function distinct($distinct = true)
     {
@@ -281,7 +281,7 @@ class Sql
      *
      * @param  array $columns
      * @throws Exception
-     * @return Pop_Db_Sql
+     * @return Pop\Db\Sql
      */
     public function insert(array $columns)
     {
@@ -300,7 +300,7 @@ class Sql
      *
      * @param  array $columns
      * @throws Exception
-     * @return Pop_Db_Sql
+     * @return Pop\Db\Sql
      */
     public function update(array $columns)
     {
@@ -317,7 +317,7 @@ class Sql
     /**
      * Set the query verb to DELETE.
      *
-     * @return Pop_Db_Sql
+     * @return Pop\Db\Sql
      */
     public function delete()
     {
@@ -331,7 +331,7 @@ class Sql
      * @param  string $tableToJoin
      * @param  string $commonColumn
      * @param  string $typeOfJoin
-     * @return Pop_Db_Sql
+     * @return Pop\Db\Sql
      */
     public function join($tableToJoin, $commonColumn, $typeOfJoin = 'JOIN')
     {
@@ -367,7 +367,7 @@ class Sql
      * @param  string $comparison
      * @param  string $value
      * @param  string $conjunction
-     * @return Pop_Db_Sql
+     * @return Pop\Db\Sql
      */
     public function where($column, $comparison, $value, $conjunction = 'AND')
     {
@@ -393,7 +393,7 @@ class Sql
      *
      * @param  string|array $by
      * @param  string       $order
-     * @return Pop_Db_Sql
+     * @return Pop\Db\Sql
      */
     public function order($by, $order = 'ASC')
     {
@@ -419,7 +419,7 @@ class Sql
      * Set the query LIMIT value.
      *
      * @param  int $limit
-     * @return Pop_Db_Sql
+     * @return Pop\Db\Sql
      */
     public function limit($limit)
     {

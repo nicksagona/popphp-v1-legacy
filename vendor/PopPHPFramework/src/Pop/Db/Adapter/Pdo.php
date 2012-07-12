@@ -86,7 +86,12 @@ class Pdo extends AbstractAdapter
                     throw new Exception('Error: The proper database credentials were not passed.');
                 }
 
-                $this->dsn = $this->dbtype . ':host=' . $options['host'] . ';dbname=' . $options['database'];
+                if ($this->dbtype == 'sqlsrv') {
+                    $this->dsn = $this->dbtype . ':Server=' . $options['host'] . ';Database=' . $options['database'];
+                } else {                
+                    $this->dsn = $this->dbtype . ':host=' . $options['host'] . ';dbname=' . $options['database'];
+                }
+
                 $this->connection = new \PDO($this->dsn, $options['username'], $options['password']);
             }
         } catch (\PDOException $e) {
@@ -154,7 +159,7 @@ class Pdo extends AbstractAdapter
      *
      * @param  string $sql
      * @param  array  $attribs
-     * @return Pop_Db_Adapter_Pdo
+     * @return Pop\Db\Adapter\Pdo
      */
     public function prepare($sql, $attribs = null)
     {
@@ -177,7 +182,7 @@ class Pdo extends AbstractAdapter
      * Bind parameters to for a prepared SQL query.
      *
      * @param  array  $params
-     * @return Pop_Db_Adapter_Pdo
+     * @return Pop\Db\Adapter\Pdo
      */
     public function bindParams($params)
     {

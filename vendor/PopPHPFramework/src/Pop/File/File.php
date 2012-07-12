@@ -199,7 +199,7 @@ class File
      * @param  int    $size
      * @param  array  $types
      * @throws Exception
-     * @return Pop_File
+     * @return Pop\File\File
      */
     public static function upload($upload, $file, $size = null, $types = null)
     {
@@ -402,7 +402,7 @@ class File
      *
      * @param  string  $data
      * @param  boolean $append
-     * @return Pop_File
+     * @return Pop\File\File
      */
     public function write($data, $append = false)
     {
@@ -425,7 +425,7 @@ class File
      *
      * @param  string $new
      * @throws Exception
-     * @return Pop_File
+     * @return Pop\File\File
      */
     public function copy($new)
     {
@@ -452,7 +452,7 @@ class File
      *
      * @param  string $new
      * @throws Exception
-     * @return Pop_File
+     * @return Pop\File\File
      */
     public function move($new)
     {
@@ -478,7 +478,7 @@ class File
      * Output the file object directly.
      *
      * @param  boolean $download
-     * @return Pop_File
+     * @return Pop\File\File
      */
     public function output($download = false)
     {

@@ -91,7 +91,7 @@ class Sqlite extends AbstractAdapter
      * Prepare a SQL query.
      *
      * @param  string $sql
-     * @return Pop_Db_Adapter_Sqlite
+     * @return Pop\Db\Adapter\Sqlite
      */
     public function prepare($sql)
     {
@@ -103,7 +103,7 @@ class Sqlite extends AbstractAdapter
      * Bind parameters to for a prepared SQL query.
      *
      * @param  array  $params
-     * @return Pop_Db_Adapter_Sqlite
+     * @return Pop\Db\Adapter\Sqlite
      */
     public function bindParams($params)
     {

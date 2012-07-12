@@ -25,6 +25,7 @@
 namespace Pop\Db;
 
 use Pop\Db\Sql,
+    Pop\Db\Adapter\Mssql,
     Pop\Db\Adapter\Mysql,
     Pop\Db\Adapter\Mysqli,
     Pop\Db\Adapter\Pdo,
@@ -46,7 +47,7 @@ class Db
 
     /**
      * SQL object
-     * @var Pop_Db_Sql
+     * @var Pop\Db\Sql
      */
     public $sql = null;
 
@@ -84,7 +85,7 @@ class Db
      *
      * @param  string $type
      * @param  array  $options
-     * @return Pop_Db
+     * @return Pop\Db\Db
      */
     public static function factory($type, array $options)
     {

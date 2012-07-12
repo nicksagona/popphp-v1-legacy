@@ -3,7 +3,7 @@ Welcome to the Pop PHP Framework 1.0 Release!
 
 RELEASE INFORMATION
 -------------------
-Pop PHP Framework 1.0 Release  
+Pop PHP Framework 1.0 Release
 Released March 19, 2012
 
 
@@ -93,6 +93,7 @@ Some dependencies for the framework to fully function are as follows:
 * The MySQLi extension to utilize MySQLi to connect to and interact with MySQL databases
 * The PostgreSQL extension for PostgreSQL database connections and transactions
 * The SQLite3 extension for SQLite database connections and transactions
+* The SqlSrv extension for MSSQL database connections and transactions
 * The PDO extension for utilize PDO for database connections and transactions
 * The GeoIP extension to utilize the Geo component
 * The GD library for image manipulation (including FreeType support)

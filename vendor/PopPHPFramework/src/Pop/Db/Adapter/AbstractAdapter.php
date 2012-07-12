@@ -57,7 +57,7 @@ abstract class AbstractAdapter
 
     /**
      * Language object
-     * @var Pop_Locale
+     * @var Pop\Locale\Locale
      */
     protected $lang = null;
 

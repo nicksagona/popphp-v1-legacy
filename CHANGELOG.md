@@ -22,6 +22,7 @@ COMPLETED:
     - Add PDO support
     - Add support for prepared/binded statements
         + MySQLi
+        + MSSQL (via SqlSrv)
         + PostgreSQL
         + SQLite
         + PDO

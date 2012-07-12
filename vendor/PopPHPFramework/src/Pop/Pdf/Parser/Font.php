@@ -46,7 +46,7 @@ class Font
 
     /**
      * Font object
-     * @var Pop_Font
+     * @var mixed
      */
     protected $font = null;
 

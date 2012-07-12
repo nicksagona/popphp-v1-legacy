@@ -24,8 +24,10 @@
  */
 namespace Pop\Db\Adapter;
 
+use Pop\Filter\String;
+
 /**
- * This is the MySqli adapter class for the Db component.
+ * This is the MSSQL adapter class for the Db component.
  *
  * @category   Pop
  * @package    Pop_Db
@@ -34,19 +36,25 @@ namespace Pop\Db\Adapter;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.0
  */
-class Mysqli extends AbstractAdapter
+class Mssql extends AbstractAdapter
 {
 
     /**
+     * Database
+     * @var string
+     */
+    protected $database = null;
+    
+    /**
      * Prepared statement
-     * @var MySQLi_STMT
+     * @var Resource
      */
     protected $statement = null;
 
     /**
      * Constructor
      *
-     * Instantiate the MySQLi database connection object.
+     * Instantiate the MSSQL database connection object.
      *
      * @param  array $options
      * @throws Exception
@@ -58,11 +66,13 @@ class Mysqli extends AbstractAdapter
             throw new Exception('Error: The proper database credentials were not passed.');
         }
 
-        $this->connection = new \mysqli($options['host'], $options['username'], $options['password'], $options['database']);
+        $this->connection = sqlsrv_connect($options['host'], array('Database' => $options['database'], 'UID' => $options['username'], 'PWD' => $options['password']));
 
-        if ($this->connection->connect_error != '') {
-            throw new Exception('Error: Could not connect to database. Connection Error #' . $this->connection->connect_errno . ': ' . $this->connection->connect_error);
+        if ($this->connection == false) {
+            throw new Exception('Error: Could not connect to database. ' . PHP_EOL . $this->getErrors());
         }
+        
+        $this->database = $options['database'];
     }
 
     /**
@@ -73,82 +83,56 @@ class Mysqli extends AbstractAdapter
      */
     public function showError()
     {
-        throw new Exception('Error: ' . $this->connection->errno . ' => ' . $this->connection->error . '.');
+        throw new Exception($this->getErrors());
+    }
+
+    /**
+     * Get SQL errors
+     *
+     * @return string
+     */
+    public function getErrors()
+    {
+        $errors = null;
+        $errorAry = sqlsrv_errors();
+        
+        foreach ($errorAry as $key => $value) {
+            $errors .= 'SQLSTATE: ' . $value['SQLSTATE'] . ', CODE: ' . $value['code'] . ' => ' . stripslashes($value['message']) . PHP_EOL; 
+        }
+        
+        return $errors;
     }
 
     /**
      * Prepare a SQL query.
      *
      * @param  string $sql
-     * @return Pop\Db\Adapter\Mysqli
+     * @return Pop\Db\Adapter\Mssql
      */
-    public function prepare($sql)
+    public function prepare($sql, $params = null, $options = null)
     {
-        $this->statement = $this->connection->stmt_init();
-        $this->statement->prepare($sql);
-
-        return $this;
-    }
-
-    /**
-     * Bind parameters to a prepared SQL query.
-     *
-     * @param  array  $params
-     * @return Pop\Db\Adapter\Mysqli
-     */
-    public function bindParams($params)
-    {
-        $bindParams = array('');
-
-        foreach ($params as $dbColumnName => $dbColumnValue) {
-            ${$dbColumnName} = $dbColumnValue;
-
-            if (is_int($dbColumnValue)) {
-                $bindParams[0] .= 'i';
-            } else if (is_double($dbColumnValue)) {
-                $bindParams[0] .= 'd';
-            } else if (is_string($dbColumnValue)) {
-                $bindParams[0] .= 's';
-            } else {
-                $bindParams[0] .= 'b';
-            }
-
-            $bindParams[] = &${$dbColumnName};
+        if ((null !== $params) && (null !== $options)) {
+            $this->statement = sqlsrv_prepare($this->connection, $sql, $params, $options);
+        } else if (null !== $params) {
+            $this->statement = sqlsrv_prepare($this->connection, $sql, $params);
+        } else {
+            $this->statement = sqlsrv_prepare($this->connection, $sql);
         }
-
-        call_user_func_array(array($this->statement, 'bind_param'), $bindParams);
-
+        
         return $this;
     }
 
     /**
-     * Bind result values to variables and fetch and return the values.
+     * Fetch and return the values.
      *
      * @return array
      */
     public function fetchResult()
     {
-        $params = array();
-        $bindParams = array();
-
-        $metaData = $this->statement->result_metadata();
-
-        foreach ($metaData->fetch_fields() as $col) {
-            ${$col->name} = null;
-            $bindParams[] = &${$col->name};
-            $params[] = $col->name;
-        }
-
-        call_user_func_array(array($this->statement, 'bind_result'), $bindParams);
-
         $rows = array();
 
-        while (($row = $this->statement->fetch()) != false) {
-            $ary = array();
-            foreach ($bindParams as $dbColumnName => $dbColumnValue) {
-                $ary[$params[$dbColumnName]] = $dbColumnValue;
-            }
-            $rows[] = $ary;
+        while (($row = $this->fetch()) != false) {
+            $rows[] = $row;
         }
 
         return $rows;
@@ -166,7 +150,7 @@ class Mysqli extends AbstractAdapter
             throw new Exception('Error: The database statement resource is not currently set.');
         }
 
-        $this->statement->execute();
+        sqlsrv_execute($this->statement);
     }
 
     /**
@@ -177,7 +161,7 @@ class Mysqli extends AbstractAdapter
      */
     public function query($sql)
     {
-        if (!($this->result = $this->connection->query($sql))) {
+        if (!($this->result = sqlsrv_query($this->connection, $sql))) {
             $this->showError();
         }
     }
@@ -191,13 +175,13 @@ class Mysqli extends AbstractAdapter
     public function fetch()
     {
         if (null !== $this->statement) {
-            return $this->statement->fetch();
+            return sqlsrv_fetch_array($this->statement, SQLSRV_FETCH_ASSOC);
         } else {
             if (!isset($this->result)) {
                 throw new Exception('Error: The database result resource is not currently set.');
             }
 
-            return $this->result->fetch_array(MYSQLI_ASSOC);
+            return sqlsrv_fetch_array($this->result, SQLSRV_FETCH_ASSOC);
         }
     }
 
@@ -209,7 +193,7 @@ class Mysqli extends AbstractAdapter
      */
     public function escape($value)
     {
-        return $this->connection->real_escape_string($value);
+        return (string)String::factory($value)->escape(true);
     }
 
     /**
@@ -219,7 +203,10 @@ class Mysqli extends AbstractAdapter
      */
     public function lastId()
     {
-        return $this->connection->insert_id;
+        $this->query('SELECT SCOPE_IDENTITY() as Current_Identity');
+        $row = $this->fetch();
+        
+        return (isset($row['Current_Identity'])) ? $row['Current_Identity'] : null;
     }
 
     /**
@@ -231,10 +218,9 @@ class Mysqli extends AbstractAdapter
     public function numRows()
     {
         if (isset($this->statement)) {
-            $this->statement->store_result();
-            return $this->statement->num_rows;
+            return sqlsrv_num_rows($this->statement);
         } else if (isset($this->result)) {
-            return $this->result->num_rows;
+            return sqlsrv_num_rows($this->result);
         } else {
             throw new Exception('Error: The database result resource is not currently set.');
         }
@@ -249,10 +235,9 @@ class Mysqli extends AbstractAdapter
     public function numFields()
     {
         if (isset($this->statement)) {
-            $this->statement->store_result();
-            return $this->statement->field_count;
+            return sqlsrv_num_fields($this->statement);
         } else if (isset($this->result)) {
-            return $this->connection->field_count;
+            return sqlsrv_num_fields($this->result);
         } else {
             throw new Exception('Error: The database result resource is not currently set.');
         }
@@ -265,7 +250,8 @@ class Mysqli extends AbstractAdapter
      */
     public function version()
     {
-        return 'MySQL ' . $this->connection->server_info;
+        $server = sqlsrv_server_info($this->connection);
+        return $server['SQLServerName'] . ': ' . $server['SQLServerVersion'];
     }
 
     /**
@@ -277,7 +263,7 @@ class Mysqli extends AbstractAdapter
     {
         $tables = array();
 
-        $this->query('SHOW TABLES');
+        $this->query("SELECT name FROM " . $this->database . "..sysobjects WHERE xtype = 'U'");
         while (($row = $this->fetch()) != false) {
             foreach($row as $value) {
                 $tables[] = $value;
@@ -294,7 +280,7 @@ class Mysqli extends AbstractAdapter
      */
     public function __destruct()
     {
-        $this->connection->close();
+        sqlsrv_close($this->connection);
     }
 
 }

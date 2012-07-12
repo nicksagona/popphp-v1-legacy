@@ -93,7 +93,7 @@ class Pgsql extends AbstractAdapter
      * Prepare a SQL query.
      *
      * @param  string $sql
-     * @return Pop_Db_Adapter_Pgsql
+     * @return Pop\Db\Adapter\Pgsql
      */
     public function prepare($sql)
     {
@@ -106,7 +106,7 @@ class Pgsql extends AbstractAdapter
      * Bind parameters to for a prepared SQL query.
      *
      * @param  string|array  $params
-     * @return Pop_Db_Adapter_Pgsql
+     * @return Pop\Db\Adapter\Pgsql
      */
     public function bindParams($params)
     {
