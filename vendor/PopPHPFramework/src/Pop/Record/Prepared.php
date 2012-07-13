@@ -109,7 +109,7 @@ class Prepared extends AbstractRecord
         }
 
         if (null !== $limit) {
-            $this->db->sql->limit($this->db->adapter->escape((int)$limit));
+            $this->db->sql->limit($this->db->adapter->escape($limit));
         }
 
         $this->db->adapter->prepare($this->db->sql->getSql());
@@ -149,7 +149,7 @@ class Prepared extends AbstractRecord
                       ->where($column, '=', $this->getPlaceholder($column));
 
         if (null !== $limit) {
-            $this->db->sql->limit($this->db->adapter->escape((int)$limit));
+            $this->db->sql->limit($this->db->adapter->escape($limit));
         }
 
         $this->db->adapter->prepare($this->db->sql->getSql());
@@ -192,7 +192,7 @@ class Prepared extends AbstractRecord
 
         // Set any limit to the SQL query.
         if (null !== $limit) {
-            $this->db->sql->limit($this->db->adapter->escape((int)$limit));
+            $this->db->sql->limit($this->db->adapter->escape($limit));
         }
 
         $this->db->adapter->prepare($this->db->sql->getSql());
@@ -242,7 +242,7 @@ class Prepared extends AbstractRecord
 
         // Set any limit to the SQL query.
         if (null !== $limit) {
-            $this->db->sql->limit($this->db->adapter->escape((int)$limit));
+            $this->db->sql->limit($this->db->adapter->escape($limit));
         }
 
         $this->db->adapter->prepare($this->db->sql->getSql());
@@ -292,7 +292,7 @@ class Prepared extends AbstractRecord
 
         // Set any limit to the SQL query.
         if (null !== $limit) {
-            $this->db->sql->limit($this->db->adapter->escape((int)$limit));
+            $this->db->sql->limit($this->db->adapter->escape($limit));
         }
 
         $this->db->adapter->prepare($this->db->sql->getSql());
@@ -340,7 +340,7 @@ class Prepared extends AbstractRecord
 
         // Set any limit to the SQL query.
         if (null !== $limit) {
-            $this->db->sql->limit($this->db->adapter->escape((int)$limit));
+            $this->db->sql->limit($this->db->adapter->escape($limit));
         }
 
         $this->db->adapter->prepare($this->db->sql->getSql());
