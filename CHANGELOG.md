@@ -23,6 +23,7 @@ COMPLETED:
     - Add support for prepared/binded statements
         + MySQLi
         + MSSQL (via SqlSrv)
+        + Oracle
         + PostgreSQL
         + SQLite
         + PDO

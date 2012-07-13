@@ -24,13 +24,7 @@
  */
 namespace Pop\Db;
 
-use Pop\Db\Sql,
-    Pop\Db\Adapter\Mssql,
-    Pop\Db\Adapter\Mysql,
-    Pop\Db\Adapter\Mysqli,
-    Pop\Db\Adapter\Pdo,
-    Pop\Db\Adapter\Pgsql,
-    Pop\Db\Adapter\Sqlite;
+use Pop\Db\Sql;
 
 /**
  * This is the Db class for the Db component.
