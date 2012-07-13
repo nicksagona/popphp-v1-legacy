@@ -20,9 +20,11 @@ COMPLETED:
     - Add multiple database connection support
     - Add SQL query builder object/API to the DB component
     - Add PDO support
+    - Add MSSQL support (via SqlSrv)
+    - Add Oracle support
     - Add support for prepared/binded statements
         + MySQLi
-        + MSSQL (via SqlSrv)
+        + MSSQL
         + Oracle
         + PostgreSQL
         + SQLite
