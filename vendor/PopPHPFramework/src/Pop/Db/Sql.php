@@ -193,7 +193,7 @@ class Sql
     public function setDbType($db = null)
     {
         $dbType = (int)$db;
-        $this->dbType = (($dbType > 4) && ($dbType < 10)) ?$dbType : null;
+        $this->dbType = (($dbType > 4) && ($dbType < 10)) ? $dbType : null;
 
         return $this;
     }
