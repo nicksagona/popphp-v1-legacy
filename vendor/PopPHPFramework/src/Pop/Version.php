@@ -136,8 +136,10 @@ class Version
         $check['cURL'] = (function_exists('curl_init'))  ? 'Yes' : 'No';
 
         // DB
+        $check['Db MSSQL'] = (function_exists('sqlsrv_connect'))  ? 'Yes' : 'No';
         $check['Db MySql'] = (function_exists('mysql_connect'))  ? 'Yes' : 'No';
         $check['Db MySqli'] = (class_exists('mysqli')) ? 'Yes' : 'No';
+        $check['Db Oracle'] = (function_exists('oci_connect'))  ? 'Yes' : 'No';
         $check['Db Pdo'] = (class_exists('Pdo', false))  ? 'Yes' : 'No';
         $check['Db PgSql'] = (function_exists('pg_connect'))  ? 'Yes' : 'No';
         $check['Db Sqlite'] = (class_exists('Sqlite3', false))  ? 'Yes' : 'No';
