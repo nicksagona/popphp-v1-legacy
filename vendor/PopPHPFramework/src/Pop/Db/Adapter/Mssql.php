@@ -44,7 +44,7 @@ class Mssql extends AbstractAdapter
      * @var string
      */
     protected $database = null;
-    
+
     /**
      * Prepared statement
      * @var Resource
@@ -71,7 +71,7 @@ class Mssql extends AbstractAdapter
         if ($this->connection == false) {
             throw new Exception('Error: Could not connect to database. ' . PHP_EOL . $this->getErrors());
         }
-        
+
         $this->database = $options['database'];
     }
 
@@ -95,11 +95,11 @@ class Mssql extends AbstractAdapter
     {
         $errors = null;
         $errorAry = sqlsrv_errors();
-        
+
         foreach ($errorAry as $key => $value) {
-            $errors .= 'SQLSTATE: ' . $value['SQLSTATE'] . ', CODE: ' . $value['code'] . ' => ' . stripslashes($value['message']) . PHP_EOL; 
+            $errors .= 'SQLSTATE: ' . $value['SQLSTATE'] . ', CODE: ' . $value['code'] . ' => ' . stripslashes($value['message']) . PHP_EOL;
         }
-        
+
         return $errors;
     }
 
@@ -118,7 +118,7 @@ class Mssql extends AbstractAdapter
         } else {
             $this->statement = sqlsrv_prepare($this->connection, $sql);
         }
-        
+
         return $this;
     }
 
@@ -205,7 +205,7 @@ class Mssql extends AbstractAdapter
     {
         $this->query('SELECT SCOPE_IDENTITY() as Current_Identity');
         $row = $this->fetch();
-        
+
         return (isset($row['Current_Identity'])) ? $row['Current_Identity'] : null;
     }
 

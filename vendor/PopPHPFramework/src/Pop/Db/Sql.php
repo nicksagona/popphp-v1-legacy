@@ -62,6 +62,42 @@ class Sql
     const BRACKET = 4;
 
     /**
+     * Constant for MYSQL database type
+     * @var int
+     */
+    const MYSQL = 5;
+
+    /**
+     * Constant for MSSQL database type
+     * @var int
+     */
+    const MSSQL = 6;
+
+    /**
+     * Constant for Oracle database type
+     * @var int
+     */
+    const ORACLE = 7;
+
+    /**
+     * Constant for PGSQL database type
+     * @var int
+     */
+    const PGSQL = 8;
+
+    /**
+     * Constant for SQLITE database type
+     * @var int
+     */
+    const SQLITE = 9;
+
+    /**
+     * Database type
+     * @var int
+     */
+    protected $dbType = null;
+
+    /**
      * Current selected table
      * @var string
      */
@@ -149,6 +185,20 @@ class Sql
     }
 
     /**
+     * Set the database type
+     *
+     * @param  string $table
+     * @return Pop\Db\Sql
+     */
+    public function setDbType($db = null)
+    {
+        $dbType = (int)$db;
+        $this->dbType = (($dbType > 4) && ($dbType < 10)) ?$dbType : null;
+
+        return $this;
+    }
+
+    /**
      * Set current table to operate on.
      *
      * @param  string $table
@@ -202,6 +252,16 @@ class Sql
         }
 
         return $this;
+    }
+
+    /**
+     * Get the current database type.
+     *
+     * @return int
+     */
+    public function getDbType()
+    {
+        return $this->dbType;
     }
 
     /**
@@ -371,7 +431,7 @@ class Sql
      */
     public function where($column, $comparison, $value, $conjunction = 'AND')
     {
-        $allowedComps = array('=', '!=', '<', '>', '<=', '>=', 'LIKE', 'NOT LIKE');
+        $allowedComps = array('=', '!=', '<', '>', '<=', '>=', 'LIKE', 'NOT LIKE', 'BETWEEN', 'NOT BETWEEN');
 
         $comp = (in_array(strtoupper($comparison), $allowedComps)) ? strtoupper($comparison) : '=';
         $conj = (strtoupper($conjunction) == 'OR') ? 'OR' : 'AND';
@@ -381,7 +441,7 @@ class Sql
         $this->where[] = array(
             'column'      => $this->quoteId($column),
             'comparison'  => $comp,
-            'value'       => $quote . $value . $quote,
+            'value'       => $quote . str_replace(' AND ', $quote . ' AND ' . $quote, $value) . $quote,
             'conjunction' => $conj
         );
 
@@ -418,12 +478,12 @@ class Sql
     /**
      * Set the query LIMIT value.
      *
-     * @param  int $limit
+     * @param  mixed $limit
      * @return Pop\Db\Sql
      */
     public function limit($limit)
     {
-        $this->limit = (int)$limit;
+        $this->limit = $limit;
         return $this;
     }
 
@@ -444,46 +504,7 @@ class Sql
         switch ($this->type) {
             // Build a SELECT query.
             case 'SELECT':
-                $selectColumns = ($this->distinct) ? 'DISTINCT ' : null;
-                if ((count($this->selectColumns) == 1) && ($this->selectColumns[0] == '*')) {
-                    $selectColumns .= '*';
-                } else {
-                    $selAry = array();
-                    foreach ($this->selectColumns as $value) {
-                        $selAry[] = $this->quoteId($value);
-                    }
-                    $selectColumns .= implode(', ', $selAry);
-                }
-
-                $this->sql = $this->type . ' ' . $selectColumns . ' FROM ' . $this->quoteId($this->table);
-
-                // If there is a join clause.
-                if (count($this->join) > 0) {
-                    if (is_array($this->join['commonColumn'])) {
-                        $col1 = $this->join['commonColumn'][0];
-                        $col2 = $this->join['commonColumn'][1];
-                    } else {
-                        $col1 = $this->join['commonColumn'];
-                        $col2 = $this->join['commonColumn'];
-                    }
-                    $this->sql .= ' ' . $this->join['typeOfJoin'] . ' ' . $this->join['tableToJoin'] . ' ON ' . $this->quoteId($this->table) . '.' . $col1 . ' = ' . $this->join['tableToJoin'] . '.' . $col2;
-                }
-
-                // If there is a where clause.
-                if (count($this->where) > 0) {
-                    $this->sql .= ' WHERE ' . $this->formatWhereConditions();
-                }
-
-                // If there is an order clause.
-                if (null !== $this->order) {
-                    $this->sql .= ' ORDER BY ' . $this->order;
-                }
-
-                // If there is a limit clause.
-                if (null !== $this->limit) {
-                    $this->sql .= ' LIMIT ' . $this->limit;
-                }
-
+                $this->buildSelectSql();
                 break;
 
             // Build an INSERT query.
@@ -512,6 +533,87 @@ class Sql
                 }
 
                 break;
+        }
+    }
+
+    /**
+     * Method to build the select query
+     *
+     * @throws Exception
+     * @return string
+     */
+    protected function buildSelectSql()
+    {
+        $selectColumns = ($this->distinct) ? 'DISTINCT ' : null;
+        if ((count($this->selectColumns) == 1) && ($this->selectColumns[0] == '*')) {
+            $selectColumns .= '*';
+        } else {
+            $selAry = array();
+            foreach ($this->selectColumns as $value) {
+                $selAry[] = $this->quoteId($value);
+            }
+            $selectColumns .= implode(', ', $selAry);
+        }
+
+        $this->sql = $this->type . ' ' . $selectColumns . ' FROM ';
+
+        // Account for LIMIT clause if the database is ORACLE
+        if (($this->dbType == self::ORACLE) && (null !== $this->limit)) {
+            if (null === $this->order) {
+                throw new Exception('Error: You must set and order field to execute a limit clause on the Oracle databse.');
+            }
+
+            $this->sql .= '(SELECT t.*, ROW_NUMBER() OVER (ORDER BY ' . $this->order . ') RowNumber FROM ' . $this->quoteId($this->table) . ' t)';
+            if (strpos($this->limit, ',') !== false) {
+                $lim = explode(',', $this->limit);
+                $this->where('RowNumber', 'BETWEEN', trim($lim[0]) . ' AND ' . trim($lim[1]));
+            } else {
+                $this->where('RowNumber', '<=', $this->limit);
+            }
+        // Account for LIMIT clause if the database is MSSQL
+        } else if (($this->dbType == self::MSSQL) && (null !== $this->limit)) {
+            if (strpos($this->limit, ',') !== false) {
+                if (null === $this->order) {
+                    throw new Exception('Error: You must set and order field to execute a limit clause on the Oracle databse.');
+                }
+                $lim = explode(',', $this->limit);
+                $this->sql .= '(SELECT *, ROW_NUMBER() OVER (ORDER BY ' . $this->order . ') AS RowNumber FROM ' . $this->quoteId($this->table) . ') AS OrderedTable';
+                $this->where('OrderedTable.RowNumber', 'BETWEEN', trim($lim[0]) . ' AND ' . trim($lim[1]));
+            } else {
+                $this->sql = str_replace('SELECT', 'SELECT TOP ' . $this->limit, $this->sql);
+                $this->sql .= $this->quoteId($this->table);
+            }
+        } else {
+            $this->sql .= $this->quoteId($this->table);
+        }
+
+        // If there is a join clause.
+        if (count($this->join) > 0) {
+            if (is_array($this->join['commonColumn'])) {
+                $col1 = $this->join['commonColumn'][0];
+                $col2 = $this->join['commonColumn'][1];
+            } else {
+                $col1 = $this->join['commonColumn'];
+                $col2 = $this->join['commonColumn'];
+            }
+            $this->sql .= ' ' . $this->join['typeOfJoin'] . ' ' . $this->join['tableToJoin'] . ' ON ' . $this->quoteId($this->table) . '.' . $col1 . ' = ' . $this->join['tableToJoin'] . '.' . $col2;
+        }
+
+        // If there is a where clause.
+        if (count($this->where) > 0) {
+            $this->sql .= ' WHERE ' . $this->formatWhereConditions();
+        }
+
+        // If there is an order clause.
+        if (null !== $this->order) {
+            $this->sql .= ' ORDER BY ' . $this->order;
+        }
+
+        // If there is a limit clause for all other database types.
+        if (($this->dbType != self::MSSQL) && ($this->dbType != self::ORACLE)) {
+            if (null !== $this->limit) {
+                $this->sql .= ' LIMIT ' . $this->limit;
+            }
         }
     }
 
@@ -547,7 +649,10 @@ class Sql
 
         if (strpos($id, '.') !== false) {
             $idAry = explode('.', $id);
-            $quotedId = $this->getIdQuote() . $idAry[0] . $this->getIdQuote(true) . '.' . $this->getIdQuote() . $idAry[1] . $this->getIdQuote(true);
+            foreach ($idAry as $key => $value) {
+                $idAry[$key] = $this->getIdQuote() . $value . $this->getIdQuote(true);
+            }
+            $quotedId = implode('.', $idAry);
         } else {
             $quotedId = $this->getIdQuote() . $id . $this->getIdQuote(true);
         }
