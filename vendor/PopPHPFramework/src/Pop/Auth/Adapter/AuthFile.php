@@ -89,7 +89,7 @@ class AuthFile extends File implements AdapterInterface
             $result = Auth::USER_NOT_FOUND;
         } else if ($this->users[$username]['password'] != $password) {
             $result = Auth::PASSWORD_INCORRECT;
-        } else if ((strtolower($this->users[$username]['access']) == 'blocked') || ($this->users[$username]['access'] == 0)) {
+        } else if ((strtolower($this->users[$username]['access']) == 'blocked') || (is_numeric($this->users[$username]['access']) && ($this->users[$username]['access'] == 0))) {
             $result = Auth::USER_IS_BLOCKED;
         } else {
             $access = $this->users[$username]['access'];

@@ -12,7 +12,7 @@ try {
     $password = '90test12';
 
     // Create auth object
-    $auth = new Auth(new AuthFile('../assets/files/access_sha1.txt'), 0, Auth::ENCRYPT_SHA1);
+    $auth = new Auth(new AuthFile('../assets/files/access_sha1.txt'), Auth::ENCRYPT_SHA1);
 
     // Add some roles
     $auth->addRoles(array(

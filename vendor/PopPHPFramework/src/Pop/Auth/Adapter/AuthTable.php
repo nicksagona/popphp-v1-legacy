@@ -105,7 +105,7 @@ class AuthTable implements AdapterInterface
             $result = Auth::USER_NOT_FOUND;
         } else if ($user->$passwordField != $password) {
             $result = Auth::PASSWORD_INCORRECT;
-            } else if ((null !== $accessField) && ((strtolower($user->$accessField) == 'blocked') || ($user->$accessField == 0))) {
+            } else if ((null !== $accessField) && ((strtolower($user->$accessField) == 'blocked') || (is_numeric($user->$accessField) && ($user->$accessField == 0)))) {
             $result = Auth::USER_IS_BLOCKED;
         } else {
             if ((null !== $accessField) && (isset($user->$accessField))) {
