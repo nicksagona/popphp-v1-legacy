@@ -484,13 +484,16 @@ class Paginator
         $this->links = array();
 
         // Preserve any passed GET parameters.
-        $uri = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '?'));
         $query = null;
-
-        if (count($_GET) > 0) {
-            foreach ($_GET as $key => $value) {
-                if ($key != 'page') {
-                    $query .= '&' . $key . '=' . $value;
+        $uri = null;
+        if (isset($_SERVER['REQUEST_URI'])) {
+            $uri = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '?'));
+    
+            if (count($_GET) > 0) {
+                foreach ($_GET as $key => $value) {
+                    if ($key != 'page') {
+                        $query .= '&' . $key . '=' . $value;
+                    }
                 }
             }
         }

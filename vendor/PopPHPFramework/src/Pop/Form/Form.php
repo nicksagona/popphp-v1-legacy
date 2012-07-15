@@ -130,7 +130,11 @@ class Form extends Dom
         if (!$isValid) {
             throw new Exception('The array parameter passed must contain an array of field values.');
         }
-
+        
+        foreach ($fields as $key => $value) {
+            $this->fields[$value['name']] = (isset($value['value'])) ? $value['value'] : null;
+        }
+        
         $this->initFieldsValues = $fields;
         return $this;
     }

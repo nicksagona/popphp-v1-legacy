@@ -168,16 +168,18 @@ class Imagick extends AbstractImage
         $imagickFile = null;
         $imgFile = null;
 
-        // If image passed is a paged images, like a PDF
+        // If image passed is a paged image, like a PDF
         if (!file_exists($img) && (strpos($img, '[') !== false)) {
-            $imagickFile = $img;
             $imgFile = trim(substr($img, 0, strpos($img, '[')));
             $imgFile .= substr($img, (strpos($img, ']') + 1));
+            $page = substr($img, strpos($img, '['));
+            $page = substr($page, 0, (strpos($page, ']') + 1));
             $img = $imgFile;
+            $imagickFile = (file_exists($imgFile)) ? realpath($imgFile) . $page : $img;
         // Else, continue
         } else {
             $imgFile = $img;
-            $imagickFile = $img;
+            $imagickFile = realpath($img);
         }
 
         parent::__construct($img, $w, $h, $color, $types);
@@ -189,7 +191,7 @@ class Imagick extends AbstractImage
 
         // If image exists, get image info and store in an array.
         if (file_exists($this->fullpath) && ($this->size > 0)) {
-            $this->resource = new \Imagick(realpath($imagickFile));
+            $this->resource = new \Imagick($imagickFile);
             $this->setImageInfo();
             $this->setQuality(100);
         // If image does not exists, check to make sure the width and height
