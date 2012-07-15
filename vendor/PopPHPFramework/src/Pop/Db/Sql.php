@@ -574,7 +574,7 @@ class Sql
         } else if (($this->dbType == self::MSSQL) && (null !== $this->limit)) {
             if (strpos($this->limit, ',') !== false) {
                 if (null === $this->order) {
-                    throw new Exception('Error: You must set and order field to execute a limit clause on the Oracle databse.');
+                    throw new Exception('Error: You must set and order field to execute a limit clause on the MSSQL databse.');
                 }
                 $lim = explode(',', $this->limit);
                 $this->sql .= '(SELECT *, ROW_NUMBER() OVER (ORDER BY ' . $this->order . ') AS RowNumber FROM ' . $this->quoteId($this->table) . ') AS OrderedTable';

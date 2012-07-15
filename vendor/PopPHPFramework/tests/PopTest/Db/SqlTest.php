@@ -64,6 +64,13 @@ class SqlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $s->getIdQuote());
     }
 
+    public function testSetAndGetDbType()
+    {
+        $s = new Sql('users');
+        $s->setDbType(Sql::MSSQL);
+        $this->assertEquals(6, $s->getDbType());
+    }
+
     public function testDistinct()
     {
         $s = new Sql('users');
@@ -115,6 +122,62 @@ class SqlTest extends \PHPUnit_Framework_TestCase
           ->order('email')
           ->limit(3);
         $this->assertEquals("SELECT * FROM users LEFT JOIN admins ON users.email = admins.name ORDER BY email ASC LIMIT 3", $s->getSql());
+    }
+
+    public function testMsSql()
+    {
+        $s = new Sql('users');
+        $s->setDbType(Sql::MSSQL)
+          ->setIdQuoteType(Sql::BRACKET)
+          ->select('email')
+          ->limit(5);
+        $this->assertEquals("SELECT TOP 5 [email] FROM [users]", $s->getSql());
+
+        $s = new Sql('users');
+        $s->setDbType(Sql::MSSQL)
+          ->setIdQuoteType(Sql::BRACKET)
+          ->select('email')
+          ->order('id')
+          ->limit('5, 10');
+        $this->assertEquals("SELECT [email] FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY [id] ASC) AS RowNumber FROM [users]) AS OrderedTable WHERE ([OrderedTable].[RowNumber] BETWEEN '5' AND '10') ORDER BY [id] ASC", $s->getSql());
+    }
+
+    public function testMsSqlException()
+    {
+        $s = new Sql('users');
+        $s->setDbType(Sql::MSSQL)
+          ->setIdQuoteType(Sql::BRACKET)
+          ->select('email')
+          ->limit('5, 10');
+        $this->setExpectedException('Pop\\Db\\Exception');
+        $sql = $s->getSql();
+    }
+
+    public function testOracleSql()
+    {
+        $s = new Sql('users');
+        $s->setDbType(Sql::ORACLE)
+          ->select('email')
+          ->order('id')
+          ->limit(5);
+        $this->assertEquals("SELECT email FROM (SELECT t.*, ROW_NUMBER() OVER (ORDER BY id ASC) RowNumber FROM users t) WHERE (RowNumber <= '5') ORDER BY id ASC", $s->getSql());
+
+        $s = new Sql('users');
+        $s->setDbType(Sql::ORACLE)
+          ->select('email')
+          ->order('id')
+          ->limit('5, 10');
+        $this->assertEquals("SELECT email FROM (SELECT t.*, ROW_NUMBER() OVER (ORDER BY id ASC) RowNumber FROM users t) WHERE (RowNumber BETWEEN '5' AND '10') ORDER BY id ASC", $s->getSql());
+    }
+
+    public function testOracleException()
+    {
+        $s = new Sql('users');
+        $s->setDbType(Sql::ORACLE)
+          ->select('email')
+          ->limit('5, 10');
+        $this->setExpectedException('Pop\\Db\\Exception');
+        $sql = $s->getSql();
     }
 
     public function testBuildTableException()
