@@ -76,13 +76,14 @@ abstract class AbstractValidator implements ValidatorInterface
      *
      * @param  mixed   $value
      * @param  boolean $condition
+     * @param  string  $msg
      * @return void
      */
     public function __construct($value = null, $condition = true, $msg = null)
     {
         $this->value = $value;
         $this->condition = (boolean)$condition;
-        
+
         if (null !== $msg) {
             $this->defaultMessage = $msg;
         }

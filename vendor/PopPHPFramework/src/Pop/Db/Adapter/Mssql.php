@@ -107,6 +107,8 @@ class Mssql extends AbstractAdapter
      * Prepare a SQL query.
      *
      * @param  string $sql
+     * @param  mixed  @params
+     * @param  mixed  @options
      * @return Pop\Db\Adapter\Mssql
      */
     public function prepare($sql, $params = null, $options = null)

@@ -236,14 +236,14 @@ class Data
     /**
      * Write the data stream to a file
      *
-     * @param  string $to
+     * @param  string $toFile
      * @throws Exception
      * @return Pop\Data\Data
      */
     public function writeData($toFile)
     {
         $file = new File($toFile);
-        
+
         $to = strtolower($file->ext);
         $types = array('csv', 'json', 'sql', 'xml', 'yaml');
 
@@ -263,7 +263,7 @@ class Data
 
         $file->write($this->file)
              ->save();
-             
+
         return $this;
     }
 

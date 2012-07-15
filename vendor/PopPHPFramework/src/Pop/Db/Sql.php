@@ -187,7 +187,7 @@ class Sql
     /**
      * Set the database type
      *
-     * @param  string $table
+     * @param  string $db
      * @return Pop\Db\Sql
      */
     public function setDbType($db = null)
