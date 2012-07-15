@@ -6,13 +6,15 @@ Documentation : Db
 
 La composante Db offre un accès normalisé aux bases de données de la requête. Les cartes prises en charge sont les suivants:
 
+* mssql (via sqlsrv)
 * mysql
 * mysqli
+* oracle
 * pdo
 * pgsql
 * sqlite
 
-Les requêtes préparées sont pris en charge avec le Mysqli, PDO, PgSQL et adapaters Sqlite. Les valeurs d'échappement sont disponibles pour tous les adaptateurs.
+Les requêtes préparées sont pris en charge avec le MSSQL (via SqlSrv), MySQLi, Oracle, PDO, PostgreSQL et SQLite adapaters. Les valeurs d'échappement sont disponibles pour tous les adaptateurs.
 
 <pre>
 use Pop\Db\Db;

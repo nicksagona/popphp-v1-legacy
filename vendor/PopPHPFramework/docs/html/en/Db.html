@@ -37,14 +37,16 @@
             The Db component provides normalized access to query databases. The supported adapters are:
         </p>
         <ul>
+            <li>mssql (via sqlsrv)</li>
             <li>mysql</li>
             <li>mysqli</li>
+            <li>oracle</li>
             <li>pdo</li>
             <li>pgsql</li>
             <li>sqlite</li>
         </ul>
         <p>
-            Prepared statements are supported with the Mysqli, Pdo, Pgsql and Sqlite adapaters. Escaped values are available for all of the adapters.
+            Prepared statements are supported with the MSSQL (via SqlSrv), MySQLi, Oracle, PDO, PostgreSQL and SQLite adapaters. Escaped values are available for all of the adapters.
         </p>
 <pre>
 use Pop\Db\Db;

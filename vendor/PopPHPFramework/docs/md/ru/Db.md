@@ -6,13 +6,15 @@ Documentation : Db
 
 Db компонент обеспечивает доступ к нормированной запросы к базам данных. Поддерживаемые адаптеры:
 
+* mssql (via sqlsrv)
 * mysql
 * mysqli
+* oracle
 * pdo
 * pgsql
 * sqlite
 
-Подготовленные заявления поддерживаются MySQLi, PDO, PgSQL и Sqlite adapaters. Сбежавший значения доступны для всех адаптеров.
+Подготовленные заявления поддерживаются MSSQL (via SqlSrv), MySQLi, Oracle, PDO, PostgreSQL и SQLite adapaters. Сбежавший значения доступны для всех адаптеров.
 
 <pre>
 use Pop\Db\Db;

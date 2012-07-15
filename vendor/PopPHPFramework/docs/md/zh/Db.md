@@ -6,13 +6,15 @@ Documentation : Db
 
 DB组件提供查询数据库的规范化访问。所支持的适配器：
 
+* mssql (via sqlsrv)
 * mysql
 * mysqli
+* oracle
 * pdo
 * pgsql
 * sqlite
 
-支持和mysqli，PDO，pgSQL的sqlite的adapaters准备好的语句。逃脱的值是所有适配器。
+支持和MSSQL (via SqlSrv)， MySQLi，Oracle， PDO，PostgreSQL的SQLite的adapaters准备好的语句。逃脱的值是所有适配器。
 
 <pre>
 use Pop\Db\Db;

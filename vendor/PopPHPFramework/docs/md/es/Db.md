@@ -6,13 +6,15 @@ Documentation : Db
 
 El componente DB proporciona un acceso normalizado a bases de datos de consulta. Los adaptadores soportados son:
 
+* mssql (via sqlsrv)
 * mysql
 * mysqli
+* oracle
 * pdo
 * pgsql
 * sqlite
 
-Declaraciones preparadas son compatibles con el mysqli, DOP, pgsql y adapaters SQLite. Los valores de escape están disponibles para todos los adaptadores.
+Declaraciones preparadas son compatibles con el MSSQL (via SqlSrv), MySQLi, Oracle, PDO, PostgreSQL y SQLite adapaters. Los valores de escape están disponibles para todos los adaptadores.
 
 <pre>
 use Pop\Db\Db;
