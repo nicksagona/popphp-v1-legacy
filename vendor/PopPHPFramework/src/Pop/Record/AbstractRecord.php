@@ -124,6 +124,11 @@ abstract class AbstractRecord
             $ord = null;
         }
 
+        if (strpos($by, ',') !== false) {
+            $by = str_replace(', ', ',', $by);
+            $by = explode(',', $by);
+        }
+
         return array('by' => $by, 'order' => $ord);
     }
 

@@ -163,7 +163,15 @@ class Escaped extends AbstractRecord
         // Set the SQL query to a specific order, if given.
         if (null !== $order) {
             $ord = $this->getOrder($order);
-            $this->db->sql->order($this->db->adapter->escape($ord['by']), $this->db->adapter->escape($ord['order']));
+            if (is_array($ord['by'])) {
+                $by = array();
+                foreach ($ord['by'] as $b) {
+                    $by[] = $this->db->adapter->escape($b);
+                }
+            } else {
+                $by = $this->db->adapter->escape($ord['by']);
+            }
+            $this->db->sql->order($by, $this->db->adapter->escape($ord['order']));
         }
 
         // Set any limit to the SQL query.
@@ -209,7 +217,15 @@ class Escaped extends AbstractRecord
         // Set the SQL query to a specific order, if given.
         if (null !== $order) {
             $ord = $this->getOrder($order);
-            $this->db->sql->order($this->db->adapter->escape($ord['by']), $this->db->adapter->escape($ord['order']));
+            if (is_array($ord['by'])) {
+                $by = array();
+                foreach ($ord['by'] as $b) {
+                    $by[] = $this->db->adapter->escape($b);
+                }
+            } else {
+                $by = $this->db->adapter->escape($ord['by']);
+            }
+            $this->db->sql->order($by, $this->db->adapter->escape($ord['order']));
         }
 
         // Set any limit to the SQL query.
@@ -253,7 +269,15 @@ class Escaped extends AbstractRecord
         // Set the SQL query to a specific order, if given.
         if (null !== $order) {
             $ord = $this->getOrder($order);
-            $this->db->sql->order($this->db->adapter->escape($ord['by']), $this->db->adapter->escape($ord['order']));
+            if (is_array($ord['by'])) {
+                $by = array();
+                foreach ($ord['by'] as $b) {
+                    $by[] = $this->db->adapter->escape($b);
+                }
+            } else {
+                $by = $this->db->adapter->escape($ord['by']);
+            }
+            $this->db->sql->order($by, $this->db->adapter->escape($ord['order']));
         }
 
         // Set any limit to the SQL query.
@@ -297,7 +321,15 @@ class Escaped extends AbstractRecord
         // Set the SQL query to a specific order, if given.
         if (null !== $order) {
             $ord = $this->getOrder($order);
-            $this->db->sql->order($this->tableName . '.' . $this->db->adapter->escape($ord['by']), $this->db->adapter->escape($ord['order']));
+            if (is_array($ord['by'])) {
+                $by = array();
+                foreach ($ord['by'] as $b) {
+                    $by[] = $this->tableName . '.' . $this->db->adapter->escape($b);
+                }
+            } else {
+                $by = $this->tableName . '.' . $this->db->adapter->escape($ord['by']);
+            }
+            $this->db->sql->order($by, $this->db->adapter->escape($ord['order']));
         }
 
         // Set any limit to the SQL query.
