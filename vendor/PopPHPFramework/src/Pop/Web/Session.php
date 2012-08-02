@@ -60,8 +60,10 @@ class Session
     private function __construct()
     {
         // Start a session and set the session id.
-        session_start();
-        $this->sessionId = session_id();
+        if (session_id() == '') {
+            session_start();
+            $this->sessionId = session_id();
+        }
     }
 
     /**
