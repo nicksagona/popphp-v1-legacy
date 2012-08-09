@@ -232,6 +232,7 @@ class Sql
         switch ($type) {
             case self::BACKTICK:
                 $this->idQuoteType = self::BACKTICK;
+                $this->dbType = self::MYSQL;
                 break;
 
             case self::SINGLE_QUOTE:
@@ -244,6 +245,7 @@ class Sql
 
             case self::BRACKET:
                 $this->idQuoteType = self::BRACKET;
+                $this->dbType = self::MSSQL;
                 break;
 
             default:
