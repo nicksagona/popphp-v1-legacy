@@ -13,8 +13,8 @@ use Pop\Auth\Auth,
     Pop\Auth\Adapter\AuthTable;
 
 // Create the Auth object using a table in the database or a local access file.
-$auth = new Auth(new AuthTable('MyApp\\Table\\Users'), 0, Auth::ENCRYPT_SHA1);
-//$auth = new Auth(new AuthFile('../access/users.txt'), 0, Auth::ENCRYPT_SHA1);
+$auth = new Auth(new AuthTable('MyApp\\Table\\Users'), Auth::ENCRYPT_SHA1);
+//$auth = new Auth(new AuthFile('../access/users.txt'), Auth::ENCRYPT_SHA1);
 
 // Add some roles
 $auth->addRoles(array(
