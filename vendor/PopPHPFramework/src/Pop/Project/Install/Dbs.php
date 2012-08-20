@@ -56,16 +56,22 @@ class Dbs
             ($db['type'] != 'Mysqli') &&
             ($db['type'] != 'Mssql') &&
             ($db['type'] != 'Oracle') &&
-            ($db['type'] != 'Pdo') &&
             ($db['type'] != 'Pgsql') &&
-            ($db['type'] != 'Sqlite')) {
+            ($db['type'] != 'Sqlite') &&
+            (stripos($db['type'], 'Pdo') === false)) {
             return 'The database type \'' . $db['type'] . '\' is not valid.';
         } else {
             try {
                 $result = null;
                 // Test the db connection
                 if ($db['type'] != 'Sqlite') {
-                    $dbconn = Db::factory($db['type'], $db);
+                    if (stripos($db['type'], 'Pdo_') !== false) {
+                        $type = 'Pdo';
+                        $db['type'] = strtolower(substr($db['type'], (strpos($db['type'], '_') + 1)));
+                    } else {
+                        $type = $db['type'];
+                    }
+                    $dbconn = Db::factory($type, $db);
                 }
                 return $result;
             } catch (\Exception $e) {
