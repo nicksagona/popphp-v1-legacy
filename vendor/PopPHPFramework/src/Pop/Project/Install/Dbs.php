@@ -90,42 +90,56 @@ class Dbs
      * @throws Exception
      * @return array
      */
-    public static function install($dbname, $db, $dir, $install)
+    public static function install($dbname, $db, $dir, $install = null)
     {
         // Detect any SQL files
-        $dir = new Dir($dir, true);
         $sqlFiles = array();
+        if (is_string($dir) && file_exists($dir) && (strtolower(substr($dir, -4)) == '.sql')) {
+            $sqlFiles[] = $dir;
+        } else {
+            $dir = new Dir($dir, true);
 
-        foreach ($dir->files as $file) {
-            if (strtolower(substr($file, -4)) == '.sql') {
-                $sqlFiles[] = $file;
+            foreach ($dir->files as $file) {
+                if (strtolower(substr($file, -4)) == '.sql') {
+                    $sqlFiles[] = $file;
+                }
             }
         }
 
         // If SQLite, create folder and empty SQLite file
         if ($db['type'] == 'Sqlite') {
-            // Define folders to create
-            $folders = array(
-                $install->project->base,
-                $install->project->base . '/module',
-                $install->project->base . '/module/' . $install->project->name,
-                $install->project->base . '/module/' . $install->project->name . '/data'
-            );
-            // Create the folders
-            foreach ($folders as $folder) {
-                if (!file_exists($folder)) {
-                    mkdir($folder);
+            if (is_string($install) && file_exists($install)) {
+                $db['database'] = $install;
+            } else {
+                // Define folders to create
+                $folders = array(
+                    $install->project->base,
+                    $install->project->base . '/module',
+                    $install->project->base . '/module/' . $install->project->name,
+                    $install->project->base . '/module/' . $install->project->name . '/data'
+                );
+                // Create the folders
+                foreach ($folders as $folder) {
+                    if (!file_exists($folder)) {
+                        mkdir($folder);
+                    }
                 }
+                // Create empty SQLite file and make file and folder writable
+                chmod($install->project->base . '/module/' . $install->project->name . '/data', 0777);
+                touch($install->project->base . '/module/' . $install->project->name . '/data/' . $db['database']);
+                chmod($install->project->base . '/module/' . $install->project->name . '/data/' . $db['database'], 0777);
+                $db['database'] = $install->project->base . '/module/' . $install->project->name . '/data/' . $db['database'];
             }
-            // Create empty SQLite file and make file and folder writable
-            chmod($install->project->base . '/module/' . $install->project->name . '/data', 0777);
-            touch($install->project->base . '/module/' . $install->project->name . '/data/' . $db['database']);
-            chmod($install->project->base . '/module/' . $install->project->name . '/data/' . $db['database'], 0777);
-            $db['database'] = $install->project->base . '/module/' . $install->project->name . '/data/' . $db['database'];
         }
 
         // Create DB connection
-        $popdb = Db::factory($db['type'], $db);
+        if (stripos($db['type'], 'Pdo_') !== false) {
+            $type = 'Pdo';
+            $db['type'] = strtolower(substr($db['type'], (strpos($db['type'], '_') + 1)));
+        } else {
+            $type = $db['type'];
+        }
+        $popdb = Db::factory($type, $db);
 
         // If there are SQL files, parse them and execute the SQL queries
         if (count($sqlFiles) > 0) {
@@ -143,7 +157,7 @@ class Dbs
                 $file = new File($sqlFile);
 
                 $sql = trim($file->read());
-                $statements = explode(';', $sql);
+                $statements = explode(';' . PHP_EOL, $sql);
 
                 // Loop through each statement found and execute
                 foreach ($statements as $s) {
@@ -168,6 +182,7 @@ class Dbs
                 $tablesFromDb = $popdb->adapter->getTables();
                 if (count($tablesFromDb) > 0) {
                     foreach ($tablesFromDb as $table) {
+                        $tables[$table] = array('primaryId' => null, 'auto' => false);
                         $popdb->adapter->query("PRAGMA table_info('" . $table . "')");
                         while (($row = $popdb->adapter->fetch()) != false) {
                             if ($row['pk'] == 1) {
