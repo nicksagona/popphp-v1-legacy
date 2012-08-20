@@ -38,6 +38,12 @@ class Pdo extends AbstractAdapter
 {
 
     /**
+     * Database
+     * @var string
+     */
+    protected $database = null;
+
+    /**
      * PDO DSN
      * @var string
      */
@@ -77,6 +83,7 @@ class Pdo extends AbstractAdapter
         }
 
         try {
+            $this->database = $options['database'];
             $this->dbtype = strtolower($options['type']);
             if ($this->dbtype == 'sqlite') {
                 $this->dsn = $this->dbtype . ':' . $options['database'];
@@ -330,10 +337,26 @@ class Pdo extends AbstractAdapter
     {
         $tables = array();
 
-        $this->query('SHOW TABLES');
-        while (($row = $this->fetch()) != false) {
-            foreach($row as $value) {
-                $tables[] = $value;
+        if (stripos($this->dsn, 'sqlite') !== false) {
+            $sql = "SELECT name FROM sqlite_master WHERE type IN ('table', 'view') AND name NOT LIKE 'sqlite_%' UNION ALL SELECT name FROM sqlite_temp_master WHERE type IN ('table', 'view') ORDER BY 1";
+
+            $this->query($sql);
+            while (($row = $this->fetch()) != false) {
+                $tables[] = $row['name'];
+            }
+        } else {
+            if (stripos($this->dsn, 'pgsql') !== false) {
+                $sql = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'";
+            } else if (stripos($this->dsn, 'sqlsrv') !== false) {
+                $sql = "SELECT name FROM " . $this->database . "..sysobjects WHERE xtype = 'U'";
+            } else {
+                $sql = 'SHOW TABLES';
+            }
+            $this->query($sql);
+            while (($row = $this->fetch()) != false) {
+                foreach($row as $value) {
+                    $tables[] = $value;
+                }
             }
         }
 

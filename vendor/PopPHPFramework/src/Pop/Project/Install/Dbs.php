@@ -157,7 +157,8 @@ class Dbs
                 $file = new File($sqlFile);
 
                 $sql = trim($file->read());
-                $statements = explode(';' . PHP_EOL, $sql);
+                $explode = (strpos($sql, ";\r\n") !== false) ? ";\r\n" : ";\n";
+                $statements = explode($explode, $sql);
 
                 // Loop through each statement found and execute
                 foreach ($statements as $s) {
@@ -178,7 +179,7 @@ class Dbs
 
         try {
             // Get Sqlite table info
-            if ($db['type'] == 'Sqlite') {
+            if (stripos($db['type'], 'sqlite') !== false) {
                 $tablesFromDb = $popdb->adapter->getTables();
                 if (count($tablesFromDb) > 0) {
                     foreach ($tablesFromDb as $table) {
@@ -193,7 +194,7 @@ class Dbs
                 }
             // Else, get MySQL and PgSQL table info
             } else {
-                if ($db['type'] == 'Pgsql') {
+                if (stripos($db['type'], 'pgsql') !== false) {
                     $schema = 'CATALOG';
                     $tableSchema = " AND TABLE_SCHEMA = 'public'";
                     $tableName = 'table_name';
