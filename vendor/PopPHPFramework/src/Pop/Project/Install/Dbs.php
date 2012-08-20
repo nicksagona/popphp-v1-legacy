@@ -54,6 +54,8 @@ class Dbs
     {
         if (($db['type'] != 'Mysql') &&
             ($db['type'] != 'Mysqli') &&
+            ($db['type'] != 'Mssql') &&
+            ($db['type'] != 'Oracle') &&
             ($db['type'] != 'Pdo') &&
             ($db['type'] != 'Pgsql') &&
             ($db['type'] != 'Sqlite')) {
