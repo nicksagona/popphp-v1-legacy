@@ -192,7 +192,7 @@ class Dbs
                         }
                     }
                 }
-            // Else, get MySQL and PgSQL table info
+            // Else, get MySQL, MSSQL and PgSQL table info
             } else {
                 if (stripos($db['type'], 'pgsql') !== false) {
                     $schema = 'CATALOG';
@@ -200,6 +200,13 @@ class Dbs
                     $tableName = 'table_name';
                     $constraintName = 'constraint_name';
                     $columnName = 'column_name';
+                } else if ((stripos($db['type'], 'mssql') !== false) || (stripos($db['type'], 'sqlsrv') !== false)) {
+                    $schema = 'CATALOG';
+                    $tableSchema = null;
+                    $tableName = 'TABLE_NAME';
+                    $constraintName = 'CONSTRAINT_NAME';
+                    $columnName = 'COLUMN_NAME';
+
                 } else {
                     $schema = 'SCHEMA';
                     $tableSchema = null;
@@ -247,7 +254,9 @@ class Dbs
                             if (!isset($tables[$table]['primaryId'])) {
                                 $tables[$table]['primaryId'] = $row[$columnName];
                             } else {
-                                $tables[$table]['primaryId'] .= '|' . $row[$columnName];
+                                if ($row[$columnName] != $tables[$table]['primaryId']) {
+                                    $tables[$table]['primaryId'] .= '|' . $row[$columnName];
+                                }
                             }
                         }
                     }
@@ -258,7 +267,12 @@ class Dbs
             if (isset($db['prefix'])) {
                 foreach ($tables as $table => $value) {
                     $tables[$table]['prefix'] = $db['prefix'];
-                    $popdb->adapter->query("ALTER TABLE " . $table . " RENAME TO " . $db['prefix'] . $table);
+                    if ((stripos($db['type'], 'mssql') !== false) || (stripos($db['type'], 'sqlsrv') !== false)) {
+                        $sql = "SP_RENAME '" . $table . "', '" . $db['prefix'] . $table . "'";
+                    } else {
+                        $sql = "ALTER TABLE " . $table . " RENAME TO " . $db['prefix'] . $table;
+                    }
+                    $popdb->adapter->query($sql);
                 }
             }
         } catch (\Exception $e) {
