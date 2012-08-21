@@ -515,7 +515,7 @@ class Mail
             // If the message contains text.
             case self::TEXT:
                 $this->setHeaders(array(
-                    'Content-Type' => 'text/plain; charset="' . $this->getCharset()
+                    'Content-Type' => 'text/plain; charset=' . $this->getCharset()
                 ));
 
                 $this->message = $this->text . PHP_EOL;

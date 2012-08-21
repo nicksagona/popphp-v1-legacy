@@ -164,7 +164,7 @@ class Dbs
                 foreach ($statements as $s) {
                     if (!empty($s)) {
                         try {
-                            $popdb->adapter->query(trim($s));
+                            $popdb->adapter->query(str_replace('[{prefix}]', $db['prefix'], trim($s)));
                         } catch (\Exception $e) {
                             echo $e->getMessage() . PHP_EOL . PHP_EOL;
                             exit(0);
@@ -206,7 +206,6 @@ class Dbs
                     $tableName = 'TABLE_NAME';
                     $constraintName = 'CONSTRAINT_NAME';
                     $columnName = 'COLUMN_NAME';
-
                 } else {
                     $schema = 'SCHEMA';
                     $tableSchema = null;
@@ -248,31 +247,20 @@ class Dbs
                     }
 
                     // Get primary id, if there is one
+                    $ids = array();
                     $popdb->adapter->query("SELECT * FROM information_schema.KEY_COLUMN_USAGE WHERE CONSTRAINT_" . $schema . " = '" . $dbname . "' AND TABLE_NAME = '" . $table . "'");
                     while (($row = $popdb->adapter->fetch()) != false) {
                         if (isset($row[$constraintName])) {
                             if (!isset($tables[$table]['primaryId'])) {
                                 $tables[$table]['primaryId'] = $row[$columnName];
                             } else {
-                                if ($row[$columnName] != $tables[$table]['primaryId']) {
+                                if (!in_array($row[$columnName], $ids)) {
                                     $tables[$table]['primaryId'] .= '|' . $row[$columnName];
                                 }
                             }
+                            $ids[] = $row[$columnName];
                         }
                     }
-                }
-            }
-
-            // Modify table name with prefix, if any
-            if (isset($db['prefix'])) {
-                foreach ($tables as $table => $value) {
-                    $tables[$table]['prefix'] = $db['prefix'];
-                    if ((stripos($db['type'], 'mssql') !== false) || (stripos($db['type'], 'sqlsrv') !== false)) {
-                        $sql = "SP_RENAME '" . $table . "', '" . $db['prefix'] . $table . "'";
-                    } else {
-                        $sql = "ALTER TABLE " . $table . " RENAME TO " . $db['prefix'] . $table;
-                    }
-                    $popdb->adapter->query($sql);
                 }
             }
         } catch (\Exception $e) {
