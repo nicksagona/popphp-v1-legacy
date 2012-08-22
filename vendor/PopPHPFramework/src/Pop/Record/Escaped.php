@@ -55,14 +55,24 @@ class Escaped extends AbstractRecord
 
         $type = $this->db->getAdapterType();
 
-        if (($type == 'Sqlite') || ($type == 'Pdo_Sqlite')) {
+        
+        if (stripos($type, 'sqlite') !== false) {
+            $this->idQuote = (null === $this->idQuote) ? null : $this->idQuote;
+            $this->db->sql->setDbType(Sql::SQLITE);
+        } else if (stripos($type, 'pgsql') !== false) {
             $this->idQuote = (null === $this->idQuote) ? Sql::DOUBLE_QUOTE : $this->idQuote;
-        } else if ($type == 'Pgsql') {
-            $this->idQuote = (null === $this->idQuote) ? Sql::DOUBLE_QUOTE : $this->idQuote;
+            $this->db->sql->setDbType(Sql::PGSQL);
+        } else if (stripos($type, 'sqlsrv') !== false) {
+            $this->idQuote = (null === $this->idQuote) ? Sql::BRACKET : $this->idQuote;
+            $this->db->sql->setDbType(Sql::SQLSRV);
+        } else if (stripos($type, 'oracle') !== false) {
+            $this->idQuote = (null === $this->idQuote) ? null : $this->idQuote;
+            $this->db->sql->setDbType(Sql::ORACLE);
         } else {
             $this->idQuote = (null === $this->idQuote) ? Sql::BACKTICK : $this->idQuote;
+            $this->db->sql->setDbType(Sql::MYSQL);
         }
-
+        
         $this->tableName = $options['tableName'];
         $this->primaryId = $options['primaryId'];
         $this->auto = $options['auto'];
