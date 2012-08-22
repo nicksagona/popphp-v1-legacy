@@ -6,7 +6,7 @@ Documentation : Db
 
 מרכיב Db מספק גישה למאגרי מידע מנורמל השאילתה. מתאמי הנתמכים הם:
 
-* mssql (via sqlsrv)
+* sqlsrv
 * mysql
 * mysqli
 * oracle
@@ -14,7 +14,7 @@ Documentation : Db
 * pgsql
 * sqlite
 
-דוחות מוכנים נתמכים עם MSSQL (via SqlSrv), MySQLi, Oracle, PDO, PostgreSQL ו adapaters SQLite. ערכים נמלטים זמינים עבור כל המתאמים את.
+דוחות מוכנים נתמכים עם SQLSrv, MySQLi, Oracle, PDO, PostgreSQL ו adapaters SQLite. ערכים נמלטים זמינים עבור כל המתאמים את.
 
 <pre>
 use Pop\Db\Db;

@@ -6,7 +6,7 @@ Documentation : Db
 
 المكون ديسيبل يوفر الوصول إلى قواعد البيانات تطبيع الاستعلام. المحولات المعتمدة هي:
 
-* mssql (via sqlsrv)
+* sqlsrv
 * mysql
 * mysqli
 * oracle
@@ -14,7 +14,7 @@ Documentation : Db
 * pgsql
 * sqlite
 
-يتم اعتماد البيانات المعدة مع MSSQL (عبر SqlSrv)، MySQLi، أوراكل، وشركة تنمية نفط عمان، وكيو adapaters سكليتي. قيم هرب متاحة للجميع من المحولات.
+يتم اعتماد البيانات المعدة مع SQLSrv)، MySQLi، أوراكل، وشركة تنمية نفط عمان، وكيو adapaters سكليتي. قيم هرب متاحة للجميع من المحولات.
 
 <pre>
 use Pop\Db\Db;

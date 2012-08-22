@@ -54,10 +54,10 @@ class Dbs
     {
         if (($db['type'] != 'Mysql') &&
             ($db['type'] != 'Mysqli') &&
-            ($db['type'] != 'Mssql') &&
             ($db['type'] != 'Oracle') &&
             ($db['type'] != 'Pgsql') &&
             ($db['type'] != 'Sqlite') &&
+            ($db['type'] != 'Sqlsrv') &&
             (stripos($db['type'], 'Pdo') === false)) {
             return 'The database type \'' . $db['type'] . '\' is not valid.';
         } else {
@@ -107,7 +107,7 @@ class Dbs
         }
 
         // If SQLite, create folder and empty SQLite file
-        if ($db['type'] == 'Sqlite') {
+        if (stripos($db['type'], 'sqlite') !== false) {
             if (is_string($install) && file_exists($install)) {
                 $db['database'] = $install;
             } else {
@@ -153,6 +153,8 @@ class Dbs
                 }
             }
 
+            $prefix = (isset($db['prefix'])) ? $db['prefix'] : null;
+
             foreach ($sqlFiles as $sqlFile) {
                 $file = new File($sqlFile);
 
@@ -164,7 +166,7 @@ class Dbs
                 foreach ($statements as $s) {
                     if (!empty($s)) {
                         try {
-                            $popdb->adapter->query(str_replace('[{prefix}]', $db['prefix'], trim($s)));
+                            $popdb->adapter->query(str_replace('[{prefix}]', $prefix, trim($s)));
                         } catch (\Exception $e) {
                             echo $e->getMessage() . PHP_EOL . PHP_EOL;
                             exit(0);
@@ -192,7 +194,7 @@ class Dbs
                         }
                     }
                 }
-            // Else, get MySQL, MSSQL and PgSQL table info
+            // Else, get MySQL, PgSQL and SQLSrv table info
             } else {
                 if (stripos($db['type'], 'pgsql') !== false) {
                     $schema = 'CATALOG';
@@ -200,7 +202,7 @@ class Dbs
                     $tableName = 'table_name';
                     $constraintName = 'constraint_name';
                     $columnName = 'column_name';
-                } else if ((stripos($db['type'], 'mssql') !== false) || (stripos($db['type'], 'sqlsrv') !== false)) {
+                } else if (stripos($db['type'], 'sqlsrv') !== false) {
                     $schema = 'CATALOG';
                     $tableSchema = null;
                     $tableName = 'TABLE_NAME';
@@ -261,6 +263,12 @@ class Dbs
                             $ids[] = $row[$columnName];
                         }
                     }
+                }
+            }
+
+            if (isset($db['prefix'])) {
+                foreach ($tables as $table => $value) {
+                    $tables[$table]['prefix'] = $db['prefix'];
                 }
             }
         } catch (\Exception $e) {

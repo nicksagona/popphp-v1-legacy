@@ -6,7 +6,7 @@ Documentation : Db
 
 DBコンポーネントは、クエリのデータベースへの正規化されたアクセスを提供します。サポートされているアダプタは以下のとおりです。
 
-* mssql (via sqlsrv)
+* sqlsrv
 * mysql
 * mysqli
 * oracle
@@ -14,7 +14,7 @@ DBコンポーネントは、クエリのデータベースへの正規化され
 * pgsql
 * sqlite
 
-プリペアドステートメントは、のMSSQL (via SqlSrv)、MySQLi、Oracle、PDO、PostgreSQLで、SQLiteのadapatersでサポートされています。逃げられた値は、アダプタのすべての利用可能です。
+プリペアドステートメントは、のSQLSrv、MySQLi、Oracle、PDO、PostgreSQLで、SQLiteのadapatersでサポートされています。逃げられた値は、アダプタのすべての利用可能です。
 
 <pre>
 use Pop\Db\Db;

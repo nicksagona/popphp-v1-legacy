@@ -6,7 +6,7 @@ Documentation : Db
 
 Der DB-Komponente bietet Zugang zu den normalisierten Datenbanken abzufragen. Die unterstützten Adapter sind:
 
-* mssql (via sqlsrv)
+* sqlsrv
 * mysql
 * mysqli
 * oracle
@@ -14,7 +14,7 @@ Der DB-Komponente bietet Zugang zu den normalisierten Datenbanken abzufragen. Di
 * pgsql
 * sqlite
 
-Prepared Statements werden mit der MSSQL (via SqlSrv), MySQLi, Oracle, PDO, PostgreSQL und SQLite adapaters unterstützt. Entkommen Werte sind für alle Adapter.
+Prepared Statements werden mit der SQLSrv, MySQLi, Oracle, PDO, PostgreSQL und SQLite adapaters unterstützt. Entkommen Werte sind für alle Adapter.
 
 <pre>
 use Pop\Db\Db;

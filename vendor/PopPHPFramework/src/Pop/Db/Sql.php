@@ -68,10 +68,10 @@ class Sql
     const MYSQL = 5;
 
     /**
-     * Constant for MSSQL database type
+     * Constant for SQLSRV database type
      * @var int
      */
-    const MSSQL = 6;
+    const SQLSRV = 6;
 
     /**
      * Constant for Oracle database type
@@ -245,7 +245,7 @@ class Sql
 
             case self::BRACKET:
                 $this->idQuoteType = self::BRACKET;
-                $this->dbType = self::MSSQL;
+                $this->dbType = self::SQLSRV;
                 break;
 
             default:
@@ -572,11 +572,11 @@ class Sql
             } else {
                 $this->where('RowNumber', '<=', $this->limit);
             }
-        // Account for LIMIT clause if the database is MSSQL
-        } else if (($this->dbType == self::MSSQL) && (null !== $this->limit)) {
+        // Account for LIMIT clause if the database is SQLSRV
+        } else if (($this->dbType == self::SQLSRV) && (null !== $this->limit)) {
             if (strpos($this->limit, ',') !== false) {
                 if (null === $this->order) {
-                    throw new Exception('Error: You must set and order field to execute a limit clause on the MSSQL databse.');
+                    throw new Exception('Error: You must set and order field to execute a limit clause on the SQLSRV databse.');
                 }
                 $lim = explode(',', $this->limit);
                 $this->sql .= '(SELECT *, ROW_NUMBER() OVER (ORDER BY ' . $this->order . ') AS RowNumber FROM ' . $this->quoteId($this->table) . ') AS OrderedTable';
@@ -612,7 +612,7 @@ class Sql
         }
 
         // If there is a limit clause for all other database types.
-        if (($this->dbType != self::MSSQL) && ($this->dbType != self::ORACLE)) {
+        if (($this->dbType != self::SQLSRV) && ($this->dbType != self::ORACLE)) {
             if (null !== $this->limit) {
                 $this->sql .= ' LIMIT ' . $this->limit;
             }

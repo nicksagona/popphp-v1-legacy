@@ -67,7 +67,7 @@ class SqlTest extends \PHPUnit_Framework_TestCase
     public function testSetAndGetDbType()
     {
         $s = new Sql('users');
-        $s->setDbType(Sql::MSSQL);
+        $s->setDbType(Sql::SQLSRV);
         $this->assertEquals(6, $s->getDbType());
     }
 
@@ -127,14 +127,14 @@ class SqlTest extends \PHPUnit_Framework_TestCase
     public function testMsSql()
     {
         $s = new Sql('users');
-        $s->setDbType(Sql::MSSQL)
+        $s->setDbType(Sql::SQLSRV)
           ->setIdQuoteType(Sql::BRACKET)
           ->select('email')
           ->limit(5);
         $this->assertEquals("SELECT TOP 5 [email] FROM [users]", $s->getSql());
 
         $s = new Sql('users');
-        $s->setDbType(Sql::MSSQL)
+        $s->setDbType(Sql::SQLSRV)
           ->setIdQuoteType(Sql::BRACKET)
           ->select('email')
           ->order('id')
@@ -145,7 +145,7 @@ class SqlTest extends \PHPUnit_Framework_TestCase
     public function testMsSqlException()
     {
         $s = new Sql('users');
-        $s->setDbType(Sql::MSSQL)
+        $s->setDbType(Sql::SQLSRV)
           ->setIdQuoteType(Sql::BRACKET)
           ->select('email')
           ->limit('5, 10');

@@ -6,7 +6,7 @@ Documentation : Db
 
 Η συνιστώσα της DB παρέχει πρόσβαση σε κανονικοποιημένη ερωτήματα σε βάσεις δεδομένων. Οι προσαρμογείς υποστηρίζονται είναι οι εξής:
 
-* mssql (via sqlsrv)
+* sqlsrv
 * mysql
 * mysqli
 * oracle
@@ -14,7 +14,7 @@ Documentation : Db
 * pgsql
 * sqlite
 
-Τα παρασκευασμένα δηλώσεις υποστηρίζονται από την MSSQL (via SqlSrv), MySQLi, Oracle, PDO, PostgreSQL, ΠΟΠ, SQLite  και  adapaters. Δραπέτευσε τιμές είναι διαθέσιμες για όλους τους προσαρμογείς.
+Τα παρασκευασμένα δηλώσεις υποστηρίζονται από την SQLSrv, MySQLi, Oracle, PDO, PostgreSQL, ΠΟΠ, SQLite  και  adapaters. Δραπέτευσε τιμές είναι διαθέσιμες για όλους τους προσαρμογείς.
 
 <pre>
 use Pop\Db\Db;

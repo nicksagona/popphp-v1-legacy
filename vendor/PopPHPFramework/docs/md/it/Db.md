@@ -6,7 +6,7 @@ Documentation : Db
 
 Il componente Db fornisce l'accesso normalizzato per interrogare i database. Le schede supportate sono:
 
-* mssql (via sqlsrv)
+* sqlsrv
 * mysql
 * mysqli
 * oracle
@@ -14,7 +14,7 @@ Il componente Db fornisce l'accesso normalizzato per interrogare i database. Le 
 * pgsql
 * sqlite
 
-Dichiarazioni preparate sono supportati con il MSSQL (via SqlSrv), MySQLi, Oracle, PDO, PostgreSQL e SQLite adapaters. I valori di escape sono disponibili per tutte le schede.
+Dichiarazioni preparate sono supportati con il SQLSrv, MySQLi, Oracle, PDO, PostgreSQL e SQLite adapaters. I valori di escape sono disponibili per tutte le schede.
 
 <pre>
 use Pop\Db\Db;
