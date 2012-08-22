@@ -1414,7 +1414,7 @@ class Pdf extends File
                 $this->images[$image] = array(
                     'index' => $i,
                     'origW' => $imageParser->getOrigW(),
-                	'origH' => $imageParser->getOrigH()
+                    'origH' => $imageParser->getOrigH()
                 );
             }
         }
