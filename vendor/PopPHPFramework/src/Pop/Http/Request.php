@@ -425,7 +425,7 @@ class Request
             $uri = substr($uri, (strpos($uri, $basePath) + strlen($basePath)));
         }
 
-        if ($uri == '') {
+        if (($uri == '') || ($uri == $basePath)) {
             $uri = '/';
         }
 
