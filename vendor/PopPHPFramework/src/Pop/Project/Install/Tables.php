@@ -62,7 +62,7 @@ class Tables
 
         // Loop through the tables, creating the classes
         foreach ($dbTables as $table => $value) {
-            $tableName = String::factory($table)->underscoreToCamelcase()->upperFirst();
+            $tableName = String::factory(str_replace($value['prefix'], '', $table))->underscoreToCamelcase()->upperFirst();
 
             $ns = new NamespaceGenerator($install->project->name . '\\Table');
             $ns->setUse('Pop\\Record\\Record');
