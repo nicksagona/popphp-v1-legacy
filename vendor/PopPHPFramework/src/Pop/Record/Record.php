@@ -108,6 +108,12 @@ class Record
     protected $usePrepared = true;
 
     /**
+     * Flag on which quote identifier to use.
+     * @var int
+     */
+    protected $idQuote = null;
+
+    /**
      * Constructor
      *
      * Instantiate the database record object.
@@ -145,7 +151,8 @@ class Record
         $options = array(
             'tableName' => $this->tableName,
             'primaryId' => $this->primaryId,
-            'auto'      => $this->auto
+            'auto'      => $this->auto,
+            'idQuote'   => $this->idQuote
         );
 
         $type = self::getDb()->getAdapterType();

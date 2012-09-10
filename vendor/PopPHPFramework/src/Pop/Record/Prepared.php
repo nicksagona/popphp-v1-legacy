@@ -63,23 +63,23 @@ class Prepared extends AbstractRecord
 
         if (stripos($type, 'sqlite') !== false) {
             $this->placeholder = ':';
-            $this->idQuote = (null === $this->idQuote) ? null : $this->idQuote;
+            $this->idQuote = (null === $options['idQuote']) ? Sql::DOUBLE_QUOTE : $options['idQuote'];
             $this->db->sql->setDbType(Sql::SQLITE);
         } else if (stripos($type, 'pgsql') !== false) {
             $this->placeholder = '$';
-            $this->idQuote = (null === $this->idQuote) ? Sql::DOUBLE_QUOTE : $this->idQuote;
+            $this->idQuote = (null === $options['idQuote']) ? Sql::DOUBLE_QUOTE : $options['idQuote'];
             $this->db->sql->setDbType(Sql::PGSQL);
         } else if (stripos($type, 'sqlsrv') !== false) {
             $this->placeholder = '?';
-            $this->idQuote = (null === $this->idQuote) ? Sql::BRACKET : $this->idQuote;
+            $this->idQuote = (null === $options['idQuote']) ? Sql::BRACKET : $options['idQuote'];
             $this->db->sql->setDbType(Sql::SQLSRV);
         } else if (stripos($type, 'oracle') !== false) {
             $this->placeholder = ':';
-            $this->idQuote = (null === $this->idQuote) ? null : $this->idQuote;
+            $this->idQuote = (null === $options['idQuote']) ? Sql::DOUBLE_QUOTE : $options['idQuote'];
             $this->db->sql->setDbType(Sql::ORACLE);
         } else {
             $this->placeholder = '?';
-            $this->idQuote = (null === $this->idQuote) ? Sql::BACKTICK : $this->idQuote;
+            $this->idQuote = (null === $options['idQuote']) ? Sql::BACKTICK : $options['idQuote'];
             $this->db->sql->setDbType(Sql::MYSQL);
         }
 
