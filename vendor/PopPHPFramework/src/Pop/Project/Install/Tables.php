@@ -62,7 +62,8 @@ class Tables
 
         // Loop through the tables, creating the classes
         foreach ($dbTables as $table => $value) {
-            $tableName = String::factory(str_replace($value['prefix'], '', $table))->underscoreToCamelcase()->upperFirst();
+            $prefix = (isset($value['prefix'])) ? $value['prefix'] : null;
+            $tableName = String::factory(str_replace($prefix, '', $table))->underscoreToCamelcase()->upperFirst();
 
             $ns = new NamespaceGenerator($install->project->name . '\\Table');
             $ns->setUse('Pop\\Record\\Record');
@@ -75,8 +76,8 @@ class Tables
                 $pId = $value['primaryId'];
             }
 
-            if (isset($value['prefix'])) {
-                $prefix = new PropertyGenerator('prefix', 'string', $value['prefix'], 'protected');
+            if (null !== $prefix) {
+                $prefix = new PropertyGenerator('prefix', 'string', $prefix, 'protected');
             }
             $propId = new PropertyGenerator('primaryId', $pIdType, $pId, 'protected');
             $propAuto = new PropertyGenerator('auto', 'boolean', $value['auto'], 'protected');
@@ -88,7 +89,7 @@ class Tables
                              ->addProperty($propId)
                              ->addProperty($propAuto);
 
-            if (isset($value['prefix'])) {
+            if (null !== $prefix) {
                 $tableCls->code()->addProperty($prefix);
             }
 
