@@ -89,9 +89,19 @@ class Base
             $default = null;
             $i = 0;
             foreach ($databases as $dbname => $db) {
-                $projectCfg->appendToBody("        '" . $dbname . "' => Pop\\Db\\Db::factory('" . $db['type'] . "', array (");
+                $isPdo = (stripos($db['type'], 'pdo') !== false) ? true : false;
+                $isSqlite = (stripos($db['type'], 'sqlite') !== false) ? true : false;
+                
+                if ($isPdo) {
+                    $pdoType = strtolower(substr($db['type'], (strpos($db['type'], '_') + 1)));
+                    $realDbType = 'Pdo';
+                } else {
+                    $pdoType = null;
+                    $realDbType = $db['type'];
+                }
+                
+                $projectCfg->appendToBody("        '" . $dbname . "' => Pop\\Db\\Db::factory('" . $realDbType . "', array (");
                 $j = 0;
-                $isSqlite = ($db['type'] == 'Sqlite') ? true : false;
                 $default = ($db['default']) ? $dbname : null;
                 $dbCreds = $db;
                 unset($dbCreds['type']);
@@ -105,6 +115,9 @@ class Base
                         $ary = "            '{$key}' => '{$dbFile}'";
                     } else {
                         $ary = "            '{$key}' => '{$value}'";
+                    }
+                    if ($isPdo) {
+                        $ary .= "," . PHP_EOL . "            'type' => '{$pdoType}'";
                     }
                     if ($j < count($dbCreds)) {
                        $ary .= ',';

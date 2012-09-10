@@ -64,7 +64,7 @@ class Dbs
             try {
                 $result = null;
                 // Test the db connection
-                if ($db['type'] != 'Sqlite') {
+                if (stripos($db['type'], 'Sqlite') === false) {
                     if (stripos($db['type'], 'Pdo_') !== false) {
                         $type = 'Pdo';
                         $db['type'] = strtolower(substr($db['type'], (strpos($db['type'], '_') + 1)));
