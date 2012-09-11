@@ -107,6 +107,18 @@ class Data
     }
 
     /**
+     * Static method to instantiate the data object and return itself
+     * to facilitate chaining methods together.
+     *
+     * @param  string $data
+     * @return Pop\Data\Data
+     */
+    public static function factory($data)
+    {
+        return new self($data);
+    }
+
+    /**
      * Get the file stream
      *
      * @return string
