@@ -222,17 +222,18 @@ class Response
      * Send redirect
      *
      * @param  string $url
+     * @param  string $code
      * @param  string $version
      * @throws Exception
      * @return void
      */
-    public static function redirect($url, $version = '1.1')
+    public static function redirect($url, $code = '302', $version = '1.1')
     {
         if (headers_sent()) {
             throw new Exception('The headers have already been sent.');
         }
 
-        header("HTTP/{$version} 302 Found");
+        header("HTTP/{$version} {$code} " . self::$responseCodes[$code]);
         header("Location: {$url}");
     }
 
