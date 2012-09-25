@@ -560,10 +560,7 @@ class File
         if (DIRECTORY_SEPARATOR == '/') {
             $perm = substr(sprintf('%o', fileperms($file)), -3);
         } else {
-            if (!is_writable($file)) {
-               throw new Exception('Error: The file or directory (' . $file . ') is not writable.');
-            }
-            $perm = 777;
+            $perm = (is_writable($file)) ? 777 : 644;
         }
 
         return $perm;
