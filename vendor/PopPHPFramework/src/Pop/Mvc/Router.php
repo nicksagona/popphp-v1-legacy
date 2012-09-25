@@ -153,13 +153,16 @@ class Router
     public function route(Project $project)
     {
         $ctrlCls = null;
-
-        if (array_key_exists($this->request->getPath(0), $this->controllers)) {
-            $ctrlCls =  $this->controllers[$this->request->getPath(0)];
-        } else if (array_key_exists('default', $this->controllers)) {
-            $ctrlCls =  $this->controllers['default'];
+        $routeMatch = 'default';
+        
+        foreach ($this->controllers as $key => $value) {
+            if (substr($this->request->getRequestUri(), 1, strlen($key)) == $key) {
+                $routeMatch = $key;
+            }
         }
-
+        
+        $ctrlCls =  $this->controllers[$routeMatch];
+        
         if ((null !== $ctrlCls) && class_exists($ctrlCls)) {
             $this->controller = new $ctrlCls(null, null, $project);
         }
