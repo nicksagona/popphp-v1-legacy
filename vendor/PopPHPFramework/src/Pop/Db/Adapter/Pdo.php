@@ -325,7 +325,7 @@ class Pdo extends AbstractAdapter
      */
     public function version()
     {
-        return 'PDO ' . substr($this->dsn, 0, strpos($this->dsn, ':'));
+        return 'PDO ' . substr($this->dsn, 0, strpos($this->dsn, ':')) . ' ' . $this->connection->getAttribute(\PDO::ATTR_SERVER_VERSION);
     }
 
     /**
