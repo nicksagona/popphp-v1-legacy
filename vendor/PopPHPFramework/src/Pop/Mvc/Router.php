@@ -153,16 +153,28 @@ class Router
     public function route(Project $project)
     {
         $ctrlCls = null;
-        $routeMatch = 'default';
-        
-        foreach ($this->controllers as $key => $value) {
-            if (substr($this->request->getRequestUri(), 1, strlen($key)) == $key) {
-                $routeMatch = $key;
+
+        // If a non-default route exists
+        if (($this->request->getPath(0) != '') && (array_key_exists('/' . $this->request->getPath(0), $this->controllers))) {
+            $route = '/' . $this->request->getPath(0);
+
+            // If the route has multiple options
+            if (is_array($this->controllers[$route])) {
+                if (($this->request->getPath(1) != '') && (array_key_exists('/' . $this->request->getPath(1), $this->controllers[$route]))) {
+                    $ctrlCls = $this->controllers[$route]['/' . $this->request->getPath(1)];
+                } else if (isset($this->controllers[$route]['/'])){
+                    $ctrlCls = $this->controllers[$route]['/'];
+                }
+            // Else, use the defined route
+            } else {
+                $ctrlCls = $this->controllers[$route];
             }
+        // Else, use the default route
+        } else if (array_key_exists('/', $this->controllers)) {
+            $ctrlCls = $this->controllers['/'];
         }
-        
-        $ctrlCls =  $this->controllers[$routeMatch];
-        
+
+        // Create the controller
         if ((null !== $ctrlCls) && class_exists($ctrlCls)) {
             $this->controller = new $ctrlCls(null, null, $project);
         }
