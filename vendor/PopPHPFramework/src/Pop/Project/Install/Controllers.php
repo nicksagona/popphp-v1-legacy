@@ -64,16 +64,18 @@ class Controllers
         if (isset($install->controllers)) {
             $controllers = $install->controllers->asArray();
             foreach ($controllers as $controller => $views) {
+                $controllerName = ($controller == '/') ? 'default' : substr($controller, 1);
+
                 // Create the '/view' folder for the controller
-                if (!file_exists($install->project->base . '/module/' . $install->project->name . '/view/' . $controller)) {
-                    mkdir($install->project->base . '/module/' . $install->project->name . '/view/' . $controller);
+                if (!file_exists($install->project->base . '/module/' . $install->project->name . '/view' . $controller)) {
+                    mkdir($install->project->base . '/module/' . $install->project->name . '/view' . $controller);
                 }
 
                 // Create new controller class file
                 $controllerCls = new Generator(
                     $install->project->base . '/module/' . $install->project->name .
                         '/src/' . $install->project->name . '/Controller/' .
-                         ucfirst(String::factory($controller)->underscoreToCamelcase()) . 'Controller.php',
+                         ucfirst(String::factory($controllerName)->underscoreToCamelcase()) . 'Controller.php',
                     Generator::CREATE_CLASS
                 );
 
@@ -103,12 +105,12 @@ class Controllers
                 );
 
                 $construct->appendToBody("if (null === \$viewPath) {")
-                          ->appendToBody("    \$viewPath = __DIR__ . '/../../../view/{$controller}';")
+                          ->appendToBody("    \$viewPath = __DIR__ . '/../../../view" . (($controller != '/') ? $controller : null) . "';")
                           ->appendToBody("}" . PHP_EOL);
 
                 if ($controller != 'default') {
                     $construct->appendToBody("if (null === \$request) {")
-                              ->appendToBody("    \$request = new Request(null, '/{$controller}');")
+                              ->appendToBody("    \$request = new Request(null, '{$controller}');")
                               ->appendToBody("}" . PHP_EOL);
                 }
 
@@ -121,11 +123,11 @@ class Controllers
 
                 // Create methods named after each view
                 foreach ($views as $key => $value) {
-                    if (!file_exists($install->project->base . '/module/' . $install->project->name . '/view/' . $controller)) {
-                        mkdir($install->project->base . '/module/' . $install->project->name . '/view/' . $controller);
+                    if (!file_exists($install->project->base . '/module/' . $install->project->name . '/view' . $controller)) {
+                        mkdir($install->project->base . '/module/' . $install->project->name . '/view' . $controller);
                     }
-                    if (file_exists($installDir . '/view/' . $controller . '/' . $value)) {
-                        copy($installDir . '/view/' . $controller . '/' . $value, $install->project->base . '/module/' . $install->project->name . '/view/' . $controller . '/' . $value);
+                    if (file_exists($installDir . '/view' . $controller . '/' . $value)) {
+                        copy($installDir . '/view' . $controller . '/' . $value, $install->project->base . '/module/' . $install->project->name . '/view' . $controller . '/' . $value);
                     }
 
                     $method = new MethodGenerator($key);

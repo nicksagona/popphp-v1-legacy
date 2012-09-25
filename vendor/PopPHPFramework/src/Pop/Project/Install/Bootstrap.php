@@ -75,7 +75,8 @@ class Bootstrap
             $controllers = $install->controllers->asArray();
             $ctrls = array();
             foreach ($controllers as $key => $value) {
-                $ctrls[] = "'{$key}' => '{$install->project->name}\\\\Controller\\\\" . ucfirst(String::factory($key)->underscoreToCamelcase()) . "Controller'";
+                $controllerName = ($key == '/') ? 'default' : substr($key, 1);
+                $ctrls[] = "'{$key}' => '{$install->project->name}\\Controller\\" . ucfirst(String::factory($controllerName)->underscoreToCamelcase()) . "Controller'";
             }
             $bootstrap->appendToBody("    new Pop\\Mvc\\Router(array(");
             $i = 1;
