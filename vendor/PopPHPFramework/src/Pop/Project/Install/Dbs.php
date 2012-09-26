@@ -83,14 +83,15 @@ class Dbs
     /**
      * Install the database
      *
-     * @param string     $dbname
-     * @param array      $db
-     * @param string     $dir
-     * @param Pop\Config $install
+     * @param string  $dbname
+     * @param array   $db
+     * @param string  $dir
+     * @param mixed   $install
+     * @param boolean $suppress
      * @throws Exception
      * @return array
      */
-    public static function install($dbname, $db, $dir, $install = null)
+    public static function install($dbname, $db, $dir, $install = null, $suppress = false)
     {
         // Detect any SQL files
         $sqlFiles = array();
@@ -143,7 +144,9 @@ class Dbs
 
         // If there are SQL files, parse them and execute the SQL queries
         if (count($sqlFiles) > 0) {
-            echo 'SQL files found. Executing SQL queries...' . PHP_EOL;
+            if (!$suppress) {
+                echo 'SQL files found. Executing SQL queries...' . PHP_EOL;
+            }
 
             // Clear database
             $oldTables = $popdb->adapter->getTables();

@@ -367,14 +367,14 @@ class String
     public function escape($all = false)
     {
         $replace = array(
-                       array('\\', '\\\\'),
-                       array("\n", "\\n"),
-                       array("\r", "\\r"),
-                       array("\x00", "\\x00"),
-                       array("\x1a", "\\x1a"),
-                       array('\'', '\\\''),
-                       array('"', '\\"')
-                   );
+            array('\\', '\\\\'),
+            array("\n", "\\n"),
+            array("\r", "\\r"),
+            array("\x00", "\\x00"),
+            array("\x1a", "\\x1a"),
+            array('\'', '\\\''),
+            array('"', '\\"')
+        );
 
         if ($all) {
             $replace[] = array('%', '\\%');
