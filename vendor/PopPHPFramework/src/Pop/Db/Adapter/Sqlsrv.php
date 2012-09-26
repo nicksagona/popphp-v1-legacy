@@ -195,7 +195,7 @@ class Sqlsrv extends AbstractAdapter
      */
     public function escape($value)
     {
-        return (string)String::factory($value)->escape(true);
+        return (string)String::factory($value)->escape();
     }
 
     /**
