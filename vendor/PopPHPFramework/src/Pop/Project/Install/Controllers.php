@@ -94,7 +94,7 @@ class Controllers
 
                 // Create the constructor
                 $construct = new MethodGenerator('__construct');
-                $construct->setDesc('Constructer method to instantiate the controller object');
+                $construct->setDesc('Constructor method to instantiate the controller object');
                 $construct->addArguments(
                     array(
                         array('name' => 'request', 'value' => 'null', 'type' => 'Request'),
