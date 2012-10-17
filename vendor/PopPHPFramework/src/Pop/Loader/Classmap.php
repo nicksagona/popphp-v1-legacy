@@ -65,7 +65,7 @@ class Classmap
 
                 $ary = array();
                 if (isset($classMatch[0])) {
-                    $ary['file'] = $file;
+                    $ary['file'] = str_replace('\\', '/', $file);
                     $ary['class'] = self::parseClass($classMatch[0]);
                     $ary['namespace'] = (isset($namespaceMatch[0])) ? self::parseNamespace($namespaceMatch[0]) : null;
                     $matches[] = $ary;
@@ -79,8 +79,8 @@ class Classmap
             $i = 1;
             foreach ($matches as $class) {
                 $comma = ($i < count($matches)) ? ',' : null;
-                $className = (null !== $class['namespace']) ? addslashes($class['namespace'] . '\\' . $class['class']) : addslashes($class['class']);
-                $classMap .= PHP_EOL . '    \'' . $className . '\' => \'' . addslashes($class['file']) . '\'' . $comma;
+                $className = (null !== $class['namespace']) ? $class['namespace'] . '\\' . $class['class'] : $class['class'];
+                $classMap .= PHP_EOL . '    \'' . $className . '\' => \'' . $class['file'] . '\'' . $comma;
                 $i++;
             }
 

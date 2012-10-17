@@ -146,7 +146,7 @@ class Color
     {
         $class = get_class($color);
 
-        if ($class == 'Pop\\Color\\Cmyk') {
+        if ($class == 'Pop\Color\Cmyk') {
             throw new Exception('That color space object is already that type.');
         }
 
@@ -174,7 +174,7 @@ class Color
     {
         $class = get_class($color);
 
-        if ($class == 'Pop\\Color\\Hex') {
+        if ($class == 'Pop\Color\Hex') {
             throw new Exception('That color space object is already that type.');
         }
 
@@ -202,7 +202,7 @@ class Color
     {
         $class = get_class($color);
 
-        if ($class == 'Pop\\Color\\Hsb') {
+        if ($class == 'Pop\Color\Hsb') {
             throw new Exception('That color space object is already that type.');
         }
 
@@ -230,7 +230,7 @@ class Color
     {
         $class = get_class($color);
 
-        if ($class == 'Pop\\Color\\Lab') {
+        if ($class == 'Pop\Color\Lab') {
             throw new Exception('That color space object is already that type.');
         }
 
@@ -258,7 +258,7 @@ class Color
     {
         $class = get_class($color);
 
-        if ($class == 'Pop\\Color\\Rgb') {
+        if ($class == 'Pop\Color\Rgb') {
             throw new Exception('That color space object is already that type.');
         }
 

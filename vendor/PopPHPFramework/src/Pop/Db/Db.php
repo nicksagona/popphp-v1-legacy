@@ -43,13 +43,13 @@ class Db
      * SQL object
      * @var Pop\Db\Sql
      */
-    public $sql = null;
+    protected $sql = null;
 
     /**
      * Default database adapter object
      * @var mixed
      */
-    public $adapter = null;
+    protected $adapter = null;
 
     /**
      * Constructor
@@ -84,6 +84,26 @@ class Db
     public static function factory($type, array $options)
     {
         return new self($type, $options);
+    }
+
+    /**
+     * Get the database adapter.
+     *
+     * @return mixed
+     */
+    public function adapter()
+    {
+        return $this->adapter;
+    }
+
+    /**
+     * Get the database SQL object.
+     *
+     * @return mixed
+     */
+    public function sql()
+    {
+        return $this->sql;
     }
 
     /**

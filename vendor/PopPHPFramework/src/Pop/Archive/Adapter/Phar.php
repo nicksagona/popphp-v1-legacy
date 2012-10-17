@@ -26,8 +26,7 @@ namespace Pop\Archive\Adapter;
 
 use Pop\Archive\ArchiveInterface,
     Pop\Dir\Dir,
-    Pop\File\File,
-    Pop\Filter\String;
+    Pop\File\File;
 
 /**
  * This is the Phar class for the Archive component.
@@ -90,22 +89,19 @@ class Phar implements ArchiveInterface
         }
 
         // Directory separator clean up
-        $seps = array(
-                    array('\\', '/'),
-                    array('../', ''),
-                    array('./', '')
-                );
+        $search = array('\\', '../', './');
+        $replace = array('/', '', '');
 
         foreach ($files as $file) {
             // If file is a directory, loop through and add the files.
             if (file_exists($file) && is_dir($file)) {
                 $dir = new Dir($file, true, true);
-                $this->archive->addEmptyDir((string)String::factory($dir->path)->replace($seps));
+                $this->archive->addEmptyDir(str_replace($search, $replace, $dir->path));
                 foreach ($dir->files as $fle) {
                     if (file_exists($fle) && is_dir($fle)) {
-                        $this->archive->addEmptyDir((string)String::factory($fle)->replace($seps));
+                        $this->archive->addEmptyDir(str_replace($search, $replace, $fle));
                     } else if (file_exists($fle)) {
-                        $this->archive->addFile($fle, (string)String::factory($fle)->replace($seps));
+                        $this->archive->addFile($fle, str_replace($search, $replace, $fle));
                     }
                 }
             // Else, just add the file.

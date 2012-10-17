@@ -143,7 +143,7 @@ class Record
             } else {
                 $cls = $class;
             }
-            $this->tableName = $this->prefix . (string)String::factory($cls)->camelCaseToUnderscore();
+            $this->tableName = $this->prefix . String::camelCaseToUnderscore($cls);
         } else {
             $this->tableName = $this->prefix . $this->tableName;
         }
@@ -471,7 +471,7 @@ class Record
      */
     public function escape($value)
     {
-        return $this->interface->db->adapter->escape($value);
+        return $this->interface->db->adapter()->escape($value);
     }
 
     /**
@@ -481,7 +481,7 @@ class Record
      */
     public function lastId()
     {
-        return $this->interface->db->adapter->lastId();
+        return $this->interface->db->adapter()->lastId();
     }
 
     /**
@@ -491,7 +491,7 @@ class Record
      */
     public function numRows()
     {
-        return $this->interface->db->adapter->numRows();
+        return $this->interface->db->adapter()->numRows();
     }
 
     /**
@@ -501,7 +501,7 @@ class Record
      */
     public function numFields()
     {
-        return $this->interface->db->adapter->numFields();
+        return $this->interface->db->adapter()->numFields();
     }
 
     /**

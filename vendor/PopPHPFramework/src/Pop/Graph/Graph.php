@@ -915,21 +915,19 @@ class Graph
         $xDiv = $xLength / (count($xAxis) - 1);
         $yDiv = $yLength / (count($yAxis) - 1);
 
-        $points = new \ArrayObject(
-                                   array(
-                                       'zeroPoint' => $zeroPoint,
-                                       'endX'      => $endX,
-                                       'endY'      => $endY,
-                                       'xOffset'   => $xOffset,
-                                       'yOffset'   => $yOffset,
-                                       'xLength'   => $xLength,
-                                       'yLength'   => $yLength,
-                                       'xRange'    => $xRange,
-                                       'yRange'    => $yRange,
-                                       'xDiv'      => $xDiv,
-                                       'yDiv'      => $yDiv
-                                   ), \ArrayObject::ARRAY_AS_PROPS
-                                   );
+        $points = new \ArrayObject(array(
+            'zeroPoint' => $zeroPoint,
+            'endX'      => $endX,
+            'endY'      => $endY,
+            'xOffset'   => $xOffset,
+            'yOffset'   => $yOffset,
+            'xLength'   => $xLength,
+            'yLength'   => $yLength,
+            'xRange'    => $xRange,
+            'yRange'    => $yRange,
+            'xDiv'      => $xDiv,
+            'yDiv'      => $yDiv
+        ), \ArrayObject::ARRAY_AS_PROPS);
 
         return $points;
     }

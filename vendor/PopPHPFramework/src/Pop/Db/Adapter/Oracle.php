@@ -174,7 +174,7 @@ class Oracle extends AbstractAdapter
      */
     public function escape($value)
     {
-        return (string)String::factory($value)->escape(true);
+        return String::escape($value);
     }
 
     /**

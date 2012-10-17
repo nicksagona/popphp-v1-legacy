@@ -359,7 +359,7 @@ class Mail
     {
         // Determine if the file is valid.
         if (!($file instanceof File) && !file_exists($file)) {
-            throw new Exception('Error: The parameter passed must either be a valid file or an instance of Pop\\File\\File.');
+            throw new Exception('Error: The parameter passed must either be a valid file or an instance of Pop\File\File.');
         }
 
         $fle = (!($file instanceof File)) ? new File($file) : $file;

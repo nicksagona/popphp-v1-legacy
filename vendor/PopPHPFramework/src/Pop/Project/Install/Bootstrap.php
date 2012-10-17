@@ -66,7 +66,7 @@ class Bootstrap
         // Else, just append to the existing bootstrap file
         $bootstrap->appendToBody("\$autoloader->register('{$install->project->name}', '{$moduleSrc}');" . PHP_EOL)
                   ->appendToBody("// Create a project object")
-                  ->appendToBody("\$project = {$install->project->name}\\Project::factory(")
+                  ->appendToBody("\$project = {$install->project->name}\Project::factory(")
                   ->appendToBody("    include '{$projectCfg}',")
                   ->appendToBody("    include '{$moduleCfg}',");
 
@@ -76,7 +76,7 @@ class Bootstrap
             $ctrls = array();
             foreach ($controllers as $key => $value) {
                 $controllerName = ($key == '/') ? 'default' : substr($key, 1);
-                $ctrls[] = "'{$key}' => '{$install->project->name}\\Controller\\" . ucfirst(String::factory($controllerName)->underscoreToCamelcase()) . "Controller'";
+                $ctrls[] = "'{$key}' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase($controllerName)) . "Controller'";
             }
             $bootstrap->appendToBody("    new Pop\\Mvc\\Router(array(");
             $i = 1;

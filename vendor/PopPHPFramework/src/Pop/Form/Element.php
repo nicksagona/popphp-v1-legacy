@@ -310,8 +310,8 @@ class Element extends Child
                 } else {
                     $curElemValue = $this->value;
                 }
-                
-                if ('Pop\\Validator\\Validator\\NotEmpty' == get_class($validator->getValidator())) {
+
+                if ('Pop\Validator\Validator\NotEmpty' == get_class($validator->getValidator())) {
                     if (!$validator->evaluate($curElemValue)) {
                         $this->errors[] = $validator->getMessage();
                     }

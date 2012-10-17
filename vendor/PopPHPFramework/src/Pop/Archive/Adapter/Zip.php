@@ -26,8 +26,7 @@ namespace Pop\Archive\Adapter;
 
 use Pop\Archive\ArchiveInterface,
     Pop\Dir\Dir,
-    Pop\File\File,
-    Pop\Filter\String;
+    Pop\File\File;
 
 /**
  * This is the Zip class for the Archive component.
@@ -140,16 +139,13 @@ class Zip implements ArchiveInterface
 
         if ($result === true) {
             // Directory separator clean up
-            $seps = array(
-                array('\\', '/'),
-                array('../', ''),
-                array('./', '')
-            );
+            $search = array('\\', '../', './');
+            $replace = array('/', '', '');
 
             foreach ($files as $file) {
                 $realfile = realpath($this->workingDir . DIRECTORY_SEPARATOR . $file);
                 $name = basename($file);
-                $dir = (string)String::factory(str_replace($name, '', $file))->replace($seps);
+                $dir = str_replace($search, $replace, (str_replace($name, '', $file)));
                 if (($dir != '') && (!in_array($dir, $dirs))) {
                     $newDirs = explode('/', substr($dir, 0, -1));
                     $curDir = null;
@@ -242,13 +238,10 @@ class Zip implements ArchiveInterface
             $origDir = $dir;
         }
 
-        $seps = array(
-            array('\\', '/'),
-            array('../', ''),
-            array('./', '')
-        );
+        $search = array('\\', '../', './');
+        $replace = array('/', '', '');
 
-        $dir = (string)String::factory($dir)->replace($seps);
+        $dir = str_replace($search, $replace, $dir);
         $files = array();
 
         foreach ($dirFiles as $file) {

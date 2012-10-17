@@ -27,7 +27,6 @@ namespace Pop\Form;
 use Pop\Dom\Dom,
     Pop\Dom\Child,
     Pop\File\File,
-    Pop\Filter\String,
     Pop\Form\Element,
     Pop\Form\Element\Checkbox,
     Pop\Form\Element\Radio,
@@ -130,11 +129,11 @@ class Form extends Dom
         if (!$isValid) {
             throw new Exception('The array parameter passed must contain an array of field values.');
         }
-        
+
         foreach ($fields as $key => $value) {
             $this->fields[$value['name']] = (isset($value['value'])) ? $value['value'] : null;
         }
-        
+
         $this->initFieldsValues = $fields;
         return $this;
     }
@@ -532,19 +531,19 @@ class Form extends Dom
 
         foreach ($values as $key => $value) {
             foreach ($filters as $filter) {
-                if (method_exists('Pop\\Filter\\String', $filter)) {
+                if (function_exists($filter)) {
                     if ($value instanceof \ArrayObject) {
                         $value = (array)$value;
                     }
                     if (is_array($value)) {
                         $filteredAry = array();
                         foreach ($value as $k => $v) {
-                            $filteredAry[$k] = (string)String::factory($v)->$filter();
+                            $filteredAry[$k] = $filter($v);
                         }
                         $filteredValues[$key] = $filteredAry;
                         $value = $filteredAry;
                     } else {
-                        $filteredValues[$key] = (string)String::factory($value)->$filter();
+                        $filteredValues[$key] = $filter($value);
                         $value = $filteredValues[$key];
                     }
                 } else {

@@ -75,20 +75,20 @@ class Controllers
                 $controllerCls = new Generator(
                     $install->project->base . '/module/' . $install->project->name .
                         '/src/' . $install->project->name . '/Controller/' .
-                         ucfirst(String::factory($controllerName)->underscoreToCamelcase()) . 'Controller.php',
+                         ucfirst(String::underscoreToCamelcase($controllerName)) . 'Controller.php',
                     Generator::CREATE_CLASS
                 );
 
                 // Set namespace
-                $ns = new NamespaceGenerator($install->project->name . '\\Controller');
+                $ns = new NamespaceGenerator($install->project->name . '\Controller');
                 $ns->setUses(
                     array(
-                        'Pop\\Http\\Response',
-                        'Pop\\Http\\Request',
-                        array('Pop\\Mvc\\Controller', 'C'),
-                        'Pop\\Mvc\\Model',
-                        'Pop\\Mvc\\View',
-                        'Pop\\Project\\Project'
+                        'Pop\Http\Response',
+                        'Pop\Http\Request',
+                        array('Pop\Mvc\Controller', 'C'),
+                        'Pop\Mvc\Model',
+                        'Pop\Mvc\View',
+                        'Pop\Project\Project'
                     )
                 );
 

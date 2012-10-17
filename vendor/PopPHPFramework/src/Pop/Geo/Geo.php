@@ -151,7 +151,7 @@ class Geo
             $latitude = (null !== $geo->latitude) ? $geo->latitude : null;
             $longitude = (null !== $geo->longitude) ? $geo->longitude : null;
         } else if (null === $longitude) {
-            throw new Exception('You must either pass a Pop\\Geo\\Geo object or a set of latitude/longitude coordinates.');
+            throw new Exception('You must either pass a Pop\Geo\Geo object or a set of latitude/longitude coordinates.');
         }
 
         // Calculate approximate distance between the two points in miles

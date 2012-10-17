@@ -63,13 +63,13 @@ class Forms
 
         $forms = $install->forms->asArray();
         foreach ($forms as $name => $form) {
-            $formName = String::factory($name)->underscoreToCamelcase()->upperFirst();
+            $formName = ucfirst(String::underscoreToCamelcase($name));
 
             // Define namespace
-            $ns = new NamespaceGenerator($install->project->name . '\\Form');
-            $ns->setUse('Pop\\Form\\Form')
-               ->setUse('Pop\\Form\\Element')
-               ->setUse('Pop\\Validator\\Validator');
+            $ns = new NamespaceGenerator($install->project->name . '\Form');
+            $ns->setUse('Pop\Form\Form')
+               ->setUse('Pop\Form\Element')
+               ->setUse('Pop\Validator\Validator');
 
             // Create the constructor
             $construct = new MethodGenerator('__construct');

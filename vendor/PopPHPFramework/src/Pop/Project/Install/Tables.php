@@ -63,10 +63,10 @@ class Tables
         // Loop through the tables, creating the classes
         foreach ($dbTables as $table => $value) {
             $prefix = (isset($value['prefix'])) ? $value['prefix'] : null;
-            $tableName = String::factory(str_replace($prefix, '', $table))->underscoreToCamelcase()->upperFirst();
+            $tableName = ucfirst(String::underscoreToCamelcase(str_replace($prefix, '', $table)));
 
-            $ns = new NamespaceGenerator($install->project->name . '\\Table');
-            $ns->setUse('Pop\\Record\\Record');
+            $ns = new NamespaceGenerator($install->project->name . '\Table');
+            $ns->setUse('Pop\Record\Record');
 
             if (strpos($value['primaryId'], '|') !== false) {
                 $pIdType = 'array';

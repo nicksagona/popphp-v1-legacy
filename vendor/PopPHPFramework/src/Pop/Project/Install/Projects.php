@@ -59,7 +59,7 @@ class Projects
 
         // Set namespace
         $ns = new NamespaceGenerator($install->project->name);
-        $ns->setUse('Pop\\Project\\Project', 'P');
+        $ns->setUse('Pop\Project\Project', 'P');
 
         // Create 'run' method
         $run = new MethodGenerator('run');

@@ -94,12 +94,12 @@ class Sqlite implements CacheInterface
         $this->sqlite = Db::factory('Sqlite', array('database' => $this->db));
 
         // If the cache table doesn't exist, create it.
-        if (!in_array($this->table, $this->sqlite->adapter->getTables())) {
-            $this->sqlite->adapter->query('CREATE TABLE IF NOT EXISTS "' . $this->table . '" ("id" VARCHAR PRIMARY KEY NOT NULL UNIQUE, "value" BLOB, "time" INTEGER)');
+        if (!in_array($this->table, $this->sqlite->adapter()->getTables())) {
+            $this->sqlite->adapter()->query('CREATE TABLE IF NOT EXISTS "' . $this->table . '" ("id" VARCHAR PRIMARY KEY NOT NULL UNIQUE, "value" BLOB, "time" INTEGER)');
         }
 
-        $this->sqlite->sql->setTable($this->table);
-        $this->sqlite->sql->setIdQuoteType(Sql::DOUBLE_QUOTE);
+        $this->sqlite->sql()->setTable($this->table);
+        $this->sqlite->sql()->setIdQuoteType(Sql::DOUBLE_QUOTE);
     }
 
     /**
@@ -146,36 +146,36 @@ class Sqlite implements CacheInterface
         $time = (null === $time) ? time() : time() + $time;
 
         // Determine if the value already exists.
-        $this->sqlite->sql->setTable($this->table)
+        $this->sqlite->sql()->setTable($this->table)
                           ->select()
-                          ->where('id', '=', $this->sqlite->adapter->escape(sha1($id)));
+                          ->where('id', '=', $this->sqlite->adapter()->escape(sha1($id)));
 
-        $this->sqlite->adapter->query($this->sqlite->sql->getSql());
+        $this->sqlite->adapter()->query($this->sqlite->sql()->getSql());
 
         $rows = array();
-        while (($row = $this->sqlite->adapter->fetch()) != false) {
+        while (($row = $this->sqlite->adapter()->fetch()) != false) {
             $rows[] = $row;
         }
 
         // If the value exists, update it.
         if (count($rows) > 0) {
-            $this->sqlite->sql->setTable($this->table)
-                              ->update(array(
-                                  'value' => $this->sqlite->adapter->escape(serialize($value)),
-                                  'time'  => $time
-                               ))
-                               ->where('id', '=', $this->sqlite->adapter->escape(sha1($id)));
+            $this->sqlite->sql()->setTable($this->table)
+                                ->update(array(
+                                    'value' => $this->sqlite->adapter()->escape(serialize($value)),
+                                    'time'  => $time
+                                ))
+                                ->where('id', '=', $this->sqlite->adapter()->escape(sha1($id)));
         // Else, save the new value.
         } else {
-            $this->sqlite->sql->setTable($this->table)
-                              ->insert(array(
-                                'id'    => $this->sqlite->adapter->escape(sha1($id)),
-                                'value' => $this->sqlite->adapter->escape(serialize($value)),
-                                'time'  => $time
-                              ));
+            $this->sqlite->sql()->setTable($this->table)
+                                ->insert(array(
+                                  'id'    => $this->sqlite->adapter()->escape(sha1($id)),
+                                  'value' => $this->sqlite->adapter()->escape(serialize($value)),
+                                  'time'  => $time
+                                ));
         }
 
-        $this->sqlite->adapter->query($this->sqlite->sql->getSql());
+        $this->sqlite->adapter()->query($this->sqlite->sql()->getSql());
     }
 
     /**
@@ -190,14 +190,14 @@ class Sqlite implements CacheInterface
         $value = false;
 
         // Retrieve the value.
-        $this->sqlite->sql->setTable($this->table)
+        $this->sqlite->sql()->setTable($this->table)
                            ->select()
-                           ->where('id', '=', $this->sqlite->adapter->escape(sha1($id)));
+                           ->where('id', '=', $this->sqlite->adapter()->escape(sha1($id)));
 
-        $this->sqlite->adapter->query($this->sqlite->sql->getSql());
+        $this->sqlite->adapter()->query($this->sqlite->sql()->getSql());
 
         $rows = array();
-        while (($row = $this->sqlite->adapter->fetch()) != false) {
+        while (($row = $this->sqlite->adapter()->fetch()) != false) {
             $rows[] = $row;
         }
 
@@ -221,11 +221,11 @@ class Sqlite implements CacheInterface
      */
     public function remove($id)
     {
-        $this->sqlite->sql->setTable($this->table)
+        $this->sqlite->sql()->setTable($this->table)
                           ->delete()
-                          ->where('id', '=', $this->sqlite->adapter->escape(sha1($id)));
+                          ->where('id', '=', $this->sqlite->adapter()->escape(sha1($id)));
 
-        $this->sqlite->adapter->query($this->sqlite->sql->getSql());
+        $this->sqlite->adapter()->query($this->sqlite->sql()->getSql());
     }
 
     /**
@@ -235,7 +235,7 @@ class Sqlite implements CacheInterface
      */
     public function clear()
     {
-        $this->sqlite->adapter->query('DELETE FROM "' . $this->table . '"');
+        $this->sqlite->adapter()->query('DELETE FROM "' . $this->table . '"');
     }
 
     /**

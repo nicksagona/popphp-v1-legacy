@@ -26,7 +26,6 @@ namespace Pop\Project;
 
 use Pop\Dir\Dir,
     Pop\File\File,
-    Pop\Filter\String,
     Pop\Locale\Locale,
     Pop\Project\Install\Base,
     Pop\Project\Install\Bootstrap,
@@ -224,13 +223,11 @@ class Install
             $match = array();
             preg_match('/^require(.*)Autoloader.php[\'|\"];$/m', $bootstrapContents, $match);
             if (isset($match[0])) {
+                $search = array(';', '"', "'");
+                $replace = array('', '', "");
                 $autoloader = trim(substr($match[0], strpos($match[0], ' ')));
-                $autoloader = (string)String::factory($autoloader)->replace(array(
-                        array(';', ''),
-                        array('"', ''),
-                        array("'", "")
-                    )
-                );
+                $autoloader = str_replace($search, $replace, $autoloader);
+
                 if (!file_exists($autoloader)) {
                     echo Locale::factory()->__('The Pop autoloader class file was not found.') . PHP_EOL;
                     $input = self::getPop();

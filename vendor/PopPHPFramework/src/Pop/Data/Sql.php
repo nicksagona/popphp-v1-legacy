@@ -51,12 +51,9 @@ class Sql implements DataInterface
 
         $fields = substr($data, (strpos($data, '(') + 1));
         $fields = substr($fields, 0, strpos($fields, ')'));
-        $fields = (string)String::factory($fields)->replace(', ', ',')
-                                                  ->replace('`', '')
-                                                  ->replace('"', '')
-                                                  ->replace("'", "")
-                                                  ->replace('[', '')
-                                                  ->replace(']', '');
+        $search = array(', ', '`', '"', "'", '[', ']');
+        $replace = array(',', '', '', "", '', '');
+        $fields = str_replace($search, $replace, $fields);
 
         $fieldsAry = explode(',', $fields);
 
