@@ -220,14 +220,14 @@ class String
         $search = array('\\', "\n", "\r", "\x00", "\x1a", '\'', '"');
         $replace = array('\\\\', "\\n", "\\r", "\\x00", "\\x1a", '\\\'', '\\"');
 
+        $str = str_replace($search, $replace, $string);
+        
         if ($all) {
-            $search[] = '%';
-            $search[] = '\\%';
-            $replace[] = '_';
-            $replace[] = '\\_';
+            $str = str_replace('%', '\%', $str);
+            $str = str_replace('_', '\_', $str);
         }
 
-        return str_replace($search, $replace, $string);
+        return $str;
     }
 
     /**

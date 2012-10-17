@@ -153,13 +153,14 @@ class Form extends Dom
      *
      * @param  array $values
      * @param  mixed $filters
+     * @param  mixed $params
      * @return Pop\Form\Form
      */
-    public function setFieldValues(array $values = null, $filters = null)
+    public function setFieldValues(array $values = null, $filters = null, $params = null)
     {
         // Filter values if passed
         if ((null !== $values) && (null !== $filters)) {
-            $values = $this->filterValues($values, $filters);
+            $values = $this->filterValues($values, $filters, $params);
         }
 
         // Loop through the initial fields values and build the fields
@@ -519,18 +520,23 @@ class Form extends Dom
      *
      * @param  array $values
      * @param  mixed $filters
+     * @param  mixed $params
      * @return array
      */
-    protected function filterValues($values, $filters)
+    protected function filterValues($values, $filters, $params)
     {
         $filteredValues = array();
 
         if (!is_array($filters)) {
             $filters = array($filters);
         }
-
+    
+        if ((null !== $params) && !is_array($params)) {
+            $params = array($params);
+        }
+        
         foreach ($values as $key => $value) {
-            foreach ($filters as $filter) {
+            foreach ($filters as $fk => $filter) {
                 if (function_exists($filter)) {
                     if ($value instanceof \ArrayObject) {
                         $value = (array)$value;
@@ -538,12 +544,26 @@ class Form extends Dom
                     if (is_array($value)) {
                         $filteredAry = array();
                         foreach ($value as $k => $v) {
-                            $filteredAry[$k] = $filter($v);
+                            if ((null !== $params) && isset($params[$fk])) {
+                                $pars = (!is_array($params[$fk])) ?
+                                    array($v, $params[$fk]) :
+                                    array_merge(array($v), $params[$fk]);
+                                $filteredAry[$k] = call_user_func_array($filter, $pars);
+                            } else {
+                                $filteredAry[$k] = $filter($v);
+                            }
                         }
                         $filteredValues[$key] = $filteredAry;
                         $value = $filteredAry;
                     } else {
-                        $filteredValues[$key] = $filter($value);
+                        if ((null !== $params) && isset($params[$fk])) {
+                            $pars = (!is_array($params[$fk])) ?
+                                    array($value, $params[$fk]) :
+                                    array_merge(array($value), $params[$fk]);
+                            $filteredValues[$key] = call_user_func_array($filter, $pars);
+                        } else {
+                            $filteredValues[$key] = $filter($value);
+                        }
                         $value = $filteredValues[$key];
                     }
                 } else {

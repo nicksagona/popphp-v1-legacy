@@ -77,8 +77,12 @@ class FormTest extends \PHPUnit_Framework_TestCase
             'attributes' => array('size', 40)
         ));
         $f = new Form('/submit', 'post', $fields);
-        $f->setFieldValues(array('username' => 'testuser'), array('stripTags', 'html'));
-        $this->assertEquals('testuser', $f->username);
+        $f->setFieldValues(
+            array('username' => '<p>test"<script>us\'er</script></p>'),
+            array('strip_tags', 'htmlentities'),
+            array('<p>', array(ENT_QUOTES, 'UTF-8'))
+        );
+        $this->assertEquals('&lt;p&gt;test&quot;us&#039;er&lt;/p&gt;', $f->username);
     }
 
     public function testSetAndGetTemplate()

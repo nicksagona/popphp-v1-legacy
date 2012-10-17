@@ -36,9 +36,9 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testQuery()
     {
         $d = Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite'));
-        $d->adapter->query('SELECT * FROM users WHERE id = 1');
+        $d->adapter()->query('SELECT * FROM users WHERE id = 1');
         $r = null;
-        while (($row = $d->adapter->fetch()) != false) {
+        while (($row = $d->adapter()->fetch()) != false) {
             $r = $row;
         }
         $this->assertEquals(1, $r['id']);
@@ -46,8 +46,8 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('password1', $r['password']);
         $this->assertEquals('test1@test.com', $r['email']);
         $this->assertEquals('reader', $r['access']);
-        $this->assertEquals(1, $d->adapter->numRows());
-        $this->assertEquals(5, $d->adapter->numFields());
+        $this->assertEquals(1, $d->adapter()->numRows());
+        $this->assertEquals(5, $d->adapter()->numFields());
     }
 
 }

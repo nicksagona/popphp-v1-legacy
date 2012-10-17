@@ -31,33 +31,14 @@ class StringTest extends \PHPUnit_Framework_TestCase
 
     public $string = 'Hello World';
 
-    public function testStringFactory()
+    public $key = '123456789';
+    
+    public function testString()
     {
-        $this->assertInstanceOf('Pop\\Filter\\String', String::factory($this->string));
-    }
-
-    public function testStringBasic()
-    {
-        $s = String::factory($this->string);
-        $this->assertEquals('hello world', (string)$s->lower());
-        $this->assertEquals('HELLO WORLD', (string)$s->upper());
-        $this->assertEquals('/hello-world', (string)$s->slug());
-        $s = String::factory($this->string);
-        $this->assertEquals(md5('Hello World'), (string)$s->md5());
-        $s = String::factory($this->string);
-        $this->assertEquals(sha1('Hello World'), (string)$s->sha1());
-    }
-
-    public function testStringAdvanced()
-    {
-        $s = String::factory('HelloWorld');
-        $this->assertEquals('hello-world', (string)$s->camelCaseToDash());
-        $s = String::factory('HelloWorld');
-        $this->assertEquals('hello_world', (string)$s->camelCaseToUnderscore());
-        $s = String::factory('hello-world');
-        $this->assertEquals('helloWorld', (string)$s->dashToCamelCase());
-        $s = String::factory('hello-world');
-        $this->assertEquals('hello_world', (string)$s->dashToUnderscore());
+        $this->assertEquals('hello-world', String::camelCaseToDash('HelloWorld'));
+        $this->assertEquals('hello_world', String::camelCaseToUnderscore('HelloWorld'));
+        $this->assertEquals('helloWorld', String::dashToCamelCase('hello-world'));
+        $this->assertEquals('hello_world', String::dashToUnderscore('hello-world'));
     }
 
     public function testStringRandom()
@@ -67,180 +48,96 @@ class StringTest extends \PHPUnit_Framework_TestCase
 
         $s = String::random(6, String::ALPHANUM, String::LOWER);
         $val = new Validator(new Validator\AlphaNumeric());
-        $this->assertTrue($val->evaluate((string)$s));
+        $this->assertTrue($val->evaluate($s));
 
         $s = String::random(6, String::ALPHA, String::UPPER);
         $val = new Validator(new Validator\Alpha());
-        $this->assertTrue($val->evaluate((string)$s));
+        $this->assertTrue($val->evaluate($s));
+    }
+    
+    public function testCrypt()
+    {
+        $encrypted = String::encrypt($this->string, $this->key);
+        $decrypted = String::decrypt($encrypted, $this->key);
+        $this->assertEquals($this->string, $decrypted);
     }
 
-    public function testUpperWords()
+    public function testEncrpytIvTooLong()
     {
-        $s = String::factory('hello world');
-        $this->assertEquals('Hello World', (string)$s->upperWords());
+        $this->setExpectedException('Pop\\Filter\\Exception');
+        $encrypted = String::encrypt($this->string, '2132454847894651432132123156423132');
     }
 
-    public function testUpperFirst()
+    public function testDecrpytIvTooLong()
     {
-        $s = String::factory('hello world');
-        $this->assertEquals('Hello world', (string)$s->upperFirst());
+        $this->setExpectedException('Pop\\Filter\\Exception');
+        $encrypted = String::encrypt($this->string, $this->key);
+        $decrypted = String::decrypt($encrypted, '2132454847894651432132123156423132');
     }
 
     public function testBetween()
     {
-        $s = String::factory('hello -world* test');
-        $this->assertEquals('world', (string)$s->between('-', '*'));
-    }
-
-    public function testReplaceCase()
-    {
-        $s = String::factory('hello world');
-        $this->assertEquals('hello squirrel', (string)$s->replace('WORLD', 'squirrel', false));
-    }
-
-    public function testReplaceCaseArray()
-    {
-        $ary = array(array('WORLD', 'squirrel'), array('GIRL', 'boy'));
-        $s = String::factory('hello world, hello girl');
-        $this->assertEquals('hello squirrel, hello boy', (string)$s->replace($ary, null, false));
-    }
-
-    public function testPregReplace()
-    {
-        $s = String::factory('hello world');
-        $this->assertEquals('hello-world', (string)$s->pregReplace('/\s/', '-'));
-    }
-
-    public function testTrim()
-    {
-        $s = String::factory(' hello world ');
-        $this->assertEquals('hello world', (string)$s->trim());
-    }
-
-    public function testTrimChars()
-    {
-        $s = String::factory("\nhello world ");
-        $this->assertEquals('hello world ', (string)$s->trim("\n"));
-    }
-
-    public function testAddSlashes()
-    {
-        $s = String::factory("hello ' world");
-        $this->assertEquals("hello \\' world", (string)$s->addSlashes());
-    }
-
-    public function testStripSlashes()
-    {
-        $s = String::factory("hello \\' world");
-        $this->assertEquals("hello ' world", (string)$s->stripSlashes());
-    }
-
-    public function testStripTags()
-    {
-        $s = String::factory("hello<br />world");
-        $this->assertEquals("helloworld", (string)$s->stripTags());
-    }
-
-    public function testStripTagsAllowed()
-    {
-        $s = String::factory("hello<br /><a href=\"#\">world</a>");
-        $this->assertEquals("hello<br />world", (string)$s->stripTags('<br>'));
-    }
-
-    public function testHtmlAndDeHtml()
-    {
-        $s = String::factory("hello<br /><a href=\"#\">world</a>");
-        $this->assertEquals("hello&lt;br /&gt;&lt;a href=&quot;#&quot;&gt;world&lt;/a&gt;", (string)$s->html());
-        $s = String::factory("hello&lt;br /&gt;&lt;a href=&quot;#&quot;&gt;world&lt;/a&gt;");
-        $this->assertEquals("hello<br /><a href=\"#\">world</a>", (string)$s->dehtml());
-    }
-
-    public function testBr()
-    {
-        $s = String::factory("hello\nworld");
-        $this->assertEquals("hello<br />\nworld", (string)$s->br());
+        $this->assertEquals('world', String::between('hello -world* test', '-', '*'));
     }
 
     public function testEscape()
     {
-        $s = String::factory("\\\n\r\x00\x1a'\"%_");
-        $this->assertEquals("\\\\\\n\\r\\x00\\x1a\\'\\\"\\%\\_", (string)$s->escape(true));
+        $this->assertEquals("\\\\\\n\\r\\x00\\x1a\\'\\\"\\%\\_", String::escape("\\\n\r\x00\x1a'\"%_", true));
     }
 
     public function testClean()
     {
         $ms = chr(146) . chr(147) . chr(148) . chr(150) . chr(133);
-        $s = String::factory($ms);
-        $this->assertEquals("'\"\"&#150;...", (string)$s->clean());
-        $s = String::factory($ms);
-        $this->assertEquals("&#39;&#34;&#34;&#150;...", (string)$s->clean(true));
-
+        $this->assertEquals("'\"\"&#150;...", String::clean($ms));
+        $this->assertEquals("&#39;&#34;&#34;&#150;...", String::clean($ms, true));
     }
 
     public function testDosToUnix()
     {
-        $s = String::factory("hello\r\n");
-        $this->assertEquals("hello\n", (string)$s->dosToUnix());
+        $this->assertEquals("hello\n", String::dosToUnix("hello\r\n"));
     }
 
     public function testUnixToDos()
     {
-        $s = String::factory("hello\n");
-        $this->assertEquals("hello\r\n", (string)$s->unixToDos());
+        $this->assertEquals("hello\r\n", String::unixToDos("hello\n"));
     }
 
     public function testSlug()
     {
-        $s = String::factory("Hello | World");
-        $this->assertEquals("/hello/world", (string)$s->slug(' | '));
-        $s = String::factory('');
-        $this->assertEquals('', (string)$s->slug());
+        $this->assertEquals('/hello-world', String::slug($this->string));
+        $this->assertEquals("/hello/world", String::slug('Hello | World', ' | '));
+        $this->assertEquals('', String::slug(''));
     }
 
     public function testLinks()
     {
-        $s = String::factory('hello world: http://www.google.com/');
-        $this->assertEquals('hello world: <a href="http://www.google.com/">http://www.google.com/</a>', (string)$s->links());
-        $s = String::factory('hello world: http://www.google.com/');
-        $this->assertEquals('hello world: <a target="_blank" href="http://www.google.com/">http://www.google.com/</a>', (string)$s->links(true));
-    }
-
-    public function testCrypt()
-    {
-        $s = String::factory('123456');
-        $this->assertGreaterThan(1, strlen($s->crypt()));
-        $s = String::factory('123456');
-        $this->assertEquals('09wwM231u9CnE', $s->crypt('098765'));
+        $this->assertEquals('hello world: <a href="http://www.google.com/">http://www.google.com/</a>', String::links('hello world: http://www.google.com/'));
+        $this->assertEquals('hello world: <a target="_blank" href="http://www.google.com/">http://www.google.com/</a>', String::links('hello world: http://www.google.com/', true));
     }
 
     public function testCamelCaseToSeparator()
     {
-        $s = String::factory('helloWorld');
-        $this->assertEquals('hello' . DIRECTORY_SEPARATOR . 'world', (string)$s->camelCaseToSeparator());
+        $this->assertEquals('hello' . DIRECTORY_SEPARATOR . 'world', String::camelCaseToSeparator('helloWorld'));
     }
 
     public function testDashToSeparator()
     {
-        $s = String::factory('hello-world');
-        $this->assertEquals('hello' . DIRECTORY_SEPARATOR . 'world', (string)$s->dashToSeparator());
+        $this->assertEquals('hello' . DIRECTORY_SEPARATOR . 'world', String::dashToSeparator('hello-world'));
     }
 
     public function testUnderscoreToCamelCase()
     {
-        $s = String::factory('hello_world');
-        $this->assertEquals('helloWorld', (string)$s->underscoreToCamelcase());
+        $this->assertEquals('helloWorld', String::underscoreToCamelcase('hello_world'));
     }
 
     public function testUnderscoreToDash()
     {
-        $s = String::factory('hello_world');
-        $this->assertEquals('hello-world', (string)$s->underscoreToDash());
+        $this->assertEquals('hello-world', String::underscoreToDash('hello_world'));
     }
 
     public function testUnderscoreToSeparator()
     {
-        $s = String::factory('hello_world');
-        $this->assertEquals('hello' . DIRECTORY_SEPARATOR . 'world', (string)$s->underscoreToSeparator());
+        $this->assertEquals('hello' . DIRECTORY_SEPARATOR . 'world', String::underscoreToSeparator('hello_world'));
     }
 
 }
