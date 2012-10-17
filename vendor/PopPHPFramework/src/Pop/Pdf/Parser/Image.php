@@ -373,7 +373,7 @@ class Image
         if ($this->img->getColorMode() == 'Gray') {
             $colorspace = '/DeviceGray';
             $numOfColors = 1;
-        } else if ($this->img->getColorMode() == 'RGB') {
+        } else if (stripos($this->img->getColorMode(), 'RGB') !== false) {
             $colorspace = '/DeviceRGB';
             $numOfColors = 3;
         } else if ($this->img->getColorMode() == 'Indexed') {

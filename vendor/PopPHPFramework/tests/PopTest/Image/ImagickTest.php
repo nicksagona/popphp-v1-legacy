@@ -56,7 +56,7 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(480, $i->getHeight());
         $this->assertEquals(3, $i->getChannels());
         $this->assertEquals(8, $i->getDepth());
-        $this->assertEquals('RGB', $i->getColorMode());
+        $this->assertEquals('sRGB', $i->getColorMode());
         $this->assertFalse($i->hasAlpha());
     }
 
@@ -120,7 +120,7 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
         $i->setBackgroundColor(new Rgb(255, 0, 0))
           ->rotate(45)
           ->save(__DIR__ . '/../tmp/test2.jpg');
-        $this->assertEquals(792, $i->getWidth());
+        $this->assertEquals(794, $i->getWidth());
         unlink(__DIR__ . '/../tmp/test2.jpg');
     }
 
