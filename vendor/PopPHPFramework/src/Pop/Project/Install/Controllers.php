@@ -64,7 +64,7 @@ class Controllers
         if (isset($install->controllers)) {
             $controllers = $install->controllers->asArray();
             foreach ($controllers as $controller => $views) {
-                $controllerName = ($controller == '/') ? 'default' : substr($controller, 1);
+                $controllerName = ($controller == '/') ? 'index' : substr($controller, 1);
 
                 // Create the '/view' folder for the controller
                 if (!file_exists($install->project->base . '/module/' . $install->project->name . '/view' . $controller)) {
@@ -108,7 +108,7 @@ class Controllers
                           ->appendToBody("    \$viewPath = __DIR__ . '/../../../view" . (($controller != '/') ? $controller : null) . "';")
                           ->appendToBody("}" . PHP_EOL);
 
-                if ($controller != 'default') {
+                if ($controller != 'index') {
                     $construct->appendToBody("if (null === \$request) {")
                               ->appendToBody("    \$request = new Request(null, '{$controller}');")
                               ->appendToBody("}" . PHP_EOL);

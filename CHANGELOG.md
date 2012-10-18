@@ -1,5 +1,26 @@
-Pop PHP Framework 1.0
-=====================
+Pop PHP Framework 1.0.1
+=======================
+
+COMPLETED:
+----------
+* Revise the Filter component
+    - Remove unnecessary and under-used classes and methods
+    - Convert remaining methods to static methods that return strings
+    - Move the Crypt functionality into the String class
+* Convert the $adapter property within the Db class to protected and create an access method adapter()
+* Convert the $sql property within the Db class to protected and create an access method sql()
+* Revise the File class to handle permissions better
+* Refactor the setFieldValues() method within the Form class
+    - Remove the dependency on Pop\Filter\String
+    - Add the ability to pass basic PHP string functions with their respective parameters
+* Refactor the Mvc Router
+    - Change the mapping to the controller classes from keyword-based to direct URL mapping
+    - Add the ability to route to sub-controllers
+* Overall code cleanup
+
+
+Pop PHP Framework 1.0.0
+=======================
 
 COMPLETED:
 ----------
