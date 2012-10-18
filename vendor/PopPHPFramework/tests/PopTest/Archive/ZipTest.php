@@ -35,7 +35,7 @@ class ZipTest extends \PHPUnit_Framework_TestCase
             $a = new Archive('test.zip');
             unset($a);
 
-            $a = new Archive('C:\\Projects\\..\\test.zip');
+            $a = new Archive('C:\Projects\..\test.zip');
             unset($a);
 
             $a = new Archive(__DIR__ . '/../tmp/test.zip');

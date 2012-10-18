@@ -34,7 +34,7 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testControllerConstructor()
     {
-        $this->assertInstanceOf('Pop\\Mvc\\Controller', new Controller(null, null, new Project(new Config(array())), '/admin'));
+        $this->assertInstanceOf('Pop\Mvc\Controller', new Controller(null, null, new Project(new Config(array())), '/admin'));
     }
 
     public function testSetAndGetRequest()
@@ -68,14 +68,14 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testDispatchException()
     {
-        $this->setExpectedException('Pop\\Mvc\\Exception');
+        $this->setExpectedException('Pop\Mvc\Exception');
         $c = new Controller();
         $c->dispatch();
     }
 
     public function testSendException()
     {
-        $this->setExpectedException('Pop\\Mvc\\Exception');
+        $this->setExpectedException('Pop\Mvc\Exception');
         $c = new Controller();
         $c->send();
     }

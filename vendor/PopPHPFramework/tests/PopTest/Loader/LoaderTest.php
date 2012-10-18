@@ -33,8 +33,8 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     {
         $a = new Autoloader();
         $a->splAutoloadRegister();
-        $this->assertInstanceOf('Pop\\Loader\\Autoloader', $a);
-        $this->assertInstanceOf('Pop\\Loader\\Autoloader', Autoloader::factory());
+        $this->assertInstanceOf('Pop\Loader\Autoloader', $a);
+        $this->assertInstanceOf('Pop\Loader\Autoloader', Autoloader::factory());
     }
 
     public function testClassmap()
@@ -56,7 +56,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testClassmapException()
     {
-        $this->setExpectedException('Pop\\Loader\\Exception');
+        $this->setExpectedException('Pop\Loader\Exception');
         $a = new Autoloader();
         $a->loadClassMap('bad.php');
     }
@@ -65,7 +65,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     {
         $a = new Autoloader(false);
         $a->register('Pop', __DIR__ . '/../../../src');
-        $this->assertInstanceOf('Pop\\Loader\\Autoloader', $a);
+        $this->assertInstanceOf('Pop\Loader\Autoloader', $a);
 
     }
 

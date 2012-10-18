@@ -30,7 +30,7 @@ class RootTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Pdf\\Root', new Root());
+        $this->assertInstanceOf('Pop\Pdf\Root', new Root());
     }
 
     public function testToString()

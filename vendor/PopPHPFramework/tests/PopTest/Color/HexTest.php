@@ -31,13 +31,13 @@ class HexTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $h = new Hex('#ee1c2d');
-        $this->assertInstanceOf('Pop\\Color\\Hex', $h);
+        $this->assertInstanceOf('Pop\Color\Hex', $h);
         $this->assertEquals('ee', $h->getRed());
         $this->assertEquals('1c', $h->getGreen());
         $this->assertEquals('2d', $h->getBlue());
 
         $h = new Hex('#def');
-        $this->assertInstanceOf('Pop\\Color\\Hex', $h);
+        $this->assertInstanceOf('Pop\Color\Hex', $h);
         $this->assertEquals('dd', $h->getRed());
         $this->assertEquals('ee', $h->getGreen());
         $this->assertEquals('ff', $h->getBlue());
@@ -45,7 +45,7 @@ class HexTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorOutOfRange()
     {
-        $this->setExpectedException('Pop\\Color\\Exception');
+        $this->setExpectedException('Pop\Color\Exception');
         $h = new Hex('#gggggg');
     }
 

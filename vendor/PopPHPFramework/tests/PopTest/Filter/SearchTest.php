@@ -32,7 +32,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     {
         $s = Search::factory('1|2|3|4|5', '|');
         $a = Search::factory(array(1, 2, 3, 4, 5));
-        $this->assertInstanceOf('Pop\\Filter\\Search', $s);
+        $this->assertInstanceOf('Pop\Filter\Search', $s);
         $r1 = $s->search('1');
         $r2 = $a->search('1', true);
         $this->assertTrue(in_array('1', $r1));

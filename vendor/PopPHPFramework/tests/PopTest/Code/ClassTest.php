@@ -34,7 +34,7 @@ class ClassTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $this->assertInstanceOf('Pop\\Code\\ClassGenerator', ClassGenerator::factory('TestClass'));
+        $this->assertInstanceOf('Pop\Code\ClassGenerator', ClassGenerator::factory('TestClass'));
     }
 
     public function testGetName()
@@ -81,8 +81,8 @@ class ClassTest extends \PHPUnit_Framework_TestCase
     public function testSetAndGetNamespace()
     {
         $c = ClassGenerator::factory('TestClass');
-        $c->setNamespace(new NamespaceGenerator('Test\\Space'));
-        $this->assertEquals('Test\\Space', $c->getNamespace()->getNamespace());
+        $c->setNamespace(new NamespaceGenerator('Test\Space'));
+        $this->assertEquals('Test\Space', $c->getNamespace()->getNamespace());
     }
 
     public function testSetAndGetDocblock()

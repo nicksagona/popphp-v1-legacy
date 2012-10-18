@@ -33,28 +33,28 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
     public function testRouterConstructor()
     {
-        $this->assertInstanceOf('Pop\\Mvc\\Router', new Router(array('Pop\\Mvc\\Controller' => new Controller())));
-        $this->assertInstanceOf('Pop\\Mvc\\Router', Router::factory(array('Pop\\Mvc\\Controller' => new Controller())));
+        $this->assertInstanceOf('Pop\Mvc\Router', new Router(array('Pop\Mvc\Controller' => new Controller())));
+        $this->assertInstanceOf('Pop\Mvc\Router', Router::factory(array('Pop\Mvc\Controller' => new Controller())));
     }
 
     public function testAddAndGetControllers()
     {
-        $r = new Router(array('Pop\\Mvc\\Controller' => new Controller()));
-        $r->addControllers(array('Some\\Other\\Controller' => new Controller()));
-        $this->assertInstanceOf('Pop\\Mvc\\Controller', $r->getController('Some\\Other\\Controller'));
+        $r = new Router(array('Pop\Mvc\Controller' => new Controller()));
+        $r->addControllers(array('Some\Other\Controller' => new Controller()));
+        $this->assertInstanceOf('Pop\Mvc\Controller', $r->getController('Some\Other\Controller'));
         $this->assertEquals(2, count($r->getControllers()));
     }
 
     public function testAction()
     {
-        $r = new Router(array('Pop\\Mvc\\Controller' => new Controller()));
+        $r = new Router(array('Pop\Mvc\Controller' => new Controller()));
         $r->route(new Project(new Config(array())));
         $this->assertNull($r->getAction());
     }
 
     public function testRoute()
     {
-        $r = new Router(array('Pop\\Mvc\\Controller' => new Controller()));
+        $r = new Router(array('Pop\Mvc\Controller' => new Controller()));
         $r->route(new Project(new Config(array())));
         $this->assertNull($r->controller());
     }

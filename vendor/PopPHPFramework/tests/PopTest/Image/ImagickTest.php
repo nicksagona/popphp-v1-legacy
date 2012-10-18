@@ -31,7 +31,7 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
 
     public function testImagickConstructor()
     {
-        $this->assertInstanceOf('Pop\\Image\\Imagick', new Imagick('graph.gif', 640, 480));
+        $this->assertInstanceOf('Pop\Image\Imagick', new Imagick('graph.gif', 640, 480));
     }
 
     public function testImagickConstructorPdf()
@@ -42,7 +42,7 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
 
     public function testImagickConstructorException()
     {
-        $this->setExpectedException('Pop\\Image\\Exception');
+        $this->setExpectedException('Pop\Image\Exception');
         $i = new Imagick('graph.gif');
     }
 
@@ -281,14 +281,14 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
 
     public function testConvertExceptionBadType()
     {
-        $this->setExpectedException('Pop\\Image\\Exception');
+        $this->setExpectedException('Pop\Image\Exception');
         $i = new Imagick(__DIR__ . '/../tmp/test.gif');
         $i->convert('bad');
     }
 
     public function testConvertExceptionDupeType()
     {
-        $this->setExpectedException('Pop\\Image\\Exception');
+        $this->setExpectedException('Pop\Image\Exception');
         $i = new Imagick(__DIR__ . '/../tmp/test.gif');
         $i->convert('gif');
     }

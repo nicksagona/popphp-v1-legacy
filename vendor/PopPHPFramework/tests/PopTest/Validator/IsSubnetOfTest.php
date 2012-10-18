@@ -44,7 +44,7 @@ class IsSubnetOfTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateException()
     {
-        $this->setExpectedException('Pop\\Validator\\Validator\\Exception');
+        $this->setExpectedException('Pop\Validator\Validator\Exception');
         $v = new IsSubnetOf('192.168.1', false);
         $v->evaluate('192168110');
     }

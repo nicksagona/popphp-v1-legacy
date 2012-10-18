@@ -31,8 +31,8 @@ class PdfTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', new Pdf('doc.pdf'));
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', new Pdf(__DIR__ . '/../tmp/test.pdf'));
+        $this->assertInstanceOf('Pop\Pdf\Pdf', new Pdf('doc.pdf'));
+        $this->assertInstanceOf('Pop\Pdf\Pdf', new Pdf(__DIR__ . '/../tmp/test.pdf'));
     }
 
     public function testAddCopyAndDeletePage()
@@ -49,28 +49,28 @@ class PdfTest extends \PHPUnit_Framework_TestCase
 
     public function testSetPageException()
     {
-        $this->setExpectedException('Pop\\Pdf\\Exception');
+        $this->setExpectedException('Pop\Pdf\Exception');
         $p = new Pdf('doc.pdf');
         $p->setPage(1);
     }
 
     public function testCopyPageException()
     {
-        $this->setExpectedException('Pop\\Pdf\\Exception');
+        $this->setExpectedException('Pop\Pdf\Exception');
         $p = new Pdf('doc.pdf');
         $p->copyPage(1);
     }
 
     public function testDeletePageException()
     {
-        $this->setExpectedException('Pop\\Pdf\\Exception');
+        $this->setExpectedException('Pop\Pdf\Exception');
         $p = new Pdf('doc.pdf');
         $p->deletePage(1);
     }
 
     public function testOrderPagesException1()
     {
-        $this->setExpectedException('Pop\\Pdf\\Exception');
+        $this->setExpectedException('Pop\Pdf\Exception');
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter');
         $p->addPage('Letter');
@@ -79,7 +79,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
 
     public function testOrderPagesException2()
     {
-        $this->setExpectedException('Pop\\Pdf\\Exception');
+        $this->setExpectedException('Pop\Pdf\Exception');
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter');
         $p->addPage('Letter');
@@ -88,7 +88,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
 
     public function testOrderPagesException3()
     {
-        $this->setExpectedException('Pop\\Pdf\\Exception');
+        $this->setExpectedException('Pop\Pdf\Exception');
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter');
         $p->orderPages(array(1, 2));
@@ -113,26 +113,26 @@ class PdfTest extends \PHPUnit_Framework_TestCase
           ->setBackgroundColor(new Rgb(255, 0, 0))
           ->setTextParams(10, 10);
 
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', $p);
+        $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
     public function testTextParamsException1()
     {
-        $this->setExpectedException('Pop\\Pdf\\Exception');
+        $this->setExpectedException('Pop\Pdf\Exception');
         $p = new Pdf('doc.pdf');
         $p->setTextParams(10, 10, 50, 50, 100);
     }
 
     public function testTextParamsException2()
     {
-        $this->setExpectedException('Pop\\Pdf\\Exception');
+        $this->setExpectedException('Pop\Pdf\Exception');
         $p = new Pdf('doc.pdf');
         $p->setTextParams(10, 10, 50, 50, 45, 8);
     }
 
     public function testAddTextException()
     {
-        $this->setExpectedException('Pop\\Pdf\\Exception');
+        $this->setExpectedException('Pop\Pdf\Exception');
         $p = new Pdf('doc.pdf');
         $p->addText(10, 10, 36, 'Hello World', 'BadFont');
     }
@@ -147,7 +147,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
 
     public function testGetStringSizeException()
     {
-        $this->setExpectedException('Pop\\Pdf\\Exception');
+        $this->setExpectedException('Pop\Pdf\Exception');
         $p = new Pdf('doc.pdf');
         $ary = $p->getStringSize('Hello World', 'BadFont', 36);
     }
@@ -157,7 +157,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter');
         $p->addRectangle(0, 0, 100);
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', $p);
+        $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
     public function testAddSquare()
@@ -165,7 +165,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter');
         $p->addSquare(0, 0, 100);
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', $p);
+        $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
     public function testAddEllipse()
@@ -173,7 +173,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter');
         $p->addEllipse(100, 100, 100);
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', $p);
+        $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
     public function testAddCircle()
@@ -181,7 +181,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter');
         $p->addCircle(100, 100, 100);
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', $p);
+        $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
     public function testAddArc()
@@ -189,7 +189,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter');
         $p->addArc(100, 100, 100, 180, 100);
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', $p);
+        $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
     public function testOpenAndCloseLayer()
@@ -199,7 +199,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
           ->openLayer();
         $p->addArc(100, 100, 100, 180, 100)
           ->closeLayer();
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', $p);
+        $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
     public function testClippingShapes()
@@ -210,7 +210,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
           ->addClippingSquare(100, 100, 100)
           ->addClippingEllipse(100, 100, 100)
           ->addClippingCircle(100, 100, 100);
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', $p);
+        $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
     public function testAddUrl()
@@ -218,7 +218,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter')
           ->addUrl(10, 10, 300, 200, 'http://www.google.com/');
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', $p);
+        $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
     public function testAddLink()
@@ -226,7 +226,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter')
           ->addUrl(10, 10, 300, 200, 50, 50, 50, 3);
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', $p);
+        $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
     public function testAddImageAndScale1()
@@ -234,7 +234,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter')
           ->addImage(__DIR__ . '/../tmp/test.jpg', 320, 240, 0.5, true);
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', $p);
+        $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
     public function testAddImageAndScale2()
@@ -242,7 +242,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter')
           ->addImage(__DIR__ . '/../tmp/test.png', 320, 240, 0.5, false);
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', $p);
+        $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
     public function testAddImageAndSave()
@@ -251,7 +251,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
         $p->addPage('Letter')
           ->addImage(__DIR__ . '/../tmp/test.jpg', 320, 240)
           ->save(__DIR__ . '/../tmp/newtest.pdf');
-        $this->assertInstanceOf('Pop\\Pdf\\Pdf', $p);
+        $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
         $this->fileExists(__DIR__ . '/../tmp/newtest.pdf');
         unlink(__DIR__ . '/../tmp/newtest.pdf');
     }

@@ -35,7 +35,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Form\\Form', new Form('/submit', 'post'));
+        $this->assertInstanceOf('Pop\Form\Form', new Form('/submit', 'post'));
     }
 
     public function testConstructorSetFields()
@@ -54,7 +54,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     public function testSetFieldsException()
     {
-        $this->setExpectedException('Pop\\Form\\Exception');
+        $this->setExpectedException('Pop\Form\Exception');
         $fields = array(
             'type'       => 'text',
             'name'       => 'username',
@@ -105,7 +105,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $f = new Form('/submit', 'post');
         $f->addElements($e);
         $this->assertEquals(1, count($f->getElements()));
-        $this->assertInstanceOf('Pop\\Form\\Element', $f->getElement('username'));
+        $this->assertInstanceOf('Pop\Form\Element', $f->getElement('username'));
     }
 
     public function testAddElements()
@@ -119,7 +119,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $f->addElements($e);
         $f->addElements(array($c, $r, $s, $t));
         $this->assertEquals(5, count($f->getElements()));
-        $this->assertInstanceOf('Pop\\Form\\Element', $f->getElement('username'));
+        $this->assertInstanceOf('Pop\Form\Element', $f->getElement('username'));
         $this->assertTrue($f->isValid());
     }
 
@@ -147,7 +147,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderException()
     {
-        $this->setExpectedException('Pop\\Form\Exception');
+        $this->setExpectedException('Pop\Form\Exception');
         $f = new Form('/submit', 'post');
         $f->render();
     }

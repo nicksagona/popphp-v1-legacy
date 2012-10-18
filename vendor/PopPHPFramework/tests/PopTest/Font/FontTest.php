@@ -32,12 +32,12 @@ class FontTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Font\\TrueType', new TrueType(__DIR__ . '/../tmp/times.ttf'));
+        $this->assertInstanceOf('Pop\Font\TrueType', new TrueType(__DIR__ . '/../tmp/times.ttf'));
     }
 
     public function testConstructorException()
     {
-        $this->setExpectedException('Pop\\Font\\Exception');
+        $this->setExpectedException('Pop\Font\Exception');
         $font = new TrueType(__DIR__ . '/../tmp/nofont.ttf');
     }
 

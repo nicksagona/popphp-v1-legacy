@@ -31,7 +31,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Archive\\Archive', new Archive(__DIR__ . '/../tmp/test.tar'));
+        $this->assertInstanceOf('Pop\Archive\Archive', new Archive(__DIR__ . '/../tmp/test.tar'));
     }
 
     public function testAdapter()
@@ -47,7 +47,7 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
 
         if ($tar) {
             $a = Archive::factory(__DIR__ . '/../tmp/test.tar');
-            $this->assertInstanceOf('Pop\\Archive\\Adapter\\Tar', $a->adapter());
+            $this->assertInstanceOf('Pop\Archive\Adapter\Tar', $a->adapter());
             $this->assertInstanceOf('Archive_Tar', $a->archive());
 
             $files = $a->listFiles();

@@ -30,7 +30,7 @@ class SqlTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Db\\Sql', new Sql('users'));
+        $this->assertInstanceOf('Pop\Db\Sql', new Sql('users'));
     }
 
     public function testSql()
@@ -85,14 +85,14 @@ class SqlTest extends \PHPUnit_Framework_TestCase
     public function testInsertException()
     {
         $s = new Sql('users');
-        $this->setExpectedException('Pop\\Db\\Exception');
+        $this->setExpectedException('Pop\Db\Exception');
         $s->insert(array());
     }
 
     public function testUpdateException()
     {
         $s = new Sql('users');
-        $this->setExpectedException('Pop\\Db\\Exception');
+        $this->setExpectedException('Pop\Db\Exception');
         $s->update(array());
     }
 
@@ -149,7 +149,7 @@ class SqlTest extends \PHPUnit_Framework_TestCase
           ->setIdQuoteType(Sql::BRACKET)
           ->select('email')
           ->limit('5, 10');
-        $this->setExpectedException('Pop\\Db\\Exception');
+        $this->setExpectedException('Pop\Db\Exception');
         $sql = $s->getSql();
     }
 
@@ -176,21 +176,21 @@ class SqlTest extends \PHPUnit_Framework_TestCase
         $s->setDbType(Sql::ORACLE)
           ->select('email')
           ->limit('5, 10');
-        $this->setExpectedException('Pop\\Db\\Exception');
+        $this->setExpectedException('Pop\Db\Exception');
         $sql = $s->getSql();
     }
 
     public function testBuildTableException()
     {
         $s = new Sql();
-        $this->setExpectedException('Pop\\Db\\Exception');
+        $this->setExpectedException('Pop\Db\Exception');
         $s->getSql();
     }
 
     public function testBuildTypeException()
     {
         $s = new Sql('users');
-        $this->setExpectedException('Pop\\Db\\Exception');
+        $this->setExpectedException('Pop\Db\Exception');
         $s->getSql();
     }
 

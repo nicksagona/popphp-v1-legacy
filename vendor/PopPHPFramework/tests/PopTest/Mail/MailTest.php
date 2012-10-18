@@ -31,7 +31,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Mail\\Mail', new Mail());
+        $this->assertInstanceOf('Pop\Mail\Mail', new Mail());
     }
 
     public function testConstructorRcpts()
@@ -48,18 +48,18 @@ class MailTest extends \PHPUnit_Framework_TestCase
         );
         $m = new Mail(array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
         $m->addRecipients($rcpts);
-        $this->assertInstanceOf('Pop\\Mail\\Mail', new Mail());
+        $this->assertInstanceOf('Pop\Mail\Mail', new Mail());
     }
 
     public function testConstructorRcptException()
     {
-        $this->setExpectedException('Pop\\Mail\\Exception');
+        $this->setExpectedException('Pop\Mail\Exception');
         $m = new Mail(array('name' => 'Bob Smith'));
     }
 
     public function testRcptException()
     {
-        $this->setExpectedException('Pop\\Mail\\Exception');
+        $this->setExpectedException('Pop\Mail\Exception');
         $m = new Mail();
         $m->addRecipients(array(array('name' => 'Bob Smith'), array('name' => 'Bob Smith')));
     }
@@ -119,12 +119,12 @@ class MailTest extends \PHPUnit_Framework_TestCase
         $m = new Mail();
         $m->attachFile(__DIR__ . '/../tmp/test.jpg');
         $m->attachFile(new File(__DIR__ . '/../tmp/test.gif'));
-        $this->assertInstanceOf('Pop\\Mail\\Mail', new Mail());
+        $this->assertInstanceOf('Pop\Mail\Mail', new Mail());
     }
 
     public function testAttachFileException()
     {
-        $this->setExpectedException('Pop\\Mail\\Exception');
+        $this->setExpectedException('Pop\Mail\Exception');
         $m = new Mail();
         $m->attachFile(__DIR__ . '/../tmp/test.txt');
     }

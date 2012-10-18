@@ -30,12 +30,12 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Http\\Response', $r = new Response(200, array('Content-Type' => 'text/plain')));
+        $this->assertInstanceOf('Pop\Http\Response', $r = new Response(200, array('Content-Type' => 'text/plain')));
     }
 
     public function testConstructorException()
     {
-        $this->setExpectedException('Pop\\Http\\Exception');
+        $this->setExpectedException('Pop\Http\Exception');
         $r = new Response(601, array('Content-Type' => 'text/plain'));
     }
 
@@ -48,7 +48,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
     public function testSetCodeException()
     {
-        $this->setExpectedException('Pop\\Http\\Exception');
+        $this->setExpectedException('Pop\Http\Exception');
         $r = new Response(200, array('Content-Type' => 'text/plain'));
         $r->setCode(601);
     }
@@ -63,7 +63,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
     public function testGetMessageException()
     {
-        $this->setExpectedException('Pop\\Http\\Exception');
+        $this->setExpectedException('Pop\Http\Exception');
         $msg = Response::getMessageFromCode(601);
     }
 

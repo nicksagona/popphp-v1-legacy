@@ -31,7 +31,7 @@ class DomTest extends \PHPUnit_Framework_TestCase
 
     public function testDomConstructor()
     {
-        $this->assertInstanceOf('Pop\\Dom\\Dom', new Dom(Dom::XHTML11));
+        $this->assertInstanceOf('Pop\Dom\Dom', new Dom(Dom::XHTML11));
     }
 
     public function testAddChildren()
@@ -77,7 +77,7 @@ class DomTest extends \PHPUnit_Framework_TestCase
     public function testAddChildException()
     {
         $d = new Dom(Dom::XHTML11);
-        $this->setExpectedException('Pop\\Dom\\Exception');
+        $this->setExpectedException('Pop\Dom\Exception');
         $d->addChild('badchild');
     }
 

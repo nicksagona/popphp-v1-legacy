@@ -31,10 +31,10 @@ $creds = array(
 $db = Db::factory('Mysqli', $creds);
 
 // Perform the query
-$db->adapter->query('SELECT * FROM users');
+$db->adapter()->query('SELECT * FROM users');
 
 // Fetch the results
-while (($row = $db->adapter->fetch()) != false) {
+while (($row = $db->adapter()->fetch()) != false) {
     print_r($row);
 }
 </pre>

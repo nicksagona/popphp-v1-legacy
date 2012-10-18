@@ -30,7 +30,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
     public function testModelConstructor()
     {
-        $this->assertInstanceOf('Pop\\Mvc\\Model', new Model('123', 'data'));
+        $this->assertInstanceOf('Pop\Mvc\Model', new Model('123', 'data'));
     }
 
     public function testAsArray()
@@ -78,7 +78,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
     public function testSetException()
     {
-        $this->setExpectedException('Pop\\Mvc\\Exception');
+        $this->setExpectedException('Pop\Mvc\Exception');
         $m = new Model(123);
     }
 

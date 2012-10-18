@@ -30,14 +30,14 @@ class ImportTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Pdf\\Import', new Import(__DIR__ . '/../tmp/test.pdf'));
+        $this->assertInstanceOf('Pop\Pdf\Import', new Import(__DIR__ . '/../tmp/test.pdf'));
     }
 
     public function testShiftObjects()
     {
         $i = new Import(__DIR__ . '/../tmp/test.pdf');
         $i->shiftObjects(5);
-        $this->assertInstanceOf('Pop\\Pdf\\Import', $i);
+        $this->assertInstanceOf('Pop\Pdf\Import', $i);
         $this->assertTrue(is_array($i->returnObjects(2)));
     }
 

@@ -36,13 +36,13 @@ class EscapedTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $r = new Record(array('column' => 'value'), Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')));
-        $this->assertInstanceOf('Pop\\Record\\Record', $r);
+        $this->assertInstanceOf('Pop\Record\Record', $r);
     }
 
     public function testGetDefaultDb()
     {
         Record::setDb(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), true);
-        $this->assertInstanceOf('Pop\\Db\\Db', Record::getDb());
+        $this->assertInstanceOf('Pop\Db\Db', Record::getDb());
     }
 
     public function testFindById()

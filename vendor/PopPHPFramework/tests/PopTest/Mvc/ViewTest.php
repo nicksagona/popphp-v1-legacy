@@ -31,8 +31,8 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
     public function testViewConstructor()
     {
-        $this->assertInstanceOf('Pop\\Mvc\\View', new View('some template'));
-        $this->assertInstanceOf('Pop\\Mvc\\View', View::factory(__DIR__ . '/ModelTest.php', new Model()));
+        $this->assertInstanceOf('Pop\Mvc\View', new View('some template'));
+        $this->assertInstanceOf('Pop\Mvc\View', View::factory(__DIR__ . '/ModelTest.php', new Model()));
     }
 
     public function testSetAndGetModel()
@@ -65,14 +65,14 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
     public function testSetTemplateFileException1()
     {
-        $this->setExpectedException('Pop\\Mvc\\Exception');
+        $this->setExpectedException('Pop\Mvc\Exception');
         $v = View::factory(null, new Model());
         $v->setTemplateFile(__DIR__ . '/ModelTest.bad');
     }
 
     public function testSetTemplateFileException2()
     {
-        $this->setExpectedException('Pop\\Mvc\\Exception');
+        $this->setExpectedException('Pop\Mvc\Exception');
         $v = View::factory(null, new Model());
         $v->setTemplateFile(__DIR__ . '/ModelTestBad.php');
     }
@@ -86,7 +86,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderException()
     {
-        $this->setExpectedException('Pop\\Mvc\\Exception');
+        $this->setExpectedException('Pop\Mvc\Exception');
         $v = View::factory(null, new Model());
         $v->render();
     }

@@ -30,7 +30,7 @@ class TextareaTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Form\\Element\\Textarea', new Textarea('comments'));
+        $this->assertInstanceOf('Pop\Form\Element\Textarea', new Textarea('comments'));
     }
 
 }

@@ -30,7 +30,7 @@ class PdfParentTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Pdf\\PdfParent', new PdfParent());
+        $this->assertInstanceOf('Pop\Pdf\PdfParent', new PdfParent());
     }
 
     public function testToString()

@@ -31,29 +31,29 @@ class GraphTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Graph\\Graph', new Graph('graph.gif', 640, 480));
-        $this->assertInstanceOf('Pop\\Graph\\Graph', new Graph('graph.gif', 640, 480, Graph::IMAGICK));
-        $this->assertInstanceOf('Pop\\Graph\\Graph', new Graph('graph.pdf', 640, 480));
-        $this->assertInstanceOf('Pop\\Graph\\Graph', new Graph('graph.svg', 640, 480));
+        $this->assertInstanceOf('Pop\Graph\Graph', new Graph('graph.gif', 640, 480));
+        $this->assertInstanceOf('Pop\Graph\Graph', new Graph('graph.gif', 640, 480, Graph::IMAGICK));
+        $this->assertInstanceOf('Pop\Graph\Graph', new Graph('graph.pdf', 640, 480));
+        $this->assertInstanceOf('Pop\Graph\Graph', new Graph('graph.svg', 640, 480));
     }
 
     public function testAdapter()
     {
         $g = new Graph('graph.gif', 640, 480);
-        $this->assertInstanceOf('Pop\\Image\\Gd', $g->adapter());
+        $this->assertInstanceOf('Pop\Image\Gd', $g->adapter());
     }
 
     public function testAddAndSetFont()
     {
         $g = new Graph('graph.gif', 640, 480);
         $g->addFont(__DIR__ . '/../tmp/times.ttf');
-        $this->assertInstanceOf('Pop\\Graph\\Graph', $g->setFont('times'));
+        $this->assertInstanceOf('Pop\Graph\Graph', $g->setFont('times'));
     }
 
 
     public function testAddAndSetFont1()
     {
-        $this->setExpectedException('Pop\\Graph\\Exception');
+        $this->setExpectedException('Pop\Graph\Exception');
         $g = new Graph('graph.gif', 640, 480);
         $g->addFont(__DIR__ . '/../tmp/times.ttf');
         $g->setFont('bogus');
@@ -61,7 +61,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase
 
     public function testAddAndSetFont2()
     {
-        $this->setExpectedException('Pop\\Graph\\Exception');
+        $this->setExpectedException('Pop\Graph\Exception');
         $g = new Graph('graph.pdf', 640, 480);
         $g->addFont(__DIR__ . '/../tmp/times.ttf');
         $g->setFont('bogus');
@@ -137,7 +137,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase
         $g->showText(true)
           ->showX(true, new Rgb(128, 128, 128))
           ->showY(true, new Rgb(128, 128, 128));
-        $this->assertInstanceOf('Pop\\Graph\\Graph', $g);
+        $this->assertInstanceOf('Pop\Graph\Graph', $g);
     }
 
     public function testAddLineGraph()
@@ -158,7 +158,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase
             array(2015, 162)
         );
 
-        $this->setExpectedException('Pop\\Http\\Exception');
+        $this->setExpectedException('Pop\Http\Exception');
         $g = new Graph('graph.pdf', 640, 480, Graph::IMAGICK);
         $g->addFont('Arial')
           ->setFontColor(new Rgb(128, 128, 128))
@@ -182,7 +182,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase
             array(175, new Rgb(80, 180, 10))
         );
 
-        $this->setExpectedException('Pop\\Http\\Exception');
+        $this->setExpectedException('Pop\Http\Exception');
         $g = new Graph('graph.pdf', 640, 480, Graph::IMAGICK);
         $g->addFont('Arial')
           ->setFontColor(new Rgb(128, 128, 128))
@@ -206,7 +206,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase
             array(175, new Rgb(80, 180, 10))
         );
 
-        $this->setExpectedException('Pop\\Http\\Exception');
+        $this->setExpectedException('Pop\Http\Exception');
         $g = new Graph('graph.pdf', 640, 480, Graph::IMAGICK);
         $g->addFont('Arial')
           ->setFontColor(new Rgb(128, 128, 128))
@@ -236,7 +236,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase
             array(12, new Rgb(80, 180, 10))
         );
 
-        $this->setExpectedException('Pop\\Http\\Exception');
+        $this->setExpectedException('Pop\Http\Exception');
         $g = new Graph('graph.pdf', 640, 480, Graph::IMAGICK);
         $g->addFont('Arial')
           ->setFontColor(new Rgb(128, 128, 128))

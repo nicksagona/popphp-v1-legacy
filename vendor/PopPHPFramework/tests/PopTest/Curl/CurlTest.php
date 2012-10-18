@@ -35,7 +35,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
             CURLOPT_HEADER => false,
             CURLOPT_RETURNTRANSFER => false
         ));
-        $this->assertInstanceOf('Pop\\Curl\\Curl', $c);
+        $this->assertInstanceOf('Pop\Curl\Curl', $c);
 
         ob_start();
         $result = $c->execute();
@@ -109,7 +109,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
             CURLOPT_HEADER => false,
             CURLOPT_RETURNTRANSFER => false
         ));
-        $this->setExpectedException('Pop\\Curl\\Exception');
+        $this->setExpectedException('Pop\Curl\Exception');
         $c->execute();
     }
 

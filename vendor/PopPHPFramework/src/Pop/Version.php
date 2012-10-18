@@ -32,7 +32,7 @@ namespace Pop;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    1.0
+ * @version    1.0.1
  */
 class Version
 {
@@ -40,7 +40,7 @@ class Version
     /**
      * Current version
      */
-    const VERSION = '1.0';
+    const VERSION = '1.0.1';
 
     /**
      * Current URL
@@ -151,7 +151,7 @@ class Version
         $check['Db PgSql'] = (function_exists('pg_connect'))  ? 'Yes' : 'No';
         $check['Db Sqlite'] = (class_exists('Sqlite3', false))  ? 'Yes' : 'No';
         $check['Db SQLSrv'] = (function_exists('sqlsrv_connect'))  ? 'Yes' : 'No';
-        
+
         // DOM/XML
         $check['Dom DOMDocument'] = (class_exists('DOMDocument', false))  ? 'Yes' : 'No';
         $check['Dom SimpleXml'] = (class_exists('SimpleXMLElement', false))  ? 'Yes' : 'No';

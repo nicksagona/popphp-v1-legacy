@@ -31,12 +31,12 @@ class SvgTest extends \PHPUnit_Framework_TestCase
 
     public function testSvgConstructor()
     {
-        $this->assertInstanceOf('Pop\\Image\\Svg', new Svg('graph.svg', 640, 480, new Rgb(255, 0, 0)));
+        $this->assertInstanceOf('Pop\Image\Svg', new Svg('graph.svg', 640, 480, new Rgb(255, 0, 0)));
     }
 
     public function testGdConstructorException()
     {
-        $this->setExpectedException('Pop\\Image\\Exception');
+        $this->setExpectedException('Pop\Image\Exception');
         $i = new Svg('graph.svg');
     }
 

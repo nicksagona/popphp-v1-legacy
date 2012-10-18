@@ -30,9 +30,9 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Feed\\Reader', new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4));
-        $this->assertInstanceOf('Pop\\Feed\\Reader', new Reader('http://vimeo.com/tag:mostviewed/rss', 4));
-        $this->assertInstanceOf('Pop\\Feed\\Reader', new Reader('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Reader('http://vimeo.com/tag:mostviewed/rss', 4));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Reader('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4));
     }
 
     public function testConstructorException()

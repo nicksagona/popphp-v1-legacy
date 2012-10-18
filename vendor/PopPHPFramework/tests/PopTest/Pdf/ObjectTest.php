@@ -30,7 +30,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Pdf\\Object', new Object(1));
+        $this->assertInstanceOf('Pop\Pdf\Object', new Object(1));
     }
 
     public function testSetAndGetDef()

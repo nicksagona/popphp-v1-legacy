@@ -32,7 +32,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     public $string = 'Hello World';
 
     public $key = '123456789';
-    
+
     public function testString()
     {
         $this->assertEquals('hello-world', String::camelCaseToDash('HelloWorld'));
@@ -54,7 +54,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $val = new Validator(new Validator\Alpha());
         $this->assertTrue($val->evaluate($s));
     }
-    
+
     public function testCrypt()
     {
         $encrypted = String::encrypt($this->string, $this->key);
@@ -64,13 +64,13 @@ class StringTest extends \PHPUnit_Framework_TestCase
 
     public function testEncrpytIvTooLong()
     {
-        $this->setExpectedException('Pop\\Filter\\Exception');
+        $this->setExpectedException('Pop\Filter\Exception');
         $encrypted = String::encrypt($this->string, '2132454847894651432132123156423132');
     }
 
     public function testDecrpytIvTooLong()
     {
-        $this->setExpectedException('Pop\\Filter\\Exception');
+        $this->setExpectedException('Pop\Filter\Exception');
         $encrypted = String::encrypt($this->string, $this->key);
         $decrypted = String::decrypt($encrypted, '2132454847894651432132123156423132');
     }

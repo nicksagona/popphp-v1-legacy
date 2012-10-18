@@ -31,7 +31,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Cache\\Cache', Cache::factory(new File(__DIR__ . '/../tmp'), 30));
+        $this->assertInstanceOf('Pop\Cache\Cache', Cache::factory(new File(__DIR__ . '/../tmp'), 30));
     }
 
     public function testSetAndGetLifetime()
@@ -43,7 +43,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 
     public function testCacheDir()
     {
-        $this->setExpectedException('Pop\\Cache\\Exception');
+        $this->setExpectedException('Pop\Cache\Exception');
         $c = Cache::factory(new File(__DIR__ . '/../test'), 30);
     }
 

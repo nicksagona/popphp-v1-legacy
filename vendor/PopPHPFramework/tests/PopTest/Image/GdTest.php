@@ -31,13 +31,13 @@ class GdTest extends \PHPUnit_Framework_TestCase
 
     public function testGdConstructor()
     {
-        $this->assertInstanceOf('Pop\\Image\\Gd', new Gd('graph.gif', 640, 480));
-        $this->assertInstanceOf('Pop\\Image\\Gd', new Gd('graph.jpg', 640, 480));
+        $this->assertInstanceOf('Pop\Image\Gd', new Gd('graph.gif', 640, 480));
+        $this->assertInstanceOf('Pop\Image\Gd', new Gd('graph.jpg', 640, 480));
     }
 
     public function testGdConstructorException()
     {
-        $this->setExpectedException('Pop\\Image\\Exception');
+        $this->setExpectedException('Pop\Image\Exception');
         $i = new Gd('graph.gif');
     }
 
@@ -242,14 +242,14 @@ class GdTest extends \PHPUnit_Framework_TestCase
 
     public function testConvertExceptionBadType()
     {
-        $this->setExpectedException('Pop\\Image\\Exception');
+        $this->setExpectedException('Pop\Image\Exception');
         $i = new Gd(__DIR__ . '/../tmp/test.gif');
         $i->convert('tif');
     }
 
     public function testConvertExceptionDupeType()
     {
-        $this->setExpectedException('Pop\\Image\\Exception');
+        $this->setExpectedException('Pop\Image\Exception');
         $i = new Gd(__DIR__ . '/../tmp/test.gif');
         $i->convert('gif');
     }

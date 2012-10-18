@@ -30,7 +30,7 @@ class MethodTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $this->assertInstanceOf('Pop\\Code\\MethodGenerator', MethodGenerator::factory('testMethod'));
+        $this->assertInstanceOf('Pop\Code\MethodGenerator', MethodGenerator::factory('testMethod'));
     }
 
     public function testStatic()
@@ -80,7 +80,7 @@ class MethodTest extends \PHPUnit_Framework_TestCase
         $m->setDesc('This is the desc.');
         $m->setDesc('This is the new desc.');
         $this->assertEquals('This is the new desc.', $m->getDesc());
-        $this->assertInstanceOf('Pop\\Code\\DocblockGenerator', $m->getDocblock());
+        $this->assertInstanceOf('Pop\Code\DocblockGenerator', $m->getDocblock());
     }
 
     public function testSetAndGetIndent()

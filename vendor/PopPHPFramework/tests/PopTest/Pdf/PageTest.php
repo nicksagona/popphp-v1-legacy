@@ -30,7 +30,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Pdf\\Page', new Page(null, null, null, null, 5));
+        $this->assertInstanceOf('Pop\Pdf\Page', new Page(null, null, null, null, 5));
     }
 
     public function testToString()

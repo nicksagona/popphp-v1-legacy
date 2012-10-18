@@ -32,7 +32,7 @@ class LabTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $l = new Lab(100, 100, 100);
-        $this->assertInstanceOf('Pop\\Color\\Lab', $l);
+        $this->assertInstanceOf('Pop\Color\Lab', $l);
         $this->assertEquals(100, $l->getL());
         $this->assertEquals(100, $l->getA());
         $this->assertEquals(100, $l->getB());
@@ -40,7 +40,7 @@ class LabTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorOutOfRange()
     {
-        $this->setExpectedException('Pop\\Color\\Exception');
+        $this->setExpectedException('Pop\Color\Exception');
         $l = new Lab(120, 150, 150);
     }
 

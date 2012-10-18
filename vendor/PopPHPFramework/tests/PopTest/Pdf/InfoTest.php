@@ -30,7 +30,7 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Pdf\\Info', new Info());
+        $this->assertInstanceOf('Pop\Pdf\Info', new Info());
     }
 
     public function testToString()

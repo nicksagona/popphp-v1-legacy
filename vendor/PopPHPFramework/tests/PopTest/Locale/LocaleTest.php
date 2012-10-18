@@ -41,14 +41,14 @@ class LocaleTest extends \PHPUnit_Framework_TestCase
     public function testFactory()
     {
         $l = Locale::factory('fr');
-        $class = 'Pop\\Locale\\Locale';
-        $this->assertInstanceOf('Pop\\Locale\\Locale', $l);
+        $class = 'Pop\Locale\Locale';
+        $this->assertInstanceOf('Pop\Locale\Locale', $l);
         $this->assertEquals('Ce champ est obligatoire.', $l->__('This field is required.'));
     }
 
     public function testLoadFileException()
     {
-        $this->setExpectedException('Pop\\Locale\\Exception');
+        $this->setExpectedException('Pop\Locale\Exception');
         $l = Locale::factory();
         $l->loadFile('bad.xml');
     }

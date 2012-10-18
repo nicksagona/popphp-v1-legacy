@@ -33,7 +33,7 @@ class InterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $this->assertInstanceOf('Pop\\Code\\InterfaceGenerator', InterfaceGenerator::factory('TestInterface'));
+        $this->assertInstanceOf('Pop\Code\InterfaceGenerator', InterfaceGenerator::factory('TestInterface'));
     }
 
     public function testGetName()
@@ -66,8 +66,8 @@ class InterfaceTest extends \PHPUnit_Framework_TestCase
     public function testSetAndGetNamespace()
     {
         $i = InterfaceGenerator::factory('TestInterface');
-        $i->setNamespace(new NamespaceGenerator('Test\\Space'));
-        $this->assertEquals('Test\\Space', $i->getNamespace()->getNamespace());
+        $i->setNamespace(new NamespaceGenerator('Test\Space'));
+        $this->assertEquals('Test\Space', $i->getNamespace()->getNamespace());
     }
 
     public function testSetAndGetDocblock()
@@ -89,7 +89,7 @@ class InterfaceTest extends \PHPUnit_Framework_TestCase
     public function testRender()
     {
         $i = InterfaceGenerator::factory('TestInterface');
-        $i->setNamespace(new NamespaceGenerator('Test\\Space'))
+        $i->setNamespace(new NamespaceGenerator('Test\Space'))
           ->setParent('TestParent')
           ->setDocblock(new DocblockGenerator('This is a test desc.'))
           ->addMethod(new MethodGenerator('testMethod'));

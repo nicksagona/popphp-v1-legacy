@@ -32,7 +32,7 @@ class CmykTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $c = new Cmyk(20, 40, 60, 80);
-        $this->assertInstanceOf('Pop\\Color\\Cmyk', $c);
+        $this->assertInstanceOf('Pop\Color\Cmyk', $c);
         $this->assertEquals(20, $c->getCyan());
         $this->assertEquals(40, $c->getMagenta());
         $this->assertEquals(60, $c->getYellow());
@@ -41,7 +41,7 @@ class CmykTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorOutOfRange()
     {
-        $this->setExpectedException('Pop\\Color\\Exception');
+        $this->setExpectedException('Pop\Color\Exception');
         $c = new Cmyk(333, 234, 123, 120);
     }
 

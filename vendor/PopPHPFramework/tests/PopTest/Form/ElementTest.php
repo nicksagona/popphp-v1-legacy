@@ -31,12 +31,12 @@ class ElementTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Form\\Element', new Element('text', 'email'));
+        $this->assertInstanceOf('Pop\Form\Element', new Element('text', 'email'));
     }
 
     public function testConstructorException()
     {
-        $this->setExpectedException('Pop\\Form\\Exception');
+        $this->setExpectedException('Pop\Form\Exception');
         $e = new Element('bogus', 'email');
     }
 

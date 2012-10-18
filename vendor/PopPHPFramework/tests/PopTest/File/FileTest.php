@@ -30,7 +30,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\File\\File', new File('test.txt'));
+        $this->assertInstanceOf('Pop\File\File', new File('test.txt'));
     }
 
     public function testRead()
@@ -100,7 +100,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
         $f = new File(__DIR__ . '/../tmp/file.txt');
         $f->write('123');
-        $this->setExpectedException('Pop\\Http\\Exception');
+        $this->setExpectedException('Pop\Http\Exception');
         $f->output();
     }
 

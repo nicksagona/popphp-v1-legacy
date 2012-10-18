@@ -45,15 +45,15 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
             	'defaultDb' => 'testdb'
             )),
             new Config(array('name' => 'Test')),
-            new Router(array('Pop\\Mvc\\Controller' => new Controller()))
+            new Router(array('Pop\Mvc\Controller' => new Controller()))
         );
         $p->run();
-        $this->assertInstanceOf('Pop\\Project\\Project', $p);
+        $this->assertInstanceOf('Pop\Project\Project', $p);
     }
 
     public function testFactory()
     {
-        $this->assertInstanceOf('Pop\\Project\\Project', Project::factory(new Config(array())));
+        $this->assertInstanceOf('Pop\Project\Project', Project::factory(new Config(array())));
     }
 
     public function testDatabase()
@@ -69,9 +69,9 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
             	'defaultDb' => 'testdb'
             )),
             new Config(array('name' => 'Test')),
-            new Router(array('Pop\\Mvc\\Controller' => new Controller()))
+            new Router(array('Pop\Mvc\Controller' => new Controller()))
         );
-        $this->assertInstanceOf('Pop\\Db\\Db', $p->database('testdb'));
+        $this->assertInstanceOf('Pop\Db\Db', $p->database('testdb'));
         $this->assertNull($p->database('baddb'));
     }
 
@@ -88,9 +88,9 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
             	'defaultDb' => 'testdb'
             )),
             new Config(array('name' => 'Test')),
-            new Router(array('Pop\\Mvc\\Controller' => new Controller()))
+            new Router(array('Pop\Mvc\Controller' => new Controller()))
         );
-        $this->assertInstanceOf('Pop\\Config', $p->module('Test'));
+        $this->assertInstanceOf('Pop\Config', $p->module('Test'));
         $this->assertNull($p->module('BadModule'));
     }
 
@@ -107,9 +107,9 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
             	'defaultDb' => 'testdb'
             )),
             new Config(array('name' => 'Test')),
-            new Router(array('Pop\\Mvc\\Controller' => new Controller()))
+            new Router(array('Pop\Mvc\Controller' => new Controller()))
         );
-        $this->assertInstanceOf('Pop\\Mvc\\Router', $p->router());
+        $this->assertInstanceOf('Pop\Mvc\Router', $p->router());
     }
 
     public function testLoadModule()
@@ -125,10 +125,10 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
             	'defaultDb' => 'testdb'
             )),
             null,
-            new Router(array('Pop\\Mvc\\Controller' => new Controller()))
+            new Router(array('Pop\Mvc\Controller' => new Controller()))
         );
         $p->loadModule(new Config(array('name' => 'Test')));
-        $this->assertInstanceOf('Pop\\Config', $p->module('Test'));
+        $this->assertInstanceOf('Pop\Config', $p->module('Test'));
     }
 
     public function testLoadModuleException()
@@ -145,7 +145,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
             	'defaultDb' => 'testdb'
             )),
             null,
-            new Router(array('Pop\\Mvc\\Controller' => new Controller()))
+            new Router(array('Pop\Mvc\Controller' => new Controller()))
         );
         $p->loadModule(new Config());
     }
@@ -164,8 +164,8 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
             )),
             new Config(array('name' => 'Test'))
         );
-        $p->loadRouter(new Router(array('Pop\\Mvc\\Controller' => new Controller())));
-        $this->assertInstanceOf('Pop\\Mvc\\Router', $p->router());
+        $p->loadRouter(new Router(array('Pop\Mvc\Controller' => new Controller())));
+        $this->assertInstanceOf('Pop\Mvc\Router', $p->router());
     }
 
 }

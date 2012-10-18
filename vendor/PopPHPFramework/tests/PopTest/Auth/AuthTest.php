@@ -40,12 +40,12 @@ class AuthTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Auth\\Auth', new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt')));
+        $this->assertInstanceOf('Pop\Auth\Auth', new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt')));
     }
 
     public function testBadFile()
     {
-        $this->setExpectedException('Pop\\Auth\\Adapter\\Exception');
+        $this->setExpectedException('Pop\Auth\Adapter\Exception');
         $a = new Auth(new AuthFile(__DIR__ . '/../tmp/badaccess.txt'));
     }
 
@@ -93,12 +93,12 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $a->setRequiredRole()
           ->authenticate('testuser1', '12test34');
         $this->assertTrue($a->isAuthorized());
-        $this->assertInstanceOf('Pop\\Auth\\User', $a->getUser());
+        $this->assertInstanceOf('Pop\Auth\User', $a->getUser());
     }
 
     public function testIsValidWithTable()
     {
-        $a = new Auth(new AuthTable('PopTest\\Auth\\Users', 'username', 'password', 'access'));
+        $a = new Auth(new AuthTable('PopTest\Auth\Users', 'username', 'password', 'access'));
         $a->authenticate('test1', 'password1');
         $this->assertTrue($a->isValid());
 

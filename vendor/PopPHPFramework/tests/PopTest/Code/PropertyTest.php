@@ -32,7 +32,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $this->assertInstanceOf('Pop\\Code\\PropertyGenerator', PropertyGenerator::factory('testProp', 'string', 123));
+        $this->assertInstanceOf('Pop\Code\PropertyGenerator', PropertyGenerator::factory('testProp', 'string', 123));
     }
 
     public function testStatic()
@@ -76,7 +76,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         $p->setDesc('This is the desc.');
         $p->setDesc('This is the new desc.');
         $this->assertEquals('This is the new desc.', $p->getDesc());
-        $this->assertInstanceOf('Pop\\Code\\DocblockGenerator', $p->getDocblock());
+        $this->assertInstanceOf('Pop\Code\DocblockGenerator', $p->getDocblock());
     }
 
     public function testSetAndGetDocblock()

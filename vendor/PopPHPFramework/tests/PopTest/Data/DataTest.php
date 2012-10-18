@@ -30,7 +30,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Data\\Data', new Data(__DIR__ . '/../tmp/test.sql'));
+        $this->assertInstanceOf('Pop\Data\Data', new Data(__DIR__ . '/../tmp/test.sql'));
     }
 
     public function testData()
@@ -82,7 +82,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
             array('name' => 'Test2', 'email' => 'test2@test.com')
         );
         $d = new Data($ary);
-        $this->setExpectedException('Pop\\Data\\Exception');
+        $this->setExpectedException('Pop\Data\Exception');
         $d->parseData('txt');
     }
 

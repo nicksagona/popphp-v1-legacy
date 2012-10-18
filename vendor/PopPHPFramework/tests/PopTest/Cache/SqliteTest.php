@@ -31,7 +31,7 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\\Cache\\Cache', Cache::factory(new Sqlite(__DIR__ . '/../tmp/cache.sqlite'), 30));
+        $this->assertInstanceOf('Pop\Cache\Cache', Cache::factory(new Sqlite(__DIR__ . '/../tmp/cache.sqlite'), 30));
     }
 
     public function testSetAndGetLifetime()
@@ -50,7 +50,7 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
 
     public function testCacheDir()
     {
-        $this->setExpectedException('Pop\\Cache\\Exception');
+        $this->setExpectedException('Pop\Cache\Exception');
         $c = Cache::factory(new Sqlite(__DIR__ . '/../test/cache.sqlite'), 30);
     }
 

@@ -37,7 +37,7 @@ class CodeTest extends \PHPUnit_Framework_TestCase
         $c = new Generator('TestInterface.php', Generator::CREATE_INTERFACE);
         $c = new Generator(__FILE__);
         $c->setClose(true);
-        $this->assertInstanceOf('Pop\\Code\\Generator', $c);
+        $this->assertInstanceOf('Pop\Code\Generator', $c);
     }
 
     public function testSetAndGetIndent()
@@ -67,7 +67,7 @@ class CodeTest extends \PHPUnit_Framework_TestCase
     public function testRenderAndSave()
     {
         $c = new Generator(__DIR__ . '/../tmp/Test.php', Generator::CREATE_CLASS);
-        $c->setNamespace(new NamespaceGenerator('Test\\Space'));
+        $c->setNamespace(new NamespaceGenerator('Test\Space'));
         $c->setBody('test body')
           ->setClose(true);
         $c->appendToBody('more code');
@@ -76,7 +76,7 @@ class CodeTest extends \PHPUnit_Framework_TestCase
         ob_start();
         $c->render();
         $output = ob_get_clean();
-        $this->assertContains('namespace Test\\Space', $output);
+        $this->assertContains('namespace Test\Space', $output);
 
         $c->save();
         $this->assertContains('test body', $body);
