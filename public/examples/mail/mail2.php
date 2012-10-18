@@ -55,4 +55,3 @@ HTMLMSG;
     echo $e->getMessage();
 }
 
-?>

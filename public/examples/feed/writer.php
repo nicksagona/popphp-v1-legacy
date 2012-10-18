@@ -51,4 +51,3 @@ try {
     echo $e->getMessage();
 }
 
-?>

@@ -36,4 +36,3 @@ try {
     echo $e->getMessage();
 }
 
-?>

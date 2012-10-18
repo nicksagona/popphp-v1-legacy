@@ -61,4 +61,3 @@ TMPL;
     echo $e->getMessage();
 }
 
-?>

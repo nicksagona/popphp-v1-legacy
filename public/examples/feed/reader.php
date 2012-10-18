@@ -24,4 +24,3 @@ HTML;
     echo $e->getMessage();
 }
 
-?>
