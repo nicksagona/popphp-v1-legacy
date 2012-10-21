@@ -1,3 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE phpunit [
+    <!ELEMENT dataset (table+)>
+    <!ELEMENT table (column*, row*)>
+    <!ATTLIST table
+         name CDATA #REQUIRED
+    >
+    <!ELEMENT column (#PCDATA)>
+    <!ELEMENT row (value | null)*>
+    <!ELEMENT value (#PCDATA)>
+    <!ELEMENT null EMPTY>
+]>
 <phpunit>
     <testsuites>
         <testsuite name="Pop PHP Framework PHPUnit Test">

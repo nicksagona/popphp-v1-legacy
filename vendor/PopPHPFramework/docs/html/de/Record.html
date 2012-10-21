@@ -65,14 +65,14 @@ use Users;
 
 // Get a single user
 $user = Users::findById(1001);
-echo $user->name;
-echo $user->email;
+echo $user-&gt;name;
+echo $user-&gt;email;
 
 // Get multiple users
 $users = Users::findAll('last_name ASC');
-foreach ($users->rows as $user) {
-    echo $user->name;
-    echo $user->email;
+foreach ($users-&gt;rows as $user) {
+    echo $user-&gt;name;
+    echo $user-&gt;email;
 }
 </pre>
     </div>

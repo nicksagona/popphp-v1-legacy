@@ -107,13 +107,13 @@
         <p>
             Oft kann es schwierig sein, das MVC-Entwurfsmuster erfassen, bis Sie beginnen tatsächlich benutzen. Sobald Sie aber tun, werden Sie sofort sehen den Vorteil, dass alles, was in einfach zu verwalten Konzepte mit sehr wenig voneinander getrennt, wenn überhaupt, überlappen. Ihr Controller übernimmt die Delegation von Anfragen, handhabt Ihr Modell der Business-Logik und Ihrer Sicht bestimmt, wie die Ausgabe an den Benutzer anzuzeigen. Bei weitem übertrumpft dieses Muster den alten Tagen von pauken alles in einem einzigen Skript oder verschiedenen Skripte, die alle über den Ort schaffen ein großes Durcheinander enthalten sind. Probieren Sie es aus und du wirst sehen!
         </p>
-        <h3>Die DB & Record-Komponenten</h3>
+        <h3>Die DB &amp; Record-Komponenten</h3>
         <p>
             Die DB-und Record-Komponenten sind zwei Komponenten, die das Potenzial genutzt ziemlich in jeder Anwendung werden müssen. Offensichtlich bietet das DB-Komponente den direkten Zugriff auf eine Datenbank abfragen. Die unterstützten Adapter gehören nativen MySQL, mysqli, PgSQL, SQLite und PDO. Sie dienen dazu, Zugriff auf die Datenbank in verschiedenen Umgebungen zu normalisieren, so dass Sie nicht so viel Sorgen um Umrüsten eine Anwendung mit einer anderen Art von Datenbank in einem anderen Umfeld zu arbeiten.
         </p>
         <p>
             Die Record-Komponente ist eine leistungsfähige Komponente, die einen standardisierten Zugriff auf Daten innerhalb einer Datenbank, die speziell den Datenbank-Tabellen und einzelne Datensätze in den Tabellen zur Verfügung stellt. Der Rekord-Komponente ist wirklich ein Hybrid aus dem Active Record und Table Data Gateway-Muster. Es kann den Zugang zu einer einzelnen Zeile oder Platte wie ein Active Record-Muster würde, oder mehrere Zeilen auf einmal, wie ein Table Data Gateway würde. Mit der Pop-PHP-Framework, ist die häufigste Methode, um ein Kind-Klasse, die die Record-Klasse, die eine Tabelle in der Datenbank repräsentiert erstreckt schreiben. Der Name des Kindes Klasse sollte der Name der Tabelle sein. Durch einfaches Anlegen
-        <p>
+        </p>
 <pre>
 use Pop\Record\Record;
 

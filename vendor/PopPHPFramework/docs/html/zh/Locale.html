@@ -43,13 +43,13 @@
 use Pop\Locale\Locale;
 
 // Create a Locale object to translate to French, using your own language file.
-$lang = Locale::factory('fr')->loadFile('folder/mylangfile.xml);
+$lang = Locale::factory('fr')-&gt;loadFile('folder/mylangfile.xml);
 
 // Will output 'Ce champ est obligatoire.'
-$lang->_e('This field is required.');
+$lang-&gt;_e('This field is required.');
 
 // Will return and output 'Ce champ est obligatoire.'
-echo $lang->__('This field is required.');
+echo $lang-&gt;__('This field is required.');
 </pre>
     </div>
     <div id="doc-footer">

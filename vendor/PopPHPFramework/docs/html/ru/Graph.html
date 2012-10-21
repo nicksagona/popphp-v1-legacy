@@ -58,13 +58,13 @@ $data = array(
 
 $graph = new Graph('graph.gif', 640, 480, Graph::IMAGICK);
 //$graph = new Graph('graph.svg', 640, 480);
-$graph->addFont('../assets/fonts/times.ttf')
-      ->setFontColor(new Rgb(128, 128, 128))
-      ->setFillColor(new Rgb(10, 125, 210))
-      ->showY(true)
-      ->showText(true)
-      ->addLineGraph($data, $x, $y)
-      ->output();
+$graph-&gt;addFont('../assets/fonts/times.ttf')
+      -&gt;setFontColor(new Rgb(128, 128, 128))
+      -&gt;setFillColor(new Rgb(10, 125, 210))
+      -&gt;showY(true)
+      -&gt;showText(true)
+      -&gt;addLineGraph($data, $x, $y)
+      -&gt;output();
 </pre>
     </div>
     <div id="doc-footer">

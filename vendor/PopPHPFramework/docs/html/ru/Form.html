@@ -51,41 +51,41 @@ use Pop\Form\Form,
 $form = new Form($_SERVER['PHP_SELF'], 'post', null, '    ');
 
 $username = new Element('text', 'username', 'Username here...');
-$username->setLabel('Username:')
-         ->setRequired(true)
-         ->setAttributes('size', 40)
-         ->addValidator(new AlphaNumeric());
+$username-&gt;setLabel('Username:')
+         -&gt;setRequired(true)
+         -&gt;setAttributes('size', 40)
+         -&gt;addValidator(new AlphaNumeric());
 
 $email = new Element('text', 'email');
-$email->setLabel('Email:')
-      ->setRequired(true)
-      ->setAttributes('size', 40)
-      ->addValidator(new Email());
+$email-&gt;setLabel('Email:')
+      -&gt;setRequired(true)
+      -&gt;setAttributes('size', 40)
+      -&gt;addValidator(new Email());
 
 $password = new Element('password', 'password');
-$password->setLabel('Password:')
-         ->setRequired(true)
-         ->setAttributes('size', 40)
-         ->addValidator(new LengthGt(6));
+$password-&gt;setLabel('Password:')
+         -&gt;setRequired(true)
+         -&gt;setAttributes('size', 40)
+         -&gt;addValidator(new LengthGt(6));
 
-$checkbox = new Checkbox('colors', array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'));
-$checkbox->setLabel('Colors:');
+$checkbox = new Checkbox('colors', array('Red' =&gt; 'Red', 'Green' =&gt; 'Green', 'Blue' =&gt; 'Blue'));
+$checkbox-&gt;setLabel('Colors:');
 
-$radio = new Radio('answer', array('Yes' => 'Yes', 'No' => 'No', 'Maybe' => 'Maybe'));
-$radio->setLabel('Answer:');
+$radio = new Radio('answer', array('Yes' =&gt; 'Yes', 'No' =&gt; 'No', 'Maybe' =&gt; 'Maybe'));
+$radio-&gt;setLabel('Answer:');
 
 $select = new Select('days', Select::DAYS_OF_WEEK);
-$select->setLabel('Day:');
+$select-&gt;setLabel('Day:');
 
 $textarea = new Textarea('comments', 'Please type a comment...');
-$textarea->setAttributes('rows', '5')
-         ->setAttributes('cols', '40')
-         ->setLabel('Comments:');
+$textarea-&gt;setAttributes('rows', '5')
+         -&gt;setAttributes('cols', '40')
+         -&gt;setLabel('Comments:');
 
 $submit = new Element('submit', 'submit', 'SUBMIT');
-$submit->setAttributes('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;');
+$submit-&gt;setAttributes('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;');
 
-$form->addElements(array(
+$form-&gt;addElements(array(
     $username,
     $email,
     $password,
@@ -97,14 +97,14 @@ $form->addElements(array(
 ));
 
 if ($_POST) {
-    $form->setFieldValues($_POST);
-    if (!$form->isValid()) {
-        $form->render();
+    $form-&gt;setFieldValues($_POST);
+    if (!$form-&gt;isValid()) {
+        $form-&gt;render();
     } else {
         echo 'Form is valid.';
     }
 } else {
-    $form->render();
+    $form-&gt;render();
 }
 </pre>
     <p>
@@ -124,56 +124,56 @@ use Pop\Form\Form,
 
 $fields = array(
     array(
-        'type'       => 'text',
-        'name'       => 'username',
-        'value'      => 'Username here...',
-        'label'      => 'Username:',
-        'required'   => true,
-        'attributes' => array('size', 40),
-        'validators' => new AlphaNumeric()
+        'type'       =&gt; 'text',
+        'name'       =&gt; 'username',
+        'value'      =&gt; 'Username here...',
+        'label'      =&gt; 'Username:',
+        'required'   =&gt; true,
+        'attributes' =&gt; array('size', 40),
+        'validators' =&gt; new AlphaNumeric()
     ),
     array(
-        'type'       => 'text',
-        'name'       => 'email',
-        'label'      => 'Email:',
-        'required'   => true,
-        'attributes' => array('size', 40),
-        'validators' => new Email()
+        'type'       =&gt; 'text',
+        'name'       =&gt; 'email',
+        'label'      =&gt; 'Email:',
+        'required'   =&gt; true,
+        'attributes' =&gt; array('size', 40),
+        'validators' =&gt; new Email()
     ),
     array(
-        'type'       => 'password',
-        'name'       => 'password',
-        'label'      => 'Password:',
-        'required'   => true,
-        'attributes' => array('size', 40),
-        'validators' => new LengthGt(6)
+        'type'       =&gt; 'password',
+        'name'       =&gt; 'password',
+        'label'      =&gt; 'Password:',
+        'required'   =&gt; true,
+        'attributes' =&gt; array('size', 40),
+        'validators' =&gt; new LengthGt(6)
     ),
     array(
-        'type'       => 'checkbox',
-        'name'       => 'colors',
-        'label'      => 'Colors:',
-        'value'      => array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue')
+        'type'       =&gt; 'checkbox',
+        'name'       =&gt; 'colors',
+        'label'      =&gt; 'Colors:',
+        'value'      =&gt; array('Red' =&gt; 'Red', 'Green' =&gt; 'Green', 'Blue' =&gt; 'Blue')
     ),
     array(
-        'type'       => 'submit',
-        'name'       => 'submit',
-        'value'      => 'SUBMIT',
-        'attributes' => array('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;')
+        'type'       =&gt; 'submit',
+        'name'       =&gt; 'submit',
+        'value'      =&gt; 'SUBMIT',
+        'attributes' =&gt; array('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;')
     )
 );
 
 $form = new Form($_SERVER['PHP_SELF'], 'post', $fields, '    ');
-$form->setTemplate('form.phtml');
+$form-&gt;setTemplate('form.phtml');
 
 if ($_POST) {
-    $form->setFieldValues($_POST);
-    if (!$form->isValid()) {
-        $form->render();
+    $form-&gt;setFieldValues($_POST);
+    if (!$form-&gt;isValid()) {
+        $form-&gt;render();
     } else {
         echo 'Form is valid.';
     }
 } else {
-    $form->render();
+    $form-&gt;render();
 }
 </pre>
     </div>

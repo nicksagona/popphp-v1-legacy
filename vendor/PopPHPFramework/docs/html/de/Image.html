@@ -41,13 +41,13 @@ use Pop\Color\Rgb,
     Pop\Image\Gd;
 
 $image = new Gd('new-image.jpg', 640, 480, new Rgb(255, 0, 0));
-$image->setFillColor(new Rgb(0, 0, 255))
-      ->setStrokeColor(new Rgb(255, 255, 255))
-      ->setStrokeWidth(3)
-      ->addEllipse(320, 240, 150, 75)
-      ->output();
+$image-&gt;setFillColor(new Rgb(0, 0, 255))
+      -&gt;setStrokeColor(new Rgb(255, 255, 255))
+      -&gt;setStrokeWidth(3)
+      -&gt;addEllipse(320, 240, 150, 75)
+      -&gt;output();
 
-$image->destroy();
+$image-&gt;destroy();
 </pre>
     </div>
     <div id="doc-footer">

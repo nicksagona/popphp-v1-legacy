@@ -42,57 +42,57 @@
 <pre>
 &lt;?php
 return new Pop\Config(array(
-    'project' => array(
-        'name'    => 'HelloWorld',
-        'base'    => __DIR__ . '/../../',
-        'docroot' => __DIR__ . '/../../public'
+    'project' =&gt; array(
+        'name'    =&gt; 'HelloWorld',
+        'base'    =&gt; __DIR__ . '/../../',
+        'docroot' =&gt; __DIR__ . '/../../public'
     ),
-    'databases' => array(
-        'helloworld' => array(
-            'type'     => 'Mysqli',
-            'database' => 'helloworld',
-            'host'     => 'localhost',
-            'username' => 'hello',
-            'password' => '12world34',
-            'prefix'   => 'pop_',
-            'default'  => true
+    'databases' =&gt; array(
+        'helloworld' =&gt; array(
+            'type'     =&gt; 'Mysqli',
+            'database' =&gt; 'helloworld',
+            'host'     =&gt; 'localhost',
+            'username' =&gt; 'hello',
+            'password' =&gt; '12world34',
+            'prefix'   =&gt; 'pop_',
+            'default'  =&gt; true
         )
     ),
-    'forms' => array(
-        'login' => array(
-            'fields' => array(
+    'forms' =&gt; array(
+        'login' =&gt; array(
+            'fields' =&gt; array(
                 array(
-                    'type'       => 'text',
-                    'name'       => 'username',
-                    'label'      => 'Username:',
-                    'required'   => true,
-                    'attributes' => array('size', 40),
-                    'validators' => 'AlphaNumeric()'
+                    'type'       =&gt; 'text',
+                    'name'       =&gt; 'username',
+                    'label'      =&gt; 'Username:',
+                    'required'   =&gt; true,
+                    'attributes' =&gt; array('size', 40),
+                    'validators' =&gt; 'AlphaNumeric()'
                 ),
                 array(
-                    'type'       => 'password',
-                    'name'       => 'password',
-                    'label'      => 'Password:',
-                    'required'   => true,
-                    'attributes' => array('size', 40),
-                    'validators' => array('NotEmpty()', 'LengthGt(6)')
+                    'type'       =&gt; 'password',
+                    'name'       =&gt; 'password',
+                    'label'      =&gt; 'Password:',
+                    'required'   =&gt; true,
+                    'attributes' =&gt; array('size', 40),
+                    'validators' =&gt; array('NotEmpty()', 'LengthGt(6)')
                 ),
                 array(
-                    'type'       => 'submit',
-                    'name'       => 'submit',
-                    'value'      => 'LOGIN'
+                    'type'       =&gt; 'submit',
+                    'name'       =&gt; 'submit',
+                    'value'      =&gt; 'LOGIN'
                 )
             )
         )
     ),
-    'controllers' => array(
-        'default' => array(
-            'index' => 'index.phtml',
-            'error' => 'error.phtml'
+    'controllers' =&gt; array(
+        'default' =&gt; array(
+            'index' =&gt; 'index.phtml',
+            'error' =&gt; 'error.phtml'
         ),
-        'admin' => array(
-            'index' => 'index.phtml',
-            'error' => 'error.phtml'
+        'admin' =&gt; array(
+            'index' =&gt; 'index.phtml',
+            'error' =&gt; 'error.phtml'
         )
     )
 ));

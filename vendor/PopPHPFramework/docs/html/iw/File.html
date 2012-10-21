@@ -41,8 +41,8 @@ use Pop\File\File;
 
 // Create a new file and write to it.
 $file = new File('new-file.txt');
-$file->write('Some text to the file.')
-     ->save();
+$file-&gt;write('Some text to the file.')
+     -&gt;save();
 
 // Upload a file from a multipart POST form.
 $upload = File::upload($_FILES['upload_file']['tmp_name'], '../uploads/' . $_FILES['upload_file']['name']);

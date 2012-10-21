@@ -49,16 +49,16 @@ use Pop\Archive\Archive;
 
 // Create a new TAR archive and add some files to it
 $archive = new Archive('../tmp/test.tar');
-$archive->addFiles('../files');
+$archive-&gt;addFiles('../files');
 
 // Compress the archive, gzip by default,
 // will produce '../tmp/test.tar.gz'
-$archive->compress();
+$archive-&gt;compress();
 
 // Extract an existing archive file to specified folder,
 // will automatically uncompress the gzip file first
 $archive = new Archive('../tmp/existing.tar.gz');
-$archive->extract('/tmp');
+$archive-&gt;extract('/tmp');
 </pre>
     </div>
     <div id="doc-footer">

@@ -58,17 +58,17 @@ $cache = Cache::factory(new Memcached(), 30);
 //$cache = Cache::factory(new Sqlite('../tmp/cache.sqlite'), 30);
 
 // Save value to cache
-$cache->save('test', $test);
+$cache-&gt;save('test', $test);
 
 // Load the value from cache
-if (!($var = $cache->load('test'))) {
+if (!($var = $cache-&gt;load('test'))) {
     echo 'The value is either not there or expired.';
 } else {
     var_dump($var);
 }
 
 // Clear the cache
-$cache->clear();
+$cache-&gt;clear();
 </pre>
     </div>
     <div id="doc-footer">

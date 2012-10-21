@@ -107,13 +107,13 @@
         <p>
             Often times, it can be difficult to grasp the MVC design pattern until you actually start using it. Once you do though, you'll immediately see the benefit of having everything separated out in easy-to-manage concepts with very little, if any, overlap. Your controller handles the delegation of requests, your model handles the business logic and your view determines how to display the output to the user. By far, this pattern trumps the olden days of cramming everything into a single script or various scripts that are included all over the place creating a big mess. Just try it and you will see!
         </p>
-        <h3>The Db & Record Components</h3>
+        <h3>The Db &amp; Record Components</h3>
         <p>
             The Db and Record components are two components that have the potential to be used quite a bit in any application. Obviously, the Db component provides direct access to query a database. The supported adapters include native MySQL, MySQLi, PgSQL, Sqlite and PDO. They serve to normalize database access across different environments so that you don't have to worry as much about re-tooling an application to work with a different type of database in a different environment.
         </p>
         <p>
             The Record component is a powerful component that provides standardized access to data within a database, specifically the database tables and individual records within the tables. The record component is really a hybrid of the Active Record and Table Data Gateway patterns. It can provide access to a single row or record like an Active Record pattern would, or multiple rows at one time, like a Table Data Gateway would. With the Pop PHP Framework, the most common approach is to write a child class that extends the Record class that represents a table in the database. The name of the child class should be the name of the table. By simply creating
-        <p>
+        </p>
 <pre>
 use Pop\Record\Record;
 

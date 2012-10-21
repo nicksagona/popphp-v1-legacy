@@ -107,13 +107,13 @@
         <p>
             Muitas vezes, pode ser difícil de entender o padrão de projeto MVC até que você realmente começar a usar. Uma vez que você faz, porém, você verá imediatamente o benefício de ter tudo separado em fáceis de gerenciar conceitos com muito pouco, se for o caso, se sobrepõem. O controlador manipula a delegação de pedidos, o modelo lida com a lógica de negócios e sua visão determina como exibir a saída para o usuário. De longe, este padrão trunfos antigamente de colocar tudo em um único script ou vários scripts que estão incluídos em todo o lugar, criando uma grande confusão. Basta experimentá-lo e você vai ver!
         </p>
-        <h3>Os Componentes Db & Record</h3>
+        <h3>Os Componentes Db &amp; Record</h3>
         <p>
             Os componentes Db e Record são dois componentes que têm o potencial de ser usado um pouco em qualquer aplicação. Obviamente, o componente Db fornece acesso direto para consultar um banco de dados. Os adaptadores suportados incluem MySQL nativa, MySQLi, PgSQL, Sqlite e DOP. Eles servem para normalizar o acesso de dados em ambientes diferentes para que você não precisa se preocupar tanto com novos equipamentos de um aplicativo para trabalhar com um tipo diferente de banco de dados em um ambiente diferente.
         </p>
         <p>
             O componente de Registro é um componente poderoso que fornece acesso padronizado aos dados em um banco de dados, especificamente as tabelas de banco de dados e registros individuais dentro das tabelas. O componente de registro é realmente um híbrido do Active Record e padrões da tabela de dados do Gateway. Ele pode fornecer acesso a uma única linha ou registro como um padrão Active Record seria, ou várias linhas de uma só vez, como um Gateway de Tabela de Dados faria. Com o Framework PHP Pop, a abordagem mais comum é escrever uma classe filha que estende a classe Record que representa uma tabela no banco de dados. O nome de classe criança deve ser o nome da tabela. Simplesmente criando
-        <p>
+        </p>
 <pre>
 use Pop\Record\Record;
 

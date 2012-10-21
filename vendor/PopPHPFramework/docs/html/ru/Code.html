@@ -46,41 +46,41 @@ use Pop\Code\ClassGenerator,
 
 // Create the code generator object
 $code = new Generator('MyClass.php', Generator::CREATE_CLASS);
-$code->setDocblock(new DocblockGenerator('This is my test class file'))
-     ->getDocblock()->setTag('category', 'Pop')
-                    ->setTag('package', 'Pop_Code')
-                    ->setTag('author', 'Joe Author');
+$code-&gt;setDocblock(new DocblockGenerator('This is my test class file'))
+     -&gt;getDocblock()-&gt;setTag('category', 'Pop')
+                    -&gt;setTag('package', 'Pop_Code')
+                    -&gt;setTag('author', 'Joe Author');
 
 // Create namespace object
 $ns = new NamespaceGenerator('Some\\Other');
-$ns->setUse('Some\\Other\\Thing')
-   ->setUse('Some\\Other\\Blah', 'B')
-   ->setUse('Some\\Other\\Another');
+$ns-&gt;setUse('Some\\Other\\Thing')
+   -&gt;setUse('Some\\Other\\Blah', 'B')
+   -&gt;setUse('Some\\Other\\Another');
 
 // Create property object
 $prop = new PropertyGenerator('_testProp', 'string', 'test', 'protected');
-$prop->setDesc('This is a test property');
+$prop-&gt;setDesc('This is a test property');
 
 // Create a method object
 $method = new MethodGenerator('__construct');
-$method->setDesc('This is a test method')
-       ->setBody("// Let's get some stuff to happen here." . PHP_EOL . "\$blah = 'Sounds like a good idea';")
-       ->appendToBody("echo \$blah;", false)
-       ->addArgument('test', "null", "Pop\\Filter\\String")
-       ->addArgument('other', "array()", 'array');
+$method-&gt;setDesc('This is a test method')
+       -&gt;setBody("// Let's get some stuff to happen here." . PHP_EOL . "\$blah = 'Sounds like a good idea';")
+       -&gt;appendToBody("echo \$blah;", false)
+       -&gt;addArgument('test', "null", "Pop\\Filter\\String")
+       -&gt;addArgument('other', "array()", 'array');
 
 // Add code pieces to the code file
-$code->setNamespace($ns);
-$code->code()->setDocblock(new DocblockGenerator('This is my test class'))
-             ->getDocblock()->setTag('category', 'Pop')
-                            ->setTag('package', 'Pop_Code')
-                            ->setTag('author', 'Joe Author');
+$code-&gt;setNamespace($ns);
+$code-&gt;code()-&gt;setDocblock(new DocblockGenerator('This is my test class'))
+             -&gt;getDocblock()-&gt;setTag('category', 'Pop')
+                            -&gt;setTag('package', 'Pop_Code')
+                            -&gt;setTag('author', 'Joe Author');
 
-$code->code()->addProperty($prop);
-$code->code()->addMethod($method);
+$code-&gt;code()-&gt;addProperty($prop);
+$code-&gt;code()-&gt;addMethod($method);
 
 // Render and output the code
-$code->output();
+$code-&gt;output();
 </pre>
     </div>
     <div id="doc-footer">

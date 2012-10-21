@@ -39,10 +39,10 @@
 <pre>
 // Instantiate the autoloader object
 $autoloader = new Pop\Loader\Autoloader();
-$autoloader->splAutoloadRegister();
+$autoloader-&gt;splAutoloadRegister();
 
-$autoloader->register('YourLib', '../vendor/YourLib/src');
-$autoloader->loadClassMap('../vendor/YourLib/classmap.php');
+$autoloader-&gt;register('YourLib', '../vendor/YourLib/src');
+$autoloader-&gt;loadClassMap('../vendor/YourLib/classmap.php');
 </pre>
         <p>
             وإذا كنت في حاجة الى ملف classmap ولدت، المكون محمل لديه وظيفة بسهولة لتوليد ملف classmap لكنت كذلك.

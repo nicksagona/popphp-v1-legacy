@@ -54,12 +54,12 @@ class MyProject extends Project
     {
         parent::run();
 
-        if ($this->router()->controller()->getRequest()->getRequestUri() == '/') {
-            $this->router()->controller()->dispatch();
-        } else if (method_exists($this->router()->controller(), $this->router()->getAction())) {
-            $this->router()->controller()->dispatch($this->router()->getAction());
-        } else if (method_exists($this->router()->controller(), 'error')) {
-            $this->router()->controller()->dispatch('error');
+        if ($this-&gt;router()-&gt;controller()-&gt;getRequest()-&gt;getRequestUri() == '/') {
+            $this-&gt;router()-&gt;controller()-&gt;dispatch();
+        } else if (method_exists($this-&gt;router()-&gt;controller(), $this-&gt;router()-&gt;getAction())) {
+            $this-&gt;router()-&gt;controller()-&gt;dispatch($this-&gt;router()-&gt;getAction());
+        } else if (method_exists($this-&gt;router()-&gt;controller(), 'error')) {
+            $this-&gt;router()-&gt;controller()-&gt;dispatch('error');
         }
     }
 }
@@ -84,17 +84,17 @@ class MyController extends Controller
     // Your home page
     public function index()
     {
-        $model = new MyModel(array('username' => 'myusername');
-        $this->view = View::factory($this->viewPath . '/index.phtml', $model);
-        $this->send();
+        $model = new MyModel(array('username' =&gt; 'myusername');
+        $this-&gt;view = View::factory($this-&gt;viewPath . '/index.phtml', $model);
+        $this-&gt;send();
     }
 
     // Your 404 page
     public function error()
     {
-        $this->isError = true;
-        $this->view = View::factory($this->viewPath . '/error.phtml');
-        $this->send();
+        $this-&gt;isError = true;
+        $this-&gt;view = View::factory($this-&gt;viewPath . '/error.phtml');
+        $this-&gt;send();
     }
 }
 
@@ -103,12 +103,12 @@ $project = MyProject::factory(
     include '../some/config/project.config.php',
     include '../some/config/module.config.php',
     new Router(array(
-        'default' => 'MyApp\\MyController'
+        'default' =&gt; 'MyApp\\MyController'
     ))
 );
 
 // Run the project
-$project->run();
+$project-&gt;run();
 </pre>
     </div>
     <div id="doc-footer">

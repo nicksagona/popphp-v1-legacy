@@ -43,27 +43,27 @@ use Pop\Dom\Child,
 $title = new Child('title', 'This is the title');
 
 $meta = new Child('meta');
-$meta->setAttributes(array('http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8'));
+$meta-&gt;setAttributes(array('http-equiv' =&gt; 'Content-Type', 'content' =&gt; 'text/html; charset=utf-8'));
 
 $head = new Child('head');
-$head->addChildren(array($title, $meta));
+$head-&gt;addChildren(array($title, $meta));
 
 $h1 = new Child('h1', 'This is a header');
 $p = new Child('p', 'This is a paragraph.');
 
 $div = new Child('div');
-$div->setAttributes('id', 'contentDiv');
-$div->addChildren(array($h1, $p));
+$div-&gt;setAttributes('id', 'contentDiv');
+$div-&gt;addChildren(array($h1, $p));
 
 $body = new Child('body');
-$body->addChild($div);
+$body-&gt;addChild($div);
 
 $html = new Child('html');
-$html->setAttributes(array('xmlns' => 'http://www.w3.org/1999/xhtml', 'xml:lang' => 'en'));
-$html->addChildren(array($head, $body));
+$html-&gt;setAttributes(array('xmlns' =&gt; 'http://www.w3.org/1999/xhtml', 'xml:lang' =&gt; 'en'));
+$html-&gt;addChildren(array($head, $body));
 
 $doc = new Dom(Dom::XHTML11, 'utf-8', $html);
-$doc->render();
+$doc-&gt;render();
 </pre>
         <p>
             También puede agregar los niños a través de una amplia estructura de valores.
@@ -73,43 +73,43 @@ use Pop\Dom\Dom;
 
 $children = array(
     array(
-        'nodeName'      => 'h1',
-        'nodeValue'     => 'This is a header',
-        'attributes'    => array('class' => 'headerClass', 'style' => 'font-size: 3.0em;'),
-        'childrenFirst' => false,
-        'childNodes'    => null
+        'nodeName'      =&gt; 'h1',
+        'nodeValue'     =&gt; 'This is a header',
+        'attributes'    =&gt; array('class' =&gt; 'headerClass', 'style' =&gt; 'font-size: 3.0em;'),
+        'childrenFirst' =&gt; false,
+        'childNodes'    =&gt; null
     ),
     array(
-        'nodeName'      => 'div',
-        'nodeValue'     => 'This is a div element',
-        'attributes'    => array('id' => 'contentDiv'),
-        'childrenFirst' => false,
-        'childNodes'    => array(
+        'nodeName'      =&gt; 'div',
+        'nodeValue'     =&gt; 'This is a div element',
+        'attributes'    =&gt; array('id' =&gt; 'contentDiv'),
+        'childrenFirst' =&gt; false,
+        'childNodes'    =&gt; array(
             array(
-                 'nodeName'      => 'p',
-                 'nodeValue'     => 'This is a paragraph1',
-                 'attributes'    => array('style' => 'font-size: 0.9em;'),
-                 'childrenFirst' => false,
-                 'childNodes'    => array(
+                 'nodeName'      =&gt; 'p',
+                 'nodeValue'     =&gt; 'This is a paragraph1',
+                 'attributes'    =&gt; array('style' =&gt; 'font-size: 0.9em;'),
+                 'childrenFirst' =&gt; false,
+                 'childNodes'    =&gt; array(
                      array(
-                         'nodeName'   => 'strong',
-                         'nodeValue'  => 'This is bold!',
-                         'attributes' => array('style' => 'font-size: 1.2em;')
+                         'nodeName'   =&gt; 'strong',
+                         'nodeValue'  =&gt; 'This is bold!',
+                         'attributes' =&gt; array('style' =&gt; 'font-size: 1.2em;')
                      )
                  )
             ),
             array(
-                'nodeName'   => 'p',
-                'nodeValue'  => 'This is another paragraph!',
-                'attributes' => array('style' => 'font-size: 0.9em;')
+                'nodeName'   =&gt; 'p',
+                'nodeValue'  =&gt; 'This is another paragraph!',
+                'attributes' =&gt; array('style' =&gt; 'font-size: 0.9em;')
             )
         ),
     )
 );
 
 $doc = new Dom(Dom::XHTML11);
-$doc->addChildren($children);
-$doc->render();
+$doc-&gt;addChildren($children);
+$doc-&gt;render();
 </pre>
     </div>
     <div id="doc-footer">

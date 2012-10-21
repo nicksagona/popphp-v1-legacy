@@ -41,21 +41,21 @@ use Pop\Mail\Mail;
 
 $rcpts = array(
     array(
-        'name'  => 'Test Smith',
-        'email' => 'test@email.com'
+        'name'  =&gt; 'Test Smith',
+        'email' =&gt; 'test@email.com'
     ),
     array(
-        'name'  => 'Someone Else',
-        'email' => 'someone@email.com'
+        'name'  =&gt; 'Someone Else',
+        'email' =&gt; 'someone@email.com'
     )
 );
 
 $mail = new Mail($rcpts, 'Hello World!');
-$mail->setHeaders(array(
-    'From'        => array('name' => 'Bob', 'email' => 'bob123@gmail.com'),
-    'Reply-To'    => array('name' => 'Bob', 'email' => 'bob123@gmail.com'),
-    'X-Mailer'    => 'PHP/' . phpversion(),
-    'X-Priority'  => '3',
+$mail-&gt;setHeaders(array(
+    'From'        =&gt; array('name' =&gt; 'Bob', 'email' =&gt; 'bob123@gmail.com'),
+    'Reply-To'    =&gt; array('name' =&gt; 'Bob', 'email' =&gt; 'bob123@gmail.com'),
+    'X-Mailer'    =&gt; 'PHP/' . phpversion(),
+    'X-Priority'  =&gt; '3',
 ));
 
 $html = &lt;&lt;&lt;HTMLMSG
@@ -80,10 +80,10 @@ $html = &lt;&lt;&lt;HTMLMSG
 
 HTMLMSG;
 
-$mail->setText("Hello [{name}],\n\nI'm just trying out this new Pop Mail component.\n\nThanks,\nBob\n\n");
-$mail->setHtml($html);
-$mail->attachFile('../assets/files/test.pdf');
-$mail->send();
+$mail-&gt;setText("Hello [{name}],\n\nI'm just trying out this new Pop Mail component.\n\nThanks,\nBob\n\n");
+$mail-&gt;setHtml($html);
+$mail-&gt;attachFile('../assets/files/test.pdf');
+$mail-&gt;send();
 </pre>
     </div>
     <div id="doc-footer">

@@ -44,8 +44,8 @@ use Pop\Validator\Validator,
 $val = Validator::factory(new AlphaNumeric());
 
 // Evaluate if the input value meets the rule or not
-if (!$val->evaluate('abcd1234')) {
-    echo $val->getMessage();
+if (!$val-&gt;evaluate('abcd1234')) {
+    echo $val-&gt;getMessage();
 } else {
     echo 'The validator test passed. The string is alphanumeric.';
 }

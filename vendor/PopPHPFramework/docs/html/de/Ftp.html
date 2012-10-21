@@ -40,9 +40,9 @@
 use Pop\Ftp\Ftp;
 
 $ftp = new Ftp('ftp.yourserver.com', 'username', 'password');
-$ftp->pasv(true)
-    ->chdir('./httpdocs/')
-    ->put('test.txt', '../assets/files/test.txt', FTP_ASCII);
+$ftp-&gt;pasv(true)
+    -&gt;chdir('./httpdocs/')
+    -&gt;put('test.txt', '../assets/files/test.txt', FTP_ASCII);
 echo 'File Sent!';
 </pre>
     </div>

@@ -39,10 +39,10 @@
 <pre>
 // Instantiate the autoloader object
 $autoloader = new Pop\Loader\Autoloader();
-$autoloader->splAutoloadRegister();
+$autoloader-&gt;splAutoloadRegister();
 
-$autoloader->register('YourLib', '../vendor/YourLib/src');
-$autoloader->loadClassMap('../vendor/YourLib/classmap.php');
+$autoloader-&gt;register('YourLib', '../vendor/YourLib/src');
+$autoloader-&gt;loadClassMap('../vendor/YourLib/classmap.php');
 </pre>
         <p>
             ואם אתה צריך קובץ classmap שנוצר, המרכיב Loader יש פונקציונליות בקלות ליצור קובץ classmap גם לך.

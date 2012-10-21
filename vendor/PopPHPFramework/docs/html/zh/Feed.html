@@ -53,8 +53,8 @@ $htmlTemplate = &lt;&lt;&lt;HTML
 
 HTML;
 
-$feed->setTemplate($htmlTemplate);
-$feed->render();
+$feed-&gt;setTemplate($htmlTemplate);
+$feed-&gt;render();
 </pre>
         <p>
             这里有一个撰写提要的例子。
@@ -64,45 +64,45 @@ use Pop\Dom\Dom,
     Pop\Feed\Writer;
 
 $feedHeaders = array(
-    'title'     => 'Test Feed Title',
-    'subtitle'  => 'Test Feed Description',
-    'link'      => 'http://www.testfeed.com/',
-    'language'  => 'en',
-    'updated'   => '2010-01-12 13:01:32',
-    'generator' => 'http://www.website.com/',
-    'author'    => 'Some Editor'
+    'title'     =&gt; 'Test Feed Title',
+    'subtitle'  =&gt; 'Test Feed Description',
+    'link'      =&gt; 'http://www.testfeed.com/',
+    'language'  =&gt; 'en',
+    'updated'   =&gt; '2010-01-12 13:01:32',
+    'generator' =&gt; 'http://www.website.com/',
+    'author'    =&gt; 'Some Editor'
 );
 
 $entry1 = array(
-    'title'    => 'Entry Title 1',
-    'link'     => 'http://www.testfeed.com/entry1',
-    'comments' => 'http://www.testfeed.com/entry1#comments',
-    'author'   => 'Entry Author 1',
-    'updated'  => '2010-01-13 14:12:24',
-    'summary'  => 'Entry Desc 1'
+    'title'    =&gt; 'Entry Title 1',
+    'link'     =&gt; 'http://www.testfeed.com/entry1',
+    'comments' =&gt; 'http://www.testfeed.com/entry1#comments',
+    'author'   =&gt; 'Entry Author 1',
+    'updated'  =&gt; '2010-01-13 14:12:24',
+    'summary'  =&gt; 'Entry Desc 1'
 );
 
 $entry2 = array(
-    'title'    => 'Entry Title 2',
-    'link'     => 'http://www.testfeed.com/entry2',
-    'comments' => 'http://www.testfeed.com/entry2#comments',
-    'author'   => 'Entry Author 2',
-    'updated'  => '2010-01-12 14:12:24',
-    'summary'  => 'Entry Desc 2'
+    'title'    =&gt; 'Entry Title 2',
+    'link'     =&gt; 'http://www.testfeed.com/entry2',
+    'comments' =&gt; 'http://www.testfeed.com/entry2#comments',
+    'author'   =&gt; 'Entry Author 2',
+    'updated'  =&gt; '2010-01-12 14:12:24',
+    'summary'  =&gt; 'Entry Desc 2'
 );
 
 $entry3 = array(
-    'title'    => 'Entry Title 3',
-    'link'     => 'http://www.testfeed.com/entry3',
-    'comments' => 'http://www.testfeed.com/entry3#comments',
-    'author'   => 'Entry Author 3',
-    'updated'  => '2010-01-11 14:12:24',
-    'summary'  => 'Entry Desc 3'
+    'title'    =&gt; 'Entry Title 3',
+    'link'     =&gt; 'http://www.testfeed.com/entry3',
+    'comments' =&gt; 'http://www.testfeed.com/entry3#comments',
+    'author'   =&gt; 'Entry Author 3',
+    'updated'  =&gt; '2010-01-11 14:12:24',
+    'summary'  =&gt; 'Entry Desc 3'
 );
 
 $feedEntries = array($entry1, $entry2, $entry3);
 $feed = new Writer($feedHeaders, $feedEntries, Dom::ATOM);
-$feed->render();
+$feed-&gt;render();
 </pre>
     </div>
     <div id="doc-footer">
