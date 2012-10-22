@@ -30,6 +30,13 @@ class Users extends Record {
     protected $usePrepared = false;
 }
 
+class UserData extends Record {
+    protected $prefix = 'pop_';
+    protected $tableName = 'user_data';
+    protected $primaryId = array('user_id', 'data_id');
+    protected $usePrepared = false;
+}
+
 class EscapedTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -47,53 +54,80 @@ class EscapedTest extends \PHPUnit_Framework_TestCase
 
     public function testFindById()
     {
-         $r = Users::findById(1);
-         $this->assertEquals(1, $r->id);
-         $this->assertEquals(0, $r->lastId());
+        $r = Users::findById(1, 1);
+        $this->assertEquals(1, $r->id);
+        $this->assertEquals(0, $r->lastId());
+    }
+
+    public function testFindByIdException()
+    {
+        $this->setExpectedException('Pop\Record\Exception');
+        $r = UserData::findById(array(1));
     }
 
     public function testFindBy()
     {
-         $r = Users::findBy('email', 'test1@test.com');
-         $r->test = $r->escape('test');
-         $this->assertEquals('test', $r->test);
-         unset($r->test);
-         $this->assertNull($r->test);
-         $this->assertEquals(1, $r->id);
+        $r = Users::findBy('email', 'test1@test.com', 1);
+        $r->test = $r->escape('test');
+        $this->assertEquals('test', $r->test);
+        unset($r->test);
+        $this->assertNull($r->test);
+        $this->assertEquals(1, $r->id);
     }
 
     public function testFindAll()
     {
-         $r = Users::findAll('id RAND()');
-         $r = Users::findAll('id DESC');
-         $r = Users::findAll('id ASC');
-         $this->assertEquals(8, count($r->rows));
-         $this->assertEquals(8, $r->numRows());
-         $this->assertEquals(5, $r->numFields());
+        $r = Users::findAll('id RAND()', 'email', 'test1@test.com');
+        $r = Users::findAll('id, username DESC', null, null, 4);
+        $r = Users::findAll('id ASC');
+        $this->assertEquals(8, count($r->rows));
+        $this->assertEquals(8, $r->numRows());
+        $this->assertEquals(5, $r->numFields());
     }
 
     public function testDistinct()
     {
-         $r = Users::distinct(array('id'));
-         $this->assertEquals(8, count($r->rows));
+        $r = Users::distinct('id');
+        $r = Users::distinct(array('id'), 'id RAND()', 'email', 'test1@test.com', 1);
+        $r = Users::distinct(array('id'), 'id, username DESC', 'email', 'test1@test.com', 1);
+        $r = Users::distinct(array('id'));
+        $this->assertEquals(8, count($r->rows));
     }
 
     public function testSearch()
     {
-         $r = Users::search(array('username', 'LIKE', '%test%'));
-         $this->assertEquals(8, count($r->rows));
+        $r = Users::search(array('username', 'LIKE', '%test%'), 'id RAND()', 2);
+        $r = Users::search(array('username', 'LIKE', '%test%'), 'id, username DESC', 2);
+        $r = Users::search(array('username', 'LIKE', '%test%'));
+        $this->assertEquals(8, count($r->rows));
+    }
+
+    public function testJoin()
+    {
+        $r = Users::join('pop_user_data', array('id', 'user_id'), 'id RAND()', 'email', 'test1@test.com', 1);
+        $r = Users::join('pop_user_data', array('id', 'user_id'), 'id, email DESC', 'email', 'test1@test.com');
+        $r = Users::join('pop_user_data', array('id', 'user_id'));
+        $this->assertEquals(9, count($r->rows));
     }
 
     public function testExecute()
     {
-         $r = Users::execute('SELECT * FROM users');
-         $this->assertEquals(8, count($r->rows));
+        $r = Users::execute('SELECT * FROM users');
+        $this->assertEquals(8, count($r->rows));
     }
 
     public function testQuery()
     {
-         $r = Users::query('SELECT * FROM users');
-         $this->assertEquals(8, count($r->rows));
+        $r = Users::query('SELECT * FROM users');
+        $this->assertEquals(8, count($r->rows));
+    }
+
+    public function testGetTableName()
+    {
+        $r = Users::findById(1);
+        $this->assertEquals('users', $r->getTableName());
+        $r = UserData::findById(array(1, 1));
+        $this->assertEquals('user_data', $r->getTableName());
     }
 
 }

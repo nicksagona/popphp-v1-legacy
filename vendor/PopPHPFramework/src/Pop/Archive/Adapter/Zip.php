@@ -143,7 +143,11 @@ class Zip implements ArchiveInterface
             $replace = array('/', '', '');
 
             foreach ($files as $file) {
-                $realfile = realpath($this->workingDir . DIRECTORY_SEPARATOR . $file);
+                if ((substr($file, 0, 1) == '/') || (substr($file, 1, 1) == ':')) {
+                    $realfile = $file;
+                } else {
+                    $realfile = realpath($this->workingDir . DIRECTORY_SEPARATOR . $file);
+                }
                 $name = basename($file);
                 $dir = str_replace($search, $replace, (str_replace($name, '', $file)));
                 if (($dir != '') && (!in_array($dir, $dirs))) {
@@ -231,7 +235,7 @@ class Zip implements ArchiveInterface
         if (strpos($dir, '../') !== false) {
             $origDir = substr($dir, strpos($dir, '../'));
             $dir = realpath($dir);
-        } else if (strpos($dir, '../') !== false) {
+        } else if (strpos($dir, './') !== false) {
             $origDir = substr($dir, strpos($dir, './'));
             $dir = realpath($dir);
         } else {

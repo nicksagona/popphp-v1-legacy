@@ -88,6 +88,17 @@ class DomTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($d->getChildren()));
         $this->assertEquals('p', $d->getChild(0)->getNodeName());
         $this->assertTrue($d->hasChildren());
+        $d->removeChild(0);
+        $this->assertFalse($d->hasChildren());
+    }
+
+    public function testAddAndRemoveChildren()
+    {
+        $d = new Dom(Dom::XHTML11);
+        $d->addChild(array('nodeName' => 'p', 'nodeValue' => 'This is a paragraph'));
+        $this->assertEquals(1, count($d->getChildren()));
+        $this->assertEquals('p', $d->getChild(0)->getNodeName());
+        $this->assertTrue($d->hasChildren());
         $d->removeChildren();
         $this->assertFalse($d->hasChildren());
     }

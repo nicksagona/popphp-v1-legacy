@@ -17,7 +17,8 @@
 namespace PopTest\Db;
 
 use Pop\Loader\Autoloader,
-    Pop\Db\Db;
+    Pop\Db\Db,
+    Pop\Record\Record;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -27,6 +28,12 @@ Autoloader::factory()->splAutoloadRegister();
 
 class DbTest extends \PHPUnit_Framework_TestCase
 {
+
+    public function testGetDbException()
+    {
+        $this->setExpectedException('Pop\Record\Exception');
+        $this->assertInstanceOf('Pop\Db\Db', Record::getDb());
+    }
 
     public function testFactory()
     {
