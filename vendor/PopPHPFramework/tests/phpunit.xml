@@ -28,6 +28,7 @@
                 <directory>../src/Pop/Ftp</directory>
                 <directory>../src/Pop/Project/Install</directory>
                 <directory>../src/Pop/Web</directory>
+                <file>../src/Pop/Archive/Adapter/Phar.php</file>
                 <file>../src/Pop/Archive/Adapter/Rar.php</file>
                 <file>../src/Pop/Db/Adapter/Mysql.php</file>
                 <file>../src/Pop/Db/Adapter/Mysqli.php</file>

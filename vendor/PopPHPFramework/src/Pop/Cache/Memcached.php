@@ -53,18 +53,19 @@ class Memcached implements CacheInterface
      *
      * Instantiate the memcache cache object
      *
-     * @param  int $port
+     * @param  string $host
+     * @param  int    $port
      * @throws Exception
      * @return void
      */
-    public function __construct($port = 11211)
+    public function __construct($host = 'localhost', $port = 11211)
     {
         if (!class_exists('Memcache')) {
             throw new Exception('Error: Memcache is not available.');
         }
 
         $this->memcache = new \Memcache();
-        if (!$this->memcache->connect('localhost', (int)$port)) {
+        if (!$this->memcache->connect($host, (int)$port)) {
             throw new Exception('Error: Unable to connect to the memcached server.');
         }
 

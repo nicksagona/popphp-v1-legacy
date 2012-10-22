@@ -62,6 +62,10 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('pop_cache', $c->adapter()->getTable());
         $c->save('str', $str);
         $this->assertEquals($str, $c->load('str'));
+        $val = $c->load('str');
+        $val .= '-new';
+        $c->save('str', $val);
+        $this->assertEquals($val, $c->load('str'));
         $c->remove('str');
         $c->clear();
     }

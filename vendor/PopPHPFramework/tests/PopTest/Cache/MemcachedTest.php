@@ -36,6 +36,16 @@ class MemcachedTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @expectedException PHPUnit_Framework_Error_Warning
+     */
+    public function testConstructorException()
+    {
+        if (class_exists('Memcache')) {
+            $c = Cache::factory(new Memcached('some-wrong-host'), 30);
+        }
+    }
+
     public function testSetAndGetLifetime()
     {
         if (class_exists('Memcache')) {

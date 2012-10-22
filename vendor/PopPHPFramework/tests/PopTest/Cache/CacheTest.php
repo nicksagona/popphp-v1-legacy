@@ -41,7 +41,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(30, $c->getLifetime());
     }
 
-    public function testCacheDir()
+    public function testCacheDirExists()
     {
         $this->setExpectedException('Pop\Cache\Exception');
         $c = Cache::factory(new File(__DIR__ . '/../test'), 30);
