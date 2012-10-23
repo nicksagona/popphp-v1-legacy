@@ -75,20 +75,26 @@ class Bootstrap
             $controllers = $install->controllers->asArray();
             $ctrls = array();
             foreach ($controllers as $key => $value) {
-                $controllerName = ($key == '/') ? 'index' : substr($key, 1);
-                $ctrls[] = "'{$key}' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase($controllerName)) . "Controller'";
-                foreach ($value as $arrayKey => $arrayValue) {
-                    if (is_array($arrayValue)) {
-                        $subCtrl = "'{$arrayKey}' => array(" . PHP_EOL;
-                        $i = 1;
-                        foreach ($arrayValue as $k => $v) {
-                            $subControllerName = ($k == '/') ? 'index' : substr($k, 1);
-                            $end = ($i < count($arrayValue)) ? ',' : null;
-                            $subCtrl .= "    '{$k}' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase($subControllerName)) . "Controller'" . $end;
-                            $i++;
-                        }
-                        $subCtrl .= ")";
-                        $ctrls[] = $subCtrl;
+                $subs = array();
+                foreach ($value as $k => $v) {
+                    if (is_array($v)) {
+                        $subs[] = $k;
+                    }
+                }
+                if (count($subs) > 0) {
+                    $ctls = "'{$key}' => array(" . PHP_EOL;
+                    if (array_key_exists('index', $value)) {
+                        $ctls .= "            '/' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase(substr($key, 1))) . "\\IndexController'," . PHP_EOL;
+                    }
+                    foreach ($subs as $sub) {
+                        $ctls .= "            '{$sub}' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase(substr($key, 1))) . "\\" . ucfirst(String::underscoreToCamelcase(substr($sub, 1))) . "Controller'," . PHP_EOL;
+                    }
+                    $ctls .= '        )';
+                    $ctrls[] = $ctls;
+                } else {
+                    if (array_key_exists('index', $value)) {
+                        $controllerName = ($key == '/') ? 'index' : substr($key, 1);
+                        $ctrls[] = "'{$key}' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase($controllerName)) . "Controller'";
                     }
                 }
             }
