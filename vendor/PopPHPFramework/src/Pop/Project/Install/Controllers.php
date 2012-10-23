@@ -111,8 +111,12 @@ class Controllers
                 $relativeViewPath = (strpos($base['src'] . $l, 'Controller/') !== false) ? '/../../../../view' . $lView : '/../../../view' . $lView;
                 $srcPath = $base['src'] . $l;
                 $namespace = $base['namespace'] . $ns;
-                if (array_key_exists('index', $value)) {
+
+                if (array_key_exists('index', $value) && ((null === $l) || (strtolower($key) == strtolower($l)))) {
                     $ctrlFile = $base['src'] . $l . '/IndexController.php';
+                    $parent = 'C';
+                } else if (array_key_exists('index', $value) && (strtolower($key) != strtolower($l))) {
+                    $ctrlFile = $base['src'] . $l . '/' . ucfirst(substr($key, 1)) . 'Controller.php';
                     $parent = 'C';
                 } else {
                     $ctrlFile = $base['src'] . $l . '/' . ucfirst(substr($key, 1)) . 'Controller.php';
@@ -125,6 +129,7 @@ class Controllers
                 if (!file_exists($srcPath)) {
                     mkdir($srcPath);
                 }
+                
                 if ((null === $controllerCls) || ($controllerCls->fullpath != $ctrlFile)) {
                     $controllerCls = new Generator($ctrlFile, Generator::CREATE_CLASS);
 
@@ -188,7 +193,7 @@ class Controllers
 
                 // Create action methods
                 $method = new MethodGenerator($key);
-                $method->setDesc('Add your model data here within the \'' . $key . '()\' method to inject into the view.');
+                $method->setDesc('The \'' . $key . '()\' method.');
 
                 if ($key == 'error') {
                     $method->appendToBody("\$this->isError = true;");
