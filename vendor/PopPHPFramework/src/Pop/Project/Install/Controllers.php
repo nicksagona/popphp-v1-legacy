@@ -84,8 +84,10 @@ class Controllers
     /**
      * Create the controller class files
      *
-     * @param Pop\Config $install
-     * @param string     $installDir
+     * @param array              $controllers
+     * @param array              $base
+     * @param string             $depth
+     * @param Pop\Code\Generator $controllerCls
      * @return void
      */
     public static function createControllers($controllers, $base = null, $depth = null, $controllerCls = null)
