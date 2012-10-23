@@ -405,5 +405,25 @@ class Install
 
         return $lang;
     }
+    
+    /**
+     * Return whether or not the defined controller
+     * config has a sub-controller
+     *
+     * @param array $ctrl
+     * @return array
+     */
+    public static function hasSubs($ctrl)
+    {
+        $subs = array();
+        
+        foreach ($ctrl as $key => $value) {
+            if (is_array($value)) {
+                $subs[] = $key;
+            }
+        }
+        
+        return $subs;        
+    }
 
 }

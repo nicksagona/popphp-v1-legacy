@@ -77,6 +77,20 @@ class Bootstrap
             foreach ($controllers as $key => $value) {
                 $controllerName = ($key == '/') ? 'index' : substr($key, 1);
                 $ctrls[] = "'{$key}' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase($controllerName)) . "Controller'";
+                foreach ($value as $arrayKey => $arrayValue) {
+                    if (is_array($arrayValue)) {
+                        $subCtrl = "'{$arrayKey}' => array(" . PHP_EOL;
+                        $i = 1;
+                        foreach ($arrayValue as $k => $v) {
+                            $subControllerName = ($k == '/') ? 'index' : substr($k, 1);
+                            $end = ($i < count($arrayValue)) ? ',' : null;
+                            $subCtrl .= "    '{$k}' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase($subControllerName)) . "Controller'" . $end;
+                            $i++;
+                        }
+                        $subCtrl .= ")";
+                        $ctrls[] = $subCtrl;
+                    }
+                }
             }
             $bootstrap->appendToBody("    new Pop\\Mvc\\Router(array(");
             $i = 1;
