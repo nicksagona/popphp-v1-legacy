@@ -108,7 +108,13 @@ class Controllers
                     $l = null;
                     $lView = null;
                 }
-
+                
+                // Check to make sure an 'index' method is defined for the top-level controller 
+                if ((substr_count($level, '/') == 1) && !array_key_exists('index', $value)) {
+                    echo "The 'index' method of the top level controller '{$key}' is not defined." . PHP_EOL;
+                    exit(0);
+                }
+                
                 $viewPath = $base['view'] . (($level != '/') ? $level : null);
                 $relativeViewPath = (strpos($base['src'] . $l, 'Controller/') !== false) ? '/../../../../view' . $lView : '/../../../view' . $lView;
                 $srcPath = $base['src'] . $l;

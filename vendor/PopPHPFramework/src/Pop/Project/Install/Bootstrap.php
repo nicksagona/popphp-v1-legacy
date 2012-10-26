@@ -92,9 +92,15 @@ class Bootstrap
                     $ctls .= '        )';
                     $ctrls[] = $ctls;
                 } else {
-                    if (array_key_exists('index', $value)) {
-                        $controllerName = ($key == '/') ? 'index' : substr($key, 1);
-                        $ctrls[] = "'{$key}' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase($controllerName)) . "Controller'";
+                    if ($key == '/') {
+                        $ctrls[] = "'{$key}' => '{$install->project->name}\Controller\IndexController'";
+                    } else {
+                        $controllerName = substr($key, 1);
+                        if (array_key_exists('index', $value)) {
+                            $ctrls[] = "'{$key}' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase($controllerName)) . "\\IndexController'";
+                        } else {
+                            $ctrls[] = "'{$key}' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase($controllerName)) . "Controller'";
+                        }
                     }
                 }
             }
