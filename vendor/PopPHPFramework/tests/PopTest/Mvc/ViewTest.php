@@ -33,6 +33,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('Pop\Mvc\View', new View('some template'));
         $this->assertInstanceOf('Pop\Mvc\View', View::factory(__DIR__ . '/ModelTest.php', new Model()));
+        $this->assertInstanceOf('Pop\Mvc\View', View::factory(__DIR__ . '/ModelTest.php', array()));
     }
 
     public function testSetAndGetModel()

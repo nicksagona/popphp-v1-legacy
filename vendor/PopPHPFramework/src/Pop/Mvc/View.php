@@ -66,11 +66,11 @@ class View
      *
      * Instantiate the view object.
      *
-     * @param string $template
-     * @param Model  $model
+     * @param  string $template
+     * @param  mixed  $model
      * @return void
      */
-    public function __construct($template = null, Model $model = null)
+    public function __construct($template = null, $model = null)
     {
         if (null !== $template) {
             if (((substr($template, -6) == '.phtml') ||
@@ -84,17 +84,23 @@ class View
             }
         }
 
-        $this->model = $model;
+        if (null !== $model) {
+            if (is_array($model)) {
+                $this->model = new Model($model);
+            } else if ($model instanceof Model) {
+                $this->model = $model;
+            }
+        }
     }
 
     /**
      * Create a Pop\Mvc\View object
      *
      * @param  string $template
-     * @param  Model  $model
+     * @param  mixed  $model
      * @return Pop\Mvc\View
      */
-    public static function factory($template = null, Model $model = null)
+    public static function factory($template = null, $model = null)
     {
         return new self($template, $model);
     }
