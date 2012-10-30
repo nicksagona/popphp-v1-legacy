@@ -24,8 +24,7 @@
  */
 namespace Pop\Locale;
 
-use Pop\Dir\Dir,
-    Pop\File\File;
+use Pop\Dir\Dir;
 
 /**
  * This is the Locale class for the Locale component. *

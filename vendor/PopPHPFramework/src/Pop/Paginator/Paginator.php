@@ -24,8 +24,6 @@
  */
 namespace Pop\Paginator;
 
-use Pop\Filter\String;
-
 /**
  * This is the Paginator class to paginate result sets.
  *

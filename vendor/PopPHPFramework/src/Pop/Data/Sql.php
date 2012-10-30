@@ -24,8 +24,6 @@
  */
 namespace Pop\Data;
 
-use Pop\Filter\String;
-
 /**
  * This is the Sql class for the Data component.
  *
