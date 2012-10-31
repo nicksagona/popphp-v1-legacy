@@ -167,14 +167,21 @@ class Response
 
         // If a URL, use a stream to get the header and URL contents
         if ((strtolower(substr($response, 0, 7)) == 'http://') || (strtolower(substr($response, 0, 8)) == 'https://')) {
-            $stream = fopen($response, 'r');
-            $meta = stream_get_meta_data($stream);
-            $body = stream_get_contents($stream);
+            $http_response_header = null;
+            if (($stream = @fopen($response, 'r')) != false) {
+                $meta = stream_get_meta_data($stream);
+                $body = stream_get_contents($stream);
 
-            $firstLine = $meta['wrapper_data'][0];
-            unset($meta['wrapper_data'][0]);
-            $allHeadersAry = $meta['wrapper_data'];
-            $bodyStr = $body;
+                $firstLine = $meta['wrapper_data'][0];
+                unset($meta['wrapper_data'][0]);
+                $allHeadersAry = $meta['wrapper_data'];
+                $bodyStr = $body;
+            } else {
+                $firstLine = $http_response_header[0];
+                unset($http_response_header[0]);
+                $allHeadersAry = $http_response_header;
+                $bodyStr = null;
+            }
         // Else, if a response string, parse the headers and contents
         } else if (substr($response, 0, 5) == 'HTTP/'){
             if (strpos($response, "\r") !== false) {
