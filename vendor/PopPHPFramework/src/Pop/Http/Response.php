@@ -158,17 +158,25 @@ class Response
      * either from a URL or a full response string
      *
      * @param  string $response
+     * @param  resource $context
      * @throws Exception
      * @return Pop\Http\Response
      */
-    public static function parse($response)
+    public static function parse($response, $context = null)
     {
         $headers = array();
 
         // If a URL, use a stream to get the header and URL contents
         if ((strtolower(substr($response, 0, 7)) == 'http://') || (strtolower(substr($response, 0, 8)) == 'https://')) {
             $http_response_header = null;
-            if (($stream = @fopen($response, 'r')) != false) {
+            
+            if (null !== $context) {
+                $stream = @fopen($response, 'r', false, $context);
+            } else {
+                $stream = @fopen($response, 'r');
+            }
+            
+            if ($stream != false) {
                 $meta = stream_get_meta_data($stream);
                 $body = stream_get_contents($stream);
 
@@ -199,6 +207,7 @@ class Response
         } else {
             throw new Exception('The response was not properly formatted.');
         }
+        
         // Get the version, code and message
         $version = substr($firstLine, 0, strpos($firstLine, ' '));
         preg_match('/\d\d\d/', trim($firstLine), $match);
