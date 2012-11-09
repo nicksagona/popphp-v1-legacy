@@ -530,11 +530,11 @@ class Form extends Dom
         if (!is_array($filters)) {
             $filters = array($filters);
         }
-    
+
         if ((null !== $params) && !is_array($params)) {
             $params = array($params);
         }
-        
+
         foreach ($values as $key => $value) {
             foreach ($filters as $fk => $filter) {
                 if (function_exists($filter)) {
@@ -592,6 +592,12 @@ class Form extends Dom
 
         // Loop through the children and create and attach the appropriate DT and DT elements, with labels where applicable.
         foreach ($children as $child) {
+            // Clear the password field from display.
+            if ($child->getAttribute('type') == 'password') {
+                $child->value = null;
+                $child->setAttributes('value', null);
+            }
+
             // If the element label is set, render the appropriate DT and DD elements.
             if (isset($child->label) && (null !== $child->label)) {
                 // Create the DT and DD elements.
@@ -658,6 +664,12 @@ class Form extends Dom
 
         // Loop through the child elements of the form.
         foreach ($children as $child) {
+            // Clear the password field from display.
+            if ($child->getAttribute('type') == 'password') {
+                $child->value = null;
+                $child->setAttributes('value', null);
+            }
+
             // Get the element name.
             if ($child->getNodeName() == 'fieldset') {
                 $chdrn = $child->getChildren();
