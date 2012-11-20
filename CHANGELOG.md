@@ -1,3 +1,13 @@
+Pop PHP Framework 1.0.2
+=======================
+
+COMPLETED:
+----------
+* Small restructure of the Dir component. Moved under the File component
+* Resolved and eliminated some unnecessary internal dependencies
+* Code cleanup
+
+
 Pop PHP Framework 1.0.1
 =======================
 

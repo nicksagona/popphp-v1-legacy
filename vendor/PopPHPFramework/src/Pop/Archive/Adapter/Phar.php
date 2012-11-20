@@ -35,7 +35,7 @@ use Pop\Archive\ArchiveInterface,
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    1.0.1
+ * @version    1.0.2
  */
 class Phar implements ArchiveInterface
 {
@@ -132,10 +132,10 @@ class Phar implements ArchiveInterface
                         } else {
                             $f = $fileInfo->getPath() . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
                             $list[] = array(
-                                          'name'  => substr($f, (stripos($f, '.phar') + 6)),
-                                          'mtime' => $fileInfo->getMTime(),
-                                          'size'  => $fileInfo->getSize()
-                                      );
+                                'name'  => substr($f, (stripos($f, '.phar') + 6)),
+                                'mtime' => $fileInfo->getMTime(),
+                                'size'  => $fileInfo->getSize()
+                            );
                         }
                     }
                 }
@@ -145,10 +145,10 @@ class Phar implements ArchiveInterface
                 } else {
                     $f = $fileInfo->getPath() . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
                     $list[] = array(
-                                  'name'  => substr($f, (stripos($f, '.phar') + 6)),
-                                  'mtime' => $fileInfo->getMTime(),
-                                  'size'  => $fileInfo->getSize()
-                              );
+                        'name'  => substr($f, (stripos($f, '.phar') + 6)),
+                        'mtime' => $fileInfo->getMTime(),
+                        'size'  => $fileInfo->getSize()
+                    );
                 }
             }
         }

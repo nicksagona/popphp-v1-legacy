@@ -1,10 +1,10 @@
-Welcome to the Pop PHP Framework 1.0.1 Release!
+Welcome to the Pop PHP Framework 1.0.2 Release!
 ===============================================
 
 RELEASE INFORMATION
 -------------------
-Pop PHP Framework 1.0.1 Release
-Released October 23, 2012
+Pop PHP Framework 1.0.2 Release
+Released November 21, 2012
 
 
 OVERVIEW
@@ -47,7 +47,6 @@ easy-to-use API to access and utilize the following components:
 * Curl
 * Data
 * Db
-* Dir
 * Dom
 * Feed
 * File
