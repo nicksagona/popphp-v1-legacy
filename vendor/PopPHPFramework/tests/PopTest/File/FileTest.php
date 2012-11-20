@@ -30,7 +30,15 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\File\File', new File('test.txt'));
+        $f = new File(__DIR__ . '/test.txt');
+        $this->assertInstanceOf('Pop\File\File', $f);
+        $this->assertContains('File', $f->getDir());
+    }
+
+    public function testCheckDupe()
+    {
+        $f = File::checkDupe('access.txt', __DIR__ . '/../tmp');
+        $this->assertEquals('access_1.txt', $f);
     }
 
     public function testRead()

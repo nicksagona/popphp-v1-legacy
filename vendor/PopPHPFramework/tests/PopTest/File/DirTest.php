@@ -51,6 +51,12 @@ class DirTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(12, count($d->getFiles()));
     }
 
+    public function testGetPath()
+    {
+        $d = new Dir(__DIR__ . '/../tmp/');
+        $this->assertContains('tmp', $d->getPath());
+    }
+
     public function testGetSystemTemp()
     {
         $this->assertNotNull(Dir::getSystemTemp());
