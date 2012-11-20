@@ -185,7 +185,7 @@ class TrustCommerce extends AbstractAdapter
         $curl = new Curl($options);
         $this->response = $curl->execute();
         $this->responseCodes = $this->parseResponseCodes();
-        $this->responseCode = $this->responseCodes['transid'];
+        $this->responseCode = (isset($this->responseCodes['transid']) ? $this->responseCodes['transid'] : null);
         $this->message = $this->responseCodes['status'];
 
         switch ($this->responseCodes['status']) {

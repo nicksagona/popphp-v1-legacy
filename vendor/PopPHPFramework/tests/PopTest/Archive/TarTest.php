@@ -18,7 +18,7 @@ namespace PopTest\Archive;
 
 use Pop\Loader\Autoloader,
     Pop\Archive\Archive,
-    Pop\Dir\Dir;
+    Pop\File\Dir;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -147,7 +147,7 @@ class TarTest extends \PHPUnit_Framework_TestCase
             $a->extract(__DIR__ . '/../tmp/test');
 
             $dir = new Dir(__DIR__ . '/../tmp/test');
-            $this->assertGreaterThan(0, count($dir->files));
+            $this->assertGreaterThan(0, count($dir->getFiles()));
             $dir->emptyDir();
 
             rmdir(__DIR__ . '/../tmp/test');
@@ -189,7 +189,7 @@ class TarTest extends \PHPUnit_Framework_TestCase
             $a->extract(__DIR__ . '/../tmp/test');
 
             $dir = new Dir(__DIR__ . '/../tmp/test');
-            $this->assertGreaterThan(0, count($dir->files));
+            $this->assertGreaterThan(0, count($dir->getFiles()));
             $dir->emptyDir();
 
             rmdir(__DIR__ . '/../tmp/test');

@@ -18,7 +18,7 @@ namespace PopTest\Archive;
 
 use Pop\Loader\Autoloader,
     Pop\Archive\Archive,
-    Pop\Dir\Dir;
+    Pop\File\Dir;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -50,7 +50,7 @@ class ZipTest extends \PHPUnit_Framework_TestCase
             $a = new Archive(__DIR__ . '/../tmp/test.zip');
             $a->addFiles(__DIR__ . '/./');
             unset($a);
-            
+
             $a = new Archive(__DIR__ . '/../tmp/test.zip');
             $a->addFiles(__DIR__ . '/../tmp');
             $this->assertFileExists(__DIR__ . '/../tmp/test.zip');
@@ -107,7 +107,7 @@ class ZipTest extends \PHPUnit_Framework_TestCase
             unset($a);
 
             $dir = new Dir(__DIR__ . '/../tmp/test');
-            $this->assertGreaterThan(0, count($dir->files));
+            $this->assertGreaterThan(0, count($dir->getFiles()));
             $dir->emptyDir();
 
             rmdir(__DIR__ . '/../tmp/test');

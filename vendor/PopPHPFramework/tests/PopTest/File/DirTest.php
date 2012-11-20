@@ -14,10 +14,10 @@
  *
  */
 
-namespace PopTest\Dir;
+namespace PopTest\File;
 
 use Pop\Loader\Autoloader,
-    Pop\Dir\Dir;
+    Pop\File\Dir;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -42,13 +42,13 @@ class DirTest extends \PHPUnit_Framework_TestCase
     public function testFiles()
     {
         $d = new Dir(__DIR__ . '/../tmp/');
-        $this->assertEquals(12, count($d->files));
+        $this->assertEquals(12, count($d->getFiles()));
         $d = new Dir(__DIR__ . '/../tmp/', true);
-        $this->assertEquals(12, count($d->files));
+        $this->assertEquals(12, count($d->getFiles()));
         $d = new Dir(__DIR__ . '/../tmp/', true, true);
-        $this->assertEquals(12, count($d->files));
+        $this->assertEquals(12, count($d->getFiles()));
         $d = new Dir(__DIR__ . '/../tmp/', true, true, true);
-        $this->assertEquals(12, count($d->files));
+        $this->assertEquals(12, count($d->getFiles()));
     }
 
     public function testGetSystemTemp()
