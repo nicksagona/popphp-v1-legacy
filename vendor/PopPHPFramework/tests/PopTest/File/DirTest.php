@@ -30,7 +30,7 @@ class DirTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\Dir\Dir', new Dir(__DIR__ . '/../tmp'));
+        $this->assertInstanceOf('Pop\File\Dir', new Dir(__DIR__ . '/../tmp'));
     }
 
     public function testConstructorException()
