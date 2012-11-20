@@ -24,8 +24,6 @@
  */
 namespace Pop\Compress;
 
-use Pop\File\File;
-
 /**
  * This is the Bzip2 class for the Compress component.
  *
@@ -50,15 +48,15 @@ class Bzip2 implements CompressInterface
     {
         // Compress the file
         if (file_exists($data)) {
-            $archive = new File($data);
-            $data = $archive->read();
+            $fullpath = realpath($data);
+            $data = file_get_contents($data);
 
             // Create the new Bzip2 file resource, write data and close it
-            $bzResource = bzopen($archive->fullpath . '.bz2', 'w');
+            $bzResource = bzopen($fullpath . '.bz2', 'w');
             bzwrite($bzResource, $data, strlen($data));
             bzclose($bzResource);
 
-            return $archive->fullpath . '.bz2';
+            return $fullpath . '.bz2';
         // Else, compress the string
         } else {
             return bzcompress($data, $block);
@@ -92,11 +90,9 @@ class Bzip2 implements CompressInterface
                 $newFile = str_replace('.bz2', '', $data);
             }
 
-            $new = new File($newFile);
-            $new->write($uncompressed)
-                ->save();
+            file_put_contents($newFile, $uncompressed);
 
-            return $new->fullpath;
+            return $newFile;
         // Else, decompress the string
         } else {
             return bzdecompress($data);

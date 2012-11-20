@@ -100,7 +100,7 @@ class Data
 
             $file = new File($data);
             $this->file = $file->read();
-            $this->type = ($file->ext == 'yml') ? 'Yaml' : ucfirst(strtolower($file->ext));
+            $this->type = ($file->getExt() == 'yml') ? 'Yaml' : ucfirst(strtolower($file->getExt()));
         } else {
             $this->data = $data;
         }
@@ -256,7 +256,7 @@ class Data
     {
         $file = new File($toFile);
 
-        $to = strtolower($file->ext);
+        $to = strtolower($file->getExt());
         $types = array('csv', 'json', 'sql', 'xml', 'yaml');
 
         if (!in_array($to, $types)) {

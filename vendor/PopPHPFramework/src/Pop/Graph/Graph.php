@@ -26,7 +26,6 @@ namespace Pop\Graph;
 
 use Pop\Color\ColorInterface,
     Pop\Color\Rgb,
-    Pop\File\File,
     Pop\Image\Gd,
     Pop\Image\Imagick,
     Pop\Image\Svg,
@@ -247,8 +246,14 @@ class Graph
             $this->font = $this->adapter->getLastFontName();
             $this->fonts[$this->font] = $this->font;
         } else {
-            $fontFile = new File($font);
-            $this->font = $fontFile->filename;
+            $this->font = $font;
+            if (strpos($this->font, DIRECTORY_SEPARATOR) !== false) {
+                $this->font = substr($this->font, (strrpos($this->font, DIRECTORY_SEPARATOR) + 1));
+            }
+            if (strpos($this->font, '.') !== false) {
+                $this->font = substr($this->font, 0, strrpos($this->font, '.'));
+            }
+
             $this->fonts[$this->font] = $font;
         }
 

@@ -24,7 +24,7 @@
  */
 namespace Pop\Project;
 
-use Pop\Dir\Dir,
+use Pop\File\Dir,
     Pop\File\File,
     Pop\Locale\Locale,
     Pop\Project\Install\Base,
@@ -243,7 +243,9 @@ class Install
 
         // Get the module folders
         $moduleDir = new Dir($projectFolder . DIRECTORY_SEPARATOR . 'module', true);
-        foreach ($moduleDir->files as $module) {
+        $moduleFiles = $moduleDir->getFiles();
+
+        foreach ($moduleFiles as $module) {
             // Reconfigure the module config file and replace the path
             if (is_dir($module) && (file_exists($module . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.config.php'))) {
                 $moduleCfg = new File($module . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.config.php');

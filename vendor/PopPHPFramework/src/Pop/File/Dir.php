@@ -13,7 +13,7 @@
  * to info@popphp.org so we can send you a copy immediately.
  *
  * @category   Pop
- * @package    Pop_Dir
+ * @package    Pop_File
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
@@ -22,13 +22,13 @@
 /**
  * @namespace
  */
-namespace Pop\Dir;
+namespace Pop\File;
 
 /**
- * This is the Dir class for the Dir component.
+ * This is the Dir class for the File component.
  *
  * @category   Pop
- * @package    Pop_Dir
+ * @package    Pop_File
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
@@ -41,13 +41,13 @@ class Dir
      * The directory path
      * @var string
      */
-    public $path = null;
+    protected $path = null;
 
     /**
      * The files within the directory
      * @var array
      */
-    public $files = array();
+    protected $files = array();
 
     /**
      * Flag to store the full path.
@@ -180,6 +180,26 @@ class Dir
     public static function getUploadTemp()
     {
         return (ini_get('upload_tmp_dir') == '') ? self::getSystemTemp() : realpath(ini_get('upload_tmp_dir'));
+    }
+
+    /**
+     * Get the path.
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Get the files.
+     *
+     * @return array
+     */
+    public function getFiles()
+    {
+        return $this->files;
     }
 
     /**

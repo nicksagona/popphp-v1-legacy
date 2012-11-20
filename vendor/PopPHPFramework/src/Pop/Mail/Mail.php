@@ -419,10 +419,10 @@ class Mail
 
                 foreach ($this->attachments as $file) {
                     $this->message .= PHP_EOL . '--' . $this->getBoundary() .
-                        PHP_EOL . 'Content-Type: file; name="' . $file['file']->basename .
+                        PHP_EOL . 'Content-Type: file; name="' . $file['file']->getBasename() .
                         '"' . PHP_EOL . 'Content-Transfer-Encoding: base64' . PHP_EOL .
-                        'Content-Description: ' . $file['file']->basename . PHP_EOL .
-                        'Content-Disposition: attachment; filename="' . $file['file']->basename .
+                        'Content-Description: ' . $file['file']->getBasename() . PHP_EOL .
+                        'Content-Disposition: attachment; filename="' . $file['file']->getBasename() .
                         '"' . PHP_EOL . PHP_EOL . $file['contents'] . PHP_EOL . PHP_EOL;
                 }
 
@@ -446,10 +446,10 @@ class Mail
 
                 foreach ($this->attachments as $file) {
                     $this->message .= PHP_EOL . '--' . $this->getBoundary() .
-                        PHP_EOL . 'Content-Type: file; name="' . $file['file']->basename .
+                        PHP_EOL . 'Content-Type: file; name="' . $file['file']->getBasename() .
                         '"' . PHP_EOL . 'Content-Transfer-Encoding: base64' . PHP_EOL .
-                        'Content-Description: ' . $file['file']->basename . PHP_EOL .
-                        'Content-Disposition: attachment; filename="' . $file['file']->basename .
+                        'Content-Description: ' . $file['file']->getBasename() . PHP_EOL .
+                        'Content-Disposition: attachment; filename="' . $file['file']->getBasename() .
                         '"' . PHP_EOL . PHP_EOL . $file['contents'] . PHP_EOL . PHP_EOL;
                 }
                 $this->message .= '--' . $this->getBoundary() . PHP_EOL .
@@ -468,10 +468,10 @@ class Mail
 
                 foreach ($this->attachments as $file) {
                     $this->message .= PHP_EOL . '--' . $this->getBoundary() .
-                        PHP_EOL . 'Content-Type: file; name="' . $file['file']->basename .
+                        PHP_EOL . 'Content-Type: file; name="' . $file['file']->getBasename() .
                         '"' . PHP_EOL . 'Content-Transfer-Encoding: base64' . PHP_EOL .
-                        'Content-Description: ' . $file['file']->basename . PHP_EOL .
-                        'Content-Disposition: attachment; filename="' . $file['file']->basename .
+                        'Content-Description: ' . $file['file']->getBasename() . PHP_EOL .
+                        'Content-Disposition: attachment; filename="' . $file['file']->getBasename() .
                         '"' . PHP_EOL . PHP_EOL . $file['contents'] . PHP_EOL . PHP_EOL;
                 }
                 $this->message .= '--' . $this->getBoundary() . PHP_EOL .

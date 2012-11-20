@@ -24,7 +24,7 @@
  */
 namespace Pop\Locale;
 
-use Pop\Dir\Dir;
+use Pop\File\Dir;
 
 /**
  * This is the Locale class for the Locale component. *
@@ -154,7 +154,8 @@ class Locale
 
         if (file_exists($langDirectory)) {
             $langDir = new Dir($langDirectory);
-            foreach ($langDir->files as $file) {
+            $files = $langDir->getFiles();
+            foreach ($files as $file) {
                 if ($file != '__.xml') {
                     if (($xml =@ new \SimpleXMLElement($langDirectory . '/' . $file, LIBXML_NOWARNING, true)) !== false) {
                         if ((string)$xml->attributes()->name == (string)$xml->attributes()->native) {

@@ -24,8 +24,6 @@
  */
 namespace Pop\Compress;
 
-use Pop\File\File;
-
 /**
  * This is the Zlib class for the Compress component.
  *

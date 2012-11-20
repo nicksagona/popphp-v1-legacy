@@ -24,8 +24,7 @@
  */
 namespace Pop\Archive\Adapter;
 
-use Pop\Archive\ArchiveInterface,
-    Pop\File\File;
+use Pop\Archive\ArchiveInterface;
 
 /**
  * This is the Rar class for the Archive component.
@@ -61,14 +60,14 @@ class Rar implements ArchiveInterface
     /**
      * Method to instantiate an archive adapter object
      *
-     * @param  string $archive
-     * @param  string $password
+     * @param  Pop\Archive\Archive $archive
+     * @param  string              $password
      * @throws Exception
      * @return void
      */
     public function __construct($archive, $password = null)
     {
-        $this->path = $archive->fullpath;
+        $this->path = $archive->getFullpath();
         $this->password = $password;
 
         if (file_exists($this->path)) {
@@ -123,16 +122,16 @@ class Rar implements ArchiveInterface
                     $list[] = $entry->getName();
                 } else {
                     $list[] = array(
-                                  'name'          => $entry->getName(),
-                                  'unpacked_size' => $entry->getUnpackedSize(),
-                                  'packed_size'   => $entry->getPackedSize(),
-                                  'host_os'       => $entry->getHostOs(),
-                                  'file_time'     => $entry->getFileTime(),
-                                  'crc'           => $entry->getCrc(),
-                                  'attr'          => $entry->getAttr(),
-                                  'version'       => $entry->getVersion(),
-                                  'method'        => $entry->getMethod()
-                              );
+                        'name'          => $entry->getName(),
+                        'unpacked_size' => $entry->getUnpackedSize(),
+                        'packed_size'   => $entry->getPackedSize(),
+                        'host_os'       => $entry->getHostOs(),
+                        'file_time'     => $entry->getFileTime(),
+                        'crc'           => $entry->getCrc(),
+                        'attr'          => $entry->getAttr(),
+                        'version'       => $entry->getVersion(),
+                        'method'        => $entry->getMethod()
+                    );
                 }
             }
         }

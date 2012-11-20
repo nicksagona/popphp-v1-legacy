@@ -25,8 +25,7 @@
 namespace Pop\Archive\Adapter;
 
 use Pop\Archive\ArchiveInterface,
-    Pop\Dir\Dir,
-    Pop\File\File;
+    Pop\File\Dir;
 
 /**
  * This is the Zip class for the Archive component.
@@ -67,18 +66,18 @@ class Zip implements ArchiveInterface
      */
     public function __construct($archive)
     {
-        if (strpos($archive->fullpath, '/.') !== false) {
-            $this->workingDir = substr($archive->fullpath, 0, strpos($archive->fullpath, '/.'));
-        } else if (strpos($archive->fullpath, '\\.') !== false) {
-            $this->workingDir = substr($archive->fullpath, 0, strpos($archive->fullpath, '\\.'));
+        if (strpos($archive->getFullpath(), '/.') !== false) {
+            $this->workingDir = substr($archive->getFullpath(), 0, strpos($archive->getFullpath(), '/.'));
+        } else if (strpos($archive->getFullpath(), '\\.') !== false) {
+            $this->workingDir = substr($archive->getFullpath(), 0, strpos($archive->getFullpath(), '\\.'));
         } else {
             $this->workingDir = getcwd();
         }
 
-        if ((substr($archive->fullpath, 0, 1) != '/') && (substr($archive->fullpath, 1, 1) != ':')) {
-            $this->path = $this->workingDir . DIRECTORY_SEPARATOR . $archive->fullpath;
+        if ((substr($archive->getFullpath(), 0, 1) != '/') && (substr($archive->getFullpath(), 1, 1) != ':')) {
+            $this->path = $this->workingDir . DIRECTORY_SEPARATOR . $archive->getFullpath();
         } else {
-            $this->path = realpath(dirname($archive->fullpath)) . DIRECTORY_SEPARATOR . $archive->basename;
+            $this->path = realpath(dirname($archive->getFullpath())) . DIRECTORY_SEPARATOR . $archive->getBasename();
         }
         $this->archive = new \ZipArchive();
     }
@@ -110,7 +109,7 @@ class Zip implements ArchiveInterface
         if (!is_array($files)) {
             if (is_dir($files)) {
                 $dir = new Dir($files, true, true, false);
-                $files = $this->filterDirFiles($dir->files, $files);
+                $files = $this->filterDirFiles($dir->getFiles(), $files);
             } else {
                 $files = $this->filterDirFiles(array(realpath($files)), dirname($files));
             }
@@ -119,7 +118,7 @@ class Zip implements ArchiveInterface
             foreach ($files as $key => $value) {
                 if (is_dir($value)) {
                     $dir = new Dir($value, true, true, false);
-                    $allFiles = array_merge($allFiles, $this->filterDirFiles($dir->files, $value));
+                    $allFiles = array_merge($allFiles, $this->filterDirFiles($dir->getFiles(), $value));
                     unset($files[$key]);
                 } else {
                     $allFiles = array_merge($allFiles, $this->filterDirFiles(array(realpath($value)), dirname($value)));

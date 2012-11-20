@@ -24,8 +24,7 @@
  */
 namespace Pop\Loader;
 
-use Pop\Dir\Dir,
-    Pop\File\File;
+use Pop\File\Dir;
 
 /**
  * This is the Classmap class for the Loader component.
@@ -51,14 +50,13 @@ class Classmap
     {
         $dir = new Dir(realpath($inputFolder), true, true);
         $matches = array();
+        $files = $dir->getFiles();
 
-        foreach ($dir->files as $file) {
+        foreach ($files as $file) {
             if (substr($file, -4) == '.php') {
                 $classMatch = array();
                 $namespaceMatch = array();
-
-                $classFile = new File($file);
-                $classFileContents = $classFile->read();
+                $classFileContents = file_get_contents($file);
 
                 preg_match('/^class(.*)$/m', $classFileContents, $classMatch);
                 preg_match('/^namespace(.*)$/m', $classFileContents, $namespaceMatch);
@@ -86,9 +84,7 @@ class Classmap
 
             $classMap .= PHP_EOL . ');' . PHP_EOL;
 
-            $output = new File($outputFile);
-            $output->write($classMap)
-                   ->save();
+            file_put_contents($outputFile, $classMap);
         }
     }
 

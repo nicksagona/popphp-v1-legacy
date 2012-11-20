@@ -26,7 +26,6 @@ namespace Pop\Form;
 
 use Pop\Dom\Dom,
     Pop\Dom\Child,
-    Pop\File\File,
     Pop\Form\Element,
     Pop\Form\Element\Checkbox,
     Pop\Form\Element\Radio,
@@ -301,8 +300,7 @@ class Form extends Dom
     public function setTemplate($tmpl)
     {
         if (file_exists($tmpl)) {
-            $tmplFile = new File($tmpl);
-            $this->template = $tmplFile->read();
+            $this->template = file_get_contents($tmpl);
         } else {
             $this->template = $tmpl;
         }

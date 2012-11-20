@@ -26,8 +26,7 @@ namespace Pop\Project\Install;
 
 use Pop\Data\Sql,
     Pop\Db\Db,
-    Pop\Dir\Dir,
-    Pop\File\File,
+    Pop\File\Dir,
     Pop\Locale\Locale;
 
 /**
@@ -99,8 +98,9 @@ class Dbs
             $sqlFiles[] = $dir;
         } else {
             $dir = new Dir($dir, true);
+            $files = $dir->getFiles();
 
-            foreach ($dir->files as $file) {
+            foreach ($files as $file) {
                 if (strtolower(substr($file, -4)) == '.sql') {
                     $sqlFiles[] = $file;
                 }
@@ -159,9 +159,7 @@ class Dbs
             $prefix = (isset($db['prefix'])) ? $db['prefix'] : null;
 
             foreach ($sqlFiles as $sqlFile) {
-                $file = new File($sqlFile);
-
-                $sql = trim($file->read());
+                $sql = trim(file_get_contents($sqlFile));
                 $explode = (strpos($sql, ";\r\n") !== false) ? ";\r\n" : ";\n";
                 $statements = explode($explode, $sql);
 

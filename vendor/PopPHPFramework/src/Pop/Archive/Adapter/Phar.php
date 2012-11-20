@@ -25,8 +25,7 @@
 namespace Pop\Archive\Adapter;
 
 use Pop\Archive\ArchiveInterface,
-    Pop\Dir\Dir,
-    Pop\File\File;
+    Pop\File\Dir;
 
 /**
  * This is the Phar class for the Archive component.
@@ -56,12 +55,12 @@ class Phar implements ArchiveInterface
     /**
      * Method to instantiate an archive adapter object
      *
-     * @param  string $archive
+     * @param  Pop\Archive\Archive $archive
      * @return void
      */
     public function __construct($archive)
     {
-        $this->path = $archive->fullpath;
+        $this->path = $archive->getFullpath();
         $this->archive = new \Phar($this->path);
     }
 
@@ -96,8 +95,9 @@ class Phar implements ArchiveInterface
             // If file is a directory, loop through and add the files.
             if (file_exists($file) && is_dir($file)) {
                 $dir = new Dir($file, true, true);
-                $this->archive->addEmptyDir(str_replace($search, $replace, $dir->path));
-                foreach ($dir->files as $fle) {
+                $this->archive->addEmptyDir(str_replace($search, $replace, $dir->getPath()));
+                $dirFiles = $dir->getFiles();
+                foreach ($dirFiles as $fle) {
                     if (file_exists($fle) && is_dir($fle)) {
                         $this->archive->addEmptyDir(str_replace($search, $replace, $fle));
                     } else if (file_exists($fle)) {

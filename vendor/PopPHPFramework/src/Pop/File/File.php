@@ -38,42 +38,35 @@ use Pop\Http\Response;
  */
 class File
 {
-
-    /**
-     * Max file size for uploads. Can be overridden via the upload() method.
-     * @var int
-     */
-    const MAX = 10000000;
-
     /**
      * Full path and name of the file, i.e. '/some/dir/file.ext'
      * @var string
      */
-    public $fullpath = null;
+    protected $fullpath = null;
 
     /**
      * Full, absolute directory of file, i.e. '/some/dir/'
      * @var string
      */
-    public $dir = null;
+    protected $dir = null;
 
     /**
      * Full basename of file, i.e. 'file.ext'
      * @var string
      */
-    public $basename = null;
+    protected $basename = null;
 
     /**
      * Full filename of file, i.e. 'file'
      * @var string
      */
-    public $filename = null;
+    protected $filename = null;
 
     /**
      * File extension, i.e. 'ext'
      * @var string
      */
-    public $ext = null;
+    protected $ext = null;
 
     /**
      * File size in bytes
@@ -201,7 +194,7 @@ class File
      * @throws Exception
      * @return Pop\File\File
      */
-    public static function upload($upload, $file, $size = null, $types = null)
+    public static function upload($upload, $file, $size = 0, $types = null)
     {
         // Check to see if the upload directory exists.
         if (!file_exists(dirname($file))) {
@@ -219,18 +212,12 @@ class File
             $fileSize = filesize($file);
 
             // Check the file size requirement.
-            if ((null !== $size) && ($fileSize > $size)) {
-                unlink($file);
-                throw new Exception('Error: The file uploaded is too big.');
-            } else if ((null === $size) && (null !== self::MAX) && ($fileSize > self::MAX)) {
+            if (((int)$size > 0) && ($fileSize > $size)) {
                 unlink($file);
                 throw new Exception('Error: The file uploaded is too big.');
             }
 
-            $fileObj = new static($file);
-            if (null !== $types) {
-                $fileObj->setAllowedTypes($types);
-            }
+            $fileObj = new static($file, $types);
 
             return $fileObj;
         } else {
@@ -276,6 +263,56 @@ class File
     public function isAllowed($type)
     {
         return (array_key_exists(strtolower($type), $this->allowed)) ? true : false;
+    }
+
+    /**
+     * Get the fullpath.
+     *
+     * @return string
+     */
+    public function getFullpath()
+    {
+        return $this->fullpath;
+    }
+
+    /**
+     * Get the directory.
+     *
+     * @return string
+     */
+    public function getDir()
+    {
+        return $this->dir;
+    }
+
+    /**
+     * Get the basename.
+     *
+     * @return string
+     */
+    public function getBasename()
+    {
+        return $this->basename;
+    }
+
+    /**
+     * Get the filename.
+     *
+     * @return string
+     */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * Get the extension.
+     *
+     * @return string
+     */
+    public function getExt()
+    {
+        return $this->ext;
     }
 
     /**

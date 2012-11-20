@@ -24,8 +24,6 @@
  */
 namespace Pop\Compress;
 
-use Pop\File\File;
-
 /**
  * This is the Gzip class for the Compress component.
  *
@@ -51,15 +49,15 @@ class Gzip implements CompressInterface
     {
         // Compress the file
         if (file_exists($data)) {
-            $archive = new File($data);
-            $data = $archive->read();
+            $fullpath = realpath($data);
+            $data = file_get_contents($data);
 
             // Create the new Gzip file resource, write data and close it
-            $gzResource = fopen($archive->fullpath . '.gz', 'w');
+            $gzResource = fopen($fullpath . '.gz', 'w');
             fwrite($gzResource, gzencode($data, $level, $mode));
             fclose($gzResource);
 
-            return $archive->fullpath . '.gz';
+            return $fullpath . '.gz';
         // Else, compress the string
         } else {
             return gzencode($data, $level, $mode);
@@ -90,11 +88,9 @@ class Gzip implements CompressInterface
             $newFile = (stripos($data, '.tgz') !== false)
                 ? str_replace('.tgz', '.tar', $data) : str_replace('.gz', '', $data);
 
-            $new = new File($newFile);
-            $new->write($uncompressed)
-                ->save();
+            file_put_contents($newFile, $uncompressed);
 
-            return $new->fullpath;
+            return $newFile;
         // Else, decompress the string
         } else {
             return gzinflate(substr($data, 10));

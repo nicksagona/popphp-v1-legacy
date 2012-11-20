@@ -25,7 +25,6 @@
 namespace Pop\Pdf\Parser;
 
 use Pop\Compress\Zlib,
-    Pop\File\File,
     Pop\Font\TrueType,
     Pop\Font\TrueType\OpenType,
     Pop\Font\Type1,

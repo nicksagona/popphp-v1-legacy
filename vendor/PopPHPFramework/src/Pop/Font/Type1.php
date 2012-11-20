@@ -24,9 +24,6 @@
  */
 namespace Pop\Font;
 
-use Pop\File\File,
-    Pop\Font\Font;
-
 /**
  * This is the Type1 class for the Font component.
  *
@@ -141,8 +138,7 @@ class Type1 extends AbstractFont
      */
     protected function parsePfb($pfb)
     {
-        $pfbFile = new File($pfb);
-        $data = $pfbFile->read();
+        $data = file_get_contents($pfb);
 
         // Get lengths and data
         $f = fopen($pfb, 'rb');
@@ -266,8 +262,7 @@ class Type1 extends AbstractFont
      */
     protected function parseAfm($afm)
     {
-        $afmFile = new File($afm);
-        $data = $afmFile->read();
+        $data = file_get_contents($afm);
 
         if (stripos($data, 'FontBBox') !== false) {
             $bbox = substr($data, (stripos($data, 'FontBBox') + 8));

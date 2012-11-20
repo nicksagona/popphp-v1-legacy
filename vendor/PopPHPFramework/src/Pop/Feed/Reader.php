@@ -24,8 +24,6 @@
  */
 namespace Pop\Feed;
 
-use Pop\File\File;
-
 /**
  * This is the Reader class for the Feed component.
  *
@@ -149,7 +147,7 @@ class Reader
                 } else if (strpos($url, 'vimeo') !== false) {
                     $this->feedSrc = 'vimeo';
                 } else if (strpos($url, 'twitter') !== false) {
-                    $this->feedSrc = 'twitter';                    
+                    $this->feedSrc = 'twitter';
                 }
 
                 $this->limit = $limit;
@@ -175,8 +173,7 @@ class Reader
     public function setTemplate($tmpl)
     {
         if (file_exists($tmpl)) {
-            $tmplFile = new File($tmpl);
-            $this->template = $tmpl->read();
+            $this->template = file_get_contents($tmpl);
         } else {
             $this->template = $tmpl;
         }
@@ -394,7 +391,7 @@ class Reader
                     'pubDate'     => (string)$value->pubDate,
                     'timeElapsed' => $this->calcElapsedTime($value->pubDate)
                 );
-                
+
                 if ($this->feedSrc == 'twitter') {
                     $ary['handle'] = substr($ary['link'], (strpos($ary['link'], 'http://twitter.com/') + 19));
                     $ary['handle'] = substr($ary['handle'], 0, strpos($ary['handle'], '/'));
