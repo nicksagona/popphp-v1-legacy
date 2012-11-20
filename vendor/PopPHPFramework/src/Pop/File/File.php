@@ -458,6 +458,17 @@ class File
     }
 
     /**
+     * Append data to a file.
+     *
+     * @param  string  $data
+     * @return Pop\File\File
+     */
+    public function append($data)
+    {
+        return $this->write($data, true);
+    }
+
+    /**
      * Copy the file object directly to another file on disk.
      *
      * @param  string $new
