@@ -56,12 +56,6 @@ abstract class AbstractAdapter
     protected $tables = array();
 
     /**
-     * Language object
-     * @var Pop\Locale\Locale
-     */
-    protected $lang = null;
-
-    /**
      * Constructor
      *
      * Instantiate the database adapter object.

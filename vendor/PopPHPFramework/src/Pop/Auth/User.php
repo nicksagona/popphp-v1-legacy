@@ -24,8 +24,7 @@
  */
 namespace Pop\Auth;
 
-use Pop\Auth\Role,
-    Pop\Locale\Locale;
+use Pop\Auth\Role;
 
 /**
  * This is the User class for the Auth component.

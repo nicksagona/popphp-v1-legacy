@@ -207,21 +207,11 @@ class String
      */
     public static function escape($string, $all = false)
     {
-        $replace = array(
-            array('\\', '\\\\'),
-            array("\n", "\\n"),
-            array("\r", "\\r"),
-            array("\x00", "\\x00"),
-            array("\x1a", "\\x1a"),
-            array('\'', '\\\''),
-            array('"', '\\"')
-        );
-
         $search = array('\\', "\n", "\r", "\x00", "\x1a", '\'', '"');
         $replace = array('\\\\', "\\n", "\\r", "\\x00", "\\x1a", '\\\'', '\\"');
 
         $str = str_replace($search, $replace, $string);
-        
+
         if ($all) {
             $str = str_replace('%', '\%', $str);
             $str = str_replace('_', '\_', $str);

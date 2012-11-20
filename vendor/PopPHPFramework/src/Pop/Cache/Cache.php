@@ -24,8 +24,6 @@
  */
 namespace Pop\Cache;
 
-use Pop\Locale\Locale;
-
 /**
  * This is the Cache class for the Cache component.
  *
