@@ -421,8 +421,12 @@ class Request
             $uri = $_SERVER['REQUEST_URI'];
         }
 
-        if ((null !== $basePath) && (substr($uri, 0, (strlen($basePath) + 1)) == $basePath . '/')) {
-            $uri = substr($uri, (strpos($uri, $basePath) + strlen($basePath)));
+        if (null !== $basePath) {
+            if (substr($uri, 0, (strlen($basePath) + 1)) == $basePath . '/') {
+                $uri = substr($uri, (strpos($uri, $basePath) + strlen($basePath)));
+            } else if (substr($uri, 0, (strlen($basePath) + 1)) == $basePath . '?') {
+                $uri = '/' . substr($uri, (strpos($uri, $basePath) + strlen($basePath)));
+            }
         }
 
         if (($uri == '') || ($uri == $basePath)) {
