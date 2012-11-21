@@ -24,12 +24,6 @@
  */
 namespace Pop\Color;
 
-use Pop\Color\Cmyk,
-    Pop\Color\Hex,
-    Pop\Color\Hsb,
-    Pop\Color\Lab,
-    Pop\Color\Rgb;
-
 /**
  * This is the Color class for the Color component.
  *

@@ -24,8 +24,6 @@
  */
 namespace Pop\Web;
 
-use Pop\Web\Session;
-
 /**
  * This is the Mobile class for the Web component.
  *

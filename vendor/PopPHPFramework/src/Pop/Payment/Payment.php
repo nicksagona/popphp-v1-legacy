@@ -24,8 +24,6 @@
  */
 namespace Pop\Payment;
 
-use Pop\Payment\Adapter\AbstractAdapter;
-
 /**
  * This is the Payment class to normalize different payment transaction APIs.
  *
@@ -98,10 +96,10 @@ class Payment
      *
      * Instantiate the payment object
      *
-     * @param AbstractAdapter $adapter
+     * @param Adapter\AbstractAdapter $adapter
      * @return void
      */
-    public function __construct(AbstractAdapter $adapter)
+    public function __construct(Adapter\AbstractAdapter $adapter)
     {
         $this->adapter = $adapter;
     }

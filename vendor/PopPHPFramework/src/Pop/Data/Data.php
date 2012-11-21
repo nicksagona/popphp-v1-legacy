@@ -24,12 +24,7 @@
  */
 namespace Pop\Data;
 
-use Pop\Data\Csv,
-    Pop\Data\Json,
-    Pop\Data\Sql,
-    Pop\Data\Xml,
-    Pop\Data\Yaml,
-    Pop\File\File;
+use Pop\File\File;
 
 /**
  * This is the Data class for the Data component.

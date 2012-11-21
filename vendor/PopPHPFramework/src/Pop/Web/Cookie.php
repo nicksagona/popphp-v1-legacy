@@ -80,9 +80,13 @@ class Cookie
     /**
      * Set a property in the cookie object that is linked to the $_COOKIE global variable.
      *
-     * @param  string $name
-     * @param  mixed  $value
-     * @param  int    $expire
+     * @param  string  $name
+     * @param  mixed   $value
+     * @param  int     $expire
+     * @param  string  $path
+     * @param  string  $domain
+     * @param  boolean $secure
+     * @param  boolean $httponly
      * @return void
      */
     public function set($name, $value, $expire = 0, $path = '/', $domain = null, $secure = false, $httponly = false)

@@ -25,12 +25,7 @@
 namespace Pop\Form;
 
 use Pop\Dom\Dom,
-    Pop\Dom\Child,
-    Pop\Form\Element,
-    Pop\Form\Element\Checkbox,
-    Pop\Form\Element\Radio,
-    Pop\Form\Element\Select,
-    Pop\Form\Element\Textarea;
+    Pop\Dom\Child;
 
 /**
  * This is the Form class for the Form component.
@@ -189,16 +184,16 @@ class Form extends Dom
                     // Initialize the form element.
                     switch ($type) {
                         case 'checkbox':
-                            $elem = new Checkbox($name, $value, $marked);
+                            $elem = new Element\Checkbox($name, $value, $marked);
                             break;
                         case 'radio':
-                            $elem = new Radio($name, $value, $marked);
+                            $elem = new Element\Radio($name, $value, $marked);
                             break;
                         case 'select':
-                            $elem = new Select($name, $value, $marked);
+                            $elem = new Element\Select($name, $value, $marked);
                             break;
                         case 'textarea':
-                            $elem = new Textarea($name, $value, $marked);
+                            $elem = new Element\Textarea($name, $value, $marked);
                             break;
                         default:
                             $elem = new Element($type, $name, $value, $marked);
@@ -358,21 +353,21 @@ class Form extends Dom
 
         foreach ($children as $child) {
             $attribs = $child->getAttributes();
-            if ($child instanceof Textarea) {
+            if ($child instanceof Element\Textarea) {
                 if (isset($attribs['name'])) {
                     $this->fields[$attribs['name']] = (isset($child->value) ? $child->value : null);
                 }
-            } else if ($child instanceof Select) {
+            } else if ($child instanceof Element\Select) {
                 if (isset($attribs['name'])) {
                     $this->fields[$attribs['name']] = (isset($child->marked) ? $child->marked : null);
                 }
-            } else if ($child instanceof Radio) {
+            } else if ($child instanceof Element\Radio) {
                 $radioChildren = $child->getChildren();
                 $childAttribs = $radioChildren[0]->getAttributes();
                 if (isset($childAttribs['name'])) {
                     $this->fields[$childAttribs['name']] = (isset($child->marked) ? $child->marked : null);
                 }
-            } else if ($child instanceof Checkbox) {
+            } else if ($child instanceof Element\Checkbox) {
                 $radioChildren = $child->getChildren();
                 $childAttribs = $radioChildren[0]->getAttributes();
                 if (isset($childAttribs['name'])) {

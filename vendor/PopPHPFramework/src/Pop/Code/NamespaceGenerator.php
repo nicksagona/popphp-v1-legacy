@@ -24,8 +24,6 @@
  */
 namespace Pop\Code;
 
-use Pop\Code\DocblockGenerator;
-
 /**
  * This is the Namespace class for the Code component.
  *

@@ -24,10 +24,6 @@
  */
 namespace Pop\Font\TrueType\Table;
 
-use Pop\Font\TrueType\Table\Cmap\ByteEncoding,
-    Pop\Font\TrueType\Table\Cmap\SegmentToDelta,
-    Pop\Font\TrueType\Table\Cmap\TrimmedTable;
-
 /**
  * This is the Cmap class for the Font component.
  *
@@ -122,13 +118,13 @@ class Cmap
             $this->subTables[$key]->data = $font->read($bytePos, $ary['length'] - 6);
             switch ($this->subTables[$key]->format) {
                 case 0:
-                    $this->subTables[$key]->parsed = ByteEncoding::parseData($this->subTables[$key]->data);
+                    $this->subTables[$key]->parsed = Cmap\ByteEncoding::parseData($this->subTables[$key]->data);
                     break;
                 case 4:
-                    $this->subTables[$key]->parsed = SegmentToDelta::parseData($this->subTables[$key]->data);
+                    $this->subTables[$key]->parsed = Cmap\SegmentToDelta::parseData($this->subTables[$key]->data);
                     break;
                 case 6:
-                    $this->subTables[$key]->parsed = TrimmedTable::parseData($this->subTables[$key]->data);
+                    $this->subTables[$key]->parsed = Cmap\TrimmedTable::parseData($this->subTables[$key]->data);
                     break;
             }
         }

@@ -24,18 +24,6 @@
  */
 namespace Pop\Font;
 
-use Pop\Font\Font,
-    Pop\Font\TrueType\Table\Cmap,
-    Pop\Font\TrueType\Table\Glyf,
-    Pop\Font\TrueType\Table\Head,
-    Pop\Font\TrueType\Table\Hhea,
-    Pop\Font\TrueType\Table\Hmtx,
-    Pop\Font\TrueType\Table\Loca,
-    Pop\Font\TrueType\Table\Maxp,
-    Pop\Font\TrueType\Table\Name,
-    Pop\Font\TrueType\Table\Os2,
-    Pop\Font\TrueType\Table\Post;
-
 /**
  * This is the TrueType class for the Font component.
  *
@@ -152,7 +140,7 @@ class TrueType extends AbstractFont
     protected function parseName()
     {
         if (isset($this->tableInfo['name'])) {
-            $this->tables['name'] = new Name($this);
+            $this->tables['name'] = new TrueType\Table\Name($this);
             $this->info = $this->tables['name'];
             if ((stripos($this->tables['name']->fontFamily, 'bold') !== false) ||
                 (stripos($this->tables['name']->fullName, 'bold') !== false) ||
@@ -173,7 +161,7 @@ class TrueType extends AbstractFont
     {
         // head
         if (isset($this->tableInfo['head'])) {
-            $this->tables['head'] = new Head($this);
+            $this->tables['head'] = new TrueType\Table\Head($this);
 
             $this->unitsPerEm = $this->tables['head']->unitsPerEm;
 
@@ -194,7 +182,7 @@ class TrueType extends AbstractFont
 
         // hhea
         if (isset($this->tableInfo['hhea'])) {
-            $this->tables['hhea'] = new Hhea($this);
+            $this->tables['hhea'] = new TrueType\Table\Hhea($this);
             $this->ascent = $this->tables['hhea']->ascent;
             $this->descent = $this->tables['hhea']->descent;
             $this->capHeight = $this->ascent + $this->descent;
@@ -203,13 +191,13 @@ class TrueType extends AbstractFont
 
         // maxp
         if (isset($this->tableInfo['maxp'])) {
-            $this->tables['maxp'] = new Maxp($this);
+            $this->tables['maxp'] = new TrueType\Table\Maxp($this);
             $this->numberOfGlyphs = $this->tables['maxp']->numberOfGlyphs;
         }
 
         // post
         if (isset($this->tableInfo['post'])) {
-            $this->tables['post'] = new Post($this);
+            $this->tables['post'] = new TrueType\Table\Post($this);
 
             if ($this->tables['post']->italicAngle != 0) {
                 $this->flags->isItalic = true;
@@ -223,7 +211,7 @@ class TrueType extends AbstractFont
 
         // hmtx
         if (isset($this->tableInfo['hmtx'])) {
-            $this->tables['hmtx'] = new Hmtx($this);
+            $this->tables['hmtx'] = new TrueType\Table\Hmtx($this);
             $this->glyphWidths = $this->tables['hmtx']->glyphWidths;
             if (isset($this->glyphWidths[0])) {
                 $this->missingWidth = round((1000 / $this->unitsPerEm) * $this->glyphWidths[0]);
@@ -235,7 +223,7 @@ class TrueType extends AbstractFont
 
         // cmap
         if (isset($this->tableInfo['cmap'])) {
-            $this->tables['cmap'] = new Cmap($this);
+            $this->tables['cmap'] = new TrueType\Table\Cmap($this);
         }
     }
 
@@ -248,17 +236,17 @@ class TrueType extends AbstractFont
     {
         // loca
         if (isset($this->tableInfo['loca'])) {
-            $this->tables['loca'] = new Loca($this);
+            $this->tables['loca'] = new TrueType\Table\Loca($this);
         }
 
         // glyf
         if (isset($this->tableInfo['glyf'])) {
-            $this->tables['glyf'] = new Glyf($this);
+            $this->tables['glyf'] = new TrueType\Table\Glyf($this);
         }
 
         // OS/2 (Optional in a TTF font file)
         if (isset($this->tableInfo['OS/2'])) {
-            $this->tables['OS/2'] = new Os2($this);
+            $this->tables['OS/2'] = new TrueType\Table\Os2($this);
             $this->flags->isSerif = $this->tables['OS/2']->flags->isSerif;
             $this->flags->isScript = $this->tables['OS/2']->flags->isScript;
             $this->flags->isSymbolic = $this->tables['OS/2']->flags->isSymbolic;

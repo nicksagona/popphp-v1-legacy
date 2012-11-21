@@ -24,8 +24,6 @@
  */
 namespace Pop\Db;
 
-use Pop\Db\Sql;
-
 /**
  * This is the Db class for the Db component.
  *

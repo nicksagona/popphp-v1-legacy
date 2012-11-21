@@ -27,15 +27,7 @@ namespace Pop\Pdf;
 use Pop\Color\Color,
     Pop\Color\ColorInterface,
     Pop\Color\Rgb,
-    Pop\File\File,
-    Pop\Pdf\Import,
-    Pop\Pdf\Info,
-    Pop\Pdf\Object,
-    Pop\Pdf\Page,
-    Pop\Pdf\PdfParent,
-    Pop\Pdf\Root,
-    Pop\Pdf\Parser\Font,
-    Pop\Pdf\Parser\Image;
+    Pop\File\File;
 
 /**
  * This is the Pdf class for the Pdf component.
@@ -715,7 +707,7 @@ class Pdf extends File
             $fontIndex = (count($this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts) == 0) ? 1 : count($this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts) + 1;
             $objectIndex = $this->lastIndex($this->objects) + 1;
 
-            $fontParser = new Font($font, $fontIndex, $objectIndex, $this->compress);
+            $fontParser = new Parser\Font($font, $fontIndex, $objectIndex, $this->compress);
 
             if (!$fontParser->isEmbeddable() && !$embedOverride) {
                 throw new Exception('Error: The font license does not allow for it to be embedded.');
@@ -1384,7 +1376,7 @@ class Pdf extends File
             $i = $this->lastIndex($this->objects) + 1;
             $co_index = $this->images[$image]['index'];
             if (null !== $scl) {
-                $dims = Image::getScaledDimensions($scl, $this->images[$image]['origW'], $this->images[$image]['origH']);
+                $dims = Parser\Image::getScaledDimensions($scl, $this->images[$image]['origW'], $this->images[$image]['origH']);
                 $imgWidth = $dims['w'];
                 $imgHeight = $dims['h'];
             } else {
@@ -1397,7 +1389,7 @@ class Pdf extends File
         } else {
             // Create image parser object
             $i = $this->lastIndex($this->objects) + 1;
-            $imageParser = new Image($image, $x, $y, $i, $scl, $preserveRes);
+            $imageParser = new Parser\Image($image, $x, $y, $i, $scl, $preserveRes);
 
             $imageObjects = $imageParser->getObjects();
 

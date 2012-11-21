@@ -24,8 +24,7 @@
  */
 namespace Pop\Auth;
 
-use Pop\Auth\Adapter\AdapterInterface,
-    Pop\Validator\Validator,
+use Pop\Validator\Validator,
     Pop\Validator\Validator\Excluded,
     Pop\Validator\Validator\Included,
     Pop\Validator\Validator\Ipv4,
@@ -215,12 +214,12 @@ class Auth
      * Constructor
      *
      * Instantiate the auth object
-     * @param AdapterInterface $adapter
-     * @param int              $encryption
-     * @param string           $salt
+     * @param Adapter\AdapterInterface $adapter
+     * @param int                      $encryption
+     * @param string                   $salt
      * @return void
      */
-    public function __construct(AdapterInterface $adapter, $encryption = 0, $salt = null)
+    public function __construct(Adapter\AdapterInterface $adapter, $encryption = 0, $salt = null)
     {
         $this->adapter = $adapter;
         $this->start = time();

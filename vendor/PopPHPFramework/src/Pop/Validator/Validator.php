@@ -24,9 +24,6 @@
  */
 namespace Pop\Validator;
 
-use Pop\Validator\Validator,
-    Pop\Validator\Validator\ValidatorInterface;
-
 /**
  * This is the Validator class for the Validator component.
  *
@@ -57,11 +54,11 @@ class Validator
      *
      * Instantiate the validator object
      *
-     * @param  ValidatorInterface $validator
-     * @param  string             $message
+     * @param  Validator\ValidatorInterface $validator
+     * @param  string                       $message
      * @return void
      */
-    public function __construct(ValidatorInterface $validator, $message = null)
+    public function __construct(Validator\ValidatorInterface $validator, $message = null)
     {
         $this->validator = $validator;
         $this->message = $message;
@@ -71,11 +68,11 @@ class Validator
      * Static method to instantiate the validator object and return itself
      * to facilitate chaining methods together.
      *
-     * @param  ValidatorInterface $validator
-     * @param  string             $message
+     * @param  Validator\ValidatorInterface $validator
+     * @param  string                       $message
      * @return Pop\Validator\Validator
      */
-    public static function factory(ValidatorInterface $validator, $message = null)
+    public static function factory(Validator\ValidatorInterface $validator, $message = null)
     {
         return new self($validator, $message);
     }

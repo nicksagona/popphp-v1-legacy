@@ -27,9 +27,7 @@ namespace Pop\Image;
 use Pop\Color\Color,
     Pop\Color\ColorInterface,
     Pop\Color\Rgb,
-    Pop\Http\Response,
-    Pop\Image\AbstractImage,
-    Pop\Image\Exception;
+    Pop\Http\Response;
 
 /**
  * This is the Imagick class for the Image component.

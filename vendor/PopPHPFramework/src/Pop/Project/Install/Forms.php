@@ -24,11 +24,10 @@
  */
 namespace Pop\Project\Install;
 
-use Pop\Code\MethodGenerator;
-
 use Pop\Code\Generator,
-    Pop\Code\PropertyGenerator,
+    Pop\Code\MethodGenerator,
     Pop\Code\NamespaceGenerator,
+    Pop\Code\PropertyGenerator,
     Pop\Filter\String,
     Pop\Locale\Locale;
 

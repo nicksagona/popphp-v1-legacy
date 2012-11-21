@@ -24,11 +24,7 @@
  */
 namespace Pop\Archive;
 
-use Pop\Archive\Adapter\Phar,
-    Pop\Archive\Adapter\Rar,
-    Pop\Archive\Adapter\Tar,
-    Pop\Archive\Adapter\Zip,
-    Pop\Compress\Bzip2,
+use Pop\Compress\Bzip2,
     Pop\Compress\Gzip,
     Pop\File\File;
 
@@ -232,13 +228,13 @@ class Archive extends File implements ArchiveInterface
         $ext = strtolower($this->ext);
 
         if ($ext == 'phar') {
-            $this->adapter = new Phar($this);
+            $this->adapter = new Adapter\Phar($this);
         } else if ($ext == 'rar') {
-            $this->adapter = new Rar($this, $password);
+            $this->adapter = new Adapter\Rar($this, $password);
         } else if (($ext == 'tar') || (stripos($ext, 'bz') !== false) || (stripos($ext, 'gz') !== false)) {
-            $this->adapter = new Tar($this);
+            $this->adapter = new Adapter\Tar($this);
         } else if ($ext == 'zip') {
-            $this->adapter = new Zip($this);
+            $this->adapter = new Adapter\Zip($this);
         }
     }
 

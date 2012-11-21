@@ -100,6 +100,14 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('123456', $f->read());
     }
 
+    public function testAppend()
+    {
+        $f = new File(__DIR__ . '/../tmp/access.txt');
+        $f->append('123456');
+        $f->append('789');
+        $this->assertContains('123456789', $f->read());
+    }
+
     public function testOutput()
     {
         if (file_exists(__DIR__ . '/../tmp/file.txt')) {
