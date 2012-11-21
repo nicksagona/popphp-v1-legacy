@@ -17,7 +17,6 @@ Documentation : Overview
 * Curl
 * Data
 * Db
-* Dir
 * Dom
 * Feed
 * File

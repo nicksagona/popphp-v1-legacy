@@ -17,7 +17,6 @@ Die Pop-PHP-Framework ist ein objektorientiertes PHP-Framework mit einer einfach
 * Curl
 * Data
 * Db
-* Dir
 * Dom
 * Feed
 * File

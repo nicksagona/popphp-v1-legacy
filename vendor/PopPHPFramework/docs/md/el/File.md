@@ -18,5 +18,17 @@ $file->write('Some text to the file.')
 $upload = File::upload($_FILES['upload_file']['tmp_name'], '../uploads/' . $_FILES['upload_file']['name']);
 echo 'File uploaded.';
 </pre>
+<pre>
+use Pop\File\Dir;
+
+// Create the Dir object
+$dir = new Dir('../mydir');
+
+// Loop through the files in the directory
+$files = $dir-&gt;getFiles();
+foreach ($files as $file) {
+    echo $file;
+}
+</pre>
 
 (c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
