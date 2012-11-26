@@ -41,43 +41,43 @@ class Browser
      * User IP address
      * @var string
      */
-    public $ip = null;
+    protected $ip = null;
 
     /**
      * User Subnet
      * @var string
      */
-    public $subnet = null;
+    protected $subnet = null;
 
     /**
      * User agent property
      * @var string
      */
-    public $ua = null;
+    protected $ua = null;
 
     /**
      * Platform
      * @var string
      */
-    public $platform = null;
+    protected $platform = null;
 
     /**
      * Operating system
      * @var string
      */
-    public $os = null;
+    protected $os = null;
 
     /**
-     * Browser
+     * Browser name
      * @var string
      */
-    public $browser = null;
+    protected $name = null;
 
     /**
      * Browser version
      * @var string
      */
-    public $version = null;
+    protected $version = null;
 
     /**
      * Constructor
@@ -93,6 +93,76 @@ class Browser
         $this->subnet = substr($_SERVER['REMOTE_ADDR'], 0, strrpos($_SERVER['REMOTE_ADDR'], '.'));
         $this->ua = $_SERVER['HTTP_USER_AGENT'];
         $this->detect();
+    }
+
+    /**
+     * Method to get IP
+     *
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * Method to get subnet
+     *
+     * @return string
+     */
+    public function getSubnet()
+    {
+        return $this->subnet;
+    }
+
+    /**
+     * Method to get user-agent
+     *
+     * @return string
+     */
+    public function getUa()
+    {
+        return $this->ua;
+    }
+
+    /**
+     * Method to get platform
+     *
+     * @return string
+     */
+    public function getPlatform()
+    {
+        return $this->platform;
+    }
+
+    /**
+     * Method to get OS
+     *
+     * @return string
+     */
+    public function getOs()
+    {
+        return $this->os;
+    }
+
+    /**
+     * Method to get browser name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Method to get version
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
     }
 
     /**
@@ -161,32 +231,32 @@ class Browser
 
         // Determine browser and browser version.
         if (stripos($this->ua, 'Camino') !== false) {
-            $this->browser = 'Camino';
+            $this->name = 'Camino';
             $this->version = substr($this->ua, (stripos($this->ua, 'Camino/') + 7));
         } else if (stripos($this->ua, 'Chrome') !== false) {
-            $this->browser = 'Chrome';
+            $this->name = 'Chrome';
             $this->version = substr($this->ua, (stripos($this->ua, 'Chrome/') + 7));
             $this->version = substr($this->version, 0, (stripos($this->version, ' ')));
         } else if (stripos($this->ua, 'Firefox') !== false) {
-            $this->browser = 'Firefox';
+            $this->name = 'Firefox';
             $this->version = substr($this->ua, (stripos($this->ua, 'Firefox/') + 8));
         } else if (stripos($this->ua, 'MSIE') !== false) {
-            $this->browser = 'MSIE';
+            $this->name = 'MSIE';
             $this->version = substr($this->ua, (stripos($this->ua, 'MSIE ') + 5));
             $this->version = substr($this->version, 0, stripos($this->version, ';'));
         } else if (stripos($this->ua, 'Konqueror') !== false) {
-            $this->browser = 'Konqueror';
+            $this->name = 'Konqueror';
             $this->version = substr($this->ua, (stripos($this->ua, 'Konqueror/') + 10));
             $this->version = substr($this->version, 0, stripos($this->version, ';'));
         } else if (stripos($this->ua, 'Navigator') !== false) {
-            $this->browser = 'Navigator';
+            $this->name = 'Navigator';
             $this->version = substr($this->ua, (stripos($this->ua, 'Navigator/') + 10));
         } else if (stripos($this->ua, 'Opera') !== false) {
-            $this->browser = 'Opera';
+            $this->name = 'Opera';
             $this->version = substr($this->ua, (stripos($this->ua, 'Opera/') + 6));
             $this->version = substr($this->version, 0, stripos($this->version, ' '));
         } else if (stripos($this->ua, 'Safari') !== false) {
-            $this->browser = 'Safari';
+            $this->name = 'Safari';
             $this->version = substr($this->ua, (stripos($this->ua, 'Version/') + 8));
             $this->version = substr($this->version, 0, stripos($this->version, ' '));
         }

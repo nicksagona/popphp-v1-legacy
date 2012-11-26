@@ -38,40 +38,52 @@ class Mobile
 {
 
     /**
+     * Constant to force standard display
+     * @var int
+     */
+    const FORCE_STANDARD = 1;
+
+    /**
+     * Constant to force mobile display
+     * @var int
+     */
+    const FORCE_MOBILE = 2;
+
+    /**
      * User agent property
      * @var string
      */
-    public $ua = null;
+    protected $ua = null;
 
     /**
      * Mobile Device
      * @var string
      */
-    public $device = null;
+    protected $device = null;
 
     /**
-     * Standard website destination
+     * Standard website destination URL
      * @var string
      */
-    public $standard = null;
+    protected $standard = null;
 
     /**
-     * Mobile website destination
+     * Mobile website destination URL
      * @var string
      */
-    public $mobile = null;
+    protected $mobile = null;
+
+    /**
+     * Force flag
+     * @var int
+     */
+    protected $force = 0;
 
     /**
      * Mobile detect
      * @var boolean
      */
-    public $isMobile = false;
-
-    /**
-     * Mobile bypass flag
-     * @var string
-     */
-    public $bypass = null;
+    protected $isMobile = false;
 
     /**
      * Constructor
@@ -80,21 +92,39 @@ class Mobile
      *
      * @param  string $mobile
      * @param  string $full
+     * @param  int    $force
      * @return void
      */
-    public function __construct($mobile = null, $full = null)
+    public function __construct($mobile = null, $full = null, $force = 0)
     {
         // Set the user agent and object properties.
         $this->ua = $_SERVER['HTTP_USER_AGENT'];
         $this->mobile = $mobile;
         $this->standard = $full;
         $this->isMobile = $this->detect();
+        $this->force = $force;
+    }
 
-        $sess = Session::getInstance();
+    /**
+     * Static method to only detect a mobile device or not.
+     *
+     * @return boolean
+     */
+    public static function isMobileDevice()
+    {
+        $mob = new static();
+        return $mob->isMobile;
+    }
 
-        if (isset($sess->pop_mobile_bypass)) {
-            $this->bypass = $sess->pop_mobile_bypass;
-        }
+    /**
+     * Static method to only get the mobile device.
+     *
+     * @return string
+     */
+    public static function getMobileDevice()
+    {
+        $mob = new static();
+        return $mob->device;
     }
 
     /**
@@ -137,6 +167,92 @@ class Mobile
     {
         header("HTTP/1.1 302 Found");
         header("Location: " . $url);
+    }
+
+    /**
+     * Method to route to the appropriate URL
+     *
+     * @return void
+     */
+    public function route()
+    {
+        switch ($this->force) {
+            case 0:
+                if ($this->isMobile) {
+                    $this->goToMobile();
+                } else {
+                    $this->goToStandard();
+                }
+                break;
+
+            case 1:
+                $this->goToStandard();
+                break;
+
+            case 2:
+                $this->goToMobile();
+                break;
+        }
+    }
+
+    /**
+     * Method to get user-agent
+     *
+     * @return string
+     */
+    public function getUa()
+    {
+        return $this->ua;
+    }
+
+    /**
+     * Method to get device name
+     *
+     * @return string
+     */
+    public function getDevice()
+    {
+        return $this->device;
+    }
+
+    /**
+     * Method to get standard URL
+     *
+     * @return string
+     */
+    public function getStandardUrl()
+    {
+        return $this->standard;
+    }
+
+    /**
+     * Method to get mobile URL
+     *
+     * @return string
+     */
+    public function getMobileUrl()
+    {
+        return $this->mobile;
+    }
+
+    /**
+     * Method to get force flag
+     *
+     * @return int
+     */
+    public function getForce()
+    {
+        return $this->force;
+    }
+
+    /**
+     * Method to get is mobile flag
+     *
+     * @return boolean
+     */
+    public function isMobile()
+    {
+        return $this->isMobile;
     }
 
     /**

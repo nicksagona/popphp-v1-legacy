@@ -41,37 +41,37 @@ class Server
      * Server OS
      * @var string
      */
-    public $os = null;
+    protected $os = null;
 
     /**
      * Server Distribution
      * @var string
      */
-    public $distro = null;
+    protected $distro = null;
 
     /**
      * Full Server Software String
      * @var string
      */
-    public $software = null;
+    protected $software = null;
 
     /**
      * Server Software
      * @var string
      */
-    public $server = null;
+    protected $server = null;
 
     /**
      * Server Software Version
      * @var string
      */
-    public $serverVersion = null;
+    protected $serverVersion = null;
 
     /**
      * PHP Version
      * @var string
      */
-    public $php = null;
+    protected $php = null;
 
     /**
      * Constructor
@@ -85,6 +85,66 @@ class Server
         $this->software = $_SERVER['SERVER_SOFTWARE'];
         $this->php = PHP_VERSION;
         $this->detect();
+    }
+
+    /**
+     * Method to get OS
+     *
+     * @return string
+     */
+    public function getOs()
+    {
+        return $this->os;
+    }
+
+    /**
+     * Method to get distro
+     *
+     * @return string
+     */
+    public function getDistro()
+    {
+        return $this->distro;
+    }
+
+    /**
+     * Method to get software
+     *
+     * @return string
+     */
+    public function getSoftware()
+    {
+        return $this->software;
+    }
+
+    /**
+     * Method to get server
+     *
+     * @return string
+     */
+    public function getServer()
+    {
+        return $this->server;
+    }
+
+    /**
+     * Method to get PHP version
+     *
+     * @return string
+     */
+    public function getPhp()
+    {
+        return $this->php;
+    }
+
+    /**
+     * Method to get server version
+     *
+     * @return string
+     */
+    public function getServerVersion()
+    {
+        return $this->serverVersion;
     }
 
     /**
