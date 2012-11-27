@@ -126,21 +126,35 @@ class Autoloader
     /**
      * Invoke the class
      *
+     * Credit to Andreas Schipplock for helping to improve
+     * this method: https://github.com/schipplock
+     *
      * @param  string $class
      * @return void
      */
     public function __invoke($class)
     {
         if (array_key_exists($class, $this->classmap)) {
-            $classPath = $this->classmap[$class];
+            require_once $this->classmap[$class];
         } else {
             $sep = (strpos($class, '\\') !== false) ? '\\' : '_';
-            $prefix = substr($class, 0, strpos($class, $sep));
             $classFile = str_replace($sep, DIRECTORY_SEPARATOR, $class) . '.php';
-            $classPath = (isset($this->prefixes[$prefix])) ? $this->prefixes[$prefix] . DIRECTORY_SEPARATOR . $classFile : $classFile;
-        }
 
-        require_once $classPath;
+            // Check to see if the prefix is registered with the autoloader
+            $prefix = null;
+            foreach ($this->prefixes as $key => $value) {
+                if (strpos($class, $key) !== false) {
+                    $prefix = $key;
+                }
+            }
+
+            // If not, then return, else get the file.
+            if ((null === $prefix) || !isset($this->prefixes[$prefix])) {
+                return;
+            } else {
+                require_once $this->prefixes[$prefix] . DIRECTORY_SEPARATOR . $classFile;
+            }
+        }
     }
 
 }
