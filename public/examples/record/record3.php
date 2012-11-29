@@ -13,16 +13,16 @@ class Users extends Record { }
 
 try {
     // Define DB credentials
-    $db = Db::factory('Pgsql', array(
+    $db = Db::factory('Mysql', array(
         'database' => 'phirecms',
         'host'     => 'localhost',
         'username' => 'phire',
         'password' => '12cms34'
     ));
 
-    $db = Db::factory('Sqlite', array(
-        'database' => './phirecms.sqlite'
-    ));
+    //$db = Db::factory('Sqlite', array(
+    //    'database' => './phirecms.sqlite'
+    //));
 
     Users::setDb($db);
     $users = new Users();
