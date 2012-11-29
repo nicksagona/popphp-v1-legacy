@@ -1,19 +1,19 @@
 <?php
-
 require_once '../../bootstrap.php';
 
 use Pop\Db\Db,
+    Pop\Form\Form,
+    Pop\Form\Element,
     Pop\Record\Record;
 
-/*
- * Placing a class here is highly unorthodox.
- * This is just for example purposes only.
- */
+
 class Users extends Record { }
+
+class User extends Form { }
 
 try {
     // Define DB credentials
-    $db = Db::factory('Mysql', array(
+    $db = Db::factory('Mysqli', array(
         'database' => 'phirecms',
         'host'     => 'localhost',
         'username' => 'phire',
@@ -25,14 +25,38 @@ try {
     //));
 
     Users::setDb($db);
-    $users = new Users();
-    $info = $users->getTableInfo();
-    foreach ($info['columns'] as $key => $value) {
-        echo '\'' . $key . '\':<br />' . PHP_EOL;
-        echo '&nbsp;&nbsp;&nbsp;&nbsp;is of type ' . $value['type'] . '<br />' . PHP_EOL;
-        echo '&nbsp;&nbsp;&nbsp;&nbsp;is ' . ($value['null'] ? null : 'NOT ') . 'NULL<br />' . PHP_EOL;
 
-    }
+    $attribs = array(
+        'text'     => array('size', 40),
+        'password' => array('size', 20),
+        'textarea' => array(array('rows', 5), array('cols', 80))
+    );
+
+    $values = array(
+        'username' => array(
+            'value' => 'Enter Username...'
+        ),
+        'allowed_sites' => array(
+        	'type'   => 'checkbox',
+            'value'  => array('2001' => 'phire2.localhost', '2002' => 'test.localhost'),
+            'marked' => array('2001', '2002')
+        ),
+        'access_id' => array(
+        	'type'   => 'select',
+            'value'  => array('3001' => 'Admin', '3002' => 'Basic'),
+            'marked' => '3002'
+        )
+    );
+
+    $form = new User($_SERVER['REQUEST_URI'], 'post');
+    $form->getFieldsFromTable('Users', $attribs, $values, array('last_login', 'last_ua', 'last_ip', 'failed_attempts'));
+    $form->addFields(array(
+        'type'  => 'submit',
+        'name'  => 'submit',
+        'label' => '&nbsp;',
+        'value' => 'SUBMIT',
+    ));
+    $form->render();
 
     echo PHP_EOL . PHP_EOL;
 } catch (\Exception $e) {

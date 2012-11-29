@@ -108,28 +108,43 @@ class Form extends Dom
      * Set the fields of the form object.
      *
      * @param  array $fields
-     * @throws Exception
      * @return Pop\Form\Form
      */
     public function setFields(array $fields)
     {
-        $isValid = true;
+        $isArray = true;
         foreach ($fields as $key => $value) {
             if (!is_array($value)) {
-                $isValid = false;
+                $isArray = false;
             }
         }
 
-        if (!$isValid) {
-            throw new Exception('The array parameter passed must contain an array of field values.');
+        if (!$isArray) {
+            $fields = array($fields);
         }
 
         foreach ($fields as $key => $value) {
             $this->fields[$value['name']] = (isset($value['value'])) ? $value['value'] : null;
         }
 
-        $this->initFieldsValues = $fields;
+        if (count($this->initFieldsValues) > 0) {
+            $this->initFieldsValues = array_merge($this->initFieldsValues, $fields);
+        } else {
+            $this->initFieldsValues = $fields;
+        }
+
         return $this;
+    }
+
+    /**
+     * Alias for setFields()
+     *
+     * @param  array $fields
+     * @return Pop\Form\Form
+     */
+    public function addFields(array $fields)
+    {
+        $this->setFields($fields);
     }
 
     /**
@@ -448,6 +463,77 @@ class Form extends Dom
         }
 
         return $index;
+    }
+
+    /**
+     * Get the form fields from a related database table
+     *
+     * @param string $table
+     * @param array  $attribs
+     * @param array  $value
+     * @param mixed  $omit
+     * @return int
+     */
+    public function getFieldsFromTable($table, array $attribs = null, array $values = null, $omit = null)
+    {
+        if (null !== $omit) {
+            if (!is_array($omit)) {
+                $omit = array($omit);
+            }
+        } else {
+            $omit = array();
+        }
+
+        $tbl = new $table();
+        $tableInfo = $tbl->getTableInfo();
+
+        foreach ($tableInfo['columns'] as $key => $value) {
+            if (!in_array($key, $omit)) {
+                $fieldName = $key;
+                $fieldValue = null;
+                $required = ($value['null']) ? false : true;
+                $attributes = null;
+                $marked = null;
+                $validators = null;
+
+                if ($key == $tableInfo['primaryId']) {
+                    $fieldType = 'hidden';
+                    $fieldLabel = null;
+                } else {
+                    $fieldType = (stripos($key, 'password') !== false) ?
+                    	'password' :
+                        ((stripos($value['type'], 'text' !== false)) ? 'textarea' : 'text');
+
+                    if ((null !== $values) && isset($values[$key])) {
+                        if (isset($values[$key]['type'])) {
+                            $fieldType = $values[$key]['type'];
+                        }
+                        $fieldValue = (isset($values[$key]['value'])) ? $values[$key]['value'] : null;
+                        $marked = (isset($values[$key]['marked'])) ? $values[$key]['marked'] : null;
+                    }
+
+                    $fieldLabel = ucwords(str_replace('_', ' ', $key)) . ':';
+                }
+
+                if (null !== $attribs) {
+                    if (isset($attribs[$fieldType])) {
+                        $attributes =  $attribs[$fieldType];
+                    }
+                }
+
+                $this->initFieldsValues[] = array(
+                    'type'       => $fieldType,
+                    'name'       => $fieldName,
+                    'label'      => $fieldLabel,
+                    'value'      => $fieldValue,
+                    'required'   => $required,
+            		'attributes' => $attributes,
+                    'marked'     => $marked,
+            		'validators' => $validators
+                );
+            }
+        }
+
     }
 
     /**
