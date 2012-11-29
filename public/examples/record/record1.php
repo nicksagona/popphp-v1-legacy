@@ -21,7 +21,7 @@ try {
     ));
 
     Users::setDb($db);
-    $users = Users::findAll('id DESC', 'access', 'admin');
+    $users = Users::findAll();
     print_r($users->rows);
 
     echo PHP_EOL . PHP_EOL;

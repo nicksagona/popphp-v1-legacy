@@ -385,6 +385,57 @@ class Record
     }
 
     /**
+     * Get table info.
+     *
+     * @return array
+     */
+    public function getTableInfo()
+    {
+        $info = array(
+            'tableName' => $this->tableName,
+            'primaryId' => $this->primaryId,
+            'columns'   => array()
+        );
+
+        $sql = null;
+        $field = null;
+        $type = null;
+        $nullField = null;
+
+        if (stripos($this->interface->db->getAdapterType(), 'sqlite') !== false) {
+            $sql = 'PRAGMA table_info(\'' . $this->tableName . '\')';
+            $field = 'name';
+            $type = 'type';
+            $nullField = 'notnull';
+        } else if (stripos($this->interface->db->getAdapterType(), 'pgsql') !== false) {
+            $sql = 'SELECT * FROM information_schema.COLUMNS WHERE table_name = \''. $this->tableName . '\' ORDER BY ordinal_position ASC';
+            $field = 'column_name';
+            $type = 'data_type';
+            $nullField = 'is_nullable';
+        } else {
+            $sql = 'SHOW COLUMNS FROM `' . $this->tableName . '`';
+            $field = 'Field';
+            $type = 'Type';
+            $nullField  = 'Null';
+        }
+
+        $this->interface->db->adapter()->query($sql);
+        while (($row = $this->interface->db->adapter()->fetch()) != false) {
+            if (stripos($this->interface->db->getAdapterType(), 'sqlite') !== false) {
+                $nullResult = ($row[$nullField]) ? false : true;
+            } else {
+                $nullResult = (strtoupper($row[$nullField]) != 'NO') ? true : false;
+            }
+            $info['columns'][$row[$field]] = array(
+                'type'    => $row[$type],
+                'null'    => $nullResult
+            );
+        }
+
+        return $info;
+    }
+
+    /**
      * Method to return the current number of records.
      *
      * @return int
