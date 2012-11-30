@@ -3,6 +3,7 @@ require_once '../../bootstrap.php';
 
 use Pop\Db\Db,
     Pop\Form\Form,
+    Pop\Form\DataFields,
     Pop\Form\Element,
     Pop\Record\Record;
 
@@ -33,6 +34,9 @@ try {
     );
 
     $values = array(
+        'id' => array(
+            'type' => 'hidden'
+        ),
         'username' => array(
             'value' => 'Enter Username...'
         ),
@@ -48,8 +52,7 @@ try {
         )
     );
 
-    $form = new User($_SERVER['REQUEST_URI'], 'post');
-    $form->getFieldsFromTable('Users', $attribs, $values, array('last_login', 'last_ua', 'last_ip', 'failed_attempts'));
+    $form = new User($_SERVER['REQUEST_URI'], 'post', DataFields::getFields(new Users(), $attribs, $values, array('last_login', 'last_ua', 'last_ip', 'failed_attempts')));
     $form->addFields(array(
         'type'  => 'submit',
         'name'  => 'submit',
