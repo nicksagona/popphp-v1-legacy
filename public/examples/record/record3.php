@@ -52,7 +52,16 @@ try {
         )
     );
 
-    $form = new User($_SERVER['REQUEST_URI'], 'post', DataFields::getFields(new Users(), $attribs, $values, array('last_login', 'last_ua', 'last_ip', 'failed_attempts')));
+    $form = new User(
+        $_SERVER['REQUEST_URI'],
+        'post',
+        DataFields::getFields(
+            new Users(),
+            $attribs,
+            $values,
+            array('last_login', 'last_ua', 'last_ip', 'failed_attempts')
+        )
+    );
     $form->addFields(array(
         'type'  => 'submit',
         'name'  => 'submit',
