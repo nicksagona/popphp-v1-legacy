@@ -73,8 +73,8 @@ class Controllers
             $controllers = $install->controllers->asArray();
 
             self::createControllers($controllers, array(
-            	'src'        => realpath($ctrlDir),
-            	'view'       => realpath($viewDir),
+                'src'        => realpath($ctrlDir),
+                'view'       => realpath($viewDir),
                 'namespace'  => $install->project->name . '\Controller',
                 'installDir' => $installDir
             ));

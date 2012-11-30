@@ -103,10 +103,10 @@ class MethodTest extends \PHPUnit_Framework_TestCase
         $m->addArgument('testVar', 123, 'int');
         $m->addParameter('oneMoreTestVar', 789, 'int');
         $m->addArguments(array(
-        	array('name' => 'anotherTestVar', 'value' => 456, 'type' => 'int')
+            array('name' => 'anotherTestVar', 'value' => 456, 'type' => 'int')
         ));
         $m->addParameters(array(
-        	array('name' => 'yetAnotherTestVar', 'value' => 987, 'type' => 'int')
+            array('name' => 'yetAnotherTestVar', 'value' => 987, 'type' => 'int')
         ));
         $this->assertTrue(is_array($m->getArguments()));
         $this->assertTrue(is_array($m->getParameters()));

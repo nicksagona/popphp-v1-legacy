@@ -42,7 +42,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
                     ))
                 ),
 
-            	'defaultDb' => 'testdb'
+                'defaultDb' => 'testdb'
             )),
             new Config(array('name' => 'Test')),
             new Router(array('Pop\Mvc\Controller' => new Controller()))
@@ -66,7 +66,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
                     ))
                 ),
 
-            	'defaultDb' => 'testdb'
+                'defaultDb' => 'testdb'
             )),
             new Config(array('name' => 'Test')),
             new Router(array('Pop\Mvc\Controller' => new Controller()))
@@ -85,7 +85,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
                     ))
                 ),
 
-            	'defaultDb' => 'testdb'
+                'defaultDb' => 'testdb'
             )),
             new Config(array('name' => 'Test')),
             new Router(array('Pop\Mvc\Controller' => new Controller()))
@@ -104,7 +104,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
                     ))
                 ),
 
-            	'defaultDb' => 'testdb'
+                'defaultDb' => 'testdb'
             )),
             new Config(array('name' => 'Test')),
             new Router(array('Pop\Mvc\Controller' => new Controller()))
@@ -122,7 +122,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
                     ))
                 ),
 
-            	'defaultDb' => 'testdb'
+                'defaultDb' => 'testdb'
             )),
             null,
             new Router(array('Pop\Mvc\Controller' => new Controller()))
@@ -142,7 +142,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
                     ))
                 ),
 
-            	'defaultDb' => 'testdb'
+                'defaultDb' => 'testdb'
             )),
             null,
             new Router(array('Pop\Mvc\Controller' => new Controller()))
@@ -160,7 +160,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
                     ))
                 ),
 
-            	'defaultDb' => 'testdb'
+                'defaultDb' => 'testdb'
             )),
             new Config(array('name' => 'Test'))
         );

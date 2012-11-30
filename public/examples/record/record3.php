@@ -41,33 +41,43 @@ try {
             'value' => 'Enter Username...'
         ),
         'allowed_sites' => array(
-        	'type'   => 'checkbox',
+            'type'   => 'checkbox',
             'value'  => array('2001' => 'phire2.localhost', '2002' => 'test.localhost'),
             'marked' => array('2001', '2002')
         ),
         'access_id' => array(
-        	'type'   => 'select',
+            'type'   => 'select',
             'value'  => array('3001' => 'Admin', '3002' => 'Basic'),
             'marked' => '3002'
         )
     );
 
-    Fields::addFieldsFromTable(
+    $fields = Fields::factory(
         new Users(),
         $attribs,
         $values,
         array('last_login', 'last_ua', 'last_ip', 'failed_attempts')
     );
 
-    Fields::addFields(array(
+    $fields->addFields(array(
         'type'  => 'submit',
         'name'  => 'submit',
         'label' => '&nbsp;',
         'value' => 'SUBMIT',
     ));
 
-    $form = new User($_SERVER['REQUEST_URI'], 'post', Fields::getFields());
-    $form->render();
+    $form = new User($_SERVER['REQUEST_URI'], 'post', $fields->getFields());
+
+    if ($_POST) {
+        $form->setFieldValues($_POST);
+        if ($form->isValid()) {
+            echo 'Good!';
+        } else {
+            $form->render();
+        }
+    } else {
+        $form->render();
+    }
 
     echo PHP_EOL . PHP_EOL;
 } catch (\Exception $e) {

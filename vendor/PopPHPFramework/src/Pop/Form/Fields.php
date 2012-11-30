@@ -41,15 +41,52 @@ class Fields
      * Fields array
      * @var array
      */
-    protected static $fields = array();
+    protected $fields = array();
+
+    /**
+     * Constructor
+     *
+     * Instantiate the fields object
+     *
+     * @param  mixed $fields
+     * @param  array $attribs
+     * @param  array $value
+     * @param  mixed $omit
+     * @return void
+     */
+    public function __construct($fields = null, array $attribs = null, array $values = null, $omit = null)
+    {
+        if (null !== $fields) {
+            if ($fields instanceof \Pop\Record\Record) {
+                $this->addFieldsFromTable($fields, $attribs, $values, $omit);
+            } else {
+                $this->addFields($fields);
+            }
+        }
+    }
+
+    /**
+     * Static method to instantiate the fields object and return itself
+     * to facilitate chaining methods together.
+     *
+     * @param  mixed $fields
+     * @param  array $attribs
+     * @param  array $value
+     * @param  mixed $omit
+     * @return Pop\Form\Fields
+     */
+    public static function factory($fields = null, array $attribs = null, array $values = null, $omit = null)
+    {
+        return new self($fields, $attribs, $values, $omit);
+    }
 
     /**
      * Add form fields
      *
-     * @param array $fields
-     * @return void
+     * @param  array $fields
+     * @return Pop\Form\Fields
      */
-    public static function addFields($fields)
+    public function addFields($fields)
     {
         $isArray = true;
         foreach ($fields as $key => $value) {
@@ -62,19 +99,19 @@ class Fields
             $fields = array($fields);
         }
 
-        self::$fields = array_merge(self::$fields, $fields);
+        $this->fields = array_merge($this->fields, $fields);
     }
 
     /**
      * Add form fields from a related database table
      *
-     * @param Pop\Record\Record $tableObj
-     * @param array             $attribs
-     * @param array             $value
-     * @param mixed             $omit
-     * @return void
+     * @param  Pop\Record\Record $tableObj
+     * @param  array             $attribs
+     * @param  array             $value
+     * @param  mixed             $omit
+     * @return Pop\Form\Fields
      */
-    public static function addFieldsFromTable($tableObj, array $attribs = null, array $values = null, $omit = null)
+    public function addFieldsFromTable($tableObj, array $attribs = null, array $values = null, $omit = null)
     {
         $tableInfo = $tableObj->getTableInfo();
 
@@ -97,7 +134,7 @@ class Fields
                 $validators = null;
 
                 $fieldType = (stripos($key, 'password') !== false) ?
-                	'password' :
+                    'password' :
                     ((stripos($value['type'], 'text' !== false)) ? 'textarea' : 'text');
 
                 if ((null !== $values) && isset($values[$key])) {
@@ -109,6 +146,10 @@ class Fields
                 }
                 if ($fieldType != 'hidden') {
                     $fieldLabel = ucwords(str_replace('_', ' ', $key)) . ':';
+                } else {
+                    if ((null === $fieldValue) && ($required)) {
+                        $fieldValue = '0';
+                    }
                 }
 
                 if (null !== $attribs) {
@@ -117,19 +158,20 @@ class Fields
                     }
                 }
 
-                self::$fields[] = array(
+                $this->fields[] = array(
                     'type'       => $fieldType,
                     'name'       => $fieldName,
                     'label'      => $fieldLabel,
                     'value'      => $fieldValue,
                     'required'   => $required,
-            		'attributes' => $attributes,
+                    'attributes' => $attributes,
                     'marked'     => $marked,
-            		'validators' => $validators
+                    'validators' => $validators
                 );
             }
         }
 
+        return $this;
     }
 
     /**
@@ -137,9 +179,9 @@ class Fields
      *
      * @return array
      */
-    public static function getFields()
+    public function getFields()
     {
-        return self::$fields;
+        return $this->fields;
     }
 
 }
