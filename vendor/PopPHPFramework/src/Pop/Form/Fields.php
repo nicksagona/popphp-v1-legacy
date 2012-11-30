@@ -25,7 +25,7 @@
 namespace Pop\Form;
 
 /**
- * This is the DataFields class for the Form component.
+ * This is the Fields class for the Form component.
  *
  * @category   Pop
  * @package    Pop_Form
@@ -34,23 +34,50 @@ namespace Pop\Form;
  * @license    http://www.popphp.org/LICENSE.TXT   T  New BSD License
  * @version    1.0.2
  */
-class DataFields
+class Fields
 {
 
     /**
-     * Get the form fields from a related database table
+     * Fields array
+     * @var array
+     */
+    protected static $fields = array();
+
+    /**
+     * Add form fields
+     *
+     * @param array $fields
+     * @return void
+     */
+    public static function addFields($fields)
+    {
+        $isArray = true;
+        foreach ($fields as $key => $value) {
+            if (!is_array($value)) {
+                $isArray = false;
+            }
+        }
+
+        if (!$isArray) {
+            $fields = array($fields);
+        }
+
+        self::$fields = array_merge(self::$fields, $fields);
+    }
+
+    /**
+     * Add form fields from a related database table
      *
      * @param Pop\Record\Record $tableObj
      * @param array             $attribs
      * @param array             $value
      * @param mixed             $omit
-     * @return array
+     * @return void
      */
-    public static function getFields($tableObj, array $attribs = null, array $values = null, $omit = null)
+    public static function addFieldsFromTable($tableObj, array $attribs = null, array $values = null, $omit = null)
     {
-        $fields = array();
         $tableInfo = $tableObj->getTableInfo();
-        
+
         if (null !== $omit) {
             if (!is_array($omit)) {
                 $omit = array($omit);
@@ -90,7 +117,7 @@ class DataFields
                     }
                 }
 
-                $fields[] = array(
+                self::$fields[] = array(
                     'type'       => $fieldType,
                     'name'       => $fieldName,
                     'label'      => $fieldLabel,
@@ -102,9 +129,17 @@ class DataFields
                 );
             }
         }
-        
-        return $fields;
 
+    }
+
+    /**
+     * Get the form fields
+     *
+     * @return array
+     */
+    public static function getFields()
+    {
+        return self::$fields;
     }
 
 }

@@ -3,7 +3,7 @@ require_once '../../bootstrap.php';
 
 use Pop\Db\Db,
     Pop\Form\Form,
-    Pop\Form\DataFields,
+    Pop\Form\Fields,
     Pop\Form\Element,
     Pop\Record\Record;
 
@@ -52,22 +52,21 @@ try {
         )
     );
 
-    $form = new User(
-        $_SERVER['REQUEST_URI'],
-        'post',
-        DataFields::getFields(
-            new Users(),
-            $attribs,
-            $values,
-            array('last_login', 'last_ua', 'last_ip', 'failed_attempts')
-        )
+    Fields::addFieldsFromTable(
+        new Users(),
+        $attribs,
+        $values,
+        array('last_login', 'last_ua', 'last_ip', 'failed_attempts')
     );
-    $form->addFields(array(
+
+    Fields::addFields(array(
         'type'  => 'submit',
         'name'  => 'submit',
         'label' => '&nbsp;',
         'value' => 'SUBMIT',
     ));
+
+    $form = new User($_SERVER['REQUEST_URI'], 'post', Fields::getFields());
     $form->render();
 
     echo PHP_EOL . PHP_EOL;
