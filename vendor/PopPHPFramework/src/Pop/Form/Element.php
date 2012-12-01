@@ -294,7 +294,7 @@ class Element extends Child
                 $curElemValue = $this->value;
             }
 
-            if (empty($curElemValue)) {
+            if (empty($curElemValue) && ($curElemValue != '0')) {
                 $this->errors[] = Locale::factory()->__('This field is required.');
             }
         }

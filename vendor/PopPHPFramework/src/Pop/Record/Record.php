@@ -398,20 +398,29 @@ class Record
         );
 
         $sql = null;
-        $field = null;
-        $type = null;
-        $nullField = null;
+        $field = 'column_name';
+        $type = 'data_type';
+        $nullField = 'is_nullable';
 
+        // SQLite
         if (stripos($this->interface->db->getAdapterType(), 'sqlite') !== false) {
             $sql = 'PRAGMA table_info(\'' . $this->tableName . '\')';
             $field = 'name';
             $type = 'type';
             $nullField = 'notnull';
+        // PostgreSQL
         } else if (stripos($this->interface->db->getAdapterType(), 'pgsql') !== false) {
-            $sql = 'SELECT * FROM information_schema.COLUMNS WHERE table_name = \''. $this->tableName . '\' ORDER BY ordinal_position ASC';
-            $field = 'column_name';
-            $type = 'data_type';
-            $nullField = 'is_nullable';
+            $sql = 'SELECT * FROM information_schema.COLUMNS WHERE table_name = \'' . $this->tableName . '\' ORDER BY ordinal_position ASC';
+        // SQL Server
+        } else if (stripos($this->interface->db->getAdapterType(), 'sqlsrv') !== false) {
+            $sql = 'SELECT c.name \'column_name\', t.Name \'data_type\', c.is_nullable, c.column_id FROM sys.columns c INNER JOIN sys.types t ON c.system_type_id = t.system_type_id WHERE object_id = OBJECT_ID(\'' . $this->tableName . '\') ORDER BY c.column_id ASC';
+        // Oracle
+        } else  if (stripos($this->interface->db->getAdapterType(), 'oracle') !== false) {
+            $sql = 'SELECT column_name, data_type, nullable FROM all_tab_cols where table_name = \'' . $this->tableName . '\'';
+            $field = 'COLUMN_NAME';
+            $type = 'DATA_TYPE';
+            $nullField = 'NULLABLE';
+        // MySQL
         } else {
             $sql = 'SHOW COLUMNS FROM `' . $this->tableName . '`';
             $field = 'Field';
@@ -420,12 +429,18 @@ class Record
         }
 
         $this->interface->db->adapter()->query($sql);
+
         while (($row = $this->interface->db->adapter()->fetch()) != false) {
             if (stripos($this->interface->db->getAdapterType(), 'sqlite') !== false) {
                 $nullResult = ($row[$nullField]) ? false : true;
-            } else {
+            } else if (stripos($this->interface->db->getAdapterType(), 'mysql') !== false) {
                 $nullResult = (strtoupper($row[$nullField]) != 'NO') ? true : false;
+            } else if (stripos($this->interface->db->getAdapterType(), 'oracle') !== false) {
+                $nullResult = (strtoupper($row[$nullField]) != 'Y') ? true : false;
+            } else {
+                $nullResult = $row[$nullField];
             }
+
             $info['columns'][$row[$field]] = array(
                 'type'    => $row[$type],
                 'null'    => $nullResult

@@ -7,7 +7,6 @@ use Pop\Db\Db,
     Pop\Form\Element,
     Pop\Record\Record;
 
-
 class Users extends Record { }
 
 class User extends Form { }
@@ -15,15 +14,11 @@ class User extends Form { }
 try {
     // Define DB credentials
     $db = Db::factory('Mysqli', array(
-        'database' => 'phirecms',
+        'database' => 'helloworld',
         'host'     => 'localhost',
-        'username' => 'phire',
-        'password' => '12cms34'
+        'username' => 'hellow',
+        'password' => '12world34'
     ));
-
-    //$db = Db::factory('Sqlite', array(
-    //    'database' => './phirecms.sqlite'
-    //));
 
     Users::setDb($db);
 
@@ -38,11 +33,12 @@ try {
             'type' => 'hidden'
         ),
         'username' => array(
-            'value' => 'Enter Username...'
+            'value'      => 'Enter Username...',
+            'validators' => new Pop\Validator\Validator\AlphaNumeric()
         ),
         'allowed_sites' => array(
             'type'   => 'checkbox',
-            'value'  => array('2001' => 'phire2.localhost', '2002' => 'test.localhost'),
+            'value'  => array('2001' => 'test1.localhost', '2002' => 'test2.localhost'),
             'marked' => array('2001', '2002')
         ),
         'access_id' => array(
@@ -71,7 +67,7 @@ try {
     if ($_POST) {
         $form->setFieldValues($_POST);
         if ($form->isValid()) {
-            echo 'Good!';
+            echo 'Form is valid!';
         } else {
             $form->render();
         }

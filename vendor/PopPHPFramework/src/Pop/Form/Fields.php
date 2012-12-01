@@ -24,6 +24,8 @@
  */
 namespace Pop\Form;
 
+use Pop\Validator\Validator;
+
 /**
  * This is the Fields class for the Form component.
  *
@@ -131,7 +133,7 @@ class Fields
                 $required = ($value['null']) ? false : true;
                 $attributes = null;
                 $marked = null;
-                $validators = null;
+                $validators = (isset($values[$key]['validators'])) ? $values[$key]['validators'] : null;
 
                 $fieldType = (stripos($key, 'password') !== false) ?
                     'password' :
@@ -142,8 +144,11 @@ class Fields
                         $fieldType = $values[$key]['type'];
                     }
                     $fieldValue = (isset($values[$key]['value'])) ? $values[$key]['value'] : null;
-                    $marked = (isset($values[$key]['marked'])) ? $values[$key]['marked'] : null;
+                    if ((!$_POST) && !isset($_GET[$key])) {
+                        $marked = (isset($values[$key]['marked'])) ? $values[$key]['marked'] : null;
+                    }
                 }
+
                 if ($fieldType != 'hidden') {
                     $fieldLabel = ucwords(str_replace('_', ' ', $key)) . ':';
                 } else {
@@ -156,6 +161,10 @@ class Fields
                     if (isset($attribs[$fieldType])) {
                         $attributes =  $attribs[$fieldType];
                     }
+                }
+
+                if ((stripos($key, 'email') !== false) || (stripos($key, 'e-mail') !== false) || (stripos($key, 'e_mail') !== false)) {
+                    $validators = new Validator\Email();
                 }
 
                 $this->fields[] = array(
