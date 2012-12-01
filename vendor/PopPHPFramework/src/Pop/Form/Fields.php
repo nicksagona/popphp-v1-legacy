@@ -113,7 +113,7 @@ class Fields
      * @param  mixed             $omit
      * @return Pop\Form\Fields
      */
-    public function addFieldsFromTable($tableObj, array $attribs = null, array $values = null, $omit = null)
+    public function addFieldsFromTable(\Pop\Record\Record $tableObj, array $attribs = null, array $values = null, $omit = null)
     {
         $tableInfo = $tableObj->getTableInfo();
 

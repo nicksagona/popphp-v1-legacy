@@ -16,7 +16,7 @@ try {
     $db = Db::factory('Mysqli', array(
         'database' => 'helloworld',
         'host'     => 'localhost',
-        'username' => 'hellow',
+        'username' => 'hello',
         'password' => '12world34'
     ));
 
