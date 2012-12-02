@@ -33,8 +33,8 @@ use Pop\Validator\Validator;
  * @package    Pop_Form
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
- * @license    http://www.popphp.org/LICENSE.TXT   T  New BSD License
- * @version    1.0.2
+ * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ * @version    1.0.3
  */
 class Fields
 {
@@ -102,6 +102,8 @@ class Fields
         }
 
         $this->fields = array_merge($this->fields, $fields);
+
+        return $this;
     }
 
     /**

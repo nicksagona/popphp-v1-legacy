@@ -34,8 +34,8 @@ use Pop\Dom\Dom,
  * @package    Pop_Form
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
- * @license    http://www.popphp.org/LICENSE.TXT   T  New BSD License
- * @version    1.0.2
+ * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ * @version    1.0.3
  */
 class Form extends Dom
 {
@@ -145,16 +145,6 @@ class Form extends Dom
     public function addFields(array $fields)
     {
         $this->setFields($fields);
-    }
-
-    /**
-     * Get the form fields
-     *
-     * @return array
-     */
-    public function getFields()
-    {
-        return $this->fields;
     }
 
     /**
@@ -318,6 +308,30 @@ class Form extends Dom
     }
 
     /**
+     * Set the form action.
+     *
+     * @param  string $action
+     * @return Pop\Form\Form
+     */
+    public function setAction($action)
+    {
+        $this->action = $action;
+        return $this;
+    }
+
+    /**
+     * Set the form method.
+     *
+     * @param  string $method
+     * @return Pop\Form\Form
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
+        return $this;
+    }
+
+    /**
      * Get the form template for the render method to utilize.
      *
      * @return string
@@ -338,16 +352,6 @@ class Form extends Dom
     {
         $this->form->setAttributes($a, $v);
         return $this;
-    }
-
-    /**
-     * Get the attributes of the form object.
-     *
-     * @return array
-     */
-    public function getAttributes()
-    {
-        return $this->form->getAttributes();
     }
 
     /**
@@ -410,6 +414,36 @@ class Form extends Dom
     }
 
     /**
+     * Get the attributes of the form object.
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return $this->form->getAttributes();
+    }
+
+    /**
+     * Get the form action.
+     *
+     * @return array
+     */
+    public function getAction()
+    {
+        return $this->action;
+    }
+
+    /**
+     * Get the form method.
+     *
+     * @return array
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    /**
      * Get the elements of the form object.
      *
      * @return array
@@ -417,6 +451,16 @@ class Form extends Dom
     public function getElements()
     {
         return $this->form->getChildren();
+    }
+
+    /**
+     * Get the form fields
+     *
+     * @return array
+     */
+    public function getFields()
+    {
+        return $this->fields;
     }
 
     /**
