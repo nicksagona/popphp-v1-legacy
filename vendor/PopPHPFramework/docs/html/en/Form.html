@@ -191,14 +191,14 @@ class User extends Form { }
 
 try {
     $attribs = array(
-        'text'     => array('size', 40),
-        'password' => array('size', 20),
-        'textarea' => array(array('rows', 5), array('cols', 80))
+        'text'     =&gt; array('size', 40),
+        'password' =&gt; array('size', 20),
+        'textarea' =&gt; array(array('rows', 5), array('cols', 80))
     );
 
     $values = array(
-        'id' => array(
-            'type' => 'hidden'
+        'id' =&gt; array(
+            'type' =&gt; 'hidden'
         )
     );
 
@@ -209,24 +209,24 @@ try {
         array('last_login', 'last_ua', 'last_ip', 'failed_attempts')
     );
 
-    $fields->addFields(array(
-        'type'  => 'submit',
-        'name'  => 'submit',
-        'label' => '&nbsp;',
-        'value' => 'SUBMIT',
+    $fields-&gt;addFields(array(
+        'type'  =&gt; 'submit',
+        'name'  =&gt; 'submit',
+        'label' =&gt; '&nbsp;',
+        'value' =&gt; 'SUBMIT',
     ));
 
-    $form = new User($_SERVER['REQUEST_URI'], 'post', $fields->getFields());
+    $form = new User($_SERVER['REQUEST_URI'], 'post', $fields-&gt;getFields());
 
     if ($_POST) {
-        $form->setFieldValues($_POST);
-        if ($form->isValid()) {
+        $form-&gt;setFieldValues($_POST);
+        if ($form-&gt;isValid()) {
             echo 'Form is valid!';
         } else {
-            $form->render();
+            $form-&gt;render();
         }
     } else {
-        $form->render();
+        $form-&gt;render();
     }
 </pre>
     </div>
