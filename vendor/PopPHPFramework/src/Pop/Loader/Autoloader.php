@@ -50,6 +50,12 @@ class Autoloader
     protected $classmap = array();
 
     /**
+     * Flag to make the autoloader the fallback autoloader or not
+     * @var boolean
+     */
+    protected $fallback = false;
+
+    /**
      * Flag to suppress warnings
      * @var boolean
      */
@@ -121,13 +127,21 @@ class Autoloader
     /**
      * Register the autoloader instance with the SPL
      *
+     * @param  boolean $fallback
      * @param  boolean $suppress
      * @return Pop\Loader\Autoloader
      */
-    public function splAutoloadRegister($suppress = true)
+    public function splAutoloadRegister($fallback = false, $suppress = true)
     {
+        $this->fallback = $fallback;
         $this->suppress = $suppress;
-        spl_autoload_register($this);
+
+        if ($this->fallback) {
+            spl_autoload_register($this, true, false);
+        } else {
+            spl_autoload_register($this, true, true);
+        }
+
         return $this;
     }
 
