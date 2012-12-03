@@ -148,20 +148,14 @@ class Autoloader
                 }
             }
 
+            // If the prefix was found, append the correct directory
             if (null !== $prefix) {
                 $classFile = $this->prefixes[$prefix] . DIRECTORY_SEPARATOR . $classFile;
             }
 
-            // Get current error reporting setting and set
-            // error reporting to E_ERROR to suppress warnings
-            $oldError = ini_get('error_reporting');
-            error_reporting(E_ERROR);
-
-            if (!include_once($classFile)) {
-                error_reporting($oldError);
+            // Try to include the file, else return
+            if (!@include_once($classFile)) {
                 return;
-            } else {
-                error_reporting($oldError);
             }
         }
     }
