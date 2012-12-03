@@ -127,14 +127,14 @@ class Autoloader
     /**
      * Register the autoloader instance with the SPL
      *
-     * @param  boolean $fallback
      * @param  boolean $suppress
+     * @param  boolean $fallback
      * @return Pop\Loader\Autoloader
      */
-    public function splAutoloadRegister($fallback = false, $suppress = true)
+    public function splAutoloadRegister($suppress = true, $fallback = false)
     {
-        $this->fallback = $fallback;
         $this->suppress = $suppress;
+        $this->fallback = $fallback;
 
         if ($this->fallback) {
             spl_autoload_register($this, true, false);
