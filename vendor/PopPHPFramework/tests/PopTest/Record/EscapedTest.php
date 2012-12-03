@@ -85,31 +85,6 @@ class EscapedTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(5, $r->numFields());
     }
 
-    public function testDistinct()
-    {
-        $r = Users::distinct('id');
-        $r = Users::distinct(array('id'), 'id RAND()', 'email', 'test1@test.com', 1);
-        $r = Users::distinct(array('id'), 'id, username DESC', 'email', 'test1@test.com', 1);
-        $r = Users::distinct(array('id'));
-        $this->assertEquals(8, count($r->rows));
-    }
-
-    public function testSearch()
-    {
-        $r = Users::search(array('username', 'LIKE', '%test%'), 'id RAND()', 2);
-        $r = Users::search(array('username', 'LIKE', '%test%'), 'id, username DESC', 2);
-        $r = Users::search(array('username', 'LIKE', '%test%'));
-        $this->assertEquals(8, count($r->rows));
-    }
-
-    public function testJoin()
-    {
-        $r = Users::join('pop_user_data', array('id', 'user_id'), 'id RAND()', 'email', 'test1@test.com', 1);
-        $r = Users::join('pop_user_data', array('id', 'user_id'), 'id, email DESC', 'email', 'test1@test.com');
-        $r = Users::join('pop_user_data', array('id', 'user_id'));
-        $this->assertEquals(9, count($r->rows));
-    }
-
     public function testExecute()
     {
         $r = Users::execute('SELECT * FROM users');

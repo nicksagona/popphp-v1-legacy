@@ -25,7 +25,7 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class FormTest extends \PHPUnit_Framework_TestCase
+class FieldsTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testConstructor()

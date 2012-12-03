@@ -67,7 +67,7 @@ class Record
 
     /**
      * Database adapter
-     * @var Pop\Record\Escaped|Pop\Record\Prepared
+     * @var Pop\Record\AbstractRecord
      */
     protected $interface = null;
 
@@ -254,62 +254,6 @@ class Record
     }
 
     /**
-     * Find singular and distinct entries in the database based on the search criteria.
-     *
-     * @param  array $distinctColumns
-     * @param  string $order
-     * @param  string $column
-     * @param  int|string $value
-     * @param  int|string $limit
-     * @return Pop\Record\Record
-     */
-    public static function distinct($distinctColumns, $order = null, $column = null, $value = null, $limit = null)
-    {
-        $record = new static();
-        $record->interface->distinct($distinctColumns, $order, $column, $value, $limit);
-        $record->setResults($record->interface->getResult());
-
-        return $record;
-    }
-
-    /**
-     * Search the database for rows based on the search criteria.
-     *
-     * @param  array $searchColumns
-     * @param  string $order
-     * @param  int|string $limit
-     * @return Pop\Record\Record
-     */
-    public static function search($searchColumns, $order = null, $limit = null)
-    {
-        $record = new static();
-        $record->interface->search($searchColumns, $order, $limit);
-        $record->setResults($record->interface->getResult());
-
-        return $record;
-    }
-
-    /**
-     * Join data from two tables that share a related column.
-     *
-     * @param  string $tableToJoin
-     * @param  string $commonColumn
-     * @param  string $order
-     * @param  string $column
-     * @param  int|string $value
-     * @param  int|string $limit
-     * @return Pop\Record\Record
-     */
-    public static function join($tableToJoin, $commonColumn, $order = null, $column = null, $value = null, $limit = null)
-    {
-        $record = new static();
-        $record->interface->join($tableToJoin, $commonColumn, $order, $column, $value, $limit);
-        $record->setResults($record->interface->getResult());
-
-        return $record;
-    }
-
-    /**
      * Execute a custom prepared SQL query.
      *
      * @param  string $sql
@@ -371,7 +315,7 @@ class Record
     }
 
     /**
-     * Get the table name
+     * Get the abbreviated table name, without the prefix
      *
      * @return string
      */
@@ -382,6 +326,16 @@ class Record
         } else {
             return $this->tableName;
         }
+    }
+
+    /**
+     * Get the full table name, with the prefix
+     *
+     * @return string
+     */
+    public function getFullTableName()
+    {
+        return $this->tableName;
     }
 
     /**
