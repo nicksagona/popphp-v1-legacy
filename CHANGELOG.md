@@ -5,6 +5,10 @@ COMPLETED:
 ----------
 * Fixed issue with the Autoloader, return back if class not located or registered
 * Add Fields class to the Form component
+* Removed under-used and unnecessary methods from the Record component
+    - distinct()
+    - search()
+    - join()
 
 
 Pop PHP Framework 1.0.2

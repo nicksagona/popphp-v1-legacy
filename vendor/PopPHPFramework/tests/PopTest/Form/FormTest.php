@@ -52,9 +52,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($f->getFields()));
     }
 
-    public function testSetFieldsException()
+    public function testSetFields()
     {
-        $this->setExpectedException('Pop\Form\Exception');
         $fields = array(
             'type'       => 'text',
             'name'       => 'username',

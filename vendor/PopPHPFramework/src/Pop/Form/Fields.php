@@ -52,7 +52,7 @@ class Fields
      *
      * @param  mixed $fields
      * @param  array $attribs
-     * @param  array $value
+     * @param  array $values
      * @param  mixed $omit
      * @return void
      */
@@ -73,7 +73,7 @@ class Fields
      *
      * @param  mixed $fields
      * @param  array $attribs
-     * @param  array $value
+     * @param  array $values
      * @param  mixed $omit
      * @return Pop\Form\Fields
      */
@@ -111,7 +111,7 @@ class Fields
      *
      * @param  Pop\Record\Record $tableObj
      * @param  array             $attribs
-     * @param  array             $value
+     * @param  array             $values
      * @param  mixed             $omit
      * @return Pop\Form\Fields
      */

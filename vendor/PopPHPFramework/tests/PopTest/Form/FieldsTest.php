@@ -17,7 +17,9 @@
 namespace PopTest\Form;
 
 use Pop\Loader\Autoloader,
-    Pop\Form\Fields;
+    Pop\Db\Db,
+    Pop\Form\Fields,
+    Pop\Record\Record;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -25,12 +27,21 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
+class Users extends Record {
+    protected $usePrepared = true;
+}
+
 class FieldsTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testConstructor()
     {
         $this->assertInstanceOf('Pop\Form\Fields', new Fields());
+    }
+
+    public function testFactory()
+    {
+        $this->assertInstanceOf('Pop\Form\Fields', Fields::factory());
     }
 
     public function testAddAndGetFields()
@@ -50,6 +61,14 @@ class FieldsTest extends \PHPUnit_Framework_TestCase
             'value' => 'SUBMIT'
         ));
         $this->assertEquals(2, count($f->getFields()));
+    }
+
+    public function testAddAndGetFieldsFromTable()
+    {
+        Users::setDb(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')));
+        $f = Fields::factory(new Users());
+        $f = Fields::factory(new Users(), array('size' => 40), array('id' => array('type' => 'hidden')), array('access'));
+        $this->assertEquals(4, count($f->getFields()));
     }
 
 }
