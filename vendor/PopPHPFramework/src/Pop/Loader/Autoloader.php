@@ -50,6 +50,12 @@ class Autoloader
     protected $classmap = array();
 
     /**
+     * Flag to suppress warnings
+     * @var boolean
+     */
+    protected $suppress = true;
+
+    /**
      * Constructor
      *
      * Instantiate the archive object
@@ -115,10 +121,12 @@ class Autoloader
     /**
      * Register the autoloader instance with the SPL
      *
+     * @param  boolean $suppress
      * @return Pop\Loader\Autoloader
      */
-    public function splAutoloadRegister()
+    public function splAutoloadRegister($suppress = true)
     {
+        $this->suppress = $suppress;
         spl_autoload_register($this);
         return $this;
     }
@@ -154,8 +162,16 @@ class Autoloader
             }
 
             // Try to include the file, else return
-            if (!@include_once($classFile)) {
-                return;
+            // Without error suppression
+            if (!$this->suppress) {
+                if (!include_once($classFile)) {
+                    return;
+                }
+            // With error suppression
+            } else {
+                if (!@include_once($classFile)) {
+                    return;
+                }
             }
         }
     }
