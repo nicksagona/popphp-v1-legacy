@@ -94,6 +94,16 @@ class Config
     }
 
     /**
+     * Method to return if changes to the config are allowed.
+     *
+     * @return boolean
+     */
+    public function changesAllowed()
+    {
+        return $this->allowChanges;
+    }
+
+    /**
      * Get method to return the value of _config[$name].
      *
      * @param  string $name

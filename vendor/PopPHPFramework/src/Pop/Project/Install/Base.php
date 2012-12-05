@@ -140,14 +140,15 @@ class Base
 
         // Create the module config file
         $moduleCfg = new Generator($install->project->base . '/module/' . $install->project->name . '/config/module.config.php');
-        $moduleCfg->appendToBody('return new Pop\Config(array(')
-                  ->appendToBody("    'name'   => '{$install->project->name}',")
-                  ->appendToBody("    'base'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name)) . "',")
-                  ->appendToBody("    'config' => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/config')) . "',")
-                  ->appendToBody("    'data'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/data')) . "',")
-                  ->appendToBody("    'src'    => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/src')) . "',")
-                  ->appendToBody("    'view'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/view')) . "'")
-                  ->appendToBody("));", false)
+        $moduleCfg->appendToBody('return array(')
+                  ->appendToBody("    '{$install->project->name}' => new Pop\Config(array(")
+                  ->appendToBody("        'base'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name)) . "',")
+                  ->appendToBody("        'config' => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/config')) . "',")
+                  ->appendToBody("        'data'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/data')) . "',")
+                  ->appendToBody("        'src'    => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/src')) . "',")
+                  ->appendToBody("        'view'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/view')) . "'")
+                  ->appendToBody("    ))")
+                  ->appendToBody(");", false)
                   ->save();
     }
 

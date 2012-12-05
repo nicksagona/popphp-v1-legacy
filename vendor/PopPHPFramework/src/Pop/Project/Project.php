@@ -65,17 +65,21 @@ class Project
      *
      * Instantiate a project object
      *
-     * @param  Config $config
-     * @param  Config $module
+     * @param  mixed  $config
+     * @param  array  $module
      * @param  Router $router
      * @return void
      */
-    public function __construct(Config $config, Config $module = null, Router $router = null)
+    public function __construct($config = null, array $module = null, Router $router = null)
     {
-        $this->config = $config;
+        if (null !== $config) {
+            $this->loadConfig($config);
+        }
+
         if (null !== $module) {
             $this->loadModule($module);
         }
+
         if (null !== $router) {
             $this->loadRouter($router);
         }
@@ -90,12 +94,12 @@ class Project
      * Static method to instantiate the project object and return itself
      * to facilitate chaining methods together.
      *
-     * @param  Config $config
-     * @param  Config $module
+     * @param  mixed  $config
+     * @param  array  $module
      * @param  Router $router
      * @return Pop\Project\Project
      */
-    public static function factory(Config $config, Config $module = null, Router $router = null)
+    public static function factory($config = null, array $module = null, Router $router = null)
     {
         return new static($config, $module, $router);
     }
@@ -153,18 +157,50 @@ class Project
     }
 
     /**
-     * Load a module config
+     * Load a project config
      *
-     * @param  Config $module
+     * @param  mixed $config
      * @throws Exception
      * @return Pop\Project\Project
      */
-    public function loadModule(Config $module)
+    public function loadConfig($config)
     {
-        if (!isset($module->name)) {
-            throw new Exception('The module name must be set in the module config.');
+        // Test to see if the config is already set and changes are allowed.
+        if ((null !== $this->config) && (!$this->config->changesAllowed())) {
+            throw new Exception('Real-time configuration changes are not allowed.');
         }
-        $this->modules[$module->name] = $module;
+
+        // Else, set the new config
+        if (is_array($config)) {
+            $this->config = new Config($config);
+        } else if ($config instanceof Config) {
+            $this->config = $config;
+        } else {
+            throw new Exception('The project config must be either an array or an instance of Pop\\Config.');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Load a module config
+     *
+     * @param  array $module
+     * @throws Exception
+     * @return Pop\Project\Project
+     */
+    public function loadModule(array $module)
+    {
+        foreach ($module as $key => $value) {
+            if (is_array($value)) {
+                $this->modules[$key] = new Config($value);
+            } else if ($value instanceof Config) {
+                $this->modules[$key] = $value;
+            } else {
+                throw new Exception('The module config must be either an array or an instance of Pop\\Config.');
+            }
+        }
+
         return $this;
     }
 
