@@ -44,7 +44,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
 
                 'defaultDb' => 'testdb'
             )),
-            new Config(array('name' => 'Test')),
+            array('Test' => new Config(array('some' => 'thing'))),
             new Router(array('Pop\Mvc\Controller' => new Controller()))
         );
         $p->run();
@@ -68,7 +68,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
 
                 'defaultDb' => 'testdb'
             )),
-            new Config(array('name' => 'Test')),
+            array('Test' => new Config(array('some' => 'thing'))),
             new Router(array('Pop\Mvc\Controller' => new Controller()))
         );
         $this->assertInstanceOf('Pop\Db\Db', $p->database('testdb'));
@@ -87,7 +87,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
 
                 'defaultDb' => 'testdb'
             )),
-            new Config(array('name' => 'Test')),
+            array('Test' => new Config(array('some' => 'thing'))),
             new Router(array('Pop\Mvc\Controller' => new Controller()))
         );
         $this->assertInstanceOf('Pop\Config', $p->module('Test'));
@@ -106,10 +106,76 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
 
                 'defaultDb' => 'testdb'
             )),
-            new Config(array('name' => 'Test')),
+            array('Test' => new Config(array('some' => 'thing'))),
             new Router(array('Pop\Mvc\Controller' => new Controller()))
         );
         $this->assertInstanceOf('Pop\Mvc\Router', $p->router());
+    }
+
+    public function testLoadConfig()
+    {
+        $p = new Project();
+        $p->loadConfig(
+            new Config(array(
+                'databases' => array(
+                    'testdb' => Db::factory('Sqlite', array (
+                        'database' => __DIR__ . '/../tmp/test.sqlite'
+                    ))
+                ),
+
+                'defaultDb' => 'testdb'
+            ))
+        );
+        $this->assertInstanceOf('Pop\Config', $p->config());
+
+        $p = new Project();
+        $p->loadConfig(
+            array(
+                'databases' => array(
+                    'testdb' => Db::factory('Sqlite', array (
+                        'database' => __DIR__ . '/../tmp/test.sqlite'
+                    ))
+                ),
+
+                'defaultDb' => 'testdb'
+            )
+        );
+        $this->assertInstanceOf('Pop\Config', $p->config());
+    }
+
+    public function testLoadConfigExecption()
+    {
+        $this->setExpectedException('Pop\Project\Exception');
+        $p = new Project();
+        $p->loadConfig(
+            new Config(array(
+                'databases' => array(
+                    'testdb' => Db::factory('Sqlite', array (
+                        'database' => __DIR__ . '/../tmp/test.sqlite'
+                    ))
+                ),
+
+                'defaultDb' => 'testdb'
+            ))
+        );
+        $p->loadConfig(
+            new Config(array(
+                'databases' => array(
+                    'testdb' => Db::factory('Sqlite', array (
+                        'database' => __DIR__ . '/../tmp/test.sqlite'
+                    ))
+                ),
+
+                'defaultDb' => 'testdb'
+            ))
+        );
+    }
+
+    public function testLoadConfigTypeExecption()
+    {
+        $this->setExpectedException('Pop\Project\Exception');
+        $p = new Project();
+        $p->loadConfig('bad config');
     }
 
     public function testLoadModule()
@@ -127,8 +193,10 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
             null,
             new Router(array('Pop\Mvc\Controller' => new Controller()))
         );
-        $p->loadModule(new Config(array('name' => 'Test')));
+        $p->loadModule(array('Test' => new Config(array('some' => 'thing'))));
+        $p->loadModule(array('Blah' => array('some' => 'thing')));
         $this->assertInstanceOf('Pop\Config', $p->module('Test'));
+        $this->assertInstanceOf('Pop\Config', $p->module('Blah'));
     }
 
     public function testLoadModuleException()
@@ -150,6 +218,13 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
         $p->loadModule(new Config());
     }
 
+    public function testLoadModuleTypeException()
+    {
+        $this->setExpectedException('PHPUnit_Framework_Error');
+        $p = new Project();
+        $p->loadModule('bad config');
+    }
+
     public function testLoadRouter()
     {
         $p = new Project(
@@ -162,7 +237,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
 
                 'defaultDb' => 'testdb'
             )),
-            new Config(array('name' => 'Test'))
+            array('Test' => new Config(array('some' => 'thing')))
         );
         $p->loadRouter(new Router(array('Pop\Mvc\Controller' => new Controller())));
         $this->assertInstanceOf('Pop\Mvc\Router', $p->router());
