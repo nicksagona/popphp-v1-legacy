@@ -158,11 +158,12 @@ class Response
      * either from a URL or a full response string
      *
      * @param  string $response
-     * @param  resource $context
+     * @param  array  $context
+     * @param  string $mode
      * @throws Exception
      * @return Pop\Http\Response
      */
-    public static function parse($response, $context = null)
+    public static function parse($response, array $context = null, $mode = 'r')
     {
         $headers = array();
 
@@ -171,9 +172,9 @@ class Response
             $http_response_header = null;
 
             if (null !== $context) {
-                $stream = @fopen($response, 'r', false, $context);
+                $stream = @fopen($response, $mode, false, stream_context_create(array('http' => $context)));
             } else {
-                $stream = @fopen($response, 'r');
+                $stream = @fopen($response, $mode);
             }
 
             if ($stream != false) {
