@@ -146,16 +146,6 @@ class Request
     }
 
     /**
-     * Return whether or not the method is POST
-     *
-     * @return boolean
-     */
-    public function isPost()
-    {
-        return ($this->server['REQUEST_METHOD'] == 'POST');
-    }
-
-    /**
      * Return whether or not the method is GET
      *
      * @return boolean
@@ -163,6 +153,26 @@ class Request
     public function isGet()
     {
         return ($this->server['REQUEST_METHOD'] == 'GET');
+    }
+
+    /**
+     * Return whether or not the method is HEAD
+     *
+     * @return boolean
+     */
+    public function isHead()
+    {
+        return ($this->server['REQUEST_METHOD'] == 'HEAD');
+    }
+
+    /**
+     * Return whether or not the method is POST
+     *
+     * @return boolean
+     */
+    public function isPost()
+    {
+        return ($this->server['REQUEST_METHOD'] == 'POST');
     }
 
     /**
@@ -183,6 +193,46 @@ class Request
     public function isDelete()
     {
         return ($this->server['REQUEST_METHOD'] == 'DELETE');
+    }
+
+    /**
+     * Return whether or not the method is TRACE
+     *
+     * @return boolean
+     */
+    public function isTrace()
+    {
+        return ($this->server['REQUEST_METHOD'] == 'TRACE');
+    }
+
+    /**
+     * Return whether or not the method is OPTIONS
+     *
+     * @return boolean
+     */
+    public function isOptions()
+    {
+        return ($this->server['REQUEST_METHOD'] == 'OPTIONS');
+    }
+
+    /**
+     * Return whether or not the method is CONNECT
+     *
+     * @return boolean
+     */
+    public function isConnect()
+    {
+        return ($this->server['REQUEST_METHOD'] == 'CONNECT');
+    }
+
+    /**
+     * Return whether or not the method is PATCH
+     *
+     * @return boolean
+     */
+    public function isPatch()
+    {
+        return ($this->server['REQUEST_METHOD'] == 'PATCH');
     }
 
     /**
