@@ -45,7 +45,7 @@ class Reflection extends \ReflectionClass
 
     /**
      * Code generator object
-     * @var Pop\Code\Generator
+     * @var \Pop\Code\Generator
      */
     protected $generator = null;
 
@@ -55,7 +55,7 @@ class Reflection extends \ReflectionClass
      * Instantiate the code reflection object
      *
      * @param  string  $code
-     * @return void
+     * @return \Pop\Code\Reflection
      */
     public function __construct($code)
     {
@@ -69,7 +69,7 @@ class Reflection extends \ReflectionClass
      * to facilitate chaining methods together.
      *
      * @param  string  $code
-     * @return Pop\Code\Reflection
+     * @return \Pop\Code\Reflection
      */
     public static function factory($code)
     {
@@ -89,7 +89,7 @@ class Reflection extends \ReflectionClass
     /**
      * Get the code generator
      *
-     * @return Pop\Code\Generator
+     * @return \Pop\Code\Generator
      */
     public function getGenerator()
     {
@@ -111,7 +111,7 @@ class Reflection extends \ReflectionClass
         // Get the namespace
         $this->getClassNamespace();
 
-        // Detect and set the class docblock
+        // Detect and set the class doc block
         $classDocBlock = $this->getDocComment();
         if (!empty($classDocBlock)) {
             $this->generator->code()->setDocblock(DocblockGenerator::parse($classDocBlock));
@@ -207,6 +207,7 @@ class Reflection extends \ReflectionClass
         if (count($properties) > 0) {
             foreach ($properties as $name => $value) {
                 $property = $this->getProperty($name);
+                $visibility = 'public';
                 if ($property->isPublic()) {
                     $visibility = 'public';
                 } else if ($property->isProtected()) {
@@ -230,7 +231,7 @@ class Reflection extends \ReflectionClass
                 } else {
                     $formattedValue = $value;
                 }
-                $class = $this->getName();
+
                 $prop = new PropertyGenerator($property->getName(), $type, $formattedValue, $visibility);
                 $prop->setStatic($property->isStatic());
                 $prop->setDesc($desc);
@@ -262,6 +263,7 @@ class Reflection extends \ReflectionClass
                 }
 
                 $method = $this->getMethod($value->name);
+                $visibility = 'public';
 
                 if ($method->isPublic()) {
                     $visibility = 'public';

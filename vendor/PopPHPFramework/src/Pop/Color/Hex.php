@@ -73,7 +73,8 @@ class Hex implements ColorInterface
      * Instantiate the hex color object
      *
      * @param string $hex
-     * @return void
+     * @throws \Pop\Color\Exception
+     * @return \Pop\Color\Hex
      */
     public function __construct($hex)
     {

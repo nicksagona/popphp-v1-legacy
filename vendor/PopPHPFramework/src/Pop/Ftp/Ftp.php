@@ -52,8 +52,8 @@ class Ftp
      * @param  string  $user
      * @param  string  $pass
      * @param  boolean $ssl
-     * @return void
      * @throws Exception
+     * @return \Pop\Ftp\Ftp
      */
     public function __construct($ftp, $user, $pass, $ssl = false)
     {
@@ -89,7 +89,7 @@ class Ftp
      *
      * @param  string $dir
      * @throws Exception
-     * @return Pop\Ftp\Ftp
+     * @return \Pop\Ftp\Ftp
      */
     public function chdir($dir)
     {
@@ -104,7 +104,7 @@ class Ftp
      *
      * @param  string $dir
      * @throws Exception
-     * @return Pop\Ftp\Ftp
+     * @return \Pop\Ftp\Ftp
      */
     public function mkdir($dir)
     {
@@ -119,7 +119,7 @@ class Ftp
      *
      * @param  string $dir
      * @throws Exception
-     * @return Pop\Ftp\Ftp
+     * @return \Pop\Ftp\Ftp
      */
     public function rmdir($dir)
     {
@@ -134,9 +134,9 @@ class Ftp
      *
      * @param  string $local
      * @param  string $remote
-     * @param  string $mode
+     * @param  int|string $mode
      * @throws Exception
-     * @return Pop\Ftp\Ftp
+     * @return \Pop\Ftp\Ftp
      */
     public function get($local, $remote, $mode = FTP_BINARY)
     {
@@ -151,9 +151,9 @@ class Ftp
      *
      * @param  string $remote
      * @param  string $local
-     * @param  string $mode
+     * @param  int|string $mode
      * @throws Exception
-     * @return Pop\Ftp\Ftp
+     * @return \Pop\Ftp\Ftp
      */
     public function put($remote, $local, $mode = FTP_BINARY)
     {
@@ -168,7 +168,7 @@ class Ftp
      * @param  string $old
      * @param  string $new
      * @throws Exception
-     * @return Pop\Ftp\Ftp
+     * @return \Pop\Ftp\Ftp
      */
     public function rename($old, $new)
     {
@@ -184,7 +184,7 @@ class Ftp
      * @param  string $file
      * @param  string $mode
      * @throws Exception
-     * @return Pop\Ftp\Ftp
+     * @return \Pop\Ftp\Ftp
      */
     public function chmod($file, $mode)
     {
@@ -199,7 +199,7 @@ class Ftp
      *
      * @param  string $file
      * @throws Exception
-     * @return Pop\Ftp\Ftp
+     * @return \Pop\Ftp\Ftp
      */
     public function delete($file)
     {
@@ -213,7 +213,7 @@ class Ftp
      * Switch the passive mode.
      *
      * @param  boolean $flag
-     * @return Pop\Ftp\Ftp
+     * @return \Pop\Ftp\Ftp
      */
     public function pasv($flag = true)
     {

@@ -48,8 +48,8 @@ class Hmtx
      *
      * Instantiate a TTF 'hmtx' table object.
      *
-     * @param  Pop_Font $font
-     * @return void
+     * @param  \Pop\Font\AbstractFont $font
+     * @return \Pop\Font\TrueType\Table\Hmtx
      */
     public function __construct($font)
     {

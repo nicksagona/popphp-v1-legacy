@@ -62,7 +62,7 @@ class Svg extends File
 
     /**
      * SVG image resource
-     * @var SimpleXMLElement
+     * @var \SimpleXMLElement
      */
     protected $resource = null;
 
@@ -168,12 +168,12 @@ class Svg extends File
      * Instantiate an SVG image object based on either a pre-existing SVG image
      * file on disk, or a new SVG image file.
      *
-     * @param  string         $svg
-     * @param  int|string     $w
-     * @param  int|string     $h
-     * @param  ColorInterface $color
+     * @param  string                    $svg
+     * @param  int|string                $w
+     * @param  int|string                $h
+     * @param  \Pop\Color\ColorInterface $color
      * @throws Exception
-     * @return void
+     * @return \Pop\Image\Svg
      */
     public function __construct($svg, $w = null, $h = null, ColorInterface $color = null)
     {
@@ -256,7 +256,7 @@ class Svg extends File
      * Set the fill color.
      *
      * @param  ColorInterface $color
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function setFillColor(ColorInterface $color = null)
     {
@@ -269,7 +269,7 @@ class Svg extends File
      * Set the background color.
      *
      * @param  ColorInterface $color
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function setBackgroundColor(ColorInterface $color = null)
     {
@@ -281,7 +281,7 @@ class Svg extends File
      * Set the stroke color.
      *
      * @param  ColorInterface $color
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function setStrokeColor(ColorInterface $color = null)
     {
@@ -295,7 +295,7 @@ class Svg extends File
      * @param  int $wid
      * @param  int $dash_len
      * @param  int $dash_gap
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function setStrokeWidth($wid = null, $dash_len = null, $dash_gap = null)
     {
@@ -316,7 +316,7 @@ class Svg extends File
      * Set the opacity.
      *
      * @param  float $opac
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function setOpacity($opac)
     {
@@ -330,7 +330,7 @@ class Svg extends File
      * @param  ColorInterface $color1
      * @param  ColorInterface $color2
      * @param  int            $type
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function addGradient(ColorInterface $color1, ColorInterface $color2, $type = Svg::HORIZONTAL)
     {
@@ -380,7 +380,7 @@ class Svg extends File
      * Set the gradient to use.
      *
      * @param  int $index
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function setGradient($index = null)
     {
@@ -400,7 +400,7 @@ class Svg extends File
      * @param  int $y
      * @param  int $w
      * @param  int $h
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function addClippingRectangle($x, $y, $w, $h = null)
     {
@@ -425,7 +425,7 @@ class Svg extends File
      * @param  int $x
      * @param  int $y
      * @param  int $w
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function addClippingSquare($x, $y, $w)
     {
@@ -440,7 +440,7 @@ class Svg extends File
      * @param  int $y
      * @param  int $w
      * @param  int $h
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function addClippingEllipse($x, $y, $w, $h = null)
     {
@@ -465,7 +465,7 @@ class Svg extends File
      * @param  int $x
      * @param  int $y
      * @param  int $w
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function addClippingCircle($x, $y, $w)
     {
@@ -487,7 +487,7 @@ class Svg extends File
      * Add a clipping polygon.
      *
      * @param  array $points
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function addClippingPolygon($points)
     {
@@ -512,7 +512,7 @@ class Svg extends File
      * Set the clipping path to use.
      *
      * @param  int $index
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function setClippingPath($index = null)
     {
@@ -535,7 +535,7 @@ class Svg extends File
      * @param  string     $font
      * @param  int|string $rotate
      * @param  boolean      $bold
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function text($str, $size, $x, $y, $font = 'Arial', $rotate = null, $bold = false)
     {
@@ -612,7 +612,7 @@ class Svg extends File
      * @param  int     $x
      * @param  int     $y
      * @param  int     $w
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function addSquare($x, $y, $w)
     {
@@ -627,7 +627,7 @@ class Svg extends File
      * @param  int $y
      * @param  int $w
      * @param  int $h
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function addEllipse($x, $y, $w, $h = null)
     {
@@ -648,7 +648,7 @@ class Svg extends File
      * @param  int     $x
      * @param  int     $y
      * @param  int     $w
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function addCircle($x, $y, $w)
     {
@@ -671,7 +671,7 @@ class Svg extends File
      * @param  int $end
      * @param  int $w
      * @param  int $h
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function addArc($x, $y, $start, $end, $w, $h = null)
     {
@@ -805,7 +805,7 @@ class Svg extends File
      * Method to add a polygon to the image.
      *
      * @param  array $points
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function addPolygon($points)
     {
@@ -825,7 +825,7 @@ class Svg extends File
      * Method to add a border to the image.
      *
      * @param  int $w
-     * @return Pop\Image\Svg
+     * @return \Pop\Image\Svg
      */
     public function border($w)
     {

@@ -39,7 +39,7 @@ abstract class AbstractRecord
 
     /**
      * Database connection adapter
-     * @var Pop\Db\Db
+     * @var \Pop\Db\Db
      */
     public $db = null;
 

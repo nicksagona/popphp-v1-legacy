@@ -43,19 +43,19 @@ class Controller
 
     /**
      * Request
-     * @var Pop\Http\Request
+     * @var \Pop\Http\Request
      */
     protected $request = null;
 
     /**
      * Response
-     * @var Pop\Http\Response
+     * @var \Pop\Http\Response
      */
     protected $response = null;
 
     /**
      * Project config object
-     * @var Pop\Project\Project
+     * @var \Pop\Project\Project
      */
     protected $project = null;
 
@@ -67,13 +67,13 @@ class Controller
 
     /**
      * Data model object
-     * @var Pop\Mvc\Model
+     * @var \Pop\Mvc\Model
      */
     protected $model = null;
 
     /**
      * View object
-     * @var Pop\Mvc\View
+     * @var \Pop\Mvc\View
      */
     protected $view = null;
 
@@ -92,7 +92,7 @@ class Controller
      * @param Response $response
      * @param Project  $project
      * @param string   $viewPath
-     * @return void
+     * @return \Pop\Mvc\Controller
      */
     public function __construct(Request $request = null, Response $response = null, Project $project = null, $viewPath = null)
     {
@@ -112,7 +112,7 @@ class Controller
      * Set the request object
      *
      * @param  Request $request
-     * @return Pop\Mvc\Controller
+     * @return \Pop\Mvc\Controller
      */
     public function setRequest(Request $request)
     {
@@ -124,7 +124,7 @@ class Controller
      * Set the response object
      *
      * @param  Response $response
-     * @return Pop\Mvc\Controller
+     * @return \Pop\Mvc\Controller
      */
     public function setResponse(Response $response)
     {
@@ -136,7 +136,7 @@ class Controller
      * Set the response object
      *
      * @param  Project $project
-     * @return Pop\Mvc\Controller
+     * @return \Pop\Mvc\Controller
      */
     public function setProject(Project $project)
     {
@@ -148,7 +148,7 @@ class Controller
      * Set the response object
      *
      * @param  string $viewPath
-     * @return Pop\Mvc\Controller
+     * @return \Pop\Mvc\Controller
      */
     public function setViewPath($viewPath)
     {
@@ -159,7 +159,7 @@ class Controller
     /**
      * Get the request object
      *
-     * @return Pop\Http\Request
+     * @return \Pop\Http\Request
      */
     public function getRequest()
     {
@@ -167,9 +167,9 @@ class Controller
     }
 
     /**
-     * Get the repsonse object
+     * Get the response object
      *
-     * @return Pop\Http\Response
+     * @return \Pop\Http\Response
      */
     public function getResponse()
     {
@@ -179,7 +179,7 @@ class Controller
     /**
      * Get the project object
      *
-     * @return Pop\Project\Project
+     * @return \Pop\Project\Project
      */
     public function getProject()
     {
@@ -201,7 +201,7 @@ class Controller
      *
      * @param  string $action
      * @throws Exception
-     * @return Pop\Mvc\Controller
+     * @return \Pop\Mvc\Controller
      */
     public function dispatch($action = 'index')
     {
@@ -217,6 +217,7 @@ class Controller
      *
      * @param  int    $code
      * @param  array  $headers
+     * @throws \Pop\Mvc\Exception
      * @return void
      */
     public function send($code = 200, array $headers = null)

@@ -77,7 +77,7 @@ abstract class AbstractValidator implements ValidatorInterface
      * @param  mixed   $value
      * @param  boolean $condition
      * @param  string  $msg
-     * @return void
+     * @return \Pop\Validator\Validator\AbstractValidator
      */
     public function __construct($value = null, $condition = true, $msg = null)
     {
@@ -133,7 +133,7 @@ abstract class AbstractValidator implements ValidatorInterface
      * Method to set the validator value
      *
      * @param  mixed $value
-     * @return Pop\Validator\Validator
+     * @return \Pop\Validator\Validator
      */
     public function setValue($value)
     {
@@ -145,7 +145,7 @@ abstract class AbstractValidator implements ValidatorInterface
      * Method to set the validator condition
      *
      * @param  boolean $condition
-     * @return Pop\Validator\Validator
+     * @return \Pop\Validator\Validator
      */
     public function setCondition($condition)
     {
@@ -157,7 +157,7 @@ abstract class AbstractValidator implements ValidatorInterface
      * Method to set the validator condition
      *
      * @param  string $message
-     * @return Pop\Validator\Validator
+     * @return \Pop\Validator\Validator
      */
     public function setDefaultMessage($message)
     {
@@ -169,7 +169,7 @@ abstract class AbstractValidator implements ValidatorInterface
      * Method to set the validator input
      *
      * @param  mixed $input
-     * @return Pop\Validator\Validator
+     * @return \Pop\Validator\Validator
      */
     public function setInput($input)
     {

@@ -95,7 +95,7 @@ class Font
      * @param  int     $oi
      * @param  boolean $comp
      * @throws Exception
-     * @return void
+     * @return \Pop\Pdf\Parser\Font
      */
     public function __construct($fle, $fi, $oi, $comp = false)
     {
@@ -209,7 +209,7 @@ class Font
     /**
      * Method to to get the glyph widths
      *
-     * @param  Pop\Font\TrueType\Table\Cmap $cmap
+     * @param  \Pop\Font\TrueType\Table\Cmap $cmap
      * @return array
      */
     protected function getGlyphWidths($cmap)

@@ -42,7 +42,7 @@ class Zip implements ArchiveInterface
 
     /**
      * ZipArchive object
-     * @var ZipArchive
+     * @var \ZipArchive
      */
     public $archive = null;
 
@@ -61,8 +61,8 @@ class Zip implements ArchiveInterface
     /**
      * Method to instantiate an archive adapter object
      *
-     * @param  Pop\Archive\Archive $archive
-     * @return void
+     * @param  \Pop\Archive\Archive $archive
+     * @return \Pop\Archive\Adapter\Zip
      */
     public function __construct($archive)
     {

@@ -55,8 +55,8 @@ class Post
      *
      * Instantiate a TTF 'post' table object.
      *
-     * @param  Pop_Font $font
-     * @return void
+     * @param  \Pop\Font\AbstractFont $font
+     * @return \Pop\Font\TrueType\Table\Post
      */
     public function __construct($font)
     {

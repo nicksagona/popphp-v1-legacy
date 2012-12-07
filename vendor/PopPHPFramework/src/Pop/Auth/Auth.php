@@ -121,7 +121,7 @@ class Auth
 
     /**
      * Auth user object
-     * @var Pop\Auth\User
+     * @var \Pop\Auth\User
      */
     protected $user = null;
 
@@ -133,7 +133,7 @@ class Auth
 
     /**
      * Required role for authorization
-     * @var Pop\Auth\Role
+     * @var \Pop\Auth\Role
      */
     protected $requiredRole = null;
 
@@ -217,7 +217,7 @@ class Auth
      * @param Adapter\AdapterInterface $adapter
      * @param int                      $encryption
      * @param string                   $salt
-     * @return void
+     * @return \Pop\Auth\Auth
      */
     public function __construct(Adapter\AdapterInterface $adapter, $encryption = 0, $salt = null)
     {
@@ -231,7 +231,7 @@ class Auth
      * Method to add a role
      *
      * @param  mixed $role
-     * @return Pop\Auth\Auth
+     * @return \Pop\Auth\Auth
      */
     public function addRoles($role)
     {
@@ -251,7 +251,7 @@ class Auth
      * Method to remove a role
      *
      * @param  mixed $role
-     * @return Pop\Auth\Auth
+     * @return \Pop\Auth\Auth
      */
     public function removeRole($role)
     {
@@ -380,7 +380,7 @@ class Auth
     /**
      * Method to get the required role
      *
-     * @return Pop\Auth\Role
+     * @return \Pop\Auth\Role
      */
     public function getRequiredRole()
     {
@@ -390,7 +390,7 @@ class Auth
     /**
      * Method to get the user
      *
-     * @return Pop\Auth\User
+     * @return \Pop\Auth\User
      */
     public function getUser()
     {
@@ -401,7 +401,7 @@ class Auth
      * Method to set the expiration
      *
      * @param  int $expiration
-     * @return Pop\Auth\Auth
+     * @return \Pop\Auth\Auth
      */
     public function setExpiration($expiration = 0)
     {
@@ -419,7 +419,7 @@ class Auth
      * Method to set the encryption
      *
      * @param  int $encryption
-     * @return Pop\Auth\Auth
+     * @return \Pop\Auth\Auth
      */
     public function setEncryption($encryption = 0)
     {
@@ -435,7 +435,7 @@ class Auth
      * Method to set the encryption
      *
      * @param  string $salt
-     * @return Pop\Auth\Auth
+     * @return \Pop\Auth\Auth
      */
     public function setSalt($salt = null)
     {
@@ -448,7 +448,7 @@ class Auth
      *
      * @param  mixed $role
      * @param  int   $level
-     * @return Pop\Auth\Auth
+     * @return \Pop\Auth\Auth
      */
     public function setRequiredRole($role = null, $level = 0)
     {
@@ -475,7 +475,7 @@ class Auth
      * Method to set the number of login attempts allowed
      *
      * @param  int $attempts
-     * @return Pop\Auth\Auth
+     * @return \Pop\Auth\Auth
      */
     public function setAttemptLimit($attempts = 0)
     {
@@ -491,7 +491,7 @@ class Auth
      * Method to set the number of login attempts allowed
      *
      * @param  int $attempts
-     * @return Pop\Auth\Auth
+     * @return \Pop\Auth\Auth
      */
     public function setAttempts($attempts = 0)
     {
@@ -503,7 +503,7 @@ class Auth
      * Method to set the block IP addresses
      *
      * @param  string|array $ips
-     * @return Pop\Auth\Auth
+     * @return \Pop\Auth\Auth
      */
     public function setBlockedIps($ips = null)
     {
@@ -522,7 +522,7 @@ class Auth
      * Method to set the block subnets
      *
      * @param  string|array $subnets
-     * @return Pop\Auth\Auth
+     * @return \Pop\Auth\Auth
      */
     public function setBlockedSubnets($subnets = null)
     {
@@ -541,7 +541,7 @@ class Auth
      * Method to set the allowed IP addresses
      *
      * @param  string|array $ips
-     * @return Pop\Auth\Auth
+     * @return \Pop\Auth\Auth
      */
     public function setAllowedIps($ips = null)
     {
@@ -560,7 +560,7 @@ class Auth
      * Method to set the allowed subnets
      *
      * @param  string|array $subnets
-     * @return Pop\Auth\Auth
+     * @return \Pop\Auth\Auth
      */
     public function setAllowedSubnets($subnets = null)
     {
@@ -658,8 +658,6 @@ class Auth
      */
     public function isAuthorized()
     {
-        $result = false;
-
         if (null === $this->requiredRole) {
             $result = true;
         } else {

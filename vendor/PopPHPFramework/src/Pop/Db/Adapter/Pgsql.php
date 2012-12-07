@@ -61,8 +61,8 @@ class Pgsql extends AbstractAdapter
      * Instantiate the PostgreSQL database connection object.
      *
      * @param  array $options
-     * @throws Exception
-     * @return void
+     * @throws \Pop\Db\Adapter\Exception
+     * @return \Pop\Db\Adapter\Pgsql
      */
     public function __construct(array $options)
     {
@@ -81,7 +81,7 @@ class Pgsql extends AbstractAdapter
     /**
      * Throw an exception upon a database error.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return void
      */
     public function showError()
@@ -93,7 +93,7 @@ class Pgsql extends AbstractAdapter
      * Prepare a SQL query.
      *
      * @param  string $sql
-     * @return Pop\Db\Adapter\Pgsql
+     * @return \Pop\Db\Adapter\Pgsql
      */
     public function prepare($sql)
     {
@@ -106,7 +106,7 @@ class Pgsql extends AbstractAdapter
      * Bind parameters to for a prepared SQL query.
      *
      * @param  string|array  $params
-     * @return Pop\Db\Adapter\Pgsql
+     * @return \Pop\Db\Adapter\Pgsql
      */
     public function bindParams($params)
     {
@@ -138,7 +138,7 @@ class Pgsql extends AbstractAdapter
     /**
      * Execute the prepared SQL query.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return void
      */
     public function execute()
@@ -170,7 +170,7 @@ class Pgsql extends AbstractAdapter
     /**
      * Return the results array from the results resource.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return array
      */
     public function fetch()
@@ -209,7 +209,7 @@ class Pgsql extends AbstractAdapter
     /**
      * Return the number of rows in the result.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return int
      */
     public function numRows()
@@ -224,7 +224,7 @@ class Pgsql extends AbstractAdapter
     /**
      * Return the number of fields in the result.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return int
      */
     public function numFields()

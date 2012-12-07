@@ -72,7 +72,7 @@ class AuthTable implements AdapterInterface
      * @param string $usernameField
      * @param string $passwordField
      * @param string $accessField
-     * @return void
+     * @return \Pop\Auth\Adapter\AuthTable
      */
     public function __construct($tableName, $usernameField = 'username', $passwordField = 'password', $accessField = null)
     {

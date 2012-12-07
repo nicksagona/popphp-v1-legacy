@@ -48,8 +48,8 @@ class Head
      *
      * Instantiate a TTF 'head' table object.
      *
-     * @param  Pop_Font $font
-     * @return void
+     * @param  \Pop\Font\AbstractFont $font
+     * @return \Pop\Font\TrueType\Table\Head
      */
     public function __construct($font)
     {

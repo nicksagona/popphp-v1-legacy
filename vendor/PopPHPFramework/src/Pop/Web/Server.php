@@ -78,7 +78,7 @@ class Server
      *
      * Instantiate the server session object.
      *
-     * @return void
+     * @return \Pop\Web\Server
      */
     public function __construct()
     {

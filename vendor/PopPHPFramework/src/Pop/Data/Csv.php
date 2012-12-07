@@ -47,7 +47,7 @@ class Csv implements DataInterface
      */
     public static function decode($data, $delim = ',', $esc = '"')
     {
-        // Read the file data, seperating by new lines.
+        // Read the file data, separating by new lines.
         $lines = explode("\n", $data);
 
         $linesOfData = array();

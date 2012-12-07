@@ -87,7 +87,7 @@ class Reader
 
     /**
      * XML Object
-     * @var SimpleXMLElement
+     * @var \SimpleXMLElement
      */
     protected $xml = null;
 
@@ -129,7 +129,7 @@ class Reader
      * @param  string $url
      * @param  int|string $limit
      * @throws Exception
-     * @return void
+     * @return \Pop\Feed\Reader
      */
     public function __construct($url, $limit = null)
     {
@@ -168,7 +168,7 @@ class Reader
      * Method to set item template
      *
      * @param  string $tmpl
-     * @return Pop\Feed\Reader
+     * @return \Pop\Feed\Reader
      */
     public function setTemplate($tmpl)
     {
@@ -184,7 +184,7 @@ class Reader
      * Method to set date format
      *
      * @param  string $date
-     * @return Pop\Feed\Reader
+     * @return \Pop\Feed\Reader
      */
     public function setDateFormat($date)
     {

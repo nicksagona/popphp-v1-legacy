@@ -93,7 +93,7 @@ class Mobile
      * @param  string $mobile
      * @param  string $full
      * @param  int    $force
-     * @return void
+     * @return \Pop\Web\Mobile
      */
     public function __construct($mobile = null, $full = null, $force = 0)
     {

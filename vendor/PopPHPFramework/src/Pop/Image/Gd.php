@@ -46,7 +46,7 @@ class Gd extends AbstractImage
 
     /**
      * GD info
-     * @var ArrayObject
+     * @var \ArrayObject
      */
     public $gd = null;
 
@@ -74,13 +74,13 @@ class Gd extends AbstractImage
      * Instantiate an image file object based on either a pre-existing
      * image file on disk, or a new image file.
      *
-     * @param  string         $img
-     * @param  int|string     $w
-     * @param  int|string     $h
-     * @param  ColorInterface $color
-     * @param  array          $types
+     * @param  string                    $img
+     * @param  int|string                $w
+     * @param  int|string                $h
+     * @param  \Pop\Color\ColorInterface $color
+     * @param  array                     $types
      * @throws Exception
-     * @return void
+     * @return \Pop\Image\Gd
      */
     public function __construct($img, $w = null, $h = null, ColorInterface $color = null, $types = null)
     {
@@ -188,7 +188,7 @@ class Gd extends AbstractImage
      * Set the image quality based on the type of image.
      *
      * @param  int|string $q
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function setQuality($q = null)
     {
@@ -210,7 +210,7 @@ class Gd extends AbstractImage
      * Set the opacity.
      *
      * @param  int|string $opac
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function setOpacity($opac)
     {
@@ -267,7 +267,7 @@ class Gd extends AbstractImage
      * 200px X 150px.
      *
      * @param  int|string $px
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function resize($px)
     {
@@ -296,7 +296,7 @@ class Gd extends AbstractImage
      * will be scaled to 400px X 300px.
      *
      * @param  float|string $scl
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function scale($scl)
     {
@@ -350,7 +350,7 @@ class Gd extends AbstractImage
      * @param  int|string $px
      * @param  int|string $x
      * @param  int|string $y
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function cropThumb($px, $x = 0, $y = 0)
     {
@@ -378,7 +378,7 @@ class Gd extends AbstractImage
      * to rotate the image.
      *
      * @param  int|string $deg
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function rotate($deg)
     {
@@ -405,7 +405,7 @@ class Gd extends AbstractImage
      * @param  string     $font
      * @param  int|string $rotate
      * @param  boolean    $stroke
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function text($str, $size, $x, $y, $font = null, $rotate = null, $stroke = false)
     {
@@ -439,7 +439,7 @@ class Gd extends AbstractImage
      * @param  int $y1
      * @param  int $x2
      * @param  int $y2
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function addLine($x1, $y1, $x2, $y2)
     {
@@ -464,7 +464,7 @@ class Gd extends AbstractImage
      * @param  int $y
      * @param  int $w
      * @param  int $h
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function addRectangle($x, $y, $w, $h = null)
     {
@@ -505,7 +505,7 @@ class Gd extends AbstractImage
      * @param  int     $x
      * @param  int     $y
      * @param  int     $w
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function addSquare($x, $y, $w)
     {
@@ -520,7 +520,7 @@ class Gd extends AbstractImage
      * @param  int $y
      * @param  int $w
      * @param  int $h
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function addEllipse($x, $y, $w, $h = null)
     {
@@ -561,7 +561,7 @@ class Gd extends AbstractImage
      * @param  int     $x
      * @param  int     $y
      * @param  int     $w
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function addCircle($x, $y, $w)
     {
@@ -579,7 +579,7 @@ class Gd extends AbstractImage
      * @param  int $end
      * @param  int $w
      * @param  int $h
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function addArc($x, $y, $start, $end, $w, $h = null)
     {
@@ -628,7 +628,7 @@ class Gd extends AbstractImage
      * Method to add a polygon to the image.
      *
      * @param  array $points
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function addPolygon($points)
     {
@@ -673,7 +673,7 @@ class Gd extends AbstractImage
      * Method to adjust the brightness of the image.
      *
      * @param  int $b
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function brightness($b)
     {
@@ -689,7 +689,7 @@ class Gd extends AbstractImage
      * Method to adjust the contrast of the image.
      *
      * @param  int $amount
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function contrast($amount)
     {
@@ -704,7 +704,7 @@ class Gd extends AbstractImage
     /**
      * Method to desaturate the image.
      *
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function desaturate()
     {
@@ -719,8 +719,8 @@ class Gd extends AbstractImage
     /**
      * Method to sharpen the image.
      *
-     * @param  int amount
-     * @return Pop\Image\Gd
+     * @param  int $amount
+     * @return \Pop\Image\Gd
      */
     public function sharpen($amount)
     {
@@ -736,7 +736,7 @@ class Gd extends AbstractImage
      *
      * @param  int $amount
      * @param  int $type
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function blur($amount, $type = Gd::GAUSSIAN_BLUR)
     {
@@ -759,7 +759,7 @@ class Gd extends AbstractImage
      * @param  int $w
      * @param  int $h
      * @param  int $type
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function border($w, $h = null, $type = Gd::INNER_BORDER)
     {
@@ -795,7 +795,7 @@ class Gd extends AbstractImage
      * @param  string     $ovr
      * @param  int|string $x
      * @param  int|string $y
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function overlay($ovr, $x = 0, $y = 0)
     {
@@ -824,7 +824,7 @@ class Gd extends AbstractImage
      * Method to colorize the image with the color passed.
      *
      * @param  ColorInterface $color
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function colorize(ColorInterface $color)
     {
@@ -839,7 +839,7 @@ class Gd extends AbstractImage
     /**
      * Method to invert the image (create a negative.)
      *
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function invert()
     {
@@ -855,7 +855,7 @@ class Gd extends AbstractImage
      * Apply a mosiac pixelate effect to the image
      *
      * @param  int $px
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function pixelate($px)
     {
@@ -870,7 +870,7 @@ class Gd extends AbstractImage
     /**
      * Apply a pencil/sketch effect to the image
      *
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function pencil()
     {
@@ -953,7 +953,7 @@ class Gd extends AbstractImage
      *
      * @param  string     $type
      * @throws Exception
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function convert($type)
     {
@@ -1022,7 +1022,7 @@ class Gd extends AbstractImage
      * Output the image object directly.
      *
      * @param  boolean $download
-     * @return Pop\Image\Gd
+     * @return \Pop\Image\Gd
      */
     public function output($download = false)
     {

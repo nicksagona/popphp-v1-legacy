@@ -39,7 +39,7 @@ class Mysqli extends AbstractAdapter
 
     /**
      * Prepared statement
-     * @var MySQLi_STMT
+     * @var \MySQLi_STMT
      */
     protected $statement = null;
 
@@ -49,8 +49,8 @@ class Mysqli extends AbstractAdapter
      * Instantiate the MySQLi database connection object.
      *
      * @param  array $options
-     * @throws Exception
-     * @return void
+     * @throws \Pop\Db\Adapter\Exception
+     * @return \Pop\Db\Adapter\Mysqli
      */
     public function __construct(array $options)
     {
@@ -68,7 +68,7 @@ class Mysqli extends AbstractAdapter
     /**
      * Throw an exception upon a database error.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return void
      */
     public function showError()
@@ -80,7 +80,7 @@ class Mysqli extends AbstractAdapter
      * Prepare a SQL query.
      *
      * @param  string $sql
-     * @return Pop\Db\Adapter\Mysqli
+     * @return \Pop\Db\Adapter\Mysqli
      */
     public function prepare($sql)
     {
@@ -94,7 +94,7 @@ class Mysqli extends AbstractAdapter
      * Bind parameters to a prepared SQL query.
      *
      * @param  array  $params
-     * @return Pop\Db\Adapter\Mysqli
+     * @return \Pop\Db\Adapter\Mysqli
      */
     public function bindParams($params)
     {
@@ -157,7 +157,7 @@ class Mysqli extends AbstractAdapter
     /**
      * Execute the prepared SQL query.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return void
      */
     public function execute()
@@ -185,7 +185,7 @@ class Mysqli extends AbstractAdapter
     /**
      * Return the results array from the results resource.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return array
      */
     public function fetch()
@@ -225,7 +225,7 @@ class Mysqli extends AbstractAdapter
     /**
      * Return the number of rows in the result.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return int
      */
     public function numRows()
@@ -243,7 +243,7 @@ class Mysqli extends AbstractAdapter
     /**
      * Return the number of fields in the result.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return int
      */
     public function numFields()

@@ -55,7 +55,7 @@ class Session
      * Private method to instantiate the session object. As part of the
      * Singelton Pattern, it can only be called internally by the object itself.
      *
-     * @return void
+     * @return \Pop\Web\Session
      */
     private function __construct()
     {
@@ -70,7 +70,7 @@ class Session
      * Determine whether or not an instance of the session object exists already,
      * and instantiate the object if it doesn't exist.
      *
-     * @return Pop\Web\Session
+     * @return \Pop\Web\Session
      */
     public static function getInstance()
     {

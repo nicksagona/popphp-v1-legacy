@@ -127,7 +127,7 @@ class Select extends Element
      * @param  string|array $value
      * @param  string|array $marked
      * @param  string $indent
-     * @return void
+     * @return \Pop\Form\Element\Select
      */
     public function __construct($name, $value = null, $marked = null, $indent = null)
     {
@@ -137,7 +137,6 @@ class Select extends Element
         // If the value flag is YEAR-based, calculate the year range for the select drop-down menu.
         if (is_string($value) && (strpos($value, 'YEAR') !== false)) {
             $years = array('----' => '----');
-            $yearAry = array();
             $yearAry = explode('_', $value);
             // YEAR_1111_2222 (from year 1111 to 2222)
             if (isset($yearAry[1]) && isset($yearAry[2])) {

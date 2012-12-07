@@ -181,7 +181,7 @@ class Authorize extends AbstractAdapter
      * @param  string  $apiLoginId
      * @param  string  $transKey
      * @param  boolean $test
-     * @return void
+     * @return \Pop\Payment\Adapter\Authorize
      */
     public function __construct($apiLoginId, $transKey, $test = false)
     {
@@ -201,7 +201,7 @@ class Authorize extends AbstractAdapter
      *
      * @param  boolean $verifyPeer
      * @throws Exception
-     * @return Pop\Payment\Adapter\Authorize
+     * @return void
      */
     public function send($verifyPeer = true)
     {

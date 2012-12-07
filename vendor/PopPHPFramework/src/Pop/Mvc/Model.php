@@ -56,7 +56,7 @@ class Model
      *
      * @param  mixed $data
      * @param  string $name
-     * @return void
+     * @return \Pop\Mvc\Model
      */
     public function __construct($data = null, $name = null)
     {
@@ -126,7 +126,7 @@ class Model
      *
      * @param  string $name
      * @param  mixed $value
-     * @return void
+     * @return mixed
      */
     public function set($name, $value)
     {
@@ -149,7 +149,7 @@ class Model
      *
      * @param  string $name
      * @param  mixed $value
-     * @return void
+     * @return mixed
      */
     public function __set($name, $value)
     {

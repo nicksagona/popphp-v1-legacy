@@ -54,7 +54,7 @@ class Checkbox extends Element
      * @param  string|array $value
      * @param  string|array $marked
      * @param  string $indent
-     * @return void
+     * @return \Pop\Form\Element\Checkbox
      */
     public function __construct($name, $value = null, $marked = null, $indent = null)
     {

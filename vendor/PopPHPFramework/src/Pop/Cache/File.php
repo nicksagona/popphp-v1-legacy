@@ -52,7 +52,7 @@ class File implements CacheInterface
      *
      * @param  string $dir
      * @throws Exception
-     * @return void
+     * @return \Pop\Cache\File
      */
     public function __construct($dir)
     {

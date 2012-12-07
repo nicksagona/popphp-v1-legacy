@@ -45,7 +45,7 @@ class Projects
     /**
      * Install the project class files
      *
-     * @param Pop\Config $install
+     * @param \Pop\Config $install
      * @param string     $installDir
      * @return void
      */

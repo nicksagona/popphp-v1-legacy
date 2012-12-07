@@ -96,8 +96,8 @@ class Payment
      *
      * Instantiate the payment object
      *
-     * @param Adapter\AbstractAdapter $adapter
-     * @return void
+     * @param  Adapter\AbstractAdapter $adapter
+     * @return \Pop\Payment\Payment
      */
     public function __construct(Adapter\AbstractAdapter $adapter)
     {
@@ -107,7 +107,7 @@ class Payment
     /**
      * Access the adapter
      *
-     * @return Pop\Payment\Adapter\AbstractAdapter
+     * @return \Pop\Payment\Adapter\AbstractAdapter
      */
     public function adapter()
     {
@@ -118,7 +118,7 @@ class Payment
      * Send transaction data
      *
      * @param  boolean $verifyPeer
-     * @return Pop\Payment\Payment
+     * @return \Pop\Payment\Payment
      */
     public function send($verifyPeer = true)
     {
@@ -230,7 +230,7 @@ class Payment
     /**
      * Set the shipping data fields to the same as billing data fields
      *
-     * @return Pop\Payment\Payment
+     * @return \Pop\Payment\Payment
      */
     public function shippingSameAsBilling()
     {

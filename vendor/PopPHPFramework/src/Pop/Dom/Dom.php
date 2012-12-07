@@ -146,9 +146,9 @@ class Dom extends AbstractDom
      *
      * @param  string $doctype
      * @param  string $charset
-     * @param  array|Pop\Dom\Child $childNode
+     * @param  mixed  $childNode
      * @param  string $indent
-     * @return void
+     * @return \Pop\Dom\Dom
      */
     public function __construct($doctype = null, $charset = 'utf-8', $childNode = null, $indent = null)
     {
@@ -195,7 +195,7 @@ class Dom extends AbstractDom
      * Method to set the document type.
      *
      * @param  string $doctype
-     * @return Pop\Dom\Dom
+     * @return \Pop\Dom\Dom
      */
     public function setDoctype($doctype = null)
     {
@@ -229,7 +229,7 @@ class Dom extends AbstractDom
      * Method to set the document charset.
      *
      * @param  string $chr
-     * @return Pop\Dom\Dom
+     * @return \Pop\Dom\Dom
      */
     public function setCharset($chr)
     {
@@ -241,7 +241,7 @@ class Dom extends AbstractDom
      * Method to set the document charset.
      *
      * @param  string $content
-     * @return Pop\Dom\Dom
+     * @return \Pop\Dom\Dom
      */
     public function setContentType($content)
     {

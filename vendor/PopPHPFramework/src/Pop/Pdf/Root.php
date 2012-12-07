@@ -79,7 +79,7 @@ class Root
      * Instantiate a PDF root object.
      *
      * @param  string $str
-     * @return void
+     * @return \Pop\Pdf\Root
      */
     public function __construct($str = null)
     {

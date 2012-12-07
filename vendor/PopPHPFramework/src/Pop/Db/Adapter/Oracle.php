@@ -49,8 +49,8 @@ class Oracle extends AbstractAdapter
      * Instantiate the Oracle database connection object.
      *
      * @param  array $options
-     * @throws Exception
-     * @return void
+     * @throws \Pop\Db\Adapter\Exception
+     * @return \Pop\Db\Adapter\Oracle
      */
     public function __construct(array $options)
     {
@@ -68,7 +68,7 @@ class Oracle extends AbstractAdapter
     /**
      * Throw an exception upon a database error.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return void
      */
     public function showError()
@@ -80,7 +80,7 @@ class Oracle extends AbstractAdapter
      * Prepare a SQL query.
      *
      * @param  string $sql
-     * @return Pop\Db\Adapter\Oracle
+     * @return \Pop\Db\Adapter\Oracle
      */
     public function prepare($sql)
     {
@@ -92,7 +92,7 @@ class Oracle extends AbstractAdapter
      * Bind parameters to for a prepared SQL query.
      *
      * @param  array  $params
-     * @return Pop\Db\Adapter\Oracle
+     * @return \Pop\Db\Adapter\Oracle
      */
     public function bindParams($params)
     {
@@ -123,7 +123,7 @@ class Oracle extends AbstractAdapter
     /**
      * Execute the prepared SQL query.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return void
      */
     public function execute()
@@ -152,7 +152,7 @@ class Oracle extends AbstractAdapter
     /**
      * Return the results array from the results resource.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return array
      */
     public function fetch()
@@ -191,7 +191,7 @@ class Oracle extends AbstractAdapter
     /**
      * Return the number of rows in the result.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return int
      */
     public function numRows()
@@ -206,7 +206,7 @@ class Oracle extends AbstractAdapter
     /**
      * Return the number of fields in the result.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return int
      */
     public function numFields()

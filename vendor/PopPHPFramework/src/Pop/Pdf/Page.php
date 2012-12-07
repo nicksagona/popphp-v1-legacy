@@ -151,7 +151,7 @@ class Page
      * @param  string $h
      * @param  string $i
      * @throws Exception
-     * @return void
+     * @return \Pop\Pdf\Page
      */
     public function __construct($str = null, $sz = null, $w = null, $h = null, $i = null)
     {

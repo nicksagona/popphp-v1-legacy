@@ -85,7 +85,7 @@ class Form extends Dom
      * @param  string $method
      * @param  array  $fields
      * @param  string $indent
-     * @return void
+     * @return \Pop\Form\Form
      */
     public function __construct($action, $method, array $fields = null, $indent = null)
     {
@@ -108,12 +108,12 @@ class Form extends Dom
      * Set the fields of the form object.
      *
      * @param  array $fields
-     * @return Pop\Form\Form
+     * @return \Pop\Form\Form
      */
     public function setFields(array $fields)
     {
         $isArray = true;
-        foreach ($fields as $key => $value) {
+        foreach ($fields as $value) {
             if (!is_array($value)) {
                 $isArray = false;
             }
@@ -123,7 +123,7 @@ class Form extends Dom
             $fields = array($fields);
         }
 
-        foreach ($fields as $key => $value) {
+        foreach ($fields as $value) {
             $this->fields[$value['name']] = (isset($value['value'])) ? $value['value'] : null;
         }
 
@@ -140,7 +140,7 @@ class Form extends Dom
      * Alias for setFields()
      *
      * @param  array $fields
-     * @return Pop\Form\Form
+     * @return \Pop\Form\Form
      */
     public function addFields(array $fields)
     {
@@ -153,7 +153,7 @@ class Form extends Dom
      * @param  array $values
      * @param  mixed $filters
      * @param  mixed $params
-     * @return Pop\Form\Form
+     * @return \Pop\Form\Form
      */
     public function setFieldValues(array $values = null, $filters = null, $params = null)
     {
@@ -295,7 +295,7 @@ class Form extends Dom
      * Set a form template for the render method to utilize.
      *
      * @param  string $tmpl
-     * @return Pop\Form\Form
+     * @return \Pop\Form\Form
      */
     public function setTemplate($tmpl)
     {
@@ -311,7 +311,7 @@ class Form extends Dom
      * Set the form action.
      *
      * @param  string $action
-     * @return Pop\Form\Form
+     * @return \Pop\Form\Form
      */
     public function setAction($action)
     {
@@ -323,7 +323,7 @@ class Form extends Dom
      * Set the form method.
      *
      * @param  string $method
-     * @return Pop\Form\Form
+     * @return \Pop\Form\Form
      */
     public function setMethod($method)
     {
@@ -346,7 +346,7 @@ class Form extends Dom
      *
      * @param  array|string $a
      * @param  string $v
-     * @return Pop\Form\Form
+     * @return \Pop\Form\Form
      */
     public function setAttributes($a, $v = null)
     {
@@ -358,7 +358,7 @@ class Form extends Dom
      * Add a form element or elements to the form object.
      *
      * @param  array|string $e
-     * @return Pop\Form\Form
+     * @return \Pop\Form\Form
      */
     public function addElements($e)
     {
@@ -467,7 +467,7 @@ class Form extends Dom
      * Get an element object of the form by name.
      *
      * @param string $elementName
-     * @return Pop\Form\Element
+     * @return \Pop\Form\Element
      */
     public function getElement($elementName)
     {

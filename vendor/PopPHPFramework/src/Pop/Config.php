@@ -61,7 +61,7 @@ class Config
      *
      * @param  array   $config
      * @param  boolean $changes
-     * @return void
+     * @return \Pop\Config
      */
     public function __construct(array $config, $changes = false)
     {
@@ -134,7 +134,7 @@ class Config
      *
      * @param  string $name
      * @param  mixed $value
-     * @throws Exception
+     * @throws \Exception
      * @return void
      */
     public function __set($name, $value)

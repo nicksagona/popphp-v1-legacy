@@ -76,8 +76,8 @@ class Dir
      * @param  boolean $full
      * @param  boolean $rec
      * @param  boolean $dirs
-     * @throws Exception
-     * @return void
+     * @throws \Pop\File\Exception
+     * @return \Pop\File\Dir
      */
     public function __construct($dir, $full = false, $rec = false, $dirs = true)
     {
@@ -244,7 +244,7 @@ class Dir
             return;
         }
 
-        // Recursively dig throught the directory, deleting files where applicable.
+        // Recursively dig through the directory, deleting files where applicable.
         while (false !== ($obj = readdir($dh))) {
             if ($obj == '.' || $obj == '..') {
                 continue;

@@ -48,7 +48,7 @@ class Textarea extends Element
      * @param  string $value
      * @param  string|array $marked
      * @param  string $indent
-     * @return void
+     * @return \Pop\Form\Element\Textarea
      */
     public function __construct($name, $value = null, $marked = null, $indent = null)
     {

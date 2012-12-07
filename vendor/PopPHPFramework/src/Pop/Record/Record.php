@@ -67,7 +67,7 @@ class Record
 
     /**
      * Database adapter
-     * @var Pop\Record\AbstractRecord
+     * @var \Pop\Record\AbstractRecord
      */
     protected $interface = null;
 
@@ -120,7 +120,7 @@ class Record
      *
      * @param  array $columns
      * @param  Db    $db
-     * @return void
+     * @return \Pop\Record\Record
      */
     public function __construct(array $columns = null, Db $db = null)
     {
@@ -185,7 +185,7 @@ class Record
      * Get DB connection
      *
      * @throws Exception
-     * @return Pop\Pop\Db
+     * @return \Pop\Db\Db
      */
     public static function getDb()
     {
@@ -206,7 +206,7 @@ class Record
      * @param  mixed $id
      * @param  int   $limit
      * @throws Exception
-     * @return Pop\Record\Record
+     * @return \Pop\Record\Record
      */
     public static function findById($id, $limit = null)
     {
@@ -223,7 +223,7 @@ class Record
      * @param  string $column
      * @param  int|string $value
      * @param  int|string $limit
-     * @return Pop\Record\Record
+     * @return \Pop\Record\Record
      */
     public static function findBy($column, $value, $limit = null)
     {
@@ -242,7 +242,7 @@ class Record
      * @param  string     $column
      * @param  int|string $value
      * @param  int|string $limit
-     * @return Pop\Record\Record
+     * @return \Pop\Record\Record
      */
     public static function findAll($order = null, $column = null, $value = null, $limit = null)
     {
@@ -258,7 +258,7 @@ class Record
      *
      * @param  string $sql
      * @param  array  $params
-     * @return Pop\Record\Record
+     * @return \Pop\Record\Record
      */
     public static function execute($sql, $params = null)
     {
@@ -273,7 +273,7 @@ class Record
      * Execute a custom SQL query.
      *
      * @param  string $sql
-     * @return Pop\Record\Record
+     * @return \Pop\Record\Record
      */
     public static function query($sql)
     {

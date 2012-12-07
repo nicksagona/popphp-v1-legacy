@@ -43,8 +43,8 @@ class Mysql extends AbstractAdapter
      * Instantiate the Mysql database connection object.
      *
      * @param  array $options
-     * @throws Exception
-     * @return void
+     * @throws \Pop\Db\Adapter\Exception
+     * @return \Pop\Db\Adapter\Mysql
      */
     public function __construct(array $options)
     {
@@ -63,7 +63,7 @@ class Mysql extends AbstractAdapter
     /**
      * Throw an exception upon a database error.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return void
      */
     public function showError()
@@ -98,7 +98,7 @@ class Mysql extends AbstractAdapter
     /**
      * Return the results array from the results resource.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return array
      */
     public function fetch()
@@ -134,7 +134,7 @@ class Mysql extends AbstractAdapter
     /**
      * Return the number of rows in the result.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return int
      */
     public function numRows()
@@ -149,7 +149,7 @@ class Mysql extends AbstractAdapter
     /**
      * Return the number of fields in the result.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return int
      */
     public function numFields()

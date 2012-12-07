@@ -162,7 +162,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     public function testInitException()
     {
-        $this->setExpectedException('PHPUnit_Framework_Error_Notice');
+        $this->setExpectedException('Pop\Mail\Exception');
         $m = new Mail(array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
         $m->init();
     }

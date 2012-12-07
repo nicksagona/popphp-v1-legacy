@@ -176,7 +176,7 @@ class PayPal extends AbstractAdapter
      * @param  string  $apiPass
      * @param  string  $sign
      * @param  boolean $test
-     * @return void
+     * @return \Pop\Payment\Adapter\PayPal
      */
     public function __construct($apiUser, $apiPass, $sign, $test = false)
     {
@@ -194,7 +194,7 @@ class PayPal extends AbstractAdapter
      *
      * @param  boolean $verifyPeer
      * @throws Exception
-     * @return Pop\Payment\Adapter\Authorize
+     * @return void
      */
     public function send($verifyPeer = true)
     {

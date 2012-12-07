@@ -47,7 +47,7 @@ abstract class AbstractFont extends File
 
     /**
      * Font bounding box info
-     * @var ArrayObject
+     * @var \ArrayObject
      */
     public $bBox = null;
 
@@ -119,7 +119,7 @@ abstract class AbstractFont extends File
 
     /**
      * Font flags
-     * @var ArrayObject
+     * @var \ArrayObject
      */
     public $flags = null;
 
@@ -148,7 +148,7 @@ abstract class AbstractFont extends File
      *
      * @param  string $font
      * @throws Exception
-     * @return void
+     * @return \Pop\Font\AbstractFont
      */
     public function __construct($font)
     {

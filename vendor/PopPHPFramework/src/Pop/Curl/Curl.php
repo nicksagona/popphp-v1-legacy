@@ -60,9 +60,9 @@ class Curl
      *
      * Instantiate the cURL object.
      *
-     * @param  array|const $opts
-     * @param  string $val
-     * @return void
+     * @param  array|int $opts
+     * @param  string    $val
+     * @return \Pop\Curl\Curl
      */
     public function __construct($opts, $val = null)
     {
@@ -73,9 +73,9 @@ class Curl
     /**
      * Set cURL session option(s).
      *
-     * @param  array|const $opt
-     * @param  mixed $vl
-     * @return Pop\Curl\Curl
+     * @param  array|int $opt
+     * @param  string    $vl
+     * @return \Pop\Curl\Curl
      */
     public function setOption($opt, $vl = null)
     {
@@ -114,7 +114,7 @@ class Curl
     /**
      * Get a cURL session option.
      *
-     * @param  const $opt
+     * @param  int $opt
      * @return string
      */
     public function getOption($opt)

@@ -56,7 +56,7 @@ class Cache implements CacheInterface
      *
      * @param  CacheInterface $adapter
      * @param  int            $lifetime
-     * @return void
+     * @return \Pop\Cache\Cache
      */
     public function __construct(CacheInterface $adapter, $lifetime = 0)
     {
@@ -70,7 +70,7 @@ class Cache implements CacheInterface
      *
      * @param  CacheInterface $adapter
      * @param  int            $lifetime
-     * @return Pop\Cache\Cache
+     * @return \Pop\Cache\Cache
      */
     public static function factory(CacheInterface $adapter, $lifetime = 0)
     {
@@ -91,7 +91,7 @@ class Cache implements CacheInterface
      * Method to set the cache lifetime.
      *
      * @param  int $time
-     * @return Pop\Cache\Cache
+     * @return \Pop\Cache\Cache
      */
     public function setLifetime($time = 0)
     {

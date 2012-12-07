@@ -56,7 +56,7 @@ class Role
      *
      * @param  string $name
      * @param  int    $level
-     * @return void
+     * @return \Pop\Auth\Role
      */
     public function __construct($name, $level)
     {
@@ -70,7 +70,7 @@ class Role
      *
      * @param  string $name
      * @param  int    $level
-     * @return Pop\Auth\Role
+     * @return \Pop\Auth\Role
      */
     public static function factory($name, $level)
     {
@@ -101,7 +101,7 @@ class Role
      * Method to set the role name
      *
      * @param  string $name
-     * @return Pop\Auth\Role
+     * @return \Pop\Auth\Role
      */
     public function setName($name)
     {
@@ -113,7 +113,7 @@ class Role
      * Method to get the role level value
      *
      * @param  int $level
-     * @return Pop\Auth\Role
+     * @return \Pop\Auth\Role
      */
     public function setLevel($level)
     {

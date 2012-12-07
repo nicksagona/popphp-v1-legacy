@@ -142,7 +142,7 @@ class Mail
      *
      * @param  array  $rcpts
      * @param  string $subj
-     * @return void
+     * @return \Pop\Mail\Mail
      */
     public function __construct(array $rcpts = null, $subj = null)
     {
@@ -228,7 +228,8 @@ class Mail
      * Add recipients
      *
      * @param  array $rcpts
-     * @return Pop\Mail\Mail
+     * @throws Exception
+     * @return \Pop\Mail\Mail
      */
     public function addRecipients(array $rcpts)
     {
@@ -253,7 +254,7 @@ class Mail
      * Set the subject
      *
      * @param  string $subj
-     * @return Pop\Mail\Mail
+     * @return \Pop\Mail\Mail
      */
     public function setSubject($subj)
     {
@@ -265,7 +266,7 @@ class Mail
      * Set MIME boundary
      *
      * @param  string $bnd
-     * @return Pop\Mail\Mail
+     * @return \Pop\Mail\Mail
      */
     public function setBoundary($bnd = null)
     {
@@ -277,7 +278,7 @@ class Mail
      * Set character set
      *
      * @param  string $chr
-     * @return Pop\Mail\Mail
+     * @return \Pop\Mail\Mail
      */
     public function setCharset($chr)
     {
@@ -289,7 +290,7 @@ class Mail
      * Set text part of the message.
      *
      * @param  string $txt
-     * @return Pop\Mail\Mail
+     * @return \Pop\Mail\Mail
      */
     public function setText($txt)
     {
@@ -301,7 +302,7 @@ class Mail
      * Set HTML part of the message.
      *
      * @param  string $html
-     * @return Pop\Mail\Mail
+     * @return \Pop\Mail\Mail
      */
     public function setHtml($html)
     {
@@ -315,7 +316,7 @@ class Mail
      * @param  string $name
      * @param  string $value
      * @throws Exception
-     * @return Pop\Mail\Mail
+     * @return \Pop\Mail\Mail
      */
     public function setHeader($name, $value)
     {
@@ -337,7 +338,7 @@ class Mail
      *
      * @param  array $headers
      * @throws Exception
-     * @return Pop\Mail\Mail
+     * @return \Pop\Mail\Mail
      */
     public function setHeaders(array $headers)
     {
@@ -351,9 +352,9 @@ class Mail
     /**
      * Attach a file to the mail object.
      *
-     * @param  string|Pop\File\File $file
+     * @param  string|\Pop\File\File $file
      * @throws Exception
-     * @return Pop\Mail\Mail
+     * @return \Pop\Mail\Mail
      */
     public function attachFile($file)
     {
@@ -375,7 +376,7 @@ class Mail
      * Set parameters
      *
      * @param  string|array $params
-     * @return Pop\Mail\Mail
+     * @return \Pop\Mail\Mail
      */
     public function setParams($params = null)
     {
@@ -570,6 +571,8 @@ class Mail
      */
     protected function getMessageType()
     {
+        $type = null;
+
         if ((count($this->attachments) > 0) && (null === $this->html) && (null === $this->text)) {
             $type = null;
         } else if ((count($this->attachments) > 0) && (null !== $this->html) && (null !== $this->text)) {

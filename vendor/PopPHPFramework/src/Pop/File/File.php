@@ -177,7 +177,7 @@ class File
      *
      * @param  string $file
      * @param  array  $types
-     * @return void
+     * @return \Pop\File\File
      */
     public function __construct($file, $types = null)
     {
@@ -192,7 +192,7 @@ class File
      * @param  int    $size
      * @param  array  $types
      * @throws Exception
-     * @return Pop\File\File
+     * @return \Pop\File\File
      */
     public static function upload($upload, $file, $size = 0, $types = null)
     {
@@ -385,8 +385,8 @@ class File
     /**
      * Change the permissions of the file.
      *
-     * @param  string|oct $mode
-     * @param  boolean    $dir
+     * @param  mixed    $mode
+     * @param  boolean  $dir
      * @return void
      */
     public function setMode($mode, $dir = false)
@@ -439,7 +439,7 @@ class File
      *
      * @param  string  $data
      * @param  boolean $append
-     * @return Pop\File\File
+     * @return \Pop\File\File
      */
     public function write($data, $append = false)
     {
@@ -461,7 +461,7 @@ class File
      * Append data to a file.
      *
      * @param  string  $data
-     * @return Pop\File\File
+     * @return \Pop\File\File
      */
     public function append($data)
     {
@@ -473,7 +473,7 @@ class File
      *
      * @param  string $new
      * @throws Exception
-     * @return Pop\File\File
+     * @return \Pop\File\File
      */
     public function copy($new)
     {
@@ -500,7 +500,7 @@ class File
      *
      * @param  string $new
      * @throws Exception
-     * @return Pop\File\File
+     * @return \Pop\File\File
      */
     public function move($new)
     {
@@ -526,7 +526,7 @@ class File
      * Output the file object directly.
      *
      * @param  boolean $download
-     * @return Pop\File\File
+     * @return \Pop\File\File
      */
     public function output($download = false)
     {
@@ -553,7 +553,7 @@ class File
      *
      * @param  string $to
      * @param  boolean $append
-     * @return void
+     * @return \Pop\File\File
      */
     public function save($to = null, $append = false)
     {
@@ -603,8 +603,6 @@ class File
      */
     protected static function checkPermissions($file)
     {
-        $perm = '';
-
         if (DIRECTORY_SEPARATOR == '/') {
             $perm = substr(sprintf('%o', fileperms($file)), -3);
         } else {

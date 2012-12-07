@@ -131,6 +131,7 @@ class Sql implements DataInterface
      */
     public static function encode($data, $table = null, $idQuote = null, $divide = 100)
     {
+        $fields = array();
         foreach ($data as $ary) {
             $fields = array_keys((array)$ary);
         }

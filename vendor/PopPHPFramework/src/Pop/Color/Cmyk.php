@@ -70,7 +70,8 @@ class Cmyk implements ColorInterface
      * @param int $m
      * @param int $y
      * @param int $k
-     * @return void
+     * @throws \Pop\Color\Exception
+     * @return \Pop\Color\Cmyk
      */
     public function __construct($c, $m, $y, $k)
     {

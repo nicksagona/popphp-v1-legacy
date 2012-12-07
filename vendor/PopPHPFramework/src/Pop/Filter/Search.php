@@ -74,7 +74,7 @@ class Search
      *
      * @param  mixed  $data
      * @param  string $delim
-     * @return void
+     * @return \Pop\Filter\Search
      */
     public function __construct($data, $delim = "\n")
     {
@@ -91,7 +91,7 @@ class Search
      *
      * @param  mixed  $data
      * @param  string $delim
-     * @return Pop\Filter\Search
+     * @return \Pop\Filter\Search
      */
     public static function factory($data, $delim = "\n")
     {

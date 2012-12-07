@@ -74,8 +74,8 @@ class Name
      *
      * Instantiate a TTF 'name' table object.
      *
-     * @param  Pop_Font $font
-     * @return void
+     * @param  \Pop\Font\AbstractFont $font
+     * @return \Pop\Font\TrueType\Table\Name
      */
     public function __construct($font)
     {

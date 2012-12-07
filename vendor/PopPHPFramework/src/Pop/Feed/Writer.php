@@ -71,9 +71,9 @@ class Writer extends Dom
      *
      * @param  array  $hdrs
      * @param  array  $itms
-     * @param  string $type
+     * @param  mixed  $type
      * @param  string $dt
-     * @return void
+     * @return \Pop\Feed\Writer
      */
     public function __construct($hdrs, $itms, $type = Dom::RSS, $dt = 'D, j M Y H:i:s O')
     {

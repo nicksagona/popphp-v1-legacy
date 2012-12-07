@@ -206,7 +206,7 @@ class Pdf extends File
      * @param  string $sz
      * @param  int    $w
      * @param  int    $h
-     * @return void
+     * @return \Pop\Pdf\Pdf
      */
     public function __construct($pdf, $sz = null, $w = null, $h = null)
     {
@@ -235,7 +235,7 @@ class Pdf extends File
      *
      * @param  string           $pdf
      * @param  int|string|array $pg
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function importPdf($pdf, $pg = null)
     {
@@ -276,8 +276,8 @@ class Pdf extends File
      *
      * @param  string $sz
      * @param  int    $w
-     * @param  int    h
-     * @return Pop\Pdf\Pdf
+     * @param  int    $h
+     * @return \Pop\Pdf\Pdf
      */
     public function addPage($sz = null, $w = null, $h = null)
     {
@@ -308,7 +308,7 @@ class Pdf extends File
      *
      * @param  int $pg
      * @throws Exception
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function copyPage($pg)
     {
@@ -349,7 +349,7 @@ class Pdf extends File
      *
      * @param  int $pg
      * @throws Exception
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function deletePage($pg)
     {
@@ -402,7 +402,7 @@ class Pdf extends File
      *
      * @param  array $pgs
      * @throws Exception
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function orderPages($pgs)
     {
@@ -479,7 +479,7 @@ class Pdf extends File
      * Method to set the compression of the PDF.
      *
      * @param  boolean $comp
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function setCompression($comp = false)
     {
@@ -492,7 +492,7 @@ class Pdf extends File
      *
      * @param  int $pg
      * @throws Exception
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function setPage($pg)
     {
@@ -511,7 +511,7 @@ class Pdf extends File
      * Method to set the PDF version.
      *
      * @param  string $ver
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function setVersion($ver)
     {
@@ -523,7 +523,7 @@ class Pdf extends File
      * Method to set the PDF info title.
      *
      * @param  string $tle
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function setTitle($tle)
     {
@@ -535,7 +535,7 @@ class Pdf extends File
      * Method to set the PDF info author.
      *
      * @param  string $auth
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function setAuthor($auth)
     {
@@ -547,7 +547,7 @@ class Pdf extends File
      * Method to set the PDF info subject.
      *
      * @param  string $subj
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function setSubject($subj)
     {
@@ -559,7 +559,7 @@ class Pdf extends File
      * Method to set the PDF info creation date.
      *
      * @param  string $dt
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function setCreateDate($dt)
     {
@@ -571,7 +571,7 @@ class Pdf extends File
      * Method to set the PDF info modification date.
      *
      * @param  string $dt
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function setModDate($dt)
     {
@@ -583,7 +583,7 @@ class Pdf extends File
      * Method to set the background of the document.
      *
      * @param  ColorInterface $color
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function setBackgroundColor(ColorInterface $color)
     {
@@ -595,7 +595,7 @@ class Pdf extends File
      * Method to set the fill color of objects and text in the PDF.
      *
      * @param  ColorInterface $color
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function setFillColor(ColorInterface $color)
     {
@@ -611,7 +611,7 @@ class Pdf extends File
      * Method to set the stroke color of paths in the PDF.
      *
      * @param  ColorInterface $color
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function setStrokeColor(ColorInterface $color)
     {
@@ -629,7 +629,7 @@ class Pdf extends File
      * @param  int $w
      * @param  int $dash_len
      * @param  int $dash_gap
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function setStrokeWidth($w = null, $dash_len = null, $dash_gap = null)
     {
@@ -667,7 +667,7 @@ class Pdf extends File
      * @param  int $rot  (rotation)
      * @param  int $rend (render flag, 0 - 7)
      * @throws Exception
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function setTextParams($c = 0, $w = 0, $h = 100, $v = 100, $rot = 0, $rend = 0)
     {
@@ -698,7 +698,7 @@ class Pdf extends File
      * @param  string  $font
      * @param  boolean $embedOverride
      * @throws Exception
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addFont($font, $embedOverride = false)
     {
@@ -753,7 +753,7 @@ class Pdf extends File
      * @param  string $str
      * @param  string $font
      * @throws Exception
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addText($x, $y, $size, $str, $font)
     {
@@ -820,7 +820,7 @@ class Pdf extends File
      * @param  int $y1
      * @param  int $x2
      * @param  int $y2
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addLine($x1, $y1, $x2, $y2)
     {
@@ -838,7 +838,7 @@ class Pdf extends File
      * @param  int $w
      * @param  int $h
      * @param  boolean $fill
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addRectangle($x, $y, $w, $h = null, $fill = true)
     {
@@ -859,7 +859,7 @@ class Pdf extends File
      * @param  int     $y
      * @param  int     $w
      * @param  boolean $fill
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addSquare($x, $y, $w, $fill = true)
     {
@@ -875,7 +875,7 @@ class Pdf extends File
      * @param  int     $w
      * @param  int     $h
      * @param  boolean $fill
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addEllipse($x, $y, $w, $h = null, $fill = true)
     {
@@ -932,7 +932,7 @@ class Pdf extends File
      * @param  int     $y
      * @param  int     $w
      * @param  boolean $fill
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addCircle($x, $y, $w, $fill = true)
     {
@@ -945,7 +945,7 @@ class Pdf extends File
      *
      * @param  array $points
      * @param  boolean $fill
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addPolygon($points, $fill = true)
     {
@@ -978,7 +978,7 @@ class Pdf extends File
      * @param  int $w
      * @param  int $h
      * @param  boolean $fill
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addArc($x, $y, $start, $end, $w, $h = null, $fill = true)
     {
@@ -1096,7 +1096,7 @@ class Pdf extends File
      * Method to open a new graphics state layer within the PDF.
      * Must be used in conjunction with the closeLayer() method.
      *
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function openLayer()
     {
@@ -1110,7 +1110,7 @@ class Pdf extends File
      * Method to close a new graphics state layer within the PDF.
      * Must be used in conjunction with the openLayer() method.
      *
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function closeLayer()
     {
@@ -1127,7 +1127,7 @@ class Pdf extends File
      * @param  int $y
      * @param  int $w
      * @param  int $h
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addClippingRectangle($x, $y, $w, $h = null)
     {
@@ -1159,7 +1159,7 @@ class Pdf extends File
      * @param  int     $x
      * @param  int     $y
      * @param  int     $w
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addClippingSquare($x, $y, $w)
     {
@@ -1174,7 +1174,7 @@ class Pdf extends File
      * @param  int     $y
      * @param  int     $w
      * @param  int     $h
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addClippingEllipse($x, $y, $w, $h = null)
     {
@@ -1245,7 +1245,7 @@ class Pdf extends File
      * @param  int     $x
      * @param  int     $y
      * @param  int     $w
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addClippingCircle($x, $y, $w)
     {
@@ -1257,7 +1257,7 @@ class Pdf extends File
      * Method to add a clipping polygon to the PDF.
      *
      * @param  array $points
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addClippingPolygon($points)
     {
@@ -1304,7 +1304,7 @@ class Pdf extends File
      * @param  int    $w
      * @param  int    $h
      * @param  string $url
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addUrl($x, $y, $w, $h, $url)
     {
@@ -1332,7 +1332,7 @@ class Pdf extends File
      * @param  int $Z
      * @param  int $dest
      * @throws Exception
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addLink($x, $y, $w, $h, $X, $Y, $Z, $dest = null)
     {
@@ -1368,7 +1368,7 @@ class Pdf extends File
      * @param  mixed   $scl
      * @param  boolean $preserveRes
      * @throws Exception
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function addImage($image, $x, $y, $scl = null, $preserveRes = true)
     {
@@ -1447,7 +1447,7 @@ class Pdf extends File
     /**
      * Method to finalize the PDF.
      *
-     * @return Pop\Pdf\Pdf
+     * @return \Pop\Pdf\Pdf
      */
     public function finalize()
     {

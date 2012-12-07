@@ -93,7 +93,7 @@ class Object
      * Instantiate a PDF object.
      *
      * @param  int|string $i
-     * @return void
+     * @return \Pop\Pdf\Object
      */
     public function __construct($i)
     {

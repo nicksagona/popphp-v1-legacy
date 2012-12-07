@@ -56,7 +56,7 @@ class Validator
      *
      * @param  Validator\ValidatorInterface $validator
      * @param  string                       $message
-     * @return void
+     * @return \Pop\Validator\Validator
      */
     public function __construct(Validator\ValidatorInterface $validator, $message = null)
     {

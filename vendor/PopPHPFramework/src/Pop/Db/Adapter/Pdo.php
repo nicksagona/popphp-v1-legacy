@@ -57,7 +57,7 @@ class Pdo extends AbstractAdapter
 
     /**
      * Prepared statement
-     * @var PDOStatement
+     * @var \PDOStatement
      */
     protected $statement = null;
 
@@ -74,7 +74,7 @@ class Pdo extends AbstractAdapter
      *
      * @param  array $options
      * @throws Exception
-     * @return void
+     * @return \Pop\Db\Adapter\Pdo
      */
     public function __construct(array $options)
     {
@@ -166,7 +166,7 @@ class Pdo extends AbstractAdapter
      *
      * @param  string $sql
      * @param  array  $attribs
-     * @return Pop\Db\Adapter\Pdo
+     * @return \Pop\Db\Adapter\Pdo
      */
     public function prepare($sql, $attribs = null)
     {
@@ -189,7 +189,7 @@ class Pdo extends AbstractAdapter
      * Bind parameters to for a prepared SQL query.
      *
      * @param  array  $params
-     * @return Pop\Db\Adapter\Pdo
+     * @return \Pop\Db\Adapter\Pdo
      */
     public function bindParams($params)
     {

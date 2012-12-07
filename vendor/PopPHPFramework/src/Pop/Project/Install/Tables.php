@@ -46,7 +46,7 @@ class Tables
     /**
      * Install the table class files
      *
-     * @param Pop\Config $install
+     * @param \Pop\Config $install
      * @param array  $dbTables
      * @return void
      */

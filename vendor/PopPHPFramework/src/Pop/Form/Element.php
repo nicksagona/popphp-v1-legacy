@@ -114,7 +114,7 @@ class Element extends Child
      * @param  string|array $marked
      * @param  string $indent
      * @throws Exception
-     * @return void
+     * @return \Pop\Form\Element
      */
     public function __construct($type, $name, $value = null, $marked = null, $indent = null)
     {
@@ -241,7 +241,7 @@ class Element extends Child
      * Set the label of the form element object.
      *
      * @param  string $label
-     * @return Pop\Form\Element
+     * @return \Pop\Form\Element
      */
     public function setLabel($label)
     {
@@ -254,7 +254,7 @@ class Element extends Child
      *
      * @param  boolean $required
      * @throws Exception
-     * @return Pop\Form\Element
+     * @return \Pop\Form\Element
      */
     public function setRequired($required)
     {
@@ -267,7 +267,7 @@ class Element extends Child
      *
      * @param  ValidatorInterface $validator
      * @param  string $msg
-     * @return Pop\Form\Element
+     * @return \Pop\Form\Element
      */
     public function addValidator(ValidatorInterface $validator, $msg = null)
     {

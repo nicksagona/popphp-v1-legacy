@@ -45,7 +45,7 @@ class OpenType extends TrueType
      * Instantiate a OpenType font file object based on a pre-existing font file on disk.
      *
      * @param  string $font
-     * @return void
+     * @return \Pop\Font\TrueType\OpenType
      */
     public function __construct($font)
     {

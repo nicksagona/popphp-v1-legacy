@@ -81,7 +81,7 @@ class Data
      * Instantiate the data object.
      *
      * @param  string $data
-     * @return void
+     * @return \Pop\Data\Data
      */
     public function __construct($data)
     {
@@ -106,7 +106,7 @@ class Data
      * to facilitate chaining methods together.
      *
      * @param  string $data
-     * @return Pop\Data\Data
+     * @return \Pop\Data\Data
      */
     public static function factory($data)
     {
@@ -167,7 +167,7 @@ class Data
      * Set the table name
      *
      * @param  string $table
-     * @return Pop\Data\Data
+     * @return \Pop\Data\Data
      */
     public function setTable($table)
     {
@@ -179,7 +179,7 @@ class Data
      * Set the identifier quote
      *
      * @param  string $quote
-     * @return Pop\Data\Data
+     * @return \Pop\Data\Data
      */
     public function setIdQuote($quote)
     {
@@ -191,7 +191,7 @@ class Data
      * Set the PMA compatible XML flag
      *
      * @param  boolean $comp
-     * @return Pop\Data\Data
+     * @return \Pop\Data\Data
      */
     public function setPma($comp)
     {
@@ -245,7 +245,7 @@ class Data
      *
      * @param  string $toFile
      * @throws Exception
-     * @return Pop\Data\Data
+     * @return \Pop\Data\Data
      */
     public function writeData($toFile)
     {

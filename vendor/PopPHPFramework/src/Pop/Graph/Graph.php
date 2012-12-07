@@ -181,12 +181,12 @@ class Graph
      *
      * Instantiate the graph object.
      *
-     * @param  string         $filename
-     * @param  int            $w
-     * @param  int            $h
-     * @param  int            $type
-     * @param  ColorInterface $bgcolor
-     * @return void
+     * @param  string                    $filename
+     * @param  int                       $w
+     * @param  int                       $h
+     * @param  int                       $type
+     * @param  \Pop\Color\ColorInterface $bgcolor
+     * @return \Pop\Graph\Graph
      */
     public function __construct($filename, $w, $h, $type = Graph::GD, ColorInterface $bgcolor = null)
     {
@@ -223,7 +223,7 @@ class Graph
      *
      * @param  ColorInterface $color
      * @param  int            $width
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function setAxisOptions(ColorInterface $color = null, $width = 2)
     {
@@ -237,7 +237,7 @@ class Graph
      * Add a font to available fonts
      *
      * @param  string $font
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function addFont($font)
     {
@@ -265,7 +265,7 @@ class Graph
      *
      * @param  string $font
      * @throws Exception
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function setFont($font = null)
     {
@@ -282,7 +282,7 @@ class Graph
      * Set the font size
      *
      * @param  int $size
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function setFontSize($size)
     {
@@ -294,7 +294,7 @@ class Graph
      * Set the font color
      *
      * @param  ColorInterface $color
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function setFontColor(ColorInterface $color)
     {
@@ -306,7 +306,7 @@ class Graph
      * Set the reverse font color
      *
      * @param  ColorInterface $color
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function setReverseFontColor(ColorInterface $color)
     {
@@ -318,7 +318,7 @@ class Graph
      * Set the fill color
      *
      * @param  ColorInterface $color
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function setFillColor(ColorInterface $color)
     {
@@ -330,7 +330,7 @@ class Graph
      * Set the stroke color
      *
      * @param  ColorInterface $color
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function setStrokeColor(ColorInterface $color)
     {
@@ -342,7 +342,7 @@ class Graph
      * Set the stroke width
      *
      * @param  int $width
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function setStrokeWidth($width = 1)
     {
@@ -354,7 +354,7 @@ class Graph
      * Set the graph canvas padding
      *
      * @param  int $pad
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function setPadding($pad)
     {
@@ -366,7 +366,7 @@ class Graph
      * Set the bar width
      *
      * @param  int $width
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function setBarWidth($width)
     {
@@ -378,7 +378,7 @@ class Graph
      * Set the 'show data text' flag
      *
      * @param  boolean $showText
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function showText($showText)
     {
@@ -391,7 +391,7 @@ class Graph
      *
      * @param  boolean        $showX
      * @param  ColorInterface $color
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function showX($showX, ColorInterface $color = null)
     {
@@ -405,7 +405,7 @@ class Graph
      *
      * @param  boolean        $showY
      * @param  ColorInterface $color
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function showY($showY, ColorInterface $color = null)
     {
@@ -417,7 +417,7 @@ class Graph
     /**
      * Get the axis color
      *
-     * @return Pop\Color\ColorInterface
+     * @return \Pop\Color\ColorInterface
      */
     public function getAxisColor()
     {
@@ -520,7 +520,7 @@ class Graph
      * @param  array $dataPoints
      * @param  array $xAxis
      * @param  array $yAxis
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function addLineGraph(array $dataPoints, array $xAxis, array $yAxis)
     {
@@ -599,7 +599,7 @@ class Graph
      * @param  array $dataPoints
      * @param  array $xAxis
      * @param  array $yAxis
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function addVBarGraph(array $dataPoints, array $xAxis, array $yAxis)
     {
@@ -674,7 +674,7 @@ class Graph
      * @param  array $dataPoints
      * @param  array $xAxis
      * @param  array $yAxis
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function addHBarGraph(array $dataPoints, array $xAxis, array $yAxis)
     {
@@ -765,7 +765,7 @@ class Graph
      * @param  array $percents
      * @param  int   $explode
      * @throws Exception
-     * @return Pop\Graph\Graph
+     * @return \Pop\Graph\Graph
      */
     public function addPieChart(array $pie, array $percents, $explode = 0)
     {
@@ -894,7 +894,7 @@ class Graph
      *
      * @param  array $xAxis
      * @param  array $yAxis
-     * @return ArrayObject
+     * @return \ArrayObject
      */
     protected function getPoints($xAxis, $yAxis)
     {
@@ -940,9 +940,9 @@ class Graph
     /**
      * Draw the X Axis increments
      *
-     * @param  array       $xAxis
-     * @param  ArrayObject $points
-     * @param  int         $offset
+     * @param  array        $xAxis
+     * @param  \ArrayObject $points
+     * @param  int          $offset
      * @return void
      */
     protected function showXAxis($xAxis, $points, $offset = 0)
@@ -975,9 +975,9 @@ class Graph
     /**
      * Draw the Y Axis increments
      *
-     * @param  array       $yAxis
-     * @param  ArrayObject $points
-     * @param  int         $offset
+     * @param  array        $yAxis
+     * @param  \ArrayObject $points
+     * @param  int          $offset
      * @return void
      */
     protected function showYAxis($yAxis, $points, $offset = 0)
@@ -1010,9 +1010,9 @@ class Graph
     /**
      * Draw the X Axis
      *
-     * @param  array       $xAxis
-     * @param  ArrayObject $points
-     * @param  int         $offset
+     * @param  array        $xAxis
+     * @param  \ArrayObject $points
+     * @param  int          $offset
      * @return void
      */
     protected function drawXAxis($xAxis, $points, $offset = 0)
@@ -1062,9 +1062,9 @@ class Graph
     /**
      * Draw the Y Axis
      *
-     * @param  array       $yAxis
-     * @param  ArrayObject $points
-     * @param  int         $offset
+     * @param  array        $yAxis
+     * @param  \ArrayObject $points
+     * @param  int          $offset
      * @return void
      */
     protected function drawYAxis($yAxis, $points, $offset = 0)

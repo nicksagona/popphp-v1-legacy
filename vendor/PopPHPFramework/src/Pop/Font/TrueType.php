@@ -45,13 +45,13 @@ class TrueType extends AbstractFont
 
     /**
      * TrueType font file header
-     * @var ArrayObject
+     * @var \ArrayObject
      */
     public $ttfHeader = null;
 
     /**
      * TrueType font file table
-     * @var ArrayObject
+     * @var \ArrayObject
      */
     public $ttfTable = null;
 
@@ -73,7 +73,7 @@ class TrueType extends AbstractFont
      * Instantiate a TrueType font file object based on a pre-existing font file on disk.
      *
      * @param  string $font
-     * @return void
+     * @return \Pop\Font\TrueType
      */
     public function __construct($font)
     {

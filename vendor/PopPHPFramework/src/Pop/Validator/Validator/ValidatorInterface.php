@@ -69,7 +69,7 @@ interface ValidatorInterface
      * Method to set the validator value
      *
      * @param  mixed $value
-     * @return Pop\Validator\Validator
+     * @return \Pop\Validator\Validator
      */
     public function setValue($value);
 
@@ -77,7 +77,7 @@ interface ValidatorInterface
      * Method to set the validator condition
      *
      * @param  boolean $condition
-     * @return Pop\Validator\Validator
+     * @return \Pop\Validator\Validator
      */
     public function setCondition($condition);
 
@@ -85,7 +85,7 @@ interface ValidatorInterface
      * Method to set the validator default message
      *
      * @param  string $message
-     * @return Pop\Validator\Validator
+     * @return \Pop\Validator\Validator
      */
     public function setDefaultMessage($message);
 
@@ -93,7 +93,7 @@ interface ValidatorInterface
      * Method to set the validator input
      *
      * @param  mixed $input
-     * @return Pop\Validator\Validator
+     * @return \Pop\Validator\Validator
      */
     public function setInput($input);
 

@@ -74,7 +74,7 @@ class Import
      *
      * @param  string $pdf
      * @param  int|string|array $pgs
-     * @return void
+     * @return \Pop\Pdf\Import
      */
     public function __construct($pdf, $pgs = null)
     {
@@ -340,6 +340,7 @@ class Import
     {
         $objs = array_keys($arr);
         sort($objs);
+        $last = null;
 
         foreach ($objs as $value) {
             $last = $value;
@@ -358,6 +359,7 @@ class Import
     {
         $objs = array_keys($arr);
         rsort($objs);
+        $first = null;
 
         foreach ($objs as $value) {
             $first = $value;

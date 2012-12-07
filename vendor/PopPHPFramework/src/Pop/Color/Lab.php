@@ -63,7 +63,8 @@ class Lab implements ColorInterface
      * @param int $l
      * @param int $a
      * @param int $b
-     * @return void
+     * @throws \Pop\Color\Exception
+     * @return \Pop\Color\Lab
      */
     public function __construct($l, $a, $b)
     {

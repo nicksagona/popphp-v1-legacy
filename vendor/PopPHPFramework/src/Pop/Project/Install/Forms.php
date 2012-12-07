@@ -47,7 +47,7 @@ class Forms
     /**
      * Install the form class files
      *
-     * @param Pop\Config $install
+     * @param \Pop\Config $install
      * @return void
      */
     public static function install($install)

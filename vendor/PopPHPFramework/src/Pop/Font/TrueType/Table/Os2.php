@@ -51,7 +51,7 @@ class Os2
 
     /**
      * Font flags
-     * @var ArrayObject
+     * @var \ArrayObject
      */
     public $flags = null;
 
@@ -60,8 +60,8 @@ class Os2
      *
      * Instantiate a OTF 'OS/2' table object.
      *
-     * @param  Pop_Font $font
-     * @return void
+     * @param  \Pop\Font\AbstractFont $font
+     * @return \Pop\Font\TrueType\Table\Os2
      */
     public function __construct($font)
     {

@@ -39,13 +39,13 @@ class ClassGenerator
 
     /**
      * Docblock generator object
-     * @var Pop\Code\DocblockGenerator
+     * @var \Pop\Code\DocblockGenerator
      */
     protected $docblock = null;
 
     /**
      * Namespace generator object
-     * @var Pop\Code\NamespaceGenerator
+     * @var \Pop\Code\NamespaceGenerator
      */
     protected $namespace = null;
 
@@ -106,7 +106,7 @@ class ClassGenerator
      * @param  string  $parent
      * @param  string  $interface
      * @param  boolean $abstract
-     * @return void
+     * @return \Pop\Code\ClassGenerator
      */
     public function __construct($name, $parent = null, $interface = null, $abstract = false)
     {
@@ -124,7 +124,7 @@ class ClassGenerator
      * @param  string  $parent
      * @param  string  $interface
      * @param  boolean $abstract
-     * @return Pop\Code\ClassGenerator
+     * @return \Pop\Code\ClassGenerator
      */
     public static function factory($name, $parent = null, $interface = null, $abstract = false)
     {
@@ -135,7 +135,7 @@ class ClassGenerator
      * Set the class abstract flag
      *
      * @param  boolean $abstract
-     * @return Pop\Code\ClassGenerator
+     * @return \Pop\Code\ClassGenerator
      */
     public function setAbstract($abstract = false)
     {
@@ -157,7 +157,7 @@ class ClassGenerator
      * Set the class indent
      *
      * @param  string $indent
-     * @return Pop\Code\ClassGenerator
+     * @return \Pop\Code\ClassGenerator
      */
     public function setIndent($indent = null)
     {
@@ -179,7 +179,7 @@ class ClassGenerator
      * Set the class name
      *
      * @param  string $name
-     * @return Pop\Code\ClassGenerator
+     * @return \Pop\Code\ClassGenerator
      */
     public function setName($name)
     {
@@ -201,7 +201,7 @@ class ClassGenerator
      * Set the class parent
      *
      * @param  string $parent
-     * @return Pop\Code\ClassGenerator
+     * @return \Pop\Code\ClassGenerator
      */
     public function setParent($parent = null)
     {
@@ -223,7 +223,7 @@ class ClassGenerator
      * Set the class interface
      *
      * @param  string $interface
-     * @return Pop\Code\ClassGenerator
+     * @return \Pop\Code\ClassGenerator
      */
     public function setInterface($interface = null)
     {
@@ -245,7 +245,7 @@ class ClassGenerator
      * Set the namespace generator object
      *
      * @param  NamespaceGenerator $namespace
-     * @return Pop\Code\ClassGenerator
+     * @return \Pop\Code\ClassGenerator
      */
     public function setNamespace(NamespaceGenerator $namespace)
     {
@@ -256,7 +256,7 @@ class ClassGenerator
     /**
      * Access the namespace generator object
      *
-     * @return Pop\Code\NamespaceGenerator
+     * @return \Pop\Code\NamespaceGenerator
      */
     public function getNamespace()
     {
@@ -267,7 +267,7 @@ class ClassGenerator
      * Set the docblock generator object
      *
      * @param  DocblockGenerator $docblock
-     * @return Pop\Code\ClassGenerator
+     * @return \Pop\Code\ClassGenerator
      */
     public function setDocblock(DocblockGenerator $docblock)
     {
@@ -278,7 +278,7 @@ class ClassGenerator
     /**
      * Access the docblock generator object
      *
-     * @return Pop\Code\DocblockGenerator
+     * @return \Pop\Code\DocblockGenerator
      */
     public function getDocblock()
     {
@@ -289,7 +289,7 @@ class ClassGenerator
      * Add a class property
      *
      * @param  PropertyGenerator $property
-     * @return Pop\Code\ClassGenerator
+     * @return \Pop\Code\ClassGenerator
      */
     public function addProperty(PropertyGenerator $property)
     {
@@ -301,7 +301,7 @@ class ClassGenerator
      * Get a class property
      *
      * @param  mixed $property
-     * @return Pop\Code\PropertyGenerator
+     * @return \Pop\Code\PropertyGenerator
      */
     public function getProperty($property)
     {
@@ -313,7 +313,7 @@ class ClassGenerator
      * Remove a class property
      *
      * @param  mixed $property
-     * @return Pop\Code\ClassGenerator
+     * @return \Pop\Code\ClassGenerator
      */
     public function removeProperty($property)
     {
@@ -328,7 +328,7 @@ class ClassGenerator
      * Add a class method
      *
      * @param  MethodGenerator $method
-     * @return Pop\Code\ClassGenerator
+     * @return \Pop\Code\ClassGenerator
      */
     public function addMethod(MethodGenerator $method)
     {
@@ -340,7 +340,7 @@ class ClassGenerator
      * Get a method property
      *
      * @param  mixed $method
-     * @return Pop\Code\MethodGenerator
+     * @return \Pop\Code\MethodGenerator
      */
     public function getMethod($method)
     {
@@ -352,7 +352,7 @@ class ClassGenerator
      * Remove a method property
      *
      * @param  mixed $method
-     * @return Pop\Code\ClassGenerator
+     * @return \Pop\Code\ClassGenerator
      */
     public function removeMethod($method)
     {

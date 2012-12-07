@@ -42,13 +42,13 @@ class Router
 
     /**
      * Request object
-     * @var Pop\Http\Request
+     * @var \Pop\Http\Request
      */
     protected $request = null;
 
     /**
      * Current controller object
-     * @var Pop\Mvc\Controller
+     * @var \Pop\Mvc\Controller
      */
     protected $controller = null;
 
@@ -63,9 +63,9 @@ class Router
      *
      * Instantiate the router object
      *
-     * @param array            $controllers
-     * @param Pop\Http\Request $request
-     * @return void
+     * @param  array             $controllers
+     * @param  \Pop\Http\Request $request
+     * @return \Pop\Mvc\Router
      */
     public function __construct(array $controllers, $request = null)
     {
@@ -76,9 +76,9 @@ class Router
     /**
      * Create a Pop\Mvc\Router object
      *
-     * @param array            $controllers
-     * @param Pop\Http\Request $request
-     * @return Pop\Mvc\Router
+     * @param  array             $controllers
+     * @param  \Pop\Http\Request $request
+     * @return \Pop\Mvc\Router
      */
     public static function factory(array $controllers, $request = null)
     {
@@ -88,8 +88,8 @@ class Router
     /**
      * Add controllers
      *
-     * @param array $controller
-     * @return Pop\Mvc\Router
+     * @param  array $controller
+     * @return \Pop\Mvc\Router
      */
     public function addControllers(array $controller)
     {
@@ -102,7 +102,7 @@ class Router
     /**
      * Get the controller object
      *
-     * @return Pop\Mvc\Controller
+     * @return \Pop\Mvc\Controller
      */
     public function controller()
     {
@@ -138,7 +138,7 @@ class Router
     public function getAction()
     {
         $action = null;
-        if (null !== $this->controller) {
+        if ((null !== $this->controller) && (null !== $this->controller->getRequest())) {
             $action = $this->controller->getRequest()->getPath(0);
         }
         return $action;

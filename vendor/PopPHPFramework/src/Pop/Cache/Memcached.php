@@ -39,7 +39,7 @@ class Memcached implements CacheInterface
 
     /**
      * Memcache object
-     * @var Memcache
+     * @var \Memcache
      */
     protected $memcache = null;
 
@@ -48,6 +48,7 @@ class Memcached implements CacheInterface
      * @var string
      */
     protected $version = null;
+
     /**
      * Constructor
      *
@@ -56,7 +57,7 @@ class Memcached implements CacheInterface
      * @param  string $host
      * @param  int    $port
      * @throws Exception
-     * @return void
+     * @return \Pop\Cache\Memcached
      */
     public function __construct($host = 'localhost', $port = 11211)
     {

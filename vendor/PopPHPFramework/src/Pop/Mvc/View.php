@@ -51,7 +51,7 @@ class View
 
     /**
      * Data model
-     * @var Pop\Mvc\Model
+     * @var \Pop\Mvc\Model
      */
     protected $model = null;
 
@@ -68,7 +68,7 @@ class View
      *
      * @param  string $template
      * @param  mixed  $model
-     * @return void
+     * @return \Pop\Mvc\View
      */
     public function __construct($template = null, $model = null)
     {
@@ -98,7 +98,7 @@ class View
      *
      * @param  string $template
      * @param  mixed  $model
-     * @return Pop\Mvc\View
+     * @return \Pop\Mvc\View
      */
     public static function factory($template = null, $model = null)
     {
@@ -108,7 +108,7 @@ class View
     /**
      * Get data model
      *
-     * @return Pop\Mvc\Model
+     * @return \Pop\Mvc\Model
      */
     public function getModel()
     {
@@ -140,7 +140,7 @@ class View
      *
      * @param  string $template
      * @throws Exception
-     * @return Pop\Mvc\View
+     * @return \Pop\Mvc\View
      */
     public function setTemplateFile($template = null)
     {
@@ -165,7 +165,7 @@ class View
      * Set view template string
      *
      * @param  string $template
-     * @return Pop\Mvc\View
+     * @return \Pop\Mvc\View
      */
     public function setTemplateString($template = null)
     {
@@ -177,7 +177,7 @@ class View
      * Set data model
      *
      * @param  Model $model
-     * @return Pop\Mvc\View
+     * @return \Pop\Mvc\View
      */
     public function setModel(Model $model)
     {
@@ -190,7 +190,7 @@ class View
      *
      * @param  boolean $ret
      * @throws Exception
-     * @return string
+     * @return mixed
      */
     public function render($ret = false)
     {

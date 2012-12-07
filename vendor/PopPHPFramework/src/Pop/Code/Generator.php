@@ -59,19 +59,19 @@ class Generator extends File
 
     /**
      * Code object
-     * @var Pop\Code\ClassGenerator|Pop\Code\InterfaceGenerator
+     * @var \Pop\Code\ClassGenerator|\Pop\Code\InterfaceGenerator
      */
     protected $code = null;
 
     /**
      * Docblock generator object
-     * @var Pop\Code\DocblockGenerator
+     * @var \Pop\Code\DocblockGenerator
      */
     protected $docblock = null;
 
     /**
      * Namespace generator object
-     * @var Pop\Code\NamespaceGenerator
+     * @var \Pop\Code\NamespaceGenerator
      */
     protected $namespace = null;
 
@@ -110,7 +110,7 @@ class Generator extends File
      *
      * @param  string $file
      * @param  int    $type
-     * @return void
+     * @return \Pop\Code\Generator
      */
     public function __construct($file, $type = Generator::CREATE_NONE)
     {
@@ -128,7 +128,7 @@ class Generator extends File
     /**
      * Create a class generator object
      *
-     * @return Pop\Code\Generator
+     * @return \Pop\Code\Generator
      */
     public function createInterface()
     {
@@ -138,7 +138,7 @@ class Generator extends File
     /**
      * Create a class generator object
      *
-     * @return Pop\Code\Generator
+     * @return \Pop\Code\Generator
      */
     public function createClass()
     {
@@ -148,7 +148,7 @@ class Generator extends File
     /**
      * Access the code generator object
      *
-     * @return Pop\Code\ClassGenerator|Pop\Code\InterfaceGenerator
+     * @return \Pop\Code\ClassGenerator|\Pop\Code\InterfaceGenerator
      */
     public function code()
     {
@@ -159,7 +159,7 @@ class Generator extends File
      * Set the code close flag
      *
      * @param  boolean $close
-     * @return Pop\Code\Generator
+     * @return \Pop\Code\Generator
      */
     public function setClose($close = false)
     {
@@ -171,7 +171,7 @@ class Generator extends File
      * Set the code indent
      *
      * @param  string $indent
-     * @return Pop\Code\Generator
+     * @return \Pop\Code\Generator
      */
     public function setIndent($indent = null)
     {
@@ -193,7 +193,7 @@ class Generator extends File
      * Set the namespace generator object
      *
      * @param  NamespaceGenerator $namespace
-     * @return Pop\Code\Generator
+     * @return \Pop\Code\Generator
      */
     public function setNamespace(NamespaceGenerator $namespace)
     {
@@ -204,7 +204,7 @@ class Generator extends File
     /**
      * Access the namespace generator object
      *
-     * @return Pop\Code\NamespaceGenerator
+     * @return \Pop\Code\NamespaceGenerator
      */
     public function getNamespace()
     {
@@ -215,7 +215,7 @@ class Generator extends File
      * Set the docblock generator object
      *
      * @param  DocblockGenerator $docblock
-     * @return Pop\Code\Generator
+     * @return \Pop\Code\Generator
      */
     public function setDocblock(DocblockGenerator $docblock)
     {
@@ -226,7 +226,7 @@ class Generator extends File
     /**
      * Access the docblock generator object
      *
-     * @return Pop\Code\DocblockGenerator
+     * @return \Pop\Code\DocblockGenerator
      */
     public function getDocblock()
     {
@@ -238,7 +238,7 @@ class Generator extends File
      *
      * @param  string $body
      * @param  boolean $newline
-     * @return Pop\Code\Generator
+     * @return \Pop\Code\Generator
      */
     public function setBody($body, $newline = true)
     {
@@ -254,7 +254,7 @@ class Generator extends File
      *
      * @param  string $body
      * @param  boolean $newline
-     * @return Pop\Code\Generator
+     * @return \Pop\Code\Generator
      */
     public function appendToBody($body, $newline = true)
     {
@@ -314,7 +314,7 @@ class Generator extends File
      * Output the code object directly.
      *
      * @param  boolean $download
-     * @return Pop\Code\Generator
+     * @return \Pop\Code\Generator
      */
     public function output($download = false)
     {

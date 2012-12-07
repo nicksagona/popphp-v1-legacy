@@ -41,7 +41,7 @@ class Rar implements ArchiveInterface
 
     /**
      * RarArchive object
-     * @var RarArchive
+     * @var \RarArchive
      */
     public $archive = null;
 
@@ -60,10 +60,10 @@ class Rar implements ArchiveInterface
     /**
      * Method to instantiate an archive adapter object
      *
-     * @param  Pop\Archive\Archive $archive
+     * @param  \Pop\Archive\Archive $archive
      * @param  string              $password
      * @throws Exception
-     * @return void
+     * @return \Pop\Archive\Adapter\Rar
      */
     public function __construct($archive, $password = null)
     {

@@ -43,7 +43,7 @@ class Bootstrap
     /**
      * Create the bootstrap file
      *
-     * @param Pop\Config $install
+     * @param \Pop\Config $install
      * @return void
      */
     public static function install($install)

@@ -64,7 +64,7 @@ class Rgb implements ColorInterface
      * @param int $g
      * @param int $b
      * @throws Exception
-     * @return void
+     * @return \Pop\Color\Rgb
      */
     public function __construct($r, $g, $b)
     {

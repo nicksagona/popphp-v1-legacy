@@ -51,7 +51,7 @@ class User
 
     /**
      * User role
-     * @var Pop\Auth\Role
+     * @var \Pop\Auth\Role
      */
     protected $role = null;
 
@@ -69,7 +69,7 @@ class User
      * @param  string $username
      * @param  string $password
      * @param  Role   $role
-     * @return void
+     * @return \Pop\Auth\User
      */
     public function __construct($username = null, $password = null, Role $role = null)
     {
@@ -87,7 +87,7 @@ class User
      * @param  string $username
      * @param  string $password
      * @param  Role   $role
-     * @return Pop\Auth\User
+     * @return \Pop\Auth\User
      */
     public static function factory($username = null, $password = null, Role $role = null)
     {
@@ -117,7 +117,7 @@ class User
     /**
      * Method to get the role
      *
-     * @return Pop\Auth\Role
+     * @return \Pop\Auth\Role
      */
     public function getRole()
     {
@@ -128,7 +128,7 @@ class User
      * Method to set the username
      *
      * @param  string $username
-     * @return Pop\Auth\User
+     * @return \Pop\Auth\User
      */
     public function setUsername($username)
     {
@@ -140,7 +140,7 @@ class User
      * Method to set the password
      *
      * @param  string $password
-     * @return Pop\Auth\User
+     * @return \Pop\Auth\User
      */
     public function setPassword($password)
     {
@@ -152,7 +152,7 @@ class User
      * Method to set the role
      *
      * @param  Role $role
-     * @return Pop\Auth\User
+     * @return \Pop\Auth\User
      */
     public function setRole(Role $role)
     {
@@ -164,7 +164,7 @@ class User
      * Method to set the user fields
      *
      * @param  array $fields
-     * @return Pop\Auth\User
+     * @return \Pop\Auth\User
      */
     public function setFields(array $fields)
     {

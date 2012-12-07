@@ -132,7 +132,7 @@ abstract class AbstractImage extends File
 
     /**
      * Image resource
-     * @var image
+     * @var resource
      */
     protected $resource = null;
 
@@ -142,13 +142,12 @@ abstract class AbstractImage extends File
      * Instantiate an image file object based on either a pre-existing
      * image file on disk, or a new image file.
      *
-     * @param  string         $img
-     * @param  int|string     $w
-     * @param  int|string     $h
-     * @param  ColorInterface $color
-     * @param  array          $types
-     * @throws Exception
-     * @return void
+     * @param  string                    $img
+     * @param  int|string                $w
+     * @param  int|string                $h
+     * @param  \Pop\Color\ColorInterface $color
+     * @param  array                     $types
+     * @return \Pop\Image\AbstractImage
      */
     public function __construct($img, $w = null, $h = null, ColorInterface $color = null, $types = null)
     {

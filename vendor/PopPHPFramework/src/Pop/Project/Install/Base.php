@@ -43,7 +43,7 @@ class Base
     /**
      * Install the base folder and file structure
      *
-     * @param Pop\Config $install
+     * @param \Pop\Config $install
      * @return void
      */
     public static function install($install)

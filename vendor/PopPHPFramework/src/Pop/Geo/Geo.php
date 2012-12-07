@@ -87,7 +87,7 @@ class Geo
      * Instantiate the Geo object.
      *
      * @param  string $host
-     * @return void
+     * @return \Pop\Geo\Geo
      */
     public function __construct($host = null)
     {
@@ -135,9 +135,10 @@ class Geo
     /**
      * Get distance from current Geo object coordinates to another
      *
-     * @param  float|Pop\Geo\Geo $latitude
-     * @param  float             $longitude
-     * @param  int               $round
+     * @param  mixed     $latitude
+     * @param  float     $longitude
+     * @param  int       $round
+     * @throws Exception
      * @return float
      */
     public function distanceTo($latitude, $longitude = null, $round = 2)

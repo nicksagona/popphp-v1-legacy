@@ -39,7 +39,7 @@ class Db
 
     /**
      * SQL object
-     * @var Pop\Db\Sql
+     * @var \Pop\Db\Sql
      */
     protected $sql = null;
 
@@ -58,7 +58,7 @@ class Db
      * @param  array  $options
      * @param  string $prefix
      * @throws Exception
-     * @return void
+     * @return \Pop\Db\Db
      */
     public function __construct($type, array $options, $prefix = 'Pop\\Db\\Adapter\\')
     {
@@ -77,7 +77,7 @@ class Db
      *
      * @param  string $type
      * @param  array  $options
-     * @return Pop\Db\Db
+     * @return \Pop\Db\Db
      */
     public static function factory($type, array $options)
     {

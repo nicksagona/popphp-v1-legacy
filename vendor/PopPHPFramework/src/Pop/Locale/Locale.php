@@ -57,7 +57,7 @@ class Locale
      * Instantiate the locale object.
      *
      * @param  string $lng
-     * @return void
+     * @return \Pop\Locale\Locale
      */
     public function __construct($lng = null)
     {
@@ -75,7 +75,7 @@ class Locale
      * Static method to load the locale object.
      *
      * @param  string $lng
-     * @return void
+     * @return \Pop\Locale\Locale
      */
     public static function factory($lng = null)
     {

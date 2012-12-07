@@ -44,7 +44,7 @@ class Project
 
     /**
      * Project config
-     * @var Pop\Config
+     * @var \Pop\Config
      */
     protected $config = null;
 
@@ -56,7 +56,7 @@ class Project
 
     /**
      * Project router
-     * @var Pop\Mvc\Router
+     * @var \Pop\Mvc\Router
      */
     protected $router = null;
 
@@ -68,7 +68,7 @@ class Project
      * @param  mixed  $config
      * @param  array  $module
      * @param  Router $router
-     * @return void
+     * @return \Pop\Project\Project
      */
     public function __construct($config = null, array $module = null, Router $router = null)
     {
@@ -97,7 +97,7 @@ class Project
      * @param  mixed  $config
      * @param  array  $module
      * @param  Router $router
-     * @return Pop\Project\Project
+     * @return \Pop\Project\Project
      */
     public static function factory($config = null, array $module = null, Router $router = null)
     {
@@ -107,7 +107,7 @@ class Project
     /**
      * Access the project config
      *
-     * @return Pop\Config
+     * @return \Pop\Config
      */
     public function config()
     {
@@ -118,7 +118,7 @@ class Project
      * Access a project database
      *
      * @param  string $dbname
-     * @return Pop\Db\Db
+     * @return \Pop\Db\Db
      */
     public function database($dbname)
     {
@@ -135,7 +135,7 @@ class Project
      * Access a project module config
      *
      * @param  string $name
-     * @return Pop\Config
+     * @return \Pop\Config
      */
     public function module($name)
     {
@@ -149,7 +149,7 @@ class Project
     /**
      * Access the project router
      *
-     * @return Pop\Mvc\Router
+     * @return \Pop\Mvc\Router
      */
     public function router()
     {
@@ -161,7 +161,7 @@ class Project
      *
      * @param  mixed $config
      * @throws Exception
-     * @return Pop\Project\Project
+     * @return \Pop\Project\Project
      */
     public function loadConfig($config)
     {
@@ -187,7 +187,7 @@ class Project
      *
      * @param  array $module
      * @throws Exception
-     * @return Pop\Project\Project
+     * @return \Pop\Project\Project
      */
     public function loadModule(array $module)
     {
@@ -208,7 +208,7 @@ class Project
      * Load a router
      *
      * @param Router $router
-     * @return Pop\Project\Project
+     * @return \Pop\Project\Project
      */
     public function loadRouter(Router $router)
     {

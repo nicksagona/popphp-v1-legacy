@@ -63,7 +63,8 @@ class Hsb implements ColorInterface
      * @param int $h
      * @param int $s
      * @param int $b
-     * @return void
+     * @throws \Pop\Color\Exception
+     * @return \Pop\Color\Hsb
      */
     public function __construct($h, $s, $b)
     {

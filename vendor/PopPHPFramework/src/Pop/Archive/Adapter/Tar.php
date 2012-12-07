@@ -44,7 +44,7 @@ class Tar implements ArchiveInterface
 
     /**
      * Archive_Tar object
-     * @var Archive_Tar
+     * @var \Archive_Tar
      */
     public $archive = null;
 
@@ -63,8 +63,8 @@ class Tar implements ArchiveInterface
     /**
      * Method to instantiate an archive adapter object
      *
-     * @param  Pop\Archive\Archive $archive
-     * @return void
+     * @param  \Pop\Archive\Archive $archive
+     * @return \Pop\Archive\Adapter\Tar
      */
     public function __construct($archive)
     {

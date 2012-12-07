@@ -54,7 +54,7 @@ class Fields
      * @param  array $attribs
      * @param  array $values
      * @param  mixed $omit
-     * @return void
+     * @return \Pop\Form\Fields
      */
     public function __construct($fields = null, array $attribs = null, array $values = null, $omit = null)
     {
@@ -75,7 +75,7 @@ class Fields
      * @param  array $attribs
      * @param  array $values
      * @param  mixed $omit
-     * @return Pop\Form\Fields
+     * @return \Pop\Form\Fields
      */
     public static function factory($fields = null, array $attribs = null, array $values = null, $omit = null)
     {
@@ -86,7 +86,7 @@ class Fields
      * Add form fields
      *
      * @param  array $fields
-     * @return Pop\Form\Fields
+     * @return \Pop\Form\Fields
      */
     public function addFields($fields)
     {
@@ -109,11 +109,11 @@ class Fields
     /**
      * Add form fields from a related database table
      *
-     * @param  Pop\Record\Record $tableObj
-     * @param  array             $attribs
-     * @param  array             $values
-     * @param  mixed             $omit
-     * @return Pop\Form\Fields
+     * @param  \Pop\Record\Record $tableObj
+     * @param  array              $attribs
+     * @param  array              $values
+     * @param  mixed              $omit
+     * @return \Pop\Form\Fields
      */
     public function addFieldsFromTable(\Pop\Record\Record $tableObj, array $attribs = null, array $values = null, $omit = null)
     {

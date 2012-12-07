@@ -189,7 +189,7 @@ class Paginator
      * @param  int $perPage
      * @param  int $range
      * @param  int $total
-     * @return void
+     * @return \Pop\Paginator\Paginator
      */
     public function __construct(array $items, $perPage = 10, $range = 10, $total = null)
     {
@@ -203,7 +203,7 @@ class Paginator
      * Method to set the content items.
      *
      * @param  array $items
-     * @return Pop\Paginator\Paginator
+     * @return \Pop\Paginator\Paginator
      */
     public function setItems($items)
     {
@@ -215,7 +215,7 @@ class Paginator
      * Method to set the page range.
      *
      * @param  int $perPage
-     * @return Pop\Paginator\Paginator
+     * @return \Pop\Paginator\Paginator
      */
     public function setPerPage($perPage = 10)
     {
@@ -227,7 +227,7 @@ class Paginator
      * Method to set the page range.
      *
      * @param  int $range
-     * @return Pop\Paginator\Paginator
+     * @return \Pop\Paginator\Paginator
      */
     public function setRange($range = 10)
     {
@@ -239,7 +239,7 @@ class Paginator
      * Method to set the content items total
      *
      * @param  int $total
-     * @return Pop\Paginator\Paginator
+     * @return \Pop\Paginator\Paginator
      */
     public function setTotal($total = null)
     {
@@ -251,7 +251,7 @@ class Paginator
      * Method to set the bookend key.
      *
      * @param  int $key
-     * @return Pop\Paginator\Paginator
+     * @return \Pop\Paginator\Paginator
      */
     public function setBookend($key = Paginator::SINGLE_ARROWS)
     {
@@ -263,7 +263,7 @@ class Paginator
      * Method to set the bookend separator.
      *
      * @param  string $sep
-     * @return Pop\Paginator\Paginator
+     * @return \Pop\Paginator\Paginator
      */
     public function setSeparator($sep = ' | ')
     {
@@ -275,7 +275,7 @@ class Paginator
      * Method to set the date format.
      *
      * @param  string $date
-     * @return Pop\Paginator\Paginator
+     * @return \Pop\Paginator\Paginator
      */
     public function setDateFormat($date = null)
     {
@@ -287,7 +287,7 @@ class Paginator
      * Method to set the class 'on' name.
      *
      * @param  string $cls
-     * @return Pop\Paginator\Paginator
+     * @return \Pop\Paginator\Paginator
      */
     public function setClassOn($cls)
     {
@@ -299,7 +299,7 @@ class Paginator
      * Method to set the class 'off' name.
      *
      * @param  string $cls
-     * @return Pop\Paginator\Paginator
+     * @return \Pop\Paginator\Paginator
      */
     public function setClassOff($cls)
     {
@@ -311,7 +311,7 @@ class Paginator
      * Method to set the header template.
      *
      * @param  string $hdr
-     * @return Pop\Paginator\Paginator
+     * @return \Pop\Paginator\Paginator
      */
     public function setHeader($hdr)
     {
@@ -323,7 +323,7 @@ class Paginator
      * Method to set the row template.
      *
      * @param  string $tmpl
-     * @return Pop\Paginator\Paginator
+     * @return \Pop\Paginator\Paginator
      */
     public function setRowTemplate($tmpl)
     {
@@ -335,7 +335,7 @@ class Paginator
      * Method to set the footer template.
      *
      * @param  string $ftr
-     * @return Pop\Paginator\Paginator
+     * @return \Pop\Paginator\Paginator
      */
     public function setFooter($ftr)
     {

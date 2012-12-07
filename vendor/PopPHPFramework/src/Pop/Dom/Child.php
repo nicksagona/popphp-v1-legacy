@@ -68,10 +68,10 @@ class Child extends AbstractDom
      *
      * @param  string $name
      * @param  string $value
-     * @param  array|Pop\Dom\Child $childNode
+     * @param  mixed  $childNode
      * @param  boolean $first
      * @param  string $indent
-     * @return void
+     * @return \Pop\Dom\Child
      */
     public function __construct($name, $value = null, $childNode = null, $first = false, $indent = null)
     {
@@ -90,7 +90,7 @@ class Child extends AbstractDom
      * Static factory method to create child objects
      *
      * @param  array $c
-     * @return Pop\Dom\Child
+     * @return \Pop\Dom\Child
      */
     public static function factory(array $c)
     {
@@ -135,7 +135,7 @@ class Child extends AbstractDom
      * Method to set the child node name.
      *
      * @param  string $name
-     * @return Pop\Dom\Child
+     * @return \Pop\Dom\Child
      */
     public function setNodeName($name)
     {
@@ -147,7 +147,7 @@ class Child extends AbstractDom
      * Method to set the child node value.
      *
      * @param  string $value
-     * @return Pop\Dom\Child
+     * @return \Pop\Dom\Child
      */
     public function setNodeValue($value)
     {
@@ -160,7 +160,7 @@ class Child extends AbstractDom
      *
      * @param  array|string $a
      * @param  string $v
-     * @return Pop\Dom\Child
+     * @return \Pop\Dom\Child
      */
     public function setAttributes($a, $v = null)
     {

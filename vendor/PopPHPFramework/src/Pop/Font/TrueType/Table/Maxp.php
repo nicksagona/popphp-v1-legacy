@@ -48,8 +48,8 @@ class Maxp
      *
      * Instantiate a TTF 'maxp' table object.
      *
-     * @param  Pop_Font $font
-     * @return void
+     * @param  \Pop\Font\AbstractFont $font
+     * @return \Pop\Font\TrueType\Table\Maxp
      */
     public function __construct($font)
     {

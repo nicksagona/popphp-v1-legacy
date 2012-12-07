@@ -150,7 +150,7 @@ class UsaEpay extends AbstractAdapter
      *
      * @param  string  $sourceKey
      * @param  boolean $test
-     * @return void
+     * @return \Pop\Payment\Adapter\UsaEpay
      */
     public function __construct($sourceKey, $test = false)
     {
@@ -164,7 +164,7 @@ class UsaEpay extends AbstractAdapter
      *
      * @param  boolean $verifyPeer
      * @throws Exception
-     * @return Pop\Payment\Adapter\Authorize
+     * @return void
      */
     public function send($verifyPeer = true)
     {

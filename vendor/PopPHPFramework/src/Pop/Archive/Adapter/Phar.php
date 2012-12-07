@@ -42,7 +42,7 @@ class Phar implements ArchiveInterface
 
     /**
      * ZipArchive object
-     * @var ZipArchive
+     * @var \ZipArchive
      */
     public $archive = null;
 
@@ -55,8 +55,8 @@ class Phar implements ArchiveInterface
     /**
      * Method to instantiate an archive adapter object
      *
-     * @param  Pop\Archive\Archive $archive
-     * @return void
+     * @param  \Pop\Archive\Archive $archive
+     * @return \Pop\Archive\Adapter\Phar
      */
     public function __construct($archive)
     {
@@ -140,14 +140,14 @@ class Phar implements ArchiveInterface
                     }
                 }
             } else {
+                $f = $file->getPath() . DIRECTORY_SEPARATOR . $file->getFilename();
                 if (!$full) {
                     $list[] = substr($f, (stripos($f, '.phar') + 6));
                 } else {
-                    $f = $fileInfo->getPath() . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
                     $list[] = array(
                         'name'  => substr($f, (stripos($f, '.phar') + 6)),
-                        'mtime' => $fileInfo->getMTime(),
-                        'size'  => $fileInfo->getSize()
+                        'mtime' => $file->getMTime(),
+                        'size'  => $file->getSize()
                     );
                 }
             }

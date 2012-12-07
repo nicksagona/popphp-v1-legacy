@@ -80,7 +80,7 @@ abstract class AbstractDom
     /**
      * Add a child to the object.
      *
-     * @param  array|Pop_Dom_Child $c
+     * @param  mixed $c
      * @throws Exception
      * @return mixed
      */
@@ -127,7 +127,7 @@ abstract class AbstractDom
      * Get the child nodes of the object.
      *
      * @param int $i
-     * @return Pop\Dom\Child
+     * @return \Pop\Dom\Child
      */
     public function getChild($i)
     {

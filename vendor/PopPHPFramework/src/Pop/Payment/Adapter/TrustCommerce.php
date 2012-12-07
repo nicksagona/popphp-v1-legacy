@@ -72,7 +72,6 @@ class TrustCommerce extends AbstractAdapter
         'checkcvv'         => 'n',
         'avs'              => 'n',
         'transid'          => null,
-        'avs'              => null,
         'fname'            => null,
         'lname'            => null,
         'address1'         => null,
@@ -145,7 +144,7 @@ class TrustCommerce extends AbstractAdapter
      * @param  string  $custId
      * @param  string  $password
      * @param  boolean $test
-     * @return void
+     * @return \Pop\Payment\Adapter\TrustCommerce
      */
     public function __construct($custId, $password, $test = false)
     {
@@ -160,7 +159,7 @@ class TrustCommerce extends AbstractAdapter
      *
      * @param  boolean $verifyPeer
      * @throws Exception
-     * @return Pop\Payment\Adapter\Authorize
+     * @return void
      */
     public function send($verifyPeer = true)
     {

@@ -54,7 +54,7 @@ class Sqlite implements CacheInterface
 
     /**
      * Cache db adapter
-     * @var Pop\Db\Db
+     * @var \Pop\Db\Db
      */
     protected $sqlite = null;
 
@@ -66,7 +66,7 @@ class Sqlite implements CacheInterface
      * @param  string $db
      * @param  string $table
      * @throws Exception
-     * @return void
+     * @return \Pop\Cache\Sqlite
      */
     public function __construct($db, $table = 'pop_cache')
     {
@@ -126,7 +126,7 @@ class Sqlite implements CacheInterface
      * Method to Set the cache db table.
      *
      * @param  string $table
-     * @return Pop\Cache\Sqlite
+     * @return \Pop\Cache\Sqlite
      */
     public function setTable($table = 'pop_cache')
     {

@@ -70,7 +70,7 @@ class Archive extends File implements ArchiveInterface
      *
      * @param  string $archive
      * @param  string $password
-     * @return void
+     * @return \Pop\Archive\Archive
      */
     public function __construct($archive, $password = null)
     {
@@ -111,7 +111,7 @@ class Archive extends File implements ArchiveInterface
      * to facilitate chaining methods together.
      *
      * @param  string $archive
-     * @return Pop\Archive\Archive
+     * @return \Pop\Archive\Archive
      */
     public static function factory($archive)
     {
@@ -142,7 +142,7 @@ class Archive extends File implements ArchiveInterface
      * Method to extract an archived and/or compressed file
      *
      * @param  string $to
-     * @return Pop\Archive\Archive
+     * @return \Pop\Archive\Archive
      */
     public function extract($to = null)
     {
@@ -154,7 +154,7 @@ class Archive extends File implements ArchiveInterface
      * Method to create an archive file
      *
      * @param  string|array $files
-     * @return Pop\Archive\Archive
+     * @return \Pop\Archive\Archive
      */
     public function addFiles($files)
     {
@@ -178,7 +178,7 @@ class Archive extends File implements ArchiveInterface
      * Method to compress an archive file with Gzip or Bzip2
      *
      * @param  string $ext
-     * @return Pop\Archive\Archive
+     * @return \Pop\Archive\Archive
      */
     public function compress($ext = 'gz')
     {
@@ -207,6 +207,8 @@ class Archive extends File implements ArchiveInterface
                 $newArchive = str_replace('.tar.bz2', '.tbz2', $tmpArchive);
                 rename($tmpArchive, $newArchive);
                 break;
+            default:
+                $newArchive = $this->fullpath;
         }
 
         if (file_exists($this->fullpath)) {

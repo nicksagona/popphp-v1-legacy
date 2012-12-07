@@ -45,9 +45,9 @@ class Escaped extends AbstractRecord
      *
      * Instantiate the record escaped object.
      *
-     * @param  Db $db
-     * @param  array     $options
-     * @return void
+     * @param  \Pop\Db\Db $db
+     * @param  array      $options
+     * @return \Pop\Record\Escaped
      */
     public function __construct(Db $db, $options)
     {

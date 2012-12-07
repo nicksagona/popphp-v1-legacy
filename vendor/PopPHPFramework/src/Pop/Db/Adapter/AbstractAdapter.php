@@ -61,8 +61,7 @@ abstract class AbstractAdapter
      * Instantiate the database adapter object.
      *
      * @param  array $options
-     * @throws Exception
-     * @return void
+     * @return \Pop\Db\Adapter\AbstractAdapter
      */
     abstract public function __construct(array $options);
 

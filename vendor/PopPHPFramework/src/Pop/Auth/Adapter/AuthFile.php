@@ -59,7 +59,7 @@ class AuthFile implements AdapterInterface
      * @param string $filename
      * @param string $delimiter
      * @throws Exception
-     * @return void
+     * @return \Pop\Auth\Adapter\AuthFile
      */
     public function __construct($filename, $delimiter = '|')
     {

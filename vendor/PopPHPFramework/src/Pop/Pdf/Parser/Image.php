@@ -131,7 +131,8 @@ class Image
      * @param  int     $i
      * @param  mixed   $scl
      * @param  boolean $preserveRes
-     * @return void
+     * @throws Exception
+     * @return \Pop\Pdf\Parser\Image
      */
     public function __construct($img, $x, $y, $i, $scl = null, $preserveRes = false)
     {

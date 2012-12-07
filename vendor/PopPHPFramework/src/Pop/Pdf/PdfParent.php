@@ -67,7 +67,7 @@ class PdfParent
      * Instantiate a PDF parent object.
      *
      * @param  string $str
-     * @return void
+     * @return \Pop\Pdf\PdfParent
      */
     public function __construct($str = null)
     {

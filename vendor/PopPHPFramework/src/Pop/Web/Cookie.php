@@ -39,7 +39,7 @@ class Cookie
 
     /**
      * Instance of the cookie object
-     * @var Pop\Web\Cookie
+     * @var \Pop\Web\Cookie
      */
     static private $instance;
 
@@ -54,7 +54,7 @@ class Cookie
      *
      * Private method to instantiate the cookie object.
      *
-     * @return void
+     * @return \Pop\Web\Cookie
      */
     private function __construct()
     {
@@ -66,7 +66,7 @@ class Cookie
      * Determine whether or not an instance of the cookie object exists
      * already, and instantiate the object if it doesn't exist.
      *
-     * @return Pop\Web\Cookie
+     * @return \Pop\Web\Cookie
      */
     public static function getInstance()
     {

@@ -55,8 +55,8 @@ class Sqlsrv extends AbstractAdapter
      * Instantiate the SQLSrv database connection object.
      *
      * @param  array $options
-     * @throws Exception
-     * @return void
+     * @throws \Pop\Db\Adapter\Exception
+     * @return \Pop\Db\Adapter\Sqlsrv
      */
     public function __construct(array $options)
     {
@@ -76,7 +76,7 @@ class Sqlsrv extends AbstractAdapter
     /**
      * Throw an exception upon a database error.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return void
      */
     public function showError()
@@ -107,7 +107,7 @@ class Sqlsrv extends AbstractAdapter
      * @param  string $sql
      * @param  mixed  @params
      * @param  mixed  @options
-     * @return Pop\Db\Adapter\Sqlsrv
+     * @return \Pop\Db\Adapter\Sqlsrv
      */
     public function prepare($sql, $params = null, $options = null)
     {
@@ -141,7 +141,7 @@ class Sqlsrv extends AbstractAdapter
     /**
      * Execute the prepared SQL query.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return void
      */
     public function execute()
@@ -169,7 +169,7 @@ class Sqlsrv extends AbstractAdapter
     /**
      * Return the results array from the results resource.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return array
      */
     public function fetch()
@@ -215,7 +215,7 @@ class Sqlsrv extends AbstractAdapter
     /**
      * Return the number of rows in the result.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return int
      */
     public function numRows()
@@ -232,7 +232,7 @@ class Sqlsrv extends AbstractAdapter
     /**
      * Return the number of fields in the result.
      *
-     * @throws Exception
+     * @throws \Pop\Db\Adapter\Exception
      * @return int
      */
     public function numFields()

@@ -122,7 +122,7 @@ class Request
      *
      * @param  string $uri
      * @param  string $basePath
-     * @return void
+     * @return \Pop\Http\Request
      */
     public function __construct($uri = null, $basePath = null)
     {
@@ -315,10 +315,9 @@ class Request
     /**
      * Get the method
      *
-     * @param  string $key
      * @return string
      */
-    public function getMethod($key = null)
+    public function getMethod()
     {
         return $this->server['REQUEST_METHOD'];
     }
@@ -463,7 +462,7 @@ class Request
      *
      * @param  string $uri
      * @param  string $basePath
-     * @return Pop\Http\Request
+     * @return \Pop\Http\Request
      */
     public function setRequestUri($uri = null, $basePath = null)
     {
@@ -518,7 +517,7 @@ class Request
      * Set the base path
      *
      * @param  string $path
-     * @return Pop\Http\Request
+     * @return \Pop\Http\Request
      */
     public function setBasePath($path = null)
     {
@@ -531,7 +530,7 @@ class Request
      *
      * @param  string $key
      * @param  string $value
-     * @return Pop\Http\Request
+     * @return \Pop\Http\Request
      */
     public function setQuery($key, $value)
     {
@@ -545,7 +544,7 @@ class Request
      *
      * @param  string $key
      * @param  string $value
-     * @return Pop\Http\Request
+     * @return \Pop\Http\Request
      */
     public function setPost($key, $value)
     {

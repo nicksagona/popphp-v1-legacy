@@ -67,7 +67,7 @@ class Autoloader
      * Instantiate the archive object
      *
      * @param  boolean $self
-     * @return void
+     * @return \Pop\Loader\Autoloader
      */
     public function __construct($self = true)
     {
@@ -80,7 +80,7 @@ class Autoloader
      * Static method to instantiate the autoloader object
      *
      * @param  boolean $self
-     * @return Pop\Loader\Autoloader
+     * @return \Pop\Loader\Autoloader
      */
     public static function factory($self = true)
     {
@@ -92,7 +92,7 @@ class Autoloader
      *
      * @param  string $classmap
      * @throws Exception
-     * @return Pop\Loader\Autoloader
+     * @return \Pop\Loader\Autoloader
      */
     public function loadClassMap($classmap)
     {
@@ -116,7 +116,7 @@ class Autoloader
      *
      * @param  string $namespace
      * @param  string $directory
-     * @return Pop\Loader\Autoloader
+     * @return \Pop\Loader\Autoloader
      */
     public function register($namespace, $directory)
     {
@@ -129,7 +129,7 @@ class Autoloader
      *
      * @param  boolean $suppress
      * @param  boolean $fallback
-     * @return Pop\Loader\Autoloader
+     * @return \Pop\Loader\Autoloader
      */
     public function splAutoloadRegister($suppress = true, $fallback = false)
     {
