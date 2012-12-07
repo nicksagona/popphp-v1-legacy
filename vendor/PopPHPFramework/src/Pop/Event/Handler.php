@@ -42,14 +42,8 @@ class Handler
      * @var array
      */
     protected $listeners = array(
-        'global' => array(
-            'pre'  => array(),
-            'post' => array()
-        ),
-        'routes' => array(
-            'pre'  => array(),
-            'post' => array()
-        )
+        'pre'  => array(),
+        'post' => array()
     );
 
     /**
@@ -78,12 +72,7 @@ class Handler
     public function attach($name, $action)
     {
         $listenerName = $this->parseName($name);
-
-        if ($listenerName['type'] == 'global') {
-            $this->listeners['global'][$listenerName['order']][$listenerName['name']] = $action;
-        } else {
-            $this->listeners['routes'][$listenerName['order']][$listenerName['type']][$listenerName['name']] = $action;
-        }
+        $this->listeners[$listenerName['order']][$listenerName['name']][$listenerName['suffix']] = $action;
 
         return $this;
     }
@@ -97,15 +86,8 @@ class Handler
     public function detach($name)
     {
         $listenerName = $this->parseName($name);
-
-        if ($listenerName['type'] == 'global') {
-            if (isset($this->listeners['global'][$listenerName['order']][$listenerName['name']])) {
-                unset($this->listeners['global'][$listenerName['order']][$listenerName['name']]);
-            }
-        } else {
-            if (isset($this->listeners['routes'][$listenerName['order']][$listenerName['type']][$listenerName['name']])) {
-                unset($this->listeners['routes'][$listenerName['order']][$listenerName['type']][$listenerName['name']]);
-            }
+        if (isset($this->listeners[$listenerName['order']][$listenerName['name']])) {
+            unset($this->listeners[$listenerName['order']][$listenerName['name']]);
         }
 
         return $this;
@@ -122,57 +104,92 @@ class Handler
         $listener = null;
         $listenerName = $this->parseName($name);
 
-        if ($listenerName['type'] == 'global') {
-            if (isset($this->listeners['global'][$listenerName['order']][$listenerName['name']])) {
-                $listener = $this->listeners['global'][$listenerName['order']][$listenerName['name']];
-            }
-        } else {
-            if (isset($this->listeners['routes'][$listenerName['order']][$listenerName['type']][$listenerName['name']])) {
-                $listener = $this->listeners['routes'][$listenerName['order']][$listenerName['type']][$listenerName['name']];
-            }
+        if (isset($this->listeners[$listenerName['order']][$listenerName['name']][$listenerName['suffix']])) {
+            $listener = $this->listeners[$listenerName['order']][$listenerName['name']][$listenerName['suffix']];
         }
 
         return $listener;
     }
 
     /**
-     * Method to see if the event handler has global events
+     * Method to return an event listener by prefix
      *
-     * @param  string $order
-     * @return boolean
+     * @param  string $prefix
+     * @return array
      */
-    public function hasGlobal($order)
+    public function getListenersByPrefix($prefix)
     {
-        $result = false;
+        $listeners = array();
 
-        if (($order == 'pre') || ($order == 'post')) {
-            $result = (count($this->listeners['global'][$order]) > 0);
+        if (array_key_exists($prefix, $this->listeners['pre'])) {
+            $listeners['pre'] = $this->listeners['pre'][$prefix];
+        } else if (array_key_exists($prefix, $this->listeners['post'])) {
+            $listeners['post'] = $this->listeners['post'][$prefix];
         }
 
-        return $result;
+        return $listeners;
     }
 
     /**
-     * Method to see if the event handler has routed events
+     * Method to return an event listener by suffix
      *
-     * @param  string $order
-     * @return boolean
+     * @param  string $suffix
+     * @return array
      */
-    public function hasRoutes($order)
+    public function getListenersBySuffix($suffix)
     {
-        $result = false;
+        $listeners = array();
 
-        if (($order == 'pre') || ($order == 'post')) {
-            $result = (count($this->listeners['routes'][$order]) > 0);
+        foreach ($this->listeners['pre'] as $key => $value) {
+            foreach ($value as $k => $v) {
+                if (($k != '0') && ($k == $suffix)) {
+                    if (!isset($listeners['pre'])) {
+                        $listeners['pre'] = array();
+                    }
+                    $listeners['pre'][] = $v;
+                }
+            }
         }
 
-        return $result;
+        foreach ($this->listeners['post'] as $key => $value) {
+            foreach ($value as $k => $v) {
+                if (($k != '0') && ($k == $suffix)) {
+                    if (!isset($listeners['post'])) {
+                        $listeners['post'] = array();
+                    }
+                    $listeners['post'][] = $v;
+                }
+            }
+        }
+
+        return $listeners;
+    }
+
+    /**
+     * Method to see if the event handler has pre events
+     *
+     * @return boolean
+     */
+    public function hasPre()
+    {
+        return (count($this->listeners['pre']) > 0);
+    }
+
+    /**
+     * Method to see if the event handler has post events
+     *
+     * @return boolean
+     */
+    public function hasPost()
+    {
+        return (count($this->listeners['post']) > 0);
     }
 
     /**
      * Method to parse listener name
      *
      * @param  string $name
+     * @throws \Pop\Event\Exception
      * @return array
      */
     protected function parseName($name)
@@ -180,30 +197,31 @@ class Handler
         $nameAry = explode('.', $name);
         $parsedName = array();
 
+        if (count($nameAry) < 2) {
+            throw new Exception('Error: The event name must contain at least two parts.');
+        }
+
+        if (($nameAry[1] != 'pre') && ($nameAry[1] != 'post')) {
+            throw new Exception('Error: The second part of the event name must be \'pre\' or \'post\'.');
+        }
+
         switch (count($nameAry)) {
             case 4:
                 $parsedName['name'] = $nameAry[0];
-                $parsedName['order'] = (($nameAry[1] == 'pre') || ($nameAry[1] == 'post')) ? $nameAry[1] : 'pre';
-                $parsedName['type'] = ($nameAry[2] != '') ? '/' . $nameAry[2] : '/';
-                $parsedName['type'] .= ($nameAry[3] != '') ? '/' . $nameAry[3] : '/';
+                $parsedName['order'] = $nameAry[1];
+                $parsedName['suffix'] = '.' . $nameAry[2] . '.' . $nameAry[3];
                 break;
 
             case 3:
                 $parsedName['name'] = $nameAry[0];
-                $parsedName['order'] = (($nameAry[1] == 'pre') || ($nameAry[1] == 'post')) ? $nameAry[1] : 'pre';
-                $parsedName['type'] = ($nameAry[2] != '') ? '/' . $nameAry[2] : '/';
-                break;
-
-            case 2:
-                $parsedName['name'] = $nameAry[0];
-                $parsedName['order'] = (($nameAry[1] == 'pre') || ($nameAry[1] == 'post')) ? $nameAry[1] : 'pre';
-                $parsedName['type'] = 'global';
+                $parsedName['order'] = $nameAry[1];
+                $parsedName['suffix'] = '.' . $nameAry[2];
                 break;
 
             default:
                 $parsedName['name'] = $nameAry[0];
-                $parsedName['order'] = 'pre';
-                $parsedName['type'] = 'global';
+                $parsedName['order'] = $nameAry[1];
+                $parsedName['suffix'] = 0;
         }
 
         return $parsedName;
