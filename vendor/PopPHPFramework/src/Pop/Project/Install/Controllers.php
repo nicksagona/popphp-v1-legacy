@@ -203,9 +203,7 @@ class Controllers
                 $method = new MethodGenerator($key);
                 $method->setDesc('The \'' . $key . '()\' method.');
 
-                if ($key == 'error') {
-                    $method->appendToBody("\$this->isError = true;");
-                }
+                $code = ($key == 'error') ? '404' : null;
 
                 if ($controllerCls->code()->getParent() != 'C') {
                     $vp = substr($depth, (strrpos($depth, '/') + 1)) . '/' . $value;
@@ -213,7 +211,7 @@ class Controllers
                     $vp = $value;
                 }
                 $method->appendToBody("\$this->view = View::factory(\$this->viewPath . '/{$vp}');");
-                $method->appendToBody("\$this->send();", false);
+                $method->appendToBody("\$this->send(" . $code . ");", false);
                 $method->getDocblock()->setReturn('void');
 
                 $controllerCls->code()->addMethod($method);

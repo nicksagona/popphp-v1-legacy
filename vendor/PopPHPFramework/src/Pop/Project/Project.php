@@ -26,6 +26,7 @@ namespace Pop\Project;
 
 use Pop\Config,
     Pop\Db\Db,
+    Pop\Event\Handler,
     Pop\Mvc\Router,
     Pop\Record\Record;
 
@@ -59,6 +60,12 @@ class Project
      * @var \Pop\Mvc\Router
      */
     protected $router = null;
+
+    /**
+     * Project events
+     * @var \Pop\Event\Handler
+     */
+    protected $events = null;
 
     /**
      * Constructor
@@ -207,13 +214,55 @@ class Project
     /**
      * Load a router
      *
-     * @param Router $router
+     * @param  \Pop\Mvc\Router $router
      * @return \Pop\Project\Project
      */
     public function loadRouter(Router $router)
     {
         $this->router = $router;
         return $this;
+    }
+
+    /**
+     * Attach an event
+     *
+     * @param  string $name
+     * @param  mixed  $action
+     * @return \Pop\Project\Project
+     */
+    public function attachEvent($name, $action)
+    {
+        if (null === $this->events) {
+            $this->events = new Handler();
+        }
+
+        $this->events->attach($name, $action);
+        return $this;
+    }
+
+    /**
+     * Detach an event
+     *
+     * @param  string $name
+     * @return \Pop\Project\Project
+     */
+    public function detachEvent($name)
+    {
+        if (null !== $this->events) {
+            $this->events->detach($name);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the event handler
+     *
+     * @return \Pop\Event\Handler
+     */
+    public function getEventHandler()
+    {
+        return $this->events;
     }
 
     /**

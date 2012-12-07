@@ -60,12 +60,6 @@ class Controller
     protected $project = null;
 
     /**
-     * Error flag
-     * @var boolean
-     */
-    protected $isError = false;
-
-    /**
      * Data model object
      * @var \Pop\Mvc\Model
      */
@@ -200,7 +194,7 @@ class Controller
      * Dispatch the controller based on the action
      *
      * @param  string $action
-     * @throws Exception
+     * @throws \Pop\Mvc\Exception
      * @return \Pop\Mvc\Controller
      */
     public function dispatch($action = 'index')
@@ -226,9 +220,6 @@ class Controller
             throw new Exception('The view object is not defined.');
         }
 
-        if ($this->isError) {
-            $code = 404;
-        }
         $this->response->setCode($code);
 
         if (null !== $headers) {

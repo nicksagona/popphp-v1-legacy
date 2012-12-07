@@ -150,7 +150,7 @@ class Router
      * @param  Project $project
      * @return void
      */
-    public function route(Project $project)
+    public function route(Project $project = null)
     {
         $ctrlCls = null;
 
