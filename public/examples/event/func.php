@@ -2,6 +2,11 @@
 
 require_once '../../bootstrap.php';
 
+$anon = function ($name, $result) { return 'How are you doing, ' . $name . '? (' . $result . ')'; };
+
+$func = new Pop\Code\FunctionGenerator('anon', $anon);
+print_r($func->getParameters());
+
 //$func = new Pop\Code\FunctionGenerator('somefunc');
 //$func->setBody('echo \'Hello World!\';', false)
 //     ->addArguments(array(

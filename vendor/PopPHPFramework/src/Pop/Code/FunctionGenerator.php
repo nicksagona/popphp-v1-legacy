@@ -84,12 +84,16 @@ class FunctionGenerator
      *
      * Instantiate the function generator object
      *
-     * @param  string  $name
+     * @param  string $name
+     * @param  mixed  $func
      * @return \Pop\Code\FunctionGenerator
      */
-    public function __construct($name)
+    public function __construct($name, $func = null)
     {
         $this->name = $name;
+        if (null !== $func) {
+            $this->parseFunction($func);
+        }
     }
 
     /**
@@ -361,6 +365,17 @@ class FunctionGenerator
     }
 
     /**
+     * Get the function arguments
+     *
+     * @return array
+     */
+    public function getArgumentNames()
+    {
+        $names = array();
+        return $this->arguments;
+    }
+
+    /**
      * Get a function argument (synonym method for convenience)
      *
      * @param  string $name
@@ -377,6 +392,16 @@ class FunctionGenerator
      * @return array
      */
     public function getParameters()
+    {
+        return $this->arguments;
+    }
+
+    /**
+     * Get the function arguments (synonym method for convenience)
+     *
+     * @return array
+     */
+    public function getParameterNames()
     {
         return $this->arguments;
     }
@@ -436,6 +461,24 @@ class FunctionGenerator
         }
 
         return $args;
+    }
+
+
+    /**
+     * Method to format the arguments
+     *
+     * @param  mixed $func
+     * @return void
+     */
+    protected function parseFunction($func)
+    {
+        $refFunc = new \ReflectionFunction($func);
+        $this->closure = true;
+
+        foreach ($refFunc->getParameters() as $key => $refParameter) {
+            $this->addArgument($refParameter->getName());
+        }
+
     }
 
     /**
