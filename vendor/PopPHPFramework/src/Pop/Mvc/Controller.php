@@ -220,12 +220,20 @@ class Controller
             throw new Exception('The view object is not defined.');
         }
 
+        if (!($this->view instanceof View)) {
+            throw new Exception('The view object is not an instance of Pop\Mvc\View.');
+        }
+
         $this->response->setCode($code);
 
         if (null !== $headers) {
             foreach ($headers as $name => $value) {
                 $this->response->setHeader($name, $value);
             }
+        }
+
+        if (null !== $this->project->getEventHandler()) {
+            $this->project->getEventHandler()->trigger($this);
         }
 
         $this->response->setBody($this->view->render(true));

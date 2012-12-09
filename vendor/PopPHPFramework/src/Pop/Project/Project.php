@@ -228,15 +228,16 @@ class Project
      *
      * @param  string $name
      * @param  mixed  $action
+     * @param  int    $priority
      * @return \Pop\Project\Project
      */
-    public function attachEvent($name, $action)
+    public function attachEvent($name, $action, $priority = 0)
     {
         if (null === $this->events) {
             $this->events = new Handler();
         }
 
-        $this->events->attach($name, $action);
+        $this->events->attach($name, $action, $priority);
         return $this;
     }
 
@@ -272,9 +273,33 @@ class Project
      */
     public function run()
     {
+
+        // Trigger any pre-level events, if any exist
+        if (null !== $this->events) {
+            $this->events->trigger($this, 1);
+        }
+
+        // If router exists, then route the project to the appropriate controller
         if (null !== $this->router) {
             $this->router->route($this);
+
+            // If a controller was properly routed and created, then dispatch it
+            if (null !== $this->router()->controller()) {
+                $action = ($this->router()->controller()->getRequest()->getRequestUri() == '/') ? 'index' : $this->router()->getAction();
+
+                if ((null !== $action) && method_exists($this->router()->controller(), $action)) {
+                    $this->router()->controller()->dispatch($this->router()->getAction());
+                } else if (method_exists($this->router()->controller(), 'error')) {
+                    $this->router()->controller()->dispatch('error');
+                }
+            }
         }
+
+        // Trigger any post-level events, if any exist
+        if (null !== $this->events) {
+            $this->events->trigger($this, -1);
+        }
+
     }
 
 }

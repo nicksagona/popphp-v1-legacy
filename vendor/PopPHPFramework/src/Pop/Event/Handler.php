@@ -41,10 +41,13 @@ class Handler
      * Event listeners
      * @var array
      */
-    protected $listeners = array(
-        'pre'  => array(),
-        'post' => array()
-    );
+    protected $listeners = array();
+
+    /**
+     * Event listener priorities
+     * @var array
+     */
+    protected $priorities = array();
 
     /**
      * Constructor
@@ -53,12 +56,13 @@ class Handler
      *
      * @param  string $name
      * @param  mixed  $action
+     * @param  int    $priority
      * @return \Pop\Event\Handler
      */
-    public function __construct($name = null, $action = null)
+    public function __construct($name = null, $action = null, $priority = 0)
     {
         if ((null !== $name) && (null !== $action)) {
-            $this->attach($name, $action);
+            $this->attach($name, $action, $priority);
         }
     }
 
@@ -67,12 +71,13 @@ class Handler
      *
      * @param  string $name
      * @param  mixed  $action
+     * @param  int    $priority
      * @return \Pop\Event\Handler
      */
-    public function attach($name, $action)
+    public function attach($name, $action, $priority = 0)
     {
-        $listenerName = $this->parseName($name);
-        $this->listeners[$listenerName['order']][$listenerName['name']][$listenerName['suffix']] = $action;
+        $this->listeners[$name] = $action;
+        $this->priorities[$name] = $priority;
 
         return $this;
     }
@@ -85,9 +90,12 @@ class Handler
      */
     public function detach($name)
     {
-        $listenerName = $this->parseName($name);
-        if (isset($this->listeners[$listenerName['order']][$listenerName['name']])) {
-            unset($this->listeners[$listenerName['order']][$listenerName['name']]);
+        if (isset($this->listeners[$name])) {
+            unset($this->listeners[$name]);
+        }
+
+        if (isset($this->priorities[$name])) {
+            unset($this->priorities[$name]);
         }
 
         return $this;
@@ -99,132 +107,71 @@ class Handler
      * @param  string $name
      * @return mixed
      */
-    public function getListener($name)
+    public function get($name)
     {
         $listener = null;
-        $listenerName = $this->parseName($name);
-
-        if (isset($this->listeners[$listenerName['order']][$listenerName['name']][$listenerName['suffix']])) {
-            $listener = $this->listeners[$listenerName['order']][$listenerName['name']][$listenerName['suffix']];
+        if (isset($this->listeners[$name])) {
+            $listener = $this->listeners[$name];
         }
 
         return $listener;
     }
 
     /**
-     * Method to return an event listener by prefix
-     *
-     * @param  string $prefix
-     * @return array
-     */
-    public function getListenersByPrefix($prefix)
-    {
-        $listeners = array();
-
-        if (array_key_exists($prefix, $this->listeners['pre'])) {
-            $listeners['pre'] = $this->listeners['pre'][$prefix];
-        } else if (array_key_exists($prefix, $this->listeners['post'])) {
-            $listeners['post'] = $this->listeners['post'][$prefix];
-        }
-
-        return $listeners;
-    }
-
-    /**
-     * Method to return an event listener by suffix
-     *
-     * @param  string $suffix
-     * @return array
-     */
-    public function getListenersBySuffix($suffix)
-    {
-        $listeners = array();
-
-        foreach ($this->listeners['pre'] as $key => $value) {
-            foreach ($value as $k => $v) {
-                if (($k != '0') && ($k == $suffix)) {
-                    if (!isset($listeners['pre'])) {
-                        $listeners['pre'] = array();
-                    }
-                    $listeners['pre'][] = $v;
-                }
-            }
-        }
-
-        foreach ($this->listeners['post'] as $key => $value) {
-            foreach ($value as $k => $v) {
-                if (($k != '0') && ($k == $suffix)) {
-                    if (!isset($listeners['post'])) {
-                        $listeners['post'] = array();
-                    }
-                    $listeners['post'][] = $v;
-                }
-            }
-        }
-
-        return $listeners;
-    }
-
-    /**
-     * Method to see if the event handler has pre events
-     *
-     * @return boolean
-     */
-    public function hasPre()
-    {
-        return (count($this->listeners['pre']) > 0);
-    }
-
-    /**
-     * Method to see if the event handler has post events
-     *
-     * @return boolean
-     */
-    public function hasPost()
-    {
-        return (count($this->listeners['post']) > 0);
-    }
-
-    /**
-     * Method to parse listener name
+     * Method to return an event listener priority
      *
      * @param  string $name
-     * @throws \Pop\Event\Exception
-     * @return array
+     * @return int
      */
-    protected function parseName($name)
+    public function getPriority($name)
     {
-        $nameAry = explode('.', $name);
-        $parsedName = array();
-
-        if (count($nameAry) < 2) {
-            throw new Exception('Error: The event name must contain at least two parts.');
+        $priority = null;
+        if (isset($this->priorities[$name])) {
+            $priority = $this->priorities[$name];
         }
 
-        if (($nameAry[1] != 'pre') && ($nameAry[1] != 'post')) {
-            throw new Exception('Error: The second part of the event name must be \'pre\' or \'post\'.');
+        return $priority;
+    }
+
+    /**
+     * Method to trigger an event listener priority
+     *
+     * @param  mixed $obj
+     * @param  int   $priority
+     * @param  array $args
+     * @return void
+     */
+    public function trigger($obj, $priority = 0, array $args = null)
+    {
+        $events = array();
+
+        // Get pre-level events.
+        if ($priority > 0) {
+            foreach ($this->priorities as $key => $value) {
+                if ($value > 0) {
+                    $events[$key] = $value;
+                }
+            }
+            arsort($events, SORT_NUMERIC);
+        // Get 0-level events
+        } else if ($priority == 0) {
+            foreach ($this->priorities as $key => $value) {
+                if ($value == 0) {
+                    $events[$key] = $value;
+                }
+            }
+        // Get post-level events
+        } else if ($priority < 0) {
+            foreach ($this->priorities as $key => $value) {
+                if ($value < 0) {
+                    $events[$key] = $value;
+                }
+            }
+            arsort($events, SORT_NUMERIC);
         }
 
-        switch (count($nameAry)) {
-            case 4:
-                $parsedName['name'] = $nameAry[0];
-                $parsedName['order'] = $nameAry[1];
-                $parsedName['suffix'] = '.' . $nameAry[2] . '.' . $nameAry[3];
-                break;
+        print_r($events);
 
-            case 3:
-                $parsedName['name'] = $nameAry[0];
-                $parsedName['order'] = $nameAry[1];
-                $parsedName['suffix'] = '.' . $nameAry[2];
-                break;
-
-            default:
-                $parsedName['name'] = $nameAry[0];
-                $parsedName['order'] = $nameAry[1];
-                $parsedName['suffix'] = 0;
-        }
-
-        return $parsedName;
     }
 
 }

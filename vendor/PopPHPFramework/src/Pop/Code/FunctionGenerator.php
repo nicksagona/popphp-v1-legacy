@@ -1,0 +1,451 @@
+<?php
+/**
+ * Pop PHP Framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.TXT.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.popphp.org/LICENSE.TXT
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@popphp.org so we can send you a copy immediately.
+ *
+ * @category   Pop
+ * @package    Pop_Code
+ * @author     Nick Sagona, III <nick@popphp.org>
+ * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
+ * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ */
+
+/**
+ * @namespace
+ */
+namespace Pop\Code;
+
+/**
+ * This is the Function class for the Code component.
+ *
+ * @category   Pop
+ * @package    Pop_Code
+ * @author     Nick Sagona, III <nick@popphp.org>
+ * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
+ * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ * @version    1.0.3
+ */
+class FunctionGenerator
+{
+
+    /**
+     * Docblock generator object
+     * @var \Pop\Code\DocblockGenerator
+     */
+    protected $docblock = null;
+
+    /**
+     * Function arguments
+     * @var array
+     */
+    protected $arguments = array();
+
+    /**
+     * Function name
+     * @var string
+     */
+    protected $name = null;
+
+    /**
+     * Function interface flag
+     * @var boolean
+     */
+    protected $closure = false;
+
+    /**
+     * Function body
+     * @var string
+     */
+    protected $body = null;
+
+    /**
+     * Function indent
+     * @var string
+     */
+    protected $indent = null;
+
+    /**
+     * Function output
+     * @var string
+     */
+    protected $output = null;
+
+    /**
+     * Constructor
+     *
+     * Instantiate the function generator object
+     *
+     * @param  string  $name
+     * @return \Pop\Code\FunctionGenerator
+     */
+    public function __construct($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Static method to instantiate the function generator object and return itself
+     * to facilitate chaining methods together.
+     *
+     * @param  string  $name
+     * @return \Pop\Code\FunctionGenerator
+     */
+    public static function factory($name)
+    {
+        return new self($name);
+    }
+
+    /**
+     * Set the function closure flag
+     *
+     * @param  boolean $closure
+     * @return \Pop\Code\FunctionGenerator
+     */
+    public function setClosure($closure = false)
+    {
+        $this->closure = (boolean)$closure;
+        return $this;
+    }
+
+    /**
+     * Get the function closure flag
+     *
+     * @return boolean
+     */
+    public function isClosure()
+    {
+        return $this->closure;
+    }
+
+    /**
+     * Set the function description
+     *
+     * @param  string $desc
+     * @return \Pop\Code\FunctionGenerator
+     */
+    public function setDesc($desc = null)
+    {
+        if (null !== $this->docblock) {
+            $this->docblock->setDesc($desc);
+        } else {
+            $this->docblock = new DocblockGenerator($desc, $this->indent);
+        }
+        return $this;
+    }
+
+    /**
+     * Get the function description
+     *
+     * @return string
+     */
+    public function getDesc()
+    {
+        $desc = null;
+        if (null !== $this->docblock) {
+            $desc = $this->docblock->getDesc();
+        }
+        return $desc;
+    }
+
+    /**
+     * Set the function indent
+     *
+     * @param  string $indent
+     * @return \Pop\Code\FunctionGenerator
+     */
+    public function setIndent($indent = null)
+    {
+        $this->indent = $indent;
+        return $this;
+    }
+
+    /**
+     * Get the function indent
+     *
+     * @return string
+     */
+    public function getIndent()
+    {
+        return $this->indent;
+    }
+
+    /**
+     * Set the function name
+     *
+     * @param  string $name
+     * @return \Pop\Code\FunctionGenerator
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Get the function name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set the function body
+     *
+     * @param  string $body
+     * @param  boolean $newline
+     * @return \Pop\Code\FunctionGenerator
+     */
+    public function setBody($body, $newline = true)
+    {
+        $this->body = $this->indent . '    ' .  str_replace(PHP_EOL, PHP_EOL . $this->indent . '    ', $body);
+        if ($newline) {
+            $this->body .= PHP_EOL;
+        }
+        return $this;
+    }
+
+    /**
+     * Append to the function body
+     *
+     * @param  string  $body
+     * @param  boolean $newline
+     * @return \Pop\Code\FunctionGenerator
+     */
+    public function appendToBody($body, $newline = true)
+    {
+        $body = str_replace(PHP_EOL, PHP_EOL . $this->indent . '    ', $body);
+        $this->body .= $this->indent . '    ' . $body;
+        if ($newline) {
+            $this->body .= PHP_EOL;
+        }
+        return $this;
+    }
+
+    /**
+     * Get the function body
+     *
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Set the docblock generator object
+     *
+     * @param  DocblockGenerator $docblock
+     * @return \Pop\Code\ClassGenerator
+     */
+    public function setDocblock(DocblockGenerator $docblock)
+    {
+        $this->docblock = $docblock;
+        return $this;
+    }
+
+    /**
+     * Access the docblock generator object
+     *
+     * @return \Pop\Code\DocblockGenerator
+     */
+    public function getDocblock()
+    {
+        return $this->docblock;
+    }
+
+    /**
+     * Add a function argument
+     *
+     * @param string  $name
+     * @param mixed   $value
+     * @param string  $type
+     * @return \Pop\Code\FunctionGenerator
+     */
+    public function addArgument($name, $value = null, $type = null)
+    {
+        $typeHintsNotAllowed = array(
+            'int',
+            'integer',
+            'boolean',
+            'float',
+            'string',
+            'mixed'
+        );
+        $argType = (!in_array($type, $typeHintsNotAllowed)) ? $type : null;
+        $this->arguments[$name] = array('value' => $value, 'type' => $argType);
+        if (null === $this->docblock) {
+            $this->docblock = new DocblockGenerator(null, $this->indent);
+        }
+        if (null !== $type) {
+            if (substr($name, 0, 1) != '$') {
+                $name = '$' . $name;
+            }
+            $this->docblock->setParam($type, $name);
+        }
+        return $this;
+    }
+
+    /**
+     * Add function arguments
+     *
+     * @param array $args
+     * @return \Pop\Code\FunctionGenerator
+     */
+    public function addArguments(array $args)
+    {
+        foreach ($args as $arg) {
+            $value = (isset($arg['value'])) ? $arg['value'] : null;
+            $type = (isset($arg['type'])) ? $arg['type'] : null;
+            $this->addArgument($arg['name'], $value, $type);
+        }
+        return $this;
+    }
+
+    /**
+     * Add a function argument (synonym method for convenience)
+     *
+     * @param string  $name
+     * @param mixed   $value
+     * @param string  $type
+     * @return \Pop\Code\FunctionGenerator
+     */
+    public function addParameter($name, $value = null, $type = null)
+    {
+        $this->addArgument($name, $value, $type);
+        return $this;
+    }
+
+    /**
+     * Add function arguments (synonym method for convenience)
+     *
+     * @param array $args
+     * @return \Pop\Code\FunctionGenerator
+     */
+    public function addParameters(array $args)
+    {
+        $this->addArguments($args);
+        return $this;
+    }
+
+    /**
+     * Get a function argument
+     *
+     * @param  string $name
+     * @return array
+     */
+    public function getArgument($name)
+    {
+        return (isset($this->arguments[$name])) ? $this->arguments[$name] : null;
+    }
+
+    /**
+     * Get the function arguments
+     *
+     * @return array
+     */
+    public function getArguments()
+    {
+        return $this->arguments;
+    }
+
+    /**
+     * Get a function argument (synonym method for convenience)
+     *
+     * @param  string $name
+     * @return array
+     */
+    public function getParameter($name)
+    {
+        return (isset($this->arguments[$name])) ? $this->arguments[$name] : null;
+    }
+
+    /**
+     * Get the function arguments (synonym method for convenience)
+     *
+     * @return array
+     */
+    public function getParameters()
+    {
+        return $this->arguments;
+    }
+
+    /**
+     * Render method
+     *
+     * @param  boolean $ret
+     * @return mixed
+     */
+    public function render($ret = false)
+    {
+        $args = $this->formatArguments();
+
+        $this->output = PHP_EOL . ((null !== $this->docblock) ? $this->docblock->render(true) : null);
+        if ($this->closure) {
+            $this->output .= $this->indent . '$' . $this->name .' = function(' . $args . ')';
+        } else {
+            $this->output .= $this->indent . 'function ' . $this->name . '(' . $args . ')';
+        }
+
+        $this->output .= PHP_EOL . $this->indent . '{' . PHP_EOL;
+        $this->output .= $this->body. PHP_EOL;
+        $this->output .= $this->indent . '}';
+
+        if ($this->closure) {
+            $this->output .= ';';
+        }
+
+        $this->output .= PHP_EOL;
+
+        if ($ret) {
+            return $this->output;
+        } else {
+            echo $this->output;
+        }
+    }
+
+    /**
+     * Method to format the arguments
+     *
+     * @return string
+     */
+    protected function formatArguments()
+    {
+        $args = null;
+
+        $i = 0;
+        foreach ($this->arguments as $name => $arg) {
+            $i++;
+            $args .= (null !== $arg['type']) ? $arg['type'] . ' ' : null;
+            $args .= (substr($name, 0, 1) != '$') ? "\$" . $name : $name;
+            $args .= (null !== $arg['value']) ? " = " . $arg['value'] : null;
+            if ($i < count($this->arguments)) {
+                $args .= ', ';
+            }
+        }
+
+        return $args;
+    }
+
+    /**
+     * Print method
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->render(true);
+    }
+
+}
