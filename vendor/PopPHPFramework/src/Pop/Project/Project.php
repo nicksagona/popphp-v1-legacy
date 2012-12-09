@@ -269,14 +269,15 @@ class Project
     /**
      * Run the project
      *
+     * @param  array $args
      * @return void
      */
-    public function run()
+    public function run(array $args = null)
     {
 
         // Trigger any pre-level events, if any exist
         if (null !== $this->events) {
-            $this->events->trigger($this, 1);
+            $this->events->trigger($this, 1, $args);
         }
 
         // If router exists, then route the project to the appropriate controller
@@ -286,9 +287,8 @@ class Project
             // If a controller was properly routed and created, then dispatch it
             if (null !== $this->router()->controller()) {
                 $action = ($this->router()->controller()->getRequest()->getRequestUri() == '/') ? 'index' : $this->router()->getAction();
-
                 if ((null !== $action) && method_exists($this->router()->controller(), $action)) {
-                    $this->router()->controller()->dispatch($this->router()->getAction());
+                    $this->router()->controller()->dispatch($action);
                 } else if (method_exists($this->router()->controller(), 'error')) {
                     $this->router()->controller()->dispatch('error');
                 }
@@ -297,7 +297,7 @@ class Project
 
         // Trigger any post-level events, if any exist
         if (null !== $this->events) {
-            $this->events->trigger($this, -1);
+            $this->events->trigger($this, -1, $args);
         }
 
     }

@@ -181,6 +181,16 @@ class Controller
     }
 
     /**
+     * Get the view object
+     *
+     * @return \Pop\Mvc\View
+     */
+    public function getView()
+    {
+        return $this->view;
+    }
+
+    /**
      * Get the view path
      *
      * @return string
@@ -233,7 +243,7 @@ class Controller
         }
 
         if (null !== $this->project->getEventHandler()) {
-            $this->project->getEventHandler()->trigger($this);
+            $this->project->getEventHandler()->trigger($this, 0);
         }
 
         $this->response->setBody($this->view->render(true));

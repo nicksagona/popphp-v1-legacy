@@ -372,7 +372,10 @@ class FunctionGenerator
     public function getArgumentNames()
     {
         $names = array();
-        return $this->arguments;
+        foreach ($this->arguments as $key => $value) {
+            $names[] = $key;
+        }
+        return $names;
     }
 
     /**
@@ -403,7 +406,7 @@ class FunctionGenerator
      */
     public function getParameterNames()
     {
-        return $this->arguments;
+        return $this->getArgumentNames();
     }
 
     /**

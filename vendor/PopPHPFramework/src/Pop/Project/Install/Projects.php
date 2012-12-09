@@ -64,7 +64,8 @@ class Projects
         // Create 'run' method
         $run = new MethodGenerator('run');
         $run->setDesc('Add any project specific code to this method for run-time use here.');
-        $run->appendToBody('parent::run();', false);
+        $run->addArgument('args', 'null', 'array');
+        $run->appendToBody('parent::run($args);', false);
         $run->getDocblock()->setReturn('void');
 
         // Finalize the project config file and save it

@@ -24,6 +24,8 @@
  */
 namespace Pop\Event;
 
+use Pop\Code\FunctionGenerator;
+
 /**
  * This is the Reader class for the Feed component.
  *
@@ -38,6 +40,12 @@ class Handler
 {
 
     /**
+     * Constant to stop the event handler
+     * @var string
+     */
+    const STOP = 'Pop\Event\Handler::STOP';
+
+    /**
      * Event listeners
      * @var array
      */
@@ -48,6 +56,12 @@ class Handler
      * @var array
      */
     protected $priorities = array();
+
+    /**
+     * Event results
+     * @var array
+     */
+    protected $results = array();
 
     /**
      * Constructor
@@ -134,6 +148,17 @@ class Handler
     }
 
     /**
+     * Method to return the last event result
+     *
+     * @param  string $name
+     * @return mixed
+     */
+    public function getResult($name)
+    {
+        return $this->results[$name];
+    }
+
+    /**
      * Method to trigger an event listener priority
      *
      * @param  mixed $obj
@@ -170,7 +195,41 @@ class Handler
             arsort($events, SORT_NUMERIC);
         }
 
-        print_r($events);
+        foreach ($events as $f => $p) {
+            if (end($this->results) == self::STOP) {
+                return;
+            }
+
+            if ($obj instanceof \Pop\Mvc\Controller) {
+                $args['view'] = $obj->getView();
+                $args['response'] = $obj->getResponse();
+                $args['request'] = $obj->getRequest();
+                $args['project'] = $obj->getProject();
+            }
+
+            $args['result'] = end($this->results);
+
+            // Arrange the argument values in the correct order
+            $func = new FunctionGenerator('anon', $this->listeners[$f]);
+            $params = $func->getParameterNames();
+            $realArgs = array();
+            foreach ($params as $value) {
+                $realArgs[$value] = $args[$value];
+            }
+
+            // Fire the event listener and store the result
+            if ($obj instanceof \Pop\Mvc\Controller) {
+                $uri = str_replace('/', '.', $obj->getRequest()->getRequestUri());
+                if (substr($uri, -1) == '.') {
+                    $uri = substr($uri, 0, -1);
+                }
+                if (substr($f, 0 - strlen($uri)) == $uri) {
+                    $this->results[$f] = call_user_func_array($this->listeners[$f], $realArgs);
+                }
+            } else {
+                $this->results[$f] = call_user_func_array($this->listeners[$f], $realArgs);
+            }
+        }
 
     }
 
