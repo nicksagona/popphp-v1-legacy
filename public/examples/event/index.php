@@ -6,6 +6,7 @@ use Pop\Event\Handler,
     Pop\Http\Request,
     Pop\Http\Response,
     Pop\Mvc\Controller,
+    Pop\Mvc\Model,
     Pop\Mvc\Router,
     Pop\Mvc\View,
     Pop\Project\Project;
@@ -29,19 +30,25 @@ class IndexController extends Controller
 
     public function index()
     {
-        $this->view = View::factory($this->viewPath . '/index.phtml');
+        $this->view = View::factory($this->viewPath . '/index.phtml', new Model(array('title' => 'Test Event', 'subtitle' => 'Home Page', 'content' => 'This is the home page')));
         $this->send();
     }
 
     public function users()
     {
         if ($this->request->getPath(1) == 'add') {
-            $this->view = View::factory($this->viewPath . '/add.phtml');
+            $this->view = View::factory($this->viewPath . '/index.phtml', new Model(array('title' => 'Test Event', 'subtitle' => 'Users Page &gt; Add User', 'content' => 'This is the add users page')));
             $this->send();
         } else {
-            $this->view = View::factory($this->viewPath . '/index.phtml');
+            $this->view = View::factory($this->viewPath . '/index.phtml', new Model(array('title' => 'Test Event', 'subtitle' => 'Users Page', 'content' => 'This is the users page')));
             $this->send();
         }
+    }
+
+    public function error()
+    {
+        $this->view = View::factory($this->viewPath . '/index.phtml', new Model(array('title' => 'Test Event', 'subtitle' => 'Error Page', 'content' => 'Page not found.')));
+        $this->send(404);
     }
 
 }
@@ -50,24 +57,11 @@ try {
     $project = new Project(null, null, new Router(array(
         '/' => 'IndexController'
     )));
-    $project->attachEvent('dispatch.', function () { return 'Hello, World!'; }, 0)
-            ->attachEvent('render.users', function ($result, $view) { echo 'How are you doing, ' . $view . '? (The last result was: ' . $result . ')'; }, 0)
-            ->attachEvent('log.users.add', function ($result, $view) { echo 'How are you doing, ' . $view . '? (The last result was: ' . $result . ')'; }, 0);
+    $project->attachEvent('render.users', function ($view) { $view->getModel()->set('subtitle', 'This is the REVISED user subtitle.'); }, 0)
+            ->attachEvent('render.users.add', function ($view) { $view->getModel()->set('subtitle', 'This is the REVISED user ADD subtitle.'); }, 0)
+            ->attachEvent('log.users.*', function ($view) { $view->getModel()->set('content', 'This is the global REVISED user content.'); }, 0);
 
     $project->run(array('name' => 'World!'));
-    //$events = new Handler('dispatch', function ($name) { return 'Hello, ' . $name; }, 2);
-    //$events->attach('render', function ($result, $name) { return 'How are you doing, ' . $name . '? (The last result was: ' . $result . ')'; }, 1)
-    //       ->attach('log', function ($name) { return 'Goodbye, ' . $name; }, -1);
-    //
-    //echo '<br />Triggering pre-events...<br />' . PHP_EOL;
-    //$events->trigger($events, 1, array('name' => 'World!'));
-    //
-    //echo '<br />Triggering post-events...<br />' . PHP_EOL;
-    //$events->trigger($events, -1, array('name' => 'World!'));
-
-    //print_r($events);
-
-    echo PHP_EOL . PHP_EOL;
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

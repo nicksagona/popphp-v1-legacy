@@ -170,7 +170,7 @@ class Handler
     {
         $events = array();
 
-        // Get pre-level events.
+        // Get high-priority events.
         if ($priority > 0) {
             foreach ($this->priorities as $key => $value) {
                 if ($value > 0) {
@@ -178,14 +178,14 @@ class Handler
                 }
             }
             arsort($events, SORT_NUMERIC);
-        // Get 0-level events
+        // Get routed events
         } else if ($priority == 0) {
             foreach ($this->priorities as $key => $value) {
                 if ($value == 0) {
                     $events[$key] = $value;
                 }
             }
-        // Get post-level events
+        // Get low-priority events
         } else if ($priority < 0) {
             foreach ($this->priorities as $key => $value) {
                 if ($value < 0) {
@@ -200,16 +200,9 @@ class Handler
                 return;
             }
 
-            if ($obj instanceof \Pop\Mvc\Controller) {
-                $args['view'] = $obj->getView();
-                $args['response'] = $obj->getResponse();
-                $args['request'] = $obj->getRequest();
-                $args['project'] = $obj->getProject();
-            }
-
             $args['result'] = end($this->results);
 
-            // Arrange the argument values in the correct order
+            // Get and arrange the argument values in the correct order
             $func = new FunctionGenerator('anon', $this->listeners[$f]);
             $params = $func->getParameterNames();
             $realArgs = array();
@@ -218,14 +211,29 @@ class Handler
             }
 
             // Fire the event listener and store the result
+            // If the trigger object is a controller object
             if ($obj instanceof \Pop\Mvc\Controller) {
                 $uri = str_replace('/', '.', $obj->getRequest()->getRequestUri());
                 if (substr($uri, -1) == '.') {
                     $uri = substr($uri, 0, -1);
                 }
-                if (substr($f, 0 - strlen($uri)) == $uri) {
-                    $this->results[$f] = call_user_func_array($this->listeners[$f], $realArgs);
+                // Check for wildcard match
+                if (substr($f, -1) == '*') {
+                    $fChk = substr($f, strpos($f, '.'));
+                    $fChk = substr($fChk, 0, -1);
+                    if (substr($fChk, -1) == '.') {
+                        $fChk = substr($fChk, 0, -1);
+                    }
+                    if (substr($uri, 0, strlen($fChk)) == $fChk) {
+                        $this->results[$f] = call_user_func_array($this->listeners[$f], $realArgs);
+                    }
+                // Check for direct match
+                } else {
+                    if (substr($f, 0 - strlen($uri)) == $uri) {
+                        $this->results[$f] = call_user_func_array($this->listeners[$f], $realArgs);
+                    }
                 }
+            // Else, if the trigger object is a project object
             } else {
                 $this->results[$f] = call_user_func_array($this->listeners[$f], $realArgs);
             }

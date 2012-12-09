@@ -243,7 +243,13 @@ class Controller
         }
 
         if (null !== $this->project->getEventHandler()) {
-            $this->project->getEventHandler()->trigger($this, 0);
+            $args = array(
+                'view'     => $this->getView(),
+                'response' => $this->getResponse(),
+                'request'  => $this->getRequest(),
+                'project'  => $this->getProject()
+            );
+            $this->project->getEventHandler()->trigger($this, 0, $args);
         }
 
         $this->response->setBody($this->view->render(true));

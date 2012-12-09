@@ -275,12 +275,13 @@ class Project
     public function run(array $args = null)
     {
 
-        // Trigger any pre-level events, if any exist
+        // Trigger any high-priority events, if any exist
         if (null !== $this->events) {
             $this->events->trigger($this, 1, $args);
         }
 
         // If router exists, then route the project to the appropriate controller
+        // Any routed events will be triggered by the controller
         if (null !== $this->router) {
             $this->router->route($this);
 
@@ -295,7 +296,7 @@ class Project
             }
         }
 
-        // Trigger any post-level events, if any exist
+        // Trigger any low-priority events, if any exist
         if (null !== $this->events) {
             $this->events->trigger($this, -1, $args);
         }
