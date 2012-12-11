@@ -27,7 +27,7 @@ namespace Pop\Event;
 use Pop\Code\FunctionGenerator;
 
 /**
- * This is the Reader class for the Feed component.
+ * This is the Handler class for the Event component.
  *
  * @category   Pop
  * @package    Pop_Event

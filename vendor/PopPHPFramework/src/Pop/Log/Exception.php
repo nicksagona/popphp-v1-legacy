@@ -25,7 +25,7 @@
 namespace Pop\Event;
 
 /**
- * This is the Event Exception class for the Event component.
+ * This is the Log Exception class for the Log component.
  *
  * @category   Pop
  * @package    Pop_Event

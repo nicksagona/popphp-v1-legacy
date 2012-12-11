@@ -13,7 +13,7 @@
  * to info@popphp.org so we can send you a copy immediately.
  *
  * @category   Pop
- * @package    Pop_Event
+ * @package    Pop_Log
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
@@ -22,16 +22,41 @@
 /**
  * @namespace
  */
-namespace Pop\Event;
+namespace Pop\Log\Writer;
 
 /**
- * This is the Event Exception class for the Event component.
+ * This is the Db writer class for the Log component.
  *
  * @category   Pop
- * @package    Pop_Event
+ * @package    Pop_Log
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.0.3
  */
-class Exception extends \Exception {}
+class Db implements WriterInterface
+{
+
+    /**
+     * Constructor
+     *
+     * Instantiate the DB writer object.
+     *
+     * @return \Pop\Log\Writer\Db
+     */
+    public function __construct()
+    {
+
+    }
+
+    /**
+     * Method to write to the log
+     *
+     * @return \Pop\Log\Writer\Db
+     */
+    public function write()
+    {
+        return $this;
+    }
+
+}
