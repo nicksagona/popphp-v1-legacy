@@ -120,6 +120,7 @@ class File
         'jpeg'   => 'image/jpeg',
         'js'     => 'text/plain',
         'json'   => 'text/plain',
+        'log'    => 'text/plain',
         'mov'    => 'video/quicktime',
         'mp2'    => 'audio/mpeg',
         'mp3'    => 'audio/mpeg',

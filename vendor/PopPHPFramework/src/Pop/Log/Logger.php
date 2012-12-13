@@ -72,36 +72,36 @@ class Logger
     protected $writers = array();
 
     /**
+     * Log timestamp format
+     * @var string
+     */
+    protected $timestamp = 'Y-m-d H:i:s';
+
+    /**
      * Constructor
      *
      * Instantiate the logger object.
      *
+     * @param  Writer\WriterInterface $writer
      * @return \Pop\Log\Logger
      */
-    public function __construct()
+    public function __construct(Writer\WriterInterface $writer = null)
     {
-
+        if (null !== $writer) {
+            $this->addWriter($writer);
+        }
     }
 
     /**
      * Method to add a log writer
      *
+     * @param  Writer\WriterInterface $writer
      * @return \Pop\Log\Logger
      */
-    public function addWriter()
+    public function addWriter(Writer\WriterInterface $writer)
     {
+        $this->writers[] = $writer;
         return $this;
-    }
-
-    /**
-     * Method to get a log writer
-     *
-     * @param  string $name
-     * @return mixed
-     */
-    public function getWriter($name)
-    {
-        return (isset($this->writers[$name])) ? $this->writers[$name] : null;
     }
 
     /**
@@ -115,27 +115,146 @@ class Logger
     }
 
     /**
-     * Method to remove a log writer
+     * Method to set timestamp format
      *
-     * @param  string $name
+     * @param  string $format
      * @return \Pop\Log\Logger
      */
-    public function removeWriter($name)
+    public function setTimestamp($format = 'Y-m-d H:i:s')
     {
-        if (isset($this->writers[$name])) {
-            unset($this->writers[$name]);
-        }
+        $this->timestamp = $format;
         return $this;
+    }
+
+    /**
+     * Method to get timestamp format
+     *
+     * @return string
+     */
+    public function getTimestamp()
+    {
+        return $this->timestamp;
     }
 
     /**
      * Method to add a log entry
      *
+     * @param  int   $priority
+     * @param  mixed $message
+     * @param  mixed $extra
      * @return \Pop\Log\Logger
      */
-    public function log()
+    public function log($priority, $message, $extra = null)
     {
+        $logEntry = array(
+            'timestamp' => date($this->timestamp),
+            'priority'  => (int) $priority,
+            'name'      => $this->priorities[$priority],
+            'message'   => (string) $message,
+            'extra'     => (string) $extra
+        );
+
+        foreach ($this->writers as $writer) {
+            $writer->writeLog($logEntry);
+        }
+
         return $this;
+    }
+
+    /**
+     * Method to add an EMERG log entry
+     *
+     * @param  mixed $message
+     * @param  mixed $extra
+     * @return \Pop\Log\Logger
+     */
+    public function emerg($message, $extra = null)
+    {
+        return $this->log(self::EMERG, $message, $extra);
+    }
+
+    /**
+     * Method to add an ALERT log entry
+     *
+     * @param  mixed $message
+     * @param  mixed $extra
+     * @return \Pop\Log\Logger
+     */
+    public function alert($message, $extra = null)
+    {
+        return $this->log(self::ALERT, $message, $extra);
+    }
+
+    /**
+     * Method to add a CRIT log entry
+     *
+     * @param  mixed $message
+     * @param  mixed $extra
+     * @return \Pop\Log\Logger
+     */
+    public function crit($message, $extra = null)
+    {
+        return $this->log(self::CRIT, $message, $extra);
+    }
+
+    /**
+     * Method to add an ERR log entry
+     *
+     * @param  mixed $message
+     * @param  mixed $extra
+     * @return \Pop\Log\Logger
+     */
+    public function err($message, $extra = null)
+    {
+        return $this->log(self::ERR, $message, $extra);
+    }
+
+    /**
+     * Method to add a WARN log entry
+     *
+     * @param  mixed $message
+     * @param  mixed $extra
+     * @return \Pop\Log\Logger
+     */
+    public function warn($message, $extra = null)
+    {
+        return $this->log(self::WARN, $message, $extra);
+    }
+
+    /**
+     * Method to add a NOTICE log entry
+     *
+     * @param  mixed $message
+     * @param  mixed $extra
+     * @return \Pop\Log\Logger
+     */
+    public function notice($message, $extra = null)
+    {
+        return $this->log(self::NOTICE, $message, $extra);
+    }
+
+    /**
+     * Method to add an INFO log entry
+     *
+     * @param  mixed $message
+     * @param  mixed $extra
+     * @return \Pop\Log\Logger
+     */
+    public function info($message, $extra = null)
+    {
+        return $this->log(self::INFO, $message, $extra);
+    }
+
+    /**
+     * Method to add a DEBUG log entry
+     *
+     * @param  mixed $message
+     * @param  mixed $extra
+     * @return \Pop\Log\Logger
+     */
+    public function debug($message, $extra = null)
+    {
+        return $this->log(self::DEBUG, $message, $extra);
     }
 
 }

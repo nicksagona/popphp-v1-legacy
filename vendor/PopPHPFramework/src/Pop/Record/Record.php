@@ -419,7 +419,7 @@ class Record
      *
      * @param  array $columns
      * @throws Exception
-     * @return void
+     * @return \Pop\Record\Record
      */
     public function setValues($columns = null)
     {
@@ -435,6 +435,8 @@ class Record
         } else {
             throw new Exception('The parameter passed must be either an array or null.');
         }
+
+        return $this;
     }
 
     /**

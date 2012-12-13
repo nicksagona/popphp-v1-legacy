@@ -38,24 +38,35 @@ class Db implements WriterInterface
 {
 
     /**
+     * Table record object that represents the log table in the database
+     * @var \Pop\Record\Record
+     */
+    protected $table = null;
+
+    /**
      * Constructor
      *
      * Instantiate the DB writer object.
      *
+     * @param  \Pop\Record\Record $table
      * @return \Pop\Log\Writer\Db
      */
-    public function __construct()
+    public function __construct(\Pop\Record\Record $table)
     {
-
+        $this->table = $table;
     }
 
     /**
      * Method to write to the log
      *
+     * @param  array $logEntry
      * @return \Pop\Log\Writer\Db
      */
-    public function write()
+    public function writeLog(array $logEntry)
     {
+        $this->table->setValues($logEntry)
+                    ->save();
+
         return $this;
     }
 
