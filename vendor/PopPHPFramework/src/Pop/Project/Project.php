@@ -226,7 +226,7 @@ class Project
     }
 
     /**
-     * Attach an event. Possible project event name hook-points are:
+     * Attach an event. Default project event name hook-points are:
      *
      *   route.pre
      *   route

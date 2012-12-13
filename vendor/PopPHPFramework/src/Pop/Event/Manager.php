@@ -24,7 +24,8 @@
  */
 namespace Pop\Event;
 
-use Pop\Code\FunctionGenerator;
+use Pop\Code\FunctionGenerator,
+    Pop\Code\Reflection;
 
 /**
  * This is the Manager class for the Event component.
@@ -124,6 +125,7 @@ class Manager
      *
      * @param  string $name
      * @param  array  $args
+     * @throws Exception
      * @return void
      */
     public function trigger($name, array $args = array())
@@ -139,11 +141,26 @@ class Manager
                 }
 
                 $args['result'] = end($this->results[$name]);
+                $realArgs = array();
+                $params = array();
 
                 // Get and arrange the argument values in the correct order
-                $func = new FunctionGenerator('anon', $action);
-                $params = $func->getParameterNames();
-                $realArgs = array();
+                // If the action is a closure object
+                if ($action instanceof \Closure) {
+                    $func = new FunctionGenerator('anon', $action);
+                    $params = $func->getParameterNames();
+                // Else, if the action is a callable class/method combination
+                } else if (is_callable($action, false, $callable_name)) {
+                    $cls = substr($callable_name, 0, strpos($callable_name, ':'));
+                    $mthd = substr($callable_name, (strrpos($callable_name, ':') + 1));
+                    $reflect = new Reflection($cls);
+                    $mthdParams = $reflect->getGenerator()->code()->getMethod($mthd)->getArguments();
+                    foreach ($mthdParams as $key => $value) {
+                        $params[] = str_replace('$', '', $key);
+                    }
+                } else {
+                    throw new Exception('Error: The action must be callable, i.e. a closure or class/method combination.');
+                }
 
                 foreach ($params as $value) {
                     $realArgs[$value] = $args[$value];

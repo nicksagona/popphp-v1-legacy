@@ -83,7 +83,7 @@ try {
         'dispatch',
         function ($controller) {
             if ($controller->getRequest()->getRequestUri() == '/') {
-                $controller->getView()->getModel()->set('subtitle', 'This is the REVISED user subtitle.');
+                $controller->getView()->getModel()->set('subtitle', 'This is the REVISED Home Page Subtitle.');
                 return 'Hello World! This is the home page!';
             }
         }

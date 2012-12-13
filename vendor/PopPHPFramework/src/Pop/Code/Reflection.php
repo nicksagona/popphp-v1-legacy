@@ -113,7 +113,7 @@ class Reflection extends \ReflectionClass
 
         // Detect and set the class doc block
         $classDocBlock = $this->getDocComment();
-        if (!empty($classDocBlock)) {
+        if (!empty($classDocBlock) && (strpos($classDocBlock, '/*') !== false)) {
             $this->generator->code()->setDocblock(DocblockGenerator::parse($classDocBlock));
         }
 
@@ -217,7 +217,7 @@ class Reflection extends \ReflectionClass
                 }
 
                 $doc = $property->getDocComment();
-                if (null !== $doc) {
+                if ((null !== $doc) && (strpos($doc, '/*') !== false)) {
                     $docblock = DocblockGenerator::parse($doc);
                     $desc = $docblock->getDesc();
                     $type = $docblock->getTag('var');
@@ -274,7 +274,7 @@ class Reflection extends \ReflectionClass
                 }
 
                 $mthd = new MethodGenerator($value->name, $visibility, $method->isStatic());
-                if (null !== $docBlock) {
+                if ((null !== $docBlock) && (strpos($docBlock, '/*') !== false)) {
                     $mthd->setDocblock(DocblockGenerator::parse($docBlock, $mthd->getIndent()));
                 }
                 $mthd->setFinal($method->isFinal())
