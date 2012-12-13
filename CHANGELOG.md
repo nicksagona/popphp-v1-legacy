@@ -1,3 +1,12 @@
+Pop PHP Framework 1.1.0
+=======================
+
+COMPLETED:
+----------
+* Add Event component, hook into Project class
+* Add Log component
+
+
 Pop PHP Framework 1.0.3
 =======================
 
