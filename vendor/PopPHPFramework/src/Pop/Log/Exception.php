@@ -13,7 +13,7 @@
  * to info@popphp.org so we can send you a copy immediately.
  *
  * @category   Pop
- * @package    Pop_Event
+ * @package    Pop_Log
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
@@ -22,13 +22,13 @@
 /**
  * @namespace
  */
-namespace Pop\Event;
+namespace Pop\Log;
 
 /**
  * This is the Log Exception class for the Log component.
  *
  * @category   Pop
- * @package    Pop_Event
+ * @package    Pop_Log
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License

@@ -26,7 +26,7 @@ namespace Pop\Project;
 
 use Pop\Config,
     Pop\Db\Db,
-    Pop\Event\Handler,
+    Pop\Event\Manager,
     Pop\Mvc\Router,
     Pop\Record\Record;
 
@@ -63,7 +63,7 @@ class Project
 
     /**
      * Project events
-     * @var \Pop\Event\Handler
+     * @var \Pop\Event\Manager
      */
     protected $events = null;
 
@@ -90,6 +90,8 @@ class Project
         if (null !== $router) {
             $this->loadRouter($router);
         }
+
+        $this->events = new Manager();
 
         if (isset($this->config->defaultDb)) {
             $default = $this->config->defaultDb;
@@ -224,7 +226,17 @@ class Project
     }
 
     /**
-     * Attach an event
+     * Attach an event. Possible project event name hook-points are:
+     *
+     *   route.pre
+     *   route
+     *   route.error
+     *   route.post
+     *
+     *   dispatch.pre
+     *   dispatch
+     *   dispatch.error
+     *   dispatch.post
      *
      * @param  string $name
      * @param  mixed  $action
@@ -233,74 +245,55 @@ class Project
      */
     public function attachEvent($name, $action, $priority = 0)
     {
-        if (null === $this->events) {
-            $this->events = new Handler();
-        }
-
         $this->events->attach($name, $action, $priority);
         return $this;
     }
 
     /**
-     * Detach an event
+     * Get the event Manager
      *
-     * @param  string $name
-     * @return \Pop\Project\Project
+     * @return \Pop\Event\Manager
      */
-    public function detachEvent($name)
-    {
-        if (null !== $this->events) {
-            $this->events->detach($name);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get the event handler
-     *
-     * @return \Pop\Event\Handler
-     */
-    public function getEventHandler()
+    public function getEventManager()
     {
         return $this->events;
     }
 
     /**
-     * Run the project
+     * Run the project.
      *
-     * @param  array $args
      * @return void
      */
-    public function run(array $args = null)
+    public function run()
     {
-
-        // Trigger any high-priority events, if any exist
-        if (null !== $this->events) {
-            $this->events->trigger($this, 1, $args);
-        }
-
         // If router exists, then route the project to the appropriate controller
-        // Any routed events will be triggered by the controller
         if (null !== $this->router) {
+            // Trigger any pre-route events, route, then trigger any post-route events
+            $this->events->trigger('route.pre', array('router' => $this->router));
             $this->router->route($this);
+            $this->events->trigger('route.post', array('router' => $this->router));
 
             // If a controller was properly routed and created, then dispatch it
             if (null !== $this->router()->controller()) {
+                // Trigger any pre-dispatch events
+                $this->events->trigger('dispatch.pre', array('router' => $this->router));
+
+                // Define the action and dispatch it
                 $action = ($this->router()->controller()->getRequest()->getRequestUri() == '/') ? 'index' : $this->router()->getAction();
+
+                // Dispatch the found action, the error action or trigger the dispatch error events
                 if ((null !== $action) && method_exists($this->router()->controller(), $action)) {
                     $this->router()->controller()->dispatch($action);
                 } else if (method_exists($this->router()->controller(), 'error')) {
                     $this->router()->controller()->dispatch('error');
+                } else {
+                    $this->events->trigger('dispatch.error', array('router' => $this->router));
                 }
+
+                // Trigger any post-dispatch events
+                $this->events->trigger('dispatch.post', array('router' => $this->router));
             }
         }
-
-        // Trigger any low-priority events, if any exist
-        if (null !== $this->events) {
-            $this->events->trigger($this, -1, $args);
-        }
-
     }
 
 }

@@ -41,6 +41,12 @@ class Router
 {
 
     /**
+     * Project object
+     * @var \Pop\Project\Project
+     */
+    protected $project = null;
+
+    /**
      * Request object
      * @var \Pop\Http\Request
      */
@@ -100,6 +106,26 @@ class Router
     }
 
     /**
+     * Get the project object
+     *
+     * @return \Pop\Project\Project
+     */
+    public function project()
+    {
+        return $this->project;
+    }
+
+    /**
+     * Get the request object
+     *
+     * @return \Pop\Http\Request
+     */
+    public function request()
+    {
+        return $this->request;
+    }
+
+    /**
      * Get the controller object
      *
      * @return \Pop\Mvc\Controller
@@ -152,6 +178,7 @@ class Router
      */
     public function route(Project $project = null)
     {
+        $this->project = $project;
         $ctrlCls = null;
 
         // If a non-default route exists
@@ -174,9 +201,19 @@ class Router
             $ctrlCls = $this->controllers['/'];
         }
 
-        // Create the controller
+        // If found, create the controller object
         if ((null !== $ctrlCls) && class_exists($ctrlCls)) {
+            $this->project->getEventManager()->trigger('route', array('router' => $this));
             $this->controller = new $ctrlCls(null, null, $project);
+        // Else, trigger any route error events
+        } else {
+            $this->project->getEventManager()->trigger(
+                'route.error',
+                array(
+                    'router' => $this,
+                    'controller' => $ctrlCls
+                )
+            );
         }
     }
 

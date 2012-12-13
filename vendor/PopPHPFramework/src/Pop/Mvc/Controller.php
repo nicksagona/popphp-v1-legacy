@@ -242,16 +242,8 @@ class Controller
             }
         }
 
-        if (null !== $this->project->getEventHandler()) {
-            $args = array(
-                'view'     => $this->getView(),
-                'response' => $this->getResponse(),
-                'request'  => $this->getRequest(),
-                'project'  => $this->getProject()
-            );
-            $this->project->getEventHandler()->trigger($this, 0, $args);
-        }
-
+        // Trigger any dispatch events, then send the response
+        $this->project->getEventManager()->trigger('dispatch', array('controller' => $this));
         $this->response->setBody($this->view->render(true));
         $this->response->send();
     }

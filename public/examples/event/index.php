@@ -2,7 +2,7 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Event\Handler,
+use Pop\Event\Manager,
     Pop\Http\Request,
     Pop\Http\Response,
     Pop\Mvc\Controller,
@@ -30,24 +30,46 @@ class IndexController extends Controller
 
     public function index()
     {
-        $this->view = View::factory($this->viewPath . '/index.phtml', new Model(array('title' => 'Test Event', 'subtitle' => 'Home Page', 'content' => 'This is the home page')));
+        $this->view = View::factory(
+            $this->viewPath . '/index.phtml',
+            new Model(
+                array(
+                    'title' => 'Test Event',
+                    'subtitle' => 'Home Page',
+                    'content' => 'This is the home page'
+                )
+            )
+        );
         $this->send();
     }
 
     public function users()
     {
-        if ($this->request->getPath(1) == 'add') {
-            $this->view = View::factory($this->viewPath . '/index.phtml', new Model(array('title' => 'Test Event', 'subtitle' => 'Users Page &gt; Add User', 'content' => 'This is the add users page')));
-            $this->send();
-        } else {
-            $this->view = View::factory($this->viewPath . '/index.phtml', new Model(array('title' => 'Test Event', 'subtitle' => 'Users Page', 'content' => 'This is the users page')));
-            $this->send();
-        }
+        $this->view = View::factory(
+            $this->viewPath . '/index.phtml',
+            new Model(
+                array(
+                    'title' => 'Test Event',
+                    'subtitle' => 'Users Page',
+                    'content' => 'This is the users page'
+                )
+            )
+        );
+        $this->send();
     }
 
     public function error()
     {
-        $this->view = View::factory($this->viewPath . '/index.phtml', new Model(array('title' => 'Test Event', 'subtitle' => 'Error Page', 'content' => 'Page not found.')));
+        $this->view = View::factory(
+            $this->viewPath . '/index.phtml',
+            new Model(
+                array(
+                    'title' => 'Test Event',
+                    'subtitle' => 'Error Page',
+                    'content' => 'Page not found.'
+                )
+            )
+        );
         $this->send(404);
     }
 
@@ -57,11 +79,24 @@ try {
     $project = new Project(null, null, new Router(array(
         '/' => 'IndexController'
     )));
-    $project->attachEvent('render.users', function ($view) { $view->getModel()->set('subtitle', 'This is the REVISED user subtitle.'); }, 0)
-            ->attachEvent('render.users.add', function ($view) { $view->getModel()->set('subtitle', 'This is the REVISED user ADD subtitle.'); }, 0)
-            ->attachEvent('log.users.*', function ($view) { $view->getModel()->set('content', 'This is the global REVISED user content.'); }, 0);
-
-    $project->run(array('name' => 'World!'));
+    $project->attachEvent(
+        'dispatch',
+        function ($controller) {
+            if ($controller->getRequest()->getRequestUri() == '/') {
+                $controller->getView()->getModel()->set('subtitle', 'This is the REVISED user subtitle.');
+                return 'Hello World! This is the home page!';
+            }
+        }
+    );
+    $project->attachEvent(
+        'dispatch',
+        function ($controller, $result) {
+            if ($controller->getRequest()->getRequestUri() == '/') {
+                $controller->getView()->getModel()->set('content', $result);
+            }
+        }
+    );
+    $project->run();
 } catch (\Exception $e) {
     echo $e->getMessage();
 }
