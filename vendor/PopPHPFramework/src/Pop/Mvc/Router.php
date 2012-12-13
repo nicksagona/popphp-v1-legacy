@@ -203,8 +203,8 @@ class Router
 
         // If found, create the controller object
         if ((null !== $ctrlCls) && class_exists($ctrlCls)) {
-            $this->project->getEventManager()->trigger('route', array('router' => $this));
             $this->controller = new $ctrlCls(null, null, $project);
+            $this->project->getEventManager()->trigger('route', array('router' => $this));
         // Else, trigger any route error events
         } else {
             $this->project->getEventManager()->trigger(
