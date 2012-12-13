@@ -141,21 +141,20 @@ class Logger
      *
      * @param  int   $priority
      * @param  mixed $message
-     * @param  mixed $extra
+     * @param  array $options
      * @return \Pop\Log\Logger
      */
-    public function log($priority, $message, $extra = null)
+    public function log($priority, $message, array $options = array())
     {
         $logEntry = array(
             'timestamp' => date($this->timestamp),
             'priority'  => (int) $priority,
             'name'      => $this->priorities[$priority],
-            'message'   => (string) $message,
-            'extra'     => (string) $extra
+            'message'   => (string) $message
         );
 
         foreach ($this->writers as $writer) {
-            $writer->writeLog($logEntry);
+            $writer->writeLog($logEntry, $options);
         }
 
         return $this;
@@ -165,96 +164,96 @@ class Logger
      * Method to add an EMERG log entry
      *
      * @param  mixed $message
-     * @param  mixed $extra
+     * @param  array $options
      * @return \Pop\Log\Logger
      */
-    public function emerg($message, $extra = null)
+    public function emerg($message, array $options = array())
     {
-        return $this->log(self::EMERG, $message, $extra);
+        return $this->log(self::EMERG, $message, $options);
     }
 
     /**
      * Method to add an ALERT log entry
      *
      * @param  mixed $message
-     * @param  mixed $extra
+     * @param  array $options
      * @return \Pop\Log\Logger
      */
-    public function alert($message, $extra = null)
+    public function alert($message, array $options = array())
     {
-        return $this->log(self::ALERT, $message, $extra);
+        return $this->log(self::ALERT, $message, $options);
     }
 
     /**
      * Method to add a CRIT log entry
      *
      * @param  mixed $message
-     * @param  mixed $extra
+     * @param  array $options
      * @return \Pop\Log\Logger
      */
-    public function crit($message, $extra = null)
+    public function crit($message, array $options = array())
     {
-        return $this->log(self::CRIT, $message, $extra);
+        return $this->log(self::CRIT, $message, $options);
     }
 
     /**
      * Method to add an ERR log entry
      *
      * @param  mixed $message
-     * @param  mixed $extra
+     * @param  array $options
      * @return \Pop\Log\Logger
      */
-    public function err($message, $extra = null)
+    public function err($message, array $options = array())
     {
-        return $this->log(self::ERR, $message, $extra);
+        return $this->log(self::ERR, $message, $options);
     }
 
     /**
      * Method to add a WARN log entry
      *
      * @param  mixed $message
-     * @param  mixed $extra
+     * @param  array $options
      * @return \Pop\Log\Logger
      */
-    public function warn($message, $extra = null)
+    public function warn($message, array $options = array())
     {
-        return $this->log(self::WARN, $message, $extra);
+        return $this->log(self::WARN, $message, $options);
     }
 
     /**
      * Method to add a NOTICE log entry
      *
      * @param  mixed $message
-     * @param  mixed $extra
+     * @param  array $options
      * @return \Pop\Log\Logger
      */
-    public function notice($message, $extra = null)
+    public function notice($message, array $options = array())
     {
-        return $this->log(self::NOTICE, $message, $extra);
+        return $this->log(self::NOTICE, $message, $options);
     }
 
     /**
      * Method to add an INFO log entry
      *
      * @param  mixed $message
-     * @param  mixed $extra
+     * @param  array $options
      * @return \Pop\Log\Logger
      */
-    public function info($message, $extra = null)
+    public function info($message, array $options = array())
     {
-        return $this->log(self::INFO, $message, $extra);
+        return $this->log(self::INFO, $message, $options);
     }
 
     /**
      * Method to add a DEBUG log entry
      *
      * @param  mixed $message
-     * @param  mixed $extra
+     * @param  array $options
      * @return \Pop\Log\Logger
      */
-    public function debug($message, $extra = null)
+    public function debug($message, array $options = array())
     {
-        return $this->log(self::DEBUG, $message, $extra);
+        return $this->log(self::DEBUG, $message, $options);
     }
 
 }

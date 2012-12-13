@@ -69,9 +69,10 @@ class File extends PopFile implements WriterInterface
      * Method to write to the log
      *
      * @param  array $logEntry
+     * @param  array $options
      * @return \Pop\Log\Writer\File
      */
-    public function writeLog(array $logEntry)
+    public function writeLog(array $logEntry, array $options = array())
     {
         switch ($this->mime) {
             case 'text/plain':

@@ -41,8 +41,9 @@ interface WriterInterface
      * Method to write to the log
      *
      * @param  array $logEntry
+     * @param  array $options
      * @return void
      */
-    public function writeLog(array $logEntry);
+    public function writeLog(array $logEntry, array $options = array());
 
 }
