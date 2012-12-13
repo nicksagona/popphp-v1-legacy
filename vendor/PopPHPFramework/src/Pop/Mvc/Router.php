@@ -195,7 +195,6 @@ class Router
     public function route(Project $project = null)
     {
         $this->project = $project;
-        $this->controllerClass = null;
 
         // If a non-default route exists
         if (($this->request->getPath(0) != '') && (array_key_exists('/' . $this->request->getPath(0), $this->controllers))) {
