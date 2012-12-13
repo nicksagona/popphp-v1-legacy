@@ -53,6 +53,12 @@ class Router
     protected $request = null;
 
     /**
+     * Current controller class name string
+     * @var string
+     */
+    protected $controllerClass = null;
+
+    /**
      * Current controller object
      * @var \Pop\Mvc\Controller
      */
@@ -126,7 +132,17 @@ class Router
     }
 
     /**
-     * Get the controller object
+     * Get the controller class name string
+     *
+     * @return string
+     */
+    public function getControllerClass()
+    {
+        return $this->controllerClass;
+    }
+
+    /**
+     * Get the current controller object
      *
      * @return \Pop\Mvc\Controller
      */
@@ -179,7 +195,7 @@ class Router
     public function route(Project $project = null)
     {
         $this->project = $project;
-        $ctrlCls = null;
+        $this->controllerClass = null;
 
         // If a non-default route exists
         if (($this->request->getPath(0) != '') && (array_key_exists('/' . $this->request->getPath(0), $this->controllers))) {
@@ -188,32 +204,26 @@ class Router
             // If the route has multiple options
             if (is_array($this->controllers[$route])) {
                 if (($this->request->getPath(1) != '') && (array_key_exists('/' . $this->request->getPath(1), $this->controllers[$route]))) {
-                    $ctrlCls = $this->controllers[$route]['/' . $this->request->getPath(1)];
+                    $this->controllerClass = $this->controllers[$route]['/' . $this->request->getPath(1)];
                 } else if (isset($this->controllers[$route]['/'])){
-                    $ctrlCls = $this->controllers[$route]['/'];
+                    $this->controllerClass = $this->controllers[$route]['/'];
                 }
             // Else, use the defined route
             } else {
-                $ctrlCls = $this->controllers[$route];
+                $this->controllerClass = $this->controllers[$route];
             }
         // Else, use the default route
         } else if (array_key_exists('/', $this->controllers)) {
-            $ctrlCls = $this->controllers['/'];
+            $this->controllerClass = $this->controllers['/'];
         }
 
         // If found, create the controller object
-        if ((null !== $ctrlCls) && class_exists($ctrlCls)) {
-            $this->controller = new $ctrlCls(null, null, $project);
+        if ((null !== $this->controllerClass) && class_exists($this->controllerClass)) {
+            $this->controller = new $this->controllerClass(null, null, $project);
             $this->project->getEventManager()->trigger('route', array('router' => $this));
         // Else, trigger any route error events
         } else {
-            $this->project->getEventManager()->trigger(
-                'route.error',
-                array(
-                    'router' => $this,
-                    'controller' => $ctrlCls
-                )
-            );
+            $this->project->getEventManager()->trigger('route.error', array('router' => $this));
         }
     }
 
