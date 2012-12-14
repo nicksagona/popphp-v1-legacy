@@ -32,7 +32,7 @@ namespace Pop\Db\Adapter;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2012 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
- * @version    1.0.3
+ * @version    1.1.0
  */
 class Oracle extends AbstractAdapter
 {
