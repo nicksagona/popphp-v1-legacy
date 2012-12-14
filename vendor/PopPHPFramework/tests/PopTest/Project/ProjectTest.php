@@ -143,7 +143,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Pop\Config', $p->config());
     }
 
-    public function testLoadConfigExecption()
+    public function testLoadConfigException()
     {
         $this->setExpectedException('Pop\Project\Exception');
         $p = new Project();
