@@ -337,6 +337,22 @@ class File
     }
 
     /**
+     * Set the file mime type.
+     *
+     * @param  string $mime
+     * @throws Exception
+     * @return \Pop\File\File
+     */
+    public function setMime($mime)
+    {
+        if ((count($this->allowed) > 0) && !in_array($mime, $this->allowed)) {
+            throw new Exception('Error: The file mime type ' . $mime . ' is not an accepted file mime type.');
+        }
+        $this->mime = $mime;
+        return $this;
+    }
+
+    /**
      * Get the current allowed files types.
      *
      * @return array
@@ -654,7 +670,9 @@ class File
         }
 
         // Set the mime type of the file.
-        $this->mime = ((null !== $this->ext) && (count($this->allowed) > 0) && (null !== $this->allowed)) ? $this->allowed[strtolower($this->ext)] : null;
+        $this->mime = ((null !== $this->ext) && (count($this->allowed) > 0) && (null !== $this->allowed)) ?
+            $this->allowed[strtolower($this->ext)] :
+            'text/plain';
     }
 
 }

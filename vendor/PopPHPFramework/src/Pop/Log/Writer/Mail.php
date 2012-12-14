@@ -24,6 +24,9 @@
  */
 namespace Pop\Log\Writer;
 
+use Pop\Mail\Mail as PopMail,
+    Pop\Validator\Validator\Email;
+
 /**
  * This is the Db writer class for the Log component.
  *
@@ -34,26 +37,47 @@ namespace Pop\Log\Writer;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.0.3
  */
-class Db implements WriterInterface
+class Mail implements WriterInterface
 {
 
     /**
-     * Table record object that represents the log table in the database
-     * @var \Pop\Record\Record
+     * Array of emails in which to send the log messages
+     * @var array
      */
-    protected $table = null;
+    protected $emails = array();
 
     /**
      * Constructor
      *
-     * Instantiate the DB writer object.
+     * Instantiate the Mail writer object.
      *
-     * @param  \Pop\Record\Record $table
-     * @return \Pop\Log\Writer\Db
+     * @param  array $emails
+     * @throws Exception
+     * @return \Pop\Log\Writer\Mail
      */
-    public function __construct(\Pop\Record\Record $table)
+    public function __construct(array $emails)
     {
-        $this->table = $table;
+        if (count($emails) == 0) {
+            throw new Exception('Error: There must be at least one email address passed.');
+        }
+
+        $validator = new Email();
+        foreach ($emails as $key => $value) {
+            if (!$validator->evaluate($value)) {
+                throw new Exception('Error: One of the email addresses passed was not valid.');
+            }
+            if (!is_numeric($key)) {
+                $this->emails[] = array(
+                    'name'  => $key,
+                    'email' => $value
+                );
+            } else {
+                $this->emails[] = array(
+                    'email' => $value
+                );
+            }
+
+        }
     }
 
     /**
@@ -65,8 +89,24 @@ class Db implements WriterInterface
      */
     public function writeLog(array $logEntry, array $options = array())
     {
-        $this->table->setValues($logEntry)
-                    ->save();
+        $subject = (isset($options['subject'])) ?
+            $options['subject'] :
+            'Log Entry:';
+
+        $subject .= ' ' . $logEntry['name'] . ' (' . $logEntry['priority'] . ')';
+
+        $mail = new PopMail($this->emails, $subject);
+        if (isset($options['headers'])) {
+            $mail->setHeaders($options['headers']);
+        }
+
+        $entry = implode("\t", $logEntry) . PHP_EOL;
+        if (isset($options['body'])) {
+            $entry .= PHP_EOL . $options['body'] . PHP_EOL;
+        }
+
+        $mail->setText($entry)
+             ->send();
 
         return $this;
     }

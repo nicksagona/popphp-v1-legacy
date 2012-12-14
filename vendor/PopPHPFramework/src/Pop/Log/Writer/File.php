@@ -83,7 +83,6 @@ class File extends PopFile implements WriterInterface
 
             case 'text/csv':
                 $logEntry['message'] = '"' . $logEntry['message'] . '"' ;
-                $logEntry['extra'] = '"' . $logEntry['extra'] . '"' ;
                 $entry = implode(",", $logEntry) . PHP_EOL;
                 $this->write($entry, true)
                      ->save();
@@ -91,7 +90,6 @@ class File extends PopFile implements WriterInterface
 
             case 'text/tsv':
                 $logEntry['message'] = '"' . $logEntry['message'] . '"' ;
-                $logEntry['extra'] = '"' . $logEntry['extra'] . '"' ;
                 $entry = implode("\t", $logEntry) . PHP_EOL;
                 $this->write($entry, true)
                      ->save();
@@ -103,10 +101,7 @@ class File extends PopFile implements WriterInterface
                          ->write('<log>' . PHP_EOL, true)
                          ->write('</log>' . PHP_EOL, true);
                 }
-                $entry = '    <entry priority="' . $logEntry['priority'] . '" name="' . $logEntry['name'] . '">' . PHP_EOL;
-                $entry .= '        <message><![CDATA[' . $logEntry['message'] . ']]></message>' . PHP_EOL;
-                $entry .= '        <extra><![CDATA[' . $logEntry['extra'] . ']]></extra>' . PHP_EOL;
-                $entry .= '    </entry>' . PHP_EOL;
+                $entry = '    <entry timestamp="' . $logEntry['timestamp'] . '" priority="' . $logEntry['priority'] . '" name="' . $logEntry['name'] . '"><![CDATA[' . $logEntry['message'] . ']]></entry>' . PHP_EOL;
                 $entry .= '</log>' . PHP_EOL;
                 $this->output = str_replace('</log>' . PHP_EOL, $entry, $this->output);
                 $this->save();
