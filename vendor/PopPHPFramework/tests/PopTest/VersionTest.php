@@ -32,7 +32,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('1.1.0', Version::getVersion());
         $this->assertEquals('1.1.0', trim(Version::getLatest()));
-        $this->assertEquals(1, Version::compareVersion(1.1));
+        $this->assertEquals(1, Version::compareVersion(1.2));
     }
 
     public function testCheck()
