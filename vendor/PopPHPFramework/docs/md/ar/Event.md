@@ -4,9 +4,9 @@ Pop PHP Framework
 Documentation : Event
 ---------------------
 
-The Event component provides a way to attach and trigger events within the life cycle of an application. The main benefit is the ability to extend an application by hooking functionality into it via closures and classes that are attached as events.
+المكون الحدث يوفر وسيلة لتحريك الأحداث ونعلق في إطار دورة حياة التطبيق. والفائدة الرئيسية هي القدرة على توجيه الطلب من قبل تركيب وظيفة في ذلك عن طريق الإغلاق والفئات التي ترد عن الأحداث.
 
-Here's an example of attaching and triggering an event using closures. The second one receives the result from the first one.
+وهنا مثال على ربط واثار الحدث باستخدام الإغلاق. ثانية واحدة يتلقى النتيجة من أول واحد.
 
 <pre>
 use Pop\Event\Manager;
@@ -19,7 +19,7 @@ $manager-&gt;attach('pre', function($result) { echo $result . '&lt;br /&gt;' . P
 $manager-&gt;trigger('pre', array('name' =&gt; 'World'));
 </pre>
 
-Here's an example using a class.
+وهنا مثال باستخدام فئة.
 
 <pre>
 use Pop\Event\Manager;

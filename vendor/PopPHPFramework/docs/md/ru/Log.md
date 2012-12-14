@@ -4,9 +4,9 @@ Pop PHP Framework
 Documentation : Log
 --------------------
 
-The Log component provides the basic functionality to record log entries in a variety of ways, including writing to file, inserting into a database or sending an email, or any mixture of them.
+Вход компонент предоставляет базовую функциональность для записи записей журнала в различных формах, в том числе записи в файл, вставляя в базе данных или электронной почте, или любой смеси из них.
 
-Here's an example of writing to a log file:
+Вот пример записи в файл журнала:
 
 <pre>
 use Pop\Log\Logger,
@@ -18,7 +18,7 @@ $logger-&gt;emerg('Here is an emergency message.')
        -&gt;info('Here is an info message.');
 </pre>
 
-Here's an example of writing to a database:
+Вот пример записи в базе данных:
 
 <pre>
 use Pop\Db\Db as PopDb,
@@ -37,7 +37,7 @@ $logger-&gt;emerg('Here is an emergency message.')
        -&gt;info('Here is an info message.');
 </pre>
 
-Here's an example of sending an email:
+Вот пример отправки по электронной почте:
 
 <pre>
 use Pop\Log\Logger,

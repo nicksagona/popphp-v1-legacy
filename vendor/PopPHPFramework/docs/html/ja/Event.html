@@ -34,10 +34,10 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            The Event component provides a way to attach and trigger events within the life cycle of an application. The main benefit is the ability to extend an application by hooking functionality into it via closures and classes that are attached as events.
+            Eventコンポーネントは、アプリケーションのライフサイクル内のイベントをアタッチして、トリガする方法を提供します。主な利点は、クロージャとイベントとして添付されているクラスを介してそれに機能をフックすることによって、アプリケーションを拡張する機能です。
         </p>
         <p>
-            Here's an example of attaching and triggering an event using closures. The second one receives the result from the first one.
+            ここに添付してクロージャを使用してイベントをトリガの例です。するものであり、2つ目から結果を受け取る。
         </p>
 <pre>
 use Pop\Event\Manager;
@@ -50,7 +50,7 @@ $manager-&gt;attach('pre', function($result) { echo $result . '&lt;br /&gt;' . P
 $manager-&gt;trigger('pre', array('name' =&gt; 'World'));
 </pre>
         <p>
-            Here's an example using a class.
+            以下はこのクラスの使用例を示します。
         </p>
 <pre>
 use Pop\Event\Manager;
