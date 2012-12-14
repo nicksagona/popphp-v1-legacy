@@ -25,13 +25,8 @@ try {
 
     $logger = new Logger(new Mail($emails));
     $logger->addWriter(new File('../tmp/app.log'));
-    $logger->emerg(
-        'Yo stuff is whack man!',
-        array_merge($options, array('body' => 'This is some extra stuff. This is an emergency!'))
-    )->info(
-        "Here's some, yo, you know, info stuff",
-        array_merge($options, array('body' => 'This is some extra stuff. This is NOT an emergency!'))
-    );
+    $logger->emerg('Yo stuff is whack man!', $options)
+           ->info("Here's some, yo, you know, info stuff", $options);
 
     echo 'Done';
 } catch (\Exception $e) {

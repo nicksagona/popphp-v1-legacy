@@ -62,10 +62,12 @@ class Mail implements WriterInterface
         }
 
         $validator = new Email();
+
         foreach ($emails as $key => $value) {
             if (!$validator->evaluate($value)) {
                 throw new Exception('Error: One of the email addresses passed was not valid.');
             }
+
             if (!is_numeric($key)) {
                 $this->emails[] = array(
                     'name'  => $key,
@@ -76,7 +78,6 @@ class Mail implements WriterInterface
                     'email' => $value
                 );
             }
-
         }
     }
 
@@ -101,9 +102,6 @@ class Mail implements WriterInterface
         }
 
         $entry = implode("\t", $logEntry) . PHP_EOL;
-        if (isset($options['body'])) {
-            $entry .= PHP_EOL . $options['body'] . PHP_EOL;
-        }
 
         $mail->setText($entry)
              ->send();
