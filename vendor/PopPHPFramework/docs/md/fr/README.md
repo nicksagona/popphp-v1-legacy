@@ -18,6 +18,7 @@ Le Cadre Pop PHP est un cadre PHP orienté objet avec une interface facile à ut
 * Data
 * Db
 * Dom
+* Event
 * Feed
 * File
 * Filter
@@ -30,6 +31,7 @@ Le Cadre Pop PHP est un cadre PHP orienté objet avec une interface facile à ut
 * Image
 * Loader
 * Locale
+* Log
 * Mail
 * Mvc
 * Paginator

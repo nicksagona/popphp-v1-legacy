@@ -18,6 +18,7 @@ Documentation : Overview
 * Data
 * Db
 * Dom
+* Event
 * Feed
 * File
 * Filter
@@ -30,6 +31,7 @@ Documentation : Overview
 * Image
 * Loader
 * Locale
+* Log
 * Mail
 * Mvc
 * Paginator

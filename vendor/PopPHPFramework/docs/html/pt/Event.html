@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Event</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            The Event component provides a way to attach and trigger events within the life cycle of an application. The main benefit is the ability to extend an application by hooking functionality into it via closures and classes that are attached as events.
+        </p>
+        <p>
+            Here's an example of attaching and triggering an event using closures. The second one receives the result from the first one.
+        </p>
+<pre>
+use Pop\Event\Manager;
+
+$manager = new Manager();
+
+$manager-&gt;attach('pre', function($name) { return 'Hello, ' . $name; }, 2);
+$manager-&gt;attach('pre', function($result) { echo $result . '&lt;br /&gt;' . PHP_EOL; }, 1);
+
+$manager-&gt;trigger('pre', array('name' =&gt; 'World'));
+</pre>
+        <p>
+            Here's an example using a class.
+        </p>
+<pre>
+use Pop\Event\Manager;
+
+class Foo
+{
+    public $value;
+
+    public function __construct($arg = null)
+    {
+        $this-&gt;value = $arg;
+    }
+
+    public static function factory($arg)
+    {
+        return new self($arg);
+    }
+
+    public function bar($arg)
+    {
+        $this-&gt;value = $arg;
+        return $this;
+    }
+}
+
+$manager = new Manager();
+
+$manager-&gt;attach('pre', 'Foo::factory', 2);
+
+// OR
+//$manager-&gt;attach('pre', array(new Foo, 'bar'), 2);
+
+$manager-&gt;attach('pre', function($result) { echo 'Hello, ' . $result-&gt;value . '&lt;br /&gt;' . PHP_EOL; }, 1);
+$manager-&gt;trigger('pre', array('arg' =&gt; 'World'));
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

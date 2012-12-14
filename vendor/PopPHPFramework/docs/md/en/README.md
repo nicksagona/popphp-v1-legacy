@@ -18,6 +18,7 @@ The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use AP
 * Data
 * Db
 * Dom
+* Event
 * Feed
 * File
 * Filter
@@ -30,6 +31,7 @@ The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use AP
 * Image
 * Loader
 * Locale
+* Log
 * Mail
 * Mvc
 * Paginator

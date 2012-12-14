@@ -18,6 +18,7 @@ Il quadro Pop PHP è un framework orientato agli oggetti PHP con un facile da us
 * Data
 * Db
 * Dom
+* Event
 * Feed
 * File
 * Filter
@@ -30,6 +31,7 @@ Il quadro Pop PHP è un framework orientato agli oggetti PHP con un facile da us
 * Image
 * Loader
 * Locale
+* Log
 * Mail
 * Mvc
 * Paginator

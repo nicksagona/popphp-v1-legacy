@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <style type="text/css">
+        pre {
+            margin: 0 auto 2% auto;
+            padding: 2%;
+            width: 96%;
+            background-color: #f8f8f8;
+            border: solid 1px #ccc;
+            font-size: 0.825em;
+            font-family: monospace, courier;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Log</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            The Log component provides the basic functionality to record log entries in a variety of ways, including writing to file, inserting into a database or sending an email, or any mixture of them.
+        </p>
+        <p>
+            Here's an example of writing to a log file:
+        </p>
+<pre>
+use Pop\Log\Logger,
+    Pop\Log\Writer\File;
+
+$logger = new Logger(new File('../tmp/app.log'));
+$logger-&gt;addWriter(new File('../tmp/app.xml'));
+$logger-&gt;emerg('Here is an emergency message.')
+       -&gt;info('Here is an info message.');
+</pre>
+        <p>
+            Here's an example of writing to a database:
+        </p>
+<pre>
+use Pop\Db\Db as PopDb,
+    Pop\Log\Logger,
+    Pop\Log\Writer\Db,
+    Pop\Log\Writer\File,
+    Pop\Record\Record;
+
+class Logs extends Record {}
+
+Logs::setDb(PopDb::factory('Sqlite', array('database' =&gt; '../tmp/log.sqlite')));
+
+$logger = new Logger(new Db(new Logs()));
+$logger-&gt;addWriter(new File('../tmp/app.log'));
+$logger-&gt;emerg('Here is an emergency message.')
+       -&gt;info('Here is an info message.');
+</pre>
+        <p>
+            Here's an example of sending an email:
+        </p>
+<pre>
+use Pop\Log\Logger,
+    Pop\Log\Writer\Mail,
+    Pop\Log\Writer\File;
+
+$emails = array(
+    'Bob Smith'   =&gt; 'bob@smith.com',
+    'Bubba Smith' =&gt; 'bubba@smith.com'
+);
+
+$options = array(
+    'subject' =&gt; 'Test App Log Entry:',
+    'headers' =&gt; array(
+        'From'       =&gt; array('name' =&gt; 'Test App Logger', 'email' =&gt; 'logger@testapp.com'),
+        'Reply-To'   =&gt; array('name' =&gt; 'Test App Logger', 'email' =&gt; 'logger@testapp.com'),
+        'X-Mailer'   =&gt; 'PHP/' . phpversion(),
+        'X-Priority' =&gt; '3',
+    )
+);
+
+$logger = new Logger(new Mail($emails));
+$logger-&gt;addWriter(new File('../tmp/app.log'));
+$logger-&gt;emerg('Here is an emergency message.', $options)
+       -&gt;info('Here is an info message.', $options);
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+
