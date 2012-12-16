@@ -91,7 +91,7 @@ class Controller
     public function __construct(Request $request = null, Response $response = null, Project $project = null, $viewPath = null)
     {
         $this->request = (null !== $request) ? $request : new Request();
-        $this->response = (null !== $response) ? $response : new Response(200, array('Content-Type' => 'text/html'));
+        $this->response = (null !== $response) ? $response : new Response();
 
         if (null !== $project) {
             $this->project = $project;

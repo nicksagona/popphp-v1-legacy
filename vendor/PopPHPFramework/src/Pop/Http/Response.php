@@ -137,7 +137,7 @@ class Response
      * @throws Exception
      * @return \Pop\Http\Response
      */
-    public function __construct($code, array $headers, $body = null, $message = null, $version = '1.1')
+    public function __construct($code = 200, array $headers = array('Content-Type' => 'text/html'), $body = null, $message = null, $version = '1.1')
     {
         if (!array_key_exists($code, self::$responseCodes)) {
             throw new Exception('The header code '. $code . ' is not allowed.');
