@@ -24,9 +24,6 @@
  */
 namespace Pop\Event;
 
-use Pop\Code\FunctionGenerator,
-    Pop\Code\Reflection;
-
 /**
  * This is the Manager class for the Event component.
  *
@@ -147,16 +144,28 @@ class Manager
                 // Get and arrange the argument values in the correct order
                 // If the action is a closure object
                 if ($action instanceof \Closure) {
-                    $func = new FunctionGenerator('anon', $action);
-                    $params = $func->getParameterNames();
+                    $refFunc = new \ReflectionFunction($action);
+                    foreach ($refFunc->getParameters() as $key => $refParameter) {
+                        $params[] = $refParameter->getName();
+                    }
                 // Else, if the action is a callable class/method combination
                 } else if (is_callable($action, false, $callable_name)) {
                     $cls = substr($callable_name, 0, strpos($callable_name, ':'));
                     $mthd = substr($callable_name, (strrpos($callable_name, ':') + 1));
-                    $reflect = new Reflection($cls);
-                    $mthdParams = $reflect->getGenerator()->code()->getMethod($mthd)->getArguments();
-                    foreach ($mthdParams as $key => $value) {
-                        $params[] = str_replace('$', '', $key);
+
+                    $methodExport = \ReflectionMethod::export($cls, $mthd, true);
+                    // Get the method parameters
+                    if (stripos($methodExport, 'Parameter') !== false) {
+                        $matches = array();
+                        preg_match_all('/Parameter \#(.*)\]/m', $methodExport, $matches);
+                        if (isset($matches[0][0])) {
+                            foreach ($matches[0] as $param) {
+                                // Get name
+                                $argName = substr($param, strpos($param, '$'));
+                                $argName = trim(substr($argName, 0, strpos($argName, ' ')));
+                                $params[] = str_replace('$', '', $argName);
+                            }
+                        }
                     }
                 } else {
                     throw new Exception('Error: The action must be callable, i.e. a closure or class/method combination.');
