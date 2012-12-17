@@ -24,8 +24,7 @@
  */
 namespace Pop\Record;
 
-use Pop\Db\Db,
-    Pop\Filter\String;
+use Pop\Db\Db;
 
 /**
  * This is the Record class for the Record component.
@@ -143,7 +142,7 @@ class Record
             } else {
                 $cls = $class;
             }
-            $this->tableName = $this->prefix . String::camelCaseToUnderscore($cls);
+            $this->tableName = $this->prefix . $this->camelCaseToUnderscore($cls);
         } else {
             $this->tableName = $this->prefix . $this->tableName;
         }
@@ -536,6 +535,30 @@ class Record
     {
         $this->rows = $result['rows'];
         $this->columns = $result['columns'];
+    }
+
+    /**
+     * Method to convert a camelCase string to an under_score string
+     *
+     * @param string $string
+     * @return string
+     */
+    protected function camelCaseToUnderscore($string)
+    {
+        $strAry = str_split($string);
+        $convert = null;
+        $i = 0;
+
+        foreach ($strAry as $chr) {
+            if ($i == 0) {
+                $convert .= strtolower($chr);
+            } else {
+                $convert .= (ctype_upper($chr)) ? ('_' . strtolower($chr)) : $chr;
+            }
+            $i++;
+        }
+
+        return $convert;
     }
 
     /**
