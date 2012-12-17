@@ -268,7 +268,7 @@ class Select extends Element
      *
      * @param  string $xmlFile
      * @param  string $value
-     * @return void
+     * @return array
      */
     public static function parseXml($xmlFile, $value)
     {
