@@ -98,6 +98,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     public function testParse()
     {
         $r = Response::parse('http://www.popphp.org/version.txt');
+        $r = Response::parse('http://www.popphp.org/version.txt', array('header' => "Accept-language: en\r\n"));
         $this->assertEquals('200', $r->getCode());
         $this->assertEquals('OK', $r->getMessage());
         $this->assertEquals('1.1.0', trim($r->getBody()));

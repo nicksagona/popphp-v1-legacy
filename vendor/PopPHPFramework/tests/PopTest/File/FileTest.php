@@ -58,6 +58,13 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($f->isAllowed('php'));
     }
 
+    public function testSetMime()
+    {
+        $f = new File('accesslog');
+        $f->setMime('text/plain');
+        $this->assertEquals('text/plain', $f->getMime());
+    }
+
     public function testSetAndGetMode()
     {
         $f = new File(__DIR__ . '/../tmp/access.txt');
@@ -73,7 +80,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
         } else {
             $this->assertEquals(777, $f->getMode());
         }
-
     }
 
     public function testCopyAndMove()

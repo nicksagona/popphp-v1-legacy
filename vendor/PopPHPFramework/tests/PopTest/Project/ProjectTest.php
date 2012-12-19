@@ -243,5 +243,15 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Pop\Mvc\Router', $p->router());
     }
 
+    public function testEventManager()
+    {
+        $func = function() { return 'Hello World'; };
+        $p = new Project();
+        $p->attachEvent('route.pre', $func, 2);
+        $this->assertEquals(1, count($p->getEventManager()->get('route.pre')));
+        $p->detachEvent('route.pre', $func);
+        $this->assertEquals(0, count($p->getEventManager()->get('route.pre')));
+    }
+
 }
 

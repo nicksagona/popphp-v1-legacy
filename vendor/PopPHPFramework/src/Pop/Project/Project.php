@@ -250,6 +250,29 @@ class Project
     }
 
     /**
+     * Attach an event. Default project event name hook-points are:
+     *
+     *   route.pre
+     *   route
+     *   route.error
+     *   route.post
+     *
+     *   dispatch.pre
+     *   dispatch
+     *   dispatch.error
+     *   dispatch.post
+     *
+     * @param  string $name
+     * @param  mixed  $action
+     * @return \Pop\Project\Project
+     */
+    public function detachEvent($name, $action)
+    {
+        $this->events->detach($name, $action);
+        return $this;
+    }
+
+    /**
      * Get the event Manager
      *
      * @return \Pop\Event\Manager

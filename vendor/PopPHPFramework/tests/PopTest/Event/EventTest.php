@@ -64,6 +64,15 @@ class EventTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($e->get('pre')));
     }
 
+    public function testDetachEvent()
+    {
+        $func = function() { return 'Hello World'; };
+        $e = new Manager();
+        $e->attach('pre', $func, 2);
+        $e->detach('pre', $func);
+        $this->assertEquals(0, count($e->get('pre')));
+    }
+
     public function testTrigger()
     {
         $e = new Manager();

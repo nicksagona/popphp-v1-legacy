@@ -91,6 +91,35 @@ class Manager
     }
 
     /**
+     * Method to detach an event listener
+     *
+     * @param  string $name
+     * @param  mixed  $action
+     * @return \Pop\Event\Manager
+     */
+    public function detach($name, $action)
+    {
+        // If the event exists, loop through and remove the action if found.
+        if (isset($this->listeners[$name])) {
+            $newListeners = new \SplPriorityQueue();
+
+            $listeners = clone $this->listeners[$name];
+            $listeners->setExtractFlags(\SplPriorityQueue::EXTR_BOTH);
+
+            foreach ($listeners as $value) {
+                $item = $listeners->current();
+                if ($action !== $item['data']) {
+                    $newListeners->insert($item['data'], $item['priority']);
+                }
+            }
+
+            $this->listeners[$name] = $newListeners;
+        }
+
+        return $this;
+    }
+
+    /**
      * Method to return an event
      *
      * @param  string $name

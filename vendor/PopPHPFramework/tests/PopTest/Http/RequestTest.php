@@ -78,5 +78,75 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($r->getEnv('test'));
     }
 
+    public function testGetPath()
+    {
+        $r = new Request();
+        $r->setRequestUri('/test/something', '/admin');
+        $this->assertEquals('test', $r->getPath(0));
+        $this->assertEquals(2, count($r->getPath()));
+    }
+
+    public function testMethods()
+    {
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $r = new Request();
+        $this->assertTrue($r->isGet());
+        $_SERVER['REQUEST_METHOD'] = 'HEAD';
+        $r = new Request();
+        $this->assertTrue($r->isHead());
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $r = new Request();
+        $this->assertTrue($r->isPost());
+        $_SERVER['REQUEST_METHOD'] = 'PUT';
+        $r = new Request();
+        $this->assertTrue($r->isPut());
+        $_SERVER['REQUEST_METHOD'] = 'DELETE';
+        $r = new Request();
+        $this->assertTrue($r->isDelete());
+        $_SERVER['REQUEST_METHOD'] = 'TRACE';
+        $r = new Request();
+        $this->assertTrue($r->isTrace());
+        $_SERVER['REQUEST_METHOD'] = 'OPTIONS';
+        $r = new Request();
+        $this->assertTrue($r->isOptions());
+        $_SERVER['REQUEST_METHOD'] = 'CONNECT';
+        $r = new Request();
+        $this->assertTrue($r->isConnect());
+        $_SERVER['REQUEST_METHOD'] = 'PATCH';
+        $r = new Request();
+        $this->assertTrue($r->isPatch());
+        $this->assertEquals('PATCH', $r->getMethod());
+    }
+
+    public function testHost()
+    {
+        $_SERVER['HTTP_HOST'] = '';
+        $_SERVER['SERVER_NAME'] = 'domain.com';
+        $_SERVER['SERVER_PORT'] = '8443';
+        $r = new Request();
+        $this->assertEquals('domain.com:8443', $r->getHost());
+        $_SERVER['HTTP_HOST'] = 'www.domain.com';
+        $_SERVER['SERVER_NAME'] = 'domain.com';
+        $_SERVER['SERVER_PORT'] = '80';
+        $r = new Request();
+        $this->assertEquals('www.domain.com', $r->getHost());
+    }
+
+    public function testIp()
+    {
+        $_SERVER['HTTP_X_FORWARDED_FOR'] = '255.255.255.255';
+        $r = new Request();
+        $this->assertEquals('255.255.255.255', $r->getIp(true));
+        $_SERVER['HTTP_CLIENT_IP'] = '123.123.123.123';
+        $r = new Request();
+        $this->assertEquals('123.123.123.123', $r->getIp(true));
+        unset($_SERVER['HTTP_X_FORWARDED_FOR']);
+        unset($_SERVER['HTTP_CLIENT_IP']);
+        $_SERVER['REMOTE_ADDR'] = '123.123.123.123';
+        $r = new Request();
+        $this->assertEquals('123.123.123.123', $r->getIp());
+
+    }
+
 }
 
