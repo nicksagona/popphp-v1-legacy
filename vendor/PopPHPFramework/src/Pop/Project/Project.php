@@ -250,7 +250,7 @@ class Project
     }
 
     /**
-     * Attach an event. Default project event name hook-points are:
+     * Detach an event. Default project event name hook-points are:
      *
      *   route.pre
      *   route
