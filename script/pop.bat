@@ -25,4 +25,4 @@ REM -v --version                   Display version of Pop PHP Framework
 REM
 
 SET SCRIPT_DIR=%~dp0
-php %SCRIPT_DIR%pop.php %1 %2 %3
+php %SCRIPT_DIR%pop.php %*

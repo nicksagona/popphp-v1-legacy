@@ -24,13 +24,13 @@
 # -v --version                   Display version of Pop PHP Framework
 #
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P )"
 CYG_PATH="$( which cygpath )"
 
 if [ "$CYG_PATH" != "" ]; then
-    SCRIPT_PATH="$( cygpath -w $SCRIPT_DIR )\\pop.php $1 $2 $3"
+    SCRIPT_PATH="$( cygpath -w $SCRIPT_DIR )\\pop.php $@"
     SCRIPT_PATH=${SCRIPT_PATH//\\/\/}
 else
-    SCRIPT_PATH="$SCRIPT_DIR/pop.php $1 $2 $3"
+    SCRIPT_PATH="$SCRIPT_DIR/pop.php $@"
 fi
 php $SCRIPT_PATH
