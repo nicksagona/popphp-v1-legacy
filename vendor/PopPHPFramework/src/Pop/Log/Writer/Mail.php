@@ -24,8 +24,7 @@
  */
 namespace Pop\Log\Writer;
 
-use Pop\Mail\Mail as PopMail,
-    Pop\Validator\Validator\Email;
+use Pop\Mail\Mail as PopMail;
 
 /**
  * This is the Db writer class for the Log component.
@@ -61,10 +60,8 @@ class Mail implements WriterInterface
             throw new Exception('Error: There must be at least one email address passed.');
         }
 
-        $validator = new Email();
-
         foreach ($emails as $key => $value) {
-            if (!$validator->evaluate($value)) {
+            if (!preg_match('/[a-zA-Z0-9\.\-\_+%]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]{2,4}/', $value)) {
                 throw new Exception('Error: One of the email addresses passed was not valid.');
             }
 
