@@ -24,8 +24,7 @@
  */
 namespace Pop\Pdf\Parser;
 
-use Pop\Compress\Zlib,
-    Pop\Font\TrueType,
+use Pop\Font\TrueType,
     Pop\Font\TrueType\OpenType,
     Pop\Font\Type1,
     Pop\Pdf\Object;
@@ -195,7 +194,7 @@ class Font
         $this->objects[$this->objectIndex] = new Object("{$this->objectIndex} 0 obj\n<<\n    /Type /Font\n    /Subtype /{$fontType}\n    /FontDescriptor {$this->fontDescIndex} 0 R\n    /Name /TT{$this->fontIndex}\n    /BaseFont /" . $fontName . "\n    /FirstChar 32\n    /LastChar 255\n    /Widths [" . implode(' ', $glyphWidths['widths']) . "]\n    /Encoding /" . $glyphWidths['encoding'] . "\n>>\nendobj\n\n");
         $bBox = '[' . $this->font->bBox->xMin . ' ' . $this->font->bBox->yMin . ' ' . $this->font->bBox->xMax . ' ' . $this->font->bBox->yMax . ']';
 
-        $compStream = (function_exists('gzcompress')) ? Zlib::compress($unCompStream) : null;
+        $compStream = (function_exists('gzcompress')) ? gzcompress($unCompStream, 9) : null;
         if ($this->compress) {
             $fontFileObj = "{$this->fontFileIndex} 0 obj\n<</Length " . strlen($compStream) . " /Filter /FlateDecode /Length1 " . $length1 . $length2 . ">>\nstream\n" . $compStream . "\nendstream\nendobj\n\n";
         } else {

@@ -86,7 +86,7 @@ class Mail implements WriterInterface
      *
      * @param  array $logEntry
      * @param  array $options
-     * @return \Pop\Log\Writer\Db
+     * @return \Pop\Log\Writer\Mail
      */
     public function writeLog(array $logEntry, array $options = array())
     {

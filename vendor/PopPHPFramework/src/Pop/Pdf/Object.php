@@ -24,8 +24,6 @@
  */
 namespace Pop\Pdf;
 
-use Pop\Compress\Zlib;
-
 /**
  * This is the Object class for the Pdf component.
  *
@@ -220,7 +218,7 @@ class Object
     {
         if (($this->stream != '') && (function_exists('gzcompress')) && (strpos($this->def, ' /Image') === false) && (strpos($this->def, '/FlateDecode') === false)) {
             $this->compress = true;
-            $this->stream = "\n" . Zlib::compress($this->stream) . "\n";
+            $this->stream = "\n" . gzcompress($this->stream, 9) . "\n";
             $this->isCompressed = true;
         }
     }
