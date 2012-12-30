@@ -173,6 +173,7 @@ class Form extends Dom
                     $required = (isset($field['required'])) ? $field['required'] : null;
                     $attributes = (isset($field['attributes'])) ? $field['attributes'] : null;
                     $validators = (isset($field['validators'])) ? $field['validators'] : null;
+                    $expire = (isset($field['expire'])) ? $field['expire'] : 300;
 
                     if ((null !== $values) && array_key_exists($name, $values)) {
                         if (($type == 'checkbox') || ($type == 'radio') || ($type == 'select')) {
@@ -199,6 +200,9 @@ class Form extends Dom
                             break;
                         case 'textarea':
                             $elem = new Element\Textarea($name, $value, $marked);
+                            break;
+                        case 'csrf':
+                            $elem = new Element\Csrf($name, $value, $expire);
                             break;
                         default:
                             $elem = new Element($type, $name, $value, $marked);
