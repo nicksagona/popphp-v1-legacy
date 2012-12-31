@@ -174,6 +174,7 @@ class Form extends Dom
                     $attributes = (isset($field['attributes'])) ? $field['attributes'] : null;
                     $validators = (isset($field['validators'])) ? $field['validators'] : null;
                     $expire = (isset($field['expire'])) ? $field['expire'] : 300;
+                    $captcha = (isset($field['captcha'])) ? $field['captcha'] : null;
 
                     if ((null !== $values) && array_key_exists($name, $values)) {
                         if (($type == 'checkbox') || ($type == 'radio') || ($type == 'select')) {
@@ -205,7 +206,7 @@ class Form extends Dom
                             $elem = new Element\Csrf($name, $value, $expire);
                             break;
                         case 'captcha':
-                            $elem = new Element\Captcha($name, $value, $expire);
+                            $elem = new Element\Captcha($name, $value, $expire, $captcha);
                             break;
                         default:
                             $elem = new Element($type, $name, $value, $marked);

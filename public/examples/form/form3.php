@@ -4,10 +4,7 @@ require_once '../../bootstrap.php';
 
 use Pop\Form\Form,
     Pop\Validator\Validator,
-    Pop\Validator\Validator\AlphaNumeric,
-    Pop\Validator\Validator\Email,
-    Pop\Validator\Validator\LengthGt,
-    Pop\Validator\Validator\NotEqual;
+    Pop\Validator\Validator\AlphaNumeric;
 
 try {
     $fields = array(
@@ -28,8 +25,9 @@ try {
         ),
         array(
             'type'       => 'csrf',
-            'name'       => 'pop_csrf',
-            'value'      => 'security'
+            'name'       => 'my_csrf_token',
+            'value'      => 'security',
+            'expire'     => 120
         ),
         array(
             'type'       => 'submit',
@@ -41,7 +39,7 @@ try {
     $form = new Form($_SERVER['PHP_SELF'], 'post', $fields, '    ');
 
     if ($_POST) {
-        //$_POST['pop_csrf'] = 'bad token';
+        //$_POST['my_csrf_token'] = 'bad token';
         $form->setFieldValues($_POST, array('strip_tags', 'htmlentities'), array(null, array(ENT_QUOTES, 'UTF-8')));
         if (!$form->isValid()) {
             $form->render();

@@ -60,24 +60,30 @@ class Captcha extends Element
      * @param  string $name
      * @param  string $value
      * @param  int    $expire
+     * @param  string $captcha
      * @param  string $indent
      * @return \Pop\Form\Element\Captcha
      */
-    public function __construct($name, $value = null, $expire = 300, $indent = null)
+    public function __construct($name, $value = null, $expire = 300, $captcha = null, $indent = null)
     {
         $this->sess = Session::getInstance();
 
         // If token does not exist, create one
         if (!isset($this->sess->pop_captcha)) {
-            $rand1 = rand(1, 20);
-            $rand2 = rand(1, 20);
-            $op = (rand(1,2) == 1) ? ' + ' : ' - ';
-            $equation = ($rand2 > $rand1) ? $rand2 . $op . $rand1 : $rand1 . $op . $rand2;
+            if (null === $captcha) {
+                $rand1 = rand(1, 20);
+                $rand2 = rand(1, 20);
+                $op = (rand(1,2) == 1) ? ' + ' : ' - ';
+                $captcha = ($rand2 > $rand1) ? $rand2 . $op . $rand1 : $rand1 . $op . $rand2;
+            } else if (stripos($captcha, '<img') === false) {
+                $captcha = strtoupper($captcha);
+            }
 
             $this->token = array(
-                'equation' => $equation,
-                'expire'   => (int)$expire,
-                'start'    => time()
+                'captcha' => $captcha,
+                'value'   => null,
+                'expire'  => (int)$expire,
+                'start'   => time()
             );
             $this->sess->pop_captcha = serialize($this->token);
         // Else, retrieve existing token
@@ -87,22 +93,27 @@ class Captcha extends Element
             // Check to see if the token has expired
             if ($this->token['expire'] > 0) {
                 if (($this->token['expire'] + $this->token['start']) < time()) {
-                    $rand1 = rand(1, 20);
-                    $rand2 = rand(1, 20);
-                    $op = (rand(1,2) == 1) ? ' + ' : ' - ';
-                    $equation = ($rand2 > $rand1) ? $rand2 . $op . $rand1 : $rand1 . $op . $rand2;
+                    if (null === $captcha) {
+                        $rand1 = rand(1, 20);
+                        $rand2 = rand(1, 20);
+                        $op = (rand(1,2) == 1) ? ' + ' : ' - ';
+                        $captcha = ($rand2 > $rand1) ? $rand2 . $op . $rand1 : $rand1 . $op . $rand2;
+                    } else if (stripos($captcha, '<img') === false) {
+                        $captcha = strtoupper($captcha);
+                    }
 
                     $this->token = array(
-                        'equation' => $equation,
-                        'expire'   => (int)$expire,
-                        'start'    => time()
+                        'captcha' => $captcha,
+                        'expire'  => (int)$expire,
+                        'value'   => null,
+                        'start'   => time()
                     );
                     $this->sess->pop_captcha = serialize($this->token);
                 }
             }
         }
 
-        parent::__construct('text', $name, $value, null, $indent);
+        parent::__construct('text', $name, strtoupper($value), null, $indent);
         $this->setRequired(true);
         $this->setValidator();
     }
@@ -116,8 +127,12 @@ class Captcha extends Element
     public function setLabel($label)
     {
         parent::setLabel($label);
-        if (isset($this->token['equation'])) {
-            $this->label = $this->label . '(' . $this->token['equation'] .')';
+        if (isset($this->token['captcha'])) {
+            if ((strpos($this->token['captcha'], ' + ') !== false) || (strpos($this->token['captcha'], ' - ') !== false)) {
+                $this->label = $this->label . '(' . $this->token['captcha'] .')';
+            } else {
+                $this->label = $this->label . $this->token['captcha'];
+            }
         }
         return $this;
     }
@@ -155,8 +170,14 @@ class Captcha extends Element
             // If there is query data, set validator to check against the token value
             if (count($queryData) > 0) {
                 if (isset($queryData[$this->name])) {
-                    $equation = $this->token['equation'];
-                    $answer = eval("return ($equation);");
+                    $captcha = $this->token['captcha'];
+                    if ((strpos($captcha, ' + ') !== false) || (strpos($captcha, ' - ') !== false)) {
+                        $answer = eval("return ($captcha);");
+                    } else if (stripos($captcha, '<img') !== false) {
+                        $answer =  $this->token['value'];
+                    } else {
+                        $answer = $captcha;
+                    }
                     $this->addValidator(new Equal($answer), 'The answer is incorrect.');
                 } else {
                     throw new \Pop\Form\Exception('Error: The query data could not be properly parsed.');

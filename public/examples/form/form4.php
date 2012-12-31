@@ -4,10 +4,7 @@ require_once '../../bootstrap.php';
 
 use Pop\Form\Form,
     Pop\Validator\Validator,
-    Pop\Validator\Validator\AlphaNumeric,
-    Pop\Validator\Validator\Email,
-    Pop\Validator\Validator\LengthGt,
-    Pop\Validator\Validator\NotEqual;
+    Pop\Validator\Validator\AlphaNumeric;
 
 try {
     $fields = array(
@@ -28,9 +25,10 @@ try {
         ),
         array(
             'type'       => 'captcha',
-            'name'       => 'pop_captcha',
+            'name'       => 'my_captcha',
             'label'      => 'Please Solve: ',
-            'attributes' => array('size', 10)
+            'attributes' => array('size', 10),
+            'expire'     => 120
         ),
         array(
             'type'       => 'submit',
@@ -38,7 +36,6 @@ try {
             'value'      => 'SUBMIT'
         )
     );
-
 
     $form = new Form($_SERVER['PHP_SELF'], 'post', $fields, '    ');
 

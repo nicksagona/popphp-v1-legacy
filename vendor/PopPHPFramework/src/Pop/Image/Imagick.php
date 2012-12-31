@@ -493,11 +493,44 @@ class Imagick extends AbstractImage
      * @param  string     $font
      * @param  int|string $rotate
      * @param  boolean    $stroke
+     * @throws Exception
      * @return \Pop\Image\Imagick
      */
-    public function text($str, $size, $x, $y, $font = 'Arial', $rotate = null, $stroke = false)
+    public function text($str, $size, $x, $y, $font = null, $rotate = null, $stroke = false)
     {
         $draw = new \ImagickDraw();
+
+        // Set the font if passed
+        if (null !== $font) {
+            if (!$draw->setFont($font)) {
+                throw new Exception('Error: That font is not recognized by the Imagick extension.');
+            }
+        // Else, attempt to set a basic, default system font
+        } else {
+            $fonts = $this->resource->queryFonts();
+            if (in_array('Arial', $fonts)) {
+                $font = 'Arial';
+            } else if (in_array('Helvetica', $fonts)) {
+                $font = 'Helvetica';
+            } else if (in_array('Tahoma', $fonts)) {
+                $font = 'Tahoma';
+            } else if (in_array('Verdana', $fonts)) {
+                $font = 'Verdana';
+            } else if (in_array('System', $fonts)) {
+                $font = 'System';
+            } else if (in_array('Fixed', $fonts)) {
+                $font = 'Fixed';
+            } else if (in_array('system', $fonts)) {
+                $font = 'system';
+            } else if (in_array('fixed', $fonts)) {
+                $font = 'fixed';
+            } else if (isset($fonts[0])) {
+                $font = $fonts[0];
+            } else {
+                throw new Exception('Error: No default font could be found by the Imagick extension.');
+            }
+        }
+
         $draw->setFont($font);
         $draw->setFontSize($size);
         $draw->setFillColor($this->setColor($this->fillColor));

@@ -412,6 +412,7 @@ class Gd extends AbstractImage
         // Set the image resource and color.
         $this->createResource();
         $color = $this->setColor($this->fillColor);
+        $fontSize = (int)$size;
 
         // Write the text to the image.
         if ((null !== $font) && function_exists('imagettftext')) {
@@ -422,9 +423,15 @@ class Gd extends AbstractImage
                 imagettftext($this->resource, $size, $rotate, ($x - 1), $y, $stroke, $font, $str);
                 imagettftext($this->resource, $size, $rotate, ($x + 1), $y, $stroke, $font, $str);
             }
-            imagettftext($this->resource, $size, $rotate, $x, $y, $color, $font, $str);
+            imagettftext($this->resource, $fontSize, $rotate, $x, $y, $color, $font, $str);
         } else {
-            imagestring($this->resource, $size, $x, $y,  $str, $color);
+            // Cap the system font size between 1 and 5
+            if ($fontSize > 5) {
+                $fontSize = 5;
+            } else if ($fontSize < 1) {
+                $fontSize = 1;
+            }
+            imagestring($this->resource, $fontSize, $x, $y,  $str, $color);
         }
 
         $this->output = $this->resource;
