@@ -204,6 +204,9 @@ class Form extends Dom
                         case 'csrf':
                             $elem = new Element\Csrf($name, $value, $expire);
                             break;
+                        case 'captcha':
+                            $elem = new Element\Captcha($name, $value, $expire);
+                            break;
                         default:
                             $elem = new Element($type, $name, $value, $marked);
                     }
