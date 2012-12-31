@@ -25,7 +25,8 @@
 namespace Pop\Form;
 
 use Pop\Dom\Dom,
-    Pop\Dom\Child;
+    Pop\Dom\Child,
+    Pop\Web\Session;
 
 /**
  * This is the Form class for the Form component.
@@ -573,6 +574,26 @@ class Form extends Dom
             echo $this->output;
         }
 
+    }
+
+    /**
+     * Method to clear any session data used with the form for
+     * security tokens, captchas, etc.
+     *
+     * @return void
+     */
+    public function clear()
+    {
+        $sess = Session::getInstance();
+        if (isset($sess->pop_csrf)){
+            unset($sess->pop_csrf);
+        }
+
+        if (isset($sess->pop_captcha)){
+            unset($sess->pop_captcha);
+        }
+
+        return $this;
     }
 
     /**

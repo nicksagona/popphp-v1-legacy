@@ -44,6 +44,8 @@ try {
         if (!$form->isValid()) {
             $form->render();
         } else {
+            // Option to clear out and reset security token
+            $form->clear();
             echo 'Form is valid.<br />' . PHP_EOL;
             print_r($form->getFields());
         }

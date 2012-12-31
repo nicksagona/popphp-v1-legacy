@@ -128,7 +128,7 @@ class Captcha extends Element
     {
         parent::setLabel($label);
         if (isset($this->token['captcha'])) {
-            if ((strpos($this->token['captcha'], ' + ') !== false) || (strpos($this->token['captcha'], ' - ') !== false)) {
+            if ((strpos($this->token['captcha'], '<img') === false) && ((strpos($this->token['captcha'], ' + ') !== false) || (strpos($this->token['captcha'], ' - ') !== false))) {
                 $this->label = $this->label . '(' . $this->token['captcha'] .')';
             } else {
                 $this->label = $this->label . $this->token['captcha'];
@@ -171,10 +171,10 @@ class Captcha extends Element
             if (count($queryData) > 0) {
                 if (isset($queryData[$this->name])) {
                     $captcha = $this->token['captcha'];
-                    if ((strpos($captcha, ' + ') !== false) || (strpos($captcha, ' - ') !== false)) {
-                        $answer = eval("return ($captcha);");
-                    } else if (stripos($captcha, '<img') !== false) {
+                    if (stripos($captcha, '<img') !== false) {
                         $answer =  $this->token['value'];
+                    } else if ((strpos($captcha, '<img') === false) && ((strpos($captcha, ' + ') !== false) || (strpos($captcha, ' - ') !== false))) {
+                        $answer = eval("return ($captcha);");
                     } else {
                         $answer = $captcha;
                     }
