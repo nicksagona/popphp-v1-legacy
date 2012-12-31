@@ -29,8 +29,7 @@ try {
         array(
             'type'       => 'csrf',
             'name'       => 'pop_csrf',
-            'value'      => 'security',
-            'expire'     => 300
+            'value'      => 'security'
         ),
         array(
             'type'       => 'submit',
@@ -42,6 +41,7 @@ try {
     $form = new Form($_SERVER['PHP_SELF'], 'post', $fields, '    ');
 
     if ($_POST) {
+        //$_POST['pop_csrf'] = 'bad token';
         $form->setFieldValues($_POST, array('strip_tags', 'htmlentities'), array(null, array(ENT_QUOTES, 'UTF-8')));
         if (!$form->isValid()) {
             $form->render();

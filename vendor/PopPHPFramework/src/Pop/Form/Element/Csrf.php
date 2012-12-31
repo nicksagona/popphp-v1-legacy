@@ -67,6 +67,7 @@ class Csrf extends Element
     {
         $this->sess = Session::getInstance();
 
+        // If token does not exist, create one
         if (!isset($this->sess->pop_csrf)) {
             $this->token = array(
                 'value'  => sha1(rand(10000, getrandmax()) . $value),
@@ -74,8 +75,11 @@ class Csrf extends Element
                 'start'  => time()
             );
             $this->sess->pop_csrf = serialize($this->token);
+        // Else, retrieve existing token
         } else {
             $this->token = unserialize($this->sess->pop_csrf);
+
+            // Check to see if the token has expired
             if ($this->token['expire'] > 0) {
                 if (($this->token['expire'] + $this->token['start']) < time()) {
                     $this->token = array(
@@ -87,8 +91,51 @@ class Csrf extends Element
                 }
             }
         }
+
         parent::__construct('hidden', $name, $this->token['value'], null, $indent);
-        $this->addValidator(new Equal($this->token['value']), 'The security token does not match. Possible cross-site attack.');
+        $this->setValidator();
     }
 
+    /**
+     * Method to set the validator
+     *
+     * @throws \Pop\Form\Exception
+     * @return void
+     */
+    public function setValidator()
+    {
+        // Get query data
+        if ($_SERVER['REQUEST_METHOD']) {
+            $queryData = array();
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $queryData = $_GET;
+                    break;
+
+                case 'POST':
+                    $queryData = $_POST;
+                    break;
+
+                default:
+                    $input = fopen('php://input', 'r');
+                    $qData = null;
+                    while ($data = fread($input, 1024)) {
+                        $qData .= $data;
+                    }
+
+                    parse_str($qData, $queryData);
+            }
+
+            // If there is query data, set validator to check against the token value
+            if (count($queryData) > 0) {
+                if (isset($queryData[$this->name]) && ($queryData[$this->name] != '')) {
+                    $this->addValidator(new Equal($queryData[$this->name]), 'The security token does not match.');
+                } else {
+                    throw new \Pop\Form\Exception('Error: The query data could not be properly parsed.');
+                }
+            }
+        } else {
+            throw new \Pop\Form\Exception('Error: The server request method is not set.');
+        }
+    }
 }
