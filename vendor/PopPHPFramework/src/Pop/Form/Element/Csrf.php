@@ -103,7 +103,7 @@ class Csrf extends Element
      * @throws \Pop\Form\Exception
      * @return void
      */
-    public function setValidator()
+    protected function setValidator()
     {
         // Get query data
         if ($_SERVER['REQUEST_METHOD']) {

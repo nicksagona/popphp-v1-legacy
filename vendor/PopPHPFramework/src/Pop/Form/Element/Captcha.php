@@ -71,10 +71,7 @@ class Captcha extends Element
         // If token does not exist, create one
         if (!isset($this->sess->pop_captcha)) {
             if (null === $captcha) {
-                $rand1 = rand(1, 20);
-                $rand2 = rand(1, 20);
-                $op = (rand(1,2) == 1) ? ' + ' : ' - ';
-                $captcha = ($rand2 > $rand1) ? $rand2 . $op . $rand1 : $rand1 . $op . $rand2;
+                $captcha = $this->generateEquation();
             } else if (stripos($captcha, '<img') === false) {
                 $captcha = strtoupper($captcha);
             }
@@ -94,10 +91,7 @@ class Captcha extends Element
             if ($this->token['expire'] > 0) {
                 if (($this->token['expire'] + $this->token['start']) < time()) {
                     if (null === $captcha) {
-                        $rand1 = rand(1, 20);
-                        $rand2 = rand(1, 20);
-                        $op = (rand(1,2) == 1) ? ' + ' : ' - ';
-                        $captcha = ($rand2 > $rand1) ? $rand2 . $op . $rand1 : $rand1 . $op . $rand2;
+                        $captcha = $this->generateEquation();
                     } else if (stripos($captcha, '<img') === false) {
                         $captcha = strtoupper($captcha);
                     }
@@ -128,8 +122,8 @@ class Captcha extends Element
     {
         parent::setLabel($label);
         if (isset($this->token['captcha'])) {
-            if ((strpos($this->token['captcha'], '<img') === false) && ((strpos($this->token['captcha'], ' + ') !== false) || (strpos($this->token['captcha'], ' - ') !== false))) {
-                $this->label = $this->label . '(' . $this->token['captcha'] .')';
+            if ((strpos($this->token['captcha'], '<img') === false) && ((strpos($this->token['captcha'], ' + ') !== false) || (strpos($this->token['captcha'], ' - ') !== false) || (strpos($this->token['captcha'], ' * ') !== false) || (strpos($this->token['captcha'], ' / ') !== false))) {
+                $this->label = $this->label . '(' . str_replace(array(' * ', ' / '), array(' &#215; ', ' &#247; '), $this->token['captcha'] .')');
             } else {
                 $this->label = $this->label . $this->token['captcha'];
             }
@@ -143,7 +137,7 @@ class Captcha extends Element
      * @throws \Pop\Form\Exception
      * @return void
      */
-    public function setValidator()
+    protected function setValidator()
     {
         // Get query data
         if ($_SERVER['REQUEST_METHOD']) {
@@ -173,7 +167,7 @@ class Captcha extends Element
                     $captcha = $this->token['captcha'];
                     if (stripos($captcha, '<img') !== false) {
                         $answer =  $this->token['value'];
-                    } else if ((strpos($captcha, '<img') === false) && ((strpos($captcha, ' + ') !== false) || (strpos($captcha, ' - ') !== false))) {
+                    } else if ((strpos($captcha, '<img') === false) && ((strpos($captcha, ' + ') !== false) || (strpos($captcha, ' - ') !== false) || (strpos($captcha, ' * ') !== false) || (strpos($captcha, ' / ') !== false))) {
                         $answer = eval("return ($captcha);");
                     } else {
                         $answer = $captcha;
@@ -186,5 +180,33 @@ class Captcha extends Element
         } else {
             throw new \Pop\Form\Exception('Error: The server request method is not set.');
         }
+    }
+
+    /**
+     * Method to randomly generate an equation
+     *
+     * @return string
+     */
+    protected function generateEquation()
+    {
+        $ops = array(' + ', ' - ', ' * ', ' / ');
+        $equation = null;
+
+        $rand1 = rand(1, 10);
+        $rand2 = rand(1, 10);
+        $op = $ops[rand(0, 3)];
+
+        if ($op == ' / ') {
+            $mod = ($rand2 > $rand1) ? $rand2 % $rand1 : $rand1 % $rand2;
+            while ($mod != 0){
+                $rand1 = rand(1, 10);
+                $rand2 = rand(1, 10);
+                $mod = ($rand2 > $rand1) ? $rand2 % $rand1 : $rand1 % $rand2;
+            }
+        }
+
+        $equation = ($rand2 > $rand1) ? $rand2 . $op . $rand1 : $rand1 . $op . $rand2;
+
+        return $equation;
     }
 }
