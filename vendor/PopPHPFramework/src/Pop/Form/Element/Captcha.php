@@ -183,7 +183,7 @@ class Captcha extends Element
     }
 
     /**
-     * Method to randomly generate an equation
+     * Method to randomly generate a simple, basic equation
      *
      * @return string
      */
@@ -196,9 +196,10 @@ class Captcha extends Element
         $rand2 = rand(1, 10);
         $op = $ops[rand(0, 3)];
 
+        // If the operator is division, keep the equation very simple, with no remainder
         if ($op == ' / ') {
             $mod = ($rand2 > $rand1) ? $rand2 % $rand1 : $rand1 % $rand2;
-            while ($mod != 0){
+            while ($mod != 0) {
                 $rand1 = rand(1, 10);
                 $rand2 = rand(1, 10);
                 $mod = ($rand2 > $rand1) ? $rand2 % $rand1 : $rand1 % $rand2;
