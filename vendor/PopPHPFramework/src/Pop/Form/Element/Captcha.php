@@ -98,8 +98,8 @@ class Captcha extends Element
 
                     $this->token = array(
                         'captcha' => $captcha,
-                        'expire'  => (int)$expire,
                         'value'   => null,
+                        'expire'  => (int)$expire,
                         'start'   => time()
                     );
                     $this->sess->pop_captcha = serialize($this->token);
@@ -173,8 +173,6 @@ class Captcha extends Element
                         $answer = $captcha;
                     }
                     $this->addValidator(new Equal($answer), 'The answer is incorrect.');
-                } else {
-                    throw new \Pop\Form\Exception('Error: The query data could not be properly parsed.');
                 }
             }
         } else {

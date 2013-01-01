@@ -129,14 +129,12 @@ class Csrf extends Element
 
             // If there is query data, set validator to check against the token value
             if (count($queryData) > 0) {
-                if (isset($queryData[$this->name])) {
-                    $this->addValidator(new Equal($queryData[$this->name]), 'The security token does not match.');
-                } else {
-                    throw new \Pop\Form\Exception('Error: The query data could not be properly parsed.');
-                }
+                $val = (isset($queryData[$this->name])) ? $queryData[$this->name] : '';
+                $this->addValidator(new Equal($val), 'The security token does not match.');
             }
         } else {
             throw new \Pop\Form\Exception('Error: The server request method is not set.');
         }
     }
+
 }
