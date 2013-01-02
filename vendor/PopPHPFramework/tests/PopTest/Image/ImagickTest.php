@@ -131,6 +131,13 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(640, $i->getWidth());
     }
 
+    public function testSystemText()
+    {
+        $i = new Imagick(__DIR__ . '/../tmp/test.jpg');
+        $i->text('Hello World', 36, 10, 100, null, 10, true);
+        $this->assertEquals(640, $i->getWidth());
+    }
+
     public function testAddLine()
     {
         $i = new Imagick(__DIR__ . '/../tmp/test.jpg');

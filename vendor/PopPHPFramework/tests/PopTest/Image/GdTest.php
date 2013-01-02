@@ -116,6 +116,16 @@ class GdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(640, $i->getWidth());
     }
 
+    public function testSystemText()
+    {
+        $i = new Gd(__DIR__ . '/../tmp/test.jpg');
+        $i->text('Hello World', 36, 10, 100);
+        $this->assertEquals(640, $i->getWidth());
+        $i = new Gd(__DIR__ . '/../tmp/test.jpg');
+        $i->text('Hello World', 0, 10, 100);
+        $this->assertEquals(640, $i->getWidth());
+    }
+
     public function testAddLine()
     {
         $i = new Gd(__DIR__ . '/../tmp/test.jpg');

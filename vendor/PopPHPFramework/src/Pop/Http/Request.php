@@ -152,8 +152,10 @@ class Request
         $this->server = (isset($_SERVER)) ? $_SERVER : array();
         $this->env = (isset($_ENV)) ? $_ENV : array();
 
-        if ($this->isPut() || $this->isPatch() || $this->isDelete()) {
-            $this->parseQueryData();
+        if (isset($_SERVER['REQUEST_METHOD'])) {
+            if ($this->isPut() || $this->isPatch() || $this->isDelete()) {
+                $this->parseQueryData();
+            }
         }
     }
 

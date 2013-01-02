@@ -1,6 +1,6 @@
 New BSD License
 
-Copyright (c) 2009-2012, Moc 10 Media, LLC.
+Copyright (c) 2009-2013, Moc 10 Media, LLC.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
