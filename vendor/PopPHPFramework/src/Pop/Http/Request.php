@@ -98,6 +98,24 @@ class Request
     protected $post = array();
 
     /**
+     * PUT method vars
+     * @var array
+     */
+    protected $put = array();
+
+    /**
+     * PATCH method vars
+     * @var array
+     */
+    protected $patch = array();
+
+    /**
+     * DELETE method vars
+     * @var array
+     */
+    protected $delete = array();
+
+    /**
      * $_COOKIE vars
      * @var array
      */
@@ -133,6 +151,10 @@ class Request
         $this->cookie = (isset($_COOKIE)) ? $_COOKIE : array();
         $this->server = (isset($_SERVER)) ? $_SERVER : array();
         $this->env = (isset($_ENV)) ? $_ENV : array();
+
+        if ($this->isPut() || $this->isPatch() || $this->isDelete()) {
+            $this->parseQueryData();
+        }
     }
 
     /**
@@ -413,6 +435,51 @@ class Request
     }
 
     /**
+     * Get a value from PUT query data, or the whole array
+     *
+     * @param  string $key
+     * @return string|array
+     */
+    public function getPut($key = null)
+    {
+        if (null === $key) {
+            return $this->put;
+        } else {
+            return (isset($this->put[$key])) ? $this->put[$key] : null;
+        }
+    }
+
+    /**
+     * Get a value from PATCH query data, or the whole array
+     *
+     * @param  string $key
+     * @return string|array
+     */
+    public function getPatch($key = null)
+    {
+        if (null === $key) {
+            return $this->patch;
+        } else {
+            return (isset($this->patch[$key])) ? $this->patch[$key] : null;
+        }
+    }
+
+    /**
+     * Get a value from DELETE query data, or the whole array
+     *
+     * @param  string $key
+     * @return string|array
+     */
+    public function getDelete($key = null)
+    {
+        if (null === $key) {
+            return $this->delete;
+        } else {
+            return (isset($this->delete[$key])) ? $this->delete[$key] : null;
+        }
+    }
+
+    /**
      * Get a value from $_COOKIE, or the whole array
      *
      * @param  string $key
@@ -551,6 +618,39 @@ class Request
         $this->post[$key] = $value;
         $_POST[$key] = $value;
         return $this;
+    }
+
+    /**
+     * Parse query data
+     *
+     * @return void
+     */
+    protected function parseQueryData()
+    {
+        $input = fopen('php://input', 'r');
+
+        $queryData = array();
+        $qData = null;
+
+        while ($data = fread($input, 1024)) {
+            $qData .= $data;
+        }
+
+        parse_str($qData, $queryData);
+
+        switch (strtoupper($this->getMethod())) {
+            case 'PUT':
+                $this->put = $queryData;
+                break;
+
+            case 'PATCH':
+                $this->patch = $queryData;
+                break;
+
+            case 'DELETE':
+                $this->delete = $queryData;
+                break;
+        }
     }
 
 }
