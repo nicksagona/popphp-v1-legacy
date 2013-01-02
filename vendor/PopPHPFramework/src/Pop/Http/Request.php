@@ -654,7 +654,7 @@ class Request
                 );
                 $pData = str_replace($match, $strip, $pData);
             }
-            $paramData = json_decode(json_encode((array) simplexml_load_string($pData)), 1);
+            $paramData = json_decode(json_encode((array) simplexml_load_string($pData)), true);
         // Else, default to a regular URL-encoded string
         } else {
             parse_str($pData, $paramData);

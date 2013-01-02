@@ -61,7 +61,7 @@ class Xml
                 $data = str_replace($match, $strip, $data);
             }
 
-            $nodes = json_decode(json_encode((array) simplexml_load_string($data)), 1);
+            $nodes = json_decode(json_encode((array) simplexml_load_string($data)), true);
         } else {
             $xml = new \SimpleXMLElement($data);
             $i = 1;
