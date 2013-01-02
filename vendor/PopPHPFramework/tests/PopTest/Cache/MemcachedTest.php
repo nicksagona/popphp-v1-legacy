@@ -37,7 +37,7 @@ class MemcachedTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error_Notice
+     * @expectedException PHPUnit_Framework_Error_Warning
      */
     public function testConstructorException()
     {
