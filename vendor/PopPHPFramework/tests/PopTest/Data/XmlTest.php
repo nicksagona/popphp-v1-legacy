@@ -49,6 +49,27 @@ XML;
         $this->assertEquals('Test1', $x['row_1']['username']);
     }
 
+    public function testDecodePreserve()
+    {
+        $xml = <<<XML
+<users>
+    <row>
+        <username>Test1</username>
+        <password>123456</password>
+        <email>test1@test.com</email>
+    </row>
+    <row>
+        <username>Test2</username>
+        <password>123456</password>
+        <email>test2@test.com</email>
+    </row>
+</users>
+XML;
+        $x = Xml::decode($xml, true);
+        $this->assertEquals(2, count($x['row']));
+        $this->assertEquals('Test1', $x['row'][0]['username']);
+    }
+
     public function testEncode()
     {
         $ary = array(
