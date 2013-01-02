@@ -34,29 +34,55 @@ namespace Pop\Data;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.1
  */
-class Xml implements DataInterface
+class Xml
 {
 
     /**
      * Decode the data into PHP.
      *
-     * @param  string $data
+     * @param  string  $data
+     * @param  boolean $preserve
      * @return mixed
      */
-    public static function decode($data)
+    public static function decode($data, $preserve = false)
     {
-        $xml = new \SimpleXMLElement($data);
         $nodes = array();
 
-        $i = 1;
+        if ($preserve) {
+            $matches = array();
+            preg_match_all('/<!\[cdata\[(.*?)\]\]>/is', $data, $matches);
 
-        foreach ($xml as $key => $node) {
-            $objs = array();
-            foreach ($node as $k => $v) {
-                $objs[(string)$k] = trim((string)$v);
+            foreach ($matches[0] as $match) {
+                $strip = str_replace(
+                    array('<![CDATA[', ']]>', '<', '>'),
+                    array('', '', '&lt;', '&gt;'),
+                    $match
+                );
+                $data = str_replace($match, $strip, $data);
             }
-            $nodes[$key . '_' . $i] = $objs;
-            $i++;
+
+            $nodes = json_decode(json_encode((array) simplexml_load_string($data)), 1);
+        } else {
+            $xml = new \SimpleXMLElement($data);
+            $i = 1;
+
+            foreach ($xml as $key => $node) {
+                $objs = array();
+                foreach ($node as $k => $v) {
+                    $j = 1;
+                    if (array_key_exists((string)$k, $objs)) {
+                        while (array_key_exists($k . '_' . $j, $objs)) {
+                            $j++;
+                        }
+                        $newKey = (string)$k . '_' . $j;
+                    } else {
+                        $newKey = (string)$k;
+                    }
+                    $objs[$newKey] = trim((string)$v);
+                }
+                $nodes[$key . '_' . $i] = $objs;
+                $i++;
+            }
         }
 
         return $nodes;

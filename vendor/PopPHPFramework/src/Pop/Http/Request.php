@@ -154,7 +154,7 @@ class Request
 
         if (isset($_SERVER['REQUEST_METHOD'])) {
             if ($this->isPut() || $this->isPatch() || $this->isDelete()) {
-                $this->parseQueryData();
+                $this->parseData();
             }
         }
     }
@@ -627,30 +627,50 @@ class Request
      *
      * @return void
      */
-    protected function parseQueryData()
+    protected function parseData()
     {
         $input = fopen('php://input', 'r');
 
-        $queryData = array();
-        $qData = null;
+        $paramData = array();
+        $pData = null;
 
         while ($data = fread($input, 1024)) {
-            $qData .= $data;
+            $pData .= $data;
         }
 
-        parse_str($qData, $queryData);
+        // If the content-type is JSON
+        if (isset($_SERVER['CONTENT_TYPE']) && (stripos($_SERVER['CONTENT_TYPE'], 'json') !== false)) {
+            $paramData = json_decode($pData, true);
+        // Else, if the content-type is XML
+        } else if (isset($_SERVER['CONTENT_TYPE']) && (stripos($_SERVER['CONTENT_TYPE'], 'xml') !== false)) {
+            $matches = array();
+            preg_match_all('/<!\[cdata\[(.*?)\]\]>/is', $pData, $matches);
+
+            foreach ($matches[0] as $match) {
+                $strip = str_replace(
+                    array('<![CDATA[', ']]>', '<', '>'),
+                    array('', '', '&lt;', '&gt;'),
+                    $match
+                );
+                $pData = str_replace($match, $strip, $pData);
+            }
+            $paramData = json_decode(json_encode((array) simplexml_load_string($pData)), 1);
+        // Else, default to a regular URL-encoded string
+        } else {
+            parse_str($pData, $paramData);
+        }
 
         switch (strtoupper($this->getMethod())) {
             case 'PUT':
-                $this->put = $queryData;
+                $this->put = $paramData;
                 break;
 
             case 'PATCH':
-                $this->patch = $queryData;
+                $this->patch = $paramData;
                 break;
 
             case 'DELETE':
-                $this->delete = $queryData;
+                $this->delete = $paramData;
                 break;
         }
     }

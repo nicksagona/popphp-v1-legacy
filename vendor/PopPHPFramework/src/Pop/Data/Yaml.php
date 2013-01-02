@@ -34,7 +34,7 @@ namespace Pop\Data;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.1
  */
-class Yaml implements DataInterface
+class Yaml
 {
 
     /**
