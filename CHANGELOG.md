@@ -3,7 +3,7 @@ Pop PHP Framework 1.1.1
 
 COMPLETED:
 ----------
-* Add a CSRF and CAPTCHA element to the Form component
+* Add CSRF and CAPTCHA elements to the Form component
 * Add a protected parseQueryData() method to the Http\Request class
   to allow for parsing of data from methods other than GET and POST
 
