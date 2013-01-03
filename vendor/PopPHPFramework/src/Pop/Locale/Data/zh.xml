@@ -118,11 +118,11 @@
     </text>
     <text>
         <source>The value %1 must be included.</source>
-        <output>必须包含值％1。</output>
+        <output>必须包含值%1。</output>
     </text>
     <text>
         <source>The value %1 must not be included.</source>
-        <output>不能包含值％1。</output>
+        <output>不能包含值%1。</output>
     </text>
     <text>
         <source>The value must be between or equal to %1 and %2.</source>
@@ -290,11 +290,11 @@
     </text>
     <text>
         <source>The value %1 must be excluded.</source>
-        <output>值％1必须被排除在外。</output>
+        <output>值%1必须被排除在外。</output>
     </text>
     <text>
         <source>The value %1 must not be excluded.</source>
-        <output>值％1不能被排除在外。</output>
+        <output>值%1不能被排除在外。</output>
     </text>
     <text>
         <source>The value length must be less than or equal to %1.</source>

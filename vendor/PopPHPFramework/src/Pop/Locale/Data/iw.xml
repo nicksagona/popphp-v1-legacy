@@ -118,11 +118,11 @@
     </text>
     <text>
         <source>The value %1 must be included.</source>
-        <output>% הערך 1 חייבים להיות כלולים.</output>
+        <output>%1 הערך  חייבים להיות כלולים.</output>
     </text>
     <text>
         <source>The value %1 must not be included.</source>
-        <output>1% הערך לא חייב להיות כלול.</output>
+        <output>%1 הערך לא חייב להיות כלול.</output>
     </text>
     <text>
         <source>The value must be between or equal to %1 and %2.</source>
@@ -290,11 +290,11 @@
     </text>
     <text>
         <source>The value %1 must be excluded.</source>
-        <output>% הערך 1 חייבים להיות שליליים.</output>
+        <output>%1 הערך  חייבים להיות שליליים.</output>
     </text>
     <text>
         <source>The value %1 must not be excluded.</source>
-        <output>1% הערך לא חייב להיות שלילי.</output>
+        <output>%1 הערך לא חייב להיות שלילי.</output>
     </text>
     <text>
         <source>The value length must be less than or equal to %1.</source>

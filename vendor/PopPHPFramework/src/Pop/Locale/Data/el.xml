@@ -117,12 +117,12 @@
         <output>Η τιμή δεν πρέπει να είναι ένα έγκυρο αριθμό πιστωτικής κάρτας.</output>
     </text>
     <text>
-        <source>The value must be included.</source>
-        <output>Η αξία πρέπει να συμπεριληφθούν.</output>
+        <source>The value %1 must be included.</source>
+        <output>Η τιμή %1 θα πρέπει να συμπεριληφθούν.</output>
     </text>
     <text>
-        <source>The value must not be included.</source>
-        <output>Η τιμή δεν πρέπει να περιλαμβάνονται.</output>
+        <source>The value %1 must not be included.</source>
+        <output>Το ποσοστό %1 δεν πρέπει να περιλαμβάνονται.</output>
     </text>
     <text>
         <source>The value must be between or equal to %1 and %2.</source>
@@ -290,11 +290,11 @@
     </text>
     <text>
         <source>The value %1 must be excluded.</source>
-        <output>Η τιμή πρέπει να αποκλειστεί.</output>
+        <output>Η τιμή %1 πρέπει να αποκλειστεί.</output>
     </text>
     <text>
         <source>The value %1 must not be excluded.</source>
-        <output>Η τιμή δεν πρέπει να αποκλειστεί.</output>
+        <output>Το ποσοστό %1 δεν πρέπει να αποκλειστεί.</output>
     </text>
     <text>
         <source>The value length must be less than or equal to %1.</source>
