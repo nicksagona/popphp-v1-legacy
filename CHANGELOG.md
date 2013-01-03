@@ -4,8 +4,9 @@ Pop PHP Framework 1.1.1
 COMPLETED:
 ----------
 * Add CSRF and CAPTCHA elements to the Form component
-* Add a protected parseQueryData() method to the Http\Request class
-  to allow for parsing of data from methods other than GET and POST
+* Improved multiple Select element support
+* Add a protected parseData() method to the Http\Request class to allow
+  for parsing of data from methods other than GET and POST
 
 Pop PHP Framework 1.1.0
 =======================
