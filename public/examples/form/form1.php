@@ -55,7 +55,8 @@ try {
             'name'       => 'select_colors',
             'label'      => 'Colors:',
             'value'      => array('--' => '--', 'Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'),
-            'validators' => new NotEqual('--')
+            'validators' => new NotEqual('--'),
+            'attributes' => array('multiple', 'multiple')
         ),
         array(
             'type'       => 'submit',

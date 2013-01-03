@@ -258,8 +258,16 @@ class Select extends Element
     {
         $this->marked = null;
 
-        if (array_key_exists($val, $this->values) !==  false) {
-            $this->marked = $this->values[$val];
+        if (is_array($val)) {
+            foreach ($val as $v) {
+                if (array_key_exists($v, $this->values) !==  false) {
+                    $this->marked[] = $this->values[$v];
+                }
+            }
+        } else {
+            if (array_key_exists($val, $this->values) !==  false) {
+                $this->marked[] = $this->values[$val];
+            }
         }
     }
 
@@ -287,6 +295,29 @@ class Select extends Element
         }
 
         return $val;
+    }
+
+    /**
+     * Set an attribute or attributes for the child element object.
+     *
+     * @param  array|string $a
+     * @param  string $v
+     * @return \Pop\Dom\Child
+     */
+    public function setAttributes($a, $v = null)
+    {
+        parent::setAttributes($a, $v);
+
+        if (array_key_exists('multiple', $this->attributes)) {
+            if (strpos($this->name, '[]') === false) {
+                $this->name .= '[]';
+            }
+            if (array_key_exists('name', $this->attributes)) {
+                if (strpos($this->attributes['name'], '[]') === false) {
+                    $this->attributes['name'] .= '[]';
+                }
+            }
+        }
     }
 
 }
