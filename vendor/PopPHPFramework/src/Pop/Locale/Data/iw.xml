@@ -117,12 +117,12 @@
         <output>הערך לא חייב להיות מספר כרטיס האשראי.</output>
     </text>
     <text>
-        <source>The value must be included.</source>
-        <output>הערך חייב להיות כלול.</output>
+        <source>The value %1 must be included.</source>
+        <output>% הערך 1 חייבים להיות כלולים.</output>
     </text>
     <text>
-        <source>The value must not be included.</source>
-        <output>הערך לא חייב להיות כלול.</output>
+        <source>The value %1 must not be included.</source>
+        <output>1% הערך לא חייב להיות כלול.</output>
     </text>
     <text>
         <source>The value must be between or equal to %1 and %2.</source>
@@ -289,12 +289,12 @@
         <output>הערך חייב להכיל רק תווים לא באלף בית.</output>
     </text>
     <text>
-        <source>The value must be excluded.</source>
-        <output>הערך חייב להיות שליליים.</output>
+        <source>The value %1 must be excluded.</source>
+        <output>% הערך 1 חייבים להיות שליליים.</output>
     </text>
     <text>
-        <source>The value must not be excluded.</source>
-        <output>הערך לא חייב להיות שליליים.</output>
+        <source>The value %1 must not be excluded.</source>
+        <output>1% הערך לא חייב להיות שלילי.</output>
     </text>
     <text>
         <source>The value length must be less than or equal to %1.</source>

@@ -117,12 +117,12 @@
         <output>値は有効なクレジットカードの番号であってはなりません。</output>
     </text>
     <text>
-        <source>The value must be included.</source>
-        <output>値が含まれている必要があります。</output>
+        <source>The value %1 must be included.</source>
+        <output>値％1が含まれている必要があります。</output>
     </text>
     <text>
-        <source>The value must not be included.</source>
-        <output>値を含めてはならない。</output>
+        <source>The value %1 must not be included.</source>
+        <output>値％1を含めることはできません。</output>
     </text>
     <text>
         <source>The value must be between or equal to %1 and %2.</source>
@@ -289,12 +289,12 @@
         <output>値はアルファベットの文字を唯一ではないが含まれている必要があります。</output>
     </text>
     <text>
-        <source>The value must be excluded.</source>
-        <output>値を除外する必要があります。</output>
+        <source>The value %1 must be excluded.</source>
+        <output>値％1を除外する必要があります。</output>
     </text>
     <text>
-        <source>The value must not be excluded.</source>
-        <output>値は除外してはいけません。</output>
+        <source>The value %1 must not be excluded.</source>
+        <output>値％1は除外してはいけません。</output>
     </text>
     <text>
         <source>The value length must be less than or equal to %1.</source>

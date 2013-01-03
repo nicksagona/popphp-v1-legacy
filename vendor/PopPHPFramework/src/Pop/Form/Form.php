@@ -257,12 +257,15 @@ class Form extends Dom
         } else {
             $fields = $this->getElements();
             if ((null !== $values) && (count($fields) > 0)) {
+                //print_r($values);
                 foreach ($fields as $field) {
+                    //echo $field->getNodeName() . ' : ' . $field->name . '<br />' . PHP_EOL;
                     // If a multi-value form element
-                    if (isset($values[$field->name])) {
+                    $fieldName = str_replace('[]', '', $field->name);
+                    if (isset($values[$fieldName])) {
                         if (isset($field->values)) {
-                            $field->marked = $values[$field->name];
-                            $this->fields[$field->name] = $values[$field->name];
+                            $field->marked = $values[$fieldName];
+                            $this->fields[$fieldName] = $values[$fieldName];
                             // Loop through the field's children
                             if ($field->hasChildren()) {
                                 $children = $field->getChildren();
@@ -276,7 +279,9 @@ class Form extends Dom
                                         }
                                     // If select option
                                     } else if ($child->getNodeName() == 'option') {
-                                        if ($child->getAttribute('value') == $field->marked) {
+                                        if (is_array($field->marked) && in_array($child->getAttribute('value'), $field->marked)) {
+                                            $field->getChild($key)->setAttributes('selected', 'selected');
+                                        } else if ($child->getAttribute('value') == $field->marked) {
                                             $field->getChild($key)->setAttributes('selected', 'selected');
                                         }
                                     }
@@ -284,12 +289,12 @@ class Form extends Dom
                             }
                         // Else, if a single-value form element
                         } else {
-                            $field->value = $values[$field->name];
-                            $this->fields[$field->name] = $values[$field->name];
+                            $field->value = $values[$fieldName];
+                            $this->fields[$fieldName] = $values[$fieldName];
                             if ($field->getNodeName() == 'textarea') {
-                                $field->setNodeValue($values[$field->name]);
+                                $field->setNodeValue($values[$fieldName]);
                             } else {
-                                $field->setAttributes('value', $values[$field->name]);
+                                $field->setAttributes('value', $values[$fieldName]);
                             }
                         }
                     }

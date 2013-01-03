@@ -55,14 +55,14 @@ class Included extends AbstractValidator
         // Set the default message
         if (null === $this->defaultMessage) {
             if ($this->condition) {
-                $this->defaultMessage = Locale::factory()->__('The value must be included.');
+                $this->defaultMessage = Locale::factory()->__('The value %1 must be included.', $this->value);
             } else {
-                $this->defaultMessage = Locale::factory()->__('The value must not be included.');
+                $this->defaultMessage = Locale::factory()->__('The value %1 must not be included.', $this->value);
             }
         }
 
         // Evaluate the input against the validator
-        if ((in_array($this->input, $this->value)) == $this->condition) {
+        if ((in_array($this->value, $this->input)) == $this->condition) {
             $this->result = true;
         } else {
             $this->result = false;

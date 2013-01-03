@@ -117,12 +117,12 @@
         <output>该值必须是一个有效的信用卡号码。</output>
     </text>
     <text>
-        <source>The value must be included.</source>
-        <output>该值必须包含在内。</output>
+        <source>The value %1 must be included.</source>
+        <output>必须包含值％1。</output>
     </text>
     <text>
-        <source>The value must not be included.</source>
-        <output>该值必须不包括在内。</output>
+        <source>The value %1 must not be included.</source>
+        <output>不能包含值％1。</output>
     </text>
     <text>
         <source>The value must be between or equal to %1 and %2.</source>
@@ -289,12 +289,12 @@
         <output>该值必须只包含字符在字母表中。</output>
     </text>
     <text>
-        <source>The value must be excluded.</source>
-        <output>该值必须被排除在外。</output>
+        <source>The value %1 must be excluded.</source>
+        <output>值％1必须被排除在外。</output>
     </text>
     <text>
-        <source>The value must not be excluded.</source>
-        <output>该值不能被排除在外。</output>
+        <source>The value %1 must not be excluded.</source>
+        <output>值％1不能被排除在外。</output>
     </text>
     <text>
         <source>The value length must be less than or equal to %1.</source>

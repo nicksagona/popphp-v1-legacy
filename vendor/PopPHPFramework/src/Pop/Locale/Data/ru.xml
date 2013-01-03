@@ -117,12 +117,12 @@
         <output>Значение не должно быть действительный номер кредитной карты.</output>
     </text>
     <text>
-        <source>The value must be included.</source>
-        <output>Значение должно быть включено.</output>
+        <source>The value %1 must be included.</source>
+        <output>Значение %1 должен быть включен.</output>
     </text>
     <text>
-        <source>The value must not be included.</source>
-        <output>Значение не должно быть включено.</output>
+        <source>The value %1 must not be included.</source>
+        <output>Значение %1 не должны быть включены.</output>
     </text>
     <text>
         <source>The value must be between or equal to %1 and %2.</source>
@@ -289,12 +289,12 @@
         <output>Значение должно содержать только символы, не в алфавите.</output>
     </text>
     <text>
-        <source>The value must be excluded.</source>
-        <output>Значение должно быть исключено.</output>
+        <source>The value %1 must be excluded.</source>
+        <output>Значение %1 должны быть исключены.</output>
     </text>
     <text>
-        <source>The value must not be excluded.</source>
-        <output>Значение не должно быть исключено.</output>
+        <source>The value %1 must not be excluded.</source>
+        <output>Значение %1 не должны быть исключены.</output>
     </text>
     <text>
         <source>The value length must be less than or equal to %1.</source>

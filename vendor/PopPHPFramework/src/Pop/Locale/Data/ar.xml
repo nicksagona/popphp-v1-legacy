@@ -117,12 +117,12 @@
         <output>يجب أن لا تكون قيمة بطاقة ائتمان سارية المفعول العدد.</output>
     </text>
     <text>
-        <source>The value must be included.</source>
-        <output>يجب تضمين القيمة.</output>
+        <source>The value %1 must be included.</source>
+        <output>يجب أن تدرج القيمة 1%.</output>
     </text>
     <text>
-        <source>The value must not be included.</source>
-        <output>يجب ألا تكون القيمة المدرجة.</output>
+        <source>The value %1 must not be included.</source>
+        <output>يجب أن لا قيمة 1% إدراجها.</output>
     </text>
     <text>
         <source>The value must be between or equal to %1 and %2.</source>
@@ -289,12 +289,12 @@
         <output>يجب أن تكون قيمة فقط لا تحتوي على أحرف في الأبجدية.</output>
     </text>
     <text>
-        <source>The value must be excluded.</source>
-        <output>يجب استبعاد القيمة.</output>
+        <source>The value %1 must be excluded.</source>
+        <output>يجب استبعاد قيمة% 1.</output>
     </text>
     <text>
-        <source>The value must not be excluded.</source>
-        <output>يجب ألا تكون القيمة المستثناة.</output>
+        <source>The value %1 must not be excluded.</source>
+        <output>يجب أن لا قيمة 1% يمكن استبعاده.</output>
     </text>
     <text>
         <source>The value length must be less than or equal to %1.</source>

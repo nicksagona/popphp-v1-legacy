@@ -45,6 +45,13 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Green', $s->marked);
     }
 
+    public function testMultiple()
+    {
+        $s = new Select('colors', array('Red' => 'Red', 'Blue' => 'Blue', 'Green' => 'Green'), array('Blue', 'Green'));
+        $s->setAttributes('multiple', 'multiple');
+        $this->assertEquals(2, count($s->marked));
+    }
+
     public function testYear()
     {
         $s = new Select('select_test', 'YEAR_1900_2000');

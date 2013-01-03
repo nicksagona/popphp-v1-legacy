@@ -117,12 +117,12 @@
         <output>La valeur ne doit pas être un numéro de carte de crédit valide.</output>
     </text>
     <text>
-        <source>The value must be included.</source>
-        <output>La valeur doit être incluse.</output>
+        <source>The value %1 must be included.</source>
+        <output>La valeur %1 doit être incluse.</output>
     </text>
     <text>
-        <source>The value must not be included.</source>
-        <output>La valeur ne doit pas être inclus.</output>
+        <source>The value %1 must not be included.</source>
+        <output>La valeur %1 ne doit pas être inclus.</output>
     </text>
     <text>
         <source>The value must be between or equal to %1 and %2.</source>
@@ -289,12 +289,12 @@
         <output>La valeur ne doit contenir que des caractères non dans l'alphabet.</output>
     </text>
     <text>
-        <source>The value must be excluded.</source>
-        <output>La valeur doit être exclue.</output>
+        <source>The value %1 must be excluded.</source>
+        <output>La valeur %1 doit être exclue.</output>
     </text>
     <text>
-        <source>The value must not be excluded.</source>
-        <output>La valeur ne doit pas être exclue.</output>
+        <source>The value %1 must not be excluded.</source>
+        <output>La valeur %1 ne doit pas être exclue.</output>
     </text>
     <text>
         <source>The value length must be less than or equal to %1.</source>

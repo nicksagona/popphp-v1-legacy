@@ -30,16 +30,18 @@ class IncludedTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateTrue()
     {
-        $v = new Included(array(1, 2, 3));
-        $this->assertTrue($v->evaluate(3));
-        $this->assertFalse($v->evaluate(4));
+        $v = new Included(3);
+        $this->assertTrue($v->evaluate(array(1, 2, 3)));
+        $v = new Included(4);
+        $this->assertFalse($v->evaluate(array(1, 2, 3)));
     }
 
     public function testEvaluateFalse()
     {
-        $v = new Included(array(1, 2, 3), false);
-        $this->assertFalse($v->evaluate(3));
-        $this->assertTrue($v->evaluate(4));
+        $v = new Included(3, false);
+        $this->assertFalse($v->evaluate(array(1, 2, 3)));
+        $v = new Included(4, false);
+        $this->assertTrue($v->evaluate(array(1, 2, 3)));
     }
 
 }

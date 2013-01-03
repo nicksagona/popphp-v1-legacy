@@ -289,11 +289,11 @@
         <output>Η τιμή πρέπει να περιέχει μόνο χαρακτήρες όχι στο αλφάβητο.</output>
     </text>
     <text>
-        <source>The value must be excluded.</source>
+        <source>The value %1 must be excluded.</source>
         <output>Η τιμή πρέπει να αποκλειστεί.</output>
     </text>
     <text>
-        <source>The value must not be excluded.</source>
+        <source>The value %1 must not be excluded.</source>
         <output>Η τιμή δεν πρέπει να αποκλειστεί.</output>
     </text>
     <text>

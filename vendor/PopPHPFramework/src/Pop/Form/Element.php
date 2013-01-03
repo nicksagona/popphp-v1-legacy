@@ -146,8 +146,14 @@ class Element extends Child
                     $opt->setAttributes('value', $k);
 
                     // Determine if the current option element is selected.
-                    if ($v == $this->marked) {
-                        $opt->setAttributes('selected', 'selected');
+                    if (is_array($this->marked)) {
+                        if (in_array($v, $this->marked)) {
+                            $opt->setAttributes('selected', 'selected');
+                        }
+                    } else {
+                        if ($v == $this->marked) {
+                            $opt->setAttributes('selected', 'selected');
+                        }
                     }
 
                     $opt->setNodeValue($v);
