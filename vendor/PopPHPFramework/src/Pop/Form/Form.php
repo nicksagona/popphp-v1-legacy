@@ -66,7 +66,7 @@ class Form extends Dom
     protected $template = null;
 
     /**
-     * Field names of the database table
+     * Form field values
      * @var array
      */
     protected $fields = array();
@@ -149,7 +149,8 @@ class Form extends Dom
     }
 
     /**
-     * Set the field values
+     * Set the field values. Optionally, you can apply filters
+     * to the passed values via callbacks and their parameters
      *
      * @param  array $values
      * @param  mixed $filters
@@ -585,7 +586,7 @@ class Form extends Dom
      * Method to clear any session data used with the form for
      * security tokens, captchas, etc.
      *
-     * @return void
+     * @return \Pop\Form\Form
      */
     public function clear()
     {
@@ -602,14 +603,29 @@ class Form extends Dom
     }
 
     /**
-     * Method to filter the values
+     * Method to filter current form values with the
+     * applied callbacks and their parameters
+     *
+     * @param  mixed $filters
+     * @param  mixed $params
+     * @return \Pop\Form\Form
+     */
+    public function filter($filters, $params = null)
+    {
+        $this->setFieldValues($this->fields, $filters, $params);
+        return $this;
+    }
+
+    /**
+     * Method to filter the values with the applied
+     * callbacks and their parameters
      *
      * @param  array $values
      * @param  mixed $filters
      * @param  mixed $params
      * @return array
      */
-    protected function filterValues($values, $filters, $params)
+    protected function filterValues($values, $filters, $params = null)
     {
         $filteredValues = array();
 

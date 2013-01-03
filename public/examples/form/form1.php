@@ -4,7 +4,6 @@ require_once '../../bootstrap.php';
 
 use Pop\Form\Form,
     Pop\Validator\Validator,
-    Pop\Validator\Validator\AlphaNumeric,
     Pop\Validator\Validator\Email,
     Pop\Validator\Validator\LengthGt,
     Pop\Validator\Validator\NotEqual;
@@ -17,8 +16,7 @@ try {
             'value'      => 'Username here...',
             'label'      => 'Username:',
             'required'   => true,
-            'attributes' => array('size', 40),
-            'validators' => new AlphaNumeric()
+            'attributes' => array('size', 40)
         ),
         array(
             'type'       => 'text',
@@ -75,6 +73,7 @@ try {
             $form->render();
         } else {
             echo 'Form is valid.<br />' . PHP_EOL;
+            $form->filter('html_entity_decode', array(ENT_QUOTES, 'UTF-8'));
             print_r($form->getFields());
         }
     } else {

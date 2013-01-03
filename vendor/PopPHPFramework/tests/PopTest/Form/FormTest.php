@@ -77,11 +77,32 @@ class FormTest extends \PHPUnit_Framework_TestCase
         ));
         $f = new Form('/submit', 'post', $fields);
         $f->setFieldValues(
-            array('username' => '<p>test"<script>us\'er</script></p>'),
+            array('username' => '<p>te\'st"<script>user</script></p>'),
             array('strip_tags', 'htmlentities'),
             array('<p>', array(ENT_QUOTES, 'UTF-8'))
         );
-        $this->assertEquals('&lt;p&gt;test&quot;us&#039;er&lt;/p&gt;', $f->username);
+        $this->assertEquals('&lt;p&gt;te&#039;st&quot;user&lt;/p&gt;', $f->username);
+    }
+
+    public function testFilter()
+    {
+        $fields = array(array(
+            'type'       => 'text',
+            'name'       => 'username',
+            'value'      => 'Username here...',
+            'label'      => 'Username:',
+            'required'   => true,
+            'attributes' => array('size', 40)
+        ));
+        $f = new Form('/submit', 'post', $fields);
+        $f->setFieldValues(
+            array('username' => '<p>te\'st"<script>user</script></p>'),
+            array('strip_tags', 'htmlentities'),
+            array('<p>', array(ENT_QUOTES, 'UTF-8'))
+        );
+        $this->assertEquals('&lt;p&gt;te&#039;st&quot;user&lt;/p&gt;', $f->username);
+        $f->filter('html_entity_decode', array(ENT_QUOTES, 'UTF-8'));
+        $this->assertEquals('<p>te\'st"user</p>', $f->username);
     }
 
     public function testSetAndGetTemplate()
