@@ -1,3 +1,10 @@
+Pop PHP Framework 1.1.2
+=======================
+
+COMPLETED:
+----------
+* Refactor Record component to improve "findBy()" functionality
+
 Pop PHP Framework 1.1.1
 =======================
 
