@@ -99,7 +99,7 @@ class AuthTable implements AdapterInterface
         $passwordField = $this->passwordField;
         $accessField = $this->accessField;
 
-        $user = $table::findBy($this->usernameField, $username);
+        $user = $table::findBy(array($this->usernameField => $username));
 
         if (!isset($user->$usernameField)) {
             $result = Auth::USER_NOT_FOUND;

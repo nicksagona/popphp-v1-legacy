@@ -115,6 +115,7 @@ class PreparedTest extends \PHPUnit_Framework_TestCase
         $r = PreparedUsers::findById(1);
         $this->assertEquals('users', $r->getTableName());
         $r = PreparedUserData::findById(array(1, 1));
+        $this->assertEquals('pop_user_data', $r->getFullTablename());
         $this->assertEquals('user_data', $r->getTableName());
     }
 
@@ -139,5 +140,27 @@ class PreparedTest extends \PHPUnit_Framework_TestCase
         $r = new Record();
         $r->setValues(123);
     }
+
+    public function testSaveUpdateDelete()
+    {
+        $r = new PreparedUsers(array(
+            'username' => 'newuser',
+            'password' => 'newpassword',
+            'email'    => 'new@email.com',
+            'access'   => 'reader'
+        ));
+        $r->save();
+        $r = PreparedUsers::findBy(array('username' => 'newuser'));
+        $this->assertEquals('newpassword', $r->password);
+        $r->password = 'newpassword1';
+        $r->update();
+        $r = PreparedUsers::findBy(array('username' => 'newuser'));
+        $this->assertEquals('newpassword1', $r->password);
+        $r->delete();
+        $this->assertNull($r->username);
+        $r = PreparedUsers::findBy(array('username' => 'newuser'));
+        $this->assertNull($r->username);
+    }
+
 }
 

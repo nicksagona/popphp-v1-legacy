@@ -102,7 +102,29 @@ class EscapedTest extends \PHPUnit_Framework_TestCase
         $r = Users::findById(1);
         $this->assertEquals('users', $r->getTableName());
         $r = UserData::findById(array(1, 1));
+        $this->assertEquals('pop_user_data', $r->getFullTablename());
         $this->assertEquals('user_data', $r->getTableName());
+    }
+
+    public function testSaveUpdateDelete()
+    {
+        $r = new Users(array(
+            'username' => 'newuser',
+            'password' => 'newpassword',
+            'email'    => 'new@email.com',
+            'access'   => 'reader'
+        ));
+        $r->save();
+        $r = Users::findBy(array('username' => 'newuser'));
+        $this->assertEquals('newpassword', $r->password);
+        $r->password = 'newpassword1';
+        $r->update();
+        $r = Users::findBy(array('username' => 'newuser'));
+        $this->assertEquals('newpassword1', $r->password);
+        $r->delete();
+        $this->assertNull($r->username);
+        $r = Users::findBy(array('username' => 'newuser'));
+        $this->assertNull($r->username);
     }
 
 }
