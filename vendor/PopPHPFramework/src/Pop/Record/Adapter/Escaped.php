@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace Pop\Record;
+namespace Pop\Record\Adapter;
 
 use Pop\Db\Db,
     Pop\Db\Sql;
@@ -94,8 +94,8 @@ class Escaped extends AbstractRecord
 
         // Build the SQL.
         $this->db->sql()->setTable($this->tableName)
-                      ->setIdQuoteType($this->idQuote)
-                      ->select();
+                        ->setIdQuoteType($this->idQuote)
+                        ->select();
 
         if (is_array($this->primaryId)) {
             if (!is_array($id) || (count($id) != count($this->primaryId))) {
@@ -121,20 +121,22 @@ class Escaped extends AbstractRecord
     /**
      * Find a database row by the column passed through the method argument.
      *
-     * @param  string $column
-     * @param  int|string $value
-     * @param  int|string $limit
+     * @param  array $columns
+     * @param  int   $limit
      * @return void
      */
-    public function findBy($column, $value, $limit = null)
+    public function findBy(array $columns, $limit = null)
     {
-        $this->finder = array($column, $value);
+        $this->finder = array_merge($this->finder, $columns);
 
         // Build the SQL.
         $this->db->sql()->setTable($this->tableName)
-                      ->setIdQuoteType($this->idQuote)
-                      ->select()
-                      ->where($this->db->adapter()->escape($column), '=', $this->db->adapter()->escape($value));
+                        ->setIdQuoteType($this->idQuote)
+                        ->select();
+
+        foreach ($columns as $key => $value) {
+            $this->db->sql()->where($this->db->adapter()->escape($key), '=', $this->db->adapter()->escape($value));
+        }
 
         if (null !== $limit) {
             $this->db->sql()->limit($this->db->adapter()->escape($limit));
@@ -150,22 +152,23 @@ class Escaped extends AbstractRecord
      * Find all of the database rows by the column passed through the method argument.
      *
      * @param  string     $order
-     * @param  string     $column
-     * @param  int|string $value
+     * @param  array      $columns
      * @param  int|string $limit
      * @return void
      */
-    public function findAll($order = null, $column = null, $value = null, $limit = null)
+    public function findAll($order = null, array $columns = null, $limit = null)
     {
         // Build the SQL.
         $this->db->sql()->setTable($this->tableName)
-                      ->setIdQuoteType($this->idQuote)
-                      ->select();
+                        ->setIdQuoteType($this->idQuote)
+                        ->select();
 
         // If a specific column and value are passde.
-        if ((null !== $column) && (null !== $value)) {
-            $this->finder = array($column, $value);
-            $this->db->sql()->where($this->db->adapter()->escape($column), '=', $this->db->adapter()->escape($value));
+        if (null !== $columns) {
+            $this->finder = array_merge($this->finder, $columns);
+            foreach ($columns as $key => $value) {
+                $this->db->sql()->where($this->db->adapter()->escape($key), '=', $this->db->adapter()->escape($value));
+            }
         } else {
             $this->finder = array();
         }
@@ -213,18 +216,20 @@ class Escaped extends AbstractRecord
         if (null === $this->primaryId) {
             if ($type == Record::UPDATE) {
                 $this->db->sql()->setTable($this->tableName)
-                              ->setIdQuoteType($this->idQuote)
-                              ->update((array)$this->columns);
+                                ->setIdQuoteType($this->idQuote)
+                                ->update((array)$this->columns);
 
                 if (count($this->finder) > 0) {
-                    $this->db->sql()->where($this->finder[0], '=', $this->db->adapter()->escape($this->finder[1]));
+                    foreach ($this->finder as $key => $value) {
+                        $this->db->sql()->where($key, '=', $this->db->adapter()->escape($value));
+                    }
                 }
 
                 $this->db->adapter()->query($this->db->sql()->getSql());
             } else {
                 $this->db->sql()->setTable($this->tableName)
-                              ->setIdQuoteType($this->idQuote)
-                              ->insert((array)$this->columns);
+                                ->setIdQuoteType($this->idQuote)
+                                ->insert((array)$this->columns);
 
                 $this->db->adapter()->query($this->db->sql()->getSql());
             }
@@ -247,8 +252,8 @@ class Escaped extends AbstractRecord
 
             if ($action == 'update') {
                 $this->db->sql()->setTable($this->tableName)
-                              ->setIdQuoteType($this->idQuote)
-                              ->update((array)$this->columns);
+                                ->setIdQuoteType($this->idQuote)
+                                ->update((array)$this->columns);
 
                 if (is_array($this->primaryId)) {
                     foreach ($this->primaryId as $value) {
@@ -261,8 +266,8 @@ class Escaped extends AbstractRecord
                 $this->db->adapter()->query($this->db->sql()->getSql());
             } else {
                 $this->db->sql()->setTable($this->tableName)
-                              ->setIdQuoteType($this->idQuote)
-                              ->insert((array)$this->columns);
+                                ->setIdQuoteType($this->idQuote)
+                                ->insert((array)$this->columns);
 
                 $this->db->adapter()->query($this->db->sql()->getSql());
 
@@ -281,28 +286,29 @@ class Escaped extends AbstractRecord
     /**
      * Delete the database record.
      *
-     * @param  array  $columnsPassed
-     * @param  string $column
-     * @param  string $value
+     * @param  array $columnsPassed
+     * @param  array $columns
      * @throws Exception
      * @return void
      */
-    public function delete($columnsPassed, $column = null, $value = null)
+    public function delete($columnsPassed, array $columns = null)
     {
         $this->columns = $columnsPassed;
 
         if (null === $this->primaryId) {
-            if ((null === $column) && (null === $value) && (count($this->finder) == 0)) {
+            if ((null === $columns) && (count($this->finder) == 0)) {
                 throw new Exception('The column and value parameters were not defined to describe the row(s) to delete.');
-            } else if ((null === $column) && (null === $value)) {
-                $column = $this->finder[0];
-                $value = $this->finder[1];
+            } else if (null === $columns) {
+                $columns = $this->finder;
             }
 
             $this->db->sql()->setTable($this->tableName)
-                          ->setIdQuoteType($this->idQuote)
-                          ->delete()
-                          ->where($this->db->adapter()->escape($column), '=', $this->db->adapter()->escape($value));
+                            ->setIdQuoteType($this->idQuote)
+                            ->delete();
+
+            foreach ($columns as $key => $value) {
+                $this->db->sql()->where($this->db->adapter()->escape($key), '=', $this->db->adapter()->escape($value));
+            }
 
             $this->db->adapter()->query($this->db->sql()->getSql());
 
@@ -310,12 +316,14 @@ class Escaped extends AbstractRecord
             $this->rows = array();
         } else {
             $this->db->sql()->setTable($this->tableName)
-                          ->setIdQuoteType($this->idQuote)
-                          ->delete();
+                            ->setIdQuoteType($this->idQuote)
+                            ->delete();
 
             // Specific column override.
-            if ((null !== $column) && (null !== $value)) {
-                $this->db->sql()->where($this->db->adapter()->escape($column), '=', $this->db->adapter()->escape($value));
+            if (null !== $columns) {
+                foreach ($columns as $key => $value) {
+                    $this->db->sql()->where($this->db->adapter()->escape($key), '=', $this->db->adapter()->escape($value));
+                }
             // Else, continue with the primaryId column(s)
             } else if (is_array($this->primaryId)) {
                 foreach ($this->primaryId as $value) {

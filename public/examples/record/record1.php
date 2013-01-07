@@ -13,7 +13,7 @@ class Users extends Record { }
 
 try {
     // Define DB credentials
-    $db = Db::factory('Mysql', array(
+    $db = Db::factory('Mysqli', array(
         'database' => 'helloworld',
         'host'     => 'localhost',
         'username' => 'hello',
@@ -22,7 +22,7 @@ try {
 
     Users::setDb($db);
     $users = Users::findAll();
-    print_r($users->rows);
+    print_r($users);
 
     echo PHP_EOL . PHP_EOL;
 } catch (\Exception $e) {

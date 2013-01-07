@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace Pop\Record;
+namespace Pop\Record\Adapter;
 
 /**
  * This is the Abstract Record class for the Record component.

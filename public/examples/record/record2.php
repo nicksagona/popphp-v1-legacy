@@ -23,10 +23,11 @@ try {
     Users::setDb($db);
 
     $fields = array(
-        'username' => 'newuser',
-        'password' => '123456',
-        'email'    => 'test@test.com',
-        'access'   => 'admin'
+        'username'   => 'newuser2',
+        'password'   => '123456',
+        'first_name' => 'Onemore',
+        'last_name'  => 'Newuser',
+        'email'      => 'test@test.com'
     );
 
     $user = new Users($fields);

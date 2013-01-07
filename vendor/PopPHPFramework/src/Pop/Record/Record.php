@@ -157,9 +157,9 @@ class Record
         $type = self::getDb()->getAdapterType();
 
         if (($type == 'Mysql') || (!$this->usePrepared)) {
-            $this->interface = new Escaped(self::getDb(), $options);
+            $this->interface = new Adapter\Escaped(self::getDb(), $options);
         } else {
-            $this->interface = new Prepared(self::getDb(), $options);
+            $this->interface = new Adapter\Prepared(self::getDb(), $options);
         }
     }
 
@@ -219,15 +219,14 @@ class Record
     /**
      * Find a database row by the column passed through the method argument.
      *
-     * @param  string $column
-     * @param  int|string $value
-     * @param  int|string $limit
+     * @param  array $columns
+     * @param  int   $limit
      * @return \Pop\Record\Record
      */
-    public static function findBy($column, $value, $limit = null)
+    public static function findBy(array $columns, $limit = null)
     {
         $record = new static();
-        $record->interface->findBy($column, $value, $limit);
+        $record->interface->findBy($columns, $limit);
         $record->setResults($record->interface->getResult());
 
         return $record;
@@ -238,15 +237,14 @@ class Record
      * Find all of the database rows by the column passed through the method argument.
      *
      * @param  string     $order
-     * @param  string     $column
-     * @param  int|string $value
+     * @param  array      $columns
      * @param  int|string $limit
      * @return \Pop\Record\Record
      */
-    public static function findAll($order = null, $column = null, $value = null, $limit = null)
+    public static function findAll($order = null, array $columns = null, $limit = null)
     {
         $record = new static();
-        $record->interface->findAll($order, $column, $value, $limit);
+        $record->interface->findAll($order, $columns, $limit);
         $record->setResults($record->interface->getResult());
 
         return $record;
@@ -473,14 +471,13 @@ class Record
     /**
      * Delete the database record.
      *
-     * @param  string $column
-     * @param  string $value
+     * @param  array $columns
      * @throws Exception
      * @return void
      */
-    public function delete($column = null, $value = null)
+    public function delete(array $columns = null)
     {
-        $this->interface->delete($this->columns, $column, $value);
+        $this->interface->delete($this->columns, $columns);
         $this->setResults($this->interface->getResult());
     }
 
