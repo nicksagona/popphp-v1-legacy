@@ -62,13 +62,13 @@ class PreparedTest extends \PHPUnit_Framework_TestCase
 
     public function testFindByIdException()
     {
-        $this->setExpectedException('Pop\Record\Exception');
+        $this->setExpectedException('Pop\Record\Adapter\Exception');
         $r = PreparedUserData::findById(array(1));
     }
 
     public function testFindBy()
     {
-        $r = PreparedUsers::findBy('email', 'test1@test.com', 1);
+        $r = PreparedUsers::findBy(array('email' => 'test1@test.com'), 1);
         $r->test = $r->escape('test');
         $this->assertEquals('test', $r->test);
         unset($r->test);
@@ -78,8 +78,8 @@ class PreparedTest extends \PHPUnit_Framework_TestCase
 
     public function testFindAll()
     {
-        $r = PreparedUsers::findAll('id RAND()', 'email', 'test1@test.com');
-        $r = PreparedUsers::findAll('id, username DESC', null, null, 4);
+        $r = PreparedUsers::findAll('id RAND()', array('email' => 'test1@test.com'));
+        $r = PreparedUsers::findAll('id, username DESC', null, 4);
         $r = PreparedUsers::findAll('id ASC');
         $this->assertEquals(8, count($r->rows));
         $this->assertEquals(0, $r->numRows());

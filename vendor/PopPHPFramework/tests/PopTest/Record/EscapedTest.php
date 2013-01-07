@@ -61,13 +61,13 @@ class EscapedTest extends \PHPUnit_Framework_TestCase
 
     public function testFindByIdException()
     {
-        $this->setExpectedException('Pop\Record\Exception');
+        $this->setExpectedException('Pop\Record\Adapter\Exception');
         $r = UserData::findById(array(1));
     }
 
     public function testFindBy()
     {
-        $r = Users::findBy('email', 'test1@test.com', 1);
+        $r = Users::findBy(array('email' => 'test1@test.com'), 1);
         $r->test = $r->escape('test');
         $this->assertEquals('test', $r->test);
         unset($r->test);
@@ -77,8 +77,8 @@ class EscapedTest extends \PHPUnit_Framework_TestCase
 
     public function testFindAll()
     {
-        $r = Users::findAll('id RAND()', 'email', 'test1@test.com');
-        $r = Users::findAll('id, username DESC', null, null, 4);
+        $r = Users::findAll('id RAND()', array('email' => 'test1@test.com'));
+        $r = Users::findAll('id, username DESC', null, 4);
         $r = Users::findAll('id ASC');
         $this->assertEquals(8, count($r->rows));
         $this->assertEquals(8, $r->numRows());
