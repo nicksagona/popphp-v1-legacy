@@ -220,7 +220,7 @@ class Escaped extends AbstractRecord
      * @param  int   $type
      * @return void
      */
-    public function save($columnsPassed, $type = Record::INSERT)
+    public function save($columnsPassed, $type = \Pop\Record\Record::INSERT)
     {
         $this->columns = $columnsPassed;
 
@@ -229,7 +229,7 @@ class Escaped extends AbstractRecord
         }
 
         if (null === $this->primaryId) {
-            if ($type == Record::UPDATE) {
+            if ($type == \Pop\Record\Record::UPDATE) {
                 $this->db->sql()->setTable($this->tableName)
                                 ->setIdQuoteType($this->idQuote)
                                 ->update((array)$this->columns);
@@ -250,7 +250,7 @@ class Escaped extends AbstractRecord
             }
         } else {
             if ($this->auto == false) {
-                $action = ($type == Record::INSERT) ? 'insert' : 'update';
+                $action = ($type == \Pop\Record\INSERT) ? 'insert' : 'update';
             } else {
                 if (is_array($this->primaryId)) {
                     $isset = true;

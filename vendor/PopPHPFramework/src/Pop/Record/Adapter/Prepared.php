@@ -252,12 +252,12 @@ class Prepared extends AbstractRecord
      * @param  int   $type
      * @return void
      */
-    public function save($columnsPassed, $type = Record::INSERT)
+    public function save($columnsPassed, $type = \Pop\Record\Record::INSERT)
     {
         $this->columns = $columnsPassed;
 
         if (null === $this->primaryId) {
-            if ($type == Record::UPDATE) {
+            if ($type == \Pop\Record\Record::UPDATE) {
                 $this->db->sql()->setTable($this->tableName)
                                 ->setIdQuoteType($this->idQuote);
 
@@ -317,7 +317,7 @@ class Prepared extends AbstractRecord
             }
         } else {
             if ($this->auto == false) {
-                $action = ($type == Record::INSERT) ? 'insert' : 'update';
+                $action = ($type == \Pop\Record\Record::INSERT) ? 'insert' : 'update';
             } else {
                 if (is_array($this->primaryId)) {
                     $isset = true;
