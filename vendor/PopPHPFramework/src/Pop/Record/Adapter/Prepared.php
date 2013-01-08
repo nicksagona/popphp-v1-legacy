@@ -144,10 +144,11 @@ class Prepared extends AbstractRecord
      * Find a database row by the column passed through the method argument.
      *
      * @param  array $columns
+     * @param  string $order
      * @param  int   $limit
      * @return void
      */
-    public function findBy(array $columns, $limit = null)
+    public function findBy(array $columns, $order = null, $limit = null)
     {
         $this->finder = array_merge($this->finder, $columns);
 
@@ -160,6 +161,20 @@ class Prepared extends AbstractRecord
         foreach ($columns as $key => $value) {
             $this->db->sql()->where($key, '=', $this->getPlaceholder($key, $i));
             $i++;
+        }
+
+        // Set the SQL query to a specific order, if given.
+        if (null !== $order) {
+            $ord = $this->getOrder($order);
+            if (is_array($ord['by'])) {
+                $by = array();
+                foreach ($ord['by'] as $b) {
+                    $by[] = $this->db->adapter()->escape($b);
+                }
+            } else {
+                $by = $this->db->adapter()->escape($ord['by']);
+            }
+            $this->db->sql()->order($by, $this->db->adapter()->escape($ord['order']));
         }
 
         if (null !== $limit) {

@@ -219,14 +219,15 @@ class Record
     /**
      * Find a database row by the column passed through the method argument.
      *
-     * @param  array $columns
-     * @param  int   $limit
+     * @param  array  $columns
+     * @param  string $order
+     * @param  int    $limit
      * @return \Pop\Record\Record
      */
-    public static function findBy(array $columns, $limit = null)
+    public static function findBy(array $columns, $order = null, $limit = null)
     {
         $record = new static();
-        $record->interface->findBy($columns, $limit);
+        $record->interface->findBy($columns, $order, $limit);
         $record->setResults($record->interface->getResult());
 
         return $record;
