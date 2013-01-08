@@ -512,7 +512,9 @@ class Auth
         } else {
             $validIps = $this->filterIps($ips);
             if (count($validIps) > 0) {
-                $this->validators['blockedIps'] = Validator::factory(new Excluded($validIps));
+                $exc = new Excluded();
+                $exc->setInput($validIps);
+                $this->validators['blockedIps'] = Validator::factory($exc);
             }
         }
         return $this;
@@ -531,7 +533,9 @@ class Auth
         } else {
             $validSubnets = $this->filterSubnets($subnets);
             if (count($validSubnets) > 0) {
-                $this->validators['blockedSubnets'] = Validator::factory(new Excluded($validSubnets));
+                $exc = new Excluded();
+                $exc->setInput($validSubnets);
+                $this->validators['blockedSubnets'] = Validator::factory($exc);
             }
         }
         return $this;
@@ -550,7 +554,9 @@ class Auth
         } else {
             $validIps = $this->filterIps($ips);
             if (count($validIps) > 0) {
-                $this->validators['allowedIps'] = Validator::factory(new Included($validIps));
+                $inc = new Included();
+                $inc->setInput($validIps);
+                $this->validators['allowedIps'] = Validator::factory($inc);
             }
         }
         return $this;
@@ -569,7 +575,9 @@ class Auth
         } else {
             $validSubnets = $this->filterSubnets($subnets);
             if (count($validSubnets) > 0) {
-                $this->validators['allowedSubnets'] = Validator::factory(new Included($validSubnets));
+                $inc = new Included();
+                $inc->setInput($validSubnets);
+                $this->validators['allowedSubnets'] = Validator::factory($inc);
             }
         }
         return $this;
@@ -747,22 +755,26 @@ class Auth
             if (null !== $validator) {
                 switch ($name) {
                     case 'allowedIps':
-                        if ((null !== $this->ip) && (!$validator->evaluate($this->ip))) {
+                        $validator->getValidator()->setValue($this->ip);
+                        if ((null !== $this->ip) && (!$validator->evaluate())) {
                             $this->result = self::IP_NOT_ALLOWED;
                         }
                         break;
                     case 'allowedSubnets':
-                        if ((null !== $this->subnet) && (!$validator->evaluate($this->subnet))) {
+                        $validator->getValidator()->setValue($this->subnet);
+                        if ((null !== $this->subnet) && (!$validator->evaluate())) {
                             $this->result = self::IP_NOT_ALLOWED;
                         }
                         break;
                     case 'blockedIps':
-                        if ((null !== $this->ip) && (!$validator->evaluate($this->ip))) {
+                        $validator->getValidator()->setValue($this->ip);
+                        if ((null !== $this->ip) && (!$validator->evaluate())) {
                             $this->result = self::IP_BLOCKED;
                         }
                         break;
                     case 'blockedSubnets':
-                        if ((null !== $this->subnet) && (!$validator->evaluate($this->subnet))) {
+                        $validator->getValidator()->setValue($this->subnet);
+                        if ((null !== $this->subnet) && (!$validator->evaluate())) {
                             $this->result = self::IP_BLOCKED;
                         }
                         break;

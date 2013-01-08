@@ -158,7 +158,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
     {
         $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
         $a->setBlockedIps(array('123.123.123.123', '124.124.124.124'));
-        $this->assertEquals(array('123.123.123.123', '124.124.124.124'), $a->getValidator('blockedIps')->getValidator()->getValue());
+        $this->assertEquals(array('123.123.123.123', '124.124.124.124'), $a->getValidator('blockedIps')->getValidator()->getInput());
         $a->setBlockedIps();
         $this->assertEquals(null, $a->getValidator('blockedIps'));
     }
@@ -167,7 +167,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
     {
         $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
         $a->setBlockedSubnets(array('123.123.123', '124.124.124'));
-        $this->assertEquals(array('123.123.123', '124.124.124'), $a->getValidator('blockedSubnets')->getValidator()->getValue());
+        $this->assertEquals(array('123.123.123', '124.124.124'), $a->getValidator('blockedSubnets')->getValidator()->getInput());
         $a->setBlockedSubnets();
         $this->assertEquals(null, $a->getValidator('blockedSubnets'));
     }
@@ -177,7 +177,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
         $a->setAllowedIps('123.123.123.123');
         $a->setAllowedIps(array('123.123.123.123', '124.124.124.124'));
-        $this->assertEquals(array('123.123.123.123', '124.124.124.124'), $a->getValidator('allowedIps')->getValidator()->getValue());
+        $this->assertEquals(array('123.123.123.123', '124.124.124.124'), $a->getValidator('allowedIps')->getValidator()->getInput());
         $a->setAllowedIps();
         $this->assertEquals(null, $a->getValidator('allowedIps'));
     }
@@ -187,7 +187,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
         $a->setAllowedSubnets('123.123.123');
         $a->setAllowedSubnets(array('123.123.123', '124.124.124'));
-        $this->assertEquals(array('123.123.123', '124.124.124'), $a->getValidator('allowedSubnets')->getValidator()->getValue());
+        $this->assertEquals(array('123.123.123', '124.124.124'), $a->getValidator('allowedSubnets')->getValidator()->getInput());
         $a->setAllowedSubnets();
         $this->assertEquals(null, $a->getValidator('allowedSubnets'));
     }
