@@ -31,6 +31,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     public function testModelConstructor()
     {
         $this->assertInstanceOf('Pop\Mvc\Model', new Model('123', 'data'));
+        $this->assertInstanceOf('Pop\Mvc\Model', Model::factory('123', 'data'));
     }
 
     public function testAsArray()
@@ -69,7 +70,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
     public function testSet()
     {
-        $m = new Model(array('other' => 789, 'onemorething' => 098));
+        $m = new Model(array('other' => 789, 'onemorething' => 980));
         $m->set('data', '123');
         $m->something = 456;
         $this->assertEquals('123', $m->data);

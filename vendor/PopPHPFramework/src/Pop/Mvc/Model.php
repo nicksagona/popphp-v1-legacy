@@ -66,6 +66,18 @@ class Model
     }
 
     /**
+     * Create a Pop\Mvc\Model object
+     *
+     * @param  mixed $data
+     * @param  string $name
+     * @return \Pop\Mvc\Model
+     */
+    public static function factory($data = null, $name = null)
+    {
+        return new self($data, $name);
+    }
+
+    /**
      * Method to get the model data as an array
      *
      * @return array
