@@ -3,10 +3,7 @@
 require_once '../../bootstrap.php';
 
 use Pop\Form\Form,
-    Pop\Validator\Validator,
-    Pop\Validator\Validator\Email,
-    Pop\Validator\Validator\LengthGt,
-    Pop\Validator\Validator\NotEqual;
+    Pop\Validator\Validator;
 
 try {
     $fields = array(
@@ -24,7 +21,7 @@ try {
             'label'      => 'Email:',
             'required'   => true,
             'attributes' => array('size', 40),
-            'validators' => new Email()
+            'validators' => new Validator\Email()
         ),
         array(
             'type'       => 'password',
@@ -32,14 +29,15 @@ try {
             'label'      => 'Password:',
             'required'   => true,
             'attributes' => array('size', 40),
-            'validators' => new LengthGt(6)
+            'validators' => new Validator\LengthGt(6)
         ),
         array(
             'type'       => 'checkbox',
             'name'       => 'checkbox_colors',
             'label'      => 'Colors:',
             'required'   => true,
-            'value'      => array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue')
+            'value'      => array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'),
+            'validators' => new Validator\Included(array('Red', 'Green'))
         ),
         array(
             'type'       => 'radio',
@@ -53,7 +51,7 @@ try {
             'name'       => 'select_colors',
             'label'      => 'Colors:',
             'value'      => array('--' => '--', 'Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'),
-            'validators' => new NotEqual('--'),
+            'validators' => new Validator\Excluded('--'),
             'attributes' => array('multiple', 'multiple')
         ),
         array(
