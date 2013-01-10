@@ -115,6 +115,13 @@ class MailTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3, count($m->getHeaders()));
     }
 
+    public function testSetAndGetEol()
+    {
+        $m = new Mail();
+        $m->setEol("\n");
+        $this->assertEquals("\n", $m->getEol());
+    }
+
     public function testAttachFile()
     {
         $m = new Mail();
