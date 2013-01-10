@@ -17,6 +17,7 @@
 namespace PopTest\Mail;
 
 use Pop\Loader\Autoloader,
+    Pop\File\Dir,
     Pop\File\File,
     Pop\Mail\Mail;
 
@@ -165,6 +166,25 @@ class MailTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Pop\Mail\Exception');
         $m = new Mail(array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
         $m->init();
+    }
+
+    public function testSaveTo()
+    {
+        $m = new Mail(array('name' => 'Bob Smith', 'email' => 'bob@smith.com'), 'Hello World');
+        $m->setHtml('Hello');
+        $m->setText('Hello');
+        $m->saveTo(__DIR__ . '/../tmp');
+
+        $d = new Dir(__DIR__ . '/../tmp');
+        $files = $d->getFiles();
+        $exists = false;
+        foreach ($files as $file) {
+            if (strpos($file, 'popphpmail') !== false) {
+                $exists = true;
+                unlink(__DIR__ . '/../tmp/' . $file);
+            }
+        }
+        $this->assertTrue($exists);
     }
 
 }
