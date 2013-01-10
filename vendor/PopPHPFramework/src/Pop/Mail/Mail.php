@@ -24,7 +24,8 @@
  */
 namespace Pop\Mail;
 
-use Pop\File\File;
+use Pop\File\Dir,
+    Pop\File\File;
 
 /**
  * This is the Mail class for the Mail component.
@@ -136,6 +137,12 @@ class Mail
     protected $attachments = array();
 
     /**
+     * End of line
+     * @var string
+     */
+    protected $eol = "\r\n";
+
+    /**
      * Constructor
      *
      * Instantiate the mail object.
@@ -222,6 +229,16 @@ class Mail
     public function getHeader($name)
     {
         return (isset($this->headers[$name])) ? $this->headers[$name] : null;
+    }
+
+    /**
+     * Get the end of line
+     *
+     * @return string
+     */
+    public function getEol()
+    {
+        return $this->eol;
     }
 
     /**
@@ -350,6 +367,18 @@ class Mail
     }
 
     /**
+     * Set the end of line
+     *
+     * @param  string $eol
+     * @return \Pop\Mail\Mail
+     */
+    public function setEol($eol)
+    {
+        $this->eol = $eol;
+        return $this;
+    }
+
+    /**
      * Attach a file to the mail object.
      *
      * @param  string|\Pop\File\File $file
@@ -397,7 +426,7 @@ class Mail
      * Initialize the email message.
      *
      * @throws Exception
-     * @return void
+     * @return \Pop\Mail\Mail
      */
     public function init()
     {
@@ -415,26 +444,26 @@ class Mail
             case self::TEXT_HTML_FILE:
                 $this->setHeaders(array(
                     'MIME-Version' => '1.0',
-                    'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
+                    'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . $this->eol . "This is a multi-part message in MIME format.",
                 ));
 
                 foreach ($this->attachments as $file) {
-                    $this->message .= PHP_EOL . '--' . $this->getBoundary() .
-                        PHP_EOL . 'Content-Type: file; name="' . $file['file']->getBasename() .
-                        '"' . PHP_EOL . 'Content-Transfer-Encoding: base64' . PHP_EOL .
-                        'Content-Description: ' . $file['file']->getBasename() . PHP_EOL .
+                    $this->message .= $this->eol . '--' . $this->getBoundary() .
+                        $this->eol . 'Content-Type: file; name="' . $file['file']->getBasename() .
+                        '"' . $this->eol . 'Content-Transfer-Encoding: base64' . $this->eol .
+                        'Content-Description: ' . $file['file']->getBasename() . $this->eol .
                         'Content-Disposition: attachment; filename="' . $file['file']->getBasename() .
-                        '"' . PHP_EOL . PHP_EOL . $file['contents'] . PHP_EOL . PHP_EOL;
+                        '"' . $this->eol . $this->eol . $file['contents'] . $this->eol . $this->eol;
                 }
 
-                $this->message .= '--' . $this->getBoundary() . PHP_EOL .
+                $this->message .= '--' . $this->getBoundary() . $this->eol .
                     'Content-type: text/html; charset=' . $this->getCharset() .
-                    PHP_EOL . PHP_EOL . $this->html . PHP_EOL . PHP_EOL;
+                    $this->eol . $this->eol . $this->html . $this->eol . $this->eol;
 
-                $this->message .= '--' . $this->getBoundary() . PHP_EOL .
+                $this->message .= '--' . $this->getBoundary() . $this->eol .
                     'Content-type: text/plain; charset=' . $this->getCharset() .
-                    PHP_EOL . PHP_EOL . $this->text . PHP_EOL . PHP_EOL . '--' .
-                    $this->getBoundary() . '--' . PHP_EOL . PHP_EOL;
+                    $this->eol . $this->eol . $this->text . $this->eol . $this->eol . '--' .
+                    $this->getBoundary() . '--' . $this->eol . $this->eol;
 
                 break;
 
@@ -442,21 +471,21 @@ class Mail
             case self::HTML_FILE:
                 $this->setHeaders(array(
                     'MIME-Version' => '1.0',
-                    'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
+                    'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . $this->eol . "This is a multi-part message in MIME format.",
                 ));
 
                 foreach ($this->attachments as $file) {
-                    $this->message .= PHP_EOL . '--' . $this->getBoundary() .
-                        PHP_EOL . 'Content-Type: file; name="' . $file['file']->getBasename() .
-                        '"' . PHP_EOL . 'Content-Transfer-Encoding: base64' . PHP_EOL .
-                        'Content-Description: ' . $file['file']->getBasename() . PHP_EOL .
+                    $this->message .= $this->eol . '--' . $this->getBoundary() .
+                        $this->eol . 'Content-Type: file; name="' . $file['file']->getBasename() .
+                        '"' . $this->eol . 'Content-Transfer-Encoding: base64' . $this->eol .
+                        'Content-Description: ' . $file['file']->getBasename() . $this->eol .
                         'Content-Disposition: attachment; filename="' . $file['file']->getBasename() .
-                        '"' . PHP_EOL . PHP_EOL . $file['contents'] . PHP_EOL . PHP_EOL;
+                        '"' . $this->eol . $this->eol . $file['contents'] . $this->eol . $this->eol;
                 }
-                $this->message .= '--' . $this->getBoundary() . PHP_EOL .
+                $this->message .= '--' . $this->getBoundary() . $this->eol .
                     'Content-type: text/html; charset=' . $this->getCharset() .
-                    PHP_EOL . PHP_EOL . $this->html . PHP_EOL . PHP_EOL . '--' .
-                    $this->getBoundary() . '--' . PHP_EOL . PHP_EOL;
+                    $this->eol . $this->eol . $this->html . $this->eol . $this->eol . '--' .
+                    $this->getBoundary() . '--' . $this->eol . $this->eol;
 
                 break;
 
@@ -464,21 +493,21 @@ class Mail
             case self::TEXT_FILE:
                 $this->setHeaders(array(
                     'MIME-Version' => '1.0',
-                    'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
+                    'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . $this->eol . "This is a multi-part message in MIME format.",
                 ));
 
                 foreach ($this->attachments as $file) {
-                    $this->message .= PHP_EOL . '--' . $this->getBoundary() .
-                        PHP_EOL . 'Content-Type: file; name="' . $file['file']->getBasename() .
-                        '"' . PHP_EOL . 'Content-Transfer-Encoding: base64' . PHP_EOL .
-                        'Content-Description: ' . $file['file']->getBasename() . PHP_EOL .
+                    $this->message .= $this->eol . '--' . $this->getBoundary() .
+                        $this->eol . 'Content-Type: file; name="' . $file['file']->getBasename() .
+                        '"' . $this->eol . 'Content-Transfer-Encoding: base64' . $this->eol .
+                        'Content-Description: ' . $file['file']->getBasename() . $this->eol .
                         'Content-Disposition: attachment; filename="' . $file['file']->getBasename() .
-                        '"' . PHP_EOL . PHP_EOL . $file['contents'] . PHP_EOL . PHP_EOL;
+                        '"' . $this->eol . $this->eol . $file['contents'] . $this->eol . $this->eol;
                 }
-                $this->message .= '--' . $this->getBoundary() . PHP_EOL .
+                $this->message .= '--' . $this->getBoundary() . $this->eol .
                     'Content-type: text/plain; charset=' . $this->getCharset() .
-                    PHP_EOL . PHP_EOL . $this->text . PHP_EOL . PHP_EOL . '--' .
-                    $this->getBoundary() . '--' . PHP_EOL . PHP_EOL;
+                    $this->eol . $this->eol . $this->text . $this->eol . $this->eol . '--' .
+                    $this->getBoundary() . '--' . $this->eol . $this->eol;
 
                 break;
 
@@ -486,16 +515,16 @@ class Mail
             case self::TEXT_HTML:
                 $this->setHeaders(array(
                     'MIME-Version' => '1.0',
-                    'Content-Type' => 'multipart/alternative; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
+                    'Content-Type' => 'multipart/alternative; boundary="' . $this->getBoundary() . '"' . $this->eol . "This is a multi-part message in MIME format.",
                 ));
 
-                $this->message .= '--' . $this->getBoundary() . PHP_EOL .
+                $this->message .= '--' . $this->getBoundary() . $this->eol .
                     'Content-type: text/plain; charset=' . $this->getCharset() .
-                    PHP_EOL . PHP_EOL . $this->text . PHP_EOL . PHP_EOL;
-                $this->message .= '--' . $this->getBoundary() . PHP_EOL .
+                    $this->eol . $this->eol . $this->text . $this->eol . $this->eol;
+                $this->message .= '--' . $this->getBoundary() . $this->eol .
                     'Content-type: text/html; charset=' . $this->getCharset() .
-                    PHP_EOL . PHP_EOL . $this->html . PHP_EOL . PHP_EOL .
-                    '--' . $this->getBoundary() . '--' . PHP_EOL . PHP_EOL;
+                    $this->eol . $this->eol . $this->html . $this->eol . $this->eol .
+                    '--' . $this->getBoundary() . '--' . $this->eol . $this->eol;
 
                 break;
 
@@ -503,13 +532,13 @@ class Mail
             case self::HTML:
                 $this->setHeaders(array(
                     'MIME-Version' => '1.0',
-                    'Content-Type' => 'multipart/alternative; boundary="' . $this->getBoundary() . '"' . PHP_EOL . "This is a multi-part message in MIME format.",
+                    'Content-Type' => 'multipart/alternative; boundary="' . $this->getBoundary() . '"' . $this->eol . "This is a multi-part message in MIME format.",
                 ));
 
-                $this->message .= '--' . $this->getBoundary() . PHP_EOL .
+                $this->message .= '--' . $this->getBoundary() . $this->eol .
                     'Content-type: text/html; charset=' . $this->getCharset() .
-                    PHP_EOL . PHP_EOL . $this->html . PHP_EOL . PHP_EOL . '--' .
-                    $this->getBoundary() . '--' . PHP_EOL . PHP_EOL;
+                    $this->eol . $this->eol . $this->html . $this->eol . $this->eol . '--' .
+                    $this->getBoundary() . '--' . $this->eol . $this->eol;
 
                 break;
 
@@ -519,7 +548,7 @@ class Mail
                     'Content-Type' => 'text/plain; charset=' . $this->getCharset()
                 ));
 
-                $this->message = $this->text . PHP_EOL;
+                $this->message = $this->text . $this->eol;
 
                 break;
 
@@ -527,6 +556,8 @@ class Mail
             default:
                 $this->message = null;
         }
+
+        return $this;
     }
 
     /**
@@ -543,7 +574,7 @@ class Mail
             $this->init();
         }
 
-        $headers = $this->buildHeaders() . PHP_EOL . PHP_EOL;
+        $headers = $this->buildHeaders() . $this->eol . $this->eol;
 
         // Iterate through the queue and send the mail messages.
         foreach ($this->queue as $rcpt) {
@@ -562,6 +593,101 @@ class Mail
             // Send the email message.
             mail($to, $subject, $message, $headers, $this->params);
         }
+    }
+
+    /**
+     * Save mail message or messages in a folder to be sent at a later date.
+     *
+     * @param string $to
+     * @param string $format
+     * @return \Pop\Mail\Mail
+     */
+    public function saveTo($to = null, $format = null)
+    {
+        $dir = (null !== $to) ? $to : getcwd();
+
+        if (null === $this->message) {
+            $this->init();
+        }
+
+        $headers = $this->buildHeaders();
+
+        // Iterate through the queue and send the mail messages.
+        $i = 1;
+        foreach ($this->queue as $rcpt) {
+            $fileFormat = null;
+            $subject = $this->subject;
+            $message = $this->message;
+
+            // Set the recipient parameter.
+            $to = (isset($rcpt['name'])) ? $rcpt['name'] . " <" . $rcpt['email'] . ">" : $rcpt['email'];
+
+            // Replace any set placeholder content within the subject or message.
+            foreach ($rcpt as $key => $value) {
+                $subject =  str_replace('[{' . $key . '}]', $value, $subject);
+                $message =  str_replace('[{' . $key . '}]', $value, $message);
+                if (null !== $format) {
+                    if (null !== $fileFormat) {
+                        $fileFormat = str_replace('[{' . $key . '}]', $value, $fileFormat);
+                    } else {
+                        $fileFormat = str_replace('[{' . $key . '}]', $value, $format);
+                    }
+                }
+            }
+
+            $email = 'To: ' . $to . $this->eol .
+                     'Subject: ' . $subject . $this->eol .
+                     $headers . $this->eol . $this->eol . $message;
+
+            if (null !== $fileFormat) {
+                $emailFileName = sprintf('%09d', $i) . '-' . time() . '-' . $fileFormat;
+            } else {
+                $emailFileName = sprintf('%09d', $i) . '-' . time() . '-popphpmail';
+            }
+
+            // Save the email message.
+            $file = new File($dir . DIRECTORY_SEPARATOR . $emailFileName, array());
+            $file->write($email)
+                 ->save();
+
+            $i++;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Send mail message or messages that are saved in a folder.
+     *
+     * This method depends on the server being set up correctly as an SMTP server
+     * and sendmail being correctly defined in the php.ini file.
+     *
+     * @param string  $from
+     * @param boolean $delete
+     * @return \Pop\Mail\Mail
+     */
+    public function sendFrom($from = null, $delete = false)
+    {
+        $dir = (null !== $from) ? $from : getcwd();
+        $emailDir = new Dir($dir, true);
+        $emailFiles = $emailDir->getFiles();
+        if (isset($emailFiles[0])) {
+            foreach ($emailFiles as $email) {
+                if (file_exists($email)) {
+                    // Get the email data from the contents
+                    $emailData = $this->getEmailFromFile($email);
+
+                    // Send the email message.
+                    mail($emailData['to'], $emailData['subject'], $emailData['message'], $emailData['headers'], $this->params);
+
+                    // Delete the email file is the flag is passed
+                    if ($delete) {
+                        unlink($email);
+                    }
+                }
+            }
+        }
+        return $this;
     }
 
     /**
@@ -601,10 +727,59 @@ class Mail
     {
         $headers = null;
         foreach ($this->headers as $key => $value) {
-            $headers .= (is_array($value)) ? $key . ": " . $value[0] . " <" . $value[1] . ">" . PHP_EOL : $key . ": " . $value . PHP_EOL;
+            $headers .= (is_array($value)) ? $key . ": " . $value[0] . " <" . $value[1] . ">" . $this->eol : $key . ": " . $value . $this->eol;
         }
 
         return $headers;
+    }
+
+    /**
+     * Get email data from file
+     *
+     * @param  string $filename
+     * @throws Exception
+     * @return array
+     */
+    protected function getEmailFromFile($filename)
+    {
+        $contents = file_get_contents($filename);
+        $email = array(
+            'to'      => null,
+            'subject' => null,
+            'headers' => null,
+            'message' => null
+        );
+
+        $headers = substr($contents, 0, strpos($contents, $this->eol . $this->eol));
+        $email['message'] = trim(str_replace($headers, '', $contents));
+        $email['headers'] = trim($headers) . $this->eol . $this->eol;
+
+        if (strpos($email['headers'], 'Subject:') === false) {
+            throw new Exception("Error: There is no subject in the email file '" . $filename . "'.");
+        }
+
+        if (strpos($email['headers'], 'To:') === false) {
+            throw new Exception("Error: There is no recipient in the email file '" . $filename . "'.");
+        }
+
+        $subject = substr($contents, strpos($contents, 'Subject:'));
+        $subject = substr($subject, 0, strpos($subject, $this->eol));
+        $email['headers'] = str_replace($subject . $this->eol, '', $email['headers']);
+        $email['subject'] = trim(substr($subject . $this->eol, (strpos($subject, ':') + 1)));
+
+        $to = substr($contents, strpos($contents, 'To:'));
+        $to = substr($to, 0, strpos($to, $this->eol));
+        $email['headers'] = str_replace($to . $this->eol, '', $email['headers']);
+
+        preg_match('/[a-zA-Z0-9\.\-\_+%]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]{2,4}/', $to, $result);
+
+        if (!isset($result[0])) {
+            throw new Exception("Error: An valid email could not be parsed from the email file '" . $filename . "'.");
+        } else {
+            $email['to'] = $result[0];
+        }
+
+        return $email;
     }
 
 }
