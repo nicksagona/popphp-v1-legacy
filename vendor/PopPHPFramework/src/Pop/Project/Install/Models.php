@@ -25,11 +25,8 @@
 namespace Pop\Project\Install;
 
 use Pop\Code\Generator,
-    Pop\Code\PropertyGenerator,
     Pop\Code\MethodGenerator,
-    Pop\Code\NamespaceGenerator,
-    Pop\Filter\String,
-    Pop\Locale\Locale;
+    Pop\Code\NamespaceGenerator;
 
 /**
  * This is the Models class for the Project Install component.
@@ -52,7 +49,7 @@ class Models
      */
     public static function install($install)
     {
-        echo Locale::factory()->__('Creating model class files...') . PHP_EOL;
+        echo \Pop\Locale\Locale::factory()->__('Creating model class files...') . PHP_EOL;
 
         // Create model class folder
         $modelDir = $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Model';
@@ -62,7 +59,7 @@ class Models
 
         $models = $install->models->asArray();
         foreach ($models as $model) {
-            $modelName = ucfirst(String::underscoreToCamelcase($model));
+            $modelName = ucfirst(\Pop\Filter\String::underscoreToCamelcase($model));
 
             // Define namespace
             $ns = new NamespaceGenerator($install->project->name . '\Model');

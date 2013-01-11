@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace Pop\Pdf;
+namespace Pop\Pdf\Object;
 
 /**
  * This is the Object class for the Pdf component.
@@ -91,7 +91,7 @@ class Object
      * Instantiate a PDF object.
      *
      * @param  int|string $i
-     * @return \Pop\Pdf\Object
+     * @return \Pop\Pdf\Object\Object
      */
     public function __construct($i)
     {

@@ -24,9 +24,6 @@
  */
 namespace Pop\Project\Install;
 
-use Pop\Code\Generator,
-    Pop\Locale\Locale;
-
 /**
  * This is the Base class for the Project Install component.
  *
@@ -48,7 +45,7 @@ class Base
      */
     public static function install($install)
     {
-        echo Locale::factory()->__('Creating base folder and file structure...') . PHP_EOL;
+        echo \Pop\Locale\Locale::factory()->__('Creating base folder and file structure...') . PHP_EOL;
 
         // Define folders to create
         $folders = array(
@@ -75,7 +72,7 @@ class Base
         chmod($install->project->base . '/module/' . $install->project->name . '/data', 0777);
 
         // Create project.config.php file
-        $projectCfg = new Generator($install->project->base . '/config/project.config.php');
+        $projectCfg = new \Pop\Code\Generator($install->project->base . '/config/project.config.php');
         $projectCfg->appendToBody('return new Pop\Config(array(', true)
                    ->appendToBody("    'base'      => '" . addslashes(realpath($install->project->base)) . "',")
                    ->appendToBody("    'docroot'   => '" . addslashes(realpath($install->project->docroot)) . "'", false);
@@ -139,7 +136,7 @@ class Base
         $projectCfg->save();
 
         // Create the module config file
-        $moduleCfg = new Generator($install->project->base . '/module/' . $install->project->name . '/config/module.config.php');
+        $moduleCfg = new \Pop\Code\Generator($install->project->base . '/module/' . $install->project->name . '/config/module.config.php');
         $moduleCfg->appendToBody('return array(')
                   ->appendToBody("    '{$install->project->name}' => new Pop\Config(array(")
                   ->appendToBody("        'base'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name)) . "',")

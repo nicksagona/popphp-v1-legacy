@@ -24,8 +24,6 @@
  */
 namespace Pop\Validator\Validator;
 
-use Pop\Locale\Locale;
-
 /**
  * This is the abstract Validator class for the Validator component.
  *

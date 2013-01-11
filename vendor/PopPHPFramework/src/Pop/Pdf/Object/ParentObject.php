@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace Pop\Pdf;
+namespace Pop\Pdf\Object;
 
 /**
  * This is the PdfParent class for the Pdf component.
@@ -34,7 +34,7 @@ namespace Pop\Pdf;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class PdfParent
+class ParentObject
 {
 
     /**
@@ -67,7 +67,7 @@ class PdfParent
      * Instantiate a PDF parent object.
      *
      * @param  string $str
-     * @return \Pop\Pdf\PdfParent
+     * @return \Pop\Pdf\Object\ParentObject
      */
     public function __construct($str = null)
     {

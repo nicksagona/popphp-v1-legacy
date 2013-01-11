@@ -26,10 +26,7 @@ namespace Pop\Project\Install;
 
 use Pop\Code\Generator,
     Pop\Code\MethodGenerator,
-    Pop\Code\NamespaceGenerator,
-    Pop\Code\PropertyGenerator,
-    Pop\Filter\String,
-    Pop\Locale\Locale;
+    Pop\Code\NamespaceGenerator;
 
 /**
  * This is the Forms class for the Project Install component.
@@ -52,7 +49,7 @@ class Forms
      */
     public static function install($install)
     {
-        echo Locale::factory()->__('Creating form class files...') . PHP_EOL;
+        echo \Pop\Locale\Locale::factory()->__('Creating form class files...') . PHP_EOL;
 
         // Create form class folder
         $formDir = $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Form';
@@ -62,7 +59,7 @@ class Forms
 
         $forms = $install->forms->asArray();
         foreach ($forms as $name => $form) {
-            $formName = ucfirst(String::underscoreToCamelcase($name));
+            $formName = ucfirst(\Pop\Filter\String::underscoreToCamelcase($name));
 
             // Define namespace
             $ns = new NamespaceGenerator($install->project->name . '\Form');

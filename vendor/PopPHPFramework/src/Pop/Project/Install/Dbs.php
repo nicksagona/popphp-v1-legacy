@@ -24,10 +24,7 @@
  */
 namespace Pop\Project\Install;
 
-use Pop\Data\Sql,
-    Pop\Db\Db,
-    Pop\File\Dir,
-    Pop\Locale\Locale;
+use Pop\Db\Db;
 
 /**
  * This is the Dbs class for the Project Install component.
@@ -97,7 +94,7 @@ class Dbs
         if (is_string($dir) && file_exists($dir) && (strtolower(substr($dir, -4)) == '.sql')) {
             $sqlFiles[] = $dir;
         } else {
-            $dir = new Dir($dir, true);
+            $dir = new \Pop\File\Dir($dir, true);
             $files = $dir->getFiles();
 
             foreach ($files as $file) {

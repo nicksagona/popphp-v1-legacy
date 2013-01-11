@@ -24,8 +24,7 @@
  */
 namespace Pop\Project\Install;
 
-use Pop\Code\Generator,
-    Pop\Filter\String;
+use Pop\Filter\String;
 
 /**
  * This is the Bootstrap class for the Project Install component.
@@ -55,7 +54,7 @@ class Bootstrap
         $moduleSrc = addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/src'));
 
         // Create new Code file object
-        $bootstrap = new Generator($install->project->docroot . '/bootstrap.php');
+        $bootstrap = new \Pop\Code\Generator($install->project->docroot . '/bootstrap.php');
 
         // Create new bootstrap file
         if (!file_exists($install->project->docroot . '/bootstrap.php')) {
@@ -66,7 +65,7 @@ class Bootstrap
         // Else, just append to the existing bootstrap file
         $bootstrap->appendToBody("\$autoloader->register('{$install->project->name}', '{$moduleSrc}');" . PHP_EOL)
                   ->appendToBody("// Create a project object")
-                  ->appendToBody("\$project = {$install->project->name}\Project::factory(")
+                  ->appendToBody("\$project = {$install->project->name}\\Project::factory(")
                   ->appendToBody("    include '{$projectCfg}',")
                   ->appendToBody("    include '{$moduleCfg}',");
 
@@ -84,22 +83,22 @@ class Bootstrap
                 if (count($subs) > 0) {
                     $ctls = "'{$key}' => array(" . PHP_EOL;
                     if (array_key_exists('index', $value)) {
-                        $ctls .= "            '/' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase(substr($key, 1))) . "\\IndexController'," . PHP_EOL;
+                        $ctls .= "            '/' => '{$install->project->name}\\Controller\\" . ucfirst(String::underscoreToCamelcase(substr($key, 1))) . "\\IndexController'," . PHP_EOL;
                     }
                     foreach ($subs as $sub) {
-                        $ctls .= "            '{$sub}' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase(substr($key, 1))) . "\\" . ucfirst(String::underscoreToCamelcase(substr($sub, 1))) . "Controller'," . PHP_EOL;
+                        $ctls .= "            '{$sub}' => '{$install->project->name}\\Controller\\" . ucfirst(String::underscoreToCamelcase(substr($key, 1))) . "\\" . ucfirst(String::underscoreToCamelcase(substr($sub, 1))) . "Controller'," . PHP_EOL;
                     }
                     $ctls .= '        )';
                     $ctrls[] = $ctls;
                 } else {
                     if ($key == '/') {
-                        $ctrls[] = "'{$key}' => '{$install->project->name}\Controller\IndexController'";
+                        $ctrls[] = "'{$key}' => '{$install->project->name}\\Controller\\IndexController'";
                     } else {
                         $controllerName = substr($key, 1);
                         if (array_key_exists('index', $value)) {
-                            $ctrls[] = "'{$key}' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase($controllerName)) . "\\IndexController'";
+                            $ctrls[] = "'{$key}' => '{$install->project->name}\\Controller\\" . ucfirst(String::underscoreToCamelcase($controllerName)) . "\\IndexController'";
                         } else {
-                            $ctrls[] = "'{$key}' => '{$install->project->name}\Controller\\" . ucfirst(String::underscoreToCamelcase($controllerName)) . "Controller'";
+                            $ctrls[] = "'{$key}' => '{$install->project->name}\\Controller\\" . ucfirst(String::underscoreToCamelcase($controllerName)) . "Controller'";
                         }
                     }
                 }

@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace Pop\Pdf;
+namespace Pop\Pdf\Object;
 
 /**
  * This is the Info class for the Pdf component.
@@ -85,7 +85,7 @@ class Info
      * Instantiate a PDF info object.
      *
      * @param  string $str
-     * @return \Pop\Pdf\Info
+     * @return \Pop\Pdf\Object\Info
      */
     public function __construct($str = null)
     {

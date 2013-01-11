@@ -26,9 +26,7 @@ namespace Pop\Project\Install;
 
 use Pop\Code\Generator,
     Pop\Code\PropertyGenerator,
-    Pop\Code\NamespaceGenerator,
-    Pop\Filter\String,
-    Pop\Locale\Locale;
+    Pop\Code\NamespaceGenerator;
 
 /**
  * This is the Tables class for the Project Install component.
@@ -52,7 +50,7 @@ class Tables
      */
     public static function install($install, $dbTables)
     {
-        echo Locale::factory()->__('Creating database table class files...') . PHP_EOL;
+        echo \Pop\Locale\Locale::factory()->__('Creating database table class files...') . PHP_EOL;
 
         // Create table class folder
         $tableDir = $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Table';
@@ -63,7 +61,7 @@ class Tables
         // Loop through the tables, creating the classes
         foreach ($dbTables as $table => $value) {
             $prefix = (isset($value['prefix'])) ? $value['prefix'] : null;
-            $tableName = ucfirst(String::underscoreToCamelcase(str_replace($prefix, '', $table)));
+            $tableName = ucfirst(\Pop\Filter\String::underscoreToCamelcase(str_replace($prefix, '', $table)));
 
             $ns = new NamespaceGenerator($install->project->name . '\Table');
             $ns->setUse('Pop\Record\Record');

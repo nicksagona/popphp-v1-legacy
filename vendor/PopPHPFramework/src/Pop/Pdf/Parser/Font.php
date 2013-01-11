@@ -24,10 +24,7 @@
  */
 namespace Pop\Pdf\Parser;
 
-use Pop\Font\TrueType,
-    Pop\Font\TrueType\OpenType,
-    Pop\Font\Type1,
-    Pop\Pdf\Object;
+use Pop\Pdf\Object\Object;
 
 /**
  * This is the Font Parser class for the Pdf component.
@@ -107,13 +104,13 @@ class Font
         $ext = strtolower(substr($fle, -4));
         switch ($ext) {
             case '.ttf':
-                $this->font = new TrueType($fle);
+                $this->font = new \Pop\Font\TrueType($fle);
                 break;
             case '.otf':
-                $this->font = new OpenType($fle);
+                $this->font = new \Pop\Font\TrueType\OpenType($fle);
                 break;
             case '.pfb':
-                $this->font = new Type1($fle);
+                $this->font = new \Pop\Font\Type1($fle);
                 if (null === $this->font->afmPath) {
                     throw new Exception('The AFM font file was not found.');
                 }
@@ -138,7 +135,7 @@ class Font
     /**
      * Method to get the font reference.
      *
-     * @return array
+     * @return string
      */
     public function getFontRef()
     {
@@ -148,11 +145,11 @@ class Font
     /**
      * Method to get the font name.
      *
-     * @return array
+     * @return string
      */
     public function getFontName()
     {
-        $fontName = ($this->font instanceof Type1) ? $this->font->info->postscriptName : $this->font->tables['name']->postscriptName;
+        $fontName = ($this->font instanceof \Pop\Font\Type1) ? $this->font->info->postscriptName : $this->font->tables['name']->postscriptName;
         return $fontName;
     }
 
@@ -173,7 +170,7 @@ class Font
      */
     protected function createFontObjects()
     {
-        if ($this->font instanceof Type1) {
+        if ($this->font instanceof \Pop\Font\Type1) {
             $fontType = 'Type1';
             $fontName = $this->font->info->postscriptName;
             $fontFile = 'FontFile';
@@ -211,7 +208,7 @@ class Font
      * @param  \Pop\Font\TrueType\Table\Cmap $cmap
      * @return array
      */
-    protected function getGlyphWidths($cmap)
+    protected function getGlyphWidths(\Pop\Font\TrueType\Table\Cmap $cmap)
     {
         $gw = array('encoding' => null, 'widths' => array());
         $uniTable = null;

@@ -24,8 +24,7 @@
  */
 namespace Pop\Record\Adapter;
 
-use Pop\Db\Db,
-    Pop\Db\Sql;
+use Pop\Db\Sql;
 
 /**
  * This is the Prepared class for the Record component.
@@ -53,9 +52,9 @@ class Prepared extends AbstractRecord
      *
      * @param  \Pop\Db\Db $db
      * @param  array      $options
-     * @return \Pop\Record\Prepared
+     * @return \Pop\Record\Adapter\Prepared
      */
-    public function __construct(Db $db, $options)
+    public function __construct(\Pop\Db\Db $db, $options)
     {
         $this->db = $db;
 

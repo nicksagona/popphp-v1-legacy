@@ -74,6 +74,30 @@ class Server
     protected $php = null;
 
     /**
+     * Linux flag
+     * @var boolean
+     */
+    protected $linux = false;
+
+    /**
+     * Unix flag
+     * @var boolean
+     */
+    protected $unix = false;
+
+    /**
+     * Windows flag
+     * @var boolean
+     */
+    protected $windows = false;
+
+    /**
+     * Mac flag
+     * @var boolean
+     */
+    protected $mac = false;
+
+    /**
      * Constructor
      *
      * Instantiate the server session object.
@@ -148,6 +172,46 @@ class Server
     }
 
     /**
+     * Method to get Linux flag
+     *
+     * @return boolean
+     */
+    public function isLinux()
+    {
+        return $this->linux;
+    }
+
+    /**
+     * Method to get Unix flag
+     *
+     * @return boolean
+     */
+    public function isUnix()
+    {
+        return $this->unix;
+    }
+
+    /**
+     * Method to get Windows flag
+     *
+     * @return boolean
+     */
+    public function isWindows()
+    {
+        return $this->windows;
+    }
+
+    /**
+     * Method to get Mac flag
+     *
+     * @return boolean
+     */
+    public function isMac()
+    {
+        return $this->mac;
+    }
+
+    /**
      * Method to detect properties.
      *
      * @return void
@@ -159,15 +223,19 @@ class Server
         // Set the server OS and distro, if applicable.
         if (preg_match('/(debian|ubuntu|kbuntu|red hat|centos|fedora|suse|knoppix|gentoo|linux)/i', $this->software, $matches) != 0) {
             $this->os = 'Linux';
+            $this->linux = true;
             $this->distro = $matches[0];
         } else if (preg_match('/(bsd|sun|solaris|unix)/i', $this->software, $matches) != 0) {
             $this->os = 'Unix';
+            $this->unix = true;
             $this->distro = $matches[0];
         } else if (preg_match('/(win|microsoft)/i', $this->software, $matches) != 0) {
             $this->os = 'Windows';
+            $this->windows = true;
             $this->distro = 'Microsoft';
         } else if (stripos($this->software, 'mac') !== false) {
             $this->os = 'Mac';
+            $this->mac = true;
             $this->distro = 'Darwin';
         } else {
             // If unsuccessful, attempt based on path separator.

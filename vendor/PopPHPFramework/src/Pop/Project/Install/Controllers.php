@@ -26,10 +26,7 @@ namespace Pop\Project\Install;
 
 use Pop\Code\Generator,
     Pop\Code\MethodGenerator,
-    Pop\Code\NamespaceGenerator,
-    Pop\Filter\String,
-    Pop\Locale\Locale,
-    Pop\Project\Install;
+    Pop\Code\NamespaceGenerator;
 
 /**
  * This is the Controllers class for the Project Install component.
@@ -53,7 +50,7 @@ class Controllers
      */
     public static function install($install, $installDir)
     {
-        echo Locale::factory()->__('Creating controller class files...') . PHP_EOL;
+        echo \Pop\Locale\Locale::factory()->__('Creating controller class files...') . PHP_EOL;
 
         // Make the controller folder
         $module = (substr($install->project->base, -1) == '/') ? 'module/' : '/module/';

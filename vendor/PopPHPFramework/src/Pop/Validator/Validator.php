@@ -70,7 +70,7 @@ class Validator
      *
      * @param  Validator\ValidatorInterface $validator
      * @param  string                       $message
-     * @return Pop\Validator\Validator
+     * @return \Pop\Validator\Validator
      */
     public static function factory(Validator\ValidatorInterface $validator, $message = null)
     {
@@ -78,9 +78,9 @@ class Validator
     }
 
     /**
-     * Method to get the validator type
+     * Method to get the validator
      *
-     * @return string
+     * @return \Pop\Validator\Validator\ValidatorInterface
      */
     public function getValidator()
     {
@@ -107,7 +107,7 @@ class Validator
      * Method to set the validator result message
      *
      * @param  string $message
-     * @return Pop\Validator\Validator
+     * @return \Pop\Validator\Validator
      */
     public function setMessage($message)
     {

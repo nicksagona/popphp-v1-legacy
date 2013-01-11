@@ -24,8 +24,7 @@
  */
 namespace Pop\Validator\Validator;
 
-use Pop\Validator\Validator\Ipv4,
-    Pop\Locale\Locale;
+use Pop\Locale\Locale;
 
 /**
  * This is the Subnet class for the Validator component.

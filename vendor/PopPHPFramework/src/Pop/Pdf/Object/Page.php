@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace Pop\Pdf;
+namespace Pop\Pdf\Object;
 
 /**
  * This is the Page class for the Pdf component.
@@ -151,7 +151,7 @@ class Page
      * @param  string $h
      * @param  string $i
      * @throws Exception
-     * @return \Pop\Pdf\Page
+     * @return \Pop\Pdf\Object\Page
      */
     public function __construct($str = null, $sz = null, $w = null, $h = null, $i = null)
     {

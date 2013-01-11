@@ -24,10 +24,9 @@
  */
 namespace Pop\Pdf\Parser;
 
-use Pop\File\Dir,
-    Pop\Image\Gd,
+use Pop\Image\Gd,
     Pop\Image\Imagick,
-    Pop\Pdf\Object;
+    Pop\Pdf\Object\Object;
 
 /**
  * This is the Image Parser class for the Pdf component.
@@ -299,7 +298,7 @@ class Image
     protected function scaleImage($scl)
     {
         // Define the temp scaled image.
-        $this->scaledImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->img->getFilename() . '_' . time() . '.' . $this->img->getExt();
+        $this->scaledImage = \Pop\File\Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->img->getFilename() . '_' . time() . '.' . $this->img->getExt();
 
         // Scale or resize the image
         if (is_array($scl) && (isset($scl['w']) || isset($scl['h']))) {
@@ -334,7 +333,7 @@ class Image
     protected function convertImage()
     {
         // Define the temp converted image.
-        $this->convertedImage = Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->img->getFilename() . '_' . time() . '.png';
+        $this->convertedImage = \Pop\File\Dir::getUploadTemp() . DIRECTORY_SEPARATOR . $this->img->getFilename() . '_' . time() . '.png';
 
         // Convert the GIF to PNG, save and clear the output buffer.
         $this->img->convert('png')->save($this->convertedImage);

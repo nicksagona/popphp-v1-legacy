@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace Pop\Pdf;
+namespace Pop\Pdf\Object;
 
 /**
  * This is the Root class for the Pdf component.
@@ -79,7 +79,7 @@ class Root
      * Instantiate a PDF root object.
      *
      * @param  string $str
-     * @return \Pop\Pdf\Root
+     * @return \Pop\Pdf\Object\Root
      */
     public function __construct($str = null)
     {

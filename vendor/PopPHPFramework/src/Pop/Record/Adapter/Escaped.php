@@ -24,8 +24,7 @@
  */
 namespace Pop\Record\Adapter;
 
-use Pop\Db\Db,
-    Pop\Db\Sql;
+use Pop\Db\Sql;
 
 /**
  * This is the Escaped class for the Record component.
@@ -47,9 +46,9 @@ class Escaped extends AbstractRecord
      *
      * @param  \Pop\Db\Db $db
      * @param  array      $options
-     * @return \Pop\Record\Escaped
+     * @return \Pop\Record\Adapter\Escaped
      */
-    public function __construct(Db $db, $options)
+    public function __construct(\Pop\Db\Db $db, $options)
     {
         $this->db = $db;
 
@@ -250,7 +249,7 @@ class Escaped extends AbstractRecord
             }
         } else {
             if ($this->auto == false) {
-                $action = ($type == \Pop\Record\INSERT) ? 'insert' : 'update';
+                $action = ($type == \Pop\Record\Record::INSERT) ? 'insert' : 'update';
             } else {
                 if (is_array($this->primaryId)) {
                     $isset = true;

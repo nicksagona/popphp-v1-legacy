@@ -25,10 +25,7 @@
 namespace Pop\Project;
 
 use Pop\Config,
-    Pop\Db\Db,
-    Pop\Event\Manager,
-    Pop\Mvc\Router,
-    Pop\Record\Record;
+    Pop\Mvc\Router;
 
 /**
  * This is the Project class for the Project component.
@@ -91,11 +88,11 @@ class Project
             $this->loadRouter($router);
         }
 
-        $this->events = new Manager();
+        $this->events = new \Pop\Event\Manager();
 
         if (isset($this->config->defaultDb)) {
             $default = $this->config->defaultDb;
-            Record::setDb($this->config->databases->$default);
+            \Pop\Record\Record::setDb($this->config->databases->$default);
         }
     }
 
@@ -133,7 +130,7 @@ class Project
     {
         if (isset($this->config->databases) &&
             isset($this->config->databases->$dbname) &&
-            ($this->config->databases->$dbname instanceof Db)) {
+            ($this->config->databases->$dbname instanceof \Pop\Db\Db)) {
             return $this->config->databases->$dbname;
         } else {
             return null;

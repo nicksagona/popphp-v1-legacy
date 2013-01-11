@@ -24,8 +24,6 @@
  */
 namespace Pop\Record;
 
-use Pop\Db\Db;
-
 /**
  * This is the Record class for the Record component.
  *
@@ -66,7 +64,7 @@ class Record
 
     /**
      * Database adapter
-     * @var \Pop\Record\AbstractRecord
+     * @var \Pop\Record\Adapter\AbstractRecord
      */
     protected $interface = null;
 
@@ -118,10 +116,10 @@ class Record
      * Instantiate the database record object.
      *
      * @param  array $columns
-     * @param  Db    $db
+     * @param  \Pop\Db\Db    $db
      * @return \Pop\Record\Record
      */
-    public function __construct(array $columns = null, Db $db = null)
+    public function __construct(array $columns = null, \Pop\Db\Db $db = null)
     {
         $class = get_class($this);
 
@@ -166,11 +164,11 @@ class Record
     /**
      * Set DB connection
      *
-     * @param  Db      $db
+     * @param  \Pop\Db\Db      $db
      * @param  boolean $isDefault
      * @return void
      */
-    public static function setDb(Db $db, $isDefault = false)
+    public static function setDb(\Pop\Db\Db $db, $isDefault = false)
     {
         $class = get_called_class();
 

@@ -26,8 +26,7 @@ namespace Pop\Pdf;
 
 use Pop\Color\Color,
     Pop\Color\ColorInterface,
-    Pop\Color\Rgb,
-    Pop\File\File;
+    Pop\Pdf\Object;
 
 /**
  * This is the Pdf class for the Pdf component.
@@ -39,7 +38,7 @@ use Pop\Color\Color,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Pdf extends File
+class Pdf extends \Pop\File\File
 {
 
     /**
@@ -210,14 +209,14 @@ class Pdf extends File
      */
     public function __construct($pdf, $sz = null, $w = null, $h = null)
     {
-        $this->fillColor = new Rgb(0, 0, 0);
-        $this->backgroundColor = new Rgb(255, 255, 255);
+        $this->fillColor = new \Pop\Color\Rgb(0, 0, 0);
+        $this->backgroundColor = new \Pop\Color\Rgb(255, 255, 255);
 
         parent::__construct($pdf);
 
-        $this->objects[1] = new Root();
-        $this->objects[2] = new PdfParent();
-        $this->objects[3] = new Info();
+        $this->objects[1] = new Object\Root();
+        $this->objects[2] = new Object\ParentObject();
+        $this->objects[3] = new Object\Info();
 
         // If the PDF file already exists, import it.
         if ($this->size != 0) {
@@ -252,7 +251,7 @@ class Pdf extends File
         foreach($importedObjs as $key => $value) {
             if ($value['type'] == 'page') {
                 // Add the page object.
-                $this->objects[$key] = new Page($value['data']);
+                $this->objects[$key] = new Object\Page($value['data']);
 
                 // Finalize related page variables and objects.
                 $this->curPage = (null === $this->curPage) ? 0 : ($this->lastIndex($this->pages) + 1);
@@ -260,7 +259,7 @@ class Pdf extends File
                 $this->objects[$this->parent]->count += 1;
             } else {
                 // Else, add the content object.
-                $this->objects[$key] = new Object($value['data']);
+                $this->objects[$key] = new Object\Object($value['data']);
             }
         }
 
@@ -286,13 +285,13 @@ class Pdf extends File
         $ci = $this->lastIndex($this->objects) + 2;
 
         // Create the page object.
-        $this->objects[$pi] = new Page(null, $sz, $w, $h, $pi);
+        $this->objects[$pi] = new Object\Page(null, $sz, $w, $h, $pi);
         $this->objects[$pi]->content[] = $ci;
         $this->objects[$pi]->curContent = $ci;
         $this->objects[$pi]->parent = $this->parent;
 
         // Create the content object.
-        $this->objects[$ci] = new Object($ci);
+        $this->objects[$ci] = new Object\Object($ci);
 
         // Finalize related page variables and objects.
         $this->curPage = (null === $this->curPage) ? 0 : ($this->lastIndex($this->pages) + 1);
@@ -321,14 +320,14 @@ class Pdf extends File
 
         $pi = $this->lastIndex($this->objects) + 1;
         $ci = $this->lastIndex($this->objects) + 2;
-        $this->objects[$pi] = new Page($this->objects[$this->pages[$key]]);
+        $this->objects[$pi] = new Object\Page($this->objects[$this->pages[$key]]);
         $this->objects[$pi]->index = $pi;
 
         // Duplicate the page's content objects.
         $oldContent = $this->objects[$pi]->content;
         unset($this->objects[$pi]->content);
         foreach ($oldContent as $key => $value) {
-            $this->objects[$ci] = new Object((string)$this->objects[$value]);
+            $this->objects[$ci] = new Object\Object((string)$this->objects[$value]);
             $this->objects[$ci]->index = $ci;
             $this->objects[$pi]->content[] = $ci;
             $ci += 1;
@@ -736,7 +735,7 @@ class Pdf extends File
 
             // Add the font to the current page's fonts and add the font to _objects array.
             $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts[$font] = "/{$f} {$i} 0 R";
-            $this->objects[$i] = new Object("{$i} 0 obj\n<<\n    /Type /Font\n    /Subtype /Type1\n    /Name /{$f}\n    /BaseFont /{$font}\n    /Encoding /StandardEncoding\n>>\nendobj\n\n");
+            $this->objects[$i] = new Object\Object("{$i} 0 obj\n<<\n    /Type /Font\n    /Subtype /Type1\n    /Name /{$f}\n    /BaseFont /{$font}\n    /Encoding /StandardEncoding\n>>\nendobj\n\n");
 
             $this->lastFontName = $font;
         }
@@ -1315,7 +1314,7 @@ class Pdf extends File
 
         // Add the annotation index to the current page's annotations and add the annotation to _objects array.
         $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->annots[] = $i;
-        $this->objects[$i] = new Object("{$i} 0 obj\n<<\n    /Type /Annot\n    /Subtype /Link\n    /Rect [{$x} {$y} {$x2} {$y2}]\n    /Border [0 0 0]\n    /A <</S /URI /URI ({$url})>>\n>>\nendobj\n\n");
+        $this->objects[$i] = new Object\Object("{$i} 0 obj\n<<\n    /Type /Annot\n    /Subtype /Link\n    /Rect [{$x} {$y} {$x2} {$y2}]\n    /Border [0 0 0]\n    /A <</S /URI /URI ({$url})>>\n>>\nendobj\n\n");
 
         return $this;
     }
@@ -1354,7 +1353,7 @@ class Pdf extends File
 
         // Add the annotation index to the current page's annotations and add the annotation to _objects array.
         $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->annots[] = $i;
-        $this->objects[$i] = new Object("{$i} 0 obj\n<<\n    /Type /Annot\n    /Subtype /Link\n    /Rect [{$x} {$y} {$x2} {$y2}]\n    /Border [0 0 0]\n    /Dest [{$d} 0 R /XYZ {$X} {$Y} {$Z}]\n>>\nendobj\n\n");
+        $this->objects[$i] = new Object\Object("{$i} 0 obj\n<<\n    /Type /Annot\n    /Subtype /Link\n    /Rect [{$x} {$y} {$x2} {$y2}]\n    /Border [0 0 0]\n    /Dest [{$d} 0 R /XYZ {$X} {$Y} {$Z}]\n>>\nendobj\n\n");
 
         return $this;
     }
@@ -1383,7 +1382,7 @@ class Pdf extends File
                 $imgWidth = $this->images[$image]['origW'];
                 $imgHeight = $this->images[$image]['origH'];
             }
-            $this->objects[$i] = new Object($i);
+            $this->objects[$i] = new Object\Object($i);
             $this->objects[$i]->setStream("\nq\n" . $imgWidth . " 0 0 " . $imgHeight. " {$x} {$y} cm\n/I{$co_index} Do\nQ\n");
             $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->content[] = $i;
         } else {
@@ -1466,7 +1465,7 @@ class Pdf extends File
         // Loop through the rest of the objects, calculate their size and length for the xref table and add their data to the output.
         foreach ($this->objects as $obj) {
             if ($obj->index != $this->root) {
-                if (($obj instanceof Object) && ($this->compress) && (!$obj->isPalette()) && (!$obj->isCompressed())) {
+                if (($obj instanceof Object\Object) && ($this->compress) && (!$obj->isPalette()) && (!$obj->isCompressed())) {
                     $obj->compress();
                 }
                 $byteLength = $this->calcByteLength($obj);
@@ -1500,7 +1499,7 @@ class Pdf extends File
             $coi = $this->lastIndex($this->objects) + 1;
             $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->content[] = $coi;
             $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->curContent = $coi;
-            $this->objects[$coi] = new Object($coi);
+            $this->objects[$coi] = new Object\Object($coi);
         // Else, set and return the page's current content object index.
         } else {
             $coi = $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->curContent;
@@ -1660,6 +1659,7 @@ class Pdf extends File
      */
     protected function lastIndex(array $arr)
     {
+        $last = null;
         $objs = array_keys($arr);
         sort($objs);
 

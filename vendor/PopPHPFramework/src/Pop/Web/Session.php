@@ -53,7 +53,7 @@ class Session
      * Constructor
      *
      * Private method to instantiate the session object. As part of the
-     * Singelton Pattern, it can only be called internally by the object itself.
+     * singleton pattern, it can only be called internally by the object itself.
      *
      * @return \Pop\Web\Session
      */
@@ -68,7 +68,7 @@ class Session
 
     /**
      * Determine whether or not an instance of the session object exists already,
-     * and instantiate the object if it doesn't exist.
+     * and instantiate the object if it does not exist.
      *
      * @return \Pop\Web\Session
      */

@@ -24,8 +24,7 @@
  */
 namespace Pop\Project;
 
-use Pop\File\Dir,
-    Pop\File\File,
+use Pop\File\File,
     Pop\Locale\Locale;
 
 /**
@@ -94,6 +93,7 @@ class Install
         // Else, continue
         } else {
             $db = false;
+            $databases = array();
 
             // Test for a database creds and schema, and ask
             // to test and install the database.
@@ -234,7 +234,7 @@ class Install
         }
 
         // Get the module folders
-        $moduleDir = new Dir($projectFolder . DIRECTORY_SEPARATOR . 'module', true);
+        $moduleDir = new \Pop\File\Dir($projectFolder . DIRECTORY_SEPARATOR . 'module', true);
         $moduleFiles = $moduleDir->getFiles();
 
         foreach ($moduleFiles as $module) {

@@ -26,8 +26,7 @@ namespace Pop\Project\Install;
 
 use Pop\Code\Generator,
     Pop\Code\MethodGenerator,
-    Pop\Code\NamespaceGenerator,
-    Pop\Locale\Locale;
+    Pop\Code\NamespaceGenerator;
 
 /**
  * This is the Projects class for the Project Install component.
@@ -93,7 +92,7 @@ class Projects
                     copy(__DIR__ . '/Web/web.config', $install->project->docroot . '/web.config');
                 }
             } else {
-                echo Locale::factory()->__('You will have to install your web server rewrite configuration manually.') . PHP_EOL;
+                echo \Pop\Locale\Locale::factory()->__('You will have to install your web server rewrite configuration manually.') . PHP_EOL;
             }
         }
     }
@@ -105,7 +104,7 @@ class Projects
      */
     public static function installWeb()
     {
-        $msg = Locale::factory()->__('Install index controller and web configuration files?') . ' ([A]pache/[I]IS/[O]ther/[N]o) ';
+        $msg = \Pop\Locale\Locale::factory()->__('Install index controller and web configuration files?') . ' ([A]pache/[I]IS/[O]ther/[N]o) ';
         echo $msg;
         $input = null;
 
