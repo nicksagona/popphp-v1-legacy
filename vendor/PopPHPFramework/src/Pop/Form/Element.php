@@ -25,9 +25,7 @@
 namespace Pop\Form;
 
 use Pop\Dom\Child,
-    Pop\Locale\Locale,
-    Pop\Validator\Validator,
-    Pop\Validator\Validator\ValidatorInterface;
+    Pop\Validator\Validator;
 
 /**
  * This is the Element class for the Form component.
@@ -271,11 +269,11 @@ class Element extends Child
     /**
      * Add a validator the form element object.
      *
-     * @param  ValidatorInterface $validator
-     * @param  string $msg
+     * @param  Validator\ValidatorInterface $validator
+     * @param  string                       $msg
      * @return \Pop\Form\Element
      */
-    public function addValidator(ValidatorInterface $validator, $msg = null)
+    public function addValidator(Validator\ValidatorInterface $validator, $msg = null)
     {
         $this->validators[] = new Validator($validator, $msg);
         return $this;
@@ -301,7 +299,7 @@ class Element extends Child
             }
 
             if (empty($curElemValue) && ($curElemValue != '0')) {
-                $this->errors[] = Locale::factory()->__('This field is required.');
+                $this->errors[] = \Pop\Locale\Locale::factory()->__('This field is required.');
             }
         }
 

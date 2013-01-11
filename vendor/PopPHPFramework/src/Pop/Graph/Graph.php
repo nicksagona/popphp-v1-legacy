@@ -26,9 +26,6 @@ namespace Pop\Graph;
 
 use Pop\Color\ColorInterface,
     Pop\Color\Rgb,
-    Pop\Image\Gd,
-    Pop\Image\Imagick,
-    Pop\Image\Svg,
     Pop\Pdf\Pdf;
 
 /**
@@ -45,13 +42,13 @@ class Graph
 {
 
     /**
-     * Constant to use the Gd_Gd component
+     * Constant to use the Pop\Image\Gd component
      * @var int
      */
     const GD = 1;
 
     /**
-     * Constant to use the Gd_Imagick component
+     * Constant to use the Pop\Image\Imagick component
      * @var int
      */
     const IMAGICK = 2;
@@ -198,13 +195,13 @@ class Graph
         $this->showYColor = new Rgb(200, 200, 200);
 
         if (stripos($filename, '.svg') !== false) {
-            $this->adapter = new Svg($filename, $w, $h, $bgcolor);
+            $this->adapter = new \Pop\Image\Svg($filename, $w, $h, $bgcolor);
         } else if (stripos($filename, '.pdf') !== false) {
             $this->adapter = new Pdf($filename, null, $w, $h);
         } else if ($type == self::IMAGICK) {
-            $this->adapter = new Imagick($filename, $w, $h, $bgcolor);
+            $this->adapter = new \Pop\Image\Imagick($filename, $w, $h, $bgcolor);
         } else {
-            $this->adapter = new Gd($filename, $w, $h, $bgcolor);
+            $this->adapter = new \Pop\Image\Gd($filename, $w, $h, $bgcolor);
         }
     }
 

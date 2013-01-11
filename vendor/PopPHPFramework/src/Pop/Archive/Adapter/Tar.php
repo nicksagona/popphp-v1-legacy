@@ -24,9 +24,7 @@
  */
 namespace Pop\Archive\Adapter;
 
-use Pop\Archive\ArchiveInterface,
-    Pop\Compress\Bzip2,
-    Pop\Compress\Gzip,
+use Pop\Compress,
     Pop\File\Dir;
 
 /**
@@ -39,7 +37,7 @@ use Pop\Archive\ArchiveInterface,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Tar implements ArchiveInterface
+class Tar implements \Pop\Archive\ArchiveInterface
 {
 
     /**
@@ -86,10 +84,10 @@ class Tar implements ArchiveInterface
     public function extract($to = null)
     {
         if ($this->compression == 'bz') {
-            $this->path = Bzip2::decompress($this->path);
+            $this->path = Compress\Bzip2::decompress($this->path);
             $this->archive = new \Archive_Tar($this->path);
         } else if ($this->compression == 'gz') {
-            $this->path = Gzip::decompress($this->path);
+            $this->path = Compress\Gzip::decompress($this->path);
             $this->archive = new \Archive_Tar($this->path);
         }
         $this->archive->extract((null !== $to) ? $to : './');

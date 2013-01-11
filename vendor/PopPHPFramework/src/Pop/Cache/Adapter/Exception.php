@@ -13,7 +13,7 @@
  * to info@popphp.org so we can send you a copy immediately.
  *
  * @category   Pop
- * @package    Pop_Font
+ * @package    Pop_Cache
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
@@ -22,54 +22,16 @@
 /**
  * @namespace
  */
-namespace Pop\Font\TrueType\Table;
+namespace Pop\Cache\Adapter;
 
 /**
- * This is the Post class for the Font component.
+ * This is the Exception class for the Cache component.
  *
  * @category   Pop
- * @package    Pop_Font
+ * @package    Pop_Cache
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Post
-{
-
-    /**
-     * Italic angle
-     * @var float
-     */
-    public $italicAngle = 0;
-
-
-    /**
-     * Fixed
-     * @var int
-     */
-    public $fixed = 0;
-
-    /**
-     * Constructor
-     *
-     * Instantiate a TTF 'post' table object.
-     *
-     * @param  \Pop\Font\AbstractFont $font
-     * @return \Pop\Font\TrueType\Table\Post
-     */
-    public function __construct(\Pop\Font\AbstractFont $font)
-    {
-        $bytePos = $font->tableInfo['post']->offset + 4;
-
-        $italicBytes = $font->read($bytePos, 4);
-        $this->italicAngle = $font->readFixed(16, 16, $italicBytes);
-
-        $bytePos += 8;
-
-        $ary = unpack('nfixed/', $font->read($bytePos, 2));
-        $ary = $font->shiftToSigned($ary);
-        $this->fixed = $ary['fixed'];
-    }
-
-}
+class Exception extends \Exception {}

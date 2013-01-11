@@ -24,8 +24,6 @@
  */
 namespace Pop\Archive\Adapter;
 
-use Pop\Archive\ArchiveInterface;
-
 /**
  * This is the Rar class for the Archive component.
  *
@@ -36,7 +34,7 @@ use Pop\Archive\ArchiveInterface;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Rar implements ArchiveInterface
+class Rar implements \Pop\Archive\ArchiveInterface
 {
 
     /**

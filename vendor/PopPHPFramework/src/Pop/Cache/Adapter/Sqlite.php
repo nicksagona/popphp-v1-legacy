@@ -22,10 +22,7 @@
 /**
  * @namespace
  */
-namespace Pop\Cache;
-
-use Pop\Db\Db,
-    Pop\Db\Sql;
+namespace Pop\Cache\Adapter;
 
 /**
  * This is the Sqlite class for the Cache component.
@@ -66,7 +63,7 @@ class Sqlite implements CacheInterface
      * @param  string $db
      * @param  string $table
      * @throws Exception
-     * @return \Pop\Cache\Sqlite
+     * @return \Pop\Cache\Adapter\Sqlite
      */
     public function __construct($db, $table = 'pop_cache')
     {
@@ -91,7 +88,7 @@ class Sqlite implements CacheInterface
             throw new Exception('Error: That cache db file and/or directory is not writable.');
         }
 
-        $this->sqlite = Db::factory('Sqlite', array('database' => $this->db));
+        $this->sqlite = \Pop\Db\Db::factory('Sqlite', array('database' => $this->db));
 
         // If the cache table doesn't exist, create it.
         if (!in_array($this->table, $this->sqlite->adapter()->getTables())) {
@@ -99,7 +96,7 @@ class Sqlite implements CacheInterface
         }
 
         $this->sqlite->sql()->setTable($this->table);
-        $this->sqlite->sql()->setIdQuoteType(Sql::DOUBLE_QUOTE);
+        $this->sqlite->sql()->setIdQuoteType(\Pop\Db\Sql::DOUBLE_QUOTE);
     }
 
     /**
@@ -126,7 +123,7 @@ class Sqlite implements CacheInterface
      * Method to Set the cache db table.
      *
      * @param  string $table
-     * @return \Pop\Cache\Sqlite
+     * @return \Pop\Cache\Adapter\Sqlite
      */
     public function setTable($table = 'pop_cache')
     {

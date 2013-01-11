@@ -24,8 +24,7 @@
  */
 namespace Pop\Archive;
 
-use Pop\Compress\Bzip2,
-    Pop\Compress\Gzip,
+use Pop\Compress,
     Pop\File\File;
 
 /**
@@ -187,23 +186,23 @@ class Archive extends File implements ArchiveInterface
         }
         switch ($ext) {
             case 'gz':
-                $newArchive = Gzip::compress($this->fullpath);
+                $newArchive = Compress\Gzip::compress($this->fullpath);
                 break;
             case 'tgz':
-                $tmpArchive = Gzip::compress($this->fullpath);
+                $tmpArchive = Compress\Gzip::compress($this->fullpath);
                 $newArchive = str_replace('.tar.gz', '.tgz', $tmpArchive);
                 rename($tmpArchive, $newArchive);
                 break;
             case 'bz2':
-                $newArchive = Bzip2::compress($this->fullpath);
+                $newArchive = Compress\Bzip2::compress($this->fullpath);
                 break;
             case 'tbz':
-                $tmpArchive = Bzip2::compress($this->fullpath);
+                $tmpArchive = Compress\Bzip2::compress($this->fullpath);
                 $newArchive = str_replace('.tar.bz2', '.tbz', $tmpArchive);
                 rename($tmpArchive, $newArchive);
                 break;
             case 'tbz2':
-                $tmpArchive = Bzip2::compress($this->fullpath);
+                $tmpArchive = Compress\Bzip2::compress($this->fullpath);
                 $newArchive = str_replace('.tar.bz2', '.tbz2', $tmpArchive);
                 rename($tmpArchive, $newArchive);
                 break;

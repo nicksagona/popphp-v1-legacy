@@ -25,13 +25,6 @@
 namespace Pop\Auth;
 
 use Pop\Validator\Validator,
-    Pop\Validator\Validator\Excluded,
-    Pop\Validator\Validator\Included,
-    Pop\Validator\Validator\Ipv4,
-    Pop\Validator\Validator\Ipv6,
-    Pop\Validator\Validator\IsSubnetOf,
-    Pop\Validator\Validator\LessThan,
-    Pop\Validator\Validator\Subnet,
     Pop\Locale\Locale;
 
 /**
@@ -410,7 +403,7 @@ class Auth
             $this->validators['expiration'] = null;
         } else {
             $exp = time() + ($this->expiration * 60);
-            $this->validators['expiration'] = Validator::factory(new LessThan($exp));
+            $this->validators['expiration'] = Validator::factory(new Validator\LessThan($exp));
         }
         return $this;
     }
@@ -482,7 +475,7 @@ class Auth
         if ($attempts == 0) {
             $this->validators['attempts'] = null;
         } else {
-            $this->validators['attempts'] = Validator::factory(new LessThan($attempts));
+            $this->validators['attempts'] = Validator::factory(new Validator\LessThan($attempts));
         }
         return $this;
     }
@@ -512,7 +505,7 @@ class Auth
         } else {
             $validIps = $this->filterIps($ips);
             if (count($validIps) > 0) {
-                $this->validators['blockedIps'] = Validator::factory(new Excluded($validIps));
+                $this->validators['blockedIps'] = Validator::factory(new Validator\Excluded($validIps));
             }
         }
         return $this;
@@ -531,7 +524,7 @@ class Auth
         } else {
             $validSubnets = $this->filterSubnets($subnets);
             if (count($validSubnets) > 0) {
-                $this->validators['blockedSubnets'] = Validator::factory(new Excluded($validSubnets));
+                $this->validators['blockedSubnets'] = Validator::factory(new Validator\Excluded($validSubnets));
             }
         }
         return $this;
@@ -550,7 +543,7 @@ class Auth
         } else {
             $validIps = $this->filterIps($ips);
             if (count($validIps) > 0) {
-                $this->validators['allowedIps'] = Validator::factory(new Included($validIps));
+                $this->validators['allowedIps'] = Validator::factory(new Validator\Included($validIps));
             }
         }
         return $this;
@@ -569,7 +562,7 @@ class Auth
         } else {
             $validSubnets = $this->filterSubnets($subnets);
             if (count($validSubnets) > 0) {
-                $this->validators['allowedSubnets'] = Validator::factory(new Included($validSubnets));
+                $this->validators['allowedSubnets'] = Validator::factory(new Validator\Included($validSubnets));
             }
         }
         return $this;
@@ -682,8 +675,8 @@ class Auth
         }
 
         foreach ($ips as $ip) {
-            if ((Validator::factory(new Ipv4())->evaluate($ip)) ||
-                (Validator::factory(new Ipv6())->evaluate($ip))) {
+            if ((Validator::factory(new Validator\Ipv4())->evaluate($ip)) ||
+                (Validator::factory(new Validator\Ipv6())->evaluate($ip))) {
                 $validIps[] = $ip;
             }
         }
@@ -706,7 +699,7 @@ class Auth
         }
 
         foreach ($subnets as $subnet) {
-            if (Validator::factory(new Subnet())->evaluate($subnet)) {
+            if (Validator::factory(new Validator\Subnet())->evaluate($subnet)) {
                 $validSubnets[] = $subnet;
             }
         }

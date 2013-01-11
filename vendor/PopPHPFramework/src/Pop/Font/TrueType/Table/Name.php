@@ -77,7 +77,7 @@ class Name
      * @param  \Pop\Font\AbstractFont $font
      * @return \Pop\Font\TrueType\Table\Name
      */
-    public function __construct($font)
+    public function __construct(\Pop\Font\AbstractFont $font)
     {
         $font->tableInfo['name']->header = new \ArrayObject(
             unpack(

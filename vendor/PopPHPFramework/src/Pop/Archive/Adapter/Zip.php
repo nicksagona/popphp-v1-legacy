@@ -24,8 +24,7 @@
  */
 namespace Pop\Archive\Adapter;
 
-use Pop\Archive\ArchiveInterface,
-    Pop\File\Dir;
+use Pop\File\Dir;
 
 /**
  * This is the Zip class for the Archive component.
@@ -37,7 +36,7 @@ use Pop\Archive\ArchiveInterface,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Zip implements ArchiveInterface
+class Zip implements \Pop\Archive\ArchiveInterface
 {
 
     /**

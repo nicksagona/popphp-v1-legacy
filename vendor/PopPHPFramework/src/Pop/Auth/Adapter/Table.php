@@ -24,8 +24,6 @@
  */
 namespace Pop\Auth\Adapter;
 
-use Pop\Auth\Auth;
-
 /**
  * This is the AuthTable adapter class for the Auth component.
  *
@@ -36,7 +34,7 @@ use Pop\Auth\Auth;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class AuthTable implements AdapterInterface
+class Table implements AdapterInterface
 {
 
     /**
@@ -72,7 +70,7 @@ class AuthTable implements AdapterInterface
      * @param string $usernameField
      * @param string $passwordField
      * @param string $accessField
-     * @return \Pop\Auth\Adapter\AuthTable
+     * @return \Pop\Auth\Adapter\Table
      */
     public function __construct($tableName, $usernameField = 'username', $passwordField = 'password', $accessField = null)
     {
@@ -91,7 +89,6 @@ class AuthTable implements AdapterInterface
      */
     public function authenticate($username, $password)
     {
-        $result = 0;
         $access = null;
 
         $table = $this->tableName;
@@ -102,16 +99,16 @@ class AuthTable implements AdapterInterface
         $user = $table::findBy(array($this->usernameField => $username));
 
         if (!isset($user->$usernameField)) {
-            $result = Auth::USER_NOT_FOUND;
+            $result = \Pop\Auth\Auth::USER_NOT_FOUND;
         } else if ($user->$passwordField != $password) {
-            $result = Auth::PASSWORD_INCORRECT;
+            $result = \Pop\Auth\Auth::PASSWORD_INCORRECT;
             } else if ((null !== $accessField) && ((strtolower($user->$accessField) == 'blocked') || (is_numeric($user->$accessField) && ($user->$accessField == 0)))) {
-            $result = Auth::USER_IS_BLOCKED;
+            $result = \Pop\Auth\Auth::USER_IS_BLOCKED;
         } else {
             if ((null !== $accessField) && (isset($user->$accessField))) {
                 $access = $user->$accessField;
             }
-            $result = Auth::USER_IS_VALID;
+            $result = \Pop\Auth\Auth::USER_IS_VALID;
         }
 
         return array('result' => $result, 'access' => $access, 'user' => $user);

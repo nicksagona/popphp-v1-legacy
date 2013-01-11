@@ -51,7 +51,7 @@ class Head
      * @param  \Pop\Font\AbstractFont $font
      * @return \Pop\Font\TrueType\Table\Head
      */
-    public function __construct($font)
+    public function __construct(\Pop\Font\AbstractFont $font)
     {
         $bytePos = $font->tableInfo['head']->offset;
 

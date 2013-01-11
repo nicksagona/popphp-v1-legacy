@@ -24,8 +24,6 @@
  */
 namespace Pop\Font\TrueType;
 
-use Pop\Font\TrueType;
-
 /**
  * This is the OpenType class for the Font component.
  *
@@ -36,7 +34,7 @@ use Pop\Font\TrueType;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class OpenType extends TrueType
+class OpenType extends \Pop\Font\TrueType
 {
 
     /**

@@ -24,8 +24,6 @@
  */
 namespace Pop\Form\Element;
 
-use Pop\Form\Element;
-
 /**
  * This is the Radio Element class for the Form component.
  *
@@ -36,7 +34,7 @@ use Pop\Form\Element;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Radio extends Element
+class Radio extends \Pop\Form\Element
 {
 
     /**

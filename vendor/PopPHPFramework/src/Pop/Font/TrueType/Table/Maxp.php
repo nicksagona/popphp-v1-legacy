@@ -51,7 +51,7 @@ class Maxp
      * @param  \Pop\Font\AbstractFont $font
      * @return \Pop\Font\TrueType\Table\Maxp
      */
-    public function __construct($font)
+    public function __construct(\Pop\Font\AbstractFont $font)
     {
         $bytePos = $font->tableInfo['maxp']->offset + 4;
         $ary = unpack('nnumberOfGlyphs/', $font->read($bytePos, 2));

@@ -24,9 +24,7 @@
  */
 namespace Pop\Form;
 
-use Pop\Dom\Dom,
-    Pop\Dom\Child,
-    Pop\Web\Session;
+use Pop\Dom\Child;
 
 /**
  * This is the Form class for the Form component.
@@ -38,12 +36,12 @@ use Pop\Dom\Dom,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Form extends Dom
+class Form extends \Pop\Dom\Dom
 {
 
     /**
      * Form element node
-     * @var Child
+     * @var \Pop\Dom\Child
      */
     protected $form = null;
 
@@ -590,7 +588,7 @@ class Form extends Dom
      */
     public function clear()
     {
-        $sess = Session::getInstance();
+        $sess = \Pop\Web\Session::getInstance();
         if (isset($sess->pop_csrf)){
             unset($sess->pop_csrf);
         }

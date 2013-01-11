@@ -24,8 +24,6 @@
  */
 namespace Pop\Font;
 
-use Pop\File\File;
-
 /**
  * This is the Abstract Font class for the Font component.
  *
@@ -36,7 +34,7 @@ use Pop\File\File;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-abstract class AbstractFont extends File
+abstract class AbstractFont extends \Pop\File\File
 {
 
     /**

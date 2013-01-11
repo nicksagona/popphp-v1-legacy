@@ -24,10 +24,6 @@
  */
 namespace Pop\Form\Element;
 
-use Pop\Form\Element,
-    Pop\Validator\Validator\Equal,
-    Pop\Web\Session;
-
 /**
  * This is the Captcha Element class for the Form component.
  *
@@ -38,7 +34,7 @@ use Pop\Form\Element,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Captcha extends Element
+class Captcha extends \Pop\Form\Element
 {
     /**
      * Session object
@@ -66,7 +62,7 @@ class Captcha extends Element
      */
     public function __construct($name, $value = null, $expire = 300, $captcha = null, $indent = null)
     {
-        $this->sess = Session::getInstance();
+        $this->sess = \Pop\Web\Session::getInstance();
 
         // If token does not exist, create one
         if (!isset($this->sess->pop_captcha)) {
@@ -172,7 +168,7 @@ class Captcha extends Element
                     } else {
                         $answer = $captcha;
                     }
-                    $this->addValidator(new Equal($answer), 'The answer is incorrect.');
+                    $this->addValidator(new \Pop\Validator\Validator\Equal($answer), 'The answer is incorrect.');
                 }
             }
         } else {

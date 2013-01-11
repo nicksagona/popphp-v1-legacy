@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace Pop\Cache;
+namespace Pop\Cache\Adapter;
 
 /**
  * This is the Cache interface for the Cache component.

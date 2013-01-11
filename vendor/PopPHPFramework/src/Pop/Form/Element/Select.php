@@ -24,9 +24,6 @@
  */
 namespace Pop\Form\Element;
 
-use Pop\Form\Element,
-    Pop\Locale\Locale;
-
 /**
  * This is the Select Element class for the Form component.
  *
@@ -37,7 +34,7 @@ use Pop\Form\Element,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Select extends Element
+class Select extends \Pop\Form\Element
 {
 
     /**
@@ -132,7 +129,7 @@ class Select extends Element
     public function __construct($name, $value = null, $marked = null, $indent = null)
     {
         $val = null;
-        $lang = new Locale();
+        $lang = new \Pop\Locale\Locale();
 
         // If the value flag is YEAR-based, calculate the year range for the select drop-down menu.
         if (is_string($value) && (strpos($value, 'YEAR') !== false)) {

@@ -39,13 +39,13 @@ class Cmap
 
     /**
      * Cmap header
-     * @var ArrayObject
+     * @var \ArrayObject
      */
     public $header = null;
 
     /**
      * Cmap subtables
-     * @var ArrayObject
+     * @var \ArrayObject
      */
     public $subTables = array();
 
@@ -54,10 +54,10 @@ class Cmap
      *
      * Instantiate a TTF 'cmap table object.
      *
-     * @param  AbstractFont $font
-     * @return void
+     * @param  \Pop\Font\AbstractFont $font
+     * @return \Pop\Font\TrueType\Table\Cmap
      */
-    public function __construct($font)
+    public function __construct(\Pop\Font\AbstractFont $font)
     {
         $bytePos = $font->tableInfo['cmap']->offset;
 

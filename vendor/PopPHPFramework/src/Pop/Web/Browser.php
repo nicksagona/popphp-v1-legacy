@@ -80,6 +80,30 @@ class Browser
     protected $version = null;
 
     /**
+     * Mozilla flag
+     * @var boolean
+     */
+    protected $mozilla = false;
+
+    /**
+     * WebKit flag
+     * @var boolean
+     */
+    protected $webkit = false;
+
+    /**
+     * MSIE flag
+     * @var boolean
+     */
+    protected $msie = false;
+
+    /**
+     * Opera flag
+     * @var boolean
+     */
+    protected $opera = false;
+
+    /**
      * Constructor
      *
      * Instantiate the browser session object.
@@ -166,6 +190,46 @@ class Browser
     }
 
     /**
+     * Method to get Mozilla flag
+     *
+     * @return boolean
+     */
+    public function isMozilla()
+    {
+        return $this->mozilla;
+    }
+
+    /**
+     * Method to get WebKit flag
+     *
+     * @return boolean
+     */
+    public function isWebkit()
+    {
+        return $this->webkit;
+    }
+
+    /**
+     * Method to get MSIE flag
+     *
+     * @return boolean
+     */
+    public function isMsie()
+    {
+        return $this->msie;
+    }
+
+    /**
+     * Method to get Opera flag
+     *
+     * @return boolean
+     */
+    public function isOpera()
+    {
+        return $this->opera;
+    }
+
+    /**
      * Method to detect properties.
      *
      * @return void
@@ -232,31 +296,39 @@ class Browser
         // Determine browser and browser version.
         if (stripos($this->ua, 'Camino') !== false) {
             $this->name = 'Camino';
+            $this->webkit = true;
             $this->version = substr($this->ua, (stripos($this->ua, 'Camino/') + 7));
         } else if (stripos($this->ua, 'Chrome') !== false) {
             $this->name = 'Chrome';
+            $this->webkit = true;
             $this->version = substr($this->ua, (stripos($this->ua, 'Chrome/') + 7));
             $this->version = substr($this->version, 0, (stripos($this->version, ' ')));
         } else if (stripos($this->ua, 'Firefox') !== false) {
             $this->name = 'Firefox';
+            $this->mozilla = true;
             $this->version = substr($this->ua, (stripos($this->ua, 'Firefox/') + 8));
         } else if (stripos($this->ua, 'MSIE') !== false) {
             $this->name = 'MSIE';
+            $this->msie = true;
             $this->version = substr($this->ua, (stripos($this->ua, 'MSIE ') + 5));
             $this->version = substr($this->version, 0, stripos($this->version, ';'));
         } else if (stripos($this->ua, 'Konqueror') !== false) {
             $this->name = 'Konqueror';
+            $this->webkit = true;
             $this->version = substr($this->ua, (stripos($this->ua, 'Konqueror/') + 10));
             $this->version = substr($this->version, 0, stripos($this->version, ';'));
         } else if (stripos($this->ua, 'Navigator') !== false) {
             $this->name = 'Navigator';
+            $this->mozilla = true;
             $this->version = substr($this->ua, (stripos($this->ua, 'Navigator/') + 10));
         } else if (stripos($this->ua, 'Opera') !== false) {
             $this->name = 'Opera';
+            $this->opera = true;
             $this->version = substr($this->ua, (stripos($this->ua, 'Opera/') + 6));
             $this->version = substr($this->version, 0, stripos($this->version, ' '));
         } else if (stripos($this->ua, 'Safari') !== false) {
             $this->name = 'Safari';
+            $this->webkit = true;
             $this->version = substr($this->ua, (stripos($this->ua, 'Version/') + 8));
             $this->version = substr($this->version, 0, stripos($this->version, ' '));
         }

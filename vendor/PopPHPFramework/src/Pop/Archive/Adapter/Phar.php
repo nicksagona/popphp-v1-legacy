@@ -24,8 +24,7 @@
  */
 namespace Pop\Archive\Adapter;
 
-use Pop\Archive\ArchiveInterface,
-    Pop\File\Dir;
+use Pop\File\Dir;
 
 /**
  * This is the Phar class for the Archive component.
@@ -37,7 +36,7 @@ use Pop\Archive\ArchiveInterface,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Phar implements ArchiveInterface
+class Phar implements \Pop\Archive\ArchiveInterface
 {
 
     /**

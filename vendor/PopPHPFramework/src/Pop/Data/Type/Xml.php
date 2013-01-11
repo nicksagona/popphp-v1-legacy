@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace Pop\Data;
+namespace Pop\Data\Type;
 
 /**
  * This is the Xml class for the Data component.

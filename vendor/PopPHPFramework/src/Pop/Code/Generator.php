@@ -24,8 +24,6 @@
  */
 namespace Pop\Code;
 
-use Pop\File\File;
-
 /**
  * This is the Generator class of the Code component.
  *
@@ -36,7 +34,7 @@ use Pop\File\File;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Generator extends File
+class Generator extends \Pop\File\File
 {
 
     /**

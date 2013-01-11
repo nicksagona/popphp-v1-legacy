@@ -24,8 +24,6 @@
  */
 namespace Pop\Auth\Adapter;
 
-use Pop\Auth\Auth;
-
 /**
  * This is the AuthFile adapter class for the Auth component.
  *
@@ -36,7 +34,7 @@ use Pop\Auth\Auth;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class AuthFile implements AdapterInterface
+class File implements AdapterInterface
 {
 
     /**
@@ -59,7 +57,7 @@ class AuthFile implements AdapterInterface
      * @param string $filename
      * @param string $delimiter
      * @throws Exception
-     * @return \Pop\Auth\Adapter\AuthFile
+     * @return \Pop\Auth\Adapter\File
      */
     public function __construct($filename, $delimiter = '|')
     {
@@ -80,19 +78,18 @@ class AuthFile implements AdapterInterface
      */
     public function authenticate($username, $password)
     {
-        $result = 0;
         $access = null;
         $user = array('username' => $username);
 
         if (!array_key_exists($username, $this->users)) {
-            $result = Auth::USER_NOT_FOUND;
+            $result = \Pop\Auth\Auth::USER_NOT_FOUND;
         } else if ($this->users[$username]['password'] != $password) {
-            $result = Auth::PASSWORD_INCORRECT;
+            $result = \Pop\Auth\Auth::PASSWORD_INCORRECT;
         } else if ((strtolower($this->users[$username]['access']) == 'blocked') || (is_numeric($this->users[$username]['access']) && ($this->users[$username]['access'] == 0))) {
-            $result = Auth::USER_IS_BLOCKED;
+            $result = \Pop\Auth\Auth::USER_IS_BLOCKED;
         } else {
             $access = $this->users[$username]['access'];
-            $result = Auth::USER_IS_VALID;
+            $result = \Pop\Auth\Auth::USER_IS_VALID;
             $user = array_merge($user, $this->users[$username]);
         }
 

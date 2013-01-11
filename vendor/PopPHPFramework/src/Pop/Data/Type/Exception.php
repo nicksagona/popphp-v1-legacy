@@ -13,7 +13,7 @@
  * to info@popphp.org so we can send you a copy immediately.
  *
  * @category   Pop
- * @package    Pop_Compress
+ * @package    Pop_Data
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
@@ -22,35 +22,16 @@
 /**
  * @namespace
  */
-namespace Pop\Compress;
+namespace Pop\Data\Type;
 
 /**
- * This is the compress interface for the Compress component.
+ * This is the Data Exception class for the Data component.
  *
  * @category   Pop
- * @package    Pop_Compress
+ * @package    Pop_Data
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-interface CompressInterface
-{
-
-    /**
-     * Static method to compress data
-     *
-     * @param  string $data
-     * @return mixed
-     */
-    public static function compress($data);
-
-    /**
-     * Static method to decompress data
-     *
-     * @param  string $data
-     * @return mixed
-     */
-    public static function decompress($data);
-
-}
+class Exception extends \Exception {}

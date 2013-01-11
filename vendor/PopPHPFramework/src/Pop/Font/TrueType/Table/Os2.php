@@ -63,7 +63,7 @@ class Os2
      * @param  \Pop\Font\AbstractFont $font
      * @return \Pop\Font\TrueType\Table\Os2
      */
-    public function __construct($font)
+    public function __construct(\Pop\Font\AbstractFont $font)
     {
         $this->flags = new \ArrayObject(array(
             'isFixedPitch'  => false,

@@ -24,8 +24,6 @@
  */
 namespace Pop\Form;
 
-use Pop\Validator\Validator;
-
 /**
  * This is the Fields class for the Form component.
  *
@@ -166,7 +164,7 @@ class Fields
                 }
 
                 if ((stripos($key, 'email') !== false) || (stripos($key, 'e-mail') !== false) || (stripos($key, 'e_mail') !== false)) {
-                    $validators = new Validator\Email();
+                    $validators = new \Pop\Validator\Validator\Email();
                 }
 
                 $this->fields[] = array(

@@ -51,7 +51,7 @@ class Loca
      * @param  \Pop\Font\AbstractFont $font
      * @return \Pop\Font\TrueType\Table\Loca
      */
-    public function __construct($font)
+    public function __construct(\Pop\Font\AbstractFont $font)
     {
         $bytePos = $font->tableInfo['loca']->offset;
 

@@ -24,10 +24,6 @@
  */
 namespace Pop\Form\Element;
 
-use Pop\Form\Element,
-    Pop\Validator\Validator\Equal,
-    Pop\Web\Session;
-
 /**
  * This is the Csrf Element class for the Form component.
  *
@@ -38,7 +34,7 @@ use Pop\Form\Element,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Csrf extends Element
+class Csrf extends \Pop\Form\Element
 {
     /**
      * Session object
@@ -65,7 +61,7 @@ class Csrf extends Element
      */
     public function __construct($name, $value = null, $expire = 300, $indent = null)
     {
-        $this->sess = Session::getInstance();
+        $this->sess = \Pop\Web\Session::getInstance();
 
         // If token does not exist, create one
         if (!isset($this->sess->pop_csrf)) {
@@ -130,7 +126,7 @@ class Csrf extends Element
             // If there is query data, set validator to check against the token value
             if (count($queryData) > 0) {
                 $val = (isset($queryData[$this->name])) ? $queryData[$this->name] : '';
-                $this->addValidator(new Equal($val), 'The security token does not match.');
+                $this->addValidator(new \Pop\Validator\Validator\Equal($val), 'The security token does not match.');
             }
         } else {
             throw new \Pop\Form\Exception('Error: The server request method is not set.');

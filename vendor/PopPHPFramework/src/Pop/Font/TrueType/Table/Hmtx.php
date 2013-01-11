@@ -51,7 +51,7 @@ class Hmtx
      * @param  \Pop\Font\AbstractFont $font
      * @return \Pop\Font\TrueType\Table\Hmtx
      */
-    public function __construct($font)
+    public function __construct(\Pop\Font\AbstractFont $font)
     {
         $bytePos = $font->tableInfo['hmtx']->offset;
 

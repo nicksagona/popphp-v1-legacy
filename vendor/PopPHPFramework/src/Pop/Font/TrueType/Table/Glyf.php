@@ -54,10 +54,10 @@ class Glyf
      *
      * Instantiate a TTF 'glyf' table object.
      *
-     * @param  Pop_Font $font
-     * @return void
+     * @param  \Pop\Font\AbstractFont $font
+     * @return \Pop\Font\TrueType\Table\Glyf
      */
-    public function __construct($font)
+    public function __construct(\Pop\Font\AbstractFont $font)
     {
         $locaLength = count($font->tables['loca']->offsets);
         $j = 0;

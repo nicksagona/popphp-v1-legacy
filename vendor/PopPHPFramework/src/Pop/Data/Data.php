@@ -24,8 +24,6 @@
  */
 namespace Pop\Data;
 
-use Pop\File\File;
-
 /**
  * This is the Data class for the Data component.
  *
@@ -93,7 +91,7 @@ class Data
              (stripos($data, '.yml') !== false) ||
              (stripos($data, '.yaml') !== false)) && file_exists($data)) {
 
-            $file = new File($data);
+            $file = new \Pop\File\File($data);
             $this->file = $file->read();
             $this->type = ($file->getExt() == 'yml') ? 'Yaml' : ucfirst(strtolower($file->getExt()));
         } else {
@@ -206,7 +204,7 @@ class Data
      */
     public function parseFile()
     {
-        $class = 'Pop\\Data\\' . $this->type;
+        $class = 'Pop\\Data\\Type\\' . $this->type;
         $this->data = $class::decode($this->file);
         return $this->data;
     }
@@ -227,7 +225,7 @@ class Data
             throw new Exception('That data type is not supported.');
         }
 
-        $class = 'Pop\\Data\\' . ucfirst($to);
+        $class = 'Pop\\Data\\Type\\' . ucfirst($to);
 
         if ($to == 'sql') {
             $this->file = $class::encode($this->data, $this->table, $this->idQuote);
@@ -249,7 +247,7 @@ class Data
      */
     public function writeData($toFile)
     {
-        $file = new File($toFile);
+        $file = new \Pop\File\File($toFile);
 
         $to = strtolower($file->getExt());
         $types = array('csv', 'json', 'sql', 'xml', 'yaml');
@@ -258,7 +256,7 @@ class Data
             throw new Exception('That data type is not supported.');
         }
 
-        $class = 'Pop\\Data\\' . ucfirst($to);
+        $class = 'Pop\\Data\\Type\\' . ucfirst($to);
 
         if ($to == 'sql') {
             $this->file = $class::encode($this->data, $this->table, $this->idQuote);

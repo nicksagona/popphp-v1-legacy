@@ -22,10 +22,10 @@
 /**
  * @namespace
  */
-namespace Pop\Cache;
+namespace Pop\Cache\Adapter;
 
 /**
- * This is the Memcached class for the Cache component.
+ * This is the File class for the Cache component.
  *
  * @category   Pop
  * @package    Pop_Cache
@@ -34,53 +34,43 @@ namespace Pop\Cache;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Memcached implements CacheInterface
+class File implements CacheInterface
 {
 
     /**
-     * Memcache object
-     * @var \Memcache
-     */
-    protected $memcache = null;
-
-    /**
-     * Memcache version
+     * Cache dir
      * @var string
      */
-    protected $version = null;
+    protected $dir = null;
 
     /**
      * Constructor
      *
-     * Instantiate the memcache cache object
+     * Instantiate the cache file object
      *
-     * @param  string $host
-     * @param  int    $port
+     * @param  string $dir
      * @throws Exception
-     * @return \Pop\Cache\Memcached
+     * @return \Pop\Cache\Adapter\File
      */
-    public function __construct($host = 'localhost', $port = 11211)
+    public function __construct($dir)
     {
-        if (!class_exists('Memcache')) {
-            throw new Exception('Error: Memcache is not available.');
+        if (!file_exists($dir)) {
+            throw new Exception('Error: That cache directory does not exist.');
+        } else if (!is_writable($dir)) {
+            throw new Exception('Error: That cache directory is not writable.');
         }
 
-        $this->memcache = new \Memcache();
-        if (!$this->memcache->connect($host, (int)$port)) {
-            throw new Exception('Error: Unable to connect to the memcached server.');
-        }
-
-        $this->version = $this->memcache->getVersion();
+        $this->dir = realpath($dir);
     }
 
     /**
-     * Method to get the current version of memcache.
+     * Method to get the current cache dir.
      *
      * @return string
      */
-    public function getVersion()
+    public function getDir()
     {
-        return $this->version;
+        return $this->dir;
     }
 
     /**
@@ -94,7 +84,9 @@ class Memcached implements CacheInterface
     public function save($id, $value, $time = null)
     {
         $time = (null === $time) ? time() : time() + $time;
-        $this->memcache->set($id, $value, false, $time);
+
+        $file = $this->dir . DIRECTORY_SEPARATOR . sha1($id);
+        file_put_contents($file, $time . '|' . serialize($value));
     }
 
     /**
@@ -106,7 +98,19 @@ class Memcached implements CacheInterface
      */
     public function load($id, $time = null)
     {
-        return $this->memcache->get($id);
+        $fileId = $this->dir . DIRECTORY_SEPARATOR . sha1($id);
+        $value = false;
+
+        if (file_exists($fileId)) {
+            $fileData = file_get_contents($fileId);
+            $fileTime = substr($fileData, 0, strpos($fileData, '|'));
+            $data = substr($fileData, (strpos($fileData, '|') + 1));
+            if (($time == 0) || ((time() - $fileTime) <= $time)) {
+                $value = unserialize($data);
+            }
+        }
+
+        return $value;
     }
 
     /**
@@ -117,7 +121,10 @@ class Memcached implements CacheInterface
      */
     public function remove($id)
     {
-        $this->memcache->delete($id);
+        $fileId = $this->dir . DIRECTORY_SEPARATOR . sha1($id);
+        if (file_exists($fileId)) {
+            unlink($fileId);
+        }
     }
 
     /**
@@ -127,7 +134,8 @@ class Memcached implements CacheInterface
      */
     public function clear()
     {
-        $this->memcache->flush();
+        $dir = new \Pop\File\Dir($this->dir);
+        $dir->emptyDir();
     }
 
 }

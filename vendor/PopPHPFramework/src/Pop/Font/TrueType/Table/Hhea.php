@@ -63,7 +63,7 @@ class Hhea
      * @param  \Pop\Font\AbstractFont $font
      * @return \Pop\Font\TrueType\Table\Hhea
      */
-    public function __construct($font)
+    public function __construct(\Pop\Font\AbstractFont $font)
     {
         $bytePos = $font->tableInfo['hhea']->offset + 4;
 

@@ -34,7 +34,7 @@ namespace Pop\Compress;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Bzip2 implements CompressInterface
+class Bzip2
 {
 
     /**

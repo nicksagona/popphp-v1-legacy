@@ -24,8 +24,6 @@
  */
 namespace Pop\File;
 
-use Pop\Http\Response;
-
 /**
  * This is the File class for the File component.
  *
@@ -554,7 +552,7 @@ class File
             'Content-disposition' => $attach . 'filename=' . $this->basename
         );
 
-        $response = new Response(200, $headers, $this->read());
+        $response = new \Pop\Http\Response(200, $headers, $this->read());
 
         if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == 443)) {
             $response->setSslHeaders();
