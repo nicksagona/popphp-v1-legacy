@@ -24,8 +24,6 @@
  */
 namespace Pop\Locale;
 
-use Pop\File\Dir;
-
 /**
  * This is the Locale class for the Locale component. *
  *
@@ -153,7 +151,7 @@ class Locale
         $langDirectory = (null !== $dir) ? $dir : __DIR__ . '/Data';
 
         if (file_exists($langDirectory)) {
-            $langDir = new Dir($langDirectory);
+            $langDir = new \Pop\File\Dir($langDirectory);
             $files = $langDir->getFiles();
             foreach ($files as $file) {
                 if ($file != '__.xml') {
@@ -177,7 +175,7 @@ class Locale
      *
      * @param  string $str
      * @param  string|array $params
-     * @return $str
+     * @return mixed
      */
     protected function translate($str, $params = null)
     {

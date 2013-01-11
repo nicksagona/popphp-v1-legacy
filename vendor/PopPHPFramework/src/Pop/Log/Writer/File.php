@@ -24,8 +24,6 @@
  */
 namespace Pop\Log\Writer;
 
-use Pop\File\File as PopFile;
-
 /**
  * This is the File writer class for the Log component.
  *
@@ -36,7 +34,7 @@ use Pop\File\File as PopFile;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class File extends PopFile implements WriterInterface
+class File extends \Pop\File\File implements WriterInterface
 {
 
     /**

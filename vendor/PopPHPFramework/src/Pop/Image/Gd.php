@@ -26,10 +26,7 @@ namespace Pop\Image;
 
 use Pop\Color\Color,
     Pop\Color\ColorInterface,
-    Pop\Color\Rgb,
-    Pop\Http\Response,
-    Pop\Image\AbstractImage,
-    Pop\Image\Exception;
+    Pop\Color\Rgb;
 
 /**
  * This is the Gd class for the Image component.
@@ -1040,7 +1037,7 @@ class Gd extends AbstractImage
             'Content-disposition' => $attach . 'filename=' . $this->basename
         );
 
-        $response = new Response(200, $headers);
+        $response = new \Pop\Http\Response(200, $headers);
 
         if ($_SERVER['SERVER_PORT'] == 443) {
             $response->setSslHeaders();

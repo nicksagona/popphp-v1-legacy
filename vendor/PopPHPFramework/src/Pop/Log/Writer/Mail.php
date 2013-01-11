@@ -24,8 +24,6 @@
  */
 namespace Pop\Log\Writer;
 
-use Pop\Mail\Mail as PopMail;
-
 /**
  * This is the Db writer class for the Log component.
  *
@@ -93,7 +91,7 @@ class Mail implements WriterInterface
 
         $subject .= ' ' . $logEntry['name'] . ' (' . $logEntry['priority'] . ')';
 
-        $mail = new PopMail($this->emails, $subject);
+        $mail = new \Pop\Mail\Mail($this->emails, $subject);
         if (isset($options['headers'])) {
             $mail->setHeaders($options['headers']);
         }

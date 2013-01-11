@@ -24,8 +24,6 @@
  */
 namespace Pop\Loader;
 
-use Pop\File\Dir;
-
 /**
  * This is the Classmap class for the Loader component.
  *
@@ -48,7 +46,7 @@ class Classmap
      */
     public static function generate($inputFolder, $outputFile)
     {
-        $dir = new Dir(realpath($inputFolder), true, true);
+        $dir = new \Pop\File\Dir(realpath($inputFolder), true, true);
         $matches = array();
         $files = $dir->getFiles();
 

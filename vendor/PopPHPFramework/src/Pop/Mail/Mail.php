@@ -24,8 +24,7 @@
  */
 namespace Pop\Mail;
 
-use Pop\File\Dir,
-    Pop\File\File;
+use Pop\File\File;
 
 /**
  * This is the Mail class for the Mail component.
@@ -669,7 +668,7 @@ class Mail
     public function sendFrom($from = null, $delete = false)
     {
         $dir = (null !== $from) ? $from : getcwd();
-        $emailDir = new Dir($dir, true);
+        $emailDir = new \Pop\File\Dir($dir, true);
         $emailFiles = $emailDir->getFiles();
         if (isset($emailFiles[0])) {
             foreach ($emailFiles as $email) {

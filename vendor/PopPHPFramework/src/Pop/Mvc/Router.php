@@ -24,9 +24,6 @@
  */
 namespace Pop\Mvc;
 
-use Pop\Http\Request,
-    Pop\Project\Project;
-
 /**
  * This is the Router class for the Mvc component.
  *
@@ -79,9 +76,9 @@ class Router
      * @param  \Pop\Http\Request $request
      * @return \Pop\Mvc\Router
      */
-    public function __construct(array $controllers, $request = null)
+    public function __construct(array $controllers, \Pop\Http\Request $request = null)
     {
-        $this->request = (null !== $request) ? $request : new Request();
+        $this->request = (null !== $request) ? $request : new \Pop\Http\Request();
         $this->controllers = $controllers;
     }
 
@@ -189,10 +186,10 @@ class Router
     /**
      * Route to the controller
      *
-     * @param  Project $project
+     * @param  \Pop\Project\Project $project
      * @return void
      */
-    public function route(Project $project = null)
+    public function route(\Pop\Project\Project $project = null)
     {
         $this->project = $project;
 

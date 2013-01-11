@@ -26,8 +26,7 @@ namespace Pop\Image;
 
 use Pop\Color\Color,
     Pop\Color\ColorInterface,
-    Pop\Color\Rgb,
-    Pop\File\File;
+    Pop\Color\Rgb;
 
 /**
  * This is the Svg class for the Image component.
@@ -39,7 +38,7 @@ use Pop\Color\Color,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Svg extends File
+class Svg extends \Pop\File\File
 {
 
     /**
