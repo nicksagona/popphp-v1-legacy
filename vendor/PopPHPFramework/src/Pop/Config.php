@@ -70,6 +70,19 @@ class Config
     }
 
     /**
+     * Static method to instantiate the config object and return itself
+     * to facilitate chaining methods together.
+     *
+     * @param  array   $config
+     * @param  boolean $changes
+     * @return \Pop\Config
+     */
+    public static function factory(array $config, $changes = false)
+    {
+        return new self($config, $changes);
+    }
+
+    /**
      * Method to get the config values as an array
      *
      * @return array
