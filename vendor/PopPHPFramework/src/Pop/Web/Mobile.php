@@ -127,16 +127,16 @@ class Mobile
      * Instantiate the mobile session object.
      *
      * @param  string $mobile
-     * @param  string $full
+     * @param  string $desktop
      * @param  int    $force
      * @return \Pop\Web\Mobile
      */
-    public function __construct($mobile = null, $full = null, $force = 0)
+    public function __construct($mobile = null, $desktop = null, $force = 0)
     {
         // Set the user agent and object properties.
         $this->ua = $_SERVER['HTTP_USER_AGENT'];
         $this->mobile = $mobile;
-        $this->desktop = $full;
+        $this->desktop = $desktop;
         $this->isMobile = $this->detect();
         $this->force = $force;
     }
