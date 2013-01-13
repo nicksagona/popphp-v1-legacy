@@ -55,18 +55,6 @@ class Imagick extends AbstractImage
     const RADIAL_BLUR = 6;
 
     /**
-     * Imagick version
-     * @var string
-     */
-    public $version = null;
-
-    /**
-     * Imagick version number
-     * @var string
-     */
-    public $versionString = null;
-
-    /**
      * Array of allowed file types.
      * @var array
      */
@@ -183,7 +171,7 @@ class Imagick extends AbstractImage
         parent::__construct($img, $w, $h, $color, $types);
 
         // Check to see if Imagick is installed.
-        if (!self::isImagickInstalled()) {
+        if (!self::isInstalled()) {
             throw new Exception('Error: The Imagick library extension must be installed to use the Imagick adapter.');
         }
 
@@ -216,7 +204,7 @@ class Imagick extends AbstractImage
             $this->setQuality(100);
         }
 
-        $this->getImagickInfo();
+        $this->getInfo();
     }
 
     /**
@@ -224,9 +212,29 @@ class Imagick extends AbstractImage
      *
      * @return boolean
      */
-    public static function isImagickInstalled()
+    public static function isInstalled()
     {
         return class_exists('Imagick');
+    }
+
+    /**
+     * Get the image resource to directly interact with it
+     *
+     * @return \Imagick
+     */
+    public function resource()
+    {
+        return $this->resource;
+    }
+
+    /**
+     * Get the image resource info
+     *
+     * @return \ArrayObject
+     */
+    public function info()
+    {
+        return $this->info;
     }
 
     /**
@@ -242,6 +250,19 @@ class Imagick extends AbstractImage
     }
 
     /**
+     * Set the image compression quality with an
+     * Imagick compression constant
+     *
+     * @param  int $comp
+     * @return \Pop\Image\Imagick
+     */
+    public function setCompression($comp = null)
+    {
+        $this->compression = (null !== $comp) ? (int)$comp : null;
+        return $this;
+    }
+
+    /**
      * Set the opacity.
      *
      * @param  float $opac
@@ -250,18 +271,6 @@ class Imagick extends AbstractImage
     public function setOpacity($opac)
     {
         $this->opacity = $opac;
-        return $this;
-    }
-
-    /**
-     * Set the image quality.
-     *
-     * @param  int $comp
-     * @return \Pop\Image\Imagick
-     */
-    public function setCompression($comp = null)
-    {
-        $this->compression = (null !== $comp) ? (int)$comp : null;
         return $this;
     }
 
@@ -299,16 +308,6 @@ class Imagick extends AbstractImage
     {
         $this->overlay = $ovr;
         return $this;
-    }
-
-    /**
-     * Get the Imagick resource to directly interface with the Imagick object.
-     *
-     * @return Imagick
-     */
-    public function imagick()
-    {
-        return $this->resource;
     }
 
     /**
@@ -827,6 +826,17 @@ class Imagick extends AbstractImage
     }
 
     /**
+     * Method to desaturate of the image.
+     *
+     * @return \Pop\Image\Imagick
+     */
+    public function desaturate()
+    {
+        $this->resource->modulateImage(100, 0, 100);
+        return $this;
+    }
+
+    /**
      * Method to sharpen the image.
      *
      * @param  int $radius
@@ -948,7 +958,7 @@ class Imagick extends AbstractImage
     }
 
     /**
-     * Method to flip the image over the x-axis.
+     * Method to flip the image over the y-axis.
      *
      * @return \Pop\Image\Imagick
      */
@@ -1033,6 +1043,31 @@ class Imagick extends AbstractImage
     }
 
     /**
+     * Apply a swirl effect to the image
+     *
+     * @param  int $degrees
+     * @return \Pop\Image\Imagick
+     */
+    public function swirl($degrees)
+    {
+        $this->resource->swirlImage($degrees);
+        return $this;
+    }
+
+    /**
+     * Apply a wave effect to the image
+     *
+     * @param  int $amp
+     * @param  int $length
+     * @return \Pop\Image\Imagick
+     */
+    public function wave($amp, $length)
+    {
+        $this->resource->waveImage($amp, $length);
+        return $this;
+    }
+
+    /**
      * Apply a mosiac pixelate effect to the image
      *
      * @param  int $w
@@ -1061,31 +1096,6 @@ class Imagick extends AbstractImage
     public function pencil($radius, $sigma, $angle)
     {
         $this->resource->sketchImage($radius, $sigma, $angle);
-        return $this;
-    }
-
-    /**
-     * Apply a swirl effect to the image
-     *
-     * @param  int $degrees
-     * @return \Pop\Image\Imagick
-     */
-    public function swirl($degrees)
-    {
-        $this->resource->swirlImage($degrees);
-        return $this;
-    }
-
-    /**
-     * Apply a wave effect to the image
-     *
-     * @param  int $amp
-     * @param  int $length
-     * @return \Pop\Image\Imagick
-     */
-    public function wave($amp, $length)
-    {
-        $this->resource->waveImage($amp, $length);
         return $this;
     }
 
@@ -1255,9 +1265,9 @@ class Imagick extends AbstractImage
     }
 
     /**
-     * Set the current object formats against the supported formats of Imagick.
+     * Set the current object formats to include the supported formats of Imagick.
      *
-     * @return void
+     * @return \Pop\Image\Imagick
      */
     public function setFormats()
     {
@@ -1271,6 +1281,8 @@ class Imagick extends AbstractImage
         }
 
         ksort($this->allowed);
+
+        return $this;
     }
 
     /**
@@ -1280,7 +1292,9 @@ class Imagick extends AbstractImage
      */
     public function getFormats()
     {
-        return $this->resource->queryFormats();
+        $formats = $this->resource->queryFormats();
+        array_walk($formats, function(&$item) { $item = strtolower($item); });
+        return $formats;
     }
 
     /**
@@ -1298,12 +1312,19 @@ class Imagick extends AbstractImage
      *
      * @return void
      */
-    protected function getImagickInfo()
+    protected function getInfo()
     {
         $imagickVersion = $this->resource->getVersion();
-        $this->versionString = trim(substr($imagickVersion['versionString'], 0, stripos($imagickVersion['versionString'], 'http://')));
-        $this->version = substr($this->versionString, (strpos($this->versionString, ' ') + 1));
-        $this->version = substr($this->version, 0, strpos($this->version, '-'));
+        $versionString = trim(substr($imagickVersion['versionString'], 0, stripos($imagickVersion['versionString'], 'http://')));
+        $version = substr($versionString, (strpos($versionString, ' ') + 1));
+        $version = substr($version, 0, strpos($version, '-'));
+
+        $imInfo = array(
+            'version'       => $version,
+            'versionString' => $versionString
+        );
+
+        $this->info = new \ArrayObject($imInfo, \ArrayObject::ARRAY_AS_PROPS);
     }
 
     /**

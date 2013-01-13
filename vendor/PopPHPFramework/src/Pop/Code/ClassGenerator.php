@@ -310,6 +310,16 @@ class ClassGenerator
     }
 
     /**
+     * Get all properties
+     *
+     * @return array
+     */
+    public function getProperties()
+    {
+        return $this->properties;
+    }
+
+    /**
      * Remove a class property
      *
      * @param  mixed $property
@@ -346,6 +356,16 @@ class ClassGenerator
     {
         $m = ($method instanceof MethodGenerator) ? $method->getName() : $method;
         return (isset($this->methods[$m])) ? $this->methods[$m] : null;
+    }
+
+    /**
+     * Get all methods
+     *
+     * @return array
+     */
+    public function getMethods()
+    {
+        return $this->methods;
     }
 
     /**

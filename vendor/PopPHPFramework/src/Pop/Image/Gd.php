@@ -42,12 +42,6 @@ class Gd extends AbstractImage
 {
 
     /**
-     * GD info
-     * @var \ArrayObject
-     */
-    public $gd = null;
-
-    /**
      * Array of allowed file types.
      * @var array
      */
@@ -84,11 +78,11 @@ class Gd extends AbstractImage
         parent::__construct($img, $w, $h, $color, $types);
 
         // Check to see if GD is installed.
-        if (!self::isGdInstalled()) {
+        if (!self::isInstalled()) {
             throw new Exception('Error: The GD library extension must be installed to use the Gd adapter.');
         }
 
-        $this->getGdInfo();
+        $this->getInfo();
 
         // If image exists, get image info and store in an array.
         if (file_exists($this->fullpath) && ($this->size > 0)) {
@@ -176,15 +170,35 @@ class Gd extends AbstractImage
      *
      * @return boolean
      */
-    public static function isGdInstalled()
+    public static function isInstalled()
     {
         return function_exists('gd_info');
     }
 
     /**
+     * Get the image resource to directly interact with it
+     *
+     * @return resource
+     */
+    public function resource()
+    {
+        return $this->resource;
+    }
+
+    /**
+     * Get the image resource info
+     *
+     * @return \ArrayObject
+     */
+    public function info()
+    {
+        return $this->info;
+    }
+
+    /**
      * Set the image quality based on the type of image.
      *
-     * @param  int|string $q
+     * @param  mixed $q
      * @return \Pop\Image\Gd
      */
     public function setQuality($q = null)
@@ -204,6 +218,19 @@ class Gd extends AbstractImage
     }
 
     /**
+     * Set the image compression quality.
+     * Alias to setQuality()
+     *
+     * @param  mixed $comp
+     * @return \Pop\Image\Imagick
+     */
+    public function setCompression($comp = null)
+    {
+        $this->setQuality($comp);
+        return $this;
+    }
+
+    /**
      * Set the opacity.
      *
      * @param  int|string $opac
@@ -212,6 +239,42 @@ class Gd extends AbstractImage
     public function setOpacity($opac)
     {
         $this->opacity = round((127 - (127 * ($opac / 100))));
+        return $this;
+    }
+
+    /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @param  int|string $filter
+     * @return \Pop\Image\Gd
+     */
+    public function setFilter($filter = null)
+    {
+        return $this;
+    }
+
+    /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @param  int|string $blur
+     * @return \Pop\Image\Imagick
+     */
+    public function setBlur($blur = null)
+    {
+        return $this;
+    }
+
+    /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @param  int|string $ovr
+     * @return \Pop\Image\Imagick
+     */
+    public function setOverlay($ovr = null)
+    {
         return $this;
     }
 
@@ -674,6 +737,30 @@ class Gd extends AbstractImage
     }
 
     /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @param  int $h
+     * @return \Pop\Image\Gd
+     */
+    public function hue($h)
+    {
+        return $this;
+    }
+
+    /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @param  int $s
+     * @return \Pop\Image\Gd
+     */
+    public function saturation($s)
+    {
+        return $this;
+    }
+
+    /**
      * Method to adjust the brightness of the image.
      *
      * @param  int $b
@@ -686,6 +773,34 @@ class Gd extends AbstractImage
         imagefilter($this->resource, IMG_FILTER_BRIGHTNESS, $b);
         $this->output = $this->resource;
 
+        return $this;
+    }
+
+    /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @param  int $h
+     * @param  int $s
+     * @param  int $b
+     * @return \Pop\Image\Gd
+     */
+    public function hsb($h, $s, $b)
+    {
+        return $this;
+    }
+
+    /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @param  int   $black
+     * @param  float $gamma
+     * @param  int   $white
+     * @return \Pop\Image\Gd
+     */
+    public function level($black, $gamma, $white)
+    {
         return $this;
     }
 
@@ -799,6 +914,7 @@ class Gd extends AbstractImage
      * @param  string     $ovr
      * @param  int|string $x
      * @param  int|string $y
+     * @throws Exception
      * @return \Pop\Image\Gd
      */
     public function overlay($ovr, $x = 0, $y = 0)
@@ -814,9 +930,11 @@ class Gd extends AbstractImage
             $overlay = imagecreatefrompng($ovr);
         } else if (stripos($ovr, '.jp') !== false) {
             $overlay = imagecreatefromjpeg($ovr);
+        } else {
+            throw new Exception('Error: The overlay image must be either a JPG, GIF or PNG.');
         }
 
-        // Copy the overlay image ontop of the main image resource.
+        // Copy the overlay image on top of the main image resource.
         imagecopy($this->resource, $overlay, $x, $y, 0, 0, imagesx($overlay), imagesy($overlay));
 
         $this->output = $this->resource;
@@ -852,6 +970,155 @@ class Gd extends AbstractImage
         imagefilter($this->resource, IMG_FILTER_NEGATE);
         $this->output = $this->resource;
 
+        return $this;
+    }
+
+    /**
+     * Method to flip the image over the x-axis.
+     *
+     * @return \Pop\Image\Gd
+     */
+    public function flip()
+    {
+        // Create a new image output resource.
+        $this->createResource();
+        $this->output = imagecreatetruecolor($this->width, $this->height);
+
+        // Calculate the new dimensions
+        $curWidth = $this->width;
+        $curHeight = $this->height;
+        $srcX = 0;
+        $srcY = $this->height - 1; // Compensate for a 1-pixel space on the flipped image
+        $this->height = 0 - $this->height;
+
+        // Copy newly sized image to the output resource.
+        $this->copyImage($curWidth, $curHeight, $srcX , $srcY);
+        $this->height = abs($this->height);
+
+        return $this;
+    }
+
+    /**
+     * Method to flip the image over the y-axis.
+     *
+     * @return \Pop\Image\Gd
+     */
+    public function flop()
+    {
+        // Create a new image output resource.
+        $this->createResource();
+        $this->output = imagecreatetruecolor($this->width, $this->height);
+
+        // Calculate the new dimensions
+        $curWidth = $this->width;
+        $curHeight = $this->height;
+        $srcX = $this->width - 1; // Compensate for a 1-pixel space on the flipped image
+        $srcY = 0;
+        $this->width = 0 - $this->width;
+
+        // Copy newly sized image to the output resource.
+        $this->copyImage($curWidth, $curHeight, $srcX , $srcY);
+        $this->width = abs($this->width);
+
+        return $this;
+    }
+
+    /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @return \Pop\Image\Gd
+     */
+    public function flatten()
+    {
+        return $this;
+    }
+
+    /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @param  int $radius
+     * @return \Pop\Image\Gd
+     */
+    public function paint($radius)
+    {
+        return $this;
+    }
+
+    /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @param  int     $levels
+     * @param  boolean $dither
+     * @return \Pop\Image\Gd
+     */
+    public function posterize($levels, $dither = false)
+    {
+        return $this;
+    }
+
+    /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @param  int $type
+     * @return \Pop\Image\Gd
+     */
+    public function noise($type = 0)
+    {
+        return $this;
+    }
+
+    /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @param  int $radius
+     * @return \Pop\Image\Gd
+     */
+    public function diffuse($radius)
+    {
+        return $this;
+    }
+
+    /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @param  ColorInterface $color
+     * @param  int            $x
+     * @param  int            $y
+     * @return \Pop\Image\Gd
+     */
+    public function skew(ColorInterface $color, $x, $y)
+    {
+        return $this;
+    }
+
+    /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @param  int $degrees
+     * @return \Pop\Image\Gd
+     */
+    public function swirl($degrees)
+    {
+        return $this;
+    }
+
+    /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @param  int $amp
+     * @param  int $length
+     * @return \Pop\Image\Gd
+     */
+    public function wave($amp, $length)
+    {
         return $this;
     }
 
@@ -1126,11 +1393,42 @@ class Gd extends AbstractImage
     }
 
     /**
+     * Dummy method to match the Imagick API.
+     * This method doesn't do anything
+     *
+     * @return \Pop\Image\Gd
+     */
+    public function setFormats()
+    {
+        return $this;
+    }
+
+    /**
+     * Get the array of supported formats of Imagick.
+     *
+     * @return array
+     */
+    public function getFormats()
+    {
+        return array_keys($this->allowed);
+    }
+
+    /**
+     * Get the number of supported formats of Imagick.
+     *
+     * @return int
+     */
+    public function getNumberOfFormats()
+    {
+        return count($this->allowed);
+    }
+
+    /**
      * Get GD Info.
      *
      * @return void
      */
-    protected function getGdInfo()
+    protected function getInfo()
     {
         $gd = gd_info();
         $gdInfo = array(
@@ -1148,7 +1446,7 @@ class Gd extends AbstractImage
             'japaneseFontSupport' => $gd['JIS-mapped Japanese Font Support']
         );
 
-        $this->gd = new \ArrayObject($gdInfo, \ArrayObject::ARRAY_AS_PROPS);
+        $this->info = new \ArrayObject($gdInfo, \ArrayObject::ARRAY_AS_PROPS);
     }
 
     /**

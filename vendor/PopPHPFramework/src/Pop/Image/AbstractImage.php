@@ -65,6 +65,12 @@ abstract class AbstractImage extends File
     const GAUSSIAN_BLUR = 4;
 
     /**
+     * Image extension info
+     * @var \ArrayObject
+     */
+    protected  $info = null;
+
+    /**
      * Image width
      * @var int
      */

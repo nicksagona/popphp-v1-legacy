@@ -2,8 +2,7 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Color\Rgb,
-    Pop\Filter\String,
+use Pop\Filter\String,
     Pop\Image\Gd;
 
 try {
