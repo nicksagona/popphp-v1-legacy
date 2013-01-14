@@ -16,15 +16,15 @@ try {
         )
     );
 
-    $mail = new Mail($rcpts, 'Hello World!');
-    $mail->setHeaders(array(
-        'From'        => array('name' => 'Bob', 'email' => 'bob123@gmail.com'),
-        'Reply-To'    => array('name' => 'Bob', 'email' => 'bob123@gmail.com'),
-        'X-Mailer'    => 'PHP/' . phpversion(),
-        'X-Priority'  => '3',
-    ));
+    $mail = new Mail('Hello World!', $rcpts);
+    $mail->sendAsGroup(true)
+         ->from('bob123@gmail.com', 'Bob')
+         ->setHeaders(array(
+            'X-Mailer'    => 'PHP/' . phpversion(),
+            'X-Priority'  => '3',
+         ));
 
-    $mail->setText("Hello [{name}],\n\nI'm just trying out this new Pop Mail component.\n\nThanks,\nBob\n\n");
+    $mail->setText("Hello,\n\nI'm just trying out this new Pop Mail component.\n\nThanks,\nBob\n\n");
     $mail->send();
 
     echo 'Mail Sent!' . PHP_EOL . PHP_EOL;

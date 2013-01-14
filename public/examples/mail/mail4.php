@@ -16,12 +16,8 @@ try {
         )
     );
 
-    $mail = new Mail($rcpts, 'Hello World!');
-    $mail->setHeaders(array(
-        'From'        => array('name' => 'Bob', 'email' => 'bob123@gmail.com'),
-        'Reply-To'    => array('name' => 'Bob', 'email' => 'bob123@gmail.com')
-    ));
-
+    $mail = new Mail('Hello World!', $rcpts);
+    $mail->from('bob123@gmail.com', 'Bob');
     $mail->setText("Hello [{name}],\n\nI'm just trying out this new Pop Mail component.\n\nThanks,\nBob\n\n");
 
     // Save emails to a file format that can later be sent
@@ -30,6 +26,7 @@ try {
     $mail->saveTo('../tmp');
 
     // Use the Pop\Mail component to send the saved email files.
+    //$mail = new Mail();
     //$mail->sendFrom('../tmp', true);
 
     echo 'Mail Saved!' . PHP_EOL . PHP_EOL;

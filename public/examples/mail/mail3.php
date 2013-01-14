@@ -16,6 +16,17 @@ try {
         )
     );
 
+    $rcpts = array(
+        array(
+            'name'  => 'Nick Sagona',
+            'email' => 'nicks3123@gmail.com'
+        ),
+        array(
+            'name'  => 'Nick Sagona',
+            'email' => 'nick@moc10media.com'
+        )
+    );
+
     $html = <<<HTMLMSG
 <html>
 <head>
@@ -38,13 +49,12 @@ try {
 
 HTMLMSG;
 
-    $mail = new Mail($rcpts, 'Hello World!');
-    $mail->setHeaders(array(
-        'From'        => array('name' => 'Bob', 'email' => 'bob123@gmail.com'),
-        'Reply-To'    => array('name' => 'Bob', 'email' => 'bob123@gmail.com'),
-        'X-Mailer'    => 'PHP/' . phpversion(),
-        'X-Priority'  => '3',
-    ));
+    $mail = new Mail('Hello World!', $rcpts);
+    $mail->from('bob123@gmail.com', 'Bob')
+         ->setHeaders(array(
+            'X-Mailer'    => 'PHP/' . phpversion(),
+            'X-Priority'  => '3',
+         ));
 
     $mail->setText("Hello [{name}],\n\nI'm just trying out this new Pop Mail component.\n\nThanks,\nBob\n\n");
     $mail->setHtml($html);
