@@ -42,16 +42,11 @@ class Graph
 {
 
     /**
-     * Constant to use the Pop\Image\Gd component
+     * Constant to force using the GD component
+     * if the graph is a bitmap image
      * @var int
      */
-    const GD = 1;
-
-    /**
-     * Constant to use the Pop\Image\Imagick component
-     * @var int
-     */
-    const IMAGICK = 2;
+    const FORCE_GD = true;
 
     /**
      * Graph canvas width
@@ -178,30 +173,46 @@ class Graph
      *
      * Instantiate the graph object.
      *
-     * @param  string                    $filename
-     * @param  int                       $w
-     * @param  int                       $h
-     * @param  int                       $type
-     * @param  \Pop\Color\ColorInterface $bgcolor
+     * @param array   $options
+     * @param boolean $forceGd
+     * @throws Exception
      * @return \Pop\Graph\Graph
      */
-    public function __construct($filename, $w, $h, $type = Graph::GD, ColorInterface $bgcolor = null)
+    public function __construct($options, $forceGd = false)
     {
-        $this->width = $w;
-        $this->height = $h;
+        if (!isset($options['filename'])) {
+            throw new Exception('Error: You must pass a filename in the $options parameter.');
+        }
+
+        if (isset($options['width']) && isset($options['height']) && is_numeric($options['width']) && is_numeric($options['height'])) {
+            $this->width = $options['width'];
+            $this->height = $options['height'];
+        } else  {
+            throw new Exception('Error: You must either pass a valid width and height or a valid image in the $options parameter.');
+        }
+
+        if (isset($options['background']) && is_array($options['background']) && (count($options['background']) == 3)) {
+            $background = new Rgb($options['background'][0], $options['background'][1], $options['background'][2]);
+        } else {
+            $background = null;
+        }
+
         $this->fontColor = new Rgb(0, 0, 0);
         $this->axisColor = new Rgb(0, 0, 0);
         $this->showXColor = new Rgb(200, 200, 200);
         $this->showYColor = new Rgb(200, 200, 200);
 
-        if (stripos($filename, '.svg') !== false) {
-            $this->adapter = new \Pop\Image\Svg($filename, $w, $h, $bgcolor);
-        } else if (stripos($filename, '.pdf') !== false) {
-            $this->adapter = new Pdf($filename, null, $w, $h);
-        } else if ($type == self::IMAGICK) {
-            $this->adapter = new \Pop\Image\Imagick($filename, $w, $h, $bgcolor);
+        if (stripos($options['filename'], '.pdf') !== false) {
+            $this->adapter = new Pdf($options['filename'], null, $this->width, $this->height);
         } else {
-            $this->adapter = new \Pop\Image\Gd($filename, $w, $h, $bgcolor);
+            if (stripos($options['filename'], '.svg') !== false) {
+                $class = '\Pop\Image\Svg';
+            } else if (($forceGd) || (!\Pop\Image\Imagick::isInstalled())) {
+                $class = '\Pop\Image\Gd';
+            } else {
+                $class = '\Pop\Image\Imagick';
+            }
+            $this->adapter = new $class($options['filename'], $this->width, $this->height, $background);
         }
     }
 
@@ -412,6 +423,76 @@ class Graph
     }
 
     /**
+     * Get the width
+     *
+     * @return int
+     */
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    /**
+     * Get the height
+     *
+     * @return int
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    /**
+     * Get the show X flag
+     *
+     * @return boolean
+     */
+    public function getShowX()
+    {
+        return $this->showX;
+    }
+
+    /**
+     * Get the show Y flag
+     *
+     * @return boolean
+     */
+    public function getShowY()
+    {
+        return $this->showY;
+    }
+
+    /**
+     * Get the show X color
+     *
+     * @return \Pop\Color\ColorInterface
+     */
+    public function getXColor()
+    {
+        return $this->showXColor;
+    }
+
+    /**
+     * Get the show Y color
+     *
+     * @return \Pop\Color\ColorInterface
+     */
+    public function getYColor()
+    {
+        return $this->showYColor;
+    }
+
+    /**
+     * Get the 'show data text' flag
+     *
+     * @return boolean
+     */
+    public function getShowText()
+    {
+        return $this->showText;
+    }
+
+    /**
      * Get the axis color
      *
      * @return \Pop\Color\ColorInterface
@@ -429,6 +510,31 @@ class Graph
     public function getAxisWidth()
     {
         return $this->axisWidth;
+    }
+
+    /**
+     * Get the font
+     *
+     * @return string
+     */
+    public function getFont()
+    {
+        return $this->font;
+    }
+
+    /**
+     * Get the fonts
+     *
+     * @param  string $font
+     * @return string
+     */
+    public function getFonts($font = null)
+    {
+        if (null != $font) {
+            return (isset($this->fonts[$font])) ? $this->fonts[$font] : null;
+        } else {
+            return $this->fonts;
+        }
     }
 
     /**
@@ -512,366 +618,65 @@ class Graph
     }
 
     /**
-     * Add a line graph
+     * Create a line graph
      *
      * @param  array $dataPoints
      * @param  array $xAxis
      * @param  array $yAxis
      * @return \Pop\Graph\Graph
      */
-    public function addLineGraph(array $dataPoints, array $xAxis, array $yAxis)
+    public function createLineGraph(array $dataPoints, array $xAxis, array $yAxis)
     {
-        // Calculate the points.
-        $points = $this->getPoints($xAxis, $yAxis);
-
-        if ($this->showX) {
-            $this->showXAxis($yAxis, $points);
-        }
-        if ($this->showY) {
-            $this->showYAxis($xAxis, $points);
-        }
-
-        $skip = 1;
-
-        // If the first data point does not equal the graph origin point.
-        if (((float)$dataPoints[0][0] != (float)$xAxis[0]) && ((float)$dataPoints[0][1] != (float)$yAxis[0])) {
-            $newData = array_merge(array(array((float)$xAxis[0], (float)$yAxis[0])), array(array((float)$dataPoints[0][0], (float)$yAxis[0])), $dataPoints);
-            $dataPoints = $newData;
-            $skip = 2;
-        // Else, if the first data point X equals the graph origin point X.
-        } else if (((float)$dataPoints[0][0] != (float)$xAxis[0])) {
-            $newData = array_merge(array(array((float)$xAxis[0], (float)$yAxis[0])), array(array((float)$dataPoints[0][0], (float)$yAxis[0])), $dataPoints);
-            $dataPoints = $newData;
-            $skip = 3;
-        // Else, if the first data point Y equals the graph origin point Y.
-        } else if (((float)$dataPoints[0][1] != (float)$yAxis[0])) {
-            $newData = array_merge(array(array((float)$xAxis[0], (float)$yAxis[0])), array(array((float)$xAxis[0], (float)$dataPoints[0][1])), $dataPoints);
-            $dataPoints = $newData;
-            $skip = 3;
-        }
-
-        // Draw graph data.
-        if (null !== $this->fillColor) {
-            $this->adapter->setFillColor($this->fillColor);
-            $this->adapter->setStrokeColor((null !== $this->strokeColor) ? $this->strokeColor : $this->fillColor);
-            $this->adapter->setStrokeWidth($this->strokeWidth);
-            $formattedPoints = array();
-            for ($i = 0; $i < count($dataPoints); $i++) {
-                $x = ((($dataPoints[$i][0] - $dataPoints[0][0]) / $points->xRange) * $points->xLength) + $points->zeroPoint['x'];
-                $y = $points->yOffset - ((($dataPoints[$i][1] - $dataPoints[0][1]) / $points->yRange) * $points->yLength);
-                $formattedPoints[] = array('x' => $x, 'y' => $y);
-                $lastX = $x;
-            }
-            $formattedPoints[] = array('x' => $lastX, 'y' => $points->zeroPoint['y']);
-            $this->adapter->addPolygon($formattedPoints);
-        } else {
-            $this->adapter->setStrokeWidth($this->strokeWidth);
-            $this->adapter->setStrokeColor((null !== $this->strokeColor) ? $this->strokeColor : new Rgb(0, 0, 0));
-
-            for ($i = 1; $i < count($dataPoints); $i++) {
-                $x1 = ((($dataPoints[$i - 1][0] - $dataPoints[0][0]) / $points->xRange) * $points->xLength) + $points->zeroPoint['x'];
-                $y1 = $points->yOffset - ((($dataPoints[$i - 1][1] - $dataPoints[0][1]) / $points->yRange) * $points->yLength);
-                $x2 = ((($dataPoints[$i][0] - $dataPoints[0][0]) / $points->xRange) * $points->xLength) + $points->zeroPoint['x'];
-                $y2 = $points->yOffset - ((($dataPoints[$i][1] - $dataPoints[0][1]) / $points->yRange) * $points->yLength);
-                $this->adapter->addLine($x1, $y1, $x2, $y2);
-            }
-
-        }
-
-        // Draw data point text.
-        if ($this->showText) {
-            $this->drawDataText($dataPoints, $xAxis, $yAxis, 'line', $points, $skip);
-        }
-
-        // Draw graph axes.
-        $this->drawXAxis($xAxis, $points);
-        $this->drawYAxis($yAxis, $points);
+        $line = new Graph\Line($this);
+        $line->create($dataPoints, $xAxis, $yAxis);
 
         return $this;
     }
 
     /**
-     * Add a vertical bar graph
+     * Create a vertical bar graph
      *
      * @param  array $dataPoints
      * @param  array $xAxis
      * @param  array $yAxis
      * @return \Pop\Graph\Graph
      */
-    public function addVBarGraph(array $dataPoints, array $xAxis, array $yAxis)
+    public function createVBarGraph(array $dataPoints, array $xAxis, array $yAxis)
     {
-        // Calculate the points.
-        $points = $this->getPoints($xAxis, $yAxis);
-
-        if ($this->showX) {
-            $this->showXAxis($yAxis, $points, $this->barWidth);
-        }
-        if ($this->showY) {
-            $this->showYAxis($xAxis, $points);
-        }
-
-        // Draw graph data.
-        $realXDiv = ($points->xLength - ($this->barWidth * 2)) / (count($xAxis) - 1);
-
-        if ((null !== $this->fillColor) || is_array($dataPoints[0])) {
-            $this->adapter->setStrokeWidth($this->strokeWidth);
-            for ($i = 0; $i < count($dataPoints); $i++) {
-                if (is_array($dataPoints[$i])) {
-                    $pt = $dataPoints[$i][0];
-                    $this->adapter->setStrokeColor((null !== $this->strokeColor) ? $this->strokeColor : $dataPoints[$i][1]);
-                    $this->adapter->setFillColor($dataPoints[$i][1]);
-                } else {
-                    $pt = $dataPoints[$i];
-                    $this->adapter->setStrokeColor((null !== $this->strokeColor) ? $this->strokeColor : $this->fillColor);
-                    $this->adapter->setFillColor($this->fillColor);
-                }
-                $x = ($realXDiv * ($i + 1)) - ($this->barWidth / 1.75);
-                $y = $points->yOffset - ((($pt) / $points->yRange) * $points->yLength);
-                $w = $this->barWidth;
-                $h = $points->zeroPoint['y'] - $y;
-                $this->adapter->addRectangle($x, $y, $w, $h);
-            }
-        } else {
-            $this->adapter->setStrokeWidth($this->strokeWidth);
-            $this->adapter->setStrokeColor((null !== $this->strokeColor) ? $this->strokeColor : new Rgb(0, 0, 0));
-            for ($i = 0; $i < count($dataPoints); $i++) {
-                $x = ($realXDiv * ($i + 1)) - ($this->barWidth / 1.75);
-                $y = $points->yOffset - ((($dataPoints[$i]) / $points->yRange) * $points->yLength);
-                $w = $this->barWidth;
-                $h = $points->zeroPoint['y'] - $y;
-                $this->adapter->addLine($x, $y, $x, ($y + $h));
-                $this->adapter->addLine($x, $y, ($x + $w), $y);
-                $this->adapter->addLine(($x + $w), $y, ($x + $w), ($y + $h));
-            }
-        }
-
-        // Draw data point text.
-        if ($this->showText) {
-            if (is_array($dataPoints[0])) {
-                $dPts = array();
-                foreach ($dataPoints as $value) {
-                    $dPts[] = $value[0];
-                }
-            } else {
-                $dPts = $dataPoints;
-            }
-            $this->drawDataText($dPts, $xAxis, $yAxis, 'vBar', $points);
-        }
-
-        // Draw graph axes.
-        $this->drawXAxis($xAxis, $points, $this->barWidth);
-        $this->drawYAxis($yAxis, $points);
+        $vbar = new Graph\VBar($this);
+        $vbar->create($dataPoints, $xAxis, $yAxis);
 
         return $this;
     }
 
     /**
-     * Add a horizontal bar graph
+     * Create a horizontal bar graph
      *
      * @param  array $dataPoints
      * @param  array $xAxis
      * @param  array $yAxis
      * @return \Pop\Graph\Graph
      */
-    public function addHBarGraph(array $dataPoints, array $xAxis, array $yAxis)
+    public function createHBarGraph(array $dataPoints, array $xAxis, array $yAxis)
     {
-        // Calculate the points.
-        $points = $this->getPoints($xAxis, $yAxis);
-
-        if ($this->showX) {
-            $this->showXAxis($yAxis, $points);
-        }
-        if ($this->showY) {
-            $this->showYAxis($xAxis, $points, $this->barWidth);
-        }
-
-        // Draw graph data.
-        if ($this->adapter instanceof Pdf) {
-            $realYDiv = ($points->yLength + ($this->barWidth * 2)) / (count($yAxis) - 1);
-        } else {
-            $realYDiv = ($points->yLength - ($this->barWidth * 2)) / (count($yAxis) - 1);
-        }
-
-        if ((null !== $this->fillColor) || is_array($dataPoints[0])) {
-            $this->adapter->setFillColor($this->fillColor);
-            $this->adapter->setStrokeColor((null !== $this->strokeColor) ? $this->strokeColor : $this->fillColor);
-            $this->adapter->setStrokeWidth($this->strokeWidth);
-            $len = count($dataPoints);
-            for ($i = 0; $i < $len; $i++) {
-                if (is_array($dataPoints[$i])) {
-                    $pt = $dataPoints[$i][0];
-                    $this->adapter->setStrokeColor((null !== $this->strokeColor) ? $this->strokeColor : $dataPoints[$i][1]);
-                    $this->adapter->setFillColor($dataPoints[$i][1]);
-                } else {
-                    $pt = $dataPoints[$i];
-                    $this->adapter->setStrokeColor((null !== $this->strokeColor) ? $this->strokeColor : $this->fillColor);
-                    $this->adapter->setFillColor($this->fillColor);
-                }
-                if ($this->adapter instanceof Pdf) {
-                    $y = ($points->zeroPoint['y'] - ($realYDiv * $i)) + ($this->barWidth / 5);
-                } else {
-                    $y = ($points->yLength - ($realYDiv * ($i + 1))) + ($this->barWidth * 1.1);
-                }
-                $x = $points->zeroPoint['x'];
-                $h = $this->barWidth;
-                $w = (($pt / $points->xRange) * $points->xLength);
-                $this->adapter->addRectangle($x, $y, $w, $h);
-            }
-        } else {
-            $this->adapter->setStrokeWidth($this->strokeWidth);
-            $this->adapter->setStrokeColor((null !== $this->strokeColor) ? $this->strokeColor : new Rgb(0, 0, 0));
-            for ($i = 0; $i < count($dataPoints); $i++) {
-                if ($this->adapter instanceof Pdf) {
-                    $y = ($points->zeroPoint['y'] - ($realYDiv * $i)) + ($this->barWidth / 5);
-                } else {
-                    $y = ($points->yLength - ($realYDiv * ($i + 1))) + ($this->barWidth * 1.1);
-                }
-                $x = $points->zeroPoint['x'];
-                $h = $this->barWidth;
-                $w = (($dataPoints[$i] / $points->xRange) * $points->xLength);
-                $this->adapter->addLine($x, $y, ($x + $w), $y);
-                $this->adapter->addLine(($x + $w), $y, ($x + $w), ($y + $h));
-                $this->adapter->addLine(($x + $w), ($y + $h), $x, ($y + $h));
-            }
-        }
-
-        // Draw data point text.
-        if ($this->showText) {
-            if (is_array($dataPoints[0])) {
-                $dPts = array();
-                foreach ($dataPoints as $value) {
-                    $dPts[] = $value[0];
-                }
-            } else {
-                $dPts = $dataPoints;
-            }
-            $this->drawDataText($dPts, $xAxis, $yAxis, 'hBar', $points);
-        }
-
-        // Draw graph axes.
-        $this->drawXAxis($xAxis, $points);
-        $this->drawYAxis($yAxis, $points, $this->barWidth);
+        $hbar = new Graph\HBar($this);
+        $hbar->create($dataPoints, $xAxis, $yAxis);
 
         return $this;
     }
 
     /**
-     * Add a pie chart
+     * Create a horizontal bar graph
      *
      * @param  array $pie
      * @param  array $percents
      * @param  int   $explode
-     * @throws Exception
      * @return \Pop\Graph\Graph
      */
-    public function addPieChart(array $pie, array $percents, $explode = 0)
+    public function createPieChart(array $pie, array $percents, $explode = 0)
     {
-        $total = 0;
-        $textMidPts = array();
-        $textQuads = array();
-        $textValues = array();
-
-        foreach ($percents as $value) {
-            $total += (int)$value[0];
-        }
-
-        if ($total > 100) {
-            throw new Exception('The percentages are greater than 100.');
-        }
-
-        $start = 0;
-        $end = 0;
-        foreach ($percents as $value) {
-            $amt = round(($value[0] / 100) * 360);
-            if ($start == 0) {
-                $end = $amt;
-            } else {
-                $end = $start + $amt;
-            }
-            $this->adapter->setFillColor($value[1]);
-
-            if ($explode != 0) {
-                $center = array('x' => $pie['x'], 'y' => $pie['y']);
-                $mid = (($end - $start) / 2) + $start;
-                $midX = round($pie['x'] + ($pie['w'] * (cos($mid / 180 * pi()))));
-                $midY = round($pie['y'] + ($pie['h'] * (sin($mid / 180 * pi()))));
-                $midPt = array('x' => $midX, 'y' => $midY);
-
-                $quad = $this->getQuadrant($midPt, $center);
-                $triangle = $this->getTriangle($midPt, $center, $quad);
-
-                $newHypot = $triangle['hypot'] - $explode;
-                $newSide1 = round(sin(deg2rad($triangle['angle2'])) * $newHypot);
-                $newSide2 = round(sin(deg2rad($triangle['angle1'])) * $newHypot);
-
-                if ($this->adapter instanceof Pdf) {
-                    switch ($quad) {
-                        case 1:
-                            $x = $midX - $newSide1;
-                            $y = $midY + $newSide2;
-                            break;
-
-                        case 2:
-                            $x = $newSide1 + $midX;
-                            $y = $midY + $newSide2;
-                            break;
-
-                        case 3:
-                            $x = $newSide1 + $midX;
-                            $y = $midY - $newSide2;
-                            break;
-
-                        case 4:
-                            $x = $midX - $newSide1;
-                            $y = $midY - $newSide2;
-                            break;
-                    }
-                    $y = $pie['y'] + ($pie['y'] - $y);
-                } else {
-                    switch ($quad) {
-                        case 1:
-                            $x = $midX - $newSide1;
-                            $y = $midY - $newSide2;
-                            break;
-
-                        case 2:
-                            $x = $newSide1 + $midX;
-                            $y = $midY - $newSide2;
-                            break;
-
-                        case 3:
-                            $x = $newSide1 + $midX;
-                            $y = $midY + $newSide2;
-                            break;
-
-                        case 4:
-                            $x = $midX - $newSide1;
-                            $y = $midY + $newSide2;
-                            break;
-                    }
-                }
-            } else {
-                $x = $pie['x'];
-                $y = $pie['y'];
-            }
-
-            $newMidX = round($x + ($pie['w'] * (cos($mid / 180 * pi()))));
-            $newMidY = round($y + ($pie['h'] * (sin($mid / 180 * pi()))));
-            $newMidPts = array('x' => $newMidX, 'y' => $newMidY);
-            $quad = $this->getQuadrant($newMidPts, array('x' => $x, 'y' => $y));
-
-            $textMidPts[] = $newMidPts;
-            $textQuads[] = $quad;
-            $textValues[] = $value;
-
-            $this->adapter->addArc($x, $y, $start, $end, $pie['w'], $pie['h']);
-            $start = $end;
-        }
-
-        // Draw data point text.
-        if ($this->showText) {
-            $this->drawDataText($textValues, $textMidPts, $textQuads, 'pie');
-        }
+        $piechart = new Graph\Pie($this);
+        $piechart->create($pie, $percents, $explode);
 
         return $this;
     }
@@ -879,474 +684,25 @@ class Graph
     /**
      * Output the graph
      *
+     * @param  boolean $download
      * @return void
      */
-    public function output()
+    public function output($download = false)
     {
-        $this->adapter->output();
+        $this->adapter->output($download);
     }
 
     /**
-     * Get points
+     * Save the graph image to disk
      *
-     * @param  array $xAxis
-     * @param  array $yAxis
-     * @return \ArrayObject
+     * @param  string $to
+     * @param  boolean $append
+     * @return \Pop\Graph\Graph
      */
-    protected function getPoints($xAxis, $yAxis)
+    public function save($to = null, $append = false)
     {
-        if ($this->adapter instanceof Pdf) {
-            $zeroPoint = array('x' => $this->padding, 'y' => $this->padding);
-            $endX = array('x' => ($this->width - $this->padding), 'y' => $zeroPoint['y']);
-            $endY = array('x' => $zeroPoint['x'], 'y' => ($this->height - $this->padding));
-            $xOffset = $this->padding;
-            $yOffset = $this->padding;
-        } else {
-            $zeroPoint = array('x' => $this->padding, 'y' => ($this->height- $this->padding));
-            $endX = array('x' => ($this->width- $this->padding), 'y' => $zeroPoint['y']);
-            $endY = array('x' => $zeroPoint['x'], 'y' => $this->padding);
-            $xOffset = $this->padding;
-            $yOffset = $this->height- $this->padding;
-        }
-
-        $xLength = $endX['x'] - $zeroPoint['x'];
-        $yLength = $zeroPoint['y'] - $endY['y'];
-        $xRange = (float)$xAxis[count($xAxis) - 1] - (float)$xAxis[0];
-        $yRange = (float)$yAxis[count($yAxis) - 1] - (float)$yAxis[0];
-
-        $xDiv = $xLength / (count($xAxis) - 1);
-        $yDiv = $yLength / (count($yAxis) - 1);
-
-        $points = new \ArrayObject(array(
-            'zeroPoint' => $zeroPoint,
-            'endX'      => $endX,
-            'endY'      => $endY,
-            'xOffset'   => $xOffset,
-            'yOffset'   => $yOffset,
-            'xLength'   => $xLength,
-            'yLength'   => $yLength,
-            'xRange'    => $xRange,
-            'yRange'    => $yRange,
-            'xDiv'      => $xDiv,
-            'yDiv'      => $yDiv
-        ), \ArrayObject::ARRAY_AS_PROPS);
-
-        return $points;
-    }
-
-    /**
-     * Draw the X Axis increments
-     *
-     * @param  array        $xAxis
-     * @param  \ArrayObject $points
-     * @param  int          $offset
-     * @return void
-     */
-    protected function showXAxis($xAxis, $points, $offset = 0)
-    {
-        $this->adapter->setStrokeWidth(1);
-        $this->adapter->setStrokeColor($this->showYColor);
-        $this->adapter->addLine($points->zeroPoint['x'], $points->zeroPoint['y'], $points->endX['x'], $points->endX['y']);
-        $this->adapter->setFillColor($this->fontColor);
-
-        $i = 0;
-
-        if ($offset != 0) {
-            $realXDiv = ($points->xLength - ($offset * 2)) / (count($xAxis) - 1);
-            $realZeroX = $points->zeroPoint['x'] + ($realXDiv / 2);
-        } else {
-            $realXDiv = $points->xDiv;
-            $realZeroX = $points->zeroPoint['x'];
-        }
-
-        foreach ($xAxis as $x) {
-            if ($this->adapter instanceof Pdf) {
-                $this->adapter->addLine($realZeroX + ($realXDiv * $i), $points->zeroPoint['y'], $realZeroX + ($realXDiv * $i), ($this->height - $this->padding));
-            } else {
-                $this->adapter->addLine($realZeroX + ($realXDiv * $i), $points->zeroPoint['y'] - $points->yLength, $realZeroX + ($realXDiv * $i), $points->zeroPoint['y']);
-            }
-            $i++;
-        }
-    }
-
-    /**
-     * Draw the Y Axis increments
-     *
-     * @param  array        $yAxis
-     * @param  \ArrayObject $points
-     * @param  int          $offset
-     * @return void
-     */
-    protected function showYAxis($yAxis, $points, $offset = 0)
-    {
-        $this->adapter->setStrokeWidth(1);
-        $this->adapter->setStrokeColor($this->showXColor);
-        $this->adapter->setFillColor($this->fontColor);
-
-        $i = 0;
-
-        if ($offset != 0) {
-            if ($this->adapter instanceof Pdf) {
-                $realYDiv = ($points->yLength + ($offset * 2)) / (count($yAxis) - 1);
-                $realZeroY = $points->zeroPoint['y'] - ($realYDiv / 2);
-            } else {
-                $realYDiv = ($points->yLength - ($offset * 2)) / (count($yAxis) - 1);
-                $realZeroY = $points->zeroPoint['y'] - ($realYDiv / 2);
-            }
-        } else {
-            $realYDiv = $points->yDiv;
-            $realZeroY = $points->zeroPoint['y'];
-        }
-
-        foreach ($yAxis as $y) {
-            $this->adapter->addLine($points->zeroPoint['x'], $realZeroY - ($realYDiv * $i), ($this->width - $this->padding), $realZeroY - ($realYDiv * $i));
-            $i++;
-        }
-    }
-
-    /**
-     * Draw the X Axis
-     *
-     * @param  array        $xAxis
-     * @param  \ArrayObject $points
-     * @param  int          $offset
-     * @return void
-     */
-    protected function drawXAxis($xAxis, $points, $offset = 0)
-    {
-        $this->adapter->setStrokeWidth($this->axisWidth);
-        $this->adapter->setStrokeColor($this->axisColor);
-        $this->adapter->addLine($points->zeroPoint['x'], $points->zeroPoint['y'], $points->endX['x'], $points->endX['y']);
-        $this->adapter->setFillColor($this->fontColor);
-
-        $i = 0;
-
-        if ($offset != 0) {
-            $realXDiv = ($points->xLength - ($offset * 2)) / (count($xAxis) - 1);
-            $realZeroX = $points->zeroPoint['x'] + ($realXDiv / 2);
-        } else {
-            $realXDiv = $points->xDiv;
-            $realZeroX = $points->zeroPoint['x'];
-        }
-
-        foreach ($xAxis as $x) {
-            $xFontOffset = ($this->fontSize * strlen($x)) / 3;
-            $yFontOffset = $this->fontSize + 10;
-            if ($this->adapter instanceof Pdf) {
-                $this->adapter->addLine($realZeroX + ($realXDiv * $i), $points->zeroPoint['y'], $realZeroX + ($realXDiv * $i), $points->zeroPoint['y'] - 5);
-            } else {
-                $this->adapter->addLine($realZeroX + ($realXDiv * $i), $points->zeroPoint['y'], $realZeroX + ($realXDiv * $i), $points->zeroPoint['y'] + 5);
-            }
-
-            if (null !== $this->font) {
-                if ($this->adapter instanceof Pdf) {
-                    $this->adapter->addText($realZeroX + ($realXDiv * $i) - $xFontOffset, $points->zeroPoint['y'] - $yFontOffset, $this->fontSize, $x, $this->fonts[$this->font]);
-                } else {
-                    $this->adapter->text($x, $this->fontSize, $realZeroX + ($realXDiv * $i) - $xFontOffset, $points->zeroPoint['y'] + $yFontOffset, $this->fonts[$this->font]);
-                }
-            } else {
-                if ($this->adapter instanceof Pdf) {
-                    $this->adapter->addFont('Arial');
-                    $this->adapter->addText($realZeroX + ($realXDiv * $i) - $xFontOffset, $points->zeroPoint['y'] - $yFontOffset, $this->fontSize, $x, 'Arial');
-                } else {
-                    $this->adapter->text($x, $this->fontSize, $realZeroX + ($realXDiv * $i) - $xFontOffset, $points->zeroPoint['y'] + $yFontOffset);
-                }
-            }
-            $i++;
-        }
-    }
-
-    /**
-     * Draw the Y Axis
-     *
-     * @param  array        $yAxis
-     * @param  \ArrayObject $points
-     * @param  int          $offset
-     * @return void
-     */
-    protected function drawYAxis($yAxis, $points, $offset = 0)
-    {
-        $this->adapter->setStrokeWidth($this->axisWidth);
-        $this->adapter->setStrokeColor($this->axisColor);
-        $this->adapter->addLine($points->zeroPoint['x'], $points->zeroPoint['y'], $points->endY['x'], $points->endY['y']);
-        $this->adapter->setFillColor($this->fontColor);
-
-        $i = 0;
-
-        if ($offset != 0) {
-            if ($this->adapter instanceof Pdf) {
-                $realYDiv = ($points->yLength + ($offset * 2)) / (count($yAxis) - 1);
-                $realZeroY = $points->zeroPoint['y'] - ($realYDiv / 2);
-            } else {
-                $realYDiv = ($points->yLength - ($offset * 2)) / (count($yAxis) - 1);
-                $realZeroY = $points->zeroPoint['y'] - ($realYDiv / 2);
-            }
-        } else {
-            $realYDiv = $points->yDiv;
-            $realZeroY = $points->zeroPoint['y'];
-        }
-
-        foreach ($yAxis as $y) {
-            $xFontOffset = (($this->fontSize * strlen($y)) / 1.5) + 15;
-            $yFontOffset = $this->fontSize / 2;
-            $this->adapter->addLine($points->zeroPoint['x'], $realZeroY - ($realYDiv * $i), $points->zeroPoint['x'] - 5, $realZeroY - ($realYDiv * $i));
-            if (null !== $this->font) {
-                if ($this->adapter instanceof Pdf) {
-                    $this->adapter->addText($points->zeroPoint['x'] - $xFontOffset, $realZeroY - ($realYDiv * $i) - $yFontOffset, $this->fontSize, $y, $this->fonts[$this->font]);
-                } else {
-                    $this->adapter->text($y, $this->fontSize, $points->zeroPoint['x'] - $xFontOffset, $realZeroY - ($realYDiv * $i) + $yFontOffset, $this->fonts[$this->font]);
-                }
-            } else {
-                if ($this->adapter instanceof Pdf) {
-                    $this->adapter->addFont('Arial');
-                    $this->adapter->addText($points->zeroPoint['x'] - $xFontOffset, $realZeroY - ($realYDiv * $i) - $yFontOffset, $this->fontSize, $y, 'Arial');
-                } else {
-                    $this->adapter->text($y, $this->fontSize, $points->zeroPoint['x'] - $xFontOffset, $realZeroY - ($realYDiv * $i) + $yFontOffset);
-                }
-            }
-            $i++;
-        }
-    }
-
-    /**
-     * Draw the data point text on the graph
-     *
-     * @param  array  $dataPoints
-     * @param  array  $xAxis
-     * @param  array  $yAxis
-     * @param  string $type
-     * @param  array  $points
-     * @param  int    $skip
-     * @return void
-     */
-    protected function drawDataText($dataPoints, $xAxis, $yAxis, $type, $points = null, $skip = 1)
-    {
-        switch ($type) {
-            // Draw data point text on a line graph.
-            case 'line':
-                $this->adapter->setFillColor($this->fontColor);
-                $prevY = null;
-                $nextY = null;
-                $start = $skip;
-
-                for ($i = $start; $i < count($dataPoints); $i++) {
-                    $strSize = (strlen($dataPoints[$i][0]) * $this->fontSize) / 8;
-                    $x = ((($dataPoints[$i][0] - $dataPoints[0][0]) / $points->xRange) * $points->xLength) + $points->zeroPoint['x'] - $strSize;
-                    $y = $points->yOffset - ((($dataPoints[$i][1] - $dataPoints[0][1]) / $points->yRange) * $points->yLength);
-                    if ($i < (count($dataPoints) - 1)) {
-                        if (null !== $prevY) {
-                            $nextY = $points->yOffset - ((($dataPoints[$i + 1][1] - $dataPoints[0][1]) / $points->yRange) * $points->yLength);
-                        }
-                        if ($this->adapter instanceof Pdf) {
-                            if ((null !== $prevY) && ($y < $nextY) && ($y < $prevY)) {
-                                $y -= $this->fontSize * 2;
-                                if (null !== $this->fillColor) {
-                                    $revColor = (null !== $this->reverseFontColor) ? $this->reverseFontColor : new Rgb(255, 255, 255);
-                                    $this->adapter->setFillColor($revColor);
-                                }
-                            } else if (((null !== $prevY) && ($y < $nextY) && ($y > $prevY)) || ((null === $prevY) && ($y > $nextY))) {
-                                $x -= $strSize * 2;
-                            } else if (((null !== $prevY) && ($y > $nextY) && ($y < $prevY)) || ((null === $prevY) && ($y < $nextY))) {
-                                $x += $strSize * 2;
-                            }
-                        } else {
-                            if ((null !== $prevY) && ($y > $nextY) && ($y > $prevY)) {
-                                $y += $this->fontSize * 2;
-                                if (null !== $this->fillColor) {
-                                    $revColor = (null !== $this->reverseFontColor) ? $this->reverseFontColor : new Rgb(255, 255, 255);
-                                    $this->adapter->setFillColor($revColor);
-                                }
-                            } else if (((null !== $prevY) && ($y > $nextY) && ($y < $prevY)) || ((null === $prevY) && ($y > $nextY))) {
-                                $x -= $strSize * 2;
-                            } else if (((null !== $prevY) && ($y < $nextY) && ($y > $prevY)) || ((null === $prevY) && ($y < $nextY))) {
-                                $x += $strSize * 2;
-                            }
-                        }
-                    }
-
-                    if (null !== $this->font) {
-                        if ($this->adapter instanceof Pdf) {
-                            $this->adapter->addText($x, ($y + ($this->fontSize / 2)), $this->fontSize, $dataPoints[$i][1], $this->fonts[$this->font]);
-                        } else {
-                            $this->adapter->text($dataPoints[$i][1], $this->fontSize, $x, ($y - ($this->fontSize / 2)), $this->fonts[$this->font]);
-                        }
-                    } else {
-                        if ($this->adapter instanceof Pdf) {
-                            $this->adapter->addFont('Arial');
-                            $this->adapter->addText($x, ($y + ($this->fontSize / 2)), $this->fontSize, $dataPoints[$i][1], 'Arial');
-                        } else {
-                            $this->adapter->text($dataPoints[$i][1], $this->fontSize, $x, ($y - ($this->fontSize / 2)));
-                        }
-                    }
-                    $prevY = $y;
-                    $this->adapter->setFillColor($this->fontColor);
-                }
-                break;
-
-            // Draw data point text on a vertical bar graph.
-            case 'vBar':
-                $this->adapter->setFillColor($this->fontColor);
-                $realXDiv = ($points->xLength - ($this->barWidth * 2)) / (count($xAxis) - 1);
-                for ($i = 0; $i < count($dataPoints); $i++) {
-                    $strSize = (strlen($dataPoints[$i]) * $this->fontSize) / 4;
-                    $x = ($realXDiv * ($i + 1)) - ($this->barWidth / 1.75) + ($this->barWidth / 2) - $strSize;
-                    $y = $points->yOffset - ((($dataPoints[$i]) / $points->yRange) * $points->yLength);
-                    if (null !== $this->font) {
-                        if ($this->adapter instanceof Pdf) {
-                            $this->adapter->addText($x, ($y + ($this->fontSize / 2)), $this->fontSize, $dataPoints[$i], $this->fonts[$this->font], $this->fontSize);
-                        } else {
-                            $this->adapter->text($dataPoints[$i], $this->fontSize, $x, ($y - ($this->fontSize / 2)), $this->fonts[$this->font]);
-                        }
-                    } else {
-                        if ($this->adapter instanceof Pdf) {
-                            $this->adapter->addFont('Arial');
-                            $this->adapter->addText($x, ($y + ($this->fontSize / 2)), $this->fontSize, $dataPoints[$i], 'Arial');
-                        } else {
-                            $this->adapter->text($dataPoints[$i], $this->fontSize, $x, ($y - ($this->fontSize / 2)));
-                        }
-                    }
-                }
-                break;
-
-            // Draw data point text on a horizontal bar graph.
-            case 'hBar':
-                $this->adapter->setFillColor($this->fontColor);
-                if ($this->adapter instanceof Pdf) {
-                    $realYDiv = ($points->yLength + ($this->barWidth * 2)) / (count($yAxis) - 1);
-                } else {
-                    $realYDiv = ($points->yLength - ($this->barWidth * 2)) / (count($yAxis) - 1);
-                }
-
-                $len = count($dataPoints);
-                for ($i = 0; $i < $len; $i++) {
-                    if ($this->adapter instanceof Pdf) {
-                        $y = ($points->zeroPoint['y'] - ($realYDiv * $i)) + ($this->barWidth / 5) + ($this->barWidth / 2) - ($this->fontSize / 2);
-                    } else {
-                        $y = ($points->yLength - ($realYDiv * ($i + 1))) + ($this->barWidth * 1.1) + ($this->barWidth / 2) + ($this->fontSize / 2);
-                    }
-                    $x = (($dataPoints[$i] / $points->xRange) * $points->xLength) + $points->zeroPoint['x'] +  ($this->fontSize / 2);
-                    if (null !== $this->font) {
-                        if ($this->adapter instanceof Pdf) {
-                            $this->adapter->addText($x, ($y + ($this->fontSize / 2)), $this->fontSize, $dataPoints[$i], $this->fonts[$this->font]);
-                        } else {
-                            $this->adapter->text($dataPoints[$i], $this->fontSize, $x, ($y - ($this->fontSize / 2)), $this->fonts[$this->font]);
-                        }
-                    } else {
-                        if ($this->adapter instanceof Pdf) {
-                            $this->adapter->addFont('Arial');
-                            $this->adapter->addText($x, ($y + ($this->fontSize / 2)), $this->fontSize, $dataPoints[$i], 'Arial');
-                        } else {
-                            $this->adapter->text($dataPoints[$i], $this->fontSize, $x, ($y - ($this->fontSize / 2)));
-                        }
-                    }
-                }
-                break;
-
-            // Draw data point text on a pie chart.
-            case 'pie':
-
-                for ($i = 0; $i < count($dataPoints); $i++) {
-                    $newMidX = $xAxis[$i]['x'];
-                    $newMidY = $xAxis[$i]['y'];
-                    $this->adapter->setFillColor($this->fontColor);
-                    if ($this->adapter instanceof Pdf) {
-                        // Text not supported on PDF pie charts yet due to clipping path issues.
-                    } else {
-                        switch ($yAxis[$i]) {
-                            case 1:
-                                $textX = $newMidX + ($this->fontSize * 1.5);
-                                $textY = $newMidY + ($this->fontSize * 1.5);
-                                break;
-                            case 2:
-                                $textX = $newMidX - ($this->fontSize * 1.5);
-                                $textY = $newMidY + ($this->fontSize * 1.5);
-                                break;
-                            case 3:
-                                $textX = $newMidX - ($this->fontSize * 1.5);
-                                $textY = $newMidY - ($this->fontSize * 1.5);
-                                break;
-                            case 4:
-                                $textX = $newMidX + ($this->fontSize * 1.5);
-                                $textY = $newMidY - ($this->fontSize * 1.5);
-                                break;
-                        }
-                        $this->adapter->text($dataPoints[$i][0] . '%', $this->fontSize, $textX, $textY, $this->fonts[$this->font]);
-                    }
-                    $this->adapter->setFillColor($dataPoints[$i][1]);
-                }
-                break;
-        }
-    }
-
-    /**
-     * Method to calculate which quadrant a point is in.
-     *
-     * @param  array $point
-     * @param  array $center
-     * @return int
-     */
-    protected function getQuadrant($point, $center)
-    {
-        $quad = 0;
-
-        if ($this->adapter instanceof Pdf) {
-            if ($point['x'] >= $center['x']) {
-                $quad = ($point['y'] >= $center['y']) ? 4 : 1;
-            } else {
-                $quad = ($point['y'] >= $center['y']) ? 3 : 2;
-            }
-        } else {
-            if ($point['x'] >= $center['x']) {
-                $quad = ($point['y'] <= $center['y']) ? 4 : 1;
-            } else {
-                $quad = ($point['y'] <= $center['y']) ? 3 : 2;
-            }
-        }
-
-        return $quad;
-    }
-
-    /**
-     * Method to calculate the points and data of a triangle.
-     *
-     * @param  array $point
-     * @param  array $center
-     * @param  int   $quad
-     * @return array
-     */
-    protected function getTriangle($point, $center, $quad)
-    {
-        $tri = array();
-
-        switch ($quad) {
-
-            case 1:
-                $tri['side1'] = $point['x'] - $center['x'];
-                $tri['side2'] = abs($point['y'] - $center['y']);
-                break;
-
-            case 2:
-                $tri['side1'] = $center['x'] - $point['x'];
-                $tri['side2'] = abs($point['y'] - $center['y']);
-                break;
-
-            case 3:
-                $tri['side1'] = $center['x'] - $point['x'];
-                $tri['side2'] = abs($center['y'] - $point['y']);
-                break;
-
-            case 4:
-                $tri['side1'] = $point['x'] - $center['x'];
-                $tri['side2'] = abs($center['y'] - $point['y']);
-                break;
-
-        }
-
-        $tri['hypot'] = round(hypot($tri['side1'], $tri['side2']));
-        $tri['angle1'] = round(rad2deg(asin($tri['side2'] / $tri['hypot'])));
-        $tri['angle2'] = round(rad2deg(asin($tri['side1'] / $tri['hypot'])));
-
-        return $tri;
+        $this->adapter->save($to, $append);
+        return $this;
     }
 
 }

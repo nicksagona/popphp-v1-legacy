@@ -42,7 +42,7 @@ class Captcha
 {
 
     /**
-     * Constant for motion blur
+     * Constant to force using the GD component
      * @var int
      */
     const FORCE_GD = true;

@@ -1,0 +1,119 @@
+<?php
+/**
+ * Pop PHP Framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.TXT.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.popphp.org/LICENSE.TXT
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@popphp.org so we can send you a copy immediately.
+ *
+ * @category   Pop
+ * @package    Pop_Graph
+ * @author     Nick Sagona, III <nick@popphp.org>
+ * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
+ * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ */
+
+/**
+ * @namespace
+ */
+namespace Pop\Graph\Graph;
+
+/**
+ * This is the line graph class for the Graph component.
+ *
+ * @category   Pop
+ * @package    Pop_Graph
+ * @author     Nick Sagona, III <nick@popphp.org>
+ * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
+ * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ * @version    1.1.2
+ */
+class Line extends AbstractGraph
+{
+
+    /**
+     * Create a line graph
+     *
+     * @param  array $dataPoints
+     * @param  array $xAxis
+     * @param  array $yAxis
+     * @return \Pop\Graph\Graph\Line
+     */
+    public function create(array $dataPoints, array $xAxis, array $yAxis)
+    {
+        // Calculate the points.
+        $points = $this->getPoints($xAxis, $yAxis);
+
+        if ($this->graph->getShowX()) {
+            $this->showXAxis($yAxis, $points);
+        }
+        if ($this->graph->getShowX()) {
+            $this->showYAxis($xAxis, $points);
+        }
+
+        $skip = 1;
+
+        // If the first data point does not equal the graph origin point.
+        if (((float)$dataPoints[0][0] != (float)$xAxis[0]) && ((float)$dataPoints[0][1] != (float)$yAxis[0])) {
+            $newData = array_merge(array(array((float)$xAxis[0], (float)$yAxis[0])), array(array((float)$dataPoints[0][0], (float)$yAxis[0])), $dataPoints);
+            $dataPoints = $newData;
+            $skip = 2;
+        // Else, if the first data point X equals the graph origin point X.
+        } else if (((float)$dataPoints[0][0] != (float)$xAxis[0])) {
+            $newData = array_merge(array(array((float)$xAxis[0], (float)$yAxis[0])), array(array((float)$dataPoints[0][0], (float)$yAxis[0])), $dataPoints);
+            $dataPoints = $newData;
+            $skip = 3;
+        // Else, if the first data point Y equals the graph origin point Y.
+        } else if (((float)$dataPoints[0][1] != (float)$yAxis[0])) {
+            $newData = array_merge(array(array((float)$xAxis[0], (float)$yAxis[0])), array(array((float)$xAxis[0], (float)$dataPoints[0][1])), $dataPoints);
+            $dataPoints = $newData;
+            $skip = 3;
+        }
+
+        // Draw graph data.
+        if (null !== $this->graph->getFillColor()) {
+            $this->graph->adapter()->setFillColor($this->graph->getFillColor());
+            $this->graph->adapter()->setStrokeColor((null !== $this->graph->getStrokeColor()) ? $this->graph->getStrokeColor() : $this->graph->getFillColor());
+            $this->graph->adapter()->setStrokeWidth($this->graph->getStrokeWidth());
+            $formattedPoints = array();
+            for ($i = 0; $i < count($dataPoints); $i++) {
+                $x = ((($dataPoints[$i][0] - $dataPoints[0][0]) / $points->xRange) * $points->xLength) + $points->zeroPoint['x'];
+                $y = $points->yOffset - ((($dataPoints[$i][1] - $dataPoints[0][1]) / $points->yRange) * $points->yLength);
+                $formattedPoints[] = array('x' => $x, 'y' => $y);
+                $lastX = $x;
+            }
+            $formattedPoints[] = array('x' => $lastX, 'y' => $points->zeroPoint['y']);
+            $this->graph->adapter()->addPolygon($formattedPoints);
+        } else {
+            $this->graph->adapter()->setStrokeWidth($this->graph->getStrokeWidth());
+            $this->graph->adapter()->setStrokeColor((null !== $this->graph->getStrokeColor()) ? $this->graph->getStrokeColor() : new Rgb(0, 0, 0));
+
+            for ($i = 1; $i < count($dataPoints); $i++) {
+                $x1 = ((($dataPoints[$i - 1][0] - $dataPoints[0][0]) / $points->xRange) * $points->xLength) + $points->zeroPoint['x'];
+                $y1 = $points->yOffset - ((($dataPoints[$i - 1][1] - $dataPoints[0][1]) / $points->yRange) * $points->yLength);
+                $x2 = ((($dataPoints[$i][0] - $dataPoints[0][0]) / $points->xRange) * $points->xLength) + $points->zeroPoint['x'];
+                $y2 = $points->yOffset - ((($dataPoints[$i][1] - $dataPoints[0][1]) / $points->yRange) * $points->yLength);
+                $this->graph->adapter()->addLine($x1, $y1, $x2, $y2);
+            }
+
+        }
+
+        // Draw data point text.
+        if ($this->graph->getShowText()) {
+            $this->drawDataText($dataPoints, $xAxis, $yAxis, 'line', $points, $skip);
+        }
+
+        // Draw graph axes.
+        $this->drawXAxis($xAxis, $points);
+        $this->drawYAxis($yAxis, $points);
+
+        return $this;
+    }
+
+}

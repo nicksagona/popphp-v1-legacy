@@ -19,14 +19,17 @@ try {
         array(175, new Rgb(80, 180, 10))
     );
 
-    //$graph = new Graph('graph.gif', 640, 480, Graph::IMAGICK);
-    $graph = new Graph('graph.svg', 640, 480);
+    $graph = new Graph(array(
+        'filename' => 'graph.gif',
+        'width'    => 640,
+        'height'   => 480
+    ));
     $graph->addFont('../assets/fonts/times.ttf')
           ->setFontColor(new Rgb(128, 128, 128))
           ->setFillColor(new Rgb(10, 125, 210))
           ->showY(true)
           ->showText(true)
-          ->addVBarGraph($data, $x, $y)
+          ->createVBarGraph($data, $x, $y)
           ->output();
 
 } catch (\Exception $e) {
