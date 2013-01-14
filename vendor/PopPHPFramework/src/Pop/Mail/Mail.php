@@ -153,10 +153,10 @@ class Mail
      * Instantiate the mail object.
      *
      * @param  string $subj
-     * @param  array  $rcpts
+     * @param  mixed  $rcpts
      * @return \Pop\Mail\Mail
      */
-    public function __construct($subj = null, array $rcpts = null)
+    public function __construct($subj = null, $rcpts = null)
     {
         $this->subject = $subj;
         $this->queue = new Queue();
@@ -286,26 +286,13 @@ class Mail
     /**
      * Add recipients to the queue
      *
-     * @param  array $rcpts
+     * @param  mixed $rcpts
      * @throws Exception
      * @return \Pop\Mail\Mail
      */
-    public function addRecipients(array $rcpts)
+    public function addRecipients($rcpts)
     {
-        if (isset($rcpts[0]) && (is_array($rcpts[0]))) {
-            foreach ($rcpts as $rcpt) {
-                if (!array_key_exists('email', $rcpt)) {
-                    throw new Exception("Error: At least one of the array keys must be 'email'.");
-                }
-                $this->queue[] = $rcpt;
-            }
-        } else {
-            if (!array_key_exists('email', $rcpts)) {
-                throw new Exception("Error: At least one of the array keys must be 'email'.");
-            }
-            $this->queue[] = $rcpts;
-        }
-
+        $this->queue->addRecipients($rcpts);
         return $this;
     }
 
@@ -329,7 +316,7 @@ class Mail
     }
 
     /**
-     * Alias to set the from and reply-to headers
+     * Alias to set the reply-to and from headers
      *
      * @param  string  $email
      * @param  string  $name
@@ -343,6 +330,46 @@ class Mail
         if ($from) {
             $this->setHeader('From', $header);
         }
+
+        return $this;
+    }
+
+    /**
+     * Alias to set the cc headers
+     *
+     * @param  string  $email
+     * @param  string  $name
+     * @return \Pop\Mail\Mail
+     */
+    public function cc($email, $name = null)
+    {
+        if (is_array($email)) {
+            $ccQueue = new Queue($email);
+            $header = (string)$ccQueue;
+        } else {
+            $header = (null !== $name) ? $name . ' <' . $email . '>' : $email;
+        }
+        $this->setHeader('Cc', $header);
+
+        return $this;
+    }
+
+    /**
+     * Alias to set the bcc headers
+     *
+     * @param  string  $email
+     * @param  string  $name
+     * @return \Pop\Mail\Mail
+     */
+    public function bcc($email, $name = null)
+    {
+        if (is_array($email)) {
+            $bccQueue = new Queue($email);
+            $header = (string)$bccQueue;
+        } else {
+            $header = (null !== $name) ? $name . ' <' . $email . '>' : $email;
+        }
+        $this->setHeader('Bcc', $header);
 
         return $this;
     }

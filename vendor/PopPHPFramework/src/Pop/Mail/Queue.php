@@ -52,7 +52,7 @@ class Queue extends \SplQueue
             if (is_array($email)) {
                 $this->addRecipients($email);
             } else {
-                $this->addRecipient($email, $name);
+                $this->add($email, $name);
             }
         }
     }
@@ -72,30 +72,52 @@ class Queue extends \SplQueue
         }
         $rcpt['email'] = $email;
 
-        return $this->addRecipients($rcpt);
+        return $this->addRecipients(array($rcpt));
     }
 
     /**
      * Add recipients
      *
-     * @param  array $rcpts
+     * @param  mixed $rcpts
      * @throws Exception
      * @return \Pop\Mail\Queue
      */
-    public function addRecipients(array $rcpts)
+    public function addRecipients($rcpts)
     {
-        if (isset($rcpts[0]) && (is_array($rcpts[0]))) {
+        $regEx = '/[a-zA-Z0-9\.\-\_+%]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]{2,4}/';
+
+        // If single, but not valid
+        if (!is_array($rcpts) && !preg_match($regEx, $rcpts)) {
+            throw new Exception("Error: You must pass at least one valid email address.");
+        // Else, if single and valid
+        } else if (!is_array($rcpts)) {
+            $this[] = array('email' => $rcpts);
+        // Else if an associative array of scalar values
+        } else if (is_array($rcpts) && isset($rcpts['email'])) {
+            if (!preg_match($regEx, $rcpts['email'])) {
+                throw new Exception("Error: The email address '" . $rcpts['email'] . "' is not valid.");
+            }
+            $this[] = $rcpts;
+        // Else if a numeric array of scalar values
+        } else if (is_array($rcpts) && isset($rcpts[0]) && !is_array($rcpts[0])) {
+            foreach ($rcpts as $email) {
+                if (!preg_match($regEx, $email)) {
+                    throw new Exception("Error: The email address '" . $email . "' is not valid.");
+                }
+                $this[] = array('email' => $email);
+            }
+        // Else, if an array of arrays
+        } else if (is_array($rcpts) && isset($rcpts[0]) && is_array($rcpts[0])) {
             foreach ($rcpts as $rcpt) {
-                if (!array_key_exists('email', $rcpt)) {
+                if (!isset($rcpt['email'])) {
                     throw new Exception("Error: At least one of the array keys must be 'email'.");
+                } else if (!preg_match($regEx, $rcpt['email'])) {
+                    throw new Exception("Error: The email address '" . $rcpt['email'] . "' is not valid.");
                 }
                 $this[] = $rcpt;
             }
         } else {
-            if (!array_key_exists('email', $rcpts)) {
-                throw new Exception("Error: At least one of the array keys must be 'email'.");
-            }
-            $this[] = $rcpts;
+            throw new Exception("Error: The recipients parameter passed was not valid.");
         }
 
         return $this;
