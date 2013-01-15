@@ -14,7 +14,7 @@ try {
     $csv = Csv::encode($record);
     echo $csv;
 
-    $php = Csv::decode(file_get_contents('../assets/files/test-import.csv'));
+    $php = Csv::decode(file_get_contents('../assets/files/test.csv'));
     print_r($php);
 
 } catch (\Exception $e) {

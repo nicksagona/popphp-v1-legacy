@@ -11,7 +11,7 @@ try {
     );
 
     //$options = array(
-    //    'image' => '../assets/images/captcha_sm.gif'
+    //    'image' => '../assets/images/captcha-sm.gif'
     //);
 
     //$captcha = new Captcha($options, Captcha::FORCE_GD);

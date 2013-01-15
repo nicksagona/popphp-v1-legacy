@@ -50,7 +50,7 @@ try {
     $pdf->addText(10, 300, 18, 'Hello World Again!!!', 'Courier');
     $pdf->addUrl(10, 300, 380, 18, 'http://www.google.com/');
 
-    $pdf->addImage('../assets/images/logo_cmyk.jpg', 150, 400);
+    $pdf->addImage('../assets/images/logo-cmyk.jpg', 150, 400);
     $pdf->addLink(150, 400, 240, 100, 200, 300, 1, 1);
 
     $pdf->importPdf('../assets/pdfs/test.pdf', 1);

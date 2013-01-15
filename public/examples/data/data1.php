@@ -6,7 +6,7 @@ use Pop\Data\Data;
 
 try {
     echo 'From a CSV file<br />-------------------<br />' . PHP_EOL;
-    $data = new Data('../assets/files/test-import.csv');
+    $data = new Data('../assets/files/test.csv');
     $obj = $data->parseFile();
     print_r($obj);
 

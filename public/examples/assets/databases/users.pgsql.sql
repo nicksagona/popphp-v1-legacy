@@ -4,10 +4,10 @@
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id SERIAL NOT NULL,
-    username character varying(250) NOT NULL,
-    password character varying(250) NOT NULL,
-    email character varying(250) NOT NULL,
-    access character varying(250) NOT NULL,
+    username character varying(255) NOT NULL,
+    password character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    access character varying(255) NOT NULL,
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
 

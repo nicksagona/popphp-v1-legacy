@@ -7,7 +7,7 @@ use Pop\Filter\String,
 
 try {
     $str = String::random(6, String::ALPHANUM, String::UPPER);
-    $image = new Gd('../assets/images/captcha_sm.gif');
+    $image = new Gd('../assets/images/captcha-sm.gif');
     $image->text($str, 20, 20, 40, '../assets/fonts/times.ttf', 10)
           ->output();
 

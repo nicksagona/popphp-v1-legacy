@@ -45,7 +45,7 @@ try {
         ->setStrokeColor(new Rgb(215, 101, 12))
         ->setStrokeWidth(4, 10, 5);
     $pdf->drawCircle(250, 650, 25);
-    $pdf->addImage('../assets/images/logo_rgb.jpg', 150, 400);
+    $pdf->addImage('../assets/images/logo-rgb.jpg', 150, 400);
 
     $pdf->setPage(1)
         ->setFillColor(new Rgb(255, 10, 25))

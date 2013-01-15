@@ -1,3 +1,0 @@
-testuser1|c214105243281cf6147b81fde537bc2769200211|admin
-testuser2|19222aac14ada0ecf1177d5411fcf2eb974aee0e|editor
-testuser3|c6adc07b19b76910a99a78e3b2191d739f0b4940|reader

@@ -34,7 +34,7 @@ try {
         $password = '90test12';
 
         // Create auth object
-        $auth = new Auth\Auth(new Auth\Adapter\File('../assets/files/access_sha1.txt'), Auth\Auth::ENCRYPT_SHA1);
+        $auth = new Auth\Auth(new Auth\Adapter\File('../assets/files/access.txt'), Auth\Auth::ENCRYPT_SHA1);
 
         // Add some roles
         $auth->addRoles(array(
