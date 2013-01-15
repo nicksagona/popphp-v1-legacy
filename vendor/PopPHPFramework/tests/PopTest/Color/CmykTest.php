@@ -49,9 +49,9 @@ class CmykTest extends \PHPUnit_Framework_TestCase
     {
         $c = new Cmyk(20, 40, 60, 80);
         $this->assertEquals('20,40,60,80', (string)$c);
-        $this->assertEquals('20,40,60,80', $c->getCmyk(Color::STRING));
-        $this->assertEquals(array(20, 40, 60, 80), $c->getCmyk(Color::NUM_ARRAY));
-        $this->assertEquals(array('c' => 20, 'm' => 40, 'y' => 60, 'k' => 80), $c->getCmyk());
+        $this->assertEquals('20,40,60,80', $c->get(Color::STRING));
+        $this->assertEquals(array(20, 40, 60, 80), $c->get(Color::NUM_ARRAY));
+        $this->assertEquals(array('c' => 20, 'm' => 40, 'y' => 60, 'k' => 80), $c->get());
     }
 
 }

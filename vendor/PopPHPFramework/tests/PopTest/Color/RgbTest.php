@@ -48,9 +48,9 @@ class RgbTest extends \PHPUnit_Framework_TestCase
     {
         $r = new Rgb(112, 124, 228);
         $this->assertEquals('112,124,228', (string)$r);
-        $this->assertEquals('112,124,228', $r->getRgb(Color::STRING));
-        $this->assertEquals(array(112, 124, 228), $r->getRgb(Color::NUM_ARRAY));
-        $this->assertEquals(array('r' => 112, 'g' => 124, 'b' => 228), $r->getRgb());
+        $this->assertEquals('112,124,228', $r->get(Color::STRING));
+        $this->assertEquals(array(112, 124, 228), $r->get(Color::NUM_ARRAY));
+        $this->assertEquals(array('r' => 112, 'g' => 124, 'b' => 228), $r->get());
     }
 
 }

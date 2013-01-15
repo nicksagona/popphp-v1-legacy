@@ -48,9 +48,9 @@ class LabTest extends \PHPUnit_Framework_TestCase
     {
         $l = new Lab(100, 100, 100);
         $this->assertEquals('100,100,100', (string)$l);
-        $this->assertEquals('100,100,100', $l->getLab(Color::STRING));
-        $this->assertEquals(array(100, 100, 100), $l->getLab(Color::NUM_ARRAY));
-        $this->assertEquals(array('l' => 100, 'a' => 100, 'b' => 100), $l->getLab());
+        $this->assertEquals('100,100,100', $l->get(Color::STRING));
+        $this->assertEquals(array(100, 100, 100), $l->get(Color::NUM_ARRAY));
+        $this->assertEquals(array('l' => 100, 'a' => 100, 'b' => 100), $l->get());
     }
 
 }

@@ -53,9 +53,9 @@ class HexTest extends \PHPUnit_Framework_TestCase
     {
         $h = new Hex('#ee1c2d');
         $this->assertEquals('#ee1c2d', (string)$h);
-        $this->assertEquals('#ee1c2d', $h->getHex(true));
+        $this->assertEquals('#ee1c2d', $h->get(true));
         $h = new Hex('#def');
-        $this->assertEquals('def', $h->getHex(false, true));
+        $this->assertEquals('def', $h->get(false, true));
     }
 
 }
