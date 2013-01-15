@@ -1,3 +1,18 @@
+Pop PHP Framework 1.2.0
+=======================
+
+COMPLETED:
+----------
+* Refactor and improve Auth component
+* Refactor and improve Cache component
+    - Add support for APC
+* Add factory method to the Config component
+* Refactor and improve Graph component
+* Refactor, clean up and improve the API of the Image component
+    - Add Captcha image class
+* Refactor and improve Mail component
+* Refactor and improve Web\Browser & Web\Mobile classes
+
 Pop PHP Framework 1.1.2
 =======================
 
