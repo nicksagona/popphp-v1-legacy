@@ -55,7 +55,7 @@ class ReflectionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($r->isAbstract());
         $r = Reflection::factory('Pop\Form\Form');
         $this->assertEquals('Dom', $r->getGenerator()->code()->getParent());
-        $r = Reflection::factory('Pop\Cache\File');
+        $r = Reflection::factory('Pop\Cache\Adapter\File');
         $this->assertTrue(is_array($r->getInterfaces()));
     }
 

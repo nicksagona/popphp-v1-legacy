@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\Excluded;
+    Pop\Validator\Excluded;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -38,9 +38,9 @@ class ExcludedTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new Excluded(3, false);
+        $v = new Excluded(3, null, false);
         $this->assertTrue($v->evaluate(array(1, 2, 3)));
-        $v = new Excluded(4, false);
+        $v = new Excluded(4, null, false);
         $this->assertFalse($v->evaluate(array(1, 2, 3)));
     }
 

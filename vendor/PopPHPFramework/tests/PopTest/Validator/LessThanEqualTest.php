@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\LessThanEqual;
+    Pop\Validator\LessThanEqual;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -37,7 +37,7 @@ class LessThanEqualTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new LessThanEqual(10, false);
+        $v = new LessThanEqual(10, null, false);
         $this->assertFalse($v->evaluate(5));
         $this->assertTrue($v->evaluate(12));
     }

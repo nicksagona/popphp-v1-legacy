@@ -18,7 +18,7 @@ namespace PopTest\Cache;
 
 use Pop\Loader\Autoloader,
     Pop\Cache\Cache,
-    Pop\Cache\Sqlite;
+    Pop\Cache\Adapter\Sqlite;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -50,7 +50,7 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
 
     public function testCacheDir()
     {
-        $this->setExpectedException('Pop\Cache\Exception');
+        $this->setExpectedException('Pop\Cache\Adapter\Exception');
         $c = Cache::factory(new Sqlite(__DIR__ . '/../test/cache.sqlite'), 30);
     }
 

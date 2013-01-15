@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\Ipv6;
+    Pop\Validator\Ipv6;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -37,7 +37,7 @@ class Ipv6Test extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new Ipv6(null, false);
+        $v = new Ipv6(null, null, false);
         $this->assertFalse($v->evaluate('fe80::21a:4dff:fe50:11de'));
         $this->assertTrue($v->evaluate('123456'));
     }

@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\LengthLt;
+    Pop\Validator\LengthLt;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -37,7 +37,7 @@ class LengthLtTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new LengthLt(5, false);
+        $v = new LengthLt(5, null, false);
         $this->assertFalse($v->evaluate('abc'));
         $this->assertTrue($v->evaluate('123456'));
     }

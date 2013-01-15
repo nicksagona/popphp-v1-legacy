@@ -29,23 +29,41 @@ Autoloader::factory()->splAutoloadRegister();
 class GraphTest extends \PHPUnit_Framework_TestCase
 {
 
+    protected $imageOptions = array(
+        'filename' => 'graph.gif',
+        'width'    => 640,
+        'height'   => 480
+    );
+
+    protected $pdfOptions = array(
+        'filename' => 'graph.pdf',
+        'width'    => 640,
+        'height'   => 480
+    );
+
+    protected $svgOptions = array(
+        'filename' => 'graph.svg',
+        'width'    => 640,
+        'height'   => 480
+    );
+
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\Graph\Graph', new Graph('graph.gif', 640, 480));
-        $this->assertInstanceOf('Pop\Graph\Graph', new Graph('graph.gif', 640, 480, Graph::IMAGICK));
-        $this->assertInstanceOf('Pop\Graph\Graph', new Graph('graph.pdf', 640, 480));
-        $this->assertInstanceOf('Pop\Graph\Graph', new Graph('graph.svg', 640, 480));
+        $this->assertInstanceOf('Pop\Graph\Graph', new Graph($this->imageOptions, Graph::FORCE_GD));
+        $this->assertInstanceOf('Pop\Graph\Graph', new Graph($this->imageOptions));
+        $this->assertInstanceOf('Pop\Graph\Graph', new Graph($this->pdfOptions));
+        $this->assertInstanceOf('Pop\Graph\Graph', new Graph($this->svgOptions));
     }
 
     public function testAdapter()
     {
-        $g = new Graph('graph.gif', 640, 480);
+        $g = new Graph($this->imageOptions, Graph::FORCE_GD);
         $this->assertInstanceOf('Pop\Image\Gd', $g->adapter());
     }
 
     public function testAddAndSetFont()
     {
-        $g = new Graph('graph.gif', 640, 480);
+        $g = new Graph($this->imageOptions);
         $g->addFont(__DIR__ . '/../tmp/times.ttf');
         $this->assertInstanceOf('Pop\Graph\Graph', $g->setFont('times'));
     }
@@ -54,7 +72,7 @@ class GraphTest extends \PHPUnit_Framework_TestCase
     public function testAddAndSetFont1()
     {
         $this->setExpectedException('Pop\Graph\Exception');
-        $g = new Graph('graph.gif', 640, 480);
+        $g = new Graph($this->imageOptions);
         $g->addFont(__DIR__ . '/../tmp/times.ttf');
         $g->setFont('bogus');
     }
@@ -62,14 +80,14 @@ class GraphTest extends \PHPUnit_Framework_TestCase
     public function testAddAndSetFont2()
     {
         $this->setExpectedException('Pop\Graph\Exception');
-        $g = new Graph('graph.pdf', 640, 480);
+        $g = new Graph($this->pdfOptions);
         $g->addFont(__DIR__ . '/../tmp/times.ttf');
         $g->setFont('bogus');
     }
 
     public function testSetAxisOptions()
     {
-        $g = new Graph('graph.gif', 640, 480);
+        $g = new Graph($this->imageOptions);
         $g->setAxisOptions(new Rgb(128, 128, 128), 5);
         $this->assertEquals(new Rgb(128, 128, 128), $g->getAxisColor());
         $this->assertEquals(5, $g->getAxisWidth());
@@ -77,63 +95,63 @@ class GraphTest extends \PHPUnit_Framework_TestCase
 
     public function testSetFontSize()
     {
-        $g = new Graph('graph.gif', 640, 480);
+        $g = new Graph($this->imageOptions);
         $g->setFontSize(24);
         $this->assertEquals(24, $g->getFontSize());
     }
 
     public function testSetFontColor()
     {
-        $g = new Graph('graph.gif', 640, 480);
+        $g = new Graph($this->imageOptions);
         $g->setFontColor(new Rgb(128, 128, 128));
         $this->assertEquals(new Rgb(128, 128, 128), $g->getFontColor());
     }
 
     public function testSetReverseFontColor()
     {
-        $g = new Graph('graph.gif', 640, 480);
+        $g = new Graph($this->imageOptions);
         $g->setReverseFontColor(new Rgb(128, 128, 128));
         $this->assertEquals(new Rgb(128, 128, 128), $g->getReverseFontColor());
     }
 
     public function testSetFillColor()
     {
-        $g = new Graph('graph.gif', 640, 480);
+        $g = new Graph($this->imageOptions);
         $g->setFillColor(new Rgb(128, 128, 128));
         $this->assertEquals(new Rgb(128, 128, 128), $g->getFillColor());
     }
 
     public function testSetStrokeColor()
     {
-        $g = new Graph('graph.gif', 640, 480);
+        $g = new Graph($this->imageOptions);
         $g->setStrokeColor(new Rgb(128, 128, 128));
         $this->assertEquals(new Rgb(128, 128, 128), $g->getStrokeColor());
     }
 
     public function testSetStrokeWidth()
     {
-        $g = new Graph('graph.gif', 640, 480);
+        $g = new Graph($this->imageOptions);
         $g->setStrokeWidth(5);
         $this->assertEquals(5, $g->getStrokeWidth());
     }
 
     public function testSetPadding()
     {
-        $g = new Graph('graph.gif', 640, 480);
+        $g = new Graph($this->imageOptions);
         $g->setPadding(50);
         $this->assertEquals(50, $g->getPadding());
     }
 
     public function testSetBarWidth()
     {
-        $g = new Graph('graph.gif', 640, 480);
+        $g = new Graph($this->imageOptions);
         $g->setBarWidth(5);
         $this->assertEquals(5, $g->getBarWidth());
     }
 
     public function testShow()
     {
-        $g = new Graph('graph.gif', 640, 480);
+        $g = new Graph($this->imageOptions);
         $g->showText(true)
           ->showX(true, new Rgb(128, 128, 128))
           ->showY(true, new Rgb(128, 128, 128));
@@ -159,13 +177,13 @@ class GraphTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->setExpectedException('Pop\Http\Exception');
-        $g = new Graph('graph.pdf', 640, 480, Graph::IMAGICK);
+        $g = new Graph($this->pdfOptions);
         $g->addFont('Arial')
           ->setFontColor(new Rgb(128, 128, 128))
           ->setFillColor(new Rgb(10, 125, 210))
           ->showY(true)
           ->showText(true)
-          ->addLineGraph($data, $x, $y)
+          ->createLineGraph($data, $x, $y)
           ->output();
     }
 
@@ -183,13 +201,13 @@ class GraphTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->setExpectedException('Pop\Http\Exception');
-        $g = new Graph('graph.pdf', 640, 480, Graph::IMAGICK);
+        $g = new Graph($this->pdfOptions);
         $g->addFont('Arial')
           ->setFontColor(new Rgb(128, 128, 128))
           ->setFillColor(new Rgb(10, 125, 210))
           ->showY(true)
           ->showText(true)
-          ->addVBarGraph($data, $x, $y)
+          ->createVBarGraph($data, $x, $y)
           ->output();
     }
 
@@ -207,13 +225,13 @@ class GraphTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->setExpectedException('Pop\Http\Exception');
-        $g = new Graph('graph.pdf', 640, 480, Graph::IMAGICK);
+        $g = new Graph($this->pdfOptions);
         $g->addFont('Arial')
           ->setFontColor(new Rgb(128, 128, 128))
           ->setFillColor(new Rgb(10, 125, 210))
           ->showY(true)
           ->showText(true)
-          ->addHBarGraph($data, $x, $y)
+          ->createHBarGraph($data, $x, $y)
           ->output();
     }
 
@@ -237,11 +255,11 @@ class GraphTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->setExpectedException('Pop\Http\Exception');
-        $g = new Graph('graph.pdf', 640, 480, Graph::IMAGICK);
+        $g = new Graph($this->pdfOptions);
         $g->addFont('Arial')
           ->setFontColor(new Rgb(128, 128, 128))
           ->showText(true)
-          ->addPieChart($pie, $percents, 20)
+          ->createPieChart($pie, $percents, 20)
           ->output();
     }
 

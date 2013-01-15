@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\LengthBetween;
+    Pop\Validator\LengthBetween;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -37,7 +37,7 @@ class LengthBetweenTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new LengthBetween('5|10', false);
+        $v = new LengthBetween('5|10', null, false);
         $this->assertFalse($v->evaluate('abcdef'));
         $this->assertTrue($v->evaluate('123'));
     }

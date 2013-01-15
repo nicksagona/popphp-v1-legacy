@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\Email;
+    Pop\Validator\Email;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -37,7 +37,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new Email(null, false);
+        $v = new Email(null, null, false);
         $this->assertFalse($v->evaluate('test@test.com'));
         $this->assertTrue($v->evaluate('testtestcom'));
     }

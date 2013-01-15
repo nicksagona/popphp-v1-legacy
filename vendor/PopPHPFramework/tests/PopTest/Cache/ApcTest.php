@@ -18,7 +18,7 @@ namespace PopTest\Cache;
 
 use Pop\Loader\Autoloader,
     Pop\Cache\Cache,
-    Pop\Cache\Adapter\Memcached;
+    Pop\Cache\Adapter\Apc;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -26,30 +26,20 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
-class MemcachedTest extends \PHPUnit_Framework_TestCase
+class ApcTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testConstructor()
     {
-        if (class_exists('Memcache')) {
-            $this->assertInstanceOf('Pop\Cache\Cache', Cache::factory(new Memcached(), 30));
-        }
-    }
-
-    /**
-     * @expectedException PHPUnit_Framework_Error_Warning
-     */
-    public function testConstructorException()
-    {
-        if (class_exists('Memcache')) {
-            $c = Cache::factory(new Memcached('some-wrong-host'), 30);
+        if (function_exists('apc_add')) {
+            $this->assertInstanceOf('Pop\Cache\Cache', Cache::factory(new Apc(), 30));
         }
     }
 
     public function testSetAndGetLifetime()
     {
-        if (class_exists('Memcache')) {
-            $c = Cache::factory(new Memcached(), 30);
+        if (function_exists('apc_add')) {
+            $c = Cache::factory(new Apc(), 30);
             $c->setLifetime(30);
             $this->assertEquals(30, $c->getLifetime());
         }
@@ -57,9 +47,9 @@ class MemcachedTest extends \PHPUnit_Framework_TestCase
 
     public function testSaveAndLoad()
     {
-        if (class_exists('Memcache')) {
+        if (function_exists('apc_add')) {
             $str = 'This is my test variable. It contains a string.';
-            $c = Cache::factory(new Memcached(), 30);
+            $c = Cache::factory(new Apc(), 30);
             $c->save('str', $str);
             $this->assertEquals($str, $c->load('str'));
             $c->remove('str');
@@ -67,11 +57,11 @@ class MemcachedTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testGetVersion()
+    public function testGetInfo()
     {
-        if (class_exists('Memcache')) {
-            $c = Cache::factory(new Memcached(), 30);
-            $this->assertNotNull($c->adapter()->getVersion());
+        if (function_exists('apc_add')) {
+            $c = Cache::factory(new Apc(), 30);
+            $this->assertTrue(is_array($c->adapter()->getInfo()));
         }
     }
 

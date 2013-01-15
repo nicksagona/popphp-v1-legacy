@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\GreaterThanEqual;
+    Pop\Validator\GreaterThanEqual;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -37,7 +37,7 @@ class GreaterThanEqualTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new GreaterThanEqual(10, false);
+        $v = new GreaterThanEqual(10, null, false);
         $this->assertFalse($v->evaluate(12));
         $this->assertTrue($v->evaluate(9));
     }

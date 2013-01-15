@@ -156,7 +156,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
     {
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter');
-        $p->addRectangle(0, 0, 100);
+        $p->drawRectangle(0, 0, 100);
         $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
@@ -164,7 +164,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
     {
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter');
-        $p->addSquare(0, 0, 100);
+        $p->drawSquare(0, 0, 100);
         $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
@@ -172,7 +172,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
     {
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter');
-        $p->addEllipse(100, 100, 100);
+        $p->drawEllipse(100, 100, 100);
         $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
@@ -180,7 +180,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
     {
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter');
-        $p->addCircle(100, 100, 100);
+        $p->drawCircle(100, 100, 100);
         $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
@@ -188,7 +188,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
     {
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter');
-        $p->addArc(100, 100, 100, 180, 100);
+        $p->drawArc(100, 100, 100, 180, 100);
         $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 
@@ -197,7 +197,7 @@ class PdfTest extends \PHPUnit_Framework_TestCase
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter')
           ->openLayer();
-        $p->addArc(100, 100, 100, 180, 100)
+        $p->drawArc(100, 100, 100, 180, 100)
           ->closeLayer();
         $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
@@ -206,10 +206,10 @@ class PdfTest extends \PHPUnit_Framework_TestCase
     {
         $p = new Pdf('doc.pdf');
         $p->addPage('Letter')
-          ->addClippingRectangle(100, 100, 100)
-          ->addClippingSquare(100, 100, 100)
-          ->addClippingEllipse(100, 100, 100)
-          ->addClippingCircle(100, 100, 100);
+          ->drawClippingRectangle(100, 100, 100)
+          ->drawClippingSquare(100, 100, 100)
+          ->drawClippingEllipse(100, 100, 100)
+          ->drawClippingCircle(100, 100, 100);
         $this->assertInstanceOf('Pop\Pdf\Pdf', $p);
     }
 

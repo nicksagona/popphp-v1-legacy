@@ -47,22 +47,22 @@ class MailTest extends \PHPUnit_Framework_TestCase
                 'email' => 'someone@email.com'
             )
         );
-        $m = new Mail(array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
+        $m = new Mail('Subject', array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
         $m->addRecipients($rcpts);
-        $this->assertInstanceOf('Pop\Mail\Mail', new Mail());
+        $this->assertInstanceOf('Pop\Mail\Mail', $m);
     }
 
     public function testConstructorRcptException()
     {
         $this->setExpectedException('Pop\Mail\Exception');
-        $m = new Mail(array('name' => 'Bob Smith'));
+        $m = new Mail('Subject', array('name' => 'Bob Smith'));
     }
 
     public function testRcptException()
     {
         $this->setExpectedException('Pop\Mail\Exception');
         $m = new Mail();
-        $m->addRecipients(array(array('name' => 'Bob Smith'), array('name' => 'Bob Smith')));
+        $m->addRecipients('Subject', array(array('name' => 'Bob Smith'), array('name' => 'Bob Smith')));
     }
 
     public function testSetAndGetSubject()
@@ -103,30 +103,21 @@ class MailTest extends \PHPUnit_Framework_TestCase
     public function testSetAndGetHeaders()
     {
         $m = new Mail();
-        $m->setHeader('X-Reply-To', array('email' => 'noreply@test.com'));
-        $m->setHeader('X-Reply-To', array('name' => 'Bob', 'email' => 'noreply@test.com'));
-        $m->setHeader('X-Reply-To', array('Bob', 'noreply@test.com'));
-        $m->setHeader('Reply-To', 'noreply@test.com');
+        $m->setHeader('X-Reply-To', 'noreply@test.com');
+        $m->setHeader('X-Reply-To', 'Bob <noreply@test.com>');
+        $m->replyTo('noreply@test.com');
         $m->setHeaders(array('Reply' => 'noreply@test.com'));
         $m->setParams(' -i');
         $m->setParams(array(' -t'));
         $m->setParams();
         $this->assertEquals('noreply@test.com', $m->getHeader('Reply-To'));
-        $this->assertEquals(3, count($m->getHeaders()));
-    }
-
-    public function testSetAndGetEol()
-    {
-        $m = new Mail();
-        $m->setEol("\n");
-        $this->assertEquals("\n", $m->getEol());
+        $this->assertEquals(4, count($m->getHeaders()));
     }
 
     public function testAttachFile()
     {
         $m = new Mail();
         $m->attachFile(__DIR__ . '/../tmp/test.jpg');
-        $m->attachFile(new File(__DIR__ . '/../tmp/test.gif'));
         $this->assertInstanceOf('Pop\Mail\Mail', new Mail());
     }
 
@@ -139,45 +130,45 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     public function testInitText()
     {
-        $m = new Mail(array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
+        $m = new Mail('Subject', array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
         $m->setText('Hello');
-        $m->init();
+        $m->getMessage()->init();
     }
 
     public function testInitHtml()
     {
-        $m = new Mail(array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
+        $m = new Mail('Subject', array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
         $m->setHtml('Hello');
-        $m->init();
+        $m->getMessage()->init();
     }
 
     public function testInitHtmlAndText()
     {
-        $m = new Mail(array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
+        $m = new Mail('Subject', array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
         $m->setHtml('Hello');
         $m->setText('Hello');
-        $m->init();
+        $m->getMessage()->init();
     }
 
     public function testInitHtmlTextAndFile()
     {
-        $m = new Mail(array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
+        $m = new Mail('Subject', array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
         $m->attachFile(__DIR__ . '/../tmp/test.jpg');
         $m->setHtml('Hello');
         $m->setText('Hello');
-        $m->init();
+        $m->getMessage()->init();
     }
 
     public function testInitException()
     {
         $this->setExpectedException('Pop\Mail\Exception');
-        $m = new Mail(array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
-        $m->init();
+        $m = new Mail('Subject', array('name' => 'Bob Smith', 'email' => 'bob@smith.com'));
+        $m->getMessage()->init();
     }
 
     public function testSaveTo()
     {
-        $m = new Mail(array('name' => 'Bob Smith', 'email' => 'bob@smith.com'), 'Hello World');
+        $m = new Mail('Subject', array('name' => 'Bob Smith', 'email' => 'bob@smith.com'), 'Hello World');
         $m->setHtml('Hello');
         $m->setText('Hello');
         $m->saveTo(__DIR__ . '/../tmp');

@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\Alpha;
+    Pop\Validator\Alpha;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -58,7 +58,7 @@ class AlphaTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new Alpha(null, false);
+        $v = new Alpha(null, null, false);
         $this->assertFalse($v->evaluate('abcdef'));
         $this->assertTrue($v->evaluate('123456'));
     }

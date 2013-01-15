@@ -17,7 +17,7 @@
 namespace PopTest\Data;
 
 use Pop\Loader\Autoloader,
-    Pop\Data\Csv,
+    Pop\Data\Type\Csv,
     Pop\Data\Data;
 
 // Require the library's autoloader.

@@ -18,7 +18,7 @@ namespace PopTest\Cache;
 
 use Pop\Loader\Autoloader,
     Pop\Cache\Cache,
-    Pop\Cache\File;
+    Pop\Cache\Adapter\File;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -43,7 +43,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 
     public function testCacheDirExists()
     {
-        $this->setExpectedException('Pop\Cache\Exception');
+        $this->setExpectedException('Pop\Cache\Adapter\Exception');
         $c = Cache::factory(new File(__DIR__ . '/../test'), 30);
     }
 

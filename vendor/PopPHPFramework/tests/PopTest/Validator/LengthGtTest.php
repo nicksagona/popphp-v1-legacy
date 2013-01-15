@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\LengthGt;
+    Pop\Validator\LengthGt;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -37,7 +37,7 @@ class LengthGtTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new LengthGt(5, false);
+        $v = new LengthGt(5, null, false);
         $this->assertFalse($v->evaluate('abcdef'));
         $this->assertTrue($v->evaluate('123'));
     }

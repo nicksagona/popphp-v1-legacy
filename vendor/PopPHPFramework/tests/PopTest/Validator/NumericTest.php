@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\Numeric;
+    Pop\Validator\Numeric;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -37,7 +37,7 @@ class NumericTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new Numeric(null, false);
+        $v = new Numeric(null, null, false);
         $this->assertFalse($v->evaluate(123456));
         $this->assertTrue($v->evaluate('abcdef'));
     }

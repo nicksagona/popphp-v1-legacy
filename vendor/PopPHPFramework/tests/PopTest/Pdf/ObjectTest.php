@@ -17,7 +17,7 @@
 namespace PopTest\Pdf;
 
 use Pop\Loader\Autoloader,
-    Pop\Pdf\Object;
+    Pop\Pdf\Object\Object;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -30,7 +30,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\Pdf\Object', new Object(1));
+        $this->assertInstanceOf('Pop\Pdf\Object\Object', new Object(1));
     }
 
     public function testSetAndGetDef()

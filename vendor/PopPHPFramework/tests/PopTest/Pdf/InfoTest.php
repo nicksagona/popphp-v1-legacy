@@ -17,7 +17,7 @@
 namespace PopTest\Pdf;
 
 use Pop\Loader\Autoloader,
-    Pop\Pdf\Info;
+    Pop\Pdf\Object\Info;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -30,7 +30,7 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\Pdf\Info', new Info());
+        $this->assertInstanceOf('Pop\Pdf\Object\Info', new Info());
     }
 
     public function testToString()

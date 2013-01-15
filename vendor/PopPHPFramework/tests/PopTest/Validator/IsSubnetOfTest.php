@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\IsSubnetOf;
+    Pop\Validator\IsSubnetOf;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -37,15 +37,15 @@ class IsSubnetOfTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new IsSubnetOf('192.168.1', false);
+        $v = new IsSubnetOf('192.168.1', null, false);
         $this->assertFalse($v->evaluate('192.168.1.10'));
         $this->assertTrue($v->evaluate('10.0.0.79'));
     }
 
     public function testEvaluateException()
     {
-        $this->setExpectedException('Pop\Validator\Validator\Exception');
-        $v = new IsSubnetOf('192.168.1', false);
+        $this->setExpectedException('Pop\Validator\Exception');
+        $v = new IsSubnetOf('192.168.1', null, false);
         $v->evaluate('192168110');
     }
 }

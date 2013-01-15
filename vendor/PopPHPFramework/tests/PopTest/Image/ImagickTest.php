@@ -83,7 +83,7 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
     public function testImagick()
     {
         $i = new Imagick(__DIR__ . '/../tmp/test.jpg');
-        $this->assertInstanceOf('Imagick', $i->imagick());
+        $this->assertInstanceOf('Imagick', $i->resource());
     }
 
     public function testResize()
@@ -141,7 +141,7 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
     public function testAddLine()
     {
         $i = new Imagick(__DIR__ . '/../tmp/test.jpg');
-        $i->addLine(10, 10, 100, 100);
+        $i->drawLine(10, 10, 100, 100);
         $this->assertEquals(640, $i->getWidth());
     }
 
@@ -150,18 +150,18 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
         $i = new Imagick(__DIR__ . '/../tmp/test.jpg');
         $i->setStrokeColor(new Rgb(0, 0, 0))
           ->setStrokeWidth(5)
-          ->addRectangle(10, 10, 100, 100);
+          ->drawRectangle(10, 10, 100, 100);
         $i->setBackgroundColor(new Rgb(255, 0, 0));
-        $i->addRectangle(10, 10, 100, 100);
+        $i->drawRectangle(10, 10, 100, 100);
         $i->setFillColor(new Rgb(255, 0, 0));
-        $i->addRectangle(10, 10, 100, 100);
+        $i->drawRectangle(10, 10, 100, 100);
         $this->assertEquals(640, $i->getWidth());
     }
 
     public function testAddSquare()
     {
         $i = new Imagick(__DIR__ . '/../tmp/test.jpg');
-        $i->addSquare(10, 10, 100);
+        $i->drawSquare(10, 10, 100);
         $this->assertEquals(640, $i->getWidth());
     }
 
@@ -170,18 +170,18 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
         $i = new Imagick(__DIR__ . '/../tmp/test.jpg');
         $i->setStrokeColor(new Rgb(0, 0, 0))
           ->setStrokeWidth(5)
-          ->addEllipse(10, 10, 100, 100);
+          ->drawEllipse(10, 10, 100, 100);
         $i->setBackgroundColor(new Rgb(255, 0, 0));
-        $i->addEllipse(10, 10, 100, 100);
+        $i->drawEllipse(10, 10, 100, 100);
         $i->setFillColor(new Rgb(255, 0, 0));
-        $i->addEllipse(10, 10, 100, 100);
+        $i->drawEllipse(10, 10, 100, 100);
         $this->assertEquals(640, $i->getWidth());
     }
 
     public function testAddCircle()
     {
         $i = new Imagick(__DIR__ . '/../tmp/test.jpg');
-        $i->addCircle(10, 10, 100);
+        $i->drawCircle(10, 10, 100);
         $this->assertEquals(640, $i->getWidth());
     }
 
@@ -190,11 +190,11 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
         $i = new Imagick(__DIR__ . '/../tmp/test.jpg');
         $i->setStrokeColor(new Rgb(0, 0, 0))
           ->setStrokeWidth(5)
-          ->addArc(320, 240, 0, 120, 100, 100);
+          ->drawArc(320, 240, 0, 120, 100, 100);
         $i->setBackgroundColor(new Rgb(255, 0, 0));
-        $i->addArc(320, 240, 0, 120, 100, 100);
+        $i->drawArc(320, 240, 0, 120, 100, 100);
         $i->setFillColor(new Rgb(255, 0, 0));
-        $i->addArc(320, 240, 0, 120, 100, 100);
+        $i->drawArc(320, 240, 0, 120, 100, 100);
         $this->assertEquals(640, $i->getWidth());
     }
 
@@ -210,11 +210,11 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
         );
         $i->setStrokeColor(new Rgb(0, 0, 0))
           ->setStrokeWidth(5)
-          ->addPolygon($points);
+          ->drawPolygon($points);
         $i->setBackgroundColor(new Rgb(255, 0, 0));
-        $i->addPolygon($points);
+        $i->drawPolygon($points);
         $i->setFillColor(new Rgb(255, 0, 0));
-        $i->addPolygon($points);
+        $i->drawPolygon($points);
         $this->assertEquals(640, $i->getWidth());
     }
 
@@ -266,7 +266,7 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
     {
         $i = new Imagick(__DIR__ . '/../tmp/test.gif');
         $hex = $i->getColors();
-        $rgb = $i->getColors('RGB');
+        $rgb = $i->getColors(false);
         $this->assertEquals(16, count($hex));
         $this->assertEquals(16, count($rgb));
         $this->assertTrue(in_array('113405', $hex));

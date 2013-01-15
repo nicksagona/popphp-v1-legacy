@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\NotEmpty;
+    Pop\Validator\NotEmpty;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -37,7 +37,7 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new NotEmpty(null, false);
+        $v = new NotEmpty(null, null, false);
         $this->assertFalse($v->evaluate('abcdef'));
         $this->assertTrue($v->evaluate(''));
     }

@@ -19,8 +19,8 @@ namespace PopTest\Auth;
 use Pop\Loader\Autoloader,
     Pop\Auth\Auth,
     Pop\Auth\Role,
-    Pop\Auth\Adapter\AuthFile,
-    Pop\Auth\Adapter\AuthTable,
+    Pop\Auth\Adapter\File,
+    Pop\Auth\Adapter\Table,
     Pop\Db\Db,
     Pop\Record\Record;
 
@@ -40,18 +40,18 @@ class AuthTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\Auth\Auth', new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt')));
+        $this->assertInstanceOf('Pop\Auth\Auth', new Auth(new File(__DIR__ . '/../tmp/access.txt')));
     }
 
     public function testBadFile()
     {
         $this->setExpectedException('Pop\Auth\Adapter\Exception');
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/badaccess.txt'));
+        $a = new Auth(new File(__DIR__ . '/../tmp/badaccess.txt'));
     }
 
     public function testIsValidWithFile()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
         $a->authenticate('testuser1', '12test34');
         $this->assertTrue($a->isValid());
         $this->assertEquals(1, $a->getAttempts());
@@ -78,7 +78,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
 
     public function testIsAuthorizedWithFile()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
         $a->addRoles(Role::factory('admin', 3));
         $a->addRoles(array(
             Role::factory('editor', 2),
@@ -98,7 +98,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
 
     public function testIsValidWithTable()
     {
-        $a = new Auth(new AuthTable('PopTest\Auth\Users', 'username', 'password', 'access'));
+        $a = new Auth(new Table('PopTest\Auth\Users', 'username', 'password', 'access'));
         $a->authenticate('test1', 'password1');
         $this->assertTrue($a->isValid());
 
@@ -118,7 +118,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
 
     public function testSetAndGetExpiration()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
         $a->setExpiration(30);
         $this->assertEquals(30, $a->getExpiration());
         $a->setExpiration();
@@ -127,14 +127,14 @@ class AuthTest extends \PHPUnit_Framework_TestCase
 
     public function testSetAndGetSalt()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
         $a->setSalt('abcdefg');
         $this->assertEquals('abcdefg', $a->getSalt());
     }
 
     public function testRequiredRole()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
         $a->setRequiredRole('admin', 5);
         $this->assertEquals('admin', $a->getRequiredRole()->getName());
         $a->setRequiredRole(Role::factory('editor', 4));
@@ -145,68 +145,68 @@ class AuthTest extends \PHPUnit_Framework_TestCase
 
     public function testSetAttemptLimit()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
         $a->setAttempts(5);
         $a->setAttemptLimit(3);
         $this->assertEquals(5, $a->getAttempts());
-        $this->assertEquals(3, $a->getValidator('attempts')->getValidator()->getValue());
+        $this->assertEquals(3, $a->getValidator('attempts')->getValue());
         $a->setAttemptLimit();
         $this->assertEquals(null, $a->getValidator('attempts'));
     }
 
     public function testSetBlockedIps()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
         $a->setBlockedIps(array('123.123.123.123', '124.124.124.124'));
-        $this->assertEquals(array('123.123.123.123', '124.124.124.124'), $a->getValidator('blockedIps')->getValidator()->getValue());
+        $this->assertEquals(array('123.123.123.123', '124.124.124.124'), $a->getValidator('blockedIps')->getValue());
         $a->setBlockedIps();
         $this->assertEquals(null, $a->getValidator('blockedIps'));
     }
 
     public function testSetBlockedSubnets()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
         $a->setBlockedSubnets(array('123.123.123', '124.124.124'));
-        $this->assertEquals(array('123.123.123', '124.124.124'), $a->getValidator('blockedSubnets')->getValidator()->getValue());
+        $this->assertEquals(array('123.123.123', '124.124.124'), $a->getValidator('blockedSubnets')->getValue());
         $a->setBlockedSubnets();
         $this->assertEquals(null, $a->getValidator('blockedSubnets'));
     }
 
     public function testSetAllowedIps()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
         $a->setAllowedIps('123.123.123.123');
         $a->setAllowedIps(array('123.123.123.123', '124.124.124.124'));
-        $this->assertEquals(array('123.123.123.123', '124.124.124.124'), $a->getValidator('allowedIps')->getValidator()->getValue());
+        $this->assertEquals(array('123.123.123.123', '124.124.124.124'), $a->getValidator('allowedIps')->getValue());
         $a->setAllowedIps();
         $this->assertEquals(null, $a->getValidator('allowedIps'));
     }
 
     public function testSetAllowedSubnets()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'));
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
         $a->setAllowedSubnets('123.123.123');
         $a->setAllowedSubnets(array('123.123.123', '124.124.124'));
-        $this->assertEquals(array('123.123.123', '124.124.124'), $a->getValidator('allowedSubnets')->getValidator()->getValue());
+        $this->assertEquals(array('123.123.123', '124.124.124'), $a->getValidator('allowedSubnets')->getValue());
         $a->setAllowedSubnets();
         $this->assertEquals(null, $a->getValidator('allowedSubnets'));
     }
 
     public function testPasswordEncryption()
     {
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'), Auth::ENCRYPT_MD5);
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'), Auth::ENCRYPT_MD5);
         $a->authenticate('testuser1', '12test34');
         $this->assertFalse($a->isValid());
 
         unset($a);
 
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'), Auth::ENCRYPT_SHA1);
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'), Auth::ENCRYPT_SHA1);
         $a->authenticate('testuser1', '12test34');
         $this->assertFalse($a->isValid());
 
         unset($a);
 
-        $a = new Auth(new AuthFile(__DIR__ . '/../tmp/access.txt'), Auth::ENCRYPT_CRYPT, 'abcdefg');
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'), Auth::ENCRYPT_CRYPT, 'abcdefg');
         $a->authenticate('testuser1', '12test34');
         $this->assertFalse($a->isValid());
     }

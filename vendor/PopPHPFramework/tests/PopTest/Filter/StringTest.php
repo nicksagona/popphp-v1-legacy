@@ -18,7 +18,7 @@ namespace Pop;
 
 use Pop\Loader\Autoloader,
     Pop\Filter\String,
-    Pop\Validator\Validator;
+    Pop\Validator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -47,11 +47,11 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(6, strlen($s));
 
         $s = String::random(6, String::ALPHANUM, String::LOWER);
-        $val = new Validator(new Validator\AlphaNumeric());
+        $val = new Validator\AlphaNumeric();
         $this->assertTrue($val->evaluate($s));
 
         $s = String::random(6, String::ALPHA, String::UPPER);
-        $val = new Validator(new Validator\Alpha());
+        $val = new Validator\Alpha();
         $this->assertTrue($val->evaluate($s));
     }
 

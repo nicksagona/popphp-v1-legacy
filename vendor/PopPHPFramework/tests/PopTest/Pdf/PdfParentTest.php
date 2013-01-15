@@ -17,7 +17,7 @@
 namespace PopTest\Pdf;
 
 use Pop\Loader\Autoloader,
-    Pop\Pdf\PdfParent;
+    Pop\Pdf\Object\ParentObject;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -30,12 +30,12 @@ class PdfParentTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\Pdf\PdfParent', new PdfParent());
+        $this->assertInstanceOf('Pop\Pdf\Object\ParentObject', new ParentObject());
     }
 
     public function testToString()
     {
-        $p = new PdfParent("<<2 0 obj\n<</Type/Pages/Count 2/Kids [3 0 R 4 0 R]>>\nendobj\n>>");
+        $p = new ParentObject("<<2 0 obj\n<</Type/Pages/Count 2/Kids [3 0 R 4 0 R]>>\nendobj\n>>");
         $this->assertContains('/Type/Pages/Count 2', (string)$p);
     }
 

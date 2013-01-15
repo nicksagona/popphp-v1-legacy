@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\Between;
+    Pop\Validator\Between;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -37,7 +37,7 @@ class BetweenTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new Between('5|10', false);
+        $v = new Between('5|10', null, false);
         $this->assertFalse($v->evaluate(6));
         $this->assertTrue($v->evaluate(10));
     }

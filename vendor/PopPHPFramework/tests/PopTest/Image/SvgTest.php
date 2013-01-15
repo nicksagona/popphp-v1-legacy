@@ -73,21 +73,21 @@ class SvgTest extends \PHPUnit_Framework_TestCase
     public function testAddClippingRectangle()
     {
         $s = new Svg('graph.svg', '640px', '480px');
-        $s->addClippingRectangle(10, 10, 320, 240);
+        $s->drawClippingRectangle(10, 10, 320, 240);
         $this->assertEquals(640, $s->getWidth());
     }
 
     public function testAddClippingSquare()
     {
         $s = new Svg('graph.svg', '640px', '480px');
-        $s->addClippingSquare(10, 10, 240);
+        $s->drawClippingSquare(10, 10, 240);
         $this->assertEquals(640, $s->getWidth());
     }
 
     public function testAddClippingEllipse()
     {
         $s = new Svg('graph.svg', '640px', '480px');
-        $s->addClippingEllipse(10, 10, 320, 240)
+        $s->drawClippingEllipse(10, 10, 320, 240)
           ->setClippingPath(0);
         $this->assertEquals(640, $s->getWidth());
     }
@@ -95,7 +95,7 @@ class SvgTest extends \PHPUnit_Framework_TestCase
     public function testAddClippingCircle()
     {
         $s = new Svg('graph.svg', '640px', '480px');
-        $s->addClippingCircle(10, 10, 240);
+        $s->drawClippingCircle(10, 10, 240);
         $this->assertEquals(640, $s->getWidth());
     }
 
@@ -109,7 +109,7 @@ class SvgTest extends \PHPUnit_Framework_TestCase
             array('x' => 200, 'y' => 180)
         );
         $s = new Svg('graph.svg', '640px', '480px');
-        $s->addClippingPolygon($points)
+        $s->drawClippingPolygon($points)
           ->setClippingPath(0);
         $this->assertEquals(640, $s->getWidth());
     }
@@ -125,7 +125,7 @@ class SvgTest extends \PHPUnit_Framework_TestCase
     public function testAddLine()
     {
         $s = new Svg('graph.svg', '640px', '480px');
-        $s->addLine(10, 10, 100, 100);
+        $s->drawLine(10, 10, 100, 100);
         $this->assertEquals(640, $s->getWidth());
     }
 
@@ -133,18 +133,18 @@ class SvgTest extends \PHPUnit_Framework_TestCase
     {
         $s = new Svg('graph.svg', '640px', '480px');
         $s->setStrokeColor(new Rgb(0, 0, 0))
-          ->addRectangle(10, 10, 100, 100);
+          ->drawRectangle(10, 10, 100, 100);
         $s->setBackgroundColor(new Rgb(255, 0, 0));
-        $s->addRectangle(10, 10, 100, 100);
+        $s->drawRectangle(10, 10, 100, 100);
         $s->setFillColor(new Rgb(255, 0, 0));
-        $s->addRectangle(10, 10, 100, 100);
+        $s->drawRectangle(10, 10, 100, 100);
         $this->assertEquals(640, $s->getWidth());
     }
 
     public function testAddSquare()
     {
         $s = new Svg('graph.svg', '640px', '480px');
-        $s->addSquare(10, 10, 100);
+        $s->drawSquare(10, 10, 100);
         $this->assertEquals(640, $s->getWidth());
     }
 
@@ -152,18 +152,18 @@ class SvgTest extends \PHPUnit_Framework_TestCase
     {
         $s = new Svg('graph.svg', '640px', '480px');
         $s->setStrokeColor(new Rgb(0, 0, 0))
-          ->addEllipse(10, 10, 100, 100);
+          ->drawEllipse(10, 10, 100, 100);
         $s->setBackgroundColor(new Rgb(255, 0, 0));
-        $s->addEllipse(10, 10, 100, 100);
+        $s->drawEllipse(10, 10, 100, 100);
         $s->setFillColor(new Rgb(255, 0, 0));
-        $s->addEllipse(10, 10, 100, 100);
+        $s->drawEllipse(10, 10, 100, 100);
         $this->assertEquals(640, $s->getWidth());
     }
 
     public function testAddCircle()
     {
         $s = new Svg('graph.svg', '640px', '480px');
-        $s->addCircle(10, 10, 100);
+        $s->drawCircle(10, 10, 100);
         $this->assertEquals(640, $s->getWidth());
     }
 
@@ -171,11 +171,11 @@ class SvgTest extends \PHPUnit_Framework_TestCase
     {
         $s = new Svg('graph.svg', '640px', '480px');
         $s->setStrokeColor(new Rgb(0, 0, 0))
-          ->addArc(320, 240, 0, 120, 100);
+          ->drawArc(320, 240, 0, 120, 100);
         $s->setBackgroundColor(new Rgb(255, 0, 0));
-        $s->addArc(320, 240, 0, 120, 100, 100);
+        $s->drawArc(320, 240, 0, 120, 100, 100);
         $s->setFillColor(new Rgb(255, 0, 0));
-        $s->addArc(320, 240, 0, 120, 100, 100);
+        $s->drawArc(320, 240, 0, 120, 100, 100);
         $this->assertEquals(640, $s->getWidth());
     }
 
@@ -190,11 +190,11 @@ class SvgTest extends \PHPUnit_Framework_TestCase
             array('x' => 200, 'y' => 180)
         );
         $s->setStrokeColor(new Rgb(0, 0, 0))
-          ->addPolygon($points);
+          ->drawPolygon($points);
         $s->setBackgroundColor(new Rgb(255, 0, 0));
-        $s->addPolygon($points);
+        $s->drawPolygon($points);
         $s->setFillColor(new Rgb(255, 0, 0));
-        $s->addPolygon($points);
+        $s->drawPolygon($points);
         $this->assertEquals(640, $s->getWidth());
     }
 

@@ -164,12 +164,5 @@ class LogTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Pop\Log\Writer\Mail', $w);
     }
 
-    public function testWriterMailBadMailException()
-    {
-        $this->setExpectedException('Pop\Log\Writer\Exception');
-        $w = new Mail(array('bademail'));
-        $this->assertInstanceOf('Pop\Log\Writer\Mail', $w);
-    }
-
 }
 

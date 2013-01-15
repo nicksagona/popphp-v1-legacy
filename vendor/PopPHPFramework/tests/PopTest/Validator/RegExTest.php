@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\RegEx;
+    Pop\Validator\RegEx;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -37,7 +37,7 @@ class RegExTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new RegEx('/^[a-zA-Z]+$/', false);
+        $v = new RegEx('/^[a-zA-Z]+$/', null, false);
         $this->assertFalse($v->evaluate('abcdef'));
         $this->assertTrue($v->evaluate('123456'));
     }

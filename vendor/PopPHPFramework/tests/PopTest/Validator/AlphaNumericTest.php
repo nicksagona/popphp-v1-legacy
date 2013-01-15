@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\AlphaNumeric;
+    Pop\Validator\AlphaNumeric;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -37,7 +37,7 @@ class AlphaNumericTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new AlphaNumeric(null, false);
+        $v = new AlphaNumeric(null, null, false);
         $this->assertFalse($v->evaluate('abcdef123'));
         $this->assertTrue($v->evaluate('123456$#@'));
     }

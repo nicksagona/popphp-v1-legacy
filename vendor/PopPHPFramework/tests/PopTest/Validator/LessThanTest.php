@@ -17,7 +17,7 @@
 namespace PopTest\Validator;
 
 use Pop\Loader\Autoloader,
-    Pop\Validator\Validator\LessThan;
+    Pop\Validator\LessThan;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -37,7 +37,7 @@ class LessThanTest extends \PHPUnit_Framework_TestCase
 
     public function testEvaluateFalse()
     {
-        $v = new LessThan(10, false);
+        $v = new LessThan(10, null, false);
         $this->assertFalse($v->evaluate(5));
         $this->assertTrue($v->evaluate(12));
     }
