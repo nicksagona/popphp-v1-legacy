@@ -28,7 +28,7 @@ try {
             ->save('../tmp/test.jpg');
 
     $imagick->destroy();
-    echo 'Image saved.' . PHP_EOL . PHP_EOL;
+    echo 'Image saved.';
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

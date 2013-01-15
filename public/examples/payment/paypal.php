@@ -36,8 +36,6 @@ try {
         echo "There was an error!" . PHP_EOL;
         echo $payment->getMessage();
     }
-
-    echo PHP_EOL . PHP_EOL;
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

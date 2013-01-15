@@ -27,7 +27,7 @@ try {
     $mail->setText("Hello,\n\nI'm just trying out this new Pop Mail component.\n\nThanks,\nBob\n\n");
     $mail->send();
 
-    echo 'Mail Sent!' . PHP_EOL . PHP_EOL;
+    echo 'Mail Sent!';
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

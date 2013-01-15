@@ -25,7 +25,7 @@ try {
     );
 
     $pages = new Paginator($rows, 3, 3);
-    echo $pages . PHP_EOL . PHP_EOL;
+    echo $pages;
 } catch (\Exception $e) {
 
     print($e->getMessage());

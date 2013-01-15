@@ -59,10 +59,6 @@ class Mail implements WriterInterface
         }
 
         foreach ($emails as $key => $value) {
-            if (!preg_match('/[a-zA-Z0-9\.\-\_+%]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]{2,4}/', $value)) {
-                throw new Exception('Error: One of the email addresses passed was not valid.');
-            }
-
             if (!is_numeric($key)) {
                 $this->emails[] = array(
                     'name'  => $key,
@@ -91,7 +87,7 @@ class Mail implements WriterInterface
 
         $subject .= ' ' . $logEntry['name'] . ' (' . $logEntry['priority'] . ')';
 
-        $mail = new \Pop\Mail\Mail($this->emails, $subject);
+        $mail = new \Pop\Mail\Mail($subject, $this->emails);
         if (isset($options['headers'])) {
             $mail->setHeaders($options['headers']);
         }

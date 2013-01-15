@@ -56,7 +56,6 @@ TMPL;
 
     $view = View::factory($tmpl, new Model($data));
     $view->render();
-
 } catch (Exception $e) {
     echo $e->getMessage();
 }

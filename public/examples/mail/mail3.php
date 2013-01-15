@@ -50,7 +50,7 @@ HTMLMSG;
     $mail->attachFile('../assets/files/test.pdf');
     $mail->send();
 
-    echo 'Mail Sent!' . PHP_EOL . PHP_EOL;
+    echo 'Mail Sent!';
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

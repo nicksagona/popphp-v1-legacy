@@ -23,8 +23,6 @@ try {
     Users::setDb($db);
     $users = Users::findAll();
     print_r($users);
-
-    echo PHP_EOL . PHP_EOL;
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

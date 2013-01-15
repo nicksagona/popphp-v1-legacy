@@ -29,7 +29,7 @@ try {
     //$mail = new Mail();
     //$mail->sendFrom('../tmp', true);
 
-    echo 'Mail Saved!' . PHP_EOL . PHP_EOL;
+    echo 'Mail Saved!';
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

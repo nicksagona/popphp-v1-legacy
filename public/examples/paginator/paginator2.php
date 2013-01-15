@@ -47,7 +47,6 @@ FOOTER;
           ->setRowTemplate($rowTemplate)
           ->setFooter($footer);
     echo $pages;
-
 } catch (\Exception $e) {
 
     print($e->getMessage());

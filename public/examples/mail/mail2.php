@@ -49,7 +49,7 @@ HTMLMSG;
     $mail->setHtml($html);
     $mail->send();
 
-    echo 'Mail Sent!' . PHP_EOL . PHP_EOL;
+    echo 'Mail Sent!';
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

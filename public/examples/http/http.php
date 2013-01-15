@@ -5,7 +5,6 @@ require_once '../../bootstrap.php';
 use Pop\Http\Request;
 
 try {
-
     $request = new Request();
 
     switch ($request->getMethod()) {
@@ -25,7 +24,6 @@ try {
             print_r($request->getDelete());
             break;
     }
-
 } catch (\Exception $e) {
     echo $e->getMessage();
 }
