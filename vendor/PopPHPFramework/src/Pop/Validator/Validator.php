@@ -98,7 +98,7 @@ class Validator implements ValidatorInterface
      */
     public static function factory($value = null, $msg = null, $condition = true)
     {
-        return new self($value, $msg, $condition);
+        return new static($value, $msg, $condition);
     }
 
     /**
@@ -126,7 +126,7 @@ class Validator implements ValidatorInterface
      *
      * @return boolean
      */
-    public function getDefaultMessage()
+    public function getMessage()
     {
         return $this->defaultMessage;
     }
@@ -171,7 +171,7 @@ class Validator implements ValidatorInterface
      * @param  string $message
      * @return \Pop\Validator\ValidatorInterface
      */
-    public function setDefaultMessage($message)
+    public function setMessage($message)
     {
         $this->defaultMessage = $message;
         return $this;

@@ -6,7 +6,7 @@ use Pop\Image\Captcha;
 
 try {
     $options = array(
-        'width'  => 100,
+        'width'  => 110,
         'height' => 30
     );
 
@@ -20,7 +20,7 @@ try {
             ->setLength(6)
             ->setXY(5, 30)
             ->setRotate(-7)
-            ->setSwirl(40)
+            ->setSwirl(20)
             ->setFont('../assets/fonts/times.ttf')
             ->output();
 } catch (\Exception $e) {

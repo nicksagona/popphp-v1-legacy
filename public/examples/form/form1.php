@@ -3,7 +3,7 @@
 require_once '../../bootstrap.php';
 
 use Pop\Form\Form,
-    Pop\Validator\Validator;
+    Pop\Validator;
 
 try {
     $fields = array(

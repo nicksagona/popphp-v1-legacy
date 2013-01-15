@@ -19,11 +19,11 @@ try {
           ->setStrokeColor(new Rgb(255, 255, 255))
           ->setStrokeWidth(3)
           //->setOpacity(50)
-          //->addRectangle(320, 240, 150, 75)
-          //->addCircle(320, 240, 150)
-          //->addEllipse(320, 240, 150, 75)
-          //->addArc(320, 240, 0, 120, 150, 75)
-          ->addPolygon($points)
+          //->drawRectangle(320, 240, 150, 75)
+          //->drawCircle(320, 240, 150)
+          //->drawEllipse(320, 240, 150, 75)
+          //->drawArc(320, 240, 0, 120, 150, 75)
+          ->drawPolygon($points)
           ->output();
 
     $image->destroy();

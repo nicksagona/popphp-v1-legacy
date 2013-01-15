@@ -2,11 +2,11 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Validator\Validator;
+use Pop\Validator;
 
 try {
     // Create an alphanumeric validator
-    $val = Validator::factory(new Validator\AlphaNumeric());
+    $val = new Validator\AlphaNumeric();
 
     // Evaluate if the input value meets the rule or not
     if (!$val->evaluate('abcd1234')) {

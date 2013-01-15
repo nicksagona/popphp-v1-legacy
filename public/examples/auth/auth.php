@@ -2,9 +2,7 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Auth\Auth,
-    Pop\Auth\Role,
-    Pop\Auth\Adapter\AuthFile;
+use Pop\Auth;
 
 try {
     // Set the username and password
@@ -12,13 +10,13 @@ try {
     $password = '90test12';
 
     // Create auth object
-    $auth = new Auth(new AuthFile('../assets/files/access_sha1.txt'), Auth::ENCRYPT_SHA1);
+    $auth = new Auth\Auth(new Auth\Adapter\File('../assets/files/access_sha1.txt'), Auth\Auth::ENCRYPT_SHA1);
 
     // Add some roles
     $auth->addRoles(array(
-        Role::factory('admin', 3),
-        Role::factory('editor', 2),
-        Role::factory('reader', 1)
+        Auth\Role::factory('admin', 3),
+        Auth\Role::factory('editor', 2),
+        Auth\Role::factory('reader', 1)
     ));
 
     // Define some other auth parameters and authenticate the user

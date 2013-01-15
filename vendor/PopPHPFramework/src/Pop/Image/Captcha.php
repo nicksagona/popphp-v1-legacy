@@ -639,9 +639,6 @@ class Captcha
                     $this->x = round(($width - ($this->length * $this->size)) / 2);
                     $this->y = $height - round(($height - $this->size) / 2);
                 }
-                //$this->x = round(($width - ($this->length * $this->size)));
-                //$this->y = round(($height - $this->size) * 1.6);
-                //$this->rotate = 0;
             }
             $this->image->text($this->token['value'], $this->size, $this->x, $this->y, $this->font, $this->rotate);
         // Else, draw text using a system font

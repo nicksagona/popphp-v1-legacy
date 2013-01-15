@@ -118,10 +118,12 @@ class Tar implements ArchiveInterface
         foreach ($files as $file) {
             // If file is a directory, loop through and add the files.
             if (file_exists($file) && is_dir($file)) {
+                $realpath = realpath($file);
                 $dir = new Dir($file, true, true);
                 $dirFiles = $dir->getFiles();
                 foreach ($dirFiles as $fle) {
                     if (file_exists($fle) && !is_dir($fle)) {
+                        $fle = $file . DIRECTORY_SEPARATOR . str_replace($realpath . DIRECTORY_SEPARATOR, '', $fle);
                         $this->archive->add($fle);
                     }
                 }

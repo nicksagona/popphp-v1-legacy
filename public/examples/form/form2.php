@@ -8,10 +8,7 @@ use Pop\Form\Form,
     Pop\Form\Element\Radio,
     Pop\Form\Element\Select,
     Pop\Form\Element\Textarea,
-    Pop\Validator\Validator,
-    Pop\Validator\Validator\AlphaNumeric,
-    Pop\Validator\Validator\Email,
-    Pop\Validator\Validator\LengthGt;
+    Pop\Validator;
 
 try {
 
@@ -21,19 +18,19 @@ try {
     $username->setLabel('Username:')
              ->setRequired(true)
              ->setAttributes('size', 40)
-             ->addValidator(new AlphaNumeric());
+             ->addValidator(new Validator\AlphaNumeric());
 
     $email = new Element('text', 'email');
     $email->setLabel('Email:')
           ->setRequired(true)
           ->setAttributes('size', 40)
-          ->addValidator(new Email());
+          ->addValidator(new Validator\Email());
 
     $password = new Element('password', 'password');
     $password->setLabel('Password:')
              ->setRequired(true)
              ->setAttributes('size', 40)
-             ->addValidator(new LengthGt(6));
+             ->addValidator(new Validator\LengthGt(6));
 
     $checkbox = new Checkbox('colors', array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'));
     $checkbox->setLabel('Colors:')

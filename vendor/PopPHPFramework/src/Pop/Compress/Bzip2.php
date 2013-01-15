@@ -44,7 +44,7 @@ class Bzip2
      * @param  int    $block
      * @return mixed
      */
-    public static function compress($data, $block = 5)
+    public static function compress($data, $block = 9)
     {
         // Compress the file
         if (file_exists($data)) {

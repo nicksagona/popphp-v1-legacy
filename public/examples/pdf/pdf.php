@@ -34,24 +34,24 @@ try {
     $pdf->setFillColor(new Rgb(12, 101, 215))
         ->setStrokeColor(new Rgb(215, 101, 12))
         ->setStrokeWidth(4, 10, 5);
-    $pdf->addCircle(150, 700, 60, false);
+    $pdf->drawCircle(150, 700, 60, false);
 
     $pdf->setPage(1)->setFillColor(new Rgb(0, 0, 255));
-    $pdf->addRectangle(100, 550, 175, 50);
+    $pdf->drawRectangle(100, 550, 175, 50);
     $pdf->addLink(100, 550, 175, 50, 150, 550, 1, 2);
 
     $pdf->setPage(2)
         ->setFillColor(new Rgb(12, 101, 215))
         ->setStrokeColor(new Rgb(215, 101, 12))
         ->setStrokeWidth(4, 10, 5);
-    $pdf->addCircle(250, 650, 25);
+    $pdf->drawCircle(250, 650, 25);
     $pdf->addImage('../assets/images/logo_rgb.jpg', 150, 400);
 
     $pdf->setPage(1)
         ->setFillColor(new Rgb(255, 10, 25))
         ->setStrokeColor(new Rgb(12, 101, 215))
         ->setStrokeWidth(2);
-    $pdf->addEllipse(300, 150, 200, 100, false);
+    $pdf->drawEllipse(300, 150, 200, 100, false);
 
     $pdf->addPage('Legal');
     $pdf->addFont('Courier-Bold');

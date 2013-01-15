@@ -2,13 +2,10 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Data\Xml,
-    Pop\File\File;
+use Pop\Data\Type\Xml;
 
 try {
-    $xml = new File('../assets/files/test.xml');
-
-    $users = Xml::decode($xml->read());
+    $users = Xml::decode(file_get_contents('../assets/files/test.xml'));
     print_r($users);
 
     echo '<br />' . PHP_EOL;

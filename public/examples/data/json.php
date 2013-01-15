@@ -2,7 +2,7 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Data\Json;
+use Pop\Data\Type\Json;
 
 try {
     $var = array('This is a string', 123, 'This is another string');

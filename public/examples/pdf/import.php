@@ -12,19 +12,19 @@ try {
     $pdf->setFillColor(new Rgb(128, 200, 50));
     $pdf->setStrokeColor(new Rgb(0, 255, 0));
     $pdf->setStrokeWidth(8);
-    $pdf->addCircle(500, 500, 100);
+    $pdf->drawCircle(500, 500, 100);
 
     $pdf->setFillColor(new Rgb(215, 101, 12));
     $pdf->setStrokeColor(new Rgb(0, 0, 0));
     $pdf->setStrokeWidth(2, 5, 5);
-    $pdf->addRectangle(50, 150, 175, 50);
+    $pdf->drawRectangle(50, 150, 175, 50);
 
     $pdf->setPage(2);
 
     $pdf->setFillColor(new Rgb(12, 101, 215));
     $pdf->setStrokeColor(new Rgb(0, 0, 128));
     $pdf->setStrokeWidth(5);
-    $pdf->addRectangle(150, 650, 400, 100);
+    $pdf->drawRectangle(150, 650, 400, 100);
 
     $pdf->addFont('Courier');
     $pdf->setFillColor(new Rgb(12, 255, 12));
@@ -34,13 +34,13 @@ try {
     $pdf->setFillColor(new Rgb(128, 200, 50));
     $pdf->setStrokeColor(new Rgb(0, 255, 0));
     $pdf->setStrokeWidth(8);
-    $pdf->addCircle(500, 500, 100);
+    $pdf->drawCircle(500, 500, 100);
 
     $pdf->addPage('Legal');
     $pdf->setFillColor(new Rgb(128, 200, 50));
     $pdf->setStrokeColor(new Rgb(0, 255, 0));
     $pdf->setStrokeWidth(8);
-    $pdf->addCircle(500, 500, 100);
+    $pdf->drawCircle(500, 500, 100);
 
     $pdf->addText(10, 300, 18, 'Hello World Again!!!', 'Courier');
     $pdf->addUrl(10, 300, 380, 18, 'http://www.google.com/');
@@ -53,7 +53,7 @@ try {
     $pdf->setFillColor(new Rgb(12, 101, 215));
     $pdf->setStrokeColor(new Rgb(0, 0, 128));
     $pdf->setStrokeWidth(5);
-    $pdf->addRectangle(150, 650, 400, 100);
+    $pdf->drawRectangle(150, 650, 400, 100);
 
     $pdf->output();
 } catch (\Exception $e) {

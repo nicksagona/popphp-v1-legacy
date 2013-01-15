@@ -2,12 +2,10 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Data\Sql,
-    Pop\File\File;
+use Pop\Data\Type\Sql;
 
 try {
-    $sql = new File('../assets/files/test.sql');
-    $users = Sql::decode($sql->read());
+    $users = Sql::decode(file_get_contents('../assets/files/test.sql'));
     print_r($users);
 
     echo '<br />' . PHP_EOL;

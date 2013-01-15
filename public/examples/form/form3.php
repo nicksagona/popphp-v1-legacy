@@ -3,8 +3,7 @@
 require_once '../../bootstrap.php';
 
 use Pop\Form\Form,
-    Pop\Validator\Validator,
-    Pop\Validator\Validator\AlphaNumeric;
+    Pop\Validator;
 
 try {
     $fields = array(
@@ -14,7 +13,7 @@ try {
             'label'      => 'Username:',
             'required'   => true,
             'attributes' => array('size', 40),
-            'validators' => new AlphaNumeric()
+            'validators' => new Validator\AlphaNumeric()
         ),
         array(
             'type'       => 'password',

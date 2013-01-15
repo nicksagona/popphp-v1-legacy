@@ -2,12 +2,10 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Data\Yaml,
-    Pop\File\File;
+use Pop\Data\Type\Yaml;
 
 try {
-    $yaml = new File('../assets/files/test.yml');
-    $users = Yaml::decode($yaml->read());
+    $users = Yaml::decode(file_get_contents('../assets/files/test.yml'));
     print_r($users);
 
     echo '<br />' . PHP_EOL;

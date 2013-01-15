@@ -353,7 +353,7 @@ class Auth
             case self::LOGIN_ATTEMPTS_EXCEEDED:
                 $msg = Locale::factory()->__(
                     'The allowed login attempts (%1) have been exceeded.',
-                    $this->validators['attempts']->getValidator()->getValue()
+                    $this->validators['attempts']->getValue()
                 );
                 break;
             case self::IP_BLOCKED:

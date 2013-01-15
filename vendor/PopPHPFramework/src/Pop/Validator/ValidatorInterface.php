@@ -56,7 +56,7 @@ interface ValidatorInterface
      *
      * @return boolean
      */
-    public function getDefaultMessage();
+    public function getMessage();
 
     /**
      * Method to get the validator input
@@ -87,7 +87,7 @@ interface ValidatorInterface
      * @param  string $message
      * @return \Pop\Validator\Validator
      */
-    public function setDefaultMessage($message);
+    public function setMessage($message);
 
     /**
      * Method to set the validator input

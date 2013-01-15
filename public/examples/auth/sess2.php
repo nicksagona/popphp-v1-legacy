@@ -2,9 +2,7 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Auth\Auth,
-    Pop\Auth\Role,
-    Pop\Auth\Adapter\AuthFile,
+use Pop\Auth,
     Pop\Web\Session;
 
 try {
