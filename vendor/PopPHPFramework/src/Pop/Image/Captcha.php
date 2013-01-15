@@ -169,9 +169,9 @@ class Captcha
         $this->sess = Session::getInstance();
 
         if ($forceGd) {
-            $class = '\Pop\Image\Gd';
+            $class = 'Pop\Image\Gd';
         } else {
-            $class = (Imagick::isInstalled()) ? '\Pop\Image\Imagick' : '\Pop\Image\Gd';
+            $class = (Imagick::isInstalled()) ? 'Pop\Image\Imagick' : 'Pop\Image\Gd';
         }
 
         // Parse through the options

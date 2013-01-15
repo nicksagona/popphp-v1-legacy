@@ -164,7 +164,7 @@ class Fields
                 }
 
                 if ((stripos($key, 'email') !== false) || (stripos($key, 'e-mail') !== false) || (stripos($key, 'e_mail') !== false)) {
-                    $validators = new \Pop\Validator\Validator\Email();
+                    $validators = new \Pop\Validator\Email();
                 }
 
                 $this->fields[] = array(

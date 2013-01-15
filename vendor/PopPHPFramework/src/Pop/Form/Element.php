@@ -25,7 +25,7 @@
 namespace Pop\Form;
 
 use Pop\Dom\Child,
-    Pop\Validator\Validator;
+    Pop\Validator;
 
 /**
  * This is the Element class for the Form component.
@@ -270,12 +270,11 @@ class Element extends Child
      * Add a validator the form element object.
      *
      * @param  Validator\ValidatorInterface $validator
-     * @param  string                       $msg
      * @return \Pop\Form\Element
      */
-    public function addValidator(Validator\ValidatorInterface $validator, $msg = null)
+    public function addValidator(Validator\ValidatorInterface $validator)
     {
-        $this->validators[] = new Validator($validator, $msg);
+        $this->validators[] = $validator;
         return $this;
     }
 
@@ -315,7 +314,7 @@ class Element extends Child
                     $curElemValue = $this->value;
                 }
 
-                if ('Pop\Validator\Validator\NotEmpty' == get_class($validator->getValidator())) {
+                if ('Pop\Validator\NotEmpty' == get_class($validator)) {
                     if (!$validator->evaluate($curElemValue)) {
                         $this->errors[] = $validator->getMessage();
                     }
