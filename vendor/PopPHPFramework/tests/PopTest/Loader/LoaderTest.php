@@ -37,6 +37,13 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Pop\Loader\Autoloader', Autoloader::factory());
     }
 
+    public function testFallback()
+    {
+        $a = new Autoloader();
+        $a->splAutoloadRegister(false, true);
+        $this->assertInstanceOf('Pop\Loader\Autoloader', $a);
+    }
+
     public function testClassmap()
     {
         $classmap = __DIR__ . '/../tmp/classmap.php';
@@ -50,6 +57,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
         $a = new Autoloader();
         $a->loadClassMap($classmap);
+        $this->assertInstanceOf('Pop\Config', new \Pop\Config(array()));
 
         unlink($classmap);
     }

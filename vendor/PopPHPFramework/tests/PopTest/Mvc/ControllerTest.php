@@ -64,6 +64,7 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
         $c = new Controller();
         $c->setViewPath('/admin');
         $this->assertEquals('/admin', $c->getViewPath());
+        $this->assertNull($c->getView());
     }
 
     public function testDispatchException()

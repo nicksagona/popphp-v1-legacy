@@ -52,6 +52,49 @@ class MailTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Pop\Mail\Mail', $m);
     }
 
+    public function testTo()
+    {
+        $m = new Mail('Subject');
+        $m->to('bob@smith.com', 'Bob Smith');
+        $m->add('bubba@smith.com', 'Bubba Smith');
+        $m->sendAsGroup(true);
+        $this->assertEquals(2, count($m->getQueue()));
+    }
+
+    public function testFrom()
+    {
+        $m = new Mail('Subject');
+        $m->from('bob@smith.com', 'Bob Smith');
+        $this->assertEquals('Bob Smith <bob@smith.com>', $m->getHeader('From'));
+        $this->assertEquals('Bob Smith <bob@smith.com>', $m->getHeader('Reply-To'));
+    }
+
+    public function testReply()
+    {
+        $m = new Mail('Subject');
+        $m->replyTo('bob@smith.com', 'Bob Smith');
+        $this->assertEquals('Bob Smith <bob@smith.com>', $m->getHeader('Reply-To'));
+        $this->assertEquals('Bob Smith <bob@smith.com>', $m->getHeader('From'));
+    }
+
+    public function testCc()
+    {
+        $m = new Mail('Subject');
+        $m->cc('bob@smith.com', 'Bob Smith');
+        $this->assertEquals('Bob Smith <bob@smith.com>', $m->getHeader('Cc'));
+        $m->cc(array('test@email.com', 'someone@email.com'));
+        $this->assertEquals('test@email.com, someone@email.com', $m->getHeader('Cc'));
+    }
+
+    public function testBcc()
+    {
+        $m = new Mail('Subject');
+        $m->bcc('bob@smith.com', 'Bob Smith');
+        $this->assertEquals('Bob Smith <bob@smith.com>',$m->getHeader('Bcc'));
+        $m->bcc(array('test@email.com', 'someone@email.com'));
+        $this->assertEquals('test@email.com, someone@email.com', $m->getHeader('Bcc'));
+    }
+
     public function testConstructorRcptException()
     {
         $this->setExpectedException('Pop\Mail\Exception');

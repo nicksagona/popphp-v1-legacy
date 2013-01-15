@@ -18,6 +18,7 @@ namespace PopTest\Mvc;
 
 use Pop\Loader\Autoloader,
     Pop\Config,
+    Pop\Http\Request,
     Pop\Mvc\Controller,
     Pop\Mvc\Router,
     Pop\Project\Project;
@@ -45,6 +46,12 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, count($r->getControllers()));
     }
 
+    public function testGetRequest()
+    {
+        $r = new Router(array('Pop\Mvc\Controller' => new Controller()), new Request());
+        $this->assertInstanceOf('Pop\Http\Request', $r->request());
+    }
+
     public function testAction()
     {
         $r = new Router(array('Pop\Mvc\Controller' => new Controller()));
@@ -57,6 +64,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $r = new Router(array('Pop\Mvc\Controller' => new Controller()));
         $r->route(new Project(new Config(array())));
         $this->assertNull($r->controller());
+        $this->assertInstanceOf('Pop\Project\Project', $r->project());
     }
 
 }
