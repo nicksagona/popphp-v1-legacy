@@ -6,6 +6,7 @@ COMPLETED:
 * Refactor and improve Auth component
 * Refactor and improve Cache component
     - Add support for APC
+* Refactor and improve Color component
 * Add factory method to the Config component
 * Refactor and improve Graph component
 * Refactor, clean up and improve the API of the Image component
