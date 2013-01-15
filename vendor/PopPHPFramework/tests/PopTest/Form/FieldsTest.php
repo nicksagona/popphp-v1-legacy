@@ -68,6 +68,7 @@ class FieldsTest extends \PHPUnit_Framework_TestCase
         Users::setDb(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')));
         $f = Fields::factory(new Users());
         $f = Fields::factory(new Users(), array('size' => 40), array('id' => array('type' => 'hidden')), array('access'));
+        $f = Fields::factory(new Users(), array('size' => 40), array('id' => array('type' => 'hidden')), 'access');
         $this->assertEquals(4, count($f->getFields()));
     }
 

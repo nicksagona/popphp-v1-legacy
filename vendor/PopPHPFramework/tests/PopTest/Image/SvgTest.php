@@ -46,6 +46,13 @@ class SvgTest extends \PHPUnit_Framework_TestCase
         $s = new Svg('graph.svg', '90%', '90%', new Rgb(255, 0, 0));
     }
 
+    public function testSvgConstructorFromFile()
+    {
+        $s = new Svg(__DIR__ . '/../tmp/test.svg');
+        $this->assertEquals(640, $s->getWidth());
+        $this->assertEquals(480, $s->getHeight());
+    }
+
     public function testImageAttributes()
     {
         $s = new Svg('graph.svg', '640px', '480px', new Rgb(255, 0, 0));

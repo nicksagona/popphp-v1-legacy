@@ -41,9 +41,18 @@ class GdTest extends \PHPUnit_Framework_TestCase
         $i = new Gd('graph.gif');
     }
 
+    public function testGetImageResource()
+    {
+        $i = new Gd(__DIR__ . '/../tmp/test.jpg');
+        $i->setStrokeColor(new Rgb(0, 0, 0))
+            ->drawRectangle(10, 10, 100, 100);
+        $this->assertNotNull($i->resource());
+    }
+
     public function testImageAttributes()
     {
         $i = new Gd(__DIR__ . '/../tmp/test.jpg');
+        $i->setCompression(75);
         $i->setFillColor(new Rgb(255, 0, 0));
         $i->setStrokeColor(new Rgb(0, 0, 255));
         $i->setStrokeWidth(5);
@@ -53,6 +62,36 @@ class GdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(8, $i->getDepth());
         $this->assertEquals('RGB', $i->getColorMode());
         $this->assertFalse($i->hasAlpha());
+    }
+
+    public function testImageFormats()
+    {
+        $i = new Gd(__DIR__ . '/../tmp/test.jpg');
+        $this->assertEquals(5, count($i->getFormats()));
+        $this->assertEquals(5, $i->getNumberOfFormats());
+    }
+
+    public function testDummyMethods()
+    {
+        $i = new Gd(__DIR__ . '/../tmp/test.jpg');
+        $i->flip();
+        $i->flop();
+        $this->assertInstanceOf('Pop\Image\Gd', $i->setFilter());
+        $this->assertInstanceOf('Pop\Image\Gd', $i->setBlur());
+        $this->assertInstanceOf('Pop\Image\Gd', $i->setOverlay());
+        $this->assertInstanceOf('Pop\Image\Gd', $i->hue(100));
+        $this->assertInstanceOf('Pop\Image\Gd', $i->saturation(100));
+        $this->assertInstanceOf('Pop\Image\Gd', $i->hsb(100, 100, 1000));
+        $this->assertInstanceOf('Pop\Image\Gd', $i->level(0, 0 ,0));
+        $this->assertInstanceOf('Pop\Image\Gd', $i->flatten());
+        $this->assertInstanceOf('Pop\Image\Gd', $i->paint(10));
+        $this->assertInstanceOf('Pop\Image\Gd', $i->posterize(10));
+        $this->assertInstanceOf('Pop\Image\Gd', $i->noise());
+        $this->assertInstanceOf('Pop\Image\Gd', $i->diffuse(10));
+        $this->assertInstanceOf('Pop\Image\Gd', $i->skew(new Rgb(255, 0, 0), 10, 10));
+        $this->assertInstanceOf('Pop\Image\Gd', $i->swirl(10));
+        $this->assertInstanceOf('Pop\Image\Gd', $i->wave(10, 10));
+        $this->assertInstanceOf('Pop\Image\Gd', $i->setFormats());
     }
 
     public function testPng()

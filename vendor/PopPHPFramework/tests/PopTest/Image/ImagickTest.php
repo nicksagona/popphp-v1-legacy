@@ -227,6 +227,7 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
           ->hue(180)
           ->saturation(100)
           ->hsb(180, 50, 100)
+          ->desaturate()
           ->level(50, 50, 50)
           ->level(-100, 50, 300)
           ->sharpen(10)
@@ -254,6 +255,7 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
           ->wave(20, 20)
           ->pencil(10, 0, 0);
         $this->assertEquals(640, $i->getWidth());
+        $i->destroy();
     }
 
     public function testColorTotal()

@@ -93,7 +93,7 @@ class Data
 
             $file = new \Pop\File\File($data);
             $this->file = $file->read();
-            $this->type = ($file->getExt() == 'yml') ? 'Yaml' : ucfirst(strtolower($file->getExt()));
+            $this->type = (strtolower($file->getExt()) == 'yml') ? 'Yaml' : ucfirst(strtolower($file->getExt()));
         } else {
             $this->data = $data;
         }
@@ -249,7 +249,7 @@ class Data
     {
         $file = new \Pop\File\File($toFile);
 
-        $to = strtolower($file->getExt());
+        $to = (strtolower($file->getExt()) == 'yml') ? 'yaml' : strtolower($file->getExt());
         $types = array('csv', 'json', 'sql', 'xml', 'yaml');
 
         if (!in_array($to, $types)) {

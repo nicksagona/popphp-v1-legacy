@@ -42,13 +42,13 @@ class DirTest extends \PHPUnit_Framework_TestCase
     public function testFiles()
     {
         $d = new Dir(__DIR__ . '/../tmp/');
-        $this->assertEquals(12, count($d->getFiles()));
+        $this->assertEquals(13, count($d->getFiles()));
         $d = new Dir(__DIR__ . '/../tmp/', true);
-        $this->assertEquals(12, count($d->getFiles()));
+        $this->assertEquals(13, count($d->getFiles()));
         $d = new Dir(__DIR__ . '/../tmp/', true, true);
-        $this->assertEquals(12, count($d->getFiles()));
+        $this->assertEquals(13, count($d->getFiles()));
         $d = new Dir(__DIR__ . '/../tmp/', true, true, true);
-        $this->assertEquals(12, count($d->getFiles()));
+        $this->assertEquals(13, count($d->getFiles()));
     }
 
     public function testGetPath()

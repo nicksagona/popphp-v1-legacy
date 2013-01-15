@@ -38,6 +38,7 @@
                 <file>../src/Pop/Db/Adapter/Sqlsrv.php</file>
                 <file>../src/Pop/Form/Element/Csrf.php</file>
                 <file>../src/Pop/Form/Element/Captcha.php</file>
+                <file>../src/Pop/Image/Captcha.php</file>
                 <file>../src/Pop/Payment/Adapter/Authorize.php</file>
                 <file>../src/Pop/Payment/Adapter/PayLeap.php</file>
                 <file>../src/Pop/Payment/Adapter/PayPal.php</file>

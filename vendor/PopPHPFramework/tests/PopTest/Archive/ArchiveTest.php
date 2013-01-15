@@ -56,6 +56,12 @@ class ArchiveTest extends \PHPUnit_Framework_TestCase
                 unlink(__DIR__ . '/../tmp/test.tar');
             }
         }
+
+        if (class_exists('ZipArchive', false)) {
+            $a = new Archive('test.zip');
+            $this->assertInstanceOf('Pop\Archive\Adapter\Zip', $a->adapter());
+            $this->assertInstanceOf('ZipArchive', $a->archive());
+        }
     }
 
 }

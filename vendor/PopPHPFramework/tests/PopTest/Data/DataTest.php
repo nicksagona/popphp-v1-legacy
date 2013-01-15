@@ -100,5 +100,39 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('Test1,test1@test.com', $d->parseData('csv'));
     }
 
+    public function testWriteData()
+    {
+        $ary = array(
+            array('name' => 'Test1', 'email' => 'test1@test.com'),
+            array('name' => 'Test2', 'email' => 'test2@test.com')
+        );
+        $d = Data::factory($ary)->writeData(__DIR__ . '/../tmp/datatest.csv');
+        $d = Data::factory($ary)->writeData(__DIR__ . '/../tmp/datatest.sql');
+        $d = Data::factory($ary)->writeData(__DIR__ . '/../tmp/datatest.xml');
+        $d = Data::factory($ary)->writeData(__DIR__ . '/../tmp/datatest.json');
+        $d = Data::factory($ary)->writeData(__DIR__ . '/../tmp/datatest.yml');
+        $this->assertFileExists(__DIR__ . '/../tmp/datatest.csv');
+        $this->assertFileExists(__DIR__ . '/../tmp/datatest.sql');
+        $this->assertFileExists(__DIR__ . '/../tmp/datatest.xml');
+        $this->assertFileExists(__DIR__ . '/../tmp/datatest.json');
+        $this->assertFileExists(__DIR__ . '/../tmp/datatest.yml');
+
+        if (file_exists(__DIR__ . '/../tmp/datatest.csv')) {
+            unlink(__DIR__ . '/../tmp/datatest.csv');
+        }
+        if (file_exists(__DIR__ . '/../tmp/datatest.sql')) {
+            unlink(__DIR__ . '/../tmp/datatest.sql');
+        }
+        if (file_exists(__DIR__ . '/../tmp/datatest.xml')) {
+            unlink(__DIR__ . '/../tmp/datatest.xml');
+        }
+        if (file_exists(__DIR__ . '/../tmp/datatest.json')) {
+            unlink(__DIR__ . '/../tmp/datatest.json');
+        }
+        if (file_exists(__DIR__ . '/../tmp/datatest.yml')) {
+            unlink(__DIR__ . '/../tmp/datatest.yml');
+        }
+    }
+
 }
 

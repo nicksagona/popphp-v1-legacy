@@ -57,5 +57,25 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(5, $d->adapter()->numFields());
     }
 
+    public function testGetConnection()
+    {
+        $d = Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite'));
+        $d->adapter()->query('SELECT * FROM users WHERE id = 1');
+        $this->assertNotNull($d->adapter()->getConnection());
+    }
+
+    public function testGetResult()
+    {
+        $d = Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite'));
+        $d->adapter()->query('SELECT * FROM users WHERE id = 1');
+        $this->assertNotNull($d->adapter()->getResult());
+    }
+
+    public function testVersion()
+    {
+        $d = Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite'));
+        $this->assertContains('SQLite', $d->adapter()->version());
+    }
+
 }
 

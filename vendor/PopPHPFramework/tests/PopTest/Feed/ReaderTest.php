@@ -33,6 +33,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Pop\Feed\Reader', new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4));
         $this->assertInstanceOf('Pop\Feed\Reader', new Reader('http://vimeo.com/tag:mostviewed/rss', 4));
         $this->assertInstanceOf('Pop\Feed\Reader', new Reader('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Reader('http://api.twitter.com/1/statuses/user_timeline.rss?screen_name=nicksagona', 4));
     }
 
     public function testConstructorException()
@@ -53,6 +54,8 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $feed = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
         $feed->setTemplate('This is a template');
         $this->assertEquals('This is a template', $feed->getTemplate());
+        $feed->setTemplate(__DIR__ . '/../tmp/access.txt');
+        $this->assertContains('testuser', $feed->getTemplate());
     }
 
     public function testSetAndGetDatFormat()
@@ -92,7 +95,20 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
     public function testRssRender()
     {
         $tmpl = '        <div class="feedDiv">\n            <a href="[{link}]" target="_blank">[{title}]</a><br />\n            <strong>[{pubDate}]</strong> ([{timeElapsed}])<br /><br />\n        </div>\n';
-        $feed = new Reader('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4);
+        $feed = new Reader('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss');
+        $feed->setTemplate($tmpl);
+        $code = $feed->render(true);
+        ob_start();
+        $feed->render();
+        $output = ob_get_clean();
+        $this->assertContains('<div class="feedDiv">', $code);
+        $this->assertContains('<div class="feedDiv">', $output);
+    }
+
+    public function testRssTwitterRender()
+    {
+        $tmpl = '        <div class="feedDiv">\n            <a href="[{link}]" target="_blank">[{title}]</a><br />\n            <strong>[{pubDate}]</strong> ([{timeElapsed}])<br /><br />\n        </div>\n';
+        $feed = new Reader('http://api.twitter.com/1/statuses/user_timeline.rss?screen_name=nicksagona', 4);
         $feed->setTemplate($tmpl);
         $code = $feed->render(true);
         ob_start();

@@ -204,5 +204,28 @@ class TarTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testNoCompress()
+    {
+        $tar = false;
+        $includePath = explode(PATH_SEPARATOR, get_include_path());
+
+        foreach ($includePath as $path) {
+            if (file_exists($path . DIRECTORY_SEPARATOR . 'Archive' . DIRECTORY_SEPARATOR . 'Tar.php')) {
+                $tar = true;
+            }
+        }
+
+        if ($tar) {
+            $a = new Archive(__DIR__ . '/../tmp/test.tar');
+            $a->addFiles(__DIR__ . '/../tmp');
+            $a->compress('.noext');
+            $this->fileExists(__DIR__ . '/../tmp/test.tar');
+            if (file_exists(__DIR__ . '/../tmp/test.tar')) {
+                unlink(__DIR__ . '/../tmp/test.tar');
+            }
+        }
+
+    }
+
 }
 

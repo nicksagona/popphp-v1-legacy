@@ -39,6 +39,8 @@ class FileTest extends \PHPUnit_Framework_TestCase
     {
         $f = File::checkDupe('access.txt', __DIR__ . '/../tmp');
         $this->assertEquals('access_1.txt', $f);
+        $f = File::checkDupe('access.txt');
+        $this->assertEquals('access.txt', $f);
     }
 
     public function testRead()
@@ -90,6 +92,20 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $f->move(__DIR__ . '/../tmp/access3.txt');
         $this->fileExists(__DIR__ . '/../tmp/access3.txt');
         unlink(__DIR__ . '/../tmp/access3.txt');
+    }
+
+    public function testCopyException()
+    {
+        $this->setExpectedException('Pop\File\Exception');
+        $f = new File('access.txt');
+        $f->copy(__DIR__ . '/../tmp/access.txt');
+    }
+
+    public function testMoveException()
+    {
+        $this->setExpectedException('Pop\File\Exception');
+        $f = new File('access.txt');
+        $f->move(__DIR__ . '/../tmp/access.txt');
     }
 
     public function testReadNewFile()

@@ -70,6 +70,12 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($r->getQuery('test'));
         $this->assertTrue(is_array($r->getPost()));
         $this->assertNull($r->getPost('test'));
+        $this->assertTrue(is_array($r->getPut()));
+        $this->assertNull($r->getPut('test'));
+        $this->assertTrue(is_array($r->getPatch()));
+        $this->assertNull($r->getPatch('test'));
+        $this->assertTrue(is_array($r->getDelete()));
+        $this->assertNull($r->getDelete('test'));
         $this->assertTrue(is_array($r->getCookie()));
         $this->assertNull($r->getCookie('test'));
         $this->assertTrue(is_array($r->getServer()));

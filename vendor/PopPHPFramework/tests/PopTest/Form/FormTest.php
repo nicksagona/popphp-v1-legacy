@@ -63,18 +63,67 @@ class FormTest extends \PHPUnit_Framework_TestCase
             'attributes' => array('size', 40)
         );
         $f = new Form('/submit', 'post', $fields);
+        $this->assertEquals(1, count($f->getFields()));
     }
 
-    public function testSetFieldValues()
+    public function testAddFields()
     {
-        $fields = array(array(
+        $fields = array(
             'type'       => 'text',
             'name'       => 'username',
             'value'      => 'Username here...',
             'label'      => 'Username:',
             'required'   => true,
             'attributes' => array('size', 40)
-        ));
+        );
+        $f = new Form('/submit', 'post');
+        $f->addFields($fields);
+        $this->assertEquals(1, count($f->getFields()));
+    }
+
+    public function testSetFieldValues()
+    {
+        $fields = array(
+            array(
+                'type'       => 'text',
+                'name'       => 'username',
+                'value'      => 'Username here...',
+                'label'      => 'Username:',
+                'required'   => true,
+                'attributes' => array('size', 40)
+            ),
+            array(
+                'type'       => 'checkbox',
+                'name'       => 'checkbox',
+                'value'      => array(0 => 'Test1', 1 => 'Test2', 2 => 'Test3'),
+                'label'      => 'Checkbox:',
+                'marked'     => array(0, 1),
+                'required'   => true
+            ),
+            array(
+                'type'       => 'radio',
+                'name'       => 'radio',
+                'value'      => array(0 => 'Test1', 1 => 'Test2', 2 => 'Test3'),
+                'label'      => 'Radio:',
+                'marked'     => 0,
+                'required'   => true
+            ),
+            array(
+                'type'       => 'select',
+                'name'       => 'select',
+                'value'      => array(0 => 'Test1', 1 => 'Test2', 2 => 'Test3'),
+                'label'      => 'Select:',
+                'marked'     => 0,
+                'required'   => true
+            ),
+            array(
+                'type'       => 'textarea',
+                'name'       => 'textarea',
+                'label'      => 'Textarea:',
+                'required'   => true,
+                'attributes' => array('rows', 40)
+            )
+        );
         $f = new Form('/submit', 'post', $fields);
         $f->setFieldValues(
             array('username' => '<p>te\'st"<script>user</script></p>'),
@@ -103,6 +152,26 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('&lt;p&gt;te&#039;st&quot;user&lt;/p&gt;', $f->username);
         $f->filter('html_entity_decode', array(ENT_QUOTES, 'UTF-8'));
         $this->assertEquals('<p>te\'st"user</p>', $f->username);
+    }
+
+    public function testSetAndGetAction()
+    {
+        $f = new Form('/submit', 'post');
+        $f->setAction('/action');
+        $this->assertEquals('/action', $f->getAction());
+    }
+
+    public function testSetAndGetMethod()
+    {
+        $f = new Form('/submit', 'post');
+        $f->setMethod('get');
+        $this->assertEquals('get', $f->getMethod());
+    }
+
+    public function testGetFormElement()
+    {
+        $f = new Form('/submit', 'post');
+        $this->assertInstanceOf('Pop\Dom\Child', $f->getFormElement());
     }
 
     public function testSetAndGetTemplate()
@@ -163,6 +232,20 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $f = new Form('/submit', 'post');
         $f->addElements(array($e, $s));
         $this->assertContains('<form ', (string)$f);
+    }
+
+    public function testRenderWithTemplate()
+    {
+        $e = new Element('text', 'username', 'Username');
+        $e->setLabel('Username');
+        $s = new Element('submit', 'submit', 'Submit');
+        $f = new Form('/submit', 'post');
+        $f->addElements(array($e, $s));
+        $f->setTemplate("[{username}] [{submit}]");
+        $f->username = 'My Username';
+        $form = $f->render(true);
+        $this->assertContains('<form ', $form);
+        $this->assertEquals('My Username', $f->username);
     }
 
     public function testRenderException()
