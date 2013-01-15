@@ -34,14 +34,14 @@ namespace Pop\Archive\Adapter;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Rar implements \Pop\Archive\ArchiveInterface
+class Rar implements ArchiveInterface
 {
 
     /**
      * RarArchive object
      * @var \RarArchive
      */
-    public $archive = null;
+    protected $archive = null;
 
     /**
      * Archive path
@@ -73,6 +73,16 @@ class Rar implements \Pop\Archive\ArchiveInterface
         } else {
             throw new Exception('Due to licensing restrictions, RAR files cannot be created and can only be decompressed.');
         }
+    }
+
+    /**
+     * Method to return the archive object
+     *
+     * @return mixed
+     */
+    public function archive()
+    {
+        return $this->archive;
     }
 
     /**

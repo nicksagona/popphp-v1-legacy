@@ -37,14 +37,14 @@ use Pop\Compress,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Tar implements \Pop\Archive\ArchiveInterface
+class Tar implements ArchiveInterface
 {
 
     /**
      * Archive_Tar object
      * @var \Archive_Tar
      */
-    public $archive = null;
+    protected $archive = null;
 
     /**
      * Archive path
@@ -73,6 +73,16 @@ class Tar implements \Pop\Archive\ArchiveInterface
         }
         $this->path = $archive->getFullpath();
         $this->archive = new \Archive_Tar($this->path);
+    }
+
+    /**
+     * Method to return the archive object
+     *
+     * @return mixed
+     */
+    public function archive()
+    {
+        return $this->archive;
     }
 
     /**

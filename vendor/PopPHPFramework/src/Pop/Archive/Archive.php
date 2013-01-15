@@ -24,8 +24,7 @@
  */
 namespace Pop\Archive;
 
-use Pop\Compress,
-    Pop\File\File;
+use Pop\Compress;
 
 /**
  * This is the Archive class for the Archive component.
@@ -37,7 +36,7 @@ use Pop\Compress,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Archive extends File implements ArchiveInterface
+class Archive extends \Pop\File\File
 {
 
     /**
@@ -110,15 +109,16 @@ class Archive extends File implements ArchiveInterface
      * to facilitate chaining methods together.
      *
      * @param  string $archive
+     * @param  string $password
      * @return \Pop\Archive\Archive
      */
-    public static function factory($archive)
+    public static function factory($archive, $password = null)
     {
-        return new self($archive);
+        return new self($archive, $password);
     }
 
     /**
-     * Method to return the archive adapter object
+     * Method to return the adapter object
      *
      * @return mixed
      */
@@ -128,13 +128,13 @@ class Archive extends File implements ArchiveInterface
     }
 
     /**
-     * Method to return the archive adapter object
+     * Method to return the archive object within the adapter object
      *
      * @return mixed
      */
     public function archive()
     {
-        return $this->adapter->archive;
+        return $this->adapter->archive();
     }
 
     /**

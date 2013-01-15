@@ -41,13 +41,13 @@ class Sqlite extends AbstractAdapter
      * Last result
      * @var resource
      */
-    public $last_result;
+    protected $lastResult;
 
     /**
      * Last SQL query
      * @var string
      */
-    public $last_sql = null;
+    protected $lastSql = null;
 
     /**
      * Prepared statement
@@ -155,9 +155,9 @@ class Sqlite extends AbstractAdapter
     public function query($sql)
     {
         if (stripos($sql, 'select') !== false) {
-            $this->last_sql = $sql;
+            $this->lastSql = $sql;
         } else {
-            $this->last_sql = null;
+            $this->lastSql = null;
         }
 
         if (!($this->result = $this->connection->query($sql))) {
@@ -208,14 +208,14 @@ class Sqlite extends AbstractAdapter
      */
     public function numRows()
     {
-        if (null === $this->last_sql) {
+        if (null === $this->lastSql) {
             return $this->connection->changes();
         } else {
-            if (!($this->last_result = $this->connection->query($this->last_sql))) {
+            if (!($this->lastResult = $this->connection->query($this->lastSql))) {
                 $this->showError();
             } else {
                 $num = 0;
-                while (($row = $this->last_result->fetcharray(SQLITE3_ASSOC)) != false) {
+                while (($row = $this->lastResult->fetcharray(SQLITE3_ASSOC)) != false) {
                     $num++;
                 }
                 return $num;
@@ -257,7 +257,6 @@ class Sqlite extends AbstractAdapter
     protected function loadTables()
     {
         $tables = array();
-
         $sql = "SELECT name FROM sqlite_master WHERE type IN ('table', 'view') AND name NOT LIKE 'sqlite_%' UNION ALL SELECT name FROM sqlite_temp_master WHERE type IN ('table', 'view') ORDER BY 1";
 
         $this->query($sql);

@@ -89,7 +89,7 @@ class Router
      * @param  \Pop\Http\Request $request
      * @return \Pop\Mvc\Router
      */
-    public static function factory(array $controllers, $request = null)
+    public static function factory(array $controllers, \Pop\Http\Request $request = null)
     {
         return new self($controllers, $request);
     }

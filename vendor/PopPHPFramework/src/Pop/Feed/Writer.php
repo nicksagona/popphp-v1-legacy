@@ -69,18 +69,18 @@ class Writer extends Dom
      *
      * Instantiate the feed object.
      *
-     * @param  array  $hdrs
-     * @param  array  $itms
+     * @param  array  $headers
+     * @param  array  $items
      * @param  mixed  $type
-     * @param  string $dt
+     * @param  string $date
      * @return \Pop\Feed\Writer
      */
-    public function __construct($hdrs, $itms, $type = Dom::RSS, $dt = 'D, j M Y H:i:s O')
+    public function __construct($headers, $items, $type = Dom::RSS, $date = 'D, j M Y H:i:s O')
     {
-        $this->headers = $hdrs;
-        $this->items = $itms;
+        $this->headers = $headers;
+        $this->items = $items;
         $this->feedType = $type;
-        $this->date = $dt;
+        $this->date = $date;
 
         parent::__construct($this->feedType, 'utf-8');
         $this->init();

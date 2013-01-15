@@ -1,27 +1,27 @@
 <?php
-    /**
-     * Pop PHP Framework
-     *
-     * LICENSE
-     *
-     * This source file is subject to the new BSD license that is bundled
-     * with this package in the file LICENSE.TXT.
-     * It is also available through the world-wide-web at this URL:
-     * http://www.popphp.org/LICENSE.TXT
-     * If you did not receive a copy of the license and are unable to
-     * obtain it through the world-wide-web, please send an email
-     * to info@popphp.org so we can send you a copy immediately.
-     *
-     * @category   Pop
-     * @package    Pop_Image
-     * @author     Nick Sagona, III <nick@popphp.org>
-     * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
-     * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
-     */
+/**
+ * Pop PHP Framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.TXT.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.popphp.org/LICENSE.TXT
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@popphp.org so we can send you a copy immediately.
+ *
+ * @category   Pop
+ * @package    Pop_Image
+ * @author     Nick Sagona, III <nick@popphp.org>
+ * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
+ * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ */
 
-    /**
-     * @namespace
-     */
+/**
+ * @namespace
+ */
 namespace Pop\Image;
 
 use Pop\Color\Rgb,
@@ -594,12 +594,12 @@ class Captcha
 
             // Draw horizontal lines
             for ($i = $this->grid; $i < $height; $i += $this->grid) {
-                $this->image->addLine(0, $i, $width, $i);
+                $this->image->drawLine(0, $i, $width, $i);
             }
 
             // Draw vertical lines
             for ($i = $this->grid; $i < $width; $i += $this->grid) {
-                $this->image->addLine($i, 0, $i, $height);
+                $this->image->drawLine($i, 0, $i, $height);
             }
         }
 

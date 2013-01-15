@@ -36,14 +36,14 @@ use Pop\File\Dir;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Zip implements \Pop\Archive\ArchiveInterface
+class Zip implements ArchiveInterface
 {
 
     /**
      * ZipArchive object
      * @var \ZipArchive
      */
-    public $archive = null;
+    protected $archive = null;
 
     /**
      * Archive path
@@ -79,6 +79,16 @@ class Zip implements \Pop\Archive\ArchiveInterface
             $this->path = realpath(dirname($archive->getFullpath())) . DIRECTORY_SEPARATOR . $archive->getBasename();
         }
         $this->archive = new \ZipArchive();
+    }
+
+    /**
+     * Method to return the archive object
+     *
+     * @return mixed
+     */
+    public function archive()
+    {
+        return $this->archive;
     }
 
     /**

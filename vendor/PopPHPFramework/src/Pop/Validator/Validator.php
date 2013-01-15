@@ -25,7 +25,7 @@
 namespace Pop\Validator;
 
 /**
- * This is the Validator class for the Validator component.
+ * This is the abstract Validator class for the Validator component.
  *
  * @category   Pop
  * @package    Pop_Validator
@@ -34,96 +34,159 @@ namespace Pop\Validator;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Validator
+class Validator implements ValidatorInterface
 {
 
     /**
-     * Validator object
+     * Validator value to test against
      * @var mixed
      */
-    protected $validator = null;
+    protected $value = null;
 
     /**
-     * Validator test result message
+     * Validator condition
+     * @var boolean
+     */
+    protected $condition = true;
+
+    /**
+     * Input value to test
+     * @var mixed
+     */
+    protected $input = null;
+
+    /**
+     * Validator test result
+     * @var boolean
+     */
+    protected $result = false;
+
+    /**
+     * Validator default message
      * @var string
      */
-    protected $message = null;
+    protected $defaultMessage = null;
 
     /**
      * Constructor
      *
      * Instantiate the validator object
      *
-     * @param  Validator\ValidatorInterface $validator
-     * @param  string                       $message
+     * @param  mixed   $value
+     * @param  string  $msg
+     * @param  boolean $condition
      * @return \Pop\Validator\Validator
      */
-    public function __construct(Validator\ValidatorInterface $validator, $message = null)
+    public function __construct($value = null, $msg = null, $condition = true)
     {
-        $this->validator = $validator;
-        $this->message = $message;
+        $this->value = $value;
+        $this->condition = (boolean)$condition;
+
+        if (null !== $msg) {
+            $this->defaultMessage = $msg;
+        }
     }
 
     /**
      * Static method to instantiate the validator object and return itself
      * to facilitate chaining methods together.
      *
-     * @param  Validator\ValidatorInterface $validator
-     * @param  string                       $message
+     * @param  mixed   $value
+     * @param  string  $msg
+     * @param  boolean $condition
      * @return \Pop\Validator\Validator
      */
-    public static function factory(Validator\ValidatorInterface $validator, $message = null)
+    public static function factory($value = null, $msg = null, $condition = true)
     {
-        return new self($validator, $message);
+        return new self($value, $msg, $condition);
     }
 
     /**
-     * Method to get the validator
+     * Method to get the validator value
      *
-     * @return \Pop\Validator\Validator\ValidatorInterface
+     * @return mixed
      */
-    public function getValidator()
+    public function getValue()
     {
-        return $this->validator;
+        return $this->value;
     }
 
     /**
-     * Method to get the validator result message
+     * Method to get the validator condition
      *
-     * @return string
+     * @return boolean
      */
-    public function getMessage()
+    public function getCondition()
     {
-        $msg = null;
-        if (null !== $this->message) {
-            $msg = $this->message;
-        } else {
-            $msg = $this->validator->getDefaultMessage();
-        }
-        return $msg;
+        return $this->condition;
     }
 
     /**
-     * Method to set the validator result message
+     * Method to get the validator default message
      *
-     * @param  string $message
-     * @return \Pop\Validator\Validator
+     * @return boolean
      */
-    public function setMessage($message)
+    public function getDefaultMessage()
     {
-        $this->message = $message;
+        return $this->defaultMessage;
+    }
+
+    /**
+     * Method to get the validator input
+     *
+     * @return mixed
+     */
+    public function getInput()
+    {
+        return $this->input;
+    }
+
+    /**
+     * Method to set the validator value
+     *
+     * @param  mixed $value
+     * @return \Pop\Validator\ValidatorInterface
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
         return $this;
     }
 
     /**
-     * Method to evaluate the validator
+     * Method to set the validator condition
+     *
+     * @param  boolean $condition
+     * @return \Pop\Validator\ValidatorInterface
+     */
+    public function setCondition($condition)
+    {
+        $this->condition = (boolean)$condition;
+        return $this;
+    }
+
+    /**
+     * Method to set the validator condition
+     *
+     * @param  string $message
+     * @return \Pop\Validator\ValidatorInterface
+     */
+    public function setDefaultMessage($message)
+    {
+        $this->defaultMessage = $message;
+        return $this;
+    }
+
+    /**
+     * Method to set the validator input
      *
      * @param  mixed $input
-     * @return boolean
+     * @return \Pop\Validator\ValidatorInterface
      */
-    public function evaluate($input = null)
+    public function setInput($input)
     {
-        return $this->validator->evaluate($input);
+        $this->input = $input;
+        return $this;
     }
 
 }

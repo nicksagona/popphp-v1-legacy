@@ -74,7 +74,7 @@ class Cmap
     /**
      * Method to parse the CMAP subtables.
      *
-     * @param  AbstractFont $font
+     * @param  \Pop\Font\AbstractFont $font
      * @return void
      */
     protected function parseSubTables($font)

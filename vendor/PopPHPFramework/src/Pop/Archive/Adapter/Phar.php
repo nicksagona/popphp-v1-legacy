@@ -36,14 +36,14 @@ use Pop\File\Dir;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-class Phar implements \Pop\Archive\ArchiveInterface
+class Phar implements ArchiveInterface
 {
 
     /**
      * ZipArchive object
      * @var \ZipArchive
      */
-    public $archive = null;
+    protected $archive = null;
 
     /**
      * Archive path
@@ -61,6 +61,16 @@ class Phar implements \Pop\Archive\ArchiveInterface
     {
         $this->path = $archive->getFullpath();
         $this->archive = new \Phar($this->path);
+    }
+
+    /**
+     * Method to return the archive object
+     *
+     * @return mixed
+     */
+    public function archive()
+    {
+        return $this->archive;
     }
 
     /**

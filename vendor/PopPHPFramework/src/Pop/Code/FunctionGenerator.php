@@ -101,11 +101,12 @@ class FunctionGenerator
      * to facilitate chaining methods together.
      *
      * @param  string  $name
+     * @param  mixed  $func
      * @return \Pop\Code\FunctionGenerator
      */
-    public static function factory($name)
+    public static function factory($name, $func = null)
     {
-        return new self($name);
+        return new self($name, $func);
     }
 
     /**

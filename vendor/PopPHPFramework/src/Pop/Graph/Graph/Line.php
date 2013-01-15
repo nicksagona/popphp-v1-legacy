@@ -89,7 +89,7 @@ class Line extends AbstractGraph
                 $lastX = $x;
             }
             $formattedPoints[] = array('x' => $lastX, 'y' => $points->zeroPoint['y']);
-            $this->graph->adapter()->addPolygon($formattedPoints);
+            $this->graph->adapter()->drawPolygon($formattedPoints);
         } else {
             $this->graph->adapter()->setStrokeWidth($this->graph->getStrokeWidth());
             $this->graph->adapter()->setStrokeColor((null !== $this->graph->getStrokeColor()) ? $this->graph->getStrokeColor() : new Rgb(0, 0, 0));
@@ -99,7 +99,7 @@ class Line extends AbstractGraph
                 $y1 = $points->yOffset - ((($dataPoints[$i - 1][1] - $dataPoints[0][1]) / $points->yRange) * $points->yLength);
                 $x2 = ((($dataPoints[$i][0] - $dataPoints[0][0]) / $points->xRange) * $points->xLength) + $points->zeroPoint['x'];
                 $y2 = $points->yOffset - ((($dataPoints[$i][1] - $dataPoints[0][1]) / $points->yRange) * $points->yLength);
-                $this->graph->adapter()->addLine($x1, $y1, $x2, $y2);
+                $this->graph->adapter()->drawLine($x1, $y1, $x2, $y2);
             }
 
         }

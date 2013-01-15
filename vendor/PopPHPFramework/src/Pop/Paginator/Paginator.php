@@ -114,10 +114,10 @@ class Paginator
      * @var array
      */
     protected $bookends = array(
-        array('prev' => '&lt;', 'next' => '&gt;'),
+        array('prev' => '&lt;',     'next' => '&gt;'),
         array('prev' => '&lt;&lt;', 'next' => '&gt;&gt;'),
-        array('prev' => 'Prev', 'next' => 'Next'),
-        array('prev' => '...', 'next' => '...')
+        array('prev' => 'Prev',     'next' => 'Next'),
+        array('prev' => '...',      'next' => '...')
     );
 
     /**

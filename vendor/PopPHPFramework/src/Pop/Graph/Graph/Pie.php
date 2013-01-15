@@ -146,7 +146,7 @@ class Pie extends AbstractGraph
             $textQuads[] = $quad;
             $textValues[] = $value;
 
-            $this->graph->adapter()->addArc($x, $y, $start, $end, $pie['w'], $pie['h']);
+            $this->graph->adapter()->drawArc($x, $y, $start, $end, $pie['w'], $pie['h']);
             $start = $end;
         }
 

@@ -123,7 +123,7 @@ class Payment
     public function send($verifyPeer = true)
     {
         $this->adapter->set($this->fields);
-        $this->adapter->send();
+        $this->adapter->send($verifyPeer);
     }
 
     /**

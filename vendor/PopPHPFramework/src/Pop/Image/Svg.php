@@ -401,7 +401,7 @@ class Svg extends \Pop\File\File
      * @param  int $h
      * @return \Pop\Image\Svg
      */
-    public function addClippingRectangle($x, $y, $w, $h = null)
+    public function drawClippingRectangle($x, $y, $w, $h = null)
     {
         $this->curClippingPath = count($this->clippingPaths);
         $defs = $this->resource->addChild('defs');
@@ -426,9 +426,9 @@ class Svg extends \Pop\File\File
      * @param  int $w
      * @return \Pop\Image\Svg
      */
-    public function addClippingSquare($x, $y, $w)
+    public function drawClippingSquare($x, $y, $w)
     {
-        $this->addClippingRectangle($x, $y, $w);
+        $this->drawClippingRectangle($x, $y, $w);
         return $this;
     }
 
@@ -441,7 +441,7 @@ class Svg extends \Pop\File\File
      * @param  int $h
      * @return \Pop\Image\Svg
      */
-    public function addClippingEllipse($x, $y, $w, $h = null)
+    public function drawClippingEllipse($x, $y, $w, $h = null)
     {
         $this->curClippingPath = count($this->clippingPaths);
         $defs = $this->resource->addChild('defs');
@@ -466,7 +466,7 @@ class Svg extends \Pop\File\File
      * @param  int $w
      * @return \Pop\Image\Svg
      */
-    public function addClippingCircle($x, $y, $w)
+    public function drawClippingCircle($x, $y, $w)
     {
         $this->curClippingPath = count($this->clippingPaths);
         $defs = $this->resource->addChild('defs');
@@ -488,7 +488,7 @@ class Svg extends \Pop\File\File
      * @param  array $points
      * @return \Pop\Image\Svg
      */
-    public function addClippingPolygon($points)
+    public function drawClippingPolygon($points)
     {
         $this->curClippingPath = count($this->clippingPaths);
         $defs = $this->resource->addChild('defs');
@@ -570,7 +570,7 @@ class Svg extends \Pop\File\File
      * @param  int $y2
      * @return void
      */
-    public function addLine($x1, $y1, $x2, $y2)
+    public function drawLine($x1, $y1, $x2, $y2)
     {
         $line = $this->resource->addChild('line');
         $line->addAttribute('x1', $x1 . $this->units);
@@ -592,7 +592,7 @@ class Svg extends \Pop\File\File
      * @param  int $h
      * @return void
      */
-    public function addRectangle($x, $y, $w, $h = null)
+    public function drawRectangle($x, $y, $w, $h = null)
     {
         $rect = $this->resource->addChild('rect');
         $rect->addAttribute('x', $x . $this->units);
@@ -613,9 +613,9 @@ class Svg extends \Pop\File\File
      * @param  int     $w
      * @return \Pop\Image\Svg
      */
-    public function addSquare($x, $y, $w)
+    public function drawSquare($x, $y, $w)
     {
-        $this->addRectangle($x, $y, $w, $w);
+        $this->drawRectangle($x, $y, $w, $w);
         return $this;
     }
 
@@ -628,7 +628,7 @@ class Svg extends \Pop\File\File
      * @param  int $h
      * @return \Pop\Image\Svg
      */
-    public function addEllipse($x, $y, $w, $h = null)
+    public function drawEllipse($x, $y, $w, $h = null)
     {
         $ellipse = $this->resource->addChild('ellipse');
         $ellipse->addAttribute('cx', $x . $this->units);
@@ -649,7 +649,7 @@ class Svg extends \Pop\File\File
      * @param  int     $w
      * @return \Pop\Image\Svg
      */
-    public function addCircle($x, $y, $w)
+    public function drawCircle($x, $y, $w)
     {
         $circle = $this->resource->addChild('circle');
         $circle->addAttribute('cx', $x . $this->units);
@@ -672,7 +672,7 @@ class Svg extends \Pop\File\File
      * @param  int $h
      * @return \Pop\Image\Svg
      */
-    public function addArc($x, $y, $start, $end, $w, $h = null)
+    public function drawArc($x, $y, $start, $end, $w, $h = null)
     {
         if (null === $h) {
             $h = $w;
@@ -806,7 +806,7 @@ class Svg extends \Pop\File\File
      * @param  array $points
      * @return \Pop\Image\Svg
      */
-    public function addPolygon($points)
+    public function drawPolygon($points)
     {
         $formattedPoints = array();
         foreach ($points as $point) {

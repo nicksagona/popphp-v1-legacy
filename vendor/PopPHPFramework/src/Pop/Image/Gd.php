@@ -186,16 +186,6 @@ class Gd extends AbstractImage
     }
 
     /**
-     * Get the image resource info
-     *
-     * @return \ArrayObject
-     */
-    public function info()
-    {
-        return $this->info;
-    }
-
-    /**
      * Set the image quality based on the type of image.
      *
      * @param  mixed $q
@@ -321,10 +311,7 @@ class Gd extends AbstractImage
     }
 
     /**
-     * Resize the image object, allowing for the largest dimension to be scaled
-     * to the value of the $px argument. For example, if the value of $px = 200,
-     * and the image is 800px X 600px, then the image will be scaled to
-     * 200px X 150px.
+     * Resize the image object to the largest dimension
      *
      * @param  int|string $px
      * @return \Pop\Image\Gd
@@ -350,10 +337,7 @@ class Gd extends AbstractImage
     }
 
     /**
-     * Scale the image object, allowing for the dimensions to be scaled
-     * proportionally to the value of the $scl argument. For example, if the
-     * value of $scl = 0.50, and the image is 800px X 600px, then the image
-     * will be scaled to 400px X 300px.
+     * Scale the image object
      *
      * @param  float|string $scl
      * @return \Pop\Image\Gd
@@ -376,10 +360,7 @@ class Gd extends AbstractImage
     }
 
     /**
-     * Crop the image object to a image whose dimensions are based on the
-     * value of the $wid and $hgt argument. The optional $x and $y arguments
-     * allow for the adjustment of the crop to select a certain area of the
-     * image to be cropped.
+     * Crop the image object
      *
      * @param  int|string $wid
      * @param  int|string $hgt
@@ -400,12 +381,7 @@ class Gd extends AbstractImage
     }
 
     /**
-     * Crop the image object to a square image whose dimensions are based on the
-     * value of the $px argument. The optional $x and $y arguments allow for the
-     * adjustment of the crop to select a certain area of the image to be
-     * cropped. For example, if the values of $px = 50, $x = 20, $y = 0 are
-     * passed, then a 50px X 50px image will be created from the original image,
-     * with its origins starting at the (20, 0) x-y coordinates.
+     * Crop the image object to a square image
      *
      * @param  int|string $px
      * @param  int|string $x
@@ -452,11 +428,7 @@ class Gd extends AbstractImage
     }
 
     /**
-     * Create text within the an image object and output it. A true-type font
-     * file is required for the font argument. The size, rotation and position
-     * can be set by those respective arguments. This is a useful method for
-     * creating CAPTCHA images or rendering sensitive information to the user
-     * that cannot or should not be rendered by HTML (i.e. email addresses.)
+     * Create text within the an image object
      *
      * @param  string     $str
      * @param  int|string $size
@@ -508,7 +480,7 @@ class Gd extends AbstractImage
      * @param  int $y2
      * @return \Pop\Image\Gd
      */
-    public function addLine($x1, $y1, $x2, $y2)
+    public function drawLine($x1, $y1, $x2, $y2)
     {
         // Create an image resource and set the stroke color.
         $this->createResource();
@@ -533,7 +505,7 @@ class Gd extends AbstractImage
      * @param  int $h
      * @return \Pop\Image\Gd
      */
-    public function addRectangle($x, $y, $w, $h = null)
+    public function drawRectangle($x, $y, $w, $h = null)
     {
         $x2 = $x + $w;
         $y2 = $y + ((null === $h) ? $w : $h);
@@ -574,9 +546,9 @@ class Gd extends AbstractImage
      * @param  int     $w
      * @return \Pop\Image\Gd
      */
-    public function addSquare($x, $y, $w)
+    public function drawSquare($x, $y, $w)
     {
-        $this->addRectangle($x, $y, $w, $w);
+        $this->drawRectangle($x, $y, $w, $w);
         return $this;
     }
 
@@ -589,7 +561,7 @@ class Gd extends AbstractImage
      * @param  int $h
      * @return \Pop\Image\Gd
      */
-    public function addEllipse($x, $y, $w, $h = null)
+    public function drawEllipse($x, $y, $w, $h = null)
     {
         $wid = $w * 2;
         $hgt = ((null === $h) ? $w : $h) * 2;
@@ -630,9 +602,9 @@ class Gd extends AbstractImage
      * @param  int     $w
      * @return \Pop\Image\Gd
      */
-    public function addCircle($x, $y, $w)
+    public function drawCircle($x, $y, $w)
     {
-        $this->addEllipse($x, $y, $w, $w);
+        $this->drawEllipse($x, $y, $w, $w);
        return $this;
 
     }
@@ -648,7 +620,7 @@ class Gd extends AbstractImage
      * @param  int $h
      * @return \Pop\Image\Gd
      */
-    public function addArc($x, $y, $start, $end, $w, $h = null)
+    public function drawArc($x, $y, $start, $end, $w, $h = null)
     {
         $wid = $w * 2;
         $hgt = ((null === $h) ? $w : $h) * 2;
@@ -697,7 +669,7 @@ class Gd extends AbstractImage
      * @param  array $points
      * @return \Pop\Image\Gd
      */
-    public function addPolygon($points)
+    public function drawPolygon($points)
     {
         $realPoints = array();
         foreach ($points as $coord) {
@@ -888,10 +860,10 @@ class Gd extends AbstractImage
         $this->setOpacity(100);
 
         if ($type == self::INNER_BORDER) {
-            $this->addRectangle(0, 0, $this->width, $h);
-            $this->addRectangle(0, ($this->height - $h), $this->width, $this->height);
-            $this->addRectangle(0, 0, $w, $this->height);
-            $this->addRectangle(($this->width - $w), 0, $this->width, $this->height);
+            $this->drawRectangle(0, 0, $this->width, $h);
+            $this->drawRectangle(0, ($this->height - $h), $this->width, $this->height);
+            $this->drawRectangle(0, 0, $w, $this->height);
+            $this->drawRectangle(($this->width - $w), 0, $this->width, $this->height);
         } else {
             $newWidth = $this->width + ($w * 2);
             $newHeight = $this->height + ($h * 2);
@@ -1172,18 +1144,12 @@ class Gd extends AbstractImage
     }
 
     /**
-     * Return all of the colors in the palette in an array format, omitting any
-     * repeats. It is strongly advised that this method only be used for smaller
-     * image files, preferably with small palettes, as any large images with
-     * many colors will cause this method to run slowly. Default format of the
-     * values in the returned array is the 6-digit HEX value, but if 'RGB' is
-     * passed, then the format of the values in the returned array will be
-     * 'R,G,B', i.e. '235,123,12'.
+     * Return all of the colors in the palette in an array format
      *
-     * @param  string $format
+     * @param  int $format
      * @return array
      */
-    public function getColors($format = 'HEX')
+    public function getColors($format = \Pop\Image\Gd::HEX)
     {
         // Initialize the colors array and the image resource.
         $colors = array();
@@ -1199,7 +1165,7 @@ class Gd extends AbstractImage
                 $color_trans = imagecolorsforindex($this->resource, $color_index);
 
                 // Convert to the proper HEX or RGB format.
-                if ($format == 'HEX') {
+                if ($format) {
                     $rgb = sprintf('%02s', dechex($color_trans['red'])) . sprintf('%02s', dechex($color_trans['green'])) . sprintf('%02s', dechex($color_trans['blue']));
                 } else {
                     $rgb = $color_trans['red'] . "," . $color_trans['green'] . "," . $color_trans['blue'];

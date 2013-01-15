@@ -821,7 +821,7 @@ class Pdf extends \Pop\File\File
      * @param  int $y2
      * @return \Pop\Pdf\Pdf
      */
-    public function addLine($x1, $y1, $x2, $y2)
+    public function drawLine($x1, $y1, $x2, $y2)
     {
         $co_index = $this->getContentObject();
         $this->objects[$co_index]->setStream("\n{$x1} {$y1} m\n{$x2} {$y2} l\nS\n");
@@ -839,7 +839,7 @@ class Pdf extends \Pop\File\File
      * @param  boolean $fill
      * @return \Pop\Pdf\Pdf
      */
-    public function addRectangle($x, $y, $w, $h = null, $fill = true)
+    public function drawRectangle($x, $y, $w, $h = null, $fill = true)
     {
         if (null === $h) {
             $h = $w;
@@ -860,9 +860,9 @@ class Pdf extends \Pop\File\File
      * @param  boolean $fill
      * @return \Pop\Pdf\Pdf
      */
-    public function addSquare($x, $y, $w, $fill = true)
+    public function drawSquare($x, $y, $w, $fill = true)
     {
-        $this->addRectangle($x, $y, $w, $w, $fill);
+        $this->drawRectangle($x, $y, $w, $w, $fill);
         return $this;
     }
 
@@ -876,7 +876,7 @@ class Pdf extends \Pop\File\File
      * @param  boolean $fill
      * @return \Pop\Pdf\Pdf
      */
-    public function addEllipse($x, $y, $w, $h = null, $fill = true)
+    public function drawEllipse($x, $y, $w, $h = null, $fill = true)
     {
         if (null === $h) {
             $h = $w;
@@ -933,37 +933,9 @@ class Pdf extends \Pop\File\File
      * @param  boolean $fill
      * @return \Pop\Pdf\Pdf
      */
-    public function addCircle($x, $y, $w, $fill = true)
+    public function drawCircle($x, $y, $w, $fill = true)
     {
-        $this->addEllipse($x, $y, $w, $w, $fill);
-        return $this;
-    }
-
-    /**
-     * Method to add a polygon to the image.
-     *
-     * @param  array $points
-     * @param  boolean $fill
-     * @return \Pop\Pdf\Pdf
-     */
-    public function addPolygon($points, $fill = true)
-    {
-        $i = 1;
-        $polygon = null;
-
-        foreach ($points as $coord) {
-            if ($i == 1) {
-                $polygon .= $coord['x'] . " " . $coord['y'] . " m\n";
-            } else if ($i <= count($points)) {
-                $polygon .= $coord['x'] . " " . $coord['y'] . " l\n";
-            }
-            $i++;
-        }
-        $polygon .= "h\n";
-
-        $co_index = $this->getContentObject();
-        $this->objects[$co_index]->setStream("\n{$polygon}\n" . $this->setStyle($fill) . "\n");
-
+        $this->drawEllipse($x, $y, $w, $w, $fill);
         return $this;
     }
 
@@ -979,7 +951,7 @@ class Pdf extends \Pop\File\File
      * @param  boolean $fill
      * @return \Pop\Pdf\Pdf
      */
-    public function addArc($x, $y, $start, $end, $w, $h = null, $fill = true)
+    public function drawArc($x, $y, $start, $end, $w, $h = null, $fill = true)
     {
         if (null === $h) {
             $h = $w;
@@ -1085,8 +1057,36 @@ class Pdf extends \Pop\File\File
 
         $polyPoints[] = $endPoint;
 
-        $this->addEllipse($x, $y, $w, $h, $fill);
-        $this->addClippingPolygon($polyPoints, true);
+        $this->drawEllipse($x, $y, $w, $h, $fill);
+        $this->drawClippingPolygon($polyPoints, true);
+
+        return $this;
+    }
+
+    /**
+     * Method to add a polygon to the image.
+     *
+     * @param  array $points
+     * @param  boolean $fill
+     * @return \Pop\Pdf\Pdf
+     */
+    public function drawPolygon($points, $fill = true)
+    {
+        $i = 1;
+        $polygon = null;
+
+        foreach ($points as $coord) {
+            if ($i == 1) {
+                $polygon .= $coord['x'] . " " . $coord['y'] . " m\n";
+            } else if ($i <= count($points)) {
+                $polygon .= $coord['x'] . " " . $coord['y'] . " l\n";
+            }
+            $i++;
+        }
+        $polygon .= "h\n";
+
+        $co_index = $this->getContentObject();
+        $this->objects[$co_index]->setStream("\n{$polygon}\n" . $this->setStyle($fill) . "\n");
 
         return $this;
     }
@@ -1128,7 +1128,7 @@ class Pdf extends \Pop\File\File
      * @param  int $h
      * @return \Pop\Pdf\Pdf
      */
-    public function addClippingRectangle($x, $y, $w, $h = null)
+    public function drawClippingRectangle($x, $y, $w, $h = null)
     {
         $oldFillColor = $this->fillColor;
         $oldStrokeColor = $this->strokeColor;
@@ -1160,9 +1160,9 @@ class Pdf extends \Pop\File\File
      * @param  int     $w
      * @return \Pop\Pdf\Pdf
      */
-    public function addClippingSquare($x, $y, $w)
+    public function drawClippingSquare($x, $y, $w)
     {
-        $this->addClippingRectangle($x, $y, $w, $w);
+        $this->drawClippingRectangle($x, $y, $w, $w);
         return $this;
     }
 
@@ -1175,7 +1175,7 @@ class Pdf extends \Pop\File\File
      * @param  int     $h
      * @return \Pop\Pdf\Pdf
      */
-    public function addClippingEllipse($x, $y, $w, $h = null)
+    public function drawClippingEllipse($x, $y, $w, $h = null)
     {
         $oldFillColor = $this->fillColor;
         $oldStrokeColor = $this->strokeColor;
@@ -1246,9 +1246,9 @@ class Pdf extends \Pop\File\File
      * @param  int     $w
      * @return \Pop\Pdf\Pdf
      */
-    public function addClippingCircle($x, $y, $w)
+    public function drawClippingCircle($x, $y, $w)
     {
-        $this->addClippingEllipse($x, $y, $w, $w);
+        $this->drawClippingEllipse($x, $y, $w, $w);
         return $this;
     }
 
@@ -1258,7 +1258,7 @@ class Pdf extends \Pop\File\File
      * @param  array $points
      * @return \Pop\Pdf\Pdf
      */
-    public function addClippingPolygon($points)
+    public function drawClippingPolygon($points)
     {
         $oldFillColor = $this->fillColor;
         $oldStrokeColor = $this->strokeColor;

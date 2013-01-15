@@ -92,7 +92,9 @@ class Sqlite implements CacheInterface
 
         // If the cache table doesn't exist, create it.
         if (!in_array($this->table, $this->sqlite->adapter()->getTables())) {
-            $this->sqlite->adapter()->query('CREATE TABLE IF NOT EXISTS "' . $this->table . '" ("id" VARCHAR PRIMARY KEY NOT NULL UNIQUE, "value" BLOB, "time" INTEGER)');
+            $this->sqlite->adapter()->query(
+                'CREATE TABLE IF NOT EXISTS "' .
+                    $this->table . '" ("id" VARCHAR PRIMARY KEY NOT NULL UNIQUE, "value" BLOB, "time" INTEGER)');
         }
 
         $this->sqlite->sql()->setTable($this->table);

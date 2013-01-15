@@ -115,7 +115,7 @@ abstract class AbstractGraph
     {
         $this->graph->adapter()->setStrokeWidth(1);
         $this->graph->adapter()->setStrokeColor($this->graph->getYColor());
-        $this->graph->adapter()->addLine($points->zeroPoint['x'], $points->zeroPoint['y'], $points->endX['x'], $points->endX['y']);
+        $this->graph->adapter()->drawLine($points->zeroPoint['x'], $points->zeroPoint['y'], $points->endX['x'], $points->endX['y']);
         $this->graph->adapter()->setFillColor($this->graph->getFontColor());
 
         $i = 0;
@@ -130,9 +130,9 @@ abstract class AbstractGraph
 
         foreach ($xAxis as $x) {
             if ($this->graph->adapter() instanceof \Pop\Pdf\Pdf) {
-                $this->graph->adapter()->addLine($realZeroX + ($realXDiv * $i), $points->zeroPoint['y'], $realZeroX + ($realXDiv * $i), ($this->graph->getHeight() - $this->graph->getPadding()));
+                $this->graph->adapter()->drawLine($realZeroX + ($realXDiv * $i), $points->zeroPoint['y'], $realZeroX + ($realXDiv * $i), ($this->graph->getHeight() - $this->graph->getPadding()));
             } else {
-                $this->graph->adapter()->addLine($realZeroX + ($realXDiv * $i), $points->zeroPoint['y'] - $points->yLength, $realZeroX + ($realXDiv * $i), $points->zeroPoint['y']);
+                $this->graph->adapter()->drawLine($realZeroX + ($realXDiv * $i), $points->zeroPoint['y'] - $points->yLength, $realZeroX + ($realXDiv * $i), $points->zeroPoint['y']);
             }
             $i++;
         }
@@ -168,7 +168,7 @@ abstract class AbstractGraph
         }
 
         foreach ($yAxis as $y) {
-            $this->graph->adapter()->addLine($points->zeroPoint['x'], $realZeroY - ($realYDiv * $i), ($this->graph->getWidth() - $this->graph->getPadding()), $realZeroY - ($realYDiv * $i));
+            $this->graph->adapter()->drawLine($points->zeroPoint['x'], $realZeroY - ($realYDiv * $i), ($this->graph->getWidth() - $this->graph->getPadding()), $realZeroY - ($realYDiv * $i));
             $i++;
         }
     }
@@ -185,7 +185,7 @@ abstract class AbstractGraph
     {
         $this->graph->adapter()->setStrokeWidth($this->graph->getAxisWidth());
         $this->graph->adapter()->setStrokeColor($this->graph->getAxisColor());
-        $this->graph->adapter()->addLine($points->zeroPoint['x'], $points->zeroPoint['y'], $points->endX['x'], $points->endX['y']);
+        $this->graph->adapter()->drawLine($points->zeroPoint['x'], $points->zeroPoint['y'], $points->endX['x'], $points->endX['y']);
         $this->graph->adapter()->setFillColor($this->graph->getFontColor());
 
         $i = 0;
@@ -202,9 +202,9 @@ abstract class AbstractGraph
             $xFontOffset = ($this->graph->getFontSize() * strlen($x)) / 3;
             $yFontOffset = $this->graph->getFontSize() + 10;
             if ($this->graph->adapter() instanceof \Pop\Pdf\Pdf) {
-                $this->graph->adapter()->addLine($realZeroX + ($realXDiv * $i), $points->zeroPoint['y'], $realZeroX + ($realXDiv * $i), $points->zeroPoint['y'] - 5);
+                $this->graph->adapter()->drawLine($realZeroX + ($realXDiv * $i), $points->zeroPoint['y'], $realZeroX + ($realXDiv * $i), $points->zeroPoint['y'] - 5);
             } else {
-                $this->graph->adapter()->addLine($realZeroX + ($realXDiv * $i), $points->zeroPoint['y'], $realZeroX + ($realXDiv * $i), $points->zeroPoint['y'] + 5);
+                $this->graph->adapter()->drawLine($realZeroX + ($realXDiv * $i), $points->zeroPoint['y'], $realZeroX + ($realXDiv * $i), $points->zeroPoint['y'] + 5);
             }
 
             if (null !== $this->graph->getFont()) {
@@ -237,7 +237,7 @@ abstract class AbstractGraph
     {
         $this->graph->adapter()->setStrokeWidth($this->graph->getAxisWidth());
         $this->graph->adapter()->setStrokeColor($this->graph->getAxisColor());
-        $this->graph->adapter()->addLine($points->zeroPoint['x'], $points->zeroPoint['y'], $points->endY['x'], $points->endY['y']);
+        $this->graph->adapter()->drawLine($points->zeroPoint['x'], $points->zeroPoint['y'], $points->endY['x'], $points->endY['y']);
         $this->graph->adapter()->setFillColor($this->graph->getFontColor());
 
         $i = 0;
@@ -258,7 +258,7 @@ abstract class AbstractGraph
         foreach ($yAxis as $y) {
             $xFontOffset = (($this->graph->getFontSize() * strlen($y)) / 1.5) + 15;
             $yFontOffset = $this->graph->getFontSize() / 2;
-            $this->graph->adapter()->addLine($points->zeroPoint['x'], $realZeroY - ($realYDiv * $i), $points->zeroPoint['x'] - 5, $realZeroY - ($realYDiv * $i));
+            $this->graph->adapter()->drawLine($points->zeroPoint['x'], $realZeroY - ($realYDiv * $i), $points->zeroPoint['x'] - 5, $realZeroY - ($realYDiv * $i));
             if (null !== $this->graph->getFont()) {
                 if ($this->graph->adapter() instanceof \Pop\Pdf\Pdf) {
                     $this->graph->adapter()->addText($points->zeroPoint['x'] - $xFontOffset, $realZeroY - ($realYDiv * $i) - $yFontOffset, $this->graph->getFontSize(), $y, $this->graph->getFonts($this->graph->getFont()));

@@ -77,11 +77,12 @@ class Db
      *
      * @param  string $type
      * @param  array  $options
+     * @param  string $prefix
      * @return \Pop\Db\Db
      */
-    public static function factory($type, array $options)
+    public static function factory($type, array $options, $prefix = 'Pop\\Db\\Adapter\\')
     {
-        return new self($type, $options);
+        return new self($type, $options, $prefix);
     }
 
     /**

@@ -126,11 +126,7 @@ class Form extends \Pop\Dom\Dom
             $this->fields[$value['name']] = (isset($value['value'])) ? $value['value'] : null;
         }
 
-        if (count($this->initFieldsValues) > 0) {
-            $this->initFieldsValues = array_merge($this->initFieldsValues, $fields);
-        } else {
-            $this->initFieldsValues = $fields;
-        }
+        $this->initFieldsValues = (count($this->initFieldsValues) > 0) ? array_merge($this->initFieldsValues, $fields) : $fields;
 
         return $this;
     }
@@ -189,7 +185,7 @@ class Form extends \Pop\Dom\Dom
                         $marked = (isset($field['marked'])) ? $field['marked'] : null;
                     }
                     // Initialize the form element.
-                    switch ($type) {
+                    switch (strtolower($type)) {
                         case 'checkbox':
                             $elem = new Element\Checkbox($name, $value, $marked);
                             break;
@@ -589,11 +585,11 @@ class Form extends \Pop\Dom\Dom
     public function clear()
     {
         $sess = \Pop\Web\Session::getInstance();
-        if (isset($sess->pop_csrf)){
+        if (isset($sess->pop_csrf)) {
             unset($sess->pop_csrf);
         }
 
-        if (isset($sess->pop_captcha)){
+        if (isset($sess->pop_captcha)) {
             unset($sess->pop_captcha);
         }
 

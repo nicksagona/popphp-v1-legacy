@@ -11,6 +11,7 @@ COMPLETED:
 * Refactor, clean up and improve the API of the Image component
     - Add Captcha image class
 * Refactor and improve Mail component
+* Refactor and improve Validator component
 * Refactor and improve Web\Browser & Web\Mobile classes
 
 Pop PHP Framework 1.1.2

@@ -54,13 +54,13 @@ class Locale
      *
      * Instantiate the locale object.
      *
-     * @param  string $lng
+     * @param  string $lang
      * @return \Pop\Locale\Locale
      */
-    public function __construct($lng = null)
+    public function __construct($lang = null)
     {
-        if (null !== $lng) {
-            $this->language = $lng;
+        if (null !== $lang) {
+            $this->language = $lang;
         } else if (defined('POP_DEFAULT_LANG')) {
             $this->language = POP_DEFAULT_LANG;
         } else {
@@ -72,12 +72,12 @@ class Locale
     /**
      * Static method to load the locale object.
      *
-     * @param  string $lng
+     * @param  string $lang
      * @return \Pop\Locale\Locale
      */
-    public static function factory($lng = null)
+    public static function factory($lang = null)
     {
-        return new self($lng);
+        return new self($lang);
     }
 
     /**

@@ -261,7 +261,7 @@ class File
      */
     public function isAllowed($type)
     {
-        return (array_key_exists(strtolower($type), $this->allowed)) ? true : false;
+        return (array_key_exists(strtolower($type), $this->allowed));
     }
 
     /**
@@ -440,7 +440,9 @@ class File
         // Else, if the file exists, then read the data from the actual file
         } else if (file_exists($this->fullpath)) {
             if (null !== $off) {
-                $data = (null !== $len) ? file_get_contents($this->fullpath, null, null, $off, $len) : $this->output = file_get_contents($this->fullpath, null, null, $off);
+                $data = (null !== $len) ?
+                    file_get_contents($this->fullpath, null, null, $off, $len) :
+                    $this->output = file_get_contents($this->fullpath, null, null, $off);
             } else {
                 $data = file_get_contents($this->fullpath);
             }

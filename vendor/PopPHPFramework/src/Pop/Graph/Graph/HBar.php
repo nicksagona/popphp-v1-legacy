@@ -87,7 +87,7 @@ class HBar extends AbstractGraph
                 $x = $points->zeroPoint['x'];
                 $h = $this->graph->getBarWidth();
                 $w = (($pt / $points->xRange) * $points->xLength);
-                $this->graph->adapter()->addRectangle($x, $y, $w, $h);
+                $this->graph->adapter()->drawRectangle($x, $y, $w, $h);
             }
         } else {
             $this->graph->adapter()->setStrokeWidth($this->graph->getStrokeWidth());
@@ -101,9 +101,9 @@ class HBar extends AbstractGraph
                 $x = $points->zeroPoint['x'];
                 $h = $this->graph->getBarWidth();
                 $w = (($dataPoints[$i] / $points->xRange) * $points->xLength);
-                $this->graph->adapter()->addLine($x, $y, ($x + $w), $y);
-                $this->graph->adapter()->addLine(($x + $w), $y, ($x + $w), ($y + $h));
-                $this->graph->adapter()->addLine(($x + $w), ($y + $h), $x, ($y + $h));
+                $this->graph->adapter()->drawLine($x, $y, ($x + $w), $y);
+                $this->graph->adapter()->drawLine(($x + $w), $y, ($x + $w), ($y + $h));
+                $this->graph->adapter()->drawLine(($x + $w), ($y + $h), $x, ($y + $h));
             }
         }
 

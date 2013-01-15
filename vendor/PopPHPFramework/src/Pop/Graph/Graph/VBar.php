@@ -76,7 +76,7 @@ class VBar extends AbstractGraph
                 $y = $points->yOffset - ((($pt) / $points->yRange) * $points->yLength);
                 $w = $this->graph->getBarWidth();
                 $h = $points->zeroPoint['y'] - $y;
-                $this->graph->adapter()->addRectangle($x, $y, $w, $h);
+                $this->graph->adapter()->drawRectangle($x, $y, $w, $h);
             }
         } else {
             $this->graph->adapter()->setStrokeWidth($this->graph->getStrokeWidth());
@@ -86,9 +86,9 @@ class VBar extends AbstractGraph
                 $y = $points->yOffset - ((($dataPoints[$i]) / $points->yRange) * $points->yLength);
                 $w = $this->graph->getBarWidth();
                 $h = $points->zeroPoint['y'] - $y;
-                $this->graph->adapter()->addLine($x, $y, $x, ($y + $h));
-                $this->graph->adapter()->addLine($x, $y, ($x + $w), $y);
-                $this->graph->adapter()->addLine(($x + $w), $y, ($x + $w), ($y + $h));
+                $this->graph->adapter()->drawLine($x, $y, $x, ($y + $h));
+                $this->graph->adapter()->drawLine($x, $y, ($x + $w), $y);
+                $this->graph->adapter()->drawLine(($x + $w), $y, ($x + $w), ($y + $h));
             }
         }
 

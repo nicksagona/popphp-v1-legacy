@@ -24,8 +24,7 @@
  */
 namespace Pop\Image;
 
-use Pop\Color\ColorInterface,
-    Pop\File\File;
+use Pop\Color\ColorInterface;
 
 /**
  * This is the abstract class for the Image component.
@@ -37,7 +36,7 @@ use Pop\Color\ColorInterface,
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-abstract class AbstractImage extends File
+abstract class AbstractImage extends \Pop\File\File
 {
 
     /**
@@ -63,6 +62,12 @@ abstract class AbstractImage extends File
      * @var int
      */
     const GAUSSIAN_BLUR = 4;
+
+    /**
+     * Constant for HEX format
+     * @var int
+     */
+    const HEX = 1;
 
     /**
      * Image extension info
@@ -158,6 +163,16 @@ abstract class AbstractImage extends File
     public function __construct($img, $w = null, $h = null, ColorInterface $color = null, $types = null)
     {
         parent::__construct($img, $types);
+    }
+
+    /**
+     * Get the image resource info
+     *
+     * @return \ArrayObject
+     */
+    public function info()
+    {
+        return $this->info;
     }
 
     /**
@@ -361,11 +376,8 @@ abstract class AbstractImage extends File
     abstract public function rotate($deg);
 
     /**
-     * Create text within the an image object and output it. A true-type font
-     * file is required for the font argument. The size, rotation and position
-     * can be set by those respective arguments. This is a useful method for
-     * creating CAPTCHA images or rendering sensitive information to the user
-     * that cannot or should not be rendered by HTML (i.e. email addresses.)
+     * Create text within the an image object. A font file can be used for the
+     * font argument. The size, rotation and position can be set by those arguments.
      *
      * @param  string     $str
      * @param  int|string $size
@@ -387,7 +399,7 @@ abstract class AbstractImage extends File
      * @param  int $y2
      * @return void
      */
-    abstract public function addLine($x1, $y1, $x2, $y2);
+    abstract public function drawLine($x1, $y1, $x2, $y2);
 
     /**
      * Method to add a rectangle to the image.
@@ -398,7 +410,7 @@ abstract class AbstractImage extends File
      * @param  int $h
      * @return void
      */
-    abstract public function addRectangle($x, $y, $w, $h = null);
+    abstract public function drawRectangle($x, $y, $w, $h = null);
 
     /**
      * Method to add a square to the image.
@@ -408,7 +420,7 @@ abstract class AbstractImage extends File
      * @param  int $w
      * @return void
      */
-    abstract public function addSquare($x, $y, $w);
+    abstract public function drawSquare($x, $y, $w);
 
     /**
      * Method to add an ellipse to the image.
@@ -419,7 +431,7 @@ abstract class AbstractImage extends File
      * @param  int $h
      * @return void
      */
-    abstract public function addEllipse($x, $y, $w, $h = null);
+    abstract public function drawEllipse($x, $y, $w, $h = null);
 
     /**
      * Method to add a circle to the image.
@@ -429,7 +441,7 @@ abstract class AbstractImage extends File
      * @param  int $w
      * @return void
      */
-    abstract public function addCircle($x, $y, $w);
+    abstract public function drawCircle($x, $y, $w);
 
     /**
      * Method to add an arc to the image.
@@ -442,7 +454,7 @@ abstract class AbstractImage extends File
      * @param  int $h
      * @return void
      */
-    abstract public function addArc($x, $y, $start, $end, $w, $h = null);
+    abstract public function drawArc($x, $y, $start, $end, $w, $h = null);
 
     /**
      * Method to add a polygon to the image.
@@ -450,7 +462,7 @@ abstract class AbstractImage extends File
      * @param  array $points
      * @return void
      */
-    abstract public function addPolygon($points);
+    abstract public function drawPolygon($points);
 
     /**
      * Method to adjust the brightness of the image.

@@ -147,7 +147,7 @@ class Image
             'png'  => 'image/png'
         );
 
-        $this->img = (Imagick::isImagickInstalled()) ? new Imagick($img, null, null, null, $allowed) : new Gd($img);
+        $this->img = (Imagick::isInstalled()) ? new Imagick($img, null, null, null, $allowed) : new Gd($img);
 
         // If a scale value is passed, scale the image.
         if (null !== $scl) {
@@ -322,7 +322,7 @@ class Image
         $this->img->save($this->scaledImage);
 
         // Re-instantiate the newly scaled image object.
-        $this->img = (Imagick::isImagickInstalled()) ? new Imagick($this->scaledImage) : new Gd($this->scaledImage);
+        $this->img = (Imagick::isInstalled()) ? new Imagick($this->scaledImage) : new Gd($this->scaledImage);
     }
 
     /**
@@ -339,7 +339,7 @@ class Image
         $this->img->convert('png')->save($this->convertedImage);
 
         // Re-instantiate the newly converted image object and re-read the image data.
-        $this->img = (Imagick::isImagickInstalled()) ? new Imagick($this->convertedImage) : new Gd($this->convertedImage);
+        $this->img = (Imagick::isInstalled()) ? new Imagick($this->convertedImage) : new Gd($this->convertedImage);
         $this->imageData = $this->img->read();
     }
 

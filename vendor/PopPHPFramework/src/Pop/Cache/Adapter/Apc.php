@@ -48,7 +48,6 @@ class Apc implements CacheInterface
      *
      * Instantiate the APC cache object
      *
-     * @throws Exception
      * @return \Pop\Cache\Adapter\Apc
      */
     public function __construct()

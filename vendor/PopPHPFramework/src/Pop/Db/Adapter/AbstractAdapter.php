@@ -41,13 +41,13 @@ abstract class AbstractAdapter
      * Database results
      * @var resource
      */
-    public $result;
+    protected $result;
 
     /**
      * Default database connection
      * @var resource
      */
-    public $connection;
+    protected $connection;
 
     /**
      * Database tables
@@ -119,6 +119,26 @@ abstract class AbstractAdapter
      * @return int
      */
     abstract public function numFields();
+
+    /**
+     * Get the result resource
+     *
+     * @return resource
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
+     * Get the connection resource
+     *
+     * @return resource
+     */
+    public function getConnection()
+    {
+        return $this->connection;
+    }
 
     /**
      * Get an array of the tables of the database.
