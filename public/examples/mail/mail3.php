@@ -16,17 +16,6 @@ try {
         )
     );
 
-    $rcpts = array(
-        array(
-            'name'  => 'Nick Sagona',
-            'email' => 'nicks3123@gmail.com'
-        ),
-        array(
-            'name'  => 'Nick Sagona',
-            'email' => 'nick@moc10media.com'
-        )
-    );
-
     $html = <<<HTMLMSG
 <html>
 <head>

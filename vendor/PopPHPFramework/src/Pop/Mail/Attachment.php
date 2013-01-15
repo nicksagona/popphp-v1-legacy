@@ -25,7 +25,7 @@
 namespace Pop\Mail;
 
 /**
- * This is the Mail class for the Mail component.
+ * This is the Attachment class for the Mail component.
  *
  * @category   Pop
  * @package    Pop_Mail

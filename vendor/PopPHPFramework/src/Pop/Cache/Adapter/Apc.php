@@ -25,7 +25,7 @@
 namespace Pop\Cache\Adapter;
 
 /**
- * This is the Memcached class for the Cache component.
+ * This is the APC class for the Cache component.
  *
  * @category   Pop
  * @package    Pop_Cache
