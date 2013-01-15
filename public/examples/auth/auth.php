@@ -25,7 +25,7 @@ try {
          ->setAllowedIps('127.0.0.1')
          ->authenticate($username, $password);
 
-    echo $auth->getResultMessage() . PHP_EOL;
+    echo $auth->getResultMessage() . '<br /> ' . PHP_EOL;
 
     // Check if the user is authorized to be in this area
     if ($auth->isValid()) {
@@ -38,8 +38,6 @@ try {
                  '" and needs to be a "' . $auth->getRequiredRole()->getName() . '".';
         }
     }
-
-    echo PHP_EOL . PHP_EOL;
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

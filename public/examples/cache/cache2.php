@@ -13,10 +13,8 @@ try {
     if (!($var = $cache->load('test'))) {
         echo 'It\'s either not there or expired.';
     } else {
-        var_dump($var);
+        echo $var;
     }
-
-    echo PHP_EOL . PHP_EOL;
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

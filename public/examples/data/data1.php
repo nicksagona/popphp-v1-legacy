@@ -33,8 +33,6 @@ try {
     $data = new Data('../assets/files/test.yml');
     $obj = $data->parseFile();
     print_r($obj);
-
-    echo PHP_EOL . '<br /><br />' . PHP_EOL;
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

@@ -13,7 +13,7 @@ try {
     //$cache = Cache\Cache::factory(new Cache\Adapter\Apc(), 30);
 
     $cache->save('test', $test);
-    echo 'Value saved to cache.' . PHP_EOL . PHP_EOL;
+    echo 'Value saved to cache.';
 
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;

@@ -87,7 +87,7 @@ class Lab implements ColorInterface
      * @param  int     $type
      * @return string|array
      */
-    public function getLab($type = Color::ASSOC_ARRAY)
+    public function get($type = Color::ASSOC_ARRAY)
     {
 
         $lab = null;
@@ -145,7 +145,7 @@ class Lab implements ColorInterface
      */
     public function __toString()
     {
-        return $this->getLab(Color::STRING);
+        return $this->get(Color::STRING);
     }
 
 }

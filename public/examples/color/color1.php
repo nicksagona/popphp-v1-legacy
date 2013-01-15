@@ -2,17 +2,16 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Color\Color,
-    Pop\Color\Rgb;
+use Pop\Color;
 
 try {
-    $color = new Color(new Rgb(112, 124, 228));
+    $color = new Color\Color(new Color\Rgb(112, 124, 228));
 
-    echo '<strong>CMYK conversion:</strong> ' . $color->cmyk->getCmyk(Color::STRING) . PHP_EOL;
-    echo '<strong>Lab conversion:</strong> ' . $color->lab->getLab(Color::STRING) . PHP_EOL . PHP_EOL;
-
-    print_r($color);
-    echo PHP_EOL . PHP_EOL;
+    echo '<strong>RGB values:</strong> ' . $color->rgb . '<br /><br />' . PHP_EOL;
+    echo '<strong>HEX values:</strong> ' . $color->hex . '<br /><br />' . PHP_EOL;
+    echo '<strong>CMYK conversion:</strong> ' . $color->cmyk . '<br /><br />' . PHP_EOL;
+    echo '<strong>HSB conversion:</strong> ' . $color->hsb . '<br /><br />' . PHP_EOL;
+    echo '<strong>Lab conversion:</strong> ' . $color->lab . '<br /><br />';
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

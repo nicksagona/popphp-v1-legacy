@@ -129,7 +129,7 @@ class Hex implements ColorInterface
      * @param  boolean $short
      * @return string
      */
-    public function getHex($hash = false, $short = false)
+    public function get($hash = false, $short = false)
     {
 
         $hex = null;
@@ -181,7 +181,7 @@ class Hex implements ColorInterface
      */
     public function __toString()
     {
-        return $this->getHex(true);
+        return $this->get(true);
     }
 
     /**

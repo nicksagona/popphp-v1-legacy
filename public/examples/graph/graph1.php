@@ -36,7 +36,6 @@ try {
           ->showText(true)
           ->createLineGraph($data, $x, $y)
           ->output();
-
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

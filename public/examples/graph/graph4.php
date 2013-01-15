@@ -6,7 +6,6 @@ use Pop\Color\Rgb,
     Pop\Graph\Graph;
 
 try {
-
     $pie = array(
         'x' => 320,
         'y' => 240,
@@ -34,7 +33,6 @@ try {
           ->showText(true)
           ->createPieChart($pie, $percents, 20)
           ->output();
-
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

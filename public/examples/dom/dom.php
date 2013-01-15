@@ -30,7 +30,6 @@ try {
 
     $doc = new Dom(Dom::XHTML11, 'utf-8', $html);
     $doc->render();
-    echo PHP_EOL . PHP_EOL;
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

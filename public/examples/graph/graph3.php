@@ -6,7 +6,6 @@ use Pop\Color\Rgb,
     Pop\Graph\Graph;
 
 try {
-
     $x = array('0M', '50M', '100M', '150M', '200M');
     $y = array('1995', '2000', '2005', '2010', '2015');
 
@@ -31,7 +30,6 @@ try {
           ->showText(true)
           ->createHBarGraph($data, $x, $y)
           ->output();
-
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

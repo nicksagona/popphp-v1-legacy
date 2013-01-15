@@ -95,7 +95,7 @@ class Cmyk implements ColorInterface
      * @param  int $type
      * @return string|array
      */
-    public function getCmyk($type = Color::ASSOC_ARRAY)
+    public function get($type = Color::ASSOC_ARRAY)
     {
 
         $cmyk = null;
@@ -163,7 +163,7 @@ class Cmyk implements ColorInterface
      */
     public function __toString()
     {
-        return $this->getCmyk(Color::STRING);
+        return $this->get(Color::STRING);
     }
 
 }

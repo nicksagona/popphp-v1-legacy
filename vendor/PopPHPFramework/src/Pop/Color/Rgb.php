@@ -88,7 +88,7 @@ class Rgb implements ColorInterface
      * @param  boolean $css
      * @return string|array
      */
-    public function getRgb($type = Color::ASSOC_ARRAY, $css = false)
+    public function get($type = Color::ASSOC_ARRAY, $css = false)
     {
 
         $rgb = null;
@@ -150,7 +150,7 @@ class Rgb implements ColorInterface
      */
     public function __toString()
     {
-        return $this->getRgb(Color::STRING);
+        return $this->get(Color::STRING);
     }
 
 }

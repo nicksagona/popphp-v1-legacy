@@ -13,8 +13,7 @@ try {
     echo 'Encrypted: ' . $encrypted . '<br /><br />' . PHP_EOL;
 
     $decrypted = String::decrypt($encrypted, $key);
-    echo 'Decrypted: ' . $decrypted . '<br />' . PHP_EOL;
-
+    echo 'Decrypted: ' . $decrypted;
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

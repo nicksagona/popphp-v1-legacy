@@ -2,25 +2,22 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Code\MethodGenerator,
-    Pop\Code\Reflection;
+use Pop\Code;
 
 try {
-    $reflect = new Reflection('Pop\Auth\Auth');
+    $reflect = new Code\Reflection('Pop\Compress\Zlib');
     $code = $reflect->getGenerator();
 
-    // Create a method object to add
-    $method = new MethodGenerator('someNewMethod');
+    // Create a method object to add to the class
+    $method = new Code\MethodGenerator('someNewMethod');
     $method->setDesc('This is a new test method')
            ->setBody("// Let's get some stuff to happen here." . PHP_EOL . "\$blah = 'Sounds like a good idea';")
            ->appendToBody("echo \$blah;", false)
-           ->addArgument('test', "null", 'Pop\Filter\String')
+           ->addArgument('test', "null", '\Pop\Filter\String')
            ->addArgument('other', "array()", 'array');
 
     $code->code()->addMethod($method);
     $code->output();
-
-    echo PHP_EOL . PHP_EOL;
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

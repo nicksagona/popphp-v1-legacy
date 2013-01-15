@@ -10,7 +10,7 @@ try {
         ->select()
         ->where('id', '=', 1);
 
-    echo $sql . PHP_EOL . PHP_EOL;
+    echo $sql;
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

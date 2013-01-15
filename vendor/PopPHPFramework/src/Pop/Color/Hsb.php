@@ -87,7 +87,7 @@ class Hsb implements ColorInterface
      * @param  int     $type
      * @return string|array
      */
-    public function getHsb($type = Color::ASSOC_ARRAY)
+    public function get($type = Color::ASSOC_ARRAY)
     {
 
         $hsb = null;
@@ -145,7 +145,7 @@ class Hsb implements ColorInterface
      */
     public function __toString()
     {
-        return $this->getHsb(Color::STRING);
+        return $this->get(Color::STRING);
     }
 
 }

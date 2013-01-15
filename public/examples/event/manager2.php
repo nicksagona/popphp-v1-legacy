@@ -27,11 +27,9 @@ class Foo
 
 try {
     $manager = new Manager();
-
     $manager->attach('pre', 'Foo::factory', 2);
     //$manager->attach('pre', array(new Foo, 'bar'), 2);
     $manager->attach('pre', function($result) { echo 'Hello, ' . $result->value . '<br />' . PHP_EOL; }, 1);
-
     $manager->trigger('pre', array('arg' => 'World'));
 } catch (\Exception $e) {
     echo $e->getMessage();

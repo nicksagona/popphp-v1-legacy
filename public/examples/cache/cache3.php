@@ -11,7 +11,7 @@ try {
     //$cache = Cache\Cache::factory(new Cache\Adapter\Apc(), 30);
 
     $cache->clear();
-    echo 'Cache cleared.' . PHP_EOL . PHP_EOL;
+    echo 'Cache cleared.';
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

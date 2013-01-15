@@ -11,14 +11,14 @@ try {
     $archive->addFiles('../assets');
 
     // Display the new archive file size
-    echo $archive->getBasename() . ': file size => ' . $archive->getSize() . PHP_EOL;
+    echo $archive->getBasename() . ': file size => ' . $archive->getSize() . '<br /> ' . PHP_EOL;
 
     // Compress the archive (Gzip by default)
-    $archive->compress();
+    $archive->compress('bz');
 
     // Display the newly compressed archive file size
-    echo $archive->getBasename() . ': compressed file size => ' . $archive->getSize() . PHP_EOL;
-    echo 'Done.' . PHP_EOL . PHP_EOL;
+    echo $archive->getBasename() . ': compressed file size => ' . $archive->getSize() . '<br /> ' . PHP_EOL;
+    echo 'Done.';
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

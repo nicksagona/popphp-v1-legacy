@@ -19,7 +19,6 @@ HTML;
 
     $feed->setTemplate($htmlTemplate);
     $feed->render();
-    echo PHP_EOL . PHP_EOL;
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

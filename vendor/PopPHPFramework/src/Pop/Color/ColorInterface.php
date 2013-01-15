@@ -34,4 +34,15 @@ namespace Pop\Color;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.1.2
  */
-interface ColorInterface { }
+interface ColorInterface
+{
+
+    /**
+     * Method to get the full color value
+     *
+     * @param  int $type
+     * @return string|array
+     */
+    public function get($type = Color::ASSOC_ARRAY);
+
+}
