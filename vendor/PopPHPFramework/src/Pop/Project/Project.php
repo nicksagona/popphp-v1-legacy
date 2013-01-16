@@ -65,6 +65,12 @@ class Project
     protected $events = null;
 
     /**
+     * Project services
+     * @var \Pop\Service\Locator
+     */
+    protected $services = null;
+
+    /**
      * Constructor
      *
      * Instantiate a project object
@@ -89,6 +95,7 @@ class Project
         }
 
         $this->events = new \Pop\Event\Manager();
+        $this->services = new \Pop\Service\Locator();
 
         if (isset($this->config->defaultDb)) {
             $default = $this->config->defaultDb;
@@ -277,6 +284,41 @@ class Project
     public function getEventManager()
     {
         return $this->events;
+    }
+
+    /**
+     * Set a service
+     *
+     * @param  string $name
+     * @param  mixed  $class
+     * @param  array  $params
+     * @return \Pop\Project\Project
+     */
+    public function setService($name, $class, array $params = null)
+    {
+        $this->services->set($name, $class, $params);
+        return $this;
+    }
+
+    /**
+     * Get a service
+     *
+     * @param  string $name
+     * @return mixed
+     */
+    public function getService($name)
+    {
+        return $this->services->get($name);
+    }
+
+    /**
+     * Get the service Locator
+     *
+     * @return \Pop\Service\Locator
+     */
+    public function getServiceLocator()
+    {
+        return $this->services;
     }
 
     /**

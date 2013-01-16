@@ -44,38 +44,59 @@ class Locator
     protected $services = array();
 
     /**
+     * Services that are instantiated
+     * @var array
+     */
+    protected $loaded = array();
+
+    /**
      * Constructor
      *
      * Instantiate the service locator object.
+     * Valid $services argument are ('params' are optional):
      *
-     * @param  string $name
-     * @param  mixed  $class
-     * @param  array  $params
+     *     $services = array(
+     *         'name'   => 'service',
+     *         'class'  => 'SomeClass',
+     *         'params' => array(...)
+     *     );
+     *
+     * Or an as an array of arrays
+     *
+     *     $services = array(
+     *         array(
+     *             'name'   => 'service1',
+     *             'class'  => 'SomeClass',
+     *             'params' => array(...)
+     *         ),
+     *         array(
+     *             'name'   => 'service2',
+     *             'class'  => 'OtherClass',
+     *             'params' => array(...)
+     *         ),
+     *         ...
+     *     );
+     *
+     * @param  array $services
      * @throws Exception
      * @return \Pop\Service\Locator
      */
-    public function __construct($name, $class, array $params = null)
+    public function __construct(array $services = null)
     {
-        $this->set($name, $class, $params);
+        if (null !== $services) {
+            foreach ($services as $name => $service) {
+                if (!isset($service['class'])) {
+                    throw new Exception('Error: The $services configuration parameter was not valid.');
+                }
+                $params = (isset($service['params'])) ? $service['params'] : null;
+                $this->set($name, $service['class'], $params);
+            }
+        }
     }
 
     /**
-     * Static method to instantiate the locator object and return itself
-     * to facilitate chaining methods together.
-     *
-     * @param  string $name
-     * @param  mixed  $class
-     * @param  array  $params
-     * @return \Pop\Service\Locator
-     */
-    public static function factory($name, $class, array $params = null)
-    {
-        return new self($name, $class, $params);
-    }
-
-    /**
-     * Set a service object. It will overwrite any previous
-     * service with the same name.
+     * Load a service object. It will overwrite
+     * any previous service with the same name.
      *
      * @param  string $name
      * @param  mixed  $class
@@ -85,6 +106,65 @@ class Locator
      */
     public function set($name, $class, array $params = null)
     {
+        $this->services[$name] = array(
+            'class'  => $class,
+            'params' => $params
+        );
+        return $this;
+    }
+
+    /**
+     * Get a service object.
+     *
+     * @param  string $name
+     * @return mixed
+     */
+    public function get($name)
+    {
+        if (!isset($this->services[$name])) {
+            return null;
+        } else {
+            if (!isset($this->loaded[$name])) {
+                $this->load($name);
+            }
+            return $this->loaded[$name];
+        }
+    }
+
+    /**
+     * Remove a service
+     *
+     * @param  string $name
+     * @return \Pop\Service\Locator
+     */
+    public function remove($name)
+    {
+        if (isset($this->services[$name])) {
+            unset($this->services[$name]);
+        }
+        if (isset($this->loaded[$name])) {
+            unset($this->loaded[$name]);
+        }
+        return $this;
+    }
+
+    /**
+     * Load a service object. It will overwrite
+     * any previous service with the same name.
+     *
+     * @param  string $name
+     * @throws Exception
+     * @return \Pop\Service\Locator
+     */
+    protected function load($name)
+    {
+        if (!isset($this->services[$name])) {
+            throw new Exception('Error: The service \'' . $name . '\' is not set.');
+        }
+
+        $class = $this->services[$name]['class'];
+        $params = $this->services[$name]['params'];
+
         if (is_string($class)) {
             if (null !== $params) {
                 $reflect  = new \ReflectionClass($class);
@@ -98,18 +178,8 @@ class Locator
             throw new Exception('Error: The $class parameter must be an object or a callable string.');
         }
 
-        $this->services[$name] = $obj;
-    }
-
-    /**
-     * Get a service object.
-     *
-     * @param  string $name
-     * @return mixed
-     */
-    public function get($name)
-    {
-        return (isset($this->services[$name])) ? $this->services[$name] : null;
+        $this->loaded[$name] = $obj;
+        return $this;
     }
 
 }
