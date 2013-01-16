@@ -80,6 +80,9 @@ class Locator
                 if ($service instanceof \Closure) {
                     $class = $service;
                     $params = null;
+                } else if (is_object($service)) {
+                    $class = $service;
+                    $params = null;
                 } else if (isset($service['class'])) {
                     $class = $service['class'];
                     $params = (isset($service['params'])) ? $service['params'] : null;
@@ -154,10 +157,6 @@ class Locator
      */
     protected function load($name)
     {
-        if (!isset($this->services[$name])) {
-            throw new Exception('Error: The service \'' . $name . '\' is not set.');
-        }
-
         $class = $this->services[$name]['class'];
         $params = $this->services[$name]['params'];
 
