@@ -101,6 +101,7 @@ Some dependencies for the framework to fully function are as follows:
 * The GeoIP extension to utilize the Geo component
 * The GD library for image manipulation (including FreeType support)
 * The Imagick extension (with ImageMagick & Ghostscript) for advanced image manipulation
+* The APC extension for the Cache component (using the Apc adapter)
 * The Memcache extension for the Cache component (using the Memcached adapter)
 * The DOMDocument extension for the Svg component
 * The SimpleXML extension for the Feed, Data, Locale and Svg components

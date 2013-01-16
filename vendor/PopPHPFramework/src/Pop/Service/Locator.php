@@ -175,7 +175,7 @@ class Locator
         } else if (is_object($class)) {
             $obj = $class;
         } else {
-            throw new Exception('Error: The $class parameter must be an object or soemthing callable.');
+            throw new Exception('Error: The $class parameter must be an object or something callable.');
         }
 
         $this->loaded[$name] = $obj;
