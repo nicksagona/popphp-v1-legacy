@@ -11,10 +11,13 @@ try {
             'class'  => 'Pop\Config',
             'params' => array(array('test' => 123), true)
         ),
-        'color' => array(
-            'class'  => 'Pop\Color\Color',
-            'params' => function() { return array(new \Pop\Color\Rgb(255, 0, 0)); }
-        )
+        'rgb' => array(
+            'class'  => 'Pop\Color\Rgb',
+            'params' => function() { return array(255, 0, 0); }
+        ),
+        'color' => function($locator) {
+            return new \Pop\Color\Color($locator->get('rgb'));
+        }
     ));
 
     // Services have not been loaded/instantiated yet
@@ -22,6 +25,7 @@ try {
 
     // Get the services as you need them
     print_r($locator->get('config'));
+    print_r($locator->get('rgb'));
     print_r($locator->get('color'));
 
     // Now the services are loaded/instantiated within the locator object

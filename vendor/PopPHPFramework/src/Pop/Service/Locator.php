@@ -71,11 +71,16 @@ class Locator
     {
         if (null !== $services) {
             foreach ($services as $name => $service) {
-                if (!isset($service['class'])) {
+                if ($service instanceof \Closure) {
+                    $class = $service;
+                    $params = null;
+                } else if (isset($service['class'])) {
+                    $class = $service['class'];
+                    $params = (isset($service['params'])) ? $service['params'] : null;
+                } else {
                     throw new Exception('Error: The $services configuration parameter was not valid.');
                 }
-                $params = (isset($service['params'])) ? $service['params'] : null;
-                $this->set($name, $service['class'], $params);
+                $this->set($name, $class, $params);
             }
         }
     }
@@ -151,7 +156,9 @@ class Locator
         $class = $this->services[$name]['class'];
         $params = $this->services[$name]['params'];
 
-        if (is_string($class)) {
+        if ($class instanceof \Closure) {
+            $obj = call_user_func_array($class, array($this));
+        } else if (is_string($class)) {
             if (null !== $params) {
                 if ($params instanceof \Closure) {
                     $params = call_user_func($params);
