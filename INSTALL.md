@@ -1,5 +1,5 @@
-INSTALLATION
-============
+Pop PHP Framework Installation
+==============================
 
 The Pop PHP Framework requires no special installation steps. Simply
 download the framework and extract it. If you change the relationship

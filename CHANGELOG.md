@@ -1,8 +1,9 @@
-Pop PHP Framework 1.2.0
-=======================
+Pop PHP Framework Changelog
+===========================
 
-COMPLETED:
-----------
+Pop PHP Framework 1.2.0
+-----------------------
+
 * Add a Service component
     - Ability to configure and lazy-load services as needed
     - Hooked into the Project component
@@ -22,36 +23,28 @@ COMPLETED:
 * Refactor and improve Web\Browser & Web\Mobile classes
 
 Pop PHP Framework 1.1.2
-=======================
+-----------------------
 
-COMPLETED:
-----------
 * Refactor Record component to improve "findBy()" functionality
 
 Pop PHP Framework 1.1.1
-=======================
+-----------------------
 
-COMPLETED:
-----------
 * Add CSRF and CAPTCHA elements to the Form component
 * Improved multiple Select element support
 * Add a protected parseData() method to the Http\Request class to allow
   for parsing of data from methods other than GET and POST
 
 Pop PHP Framework 1.1.0
-=======================
+-----------------------
 
-COMPLETED:
-----------
 * Add Event component, hook into Project class
 * Add Log component
 
 
 Pop PHP Framework 1.0.3
-=======================
+-----------------------
 
-COMPLETED:
-----------
 * Fixed issue with the Autoloader, return back if class not located or registered
 * Add Fields class to the Form component
 * Removed under-used and unnecessary methods from the Record component
@@ -61,20 +54,16 @@ COMPLETED:
 
 
 Pop PHP Framework 1.0.2
-=======================
+-----------------------
 
-COMPLETED:
-----------
 * Small restructure of the Dir component. Moved under the File component
 * Resolved and eliminated some unnecessary internal dependencies
 * Code cleanup
 
 
 Pop PHP Framework 1.0.1
-=======================
+-----------------------
 
-COMPLETED:
-----------
 * Revise the Filter component
     - Remove unnecessary and under-used classes and methods
     - Convert remaining methods to static methods that return strings
@@ -92,10 +81,8 @@ COMPLETED:
 
 
 Pop PHP Framework 1.0.0
-=======================
+-----------------------
 
-COMPLETED:
-----------
 * Refactor framework for 5.3+ only and restructure it using namespaces
 * Add Archive component
 * Add Compress component
