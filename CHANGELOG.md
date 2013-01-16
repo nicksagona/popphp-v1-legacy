@@ -1,8 +1,8 @@
 Pop PHP Framework Changelog
 ===========================
 
-Pop PHP Framework 1.2.0
------------------------
+1.2.0
+-----
 
 * Add a Service component
     - Ability to configure and lazy-load services as needed
@@ -22,28 +22,28 @@ Pop PHP Framework 1.2.0
 * Refactor and improve Validator component
 * Refactor and improve Web\Browser & Web\Mobile classes
 
-Pop PHP Framework 1.1.2
------------------------
+1.1.2
+-----
 
 * Refactor Record component to improve "findBy()" functionality
 
-Pop PHP Framework 1.1.1
------------------------
+1.1.1
+-----
 
 * Add CSRF and CAPTCHA elements to the Form component
 * Improved multiple Select element support
 * Add a protected parseData() method to the Http\Request class to allow
   for parsing of data from methods other than GET and POST
 
-Pop PHP Framework 1.1.0
------------------------
+1.1.0
+-----
 
 * Add Event component, hook into Project class
 * Add Log component
 
 
-Pop PHP Framework 1.0.3
------------------------
+1.0.3
+-----
 
 * Fixed issue with the Autoloader, return back if class not located or registered
 * Add Fields class to the Form component
@@ -53,16 +53,16 @@ Pop PHP Framework 1.0.3
     - join()
 
 
-Pop PHP Framework 1.0.2
------------------------
+1.0.2
+-----
 
 * Small restructure of the Dir component. Moved under the File component
 * Resolved and eliminated some unnecessary internal dependencies
 * Code cleanup
 
 
-Pop PHP Framework 1.0.1
------------------------
+1.0.1
+-----
 
 * Revise the Filter component
     - Remove unnecessary and under-used classes and methods
@@ -80,8 +80,8 @@ Pop PHP Framework 1.0.1
 * Overall code cleanup
 
 
-Pop PHP Framework 1.0.0
------------------------
+1.0.0
+-----
 
 * Refactor framework for 5.3+ only and restructure it using namespaces
 * Add Archive component
