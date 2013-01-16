@@ -52,15 +52,21 @@ class Locator
     /**
      * Constructor
      *
-     * Instantiate the service locator object.
-     * Valid $services argument are ('params' are optional):
+     * Instantiate the service locator object. The optional $services
+     * parameter can contain a closure or an array of class/param keys
+     * that define what to call when the service is needed.
+     * Valid examples are ('params' are optional):
      *
      *     $services = array(
-     *         'service => array(
+     *         'service1' => array(
      *             'class'  => 'SomeClass',
      *             'params' => array(...)
      *         ),
-     *         ...
+     *         'service2' => array(
+     *             'class'  => 'SomeClass',
+     *             'params' => function() {...}
+     *         ),
+     *         'service3' => function($locator) {...}
      *     );
      *
      * @param  array $services
@@ -86,13 +92,12 @@ class Locator
     }
 
     /**
-     * Load a service object. It will overwrite
+     * Set a service object. It will overwrite
      * any previous service with the same name.
      *
      * @param  string $name
      * @param  mixed  $class
      * @param  mixed  $params
-     * @throws Exception
      * @return \Pop\Service\Locator
      */
     public function set($name, $class, $params = null)

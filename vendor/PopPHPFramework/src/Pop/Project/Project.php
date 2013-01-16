@@ -291,10 +291,10 @@ class Project
      *
      * @param  string $name
      * @param  mixed  $class
-     * @param  array  $params
+     * @param  mixed  $params
      * @return \Pop\Project\Project
      */
-    public function setService($name, $class, array $params = null)
+    public function setService($name, $class, $params = null)
     {
         $this->services->set($name, $class, $params);
         return $this;

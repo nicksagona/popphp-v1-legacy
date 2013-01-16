@@ -3,6 +3,9 @@ Pop PHP Framework 1.2.0
 
 COMPLETED:
 ----------
+* Add a Service component
+    - Ability to configure and lazy-load services as needed
+    - Hooked into the Project component
 * Refactor and improve Auth component
 * Refactor and improve Cache component
     - Add support for APC
