@@ -57,7 +57,7 @@ class Phar implements ArchiveInterface
      * @param  \Pop\Archive\Archive $archive
      * @return \Pop\Archive\Adapter\Phar
      */
-    public function __construct($archive)
+    public function __construct(\Pop\Archive\Archive $archive)
     {
         $this->path = $archive->getFullpath();
         $this->archive = new \Phar($this->path);

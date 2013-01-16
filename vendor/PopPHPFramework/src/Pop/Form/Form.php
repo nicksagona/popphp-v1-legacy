@@ -104,6 +104,21 @@ class Form extends \Pop\Dom\Dom
     }
 
     /**
+     * Static method to instantiate the form object and return itself
+     * to facilitate chaining methods together.
+     *
+     * @param  string $action
+     * @param  string $method
+     * @param  array  $fields
+     * @param  string $indent
+     * @return \Pop\Form\Form
+     */
+    public static function factory($action, $method, array $fields = null, $indent = null)
+    {
+        return new self($action, $method, $fields, $indent);
+    }
+
+    /**
      * Set the fields of the form object.
      *
      * @param  array $fields

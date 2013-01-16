@@ -64,7 +64,7 @@ class Tar implements ArchiveInterface
      * @param  \Pop\Archive\Archive $archive
      * @return \Pop\Archive\Adapter\Tar
      */
-    public function __construct($archive)
+    public function __construct(\Pop\Archive\Archive $archive)
     {
         if (stripos($archive->getExt(), 'bz') !== false) {
             $this->compression = 'bz';

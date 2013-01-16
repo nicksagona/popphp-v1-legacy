@@ -18,6 +18,7 @@ namespace PopTest\Color;
 
 use Pop\Loader\Autoloader,
     Pop\Color\Color,
+    Pop\Color\Convert,
     Pop\Color\Cmyk,
     Pop\Color\Hex,
     Pop\Color\Hsb,
@@ -60,92 +61,92 @@ class ColorTest extends \PHPUnit_Framework_TestCase
     public function testConvertCmykException()
     {
         $this->setExpectedException('Pop\Color\Exception');
-        $c = Color::factory()->convertToCmyk(new Cmyk(20, 40, 60, 80));
+        $c = Convert::toCmyk(new Cmyk(20, 40, 60, 80));
     }
 
     public function testConvertHexException()
     {
         $this->setExpectedException('Pop\Color\Exception');
-        $c = Color::factory()->convertToHex(new Hex('#ee1c2d'));
+        $c = Convert::toHex(new Hex('#ee1c2d'));
     }
 
     public function testConvertHsbException()
     {
         $this->setExpectedException('Pop\Color\Exception');
-        $c = Color::factory()->convertToHsb(new Hsb(180, 50, 50));
+        $c = Convert::toHsb(new Hsb(180, 50, 50));
     }
 
     public function testConvertLabException()
     {
         $this->setExpectedException('Pop\Color\Exception');
-        $c = Color::factory()->convertToLab(new Lab(100, 100, 100));
+        $c = Convert::toLab(new Lab(100, 100, 100));
     }
 
     public function testConvertRgbException()
     {
         $this->setExpectedException('Pop\Color\Exception');
-        $c = Color::factory()->convertToRgb(new Rgb(112, 124, 228));
+        $c = Convert::toRgb(new Rgb(112, 124, 228));
     }
 
     public function testRgbToCmyk()
     {
-        $cmyk = Color::factory()->rgbToCmyk(new Rgb(0, 0, 0));
+        $cmyk = Convert::toCmyk(new Rgb(0, 0, 0));
         $this->assertInstanceOf('Pop\Color\Cmyk', $cmyk);
         $this->assertEquals('0,0,0,100', (string)$cmyk);
     }
 
     public function testHsbToRgb()
     {
-        $rgb = Color::factory()->hsbToRgb(new Hsb(180, 50, 50));
+        $rgb = Convert::toRgb(new Hsb(180, 50, 50));
         $this->assertInstanceOf('Pop\Color\Rgb', $rgb);
         $this->assertEquals('64,128,64', (string)$rgb);
     }
 
     public function testHsbToHex()
     {
-        $hex = Color::factory()->hsbToHex(new Hsb(180, 50, 50));
+        $hex = Convert::toHex(new Hsb(180, 50, 50));
         $this->assertInstanceOf('Pop\Color\Hex', $hex);
         $this->assertEquals('#408040', (string)$hex);
     }
 
     public function testHsbToCmyk()
     {
-        $cmyk = Color::factory()->hsbToCmyk(new Hsb(180, 50, 50));
+        $cmyk = Convert::toCmyk(new Hsb(180, 50, 50));
         $this->assertInstanceOf('Pop\Color\Cmyk', $cmyk);
         $this->assertEquals('50,0,50,50', (string)$cmyk);
     }
 
     public function testHsbToLab()
     {
-        $lab = Color::factory()->hsbToLab(new Hsb(180, 50, 50));
+        $lab = Convert::toLab(new Hsb(180, 50, 50));
         $this->assertInstanceOf('Pop\Color\Lab', $lab);
         $this->assertEquals('48,-34,28', (string)$lab);
     }
 
     public function testLabToRgb()
     {
-        $rgb = Color::factory()->labToRgb(new Lab(100, 100, 100));
+        $rgb = Convert::toRgb(new Lab(100, 100, 100));
         $this->assertInstanceOf('Pop\Color\Rgb', $rgb);
         $this->assertEquals('195,146,49', (string)$rgb);
     }
 
     public function testLabToHex()
     {
-        $hex = Color::factory()->labToHex(new Lab(100, 100, 100));
+        $hex = Convert::toHex(new Lab(100, 100, 100));
         $this->assertInstanceOf('Pop\Color\Hex', $hex);
         $this->assertEquals('#c39231', (string)$hex);
     }
 
     public function testLabToCmyk()
     {
-        $cmyk = Color::factory()->labToCmyk(new Lab(100, 100, 100));
+        $cmyk = Convert::toCmyk(new Lab(100, 100, 100));
         $this->assertInstanceOf('Pop\Color\Cmyk', $cmyk);
         $this->assertEquals('0,25,75,24', (string)$cmyk);
     }
 
     public function testLabToHsb()
     {
-        $hsb = Color::factory()->labToHsb(new Lab(100, 100, 100));
+        $hsb = Convert::toHsb(new Lab(100, 100, 100));
         $this->assertInstanceOf('Pop\Color\Hsb', $hsb);
         $this->assertEquals('40,75,76', (string)$hsb);
     }

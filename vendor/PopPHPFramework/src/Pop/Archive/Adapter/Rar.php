@@ -59,11 +59,11 @@ class Rar implements ArchiveInterface
      * Method to instantiate an archive adapter object
      *
      * @param  \Pop\Archive\Archive $archive
-     * @param  string              $password
+     * @param  string               $password
      * @throws Exception
      * @return \Pop\Archive\Adapter\Rar
      */
-    public function __construct($archive, $password = null)
+    public function __construct(\Pop\Archive\Archive $archive, $password = null)
     {
         $this->path = $archive->getFullpath();
         $this->password = $password;

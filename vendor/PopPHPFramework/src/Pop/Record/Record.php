@@ -164,8 +164,8 @@ class Record
     /**
      * Set DB connection
      *
-     * @param  \Pop\Db\Db      $db
-     * @param  boolean $isDefault
+     * @param  \Pop\Db\Db $db
+     * @param  boolean    $isDefault
      * @return void
      */
     public static function setDb(\Pop\Db\Db $db, $isDefault = false)
@@ -281,7 +281,7 @@ class Record
     }
 
     /**
-     * Get if the table is an autocrement table
+     * Get if the table is an autoincrement table
      *
      * @return boolean
      */

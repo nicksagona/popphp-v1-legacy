@@ -34,7 +34,7 @@ namespace Pop\Cache\Adapter;
  * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
  * @version    1.2.0
  */
-class File implements CacheInterface
+class File implements AdapterInterface
 {
 
     /**

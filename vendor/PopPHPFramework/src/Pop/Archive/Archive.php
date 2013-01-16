@@ -68,9 +68,10 @@ class Archive extends \Pop\File\File
      *
      * @param  string $archive
      * @param  string $password
+     * @param  string $prefix
      * @return \Pop\Archive\Archive
      */
-    public function __construct($archive, $password = null)
+    public function __construct($archive, $password = null, $prefix = 'Pop\\Archive\\Adapter\\')
     {
         // Check if Bzip2 is available.
         if (!function_exists('bzcompress')) {
@@ -101,7 +102,7 @@ class Archive extends \Pop\File\File
 
         parent::__construct($archive);
 
-        $this->setAdapter($password);
+        $this->setAdapter($password, $prefix);
     }
 
     /**
@@ -222,21 +223,20 @@ class Archive extends \Pop\File\File
      * Method to set the adapter based on the file name
      *
      * @param  string $password
+     * @param  string $prefix
      * @return void
      */
-    protected function setAdapter($password = null)
+    protected function setAdapter($password = null, $prefix)
     {
         $ext = strtolower($this->ext);
 
-        if ($ext == 'phar') {
-            $this->adapter = new Adapter\Phar($this);
-        } else if ($ext == 'rar') {
-            $this->adapter = new Adapter\Rar($this, $password);
-        } else if (($ext == 'tar') || (stripos($ext, 'bz') !== false) || (stripos($ext, 'gz') !== false)) {
-            $this->adapter = new Adapter\Tar($this);
-        } else if ($ext == 'zip') {
-            $this->adapter = new Adapter\Zip($this);
+        if (($ext == 'tar') || (stripos($ext, 'bz') !== false) || (stripos($ext, 'gz') !== false)) {
+            $class = $prefix . 'Tar';
+        } else {
+            $class = $prefix . ucfirst($ext);
         }
+
+        $this->adapter = (null !== $password) ? new $class($this, $password) : new $class($this);
     }
 
 }

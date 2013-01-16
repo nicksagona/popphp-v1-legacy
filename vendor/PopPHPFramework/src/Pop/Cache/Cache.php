@@ -54,11 +54,11 @@ class Cache
      *
      * Instantiate the cache object
      *
-     * @param  Adapter\CacheInterface $adapter
-     * @param  int                    $lifetime
+     * @param  Adapter\AdapterInterface $adapter
+     * @param  int                      $lifetime
      * @return \Pop\Cache\Cache
      */
-    public function __construct(Adapter\CacheInterface $adapter, $lifetime = 0)
+    public function __construct(Adapter\AdapterInterface $adapter, $lifetime = 0)
     {
         $this->lifetime = $lifetime;
         $this->adapter = $adapter;
@@ -68,11 +68,11 @@ class Cache
      * Static method to instantiate the cache object and return itself
      * to facilitate chaining methods together.
      *
-     * @param  Adapter\CacheInterface $adapter
-     * @param  int                    $lifetime
+     * @param  Adapter\AdapterInterface $adapter
+     * @param  int                      $lifetime
      * @return \Pop\Cache\Cache
      */
-    public static function factory(Adapter\CacheInterface $adapter, $lifetime = 0)
+    public static function factory(Adapter\AdapterInterface $adapter, $lifetime = 0)
     {
         return new self($adapter, $lifetime);
     }

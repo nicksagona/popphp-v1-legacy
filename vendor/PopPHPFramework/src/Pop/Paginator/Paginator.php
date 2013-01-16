@@ -200,6 +200,21 @@ class Paginator
     }
 
     /**
+     * Static method to instantiate the paginator object and return itself
+     * to facilitate chaining methods together.
+     *
+     * @param  array $items
+     * @param  int $perPage
+     * @param  int $range
+     * @param  int $total
+     * @return \Pop\Paginator\Paginator
+     */
+    public static function factory(array $items, $perPage = 10, $range = 10, $total = null)
+    {
+        return new self($items, $perPage, $range, $total);
+    }
+
+    /**
      * Method to set the content items.
      *
      * @param  array $items

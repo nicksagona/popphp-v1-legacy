@@ -63,7 +63,7 @@ class Zip implements ArchiveInterface
      * @param  \Pop\Archive\Archive $archive
      * @return \Pop\Archive\Adapter\Zip
      */
-    public function __construct($archive)
+    public function __construct(\Pop\Archive\Archive $archive)
     {
         if (strpos($archive->getFullpath(), '/.') !== false) {
             $this->workingDir = substr($archive->getFullpath(), 0, strpos($archive->getFullpath(), '/.'));

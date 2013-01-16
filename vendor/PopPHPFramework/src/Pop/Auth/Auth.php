@@ -221,6 +221,20 @@ class Auth
     }
 
     /**
+     * Static method to instantiate the auth object and return itself
+     * to facilitate chaining methods together.
+     *
+     * @param Adapter\AdapterInterface $adapter
+     * @param int                      $encryption
+     * @param string                   $salt
+     * @return \Pop\Auth\Auth
+     */
+    public static function factory(Adapter\AdapterInterface $adapter, $encryption = 0, $salt = null)
+    {
+        return new self($adapter, $encryption, $salt);
+    }
+
+    /**
      * Method to add a role
      *
      * @param  mixed $role
