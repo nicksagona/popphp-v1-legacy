@@ -56,22 +56,8 @@ class Locator
      * Valid $services argument are ('params' are optional):
      *
      *     $services = array(
-     *         'name'   => 'service',
-     *         'class'  => 'SomeClass',
-     *         'params' => array(...)
-     *     );
-     *
-     * Or an as an array of arrays
-     *
-     *     $services = array(
-     *         array(
-     *             'name'   => 'service1',
+     *         'service => array(
      *             'class'  => 'SomeClass',
-     *             'params' => array(...)
-     *         ),
-     *         array(
-     *             'name'   => 'service2',
-     *             'class'  => 'OtherClass',
      *             'params' => array(...)
      *         ),
      *         ...
