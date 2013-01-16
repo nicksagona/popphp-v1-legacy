@@ -116,6 +116,9 @@ class Version
         $versionCompare = version_compare($php['Installed PHP'], $php['Required PHP']);
         $check = array();
 
+        // APC
+        $check['Apc'] = (!function_exists('apc_add')) ? 'No' : 'Yes';
+
         // Archive
         $check['Archive Tar'] = 'No';
         foreach ($includePath as $path) {
