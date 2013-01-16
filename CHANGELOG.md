@@ -12,6 +12,7 @@ COMPLETED:
 * Refactor, clean up and improve the API of the Image component
     - Add Captcha image class
 * Refactor and improve Mail component
+    - Add the ability to save emails to disk for deployment via a external mail program, or Pop\Mail
 * Refactor and improve Validator component
 * Refactor and improve Web\Browser & Web\Mobile classes
 
