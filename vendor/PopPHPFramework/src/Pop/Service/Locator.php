@@ -44,7 +44,7 @@ class Locator
     protected $services = array();
 
     /**
-     * Services that are instantiated
+     * Services that are loaded (instantiated)
      * @var array
      */
     protected $loaded = array();
@@ -86,11 +86,11 @@ class Locator
      *
      * @param  string $name
      * @param  mixed  $class
-     * @param  array  $params
+     * @param  mixed  $params
      * @throws Exception
      * @return \Pop\Service\Locator
      */
-    public function set($name, $class, array $params = null)
+    public function set($name, $class, $params = null)
     {
         $this->services[$name] = array(
             'class'  => $class,
@@ -153,6 +153,9 @@ class Locator
 
         if (is_string($class)) {
             if (null !== $params) {
+                if ($params instanceof \Closure) {
+                    $params = call_user_func($params);
+                }
                 $reflect  = new \ReflectionClass($class);
                 $obj = $reflect->newInstanceArgs($params);
             } else {

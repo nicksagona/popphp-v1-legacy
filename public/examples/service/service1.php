@@ -13,7 +13,7 @@ try {
         ),
         'color' => array(
             'class'  => 'Pop\Color\Color',
-            'params' => array(new \Pop\Color\Rgb(255, 0, 0))
+            'params' => function() { return array(new \Pop\Color\Rgb(255, 0, 0)); }
         )
     ));
 
