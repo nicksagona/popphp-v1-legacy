@@ -253,5 +253,17 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($p->getEventManager()->get('route.pre')));
     }
 
+    public function testServiceLocator()
+    {
+        $p = new Project();
+        $p->setService('config', 'Pop\Config', array(array('test' => 123)))
+          ->setService('color', 'Pop\Color\Color', function() {
+            return array(new \Pop\Color\Rgb(255, 0, 0));
+        });
+        $this->assertInstanceOf('Pop\Config', $p->getService('config'));
+        $this->assertInstanceOf('Pop\Color\Color', $p->getService('color'));
+        $this->assertInstanceOf('Pop\Service\Locator', $p->getServiceLocator());
+    }
+
 }
 

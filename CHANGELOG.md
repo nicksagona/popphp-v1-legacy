@@ -11,11 +11,13 @@ COMPLETED:
     - Add support for APC
 * Refactor and improve Color component
 * Add factory method to the Config component
+* Add Csrf and Captcha elements to the Form component
 * Refactor and improve Graph component
 * Refactor, clean up and improve the API of the Image component
     - Add Captcha image class
 * Refactor and improve Mail component
-    - Add the ability to save emails to disk for deployment via a external mail program, or Pop\Mail
+    - Add the ability to save emails to disk for later deployment
+      via a external mail program, or Pop\Mail
 * Refactor and improve Validator component
 * Refactor and improve Web\Browser & Web\Mobile classes
 
