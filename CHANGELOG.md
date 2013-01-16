@@ -4,6 +4,7 @@ Pop PHP Framework Changelog
 1.2.0
 -----
 
+* Large general code review and cleanup
 * Add a Service component
     - Ability to configure and lazy-load services as needed
     - Hooked into the Project component
