@@ -53,20 +53,20 @@ class Locator
      * Constructor
      *
      * Instantiate the service locator object. The optional $services
-     * parameter can contain a closure or an array of class/param keys
+     * parameter can contain a closure or an array of call/param keys
      * that define what to call when the service is needed.
      * Valid examples are ('params' are optional):
      *
      *     $services = array(
-     *         'service1' => array(
-     *             'class'  => 'SomeClass',
+     *         'service1' => function($locator) {...},
+     *         'service2' => array(
+     *             'call'   => 'SomeClass',
      *             'params' => array(...)
      *         ),
-     *         'service2' => array(
-     *             'class'  => 'SomeClass',
+     *         'service3' => array(
+     *             'call'   => 'SomeClass',
      *             'params' => function() {...}
-     *         ),
-     *         'service3' => function($locator) {...}
+     *         )
      *     );
      *
      * @param  array $services
@@ -78,18 +78,18 @@ class Locator
         if (null !== $services) {
             foreach ($services as $name => $service) {
                 if ($service instanceof \Closure) {
-                    $class = $service;
+                    $call = $service;
                     $params = null;
                 } else if (is_object($service)) {
-                    $class = $service;
+                    $call = $service;
                     $params = null;
-                } else if (isset($service['class'])) {
-                    $class = $service['class'];
+                } else if (isset($service['call'])) {
+                    $call = $service['call'];
                     $params = (isset($service['params'])) ? $service['params'] : null;
                 } else {
                     throw new Exception('Error: The $services configuration parameter was not valid.');
                 }
-                $this->set($name, $class, $params);
+                $this->set($name, $call, $params);
             }
         }
     }
@@ -99,14 +99,14 @@ class Locator
      * any previous service with the same name.
      *
      * @param  string $name
-     * @param  mixed  $class
+     * @param  mixed  $call
      * @param  mixed  $params
      * @return \Pop\Service\Locator
      */
-    public function set($name, $class, $params = null)
+    public function set($name, $call, $params = null)
     {
         $this->services[$name] = array(
-            'class'  => $class,
+            'call'   => $call,
             'params' => $params
         );
         return $this;
@@ -157,25 +157,74 @@ class Locator
      */
     protected function load($name)
     {
-        $class = $this->services[$name]['class'];
+        $call = $this->services[$name]['call'];
         $params = $this->services[$name]['params'];
 
-        if ($class instanceof \Closure) {
-            $obj = call_user_func_array($class, array($this));
-        } else if (is_string($class)) {
-            if (null !== $params) {
-                if ($params instanceof \Closure) {
-                    $params = call_user_func($params);
-                }
-                $reflect  = new \ReflectionClass($class);
-                $obj = $reflect->newInstanceArgs($params);
+        // If the callable is a closure
+        if ($call instanceof \Closure) {
+            $refFunc = new \ReflectionFunction($call);
+
+            // If the closure has one parameter to access the locator,
+            // pass it the locator object upon calling it
+            if (count($refFunc->getParameters()) == 1) {
+                $obj = call_user_func_array($call, array($this));
+            // Else, just call it to get the object
             } else {
-                $obj = new $class();
+                $obj = call_user_func($call);
             }
-        } else if (is_object($class)) {
-            $obj = $class;
+        // If the callable is a string
+        } else if (is_string($call)) {
+            // If there are params
+            if (null !== $params) {
+                // If the params are a closure
+                if ($params instanceof \Closure) {
+                    $refFunc = new \ReflectionFunction($params);
+
+                    // If the closure has one parameter to access the locator,
+                    // pass it the locator object upon calling it
+                    if (count($refFunc->getParameters()) == 1) {
+                        $params = call_user_func_array($params, array($this));
+                    // Else, just call it to get the parameters
+                    } else {
+                        $params = call_user_func($params);
+                    }
+                }
+                // If the callable is a static call
+                if (strpos($call, '::')) {
+                    $obj = call_user_func_array($call, $params);
+                // If the callable is a instance call
+                } else if (strpos($call, '->')) {
+                    $ary = explode('->', $call);
+                    $class = $ary[0];
+                    $method = $ary[1];
+                    $obj = call_user_func_array(array(new $class(), $method), $params);
+                // Else, if the callable is a new instance/construct call
+                } else {
+                    $reflect  = new \ReflectionClass($call);
+                    $obj = $reflect->newInstanceArgs($params);
+                }
+            // Else, just call it
+            } else {
+                // If the callable is a static call
+                if (strpos($call, '::')) {
+                    $obj = call_user_func($call);
+                // If the callable is a instance call
+                } else if (strpos($call, '->')) {
+                    $ary = explode('->', $call);
+                    $class = $ary[0];
+                    $method = $ary[1];
+                    $obj = call_user_func(array(new $class(), $method));
+                // Else, if the callable is a new instance/construct call
+                } else {
+                    $obj = new $call();
+                }
+            }
+        // If the callable is already an instantiated object
+        } else if (is_object($call)) {
+            $obj = $call;
+        // Else, throw exception
         } else {
-            throw new Exception('Error: The $class parameter must be an object or something callable.');
+            throw new Exception('Error: The $call parameter must be an object or something callable.');
         }
 
         $this->loaded[$name] = $obj;

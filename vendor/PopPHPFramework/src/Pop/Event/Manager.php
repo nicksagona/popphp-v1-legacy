@@ -178,9 +178,30 @@ class Manager
                         $params[] = $refParameter->getName();
                     }
                 // Else, if the action is a callable class/method combination
-                } else if (is_callable($action, false, $callable_name)) {
-                    $cls = substr($callable_name, 0, strpos($callable_name, ':'));
-                    $mthd = substr($callable_name, (strrpos($callable_name, ':') + 1));
+                } else if (is_string($action) || is_callable($action, false, $callable_name)) {
+                    // If the callable action is a string, parse the class/method from it
+                    if (is_string($action)) {
+                        // If a static call
+                        if (strpos($action, '::')) {
+                            $ary = explode('::', $action);
+                            $cls = $ary[0];
+                            $mthd = $ary[1];
+                        // If an instance call
+                        } else if (strpos($action, '->')) {
+                            $ary = explode('->', $action);
+                            $cls = $ary[0];
+                            $mthd = $ary[1];
+                            $action = array(new $cls, $mthd);
+                        // Else, if a new/construct call
+                        } else {
+                            $action = str_replace('new ', null, $action);
+                            $cls = $action;
+                            $mthd = '__construct';
+                        }
+                    } else {
+                        $cls = substr($callable_name, 0, strpos($callable_name, ':'));
+                        $mthd = substr($callable_name, (strrpos($callable_name, ':') + 1));
+                    }
 
                     $methodExport = \ReflectionMethod::export($cls, $mthd, true);
                     // Get the method parameters
@@ -204,7 +225,14 @@ class Manager
                     $realArgs[$value] = $args[$value];
                 }
 
-                $this->results[$name][] = call_user_func_array($action, $realArgs);
+                // If the method is the constructor, create object
+                if (isset($mthd) && ($mthd == '__construct')) {
+                    $reflect  = new \ReflectionClass($action);
+                    $this->results[$name][] = $reflect->newInstanceArgs($realArgs);
+                // Else, just call it
+                } else {
+                    $this->results[$name][] = call_user_func_array($action, $realArgs);
+                }
             }
         }
     }
