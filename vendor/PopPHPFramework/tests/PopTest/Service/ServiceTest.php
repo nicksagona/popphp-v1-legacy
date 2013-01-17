@@ -25,6 +25,28 @@ require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
 // Call the autoloader's bootstrap function.
 Autoloader::factory()->splAutoloadRegister();
 
+class Foo
+{
+
+    public $value = null;
+
+    public function __construct($val = null)
+    {
+        $this->value = $val;
+    }
+
+    public function bar($val = null)
+    {
+        return new \Pop\Config(array('test' => $val));
+    }
+
+    public static function baz($val = null)
+    {
+        return new \Pop\Config(array('test' => $val));
+    }
+
+}
+
 class ServiceTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -43,14 +65,14 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     {
         $l = new Locator(array(
             'config' => array(
-                'class'  => 'Pop\Config',
+                'call'   => 'Pop\Config',
                 'params' => array(array('test' => 123), true)
             ),
             'std' => array(
-                'class'  => 'stdClass'
+                'call'  => 'stdClass'
             ),
             'rgb' => array(
-                'class'  => 'Pop\Color\Rgb',
+                'call'   => 'Pop\Color\Rgb',
                 'params' => function() { return array(255, 0, 0); }
             ),
             'cmyk' => new \Pop\Color\Cmyk(100, 0, 0, 50),
@@ -69,11 +91,11 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     {
         $l = new Locator(array(
             'config' => array(
-                'class'  => 'Pop\Config',
+                'call'   => 'Pop\Config',
                 'params' => array(array('test' => 123), true)
             ),
             'rgb' => array(
-                'class'  => 'Pop\Color\Rgb',
+                'call'   => 'Pop\Color\Rgb',
                 'params' => function() { return array(255, 0, 0); }
             ),
             'color' => function($locator) {
@@ -84,6 +106,36 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $l->remove('config');
         $this->assertInstanceOf('Pop\Config', $c);
         $this->assertNull($l->get('config'));
+    }
+
+    public function testClass()
+    {
+        $l = new Locator();
+        $l->set('config1', 'PopTest\Service\Foo')
+          ->set('config2', 'PopTest\Service\Foo->bar')
+          ->set('config3', 'PopTest\Service\Foo::baz');
+
+        $c1 = $l->get('config1');
+        $c2 = $l->get('config2');
+        $c3 = $l->get('config3');
+        $this->assertInstanceOf('PopTest\Service\Foo', $c1);
+        $this->assertInstanceOf('Pop\Config', $c2);
+        $this->assertInstanceOf('Pop\Config', $c3);
+    }
+
+    public function testClassWithParams()
+    {
+        $l = new Locator();
+        $l->set('config1', 'PopTest\Service\Foo', array(123))
+          ->set('config2', 'PopTest\Service\Foo->bar', array(456))
+          ->set('config3', 'PopTest\Service\Foo::baz', array(789));
+
+        $c1 = $l->get('config1');
+        $c2 = $l->get('config2');
+        $c3 = $l->get('config3');
+        $this->assertInstanceOf('PopTest\Service\Foo', $c1);
+        $this->assertInstanceOf('Pop\Config', $c2);
+        $this->assertInstanceOf('Pop\Config', $c3);
     }
 
     public function testGetNull()

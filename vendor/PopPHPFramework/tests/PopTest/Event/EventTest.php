@@ -88,6 +88,9 @@ class EventTest extends \PHPUnit_Framework_TestCase
     {
         $e = new Manager();
         $e->attach('pre', array(new Foo, 'bar'), 1);
+        $e->attach('pre', 'PopTest\Event\Foo->bar', 1);
+        $e->attach('pre', 'PopTest\Event\Foo', 1);
+        $e->attach('pre', 'new PopTest\Event\Foo', 1);
         $e->attach('pre', function($result) { return 'Hello, ' . $result->value; }, 1);
         $e->trigger('pre', array('arg' => 'World'));
         $results = $e->getResults('pre');

@@ -8,11 +8,11 @@ try {
     // Load the services config via the constructor
     $locator = new Locator(array(
         'config' => array(
-            'class'  => 'Pop\Config',
+            'call'   => 'Pop\Config',
             'params' => array(array('test' => 123), true)
         ),
         'rgb' => array(
-            'class'  => 'Pop\Color\Rgb',
+            'call'   => 'Pop\Color\Rgb',
             'params' => function() { return array(255, 0, 0); }
         ),
         'color' => function($locator) {
