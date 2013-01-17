@@ -78,4 +78,4 @@ class Users extends Record { }
 
 あなたは、年に建てられ、クラスはクラス名からクエリを実行するデータベーステーブルの名前を知っているレコード·コンポーネントのすべての機能を持つクラスを作成します。たとえば、 'ユーザー'に変換 `ユーザー`または 'DbUsers'変換にdb_users `には`（キャメルケースは自動的にlower_case_underscoreに変換されます。）は、子テーブルのクラスを微調整する方法を参照するレコードのドキュメントを参照してください。
 
-(c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

@@ -78,4 +78,4 @@ class Users extends Record { }
 
 vous créez une classe qui possède toutes les fonctionnalités du composant d'enregistrement construit dans la classe et sait le nom de la table de base de données à interroger à partir du nom de la classe. Par exemple, se traduit par «des utilisateurs INTO` utilisateurs `ou traduit des DbUsers 'sur` db_users `(CamelCase est automatiquement converti en lower_case_underscore.) Consultez la documentation d'enregistrement pour voir comment vous pouvez affiner la classe table enfant.
 
-(c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

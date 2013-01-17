@@ -78,4 +78,4 @@ class Users extends Record { }
 
 你创建一个类，有建于类，知道类的名称来查询数据库表的名称记录组件的所有功能。例如，用户'转化为'用户'或'DbUsers'转化为'`db_users`（驼峰被自动转换成lower_case_underscore。）审核备案文件，就看你怎么可以微调子表类。
 
-(c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

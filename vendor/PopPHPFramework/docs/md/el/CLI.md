@@ -24,4 +24,4 @@ script/pop --show                      // Show project install instructions
 script/pop --version                   // Display version of Pop PHP Framework and latest available
 </pre>
 
-(c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

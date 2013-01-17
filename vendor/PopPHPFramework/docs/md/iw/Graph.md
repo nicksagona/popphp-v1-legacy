@@ -22,7 +22,7 @@ $data = array(
     array(2006, 98),
     array(2007, 76),
     array(2010, 122),
-    array(2012, 175),
+    array(2013, 175),
     array(2015, 162)
 );
 
@@ -37,4 +37,4 @@ $graph->addFont('../assets/fonts/times.ttf')
       ->output();
 </pre>
 
-(c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

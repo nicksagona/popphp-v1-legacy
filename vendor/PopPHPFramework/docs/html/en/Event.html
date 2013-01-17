@@ -40,7 +40,7 @@
             Here's an example of attaching and triggering an event using closures. The second one receives the result from the first one.
         </p>
 <pre>
-use Pop\Event\Manager;
+use Pop&#92;Event&#92;Manager;
 
 $manager = new Manager();
 
@@ -53,7 +53,7 @@ $manager-&gt;trigger('pre', array('name' =&gt; 'World'));
             Here's an example using a class.
         </p>
 <pre>
-use Pop\Event\Manager;
+use Pop&#92;Event&#92;Manager;
 
 class Foo
 {
@@ -81,7 +81,7 @@ $manager = new Manager();
 $manager-&gt;attach('pre', 'Foo::factory', 2);
 
 // OR
-//$manager-&gt;attach('pre', array(new Foo, 'bar'), 2);
+//$manager-&gt;attach('pre', 'Foo->bar', 2);
 
 $manager-&gt;attach('pre', function($result) { echo 'Hello, ' . $result-&gt;value . '&lt;br /&gt;' . PHP_EOL; }, 1);
 $manager-&gt;trigger('pre', array('arg' =&gt; 'World'));
@@ -89,7 +89,7 @@ $manager-&gt;trigger('pre', array('arg' =&gt; 'World'));
     </div>
     <div id="doc-footer">
         <p>
-            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+            &copy; 2009-2013 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
         </p>
     </div>
 </body>

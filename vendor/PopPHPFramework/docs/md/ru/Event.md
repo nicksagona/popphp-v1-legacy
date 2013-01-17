@@ -56,4 +56,4 @@ $manager-&gt;attach('pre', function($result) { echo 'Hello, ' . $result-&gt;valu
 $manager-&gt;trigger('pre', array('arg' =&gt; 'World'));
 </pre>
 
-(c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

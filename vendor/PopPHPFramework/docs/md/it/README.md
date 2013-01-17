@@ -78,4 +78,4 @@ class Users extends Record { }
 
 si crea una classe che ha tutte le funzionalità del componente Record costruito e la classe conosce il nome della tabella di database da interrogare dal nome della classe. Ad esempio, si traduce 'utenti' in `utenti` o traduce dei DbUsers 'in `db_users` (CamelCase viene automaticamente convertito in lower_case_underscore.) Esaminare la documentazione Record per vedere come si può regolare con precisione la classe tabella figlio.
 
-(c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

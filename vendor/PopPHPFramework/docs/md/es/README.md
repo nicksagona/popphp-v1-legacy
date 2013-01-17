@@ -79,4 +79,4 @@ class Users extends Record { }
 
 crear una clase que tiene toda la funcionalidad del componente construido en el Registro y la clase conoce el nombre de la tabla de base de datos para consultar desde el nombre de la clase. Por ejemplo, se traduce 'de los usuarios en `usuarios` o traduce los DbUsers' en `` db_users (CamelCase se convierte automáticamente en lower_case_underscore.) Revisar la documentación de los expedientes para ver cómo se puede ajustar con precisión la clase de tabla secundaria.
 
-(c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

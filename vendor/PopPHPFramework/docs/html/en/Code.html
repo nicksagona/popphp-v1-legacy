@@ -37,41 +37,36 @@
             The Code component is a code generation component that not only allows you to generate standardized, well-structured PHP code on the fly, but also allows you to modify and extend existing code by leveraging PHP's Reflection extension.
         </p>
 <pre>
-use Pop\Code\ClassGenerator,
-    Pop\Code\DocblockGenerator,
-    Pop\Code\Generator,
-    Pop\Code\MethodGenerator,
-    Pop\Code\NamespaceGenerator,
-    Pop\Code\PropertyGenerator;
+use Pop&#92;Code;
 
 // Create the code generator object
-$code = new Generator('MyClass.php', Generator::CREATE_CLASS);
-$code-&gt;setDocblock(new DocblockGenerator('This is my test class file'))
+$code = new Code&#92;Generator('MyClass.php', Code&#92;Generator::CREATE_CLASS);
+$code-&gt;setDocblock(new Code&#92;DocblockGenerator('This is my test class file'))
      -&gt;getDocblock()-&gt;setTag('category', 'Pop')
                     -&gt;setTag('package', 'Pop_Code')
                     -&gt;setTag('author', 'Joe Author');
 
 // Create namespace object
-$ns = new NamespaceGenerator('Some\\Other');
-$ns-&gt;setUse('Some\\Other\\Thing')
-   -&gt;setUse('Some\\Other\\Blah', 'B')
-   -&gt;setUse('Some\\Other\\Another');
+$ns = new Code&#92;NamespaceGenerator('Some&#92;Other');
+$ns-&gt;setUse('Some&#92;Other&#92;Thing')
+   -&gt;setUse('Some&#92;Other&#92;Blah', 'B')
+   -&gt;setUse('Some&#92;Other&#92;Another');
 
 // Create property object
-$prop = new PropertyGenerator('_testProp', 'string', 'test', 'protected');
+$prop = new Code&#92;PropertyGenerator('_testProp', 'string', 'test', 'protected');
 $prop-&gt;setDesc('This is a test property');
 
 // Create a method object
-$method = new MethodGenerator('__construct');
+$method = new Code&#92;MethodGenerator('__construct');
 $method-&gt;setDesc('This is a test method')
-       -&gt;setBody("// Let's get some stuff to happen here." . PHP_EOL . "\$blah = 'Sounds like a good idea';")
-       -&gt;appendToBody("echo \$blah;", false)
-       -&gt;addArgument('test', "null", "Pop\\Filter\\String")
+       -&gt;setBody("// Let's get some stuff to happen here." . PHP_EOL . "&#92;$blah = 'Sounds like a good idea';")
+       -&gt;appendToBody("echo &#92;$blah;", false)
+       -&gt;addArgument('test', "null", "Pop&#92;&#92;Filter&#92;&#92;String")
        -&gt;addArgument('other', "array()", 'array');
 
 // Add code pieces to the code file
 $code-&gt;setNamespace($ns);
-$code-&gt;code()-&gt;setDocblock(new DocblockGenerator('This is my test class'))
+$code-&gt;code()-&gt;setDocblock(new Code&#92;DocblockGenerator('This is my test class'))
              -&gt;getDocblock()-&gt;setTag('category', 'Pop')
                             -&gt;setTag('package', 'Pop_Code')
                             -&gt;setTag('author', 'Joe Author');
@@ -85,7 +80,7 @@ $code-&gt;output();
     </div>
     <div id="doc-footer">
         <p>
-            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+            &copy; 2009-2013 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
         </p>
     </div>
 </body>

@@ -78,4 +78,4 @@ class Users extends Record { }
 
 יצירת המעמד שיש לו את כל הפונקציונליות של רכיב הקלטה מובנה ומעמד יודע את השם של הטבלה במסד הנתונים לשאילתה של שם המחלקה. כך, למשל, מתרגם "של משתמשים אל תוך ג` המשתמשים `או מתרגם של DbUsers של אל` db_users `(CamelCase מומר אוטומטית lower_case_underscore). סקור את תיעוד הקלטת כדי לראות כיצד ניתן לכוונן את המעמד שולחן ילד.
 
-(c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

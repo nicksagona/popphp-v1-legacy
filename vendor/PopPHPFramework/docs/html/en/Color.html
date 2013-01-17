@@ -37,17 +37,26 @@
             The Color component is a useful component to manage and utilize color value objects. It also provides the functionality to convert color values to other color spaces, for example, converting RGB to CMYK.
         </p>
 <pre>
-use Pop\Color\Color,
-    Pop\Color\Rgb;
+use Pop&#92;Color;
 
-$color = new Color(new Rgb(112, 124, 228));
-echo $color-&gt;cmyk-&gt;getCmyk(Color::STRING);
-echo $color-&gt;lab-&gt;getLab(Color::STRING);
+// Create a color space value object
+$color = new Color&#92;Color(new Color&#92;Rgb(112, 124, 228));
+
+echo '&lt;strong&gt;RGB values:&lt;/strong&gt; ' . $color-&gt;rgb . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+echo '&lt;strong&gt;HEX values:&lt;/strong&gt; ' . $color-&gt;hex . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+echo '&lt;strong&gt;CMYK conversion:&lt;/strong&gt; ' . $color-&gt;cmyk . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+echo '&lt;strong&gt;HSB conversion:&lt;/strong&gt; ' . $color-&gt;hsb . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+echo '&lt;strong&gt;Lab conversion:&lt;/strong&gt; ' . $color-&gt;lab . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+
+// Directly convert a single color object
+$rgb = new Color&#92;Rgb(112, 124, 228);
+$cmyk = Color&#92;Convert::ToCmyk($rgb);
+echo 'RGB: ' . $rgb . ' =&gt; CMYK: ' . $cmyk;
 </pre>
     </div>
     <div id="doc-footer">
         <p>
-            &copy; 2009-2012 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+            &copy; 2009-2013 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
         </p>
     </div>
 </body>

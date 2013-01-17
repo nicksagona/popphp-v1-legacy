@@ -22,4 +22,4 @@ E se você precisar de um arquivo ClassMap gerada, o componente Loader tem a fun
 Pop\Loader\Classmap::generate('your/src/folder', 'your/src/folder/classmap.php');
 </pre>
 
-(c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.

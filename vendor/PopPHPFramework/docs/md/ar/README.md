@@ -78,4 +78,4 @@ class Users extends Record { }
 
 يمكنك إنشاء فئة التي لديها كل من وظائف المكون سجل بنيت في والطبقة يعرف اسم جدول قاعدة البيانات للاستعلام عن اسم الفئة. على سبيل المثال، يترجم "المستخدمين إلى المستخدمين` `أو يترجم 'DbUsers' الى` db_users `(يتم تحويلها تلقائيا إلى CamelCase lower_case_underscore.) استعراض وثائق السجل لمعرفة كيف يمكنك صقل الطبقة الجدول التابع.
 
-(c) 2009-2012 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
