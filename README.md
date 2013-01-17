@@ -88,14 +88,14 @@ The Pop PHP Framework requires PHP 5.3.0 or later.
 
 Some dependencies for the framework to fully function are as follows:
 
-* The Phar, Rar, Tar and Zip extensions for the archive component
-* The Bzip2, Lzf and ZLib extenstions for the compress component
-* The Mcrypt extension for the crypt filter component
+* The Phar, Rar, Tar and Zip extensions for the Archive component
+* The Bzip2, Lzf and ZLib extenstions for the Compress component
+* The Mcrypt extension for the Filter component
 * The basic MySQL extension for basic MySQL database connections and transactions
 * The MySQLi extension to utilize MySQLi to connect to and interact with MySQL databases
 * The PostgreSQL extension for PostgreSQL database connections and transactions
 * The SQLite3 extension for SQLite database connections and transactions
-* The SqlSrv extension for MSSQL database connections and transactions
+* The SqlSrv extension for Microsoft SQLServer database connections and transactions
 * The OCI8 extension for Oracle database connections and transactions
 * The PDO extension for utilize PDO for database connections and transactions
 * The GeoIP extension to utilize the Geo component
@@ -103,9 +103,9 @@ Some dependencies for the framework to fully function are as follows:
 * The Imagick extension (with ImageMagick & Ghostscript) for advanced image manipulation
 * The Apc extension for the Cache component (using the Apc adapter)
 * The Memcache extension for the Cache component (using the Memcached adapter)
-* The DOMDocument extension for the Svg component
-* The SimpleXML extension for the Feed, Data, Locale and Svg components
-* The PHP mail function and SMTP server correctly set for the mail component
+* The DOMDocument extension for the Image\Svg component
+* The SimpleXML extension for the Feed, Data, Locale and Image\Svg components
+* The PHP mail function and SMTP server correctly set for the Mail component
 * The cURL extension for the Curl component
 * FTP support enabled for the FTP component
 
