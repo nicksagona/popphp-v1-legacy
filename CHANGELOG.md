@@ -3,6 +3,7 @@ Pop PHP Framework Changelog
 
 1.2.0
 -----
+Released on January 18, 2013
 
 * Large general code review and cleanup
 * Add a Service component
@@ -25,11 +26,13 @@ Pop PHP Framework Changelog
 
 1.1.2
 -----
+Released on January 7, 2013
 
 * Refactor Record component to improve "findBy()" functionality
 
 1.1.1
 -----
+Released on January 2, 2013
 
 * Add CSRF and CAPTCHA elements to the Form component
 * Improved multiple Select element support
@@ -38,6 +41,7 @@ Pop PHP Framework Changelog
 
 1.1.0
 -----
+Released on December 14, 2012
 
 * Add Event component, hook into Project class
 * Add Log component
@@ -45,6 +49,7 @@ Pop PHP Framework Changelog
 
 1.0.3
 -----
+Released on December 2, 2012
 
 * Fixed issue with the Autoloader, return back if class not located or registered
 * Add Fields class to the Form component
@@ -56,6 +61,7 @@ Pop PHP Framework Changelog
 
 1.0.2
 -----
+Released on November 21, 2012
 
 * Small restructure of the Dir component. Moved under the File component
 * Resolved and eliminated some unnecessary internal dependencies
@@ -64,6 +70,7 @@ Pop PHP Framework Changelog
 
 1.0.1
 -----
+Released on October 23, 2012
 
 * Revise the Filter component
     - Remove unnecessary and under-used classes and methods
@@ -83,6 +90,7 @@ Pop PHP Framework Changelog
 
 1.0.0
 -----
+Released on August 9, 2012
 
 * Refactor framework for 5.3+ only and restructure it using namespaces
 * Add Archive component

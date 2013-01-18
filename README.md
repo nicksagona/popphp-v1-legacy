@@ -9,7 +9,6 @@ Released January 18, 2013
 
 OVERVIEW
 --------
-
 The Pop PHP Framework is a robust, yet easy-to-use PHP framework
 with a verbose API. It was forked from the Moc10 PHP Library, which
 is now at its end of life. With the adoption of PHP 5.3 gaining, the
@@ -30,9 +29,9 @@ major framework for the foundation of your applications.
 To see a list of the new and vastly improved features in the framework,
 view the CHANGELOG.md file.
 
+
 FEATURES
 --------
-
 The Pop PHP Framework is an object-oriented PHP framework with an
 easy-to-use API to access and utilize the following components:
 
@@ -77,13 +76,11 @@ easy-to-use API to access and utilize the following components:
 
 INSTALLATION
 ------------
-
 Please see INSTALL.TXT.
 
 
 SYSTEM REQUIREMENTS
 -------------------
-
 The Pop PHP Framework requires PHP 5.3.0 or later.
 
 Some dependencies for the framework to fully function are as follows:
@@ -141,7 +138,6 @@ be thrown within any of the following components:
 
 QUESTIONS AND FEEDBACK
 ----------------------
-
 An online overview and documentation can be found at
 http://www.popphp.org/
 
@@ -153,6 +149,5 @@ Further contact or comments can be emailed to info@popphp.org.
 
 LICENSE
 -------
-
 The files in this archive are released under the Pop PHP Framework license.
 You can find a copy of this license in LICENSE.txt.

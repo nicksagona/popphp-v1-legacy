@@ -153,32 +153,14 @@ class Locator
 
         // If the callable is a closure
         if ($call instanceof \Closure) {
-            $refFunc = new \ReflectionFunction($call);
-
-            // If the closure has one parameter to access the locator,
-            // pass it the locator object upon calling it
-            if (count($refFunc->getParameters()) == 1) {
-                $obj = call_user_func_array($call, array($this));
-            // Else, just call it to get the object
-            } else {
-                $obj = call_user_func($call);
-            }
+            $obj = call_user_func_array($call, array($this));
         // If the callable is a string
         } else if (is_string($call)) {
             // If there are params
             if (null !== $params) {
                 // If the params are a closure
                 if ($params instanceof \Closure) {
-                    $refFunc = new \ReflectionFunction($params);
-
-                    // If the closure has one parameter to access the locator,
-                    // pass it the locator object upon calling it
-                    if (count($refFunc->getParameters()) == 1) {
-                        $params = call_user_func_array($params, array($this));
-                    // Else, just call it to get the parameters
-                    } else {
-                        $params = call_user_func($params);
-                    }
+                    $params = call_user_func_array($params, array($this));
                 }
                 // If the callable is a static call
                 if (strpos($call, '::')) {
