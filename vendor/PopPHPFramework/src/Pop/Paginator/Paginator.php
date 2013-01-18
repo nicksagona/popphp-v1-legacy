@@ -16,6 +16,8 @@
 namespace Pop\Paginator;
 
 /**
+ * Paginator class
+ *
  * @category   Pop
  * @package    Pop_Paginator
  * @author     Nick Sagona, III <nick@popphp.org>

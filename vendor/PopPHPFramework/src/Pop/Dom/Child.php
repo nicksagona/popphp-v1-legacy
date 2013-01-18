@@ -16,6 +16,8 @@
 namespace Pop\Dom;
 
 /**
+ * Dom child class
+ *
  * @category   Pop
  * @package    Pop_Dom
  * @author     Nick Sagona, III <nick@popphp.org>

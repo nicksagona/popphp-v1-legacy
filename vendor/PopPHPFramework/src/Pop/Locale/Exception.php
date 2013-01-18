@@ -16,6 +16,8 @@
 namespace Pop\Locale;
 
 /**
+ * Locale exception class
+ *
  * @category   Pop
  * @package    Pop_Locale
  * @author     Nick Sagona, III <nick@popphp.org>

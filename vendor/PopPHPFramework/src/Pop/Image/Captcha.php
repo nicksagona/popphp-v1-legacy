@@ -20,6 +20,8 @@ use Pop\Color\Rgb,
     Pop\Web\Session;
 
 /**
+ * Image CAPTCHA class
+ *
  * @category   Pop
  * @package    Pop_Image
  * @author     Nick Sagona, III <nick@popphp.org>

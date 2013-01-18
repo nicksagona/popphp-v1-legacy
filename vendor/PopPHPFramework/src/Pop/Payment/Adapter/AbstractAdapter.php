@@ -16,6 +16,8 @@
 namespace Pop\Payment\Adapter;
 
 /**
+ * Payment adapter abstract class
+ *
  * @category   Pop
  * @package    Pop_Payment
  * @author     Nick Sagona, III <nick@popphp.org>

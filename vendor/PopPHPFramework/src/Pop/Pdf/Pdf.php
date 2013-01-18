@@ -20,6 +20,8 @@ use Pop\Color\Color,
     Pop\Pdf\Object;
 
 /**
+ * Pdf class
+ *
  * @category   Pop
  * @package    Pop_Pdf
  * @author     Nick Sagona, III <nick@popphp.org>

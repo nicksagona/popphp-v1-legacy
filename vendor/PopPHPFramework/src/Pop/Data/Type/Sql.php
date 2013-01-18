@@ -16,6 +16,8 @@
 namespace Pop\Data\Type;
 
 /**
+ * SQL data type class
+ *
  * @category   Pop
  * @package    Pop_Data
  * @author     Nick Sagona, III <nick@popphp.org>

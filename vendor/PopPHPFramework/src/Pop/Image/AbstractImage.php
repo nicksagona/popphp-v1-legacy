@@ -18,6 +18,8 @@ namespace Pop\Image;
 use Pop\Color\ColorInterface;
 
 /**
+ * Image abstract class
+ *
  * @category   Pop
  * @package    Pop_Image
  * @author     Nick Sagona, III <nick@popphp.org>

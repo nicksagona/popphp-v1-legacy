@@ -16,6 +16,8 @@
 namespace Pop\Loader;
 
 /**
+ * Classmap class
+ *
  * @category   Pop
  * @package    Pop_Loader
  * @author     Nick Sagona, III <nick@popphp.org>

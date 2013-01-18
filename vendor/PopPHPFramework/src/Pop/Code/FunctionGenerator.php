@@ -16,6 +16,8 @@
 namespace Pop\Code;
 
 /**
+ * Function generator code class
+ *
  * @category   Pop
  * @package    Pop_Code
  * @author     Nick Sagona, III <nick@popphp.org>

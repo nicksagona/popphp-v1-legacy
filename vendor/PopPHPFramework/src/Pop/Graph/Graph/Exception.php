@@ -16,6 +16,8 @@
 namespace Pop\Graph\Graph;
 
 /**
+ * Graph abstract exception class
+ *
  * @category   Pop
  * @package    Pop_Graph
  * @author     Nick Sagona, III <nick@popphp.org>

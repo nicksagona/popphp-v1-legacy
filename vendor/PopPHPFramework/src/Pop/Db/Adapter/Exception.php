@@ -16,6 +16,8 @@
 namespace Pop\Db\Adapter;
 
 /**
+ * Db adapter exception class
+ *
  * @category   Pop
  * @package    Pop_Db
  * @author     Nick Sagona, III <nick@popphp.org>

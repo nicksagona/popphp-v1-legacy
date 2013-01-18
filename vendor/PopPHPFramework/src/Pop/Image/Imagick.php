@@ -21,6 +21,8 @@ use Pop\Color\Color,
     Pop\Http\Response;
 
 /**
+ * Imagick image class
+ *
  * @category   Pop
  * @package    Pop_Image
  * @author     Nick Sagona, III <nick@popphp.org>

@@ -16,6 +16,8 @@
 namespace Pop\Log;
 
 /**
+ * Logger class
+ *
  * @category   Pop
  * @package    Pop_Log
  * @author     Nick Sagona, III <nick@popphp.org>

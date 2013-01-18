@@ -18,6 +18,8 @@ namespace Pop\Project\Install;
 use Pop\Filter\String;
 
 /**
+ * Bootstrap install class
+ *
  * @category   Pop
  * @package    Pop_Project
  * @author     Nick Sagona, III <nick@popphp.org>

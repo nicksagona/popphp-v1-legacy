@@ -16,6 +16,8 @@
 namespace Pop\Curl;
 
 /**
+ * Curl class
+ *
  * @category   Pop
  * @package    Pop_Curl
  * @author     Nick Sagona, III <nick@popphp.org>

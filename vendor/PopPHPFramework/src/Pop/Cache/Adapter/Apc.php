@@ -16,6 +16,8 @@
 namespace Pop\Cache\Adapter;
 
 /**
+ * APC cache adapter class
+ *
  * @category   Pop
  * @package    Pop_Cache
  * @author     Nick Sagona, III <nick@popphp.org>

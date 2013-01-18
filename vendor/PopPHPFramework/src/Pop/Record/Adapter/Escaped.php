@@ -18,6 +18,8 @@ namespace Pop\Record\Adapter;
 use Pop\Db\Sql;
 
 /**
+ * Escaped record adapter class
+ *
  * @category   Pop
  * @package    Pop_Record
  * @author     Nick Sagona, III <nick@popphp.org>

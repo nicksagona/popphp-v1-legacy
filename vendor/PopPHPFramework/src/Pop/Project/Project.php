@@ -19,6 +19,8 @@ use Pop\Config,
     Pop\Mvc\Router;
 
 /**
+ * Project class
+ *
  * @category   Pop
  * @package    Pop_Project
  * @author     Nick Sagona, III <nick@popphp.org>

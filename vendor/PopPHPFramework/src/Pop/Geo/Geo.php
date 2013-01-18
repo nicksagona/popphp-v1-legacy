@@ -16,6 +16,8 @@
 namespace Pop\Geo;
 
 /**
+ * Geo class
+ *
  * @category   Pop
  * @package    Pop_Geo
  * @author     Nick Sagona, III <nick@popphp.org>

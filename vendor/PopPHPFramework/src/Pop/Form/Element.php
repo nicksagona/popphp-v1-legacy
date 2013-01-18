@@ -19,6 +19,8 @@ use Pop\Dom\Child,
     Pop\Validator;
 
 /**
+ * Form element class
+ *
  * @category   Pop
  * @package    Pop_Form
  * @author     Nick Sagona, III <nick@popphp.org>

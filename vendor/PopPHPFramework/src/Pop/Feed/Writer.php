@@ -19,6 +19,8 @@ use Pop\Dom\Dom,
     Pop\Dom\Child;
 
 /**
+ * Feed writer class
+ *
  * @category   Pop
  * @package    Pop_Feed
  * @author     Nick Sagona, III <nick@popphp.org>

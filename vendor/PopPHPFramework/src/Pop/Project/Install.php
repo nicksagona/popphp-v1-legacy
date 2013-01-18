@@ -19,6 +19,8 @@ use Pop\File\File,
     Pop\Locale\Locale;
 
 /**
+ * Project install class
+ *
  * @category   Pop
  * @package    Pop_Project
  * @author     Nick Sagona, III <nick@popphp.org>

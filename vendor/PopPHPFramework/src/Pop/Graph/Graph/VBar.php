@@ -16,6 +16,8 @@
 namespace Pop\Graph\Graph;
 
 /**
+ * Vertical graph class
+ *
  * @category   Pop
  * @package    Pop_Graph
  * @author     Nick Sagona, III <nick@popphp.org>

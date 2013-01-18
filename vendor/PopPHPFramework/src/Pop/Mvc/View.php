@@ -16,6 +16,8 @@
 namespace Pop\Mvc;
 
 /**
+ * Mvc view class
+ *
  * @category   Pop
  * @package    Pop_Mvc
  * @author     Nick Sagona, III <nick@popphp.org>

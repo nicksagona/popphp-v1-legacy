@@ -16,6 +16,8 @@
 namespace Pop\Color;
 
 /**
+ * Convert color class
+ *
  * @category   Pop
  * @package    Pop_Color
  * @author     Nick Sagona, III <nick@popphp.org>

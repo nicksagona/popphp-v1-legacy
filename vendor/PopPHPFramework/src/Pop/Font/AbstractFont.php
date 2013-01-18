@@ -16,6 +16,8 @@
 namespace Pop\Font;
 
 /**
+ * Font abstract class
+ *
  * @category   Pop
  * @package    Pop_Font
  * @author     Nick Sagona, III <nick@popphp.org>

@@ -16,6 +16,8 @@
 namespace Pop\Payment;
 
 /**
+ * Payment exception class
+ *
  * @category   Pop
  * @package    Pop_Payment
  * @author     Nick Sagona, III <nick@popphp.org>

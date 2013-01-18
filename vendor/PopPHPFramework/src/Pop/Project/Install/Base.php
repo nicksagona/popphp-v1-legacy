@@ -16,6 +16,8 @@
 namespace Pop\Project\Install;
 
 /**
+ * Base install class
+ *
  * @category   Pop
  * @package    Pop_Project
  * @author     Nick Sagona, III <nick@popphp.org>

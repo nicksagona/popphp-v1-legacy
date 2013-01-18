@@ -16,6 +16,8 @@
 namespace Pop;
 
 /**
+ * Config class
+ *
  * @category   Pop
  * @package    Pop_Config
  * @author     Nick Sagona, III <nick@popphp.org>

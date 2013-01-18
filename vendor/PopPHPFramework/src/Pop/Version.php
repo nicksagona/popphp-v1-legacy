@@ -16,6 +16,8 @@
 namespace Pop;
 
 /**
+ * Version class
+ *
  * @category   Pop
  * @package    Pop_Version
  * @author     Nick Sagona, III <nick@popphp.org>

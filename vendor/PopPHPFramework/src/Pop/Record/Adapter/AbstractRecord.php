@@ -16,6 +16,8 @@
 namespace Pop\Record\Adapter;
 
 /**
+ * Record abstract adapter class
+ *
  * @category   Pop
  * @package    Pop_Record
  * @author     Nick Sagona, III <nick@popphp.org>

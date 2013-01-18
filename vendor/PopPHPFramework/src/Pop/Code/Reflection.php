@@ -16,7 +16,9 @@
 namespace Pop\Code;
 
 /**
- *@category   Pop
+ * Reflection code class
+ *
+ * @category   Pop
  * @package    Pop_Code
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)

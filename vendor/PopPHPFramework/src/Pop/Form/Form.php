@@ -18,6 +18,8 @@ namespace Pop\Form;
 use Pop\Dom\Child;
 
 /**
+ * Form class
+ *
  * @category   Pop
  * @package    Pop_Form
  * @author     Nick Sagona, III <nick@popphp.org>

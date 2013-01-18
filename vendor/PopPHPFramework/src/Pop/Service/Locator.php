@@ -16,6 +16,8 @@
 namespace Pop\Service;
 
 /**
+ * Service locator class
+ *
  * @category   Pop
  * @package    Pop_Service
  * @author     Nick Sagona, III <nick@popphp.org>

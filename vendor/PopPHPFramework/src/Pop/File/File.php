@@ -16,6 +16,8 @@
 namespace Pop\File;
 
 /**
+ * File class
+ *
  * @category   Pop
  * @package    Pop_File
  * @author     Nick Sagona, III <nick@popphp.org>

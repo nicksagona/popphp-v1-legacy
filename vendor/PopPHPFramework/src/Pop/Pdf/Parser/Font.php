@@ -18,6 +18,8 @@ namespace Pop\Pdf\Parser;
 use Pop\Pdf\Object\Object;
 
 /**
+ * Font parser class
+ *
  * @category   Pop
  * @package    Pop_Pdf
  * @author     Nick Sagona, III <nick@popphp.org>

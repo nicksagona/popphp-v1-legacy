@@ -16,6 +16,8 @@
 namespace Pop\Project;
 
 /**
+ * Project exception class
+ *
  * @category   Pop
  * @package    Pop_Project
  * @author     Nick Sagona, III <nick@popphp.org>

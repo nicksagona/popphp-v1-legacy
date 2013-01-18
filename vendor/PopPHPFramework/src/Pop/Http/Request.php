@@ -16,6 +16,8 @@
 namespace Pop\Http;
 
 /**
+ * HTTP request class
+ *
  * @category   Pop
  * @package    Pop_Http
  * @author     Nick Sagona, III <nick@popphp.org>

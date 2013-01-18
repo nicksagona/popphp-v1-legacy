@@ -16,6 +16,8 @@
 namespace Pop\Form;
 
 /**
+ * Form fields class
+ *
  * @category   Pop
  * @package    Pop_Form
  * @author     Nick Sagona, III <nick@popphp.org>

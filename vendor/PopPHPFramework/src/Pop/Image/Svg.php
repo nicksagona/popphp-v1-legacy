@@ -20,6 +20,8 @@ use Pop\Color\Color,
     Pop\Color\Rgb;
 
 /**
+ * SVG image class
+ *
  * @category   Pop
  * @package    Pop_Image
  * @author     Nick Sagona, III <nick@popphp.org>

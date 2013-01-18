@@ -18,6 +18,8 @@ namespace Pop\Validator;
 use Pop\Locale\Locale;
 
 /**
+ * Credit card validator class
+ *
  * @category   Pop
  * @package    Pop_Validator
  * @author     Nick Sagona, III <nick@popphp.org>

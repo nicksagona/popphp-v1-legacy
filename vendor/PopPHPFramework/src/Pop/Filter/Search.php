@@ -16,6 +16,8 @@
 namespace Pop\Filter;
 
 /**
+ * Filter search class
+ *
  * @category   Pop
  * @package    Pop_Filter
  * @author     Nick Sagona, III <nick@popphp.org>

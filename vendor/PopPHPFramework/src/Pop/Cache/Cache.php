@@ -16,6 +16,8 @@
 namespace Pop\Cache;
 
 /**
+ * Cache class
+ *
  * @category   Pop
  * @package    Pop_Cache
  * @author     Nick Sagona, III <nick@popphp.org>

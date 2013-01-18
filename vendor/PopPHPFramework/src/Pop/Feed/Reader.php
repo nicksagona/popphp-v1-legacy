@@ -16,6 +16,8 @@
 namespace Pop\Feed;
 
 /**
+ * Feed reader class
+ *
  * @category   Pop
  * @package    Pop_Feed
  * @author     Nick Sagona, III <nick@popphp.org>

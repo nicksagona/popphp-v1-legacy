@@ -16,6 +16,8 @@
 namespace Pop\Ftp;
 
 /**
+ * FTP exception class
+ *
  * @category   Pop
  * @package    Pop_Ftp
  * @author     Nick Sagona, III <nick@popphp.org>

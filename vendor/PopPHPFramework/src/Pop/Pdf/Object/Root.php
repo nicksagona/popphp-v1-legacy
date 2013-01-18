@@ -16,6 +16,8 @@
 namespace Pop\Pdf\Object;
 
 /**
+ * Pdf root object class
+ *
  * @category   Pop
  * @package    Pop_Pdf
  * @author     Nick Sagona, III <nick@popphp.org>

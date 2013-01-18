@@ -16,6 +16,8 @@
 namespace Pop\Image;
 
 /**
+ * Image exception class
+ *
  * @category   Pop
  * @package    Pop_Image
  * @author     Nick Sagona, III <nick@popphp.org>

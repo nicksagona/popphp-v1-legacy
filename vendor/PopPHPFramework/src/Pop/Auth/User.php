@@ -16,6 +16,8 @@
 namespace Pop\Auth;
 
 /**
+ * Auth user class
+ *
  * @category   Pop
  * @package    Pop_Auth
  * @author     Nick Sagona, III <nick@popphp.org>

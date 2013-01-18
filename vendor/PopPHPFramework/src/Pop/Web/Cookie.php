@@ -16,6 +16,8 @@
 namespace Pop\Web;
 
 /**
+ * Cookie class
+ *
  * @category   Pop
  * @package    Pop_Web
  * @author     Nick Sagona, III <nick@popphp.org>

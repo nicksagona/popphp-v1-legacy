@@ -16,6 +16,8 @@
 namespace Pop\Mail;
 
 /**
+ * Mail queue class
+ *
  * @category   Pop
  * @package    Pop_Mail
  * @author     Nick Sagona, III <nick@popphp.org>

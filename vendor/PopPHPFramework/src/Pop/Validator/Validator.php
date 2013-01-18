@@ -16,6 +16,8 @@
 namespace Pop\Validator;
 
 /**
+ * Validator class
+ *
  * @category   Pop
  * @package    Pop_Validator
  * @author     Nick Sagona, III <nick@popphp.org>

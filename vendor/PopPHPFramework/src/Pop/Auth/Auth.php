@@ -19,6 +19,8 @@ use Pop\Validator,
     Pop\Locale\Locale;
 
 /**
+ * Auth class
+ *
  * @category   Pop
  * @package    Pop_Auth
  * @author     Nick Sagona, III <nick@popphp.org>

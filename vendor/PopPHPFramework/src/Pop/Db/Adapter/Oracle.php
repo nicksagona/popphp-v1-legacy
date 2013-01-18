@@ -16,6 +16,8 @@
 namespace Pop\Db\Adapter;
 
 /**
+ * Oracle Db adapter class
+ *
  * @category   Pop
  * @package    Pop_Db
  * @author     Nick Sagona, III <nick@popphp.org>

@@ -16,6 +16,8 @@
 namespace Pop\Archive\Adapter;
 
 /**
+ * Rar archive adapter class
+ *
  * @category   Pop
  * @package    Pop_Archive
  * @author     Nick Sagona, III <nick@popphp.org>

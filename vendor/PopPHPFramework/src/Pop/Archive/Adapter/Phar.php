@@ -18,6 +18,8 @@ namespace Pop\Archive\Adapter;
 use Pop\File\Dir;
 
 /**
+ * Phar archive adapter class
+ *
  * @category   Pop
  * @package    Pop_Archive
  * @author     Nick Sagona, III <nick@popphp.org>

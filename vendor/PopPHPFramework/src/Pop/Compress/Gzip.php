@@ -16,6 +16,8 @@
 namespace Pop\Compress;
 
 /**
+ * Gzip class
+ *
  * @category   Pop
  * @package    Pop_Compress
  * @author     Nick Sagona, III <nick@popphp.org>

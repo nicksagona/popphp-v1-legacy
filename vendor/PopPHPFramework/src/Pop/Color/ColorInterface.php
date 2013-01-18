@@ -16,6 +16,8 @@
 namespace Pop\Color;
 
 /**
+ * Color interface
+ *
  * @category   Pop
  * @package    Pop_Color
  * @author     Nick Sagona, III <nick@popphp.org>

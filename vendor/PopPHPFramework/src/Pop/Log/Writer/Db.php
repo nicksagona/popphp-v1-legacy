@@ -16,6 +16,8 @@
 namespace Pop\Log\Writer;
 
 /**
+ * Db log writer class
+ *
  * @category   Pop
  * @package    Pop_Log
  * @author     Nick Sagona, III <nick@popphp.org>

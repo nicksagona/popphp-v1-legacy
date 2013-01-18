@@ -16,6 +16,8 @@
 namespace Pop\Event;
 
 /**
+ * Event manager class
+ *
  * @category   Pop
  * @package    Pop_Event
  * @author     Nick Sagona, III <nick@popphp.org>

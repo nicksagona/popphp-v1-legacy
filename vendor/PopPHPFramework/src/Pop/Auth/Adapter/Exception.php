@@ -16,6 +16,8 @@
 namespace Pop\Auth\Adapter;
 
 /**
+ * Auth adapter exception class
+ *
  * @category   Pop
  * @package    Pop_Auth
  * @author     Nick Sagona, III <nick@popphp.org>

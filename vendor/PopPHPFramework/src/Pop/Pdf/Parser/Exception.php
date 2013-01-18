@@ -16,6 +16,8 @@
 namespace Pop\Pdf\Parser;
 
 /**
+ * Pdf parser exception class
+ *
  * @category   Pop
  * @package    Pop_Pdf
  * @author     Nick Sagona, III <nick@popphp.org>

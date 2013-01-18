@@ -16,6 +16,8 @@
 namespace Pop\Data;
 
 /**
+ * Data class
+ *
  * @category   Pop
  * @package    Pop_Data
  * @author     Nick Sagona, III <nick@popphp.org>
