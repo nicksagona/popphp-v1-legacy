@@ -1,19 +1,18 @@
 <?php
 /**
- * Pop PHP Framework Unit Tests
+ * Pop PHP Framework Unit Tests (http://www.popphp.org/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.TXT.
- * It is also available through the world-wide-web at this URL:
- * http://www.popphp.org/LICENSE.TXT
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to info@popphp.org so we can send you a copy immediately.
- *
+ * @link       https://github.com/nicksagona/PopPHP
+ * @category   Pop
+ * @package    Pop_Test
+ * @author     Nick Sagona, III <nick@popphp.org>
+ * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
+ * @license    http://www.popphp.org/license     New BSD License
  */
 
+/**
+ * @namespace
+ */
 namespace PopTest\Curl;
 
 use Pop\Loader\Autoloader,
@@ -47,7 +46,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     public function testCurl()
     {
         $c = new Curl(array(
-            CURLOPT_URL    => 'http://www.popphp.org/version.txt',
+            CURLOPT_URL    => 'http://www.popphp.org/version',
             CURLOPT_HEADER => false,
             CURLOPT_RETURNTRANSFER => true
         ));
@@ -59,7 +58,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     public function testSetAndGetOptions()
     {
         $c = new Curl(array(
-            CURLOPT_URL    => 'http://www.popphp.org/version.txt',
+            CURLOPT_URL    => 'http://www.popphp.org/version',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_WRITEFUNCTION => true
         ));
@@ -73,7 +72,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     public function testCurlNoReturn()
     {
         $c = new Curl(array(
-            CURLOPT_URL    => 'http://www.popphp.org/version.txt',
+            CURLOPT_URL    => 'http://www.popphp.org/version',
             CURLOPT_HEADER => false,
             CURLOPT_RETURNTRANSFER => false
         ));
@@ -85,7 +84,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
         $version = $c->version();
         unset($c);
         $this->assertEquals('1.2.0', trim($output));
-        $this->assertEquals('http://www.popphp.org/version.txt', $info['url']);
+        $this->assertEquals('http://www.popphp.org/version', $info['url']);
         $this->assertEquals('text/plain', $info['content_type']);
         $this->assertTrue(isset($version['version']));
     }
@@ -93,7 +92,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     public function testCurlData()
     {
         $c = new Curl(array(
-            CURLOPT_URL    => 'http://www.popphp.org/version.txt',
+            CURLOPT_URL    => 'http://www.popphp.org/version',
             CURLOPT_HEADER => false,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_WRITEFUNCTION => true
