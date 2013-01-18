@@ -49,7 +49,7 @@ if (!empty($argv[1])) {
         echo 'Version Check' . PHP_EOL;
         echo '-------------' . PHP_EOL;
         echo 'Installed: ' . Version::getVersion() . PHP_EOL;
-        echo 'Latest Available: ' . Version::getLatest() . PHP_EOL;
+        echo 'Latest Available: ' . Version::getLatest() . PHP_EOL . PHP_EOL;
     // Else, check dependencies
     } else if (($argv[1] == '-c') || ($argv[1] == '--check')) {
         echo 'Dependencies Check' . PHP_EOL;
