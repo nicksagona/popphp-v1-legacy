@@ -64,9 +64,9 @@ class Project
      *
      * Instantiate a project object
      *
-     * @param  mixed  $config
-     * @param  array  $module
-     * @param  Router $router
+     * @param  mixed           $config
+     * @param  array           $module
+     * @param  \Pop\Mvc\Router $router
      * @return \Pop\Project\Project
      */
     public function __construct($config = null, array $module = null, Router $router = null)
@@ -96,9 +96,9 @@ class Project
      * Static method to instantiate the project object and return itself
      * to facilitate chaining methods together.
      *
-     * @param  mixed  $config
-     * @param  array  $module
-     * @param  Router $router
+     * @param  mixed           $config
+     * @param  array           $module
+     * @param  \Pop\Mvc\Router $router
      * @return \Pop\Project\Project
      */
     public static function factory($config = null, array $module = null, Router $router = null)

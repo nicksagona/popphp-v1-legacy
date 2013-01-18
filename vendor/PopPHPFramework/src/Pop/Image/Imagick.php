@@ -887,7 +887,7 @@ class Imagick extends AbstractImage
     /**
      * Method to colorize the image with the color passed.
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @return \Pop\Image\Imagick
      */
     public function colorize(ColorInterface $color)
@@ -992,7 +992,7 @@ class Imagick extends AbstractImage
     /**
      * Apply a skew effect to the image
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @param  int            $x
      * @param  int            $y
      * @return \Pop\Image\Imagick
@@ -1404,7 +1404,7 @@ class Imagick extends AbstractImage
     /**
      * Set and return a color identifier.
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @throws Exception
      * @return mixed
      */

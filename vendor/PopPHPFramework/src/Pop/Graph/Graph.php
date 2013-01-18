@@ -218,7 +218,7 @@ class Graph
     /**
      * Set the axis options
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @param  int            $width
      * @return \Pop\Graph\Graph
      */
@@ -290,7 +290,7 @@ class Graph
     /**
      * Set the font color
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @return \Pop\Graph\Graph
      */
     public function setFontColor(ColorInterface $color)
@@ -302,7 +302,7 @@ class Graph
     /**
      * Set the reverse font color
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @return \Pop\Graph\Graph
      */
     public function setReverseFontColor(ColorInterface $color)
@@ -314,7 +314,7 @@ class Graph
     /**
      * Set the fill color
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @return \Pop\Graph\Graph
      */
     public function setFillColor(ColorInterface $color)
@@ -326,7 +326,7 @@ class Graph
     /**
      * Set the stroke color
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @return \Pop\Graph\Graph
      */
     public function setStrokeColor(ColorInterface $color)
@@ -387,7 +387,7 @@ class Graph
      * Set the 'show X-axis increment lines' flag
      *
      * @param  boolean        $showX
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @return \Pop\Graph\Graph
      */
     public function showX($showX, ColorInterface $color = null)
@@ -401,7 +401,7 @@ class Graph
      * Set the 'show Y-axis increment lines' flag
      *
      * @param  boolean        $showY
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @return \Pop\Graph\Graph
      */
     public function showY($showY, ColorInterface $color = null)

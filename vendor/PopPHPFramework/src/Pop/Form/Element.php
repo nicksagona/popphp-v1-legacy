@@ -258,7 +258,7 @@ class Element extends Child
     /**
      * Add a validator the form element object.
      *
-     * @param  Validator\ValidatorInterface $validator
+     * @param  \Pop\Validator\ValidatorInterface $validator
      * @return \Pop\Form\Element
      */
     public function addValidator(Validator\ValidatorInterface $validator)

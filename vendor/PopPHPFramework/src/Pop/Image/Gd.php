@@ -906,7 +906,7 @@ class Gd extends AbstractImage
     /**
      * Method to colorize the image with the color passed.
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @return \Pop\Image\Gd
      */
     public function colorize(ColorInterface $color)
@@ -1048,7 +1048,7 @@ class Gd extends AbstractImage
      * Dummy method to match the Imagick API.
      * This method doesn't do anything
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @param  int            $x
      * @param  int            $y
      * @return \Pop\Image\Gd
@@ -1407,7 +1407,7 @@ class Gd extends AbstractImage
     /**
      * Set and return a color identifier.
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @throws Exception
      * @return mixed
      */

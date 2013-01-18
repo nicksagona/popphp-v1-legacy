@@ -3,8 +3,8 @@ Welcome to the Pop PHP Framework 1.2.0 Release!
 
 RELEASE INFORMATION
 -------------------
-Pop PHP Framework 1.2.0 Release  
-Released January 17, 2013
+Pop PHP Framework 1.2.0 Release
+Released January 18, 2013
 
 
 OVERVIEW
@@ -155,4 +155,4 @@ LICENSE
 -------
 
 The files in this archive are released under the Pop PHP Framework license.
-You can find a copy of this license in LICENSE.TXT.
+You can find a copy of this license in LICENSE.txt.

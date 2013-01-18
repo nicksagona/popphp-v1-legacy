@@ -71,10 +71,10 @@ class Controller
      *
      * Instantiate the controller object
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param Project  $project
-     * @param string   $viewPath
+     * @param \Pop\Http\Request    $request
+     * @param \Pop\Http\Response   $response
+     * @param \Pop\Project\Project $project
+     * @param string               $viewPath
      * @return \Pop\Mvc\Controller
      */
     public function __construct(Request $request = null, Response $response = null, Project $project = null, $viewPath = null)
@@ -94,7 +94,7 @@ class Controller
     /**
      * Set the request object
      *
-     * @param  Request $request
+     * @param  \Pop\Http\Request $request
      * @return \Pop\Mvc\Controller
      */
     public function setRequest(Request $request)
@@ -106,7 +106,7 @@ class Controller
     /**
      * Set the response object
      *
-     * @param  Response $response
+     * @param  \Pop\Http\Response $response
      * @return \Pop\Mvc\Controller
      */
     public function setResponse(Response $response)
@@ -118,7 +118,7 @@ class Controller
     /**
      * Set the response object
      *
-     * @param  Project $project
+     * @param  \Pop\Project\Project $project
      * @return \Pop\Mvc\Controller
      */
     public function setProject(Project $project)

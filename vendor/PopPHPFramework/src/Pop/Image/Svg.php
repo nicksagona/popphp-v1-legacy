@@ -243,7 +243,7 @@ class Svg extends \Pop\File\File
     /**
      * Set the fill color.
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @return \Pop\Image\Svg
      */
     public function setFillColor(ColorInterface $color = null)
@@ -256,7 +256,7 @@ class Svg extends \Pop\File\File
     /**
      * Set the background color.
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @return \Pop\Image\Svg
      */
     public function setBackgroundColor(ColorInterface $color = null)
@@ -268,7 +268,7 @@ class Svg extends \Pop\File\File
     /**
      * Set the stroke color.
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @return \Pop\Image\Svg
      */
     public function setStrokeColor(ColorInterface $color = null)
@@ -315,8 +315,8 @@ class Svg extends \Pop\File\File
     /**
      * Add a gradient.
      *
-     * @param  ColorInterface $color1
-     * @param  ColorInterface $color2
+     * @param  \Pop\Color\ColorInterface $color1
+     * @param  \Pop\Color\ColorInterface $color2
      * @param  int            $type
      * @return \Pop\Image\Svg
      */

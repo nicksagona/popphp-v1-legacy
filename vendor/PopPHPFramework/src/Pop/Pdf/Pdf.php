@@ -570,7 +570,7 @@ class Pdf extends \Pop\File\File
     /**
      * Method to set the background of the document.
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @return \Pop\Pdf\Pdf
      */
     public function setBackgroundColor(ColorInterface $color)
@@ -582,7 +582,7 @@ class Pdf extends \Pop\File\File
     /**
      * Method to set the fill color of objects and text in the PDF.
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @return \Pop\Pdf\Pdf
      */
     public function setFillColor(ColorInterface $color)
@@ -598,7 +598,7 @@ class Pdf extends \Pop\File\File
     /**
      * Method to set the stroke color of paths in the PDF.
      *
-     * @param  ColorInterface $color
+     * @param  \Pop\Color\ColorInterface $color
      * @return \Pop\Pdf\Pdf
      */
     public function setStrokeColor(ColorInterface $color)
