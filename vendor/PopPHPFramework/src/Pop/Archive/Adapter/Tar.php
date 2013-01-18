@@ -19,13 +19,11 @@ use Pop\Compress,
     Pop\File\Dir;
 
 /**
- * This is the Tar class for the Archive component.
- *
- * @category   Pop
+ *@category   Pop
  * @package    Pop_Archive
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
- * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ * @license    http://www.popphp.org/license     New BSD License
  * @version    1.2.0
  */
 class Tar implements ArchiveInterface

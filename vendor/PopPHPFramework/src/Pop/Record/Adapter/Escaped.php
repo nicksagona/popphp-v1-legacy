@@ -18,13 +18,11 @@ namespace Pop\Record\Adapter;
 use Pop\Db\Sql;
 
 /**
- * This is the Escaped class for the Record component.
- *
  * @category   Pop
  * @package    Pop_Record
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
- * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ * @license    http://www.popphp.org/license     New BSD License
  * @version    1.2.0
  */
 class Escaped extends AbstractRecord

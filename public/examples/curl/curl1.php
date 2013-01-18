@@ -6,7 +6,7 @@ use Pop\Curl\Curl;
 
 try {
     $options = array(
-        CURLOPT_URL    => 'http://www.popphp.org/LICENSE.TXT',
+        CURLOPT_URL    => 'http://www.popphp.org/license',
         CURLOPT_HEADER => FALSE
     );
 

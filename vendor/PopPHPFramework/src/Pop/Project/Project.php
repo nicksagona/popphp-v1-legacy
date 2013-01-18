@@ -19,13 +19,11 @@ use Pop\Config,
     Pop\Mvc\Router;
 
 /**
- * This is the Project class for the Project component.
- *
  * @category   Pop
  * @package    Pop_Project
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
- * @license    http://www.popphp.org/LICENSE.TXT     New BSD License
+ * @license    http://www.popphp.org/license     New BSD License
  * @version    1.2.0
  */
 class Project

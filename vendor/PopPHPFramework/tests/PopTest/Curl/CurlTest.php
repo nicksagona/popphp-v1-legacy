@@ -30,7 +30,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $c = new Curl(array(
-            CURLOPT_URL    => 'http://www.popphp.org/LICENSE.TXT',
+            CURLOPT_URL    => 'http://www.popphp.org/license',
             CURLOPT_HEADER => false,
             CURLOPT_RETURNTRANSFER => false
         ));
