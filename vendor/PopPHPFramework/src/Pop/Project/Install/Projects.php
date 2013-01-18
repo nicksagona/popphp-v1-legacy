@@ -71,7 +71,11 @@ class Projects
                 $index = new Generator(__DIR__ . '/Web/index.php');
                 $contents = $index->read() .
                     '// Run the project' . PHP_EOL .
-                    '$project->run();' . PHP_EOL;
+                    'try {' . PHP_EOL .
+                    '    $project->run();' . PHP_EOL .
+                    '} catch (\Exception $e) {' . PHP_EOL .
+                    '    echo $e->getMessage();' . PHP_EOL .
+                    '}' . PHP_EOL;
                 file_put_contents($install->project->docroot . '/index.php', $contents);
             }
             if ($input == 'a') {
