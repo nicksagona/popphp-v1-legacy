@@ -532,4 +532,44 @@
         <source>The folder argument is not a folder</source>
         <output>הטענה התיקיה לא תיקייה</output>
     </text>
+    <text>
+        <source>A few seconds ago</source>
+        <output>לפני כמה שניות</output>
+    </text>
+    <text>
+        <source>1 minute ago</source>
+        <output>לפני %1 דקה</output>
+    </text>
+    <text>
+        <source>1 hour ago</source>
+        <output>לפני %1 שעה</output>
+    </text>
+    <text>
+        <source>1 day ago</source>
+        <output>לפני יום %1</output>
+    </text>
+    <text>
+        <source>1 month ago</source>
+        <output>%1 חודש לפני</output>
+    </text>
+    <text>
+        <source>%1 minutes ago</source>
+        <output>%1 דקות לפני</output>
+    </text>
+    <text>
+        <source>%1 hours ago</source>
+        <output>לפני %1 שעות</output>
+    </text>
+    <text>
+        <source>%1 days ago</source>
+        <output>%1 ימים לפני</output>
+    </text>
+    <text>
+        <source>%1 months ago</source>
+        <output>לפני %1 חודשים</output>
+    </text>
+    <text>
+        <source>%1 years ago</source>
+        <output>לפני %1 שנים</output>
+    </text>
 </language>

@@ -532,4 +532,44 @@
         <source>The folder argument is not a folder</source>
         <output>Το επιχείρημα φάκελος δεν είναι ένα φάκελο</output>
     </text>
+    <text>
+        <source>A few seconds ago</source>
+        <output>Λίγα δευτερόλεπτα πριν</output>
+    </text>
+    <text>
+        <source>1 minute ago</source>
+        <output>Πριν από 1 λεπτό</output>
+    </text>
+    <text>
+        <source>1 hour ago</source>
+        <output>1 ώρα πριν</output>
+    </text>
+    <text>
+        <source>1 day ago</source>
+        <output>1 μέρα πριν</output>
+    </text>
+    <text>
+        <source>1 month ago</source>
+        <output>1 μήνα πριν</output>
+    </text>
+    <text>
+        <source>%1 minutes ago</source>
+        <output>Πριν από %1 λεπτά</output>
+    </text>
+    <text>
+        <source>%1 hours ago</source>
+        <output>Πριν %1 ώρες</output>
+    </text>
+    <text>
+        <source>%1 days ago</source>
+        <output>Πριν %1 μέρες</output>
+    </text>
+    <text>
+        <source>%1 months ago</source>
+        <output>Πριν %1 μήνες</output>
+    </text>
+    <text>
+        <source>%1 years ago</source>
+        <output>Πριν %1 χρόνια</output>
+    </text>
 </language>

@@ -532,4 +532,44 @@
         <source>The folder argument is not a folder</source>
         <output>Папка аргумент не папка</output>
     </text>
+    <text>
+        <source>A few seconds ago</source>
+        <output>Несколько секунд назад</output>
+    </text>
+    <text>
+        <source>1 minute ago</source>
+        <output>1 минута назад</output>
+    </text>
+    <text>
+        <source>1 hour ago</source>
+        <output>1 час назад</output>
+    </text>
+    <text>
+        <source>1 day ago</source>
+        <output>1 день назад</output>
+    </text>
+    <text>
+        <source>1 month ago</source>
+        <output>1 месяц назад</output>
+    </text>
+    <text>
+        <source>%1 minutes ago</source>
+        <output>%1 минуты назад</output>
+    </text>
+    <text>
+        <source>%1 hours ago</source>
+        <output>%1 часа назад</output>
+    </text>
+    <text>
+        <source>%1 days ago</source>
+        <output>%1 дня назад</output>
+    </text>
+    <text>
+        <source>%1 months ago</source>
+        <output>%1 месяца назад</output>
+    </text>
+    <text>
+        <source>%1 years ago</source>
+        <output>%1 года назад</output>
+    </text>
 </language>

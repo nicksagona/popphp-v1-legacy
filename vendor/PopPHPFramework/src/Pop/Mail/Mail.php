@@ -29,10 +29,16 @@ class Mail
 {
 
     /**
-     * Constant for text-only email
-     * @var int
+     * CRLF EOL constant
+     * @var string
      */
-    const EOL = "\r\n";
+    const CRLF = "\r\n";
+
+    /**
+     * LF EOL constant
+     * @var string
+     */
+    const LF = "\n";
 
     /**
      * Sending queue
@@ -155,6 +161,16 @@ class Mail
     public function getBoundary()
     {
         return $this->message->getBoundary();
+    }
+
+    /**
+     * Get EOL
+     *
+     * @return string
+     */
+    public function getEol()
+    {
+        return $this->message->getEol();
     }
 
     /**
@@ -365,6 +381,18 @@ class Mail
     public function setBoundary($bnd = null)
     {
         $this->message->setBoundary($bnd);
+        return $this;
+    }
+
+    /**
+     * Set EOL
+     *
+     * @param  string $eol
+     * @return \Pop\Mail\Mail
+     */
+    public function setEol($eol = Mail::CRLF)
+    {
+        $this->message->setEol($eol);
         return $this;
     }
 

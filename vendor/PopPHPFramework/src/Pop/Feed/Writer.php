@@ -53,7 +53,7 @@ class Writer extends Dom
      * Feed date format
      * @var string
      */
-    protected $date = null;
+    protected $dateFormat = null;
 
     /**
      * Constructor
@@ -66,15 +66,30 @@ class Writer extends Dom
      * @param  string $date
      * @return \Pop\Feed\Writer
      */
-    public function __construct($headers, $items, $type = Dom::RSS, $date = 'D, j M Y H:i:s O')
+    public function __construct($headers, $items, $type = Writer::RSS, $date = 'D, j M Y H:i:s O')
     {
         $this->headers = $headers;
         $this->items = $items;
         $this->feedType = $type;
-        $this->date = $date;
+        $this->dateFormat = $date;
 
         parent::__construct($this->feedType, 'utf-8');
         $this->init();
+    }
+
+    /**
+     * Static method to instantiate the feed writer object and return itself
+     * to facilitate chaining methods together.
+     *
+     * @param  array  $headers
+     * @param  array  $items
+     * @param  mixed  $type
+     * @param  string $date
+     * @return \Pop\Feed\Writer
+     */
+    public static function factory($headers, $items, $type = Writer::RSS, $date = 'D, j M Y H:i:s O')
+    {
+        return new self($headers, $items, $type, $date);
     }
 
     /**
@@ -85,7 +100,7 @@ class Writer extends Dom
      */
     protected function init()
     {
-        if ($this->feedType == Dom::RSS) {
+        if ($this->feedType == Writer::RSS) {
             // Set up the RSS child node.
             $rss = new Child('rss');
             $rss->setAttributes('version', '2.0');
@@ -110,7 +125,7 @@ class Writer extends Dom
             // Add the Channel child node to the RSS child node, add the RSS child node to the DOM.
             $rss->addChild($channel);
             $this->addChild($rss);
-        } else if ($this->feedType == Dom::ATOM) {
+        } else if ($this->feedType == Writer::ATOM) {
             // Set up the Feed child node.
             $feed = new Child('feed');
             $feed->setAttributes('xmlns', 'http://www.w3.org/2005/Atom');
@@ -130,7 +145,8 @@ class Writer extends Dom
                     $link->setAttributes('href', $value);
                     $feed->addChild($link);
                 } else if ($key != 'language') {
-                    $val = (stripos($key, 'date') !== false) ? date($this->date, strtotime($value)) : $value;
+                    $val = ((stripos($key, 'date') !== false) || (stripos($key, 'published') !== false)) ?
+                        date($this->dateFormat, strtotime($value)) : $value;
                     $feed->addChild(new Child($key, $val));
                 }
             }
@@ -144,7 +160,7 @@ class Writer extends Dom
                         $link->setAttributes('href', $value);
                         $item->addChild($link);
                     } else {
-                        $val = (stripos($key, 'date') !== false) ? date($this->date, strtotime($value)) : $value;
+                        $val = ((stripos($key, 'date') !== false) || (stripos($key, 'published') !== false)) ? date($this->dateFormat, strtotime($value)) : $value;
                         $item->addChild(new Child($key, $val));
                     }
                 }

@@ -3,7 +3,7 @@ Pop PHP Framework Changelog
 
 1.2.0
 -----
-Released on January 18, 2013
+Released on January 20, 2013
 
 * Large general code review and cleanup
 * Add a Service component
@@ -14,6 +14,7 @@ Released on January 18, 2013
     - Add support for APC
 * Refactor and improve Color component
 * Add factory method to the Config component
+* Refactor and improve Feed component
 * Add Csrf and Captcha elements to the Form component
 * Refactor and improve Graph component
 * Refactor, clean up and improve the API of the Image component

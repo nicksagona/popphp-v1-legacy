@@ -56,7 +56,7 @@ class Forms
             $ns = new NamespaceGenerator($install->project->name . '\Form');
             $ns->setUse('Pop\Form\Form')
                ->setUse('Pop\Form\Element')
-               ->setUse('Pop\Validator\Validator');
+               ->setUse('Pop\Validator');
 
             // Create the constructor
             $construct = new MethodGenerator('__construct');

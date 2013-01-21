@@ -532,4 +532,44 @@
         <source>The folder argument is not a folder</source>
         <output>L'argument le dossier n'est pas un dossier</output>
     </text>
+    <text>
+        <source>A few seconds ago</source>
+        <output>Il ya quelques secondes</output>
+    </text>
+    <text>
+        <source>1 minute ago</source>
+        <output>Il ya 1 minute</output>
+    </text>
+    <text>
+        <source>1 hour ago</source>
+        <output>Il ya 1 heure</output>
+    </text>
+    <text>
+        <source>1 day ago</source>
+        <output>Il ya 1 jour</output>
+    </text>
+    <text>
+        <source>1 month ago</source>
+        <output>Il ya 1 mois</output>
+    </text>
+    <text>
+        <source>%1 minutes ago</source>
+        <output>Il ya %1 minutes</output>
+    </text>
+    <text>
+        <source>%1 hours ago</source>
+        <output>Il ya %1 heures</output>
+    </text>
+    <text>
+        <source>%1 days ago</source>
+        <output>Il ya %1 jours</output>
+    </text>
+    <text>
+        <source>%1 months ago</source>
+        <output>Il ya %1 mois</output>
+    </text>
+    <text>
+        <source>%1 years ago</source>
+        <output>Il ya %1 ans</output>
+    </text>
 </language>

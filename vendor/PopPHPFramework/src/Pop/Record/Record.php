@@ -118,7 +118,7 @@ class Record
             $class::setDb($db);
         }
 
-        // If the $columns argument is set, set the _columns properties.
+        // If the $columns argument is set, set the columns properties.
         if (null !== $columns) {
             $this->columns = $columns;
         }
@@ -549,7 +549,7 @@ class Record
     }
 
     /**
-     * Set method to set the property to the value of _columns[$name].
+     * Set method to set the property to the value of columns[$name].
      *
      * @param  string $name
      * @param  mixed $value
@@ -561,7 +561,7 @@ class Record
     }
 
     /**
-     * Get method to return the value of _columns[$name].
+     * Get method to return the value of columns[$name].
      *
      * @param  string $name
      * @return mixed
@@ -572,7 +572,7 @@ class Record
     }
 
     /**
-     * Return the isset value of _columns[$name].
+     * Return the isset value of columns[$name].
      *
      * @param  string $name
      * @return boolean
@@ -583,7 +583,7 @@ class Record
     }
 
     /**
-     * Unset _columns[$name].
+     * Unset columns[$name].
      *
      * @param  string $name
      * @return void

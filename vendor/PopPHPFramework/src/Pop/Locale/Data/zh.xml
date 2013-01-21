@@ -351,6 +351,9 @@
     <text>
         <source>The user is blocked.</source>
         <output>用户被封锁。</output>
+    </text>    <text>
+        <source></source>
+        <output></output>
     </text>
     <text>
         <source>The password was incorrect.</source>
@@ -531,5 +534,45 @@
     <text>
         <source>The folder argument is not a folder</source>
         <output>该文件夹的说法是不是一个文件夹</output>
+    </text>
+    <text>
+        <source>A few seconds ago</source>
+        <output>几秒钟前</output>
+    </text>
+    <text>
+        <source>1 minute ago</source>
+        <output>1分钟前</output>
+    </text>
+    <text>
+        <source>1 hour ago</source>
+        <output>1小时前</output>
+    </text>
+    <text>
+        <source>1 day ago</source>
+        <output>1天前</output>
+    </text>
+    <text>
+        <source>1 month ago</source>
+        <output>1个月前</output>
+    </text>
+    <text>
+        <source>%1 minutes ago</source>
+        <output>%1分钟前</output>
+    </text>
+    <text>
+        <source>%1 hours ago</source>
+        <output>%1小时前</output>
+    </text>
+    <text>
+        <source>%1 days ago</source>
+        <output>%1天前</output>
+    </text>
+    <text>
+        <source>%1 months ago</source>
+        <output>%1个月前</output>
+    </text>
+    <text>
+        <source>%1 years ago</source>
+        <output>%1年前</output>
     </text>
 </language>

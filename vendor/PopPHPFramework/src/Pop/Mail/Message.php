@@ -29,39 +29,14 @@ class Message
 {
 
     /**
-     * Constant for text-only email
+     * Constants for message body types
      * @var int
      */
     const TEXT = 1;
-
-    /**
-     * Constant for HTML-only email
-     * @var int
-     */
     const HTML = 2;
-
-    /**
-     * Constant for text and HTML email
-     * @var int
-     */
     const TEXT_HTML = 3;
-
-    /**
-     * Constant for text and file attachment email
-     * @var int
-     */
     const TEXT_FILE = 4;
-
-    /**
-     * Constant for HTML and file attachment email
-     * @var int
-     */
     const HTML_FILE = 5;
-
-    /**
-     * Constant for HTML and file attachment email
-     * @var int
-     */
     const TEXT_HTML_FILE = 6;
 
     /**
@@ -101,6 +76,12 @@ class Message
     protected $charset = 'utf-8';
 
     /**
+     * EOL property
+     * @var string
+     */
+    protected $eol = Mail::CRLF;
+
+    /**
      * Constructor
      *
      * Instantiate the message object.
@@ -121,6 +102,16 @@ class Message
     public function getBoundary()
     {
         return $this->mimeBoundary;
+    }
+
+    /**
+     * Get EOL
+     *
+     * @return string
+     */
+    public function getEol()
+    {
+        return $this->eol;
     }
 
     /**
@@ -172,6 +163,18 @@ class Message
     public function setBoundary($bnd = null)
     {
         $this->mimeBoundary = (null !== $bnd) ? $bnd : sha1(time());
+        return $this;
+    }
+
+    /**
+     * Set EOL
+     *
+     * @param  string $eol
+     * @return \Pop\Mail\Mail
+     */
+    public function setEol($eol = Mail::CRLF)
+    {
+        $this->eol = $eol;
         return $this;
     }
 
@@ -237,22 +240,22 @@ class Message
             case self::TEXT_HTML_FILE:
                 $this->mail->setHeaders(array(
                     'MIME-Version' => '1.0',
-                    'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . Mail::EOL . "This is a multi-part message in MIME format.",
+                    'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . $this->eol . "This is a multi-part message in MIME format.",
                 ));
 
                 $attachments = $this->mail->getAttachments();
                 foreach ($attachments as $attachment) {
-                    $this->message .= $attachment->build($this->getBoundary(), Mail::EOL);
+                    $this->message .= $attachment->build($this->getBoundary(), $this->eol);
                 }
 
-                $this->message .= '--' . $this->getBoundary() . Mail::EOL .
+                $this->message .= '--' . $this->getBoundary() . $this->eol .
                     'Content-type: text/html; charset=' . $this->getCharset() .
-                    Mail::EOL . Mail::EOL . $this->html . Mail::EOL . Mail::EOL;
+                    $this->eol . $this->eol . $this->html . $this->eol . $this->eol;
 
-                $this->message .= '--' . $this->getBoundary() . Mail::EOL .
+                $this->message .= '--' . $this->getBoundary() . $this->eol .
                     'Content-type: text/plain; charset=' . $this->getCharset() .
-                    Mail::EOL . Mail::EOL . $this->text . Mail::EOL . Mail::EOL . '--' .
-                    $this->getBoundary() . '--' . Mail::EOL . Mail::EOL;
+                    $this->eol . $this->eol . $this->text . $this->eol . $this->eol . '--' .
+                    $this->getBoundary() . '--' . $this->eol . $this->eol;
 
                 break;
 
@@ -260,18 +263,18 @@ class Message
             case self::HTML_FILE:
                 $this->mail->setHeaders(array(
                     'MIME-Version' => '1.0',
-                    'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . Mail::EOL . "This is a multi-part message in MIME format.",
+                    'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . $this->eol . "This is a multi-part message in MIME format.",
                 ));
 
                 $attachments = $this->mail->getAttachments();
                 foreach ($attachments as $attachment) {
-                    $this->message .= $attachment->build($this->getBoundary(), Mail::EOL);
+                    $this->message .= $attachment->build($this->getBoundary(), $this->eol);
                 }
 
-                $this->message .= '--' . $this->getBoundary() . Mail::EOL .
+                $this->message .= '--' . $this->getBoundary() . $this->eol .
                     'Content-type: text/html; charset=' . $this->getCharset() .
-                    Mail::EOL . Mail::EOL . $this->html . Mail::EOL . Mail::EOL . '--' .
-                    $this->getBoundary() . '--' . Mail::EOL . Mail::EOL;
+                    $this->eol . $this->eol . $this->html . $this->eol . $this->eol . '--' .
+                    $this->getBoundary() . '--' . $this->eol . $this->eol;
 
                 break;
 
@@ -279,18 +282,18 @@ class Message
             case self::TEXT_FILE:
                 $this->mail->setHeaders(array(
                     'MIME-Version' => '1.0',
-                    'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . Mail::EOL . "This is a multi-part message in MIME format.",
+                    'Content-Type' => 'multipart/mixed; boundary="' . $this->getBoundary() . '"' . $this->eol . "This is a multi-part message in MIME format.",
                 ));
 
                 $attachments = $this->mail->getAttachments();
                 foreach ($attachments as $attachment) {
-                    $this->message .= $attachment->build($this->getBoundary(), Mail::EOL);
+                    $this->message .= $attachment->build($this->getBoundary(), $this->eol);
                 }
 
-                $this->message .= '--' . $this->getBoundary() . Mail::EOL .
+                $this->message .= '--' . $this->getBoundary() . $this->eol .
                     'Content-type: text/plain; charset=' . $this->getCharset() .
-                    Mail::EOL . Mail::EOL . $this->text . Mail::EOL . Mail::EOL . '--' .
-                    $this->getBoundary() . '--' . Mail::EOL . Mail::EOL;
+                    $this->eol . $this->eol . $this->text . $this->eol . $this->eol . '--' .
+                    $this->getBoundary() . '--' . $this->eol . $this->eol;
 
                 break;
 
@@ -298,16 +301,16 @@ class Message
             case self::TEXT_HTML:
                 $this->mail->setHeaders(array(
                     'MIME-Version' => '1.0',
-                    'Content-Type' => 'multipart/alternative; boundary="' . $this->getBoundary() . '"' . Mail::EOL . "This is a multi-part message in MIME format.",
+                    'Content-Type' => 'multipart/alternative; boundary="' . $this->getBoundary() . '"' . $this->eol . "This is a multi-part message in MIME format.",
                 ));
 
-                $this->message .= '--' . $this->getBoundary() . Mail::EOL .
+                $this->message .= '--' . $this->getBoundary() . $this->eol .
                     'Content-type: text/plain; charset=' . $this->getCharset() .
-                    Mail::EOL . Mail::EOL . $this->text . Mail::EOL . Mail::EOL;
-                $this->message .= '--' . $this->getBoundary() . Mail::EOL .
+                    $this->eol . $this->eol . $this->text . $this->eol . $this->eol;
+                $this->message .= '--' . $this->getBoundary() . $this->eol .
                     'Content-type: text/html; charset=' . $this->getCharset() .
-                    Mail::EOL . Mail::EOL . $this->html . Mail::EOL . Mail::EOL .
-                    '--' . $this->getBoundary() . '--' . Mail::EOL . Mail::EOL;
+                    $this->eol . $this->eol . $this->html . $this->eol . $this->eol .
+                    '--' . $this->getBoundary() . '--' . $this->eol . $this->eol;
 
                 break;
 
@@ -315,13 +318,13 @@ class Message
             case self::HTML:
                 $this->mail->setHeaders(array(
                     'MIME-Version' => '1.0',
-                    'Content-Type' => 'multipart/alternative; boundary="' . $this->getBoundary() . '"' . Mail::EOL . "This is a multi-part message in MIME format.",
+                    'Content-Type' => 'multipart/alternative; boundary="' . $this->getBoundary() . '"' . $this->eol . "This is a multi-part message in MIME format.",
                 ));
 
-                $this->message .= '--' . $this->getBoundary() . Mail::EOL .
+                $this->message .= '--' . $this->getBoundary() . $this->eol .
                     'Content-type: text/html; charset=' . $this->getCharset() .
-                    Mail::EOL . Mail::EOL . $this->html . Mail::EOL . Mail::EOL . '--' .
-                    $this->getBoundary() . '--' . Mail::EOL . Mail::EOL;
+                    $this->eol . $this->eol . $this->html . $this->eol . $this->eol . '--' .
+                    $this->getBoundary() . '--' . $this->eol . $this->eol;
 
                 break;
 
@@ -331,7 +334,7 @@ class Message
                     'Content-Type' => 'text/plain; charset=' . $this->getCharset()
                 ));
 
-                $this->message = $this->text . Mail::EOL;
+                $this->message = $this->text . $this->eol;
 
                 break;
 

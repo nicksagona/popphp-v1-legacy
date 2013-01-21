@@ -532,4 +532,44 @@
         <source>The folder argument is not a folder</source>
         <output>O argumento da pasta não é uma pasta</output>
     </text>
+    <text>
+        <source>A few seconds ago</source>
+        <output>Alguns segundos atrás</output>
+    </text>
+    <text>
+        <source>1 minute ago</source>
+        <output>Há 1 minuto</output>
+    </text>
+    <text>
+        <source>1 hour ago</source>
+        <output>1 hora atrás</output>
+    </text>
+    <text>
+        <source>1 day ago</source>
+        <output>1 dia atrás</output>
+    </text>
+    <text>
+        <source>1 month ago</source>
+        <output>1 mês atrás</output>
+    </text>
+    <text>
+        <source>%1 minutes ago</source>
+        <output>%1 minutos atrás</output>
+    </text>
+    <text>
+        <source>%1 hours ago</source>
+        <output>%1 horas atrás</output>
+    </text>
+    <text>
+        <source>%1 days ago</source>
+        <output>Há %1 dias</output>
+    </text>
+    <text>
+        <source>%1 months ago</source>
+        <output>%1 meses atrás</output>
+    </text>
+    <text>
+        <source>%1 years ago</source>
+        <output>%1 anos atrás</output>
+    </text>
 </language>

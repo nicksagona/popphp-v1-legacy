@@ -532,4 +532,44 @@
         <source>The folder argument is not a folder</source>
         <output>الوسيطة المجلد غير مجلد</output>
     </text>
+    <text>
+        <source>A few seconds ago</source>
+        <output>بعد ثوان قليلة</output>
+    </text>
+    <text>
+        <source>1 minute ago</source>
+        <output>منذ %1 دقيقة</output>
+    </text>
+    <text>
+        <source>1 hour ago</source>
+        <output>%1 منذ ساعة</output>
+    </text>
+    <text>
+        <source>1 day ago</source>
+        <output>%1 منذ يوم</output>
+    </text>
+    <text>
+        <source>1 month ago</source>
+        <output>%1 قبل شهر</output>
+    </text>
+    <text>
+        <source>%1 minutes ago</source>
+        <output>منذ %1 دقيقة</output>
+    </text>
+    <text>
+        <source>%1 hours ago</source>
+        <output>منذ %1 ساعات</output>
+    </text>
+    <text>
+        <source>%1 days ago</source>
+        <output>%1 منذ أيام</output>
+    </text>
+    <text>
+        <source>%1 months ago</source>
+        <output>%1 منذ أشهر</output>
+    </text>
+    <text>
+        <source>%1 years ago</source>
+        <output>%1 منذ سنوات</output>
+    </text>
 </language>

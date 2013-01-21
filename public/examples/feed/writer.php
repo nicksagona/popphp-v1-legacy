@@ -2,8 +2,7 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Dom\Dom,
-    Pop\Feed\Writer;
+use Pop\Feed\Writer;
 
 try {
     $feedHeaders = array(
@@ -44,7 +43,7 @@ try {
     );
 
     $feedEntries = array($entry1, $entry2, $entry3);
-    $feed = new Writer($feedHeaders, $feedEntries, Dom::ATOM);
+    $feed = new Writer($feedHeaders, $feedEntries, Writer::ATOM);
     $feed->render();
 } catch (\Exception $e) {
     echo $e->getMessage();

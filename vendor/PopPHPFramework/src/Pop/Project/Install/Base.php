@@ -65,8 +65,8 @@ class Base
         // Create project.config.php file
         $projectCfg = new \Pop\Code\Generator($install->project->base . '/config/project.config.php');
         $projectCfg->appendToBody('return new Pop\Config(array(', true)
-                   ->appendToBody("    'base'      => '" . addslashes(realpath($install->project->base)) . "',")
-                   ->appendToBody("    'docroot'   => '" . addslashes(realpath($install->project->docroot)) . "'", false);
+                   ->appendToBody("    'base'      => '" . realpath($install->project->base) . "',")
+                   ->appendToBody("    'docroot'   => '" . realpath($install->project->docroot) . "'", false);
 
         // Add the database config to it
         if (isset($install->databases)) {
@@ -130,11 +130,11 @@ class Base
         $moduleCfg = new \Pop\Code\Generator($install->project->base . '/module/' . $install->project->name . '/config/module.config.php');
         $moduleCfg->appendToBody('return array(')
                   ->appendToBody("    '{$install->project->name}' => new Pop\Config(array(")
-                  ->appendToBody("        'base'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name)) . "',")
-                  ->appendToBody("        'config' => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/config')) . "',")
-                  ->appendToBody("        'data'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/data')) . "',")
-                  ->appendToBody("        'src'    => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/src')) . "',")
-                  ->appendToBody("        'view'   => '" . addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/view')) . "'")
+                  ->appendToBody("        'base'   => '" . realpath($install->project->base . '/module/' . $install->project->name) . "',")
+                  ->appendToBody("        'config' => '" . realpath($install->project->base . '/module/' . $install->project->name . '/config') . "',")
+                  ->appendToBody("        'data'   => '" . realpath($install->project->base . '/module/' . $install->project->name . '/data') . "',")
+                  ->appendToBody("        'src'    => '" . realpath($install->project->base . '/module/' . $install->project->name . '/src') . "',")
+                  ->appendToBody("        'view'   => '" . realpath($install->project->base . '/module/' . $install->project->name . '/view') . "'")
                   ->appendToBody("    ))")
                   ->appendToBody(");", false)
                   ->save();
