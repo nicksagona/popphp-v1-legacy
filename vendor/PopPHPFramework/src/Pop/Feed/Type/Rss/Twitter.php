@@ -16,7 +16,7 @@
 namespace Pop\Feed\Type\Rss;
 
 /**
- * Twitter feed reader class
+ * Twitter RSS feed reader class
  *
  * @category   Pop
  * @package    Pop_Feed

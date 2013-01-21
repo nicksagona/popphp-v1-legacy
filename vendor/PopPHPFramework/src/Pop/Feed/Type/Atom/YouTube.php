@@ -16,7 +16,7 @@
 namespace Pop\Feed\Type\Atom;
 
 /**
- * YouTube feed reader class
+ * YouTube Atom feed reader class
  *
  * @category   Pop
  * @package    Pop_Feed

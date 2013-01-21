@@ -16,7 +16,7 @@
 namespace Pop\Feed\Type\Rss;
 
 /**
- * Facebook feed reader class
+ * Facebook RSS feed reader class
  *
  * @category   Pop
  * @package    Pop_Feed

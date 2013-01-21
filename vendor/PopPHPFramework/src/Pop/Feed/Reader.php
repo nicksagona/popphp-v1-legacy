@@ -107,7 +107,7 @@ class Reader
 
         $this->limit = $limit;
 
-        // Create the SimpleXMLElement and set the format to either XML or HTML.
+        // Create the SimpleXMLElement object and parse it.
         try {
             $ua = (isset($_SERVER['HTTP_USER_AGENT'])) ?
                 $_SERVER['HTTP_USER_AGENT'] :
@@ -130,7 +130,6 @@ class Reader
             }
         // Else, throw an exception if there are any failures.
         } catch (\Exception $e) {
-            //echo 456;
             throw new Exception($e->getMessage());
         }
     }
@@ -141,11 +140,12 @@ class Reader
      * @param  string $url
      * @param  int    $limit
      * @param  boolean $atom
+     * @param  string  $prefix
      * @return void
      */
-    public static function parseByUrl($url, $limit = 0, $atom = false)
+    public static function parseByUrl($url, $limit = 0, $atom = false, $prefix = 'Pop\\Feed\\Type\\')
     {
-        return new self($url, $limit, $atom);
+        return new self($url, $limit, $atom, $prefix);
     }
 
     /**
@@ -159,10 +159,11 @@ class Reader
      * @param  string $account
      * @param  int    $limit
      * @param  boolean $atom
+     * @param  string  $prefix
      * @throws Exception
      * @return \Pop\Feed\Reader
      */
-    public static function parseByName($name, $account, $limit = 0, $atom = false)
+    public static function parseByName($name, $account, $limit = 0, $atom = false, $prefix = 'Pop\\Feed\\Type\\')
     {
         $accounts = array('facebook', 'twitter', 'youtube', 'vimeo');
         $account = strtolower($account);
@@ -190,7 +191,7 @@ class Reader
                 break;
         }
 
-        return new self($url, $limit, $atom);
+        return new self($url, $limit, $atom, $prefix);
     }
 
     /**
@@ -203,10 +204,11 @@ class Reader
      * @param  string $account
      * @param  int    $limit
      * @param  boolean $atom
+     * @param  string  $prefix
      * @throws Exception
      * @return \Pop\Feed\Reader
      */
-    public static function parseById($id, $account, $limit = 0, $atom = false)
+    public static function parseById($id, $account, $limit = 0, $atom = false, $prefix = 'Pop\\Feed\\Type\\')
     {
         $accounts = array('facebook', 'youtube', 'vimeo');
         $account = strtolower($account);
@@ -230,7 +232,7 @@ class Reader
                 break;
         }
 
-        return new self($url, $limit, $atom);
+        return new self($url, $limit, $atom, $prefix);
     }
 
     /**
@@ -352,7 +354,7 @@ class Reader
     }
 
     /**
-     * Method to get the XML object
+     * Method to get the feed URL
      *
      * @return \SimpleXMLElement
      */
@@ -488,7 +490,8 @@ class Reader
      */
     public function isPlaylist()
     {
-        return (strpos($this->feedUrl, 'playlist') !== false);
+        $search = ($this->isVimeo()) ? 'album' : 'playlist';
+        return (strpos($this->feedUrl, $search) !== false);
     }
 
     /**

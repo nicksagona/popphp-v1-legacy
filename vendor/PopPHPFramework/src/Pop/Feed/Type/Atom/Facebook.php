@@ -16,7 +16,7 @@
 namespace Pop\Feed\Type\Atom;
 
 /**
- * Facebook feed reader class
+ * Facebook Atom feed reader class
  *
  * @category   Pop
  * @package    Pop_Feed

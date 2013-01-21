@@ -16,7 +16,7 @@
 namespace Pop\Feed\Type\Rss;
 
 /**
- * Vimeo feed reader class
+ * Vimeo RSS feed reader class
  *
  * @category   Pop
  * @package    Pop_Feed

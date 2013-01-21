@@ -16,7 +16,7 @@
 namespace Pop\Feed\Type\Rss;
 
 /**
- * YouTube feed reader class
+ * YouTube RSS feed reader class
  *
  * @category   Pop
  * @package    Pop_Feed
