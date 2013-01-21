@@ -39,26 +39,60 @@ class Bootstrap
     public static function install($install)
     {
         // Define full paths of the autoloader and config files
-        $autoload = addslashes(realpath(__DIR__ . '/../../Loader/Autoloader.php'));
-        $projectCfg = addslashes(realpath($install->project->base . '/config/project.config.php'));
-        $moduleCfg = addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/config/module.config.php'));
-        $moduleSrc = addslashes(realpath($install->project->base . '/module/' . $install->project->name . '/src'));
+        $autoload = realpath(__DIR__ . '/../../Loader/Autoloader.php');
+        $moduleSrc = realpath($install->project->base . '/module/' . $install->project->name . '/src');
+        $projectCfg = realpath($install->project->base . '/config/project.config.php');
+        $moduleCfg = realpath($install->project->base . '/module/' . $install->project->name . '/config/module.config.php');
+
+        // Figure out the relative base and docroot
+        $base = str_replace("\\", '/', $install->project->base);
+        $docroot = str_replace("\\", '/', $install->project->docroot);
+        $base = (substr($base, -1) == '/') ? substr($base, 0, -1) : $base;
+        $docroot = (substr($docroot, -1) == '/') ? substr($docroot, 0, -1) : $docroot;
+
+        // If the base and docroot are the same
+        if (strlen($base) == strlen($docroot)) {
+            $autoload = "__DIR__ . '/vendor/PopPHPFramework/src/Pop/Loader/Autoloader.php'";
+            $moduleSrc = "__DIR__ . '/module/" . $install->project->name . "/src'";
+            $projectCfg = "__DIR__ . '/config/project.config.php'";
+            $moduleCfg = "__DIR__ . '/module/" . $install->project->name . "/config/module.config.php'";
+        // If the docroot is under the base
+        } else if (strlen($base) < strlen($docroot)) {
+            // Calculate how many levels up the base is from the docroot
+            $diff = str_replace($base, null, $docroot);
+            $levels = substr_count($diff, '/');
+            $dirs = '/';
+            for ($i = 0; $i < $levels; $i++) {
+                $dirs .= '../';
+            }
+            $autoload = "__DIR__ . '" . $dirs . "vendor/PopPHPFramework/src/Pop/Loader/Autoloader.php'";
+            $moduleSrc = "__DIR__ . '" . $dirs . "module/" . $install->project->name . "/src'";
+            $projectCfg = "__DIR__ . '" . $dirs . "config/project.config.php'";
+            $moduleCfg = "__DIR__ . '" . $dirs . "module/" . $install->project->name . "/config/module.config.php'";
+        // If the base is under the docroot
+        } else if (strlen($base) > strlen($docroot)) {
+            $dir = str_replace($docroot, null, $base);
+            $autoload = "__DIR__ . '" . $dir . "/vendor/PopPHPFramework/src/Pop/Loader/Autoloader.php'";
+            $moduleSrc = "__DIR__ . '" . $dir . "/module/" . $install->project->name . "/src'";
+            $projectCfg = "__DIR__ . '" . $dir . "/config/project.config.php'";
+            $moduleCfg = "__DIR__ . '" . $dir . "/module/" . $install->project->name . "/config/module.config.php'";
+        }
 
         // Create new Code file object
         $bootstrap = new \Pop\Code\Generator($install->project->docroot . '/bootstrap.php');
 
         // Create new bootstrap file
         if (!file_exists($install->project->docroot . '/bootstrap.php')) {
-            $bootstrap->appendToBody("// Require the Autoloader class file" . PHP_EOL . "require_once '{$autoload}';" . PHP_EOL)
+            $bootstrap->appendToBody("// Require the Autoloader class file" . PHP_EOL . "require_once {$autoload};" . PHP_EOL)
                       ->appendToBody("// Instantiate the autoloader object" . PHP_EOL . "\$autoloader = Pop\\Loader\\Autoloader::factory();" . PHP_EOL . "\$autoloader->splAutoloadRegister();");
         }
 
         // Else, just append to the existing bootstrap file
-        $bootstrap->appendToBody("\$autoloader->register('{$install->project->name}', '{$moduleSrc}');" . PHP_EOL)
+        $bootstrap->appendToBody("\$autoloader->register('{$install->project->name}', {$moduleSrc});" . PHP_EOL)
                   ->appendToBody("// Create a project object")
                   ->appendToBody("\$project = {$install->project->name}\\Project::factory(")
-                  ->appendToBody("    include '{$projectCfg}',")
-                  ->appendToBody("    include '{$moduleCfg}',");
+                  ->appendToBody("    include {$projectCfg},")
+                  ->appendToBody("    include {$moduleCfg},");
 
         // Set up any controllers via a router object
         if (isset($install->controllers)) {
