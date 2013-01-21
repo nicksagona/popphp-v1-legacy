@@ -11,7 +11,6 @@
 # -i --install file.php          Install a project based on the install file specified
 # -l --lang fr                   Set the default language for the project
 # -m --map folder file.php       Create a class map file from the source folder and save to the output file
-# -r --reconfig projectfolder    Reconfigure the project based on the new location of the project
 # -s --show                      Show project install instructions
 # -v --version                   Display version of Pop PHP Framework
 #

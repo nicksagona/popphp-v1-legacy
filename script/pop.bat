@@ -11,7 +11,6 @@ REM -h --help                      Display this help
 REM -i --install file.php          Install a project based on the install file specified
 REM -l --lang fr                   Set the default language for the project
 REM -m --map folder file.php       Create a class map file from the source folder and save to the output file
-REM -r --reconfig projectfolder    Reconfigure the project based on the new location of the project
 REM -s --show                      Show project install instructions
 REM -v --version                   Display version of Pop PHP Framework
 REM
