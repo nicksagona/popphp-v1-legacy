@@ -19,17 +19,14 @@
  * -m --map folder file.php       Create a class map file from the source folder and save to the output file
  * -s --show                      Show project install instructions
  * -v --version                   Display version of Pop PHP Framework
- *
- * IMPORTANT!
- *
- * If you move the 'bootstrap.php' file, make
- * sure you adjust the path to it accordingly
- *
  */
 
 set_time_limit(0);
 
-require_once __DIR__ . '/../public/bootstrap.php';
+require_once __DIR__  . '/../vendor/PopPHPFramework/src/Pop/Loader/Autoloader.php';
+
+$autoloader = new Pop\Loader\Autoloader();
+$autoloader->splAutoloadRegister();
 
 use Pop\File\File,
     Pop\Loader\Classmap,
