@@ -62,11 +62,38 @@ class Base
         // Make the '/data' folder writable
         chmod($install->project->base . '/module/' . $install->project->name . '/data', 0777);
 
+        // Figure out the relative base and docroot
+        $base = $install->project->base;
+        $docroot = $install->project->docroot;
+
+        // If the base and docroot are the same
+        if (strlen($base) == strlen($docroot)) {
+            $base = "__DIR__ . '/../'";
+            $docroot = "__DIR__ . '/../'";
+        // If the docroot is under the base
+        } else if (strlen($base) < strlen($docroot)) {
+            $base = "__DIR__ . '/../'";
+            $docroot = "__DIR__ . '/../" . str_replace($install->project->base, null, $install->project->docroot) . "'";
+        // If the base is under the docroot
+        } else if (strlen($base) > strlen($docroot)) {
+            // Calculate how many levels up the docroot is from the base
+            $projectBase = (substr($install->project->base, -1)) ? substr($install->project->base, 0, -1) : $install->project->base;
+            $projectDocroot = (substr($install->project->docroot, -1)) ? substr($install->project->docroot, 0, -1) : $install->project->docroot;
+            $diff = str_replace(array($projectDocroot, "\\"), array(null, '/'), $projectBase);
+            $levels = substr_count($diff, '/');
+            $dirs = '../';
+            for ($i = 0; $i < $levels; $i++) {
+                $dirs .= '../';
+            }
+            $base = "__DIR__ . '/../'";
+            $docroot = "__DIR__ . '/" . $dirs . "'";
+        }
+
         // Create project.config.php file
         $projectCfg = new \Pop\Code\Generator($install->project->base . '/config/project.config.php');
         $projectCfg->appendToBody('return new Pop\Config(array(', true)
-                   ->appendToBody("    'base'      => '" . realpath($install->project->base) . "',")
-                   ->appendToBody("    'docroot'   => '" . realpath($install->project->docroot) . "'", false);
+                   ->appendToBody("    'base'      => " . $base . ",")
+                   ->appendToBody("    'docroot'   => " . $docroot, false);
 
         // Add the database config to it
         if (isset($install->databases)) {
@@ -130,11 +157,11 @@ class Base
         $moduleCfg = new \Pop\Code\Generator($install->project->base . '/module/' . $install->project->name . '/config/module.config.php');
         $moduleCfg->appendToBody('return array(')
                   ->appendToBody("    '{$install->project->name}' => new Pop\Config(array(")
-                  ->appendToBody("        'base'   => '" . realpath($install->project->base . '/module/' . $install->project->name) . "',")
-                  ->appendToBody("        'config' => '" . realpath($install->project->base . '/module/' . $install->project->name . '/config') . "',")
-                  ->appendToBody("        'data'   => '" . realpath($install->project->base . '/module/' . $install->project->name . '/data') . "',")
-                  ->appendToBody("        'src'    => '" . realpath($install->project->base . '/module/' . $install->project->name . '/src') . "',")
-                  ->appendToBody("        'view'   => '" . realpath($install->project->base . '/module/' . $install->project->name . '/view') . "'")
+                  ->appendToBody("        'base'   => __DIR__ . '/../',")
+                  ->appendToBody("        'config' => __DIR__ . '/../config',")
+                  ->appendToBody("        'data'   => __DIR__ . '/../data',")
+                  ->appendToBody("        'src'    => __DIR__ . '/../src',")
+                  ->appendToBody("        'view'   => __DIR__ . '/../view'")
                   ->appendToBody("    ))")
                   ->appendToBody(");", false)
                   ->save();
