@@ -45,8 +45,8 @@ class Bootstrap
         $moduleCfg = realpath($install->project->base . '/module/' . $install->project->name . '/config/module.config.php');
 
         // Figure out the relative base and docroot
-        $base = str_replace("\\", '/', $install->project->base);
-        $docroot = str_replace("\\", '/', $install->project->docroot);
+        $base = str_replace("\\", '/', realpath($install->project->base));
+        $docroot = str_replace("\\", '/', realpath($install->project->docroot));
         $base = (substr($base, -1) == '/') ? substr($base, 0, -1) : $base;
         $docroot = (substr($docroot, -1) == '/') ? substr($docroot, 0, -1) : $docroot;
 
@@ -59,7 +59,7 @@ class Bootstrap
         // If the docroot is under the base
         } else if (strlen($base) < strlen($docroot)) {
             // Calculate how many levels up the base is from the docroot
-            $diff = str_replace($base, null, $docroot);
+            $diff = str_replace($base, '', $docroot);
             $levels = substr_count($diff, '/');
             $dirs = '/';
             for ($i = 0; $i < $levels; $i++) {
@@ -71,7 +71,7 @@ class Bootstrap
             $moduleCfg = "__DIR__ . '" . $dirs . "module/" . $install->project->name . "/config/module.config.php'";
         // If the base is under the docroot
         } else if (strlen($base) > strlen($docroot)) {
-            $dir = str_replace($docroot, null, $base);
+            $dir = str_replace($docroot, '', $base);
             $autoload = "__DIR__ . '" . $dir . "/vendor/PopPHPFramework/src/Pop/Loader/Autoloader.php'";
             $moduleSrc = "__DIR__ . '" . $dir . "/module/" . $install->project->name . "/src'";
             $projectCfg = "__DIR__ . '" . $dir . "/config/project.config.php'";

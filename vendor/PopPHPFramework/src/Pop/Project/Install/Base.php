@@ -63,8 +63,8 @@ class Base
         chmod($install->project->base . '/module/' . $install->project->name . '/data', 0777);
 
         // Figure out the relative base and docroot
-        $base = str_replace("\\", '/', $install->project->base);
-        $docroot = str_replace("\\", '/', $install->project->docroot);
+        $base = str_replace("\\", '/', realpath($install->project->base));
+        $docroot = str_replace("\\", '/', realpath($install->project->docroot));
         $base = (substr($base, -1) == '/') ? substr($base, 0, -1) : $base;
         $docroot = (substr($docroot, -1) == '/') ? substr($docroot, 0, -1) : $docroot;
 
@@ -74,14 +74,15 @@ class Base
             $docroot = "__DIR__ . '/../'";
         // If the docroot is under the base
         } else if (strlen($base) < strlen($docroot)) {
+            $relDocroot = str_replace($base, '', $docroot);
             $base = "__DIR__ . '/../'";
-            $docroot = "__DIR__ . '/../" . str_replace($base, null, $docroot) . "'";
+            $docroot = "__DIR__ . '/.." . $relDocroot . "'";
         // If the base is under the docroot
         } else if (strlen($base) > strlen($docroot)) {
             // Calculate how many levels up the docroot is from the base
             $diff = str_replace($docroot, '/', $base);
             $levels = substr_count($diff, '/');
-            $dirs = '../';
+            $dirs = null;
             for ($i = 0; $i < $levels; $i++) {
                 $dirs .= '../';
             }
@@ -124,9 +125,8 @@ class Base
                 foreach ($dbCreds as $key => $value) {
                     $j++;
                     if ($isSqlite) {
-                        $dbFile = $install->project->base . '/module/' . $install->project->name . '/data/' . basename($value);
-                        $dbFile = addslashes(realpath($dbFile));
-                        $ary = "            '{$key}' => '{$dbFile}'";
+                        $dbFile = "__DIR__ . '/../module/" . $install->project->name . "/data/" . basename($value) . "'";
+                        $ary = "            '{$key}' => {$dbFile}";
                     } else {
                         $ary = "            '{$key}' => '{$value}'";
                     }
