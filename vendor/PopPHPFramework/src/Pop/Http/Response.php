@@ -128,7 +128,7 @@ class Response
      * @throws Exception
      * @return \Pop\Http\Response
      */
-    public function __construct($code = 200, array $headers = array('Content-Type' => 'text/html'), $body = null, $message = null, $version = '1.1')
+    public function __construct($code = 200, array $headers = null, $body = null, $message = null, $version = '1.1')
     {
         if (!array_key_exists($code, self::$responseCodes)) {
             throw new Exception('The header code '. $code . ' is not allowed.');
@@ -138,6 +138,10 @@ class Response
         $this->message = (null !== $message) ? $message : self::$responseCodes[$code];
         $this->body = $body;
         $this->version = $version;
+
+        if (null === $headers) {
+            $headers = array('Content-Type' => 'text/html');
+        }
 
         foreach ($headers as $name => $value) {
             $this->headers[$name] = $value;
