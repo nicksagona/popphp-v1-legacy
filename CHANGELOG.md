@@ -6,6 +6,7 @@ Pop PHP Framework Changelog
 Released on January 20, 2013
 
 * Large general code review and cleanup
+* Add relative path support to project install functionality
 * Add a Service component
     - Ability to configure and lazy-load services as needed
     - Hooked into the Project component
