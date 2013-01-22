@@ -50,6 +50,7 @@ class WriterTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertInstanceOf('Pop\Feed\Writer', new Writer($headers, array($entry)));
+        $this->assertInstanceOf('Pop\Feed\Writer', Writer::factory($headers, array($entry)));
     }
 
     public function testAtom()

@@ -3,7 +3,7 @@ Pop PHP Framework Changelog
 
 1.2.0
 -----
-Released on January 20, 2013
+Released on January 22, 2013
 
 * Large general code review and cleanup
 * Add relative path support to project install functionality

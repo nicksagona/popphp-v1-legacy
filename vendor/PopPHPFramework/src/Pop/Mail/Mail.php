@@ -494,7 +494,7 @@ class Mail
 
         $messageBody = $this->message->getMessage();
 
-        $headers = $this->buildHeaders() . self::EOL . self::EOL;
+        $headers = $this->buildHeaders() . $this->message->getEol() . $this->message->getEol();
 
         // Send as group message
         if ($this->group) {
@@ -541,9 +541,9 @@ class Mail
 
         // Send as group message
         if ($this->group) {
-            $email = 'To: ' . (string)$this->queue . self::EOL .
-                'Subject: ' . $this->subject . self::EOL .
-                $headers . self::EOL . self::EOL . $messageBody;
+            $email = 'To: ' . (string)$this->queue . $this->message->getEol() .
+                'Subject: ' . $this->subject . $this->message->getEol() .
+                $headers . $this->message->getEol() . $this->message->getEol() . $messageBody;
 
             $emailFileName = (null !== $format) ? $format : $emailFileName = '0000000001-' . time() . '-popphpmail';
 
@@ -573,9 +573,9 @@ class Mail
                     }
                 }
 
-                $email = 'To: ' . $to . self::EOL .
-                         'Subject: ' . $subject . self::EOL .
-                         $headers . self::EOL . self::EOL . $message;
+                $email = 'To: ' . $to . $this->message->getEol() .
+                         'Subject: ' . $subject . $this->message->getEol() .
+                         $headers . $this->message->getEol() . $this->message->getEol() . $message;
 
                 if (null !== $fileFormat) {
                     $emailFileName = sprintf('%09d', $i) . '-' . time() . '-' . $fileFormat;
@@ -635,7 +635,7 @@ class Mail
     {
         $headers = null;
         foreach ($this->headers as $key => $value) {
-            $headers .= (is_array($value)) ? $key . ": " . $value[0] . " <" . $value[1] . ">" . self::EOL : $key . ": " . $value . self::EOL;
+            $headers .= (is_array($value)) ? $key . ": " . $value[0] . " <" . $value[1] . ">" . $this->message->getEol() : $key . ": " . $value . $this->message->getEol();
         }
 
         return $headers;
@@ -658,9 +658,9 @@ class Mail
             'message' => null
         );
 
-        $headers = substr($contents, 0, strpos($contents, self::EOL . self::EOL));
+        $headers = substr($contents, 0, strpos($contents, $this->message->getEol() . $this->message->getEol()));
         $email['message'] = trim(str_replace($headers, '', $contents));
-        $email['headers'] = trim($headers) . self::EOL . self::EOL;
+        $email['headers'] = trim($headers) . $this->message->getEol() . $this->message->getEol();
 
         if (strpos($email['headers'], 'Subject:') === false) {
             throw new Exception("Error: There is no subject in the email file '" . $filename . "'.");
@@ -671,13 +671,13 @@ class Mail
         }
 
         $subject = substr($contents, strpos($contents, 'Subject:'));
-        $subject = substr($subject, 0, strpos($subject, self::EOL));
-        $email['headers'] = str_replace($subject . self::EOL, '', $email['headers']);
-        $email['subject'] = trim(substr($subject . self::EOL, (strpos($subject, ':') + 1)));
+        $subject = substr($subject, 0, strpos($subject, $this->message->getEol()));
+        $email['headers'] = str_replace($subject . $this->message->getEol(), '', $email['headers']);
+        $email['subject'] = trim(substr($subject . $this->message->getEol(), (strpos($subject, ':') + 1)));
 
         $to = substr($contents, strpos($contents, 'To:'));
-        $to = substr($to, 0, strpos($to, self::EOL));
-        $email['headers'] = str_replace($to . self::EOL, '', $email['headers']);
+        $to = substr($to, 0, strpos($to, $this->message->getEol()));
+        $email['headers'] = str_replace($to . $this->message->getEol(), '', $email['headers']);
 
         preg_match('/[a-zA-Z0-9\.\-\_+%]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]{2,4}/', $to, $result);
 

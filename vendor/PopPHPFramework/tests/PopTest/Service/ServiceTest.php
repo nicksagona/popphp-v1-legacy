@@ -139,8 +139,22 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testGetNull()
     {
-        $s = new Locator();
-        $this->assertNull($s->get('service'));
+        $l = new Locator();
+        $this->assertNull($l->get('service'));
+    }
+
+    public function testRecursiveException()
+    {
+        $this->setExpectedException('Pop\Service\Exception');
+        $l = new Locator(array(
+            'service1' => function($locator) {
+                return $locator->get('service2');
+            },
+            'service2' => function($locator) {
+                return $locator->get('service1');
+            }
+        ));
+        $s = $l->get('service1');
     }
 
 }

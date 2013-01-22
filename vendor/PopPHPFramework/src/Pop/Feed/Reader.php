@@ -40,7 +40,7 @@ class Reader
      * Feed class
      * @var string
      */
-    protected static $class = null;
+    protected $class = null;
 
     /**
      * Feed URL
@@ -105,6 +105,7 @@ class Reader
     {
         $this->feedUrl = $url;
         $this->limit = $limit;
+        $this->feedPrefix = $prefix;
 
         // Create the SimpleXMLElement object and parse it.
         try {
@@ -163,17 +164,16 @@ class Reader
      */
     public static function parseByName($name, $account, $limit = 0, $atom = false, $prefix = 'Pop\\Feed\\Type\\')
     {
-        self::$class = $prefix . (($atom) ? 'Atom\\' : 'Rss\\') . ucfirst(strtolower($account));
+        $class = $prefix . (($atom) ? 'Atom\\' : 'Rss\\') . ucfirst(strtolower($account));
 
-        if (!class_exists(self::$class)) {
+        if (!class_exists($class)) {
             throw new Exception('Error: The class to parse that account feed was not found.');
         }
 
-        $class = self::$class;
         $url = $class::url('name', $name);
 
         if (null === $url) {
-            throw new Exception("Error: The URL could not be found in the class '" . self::$class . "'.");
+            throw new Exception("Error: The URL could not be found in the class '" . $class . "'.");
         }
 
         return new self($url, $limit, $prefix);
@@ -195,17 +195,16 @@ class Reader
      */
     public static function parseById($id, $account, $limit = 0, $atom = false, $prefix = 'Pop\\Feed\\Type\\')
     {
-        self::$class = $prefix . (($atom) ? 'Atom\\' : 'Rss\\') . ucfirst(strtolower($account));
+        $class = $prefix . (($atom) ? 'Atom\\' : 'Rss\\') . ucfirst(strtolower($account));
 
-        if (!class_exists(self::$class)) {
+        if (!class_exists($class)) {
             throw new Exception('Error: The class to parse that account feed was not found.');
         }
 
-        $class = self::$class;
         $url = $class::url('id', $id);
 
         if (null === $url) {
-            throw new Exception("Error: The URL could not be found in the class '" . self::$class . "'.");
+            throw new Exception("Error: The URL could not be found in the class '" . $class . "'.");
         }
 
         return new self($url, $limit, $prefix);
@@ -308,18 +307,6 @@ class Reader
     }
 
     /**
-     * Method to set limit
-     *
-     * @param  int $limit
-     * @return \Pop\Feed\Reader
-     */
-    public function setLimit($limit = 0)
-    {
-        $this->limit = $limit;
-        return $this;
-    }
-
-    /**
      * Method to get the XML object
      *
      * @return \SimpleXMLElement
@@ -337,16 +324,6 @@ class Reader
     public function url()
     {
         return $this->feedUrl;
-    }
-
-    /**
-     * Method to get the feed type
-     *
-     * @return string
-     */
-    public function getFeedType()
-    {
-        return $this->feedType;
     }
 
     /**
@@ -434,7 +411,7 @@ class Reader
      *
      * @return boolean
      */
-    public function isYouTube()
+    public function isYoutube()
     {
         return (strpos($this->feedUrl, 'youtube') !== false);
     }
@@ -606,8 +583,8 @@ class Reader
      */
     protected function parseFeed()
     {
-        if (null !== self::$class) {
-            $class = self::$class;
+        if (null !== $this->class) {
+            $class = $this->class;
         } else {
             $url = parse_url($this->feedUrl);
             $ary = explode('.', $url['host']);
@@ -618,7 +595,7 @@ class Reader
             if (!class_exists($class)) {
                 $class = $this->feedPrefix . ucfirst($this->feedType);
             }
-            self::$class = $class;
+            $this->class = $class;
         }
 
         $feedObject = new $class($this);

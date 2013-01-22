@@ -121,6 +121,13 @@ class MailTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('some-boundary', $m->getBoundary());
     }
 
+    public function testSetAndGetEol()
+    {
+        $m = new Mail();
+        $m->setEol(Mail::LF);
+        $this->assertEquals("\n", $m->getEol());
+    }
+
     public function testSetAndGetCharset()
     {
         $m = new Mail();
