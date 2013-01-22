@@ -29,6 +29,45 @@ class Facebook extends \Pop\Feed\Type\Rss
 {
 
     /**
+     * Feed URLs
+     * @var array
+     */
+    protected static $urls = array(
+        'name' => 'http://graph.facebook.com/[{name}]',
+        'id'   => 'http://www.facebook.com/feeds/page.php?id=[{id}]&format=rss20'
+    );
+
+    /**
+     * JSON result from the graph URL
+     * @var array
+     */
+    protected static $json = array();
+
+    /**
+     * Method to get Facebook RSS URL
+     *
+     * @param  string $key
+     * @param  string $value
+     * @return string
+     */
+    public static function url($key, $value)
+    {
+        $url = null;
+
+        if (isset(self::$urls[$key])) {
+            $url = str_replace('[{' . $key . '}]', $value, self::$urls[$key]);
+            if (stripos($url, 'graph.facebook.com') !== false) {
+                self::$json = json_decode(file_get_contents($url), true);
+                $url = 'http://www.facebook.com/feeds/page.php?id=' . self::$json['id'] . '&format=rss20';
+            } else {
+                self::$json = json_decode(file_get_contents($url), true);
+            }
+        }
+
+        return $url;
+    }
+
+    /**
      * Method to parse an XML Facebook RSS feed object
      *
      * @return void
@@ -37,15 +76,17 @@ class Facebook extends \Pop\Feed\Type\Rss
     {
         parent::parse();
 
-        // If graph.facebook.com hasn't been parsed yet
+        // If graph.facebook.com hasn't been stored in the feed object yet
         if (null === $this->feed->likes) {
-            if (isset($this->feed->xml()->channel->item[0])) {
-                $username = substr($this->feed->xml()->channel->item[0]->link, (strpos($this->feed->xml()->channel->item[0]->link, 'http://www.facebook.com/') + 24));
-                $username = substr($username, 0, strpos($username, '/'));
-                $graph = json_decode(file_get_contents('http://graph.facebook.com/' . $username), true);
-                foreach ($graph as $key => $value) {
-                    $this->feed->$key = $value;
+            if (count(self::$json) == 0) {
+                if (isset($this->feed->xml()->channel->item[0])) {
+                    $username = substr($this->feed->xml()->channel->item[0]->link, (strpos($this->feed->xml()->channel->item[0]->link, 'http://www.facebook.com/') + 24));
+                    $username = substr($username, 0, strpos($username, '/'));
+                    self::$json = json_decode(file_get_contents('http://graph.facebook.com/' . $username), true);
                 }
+            }
+            foreach (self::$json as $key => $value) {
+                $this->feed->$key = $value;
             }
         }
 

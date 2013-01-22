@@ -29,6 +29,32 @@ class Twitter extends \Pop\Feed\Type\Rss
 {
 
     /**
+     * Feed URLs
+     * @var array
+     */
+    protected static $urls = array(
+        'name' => 'http://api.twitter.com/1/statuses/user_timeline.rss?screen_name=[{name}]'
+    );
+
+    /**
+     * Method to get Twitter RSS URL
+     *
+     * @param  string $key
+     * @param  string $value
+     * @return string
+     */
+    public static function url($key, $value)
+    {
+        $url = null;
+
+        if (isset(self::$urls[$key])) {
+            $url = str_replace('[{' . $key . '}]', $value, self::$urls[$key]);
+        }
+
+        return $url;
+    }
+
+    /**
      * Method to parse an XML Twitter RSS feed object
      *
      * @return void

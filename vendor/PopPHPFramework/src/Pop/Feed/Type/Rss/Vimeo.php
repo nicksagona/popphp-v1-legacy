@@ -29,6 +29,33 @@ class Vimeo extends \Pop\Feed\Type\Rss
 {
 
     /**
+     * Feed URLs
+     * @var array
+     */
+    public static $urls = array(
+        'name' => 'http://vimeo.com/channels/[{name}]/videos/rss',
+        'id'   => 'http://vimeo.com/album/[{id}]/rss'
+    );
+
+    /**
+     * Method to get Twitter RSS URL
+     *
+     * @param  string $key
+     * @param  string $value
+     * @return string
+     */
+    public static function url($key, $value)
+    {
+        $url = null;
+
+        if (isset(self::$urls[$key])) {
+            $url = str_replace('[{' . $key . '}]', $value, self::$urls[$key]);
+        }
+
+        return $url;
+    }
+
+    /**
      * Method to parse an XML Vimeo RSS feed object
      *
      * @return void

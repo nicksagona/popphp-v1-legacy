@@ -77,7 +77,7 @@ class Rss
                 'description' => html_entity_decode((string)$this->feed->xml()->channel->item[$i]->description, ENT_QUOTES, 'UTF-8'),
                 'link'        => (string)$this->feed->xml()->channel->item[$i]->link,
                 'published'   => (string)$this->feed->xml()->channel->item[$i]->pubDate,
-                'time'        => \Pop\Feed\Reader::calculateTime($this->feed->xml()->channel->item[$i]->pubDate)
+                'time'        => \Pop\Feed\Reader::calculateTime((string)$this->feed->xml()->channel->item[$i]->pubDate)
             );
         }
 

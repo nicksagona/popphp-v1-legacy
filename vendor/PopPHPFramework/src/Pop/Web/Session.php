@@ -32,7 +32,7 @@ class Session
      * Instance of the session
      * @var object
      */
-    private static $instance;
+    private static $instance = null;
 
     /**
      * Session ID
@@ -65,7 +65,7 @@ class Session
      */
     public static function getInstance()
     {
-        if (empty(self::$instance)) {
+        if (null === self::$instance) {
             self::$instance = new Session();
         }
 

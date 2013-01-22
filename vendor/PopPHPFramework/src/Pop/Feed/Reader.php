@@ -37,6 +37,12 @@ class Reader
     const ATOM = true;
 
     /**
+     * Feed class
+     * @var string
+     */
+    protected static $class = null;
+
+    /**
      * Feed URL
      * @var string
      */
@@ -91,20 +97,13 @@ class Reader
      *
      * @param  string  $url
      * @param  int     $limit
-     * @param  boolean $atom
      * @param  string  $prefix
      * @throws Exception
      * @return \Pop\Feed\Reader
      */
-    public function __construct($url, $limit = 0, $atom = false, $prefix = 'Pop\\Feed\\Type\\')
+    public function __construct($url, $limit = 0, $prefix = 'Pop\\Feed\\Type\\')
     {
-        if (stripos($url, 'graph.facebook.com') !== false) {
-            $this->feed = json_decode(file_get_contents($url), true);
-            $this->feedUrl = 'http://www.facebook.com/feeds/page.php?id=' . $this->feed['id'] . '&format=' . (($atom) ? 'atom10' : 'rss20');
-        } else {
-            $this->feedUrl = $url;
-        }
-
+        $this->feedUrl = $url;
         $this->limit = $limit;
 
         // Create the SimpleXMLElement object and parse it.
@@ -139,25 +138,24 @@ class Reader
      *
      * @param  string $url
      * @param  int    $limit
-     * @param  boolean $atom
-     * @param  string  $prefix
+     * @param  string $prefix
      * @return void
      */
-    public static function parseByUrl($url, $limit = 0, $atom = false, $prefix = 'Pop\\Feed\\Type\\')
+    public static function parseByUrl($url, $limit = 0, $prefix = 'Pop\\Feed\\Type\\')
     {
-        return new self($url, $limit, $atom, $prefix);
+        return new self($url, $limit, $prefix);
     }
 
     /**
-     * Method to parse a feed by name via the account:
+     * Method to parse a feed by name via an account, i.e.:
      *     'facebook'
      *     'twitter'
      *     'youtube'
      *     'vimeo'
      *
-     * @param  string $name
-     * @param  string $account
-     * @param  int    $limit
+     * @param  string  $name
+     * @param  string  $account
+     * @param  int     $limit
      * @param  boolean $atom
      * @param  string  $prefix
      * @throws Exception
@@ -165,44 +163,31 @@ class Reader
      */
     public static function parseByName($name, $account, $limit = 0, $atom = false, $prefix = 'Pop\\Feed\\Type\\')
     {
-        $accounts = array('facebook', 'twitter', 'youtube', 'vimeo');
-        $account = strtolower($account);
-        $url = null;
+        self::$class = $prefix . (($atom) ? 'Atom\\' : 'Rss\\') . ucfirst(strtolower($account));
 
-        if (!in_array($account, $accounts)) {
-            throw new Exception('Error: Only Facebook, Twitter, YouTube and Vimeo account types support access by name.');
+        if (!class_exists(self::$class)) {
+            throw new Exception('Error: The class to parse that account feed was not found.');
         }
 
-        switch ($account) {
-            case 'facebook':
-                $url = 'http://graph.facebook.com/' . $name;
-                break;
+        $class = self::$class;
+        $url = $class::url('name', $name);
 
-            case 'twitter':
-                $url = 'http://api.twitter.com/1/statuses/user_timeline.rss?screen_name=' . $name;
-                break;
-
-            case 'youtube':
-                $url = 'http://gdata.youtube.com/feeds/base/users/' . $name . '/uploads?v=2' . (($atom) ? null : '&alt=rss');
-                break;
-
-            case 'vimeo':
-                $url = 'http://vimeo.com/channels/' . $name . '/videos/rss';
-                break;
+        if (null === $url) {
+            throw new Exception("Error: The URL could not be found in the class '" . self::$class . "'.");
         }
 
-        return new self($url, $limit, $atom, $prefix);
+        return new self($url, $limit, $prefix);
     }
 
     /**
-     * Method to parse a feed by id via the account:
+     * Method to parse a feed by id via an account, i.e.:
      *     'facebook'
      *     'youtube'
      *     'vimeo'
      *
-     * @param  string $id
-     * @param  string $account
-     * @param  int    $limit
+     * @param  string  $id
+     * @param  string  $account
+     * @param  int     $limit
      * @param  boolean $atom
      * @param  string  $prefix
      * @throws Exception
@@ -210,29 +195,20 @@ class Reader
      */
     public static function parseById($id, $account, $limit = 0, $atom = false, $prefix = 'Pop\\Feed\\Type\\')
     {
-        $accounts = array('facebook', 'youtube', 'vimeo');
-        $account = strtolower($account);
-        $url = null;
+        self::$class = $prefix . (($atom) ? 'Atom\\' : 'Rss\\') . ucfirst(strtolower($account));
 
-        if (!in_array($account, $accounts)) {
-            throw new Exception('Error: Only Facebook and YouTube account types support access by ID.');
+        if (!class_exists(self::$class)) {
+            throw new Exception('Error: The class to parse that account feed was not found.');
         }
 
-        switch ($account) {
-            case 'facebook':
-                $url = 'http://www.facebook.com/feeds/page.php?id=' . $id . '&format=' . (($atom) ? 'atom10' : 'rss20');
-                break;
+        $class = self::$class;
+        $url = $class::url('id', $id);
 
-            case 'youtube':
-                $url = 'http://gdata.youtube.com/feeds/api/playlists/' . $id . '?v=2' . (($atom) ? null : '&alt=rss');
-                break;
-
-            case 'vimeo':
-                $url = 'http://vimeo.com/album/' . $id . '/rss';
-                break;
+        if (null === $url) {
+            throw new Exception("Error: The URL could not be found in the class '" . self::$class . "'.");
         }
 
-        return new self($url, $limit, $atom, $prefix);
+        return new self($url, $limit, $prefix);
     }
 
     /**
@@ -361,6 +337,16 @@ class Reader
     public function url()
     {
         return $this->feedUrl;
+    }
+
+    /**
+     * Method to get the feed type
+     *
+     * @return string
+     */
+    public function getFeedType()
+    {
+        return $this->feedType;
     }
 
     /**
@@ -620,16 +606,19 @@ class Reader
      */
     protected function parseFeed()
     {
-        if ($this->isYouTube()) {
-            $class = $this->feedPrefix . ucfirst($this->feedType) . '\YouTube';
-        } else if ($this->isVimeo()) {
-            $class = $this->feedPrefix . 'Rss\Vimeo';
-        } else if ($this->isFacebook()) {
-            $class = $this->feedPrefix . ucfirst($this->feedType) . '\Facebook';
-        } else if ($this->isTwitter()) {
-            $class = $this->feedPrefix . 'Rss\Twitter';
+        if (null !== self::$class) {
+            $class = self::$class;
         } else {
-            $class = $this->feedPrefix . ucfirst($this->feedType);
+            $url = parse_url($this->feedUrl);
+            $ary = explode('.', $url['host']);
+            $i = count($ary) - 2;
+            $account = $ary[$i];
+            $class = $this->feedPrefix . ucfirst($this->feedType) . '\\' . ucfirst(strtolower($account));
+
+            if (!class_exists($class)) {
+                $class = $this->feedPrefix . ucfirst($this->feedType);
+            }
+            self::$class = $class;
         }
 
         $feedObject = new $class($this);

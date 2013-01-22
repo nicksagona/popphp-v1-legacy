@@ -66,12 +66,13 @@ class Atom
             $description = (isset($this->feed->xml()->entry[$i]->content) ?
                 (string)$this->feed->xml()->entry[$i]->content :
                 (string)$this->feed->xml()->entry[$i]->summary);
+
             $items[] = array(
                 'title'       => html_entity_decode((string)$this->feed->xml()->entry[$i]->title, ENT_QUOTES, 'UTF-8'),
                 'description' => html_entity_decode($description, ENT_QUOTES, 'UTF-8'),
                 'link'        => (string)$this->feed->xml()->entry[$i]->link->attributes()->href,
                 'published'   => (string)$this->feed->xml()->entry[$i]->published,
-                'time'        => \Pop\Feed\Reader::calculateTime($this->feed->xml()->entry[$i]->published)
+                'time'        => \Pop\Feed\Reader::calculateTime((string)$this->feed->xml()->entry[$i]->published)
             );
         }
 

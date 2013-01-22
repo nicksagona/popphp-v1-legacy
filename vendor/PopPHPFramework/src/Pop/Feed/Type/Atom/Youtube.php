@@ -13,10 +13,10 @@
 /**
  * @namespace
  */
-namespace Pop\Feed\Type\Rss;
+namespace Pop\Feed\Type\Atom;
 
 /**
- * YouTube RSS feed reader class
+ * YouTube Atom feed reader class
  *
  * @category   Pop
  * @package    Pop_Feed
@@ -25,11 +25,38 @@ namespace Pop\Feed\Type\Rss;
  * @license    http://www.popphp.org/license     New BSD License
  * @version    1.2.0
  */
-class YouTube extends \Pop\Feed\Type\Rss
+class Youtube extends \Pop\Feed\Type\Atom
 {
 
     /**
-     * Method to parse an XML YouTube RSS feed object
+     * Feed URLs
+     * @var array
+     */
+    public static $urls = array(
+        'name' => 'http://gdata.youtube.com/feeds/base/users/[{name}]/uploads?v=2',
+        'id'   => 'http://gdata.youtube.com/feeds/api/playlists/[{id}]?v=2'
+    );
+
+    /**
+     * Method to get Twitter RSS URL
+     *
+     * @param  string $key
+     * @param  string $value
+     * @return string
+     */
+    public static function url($key, $value)
+    {
+        $url = null;
+
+        if (isset(self::$urls[$key])) {
+            $url = str_replace('[{' . $key . '}]', $value, self::$urls[$key]);
+        }
+
+        return $url;
+    }
+
+    /**
+     * Method to parse an XML YouTube Atom feed object
      *
      * @return void
      */

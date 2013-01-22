@@ -29,6 +29,43 @@ class Facebook extends \Pop\Feed\Type\Atom
 {
 
     /**
+     * Feed URLs
+     * @var array
+     */
+    protected static $urls = array(
+        'name' => 'http://graph.facebook.com/[{name}]',
+        'id'   => 'http://www.facebook.com/feeds/page.php?id=[{id}]&format=atom10'
+    );
+
+    /**
+     * JSON result from the graph URL
+     * @var array
+     */
+    protected static $json = array();
+
+    /**
+     * Method to get Facebook Atom URL
+     *
+     * @param  string $key
+     * @param  string $value
+     * @return string
+     */
+    public static function url($key, $value)
+    {
+        $url = null;
+
+        if (isset(self::$urls[$key])) {
+            $url = str_replace('[{' . $key . '}]', $value, self::$urls[$key]);
+            if (stripos($url, 'graph.facebook.com') !== false) {
+                self::$json = json_decode(file_get_contents($url), true);
+                $url = 'http://www.facebook.com/feeds/page.php?id=' . self::$json['id'] . '&format=atom10';
+            }
+        }
+
+        return $url;
+    }
+
+    /**
      * Method parse Facebook Atom feed
      *
      * @return void
@@ -37,15 +74,17 @@ class Facebook extends \Pop\Feed\Type\Atom
     {
         parent::parse();
 
-        // If graph.facebook.com hasn't been parsed yet
+        // If graph.facebook.com hasn't been stored in the feed object yet
         if (null === $this->feed->likes) {
-            if (isset($this->feed->xml()->entry[0])) {
-                $username = substr($this->feed->xml()->entry[0]->link->attributes()->href, (strpos($this->feed->xml()->entry[0]->link->attributes()->href, 'http://www.facebook.com/') + 24));
-                $username = substr($username, 0, strpos($username, '/'));
-                $graph = json_decode(file_get_contents('http://graph.facebook.com/' . $username), true);
-                foreach ($graph as $key => $value) {
-                    $this->feed->$key = $value;
+            if (count(self::$json) == 0) {
+                if (isset($this->feed->xml()->entry[0])) {
+                    $username = substr($this->feed->xml()->entry[0]->link->attributes()->href, (strpos($this->feed->xml()->entry[0]->link->attributes()->href, 'http://www.facebook.com/') + 24));
+                    $username = substr($username, 0, strpos($username, '/'));
+                    self::$json = json_decode(file_get_contents('http://graph.facebook.com/' . $username), true);
                 }
+            }
+            foreach (self::$json as $key => $value) {
+                $this->feed->$key = $value;
             }
         }
 

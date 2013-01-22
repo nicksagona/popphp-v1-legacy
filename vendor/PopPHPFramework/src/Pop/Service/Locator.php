@@ -32,13 +32,13 @@ class Locator
      * Recursion depth level tracker
      * @var array
      */
-    protected static $depth = 0;
+    private static $depth = 0;
 
     /**
      * Recursion called service name tracker
      * @var array
      */
-    protected static $allNames = array();
+    private static $called = array();
 
     /**
      * Services
@@ -161,20 +161,19 @@ class Locator
     protected function load($name)
     {
         if (self::$depth > 99) {
-            throw new Exception('Error: Possible recursion loop detected when attempting to load these services: ' . implode(', ', self::$allNames));
+            throw new Exception('Error: Possible recursion loop detected when attempting to load these services: ' . implode(', ', self::$called));
         }
 
+        self::$depth++;
         $call = $this->services[$name]['call'];
         $params = $this->services[$name]['params'];
 
         // If the callable is a closure
         if ($call instanceof \Closure) {
-            self::$depth++;
-            if (!in_array($name, self::$allNames)) {
-                self::$allNames[] = $name;
+            if (!in_array($name, self::$called)) {
+                self::$called[] = $name;
             }
             $obj = call_user_func_array($call, array($this));
-            self::$depth--;
         // If the callable is a string
         } else if (is_string($call)) {
             // If there are params
@@ -222,6 +221,7 @@ class Locator
         }
 
         $this->loaded[$name] = $obj;
+        self::$depth--;
         return $this;
     }
 
