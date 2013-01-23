@@ -61,6 +61,94 @@ class Reader
     }
 
     /**
+     * Static method to instantiate the data object and return itself
+     * to facilitate chaining methods together.
+     *
+     * @param \Pop\Feed\Format\AbstractFormat $adapter
+     * @return \Pop\Feed\Reader
+     */
+    public static function factory(Format\AbstractFormat $adapter)
+    {
+        return new self($adapter);
+    }
+
+    /**
+     * Static method to create a Feed Reader object from a URL
+     *
+     * @param  string $url
+     * @param  int    $limit
+     * @param  string $prefix
+     * @return \Pop\Feed\Reader
+     */
+    public static function parseByUrl($url, $limit = 0, $prefix = 'Pop\Feed\Format\\')
+    {
+        $options = self::getSource($url);
+        $class = (class_exists($prefix . $options['format'] . '\\' . $options['service'])) ?
+            $prefix . $options['format'] . '\\' . $options['service'] :
+            $prefix . $options['format'];
+
+        return new self(new $class($options, $limit));
+    }
+
+    /**
+     * Static method to create a Feed Reader object from an account name
+     *
+     * @param  string $service
+     * @param  string $name
+     * @param  int    $limit
+     * @param  string $prefix
+     * @throws Exception
+     * @return \Pop\Feed\Reader
+     */
+    public static function parseByName($service, $name, $limit = 0, $prefix = 'Pop\Feed\Format\\')
+    {
+        $formats = array('Atom', 'Json', 'Php', 'Rss');
+        $service = ucfirst(strtolower($service));
+        $class = null;
+
+        foreach ($formats as $format) {
+            if ((class_exists($prefix . $format . '\\' . $service))) {
+                $class = $prefix . $format . '\\' . $service;
+            }
+        }
+
+        if (null === $class) {
+            throw new Exception('Error: The class for that service feed could not be found.');
+        }
+
+        return new self(new $class(array('name' => $name), $limit));
+    }
+
+    /**
+     * Static method to create a Feed Reader object from an account ID
+     *
+     * @param  string $service
+     * @param  string $id
+     * @param  int    $limit
+     * @param  string $prefix
+     * @throws Exception
+     * @return \Pop\Feed\Reader
+     */
+    public static function parseById($service, $id, $limit = 0, $prefix = 'Pop\Feed\Format\\')
+    {
+        $formats = array('Atom', 'Json', 'Php', 'Rss');
+        $service = ucfirst(strtolower($service));
+        $class = null;
+
+        foreach ($formats as $format) {
+            if ((class_exists($prefix . $format . '\\' . $service))) {
+                $class = $prefix . $format . '\\' . $service;
+            }
+        }
+
+        if (null === $class) {
+            throw new Exception('Error: The class for that service feed could not be found.');
+        }
+
+        return new self(new $class(array('id' => $id), $limit));
+    }
+
+    /**
      * Method to set item template
      *
      * @param  string $tmpl
@@ -170,4 +258,61 @@ class Reader
         return $this->render(true);
     }
 
+
+    /**
+     * Static method to create a Feed Reader object from a URL
+     *
+     * @param  string $url
+     * @return array
+     */
+    protected static function getSource($url)
+    {
+        $urlInfo = parse_url($url);
+        $ary = explode('.', $urlInfo['host']);
+        $i = count($ary) - 2;
+        $domain = $ary[$i];
+        $service = ucfirst(strtolower($domain));
+
+        $options = array(
+            'http' => array(
+                'method'     => 'GET',
+                'user_agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0'
+            )
+        );
+
+        if (isset($_SERVER['HTTP_USER_AGENT'])) {
+            $options['http']['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+        }
+
+        $context = stream_context_create($options);
+        $source = file_get_contents($url, false, $context);
+
+        // If XML
+        if ((strpos($source, '<?xml') !== false) ||
+            (strpos($source, '<rss') !== false) ||
+            (strpos($source, '<feed') !== false)) {
+            // If Atom
+            if (strpos($source, '<entry') !== false) {
+                $format = 'Atom';
+            // If RSS
+            } else {
+                $format = 'Rss';
+            }
+        // If JSON
+        } else if ((substr($source, 0, 1) == '{') || (substr($source, 0, 1) == '[')) {
+            $format = 'Json';
+        // If PHP
+        } else {
+            $format = 'Php';
+        }
+
+        return array(
+            'url'     => $url,
+            'context' => $context,
+            'source'  => $source,
+            'domain'  => $domain,
+            'service' => $service,
+            'format'  => $format
+        );
+    }
 }

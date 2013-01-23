@@ -40,8 +40,10 @@ class Php extends AbstractFormat
     {
         parent::__construct($options, $limit);
 
-        if (!($this->obj = unserialize($this->source))) {
-            throw new Exception('That feed URL cannot be read at this time. Please try again later.');
+        if (null === $this->obj) {
+            if (!($this->obj = unserialize($this->source))) {
+                throw new Exception('That feed URL cannot be read at this time. Please try again later.');
+            }
         }
     }
 

@@ -40,8 +40,10 @@ class Json extends AbstractFormat
     {
         parent::__construct($options, $limit);
 
-        if (!($this->obj = json_decode($this->source, true))) {
-            throw new Exception('That feed URL cannot be read at this time. Please try again later.');
+        if (null === $this->obj) {
+            if (!($this->obj = json_decode($this->source, true))) {
+                throw new Exception('That feed URL cannot be read at this time. Please try again later.');
+            }
         }
 
         $objs = (isset($this->obj['feed'])) ? $this->obj['feed'] : $this->obj;

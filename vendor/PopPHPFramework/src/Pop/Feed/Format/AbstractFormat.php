@@ -97,7 +97,7 @@ abstract class AbstractFormat
 
         if (is_array($options) && isset($options['url'])) {
             if ((substr($options['url'], 0, 7) == 'http://') || (substr($options['url'], 0, 8) == 'https://')) {
-                $this->url = $options;
+                $this->url = $options['url'];
             }
         } else if (is_string($options))  {
             if ((substr($options, 0, 7) == 'http://') || (substr($options, 0, 8) == 'https://')) {
@@ -113,8 +113,17 @@ abstract class AbstractFormat
             $this->contextOptions['http']['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
         }
 
-        $this->context = stream_context_create($this->contextOptions);
-        $this->source = file_get_contents($this->url, false, $this->context);
+        $this->context = (isset($options['context'])) ?
+            $options['context'] :
+            stream_context_create($this->contextOptions);
+
+        $this->source = (isset($options['source'])) ?
+            $options['source'] :
+            file_get_contents($this->url, false, $this->context);
+
+        if (isset($options['object'])) {
+            $this->obj = $options['object'];
+        }
     }
 
     /**

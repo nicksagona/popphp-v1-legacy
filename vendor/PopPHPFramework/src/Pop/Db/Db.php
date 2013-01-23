@@ -51,7 +51,7 @@ class Db
      * @throws Exception
      * @return \Pop\Db\Db
      */
-    public function __construct($type, array $options, $prefix = 'Pop\\Db\\Adapter\\')
+    public function __construct($type, array $options, $prefix = 'Pop\Db\Adapter\\')
     {
         $class = $prefix . ucfirst(strtolower($type));
 
@@ -71,7 +71,7 @@ class Db
      * @param  string $prefix
      * @return \Pop\Db\Db
      */
-    public static function factory($type, array $options, $prefix = 'Pop\\Db\\Adapter\\')
+    public static function factory($type, array $options, $prefix = 'Pop\Db\Adapter\\')
     {
         return new self($type, $options, $prefix);
     }
@@ -110,7 +110,7 @@ class Db
         if (stripos($class, 'Pdo') !== false) {
             $type = 'Pdo\\' . ucfirst($this->adapter->getDbtype());
         } else {
-            $type = ucfirst(str_replace('Pop\\Db\\Adapter\\', '', $class));
+            $type = ucfirst(str_replace('Pop\Db\Adapter\\', '', $class));
         }
 
         return $type;
