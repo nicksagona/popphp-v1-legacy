@@ -13,10 +13,10 @@
 /**
  * @namespace
  */
-namespace Pop\Feed\Type\Atom;
+namespace Pop\Feed\Format\Rss;
 
 /**
- * YouTube Atom feed reader class
+ * Youtube RSS feed reader class
  *
  * @category   Pop
  * @package    Pop_Feed
@@ -25,38 +25,40 @@ namespace Pop\Feed\Type\Atom;
  * @license    http://www.popphp.org/license     New BSD License
  * @version    1.2.0
  */
-class Youtube extends \Pop\Feed\Type\Atom
+class Youtube extends \Pop\Feed\Format\Rss
 {
 
     /**
-     * Feed URLs
+     * Feed URLs templates
      * @var array
      */
-    public static $urls = array(
-        'name' => 'http://gdata.youtube.com/feeds/base/users/[{name}]/uploads?v=2',
-        'id'   => 'http://gdata.youtube.com/feeds/api/playlists/[{id}]?v=2'
+    protected $urls = array(
+        'name' => 'http://gdata.youtube.com/feeds/base/users/[{name}]/uploads?v=2&alt=rss',
+        'id'   => 'http://gdata.youtube.com/feeds/api/playlists/[{id}]?v=2&alt=rss'
     );
 
     /**
-     * Method to get Twitter RSS URL
+     * Method to create a Youtube RSS feed object
      *
-     * @param  string $key
-     * @param  string $value
-     * @return string
+     * @param  mixed $options
+     * @param  int   $limit
+     * @return \Pop\Feed\Format\Rss\Youtube
      */
-    public static function url($key, $value)
+    public function __construct($options, $limit = 0)
     {
-        $url = null;
-
-        if (isset(self::$urls[$key])) {
-            $url = str_replace('[{' . $key . '}]', $value, self::$urls[$key]);
+        if (is_array($options)) {
+            if (isset($options['name'])) {
+                $this->url = str_replace('[{name}]', $options['name'], $this->urls['name']);
+            } else if (isset($options['id'])) {
+                $this->url = str_replace('[{id}]', $options['id'], $this->urls['id']);
+            }
         }
 
-        return $url;
+        parent::__construct($options, $limit);
     }
 
     /**
-     * Method to parse an XML YouTube Atom feed object
+     * Method to parse a Youtube RSS feed object
      *
      * @return void
      */
@@ -64,7 +66,7 @@ class Youtube extends \Pop\Feed\Type\Atom
     {
         parent::parse();
 
-        $items = $this->feed->items;
+        $items = $this->feed['items'];
         foreach ($items as $key => $item) {
             $id = substr($item['link'], (strpos($item['link'], 'v=') + 2));
             if (strpos($id, '&') !== false) {
@@ -88,7 +90,7 @@ class Youtube extends \Pop\Feed\Type\Atom
             }
         }
 
-        $this->feed->items = $items;
+        $this->feed['items'] = $items;
     }
 
 }

@@ -13,10 +13,10 @@
 /**
  * @namespace
  */
-namespace Pop\Feed\Type\Rss;
+namespace Pop\Feed\Format\Json;
 
 /**
- * YouTube RSS feed reader class
+ * Youtube JSON feed reader class
  *
  * @category   Pop
  * @package    Pop_Feed
@@ -25,38 +25,40 @@ namespace Pop\Feed\Type\Rss;
  * @license    http://www.popphp.org/license     New BSD License
  * @version    1.2.0
  */
-class Youtube extends \Pop\Feed\Type\Rss
+class Youtube extends \Pop\Feed\Format\Json
 {
 
     /**
-     * Feed URLs
+     * Feed URLs templates
      * @var array
      */
-    public static $urls = array(
-        'name' => 'http://gdata.youtube.com/feeds/base/users/[{name}]/uploads?v=2&alt=rss',
-        'id'   => 'http://gdata.youtube.com/feeds/api/playlists/[{id}]?v=2&alt=rss'
+    protected $urls = array(
+        'name' => 'http://gdata.youtube.com/feeds/base/users/[{name}]/uploads?v=2&alt=json',
+        'id'   => 'http://gdata.youtube.com/feeds/api/playlists/[{id}]?v=2&alt=json'
     );
 
     /**
-     * Method to get Twitter RSS URL
+     * Method to create a Youtube JSON feed object
      *
-     * @param  string $key
-     * @param  string $value
-     * @return string
+     * @param  mixed $options
+     * @param  int   $limit
+     * @return \Pop\Feed\Format\Json\Youtube
      */
-    public static function url($key, $value)
+    public function __construct($options, $limit = 0)
     {
-        $url = null;
-
-        if (isset(self::$urls[$key])) {
-            $url = str_replace('[{' . $key . '}]', $value, self::$urls[$key]);
+        if (is_array($options)) {
+            if (isset($options['name'])) {
+                $this->url = str_replace('[{name}]', $options['name'], $this->urls['name']);
+            } else if (isset($options['id'])) {
+                $this->url = str_replace('[{id}]', $options['id'], $this->urls['id']);
+            }
         }
 
-        return $url;
+        parent::__construct($options, $limit);
     }
 
     /**
-     * Method to parse an XML YouTube RSS feed object
+     * Method to parse Youtube JSON feed object
      *
      * @return void
      */
@@ -64,13 +66,27 @@ class Youtube extends \Pop\Feed\Type\Rss
     {
         parent::parse();
 
-        $items = $this->feed->items;
+        $this->feed['title'] = $this->feed['title']['$t'];
+        $this->feed['url'] = $this->feed['url'][0]['href'];
+        $this->feed['description'] = $this->feed['title'];
+        $this->feed['date'] = $this->feed['date']['$t'];
+        $this->feed['generator'] = $this->feed['generator']['$t'];
+        $this->feed['author'] = $this->feed['author'][0]['name']['$t'];
+
+        $items = $this->feed['items'];
         foreach ($items as $key => $item) {
-            $id = substr($item['link'], (strpos($item['link'], 'v=') + 2));
+            $items[$key]['title'] = $this->obj['feed']['entry'][$key]['title']['$t'];
+            $items[$key]['description'] = html_entity_decode($this->obj['feed']['entry'][$key]['content']['$t'], ENT_QUOTES, 'UTF-8');
+            $items[$key]['link'] = $items[$key]['link'][0]['href'];
+            $items[$key]['published'] = $this->obj['feed']['entry'][$key]['published']['$t'];
+            $items[$key]['time'] = self::calculateTime($this->obj['feed']['entry'][$key]['published']['$t']);
+
+            $id = substr($items[$key]['link'], (strpos($items[$key]['link'], 'v=') + 2));
             if (strpos($id, '&') !== false) {
                 $id = substr($id, 0, strpos($id, '&'));
             }
             $items[$key]['id'] = $id;
+
             $youtube = \Pop\Http\Response::parse('http://gdata.youtube.com/feeds/api/videos/' . $id . '?v=2&alt=json');
             if (!$youtube->isError()) {
                 $info = json_decode($youtube->getBody(), true);
@@ -88,7 +104,7 @@ class Youtube extends \Pop\Feed\Type\Rss
             }
         }
 
-        $this->feed->items = $items;
+        $this->feed['items'] = $items;
     }
 
 }

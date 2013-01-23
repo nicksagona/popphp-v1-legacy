@@ -13,7 +13,7 @@
 /**
  * @namespace
  */
-namespace Pop\Feed\Type\Rss;
+namespace Pop\Feed\Format\Rss;
 
 /**
  * Vimeo RSS feed reader class
@@ -25,38 +25,40 @@ namespace Pop\Feed\Type\Rss;
  * @license    http://www.popphp.org/license     New BSD License
  * @version    1.2.0
  */
-class Vimeo extends \Pop\Feed\Type\Rss
+class Vimeo extends \Pop\Feed\Format\Rss
 {
 
     /**
-     * Feed URLs
+     * Feed URLs templates
      * @var array
      */
-    public static $urls = array(
+    protected $urls = array(
         'name' => 'http://vimeo.com/channels/[{name}]/videos/rss',
         'id'   => 'http://vimeo.com/album/[{id}]/rss'
     );
 
     /**
-     * Method to get Twitter RSS URL
+     * Method to create a Vimeo RSS feed object
      *
-     * @param  string $key
-     * @param  string $value
-     * @return string
+     * @param  mixed $options
+     * @param  int   $limit
+     * @return \Pop\Feed\Format\Rss\Vimeo
      */
-    public static function url($key, $value)
+    public function __construct($options, $limit = 0)
     {
-        $url = null;
-
-        if (isset(self::$urls[$key])) {
-            $url = str_replace('[{' . $key . '}]', $value, self::$urls[$key]);
+        if (is_array($options)) {
+            if (isset($options['name'])) {
+                $this->url = str_replace('[{name}]', $options['name'], $this->urls['name']);
+            } else if (isset($options['id'])) {
+                $this->url = str_replace('[{id}]', $options['id'], $this->urls['id']);
+            }
         }
 
-        return $url;
+        parent::__construct($options, $limit);
     }
 
     /**
-     * Method to parse an XML Vimeo RSS feed object
+     * Method to parse a Vimeo RSS feed object
      *
      * @return void
      */
@@ -64,11 +66,11 @@ class Vimeo extends \Pop\Feed\Type\Rss
     {
         parent::parse();
 
-        if (null === $this->feed->author) {
-            $this->feed->author = str_replace('Vimeo / ', null, $this->feed->title);
+        if (null === $this->feed['author']) {
+            $this->feed['author'] = str_replace('Vimeo / ', null, $this->feed['title']);
         }
 
-        $items = $this->feed->items;
+        $items = $this->feed['items'];
         foreach ($items as $key => $item) {
             $id = substr($item['link'], (strrpos($item['link'], '/') + 1));
             $items[$key]['id'] = $id;
@@ -91,7 +93,8 @@ class Vimeo extends \Pop\Feed\Type\Rss
             }
         }
 
-        $this->feed->items = $items;
+        $this->feed['items'] = $items;
+
     }
 
 }
