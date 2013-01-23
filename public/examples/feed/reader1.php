@@ -6,11 +6,11 @@ use Pop\Feed;
 
 try {
     //$googleRss = 'http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss';
-    //$feed = Feed\Reader::parseByUrl($googleRss, 3);
+    //$feed = Feed\Reader::getByUrl($googleRss, 3);
     //$feed = new Feed\Reader(new Feed\Format\Rss($googleRss, 3));
 
     //$googleAtom = 'http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=atom';
-    //$feed = Feed\Reader::parseByUrl($googleAtom, 3);
+    //$feed = Feed\Reader::getByUrl($googleAtom, 3);
     //$feed = new Feed\Reader(new Feed\Format\Atom($googleAtom, 3));
 
     //$opts = array('name' => 'highvoltagenola');
@@ -33,9 +33,16 @@ try {
     //$opts = array('id' => '35318AF7BEB5DD11');
     //$feed = new Feed\Reader(new Feed\Format\Atom\Youtube($opts, 3));
 
-    //$feed = Feed\Reader::parseByName('facebook', 'highvoltagenola', 3);
-    $feed = Feed\Reader::parseById('facebook', '49700389248', 3);
+    //$opts = array('id' => '96247146@N00');
+    //$feed = new Feed\Reader(new Feed\Format\Php\Flickr($opts, 3));
+
+    //$feed = Feed\Reader::getByAccountName('facebook', 'highvoltagenola', 3);
+    //$feed = Feed\Reader::getByAccountId('twitter', '50079850', 3);
+    //$feed = Feed\Reader::getByAccountName('youtube', 'highvoltagenola', 3);
+    //$feed = Feed\Reader::getByAccountId('vimeo', '2136270', 3);
+    $feed = Feed\Reader::getByAccountId('flickr', '96247146@N00', 3);
     print_r($feed);
+
 
     /*
     $tmpl = <<<NEWS

@@ -84,6 +84,14 @@ abstract class AbstractFormat
     protected $source = null;
 
     /**
+     * Item aliases
+     * @var array
+     */
+    protected $aliases = array(
+        'entry', 'entries', 'images', 'posts', 'statuses', 'tweets', 'updates', 'videos'
+    );
+
+    /**
      * Method to parse a feed object
      *
      * @param  mixed $options
@@ -230,96 +238,6 @@ abstract class AbstractFormat
     }
 
     /**
-     * Method to determine if the feed type is RSS
-     *
-     * @return boolean
-     */
-    public function isRss()
-    {
-        return;
-    }
-
-    /**
-     * Method to determine if the feed type is Atom
-     *
-     * @return boolean
-     */
-    public function isAtom()
-    {
-        return;
-    }
-
-    /**
-     * Method to determine if the feed type is JSON
-     *
-     * @return boolean
-     */
-    public function isJson()
-    {
-        return;
-    }
-
-    /**
-     * Method to determine if the feed type is PHP
-     *
-     * @return boolean
-     */
-    public function isPhp()
-    {
-        return;
-    }
-
-    /**
-     * Method to determine if the feed type is YouTube
-     *
-     * @return boolean
-     */
-    public function isYoutube()
-    {
-        return;
-    }
-
-    /**
-     * Method to determine if the feed type is Twitter
-     *
-     * @return boolean
-     */
-    public function isVimeo()
-    {
-        return;
-    }
-
-    /**
-     * Method to determine if the feed type is Facebook
-     *
-     * @return boolean
-     */
-    public function isFacebook()
-    {
-        return;
-    }
-
-    /**
-     * Method to determine if the feed type is Twitter
-     *
-     * @return boolean
-     */
-    public function isTwitter()
-    {
-        return;
-    }
-
-    /**
-     * Method to determine if the feed type is a playlist
-     *
-     * @return boolean
-     */
-    public function isPlaylist()
-    {
-        return;
-    }
-
-    /**
      * Set method to set the property to the value of feed[$name].
      *
      * @param  string $name
@@ -328,10 +246,7 @@ abstract class AbstractFormat
      */
     public function __set($name, $value)
     {
-        if ($name == 'entry') {
-            $name = 'item';
-        }
-        if ($name == 'entries') {
+        if (in_array($name, $this->aliases)) {
             $name = 'items';
         }
         $this->feed[$name] = $value;
@@ -345,10 +260,7 @@ abstract class AbstractFormat
      */
     public function __get($name)
     {
-        if ($name == 'entry') {
-            $name = 'item';
-        }
-        if ($name == 'entries') {
+        if (in_array($name, $this->aliases)) {
             $name = 'items';
         }
         return (isset($this->feed[$name])) ? $this->feed[$name] : null;
@@ -362,10 +274,7 @@ abstract class AbstractFormat
      */
     public function __isset($name)
     {
-        if ($name == 'entry') {
-            $name = 'item';
-        }
-        if ($name == 'entries') {
+        if (in_array($name, $this->aliases)) {
             $name = 'items';
         }
         return isset($this->feed[$name]);
@@ -379,10 +288,7 @@ abstract class AbstractFormat
      */
     public function __unset($name)
     {
-        if ($name == 'entry') {
-            $name = 'item';
-        }
-        if ($name == 'entries') {
+        if (in_array($name, $this->aliases)) {
             $name = 'items';
         }
         $this->feed[$name] = null;

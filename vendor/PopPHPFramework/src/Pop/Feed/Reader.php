@@ -80,7 +80,7 @@ class Reader
      * @param  string $prefix
      * @return \Pop\Feed\Reader
      */
-    public static function parseByUrl($url, $limit = 0, $prefix = 'Pop\Feed\Format\\')
+    public static function getByUrl($url, $limit = 0, $prefix = 'Pop\Feed\Format\\')
     {
         $options = self::getSource($url);
         $class = (class_exists($prefix . $options['format'] . '\\' . $options['service'])) ?
@@ -100,7 +100,7 @@ class Reader
      * @throws Exception
      * @return \Pop\Feed\Reader
      */
-    public static function parseByName($service, $name, $limit = 0, $prefix = 'Pop\Feed\Format\\')
+    public static function getByAccountName($service, $name, $limit = 0, $prefix = 'Pop\Feed\Format\\')
     {
         $formats = array('Atom', 'Json', 'Php', 'Rss');
         $service = ucfirst(strtolower($service));
@@ -129,7 +129,7 @@ class Reader
      * @throws Exception
      * @return \Pop\Feed\Reader
      */
-    public static function parseById($service, $id, $limit = 0, $prefix = 'Pop\Feed\Format\\')
+    public static function getByAccountId($service, $id, $limit = 0, $prefix = 'Pop\Feed\Format\\')
     {
         $formats = array('Atom', 'Json', 'Php', 'Rss');
         $service = ucfirst(strtolower($service));
@@ -187,6 +187,16 @@ class Reader
     }
 
     /**
+     * Method to get the adapter object feed
+     *
+     * @return array
+     */
+    public function feed()
+    {
+        return $this->adapter->getFeed();
+    }
+
+    /**
      * Method to get feed template
      *
      * @return string
@@ -204,6 +214,97 @@ class Reader
     public function getDateFormat()
     {
         return $this->dateFormat;
+    }
+
+    /**
+     * Method to determine if the feed type is RSS
+     *
+     * @return boolean
+     */
+    public function isRss()
+    {
+        return (strpos(get_class($this->adapter), 'Rss') !== false);
+    }
+
+    /**
+     * Method to determine if the feed type is Atom
+     *
+     * @return boolean
+     */
+    public function isAtom()
+    {
+        return (strpos(get_class($this->adapter), 'Atom') !== false);
+    }
+
+    /**
+     * Method to determine if the feed type is JSON
+     *
+     * @return boolean
+     */
+    public function isJson()
+    {
+        return (strpos(get_class($this->adapter), 'Json') !== false);
+    }
+
+    /**
+     * Method to determine if the feed type is PHP
+     *
+     * @return boolean
+     */
+    public function isPhp()
+    {
+        return (strpos(get_class($this->adapter), 'Php') !== false);
+    }
+
+    /**
+     * Method to determine if the feed type is YouTube
+     *
+     * @return boolean
+     */
+    public function isYoutube()
+    {
+        return (strpos(get_class($this->adapter), 'Youtube') !== false);
+    }
+
+    /**
+     * Method to determine if the feed type is Twitter
+     *
+     * @return boolean
+     */
+    public function isVimeo()
+    {
+        return (strpos(get_class($this->adapter), 'Vimeo') !== false);
+    }
+
+    /**
+     * Method to determine if the feed type is Facebook
+     *
+     * @return boolean
+     */
+    public function isFacebook()
+    {
+        return (strpos(get_class($this->adapter), 'Facebook') !== false);
+    }
+
+    /**
+     * Method to determine if the feed type is Twitter
+     *
+     * @return boolean
+     */
+    public function isTwitter()
+    {
+        return (strpos(get_class($this->adapter), 'Twitter') !== false);
+    }
+
+    /**
+     * Method to determine if the feed type is a playlist
+     *
+     * @return boolean
+     */
+    public function isPlaylist()
+    {
+        $search = ($this->isVimeo()) ? 'album' : 'playlist';
+        return (strpos($this->adapter->url(), $search) !== false);
     }
 
     /**

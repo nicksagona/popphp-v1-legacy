@@ -61,6 +61,29 @@ class Php extends AbstractFormat
         } else {
             $this->feed = $this->obj;
         }
+
+        $key = null;
+        $items = array();
+
+        if (isset($this->feed['item']) && is_array($this->feed['item'])) {
+            $key = 'item';
+        } else if (isset($this->feed['items']) && is_array($this->feed['items'])) {
+            $key = 'items';
+        } else if (isset($this->feed['entry']) && is_array($this->feed['entry'])) {
+            $key = 'entry';
+        } else if (isset($this->feed['entries']) && is_array($this->feed['entries'])) {
+            $key = 'entries';
+        }
+
+        if (null !== $key) {
+            $count = count($this->feed[$key]);
+            $limit = (($this->limit > 0) && ($this->limit <= $count)) ? $this->limit : $count;
+            for ($i = 0; $i < $limit; $i++) {
+                $items[] = $this->feed[$key][$i];
+            }
+            $this->feed[$key] = $items;
+        }
+
     }
 
 }

@@ -96,7 +96,7 @@ class Twitter extends \Pop\Feed\Format\Rss
             $this->feed['user_id'] = $json[0]['user']['id'];
             $this->feed['user_description'] = $json[0]['user']['description'];
             $this->feed['user_website'] = $json[0]['user']['url'];
-            $this->feed['tweets'] = $json[0]['user']['statuses_count'];
+            $this->feed['tweet_count'] = $json[0]['user']['statuses_count'];
             $this->feed['followers'] = $json[0]['user']['followers_count'];
             $this->feed['following'] = $json[0]['user']['friends_count'];
             $this->feed['image_thumb'] = $json[0]['user']['profile_image_url'];
