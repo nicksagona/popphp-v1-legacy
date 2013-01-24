@@ -28,22 +28,36 @@
 
 <body>
     <h1>Pop PHP Framework</h1>
-    <h2>Documentation : Ftp</h2>
+    <h2>Documentation : Service</h2>
     <div id="doc-content">
         <p>
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            The Ftp component simply provides an object-oriented API wrapper to PHP's FTP extension.
+            The Service component acts as a service locator for the running application or project. It supports lazy-loading of service instances, so the services won't be created until the application needs them. There are many options to how you can call the services, from defining classes to using closures.
         </p>
 <pre>
-use Pop&#92;Ftp&#92;Ftp;
+use Pop&#92;Service&#92;Locator;
 
-$ftp = new Ftp('ftp.yourserver.com', 'username', 'password');
-$ftp-&gt;pasv(true)
-    -&gt;chdir('./httpdocs/')
-    -&gt;put('test.txt', '../assets/files/test.txt', FTP_ASCII);
-echo 'File Sent!';
+// Load the services config via the constructor
+$locator = new Locator(array(
+    'config' =&gt; array(
+        'call'   =&gt; 'Pop&#92;Config',
+        'params' =&gt; array(array('test' =&gt; 123), true)
+    ),
+    'rgb' =&gt; array(
+        'call'   =&gt; 'Pop&#92;Color&#92;Rgb',
+        'params' =&gt; function() { return array(255, 0, 0); }
+    ),
+    'color' => function($locator) {
+        return new \Pop\Color\Color($locator->get('rgb'));
+    }
+));
+
+// Get a service
+$config = $locator->get('config');  // Returns a config object
+$rgb    = $locator->get('rgb');     // Returns an RGB colorspace object
+$color  = $locator->get('color');   // Returns a color object that is loaded with the RGB object
 </pre>
     </div>
     <div id="doc-footer">

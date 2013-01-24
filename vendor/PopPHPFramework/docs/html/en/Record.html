@@ -37,7 +37,7 @@
             The Record component, as outlined in the documentation overview, is a "hybrid" of sorts between the Active Record and Table Data Gateway patterns. Via a standardized API, it can provide access to a single row or record within a database table, or multiple rows or records at once. The most common approach is to write a child class that extends the Record class that represents a table in the database. The name of the child class should be the name of the table. By simply creating
         </p>
 <pre>
-use Pop\Record\Record;
+use Pop&#92;Record&#92;Record;
 
 class Users extends Record { }
 </pre>
@@ -61,8 +61,6 @@ protected $usePrepared = true;
             From there, basic usage is as follows:
         </p>
 <pre>
-use Users;
-
 // Get a single user
 $user = Users::findById(1001);
 echo $user-&gt;name;

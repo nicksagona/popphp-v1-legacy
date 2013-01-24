@@ -40,8 +40,8 @@
             Here's an example of writing to a log file:
         </p>
 <pre>
-use Pop\Log\Logger,
-    Pop\Log\Writer\File;
+use Pop&#92;Log&#92;Logger,
+    Pop&#92;Log&#92;Writer&#92;File;
 
 $logger = new Logger(new File('../tmp/app.log'));
 $logger-&gt;addWriter(new File('../tmp/app.xml'));
@@ -52,11 +52,11 @@ $logger-&gt;emerg('Here is an emergency message.')
             Here's an example of writing to a database:
         </p>
 <pre>
-use Pop\Db\Db as PopDb,
-    Pop\Log\Logger,
-    Pop\Log\Writer\Db,
-    Pop\Log\Writer\File,
-    Pop\Record\Record;
+use Pop&#92;Db&#92;Db as PopDb,
+    Pop&#92;Log&#92;Logger,
+    Pop&#92;Log&#92;Writer&#92;Db,
+    Pop&#92;Log&#92;Writer&#92;File,
+    Pop&#92;Record&#92;Record;
 
 class Logs extends Record {}
 
@@ -71,9 +71,9 @@ $logger-&gt;emerg('Here is an emergency message.')
             Here's an example of sending an email:
         </p>
 <pre>
-use Pop\Log\Logger,
-    Pop\Log\Writer\Mail,
-    Pop\Log\Writer\File;
+use Pop&#92;Log&#92;Logger,
+    Pop&#92;Log&#92;Writer&#92;Mail,
+    Pop&#92;Log&#92;Writer&#92;File;
 
 $emails = array(
     'Bob Smith'   =&gt; 'bob@smith.com',

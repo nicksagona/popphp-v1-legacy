@@ -37,14 +37,14 @@
             The Image component provides a standardized API wrapper for the creation and manipulation of images that leverages PHP's GD and Imagick extensions, as well as the SVG image format. Within this component is a feature-rich API for performing many different image-based functions. And, since the API is standardized, if a project moves to a different environment, it should degrade easily.
         </p>
 <pre>
-use Pop\Color\Rgb,
-    Pop\Image\Gd;
+use Pop&#92;Color&#92;Rgb,
+    Pop&#92;Image&#92;Gd;
 
 $image = new Gd('new-image.jpg', 640, 480, new Rgb(255, 0, 0));
 $image-&gt;setFillColor(new Rgb(0, 0, 255))
       -&gt;setStrokeColor(new Rgb(255, 255, 255))
       -&gt;setStrokeWidth(3)
-      -&gt;addEllipse(320, 240, 150, 75)
+      -&gt;drawEllipse(320, 240, 150, 75)
       -&gt;output();
 
 $image-&gt;destroy();

@@ -37,7 +37,7 @@
             The File component provides a useful API to manage and manipulate files on disk. It also provides the functionality to easily manage file uploads.
         </p>
 <pre>
-use Pop\File\File;
+use Pop&#92;File&#92;File;
 
 // Create a new file and write to it.
 $file = new File('new-file.txt');
@@ -49,7 +49,7 @@ $upload = File::upload($_FILES['upload_file']['tmp_name'], '../uploads/' . $_FIL
 echo 'File uploaded.';
 </pre>
 <pre>
-use Pop\File\Dir;
+use Pop&#92;File&#92;Dir;
 
 // Create the Dir object
 $dir = new Dir('../mydir');

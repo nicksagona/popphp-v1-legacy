@@ -37,7 +37,7 @@
             The Mail component provides the functionality necessary to manage outgoing mail via PHP. This includes support for text-based and HTML-based email,  multiple mail recipients, templates and file attachments.
         </p>
 <pre>
-use Pop\Mail\Mail;
+use Pop&#92;Mail&#92;Mail;
 
 $rcpts = array(
     array(
@@ -50,13 +50,6 @@ $rcpts = array(
     )
 );
 
-$mail = new Mail($rcpts, 'Hello World!');
-$mail-&gt;setHeaders(array(
-    'From'        =&gt; array('name' =&gt; 'Bob', 'email' =&gt; 'bob123@gmail.com'),
-    'Reply-To'    =&gt; array('name' =&gt; 'Bob', 'email' =&gt; 'bob123@gmail.com'),
-    'X-Mailer'    =&gt; 'PHP/' . phpversion(),
-    'X-Priority'  =&gt; '3',
-));
 
 $html = &lt;&lt;&lt;HTMLMSG
 &lt;html&gt;
@@ -80,9 +73,16 @@ $html = &lt;&lt;&lt;HTMLMSG
 
 HTMLMSG;
 
-$mail-&gt;setText("Hello [{name}],\n\nI'm just trying out this new Pop Mail component.\n\nThanks,\nBob\n\n");
+
+$mail = new Mail('Hello World!', $rcpts);
+$mail-&gt;from('bob123@gmail.com', 'Bob')
+     -&gt;setHeaders(array(
+         'X-Mailer'    =&gt; 'PHP/' . phpversion(),
+         'X-Priority'  =&gt; '3',
+     ));
+
+$mail-&gt;setText("Hello [{name}],&#92;n&#92;nI'm just trying out this new Pop Mail component.&#92;n&#92;nThanks,&#92;nBob&#92;n&#92;n");
 $mail-&gt;setHtml($html);
-$mail-&gt;attachFile('../assets/files/test.pdf');
 $mail-&gt;send();
 </pre>
     </div>

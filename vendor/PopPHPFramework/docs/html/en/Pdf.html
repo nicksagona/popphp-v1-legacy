@@ -46,8 +46,8 @@
             <li>internal linking</li>
         </ul>
 <pre>
-use Pop\Color\Rgb,
-    Pop\Pdf\Pdf;
+use Pop&#92;Color&#92;Rgb,
+    Pop&#92;Pdf&#92;Pdf;
 
 $pdf = new Pdf('../tmp/doc.pdf');
 $pdf-&gt;addPage('Letter');
@@ -77,24 +77,24 @@ $pdf-&gt;addPage('Letter');
 $pdf-&gt;setFillColor(new Rgb(12, 101, 215))
     -&gt;setStrokeColor(new Rgb(215, 101, 12))
     -&gt;setStrokeWidth(4, 10, 5);
-$pdf-&gt;addCircle(150, 700, 60, false);
+$pdf-&gt;drawCircle(150, 700, 60, false);
 
 $pdf-&gt;setPage(1)-&gt;setFillColor(new Rgb(0, 0, 255));
-$pdf-&gt;addRectangle(100, 550, 175, 50);
+$pdf-&gt;drawRectangle(100, 550, 175, 50);
 $pdf-&gt;addLink(100, 550, 175, 50, 150, 550, 1, 2);
 
 $pdf-&gt;setPage(2)
     -&gt;setFillColor(new Rgb(12, 101, 215))
     -&gt;setStrokeColor(new Rgb(215, 101, 12))
     -&gt;setStrokeWidth(4, 10, 5);
-$pdf-&gt;addCircle(250, 650, 25);
+$pdf-&gt;drawCircle(250, 650, 25);
 $pdf-&gt;addImage('../assets/images/logo_rgb.jpg', 150, 400);
 
 $pdf-&gt;setPage(1)
     -&gt;setFillColor(new Rgb(255, 10, 25))
     -&gt;setStrokeColor(new Rgb(12, 101, 215))
     -&gt;setStrokeWidth(2);
-$pdf-&gt;addEllipse(300, 150, 200, 100, false);
+$pdf-&gt;drawEllipse(300, 150, 200, 100, false);
 
 $pdf-&gt;addPage('Legal');
 $pdf-&gt;addFont('Courier-Bold');
