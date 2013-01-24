@@ -40,12 +40,14 @@ class Atom extends AbstractFormat
     {
         parent::__construct($options, $limit);
 
+        // Create the SimpleXMLElement
         if (null === $this->obj) {
             if (!($this->obj = simplexml_load_string($this->source, 'SimpleXMLElement', LIBXML_NOWARNING))) {
                 throw new Exception('That feed URL cannot be read at this time. Please try again later.');
             }
         }
 
+        // Get the main header info of the feed
         $feed = array();
 
         $feed['title']       = (isset($this->obj->title)) ? (string)$this->obj->title : null;

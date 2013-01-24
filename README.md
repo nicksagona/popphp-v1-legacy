@@ -4,7 +4,7 @@ Welcome to the Pop PHP Framework 1.2.0 Release!
 RELEASE INFORMATION
 -------------------
 Pop PHP Framework 1.2.0 Release  
-Released January 22, 2013
+Released January 23, 2013
 
 
 OVERVIEW

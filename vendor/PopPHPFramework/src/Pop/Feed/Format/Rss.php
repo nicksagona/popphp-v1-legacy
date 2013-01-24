@@ -40,12 +40,14 @@ class Rss extends AbstractFormat
     {
         parent::__construct($options, $limit);
 
+        // Create the SimpleXMLElement
         if (null === $this->obj) {
             if (!($this->obj = simplexml_load_string($this->source, 'SimpleXMLElement', LIBXML_NOWARNING))) {
                 throw new Exception('That feed URL cannot be read at this time. Please try again later.');
             }
         }
 
+        // Check for the date
         if (isset($this->obj->channel->lastBuildDate)) {
             $date = (string)$this->obj->channel->lastBuildDate;
         } else if (isset($this->obj->channel->pubDate)) {
@@ -54,6 +56,7 @@ class Rss extends AbstractFormat
             $date = null;
         }
 
+        // Get the main header info of the feed
         $feed = array();
 
         $feed['title']       = (isset($this->obj->channel->title)) ? (string)$this->obj->channel->title : null;

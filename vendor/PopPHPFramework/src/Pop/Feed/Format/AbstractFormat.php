@@ -95,6 +95,7 @@ abstract class AbstractFormat
     {
         $this->limit = $limit;
 
+        // Check is a valid URL was passed
         if (is_array($options) && isset($options['url'])) {
             if ((substr($options['url'], 0, 7) == 'http://') || (substr($options['url'], 0, 8) == 'https://')) {
                 $this->url = $options['url'];
@@ -109,18 +110,22 @@ abstract class AbstractFormat
             throw new Exception('Error: The URL option passed was not a valid URL.');
         }
 
+        // Set user agent
         if (isset($_SERVER['HTTP_USER_AGENT'])) {
             $this->contextOptions['http']['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
         }
 
+        // Create stream context
         $this->context = (is_array($options) && isset($options['context'])) ?
             $options['context'] :
             stream_context_create($this->contextOptions);
 
+        // Get the feed source
         $this->source = (is_array($options) && isset($options['source'])) ?
             $options['source'] :
             file_get_contents($this->url, false, $this->context);
 
+        // If the object is already parsed and passed into the constructor
         if (is_array($options) && isset($options['object'])) {
             $this->obj = $options['object'];
         }

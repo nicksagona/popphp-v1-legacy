@@ -188,11 +188,14 @@ class Writer extends Dom
             // Add the Feed child node to the DOM.
             $this->addChild($feed);
         } else if (($this->feedType == Writer::JSON) || ($this->feedType == Writer::PHP)) {
+            // Set up the header data.
             foreach ($this->headers as $key => $value) {
                 $val = ((stripos($key, 'date') !== false) || (stripos($key, 'published') !== false)) ?
                     date($this->dateFormat, strtotime($value)) : $value;
                 $this->data[$key] = $val;
             }
+
+            // Set up the items data
             $this->data['items'] = array();
             foreach ($this->items as $itm) {
                 foreach ($itm as $key => $value) {
@@ -201,6 +204,8 @@ class Writer extends Dom
                 }
                 $this->data['items'][] = $itm;
             }
+
+            // Set the content type
             $this->contentType = ($this->feedType == Writer::JSON) ? 'application/json' : 'text/plain';
         } else {
             throw new Exception('Error: The feed type must be only RSS, ATOM, JSON or PHP.');

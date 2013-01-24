@@ -40,14 +40,15 @@ class Json extends AbstractFormat
     {
         parent::__construct($options, $limit);
 
+        // Create the PHP data array from JSON
         if (null === $this->obj) {
             if (!($this->obj = json_decode($this->source, true))) {
                 throw new Exception('That feed URL cannot be read at this time. Please try again later.');
             }
         }
 
+        // Get the main header info of the feed
         $objs = (isset($this->obj['feed'])) ? $this->obj['feed'] : $this->obj;
-
         $feed = array();
 
         $feed['title']       = (isset($objs['title'])) ? $objs['title'] : null;
@@ -67,6 +68,7 @@ class Json extends AbstractFormat
      */
     public function parse()
     {
+        // Attempt to find the main feed and its entries
         if (isset($this->obj['feed']) && isset($this->obj['feed']['entry']) && is_array($this->obj['feed']['entry'])) {
             $objItems = $this->obj['feed']['entry'];
         } else if (isset($this->obj['feed']) && isset($this->obj['feed']['item']) && is_array($this->obj['feed']['item'])) {
@@ -89,6 +91,7 @@ class Json extends AbstractFormat
         $count = count($objItems);
         $limit = (($this->limit > 0) && ($this->limit <= $count)) ? $this->limit : $count;
 
+        // Attempt to parse standard feed data from the data
         for ($i = 0; $i < $limit; $i++) {
             if (isset($objItems[$i]['content'])) {
                 $content = $objItems[$i]['content'];

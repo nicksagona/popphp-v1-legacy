@@ -46,6 +46,7 @@ class Youtube extends \Pop\Feed\Format\Rss
      */
     public function __construct($options, $limit = 0)
     {
+        // Attempt to get the correct URL to parse
         if (is_array($options)) {
             if (isset($options['name'])) {
                 $this->url = str_replace('[{name}]', $options['name'], $this->urls['name']);

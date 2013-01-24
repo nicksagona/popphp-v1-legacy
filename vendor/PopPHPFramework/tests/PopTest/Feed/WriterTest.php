@@ -73,8 +73,56 @@ class WriterTest extends \PHPUnit_Framework_TestCase
             'updated'  => '2010-01-13 14:12:24',
             'summary'  => 'Entry Desc 1'
         );
-        $feed = new Writer($headers, array($entry), Dom::ATOM);
+        $feed = new Writer($headers, array($entry), Writer::ATOM);
         $this->assertContains('http://www.w3.org/2005/Atom', $feed->render(true));
+    }
+
+    public function testJson()
+    {
+        $headers = array(
+            'title'     => 'Test Feed Title',
+            'subtitle'  => 'Test Feed Description',
+            'link'      => 'http://www.testfeed.com/',
+            'language'  => 'en',
+            'updated'   => '2010-01-12 13:01:32',
+            'generator' => 'http://www.website.com/',
+            'author'    => 'Some Editor'
+        );
+
+        $entry = array(
+            'title'    => 'Entry Title 1',
+            'link'     => 'http://www.testfeed.com/entry1',
+            'comments' => 'http://www.testfeed.com/entry1#comments',
+            'author'   => 'Entry Author 1',
+            'updated'  => '2010-01-13 14:12:24',
+            'summary'  => 'Entry Desc 1'
+        );
+        $feed = new Writer($headers, array($entry), Writer::JSON);
+        $this->assertContains('{', $feed->render(true));
+    }
+
+    public function testPhp()
+    {
+        $headers = array(
+            'title'     => 'Test Feed Title',
+            'subtitle'  => 'Test Feed Description',
+            'link'      => 'http://www.testfeed.com/',
+            'language'  => 'en',
+            'updated'   => '2010-01-12 13:01:32',
+            'generator' => 'http://www.website.com/',
+            'author'    => 'Some Editor'
+        );
+
+        $entry = array(
+            'title'    => 'Entry Title 1',
+            'link'     => 'http://www.testfeed.com/entry1',
+            'comments' => 'http://www.testfeed.com/entry1#comments',
+            'author'   => 'Entry Author 1',
+            'updated'  => '2010-01-13 14:12:24',
+            'summary'  => 'Entry Desc 1'
+        );
+        $feed = new Writer($headers, array($entry), Writer::PHP);
+        $this->assertContains('Test Feed Title', $feed->render(true));
     }
 
     public function testException()

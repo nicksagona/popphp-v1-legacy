@@ -16,7 +16,7 @@
 namespace PopTest\Feed;
 
 use Pop\Loader\Autoloader,
-    Pop\Feed\Reader;
+    Pop\Feed;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -29,62 +29,189 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\Feed\Reader', new Reader('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4));
-        $this->assertInstanceOf('Pop\Feed\Reader', Reader::parseByUrl('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
+            new Feed\Format\Rss('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4)
+        ));
+        $this->assertInstanceOf('Pop\Feed\Reader', Feed\Reader::factory(
+            new Feed\Format\Rss('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4)
+        ));
+        $this->assertInstanceOf('Pop\Feed\Reader', Feed\Reader::getByUrl('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4));
+        $this->assertInstanceOf('Pop\Feed\Reader', Feed\Reader::getByUrl('http://api.twitter.com/1/statuses/user_timeline.json?screen_name=highvoltagenola', 4));
+        $this->assertInstanceOf('Pop\Feed\Reader', Feed\Reader::getByUrl('http://vimeo.com/api/v2/video/6271487.php', 1));
+        $this->assertInstanceOf('Pop\Feed\Reader', Feed\Reader::getByUrl('http://www.popphp.org/phpfeedtest', 1));
     }
 
     public function testConstructorException()
     {
+        $this->setExpectedException('PHPUnit_Framework_Error_Warning');
+        $feed = new Feed\Reader(new Feed\Format\Rss('http://blahblahblah/', 4));
+    }
+
+    public function testConstructorBadUrlException()
+    {
+        $this->setExpectedException('Pop\Feed\Format\Exception');
+        $feed = new Feed\Reader(new Feed\Format\Rss('badurl', 4));
+    }
+
+    public function testManualAccounts()
+    {
+        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
+            new Feed\Format\Rss\Twitter(array('id' => '50079850'), 4)
+        ));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
+            new Feed\Format\Atom\Facebook(array('id' => '49700389248'), 4)
+        ));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
+            new Feed\Format\Atom\Facebook(array('name' => 'highvoltagenola'), 4)
+        ));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
+            new Feed\Format\Atom\Flickr(array('id' => '96247146@N00'), 4)
+        ));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
+            new Feed\Format\Json\Facebook(array('id' => '49700389248'), 4)
+        ));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
+            new Feed\Format\Json\Facebook(array('name' => 'highvoltagenola'), 4)
+        ));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
+            new Feed\Format\Json\Twitter(array('id' => '50079850'), 4)
+        ));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
+            new Feed\Format\Json\Twitter(array('name' => 'highvoltagenola'), 4)
+        ));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
+            new Feed\Format\Json\Youtube(array('id' => '35318AF7BEB5DD11'), 4)
+        ));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
+            new Feed\Format\Json\Youtube(array('name' => 'highvoltagenola'), 4)
+        ));
+        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
+            new Feed\Format\Php\Flickr(array('id' => '96247146@N00'), 4)
+        ));
+    }
+
+    public function testGetByAccountName()
+    {
+        $feed = Feed\Reader::getByAccountName('facebook', 'highvoltagenola', 4);
+        $this->assertGreaterThan(0, $feed->items);
+        $this->assertEquals(4, $feed->adapter()->getLimit());
+        $feed->adapter()->test = 123;
+        $this->assertEquals(123, $feed->adapter()->test);
+        $this->assertTrue(isset($feed->adapter()->test));
+        unset($feed->adapter()->test);
+        $this->assertNull($feed->adapter()->test);
+        $feed = Feed\Reader::getByAccountName('twitter', 'highvoltagenola', 4);
+        $this->assertGreaterThan(0, $feed->items);
+        $feed = Feed\Reader::getByAccountName('youtube', 'highvoltagenola', 4);
+        $this->assertGreaterThan(0, $feed->items);
+        $feed = Feed\Reader::getByAccountName('vimeo', 'royraz', 4);
+        $this->assertGreaterThan(0, $feed->items);
+        $this->assertInstanceOf('Pop\Feed\Format\Rss\Vimeo', $feed->adapter());
+        $this->assertInstanceOf('ArrayObject', $feed->feed());
+        $this->assertInstanceOf('SimpleXMLElement', $feed->adapter()->obj());
+        $feed->adapter()->setFeed(array());
+        $this->assertEquals(0, count($feed->adapter()->getFeed()));
+    }
+
+    public function testGetByAccountNameException()
+    {
         $this->setExpectedException('Pop\Feed\Exception');
-        $feed = new Reader('http://blahblahblah/', 4);
+        $feed = Feed\Reader::getByAccountName('badservice', '1234567890', 4);
     }
 
-    public function testParseByName()
+    public function testGetByAccountId()
     {
-        $feed = Reader::parseByName('highvoltagenola', 'facebook', 4);
+        $feed = Feed\Reader::getByAccountId('facebook', '49700389248', 4);
         $this->assertGreaterThan(0, $feed->items);
-        $feed = Reader::parseByName('highvoltagenola', 'facebook', 4, Reader::ATOM);
+        $feed = Feed\Reader::getByAccountId('flickr', '96247146@N00', 4);
         $this->assertGreaterThan(0, $feed->items);
-        $feed = Reader::parseByName('highvoltagenola', 'twitter', 4);
+        $feed = Feed\Reader::getByAccountId('youtube', '35318AF7BEB5DD11', 4);
         $this->assertGreaterThan(0, $feed->items);
-        $feed = Reader::parseByName('highvoltagenola', 'youtube', 4);
-        $this->assertGreaterThan(0, $feed->items);
-        $feed = Reader::parseByName('highvoltagenola', 'youtube', 4, Reader::ATOM);
-        $this->assertGreaterThan(0, $feed->items);
-        $feed = Reader::parseByName('royraz', 'vimeo', 4);
-        $this->assertGreaterThan(0, $feed->items);
+        $feed = Feed\Reader::getByAccountId('vimeo', '2136270', 4);
+        $this->assertGreaterThan(0, $feed->entries);
     }
 
-    public function testParseById()
-    {
-        $feed = Reader::parseById('49700389248', 'facebook', 4);
-        $this->assertGreaterThan(0, $feed->items);
-        $feed = Reader::parseById('49700389248', 'facebook', 4, Reader::ATOM);
-        $this->assertGreaterThan(0, $feed->items);
-        $feed = Reader::parseById('35318AF7BEB5DD11', 'youtube', 4);
-        $this->assertGreaterThan(0, $feed->items);
-        $feed = Reader::parseById('35318AF7BEB5DD11', 'youtube', 4, Reader::ATOM);
-        $this->assertGreaterThan(0, $feed->items);
-        $feed = Reader::parseById('2136270', 'vimeo', 4);
-        $this->assertGreaterThan(0, $feed->items);
-    }
-
-    public function testParseByIdNoUrlException()
+    public function testGetByAccountIdException()
     {
         $this->setExpectedException('Pop\Feed\Exception');
-        $feed = Reader::parseById('1234567890', 'Twitter', 4);
+        $feed = Feed\Reader::getByAccountId('badservice', '1234567890', 4);
     }
 
-    public function testRenderException()
+    public function testRenderNoTemplateException()
     {
         $this->setExpectedException('Pop\Feed\Exception');
-        $feed = new Reader('http://vimeo.com/tag:mostviewed/rss', 4);
+        $feed = new Feed\Reader(new Feed\Format\Rss\Vimeo('http://vimeo.com/tag:mostviewed/rss', 4));
         $code = $feed->render(true);
     }
 
+    public function testRenderNoContentException()
+    {
+        $this->setExpectedException('Pop\Feed\Exception');
+        $feed = new Feed\Reader(new Feed\Format\Rss\Vimeo('http://vimeo.com/tag:mostviewed/rss', 4));
+        unset($feed->adapter()->items);
+        $code = $feed->render(true);
+    }
+
+    public function testSetAndGetTemplate()
+    {
+        $feed = Feed\Reader::getByUrl('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
+        $feed->setTemplate('This is a template');
+        $this->assertEquals('This is a template', $feed->getTemplate());
+        $feed->setTemplate(__DIR__ . '/../tmp/access.txt');
+        $this->assertContains('testuser', $feed->getTemplate());
+    }
+
+    public function testSetAndGetDateFormat()
+    {
+        $feed = Feed\Reader::getByUrl('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
+        $feed->setDateFormat('m/d/Y');
+        $this->assertEquals('m/d/Y', $feed->getDateFormat());
+    }
+
+    public function testBooleanMethods()
+    {
+        $feed = new Feed\Reader(new Feed\Format\Atom('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4));
+        $this->assertTrue($feed->isAtom());
+        $this->assertFalse($feed->isRss());
+        $this->assertFalse($feed->isJson());
+        $this->assertFalse($feed->isPhp());
+        $this->assertTrue($feed->isYoutube());
+        $this->assertFalse($feed->isFacebook());
+        $this->assertFalse($feed->isTwitter());
+        $this->assertFalse($feed->isVimeo());
+        $this->assertFalse($feed->isPlaylist());
+    }
+
+    public function testRssRender()
+    {
+        $tmpl = <<<NEWS
+    <div class="news-div">
+        <a href="[{link}]">[{title}]</a><br />
+        <strong>[{published}]</strong> ([{time}])<br />
+        <p>[{description}]</p>
+    </div>
+
+NEWS;
+
+        $feed = new Feed\Reader(new Feed\Format\Rss('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4));
+        $feed->setTemplate($tmpl);
+        $this->assertContains('Google', $feed->title);
+        $code = $feed->render(true);
+        ob_start();
+        $feed->render();
+        $output = ob_get_clean();
+
+        ob_start();
+        echo $feed;
+        $echoOutput = ob_get_clean();
+        $this->assertContains('<div class="news-div">', $code);
+        $this->assertContains('<div class="news-div">', $output);
+        $this->assertContains('<div class="news-div">', $echoOutput);
+    }
+/*
     public function testUrl()
     {
-        $feed = new Reader('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4);
+        $feed = new Feed\Reader('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4);
         $this->assertEquals('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', $feed->url());
     }
 
@@ -104,22 +231,6 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
     {
         $feed = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
         $this->assertEquals(4, $feed->getLimit());
-    }
-
-    public function testSetAndGetTemplate()
-    {
-        $feed = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
-        $feed->setTemplate('This is a template');
-        $this->assertEquals('This is a template', $feed->getTemplate());
-        $feed->setTemplate(__DIR__ . '/../tmp/access.txt');
-        $this->assertContains('testuser', $feed->getTemplate());
-    }
-
-    public function testSetAndGetDateFormat()
-    {
-        $feed = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
-        $feed->setDateFormat('m/d/Y');
-        $this->assertEquals('m/d/Y', $feed->getDateFormat());
     }
 
     public function testSetAndGetFeed()
@@ -152,44 +263,6 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('SomeClass\\', $feed->getPrefix());
     }
 
-    public function testBooleanMethods()
-    {
-        $feed = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
-        $this->assertTrue($feed->isAtom());
-        $this->assertFalse($feed->isRss());
-        $this->assertTrue($feed->isYoutube());
-        $this->assertFalse($feed->isFacebook());
-        $this->assertFalse($feed->isTwitter());
-        $this->assertFalse($feed->isVimeo());
-        $this->assertFalse($feed->isPlaylist());
-    }
-
-    public function testRssRender()
-    {
-        $tmpl = <<<NEWS
-    <div class="news-div">
-        <a href="[{link}]">[{title}]</a><br />
-        <strong>[{published}]</strong> ([{time}])<br />
-        <p>[{description}]</p>
-    </div>
-
-NEWS;
-
-        $feedRss = new Reader('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 3);
-        $feedRss->setTemplate($tmpl);
-        $code = $feedRss->render(true);
-        ob_start();
-        $feedRss->render();
-        $output = ob_get_clean();
-
-        ob_start();
-        echo $feedRss;
-        $echoOutput = ob_get_clean();
-        $this->assertContains('<div class="news-div">', $code);
-        $this->assertContains('<div class="news-div">', $output);
-        $this->assertContains('<div class="news-div">', $echoOutput);
-    }
-
     public function testAtomRender()
     {
         $tmpl = <<<NEWS
@@ -215,6 +288,6 @@ NEWS;
         $this->assertContains('<div class="news-div">', $output);
         $this->assertContains('<div class="news-div">', $echoOutput);
     }
-
+*/
 }
 

@@ -263,7 +263,7 @@ class Reader
      */
     public function isYoutube()
     {
-        return (strpos(get_class($this->adapter), 'Youtube') !== false);
+        return (stripos($this->adapter->url(), 'youtube') !== false);
     }
 
     /**
@@ -273,7 +273,7 @@ class Reader
      */
     public function isVimeo()
     {
-        return (strpos(get_class($this->adapter), 'Vimeo') !== false);
+        return (stripos($this->adapter->url(), 'vimeo') !== false);
     }
 
     /**
@@ -283,7 +283,7 @@ class Reader
      */
     public function isFacebook()
     {
-        return (strpos(get_class($this->adapter), 'Facebook') !== false);
+        return (stripos($this->adapter->url(), 'facebook') !== false);
     }
 
     /**
@@ -293,7 +293,7 @@ class Reader
      */
     public function isTwitter()
     {
-        return (strpos(get_class($this->adapter), 'Twitter') !== false);
+        return (stripos($this->adapter->url(), 'twitter') !== false);
     }
 
     /**
@@ -357,14 +357,27 @@ class Reader
      */
     public function __get($name)
     {
+        $value = null;
+        $alias = null;
         $aliases = array(
             'entry', 'entries', 'images', 'posts', 'statuses', 'tweets', 'updates', 'videos'
         );
+
         if (in_array($name, $aliases)) {
-            $name = 'items';
+            $alias = 'items';
         }
+
         $feed = $this->adapter->getFeed();
-        return (isset($feed[$name])) ? $feed[$name] : null;
+
+        // If the called property exists in the $feed array
+        if (isset($feed[$name])) {
+            $value = $feed[$name];
+        // Else, if the alias to the called property exists in the $feed array
+        } else if ((null !== $alias) && isset($feed[$alias])) {
+            $value = $feed[$alias];
+        }
+
+        return $value;
     }
 
     /**

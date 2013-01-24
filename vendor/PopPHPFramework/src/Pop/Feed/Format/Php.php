@@ -40,6 +40,7 @@ class Php extends AbstractFormat
     {
         parent::__construct($options, $limit);
 
+        // Create the PHP data object from the serialized PHP string source
         if (null === $this->obj) {
             if (!($this->obj = unserialize($this->source))) {
                 throw new Exception('That feed URL cannot be read at this time. Please try again later.');
@@ -63,6 +64,7 @@ class Php extends AbstractFormat
         $key = null;
         $items = array();
 
+        // Attempt to find the main feed and its entries
         if (isset($this->feed['item']) && is_array($this->feed['item'])) {
             $key = 'item';
         } else if (isset($this->feed['items']) && is_array($this->feed['items'])) {
@@ -73,6 +75,7 @@ class Php extends AbstractFormat
             $key = 'entries';
         }
 
+        // Attempt to parse standard feed data from the data
         if (null !== $key) {
             $count = count($this->feed[$key]);
             $limit = (($this->limit > 0) && ($this->limit <= $count)) ? $this->limit : $count;
