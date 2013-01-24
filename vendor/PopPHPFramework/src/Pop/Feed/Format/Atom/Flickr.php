@@ -77,7 +77,7 @@ class Flickr extends \Pop\Feed\Format\Atom
 
         $items = $this->feed['items'];
         foreach ($items as $key => $item) {
-            $image = substr($item['description'], (strpos($item['description'], '<img src="') + 10));
+            $image = substr($item['content'], (strpos($item['content'], '<img src="') + 10));
             $image = substr($image, 0, strpos($image, '"'));
             $items[$key]['image_thumb']  = str_replace('_m', '_s', $image);
             $items[$key]['image_medium'] = $image;

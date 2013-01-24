@@ -48,12 +48,16 @@ class Json extends AbstractFormat
 
         $objs = (isset($this->obj['feed'])) ? $this->obj['feed'] : $this->obj;
 
-        $this->feed['title']       = (isset($objs['title'])) ? $objs['title'] : null;
-        $this->feed['url']         = (isset($objs['link'])) ? $objs['link'] : null;
-        $this->feed['description'] = (isset($objs['description'])) ? $objs['description'] : null;
-        $this->feed['date']        = (isset($objs['updated'])) ? $objs['updated'] : null;
-        $this->feed['generator']   = (isset($objs['generator'])) ? $objs['generator'] : null;
-        $this->feed['author']      = (isset($objs['author'])) ? $objs['author'] : null;
+        $feed = array();
+
+        $feed['title']       = (isset($objs['title'])) ? $objs['title'] : null;
+        $feed['url']         = (isset($objs['link'])) ? $objs['link'] : null;
+        $feed['description'] = (isset($objs['description'])) ? $objs['description'] : null;
+        $feed['date']        = (isset($objs['updated'])) ? $objs['updated'] : null;
+        $feed['generator']   = (isset($objs['generator'])) ? $objs['generator'] : null;
+        $feed['author']      = (isset($objs['author'])) ? $objs['author'] : null;
+
+        $this->feed = new \ArrayObject($feed, \ArrayObject::ARRAY_AS_PROPS);
     }
 
     /**
@@ -87,13 +91,13 @@ class Json extends AbstractFormat
 
         for ($i = 0; $i < $limit; $i++) {
             if (isset($objItems[$i]['content'])) {
-                $description = $objItems[$i]['content'];
+                $content = $objItems[$i]['content'];
             } else if (isset($objItems[$i]['summary'])) {
-                $description = $objItems[$i]['summary'];
+                $content = $objItems[$i]['summary'];
             } else if (isset($objItems[$i]['text'])) {
-                $description = $objItems[$i]['text'];
+                $content = $objItems[$i]['text'];
             } else {
-                $description = null;
+                $content = null;
             }
 
             if (isset($objItems[$i]['published'])) {
@@ -119,11 +123,11 @@ class Json extends AbstractFormat
             if (isset($objItems[$i]['title'])) {
                 $title = $objItems[$i]['title'];
             } else {
-                $title = $description;
+                $title = $content;
             }
 
             $title = (is_string($title)) ? html_entity_decode($title, ENT_QUOTES, 'UTF-8') : null;
-            $description = (is_string($description)) ? html_entity_decode($description, ENT_QUOTES, 'UTF-8') : null;
+            $content = (is_string($content)) ? html_entity_decode($content, ENT_QUOTES, 'UTF-8') : null;
 
             if (is_string($date)) {
                 $time = (null !== $date) ? self::calculateTime($date) : null;
@@ -132,16 +136,16 @@ class Json extends AbstractFormat
                 $time = null;
             }
 
-            $items[] = array(
-                'title'       => $title,
-                'description' => $description,
-                'link'        => $link,
-                'published'   => $date,
-                'time'        => $time
-            );
+            $items[] = new \ArrayObject(array(
+                'title'     => $title,
+                'content'   => $content,
+                'link'      => $link,
+                'published' => $date,
+                'time'      => $time
+            ), \ArrayObject::ARRAY_AS_PROPS);
         }
 
-        $this->feed['items'] = $items;
+        $this->feed->items = $items;
     }
 
 }

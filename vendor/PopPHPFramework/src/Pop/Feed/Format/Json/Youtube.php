@@ -76,12 +76,12 @@ class Youtube extends \Pop\Feed\Format\Json
         $items = $this->feed['items'];
         foreach ($items as $key => $item) {
             if (isset($this->obj['feed']['entry'][$key]['content']['$t'])) {
-                $description = html_entity_decode($this->obj['feed']['entry'][$key]['content']['$t'], ENT_QUOTES, 'UTF-8');
+                $content = html_entity_decode($this->obj['feed']['entry'][$key]['content']['$t'], ENT_QUOTES, 'UTF-8');
             } else {
-                $description = $this->obj['feed']['entry'][$key]['title']['$t'];
+                $content = $this->obj['feed']['entry'][$key]['title']['$t'];
             }
             $items[$key]['title'] = $this->obj['feed']['entry'][$key]['title']['$t'];
-            $items[$key]['description'] = $description;
+            $items[$key]['content'] = $content;
             $items[$key]['link'] = $items[$key]['link'][0]['href'];
             $items[$key]['published'] = $this->obj['feed']['entry'][$key]['published']['$t'];
             $items[$key]['time'] = self::calculateTime($this->obj['feed']['entry'][$key]['published']['$t']);

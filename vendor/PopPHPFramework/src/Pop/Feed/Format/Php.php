@@ -55,9 +55,7 @@ class Php extends AbstractFormat
     public function parse()
     {
         if (is_array($this->obj)) {
-            foreach ($this->obj as $key => $value) {
-                $this->feed[$key] = $value;
-            }
+            $this->feed = new \ArrayObject($this->obj, \ArrayObject::ARRAY_AS_PROPS);
         } else {
             $this->feed = $this->obj;
         }
@@ -79,7 +77,56 @@ class Php extends AbstractFormat
             $count = count($this->feed[$key]);
             $limit = (($this->limit > 0) && ($this->limit <= $count)) ? $this->limit : $count;
             for ($i = 0; $i < $limit; $i++) {
-                $items[] = $this->feed[$key][$i];
+
+                if (is_array($this->feed[$key][$i])) {
+                    $itm = (array)$this->feed[$key][$i];
+
+                    $title = null;
+                    $content = null;
+                    $link = null;
+                    $date = null;
+                    $time = null;
+
+                    if (isset($itm['title'])) {
+                        $title = $itm['title'];
+                        unset($itm['title']);
+                    }
+                    if (isset($itm['description'])) {
+                        $content = $itm['description'];
+                        unset($itm['description']);
+                    }
+                    if (isset($itm['link'])) {
+                        $link = $itm['link'];
+                        unset($itm['link']);
+                    } else if (isset($itm['url'])) {
+                        $link = $itm['url'];
+                        unset($itm['url']);
+                    }
+
+                    foreach ($itm as $k => $v) {
+                        if (stripos($k, 'date') !== false) {
+                            $date = $v;
+                            unset($itm[$k]);
+                        }
+                    }
+
+                    if (null !== $date) {
+                        $time = self::calculateTime($date);
+                    }
+
+                    $newItem = array(
+                        'title'     => $title,
+                        'content'   => $content,
+                        'link'      => $link,
+                        'published' => $date,
+                        'time'      => $time
+                    );
+
+                    $item =  new \ArrayObject(array_merge($newItem, $itm), \ArrayObject::ARRAY_AS_PROPS);
+                } else {
+                    $item = $this->feed[$key][$i];
+                }
+                $items[] = $item;
             }
             $this->feed[$key] = $items;
         }

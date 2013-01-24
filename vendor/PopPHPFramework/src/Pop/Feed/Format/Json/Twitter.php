@@ -114,7 +114,7 @@ class Twitter extends \Pop\Feed\Format\Json
                 $items[$key]['link'] = 'http://twitter.com/' . $username . '/statuses/' . $this->obj[$key]['id'];
             }
             $items[$key]['title'] = trim(str_replace($username . ':', '', $item['title']));
-            $items[$key]['description'] = trim(str_replace($username . ':', '', $item['description']));
+            $items[$key]['content'] = trim(str_replace($username . ':', '', $item['content']));
         }
 
         $this->feed['items'] = $items;

@@ -105,7 +105,7 @@ class Twitter extends \Pop\Feed\Format\Rss
         $items = $this->feed['items'];
         foreach ($items as $key => $item) {
             $items[$key]['title'] = trim(str_replace($username . ':', '', $item['title']));
-            $items[$key]['description'] = trim(str_replace($username . ':', '', $item['description']));
+            $items[$key]['content'] = trim(str_replace($username . ':', '', $item['content']));
         }
 
         $this->feed['items'] = $items;

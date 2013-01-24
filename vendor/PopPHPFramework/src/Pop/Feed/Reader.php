@@ -350,6 +350,24 @@ class Reader
     }
 
     /**
+     * Get method to return the value of feed[$name].
+     *
+     * @param  string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        $aliases = array(
+            'entry', 'entries', 'images', 'posts', 'statuses', 'tweets', 'updates', 'videos'
+        );
+        if (in_array($name, $aliases)) {
+            $name = 'items';
+        }
+        $feed = $this->adapter->getFeed();
+        return (isset($feed[$name])) ? $feed[$name] : null;
+    }
+
+    /**
      * Render feed reader object to string
      *
      * @return string

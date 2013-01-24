@@ -244,19 +244,22 @@ class Dom extends AbstractDom
      * Method to render the document and its child elements.
      *
      * @param  boolean $ret
-     * @return void
+     * @return mixed
      */
     public function render($ret = false)
     {
+        $this->output = null;
+
+        if (null !== $this->doctype) {
+            $this->output .= str_replace('[{charset}]', $this->charset, Dom::$doctypes[$this->doctype]);
+        }
+
+        foreach ($this->childNodes as $child) {
+            $this->output .= $child->render(true, 0, $this->indent);
+        }
+
         // If the return flag is passed, return output.
         if ($ret) {
-            $this->output = '';
-            if (null !== $this->doctype) {
-                $this->output .= str_replace('[{charset}]', $this->charset, Dom::$doctypes[$this->doctype]);
-            }
-            foreach ($this->childNodes as $child) {
-                $this->output .= $child->render(true, 0, $this->indent);
-            }
             return $this->output;
         // Else, print output.
         } else {
@@ -265,12 +268,8 @@ class Dom extends AbstractDom
                     header("HTTP/1.1 200 OK");
                     header("Content-type: " . $this->contentType);
                 }
-                echo str_replace('[{charset}]', $this->charset, Dom::$doctypes[$this->doctype]);
             }
-
-            foreach ($this->childNodes as $child) {
-                $child->render(false, 0, $this->indent);
-            }
+            echo $this->output;
         }
     }
 

@@ -32,6 +32,18 @@ class Writer extends Dom
 {
 
     /**
+     * Constant to use JSON
+     * @var int
+     */
+    const JSON = 11;
+
+    /**
+     * Constant to use PHP
+     * @var int
+     */
+    const PHP = 12;
+
+    /**
      * Feed headers
      * @var array
      */
@@ -54,6 +66,12 @@ class Writer extends Dom
      * @var string
      */
     protected $dateFormat = null;
+
+    /**
+     * Feed data for JSON and PHP formats
+     * @var array
+     */
+    protected $data = array();
 
     /**
      * Constructor
@@ -169,8 +187,52 @@ class Writer extends Dom
 
             // Add the Feed child node to the DOM.
             $this->addChild($feed);
+        } else if (($this->feedType == Writer::JSON) || ($this->feedType == Writer::PHP)) {
+            foreach ($this->headers as $key => $value) {
+                $val = ((stripos($key, 'date') !== false) || (stripos($key, 'published') !== false)) ?
+                    date($this->dateFormat, strtotime($value)) : $value;
+                $this->data[$key] = $val;
+            }
+            $this->data['items'] = array();
+            foreach ($this->items as $itm) {
+                foreach ($itm as $key => $value) {
+                    $val = ((stripos($key, 'date') !== false) || (stripos($key, 'published') !== false)) ? date($this->dateFormat, strtotime($value)) : $value;
+                    $itm[$key] = $val;
+                }
+                $this->data['items'][] = $itm;
+            }
+            $this->contentType = ($this->feedType == Writer::JSON) ? 'application/json' : 'text/plain';
         } else {
-            throw new Exception('Error: The feed type must be only RSS or ATOM.');
+            throw new Exception('Error: The feed type must be only RSS, ATOM, JSON or PHP.');
+        }
+    }
+
+    /**
+     * Method to render the feed and its items
+     *
+     * @param  boolean $ret
+     * @return mixed
+     */
+    public function render($ret = false)
+    {
+        if (($this->feedType == Writer::JSON) || ($this->feedType == Writer::PHP)) {
+            $this->output = null;
+            if ($this->feedType == Writer::JSON) {
+                $this->output = json_encode($this->data);
+            } else if ($this->feedType == Writer::PHP) {
+                $this->output = serialize($this->data);
+            }
+            if ($ret) {
+                return $this->output;
+            } else {
+                if (!headers_sent()) {
+                    header("HTTP/1.1 200 OK");
+                    header("Content-type: " . $this->contentType);
+                }
+                echo $this->output;
+            }
+        } else {
+            return parent::render($ret);
         }
     }
 

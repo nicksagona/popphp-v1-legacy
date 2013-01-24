@@ -82,7 +82,7 @@ class Flickr extends \Pop\Feed\Format\Rss
             $entry = $this->obj->item[0];
             $dc = $entry->children($namespaces['dc']);
 
-            $image = substr($item['description'], (strpos($item['description'], '<img src="') + 10));
+            $image = substr($item['content'], (strpos($item['content'], '<img src="') + 10));
             $image = substr($image, 0, strpos($image, '"'));
             $items[$key]['published'] = (string)$dc->{'date.Taken'};
             $items[$key]['time'] = self::calculateTime($items[$key]['published']);

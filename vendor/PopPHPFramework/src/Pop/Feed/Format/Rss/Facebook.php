@@ -95,7 +95,7 @@ class Facebook extends \Pop\Feed\Format\Rss
         $items = $this->feed['items'];
         foreach ($items as $key => $item) {
             $items[$key]['title'] = str_replace(array('<![CDATA[', ']]>'), array(null, null), $item['title']);
-            $items[$key]['description'] = str_replace(array('<![CDATA[', ']]>'), array(null, null), $item['description']);
+            $items[$key]['content'] = str_replace(array('<![CDATA[', ']]>'), array(null, null), $item['content']);
         }
 
         $this->feed['items'] = $items;

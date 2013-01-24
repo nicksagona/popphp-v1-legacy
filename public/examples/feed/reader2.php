@@ -15,7 +15,7 @@ try {
 
 VIDEOS;
 
-    $feed = Reader::parseByUrl('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 3);
+    $feed = Reader::getByUrl('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 3);
     $feed->setTemplate($tmpl);
     $feed->render();
 } catch (\Exception $e) {

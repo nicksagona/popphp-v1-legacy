@@ -54,12 +54,17 @@ class Rss extends AbstractFormat
             $date = null;
         }
 
-        $this->feed['title']       = (isset($this->obj->channel->title)) ? (string)$this->obj->channel->title : null;
-        $this->feed['url']         = (isset($this->obj->channel->link)) ? (string)(string)$this->obj->channel->link : null;
-        $this->feed['description'] = (isset($this->obj->channel->description)) ? (string)$this->obj->channel->description : null;
-        $this->feed['date']        = $date;
-        $this->feed['generator']   = (isset($this->obj->channel->generator)) ? (string)$this->obj->channel->generator : null;
-        $this->feed['author']      = (isset($this->obj->channel->managingEditor)) ? (string)$this->obj->channel->managingEditor : null;
+        $feed = array();
+
+        $feed['title']       = (isset($this->obj->channel->title)) ? (string)$this->obj->channel->title : null;
+        $feed['url']         = (isset($this->obj->channel->link)) ? (string)(string)$this->obj->channel->link : null;
+        $feed['description'] = (isset($this->obj->channel->description)) ? (string)$this->obj->channel->description : null;
+        $feed['date']        = $date;
+        $feed['generator']   = (isset($this->obj->channel->generator)) ? (string)$this->obj->channel->generator : null;
+        $feed['author']      = (isset($this->obj->channel->managingEditor)) ? (string)$this->obj->channel->managingEditor : null;
+        $feed['items']       = array();
+
+        $this->feed = new \ArrayObject($feed, \ArrayObject::ARRAY_AS_PROPS);
     }
 
     /**
@@ -75,16 +80,16 @@ class Rss extends AbstractFormat
         $limit = (($this->limit > 0) && ($this->limit <= $count)) ? $this->limit : $count;
 
         for ($i = 0; $i < $limit; $i++) {
-            $items[] = array(
-                'title'       => html_entity_decode((string)$itemObjs[$i]->title, ENT_QUOTES, 'UTF-8'),
-                'description' => html_entity_decode((string)$itemObjs[$i]->description, ENT_QUOTES, 'UTF-8'),
-                'link'        => (string)$itemObjs[$i]->link,
-                'published'   => (string)$itemObjs[$i]->pubDate,
-                'time'        => self::calculateTime((string)$itemObjs[$i]->pubDate)
-            );
+            $items[] = new \ArrayObject(array(
+                'title'     => html_entity_decode((string)$itemObjs[$i]->title, ENT_QUOTES, 'UTF-8'),
+                'content'   => html_entity_decode((string)$itemObjs[$i]->description, ENT_QUOTES, 'UTF-8'),
+                'link'      => (string)$itemObjs[$i]->link,
+                'published' => (string)$itemObjs[$i]->pubDate,
+                'time'      => self::calculateTime((string)$itemObjs[$i]->pubDate)
+            ), \ArrayObject::ARRAY_AS_PROPS);
         }
 
-        $this->feed['items'] = $items;
+        $this->feed->items = $items;
     }
 
 }

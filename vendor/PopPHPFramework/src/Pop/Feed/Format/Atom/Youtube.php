@@ -68,6 +68,10 @@ class Youtube extends \Pop\Feed\Format\Atom
 
         $items = $this->feed['items'];
         foreach ($items as $key => $item) {
+            if ($items[$key]['content'] == '') {
+                $items[$key]['content'] = $item['title'];
+            }
+
             $id = substr($item['link'], (strpos($item['link'], 'v=') + 2));
             if (strpos($id, '&') !== false) {
                 $id = substr($id, 0, strpos($id, '&'));

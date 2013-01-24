@@ -84,14 +84,6 @@ abstract class AbstractFormat
     protected $source = null;
 
     /**
-     * Item aliases
-     * @var array
-     */
-    protected $aliases = array(
-        'entry', 'entries', 'images', 'posts', 'statuses', 'tweets', 'updates', 'videos'
-    );
-
-    /**
      * Method to parse a feed object
      *
      * @param  mixed $options
@@ -121,15 +113,15 @@ abstract class AbstractFormat
             $this->contextOptions['http']['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
         }
 
-        $this->context = (isset($options['context'])) ?
+        $this->context = (is_array($options) && isset($options['context'])) ?
             $options['context'] :
             stream_context_create($this->contextOptions);
 
-        $this->source = (isset($options['source'])) ?
+        $this->source = (is_array($options) && isset($options['source'])) ?
             $options['source'] :
             file_get_contents($this->url, false, $this->context);
 
-        if (isset($options['object'])) {
+        if (is_array($options) && isset($options['object'])) {
             $this->obj = $options['object'];
         }
     }
@@ -186,6 +178,26 @@ abstract class AbstractFormat
     abstract public function parse();
 
     /**
+     * Method to get the URL
+     *
+     * @return string
+     */
+    public function url()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Method to get the parsed object
+     *
+     * @return mixed
+     */
+    public function obj()
+    {
+        return $this->obj;
+    }
+
+    /**
      * Method to set the feed
      *
      * @param  array $feed
@@ -208,26 +220,6 @@ abstract class AbstractFormat
     }
 
     /**
-     * Method to get the URL
-     *
-     * @return string
-     */
-    public function url()
-    {
-        return $this->url;
-    }
-
-    /**
-     * Method to get the parsed object
-     *
-     * @return mixed
-     */
-    public function obj()
-    {
-        return $this->obj;
-    }
-
-    /**
      * Method to get the limit
      *
      * @return int
@@ -246,9 +238,6 @@ abstract class AbstractFormat
      */
     public function __set($name, $value)
     {
-        if (in_array($name, $this->aliases)) {
-            $name = 'items';
-        }
         $this->feed[$name] = $value;
     }
 
@@ -260,9 +249,6 @@ abstract class AbstractFormat
      */
     public function __get($name)
     {
-        if (in_array($name, $this->aliases)) {
-            $name = 'items';
-        }
         return (isset($this->feed[$name])) ? $this->feed[$name] : null;
     }
 
@@ -274,9 +260,6 @@ abstract class AbstractFormat
      */
     public function __isset($name)
     {
-        if (in_array($name, $this->aliases)) {
-            $name = 'items';
-        }
         return isset($this->feed[$name]);
     }
 
@@ -288,9 +271,6 @@ abstract class AbstractFormat
      */
     public function __unset($name)
     {
-        if (in_array($name, $this->aliases)) {
-            $name = 'items';
-        }
         $this->feed[$name] = null;
     }
 

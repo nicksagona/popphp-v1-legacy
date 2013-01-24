@@ -46,12 +46,17 @@ class Atom extends AbstractFormat
             }
         }
 
-        $this->feed['title']       = (isset($this->obj->title)) ? (string)$this->obj->title : null;
-        $this->feed['url']         = (isset($this->obj->link->attributes()->href)) ? (string)$this->obj->link->attributes()->href : null;
-        $this->feed['description'] = (isset($this->obj->subtitle)) ? (string)$this->obj->subtitle : null;
-        $this->feed['date']        = (isset($this->obj->updated)) ? (string)$this->obj->updated : null;
-        $this->feed['generator']   = (isset($this->obj->generator)) ? (string)$this->obj->generator : null;
-        $this->feed['author']      = (isset($this->obj->author->name)) ? (string)$this->obj->author->name : null;
+        $feed = array();
+
+        $feed['title']       = (isset($this->obj->title)) ? (string)$this->obj->title : null;
+        $feed['url']         = (isset($this->obj->link->attributes()->href)) ? (string)$this->obj->link->attributes()->href : null;
+        $feed['description'] = (isset($this->obj->subtitle)) ? (string)$this->obj->subtitle : null;
+        $feed['date']        = (isset($this->obj->updated)) ? (string)$this->obj->updated : null;
+        $feed['generator']   = (isset($this->obj->generator)) ? (string)$this->obj->generator : null;
+        $feed['author']      = (isset($this->obj->author->name)) ? (string)$this->obj->author->name : null;
+        $feed['items']       = array();
+
+        $this->feed = new \ArrayObject($feed, \ArrayObject::ARRAY_AS_PROPS);
     }
 
     /**
@@ -66,7 +71,7 @@ class Atom extends AbstractFormat
         $limit = (($this->limit > 0) && ($this->limit <= $count)) ? $this->limit : $count;
 
         for ($i = 0; $i < $limit; $i++) {
-            $description = (isset($this->obj->entry[$i]->content) ?
+            $content = (isset($this->obj->entry[$i]->content) ?
                 (string)$this->obj->entry[$i]->content :
                 (string)$this->obj->entry[$i]->summary);
 
@@ -74,16 +79,16 @@ class Atom extends AbstractFormat
                 (string)$this->obj->entry[$i]->published :
                 (string)$this->obj->entry[$i]->updated;
 
-            $items[] = array(
-                'title'       => html_entity_decode((string)$this->obj->entry[$i]->title, ENT_QUOTES, 'UTF-8'),
-                'description' => html_entity_decode($description, ENT_QUOTES, 'UTF-8'),
-                'link'        => (string)$this->obj->entry[$i]->link->attributes()->href,
-                'published'   => $date,
-                'time'        => self::calculateTime($date)
-            );
+            $items[] = new \ArrayObject(array(
+                'title'     => html_entity_decode((string)$this->obj->entry[$i]->title, ENT_QUOTES, 'UTF-8'),
+                'content'   => html_entity_decode($content, ENT_QUOTES, 'UTF-8'),
+                'link'      => (string)$this->obj->entry[$i]->link->attributes()->href,
+                'published' => $date,
+                'time'      => self::calculateTime($date)
+            ), \ArrayObject::ARRAY_AS_PROPS);
         }
 
-        $this->feed['items'] = $items;
+        $this->feed->items = $items;
     }
 
 }
