@@ -6,10 +6,10 @@ use Pop\Code;
 
 try {
     $reflect = new Code\Reflection('Pop\Compress\Zlib');
-    $code = $reflect->getGenerator();
+    $code = $reflect->generator();
 
     // Create a method object to add to the class
-    $method = new Code\MethodGenerator('someNewMethod');
+    $method = new Code\Generator\MethodGenerator('someNewMethod');
     $method->setDesc('This is a new test method')
            ->setBody("// Let's get some stuff to happen here." . PHP_EOL . "\$blah = 'Sounds like a good idea';")
            ->appendToBody("echo \$blah;", false)

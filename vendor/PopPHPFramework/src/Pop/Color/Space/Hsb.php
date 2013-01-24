@@ -13,10 +13,10 @@
 /**
  * @namespace
  */
-namespace Pop\Color;
+namespace Pop\Color\Space;
 
 /**
- * LAB color class
+ * HSB color class
  *
  * @category   Pop
  * @package    Pop_Color
@@ -25,108 +25,106 @@ namespace Pop\Color;
  * @license    http://www.popphp.org/license     New BSD License
  * @version    1.2.0
  */
-class Lab implements ColorInterface
+class Hsb implements ColorInterface
 {
 
     /**
-     * Lightness value
+     * Hue angle value in degrees
      * @var int
      */
-    protected $l = null;
+    protected $hue = null;
 
     /**
-     * A value
+     * Saturation percentage value
      * @var int
      */
-    protected $a = null;
+    protected $saturation = null;
 
     /**
-     * B value
+     * Brightness percentage value
      * @var int
      */
-    protected $b = null;
+    protected $brightness = null;
 
     /**
      * Constructor
      *
-     * Instantiate the LAB color object
+     * Instantiate the RGB color object
      *
-     * @param int $l
-     * @param int $a
+     * @param int $h
+     * @param int $s
      * @param int $b
-     * @throws \Pop\Color\Exception
-     * @return \Pop\Color\Lab
+     * @throws \Pop\Color\Space\Exception
+     * @return \Pop\Color\Space\Hsb
      */
-    public function __construct($l, $a, $b)
+    public function __construct($h, $s, $b)
     {
+        $max = max($s, $b);
+        $min = min($s, $b);
 
-        $max = max($l, $a, $b);
-        $min = min($l, $a, $b);
-
-        if (($l > 100) || ($l < 0) || ($max > 127) || ($min < -128)) {
+        if (($h > 360) || ($h < 0) || ($max > 100) || ($min < 0)) {
             throw new Exception('One or more of the color values is out of range.');
         }
 
-        $this->l = (int)$l;
-        $this->a = (int)$a;
-        $this->b = (int)$b;
+        $this->hue = (int)$h;
+        $this->saturation = (int)$s;
+        $this->brightness = (int)$b;
     }
 
     /**
-     * Method to get the full LAB value
+     * Method to get the full HSB value
      *
      * @param  int     $type
      * @return string|array
      */
-    public function get($type = Color::ASSOC_ARRAY)
+    public function get($type = \Pop\Color\Color::ASSOC_ARRAY)
     {
 
-        $lab = null;
+        $hsb = null;
 
         switch ($type) {
             case 1:
-                $lab = array('l' => $this->l, 'a' => $this->a, 'b' => $this->b);
+                $hsb = array('h' => $this->hue, 's' => $this->saturation, 'b' => $this->brightness);
                 break;
             case 2:
-                $lab = array($this->l, $this->a, $this->b);
+                $hsb = array($this->hue, $this->saturation, $this->brightness);
                 break;
             case 3:
-                $lab = $this->l . ',' . $this->a . ',' . $this->b;
+                $hsb = $this->hue . ',' . $this->saturation . ',' . $this->brightness;
                 break;
         }
 
-        return $lab;
-
+        return $hsb;
     }
 
     /**
-     * Method to get the L value
+     * Method to get the hue value
      *
      * @return int
      */
-    public function getL()
+    public function getHue()
     {
-        return $this->l;
+        return $this->hue;
     }
 
     /**
-     * Method to get the A value
+     * Method to get the saturation value
      *
      * @return int
      */
-    public function getA()
+    public function getSaturation()
     {
-        return $this->a;
+        return $this->saturation;
     }
 
     /**
-     * Method to get the B value
+     * Method to get the brightness value
      *
      * @return int
      */
-    public function getB()
+    public function getBrightness()
     {
-        return $this->b;
+        return $this->brightness;
     }
 
     /**
@@ -136,7 +134,7 @@ class Lab implements ColorInterface
      */
     public function __toString()
     {
-        return $this->get(Color::STRING);
+        return $this->get(\Pop\Color\Color::STRING);
     }
 
 }

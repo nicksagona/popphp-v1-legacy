@@ -13,7 +13,7 @@
 /**
  * @namespace
  */
-namespace Pop\Code;
+namespace Pop\Code\Generator;
 
 /**
  * Namespace generator code class
@@ -42,7 +42,7 @@ class NamespaceGenerator
 
     /**
      * Docblock generator object
-     * @var \Pop\Code\DocblockGenerator
+     * @var \Pop\Code\Generator\DocblockGenerator
      */
     protected $docblock = null;
 
@@ -64,7 +64,7 @@ class NamespaceGenerator
      * Instantiate the property generator object
      *
      * @param  string $namespace
-     * @return \Pop\Code\NamespaceGenerator
+     * @return \Pop\Code\Generator\NamespaceGenerator
      */
 
     public function __construct($namespace)
@@ -77,7 +77,7 @@ class NamespaceGenerator
      * to facilitate chaining methods together.
      *
      * @param  string $namespace
-     * @return \Pop\Code\NamespaceGenerator
+     * @return \Pop\Code\Generator\NamespaceGenerator
      */
     public static function factory($namespace)
     {
@@ -88,7 +88,7 @@ class NamespaceGenerator
      * Set the namespace
      *
      * @param  string $namespace
-     * @return \Pop\Code\NamespaceGenerator
+     * @return \Pop\Code\Generator\NamespaceGenerator
      */
     public function setNamespace($namespace)
     {
@@ -111,7 +111,7 @@ class NamespaceGenerator
      *
      * @param  string $use
      * @param  string $as
-     * @return \Pop\Code\NamespaceGenerator
+     * @return \Pop\Code\Generator\NamespaceGenerator
      */
     public function setUse($use, $as = null)
     {
@@ -123,7 +123,7 @@ class NamespaceGenerator
      * Set namespaces to use
      *
      * @param  array $uses
-     * @return \Pop\Code\NamespaceGenerator
+     * @return \Pop\Code\Generator\NamespaceGenerator
      */
     public function setUses(array $uses)
     {

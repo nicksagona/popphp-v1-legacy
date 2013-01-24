@@ -57,10 +57,10 @@ class Color
      *
      * Instantiate the color object
      *
-     * @param  ColorInterface $color
+     * @param  Space\ColorInterface $color
      * @return \Pop\Color\Color
      */
-    public function __construct(ColorInterface $color)
+    public function __construct(Space\ColorInterface $color)
     {
         $this->addColor($color);
     }
@@ -69,10 +69,10 @@ class Color
      * Static method to instantiate the color object and return itself
      * to facilitate chaining methods together.
      *
-     * @param  ColorInterface $color
+     * @param  Space\ColorInterface $color
      * @return \Pop\Color\Color
      */
-    public static function factory(ColorInterface $color)
+    public static function factory(Space\ColorInterface $color)
     {
         return new self($color);
     }
@@ -80,10 +80,10 @@ class Color
     /**
      * Method to add a new color space object to the color object.
      *
-     * @param  ColorInterface $color
+     * @param  Space\ColorInterface $color
      * @return \Pop\Color\Color
      */
-    public function addColor(ColorInterface $color)
+    public function addColor(Space\ColorInterface $color)
     {
         $class = get_class($color);
 

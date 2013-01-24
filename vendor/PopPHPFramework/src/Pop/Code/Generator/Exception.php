@@ -4,7 +4,7 @@
  *
  * @link       https://github.com/nicksagona/PopPHP
  * @category   Pop
- * @package    Pop_Color
+ * @package    Pop_Code
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
@@ -13,27 +13,16 @@
 /**
  * @namespace
  */
-namespace Pop\Color;
+namespace Pop\Code\Generator;
 
 /**
- * Color interface
+ * Code exception class
  *
  * @category   Pop
- * @package    Pop_Color
+ * @package    Pop_Code
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
  * @version    1.2.0
  */
-interface ColorInterface
-{
-
-    /**
-     * Method to get the full color value
-     *
-     * @param  int $type
-     * @return string|array
-     */
-    public function get($type = Color::ASSOC_ARRAY);
-
-}
+class Exception extends \Exception {}

@@ -15,6 +15,8 @@
  */
 namespace Pop\Code;
 
+use Pop\Code\Generator;
+
 /**
  * Reflection code class
  *
@@ -72,7 +74,7 @@ class Reflection extends \ReflectionClass
      *
      * @return string
      */
-    public function getCode()
+    public function code()
     {
         return $this->code;
     }
@@ -82,7 +84,7 @@ class Reflection extends \ReflectionClass
      *
      * @return \Pop\Code\Generator
      */
-    public function getGenerator()
+    public function generator()
     {
         return $this->generator;
     }
@@ -105,7 +107,7 @@ class Reflection extends \ReflectionClass
         // Detect and set the class doc block
         $classDocBlock = $this->getDocComment();
         if (!empty($classDocBlock) && (strpos($classDocBlock, '/*') !== false)) {
-            $this->generator->code()->setDocblock(DocblockGenerator::parse($classDocBlock));
+            $this->generator->code()->setDocblock(Generator\DocblockGenerator::parse($classDocBlock));
         }
 
         // Detect and set if the class is abstract
@@ -141,7 +143,7 @@ class Reflection extends \ReflectionClass
         $constants = $this->getConstants();
         if (count($constants) > 0) {
             foreach ($constants as $key => $value) {
-                $this->generator->code()->addProperty(new PropertyGenerator($key, gettype($value), $value, 'const'));
+                $this->generator->code()->addProperty(new Generator\PropertyGenerator($key, gettype($value), $value, 'const'));
             }
         }
 
@@ -163,7 +165,7 @@ class Reflection extends \ReflectionClass
 
         // Detect and set namespace
         if ($this->inNamespace()) {
-            $this->generator->setNamespace(new NamespaceGenerator($this->getNamespaceName()));
+            $this->generator->setNamespace(new Generator\NamespaceGenerator($this->getNamespaceName()));
             if (null !== $fileContents) {
                 $matches = array();
                 preg_match('/^use(.*)/m', $fileContents, $matches, PREG_OFFSET_CAPTURE);
@@ -209,7 +211,7 @@ class Reflection extends \ReflectionClass
 
                 $doc = $property->getDocComment();
                 if ((null !== $doc) && (strpos($doc, '/*') !== false)) {
-                    $docblock = DocblockGenerator::parse($doc);
+                    $docblock = Generator\DocblockGenerator::parse($doc);
                     $desc = $docblock->getDesc();
                     $type = $docblock->getTag('var');
                 } else {
@@ -223,7 +225,7 @@ class Reflection extends \ReflectionClass
                     $formattedValue = $value;
                 }
 
-                $prop = new PropertyGenerator($property->getName(), $type, $formattedValue, $visibility);
+                $prop = new Generator\PropertyGenerator($property->getName(), $type, $formattedValue, $visibility);
                 $prop->setStatic($property->isStatic());
                 $prop->setDesc($desc);
                 $this->generator->code()->addProperty($prop);
@@ -264,9 +266,9 @@ class Reflection extends \ReflectionClass
                     $visibility = 'private';
                 }
 
-                $mthd = new MethodGenerator($value->name, $visibility, $method->isStatic());
+                $mthd = new Generator\MethodGenerator($value->name, $visibility, $method->isStatic());
                 if ((null !== $docBlock) && (strpos($docBlock, '/*') !== false)) {
-                    $mthd->setDocblock(DocblockGenerator::parse($docBlock, $mthd->getIndent()));
+                    $mthd->setDocblock(Generator\DocblockGenerator::parse($docBlock, $mthd->getIndent()));
                 }
                 $mthd->setFinal($method->isFinal())
                      ->setAbstract($method->isAbstract());

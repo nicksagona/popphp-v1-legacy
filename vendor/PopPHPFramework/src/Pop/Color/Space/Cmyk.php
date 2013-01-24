@@ -13,7 +13,7 @@
 /**
  * @namespace
  */
-namespace Pop\Color;
+namespace Pop\Color\Space;
 
 /**
  * CMYK color class
@@ -61,12 +61,11 @@ class Cmyk implements ColorInterface
      * @param int $m
      * @param int $y
      * @param int $k
-     * @throws \Pop\Color\Exception
-     * @return \Pop\Color\Cmyk
+     * @throws \Pop\Color\Space\Exception
+     * @return \Pop\Color\Space\Cmyk
      */
     public function __construct($c, $m, $y, $k)
     {
-
         $max = max($c, $m, $y, $k);
         $min = min($c, $m, $y, $k);
 
@@ -86,9 +85,8 @@ class Cmyk implements ColorInterface
      * @param  int $type
      * @return string|array
      */
-    public function get($type = Color::ASSOC_ARRAY)
+    public function get($type = \Pop\Color\Color::ASSOC_ARRAY)
     {
-
         $cmyk = null;
 
         switch ($type) {
@@ -104,7 +102,6 @@ class Cmyk implements ColorInterface
         }
 
         return $cmyk;
-
     }
 
     /**
@@ -154,7 +151,7 @@ class Cmyk implements ColorInterface
      */
     public function __toString()
     {
-        return $this->get(Color::STRING);
+        return $this->get(\Pop\Color\Color::STRING);
     }
 
 }

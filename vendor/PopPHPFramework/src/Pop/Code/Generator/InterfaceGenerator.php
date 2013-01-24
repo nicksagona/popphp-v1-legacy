@@ -13,10 +13,10 @@
 /**
  * @namespace
  */
-namespace Pop\Code;
+namespace Pop\Code\Generator;
 
 /**
- * Class generator code class
+ * Interface generator code class
  *
  * @category   Pop
  * @package    Pop_Code
@@ -25,18 +25,18 @@ namespace Pop\Code;
  * @license    http://www.popphp.org/license     New BSD License
  * @version    1.2.0
  */
-class ClassGenerator
+class InterfaceGenerator
 {
 
     /**
      * Docblock generator object
-     * @var \Pop\Code\DocblockGenerator
+     * @var \Pop\Code\Generator\DocblockGenerator
      */
     protected $docblock = null;
 
     /**
      * Namespace generator object
-     * @var \Pop\Code\NamespaceGenerator
+     * @var \Pop\Code\Generator\NamespaceGenerator
      */
     protected $namespace = null;
 
@@ -47,28 +47,10 @@ class ClassGenerator
     protected $name = null;
 
     /**
-     * Parent class that is extended
+     * Parent interface that is extended
      * @var string
      */
     protected $parent = null;
-
-    /**
-     * Interface that is implemented
-     * @var string
-     */
-    protected $interface = null;
-
-    /**
-     * Class abstract flag
-     * @var boolean
-     */
-    protected $abstract = false;
-
-    /**
-     * Array of property generator objects
-     * @var array
-     */
-    protected $properties = array();
 
     /**
      * Array of method generator objects
@@ -91,64 +73,35 @@ class ClassGenerator
     /**
      * Constructor
      *
-     * Instantiate the class generator object
+     * Instantiate the interface generator object
      *
      * @param  string  $name
      * @param  string  $parent
-     * @param  string  $interface
-     * @param  boolean $abstract
-     * @return \Pop\Code\ClassGenerator
+     * @return \Pop\Code\Generator\InterfaceGenerator
      */
-    public function __construct($name, $parent = null, $interface = null, $abstract = false)
+    public function __construct($name, $parent = null)
     {
         $this->name = $name;
         $this->parent = $parent;
-        $this->interface = $interface;
-        $this->abstract = (boolean)$abstract;
     }
-
     /**
-     * Static method to instantiate the class generator object and return itself
+     * Static method to instantiate the interface generator object and return itself
      * to facilitate chaining methods together.
      *
      * @param  string  $name
      * @param  string  $parent
-     * @param  string  $interface
-     * @param  boolean $abstract
-     * @return \Pop\Code\ClassGenerator
+     * @return \Pop\Code\Generator\InterfaceGenerator
      */
-    public static function factory($name, $parent = null, $interface = null, $abstract = false)
+    public static function factory($name, $parent = null)
     {
-        return new self($name, $parent, $interface, $abstract);
+        return new self($name, $parent);
     }
 
     /**
-     * Set the class abstract flag
-     *
-     * @param  boolean $abstract
-     * @return \Pop\Code\ClassGenerator
-     */
-    public function setAbstract($abstract = false)
-    {
-        $this->abstract = (boolean)$abstract;
-        return $this;
-    }
-
-    /**
-     * Get the class abstract flag
-     *
-     * @return boolean
-     */
-    public function isAbstract()
-    {
-        return $this->abstract;
-    }
-
-    /**
-     * Set the class indent
+     * Set the interface indent
      *
      * @param  string $indent
-     * @return \Pop\Code\ClassGenerator
+     * @return \Pop\Code\Generator\InterfaceGenerator
      */
     public function setIndent($indent = null)
     {
@@ -157,7 +110,7 @@ class ClassGenerator
     }
 
     /**
-     * Get the class indent
+     * Get the interface indent
      *
      * @return string
      */
@@ -167,10 +120,10 @@ class ClassGenerator
     }
 
     /**
-     * Set the class name
+     * Set the interface name
      *
      * @param  string $name
-     * @return \Pop\Code\ClassGenerator
+     * @return \Pop\Code\Generator\InterfaceGenerator
      */
     public function setName($name)
     {
@@ -179,7 +132,7 @@ class ClassGenerator
     }
 
     /**
-     * Get the class name
+     * Get the interface name
      *
      * @return string
      */
@@ -189,10 +142,10 @@ class ClassGenerator
     }
 
     /**
-     * Set the class parent
+     * Set the interface parent
      *
      * @param  string $parent
-     * @return \Pop\Code\ClassGenerator
+     * @return \Pop\Code\Generator\InterfaceGenerator
      */
     public function setParent($parent = null)
     {
@@ -201,7 +154,7 @@ class ClassGenerator
     }
 
     /**
-     * Get the class parent
+     * Get the interface parent
      *
      * @return string
      */
@@ -211,32 +164,10 @@ class ClassGenerator
     }
 
     /**
-     * Set the class interface
-     *
-     * @param  string $interface
-     * @return \Pop\Code\ClassGenerator
-     */
-    public function setInterface($interface = null)
-    {
-        $this->interface = $interface;
-        return $this;
-    }
-
-    /**
-     * Get the class interface
-     *
-     * @return string
-     */
-    public function getInterface()
-    {
-        return $this->interface;
-    }
-
-    /**
      * Set the namespace generator object
      *
      * @param  NamespaceGenerator $namespace
-     * @return \Pop\Code\ClassGenerator
+     * @return \Pop\Code\Generator\ClassGenerator
      */
     public function setNamespace(NamespaceGenerator $namespace)
     {
@@ -247,7 +178,7 @@ class ClassGenerator
     /**
      * Access the namespace generator object
      *
-     * @return \Pop\Code\NamespaceGenerator
+     * @return \Pop\Code\Generator\NamespaceGenerator
      */
     public function getNamespace()
     {
@@ -258,7 +189,7 @@ class ClassGenerator
      * Set the docblock generator object
      *
      * @param  DocblockGenerator $docblock
-     * @return \Pop\Code\ClassGenerator
+     * @return \Pop\Code\Generator\ClassGenerator
      */
     public function setDocblock(DocblockGenerator $docblock)
     {
@@ -269,7 +200,7 @@ class ClassGenerator
     /**
      * Access the docblock generator object
      *
-     * @return \Pop\Code\DocblockGenerator
+     * @return \Pop\Code\Generator\DocblockGenerator
      */
     public function getDocblock()
     {
@@ -277,59 +208,10 @@ class ClassGenerator
     }
 
     /**
-     * Add a class property
-     *
-     * @param  PropertyGenerator $property
-     * @return \Pop\Code\ClassGenerator
-     */
-    public function addProperty(PropertyGenerator $property)
-    {
-        $this->properties[$property->getName()] = $property;
-        return $this;
-    }
-
-    /**
-     * Get a class property
-     *
-     * @param  mixed $property
-     * @return \Pop\Code\PropertyGenerator
-     */
-    public function getProperty($property)
-    {
-        $p = ($property instanceof PropertyGenerator) ? $property->getName() : $property;
-        return (isset($this->properties[$p])) ? $this->properties[$p] : null;
-    }
-
-    /**
-     * Get all properties
-     *
-     * @return array
-     */
-    public function getProperties()
-    {
-        return $this->properties;
-    }
-
-    /**
-     * Remove a class property
-     *
-     * @param  mixed $property
-     * @return \Pop\Code\ClassGenerator
-     */
-    public function removeProperty($property)
-    {
-        $p = ($property instanceof PropertyGenerator) ? $property->getName() : $property;
-        if (isset($this->properties[$p])) {
-            unset($this->properties[$p]);
-        }
-        return $this;
-    }
-
-    /**
      * Add a class method
      *
      * @param  MethodGenerator $method
-     * @return \Pop\Code\ClassGenerator
+     * @return \Pop\Code\Generator\ClassGenerator
      */
     public function addMethod(MethodGenerator $method)
     {
@@ -341,7 +223,7 @@ class ClassGenerator
      * Get a method property
      *
      * @param  mixed $method
-     * @return \Pop\Code\MethodGenerator
+     * @return /Pop\Code\MethodGenerator
      */
     public function getMethod($method)
     {
@@ -350,20 +232,10 @@ class ClassGenerator
     }
 
     /**
-     * Get all methods
-     *
-     * @return array
-     */
-    public function getMethods()
-    {
-        return $this->methods;
-    }
-
-    /**
      * Remove a method property
      *
      * @param  mixed $method
-     * @return \Pop\Code\ClassGenerator
+     * @return \Pop\Code\Generator\ClassGenerator
      */
     public function removeMethod($method)
     {
@@ -382,20 +254,15 @@ class ClassGenerator
      */
     public function render($ret = false)
     {
-        $abstract = ($this->abstract) ? 'abstract ' : null;
         $this->output = (null !== $this->namespace) ? $this->namespace->render(true) . PHP_EOL : null;
         $this->output .= (null !== $this->docblock) ? $this->docblock->render(true) : null;
-        $this->output .= $abstract . 'class ' . $this->name;
+        $this->output .= 'interface ' . $this->name;
 
         if (null !== $this->parent) {
             $this->output .= ' extends ' . $this->parent;
         }
-        if (null !== $this->interface) {
-            $this->output .= ' implements ' . $this->interface;
-        }
 
-        $this->output .= PHP_EOL . '{';
-        $this->output .= $this->formatProperties() . PHP_EOL;
+        $this->output .= PHP_EOL . '{' . PHP_EOL;
         $this->output .= $this->formatMethods() . PHP_EOL;
         $this->output .= '}' . PHP_EOL;
 
@@ -404,22 +271,6 @@ class ClassGenerator
         } else {
             echo $this->output;
         }
-    }
-
-    /**
-     * Method to format the properties
-     *
-     * @return string
-     */
-    protected function formatProperties()
-    {
-        $props = null;
-
-        foreach ($this->properties as $prop) {
-            $props .= PHP_EOL . $prop->render(true);
-        }
-
-        return $props;
     }
 
     /**
@@ -432,6 +283,7 @@ class ClassGenerator
         $methods = null;
 
         foreach ($this->methods as $method) {
+            $method->setInterface(true);
             $methods .= PHP_EOL . $method->render(true);
         }
 

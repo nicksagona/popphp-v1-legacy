@@ -5,7 +5,7 @@ require_once '../../bootstrap.php';
 use Pop\Color;
 
 try {
-    $rgb = new Color\Rgb(112, 124, 228);
+    $rgb = new Color\Space\Rgb(112, 124, 228);
     $cmyk = Color\Convert::ToCmyk($rgb);
     echo 'RGB: ' . $rgb . ' => CMYK: ' . $cmyk;
 } catch (\Exception $e) {

@@ -5,7 +5,7 @@ require_once '../../bootstrap.php';
 use Pop\Color;
 
 try {
-    $color = new Color\Color(new Color\Rgb(112, 124, 228));
+    $color = new Color\Color(new Color\Space\Rgb(112, 124, 228));
 
     echo '<strong>RGB values:</strong> ' . $color->rgb . '<br /><br />' . PHP_EOL;
     echo '<strong>HEX values:</strong> ' . $color->hex . '<br /><br />' . PHP_EOL;

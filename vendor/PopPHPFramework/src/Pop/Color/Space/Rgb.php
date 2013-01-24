@@ -13,7 +13,7 @@
 /**
  * @namespace
  */
-namespace Pop\Color;
+namespace Pop\Color\Space;
 
 /**
  * RGB color class
@@ -54,12 +54,11 @@ class Rgb implements ColorInterface
      * @param int $r
      * @param int $g
      * @param int $b
-     * @throws Exception
-     * @return \Pop\Color\Rgb
+     * @throws \Pop\Color\Space\Exception
+     * @return \Pop\Color\Space\Rgb
      */
     public function __construct($r, $g, $b)
     {
-
         $max = max($r, $g, $b);
         $min = min($r, $g, $b);
 
@@ -79,9 +78,8 @@ class Rgb implements ColorInterface
      * @param  boolean $css
      * @return string|array
      */
-    public function get($type = Color::ASSOC_ARRAY, $css = false)
+    public function get($type = \Pop\Color\Color::ASSOC_ARRAY, $css = false)
     {
-
         $rgb = null;
 
         switch ($type) {
@@ -101,7 +99,6 @@ class Rgb implements ColorInterface
         }
 
         return $rgb;
-
     }
 
     /**
@@ -141,7 +138,7 @@ class Rgb implements ColorInterface
      */
     public function __toString()
     {
-        return $this->get(Color::STRING);
+        return $this->get(\Pop\Color\Color::STRING);
     }
 
 }

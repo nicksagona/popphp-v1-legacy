@@ -13,7 +13,7 @@
 /**
  * @namespace
  */
-namespace Pop\Color;
+namespace Pop\Color\Space;
 
 /**
  * Hex color class
@@ -64,8 +64,8 @@ class Hex implements ColorInterface
      * Instantiate the hex color object
      *
      * @param string $hex
-     * @throws \Pop\Color\Exception
-     * @return \Pop\Color\Hex
+     * @throws \Pop\Color\Space\Exception
+     * @return \Pop\Color\Space\Hex
      */
     public function __construct($hex)
     {
@@ -92,6 +92,7 @@ class Hex implements ColorInterface
             throw new Exception('One or more of the color values is out of range.');
         }
 
+        // Calculate hex shorthand if possible
         $r = null;
         $g = null;
         $b = null;
@@ -116,23 +117,32 @@ class Hex implements ColorInterface
     /**
      * Method to get the full RGB hex value
      *
+     * @param  int     $type
      * @param  boolean $hash
      * @param  boolean $short
      * @return string
      */
-    public function get($hash = false, $short = false)
+    public function get($type = \Pop\Color\Color::STRING, $hash = false, $short = false)
     {
-
         $hex = null;
 
-        if (($short) && (null !== $this->shorthand)) {
-            $hex = ($hash) ? '#' . $this->shorthand : $this->shorthand;
-        } else {
-            $hex = ($hash) ? '#' . $this->hex : $this->hex;
+        switch ($type) {
+            case 1:
+                $hex = array('r' => $this->red, 'g' => $this->green, 'b' => $this->blue);
+                break;
+            case 2:
+                $hex = array($this->red, $this->green, $this->blue);
+                break;
+            case 3:
+                if (($short) && (null !== $this->shorthand)) {
+                    $hex = ($hash) ? '#' . $this->shorthand : $this->shorthand;
+                } else {
+                    $hex = ($hash) ? '#' . $this->hex : $this->hex;
+                }
+                break;
         }
 
         return $hex;
-
     }
 
     /**
@@ -172,7 +182,7 @@ class Hex implements ColorInterface
      */
     public function __toString()
     {
-        return $this->get(true);
+        return $this->get(\Pop\Color\Color::STRING, true);
     }
 
     /**

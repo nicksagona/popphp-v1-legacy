@@ -48,19 +48,19 @@ class Generator extends \Pop\File\File
 
     /**
      * Code object
-     * @var \Pop\Code\ClassGenerator|\Pop\Code\InterfaceGenerator
+     * @var \Pop\Code\Generator\ClassGenerator|\Pop\Code\Generator\InterfaceGenerator
      */
     protected $code = null;
 
     /**
      * Docblock generator object
-     * @var \Pop\Code\DocblockGenerator
+     * @var \Pop\Code\Generator\DocblockGenerator
      */
     protected $docblock = null;
 
     /**
      * Namespace generator object
-     * @var \Pop\Code\NamespaceGenerator
+     * @var \Pop\Code\Generator\NamespaceGenerator
      */
     protected $namespace = null;
 
@@ -121,7 +121,8 @@ class Generator extends \Pop\File\File
      */
     public function createInterface()
     {
-        $this->code = new InterfaceGenerator($this->filename);
+        $this->code = new Generator\InterfaceGenerator($this->filename);
+        return $this;
     }
 
     /**
@@ -131,13 +132,14 @@ class Generator extends \Pop\File\File
      */
     public function createClass()
     {
-        $this->code = new ClassGenerator($this->filename);
+        $this->code = new Generator\ClassGenerator($this->filename);
+        return $this;
     }
 
     /**
      * Access the code generator object
      *
-     * @return \Pop\Code\ClassGenerator|\Pop\Code\InterfaceGenerator
+     * @return \Pop\Code\Generator\ClassGenerator|\Pop\Code\Generator\InterfaceGenerator
      */
     public function code()
     {
@@ -181,10 +183,10 @@ class Generator extends \Pop\File\File
     /**
      * Set the namespace generator object
      *
-     * @param  NamespaceGenerator $namespace
+     * @param  Generator\NamespaceGenerator $namespace
      * @return \Pop\Code\Generator
      */
-    public function setNamespace(NamespaceGenerator $namespace)
+    public function setNamespace(Generator\NamespaceGenerator $namespace)
     {
         $this->namespace = $namespace;
         return $this;
@@ -193,7 +195,7 @@ class Generator extends \Pop\File\File
     /**
      * Access the namespace generator object
      *
-     * @return \Pop\Code\NamespaceGenerator
+     * @return \Pop\Code\Generator\NamespaceGenerator
      */
     public function getNamespace()
     {
@@ -203,10 +205,10 @@ class Generator extends \Pop\File\File
     /**
      * Set the docblock generator object
      *
-     * @param  DocblockGenerator $docblock
+     * @param  Generator\DocblockGenerator $docblock
      * @return \Pop\Code\Generator
      */
-    public function setDocblock(DocblockGenerator $docblock)
+    public function setDocblock(Generator\DocblockGenerator $docblock)
     {
         $this->docblock = $docblock;
         return $this;
@@ -215,7 +217,7 @@ class Generator extends \Pop\File\File
     /**
      * Access the docblock generator object
      *
-     * @return \Pop\Code\DocblockGenerator
+     * @return \Pop\Code\Generator\DocblockGenerator
      */
     public function getDocblock()
     {

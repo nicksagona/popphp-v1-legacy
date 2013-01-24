@@ -13,7 +13,7 @@
 /**
  * @namespace
  */
-namespace Pop\Code;
+namespace Pop\Code\Generator;
 
 /**
  * Function generator code class
@@ -30,7 +30,7 @@ class FunctionGenerator
 
     /**
      * Docblock generator object
-     * @var \Pop\Code\DocblockGenerator
+     * @var \Pop\Code\Generator\DocblockGenerator
      */
     protected $docblock = null;
 
@@ -77,7 +77,7 @@ class FunctionGenerator
      *
      * @param  string $name
      * @param  mixed  $func
-     * @return \Pop\Code\FunctionGenerator
+     * @return \Pop\Code\Generator\FunctionGenerator
      */
     public function __construct($name, $func = null)
     {
@@ -93,7 +93,7 @@ class FunctionGenerator
      *
      * @param  string  $name
      * @param  mixed  $func
-     * @return \Pop\Code\FunctionGenerator
+     * @return \Pop\Code\Generator\FunctionGenerator
      */
     public static function factory($name, $func = null)
     {
@@ -104,7 +104,7 @@ class FunctionGenerator
      * Set the function closure flag
      *
      * @param  boolean $closure
-     * @return \Pop\Code\FunctionGenerator
+     * @return \Pop\Code\Generator\FunctionGenerator
      */
     public function setClosure($closure = false)
     {
@@ -126,7 +126,7 @@ class FunctionGenerator
      * Set the function description
      *
      * @param  string $desc
-     * @return \Pop\Code\FunctionGenerator
+     * @return \Pop\Code\Generator\FunctionGenerator
      */
     public function setDesc($desc = null)
     {
@@ -156,7 +156,7 @@ class FunctionGenerator
      * Set the function indent
      *
      * @param  string $indent
-     * @return \Pop\Code\FunctionGenerator
+     * @return \Pop\Code\Generator\FunctionGenerator
      */
     public function setIndent($indent = null)
     {
@@ -178,7 +178,7 @@ class FunctionGenerator
      * Set the function name
      *
      * @param  string $name
-     * @return \Pop\Code\FunctionGenerator
+     * @return \Pop\Code\Generator\FunctionGenerator
      */
     public function setName($name)
     {
@@ -201,7 +201,7 @@ class FunctionGenerator
      *
      * @param  string $body
      * @param  boolean $newline
-     * @return \Pop\Code\FunctionGenerator
+     * @return \Pop\Code\Generator\FunctionGenerator
      */
     public function setBody($body, $newline = true)
     {
@@ -217,7 +217,7 @@ class FunctionGenerator
      *
      * @param  string  $body
      * @param  boolean $newline
-     * @return \Pop\Code\FunctionGenerator
+     * @return \Pop\Code\Generator\FunctionGenerator
      */
     public function appendToBody($body, $newline = true)
     {
@@ -243,7 +243,7 @@ class FunctionGenerator
      * Set the docblock generator object
      *
      * @param  DocblockGenerator $docblock
-     * @return \Pop\Code\ClassGenerator
+     * @return \Pop\Code\Generator\ClassGenerator
      */
     public function setDocblock(DocblockGenerator $docblock)
     {
@@ -254,7 +254,7 @@ class FunctionGenerator
     /**
      * Access the docblock generator object
      *
-     * @return \Pop\Code\DocblockGenerator
+     * @return \Pop\Code\Generator\DocblockGenerator
      */
     public function getDocblock()
     {
@@ -267,7 +267,7 @@ class FunctionGenerator
      * @param string  $name
      * @param mixed   $value
      * @param string  $type
-     * @return \Pop\Code\FunctionGenerator
+     * @return \Pop\Code\Generator\FunctionGenerator
      */
     public function addArgument($name, $value = null, $type = null)
     {
@@ -297,7 +297,7 @@ class FunctionGenerator
      * Add function arguments
      *
      * @param array $args
-     * @return \Pop\Code\FunctionGenerator
+     * @return \Pop\Code\Generator\FunctionGenerator
      */
     public function addArguments(array $args)
     {
@@ -315,7 +315,7 @@ class FunctionGenerator
      * @param string  $name
      * @param mixed   $value
      * @param string  $type
-     * @return \Pop\Code\FunctionGenerator
+     * @return \Pop\Code\Generator\FunctionGenerator
      */
     public function addParameter($name, $value = null, $type = null)
     {
@@ -327,7 +327,7 @@ class FunctionGenerator
      * Add function arguments (synonym method for convenience)
      *
      * @param array $args
-     * @return \Pop\Code\FunctionGenerator
+     * @return \Pop\Code\Generator\FunctionGenerator
      */
     public function addParameters(array $args)
     {
