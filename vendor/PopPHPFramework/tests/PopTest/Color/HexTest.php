@@ -16,7 +16,8 @@
 namespace PopTest\Color;
 
 use Pop\Loader\Autoloader,
-    Pop\Color\Hex;
+    Pop\Color\Color,
+    Pop\Color\Space\Hex;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -30,13 +31,13 @@ class HexTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $h = new Hex('#ee1c2d');
-        $this->assertInstanceOf('Pop\Color\Hex', $h);
+        $this->assertInstanceOf('Pop\Color\Space\Hex', $h);
         $this->assertEquals('ee', $h->getRed());
         $this->assertEquals('1c', $h->getGreen());
         $this->assertEquals('2d', $h->getBlue());
 
         $h = new Hex('#def');
-        $this->assertInstanceOf('Pop\Color\Hex', $h);
+        $this->assertInstanceOf('Pop\Color\Space\Hex', $h);
         $this->assertEquals('dd', $h->getRed());
         $this->assertEquals('ee', $h->getGreen());
         $this->assertEquals('ff', $h->getBlue());
@@ -44,7 +45,7 @@ class HexTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorOutOfRange()
     {
-        $this->setExpectedException('Pop\Color\Exception');
+        $this->setExpectedException('Pop\Color\Space\Exception');
         $h = new Hex('#gggggg');
     }
 
@@ -52,9 +53,11 @@ class HexTest extends \PHPUnit_Framework_TestCase
     {
         $h = new Hex('#ee1c2d');
         $this->assertEquals('#ee1c2d', (string)$h);
-        $this->assertEquals('#ee1c2d', $h->get(true));
+        $this->assertTrue(is_array($h->get(Color::ASSOC_ARRAY)));
+        $this->assertTrue(is_array($h->get(Color::NUM_ARRAY)));
+        $this->assertEquals('#ee1c2d', $h->get(Color::STRING, true));
         $h = new Hex('#def');
-        $this->assertEquals('def', $h->get(false, true));
+        $this->assertEquals('def', $h->get(Color::STRING, false, true));
     }
 
 }

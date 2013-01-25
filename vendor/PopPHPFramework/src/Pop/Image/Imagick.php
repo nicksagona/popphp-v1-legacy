@@ -16,8 +16,8 @@
 namespace Pop\Image;
 
 use Pop\Color\Color,
-    Pop\Color\ColorInterface,
-    Pop\Color\Rgb,
+    Pop\Color\Space\ColorInterface,
+    Pop\Color\Space\Rgb,
     Pop\Http\Response;
 
 /**
@@ -132,11 +132,11 @@ class Imagick extends AbstractImage
      * Any variation in the versions of the required software may contribute to
      * the Pop\Image\Imagick component not functioning properly.
      *
-     * @param  string                    $img
-     * @param  int|string                $w
-     * @param  int|string                $h
-     * @param  \Pop\Color\ColorInterface $color
-     * @param  array                     $types
+     * @param  string         $img
+     * @param  int|string     $w
+     * @param  int|string     $h
+     * @param  ColorInterface $color
+     * @param  array          $types
      * @throws Exception
      * @return \Pop\Image\Imagick
      */
@@ -889,7 +889,7 @@ class Imagick extends AbstractImage
     /**
      * Method to colorize the image with the color passed.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @return \Pop\Image\Imagick
      */
     public function colorize(ColorInterface $color)
@@ -994,7 +994,7 @@ class Imagick extends AbstractImage
     /**
      * Apply a skew effect to the image
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  ColorInterface $color
      * @param  int            $x
      * @param  int            $y
      * @return \Pop\Image\Imagick
@@ -1075,7 +1075,7 @@ class Imagick extends AbstractImage
     /**
      * Return all of the colors in the palette in an array format
      *
-     * @param int $format
+     * @param int|string $format
      * @return array
      */
     public function getColors($format = \Pop\Image\Imagick::HEX)
@@ -1180,7 +1180,7 @@ class Imagick extends AbstractImage
      *
      * @param  string  $to
      * @param  boolean $append
-     * @return void
+     * @return \Pop\Image\Imagick
      */
     public function save($to = null, $append = false)
     {
@@ -1406,7 +1406,7 @@ class Imagick extends AbstractImage
     /**
      * Set and return a color identifier.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @throws Exception
      * @return mixed
      */

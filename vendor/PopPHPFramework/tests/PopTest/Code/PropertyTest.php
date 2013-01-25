@@ -16,8 +16,8 @@
 namespace PopTest\Code;
 
 use Pop\Loader\Autoloader,
-    Pop\Code\DocblockGenerator,
-    Pop\Code\PropertyGenerator;
+    Pop\Code\Generator\DocblockGenerator,
+    Pop\Code\Generator\PropertyGenerator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -30,7 +30,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $this->assertInstanceOf('Pop\Code\PropertyGenerator', PropertyGenerator::factory('testProp', 'string', 123));
+        $this->assertInstanceOf('Pop\Code\Generator\PropertyGenerator', PropertyGenerator::factory('testProp', 'string', 123));
     }
 
     public function testStatic()
@@ -74,7 +74,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         $p->setDesc('This is the desc.');
         $p->setDesc('This is the new desc.');
         $this->assertEquals('This is the new desc.', $p->getDesc());
-        $this->assertInstanceOf('Pop\Code\DocblockGenerator', $p->getDocblock());
+        $this->assertInstanceOf('Pop\Code\Generator\DocblockGenerator', $p->getDocblock());
     }
 
     public function testSetAndGetDocblock()

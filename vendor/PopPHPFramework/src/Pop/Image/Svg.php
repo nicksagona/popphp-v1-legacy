@@ -16,8 +16,8 @@
 namespace Pop\Image;
 
 use Pop\Color\Color,
-    Pop\Color\ColorInterface,
-    Pop\Color\Rgb;
+    Pop\Color\Space\ColorInterface,
+    Pop\Color\Space\Rgb;
 
 /**
  * SVG image class
@@ -158,10 +158,10 @@ class Svg extends \Pop\File\File
      * Instantiate an SVG image object based on either a pre-existing SVG image
      * file on disk, or a new SVG image file.
      *
-     * @param  string                    $svg
-     * @param  int|string                $w
-     * @param  int|string                $h
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  string         $svg
+     * @param  int|string     $w
+     * @param  int|string     $h
+     * @param  ColorInterface $color
      * @throws Exception
      * @return \Pop\Image\Svg
      */
@@ -245,7 +245,7 @@ class Svg extends \Pop\File\File
     /**
      * Set the fill color.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @return \Pop\Image\Svg
      */
     public function setFillColor(ColorInterface $color = null)
@@ -258,7 +258,7 @@ class Svg extends \Pop\File\File
     /**
      * Set the background color.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @return \Pop\Image\Svg
      */
     public function setBackgroundColor(ColorInterface $color = null)
@@ -270,7 +270,7 @@ class Svg extends \Pop\File\File
     /**
      * Set the stroke color.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @return \Pop\Image\Svg
      */
     public function setStrokeColor(ColorInterface $color = null)
@@ -317,8 +317,8 @@ class Svg extends \Pop\File\File
     /**
      * Add a gradient.
      *
-     * @param  \Pop\Color\ColorInterface $color1
-     * @param  \Pop\Color\ColorInterface $color2
+     * @param  ColorInterface $color1
+     * @param  ColorInterface $color2
      * @param  int            $type
      * @return \Pop\Image\Svg
      */

@@ -16,7 +16,7 @@
 namespace PopTest\Pdf;
 
 use Pop\Loader\Autoloader,
-    Pop\Color\Rgb,
+    Pop\Color\Space\Rgb,
     Pop\Pdf\Pdf;
 
 // Require the library's autoloader.

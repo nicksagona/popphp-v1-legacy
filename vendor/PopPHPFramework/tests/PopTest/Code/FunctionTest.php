@@ -16,7 +16,7 @@
 namespace PopTest\Code;
 
 use Pop\Loader\Autoloader,
-    Pop\Code\FunctionGenerator;
+    Pop\Code\Generator\FunctionGenerator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -33,7 +33,7 @@ class FunctionTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $this->assertInstanceOf('Pop\Code\FunctionGenerator', FunctionGenerator::factory('newFunction'));
+        $this->assertInstanceOf('Pop\Code\Generator\FunctionGenerator', FunctionGenerator::factory('newFunction'));
     }
 
     public function testClosure()

@@ -18,11 +18,11 @@ namespace PopTest\Color;
 use Pop\Loader\Autoloader,
     Pop\Color\Color,
     Pop\Color\Convert,
-    Pop\Color\Cmyk,
-    Pop\Color\Hex,
-    Pop\Color\Hsb,
-    Pop\Color\Lab,
-    Pop\Color\Rgb;
+    Pop\Color\Space\Cmyk,
+    Pop\Color\Space\Hex,
+    Pop\Color\Space\Hsb,
+    Pop\Color\Space\Lab,
+    Pop\Color\Space\Rgb;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -90,63 +90,63 @@ class ColorTest extends \PHPUnit_Framework_TestCase
     public function testRgbToCmyk()
     {
         $cmyk = Convert::toCmyk(new Rgb(0, 0, 0));
-        $this->assertInstanceOf('Pop\Color\Cmyk', $cmyk);
+        $this->assertInstanceOf('Pop\Color\Space\Cmyk', $cmyk);
         $this->assertEquals('0,0,0,100', (string)$cmyk);
     }
 
     public function testHsbToRgb()
     {
         $rgb = Convert::toRgb(new Hsb(180, 50, 50));
-        $this->assertInstanceOf('Pop\Color\Rgb', $rgb);
+        $this->assertInstanceOf('Pop\Color\Space\Rgb', $rgb);
         $this->assertEquals('64,128,64', (string)$rgb);
     }
 
     public function testHsbToHex()
     {
         $hex = Convert::toHex(new Hsb(180, 50, 50));
-        $this->assertInstanceOf('Pop\Color\Hex', $hex);
+        $this->assertInstanceOf('Pop\Color\Space\Hex', $hex);
         $this->assertEquals('#408040', (string)$hex);
     }
 
     public function testHsbToCmyk()
     {
         $cmyk = Convert::toCmyk(new Hsb(180, 50, 50));
-        $this->assertInstanceOf('Pop\Color\Cmyk', $cmyk);
+        $this->assertInstanceOf('Pop\Color\Space\Cmyk', $cmyk);
         $this->assertEquals('50,0,50,50', (string)$cmyk);
     }
 
     public function testHsbToLab()
     {
         $lab = Convert::toLab(new Hsb(180, 50, 50));
-        $this->assertInstanceOf('Pop\Color\Lab', $lab);
+        $this->assertInstanceOf('Pop\Color\Space\Lab', $lab);
         $this->assertEquals('48,-34,28', (string)$lab);
     }
 
     public function testLabToRgb()
     {
         $rgb = Convert::toRgb(new Lab(100, 100, 100));
-        $this->assertInstanceOf('Pop\Color\Rgb', $rgb);
+        $this->assertInstanceOf('Pop\Color\Space\Rgb', $rgb);
         $this->assertEquals('195,146,49', (string)$rgb);
     }
 
     public function testLabToHex()
     {
         $hex = Convert::toHex(new Lab(100, 100, 100));
-        $this->assertInstanceOf('Pop\Color\Hex', $hex);
+        $this->assertInstanceOf('Pop\Color\Space\Hex', $hex);
         $this->assertEquals('#c39231', (string)$hex);
     }
 
     public function testLabToCmyk()
     {
         $cmyk = Convert::toCmyk(new Lab(100, 100, 100));
-        $this->assertInstanceOf('Pop\Color\Cmyk', $cmyk);
+        $this->assertInstanceOf('Pop\Color\Space\Cmyk', $cmyk);
         $this->assertEquals('0,25,75,24', (string)$cmyk);
     }
 
     public function testLabToHsb()
     {
         $hsb = Convert::toHsb(new Lab(100, 100, 100));
-        $this->assertInstanceOf('Pop\Color\Hsb', $hsb);
+        $this->assertInstanceOf('Pop\Color\Space\Hsb', $hsb);
         $this->assertEquals('40,75,76', (string)$hsb);
     }
 
@@ -154,7 +154,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
     {
         $c = new Color(new Rgb(112, 124, 228));
         $this->assertTrue(isset($c->cmyk));
-        $this->assertInstanceOf('Pop\Color\Cmyk', $c->cmyk);
+        $this->assertInstanceOf('Pop\Color\Space\Cmyk', $c->cmyk);
         unset($c->cmyk);
         $this->assertFalse(isset($c->cmyk));
     }

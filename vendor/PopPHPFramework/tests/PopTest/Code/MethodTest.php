@@ -16,7 +16,7 @@
 namespace PopTest\Code;
 
 use Pop\Loader\Autoloader,
-    Pop\Code\MethodGenerator;
+    Pop\Code\Generator\MethodGenerator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -29,7 +29,7 @@ class MethodTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $this->assertInstanceOf('Pop\Code\MethodGenerator', MethodGenerator::factory('testMethod'));
+        $this->assertInstanceOf('Pop\Code\Generator\MethodGenerator', MethodGenerator::factory('testMethod'));
     }
 
     public function testStatic()
@@ -79,7 +79,7 @@ class MethodTest extends \PHPUnit_Framework_TestCase
         $m->setDesc('This is the desc.');
         $m->setDesc('This is the new desc.');
         $this->assertEquals('This is the new desc.', $m->getDesc());
-        $this->assertInstanceOf('Pop\Code\DocblockGenerator', $m->getDocblock());
+        $this->assertInstanceOf('Pop\Code\Generator\DocblockGenerator', $m->getDocblock());
     }
 
     public function testSetAndGetIndent()

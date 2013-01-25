@@ -259,7 +259,7 @@ class Object
     /**
      * Method to get the PDF object byte length.
      *
-     * @return void
+     * @return int
      */
     public function getByteLength()
     {

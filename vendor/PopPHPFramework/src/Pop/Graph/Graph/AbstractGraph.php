@@ -307,7 +307,7 @@ abstract class AbstractGraph
                             if ((null !== $prevY) && ($y < $nextY) && ($y < $prevY)) {
                                 $y -= $fontSize * 2;
                                 if (null !== $fillColor) {
-                                    $revColor = (null !== $reverseFontColor) ? $reverseFontColor : new \Pop\Color\Rgb(255, 255, 255);
+                                    $revColor = (null !== $reverseFontColor) ? $reverseFontColor : new \Pop\Color\Space\Rgb(255, 255, 255);
                                     $this->graph->adapter()->setFillColor($revColor);
                                 }
                             } else if (((null !== $prevY) && ($y < $nextY) && ($y > $prevY)) || ((null === $prevY) && ($y > $nextY))) {
@@ -319,7 +319,7 @@ abstract class AbstractGraph
                             if ((null !== $prevY) && ($y > $nextY) && ($y > $prevY)) {
                                 $y += $fontSize * 2;
                                 if (null !== $fillColor) {
-                                    $revColor = (null !== $reverseFontColor) ? $reverseFontColor : new \Pop\Color\Rgb(255, 255, 255);
+                                    $revColor = (null !== $reverseFontColor) ? $reverseFontColor : new \Pop\Color\Space\Rgb(255, 255, 255);
                                     $this->graph->adapter()->setFillColor($revColor);
                                 }
                             } else if (((null !== $prevY) && ($y > $nextY) && ($y < $prevY)) || ((null === $prevY) && ($y > $nextY))) {

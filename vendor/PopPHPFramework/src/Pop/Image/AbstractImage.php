@@ -15,7 +15,7 @@
  */
 namespace Pop\Image;
 
-use Pop\Color\ColorInterface;
+use Pop\Color\Space\ColorInterface;
 
 /**
  * Image abstract class
@@ -144,11 +144,11 @@ abstract class AbstractImage extends \Pop\File\File
      * Instantiate an image file object based on either a pre-existing
      * image file on disk, or a new image file.
      *
-     * @param  string                    $img
-     * @param  int|string                $w
-     * @param  int|string                $h
-     * @param  \Pop\Color\ColorInterface $color
-     * @param  array                     $types
+     * @param  string         $img
+     * @param  int|string     $w
+     * @param  int|string     $h
+     * @param  ColorInterface $color
+     * @param  array          $types
      * @return \Pop\Image\AbstractImage
      */
     public function __construct($img, $w = null, $h = null, ColorInterface $color = null, $types = null)
@@ -237,7 +237,7 @@ abstract class AbstractImage extends \Pop\File\File
     /**
      * Set the fill color.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @return mixed
      */
     public function setFillColor(ColorInterface $color = null)
@@ -249,7 +249,7 @@ abstract class AbstractImage extends \Pop\File\File
     /**
      * Set the background color.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @return mixed
      */
     public function setBackgroundColor(ColorInterface $color = null)
@@ -261,7 +261,7 @@ abstract class AbstractImage extends \Pop\File\File
     /**
      * Set the stroke color.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @return mixed
      */
     public function setStrokeColor(ColorInterface $color = null)
@@ -484,7 +484,7 @@ abstract class AbstractImage extends \Pop\File\File
     /**
      * Method to colorize the image with the color passed.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @return mixed
      */
     abstract public function colorize(ColorInterface $color);
@@ -548,7 +548,7 @@ abstract class AbstractImage extends \Pop\File\File
     /**
      * Set and return a color identifier.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @throws Exception
      * @return mixed
      */

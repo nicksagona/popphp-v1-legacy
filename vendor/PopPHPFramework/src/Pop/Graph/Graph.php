@@ -15,8 +15,8 @@
  */
 namespace Pop\Graph;
 
-use Pop\Color\ColorInterface,
-    Pop\Color\Rgb,
+use Pop\Color\Space\ColorInterface,
+    Pop\Color\Space\Rgb,
     Pop\Pdf\Pdf;
 
 /**
@@ -220,7 +220,7 @@ class Graph
     /**
      * Set the axis options
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  ColorInterface $color
      * @param  int            $width
      * @return \Pop\Graph\Graph
      */
@@ -292,7 +292,7 @@ class Graph
     /**
      * Set the font color
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  ColorInterface $color
      * @return \Pop\Graph\Graph
      */
     public function setFontColor(ColorInterface $color)
@@ -304,7 +304,7 @@ class Graph
     /**
      * Set the reverse font color
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  ColorInterface $color
      * @return \Pop\Graph\Graph
      */
     public function setReverseFontColor(ColorInterface $color)
@@ -316,7 +316,7 @@ class Graph
     /**
      * Set the fill color
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  ColorInterface $color
      * @return \Pop\Graph\Graph
      */
     public function setFillColor(ColorInterface $color)
@@ -328,7 +328,7 @@ class Graph
     /**
      * Set the stroke color
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  ColorInterface $color
      * @return \Pop\Graph\Graph
      */
     public function setStrokeColor(ColorInterface $color)
@@ -389,7 +389,7 @@ class Graph
      * Set the 'show X-axis increment lines' flag
      *
      * @param  boolean        $showX
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  ColorInterface $color
      * @return \Pop\Graph\Graph
      */
     public function showX($showX, ColorInterface $color = null)
@@ -403,7 +403,7 @@ class Graph
      * Set the 'show Y-axis increment lines' flag
      *
      * @param  boolean        $showY
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  ColorInterface $color
      * @return \Pop\Graph\Graph
      */
     public function showY($showY, ColorInterface $color = null)
@@ -456,7 +456,7 @@ class Graph
     /**
      * Get the show X color
      *
-     * @return \Pop\Color\ColorInterface
+     * @return \Pop\Color\Space\ColorInterface
      */
     public function getXColor()
     {
@@ -466,7 +466,7 @@ class Graph
     /**
      * Get the show Y color
      *
-     * @return \Pop\Color\ColorInterface
+     * @return \Pop\Color\Space\ColorInterface
      */
     public function getYColor()
     {
@@ -486,7 +486,7 @@ class Graph
     /**
      * Get the axis color
      *
-     * @return \Pop\Color\ColorInterface
+     * @return \Pop\Color\Space\ColorInterface
      */
     public function getAxisColor()
     {

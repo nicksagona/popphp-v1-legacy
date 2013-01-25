@@ -16,7 +16,7 @@
 namespace PopTest\Graph;
 
 use Pop\Loader\Autoloader,
-    Pop\Color\Rgb,
+    Pop\Color\Space\Rgb,
     Pop\Graph\Graph;
 
 // Require the library's autoloader.

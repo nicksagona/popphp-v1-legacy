@@ -16,7 +16,7 @@
 namespace PopTest\Code;
 
 use Pop\Loader\Autoloader,
-    Pop\Code\NamespaceGenerator;
+    Pop\Code\Generator\NamespaceGenerator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -29,7 +29,7 @@ class NamespaceTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $this->assertInstanceOf('Pop\Code\NamespaceGenerator', NamespaceGenerator::factory('TestNamespace'));
+        $this->assertInstanceOf('Pop\Code\Generator\NamespaceGenerator', NamespaceGenerator::factory('TestNamespace'));
     }
 
     public function testSetAndGetNamespace()

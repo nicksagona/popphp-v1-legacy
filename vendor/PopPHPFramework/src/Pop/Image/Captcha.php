@@ -15,7 +15,7 @@
  */
 namespace Pop\Image;
 
-use Pop\Color\Rgb,
+use Pop\Color\Space\Rgb,
     Pop\Filter\String,
     Pop\Web\Session;
 

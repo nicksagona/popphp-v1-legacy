@@ -17,7 +17,7 @@ namespace PopTest\Color;
 
 use Pop\Loader\Autoloader,
     Pop\Color\Color,
-    Pop\Color\Cmyk;
+    Pop\Color\Space\Cmyk;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -31,7 +31,7 @@ class CmykTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $c = new Cmyk(20, 40, 60, 80);
-        $this->assertInstanceOf('Pop\Color\Cmyk', $c);
+        $this->assertInstanceOf('Pop\Color\Space\Cmyk', $c);
         $this->assertEquals(20, $c->getCyan());
         $this->assertEquals(40, $c->getMagenta());
         $this->assertEquals(60, $c->getYellow());
@@ -40,7 +40,7 @@ class CmykTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorOutOfRange()
     {
-        $this->setExpectedException('Pop\Color\Exception');
+        $this->setExpectedException('Pop\Color\Space\Exception');
         $c = new Cmyk(333, 234, 123, 120);
     }
 

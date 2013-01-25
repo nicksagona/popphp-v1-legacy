@@ -16,7 +16,7 @@
 namespace Pop\Pdf;
 
 use Pop\Color\Color,
-    Pop\Color\ColorInterface,
+    Pop\Color\Space\ColorInterface,
     Pop\Pdf\Object;
 
 /**
@@ -200,8 +200,8 @@ class Pdf extends \Pop\File\File
      */
     public function __construct($pdf, $sz = null, $w = null, $h = null)
     {
-        $this->fillColor = new \Pop\Color\Rgb(0, 0, 0);
-        $this->backgroundColor = new \Pop\Color\Rgb(255, 255, 255);
+        $this->fillColor = new \Pop\Color\Space\Rgb(0, 0, 0);
+        $this->backgroundColor = new \Pop\Color\Space\Rgb(255, 255, 255);
 
         parent::__construct($pdf);
 
@@ -572,7 +572,7 @@ class Pdf extends \Pop\File\File
     /**
      * Method to set the background of the document.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @return \Pop\Pdf\Pdf
      */
     public function setBackgroundColor(ColorInterface $color)
@@ -584,7 +584,7 @@ class Pdf extends \Pop\File\File
     /**
      * Method to set the fill color of objects and text in the PDF.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @return \Pop\Pdf\Pdf
      */
     public function setFillColor(ColorInterface $color)
@@ -600,7 +600,7 @@ class Pdf extends \Pop\File\File
     /**
      * Method to set the stroke color of paths in the PDF.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @return \Pop\Pdf\Pdf
      */
     public function setStrokeColor(ColorInterface $color)
@@ -1423,7 +1423,7 @@ class Pdf extends \Pop\File\File
      * @param  string  $to
      * @param  boolean $append
      * @throws Exception
-     * @return void
+     * @return \Pop\Pdf\Pdf
      */
     public function save($to = null, $append = false)
     {

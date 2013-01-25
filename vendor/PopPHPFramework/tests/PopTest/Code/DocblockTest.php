@@ -16,7 +16,7 @@
 namespace PopTest\Code;
 
 use Pop\Loader\Autoloader,
-    Pop\Code\DocblockGenerator;
+    Pop\Code\Generator\DocblockGenerator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -29,12 +29,12 @@ class DocblockTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $this->assertInstanceOf('Pop\Code\DocblockGenerator', DocblockGenerator::factory());
+        $this->assertInstanceOf('Pop\Code\Generator\DocblockGenerator', DocblockGenerator::factory());
     }
 
     public function testDocblockParse()
     {
-        $this->setExpectedException('Pop\Code\Exception');
+        $this->setExpectedException('Pop\Code\Generator\Exception');
         $d = DocblockGenerator::parse('Bad doc block');
         $docBlock = "/*\n * @param \$var\n * @return array\n */";
         $d = DocblockGenerator::parse($docBlock);

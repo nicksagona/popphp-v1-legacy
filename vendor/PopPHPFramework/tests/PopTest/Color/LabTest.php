@@ -17,7 +17,7 @@ namespace PopTest\Color;
 
 use Pop\Loader\Autoloader,
     Pop\Color\Color,
-    Pop\Color\Lab;
+    Pop\Color\Space\Lab;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -31,7 +31,7 @@ class LabTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $l = new Lab(100, 100, 100);
-        $this->assertInstanceOf('Pop\Color\Lab', $l);
+        $this->assertInstanceOf('Pop\Color\Space\Lab', $l);
         $this->assertEquals(100, $l->getL());
         $this->assertEquals(100, $l->getA());
         $this->assertEquals(100, $l->getB());
@@ -39,7 +39,7 @@ class LabTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorOutOfRange()
     {
-        $this->setExpectedException('Pop\Color\Exception');
+        $this->setExpectedException('Pop\Color\Space\Exception');
         $l = new Lab(120, 150, 150);
     }
 

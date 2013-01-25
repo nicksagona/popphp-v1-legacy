@@ -71,18 +71,18 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
                 'call'  => 'stdClass'
             ),
             'rgb' => array(
-                'call'   => 'Pop\Color\Rgb',
+                'call'   => 'Pop\Color\Space\Rgb',
                 'params' => function() { return array(255, 0, 0); }
             ),
-            'cmyk' => new \Pop\Color\Cmyk(100, 0, 0, 50),
+            'cmyk' => new \Pop\Color\Space\Cmyk(100, 0, 0, 50),
             'color' => function($locator) {
                 return new \Pop\Color\Color($locator->get('rgb'));
             }
         ));
         $this->assertInstanceOf('Pop\Config', $l->get('config'));
         $this->assertInstanceOf('stdClass', $l->get('std'));
-        $this->assertInstanceOf('Pop\Color\Rgb', $l->get('rgb'));
-        $this->assertInstanceOf('Pop\Color\Cmyk', $l->get('cmyk'));
+        $this->assertInstanceOf('Pop\Color\Space\Rgb', $l->get('rgb'));
+        $this->assertInstanceOf('Pop\Color\Space\Cmyk', $l->get('cmyk'));
         $this->assertInstanceOf('Pop\Color\Color', $l->get('color'));
     }
 
@@ -94,7 +94,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
                 'params' => array(array('test' => 123), true)
             ),
             'rgb' => array(
-                'call'   => 'Pop\Color\Rgb',
+                'call'   => 'Pop\Color\Space\Rgb',
                 'params' => function() { return array(255, 0, 0); }
             ),
             'color' => function($locator) {

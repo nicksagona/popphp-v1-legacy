@@ -16,10 +16,10 @@
 namespace PopTest\Code;
 
 use Pop\Loader\Autoloader,
-    Pop\Code\DocblockGenerator,
-    Pop\Code\InterfaceGenerator,
-    Pop\Code\MethodGenerator,
-    Pop\Code\NamespaceGenerator;
+    Pop\Code\Generator\DocblockGenerator,
+    Pop\Code\Generator\InterfaceGenerator,
+    Pop\Code\Generator\MethodGenerator,
+    Pop\Code\Generator\NamespaceGenerator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -32,7 +32,7 @@ class InterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $this->assertInstanceOf('Pop\Code\InterfaceGenerator', InterfaceGenerator::factory('TestInterface'));
+        $this->assertInstanceOf('Pop\Code\Generator\InterfaceGenerator', InterfaceGenerator::factory('TestInterface'));
     }
 
     public function testGetName()

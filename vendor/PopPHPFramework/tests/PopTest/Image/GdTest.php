@@ -16,7 +16,7 @@
 namespace PopTest\Image;
 
 use Pop\Loader\Autoloader,
-    Pop\Color\Rgb,
+    Pop\Color\Space\Rgb,
     Pop\Image\Gd;
 
 // Require the library's autoloader.

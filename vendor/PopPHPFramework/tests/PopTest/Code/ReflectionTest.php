@@ -35,7 +35,7 @@ class ReflectionTest extends \PHPUnit_Framework_TestCase
     public function testGetGenerator()
     {
         $r = Reflection::factory('Pop\Auth\Auth');
-        $g = $r->getGenerator();
+        $g = $r->generator();
         $this->assertInstanceOf('Pop\Code\Generator', $g);
         $this->assertEquals('Pop\Auth', $g->getNamespace()->getNamespace());
     }
@@ -43,7 +43,7 @@ class ReflectionTest extends \PHPUnit_Framework_TestCase
     public function testGetCode()
     {
         $r = Reflection::factory('Pop\Auth\Auth');
-        $this->assertEquals('Pop\Auth\Auth', $r->getCode());
+        $this->assertEquals('Pop\Auth\Auth', $r->code());
     }
 
     public function testBuildGenerator()
@@ -53,7 +53,7 @@ class ReflectionTest extends \PHPUnit_Framework_TestCase
         $r = Reflection::factory('Pop\Dom\AbstractDom');
         $this->assertTrue($r->isAbstract());
         $r = Reflection::factory('Pop\Form\Form');
-        $this->assertEquals('Dom', $r->getGenerator()->code()->getParent());
+        $this->assertEquals('Dom', $r->generator()->code()->getParent());
         $r = Reflection::factory('Pop\Cache\Adapter\File');
         $this->assertTrue(is_array($r->getInterfaces()));
     }

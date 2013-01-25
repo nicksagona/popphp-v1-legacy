@@ -16,8 +16,8 @@
 namespace Pop\Project\Install;
 
 use Pop\Code\Generator,
-    Pop\Code\MethodGenerator,
-    Pop\Code\NamespaceGenerator;
+    Pop\Code\Generator\MethodGenerator,
+    Pop\Code\Generator\NamespaceGenerator;
 
 /**
  * Form install class

@@ -16,8 +16,8 @@
 namespace Pop\Project\Install;
 
 use Pop\Code\Generator,
-    Pop\Code\PropertyGenerator,
-    Pop\Code\NamespaceGenerator;
+    Pop\Code\Generator\PropertyGenerator,
+    Pop\Code\Generator\NamespaceGenerator;
 
 /**
  * Table install class

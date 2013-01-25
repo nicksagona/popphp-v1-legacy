@@ -16,8 +16,8 @@
 namespace Pop\Image;
 
 use Pop\Color\Color,
-    Pop\Color\ColorInterface,
-    Pop\Color\Rgb;
+    Pop\Color\Space\ColorInterface,
+    Pop\Color\Space\Rgb;
 
 /**
  * GD image class
@@ -56,11 +56,11 @@ class Gd extends AbstractImage
      * Instantiate an image file object based on either a pre-existing
      * image file on disk, or a new image file.
      *
-     * @param  string                    $img
-     * @param  int|string                $w
-     * @param  int|string                $h
-     * @param  \Pop\Color\ColorInterface $color
-     * @param  array                     $types
+     * @param  string         $img
+     * @param  int|string     $w
+     * @param  int|string     $h
+     * @param  ColorInterface $color
+     * @param  array          $types
      * @throws Exception
      * @return \Pop\Image\Gd
      */
@@ -908,7 +908,7 @@ class Gd extends AbstractImage
     /**
      * Method to colorize the image with the color passed.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @return \Pop\Image\Gd
      */
     public function colorize(ColorInterface $color)
@@ -1050,7 +1050,7 @@ class Gd extends AbstractImage
      * Dummy method to match the Imagick API.
      * This method doesn't do anything
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  ColorInterface $color
      * @param  int            $x
      * @param  int            $y
      * @return \Pop\Image\Gd
@@ -1137,7 +1137,7 @@ class Gd extends AbstractImage
     /**
      * Return all of the colors in the palette in an array format
      *
-     * @param  int $format
+     * @param  int|string $format
      * @return array
      */
     public function getColors($format = \Pop\Image\Gd::HEX)
@@ -1179,7 +1179,7 @@ class Gd extends AbstractImage
     /**
      * Convert the image object to the new specified image type.
      *
-     * @param  string     $type
+     * @param  string $type
      * @throws Exception
      * @return \Pop\Image\Gd
      */
@@ -1290,7 +1290,7 @@ class Gd extends AbstractImage
      *
      * @param  string  $to
      * @param  boolean $append
-     * @return void
+     * @return \Pop\Image\Gd
      */
     public function save($to = null, $append = false)
     {
@@ -1409,7 +1409,7 @@ class Gd extends AbstractImage
     /**
      * Set and return a color identifier.
      *
-     * @param  \Pop\Color\ColorInterface $color
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @throws Exception
      * @return mixed
      */

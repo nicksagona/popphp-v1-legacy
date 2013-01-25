@@ -2,7 +2,7 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Color\Rgb,
+use Pop\Color\Space\Rgb,
     Pop\Graph\Graph;
 
 try {
