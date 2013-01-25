@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,7 +24,7 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Η συνιστώσα πληρωμών παρέχει τυποποιημένη λειτουργικότητα για την επεξεργασία των αιτήσεων πληρωμής με πιστωτική κάρτα μέσω ενός τρίτου κόμματος πύλη. Οι τρέχουσες ενσωματωμένη και υποστηριζόμενη πύλες είναι:
+            The Payment component provides standardized functionality to process credit card payment requests via a 3rd party gateway.  The current built-in and supported gateways are:
         </p>
         <ul>
             <li>Authorize.net</li>
@@ -44,11 +34,11 @@
             <li>UsaEpay</li>
         </ul>
         <p>
-            Ωστόσο, εάν η υποστήριξη για μια διαφορετική πύλη απαιτείται, τότε θα ήταν εύκολο να γράψει μόνο ένα προσαρμογέα για αυτό.
+            However, if support for a different gateway is required, then it would be simple to just write an adapter for it.
         </p>
 <pre>
-use Pop\Payment\Payment,
-    Pop\Payment\Adapter\Authorize;
+use Pop&#92;Payment&#92;Payment,
+    Pop&#92;Payment&#92;Adapter&#92;Authorize;
 
 $payment = new Payment(new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST));
 

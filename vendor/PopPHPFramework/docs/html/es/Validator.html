@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,14 +24,13 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            El componente de validación sólo proporciona la funcionalidad de validación para infinidad de usos, tales como la validación de si un número es de un cierto valor o una cadena es alfanumérico. Validadores más avanzados están disponibles, así como validar una dirección de correo electrónico, y la dirección IP o un número de tarjeta de crédito. Y, si lo que usted necesita no está disponible, el componente se puede extender fácilmente.
+            The Validator component simply provides validation functionality for many different use cases, such as validating whether or not a number is of a certain value or a string is alphanumeric. More advanced validators are available as well, such as validating an email address, and IP address or a credit card number. And, if what you need isn't available, of the component can be easily extended.
         </p>
 <pre>
-use Pop\Validator\Validator,
-    Pop\Validator\Validator\AlphaNumeric;
+use Pop&#92;Validator&#92;AlphaNumeric;
 
 // Create an alphanumeric validator
-$val = Validator::factory(new AlphaNumeric());
+$val = new AlphaNumeric();
 
 // Evaluate if the input value meets the rule or not
 if (!$val-&gt;evaluate('abcd1234')) {

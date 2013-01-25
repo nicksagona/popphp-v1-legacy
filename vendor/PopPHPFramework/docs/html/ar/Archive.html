@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,7 +24,7 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            تم تصميم مكون الأرشيف لتطبيع خلق والتلاعب في ملفات الأرشيف المشتركة من خلال API واحدة. أنواع الأرشيف التي يتم دعمها هي:
+            The Archive component is designed to normalize the creation and manipulation of common archive files through a single API. Archive types that are supported are:
         </p>
         <ul>
             <li>tar</li>
@@ -45,15 +35,15 @@
             <li>rar</li>
         </ul>
 <pre>
-use Pop\Archive\Archive;
+use Pop&#92;Archive&#92;Archive;
 
 // Create a new TAR archive and add some files to it
 $archive = new Archive('../tmp/test.tar');
 $archive-&gt;addFiles('../files');
 
-// Compress the archive, gzip by default,
-// will produce '../tmp/test.tar.gz'
-$archive-&gt;compress();
+// Compress the archive, gzip by default.
+// Using 'bz', will produce '../tmp/test.tar.bz2'
+$archive-&gt;compress('bz');
 
 // Extract an existing archive file to specified folder,
 // will automatically uncompress the gzip file first

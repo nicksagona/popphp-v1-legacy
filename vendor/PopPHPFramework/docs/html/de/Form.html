@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,19 +24,12 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Der Formular-Komponente ist eine leistungsfähige Komponente, die die Dom-Komponente erweitert. Er bietet robuste Funktionalität zu erstellen, zu machen und gültige HTML-Formulare und Formularelemente.
+            The Form component is a powerful component that extends the Dom component. It provides robust functionality to create, render and validate HTML forms and form elements.
         </p>
 <pre>
-use Pop\Form\Form,
-    Pop\Form\Element,
-    Pop\Form\Element\Checkbox,
-    Pop\Form\Element\Radio,
-    Pop\Form\Element\Select,
-    Pop\Form\Element\Textarea,
-    Pop\Validator\Validator,
-    Pop\Validator\Validator\AlphaNumeric,
-    Pop\Validator\Validator\Email,
-    Pop\Validator\Validator\LengthGt;
+use Pop&#92;Form&#92;Form,
+    Pop&#92;Form&#92;Element,
+    Pop&#92;Validator;
 
 $form = new Form($_SERVER['PHP_SELF'], 'post', null, '    ');
 
@@ -54,30 +37,30 @@ $username = new Element('text', 'username', 'Username here...');
 $username-&gt;setLabel('Username:')
          -&gt;setRequired(true)
          -&gt;setAttributes('size', 40)
-         -&gt;addValidator(new AlphaNumeric());
+         -&gt;addValidator(new Validator&#92;AlphaNumeric());
 
 $email = new Element('text', 'email');
 $email-&gt;setLabel('Email:')
       -&gt;setRequired(true)
       -&gt;setAttributes('size', 40)
-      -&gt;addValidator(new Email());
+      -&gt;addValidator(new Validator&#92;Email());
 
 $password = new Element('password', 'password');
 $password-&gt;setLabel('Password:')
          -&gt;setRequired(true)
          -&gt;setAttributes('size', 40)
-         -&gt;addValidator(new LengthGt(6));
+         -&gt;addValidator(new Validator&#92;LengthGt(6));
 
-$checkbox = new Checkbox('colors', array('Red' =&gt; 'Red', 'Green' =&gt; 'Green', 'Blue' =&gt; 'Blue'));
+$checkbox = new Element&#92;Checkbox('colors', array('Red' =&gt; 'Red', 'Green' =&gt; 'Green', 'Blue' =&gt; 'Blue'));
 $checkbox-&gt;setLabel('Colors:');
 
-$radio = new Radio('answer', array('Yes' =&gt; 'Yes', 'No' =&gt; 'No', 'Maybe' =&gt; 'Maybe'));
+$radio = new Element&#92;Radio('answer', array('Yes' =&gt; 'Yes', 'No' =&gt; 'No', 'Maybe' =&gt; 'Maybe'));
 $radio-&gt;setLabel('Answer:');
 
-$select = new Select('days', Select::DAYS_OF_WEEK);
+$select = new Element&#92;Select('days', Element&#92;Select::DAYS_OF_WEEK);
 $select-&gt;setLabel('Day:');
 
-$textarea = new Textarea('comments', 'Please type a comment...');
+$textarea = new Element&#92;Textarea('comments', 'Please type a comment...');
 $textarea-&gt;setAttributes('rows', '5')
          -&gt;setAttributes('cols', '40')
          -&gt;setLabel('Comments:');
@@ -108,19 +91,12 @@ if ($_POST) {
 }
 </pre>
     <p>
-        Oder können Sie Formular-Elemente über eine strukturierte Anordnung von Werten.
+        Or, you can create form elements via a structured  array of values.
     </p>
 <pre>
-use Pop\Form\Form,
-    Pop\Form\Element,
-    Pop\Form\Element\Checkbox,
-    Pop\Form\Element\Radio,
-    Pop\Form\Element\Select,
-    Pop\Form\Element\Textarea,
-    Pop\Validator\Validator,
-    Pop\Validator\Validator\AlphaNumeric,
-    Pop\Validator\Validator\Email,
-    Pop\Validator\Validator\LengthGt;
+use Pop&#92;Form&#92;Form,
+    Pop&#92;Form&#92;Element,
+    Pop&#92;Validator;
 
 $fields = array(
     array(
@@ -130,7 +106,7 @@ $fields = array(
         'label'      =&gt; 'Username:',
         'required'   =&gt; true,
         'attributes' =&gt; array('size', 40),
-        'validators' =&gt; new AlphaNumeric()
+        'validators' =&gt; new Validator&#92;AlphaNumeric()
     ),
     array(
         'type'       =&gt; 'text',
@@ -138,7 +114,7 @@ $fields = array(
         'label'      =&gt; 'Email:',
         'required'   =&gt; true,
         'attributes' =&gt; array('size', 40),
-        'validators' =&gt; new Email()
+        'validators' =&gt; new Validator&#92;Email()
     ),
     array(
         'type'       =&gt; 'password',
@@ -146,7 +122,7 @@ $fields = array(
         'label'      =&gt; 'Password:',
         'required'   =&gt; true,
         'attributes' =&gt; array('size', 40),
-        'validators' =&gt; new LengthGt(6)
+        'validators' =&gt; new Validator&#92;LengthGt(6)
     ),
     array(
         'type'       =&gt; 'checkbox',
@@ -177,13 +153,13 @@ if ($_POST) {
 }
 </pre>
     <p>
-        Mit der Felder-Klasse können Sie eine Datenbank-Tabelle über den Rekord-Komponente für den Zugriff auf und bauen die ersten Felder des Formulars.
+        With the Fields class, you can use a database table via the Record component to access and build the initial fields of the form.
     </p>
 <pre>
-use Pop\Form\Form,
-    Pop\Form\Fields,
-    Pop\Form\Element,
-    Pop\Record\Record;
+use Pop&#92;Form&#92;Form,
+    Pop&#92;Form&#92;Fields,
+    Pop&#92;Form&#92;Element,
+    Pop&#92;Record&#92;Record;
 
 class Users extends Record { }
 
@@ -202,6 +178,7 @@ try {
         )
     );
 
+    // The last parameter is an array of fields from the DB table to omit
     $fields = Fields::factory(
         new Users(),
         $attribs,

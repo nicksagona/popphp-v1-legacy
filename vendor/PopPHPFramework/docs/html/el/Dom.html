@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,11 +24,11 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Η συνιστώσα Dom παρέχει έναν εύκολο τρόπο να δημιουργήσετε και να χειριστείτε DOM έγγραφα και τα παιδιά τους.
+            The Dom component provides an easy way to create and manipulate DOM documents and their children.
         </p>
 <pre>
-use Pop\Dom\Child,
-    Pop\Dom\Dom;
+use Pop&#92;Dom&#92;Child,
+    Pop&#92;Dom&#92;Dom;
 
 $title = new Child('title', 'This is the title');
 
@@ -66,11 +56,10 @@ $doc = new Dom(Dom::XHTML11, 'utf-8', $html);
 $doc-&gt;render();
 </pre>
         <p>
-            Μπορείτε επίσης να προσθέσετε τα παιδιά μέσω ενός δομημένου πίνακα τιμών.
-
+            You can also add children via a structured array of values.
         </p>
 <pre>
-use Pop\Dom\Dom;
+use Pop&#92;Dom&#92;Dom;
 
 $children = array(
     array(

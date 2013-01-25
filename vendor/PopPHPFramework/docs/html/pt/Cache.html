@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,37 +24,33 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            O componente Cache permite a facilidade de armazenamento de dados persistentes através de três métodos:
+            The Cache component allows for the easy storage of persistent data via four methods:
         </p>
         <ul>
+            <li>Apc</li>
             <li>a file on disk</li>
-            <li>a sqlite database</li>
-            <li>memcache</li>
+            <li>a Sqlite database</li>
+            <li>Memcache</li>
         </ul>
         <p>
-            O objetivo do componente Cache é para acelerar o acesso a dados que é mais estática e não muda com freqüência. Ao armazená-lo por um dos métodos listados acima, a velocidade de acesso pode ser aumentada porque uma chamada processo mais caro pode ser evitado, como acessar um banco de dados grande ou um endereço web externo para recuperar dados.
+            The goal of the Cache component is to speed up access to data that is more static and does not change often. By storing it by one of the methods listed above, access speed can be increased because a more expensive process call can be avoided, such as accessing a large database or an external web address to retrieve data.
         </p>
 <pre>
-use Pop\Cache\Cache,
-    Pop\Cache\File,
-    Pop\Cache\Memcached,
-    Pop\Cache\Sqlite;
-
+use Pop&#92;Cache;
 $test = 'This is my test variable. It contains a string.';
 
-// Create Cache object, using either Memcached, File or Sqlite
-$cache = Cache::factory(new Memcached(), 30);
-//$cache = Cache::factory(new File('../tmp'), 30);
-//$cache = Cache::factory(new Sqlite('../tmp/cache.sqlite'), 30);
+$cache = Cache&#92;Cache::factory(new Cache&#92;Adapter&#92;File('../tmp'), 30);
+//$cache = Cache&#92;Cache::factory(new Cache&#92;Adapter&#92;Memcached(), 30);
+//$cache = Cache&#92;Cache::factory(new Cache&#92;Adapter&#92;Sqlite('../tmp/cache.sqlite'), 30);
+//$cache = Cache&#92;Cache::factory(new Cache&#92;Adapter&#92;Apc(), 30);
 
-// Save value to cache
 $cache-&gt;save('test', $test);
 
-// Load the value from cache
+// Load the value
 if (!($var = $cache-&gt;load('test'))) {
-    echo 'The value is either not there or expired.';
+    echo "It's either not there or expired.";
 } else {
-    var_dump($var);
+    echo $var;
 }
 
 // Clear the cache

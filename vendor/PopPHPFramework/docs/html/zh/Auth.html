@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,23 +24,23 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Auth组件方便的基础上，凭证和定义的角色的一套基本的用户身份验证和授权。认证方面的处理，以确定是否允许该用户在所有用户进行身份验证。授权方面的处理决定或不经过身份验证的用户是否有足够的访问一定范围内允许的。角色可以很容易地定义和评估，以确定用户的访问级别。 Auth组件可以很容易地连接到数据库表或磁盘上的文件，以获取用户凭据和信息。
+            The Auth component facilitates authentication and authorization of users based on a basic set of credentials and defined roles. The authentication aspect handles authenticating a user to determine whether or not that user is allowed at all. The authorization aspect handles determining whether or not the authenticated user has enough access to be allowed within a certain area. Roles can easily be defined and evaluated to determine a user's level of access. The Auth component can easily tie into a database table or a file on disk to retrieve user credentials and information.
         </p>
 <pre>
-use Pop\Auth\Auth,
-    Pop\Auth\Role,
-    Pop\Auth\Adapter\AuthFile,
-    Pop\Auth\Adapter\AuthTable;
+use Pop&#92;Auth;
 
-// Create the Auth object using a table in the database or a local access file.
-$auth = new Auth(new AuthTable('MyApp\\Table\\Users'), Auth::ENCRYPT_SHA1);
-//$auth = new Auth(new AuthFile('../access/users.txt'), Auth::ENCRYPT_SHA1);
+// Set the username and password
+$username = 'testuser3';
+$password = '90test12';
+
+// Create auth object
+$auth = new Auth&#92;Auth(new Auth&#92;Adapter&#92;File('../assets/files/access.txt'), Auth&#92;Auth::ENCRYPT_SHA1);
 
 // Add some roles
 $auth-&gt;addRoles(array(
-    Role::factory('admin', 3),
-    Role::factory('editor', 2),
-    Role::factory('reader', 1)
+    Auth&#92;Role::factory('admin', 3),
+    Auth&#92;Role::factory('editor', 2),
+    Auth&#92;Role::factory('reader', 1)
 ));
 
 // Define some other auth parameters and authenticate the user
@@ -59,15 +49,18 @@ $auth-&gt;setRequiredRole('admin')
      -&gt;setAllowedIps('127.0.0.1')
      -&gt;authenticate($username, $password);
 
+echo $auth-&gt;getResultMessage() . '&lt;br /&gt; ' . PHP_EOL;
+
 // Check if the user is authorized to be in this area
 if ($auth-&gt;isValid()) {
     if ($auth-&gt;isAuthorized()) {
-        echo 'The user is authorized in this area.';
+        echo 'The user "' . $auth-&gt;getUser()-&gt;getUsername() .
+             '" is authorized as a "' .  $auth-&gt;getUser()-&gt;getRole()-&gt;getName() . '".';
     } else {
-        echo 'The user is NOT authorized in this area.';
+        echo 'The user "' . $auth-&gt;getUser()-&gt;getUsername() .
+             '" is NOT authorized. The user is a "' .  $auth-&gt;getUser()-&gt;getRole()-&gt;getName() .
+             '" and needs to be a "' . $auth-&gt;getRequiredRole()-&gt;getName() . '".';
     }
-} else {
-    echo 'Authenication failed. The user is not valid. ' . $auth-&gt;getResultMessage();
 }
 </pre>
     </div>

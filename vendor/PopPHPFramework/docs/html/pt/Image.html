@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,17 +24,17 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            O componente de imagem fornece um invólucro API normalizado para a criação e manipulação de imagens que alavanca GD do PHP e extensões Imagick, bem como o formato de imagem SVG. Dentro deste componente é um API característica-rico para a realização de muitos diferentes baseadas na imagem funções. E, uma vez que a API é padronizado, se um projeto se move para um ambiente diferente, deve degradar facilmente.
+            The Image component provides a standardized API wrapper for the creation and manipulation of images that leverages PHP's GD and Imagick extensions, as well as the SVG image format. Within this component is a feature-rich API for performing many different image-based functions. And, since the API is standardized, if a project moves to a different environment, it should degrade easily.
         </p>
 <pre>
-use Pop\Color\Rgb,
-    Pop\Image\Gd;
+use Pop&#92;Color&#92;Space&#92;Rgb,
+    Pop&#92;Image&#92;Gd;
 
 $image = new Gd('new-image.jpg', 640, 480, new Rgb(255, 0, 0));
 $image-&gt;setFillColor(new Rgb(0, 0, 255))
       -&gt;setStrokeColor(new Rgb(255, 255, 255))
       -&gt;setStrokeWidth(3)
-      -&gt;addEllipse(320, 240, 150, 75)
+      -&gt;drawEllipse(320, 240, 150, 75)
       -&gt;output();
 
 $image-&gt;destroy();

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,20 +24,20 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            PDFコンポーネントは、PDFの生成と操作のための機能豊富な機能を提供します。新しいPDFファイルの作成に沿って、あなたはまた、既存のものをインポートすることができ、そこからコンテンツを追加します。利用可能な機能のいくつかは、次のとおりです。
+            The Pdf component provides feature-rich functionality for PDF generation and manipulation. Along the creation of new PDF files, you can also import existing ones and add content to them from there. Some of the features available are:
         </p>
         <ul>
-            <li>図形を描く</li>
-            <li>クリッピングパスを追加する</li>
-            <li>テキストを追加する</li>
-            <li>埋め込み画像</li>
-            <li>埋め込みフォント</li>
-            <li>リンクURL</li>
-            <li>リンク内部</li>
+            <li>drawing shapes</li>
+            <li>adding clipping paths</li>
+            <li>adding text</li>
+            <li>embedding images</li>
+            <li>embedding fonts</li>
+            <li>URL linking</li>
+            <li>internal linking</li>
         </ul>
 <pre>
-use Pop\Color\Rgb,
-    Pop\Pdf\Pdf;
+use Pop&#92;Color&#92;Space&#92;Rgb,
+    Pop&#92;Pdf&#92;Pdf;
 
 $pdf = new Pdf('../tmp/doc.pdf');
 $pdf-&gt;addPage('Letter');
@@ -77,24 +67,24 @@ $pdf-&gt;addPage('Letter');
 $pdf-&gt;setFillColor(new Rgb(12, 101, 215))
     -&gt;setStrokeColor(new Rgb(215, 101, 12))
     -&gt;setStrokeWidth(4, 10, 5);
-$pdf-&gt;addCircle(150, 700, 60, false);
+$pdf-&gt;drawCircle(150, 700, 60, false);
 
 $pdf-&gt;setPage(1)-&gt;setFillColor(new Rgb(0, 0, 255));
-$pdf-&gt;addRectangle(100, 550, 175, 50);
+$pdf-&gt;drawRectangle(100, 550, 175, 50);
 $pdf-&gt;addLink(100, 550, 175, 50, 150, 550, 1, 2);
 
 $pdf-&gt;setPage(2)
     -&gt;setFillColor(new Rgb(12, 101, 215))
     -&gt;setStrokeColor(new Rgb(215, 101, 12))
     -&gt;setStrokeWidth(4, 10, 5);
-$pdf-&gt;addCircle(250, 650, 25);
+$pdf-&gt;drawCircle(250, 650, 25);
 $pdf-&gt;addImage('../assets/images/logo_rgb.jpg', 150, 400);
 
 $pdf-&gt;setPage(1)
     -&gt;setFillColor(new Rgb(255, 10, 25))
     -&gt;setStrokeColor(new Rgb(12, 101, 215))
     -&gt;setStrokeWidth(2);
-$pdf-&gt;addEllipse(300, 150, 200, 100, false);
+$pdf-&gt;drawEllipse(300, 150, 200, 100, false);
 
 $pdf-&gt;addPage('Legal');
 $pdf-&gt;addFont('Courier-Bold');

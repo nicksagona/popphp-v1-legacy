@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,10 +24,10 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            רכיב דואר מספק פונקציונליות צורך לנהל את הדואר היוצא דרך PHP. זה כולל תמיכה בדוא"ל מבוסס טקסט ו-HTML המבוסס, מקבלי אלקטרוני מרובים, תבניות קבצים מצורפים.
+            The Mail component provides the functionality necessary to manage outgoing mail via PHP. This includes support for text-based and HTML-based email,  multiple mail recipients, templates and file attachments.
         </p>
 <pre>
-use Pop\Mail\Mail;
+use Pop&#92;Mail&#92;Mail;
 
 $rcpts = array(
     array(
@@ -50,13 +40,6 @@ $rcpts = array(
     )
 );
 
-$mail = new Mail($rcpts, 'Hello World!');
-$mail-&gt;setHeaders(array(
-    'From'        =&gt; array('name' =&gt; 'Bob', 'email' =&gt; 'bob123@gmail.com'),
-    'Reply-To'    =&gt; array('name' =&gt; 'Bob', 'email' =&gt; 'bob123@gmail.com'),
-    'X-Mailer'    =&gt; 'PHP/' . phpversion(),
-    'X-Priority'  =&gt; '3',
-));
 
 $html = &lt;&lt;&lt;HTMLMSG
 &lt;html&gt;
@@ -80,9 +63,16 @@ $html = &lt;&lt;&lt;HTMLMSG
 
 HTMLMSG;
 
-$mail-&gt;setText("Hello [{name}],\n\nI'm just trying out this new Pop Mail component.\n\nThanks,\nBob\n\n");
+
+$mail = new Mail('Hello World!', $rcpts);
+$mail-&gt;from('bob123@gmail.com', 'Bob')
+     -&gt;setHeaders(array(
+         'X-Mailer'    =&gt; 'PHP/' . phpversion(),
+         'X-Priority'  =&gt; '3',
+     ));
+
+$mail-&gt;setText("Hello [{name}],&#92;n&#92;nI'm just trying out this new Pop Mail component.&#92;n&#92;nThanks,&#92;nBob&#92;n&#92;n");
 $mail-&gt;setHtml($html);
-$mail-&gt;attachFile('../assets/files/test.pdf');
 $mail-&gt;send();
 </pre>
     </div>

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,14 +24,14 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Η συνιστώσα του σχεδίου περιλαμβάνει την κατηγορία έργου, στο οποίο μπορείτε να επεκτείνετε και να ενσωματώσει τις προδιαγραφές της εφαρμογής σας, όπως το router, ελεγκτές, βάσεων δεδομένων και λειτουργικών μονάδων. Μόλις, που έχει συσταθεί σωστά, το έργο μπορεί να "τρέξει" με επιτυχία και δρομολογούν αίτημα του χρήστη για τη σωστή περιοχή της αίτησής σας. Δείτε το Στοιχείο MVC αρχείο doc για να δείτε ένα παράδειγμα μιας εκτεταμένης κατηγορίας αρχείο έργου.
+            The Project component contains the Project class in which you can extend and encapsulate your application's specifications, such as the router, controllers, databases and modules. Once, set up properly, the project can "run" and successfully route the user's request to the correct area of your application. View the Mvc Component doc file to see an example of an extended Project class file.
         </p>
         <p>
-            Επίσης, η συνιστώσα του σχεδίου περιλαμβάνει τις κατηγορίες ότι η εγκατάσταση του στοιχείου CLI χρησιμοποιεί για να κατασκευάσει και εγκαταστήσει σκαλωσιές έργο σας. Ένα παράδειγμα αρχείου ρυθμίσεων εγκατάστασης του έργου είναι η παρακάτω.
+            Also, the Project component contains the install classes that the CLI component uses to build and install your project scaffolding. An example of a project install configuration file is below.
         </p>
 <pre>
 &lt;?php
-return new Pop\Config(array(
+return new Pop&#92;Config(array(
     'project' =&gt; array(
         'name'    =&gt; 'HelloWorld',
         'base'    =&gt; __DIR__ . '/../../',
@@ -86,11 +76,11 @@ return new Pop\Config(array(
         )
     ),
     'controllers' =&gt; array(
-        'default' =&gt; array(
+        '/' =&gt; array(
             'index' =&gt; 'index.phtml',
             'error' =&gt; 'error.phtml'
         ),
-        'admin' =&gt; array(
+        '/admin' =&gt; array(
             'index' =&gt; 'index.phtml',
             'error' =&gt; 'error.phtml'
         )

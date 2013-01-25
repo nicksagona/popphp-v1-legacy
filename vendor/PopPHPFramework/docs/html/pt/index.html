@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,72 +13,88 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
+    <ul id="header-nav">
+        <li><a href="http://www.popphp.org/" target="_blank">Pop PHP Website</a></li>
+        <li>|</li>
+        <li><a href="https://github.com/nicksagona/PopPHP" target="_blank">Pop PHP in GitHub</a></li>
+    </ul>
     <h1>Pop PHP Framework</h1>
     <h2>Documentation : Overview</h2>
     <div id="doc-content">
         <p>
-            O Quadro PHP Pop é um objeto orientado a framework PHP com um fácil de usar API que permitirá que você utilize uma ampla gama de funcionalidades. Você pode usá-lo como uma caixa de ferramentas para auxiliar na rápida criação de scripts de base, ou você pode usá-lo como um quadro de pleno direito de construir e personalizar de grande escala, aplicações robustas. No centro do quadro é um grupo de componentes, dos quais alguns podem ser utilizados de forma independente e alguns podem ser usados ​​em conjunto para aproveitar o poder completo do quadro e PHP.
+            The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use API that will allow you to utilize a wide range of functionality. You can use it as a toolbox to assist with quickly writing basic scripts, or you can use it as a full-fledged framework to build and customize large-scale, robust applications. At the core of the framework is a group of components, some of which can be used independently and some of which can be used in tandem to leverage the full power of the framework and PHP.
         </p>
-        <table style="width: 33%;" cellpadding="0" cellspacing="0" border="0">
+        <table style="width: 100%;">
             <tr>
-                <td style="vertical-align: top; width: 33%;">
+                <td style="width: 12.5%">
                     <ul>
                         <li><a href="Archive.html">Archive</a></li>
                         <li><a href="Auth.html">Auth</a></li>
                         <li><a href="Cache.html">Cache</a></li>
                         <li><a href="CLI.html">CLI</a></li>
                         <li><a href="Code.html">Code</a></li>
+                    </ul>
+                </td>
+                <td style="width: 12.5%">
+                    <ul>
                         <li><a href="Color.html">Color</a></li>
                         <li><a href="Compress.html">Compress</a></li>
                         <li><a href="Config.html">Config</a></li>
                         <li><a href="Curl.html">Curl</a></li>
                         <li><a href="Data.html">Data</a></li>
-                        <li><a href="Db.html">Db</a></li>
-                        <li><a href="Dom.html">Dom</a></li>
                     </ul>
                 </td>
-                <td style="vertical-align: top; width: 33%;">
+                <td style="width: 12.5%">
                     <ul>
+                        <li><a href="Db.html">Db</a></li>
+                        <li><a href="Dom.html">Dom</a></li>
                         <li><a href="Event.html">Event</a></li>
                         <li><a href="Feed.html">Feed</a></li>
                         <li><a href="File.html">File</a></li>
+                    </ul>
+                </td>
+                <td style="width: 12.5%">
+                    <ul>
                         <li><a href="Filter.html">Filter</a></li>
                         <li><a href="Font.html">Font</a></li>
                         <li><a href="Form.html">Form</a></li>
                         <li><a href="Ftp.html">Ftp</a></li>
                         <li><a href="Geo.html">Geo</a></li>
+                    </ul>
+                </td>
+                <td style="width: 12.5%">
+                    <ul>
                         <li><a href="Graph.html">Graph</a></li>
                         <li><a href="Http.html">Http</a></li>
                         <li><a href="Image.html">Image</a></li>
                         <li><a href="Loader.html">Loader</a></li>
+                        <li><a href="Locale.html">Locale</a></li>
                     </ul>
                 </td>
-                <td style="vertical-align: top; width: 33%;">
+                <td style="width: 12.5%">
                     <ul>
-                        <li><a href="Locale.html">Locale</a></li>
                         <li><a href="Log.html">Log</a></li>
                         <li><a href="Mail.html">Mail</a></li>
                         <li><a href="Mvc.html">Mvc</a></li>
                         <li><a href="Paginator.html">Paginator</a></li>
                         <li><a href="Payment.html">Payment</a></li>
+                    </ul>
+                </td>
+                <td style="width: 12.5%">
+                    <ul>
                         <li><a href="Pdf.html">Pdf</a></li>
                         <li><a href="Project.html">Project</a></li>
                         <li><a href="Record.html">Record</a></li>
+                        <li><a href="Service.html">Service</a></li>
                         <li><a href="Validator.html">Validator</a></li>
+                    </ul>
+                </td>
+                <td style="width: 12.5%">
+                    <ul>
                         <li><a href="Version.html">Version</a></li>
                         <li><a href="Web.html">Web</a></li>
                     </ul>
@@ -87,41 +103,41 @@
         </table>
         <h3>QuickStart</h3>
         <p>
-            Há duas maneiras que você pode começar a trabalhar com o quadro Pop PHP.
+            There are 2 ways that you can get up and running with the Pop PHP Framework.
         </p>
         <p>
-            Se você está olhando apenas para escrever alguns scripts rápidos, você pode simplesmente largar a pasta de origem para a pasta do projeto de trabalho, faz referência a 'bootstrap.php' de acordo em um script e começar a escrever código. Você vai encontrar referências e exemplos por toda esta documentação que vai explicar os diferentes componentes e como você pode usá-los.
+            If you're just looking to write some quick scripts, you can simply drop the source folder into your working project folder, reference the 'bootstrap.php' accordingly in a script and start writing code. You'll find references and examples all throughout this documentation that will explain the different components and how you can use them.
         </p>
         <p>
-            Se você estiver olhando para construir uma aplicação em maior escala, você pode usar o componente CLI para criar fundação do projeto base, ou "andaimes". Dessa forma, você pode começar a escrever o código do projeto de forma rápida e não ter que arcar com obtendo tudo instalado e funcionando. Tudo que você precisa fazer é definir o seu projeto no arquivo de instalação simples, execute o comando CLI Pop usando esse arquivo e - voilà! - Pop faz todo o trabalho sujo para você e você pode começar a escrever o código do projeto mais rápido. Reveja a documentação sobre o componente CLI para explorar ainda mais como tirar proveito deste componente robusto.
+            If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or "scaffolding." This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and Pop does all the dirty work for you. You can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
         </p>
-        <h3>O Componente MVC</h3>
+        <h3>The MVC Component</h3>
         <p>
-            O componente MVC está disponível e especialmente útil quando a construção de uma aplicação em larga escala. MVC significa Model-View-Controller e é um padrão de design que facilita a separação bem organizada de preocupações. Ele permite que a sua apresentação lógica de negócios e acesso a dados para tudo ser mantidos separadamente.
-        </p>
-        <p>
-            O controlador recebe a entrada (ou seja, um pedido na Internet) do usuário e com base nessa entrada, que comunica com o modelo. O modelo pode então processar o pedido para determinar quais os dados de resposta ou é necessário. Nesse ponto, se comunicam modelo e vista para que a exibição pode construir a apresentação, ou "vista", com base nos dados obtidos a partir do modelo. Em seguida, o controlador irá comunicar com o fim de exibir a saída apropriada para o utilizador.
+            The MVC component is available and especially useful when building a large-scale application. MVC stands for Model-View-Controller and is a design pattern that facilitates a well-organized separation of concerns. It allows your presentation, business logic and data access to all be kept separately.
         </p>
         <p>
-            Um pedaço extra do componente MVC que está disponível com o Pop PHP Framework é um roteador. O roteador é simplesmente uma camada adicional na parte superior que faz exatamente o que o próprio nome sugere - que direciona diferentes tipos de solicitações de usuários de seus controladores correspondentes. Em outras palavras, ele fornece uma maneira fácil de gerenciar caminhos múltiplos usuários e controladores.
+            The controller receives input (i.e. a web request) from the user and based on that input, communicates that with the model. The model can then process the request to determine what data or response is needed. At that point, the model and view communicate so that the view can build the presentation, or "view," based on the data obtained from the model. Then, the controller will communicate with the view to display the appropriate output to the user.
         </p>
         <p>
-            Muitas vezes, pode ser difícil de entender o padrão de projeto MVC até que você realmente começar a usar. Uma vez que você faz, porém, você verá imediatamente o benefício de ter tudo separado em fáceis de gerenciar conceitos com muito pouco, se for o caso, se sobrepõem. O controlador manipula a delegação de pedidos, o modelo lida com a lógica de negócios e sua visão determina como exibir a saída para o usuário. De longe, este padrão trunfos antigamente de colocar tudo em um único script ou vários scripts que estão incluídos em todo o lugar, criando uma grande confusão. Basta experimentá-lo e você vai ver!
-        </p>
-        <h3>Os Componentes Db &amp; Record</h3>
-        <p>
-            Os componentes Db e Record são dois componentes que têm o potencial de ser usado um pouco em qualquer aplicação. Obviamente, o componente Db fornece acesso direto para consultar um banco de dados. Os adaptadores suportados incluem MySQL nativa, MySQLi, PgSQL, Sqlite e DOP. Eles servem para normalizar o acesso de dados em ambientes diferentes para que você não precisa se preocupar tanto com novos equipamentos de um aplicativo para trabalhar com um tipo diferente de banco de dados em um ambiente diferente.
+            One extra piece of the MVC component that is available with the Pop PHP Framework is a router. The router is simply an additional layer on top that does exactly what its name suggests - it routes different types of user requests to their corresponding controllers. In other words, it provides an easy way to manage multiple user paths and controllers.
         </p>
         <p>
-            O componente de Registro é um componente poderoso que fornece acesso padronizado aos dados em um banco de dados, especificamente as tabelas de banco de dados e registros individuais dentro das tabelas. O componente de registro é realmente um híbrido do Active Record e padrões da tabela de dados do Gateway. Ele pode fornecer acesso a uma única linha ou registro como um padrão Active Record seria, ou várias linhas de uma só vez, como um Gateway de Tabela de Dados faria. Com o Framework PHP Pop, a abordagem mais comum é escrever uma classe filha que estende a classe Record que representa uma tabela no banco de dados. O nome de classe criança deve ser o nome da tabela. Simplesmente criando
+            Often times, it can be difficult to grasp the MVC design pattern until you actually start using it. Once you do though, you'll immediately see the benefit of having everything separated out in easy-to-manage concepts with very little, if any, overlap. Your controller handles the delegation of requests, your model handles the business logic and your view determines how to display the output to the user. By far, this pattern trumps the olden days of cramming everything into a single script with numerous include statements.
+        </p>
+        <h3>The Db &amp; Record Components</h3>
+        <p>
+            The Db and Record components are two components that have the potential to be used quite a bit in any application. Obviously, the Db component provides direct access to query a database. The supported adapters include native MySQL, MySQLi, Oracle, PDO, PostgreSQL, Sqlite and SQLServer. They serve to normalize database access across different environments so that you don't have to worry as much about re-tooling an application to work with a different type of database in a different environment.
+        </p>
+        <p>
+            The Record component is a powerful component that provides standardized access to data within a database, specifically the database tables and individual records within the tables. The record component is really a hybrid of the Active Record and Table Data Gateway patterns. It can provide access to a single row or record like an Active Record pattern would, or multiple rows at one time, like a Table Data Gateway would. With the Pop PHP Framework, the most common approach is to write a child class that extends the Record class that represents a table in the database. The name of the child class should be the name of the table. By simply creating
         </p>
 <pre>
-use Pop\Record\Record;
+use Pop&#92;Record&#92;Record;
 
 class Users extends Record { }
 </pre>
         <p>
-            você criar uma classe que tem toda a funcionalidade do componente registro embutido e da classe sabe o nome da tabela de banco de dados para consulta a partir do nome da classe. Por exemplo, traduz 'Usuários' em `users` ou traduz dos DbUsers 'em `db_users` (CamelCase é automaticamente convertido em lower_case_underscore.) Revise a documentação Record para ver como você pode afinar a classe tabela filho.
+            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
         </p>
     </div>
     <div id="doc-footer">

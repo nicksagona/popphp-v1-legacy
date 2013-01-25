@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,13 +24,13 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            المكون الحدث يوفر وسيلة لتحريك الأحداث ونعلق في إطار دورة حياة التطبيق. والفائدة الرئيسية هي القدرة على توجيه الطلب من قبل تركيب وظيفة في ذلك عن طريق الإغلاق والفئات التي ترد عن الأحداث.
+            The Event component provides a way to attach and trigger events within the life cycle of an application. The main benefit is the ability to extend an application by hooking functionality into it via closures and classes that are attached as events.
         </p>
         <p>
-            وهنا مثال على ربط واثار الحدث باستخدام الإغلاق. ثانية واحدة يتلقى النتيجة من أول واحد.
+            Here's an example of attaching and triggering an event using closures. The second one receives the result from the first one.
         </p>
 <pre>
-use Pop\Event\Manager;
+use Pop&#92;Event&#92;Manager;
 
 $manager = new Manager();
 
@@ -50,10 +40,10 @@ $manager-&gt;attach('pre', function($result) { echo $result . '&lt;br /&gt;' . P
 $manager-&gt;trigger('pre', array('name' =&gt; 'World'));
 </pre>
         <p>
-            وهنا مثال باستخدام فئة.
+            Here's an example using a class.
         </p>
 <pre>
-use Pop\Event\Manager;
+use Pop&#92;Event&#92;Manager;
 
 class Foo
 {
@@ -81,7 +71,7 @@ $manager = new Manager();
 $manager-&gt;attach('pre', 'Foo::factory', 2);
 
 // OR
-//$manager-&gt;attach('pre', array(new Foo, 'bar'), 2);
+//$manager-&gt;attach('pre', 'Foo->bar', 2);
 
 $manager-&gt;attach('pre', function($result) { echo 'Hello, ' . $result-&gt;value . '&lt;br /&gt;' . PHP_EOL; }, 1);
 $manager-&gt;trigger('pre', array('arg' =&gt; 'World'));

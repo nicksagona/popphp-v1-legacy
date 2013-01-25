@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,10 +24,10 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Веб-компонент представляет собой набор веб-потребности и возможности, например управление сессиями, серверы, браузеры и печенье. Кроме того, она включает в себя функциональность для обнаружения мобильных устройств, так что ваше приложение может реагировать соответствующим образом.
+            The Web component is a collection of web-based needs and functionality, such managing sessions, servers, browsers and cookies. Also, it includes the functionality for detecting mobile devices so that your application can respond accordingly.
         </p>
 <pre>
-use Pop\Web\Session;
+use Pop&#92;Web&#92;Session;
 
 $sess = Session::getInstance();
 $sess-&gt;username = 'yourname';

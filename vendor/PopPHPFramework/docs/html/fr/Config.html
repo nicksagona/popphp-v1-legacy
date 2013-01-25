@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,10 +24,10 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Le composant de configuration fournit un objet de valeur des données qui est utilisée par d'autres composants tels que la composante du projet. En règle générale, des choses comme les informations d'identification de base de données sont définies dans un objet de configuration et transmis à un objet du projet qui sera utilisé pendant le cycle de vie du projet ou d'un script.
+            The Config component provides a data value object that is utilized by other components such as the Project component. Typically, things like database credentials are defined in a config object and passed to a project object to be used during the life-cycle of the project or script.
         </p>
 <pre>
-use Pop\Config;
+use Pop&#92;Config;
 
 $cfg = array(
     'db' =&gt; array(

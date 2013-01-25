@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,22 +24,22 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Der DB-Komponente bietet Zugang zu den normalisierten Datenbanken abzufragen. Die unterstützten Adapter sind:
+            The Db component provides normalized access to query databases. The supported adapters are:
         </p>
         <ul>
-            <li>sqlsrv</li>
             <li>mysql</li>
             <li>mysqli</li>
             <li>oracle</li>
             <li>pdo</li>
             <li>pgsql</li>
             <li>sqlite</li>
+            <li>sqlsrv</li>
         </ul>
         <p>
-            Prepared Statements werden mit der SQLSrv, MySQLi, Oracle, PDO, PostgreSQL und SQLite adapaters unterstützt. Entkommen Werte sind für alle Adapter.
+            Prepared statements are supported with the MySQLi, Oracle, PDO, PostgreSQL, SQLite and SQLSrv adapters. Escaped values are available for all of the adapters.
         </p>
 <pre>
-use Pop\Db\Db;
+use Pop&#92;Db&#92;Db;
 
 // Define DB credentials
 $creds = array(
@@ -71,10 +61,10 @@ while (($row = $db-&gt;adapter()-&gt;fetch()) != false) {
 }
 </pre>
         <p>
-            Neben Zugriff auf die Datenbank, die DB-Komponente bietet auch eine nützliche Abstraktion Sql-Objekt, das Sie beim Erstellen von standardisierten SQL-Abfragen.
+            In addition to database access, the Db component also features a useful Sql abstraction object that assists you in creating standardized SQL queries.
         </p>
 <pre>
-use Pop\Db\Sql;
+use Pop&#92;Db&#92;Sql;
 
 $sql = new Sql('users');
 $sql-&gt;setIdQuoteType(Sql::BACKTICK)

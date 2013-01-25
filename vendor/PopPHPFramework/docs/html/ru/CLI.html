@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,15 +24,14 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Интерфейс командной строки (CLI) компонент является очень полезным компонентом, который позволяет выполнять некоторые полезные задачи, такие как:
+            The command-line interface (CLI) component is a very useful component that allows you perform some helpful tasks such as:
         </p>
         <ul>
-            <li>оценки текущей среды для необходимых зависимостей</li>
-            <li>Установка проекта из установочного файла проекта</li>
-            <li>установить язык по умолчанию для приложений</li>
-            <li>Создание класса карты</li>
-            <li>перенастроить проект, который был перемещен</li>
-            <li>проверить текущую версию на последнюю доступную версию</li>
+            <li>evaluate the current environment for required dependencies</li>
+            <li>install a project from a project installation file</li>
+            <li>set the default language of an application</li>
+            <li>create a class map</li>
+            <li>check the current version against the latest available version</li>
         </ul>
 <pre>
 script/pop --check                     // Check the current configuration for required dependencies
@@ -50,9 +39,66 @@ script/pop --help                      // Display this help
 script/pop --install file.php          // Install a project based on the install file specified
 script/pop --lang fr                   // Set the default language for the project
 script/pop --map folder file.php       // Create a class map file from the source folder and save to the output file
-script/pop --reconfig projectfolder    // Reconfigure the project based on the new location of the project
 script/pop --show                      // Show project install instructions
 script/pop --version                   // Display version of Pop PHP Framework and latest available
+</pre>
+        <p>
+            Here's an example project installation file:
+        </p>
+<pre>
+return new Pop&#92;Config(array(
+    'project' =&gt; array(
+        'name'    =&gt; 'HelloWorld',
+        'base'    =&gt; __DIR__ . '/../../',
+        'docroot' =&gt; __DIR__ . '/../../public'
+    ),
+    'databases' =&gt; array(
+        'helloworld' =&gt; array(
+            'type'     =&gt; 'Sqlite',
+            'database' =&gt; '.hthelloworld.sqlite',
+            'prefix'   =&gt; 'pop_',
+            'default'  =&gt; true
+        )
+    ),
+    'forms' =&gt; array(
+        'login' =&gt; array(
+            'fields' =&gt; array(
+                array(
+                    'type'       =&gt; 'text',
+                    'name'       =&gt; 'username',
+                    'label'      =&gt; 'Username:',
+                    'required'   =&gt; true,
+                    'attributes' =&gt; array('size', 40),
+                    'validators' =&gt; 'AlphaNumeric()'
+                ),
+                array(
+                    'type'       =&gt; 'password',
+                    'name'       =&gt; 'password',
+                    'label'      =&gt; 'Password:',
+                    'required'   =&gt; true,
+                    'attributes' =&gt; array('size', 40),
+                    'validators' =&gt; array('NotEmpty()', 'LengthGt(6)')
+                ),
+                array(
+                    'type'       =&gt; 'submit',
+                    'name'       =&gt; 'submit',
+                    'value'      =&gt; 'LOGIN'
+                )
+            )
+        )
+    ),
+    'controllers' =&gt; array(
+        '/' =&gt; array(
+            'index'   =&gt; 'index.phtml',
+            'about'   =&gt; 'about.phtml',
+            'contact' =&gt; 'contact.phtml',
+            'error'   =&gt; 'error.phtml'
+        )
+    ),
+    'models' =&gt; array(
+        'User'
+    )
+));
 </pre>
     </div>
     <div id="doc-footer">

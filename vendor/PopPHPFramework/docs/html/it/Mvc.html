@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,17 +24,17 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            La componente MVC, come indicato nella panoramica documentazione, è una implementazione del design pattern MVC, con lo strato supplementare di un router per facilitare i percorsi per utenti multipli e controllori. In poche parole, il regolatore gestisce la delega delle richieste, il modello gestisce la logica di business e la vista determina come per visualizzare l'output per l'utente. Tutte queste classi all'interno di questa componente sono molto facili da estendere a sfruttare all'interno della vostra applicazione.
+            The Mvc component, as outlined in the documentation overview, is an implementation of the MVC design pattern, with the additional layer of a router to facilitate multiple user paths and controllers. Simply put, the controller handles the delegation of requests, the model handles the business logic and the view determines how to display the output to the user. All of these classes within this component are very easy to extend to leverage them within your own application.
         </p>
         <p>
-            Anche se questo può sembrare troppo complesso, se si utilizza la funzione di componente CLI progetto di installazione, la maggior parte di questo codice può essere scritto e installato per voi. Devi solo definire il nome del progetto e le impostazioni nel file di configurazione di installazione. Vista la componente file di progetto doc per ottenere un esempio di un progetto installare file di configurazione.
+            While this may look overly complex, if you use the CLI component project installation feature, most of this code can be written and installed for you. You just have to define the project name and settings in the install configuration file. View the Project component doc file to get an example of a project install configuration file.
         </p>
 <pre>
-use Pop\Mvc\Controller,
-    Pop\Mvc\Model,
-    Pop\Mvc\Router,
-    Pop\Mvc\View,
-    Pop\Project\Project;
+use Pop&#92;Mvc&#92;Controller,
+    Pop&#92;Mvc&#92;Model,
+    Pop&#92;Mvc&#92;Router,
+    Pop&#92;Mvc&#92;View,
+    Pop&#92;Project&#92;Project;
 
 // Define your project class
 class MyProject extends Project
@@ -53,14 +43,6 @@ class MyProject extends Project
     public function run()
     {
         parent::run();
-
-        if ($this-&gt;router()-&gt;controller()-&gt;getRequest()-&gt;getRequestUri() == '/') {
-            $this-&gt;router()-&gt;controller()-&gt;dispatch();
-        } else if (method_exists($this-&gt;router()-&gt;controller(), $this-&gt;router()-&gt;getAction())) {
-            $this-&gt;router()-&gt;controller()-&gt;dispatch($this-&gt;router()-&gt;getAction());
-        } else if (method_exists($this-&gt;router()-&gt;controller(), 'error')) {
-            $this-&gt;router()-&gt;controller()-&gt;dispatch('error');
-        }
     }
 }
 
@@ -103,7 +85,7 @@ $project = MyProject::factory(
     include '../some/config/project.config.php',
     include '../some/config/module.config.php',
     new Router(array(
-        'default' =&gt; 'MyApp\\MyController'
+        '/' =&gt; 'MyApp&#92;MyController'
     ))
 );
 

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,15 +24,15 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            文档中概述的概述，记录组件，是一种“混合”的各种活动记录和表数据网关模式之间。通过标准化的API，它可以在一个数据库表，或多个行或记录一次访问一个单一的行或记录。最常用的方法是写一个子类，扩展类，它代表了数据库中的表的记录。子类的名称应该是表的名称。通过简单地创建
+            The Record component, as outlined in the documentation overview, is a "hybrid" of sorts between the Active Record and Table Data Gateway patterns. Via a standardized API, it can provide access to a single row or record within a database table, or multiple rows or records at once. The most common approach is to write a child class that extends the Record class that represents a table in the database. The name of the child class should be the name of the table. By simply creating
         </p>
 <pre>
-use Pop\Record\Record;
+use Pop&#92;Record&#92;Record;
 
 class Users extends Record { }
 </pre>
         <p>
-            你创建一个类，有建于类，知道类的名称来查询数据库表的名称记录组件的所有功能。例如，`用户`或`db_users`（驼峰被自动转换成lower_case_underscore。）从那里进入DbUsers“翻译成”用户的转换，你可以精细调整的子类，如各种类的属性表：
+            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) From there, you can fine-tune the child class that represents the table with various class properties such as:
         </p>
 <pre>
 // Table prefix, if applicable
@@ -57,12 +47,28 @@ protected $auto = true;
 // Whether to use prepared statements or not, defaults to true
 protected $usePrepared = true;
 </pre>
+
         <p>
-            从那里，基本用法如下：
+            If you're within a structured project that has a defined database adapter, then the Record component will pick that up and use it. However, if you are simply writing some quick scripts using the Record component, then you will need to tell it which database adapter to use:
         </p>
 <pre>
-use Users;
+// Define DB credentials
+$creds = array(
+    'database' =&gt; 'helloworld',
+    'host'     =&gt; 'localhost',
+    'username' =&gt; 'hello',
+    'password' =&gt; '12world34'
+);
 
+// Create DB object
+$db = &#92;Pop&#92;Db&#92;Db::factory('Mysqli', $creds);
+
+Record::setDb($db);
+</pre>
+        <p>
+            From there, basic usage is as follows:
+        </p>
+<pre>
 // Get a single user
 $user = Users::findById(1001);
 echo $user-&gt;name;

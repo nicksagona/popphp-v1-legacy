@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,35 +24,60 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Η συνιστώσα της τροφοδοσίας παρέχει τη λειτουργικότητα και να διαβάσετε εξωτερικές ροές αναλύσει και να παρέχει τα δεδομένα σε ένα χρήσιμο τρόπο, καθώς και τη λειτουργικότητα για να γράψει και εμφάνιση των τροφοδοσιών περιεχόμενο.
+            The Feed component provides the functionality to read and parse external feeds and provide the data in a useful way, as well as the functionality to write and display content feeds.
         </p>
         <p>
-            Εδώ είναι ένα παράδειγμα του ανάγνωση (δηλ., parsing) μία εξωτερική ζωοτροφών.
+            Here's an example of reading (i.e., parsing) an external feed.
         </p>
 <pre>
-use Pop\Feed\Reader;
-$feed = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
+use Pop&#92;Feed;
 
-$htmlTemplate = &lt;&lt;&lt;HTML
-    &lt;div&gt;
-        &lt;a href="[{link}]"&gt;&lt;img src="[{image}]" alt="[{title}]" border="0" /&gt;&lt;/a&gt;&lt;br /&gt;
+$tmpl = &lt;&lt;&lt;NEWS
+    &lt;div class="news-div"&gt;
         &lt;a href="[{link}]"&gt;[{title}]&lt;/a&gt;&lt;br /&gt;
-        &lt;strong&gt;[{pubDate}]&lt;/strong&gt; ([{timeElapsed}])&lt;br /&gt;
-        &lt;p&gt;[{description}]&lt;/p&gt;
+        &lt;strong&gt;[{published}]&lt;/strong&gt; ([{time}])&lt;br /&gt;
+        &lt;p&gt;[{content}]&lt;/p&gt;
     &lt;/div&gt;
 
-HTML;
+NEWS;
 
-$feed-&gt;setTemplate($htmlTemplate);
+$google = 'http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss';
+$feed = Feed&#92;Reader::getByUrl($google, 3);
+$feed-&gt;setTemplate($tmpl);
 $feed-&gt;render();
 </pre>
         <p>
-            Εδώ είναι ένα παράδειγμα γραφής ενός ζωοτροφών.
-
+            Here's an example of reading a feed from a service account, like Twitter or Facebook.
         </p>
 <pre>
-use Pop\Dom\Dom,
-    Pop\Feed\Writer;
+use Pop&#92;Feed;
+
+$tmpl = &lt;&lt;&lt;POSTS
+    &lt;div class="post-div"&gt;
+        &lt;a href="[{link}]"&gt;[{title}]&lt;/a&gt;&lt;br /&gt;
+        &lt;strong&gt;[{published}]&lt;/strong&gt; ([{time}])&lt;br /&gt;
+    &lt;/div&gt;
+
+POSTS;
+
+$twitter = Feed&#92;Reader::getByAccountName('twitter', 'highvoltagenola', 3);
+// OR
+//$twitter = Feed&#92;Reader::getByAccountId('twitter', '50079850', 3);
+
+$twitter-&gt;setTemplate($tmpl);
+
+echo '&lt;h1&gt;' . $twitter-&gt;title . '&lt;/h1&gt;' . PHP_EOL;
+echo '&lt;h4&gt;' . $twitter-&gt;tweet_count . ' Tweets : ' .
+    $twitter-&gt;following . ' Following : ' .
+    $twitter-&gt;followers . ' Followers&lt;/h4&gt;' . PHP_EOL;
+
+$twitter-&gt;render();
+</pre>
+        <p>
+            Here's an example of writing a feed.
+        </p>
+<pre>
+use Pop&#92;Feed;
 
 $feedHeaders = array(
     'title'     =&gt; 'Test Feed Title',
@@ -102,7 +117,7 @@ $entry3 = array(
 );
 
 $feedEntries = array($entry1, $entry2, $entry3);
-$feed = new Writer($feedHeaders, $feedEntries, Dom::ATOM);
+$feed = new Feed&#92;Writer($feedHeaders, $feedEntries, Feed\Writer::ATOM);
 $feed-&gt;render();
 </pre>
     </div>

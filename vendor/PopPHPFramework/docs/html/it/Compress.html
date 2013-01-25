@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,7 +24,7 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Il componente Compress fornisce un metodo normalizzato per comprimere e decomprimere file di dati e attraverso i metodi supportati:
+            The Compress component provides a normalized method to compress and uncompress data and files via the supported methods:
         </p>
         <ul>
             <li>bzip2</li>
@@ -42,10 +32,10 @@
             <li>lzf</li>
         </ul>
 <pre>
-use Pop\Compress\Bzip2;
+use Pop&#92;Compress&#92;Bzip2;
 
 $compressed = Bzip2::compress('Some string');
-$uncompressed = Bzip2:uncompress($compressed);
+$uncompressed = Bzip2::uncompress($compressed);
 </pre>
     </div>
     <div id="doc-footer">

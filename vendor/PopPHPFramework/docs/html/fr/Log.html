@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,14 +24,14 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Le composant Log fournit les fonctionnalités de base pour enregistrer les entrées de journal dans une variété de façons, y compris l'écriture du fichier, l'insérer dans une base de données ou l'envoi d'un email, ou un mélange quelconque d'entre eux.
+            The Log component provides the basic functionality to record log entries in a variety of ways, including writing to file, inserting into a database or sending an email, or any mixture of them.
         </p>
         <p>
-            Voici un exemple d'écriture dans un fichier journal:
+            Here's an example of writing to a log file:
         </p>
 <pre>
-use Pop\Log\Logger,
-    Pop\Log\Writer\File;
+use Pop&#92;Log&#92;Logger,
+    Pop&#92;Log&#92;Writer&#92;File;
 
 $logger = new Logger(new File('../tmp/app.log'));
 $logger-&gt;addWriter(new File('../tmp/app.xml'));
@@ -49,14 +39,14 @@ $logger-&gt;emerg('Here is an emergency message.')
        -&gt;info('Here is an info message.');
 </pre>
         <p>
-            Voici un exemple d'écriture dans une base de données:
+            Here's an example of writing to a database:
         </p>
 <pre>
-use Pop\Db\Db as PopDb,
-    Pop\Log\Logger,
-    Pop\Log\Writer\Db,
-    Pop\Log\Writer\File,
-    Pop\Record\Record;
+use Pop&#92;Db&#92;Db as PopDb,
+    Pop&#92;Log&#92;Logger,
+    Pop&#92;Log&#92;Writer&#92;Db,
+    Pop&#92;Log&#92;Writer&#92;File,
+    Pop&#92;Record&#92;Record;
 
 class Logs extends Record {}
 
@@ -68,12 +58,12 @@ $logger-&gt;emerg('Here is an emergency message.')
        -&gt;info('Here is an info message.');
 </pre>
         <p>
-            Voici un exemple de l'envoi d'un e-mail:
+            Here's an example of sending an email:
         </p>
 <pre>
-use Pop\Log\Logger,
-    Pop\Log\Writer\Mail,
-    Pop\Log\Writer\File;
+use Pop&#92;Log&#92;Logger,
+    Pop&#92;Log&#92;Writer&#92;Mail,
+    Pop&#92;Log&#92;Writer&#92;File;
 
 $emails = array(
     'Bob Smith'   =&gt; 'bob@smith.com',

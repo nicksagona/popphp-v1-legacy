@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,15 +24,24 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            颜色分量是一个有用的成分，管理和使用的颜色值对象。它还提供了其他的色彩空间转换颜色值，例如，转换RGB到CMYK的功能。
+            The Color component is a useful component to manage and utilize color value objects. It also provides the functionality to convert color values to other color spaces, for example, converting RGB to CMYK.
         </p>
 <pre>
-use Pop\Color\Color,
-    Pop\Color\Rgb;
+use Pop&#92;Color;
 
-$color = new Color(new Rgb(112, 124, 228));
-echo $color-&gt;cmyk-&gt;getCmyk(Color::STRING);
-echo $color-&gt;lab-&gt;getLab(Color::STRING);
+// Create a color space value object
+$color = new Color&#92;Color(new Color&#92;Space&#92;Rgb(112, 124, 228));
+
+echo '&lt;strong&gt;RGB values:&lt;/strong&gt; ' . $color-&gt;rgb . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+echo '&lt;strong&gt;HEX values:&lt;/strong&gt; ' . $color-&gt;hex . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+echo '&lt;strong&gt;CMYK conversion:&lt;/strong&gt; ' . $color-&gt;cmyk . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+echo '&lt;strong&gt;HSB conversion:&lt;/strong&gt; ' . $color-&gt;hsb . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+echo '&lt;strong&gt;Lab conversion:&lt;/strong&gt; ' . $color-&gt;lab . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+
+// Directly convert a single color object
+$rgb = new Color&#92;Space&#92;Rgb(112, 124, 228);
+$cmyk = Color&#92;Convert::toCmyk($rgb);
+echo 'RGB: ' . $rgb . ' =&gt; CMYK: ' . $cmyk;
 </pre>
     </div>
     <div id="doc-footer">

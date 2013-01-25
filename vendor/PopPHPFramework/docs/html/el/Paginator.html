@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,10 +24,10 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Η συνιστώσα Paginator παρέχει απλά τη λειτουργικότητα στη σελίδα από ένα μεγάλο σύνολο αποτελεσμάτων. Πολλές διαφορετικές ρυθμίσεις και τα χαρακτηριστικά μπορεί να εφαρμοστεί, αλλά η πιο χρήσιμη είναι η υποστήριξη πρότυπο που χτίστηκε μέσα
+            The Paginator component simply provides the functionality to page out a large result set. Many different settings and attributes can be applied, but the most useful is the template support that it built in.
         </p>
 <pre>
-use Pop\Paginator\Paginator;
+use Pop&#92;Paginator&#92;Paginator;
 
 $rows = array(
     array('id' =&gt; 1, 'name' =&gt; 'Test1', 'email' =&gt; 'test1@email.com'),

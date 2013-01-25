@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Service</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            The Service component acts as a service locator for the running application or project. It supports lazy-loading of service instances, so the services won't be created until the application needs them. There are many options to how you can call the services, from defining classes to using closures.
+        </p>
+<pre>
+use Pop&#92;Service&#92;Locator;
+
+// Load the services config via the constructor
+$locator = new Locator(array(
+    'config' =&gt; array(
+        'call'   =&gt; 'Pop&#92;Config',
+        'params' =&gt; array(array('test' =&gt; 123), true)
+    ),
+    'rgb' =&gt; array(
+        'call'   =&gt; 'Pop&#92;Color&#92;Space&#92;Rgb',
+        'params' =&gt; function() { return array(255, 0, 0); }
+    ),
+    'color' => function($locator) {
+        return new \Pop\Color\Color($locator->get('rgb'));
+    }
+));
+
+// Get a service
+$config = $locator->get('config');  // Returns a config object
+$rgb    = $locator->get('rgb');     // Returns an RGB colorspace object
+$color  = $locator->get('color');   // Returns a color object that is loaded with the RGB object
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2013 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

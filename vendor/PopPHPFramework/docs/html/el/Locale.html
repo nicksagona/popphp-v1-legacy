@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,13 +24,13 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Το στοιχείο Τοπικές παρέχει γλωσσική υποστήριξη και τη λειτουργικότητα μετάφραση για την εφαρμογή σας. Μπορείτε απλά να δημιουργήσετε και να φορτώσετε τις δικές σας αρχεία XML από τις απαιτούμενες μεταφράσεις γλώσσα με τη μορφή που είχε παρουσιαστεί στην ίδια γλώσσα XML αρχεία της Ποπ.
+            The Locale component provides language support and translation functionality for your application. You can simply create and load your own XML files of the required language translations in the format that's outlined in Pop's own XML language files.
         </p>
         <p>
-            Μπορείτε να φορτώσετε το δικό σας μετάφραση αρχεία γλώσσας, εφ 'όσον η τήρηση του προτύπου XML εγκατεστημένος στο φάκελο Pop / Τοπικές / δεδομένων.
+            You can load your own language translation files, as long as the adhere to the XML standard established in the Pop/Locale/Data folder.
         </p>
 <pre>
-use Pop\Locale\Locale;
+use Pop&#92;Locale&#92;Locale;
 
 // Create a Locale object to translate to French, using your own language file.
 $lang = Locale::factory('fr')-&gt;loadFile('folder/mylangfile.xml);

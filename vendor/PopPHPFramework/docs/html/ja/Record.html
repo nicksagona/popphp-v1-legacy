@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,15 +24,15 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            としてのドキュメントの概要で説明されているレコードのコンポーネントは、Active Recordのとテーブルデータゲートウェイパターンの間にある種の "ハイブリッド"です。標準化されたAPIを介して、それが一度にデータベーステーブル内の単一の行またはレコードへのアクセス、または複数の行またはレコードを提供することができます。最も一般的なアプローチは、データベース内のテーブルを表すレコードクラスを拡張子クラスを作成することです。子クラスの名前は、テーブルの名前でなければなりません。単に作成することにより、
+            The Record component, as outlined in the documentation overview, is a "hybrid" of sorts between the Active Record and Table Data Gateway patterns. Via a standardized API, it can provide access to a single row or record within a database table, or multiple rows or records at once. The most common approach is to write a child class that extends the Record class that represents a table in the database. The name of the child class should be the name of the table. By simply creating
         </p>
 <pre>
-use Pop\Record\Record;
+use Pop&#92;Record&#92;Record;
 
 class Users extends Record { }
 </pre>
         <p>
-            あなたは、年に建てられ、クラスはクラス名からクエリを実行するデータベーステーブルの名前を知っているレコード·コンポーネントのすべての機能を持つクラスを作成します。たとえば、そこから `db_users`（キャメルケースは自動的にlower_case_underscoreに変換されます。）に `ユーザー`または 'DbUsers'変換に 'ユーザー'に変換するには、などのさまざまなクラスのプロパティを持つテーブルを表す子クラスを微調整することができます：
+            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) From there, you can fine-tune the child class that represents the table with various class properties such as:
         </p>
 <pre>
 // Table prefix, if applicable
@@ -57,12 +47,28 @@ protected $auto = true;
 // Whether to use prepared statements or not, defaults to true
 protected $usePrepared = true;
 </pre>
+
         <p>
-            そこから、基本的な使い方は次のとおりです。
+            If you're within a structured project that has a defined database adapter, then the Record component will pick that up and use it. However, if you are simply writing some quick scripts using the Record component, then you will need to tell it which database adapter to use:
         </p>
 <pre>
-use Users;
+// Define DB credentials
+$creds = array(
+    'database' =&gt; 'helloworld',
+    'host'     =&gt; 'localhost',
+    'username' =&gt; 'hello',
+    'password' =&gt; '12world34'
+);
 
+// Create DB object
+$db = &#92;Pop&#92;Db&#92;Db::factory('Mysqli', $creds);
+
+Record::setDb($db);
+</pre>
+        <p>
+            From there, basic usage is as follows:
+        </p>
+<pre>
 // Get a single user
 $user = Users::findById(1001);
 echo $user-&gt;name;

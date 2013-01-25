@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,11 +24,11 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            グラフコンポーネントは、さまざまな形式でグラフを描画するSVGやPDF、画像などのグラフィックコンポーネントで構築されたのいずれかを利用することができる堅牢なグラフ機能が可能になります。あなたは、線グラフ、棒グラフと円グラフを作成し、レンダリングするグラフィック属性の広い配列を定義することができます。別のグラフィックコンポーネント間のAPIが標準化されているので、グラフを生成する別のファイルとイメージ形式の間で交換するために非常に簡単です。
+            The Graph component allows for robust graphing functionality that can utilize any of the built in graphic components such as Image, Svg and Pdf to draw graphs in a variety of formats. You can define a wide array of graphic attributes to create and render line graphs, bar graphs and pie charts. Since the API among the different graphic components is standardized, it's very easy to interchange amongst different the file and image formats in which to produce a graph.
         </p>
 <pre>
-use Pop\Color\Rgb,
-    Pop\Graph\Graph;
+use Pop&#92;Color&#92;Space&#92;Rgb,
+    Pop&#92;Graph&#92;Graph;
 
 $x = array('1995', '2000', '2005', '2010', '2015');
 $y = array('0M', '50M', '100M', '150M', '200M');
@@ -52,18 +42,23 @@ $data = array(
     array(2006, 98),
     array(2007, 76),
     array(2010, 122),
-    array(2013, 175),
+    array(2012, 175),
     array(2015, 162)
 );
 
-$graph = new Graph('graph.gif', 640, 480, Graph::IMAGICK);
-//$graph = new Graph('graph.svg', 640, 480);
+
+$graph = new Graph(array(
+    'filename' =&gt; 'graph.gif',
+    'width'    =&gt; 640,
+    'height'   =&gt; 480
+));
+
 $graph-&gt;addFont('../assets/fonts/times.ttf')
       -&gt;setFontColor(new Rgb(128, 128, 128))
       -&gt;setFillColor(new Rgb(10, 125, 210))
       -&gt;showY(true)
       -&gt;showText(true)
-      -&gt;addLineGraph($data, $x, $y)
+      -&gt;createLineGraph($data, $x, $y)
       -&gt;output();
 </pre>
     </div>

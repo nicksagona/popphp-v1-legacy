@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -34,22 +24,22 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            Die Loader-Komponente ist wahrscheinlich der Grund-, noch die wichtigste Komponente des Pop PHP Framework. Es ist die Komponente, die den Rahmen der Autoloading Möglichkeiten treibt, und eine eigene Anwendung kann leicht mit dem Autoloader, eigene Klassen zu laden registriert werden. Dieser Alleingang ersetzt alle diese alten Sie umfassen auch Aussagen verwendet werden, um alle über den Ort zu haben. Nun brauchen Sie nur ein erfordern Aussage der 'bootstrap.php' an der Spitze und du bist gut zu gehen. Standardmäßig enthält die Bootstrap-Datei den gewünschten Verweis auf das Framework Autoloader-Klasse und lädt ihn auf. Innerhalb der Bootstrap-Datei, können Sie problemlos durchführen Weitere Lade-Funktionen wie Registrierung Ihrer Anwendung des Namespaces mit dem Autoloader oder Laden einer Datei zu classmap Ladezeit zu verringern.
+            The Loader component is probably the most basic, yet most important component of the Pop PHP Framework. It's the component that drives the framework's autoloading capabilities, and your own application can easily be registered with the autoloader to load your own classes. This singlehandedly replaces all of those old include statements you used to have all over the place. Now, all you need is one require statement of the 'bootstrap.php' at the top and you're good to go. By default, the bootstrap file contains the required reference to the framework's Autoloader class and then loads it up. Within the bootstrap file, you can easily perform other loading functions, such as registering your application's namespace with the autoloader, or loading a classmap file to decrease load time.
         </p>
 <pre>
 // Instantiate the autoloader object
-$autoloader = new Pop\Loader\Autoloader();
+$autoloader = new Pop&#92;Loader&#92;Autoloader();
 $autoloader-&gt;splAutoloadRegister();
 
 $autoloader-&gt;register('YourLib', '../vendor/YourLib/src');
 $autoloader-&gt;loadClassMap('../vendor/YourLib/classmap.php');
 </pre>
         <p>
-            Und wenn Sie eine Datei generiert classmap müssen, hat der Loader-Komponente die Funktionen zum einfachen Erzeugen eines classmap Datei auch für Sie.
+            And if you need a classmap file generated, the Loader component has the functionality to easily generate a classmap file for you as well.
         </p>
 <pre>
 // Generate a classmap file
-Pop\Loader\Classmap::generate('your/src/folder', 'your/src/folder/classmap.php');
+Pop&#92;Loader&#92;Classmap::generate('your/src/folder', 'your/src/folder/classmap.php');
 </pre>
     </div>
     <div id="doc-footer">
