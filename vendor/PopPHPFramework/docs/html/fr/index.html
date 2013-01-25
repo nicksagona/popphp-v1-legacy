@@ -23,10 +23,10 @@
         <li><a href="https://github.com/nicksagona/PopPHP" target="_blank">Pop PHP in GitHub</a></li>
     </ul>
     <h1>Pop PHP Framework</h1>
-    <h2>Documentation : Overview</h2>
+    <h2>Documentation: Vue d'ensemble</h2>
     <div id="doc-content">
         <p>
-            The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use API that will allow you to utilize a wide range of functionality. You can use it as a toolbox to assist with quickly writing basic scripts, or you can use it as a full-fledged framework to build and customize large-scale, robust applications. At the core of the framework is a group of components, some of which can be used independently and some of which can be used in tandem to leverage the full power of the framework and PHP.
+            Le Cadre Pop PHP est un framework PHP orientée objet avec un outil facile à utiliser l'API qui vous permettra d'utiliser un large éventail de fonctionnalités. Vous pouvez l'utiliser comme une boîte à outils pour aider à rapidement l'écriture de scripts de base, ou vous pouvez l'utiliser comme un cadre à part entière de construire et de personnaliser à grande échelle, des applications robustes. Au cœur de ce cadre est un groupe de composants, dont certains peuvent être utilisées indépendamment et dont certains peuvent être utilisés en tandem pour exploiter toute la puissance du cadre et PHP.
         </p>
         <table style="width: 100%;">
             <tr>
@@ -101,35 +101,35 @@
                 </td>
             </tr>
         </table>
-        <h3>QuickStart</h3>
+        <h3>Démarrage rapide</h3>
         <p>
-            There are 2 ways that you can get up and running with the Pop PHP Framework.
+            Il ya 2 façons que vous pouvez obtenir en marche avec le Cadre Pop PHP.
         </p>
         <p>
-            If you're just looking to write some quick scripts, you can simply drop the source folder into your working project folder, reference the 'bootstrap.php' accordingly in a script and start writing code. You'll find references and examples all throughout this documentation that will explain the different components and how you can use them.
+            Si vous cherchez simplement à écrire des scripts rapides, il vous suffit de glisser le dossier source dans le dossier du projet de travail, référence à la «bootstrap.php 'en conséquence dans un script et commencer à écrire du code. Vous trouverez des références et des exemples tout au long de cette documentation qui vous expliquera les différentes composantes et comment vous pouvez les utiliser.
         </p>
         <p>
-            If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or "scaffolding." This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and Pop does all the dirty work for you. You can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
+            Si vous cherchez à construire une application à plus grande échelle, vous pouvez utiliser le composant CLI pour créer la fondation de base du projet, ou «échafaudage». De cette façon, vous pouvez commencer à écrire le code de projet rapidement et ne pas avoir à faire tout ce accablés par les rails. Tout ce que vous avez à faire est de définir votre projet en fichier d'installation unique, exécutez la commande CLI Pop utilisant ce fichier et Pop fait tout le sale boulot pour vous. Vous pouvez accéder à l'écriture de code projet plus rapidement. Consultez la documentation sur le composant CLI d'explorer davantage comment tirer parti de cette composante robuste.
         </p>
-        <h3>The MVC Component</h3>
+        <h3>Le composant MVC</h3>
         <p>
-            The MVC component is available and especially useful when building a large-scale application. MVC stands for Model-View-Controller and is a design pattern that facilitates a well-organized separation of concerns. It allows your presentation, business logic and data access to all be kept separately.
-        </p>
-        <p>
-            The controller receives input (i.e. a web request) from the user and based on that input, communicates that with the model. The model can then process the request to determine what data or response is needed. At that point, the model and view communicate so that the view can build the presentation, or "view," based on the data obtained from the model. Then, the controller will communicate with the view to display the appropriate output to the user.
+            Le composant MVC est disponible et particulièrement utile lors de la construction d'une application à grande échelle. MVC équivaut à Modèle-Vue-Contrôleur et est un modèle de conception qui facilite une séparation bien organisée des préoccupations. Il permet à votre logique métier de présentation, et l'accès aux données à tout être conservés séparément.
         </p>
         <p>
-            One extra piece of the MVC component that is available with the Pop PHP Framework is a router. The router is simply an additional layer on top that does exactly what its name suggests - it routes different types of user requests to their corresponding controllers. In other words, it provides an easy way to manage multiple user paths and controllers.
+            Le contrôleur reçoit une entrée (par exemple une demande de navigateur) de l'utilisateur et en fonction de cette entrée, communique avec celui du modèle. Le modèle peut alors traiter la demande afin de déterminer quelles sont les données ou la réponse est nécessaire. À ce stade, le modèle et la vue de communiquer afin que la vue peut construire la présentation, ou "vue", basée sur les données obtenues à partir du modèle. Ensuite, le contrôleur communique avec la vue pour afficher la sortie appropriée à l'utilisateur.
         </p>
         <p>
-            Often times, it can be difficult to grasp the MVC design pattern until you actually start using it. Once you do though, you'll immediately see the benefit of having everything separated out in easy-to-manage concepts with very little, if any, overlap. Your controller handles the delegation of requests, your model handles the business logic and your view determines how to display the output to the user. By far, this pattern trumps the olden days of cramming everything into a single script with numerous include statements.
-        </p>
-        <h3>The Db &amp; Record Components</h3>
-        <p>
-            The Db and Record components are two components that have the potential to be used quite a bit in any application. Obviously, the Db component provides direct access to query a database. The supported adapters include native MySQL, MySQLi, Oracle, PDO, PostgreSQL, Sqlite and SQLServer. They serve to normalize database access across different environments so that you don't have to worry as much about re-tooling an application to work with a different type of database in a different environment.
+            Une pièce supplémentaire de la composante MVC qui est disponible avec le Pop Framework PHP est un routeur. Le routeur est tout simplement une couche supplémentaire sur le dessus qui fait exactement ce que son nom l'indique - il achemine les différents types de demandes des utilisateurs à leurs contrôleurs correspondants. En d'autres termes, il fournit un moyen facile de gérer les chemins d'utilisateurs multiples et les contrôleurs.
         </p>
         <p>
-            The Record component is a powerful component that provides standardized access to data within a database, specifically the database tables and individual records within the tables. The record component is really a hybrid of the Active Record and Table Data Gateway patterns. It can provide access to a single row or record like an Active Record pattern would, or multiple rows at one time, like a Table Data Gateway would. With the Pop PHP Framework, the most common approach is to write a child class that extends the Record class that represents a table in the database. The name of the child class should be the name of the table. By simply creating
+            Souvent, il peut être difficile de comprendre le motif de conception MVC jusqu'à ce que vous commencer à l'utiliser. Une fois que vous faites bien, vous verrez immédiatement l'avantage d'avoir tout séparé dans faciles à gérer concepts avec très peu, le cas échéant, se chevauchent. Votre contrôleur gère la délégation de demandes, votre modèle gère la logique métier et votre point de vue détermine la façon d'afficher la sortie à l'utilisateur. De loin, ce modèle l'emporte sur les temps anciens de bachotage tout dans un seul script avec de nombreux comprennent des déclarations.
+        </p>
+        <h3>Les composants Db & enregistrement</h3>
+        <p>
+            Les composants Db et enregistrement sont deux composantes qui ont le potentiel d'être utilisé un peu dans n'importe quelle application. De toute évidence, la composante Db offre un accès direct à interroger une base de données. Les adaptateurs pris en charge comprennent natif MySQL, MySQLi, Oracle, AOP, PostgreSQL, SQLite et SQLServer. Ils servent à normaliser l'accès base de données dans des environnements différents de sorte que vous n'avez pas à s'inquiéter autant de réoutillage une demande de travailler avec un autre type de base de données dans un environnement différent.
+        </p>
+        <p>
+            Le volet enregistrement est un élément puissant qui fournit un accès standardisé aux données dans une base de données, en particulier les tables de bases de données et les dossiers individuels dans les tableaux. La composante record est vraiment un hybride de l'Active Record et les habitudes Table Data Gateway. Il peut donner accès à une seule ligne ou disque comme un modèle Active Record aurait ou plusieurs lignes à la fois, comme une Table Data Gateway ferait. Avec le Cadre Pop PHP, l'approche la plus courante consiste à écrire une classe enfant qui étend la classe enregistrement qui représente une table dans la base de données. Le nom de la classe de l'enfant doit être le nom de la table. En créant simplement
         </p>
 <pre>
 use Pop&#92;Record&#92;Record;
@@ -137,7 +137,7 @@ use Pop&#92;Record&#92;Record;
 class Users extends Record { }
 </pre>
         <p>
-            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+            vous créez une classe qui dispose de toutes les fonctionnalités du composant enregistrement intégré et la classe connaît le nom de la table de base de données à interroger à partir du nom de la classe. Par exemple, se traduit par «Utilisateurs» dans `utilisateurs` ou traduit 'DbUsers' dans `` db_users (CamelCase est automatiquement converti en lower_case_underscore.), Consultez la documentation d'enregistrement pour voir comment vous pouvez affiner la classe table enfant.
         </p>
     </div>
     <div id="doc-footer">

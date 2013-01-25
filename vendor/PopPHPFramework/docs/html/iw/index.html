@@ -23,10 +23,10 @@
         <li><a href="https://github.com/nicksagona/PopPHP" target="_blank">Pop PHP in GitHub</a></li>
     </ul>
     <h1>Pop PHP Framework</h1>
-    <h2>Documentation : Overview</h2>
+    <h2>תיעוד: סקירה כללית</h2>
     <div id="doc-content">
         <p>
-            The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use API that will allow you to utilize a wide range of functionality. You can use it as a toolbox to assist with quickly writing basic scripts, or you can use it as a full-fledged framework to build and customize large-scale, robust applications. At the core of the framework is a group of components, some of which can be used independently and some of which can be used in tandem to leverage the full power of the framework and PHP.
+            מסגרת PHP פופ היא מסגרת מונחה עצמי PHP עם קל לשימוש, ה-API שיאפשר לך לנצל את מגוון רחב של פונקציונליות. אתה יכול להשתמש בו כארגז כלים כדי לסייע בכתיבת סקריפטים בסיסיים במהירות, או שאתה יכול להשתמש בו כמסגרת לכל דבר כדי לבנות ולהתאים יישומים בקנה מידה גדול, חזקים. במרכזו של המסגרת היא קבוצה של רכיבים, שחלקם ניתן להשתמש באופן עצמאי וחלקם יכולים לשמש במקביל למינוף כוח המלא של המסגרת ו-PHP.
         </p>
         <table style="width: 100%;">
             <tr>
@@ -101,35 +101,35 @@
                 </td>
             </tr>
         </table>
-        <h3>QuickStart</h3>
+        <h3>התחלה מהירה</h3>
         <p>
-            There are 2 ways that you can get up and running with the Pop PHP Framework.
+            ישנן 2 דרכים שאתה יכול לקבל והפעלה עם מסגרת PHP פופ
         </p>
         <p>
-            If you're just looking to write some quick scripts, you can simply drop the source folder into your working project folder, reference the 'bootstrap.php' accordingly in a script and start writing code. You'll find references and examples all throughout this documentation that will explain the different components and how you can use them.
+            אם אתה רק מסתכל על מנת לכתוב כמה תסריטים מהירים, אתה יכול פשוט להחזיר את מקור התיקייה לתיקיית פרויקט העבודה שלך, להפנות אל 'bootstrap.php' בהתאם בתסריט ולהתחיל לכתוב קוד. אתה תמצא הפניות ודוגמאות בכל רחבי תיעוד זה, אשר יסביר את הרכיבים השונים וכיצד ניתן להשתמש בם.
         </p>
         <p>
-            If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or "scaffolding." This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and Pop does all the dirty work for you. You can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
+            אם אתה מחפש לבנות יישומים בקנה מידה גדול, אתה יכול להשתמש ברכיב CLI כדי ליצור בסיס של בסיס הפרויקט, או "פיגומים". בדרך זו, אתה יכול להתחיל לכתוב קוד פרויקט במהירות ולא צריך עמוס מקבלים הכל ולהפעלתו. כל מה שאתה צריך לעשות הוא להגדיר את הפרויקט שלך בקובץ התקנה יחידה, הפעל את פקודת CLI פופ באמצעות קובץ ושפופ עושים את כל העבודה המלוכלכת בשבילך. אתה יכול להגיע לכתיבת קוד פרויקט מהר יותר. סקור את התיעוד על רכיב CLI נוסף כדי לחקור כיצד לנצל את המרכיב החזק הזה.
         </p>
-        <h3>The MVC Component</h3>
+        <h3>רכיב MVC</h3>
         <p>
-            The MVC component is available and especially useful when building a large-scale application. MVC stands for Model-View-Controller and is a design pattern that facilitates a well-organized separation of concerns. It allows your presentation, business logic and data access to all be kept separately.
-        </p>
-        <p>
-            The controller receives input (i.e. a web request) from the user and based on that input, communicates that with the model. The model can then process the request to determine what data or response is needed. At that point, the model and view communicate so that the view can build the presentation, or "view," based on the data obtained from the model. Then, the controller will communicate with the view to display the appropriate output to the user.
+            מרכיב MVC זמין ושימושי במיוחד בעת בניית יישומים בקנה מידה גדול. MVC עומד לדגם-צפו בבקר והוא תבנית עיצוב שמאפשרת הפרדה מאורגנת היטב של חששות. זה מאפשר את המצגת שלך, לוגיקה העסקית והגישה לנתונים לכל תישמרנה בנפרד.
         </p>
         <p>
-            One extra piece of the MVC component that is available with the Pop PHP Framework is a router. The router is simply an additional layer on top that does exactly what its name suggests - it routes different types of user requests to their corresponding controllers. In other words, it provides an easy way to manage multiple user paths and controllers.
+            הבקר מקבל קלט (כלומר בקשת אינטרנט) מהמשתמש ועל סמך זה קלט, שמתקשר עם המודל. המודל אז יכול לעבד את הבקשה כדי לקבוע אילו נתונים או לתגובה נדרשים. בשלב זה, מתקשר המודל ותצוגה כך שהתצוגה יכולה לבנות מצגת או "המבט", המבוססת על הנתונים המתקבלים מהמודל. לאחר מכן, הבקר יהיה לתקשר עם התצוגה כדי להציג הפלט המתאים למשתמש.
         </p>
         <p>
-            Often times, it can be difficult to grasp the MVC design pattern until you actually start using it. Once you do though, you'll immediately see the benefit of having everything separated out in easy-to-manage concepts with very little, if any, overlap. Your controller handles the delegation of requests, your model handles the business logic and your view determines how to display the output to the user. By far, this pattern trumps the olden days of cramming everything into a single script with numerous include statements.
-        </p>
-        <h3>The Db &amp; Record Components</h3>
-        <p>
-            The Db and Record components are two components that have the potential to be used quite a bit in any application. Obviously, the Db component provides direct access to query a database. The supported adapters include native MySQL, MySQLi, Oracle, PDO, PostgreSQL, Sqlite and SQLServer. They serve to normalize database access across different environments so that you don't have to worry as much about re-tooling an application to work with a different type of database in a different environment.
+            חתיכה נוספת אחת של רכיב MVC שהוא זמין עם PHP מסגרת פופ היא הנתב. הנתב הוא פשוט שכבה נוספת על גבי שעושה בדיוק את מה ששם מרמז - זה מסלולי סוגים שונים של בקשות משתמשים לבקרים המקבילים שלהם. במילים אחרות, הוא מספק דרך קלה לניהול משתמשים מרובים נתיבים ובקרים.
         </p>
         <p>
-            The Record component is a powerful component that provides standardized access to data within a database, specifically the database tables and individual records within the tables. The record component is really a hybrid of the Active Record and Table Data Gateway patterns. It can provide access to a single row or record like an Active Record pattern would, or multiple rows at one time, like a Table Data Gateway would. With the Pop PHP Framework, the most common approach is to write a child class that extends the Record class that represents a table in the database. The name of the child class should be the name of the table. By simply creating
+            פעמים רבות, זה יכול להיות קשה לתפוס את תבנית עיצוב MVC עד שאתה בעצם להתחיל להשתמש בו. ברגע שאתה עושה כי, תראה מייד את היתרון שיש כל מה שנפרד ב- קלים לניהול מושגים עם מעט מאוד, אם בכלל, חפיפה. בקרך מטפל משלחת של בקשות, המודל שלך מטפל בלוגיקה העסקית והמבט שלך יקבע את אופן תצוגת הפלט למשתמש. במידה רבה, מנצח את הדפוס הזה בימים ההם של דחס הכל לתוך תסריט יחיד עם מספר רב כוללים הצהרות.
+        </p>
+        <h3>רכיבי DB ורשומים</h3>
+        <p>
+            רכיבי DB ושיא הם שני מרכיבים שיש להם פוטנציאל לשמש לא מעט בכל יישום. כמובן, מרכיב Db מספק גישה ישירה לשאילתא מסד נתונים. המתאמים הנתמכים כוללים MySQL ילידים, MySQLi, אורקל, PDO, PostgreSQL, SQLite וSQLServer. הם משמשים לגישה למסד נתונים לנרמל פני סביבות שונות, כך שאתה לא צריך לדאוג כל כך הרבה על מחדש נוסע יישום לעבוד עם סוג אחר של מסד נתונים בסביבה שונה
+        </p>
+        <p>
+            מרכיב השיא הוא מרכיב רב עצמה המספק גישה סטנדרטית לנתונים בתוך מסד נתונים, במיוחד את טבלאות נתונים ורשומים בודדים בתוך השולחנות. מרכיב השיא הוא באמת היברידי של הרשומה הפעילה ודפוסי Gateway נתוני טבלה. זה יכול לספק גישה לשורה או רשום אחת כמו דפוס שיא ביקור היית, או שורות מרובות בבת אחת, כמו Gateway נתוני טבלה היית. במסגרת PHP פופ, הגישה הנפוצה ביותר היא לכתוב בכיתת ילד שמרחיבה את המחלקה הרשומה שמייצגת טבלה במסד הנתונים. שמו של הילד בכיתה צריך להיות השם של הטבלה. פשוט על ידי יצירה
         </p>
 <pre>
 use Pop&#92;Record&#92;Record;
@@ -137,7 +137,7 @@ use Pop&#92;Record&#92;Record;
 class Users extends Record { }
 </pre>
         <p>
-            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+            אתה יוצר בכיתה שיש את כל הפונקציונליות של הרכיב הרשום ונבנה בכיתה יודעת את השם של הטבלה במסד הנתונים לשאילתא משם המחלקה. לדוגמה, 'משתמשים' מיתרגם `` משתמשים או מתרגם 'DbUsers' ל` db_users `(CamelCase הופך אוטומטי lower_case_underscore.) סקור את התיעוד הרשום כדי לראות איך אתה יכול לכוונן את מעמד שולחן הילד.
         </p>
     </div>
     <div id="doc-footer">
