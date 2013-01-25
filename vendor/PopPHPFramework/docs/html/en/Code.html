@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
 
 <head>
     <title>
@@ -13,17 +13,7 @@
     <meta name="description" content="This is the Pop PHP Framework documentation." />
     <meta name="robots" content="all" />
 
-    <style type="text/css">
-        pre {
-            margin: 0 auto 2% auto;
-            padding: 2%;
-            width: 96%;
-            background-color: #f8f8f8;
-            border: solid 1px #ccc;
-            font-size: 0.825em;
-            font-family: monospace, courier;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
 </head>
 
 <body>
@@ -41,32 +31,32 @@ use Pop&#92;Code;
 
 // Create the code generator object
 $code = new Code&#92;Generator('MyClass.php', Code&#92;Generator::CREATE_CLASS);
-$code-&gt;setDocblock(new Code&#92;DocblockGenerator('This is my test class file'))
+$code-&gt;setDocblock(new Code&#92;Generator&#92;DocblockGenerator('This is my test class file'))
      -&gt;getDocblock()-&gt;setTag('category', 'Pop')
                     -&gt;setTag('package', 'Pop_Code')
                     -&gt;setTag('author', 'Joe Author');
 
 // Create namespace object
-$ns = new Code&#92;NamespaceGenerator('Some&#92;Other');
+$ns = new Code&#92;Generator&#92;NamespaceGenerator('Some&#92;Other');
 $ns-&gt;setUse('Some&#92;Other&#92;Thing')
    -&gt;setUse('Some&#92;Other&#92;Blah', 'B')
    -&gt;setUse('Some&#92;Other&#92;Another');
 
 // Create property object
-$prop = new Code&#92;PropertyGenerator('_testProp', 'string', 'test', 'protected');
+$prop = new Code&#92;Generator&#92;PropertyGenerator('_testProp', 'string', 'test', 'protected');
 $prop-&gt;setDesc('This is a test property');
 
 // Create a method object
-$method = new Code&#92;MethodGenerator('__construct');
+$method = new Code&#92;Generator&#92;MethodGenerator('__construct');
 $method-&gt;setDesc('This is a test method')
        -&gt;setBody("// Let's get some stuff to happen here." . PHP_EOL . "&#92;$blah = 'Sounds like a good idea';")
        -&gt;appendToBody("echo &#92;$blah;", false)
-       -&gt;addArgument('test', "null", "Pop&#92;&#92;Filter&#92;&#92;String")
+       -&gt;addArgument('test', "null", "Pop&#92;Filter&#92;String")
        -&gt;addArgument('other', "array()", 'array');
 
 // Add code pieces to the code file
 $code-&gt;setNamespace($ns);
-$code-&gt;code()-&gt;setDocblock(new Code&#92;DocblockGenerator('This is my test class'))
+$code-&gt;code()-&gt;setDocblock(new Code&#92;Generator&#92;DocblockGenerator('This is my test class'))
              -&gt;getDocblock()-&gt;setTag('category', 'Pop')
                             -&gt;setTag('package', 'Pop_Code')
                             -&gt;setTag('author', 'Joe Author');
