@@ -96,6 +96,7 @@ class ClassTest extends \PHPUnit_Framework_TestCase
         $c = ClassGenerator::factory('TestClass');
         $c->addProperty(new PropertyGenerator('testProp', 'string', 'This is a test string'));
         $this->assertEquals('testProp', $c->getProperty('testProp')->getName());
+        $this->assertEquals(1, count($c->getProperties()));
         $c->removeProperty('testProp');
         $this->assertNull($c->getProperty('testProp'));
     }
@@ -105,6 +106,7 @@ class ClassTest extends \PHPUnit_Framework_TestCase
         $c = ClassGenerator::factory('TestClass');
         $c->addMethod(new MethodGenerator('testMethod'));
         $this->assertEquals('testMethod', $c->getMethod('testMethod')->getName());
+        $this->assertEquals(1, count($c->getMethods()));
         $c->removeMethod('testMethod');
         $this->assertNull($c->getMethod('testMethod'));
     }

@@ -27,6 +27,12 @@ Autoloader::factory()->splAutoloadRegister();
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function testConstructor()
+    {
+        $this->assertInstanceOf('Pop\Config', new Config());
+        $this->assertInstanceOf('Pop\Config', Config::factory());
+    }
+
     public function testConfig()
     {
         $c = new Config(array('data' => 123), true);
@@ -36,6 +42,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($c->asArray()));
         unset($c->data);
         $this->assertNull($c->data);
+    }
+
+    public function testConfigException()
+    {
+        $this->setExpectedException('Exception');
+        $c = new Config(array('data' => 123));
+        $c->data = 456;
     }
 
     public function testAsArrayObject()

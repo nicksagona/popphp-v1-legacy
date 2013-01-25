@@ -30,6 +30,8 @@ class AlphaNumericTest extends \PHPUnit_Framework_TestCase
     public function testEvaluateTrue()
     {
         $v = new AlphaNumeric();
+        $v->setMessage('This is not alphanumeric');
+        $this->assertEquals('This is not alphanumeric', $v->getMessage());
         $this->assertTrue($v->evaluate('abcdef123'));
         $this->assertFalse($v->evaluate('123456$#@'));
     }
@@ -37,6 +39,14 @@ class AlphaNumericTest extends \PHPUnit_Framework_TestCase
     public function testEvaluateFalse()
     {
         $v = new AlphaNumeric(null, null, false);
+        $this->assertFalse($v->evaluate('abcdef123'));
+        $this->assertTrue($v->evaluate('123456$#@'));
+    }
+
+    public function testEvaluateMessageFalse()
+    {
+        $v = new AlphaNumeric(null, 'This is alphanumeric', false);
+        $this->assertEquals('This is alphanumeric', $v->getMessage());
         $this->assertFalse($v->evaluate('abcdef123'));
         $this->assertTrue($v->evaluate('123456$#@'));
     }

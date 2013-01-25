@@ -68,7 +68,8 @@ class Included extends Validator
             if (is_array($this->value)) {
                 $this->value = implode('', $this->value);
             }
-            if ((strpos($this->input, $this->value) !== false) == $this->condition) {
+
+            if ((strpos((string)$this->input, (string)$this->value) !== false) == $this->condition) {
                 $this->result = true;
             } else {
                 $this->result = false;

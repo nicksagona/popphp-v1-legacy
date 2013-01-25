@@ -66,6 +66,13 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('text/plain', $f->getMime());
     }
 
+    public function testSetMimeException()
+    {
+        $this->setExpectedException('Pop\File\Exception');
+        $f = new File('accesslog.txt');
+        $f->setMime('bad/mime');
+    }
+
     public function testSetAndGetMode()
     {
         $f = new File(__DIR__ . '/../tmp/access.txt');

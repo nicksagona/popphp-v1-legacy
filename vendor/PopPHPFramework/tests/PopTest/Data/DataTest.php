@@ -133,5 +133,15 @@ class DataTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testWriteDataException()
+    {
+        $this->setExpectedException('Pop\Data\Exception');
+        $ary = array(
+            array('name' => 'Test1', 'email' => 'test1@test.com'),
+            array('name' => 'Test2', 'email' => 'test2@test.com')
+        );
+        $d = Data::factory($ary)->writeData(__DIR__ . '/../tmp/datatest.txt');
+    }
+
 }
 

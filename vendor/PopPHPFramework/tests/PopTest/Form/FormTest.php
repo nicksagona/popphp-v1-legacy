@@ -35,6 +35,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $this->assertInstanceOf('Pop\Form\Form', new Form('/submit', 'post'));
+        $this->assertInstanceOf('Pop\Form\Form', Form::factory('/submit', 'post'));
     }
 
     public function testConstructorSetFields()
@@ -178,6 +179,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $f = new Form('/submit', 'post');
         $f->setTemplate('This is the template');
         $this->assertEquals('This is the template', $f->getTemplate());
+        $f->setTemplate(__DIR__ . '/../tmp/access.txt');
+        $this->assertContains('testuser', $f->getTemplate());
     }
 
     public function testSetAndGetAttributes()

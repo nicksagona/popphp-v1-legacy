@@ -54,7 +54,7 @@ class Config
      * @param  boolean $changes
      * @return \Pop\Config
      */
-    public function __construct(array $config, $changes = false)
+    public function __construct(array $config = array(), $changes = false)
     {
         $this->allowChanges = $changes;
         $this->setConfig($config);
@@ -68,7 +68,7 @@ class Config
      * @param  boolean $changes
      * @return \Pop\Config
      */
-    public static function factory(array $config, $changes = false)
+    public static function factory(array $config = array(), $changes = false)
     {
         return new self($config, $changes);
     }

@@ -154,6 +154,7 @@ class Version
         $check['FTP'] = (function_exists('ftp_connect'))  ? 'Yes' : 'No';
 
         // GeoIP
+        $check['GeoIP'] = 'No';
         if (function_exists('geoip_db_get_all_info')) {
             $yes = 'Yes';
             $databases = geoip_db_get_all_info();
@@ -164,8 +165,6 @@ class Version
                 }
             }
             $check['GeoIP'] = $yes . ' (' . $count . '/' . count($databases) . ' GeoIP DBs Available)';
-        } else {
-            $check['GeoIP'] = 'No';
         }
 
         // Image
@@ -236,12 +235,8 @@ class Version
             case self::DATA:
                 $data = array();
                 foreach ($php as $key => $value) {
-                    if (strpos($key, ' ') !== false) {
-                        $k = str_replace(' ', '', $key);
-                        $k = strtolower(substr($k, 0, 1)) . substr($k, 1);
-                    } else {
-                        $k = strtolower($key);
-                    }
+                    $k = str_replace(' ', '', $key);
+                    $k = strtolower(substr($k, 0, 1)) . substr($k, 1);
                     $data[$k] = $value;
                 }
                 foreach ($check as $key => $value) {

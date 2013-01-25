@@ -43,5 +43,23 @@ class ExcludedTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($v->evaluate(array(1, 2, 3)));
     }
 
+    public function testEvaluateStringTrue()
+    {
+        $v = new Excluded(3);
+        $this->assertFalse($v->evaluate(123));
+        $v = new Excluded(4);
+        $this->assertTrue($v->evaluate(123));
+    }
+
+    public function testEvaluateStringFalse()
+    {
+        $v = new Excluded(3, null, false);
+        $this->assertTrue($v->evaluate(123));
+        $v = new Excluded(4, null, false);
+        $this->assertFalse($v->evaluate(123));
+        $v = new Excluded(array(4, 5), null, false);
+        $this->assertFalse($v->evaluate(123));
+    }
+
 }
 
