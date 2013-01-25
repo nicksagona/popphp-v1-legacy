@@ -23,10 +23,10 @@
         <li><a href="https://github.com/nicksagona/PopPHP" target="_blank">Pop PHP in GitHub</a></li>
     </ul>
     <h1>Pop PHP Framework</h1>
-    <h2>Documentation : Overview</h2>
+    <h2>文档：概述</h2>
     <div id="doc-content">
         <p>
-            The Pop PHP Framework is an object-oriented PHP framework with an easy-to-use API that will allow you to utilize a wide range of functionality. You can use it as a toolbox to assist with quickly writing basic scripts, or you can use it as a full-fledged framework to build and customize large-scale, robust applications. At the core of the framework is a group of components, some of which can be used independently and some of which can be used in tandem to leverage the full power of the framework and PHP.
+            流行的PHP框架是一个面向对象的PHP框架提供了易于使用的API，可以让你利用广泛的功能。您可以使用它作为一个工具箱，以协助快速编写基本的脚本，或者你可以使用它作为一个完整的框架，以建立和大规模定制，强大的应用程序。在该框架的核心是，可以单独使用其中的一些，其中一些可串联使用，利用全功率的框架和PHP的一组部件。
         </p>
         <table style="width: 100%;">
             <tr>
@@ -101,35 +101,35 @@
                 </td>
             </tr>
         </table>
-        <h3>QuickStart</h3>
+        <h3>快速入门</h3>
         <p>
-            There are 2 ways that you can get up and running with the Pop PHP Framework.
+            有2种方式，你可以得到启动和运行流行的PHP框架。
         </p>
         <p>
-            If you're just looking to write some quick scripts, you can simply drop the source folder into your working project folder, reference the 'bootstrap.php' accordingly in a script and start writing code. You'll find references and examples all throughout this documentation that will explain the different components and how you can use them.
+            如果你只是想编写一些简单的脚本，你可以简单地拖放到您的项目文件夹中的源文件夹，因此在脚本中引用“bootstrap.php”，并开始编写代码。你会发现引用的例子都在本文档将解释不同的组件和如何使用他们。
         </p>
         <p>
-            If you're looking to build a larger-scale application, you can use the CLI component to create the project's base foundation, or "scaffolding." This way, you can start writing project code quickly and not have to burdened with getting everything up and running. All you have to do is define your project in single installation file, run the Pop CLI command using that file and Pop does all the dirty work for you. You can get to writing project code faster. Review the documentation on the CLI component to further explore how to take advantage of this robust component.
+            如果你想建立一个较大规模的应用程序，你可以使用CLI组件来创建项目的基本基础，或“脚手架”。这样，你就可以迅速开始写项目的代码，而不是背负着让一切都正常了。所有你所要做的是定义项目在单一安装文件，运行流行的CLI命令使用的文件和流行音乐为你做所有的脏活。您可以更快地编写项目代码。查看文档的CLI组成部分，进一步探索如何利用这个强大的组件。
         </p>
-        <h3>The MVC Component</h3>
+        <h3>MVC组件</h3>
         <p>
-            The MVC component is available and especially useful when building a large-scale application. MVC stands for Model-View-Controller and is a design pattern that facilitates a well-organized separation of concerns. It allows your presentation, business logic and data access to all be kept separately.
-        </p>
-        <p>
-            The controller receives input (i.e. a web request) from the user and based on that input, communicates that with the model. The model can then process the request to determine what data or response is needed. At that point, the model and view communicate so that the view can build the presentation, or "view," based on the data obtained from the model. Then, the controller will communicate with the view to display the appropriate output to the user.
+            MVC组件和建设一个大型的应用程序时特别有用。模型 - 视图 - 控制器MVC代表，是一种设计模式，有利于一个组织严密的关注点分离。它可以让您的演示文稿，业务逻辑和数据访问都可以分开存放。
         </p>
         <p>
-            One extra piece of the MVC component that is available with the Pop PHP Framework is a router. The router is simply an additional layer on top that does exactly what its name suggests - it routes different types of user requests to their corresponding controllers. In other words, it provides an easy way to manage multiple user paths and controllers.
+            该控制器接收来自用户的输入（即一个网络请求），并基于该输入，通信与模型。该模型然后可以处理的请求，以确定什么样的数据或响应需要。在这一点上，模型和视图的沟通，使视图可以建立演示文稿，或“认为，”根据从模型中获得的数据。然后，控制器将与视图通信，以显示相应的输出给用户。
         </p>
         <p>
-            Often times, it can be difficult to grasp the MVC design pattern until you actually start using it. Once you do though, you'll immediately see the benefit of having everything separated out in easy-to-manage concepts with very little, if any, overlap. Your controller handles the delegation of requests, your model handles the business logic and your view determines how to display the output to the user. By far, this pattern trumps the olden days of cramming everything into a single script with numerous include statements.
-        </p>
-        <h3>The Db &amp; Record Components</h3>
-        <p>
-            The Db and Record components are two components that have the potential to be used quite a bit in any application. Obviously, the Db component provides direct access to query a database. The supported adapters include native MySQL, MySQLi, Oracle, PDO, PostgreSQL, Sqlite and SQLServer. They serve to normalize database access across different environments so that you don't have to worry as much about re-tooling an application to work with a different type of database in a different environment.
+            与流行的PHP框架提供的MVC组件，它是一个额外的一块是路由器。路由器是一个简单的附加层之上，这正是它的名字所暗示的 - 不同类型的用户请求路由到相应的控制器。换句话说，它提供了一个简单的方法来管理多个用户的路径和控制器。
         </p>
         <p>
-            The Record component is a powerful component that provides standardized access to data within a database, specifically the database tables and individual records within the tables. The record component is really a hybrid of the Active Record and Table Data Gateway patterns. It can provide access to a single row or record like an Active Record pattern would, or multiple rows at one time, like a Table Data Gateway would. With the Pop PHP Framework, the most common approach is to write a child class that extends the Record class that represents a table in the database. The name of the child class should be the name of the table. By simply creating
+            很多时候，它可以是很难把握的MVC设计模式，直到你真正开始使用它。一旦你这样做，虽然，你会马上看到的一切易于管理的概念中分离出来，用得很少，如果有的话，重叠的利益。你的控制器处理代表团的请求，你的模型处理的业务逻辑和你的看法决定如何显示输出给用户。到目前为止，这种模式胜过昔日的临时抱佛脚一切都变成一个单一的脚本与众多的报表。
+        </p>
+        <h3>DB＆记录组件</h3>
+        <p>
+            dB和记录组件由两部分组成，有可能在任何应用程序中使用相当多的。显然，DB组件提供查询数据库的直接访问。支持的适配器包括原生MySQL，MySQLi的，甲骨文，PDO时，PostgreSQL，SQLite的和SQLServer。它们用来在不同的环境，这样你就不必过分担心重新加工的应用程序在不同的环境中工作，与不同类型的数据库规范化的数据库访问。
+        </p>
+        <p>
+            记录组件是一个功能强大的组件，它提供标准化的访问数据库中的数据，特别是数据库表和表内的个人记录。记录组件是真正的Active Record和表数据网关模式的混合。它可以像一个Active Record模式，或多个排在同一时间，如表数据网关将提供一个单一的行或记录的访问。与流行的PHP框架，最常用的方法是写一个子类，扩展类，它代表一个数据库中的表的记录。子类的名称应该是表的名称。通过简单的创建
         </p>
 <pre>
 use Pop&#92;Record&#92;Record;
@@ -137,7 +137,7 @@ use Pop&#92;Record&#92;Record;
 class Users extends Record { }
 </pre>
         <p>
-            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+            您可以创建一个类，它具有记录的功能组件和类知道的类名来查询数据库中的表的名称。例如，'用户'转化为'用户'或'DbUsers'转换成'db_users`（驼峰被自动转换成lower_case_underscore）查看记录文件，就看你怎么可以微调的子表类。
         </p>
     </div>
     <div id="doc-footer">
