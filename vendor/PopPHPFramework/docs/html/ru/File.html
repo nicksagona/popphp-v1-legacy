@@ -24,7 +24,7 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            The File component provides a useful API to manage and manipulate files on disk. It also provides the functionality to easily manage file uploads.
+            Файл компонент предоставляет полезные API для управления и работы с файлами на диске. Она также обеспечивает функциональность легко управлять загрузки файлов.
         </p>
 <pre>
 use Pop&#92;File&#92;File;
@@ -38,6 +38,9 @@ $file-&gt;write('Some text to the file.')
 $upload = File::upload($_FILES['upload_file']['tmp_name'], '../uploads/' . $_FILES['upload_file']['name']);
 echo 'File uploaded.';
 </pre>
+        <p>
+            Он также предоставляет легкий способ для обхода каталогов и доступа и управления файлами внутри них.
+        </p>
 <pre>
 use Pop&#92;File&#92;Dir;
 

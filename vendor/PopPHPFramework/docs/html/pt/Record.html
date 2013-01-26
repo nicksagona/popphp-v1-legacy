@@ -24,7 +24,7 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            The Record component, as outlined in the documentation overview, is a "hybrid" of sorts between the Active Record and Table Data Gateway patterns. Via a standardized API, it can provide access to a single row or record within a database table, or multiple rows or records at once. The most common approach is to write a child class that extends the Record class that represents a table in the database. The name of the child class should be the name of the table. By simply creating
+            O componente Record, como descrito na visão geral da documentação, é um "híbrido" das sortes entre o Active Record e padrões de tabela de dados Gateway. Através de uma API padronizada, pode fornecer acesso a uma única linha ou registro dentro de uma tabela de banco de dados, ou várias linhas ou registros de uma vez. A abordagem mais comum é escrever uma classe filha que estende a classe Record que representa uma tabela no banco de dados. O nome da classe criança deve ser o nome da tabela. Simplesmente criando
         </p>
 <pre>
 use Pop&#92;Record&#92;Record;
@@ -32,7 +32,7 @@ use Pop&#92;Record&#92;Record;
 class Users extends Record { }
 </pre>
         <p>
-            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) From there, you can fine-tune the child class that represents the table with various class properties such as:
+            você criar uma classe que tem todas as funcionalidades do componente construído em Registro e da classe sabe o nome da tabela de banco de dados para consulta a partir do nome da classe. Por exemplo, se traduz 'Usuários' em `usuários` ou 'traduz DbUsers' em `db_users` (CamelCase é automaticamente convertido em lower_case_underscore.) De lá, você pode ajustar a classe filha que representa a tabela com as propriedades da classe diversos, tais como :
         </p>
 <pre>
 // Table prefix, if applicable
@@ -49,7 +49,7 @@ protected $usePrepared = true;
 </pre>
 
         <p>
-            If you're within a structured project that has a defined database adapter, then the Record component will pick that up and use it. However, if you are simply writing some quick scripts using the Record component, then you will need to tell it which database adapter to use:
+            Se você está dentro de um projeto estruturado, que tem um adaptador de banco de dados definido, então a componente Record será pegar isso e usá-lo. No entanto, se você está simplesmente escrever alguns scripts rápidos usando o componente Record, então você precisa dizer a ele qual adaptador de banco de dados para usar:
         </p>
 <pre>
 // Define DB credentials
@@ -66,7 +66,7 @@ $db = &#92;Pop&#92;Db&#92;Db::factory('Mysqli', $creds);
 Record::setDb($db);
 </pre>
         <p>
-            From there, basic usage is as follows:
+            A partir daí, a utilização de base é a seguinte:
         </p>
 <pre>
 // Get a single user

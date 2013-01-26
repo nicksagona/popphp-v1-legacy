@@ -24,7 +24,7 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            The File component provides a useful API to manage and manipulate files on disk. It also provides the functionality to easily manage file uploads.
+            文件组件提供了一个有用的API来管理和操作磁盘上的文件。它还提供了功能，轻松管理文件上传。
         </p>
 <pre>
 use Pop&#92;File&#92;File;
@@ -38,6 +38,9 @@ $file-&gt;write('Some text to the file.')
 $upload = File::upload($_FILES['upload_file']['tmp_name'], '../uploads/' . $_FILES['upload_file']['name']);
 echo 'File uploaded.';
 </pre>
+        <p>
+            它还提供了一个简单的方法来遍历目录，在其中访问和操作文件。
+        </p>
 <pre>
 use Pop&#92;File&#92;Dir;
 

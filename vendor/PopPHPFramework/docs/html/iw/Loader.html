@@ -24,7 +24,7 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            The Loader component is probably the most basic, yet most important component of the Pop PHP Framework. It's the component that drives the framework's autoloading capabilities, and your own application can easily be registered with the autoloader to load your own classes. This singlehandedly replaces all of those old include statements you used to have all over the place. Now, all you need is one require statement of the 'bootstrap.php' at the top and you're good to go. By default, the bootstrap file contains the required reference to the framework's Autoloader class and then loads it up. Within the bootstrap file, you can easily perform other loading functions, such as registering your application's namespace with the autoloader, or loading a classmap file to decrease load time.
+            מרכיב Loader הוא כנראה המרכיב הבסיסי ביותר, אך החשוב ביותר של מסגרת PHP פופ. זה המרכיב שמניע את היכולות של מסגרת autoloading, והיישום שלך יכול בקלות להיות רשום בautoloader לטעון השיעורים שלך. זה לבדו מחליף את כל ההצהרות האלה ישנות כוללות אתה רגיל יש בכל המקום. עכשיו, כל מה שאתה צריך זה אחד דורש הצהרה של 'bootstrap.php' בראש ואתה טוב ללכת. כברירת מחדל, הקובץ מכיל bootstrap התייחסות הנדרשת לכיתת autoloader של המסגרת ולאחר מכן טוען את זה. בתוך קובץ bootstrap, אתה יכול בקלות לבצע פעולות טעינה אחרות, כגון רישום מרחב השמות של היישום שלך עם הטעינה אוטומטית, או טעינת קובץ classmap כדי להקטין את זמן טעינה.
         </p>
 <pre>
 // Instantiate the autoloader object
@@ -35,7 +35,7 @@ $autoloader-&gt;register('YourLib', '../vendor/YourLib/src');
 $autoloader-&gt;loadClassMap('../vendor/YourLib/classmap.php');
 </pre>
         <p>
-            And if you need a classmap file generated, the Loader component has the functionality to easily generate a classmap file for you as well.
+            ואם אתה צריך קובץ classmap נוצר, רכיב Loader יש הפונקציונלי קל כדי ליצור קובץ classmap גם לך.
         </p>
 <pre>
 // Generate a classmap file

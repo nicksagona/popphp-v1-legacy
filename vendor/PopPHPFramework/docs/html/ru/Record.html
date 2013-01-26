@@ -24,7 +24,7 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            The Record component, as outlined in the documentation overview, is a "hybrid" of sorts between the Active Record and Table Data Gateway patterns. Via a standardized API, it can provide access to a single row or record within a database table, or multiple rows or records at once. The most common approach is to write a child class that extends the Record class that represents a table in the database. The name of the child class should be the name of the table. By simply creating
+            Запись компоненты, как указано в документации описание, представляет собой «гибрид" сортов между Active Record и таблица моделей данных Gateway. Через стандартизированные API, он может обеспечить доступ к одной строки или записи в таблице базы данных, или нескольких строк или записей сразу. Наиболее распространенный подход заключается в написании дочерний класс, который расширяет Record класса, который представляет собой таблицу в базе данных. Имя ребенку классе должно быть имя таблицы. Просто создавая
         </p>
 <pre>
 use Pop&#92;Record&#92;Record;
@@ -32,7 +32,7 @@ use Pop&#92;Record&#92;Record;
 class Users extends Record { }
 </pre>
         <p>
-            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) From there, you can fine-tune the child class that represents the table with various class properties such as:
+            Вы создаете класс, который имеет все функциональные возможности компонента записи построено в классе и знает имя таблицы базы данных для запросов от имени класса. Например, переводит "Пользователи" в `пользователи` или переводит "DbUsers 'в` db_users `(CamelCase автоматически преобразуются в lower_case_underscore). Оттуда вы можете подстроить ребенка класс, который представляет собой таблицу с различными свойствами класса, таких как :
         </p>
 <pre>
 // Table prefix, if applicable
@@ -49,7 +49,7 @@ protected $usePrepared = true;
 </pre>
 
         <p>
-            If you're within a structured project that has a defined database adapter, then the Record component will pick that up and use it. However, if you are simply writing some quick scripts using the Record component, then you will need to tell it which database adapter to use:
+            Если вы в рамках структурированного проект, который имеет определенную базу данных адаптеров, то запись компонента будет забрать, что до и использовать его. Однако, если вы просто написав несколько быстрых сценариев с использованием компонента записи, то вы должны будете указать, какие базы данных адаптер для использования:
         </p>
 <pre>
 // Define DB credentials
@@ -66,7 +66,7 @@ $db = &#92;Pop&#92;Db&#92;Db::factory('Mysqli', $creds);
 Record::setDb($db);
 </pre>
         <p>
-            From there, basic usage is as follows:
+            Оттуда, основное использование выглядит следующим образом:
         </p>
 <pre>
 // Get a single user

@@ -24,7 +24,7 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            The Loader component is probably the most basic, yet most important component of the Pop PHP Framework. It's the component that drives the framework's autoloading capabilities, and your own application can easily be registered with the autoloader to load your own classes. This singlehandedly replaces all of those old include statements you used to have all over the place. Now, all you need is one require statement of the 'bootstrap.php' at the top and you're good to go. By default, the bootstrap file contains the required reference to the framework's Autoloader class and then loads it up. Within the bootstrap file, you can easily perform other loading functions, such as registering your application's namespace with the autoloader, or loading a classmap file to decrease load time.
+            Loader组件可能是最基本的，也是最重要的组成部分流行的PHP框架。它的组件，驱动框架的自动加载功能，并可以很容易地注册自己的应用程序的自动加载你自己的类加载。这单枪匹马取代所有那些老include语句，你有所有的地方。现在，所有你需要的是一个在顶部的“bootstrap.php”require语句，你是好去。默认情况下，程序的引导文件中包含所需的参考框架的自动加载磁带机类，然后将其加载了。在程序的引导文件中，你可以很容易地执行其他加载功能，如注册您的应用程序的命名空间的自动加载磁带机，或加载一个ClassMap文件，以减少加载时间。
         </p>
 <pre>
 // Instantiate the autoloader object
@@ -35,7 +35,7 @@ $autoloader-&gt;register('YourLib', '../vendor/YourLib/src');
 $autoloader-&gt;loadClassMap('../vendor/YourLib/classmap.php');
 </pre>
         <p>
-            And if you need a classmap file generated, the Loader component has the functionality to easily generate a classmap file for you as well.
+            如果你需要一个ClassMap生成的文件，Loader组件的功能，可以轻松地生成一个ClassMap文件以及。
         </p>
 <pre>
 // Generate a classmap file

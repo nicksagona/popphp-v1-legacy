@@ -38,6 +38,9 @@ $file-&gt;write('Some text to the file.')
 $upload = File::upload($_FILES['upload_file']['tmp_name'], '../uploads/' . $_FILES['upload_file']['name']);
 echo 'File uploaded.';
 </pre>
+        <p>
+            It also provides an easy way to traverse directories and access and manipulate files within them.
+        </p>
 <pre>
 use Pop&#92;File&#92;Dir;
 
