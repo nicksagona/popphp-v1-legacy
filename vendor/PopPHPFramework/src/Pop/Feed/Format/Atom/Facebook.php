@@ -74,11 +74,19 @@ class Facebook extends \Pop\Feed\Format\Atom
 
         // If graph.facebook.com hasn't been parsed yet.
         if (!isset($this->feed['username'])) {
-            $username = substr($this->obj->entry[0]->link->attributes()->href, (strpos($this->obj->entry[0]->link->attributes()->href, 'http://www.facebook.com/') + 24));
-            $username = substr($username, 0, strpos($username, '/'));
-            $json = json_decode(file_get_contents('http://graph.facebook.com/' . $username), true);
-            foreach ($json as $key => $value) {
-                $this->feed[$key] = $value;
+            $objItems = $this->obj->entry;
+            $username = null;
+            foreach ($objItems as $itm) {
+                if (strpos($itm->link->attributes()->href, '/posts/') !== false) {
+                    $username = substr($itm->link->attributes()->href, (strpos($itm->link->attributes()->href, 'http://www.facebook.com/') + 24));
+                    $username = substr($username, 0, strpos($username, '/'));
+                }
+            }
+            if (null !== $username) {
+                $json = json_decode(file_get_contents('http://graph.facebook.com/' . $username), true);
+                foreach ($json as $key => $value) {
+                    $this->feed[$key] = $value;
+                }
             }
         }
 

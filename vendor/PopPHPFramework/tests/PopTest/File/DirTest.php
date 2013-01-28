@@ -50,6 +50,14 @@ class DirTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(13, count($d->getFiles()));
     }
 
+    public function testGetOwnerAndGroup()
+    {
+        $d = new Dir(__DIR__ . '/../tmp/');
+        $this->assertTrue(array_key_exists('name', $d->getOwner()));
+        $this->assertTrue(array_key_exists('name', $d->getGroup()));
+        $this->assertTrue(array_key_exists('name', $d->getUser()));
+    }
+
     public function testGetPath()
     {
         $d = new Dir(__DIR__ . '/../tmp/');
@@ -68,11 +76,13 @@ class DirTest extends \PHPUnit_Framework_TestCase
         $this->assertContains(DIRECTORY_SEPARATOR, Dir::getUploadTemp());
     }
 
-    public function testMode()
+    public function testGetAndSetPermissions()
     {
         $d = new Dir(__DIR__ . '/../tmp/');
-        $d->setMode(0777);
-        $this->assertTrue(is_numeric($d->getMode()));
+        $this->assertEquals(777, $d->getPermissions());
+        $d->setPermissions(0775, true);
+        $this->assertEquals(775, $d->getPermissions());
+        $d->setPermissions(0777);
     }
 
 }

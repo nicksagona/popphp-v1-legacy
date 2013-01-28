@@ -73,21 +73,31 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $f->setMime('bad/mime');
     }
 
-    public function testSetAndGetMode()
+    public function testSetAndGetPermissions()
     {
         $f = new File(__DIR__ . '/../tmp/access.txt');
+
         if (DIRECTORY_SEPARATOR == '/') {
-            $this->assertEquals(777, $f->getMode());
-            $f->setMode(0775);
-            $this->assertEquals(775, $f->getMode());
-            $f->setMode(0777);
-            $this->assertEquals(777, $f->getMode(true));
-            $f->setMode(0775, true);
-            $this->assertEquals(775, $f->getMode(true));
-            $f->setMode(0777, true);
-        } else {
-            $this->assertEquals(777, $f->getMode());
+            $this->assertEquals(777, $f->getPermissions());
+            $f->setPermissions(0775);
+            $this->assertEquals(775, $f->getPermissions());
+            $f->setPermissions(0777);
+            $this->assertEquals(777, $f->getPermissions());
+            $this->assertEquals(777, $f->getDirPermissions());
+            $f->setDirPermissions(0775, true);
+            $this->assertEquals(775, $f->getDirPermissions());
+            $f->setDirPermissions(0777);
         }
+    }
+
+    public function testGetOwnerAndGroup()
+    {
+        $f = new File(__DIR__ . '/../tmp/access.txt');
+        $this->assertTrue(array_key_exists('name', $f->getOwner()));
+        $this->assertTrue(array_key_exists('name', $f->getDirOwner()));
+        $this->assertTrue(array_key_exists('name', $f->getGroup()));
+        $this->assertTrue(array_key_exists('name', $f->getDirGroup()));
+        $this->assertTrue(array_key_exists('name', $f->getUser()));
     }
 
     public function testCopyAndMove()
@@ -158,7 +168,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $f->write('123')
           ->write('456', true)
           ->save();
-        $f->setMode(0777);
+        $f->setPermissions(0777);
 
         $this->fileExists(__DIR__ . '/../tmp/file.txt');
         $this->assertEquals('123456', $f->read());
@@ -167,6 +177,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
         $f->delete();
         $this->assertFalse(file_exists(__DIR__ . '/../tmp/file.txt'));
+
     }
 
 }

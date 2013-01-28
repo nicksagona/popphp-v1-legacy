@@ -217,6 +217,7 @@ class Dir
                 $mode = '0' . $mode;
             }
             chmod($this->path, $mode);
+            clearstatcache();
             self::__construct($this->path, $this->full, $this->rec);
         }
 

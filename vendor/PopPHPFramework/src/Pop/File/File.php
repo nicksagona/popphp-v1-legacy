@@ -380,12 +380,9 @@ class File
     public function setPermissions($mode)
     {
         if (file_exists($this->fullpath)) {
-            if (is_numeric($mode) && (strlen($mode) == 3)) {
-                $mode = '0' . $mode;
-            }
             chmod($this->fullpath, $mode);
+            clearstatcache();
         }
-
         return $this;
     }
 
@@ -398,12 +395,9 @@ class File
     public function setDirPermissions($mode)
     {
         if (file_exists($this->dir)) {
-            if (is_numeric($mode) && (strlen($mode) == 3)) {
-                $mode = '0' . $mode;
-            }
             chmod($this->dir, $mode);
+            clearstatcache();
         }
-
         return $this;
     }
 

@@ -74,11 +74,19 @@ class Facebook extends \Pop\Feed\Format\Rss
 
         // If graph.facebook.com hasn't been parsed yet.
         if (!isset($this->feed['username'])) {
-            $username = substr($this->obj->channel->item[0]->link, (strpos($this->obj->channel->item[0]->link, 'http://www.facebook.com/') + 24));
-            $username = substr($username, 0, strpos($username, '/'));
-            $json = json_decode(file_get_contents('http://graph.facebook.com/' . $username), true);
-            foreach ($json as $key => $value) {
-                $this->feed[$key] = $value;
+            $objItems = $this->obj->channel->item;
+            $username = null;
+            foreach ($objItems as $itm) {
+                if (strpos($itm->link, '/posts/') !== false) {
+                    $username = substr($itm->link, (strpos($itm->link, 'http://www.facebook.com/') + 24));
+                    $username = substr($username, 0, strpos($username, '/'));
+                }
+            }
+            if (null !== $username) {
+                $json = json_decode(file_get_contents('http://graph.facebook.com/' . $username), true);
+                foreach ($json as $key => $value) {
+                    $this->feed[$key] = $value;
+                }
             }
         }
 
