@@ -6,8 +6,8 @@ Documentation : Filter
 
 Home
 
-O componente de filtro oferece algumas funcionalidades Ãºteis filtragem
-para criptografia corda, manipulaÃ§Ã£o e pesquisa de matriz.
+O componente de filtro oferece algumas funcionalidades úteis filtragem
+para criptografia corda, manipulação e pesquisa de matriz.
 
     use Pop\Filter\String;
 

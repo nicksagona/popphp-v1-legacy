@@ -6,16 +6,16 @@ Documentation : Pdf
 
 Home
 
-La composante Pdf fournit des fonctionnalitÃ©s complÃ¨tes pour la
-gÃ©nÃ©ration de PDF et la manipulation. Le long de la crÃ©ation de
-nouveaux fichiers PDF, vous pouvez Ã©galement importer existants et leur
-ajouter du contenu Ã partir de lÃ . Parmi les fonctions disponibles sont
-les suivantes:
+La composante Pdf fournit des fonctionnalités complètes pour la
+génération de PDF et la manipulation. Le long de la création de nouveaux
+fichiers PDF, vous pouvez également importer existants et leur ajouter
+du contenu à partir de là. Parmi les fonctions disponibles sont les
+suivantes:
 
 -   dessiner des formes
--   ajoutant des chemins de dÃ©tourage
+-   ajoutant des chemins de détourage
 -   l'ajout de texte
--   intÃ©gration d'images
+-   intégration d'images
 -   l'incorporation des polices
 -   Lien URL
 -   liens internes

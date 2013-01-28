@@ -6,12 +6,12 @@ Documentation : Locale
 
 Home
 
-Il componente Locale fornisce supporto per la lingua e la funzionalitÃ
-di traduzione per la vostra applicazione. Si puÃ² semplicemente creare e
+Il componente Locale fornisce supporto per la lingua e la funzionalità
+di traduzione per la vostra applicazione. Si può semplicemente creare e
 caricare i tuoi file XML delle traduzioni linguistiche richieste nel
-formato che Ã¨ delineate nel Pop propri file di linguaggio XML.
+formato che è delineate nel Pop propri file di linguaggio XML.
 
-Ãˆ possibile caricare i propri file di traduzione in lingua, fino a
+È possibile caricare i propri file di traduzione in lingua, fino a
 quando il aderiscono allo standard XML stabilito nella Pop / Locale /
 Data.
 

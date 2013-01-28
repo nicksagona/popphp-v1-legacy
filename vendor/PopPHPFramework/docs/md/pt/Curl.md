@@ -6,8 +6,8 @@ Documentation : Curl
 
 Home
 
-O componente Onda fornece simplesmente um invÃ³lucro API orientada a
-objetos para extensÃ£o cURL.
+O componente Onda fornece simplesmente um invólucro API orientada a
+objetos para extensão cURL.
 
     use Pop\Curl\Curl;
 

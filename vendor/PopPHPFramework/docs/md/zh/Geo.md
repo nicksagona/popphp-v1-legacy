@@ -6,8 +6,7 @@ Documentation : Geo
 
 Home
 
-ç®€å?•åœ°ç¼˜ç»„ä»¶PHP
-geoipçš„æ‰©å±•æ??ä¾›äº†ä¸€ä¸ªé?¢å?‘å¯¹è±¡çš„APIçš„åŒ…è£…ã€‚
+简单地缘组件PHP geoip的扩展提供了一个面向对象的API的包装。
 
     use Pop\Geo\Geo;
 

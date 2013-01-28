@@ -6,13 +6,13 @@ Documentation : Locale
 
 Home
 
-El componente de configuraciÃ³n regional proporciona apoyo lingÃ¼Ã­stico
-y funcionalidad de traducciÃ³n para su aplicaciÃ³n. Usted puede
-simplemente crear y cargar sus propios archivos XML de las traducciones
-de la lengua requeridos en el formato que se describen en propias radios
-de archivos de idioma XML.
+El componente de configuración regional proporciona apoyo lingüístico y
+funcionalidad de traducción para su aplicación. Usted puede simplemente
+crear y cargar sus propios archivos XML de las traducciones de la lengua
+requeridos en el formato que se describen en propias radios de archivos
+de idioma XML.
 
-Usted puede cargar sus propios archivos de traducciÃ³n de idiomas,
+Usted puede cargar sus propios archivos de traducción de idiomas,
 siempre y cuando el adherirse a la norma XML creado en la carpeta Pop /
 locale / Datos.
 

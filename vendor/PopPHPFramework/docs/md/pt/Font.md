@@ -6,9 +6,9 @@ Documentation : Font
 
 Home
 
-O componente da fonte Ã© um analisador fonte profundidade que extrai
-dados de fontes importantes e mÃ©tricas para outros componentes e
-programas para usar. Os tipos de fontes suportados sÃ£o:
+O componente da fonte é um analisador fonte profundidade que extrai
+dados de fontes importantes e métricas para outros componentes e
+programas para usar. Os tipos de fontes suportados são:
 
 -   TrueType
 -   OpenType

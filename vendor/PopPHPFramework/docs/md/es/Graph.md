@@ -6,15 +6,14 @@ Documentation : Graph
 
 Home
 
-El componente de grÃ¡ficas permite la funcionalidad de grÃ¡ficos robusto
-que puede utilizar cualquiera de los construidos en componentes
-grÃ¡ficos tales como Imagen, SVG y PDF para dibujar grÃ¡ficos en una
-variedad de formatos. Se puede definir una amplia gama de atributos
-grÃ¡ficos para crear y producir grÃ¡ficos de lÃ­neas, grÃ¡ficos de
-barras y grÃ¡ficos circulares. Dado que la API entre los diferentes
-componentes grÃ¡ficos estÃ¡ estandarizado, es muy fÃ¡cil de intercambiar
-entre diferentes formatos de archivo y la imagen en la que para producir
-un grÃ¡fico.
+El componente de gráficas permite la funcionalidad de gráficos robusto
+que puede utilizar cualquiera de los construidos en componentes gráficos
+tales como Imagen, SVG y PDF para dibujar gráficos en una variedad de
+formatos. Se puede definir una amplia gama de atributos gráficos para
+crear y producir gráficos de líneas, gráficos de barras y gráficos
+circulares. Dado que la API entre los diferentes componentes gráficos
+está estandarizado, es muy fácil de intercambiar entre diferentes
+formatos de archivo y la imagen en la que para producir un gráfico.
 
     use Pop\Color\Space\Rgb,
         Pop\Graph\Graph;

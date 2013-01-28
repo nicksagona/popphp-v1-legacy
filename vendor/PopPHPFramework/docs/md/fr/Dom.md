@@ -6,7 +6,7 @@ Documentation : Dom
 
 Home
 
-La composante Dom fournit un moyen facile de crÃ©er et de manipuler des
+La composante Dom fournit un moyen facile de créer et de manipuler des
 documents DOM et leurs enfants.
 
     use Pop\Dom\Child,
@@ -37,8 +37,8 @@ documents DOM et leurs enfants.
     $doc = new Dom(Dom::XHTML11, 'utf-8', $html);
     $doc->render();
 
-Vous pouvez Ã©galement ajouter des enfants par l'intermÃ©diaire d'un
-rÃ©seau structurÃ© de valeurs.
+Vous pouvez également ajouter des enfants par l'intermédiaire d'un
+réseau structuré de valeurs.
 
     use Pop\Dom\Dom;
 

@@ -7,12 +7,12 @@ Documentation : Event
 Home
 
 El componente de sucesos proporciona una manera de unir y activar
-eventos en el ciclo de vida de una aplicaciÃ³n. La ventaja principal es
-la capacidad de extender una aplicaciÃ³n enganchando funcionalidad en
-ella a travÃ©s de cierres y clases que se adjuntan como eventos.
+eventos en el ciclo de vida de una aplicación. La ventaja principal es
+la capacidad de extender una aplicación enganchando funcionalidad en
+ella a través de cierres y clases que se adjuntan como eventos.
 
-He aquÃ­ un ejemplo de uniÃ³n y activaciÃ³n de un evento mediante
-cierres. La segunda recibe el resultado de la primera.
+He aquí un ejemplo de unión y activación de un evento mediante cierres.
+La segunda recibe el resultado de la primera.
 
     use Pop\Event\Manager;
 
@@ -23,7 +23,7 @@ cierres. La segunda recibe el resultado de la primera.
 
     $manager->trigger('pre', array('name' => 'World'));
 
-AquÃ­ hay un ejemplo usando una clase.
+Aquí hay un ejemplo usando una clase.
 
     use Pop\Event\Manager;
 

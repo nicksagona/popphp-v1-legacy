@@ -6,7 +6,7 @@ Documentation : Data
 
 Home
 
-Il componente dati fornisce la capacitÃ di convertire insiemi di dati da
+Il componente dati fornisce la capacità di convertire insiemi di dati da
 un formato ad un altro comune. I formati supportati sono:
 
 -   csv

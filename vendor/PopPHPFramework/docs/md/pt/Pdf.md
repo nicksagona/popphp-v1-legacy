@@ -6,18 +6,18 @@ Documentation : Pdf
 
 Home
 
-O componente de PDF oferece rico em recursos funcionalidade para
-geraÃ§Ã£o de PDF e manipulaÃ§Ã£o. Junto a criaÃ§Ã£o de novos arquivos
-PDF, vocÃª tambÃ©m pode importar os jÃ¡ existentes e adicionar conteÃºdo
-a eles de lÃ¡. Alguns dos recursos disponÃ­veis sÃ£o:
+O componente de PDF oferece rico em recursos funcionalidade para geração
+de PDF e manipulação. Junto a criação de novos arquivos PDF, você também
+pode importar os já existentes e adicionar conteúdo a eles de lá. Alguns
+dos recursos disponíveis são:
 
 -   desenhar formas
 -   acrescentando caminhos de recorte
--   adiÃ§Ã£o de texto
--   incorporaÃ§Ã£o de imagens
--   A incorporaÃ§Ã£o de fontes
+-   adição de texto
+-   incorporação de imagens
+-   A incorporação de fontes
 -   URL link
--   A vinculaÃ§Ã£o interna
+-   A vinculação interna
 
 <!-- -->
 

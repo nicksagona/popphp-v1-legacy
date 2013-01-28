@@ -6,10 +6,10 @@ Documentation : Version
 
 Home
 
-O componente VersÃ£o simplesmente fornece a capacidade de determinar
-qual versÃ£o do Pop atual vocÃª tem, e que o mais recente disponÃ­vel
-Ã©. AlÃ©m disso, este componente Ã© utilizado pelo componente CLI para
-realizar a verificaÃ§Ã£o de dependÃªncia.
+O componente Versão simplesmente fornece a capacidade de determinar qual
+versão do Pop atual você tem, e que o mais recente disponível é. Além
+disso, este componente é utilizado pelo componente CLI para realizar a
+verificação de dependência.
 
     use Pop\Version;
 

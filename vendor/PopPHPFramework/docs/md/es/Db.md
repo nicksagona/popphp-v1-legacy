@@ -18,7 +18,7 @@ consulta. Los adaptadores soportados son:
 -   sqlsrv
 
 Declaraciones preparadas son compatibles con el MySQLi, Oracle, PDO,
-PostgreSQL, SQLite y adaptadores sqlsrv. Los valores de escape estÃ¡n
+PostgreSQL, SQLite y adaptadores sqlsrv. Los valores de escape están
 disponibles para todos los adaptadores.
 
     use Pop\Db\Db;
@@ -42,9 +42,9 @@ disponibles para todos los adaptadores.
         print_r($row);
     }
 
-AdemÃ¡s de conexiÃ³n a base de datos, el componente Db tambiÃ©n cuenta
-con un Ãºtil objeto Sql abstracciÃ³n que le ayuda a crear consultas SQL
-estÃ¡ndar.
+Además de conexión a base de datos, el componente Db también cuenta con
+un útil objeto Sql abstracción que le ayuda a crear consultas SQL
+estándar.
 
     use Pop\Db\Sql;
 

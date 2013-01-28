@@ -6,9 +6,8 @@ Documentation : Data
 
 Home
 
-Der Daten-Komponente stellt die FÃ¤higkeit, um SÃ¤tze von Daten von
-einem gemeinsamen Format in ein anderes. Die unterstÃ¼tzten Formate
-sind:
+Der Daten-Komponente stellt die Fähigkeit, um Sätze von Daten von einem
+gemeinsamen Format in ein anderes. Die unterstützten Formate sind:
 
 -   csv
 -   json

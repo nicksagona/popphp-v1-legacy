@@ -7,8 +7,8 @@ Documentation : Compress
 Home
 
 Die Compress-Komponente stellt eine normalisierte Methode zum
-Komprimieren und Entpacken von Daten und Dateien Ã¼ber die
-unterstÃ¼tzten Methoden:
+Komprimieren und Entpacken von Daten und Dateien über die unterstützten
+Methoden:
 
 -   bzip2
 -   gzip & zlib

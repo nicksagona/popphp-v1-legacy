@@ -6,11 +6,11 @@ Documentation : Feed
 
 Home
 
-Die Feed-Komponente bietet die FunktionalitÃ¤t zu lesen und zu
+Die Feed-Komponente bietet die Funktionalität zu lesen und zu
 analysieren externen Feeds und die Daten in einer sinnvollen Weise,
-sowie die FunktionalitÃ¤t zu schreiben und darzustellen Feeds.
+sowie die Funktionalität zu schreiben und darzustellen Feeds.
 
-Hier ist ein Beispiel des Lesens (dh Parsen) eine externe ZufÃ¼hrung.
+Hier ist ein Beispiel des Lesens (dh Parsen) eine externe Zuführung.
 
     use Pop\Feed;
 
@@ -28,7 +28,7 @@ Hier ist ein Beispiel des Lesens (dh Parsen) eine externe ZufÃ¼hrung.
     $feed->setTemplate($tmpl);
     $feed->render();
 
-Hier ist ein Beispiel fÃ¼r das Lesen einen Feed von einer Service-Konto,
+Hier ist ein Beispiel für das Lesen einen Feed von einer Service-Konto,
 wie Twitter oder Facebook.
 
     use Pop\Feed;
@@ -54,7 +54,7 @@ wie Twitter oder Facebook.
 
     $twitter->render();
 
-Hier ist ein Beispiel fÃ¼r das Schreiben eines Feed.
+Hier ist ein Beispiel für das Schreiben eines Feed.
 
     use Pop\Feed;
 

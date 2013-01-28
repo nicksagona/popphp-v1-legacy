@@ -6,12 +6,12 @@ Documentation : Log
 
 Home
 
-Le composant Log fournit les fonctionnalitÃ©s de base pour enregistrer
-les entrÃ©es de journal dans une variÃ©tÃ© de faÃ§ons, y compris
-l'Ã©criture du fichier, l'insÃ©rer dans une base de donnÃ©es ou l'envoi
-d'un email, ou un mÃ©lange quelconque d'entre eux.
+Le composant Log fournit les fonctionnalités de base pour enregistrer
+les entrées de journal dans une variété de façons, y compris l'écriture
+du fichier, l'insérer dans une base de données ou l'envoi d'un email, ou
+un mélange quelconque d'entre eux.
 
-Voici un exemple d'Ã©criture dans un fichier journal:
+Voici un exemple d'écriture dans un fichier journal:
 
     use Pop\Log\Logger,
         Pop\Log\Writer\File;
@@ -21,7 +21,7 @@ Voici un exemple d'Ã©criture dans un fichier journal:
     $logger->emerg('Here is an emergency message.')
            ->info('Here is an info message.');
 
-Voici un exemple d'Ã©criture dans une base de donnÃ©es:
+Voici un exemple d'écriture dans une base de données:
 
     use Pop\Db\Db as PopDb,
         Pop\Log\Logger,

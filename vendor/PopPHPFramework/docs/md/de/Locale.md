@@ -6,14 +6,14 @@ Documentation : Locale
 
 Home
 
-Die Locale-Komponente bietet SprachunterstÃ¼tzung und Ãœbersetzung
-FunktionalitÃ¤t fÃ¼r Ihre Anwendung. Sie kÃ¶nnen einfach erstellen und
-laden Sie Ihre eigenen XML-Dateien der gewÃ¼nschten Sprache
-Ãœbersetzungen in dem Format, das in den eigenen XML Pop die
-Sprachdateien umrissen ist.
+Die Locale-Komponente bietet Sprachunterstützung und Übersetzung
+Funktionalität für Ihre Anwendung. Sie können einfach erstellen und
+laden Sie Ihre eigenen XML-Dateien der gewünschten Sprache Übersetzungen
+in dem Format, das in den eigenen XML Pop die Sprachdateien umrissen
+ist.
 
-Sie kÃ¶nnen laden Sie Ihre eigenen Ãœbersetzungs-Dateien, solange die
-dem XML-Standard in der Pop / Locale / Data-Ordner eingerichtet haften.
+Sie können laden Sie Ihre eigenen Übersetzungs-Dateien, solange die dem
+XML-Standard in der Pop / Locale / Data-Ordner eingerichtet haften.
 
     use Pop\Locale\Locale;
 

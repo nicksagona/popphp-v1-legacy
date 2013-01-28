@@ -6,10 +6,10 @@ Documentation : Mail
 
 Home
 
-O componente Mail oferece a funcionalidade necessÃ¡ria para gerenciar
+O componente Mail oferece a funcionalidade necessária para gerenciar
 mensagens enviadas via PHP. Isso inclui suporte para e-mail baseado em
-texto e baseado em HTML, os destinatÃ¡rios de e-mail mÃºltiplas, modelos
-e anexos de arquivos.
+texto e baseado em HTML, os destinatários de e-mail múltiplas, modelos e
+anexos de arquivos.
 
     use Pop\Mail\Mail;
 

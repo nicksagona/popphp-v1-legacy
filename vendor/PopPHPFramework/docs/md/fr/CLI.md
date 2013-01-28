@@ -6,14 +6,14 @@ Documentation : CLI
 
 Home
 
-L'interface ligne de commande (CLI) composant est un composant trÃ¨s
-utile qui vous permet d'effectuer certaines tÃ¢ches utiles telles que:
+L'interface ligne de commande (CLI) composant est un composant très
+utile qui vous permet d'effectuer certaines tâches utiles telles que:
 
--   Ã©valuer l'environnement actuel des dÃ©pendances requises
--   installer un projet Ã partir d'un fichier d'installation de projet
--   dÃ©finir la langue par dÃ©faut d'une application
--   crÃ©er une carte de classe
--   vÃ©rifier la version actuelle de la derniÃ¨re version disponible
+-   évaluer l'environnement actuel des dépendances requises
+-   installer un projet à partir d'un fichier d'installation de projet
+-   définir la langue par défaut d'une application
+-   créer une carte de classe
+-   vérifier la version actuelle de la dernière version disponible
 
 <!-- -->
 

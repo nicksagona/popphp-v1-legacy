@@ -6,12 +6,12 @@ Documentation : Log
 
 Home
 
-O componente de Log fornece a funcionalidade bÃ¡sica para gravar
-entradas de registo por uma variedade de maneiras, incluindo a escrita
-para o arquivo, inserindo em uma base de dados ou do envio de um e-mail,
-ou qualquer mistura deles.
+O componente de Log fornece a funcionalidade básica para gravar entradas
+de registo por uma variedade de maneiras, incluindo a escrita para o
+arquivo, inserindo em uma base de dados ou do envio de um e-mail, ou
+qualquer mistura deles.
 
-Aqui estÃ¡ um exemplo de gravar em um arquivo de log:
+Aqui está um exemplo de gravar em um arquivo de log:
 
     use Pop\Log\Logger,
         Pop\Log\Writer\File;
@@ -21,7 +21,7 @@ Aqui estÃ¡ um exemplo de gravar em um arquivo de log:
     $logger->emerg('Here is an emergency message.')
            ->info('Here is an info message.');
 
-Aqui estÃ¡ um exemplo de gravar em um banco de dados:
+Aqui está um exemplo de gravar em um banco de dados:
 
     use Pop\Db\Db as PopDb,
         Pop\Log\Logger,
@@ -38,7 +38,7 @@ Aqui estÃ¡ um exemplo de gravar em um banco de dados:
     $logger->emerg('Here is an emergency message.')
            ->info('Here is an info message.');
 
-Aqui estÃ¡ um exemplo de envio de um e-mail:
+Aqui está um exemplo de envio de um e-mail:
 
     use Pop\Log\Logger,
         Pop\Log\Writer\Mail,

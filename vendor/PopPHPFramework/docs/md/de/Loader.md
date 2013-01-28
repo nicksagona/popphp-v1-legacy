@@ -13,11 +13,11 @@ leicht mit dem Autoloader eigene Klassen zu laden registriert werden.
 Dieser Alleingang ersetzt alle diese alten include-Anweisungen verwendet
 werden, um auf der ganzen Ort zu haben. Jetzt ist alles was Sie brauchen
 ein fordern Aussage der 'bootstrap.php' an der Spitze und du bist gut zu
-gehen. StandardmÃ¤ÃŸig enthÃ¤lt die Bootstrap-Datei den gewÃ¼nschten
-Verweis auf das Framework Autoloader Klasse und dann lÃ¤dt es auf.
-Innerhalb der Bootstrap-Datei, kÃ¶nnen Sie leicht andere Ladefunktionen,
-wie Sie Ihre Anwendung registrieren Namensraum mit dem Autoloader oder
-Laden einer classmap Datei Ladezeit verringern.
+gehen. Standardmäßig enthält die Bootstrap-Datei den gewünschten Verweis
+auf das Framework Autoloader Klasse und dann lädt es auf. Innerhalb der
+Bootstrap-Datei, können Sie leicht andere Ladefunktionen, wie Sie Ihre
+Anwendung registrieren Namensraum mit dem Autoloader oder Laden einer
+classmap Datei Ladezeit verringern.
 
     // Instantiate the autoloader object
     $autoloader = new Pop\Loader\Autoloader();
@@ -26,9 +26,9 @@ Laden einer classmap Datei Ladezeit verringern.
     $autoloader->register('YourLib', '../vendor/YourLib/src');
     $autoloader->loadClassMap('../vendor/YourLib/classmap.php');
 
-Und wenn Sie einen classmap Datei generiert benÃ¶tigen, hat der
-Loader-Komponente die FunktionalitÃ¤t auf einfache Weise eine classmap
-Datei fÃ¼r Sie als gut.
+Und wenn Sie einen classmap Datei generiert benötigen, hat der
+Loader-Komponente die Funktionalität auf einfache Weise eine classmap
+Datei für Sie als gut.
 
     // Generate a classmap file
     Pop\Loader\Classmap::generate('your/src/folder', 'your/src/folder/classmap.php');

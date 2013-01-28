@@ -6,12 +6,12 @@ Documentation : Validator
 
 Home
 
-Il componente Validator fornisce il vantaggio di funzionalitÃ di
+Il componente Validator fornisce il vantaggio di funzionalità di
 validazione per molti casi d'uso differenti, quali convalida se un
-numero Ã¨ di un certo valore o una stringa alfanumerica Ã¨. Validatori
-piÃ¹ avanzate sono disponibili pure, come ad esempio la convalida di un
+numero è di un certo valore o una stringa alfanumerica è. Validatori più
+avanzate sono disponibili pure, come ad esempio la convalida di un
 indirizzo di posta elettronica, e l'indirizzo IP o un numero di carta di
-credito. E se quello che ti serve non Ã¨ disponibile, il componente puÃ²
+credito. E se quello che ti serve non è disponibile, il componente può
 essere facilmente esteso.
 
     use Pop\Validator\AlphaNumeric;

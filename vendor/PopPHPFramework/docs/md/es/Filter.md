@@ -6,8 +6,8 @@ Documentation : Filter
 
 Home
 
-El componente Filter proporciona algunas funciones Ãºtiles para la
-manipulaciÃ³n de cadenas de filtrado, cifrado y bÃºsqueda de matriz.
+El componente Filter proporciona algunas funciones útiles para la
+manipulación de cadenas de filtrado, cifrado y búsqueda de matriz.
 
     use Pop\Filter\String;
 

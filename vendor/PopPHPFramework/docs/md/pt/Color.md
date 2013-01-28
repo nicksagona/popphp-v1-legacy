@@ -6,10 +6,10 @@ Documentation : Color
 
 Home
 
-O componente de cor Ã© um componente Ãºtil para gerenciar e utilizar
-objetos de valor de cor. Ele tambÃ©m oferece a funcionalidade de
-converter valores de cores para outros espaÃ§os de cor, por exemplo, a
-conversÃ£o de RGB para CMYK.
+O componente de cor é um componente útil para gerenciar e utilizar
+objetos de valor de cor. Ele também oferece a funcionalidade de
+converter valores de cores para outros espaços de cor, por exemplo, a
+conversão de RGB para CMYK.
 
     use Pop\Color;
 

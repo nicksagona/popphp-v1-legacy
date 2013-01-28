@@ -6,12 +6,12 @@ Documentation : Log
 
 Home
 
-El componente de registro proporciona la funcionalidad bÃ¡sica para
+El componente de registro proporciona la funcionalidad básica para
 registrar las entradas del registro en una variedad de maneras,
 incluyendo escribir en el archivo, insertar en una base de datos o el
-envÃ­o de un correo electrÃ³nico, o cualquier mezcla de ellos.
+envío de un correo electrónico, o cualquier mezcla de ellos.
 
-He aquÃ­ un ejemplo de cÃ³mo escribir un archivo de registro:
+He aquí un ejemplo de cómo escribir un archivo de registro:
 
     use Pop\Log\Logger,
         Pop\Log\Writer\File;
@@ -21,7 +21,7 @@ He aquÃ­ un ejemplo de cÃ³mo escribir un archivo de registro:
     $logger->emerg('Here is an emergency message.')
            ->info('Here is an info message.');
 
-He aquÃ­ un ejemplo de cÃ³mo escribir una base de datos:
+He aquí un ejemplo de cómo escribir una base de datos:
 
     use Pop\Db\Db as PopDb,
         Pop\Log\Logger,
@@ -38,7 +38,7 @@ He aquÃ­ un ejemplo de cÃ³mo escribir una base de datos:
     $logger->emerg('Here is an emergency message.')
            ->info('Here is an info message.');
 
-He aquÃ­ un ejemplo del envÃ­o de un correo electrÃ³nico:
+He aquí un ejemplo del envío de un correo electrónico:
 
     use Pop\Log\Logger,
         Pop\Log\Writer\Mail,

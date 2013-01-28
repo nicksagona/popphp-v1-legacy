@@ -6,10 +6,10 @@ Documentation : Color
 
 Home
 
-Die Farbe Komponente ist eine nÃ¼tzliche Komponente zu verwalten und zu
-nutzen Farbwert Objekte. Es bietet auch die FunktionalitÃ¤t, um
-Farbwerte in andere FarbrÃ¤ume konvertieren, zum Beispiel Umwandlung von
-RGB zu CMYK.
+Die Farbe Komponente ist eine nützliche Komponente zu verwalten und zu
+nutzen Farbwert Objekte. Es bietet auch die Funktionalität, um Farbwerte
+in andere Farbräume konvertieren, zum Beispiel Umwandlung von RGB zu
+CMYK.
 
     use Pop\Color;
 

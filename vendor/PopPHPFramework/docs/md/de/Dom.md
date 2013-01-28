@@ -6,7 +6,7 @@ Documentation : Dom
 
 Home
 
-Der Dom Komponente bietet eine einfache MÃ¶glichkeit zum Erstellen und
+Der Dom Komponente bietet eine einfache Möglichkeit zum Erstellen und
 Bearbeiten DOM-Dokumente und ihre Kinder.
 
     use Pop\Dom\Child,
@@ -37,7 +37,7 @@ Bearbeiten DOM-Dokumente und ihre Kinder.
     $doc = new Dom(Dom::XHTML11, 'utf-8', $html);
     $doc->render();
 
-Sie kÃ¶nnen auch Kinder Ã¼ber ein strukturiertes Array von Werten.
+Sie können auch Kinder über ein strukturiertes Array von Werten.
 
     use Pop\Dom\Dom;
 

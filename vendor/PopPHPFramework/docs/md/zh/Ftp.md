@@ -6,7 +6,7 @@ Documentation : Ftp
 
 Home
 
-ç®€å?•çš„FTPç»„ä»¶çš„PHPçš„FTPæ‰©å±•æ??ä¾›äº†ä¸€ä¸ªé?¢å?‘å¯¹è±¡çš„APIçš„åŒ…è£…ã€‚
+简单的FTP组件的PHP的FTP扩展提供了一个面向对象的API的包装。
 
     use Pop\Ftp\Ftp;
 

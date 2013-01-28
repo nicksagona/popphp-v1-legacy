@@ -6,10 +6,10 @@ Documentation : Project
 
 Home
 
-Il componente del progetto contiene la classe di progetto in cui Ã¨
+Il componente del progetto contiene la classe di progetto in cui è
 possibile estendere e incapsulare le specifiche della vostra
 applicazione, come ad esempio il router, i controller, i database ei
-moduli. Una volta impostato correttamente, il progetto puÃ² "correre" e
+moduli. Una volta impostato correttamente, il progetto può "correre" e
 percorso con successo la richiesta dell'utente per l'area corretta
 dell'applicazione. Visualizzare il componente Mvc doc per vedere un
 esempio di un file di progetto esteso di classe.
@@ -17,7 +17,7 @@ esempio di un file di progetto esteso di classe.
 Inoltre, il componente del progetto di installazione contiene le classi
 che la componente CLI utilizza per costruire e installare il ponteggio
 progetto. Un esempio di un file di configurazione del progetto di
-installazione Ã¨ inferiore.
+installazione è inferiore.
 
     <?php
     return new Pop\Config(array(

@@ -6,14 +6,14 @@ Documentation : CLI
 
 Home
 
-La interfaz de lÃ­nea de comandos (CLI) de componente es un componente
-muy Ãºtil que te permite realizar algunas tareas Ãºtiles tales como:
+La interfaz de línea de comandos (CLI) de componente es un componente
+muy útil que te permite realizar algunas tareas útiles tales como:
 
 -   evaluar el entorno actual de las dependencias necesarias
--   instalar un proyecto desde un archivo de instalaciÃ³n del proyecto
--   establecer el idioma predeterminado de una aplicaciÃ³n
+-   instalar un proyecto desde un archivo de instalación del proyecto
+-   establecer el idioma predeterminado de una aplicación
 -   crear un mapa de clase
--   comprobar la versiÃ³n actual con la Ãºltima versiÃ³n disponible
+-   comprobar la versión actual con la última versión disponible
 
 <!-- -->
 
@@ -25,7 +25,7 @@ muy Ãºtil que te permite realizar algunas tareas Ãºtiles tales como:
     script/pop --show                      // Show project install instructions
     script/pop --version                   // Display version of Pop PHP Framework and latest available
 
-He aquÃ­ un ejemplo de proyecto del archivo de instalaciÃ³n:
+He aquí un ejemplo de proyecto del archivo de instalación:
 
     return new Pop\Config(array(
         'project' => array(

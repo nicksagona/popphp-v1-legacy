@@ -6,10 +6,10 @@ Documentation : Graph
 
 Home
 
-Der Graph-Komponente ermÃ¶glicht eine robuste Grafik-Funktionen, die
-einem der in grafischen Komponenten wie Image aufgebaut nutzen kÃ¶nnen,
+Der Graph-Komponente ermöglicht eine robuste Grafik-Funktionen, die
+einem der in grafischen Komponenten wie Image aufgebaut nutzen können,
 um SVG und Pdf Grafiken in einer Vielzahl von Formaten zu zeichnen. Sie
-kÃ¶nnen eine breite Palette von Grafik-Attribute zu erstellen und zu
+können eine breite Palette von Grafik-Attribute zu erstellen und zu
 rendern Liniendiagramme, Balkendiagramme und Kreisdiagramme. Da die API
 zwischen den verschiedenen grafischen Komponenten standardisiert ist,
 ist es sehr einfach, zwischen verschiedenen der Datei-und Bildformaten,

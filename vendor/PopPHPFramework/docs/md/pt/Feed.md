@@ -6,11 +6,11 @@ Documentation : Feed
 
 Home
 
-O componente de alimentaÃ§Ã£o fornece a funcionalidade para ler e
-analisar feeds externos e fornecer os dados de uma forma Ãºtil, bem como
-a funcionalidade de gravar e exibir feeds de conteÃºdo.
+O componente de alimentação fornece a funcionalidade para ler e analisar
+feeds externos e fornecer os dados de uma forma útil, bem como a
+funcionalidade de gravar e exibir feeds de conteúdo.
 
-Aqui estÃ¡ um exemplo de leitura (ou seja, anÃ¡lise) uma alimentaÃ§Ã£o
+Aqui está um exemplo de leitura (ou seja, análise) uma alimentação
 externa.
 
     use Pop\Feed;
@@ -29,8 +29,8 @@ externa.
     $feed->setTemplate($tmpl);
     $feed->render();
 
-Aqui estÃ¡ um exemplo de leitura de um feed de uma conta de serviÃ§o,
-como o Twitter ou Facebook.
+Aqui está um exemplo de leitura de um feed de uma conta de serviço, como
+o Twitter ou Facebook.
 
     use Pop\Feed;
 
@@ -55,7 +55,7 @@ como o Twitter ou Facebook.
 
     $twitter->render();
 
-Aqui estÃ¡ um exemplo de escrever um feed.
+Aqui está um exemplo de escrever um feed.
 
     use Pop\Feed;
 

@@ -6,7 +6,7 @@ Documentation : Payment
 
 Home
 
-Il componente di pagamento fornisce funzionalitÃ standard per elaborare
+Il componente di pagamento fornisce funzionalità standard per elaborare
 le richieste di pagamento con carta di credito tramite un gateway 3rd
 party. I gateway attuali built-in e supportati sono i seguenti:
 

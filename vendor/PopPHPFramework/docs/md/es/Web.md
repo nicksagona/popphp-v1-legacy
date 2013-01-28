@@ -6,11 +6,11 @@ Documentation : Web
 
 Home
 
-El componente Web es una colecciÃ³n de web basados â€‹â€‹en las
-necesidades y funcionalidad, como la gestiÃ³n de sesiones, servidores,
-navegadores y cookies. AdemÃ¡s, incluye la funcionalidad para la
-detecciÃ³n de dispositivos mÃ³viles para que la aplicaciÃ³n pueda actuar
-en consecuencia.
+El componente Web es una colección de web basados ​​en las necesidades y
+funcionalidad, como la gestión de sesiones, servidores, navegadores y
+cookies. Además, incluye la funcionalidad para la detección de
+dispositivos móviles para que la aplicación pueda actuar en
+consecuencia.
 
     use Pop\Web\Session;
 

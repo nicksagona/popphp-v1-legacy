@@ -6,8 +6,8 @@ Documentation : Data
 
 Home
 
-Le composant de donnÃ©es permet de convertir des ensembles de donnÃ©es
-d'un format commun Ã l'autre. Les formats supportÃ©s sont les suivants:
+Le composant de données permet de convertir des ensembles de données
+d'un format commun à l'autre. Les formats supportés sont les suivants:
 
 -   csv
 -   json

@@ -7,8 +7,8 @@ Documentation : Paginator
 Home
 
 El componente Paginator simplemente proporciona la funcionalidad de la
-pÃ¡gina cabo un conjunto de resultados grande. Muchas configuraciones
-diferentes y los atributos se pueden aplicar, pero la mÃ¡s Ãºtil es la
+página cabo un conjunto de resultados grande. Muchas configuraciones
+diferentes y los atributos se pueden aplicar, pero la más útil es la
 ayuda de la plantilla que construido adentro.
 
     use Pop\Paginator\Paginator;

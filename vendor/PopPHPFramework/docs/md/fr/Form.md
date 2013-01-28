@@ -6,10 +6,9 @@ Documentation : Form
 
 Home
 
-L'Ã©lÃ©ment du formulaire est un composant puissant qui Ã©tend la
-composante Dom. Il offre des fonctionnalitÃ©s robustes pour crÃ©er,
-afficher et valider les formulaires HTML et des Ã©lÃ©ments de
-formulaire.
+L'élément du formulaire est un composant puissant qui étend la
+composante Dom. Il offre des fonctionnalités robustes pour créer,
+afficher et valider les formulaires HTML et des éléments de formulaire.
 
     use Pop\Form\Form,
         Pop\Form\Element,
@@ -74,8 +73,8 @@ formulaire.
         $form->render();
     }
 
-Ou, vous pouvez crÃ©er des Ã©lÃ©ments de formulaire via un rÃ©seau
-structurÃ© de valeurs.
+Ou, vous pouvez créer des éléments de formulaire via un réseau structuré
+de valeurs.
 
     use Pop\Form\Form,
         Pop\Form\Element,
@@ -135,9 +134,9 @@ structurÃ© de valeurs.
         $form->render();
     }
 
-Avec la classe Champs, vous pouvez utiliser une table de base de
-donnÃ©es via le composant enregistrement d'accÃ¨s et de construire les
-champs initiaux de la forme.
+Avec la classe Champs, vous pouvez utiliser une table de base de données
+via le composant enregistrement d'accès et de construire les champs
+initiaux de la forme.
 
     use Pop\Form\Form,
         Pop\Form\Fields,

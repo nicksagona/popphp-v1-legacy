@@ -6,14 +6,14 @@ Documentation : Event
 
 Home
 
-La composante de l'Ã©vÃ©nement fournit un moyen d'attacher et de
-dÃ©clencher des Ã©vÃ©nements dans le cycle de vie d'une application. Le
-principal avantage est la possibilitÃ© d'Ã©tendre une application en
-accrochant la fonctionnalitÃ© en elle par l'intermÃ©diaire des
-fermetures et des classes qui sont attachÃ©s comme des Ã©vÃ©nements.
+La composante de l'événement fournit un moyen d'attacher et de
+déclencher des événements dans le cycle de vie d'une application. Le
+principal avantage est la possibilité d'étendre une application en
+accrochant la fonctionnalité en elle par l'intermédiaire des fermetures
+et des classes qui sont attachés comme des événements.
 
-Voici un exemple d'attacher et de dÃ©clenchement d'un Ã©vÃ©nement Ã
-l'aide des fermetures. Le second reÃ§oit le rÃ©sultat de la premiÃ¨re.
+Voici un exemple d'attacher et de déclenchement d'un événement à l'aide
+des fermetures. Le second reçoit le résultat de la première.
 
     use Pop\Event\Manager;
 

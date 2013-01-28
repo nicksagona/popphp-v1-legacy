@@ -7,13 +7,12 @@ Documentation : Locale
 Home
 
 O componente localidade fornece suporte ao idioma e funcionalidade de
-traduÃ§Ã£o para sua aplicaÃ§Ã£o. VocÃª pode simplesmente criar e
-carregar seus prÃ³prios arquivos XML das traduÃ§Ãµes de idiomas
-necessÃ¡rios no formato que estÃ¡ descritos no prÃ³prio pop arquivos XML
-de idioma.
+tradução para sua aplicação. Você pode simplesmente criar e carregar
+seus próprios arquivos XML das traduções de idiomas necessários no
+formato que está descritos no próprio pop arquivos XML de idioma.
 
-VocÃª pode carregar seus prÃ³prios arquivos de traduÃ§Ã£o de idiomas,
-enquanto a aderir ao padrÃ£o XML estabelecido na pasta Locale Pop / /
+Você pode carregar seus próprios arquivos de tradução de idiomas,
+enquanto a aderir ao padrão XML estabelecido na pasta Locale Pop / /
 Dados.
 
     use Pop\Locale\Locale;

@@ -9,11 +9,11 @@ Home
 La componente Auth facilita l'autenticazione e l'autorizzazione degli
 utenti sulla base di un set di base di credenziali e ruoli definiti.
 L'aspetto di autenticazione gestisce l'autenticazione di un utente per
-determinare se l'utente Ã¨ autorizzato a tutti. L'aspetto autorizzazione
+determinare se l'utente è autorizzato a tutti. L'aspetto autorizzazione
 gestisce determinare se l'utente autenticato ha accesso sufficienti per
 essere ammessi all'interno di una certa area. I ruoli possono essere
 facilmente definiti e valutati per determinare il livello di un utente
-di accesso. Il componente Auth puÃ² facilmente legare in una tabella di
+di accesso. Il componente Auth può facilmente legare in una tabella di
 database o un file su disco per recuperare le credenziali dell'utente e
 le informazioni.
 

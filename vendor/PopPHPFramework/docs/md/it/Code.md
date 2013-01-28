@@ -6,7 +6,7 @@ Documentation : Code
 
 Home
 
-Il componente Codice Ã¨ un componente di generazione di codice che non
+Il componente Codice è un componente di generazione di codice che non
 solo consente di generare standardizzato, ben strutturato codice PHP al
 volo, ma permette anche di modificare ed estendere il codice esistente,
 sfruttando l'estensione riflessione di PHP.

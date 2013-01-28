@@ -7,8 +7,8 @@ Documentation : Event
 Home
 
 Il componente evento fornisce un modo per collegare e attivare eventi
-nel ciclo di vita di un'applicazione. Il vantaggio principale Ã¨ la
-possibilitÃ di estendere un'applicazione di aggancio funzionalitÃ in via
+nel ciclo di vita di un'applicazione. Il vantaggio principale è la
+possibilità di estendere un'applicazione di aggancio funzionalità in via
 di chiusura e le classi che sono attaccati come eventi.
 
 Ecco un esempio di collegamento e dell'attivazione di un evento con

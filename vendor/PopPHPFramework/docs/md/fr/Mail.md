@@ -6,10 +6,10 @@ Documentation : Mail
 
 Home
 
-Le composant Mail fournit les fonctionnalitÃ©s nÃ©cessaires pour gÃ©rer
-le courrier sortant via PHP. Cela comprend le soutien pour le courrier
-Ã©lectronique basÃ© sur du texte et HTML, les destinataires de
-messagerie multiples, des modÃ¨les et des piÃ¨ces jointes.
+Le composant Mail fournit les fonctionnalités nécessaires pour gérer le
+courrier sortant via PHP. Cela comprend le soutien pour le courrier
+électronique basé sur du texte et HTML, les destinataires de messagerie
+multiples, des modèles et des pièces jointes.
 
     use Pop\Mail\Mail;
 

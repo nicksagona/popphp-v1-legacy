@@ -6,10 +6,10 @@ Documentation : Web
 
 Home
 
-Die Version Komponente stellt lediglich die MÃ¶glichkeit zu bestimmen,
+Die Version Komponente stellt lediglich die Möglichkeit zu bestimmen,
 welche Version von Pop Sie Strom haben, und was die neuesten zur
-VerfÃ¼gung steht. Auch diese Komponente durch die CLI-Komponente
-verwendet, um die AbhÃ¤ngigkeit-PrÃ¼fung durchzufÃ¼hren.
+Verfügung steht. Auch diese Komponente durch die CLI-Komponente
+verwendet, um die Abhängigkeit-Prüfung durchzuführen.
 
     use Pop\Web\Session;
 

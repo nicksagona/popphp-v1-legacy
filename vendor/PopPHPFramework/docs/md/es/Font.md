@@ -7,7 +7,7 @@ Documentation : Font
 Home
 
 El componente Font es un analizador de fuente profundidad que extrae los
-datos importantes de fuente y mÃ©tricas para los demÃ¡s componentes y
+datos importantes de fuente y métricas para los demás componentes y
 programas a utilizar. Los tipos de fuentes compatibles son:
 
 -   TrueType

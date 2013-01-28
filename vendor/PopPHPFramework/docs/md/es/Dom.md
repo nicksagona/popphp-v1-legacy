@@ -6,7 +6,7 @@ Documentation : Dom
 
 Home
 
-El componente Dom proporciona una manera fÃ¡cil de crear y manipular
+El componente Dom proporciona una manera fácil de crear y manipular
 documentos DOM y sus hijos.
 
     use Pop\Dom\Child,
@@ -37,7 +37,7 @@ documentos DOM y sus hijos.
     $doc = new Dom(Dom::XHTML11, 'utf-8', $html);
     $doc->render();
 
-TambiÃ©n puede agregar niÃ±os a travÃ©s de una serie estructurada de
+También puede agregar niños a través de una serie estructurada de
 valores.
 
     use Pop\Dom\Dom;

@@ -6,9 +6,8 @@ Documentation : Ftp
 
 Home
 
-Î— Ftp ÏƒÏ…ÏƒÏ„Î±Ï„Î¹ÎºÏŒ Ï€Î±Ï?Î­Ï‡ÎµÎ¹ Î±Ï€Î»Î¬ Î­Î½Î± object-oriented
-Ï€ÎµÏ?Î¹Ï„Ï?Î»Î¹Î³Î¼Î± API Î³Î¹Î± Ï„Î·Î½ ÎµÏ€Î­ÎºÏ„Î±ÏƒÎ· Ï„Î·Ï‚ PHP
-FTP.
+Η Ftp συστατικό παρέχει απλά ένα object-oriented περιτύλιγμα API για την
+επέκταση της PHP FTP.
 
     use Pop\Ftp\Ftp;
 

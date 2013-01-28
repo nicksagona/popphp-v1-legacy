@@ -6,18 +6,18 @@ Documentation : Mvc
 
 Home
 
-La componente MVC, come indicato nella documentazione di panoramica, Ã¨
+La componente MVC, come indicato nella documentazione di panoramica, è
 una implementazione del design pattern MVC, con l'ulteriore livello di
-un router per facilitare i percorsi piÃ¹ utenti e controllori. In poche
+un router per facilitare i percorsi più utenti e controllori. In poche
 parole, il controllore gestisce la delega delle richieste, il modello
-gestisce la logica di business e la vista determina la modalitÃ per
+gestisce la logica di business e la vista determina la modalità per
 visualizzare l'output per l'utente. Tutte queste classi all'interno di
 questa componente sono molto facili da estendere a sfruttare all'interno
 della vostra applicazione.
 
-Anche se questo puÃ² sembrare troppo complesso, se si utilizza la
+Anche se questo può sembrare troppo complesso, se si utilizza la
 funzione di componente CLI progetto di installazione, la maggior parte
-di questo codice puÃ² essere scritto e installato per voi. Devi solo per
+di questo codice può essere scritto e installato per voi. Devi solo per
 definire il nome del progetto e le impostazioni nel file di
 configurazione di installazione. Visualizza la componente doc file di
 progetto per ottenere un esempio di un progetto di installazione di file

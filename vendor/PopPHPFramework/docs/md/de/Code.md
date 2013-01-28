@@ -6,9 +6,9 @@ Documentation : Code
 
 Home
 
-Der Code-Komponente ist ein Code-Generierung Komponente, kÃ¶nnen Sie
+Der Code-Komponente ist ein Code-Generierung Komponente, können Sie
 nicht nur standardisierte, gut strukturierte PHP-Code on the fly zu
-generieren, sondern auch ermÃ¶glicht es Ihnen, Ã¤ndern und erweitern
+generieren, sondern auch ermöglicht es Ihnen, ändern und erweitern
 vorhandenen Code durch den Einsatz von PHP-Reflection-Erweiterung.
 
     use Pop\Code;

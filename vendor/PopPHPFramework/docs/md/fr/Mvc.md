@@ -6,21 +6,21 @@ Documentation : Mvc
 
 Home
 
-La composante Mvc, comme indiquÃ© dans la liste des documents, est une
-implÃ©mentation du modÃ¨le de conception MVC, avec la couche
-supplÃ©mentaire d'un routeur pour faciliter chemins multiples
-utilisateurs et leurs contrÃ´leurs. Autrement dit, le contrÃ´leur gÃ¨re
-la dÃ©lÃ©gation de la demande, le modÃ¨le gÃ¨re la logique mÃ©tier et la
-vue dÃ©termine comment afficher la sortie Ã l'utilisateur. Toutes ces
-classes au sein de cette composante sont trÃ¨s facile d'Ã©tendre les
-exploiter dans votre propre application.
+La composante Mvc, comme indiqué dans la liste des documents, est une
+implémentation du modèle de conception MVC, avec la couche
+supplémentaire d'un routeur pour faciliter chemins multiples
+utilisateurs et leurs contrôleurs. Autrement dit, le contrôleur gère la
+délégation de la demande, le modèle gère la logique métier et la vue
+détermine comment afficher la sortie à l'utilisateur. Toutes ces classes
+au sein de cette composante sont très facile d'étendre les exploiter
+dans votre propre application.
 
 Alors que cela peut sembler trop complexe, si vous utilisez le composant
-CLI projet de long mÃ©trage d'installation, la plupart de ce code peut
-Ãªtre Ã©crit et installÃ© pour vous. Vous avez juste Ã dÃ©finir le nom
-du projet et les paramÃ¨tres dans le fichier de configuration de
+CLI projet de long métrage d'installation, la plupart de ce code peut
+être écrit et installé pour vous. Vous avez juste à définir le nom du
+projet et les paramètres dans le fichier de configuration de
 l'installation. Voir le composant de projet doc fichier pour obtenir un
-exemple d'un projet de fichier de configuration installÃ©.
+exemple d'un projet de fichier de configuration installé.
 
     use Pop\Mvc\Controller,
         Pop\Mvc\Model,

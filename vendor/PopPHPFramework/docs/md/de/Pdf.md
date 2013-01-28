@@ -6,14 +6,14 @@ Documentation : Pdf
 
 Home
 
-Die Pdf-Komponente bietet feature-rich-FunktionalitÃ¤t fÃ¼r
-PDF-Erzeugung und Manipulation. Neben der Schaffung neuer PDF-Dateien
-kÃ¶nnen Sie auch importieren bestehender und HinzufÃ¼gen von Inhalten,
-um sie von dort aus. Einige der Funktionen sind verfÃ¼gbar:
+Die Pdf-Komponente bietet feature-rich-Funktionalität für PDF-Erzeugung
+und Manipulation. Neben der Schaffung neuer PDF-Dateien können Sie auch
+importieren bestehender und Hinzufügen von Inhalten, um sie von dort
+aus. Einige der Funktionen sind verfügbar:
 
 -   Zeichnen von Formen
--   HinzufÃ¼gen Beschneidungspfade
--   HinzufÃ¼gen von Text
+-   Hinzufügen Beschneidungspfade
+-   Hinzufügen von Text
 -   Einbetten von Bildern
 -   Einbetten von Schriften
 -   URL-Verlinkung

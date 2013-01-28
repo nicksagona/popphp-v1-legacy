@@ -6,9 +6,9 @@ Documentation : Paginator
 
 Home
 
-Il componente Paginator fornisce solo la funzionalitÃ per pagina su un
+Il componente Paginator fornisce solo la funzionalità per pagina su un
 set di risultati di grandi dimensioni. Molte diverse impostazioni e
-attributi possono essere applicati, ma la piÃ¹ utile Ã¨ il supporto
+attributi possono essere applicati, ma la più utile è il supporto
 template che lo costruito pollici
 
     use Pop\Paginator\Paginator;

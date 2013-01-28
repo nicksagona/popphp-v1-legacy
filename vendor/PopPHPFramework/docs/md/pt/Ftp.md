@@ -6,8 +6,8 @@ Documentation : Ftp
 
 Home
 
-O componente de FTP simplesmente fornece um invÃ³lucro API orientada a
-objetos para extensÃ£o FTP PHP.
+O componente de FTP simplesmente fornece um invólucro API orientada a
+objetos para extensão FTP PHP.
 
     use Pop\Ftp\Ftp;
 

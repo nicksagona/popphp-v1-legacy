@@ -6,8 +6,8 @@ Documentation : Geo
 
 Home
 
-O componente Geo simplesmente fornece um invÃ³lucro API orientada a
-objetos para extensÃ£o PHP GeoIP.
+O componente Geo simplesmente fornece um invólucro API orientada a
+objetos para extensão PHP GeoIP.
 
     use Pop\Geo\Geo;
 

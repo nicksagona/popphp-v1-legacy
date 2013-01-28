@@ -6,18 +6,18 @@ Documentation : Mvc
 
 Home
 
-Das MVC-Komponente, wie in der Dokumentation Ãœberblick skizziert, ist
-eine Implementierung des MVC Design Pattern, mit der zusÃ¤tzlichen
-Schicht aus einem Router fÃ¼r mehrere Benutzer Pfade und Steuerungen
+Das MVC-Komponente, wie in der Dokumentation Überblick skizziert, ist
+eine Implementierung des MVC Design Pattern, mit der zusätzlichen
+Schicht aus einem Router für mehrere Benutzer Pfade und Steuerungen
 erleichtern. Einfach gesagt, der Controller die Delegation von
-Anforderungen verarbeitet, Ã¼bernimmt das Modell der Business-Logik und
-der Blick bestimmt, wie die Ausgabe fÃ¼r den Benutzer angezeigt. Alle
+Anforderungen verarbeitet, übernimmt das Modell der Business-Logik und
+der Blick bestimmt, wie die Ausgabe für den Benutzer angezeigt. Alle
 diese Klassen innerhalb dieser Komponente sind sehr einfach zu nutzen,
 sie in Ihre eigene Anwendung erweitern.
 
-WÃ¤hrend dies aussehen kann Ã¼bermÃ¤ÃŸig komplex, wenn Sie die CLI
-Teilprojekt Installation Funktion nutzen zu kÃ¶nnen, kÃ¶nnen die meisten
-dieser Code geschrieben und fÃ¼r Sie installiert werden. Sie mÃ¼ssen nur
+Während dies aussehen kann übermäßig komplex, wenn Sie die CLI
+Teilprojekt Installation Funktion nutzen zu können, können die meisten
+dieser Code geschrieben und für Sie installiert werden. Sie müssen nur
 den Namen des Projekts und Einstellungen in der Installation
 Konfigurationsdatei definieren. Sehen Sie sich die Projekt-Komponente
 doc-Datei, um ein Beispiel eines Projekts zu installieren

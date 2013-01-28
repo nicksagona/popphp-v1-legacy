@@ -6,20 +6,20 @@ Documentation : Cache
 
 Home
 
-O componente Cache permite o armazenamento fÃ¡cil dos dados persistentes
-atravÃ©s de quatro mÃ©todos:
+O componente Cache permite o armazenamento fácil dos dados persistentes
+através de quatro métodos:
 
 -   Apc
 -   a file on disk
 -   a Sqlite database
 -   Memcache
 
-O objetivo do componente de cache Ã© acelerar o acesso a dados que Ã©
-mais estÃ¡tica e nÃ£o muda frequentemente. Armazenando-o por um dos
-mÃ©todos acima referidos, a velocidade de acesso pode ser aumentada
-porque uma chamada processo mais dispendioso pode ser evitado, como o
-acesso a uma base de dados de grandes dimensÃµes ou um endereÃ§o Web
-externo para recuperar dados.
+O objetivo do componente de cache é acelerar o acesso a dados que é mais
+estática e não muda frequentemente. Armazenando-o por um dos métodos
+acima referidos, a velocidade de acesso pode ser aumentada porque uma
+chamada processo mais dispendioso pode ser evitado, como o acesso a uma
+base de dados de grandes dimensões ou um endereço Web externo para
+recuperar dados.
 
     use Pop\Cache;
     $test = 'This is my test variable. It contains a string.';

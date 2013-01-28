@@ -6,8 +6,8 @@ Documentation : Form
 
 Home
 
-El componente Form es un poderoso componente que amplÃ­a el componente
-Dom. Ofrece una sÃ³lida funcionalidad para crear, procesar y validar
+El componente Form es un poderoso componente que amplía el componente
+Dom. Ofrece una sólida funcionalidad para crear, procesar y validar
 formularios HTML y elementos de formulario.
 
     use Pop\Form\Form,
@@ -73,7 +73,7 @@ formularios HTML y elementos de formulario.
         $form->render();
     }
 
-O bien, puede crear elementos de formulario a travÃ©s de una serie
+O bien, puede crear elementos de formulario a través de una serie
 estructurada de valores.
 
     use Pop\Form\Form,
@@ -135,7 +135,7 @@ estructurada de valores.
     }
 
 Con la clase de campos, puede utilizar una tabla de base de datos a
-travÃ©s del componente de grabaciÃ³n para acceder y construir los campos
+través del componente de grabación para acceder y construir los campos
 iniciales de la forma.
 
     use Pop\Form\Form,

@@ -6,7 +6,7 @@ Documentation : Ftp
 
 Home
 
-Le composant de ftp fournit simplement un wrapper API orientÃ©e objet
+Le composant de ftp fournit simplement un wrapper API orientée objet
 pour l'extension FTP de PHP.
 
     use Pop\Ftp\Ftp;

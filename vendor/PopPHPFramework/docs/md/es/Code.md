@@ -6,11 +6,10 @@ Documentation : Code
 
 Home
 
-El componente de cÃ³digo es un componente de generaciÃ³n de cÃ³digo que
-no sÃ³lo le permite generar estandarizado y bien estructurado cÃ³digo
-PHP en el momento, pero tambiÃ©n le permite modificar y ampliar el
-cÃ³digo existente mediante el aprovechamiento de extensiÃ³n de PHP
-ReflexiÃ³n.
+El componente de código es un componente de generación de código que no
+sólo le permite generar estandarizado y bien estructurado código PHP en
+el momento, pero también le permite modificar y ampliar el código
+existente mediante el aprovechamiento de extensión de PHP Reflexión.
 
     use Pop\Code;
 

@@ -14,10 +14,10 @@ persistenti tramite quattro metodi:
 -   a Sqlite database
 -   Memcache
 
-L'obiettivo della componente cache Ã¨ quello di accelerare l'accesso ai
-dati che Ã¨ piÃ¹ statico e non cambia spesso. Depositandolo con uno dei
-metodi sopra elencati, velocitÃ di accesso puÃ² essere aumentata a causa
-di una chiamata piÃ¹ costoso processo puÃ² essere evitato, come accedere
+L'obiettivo della componente cache è quello di accelerare l'accesso ai
+dati che è più statico e non cambia spesso. Depositandolo con uno dei
+metodi sopra elencati, velocità di accesso può essere aumentata a causa
+di una chiamata più costoso processo può essere evitato, come accedere
 un database grande o un indirizzo web esterno per recuperare i dati.
 
     use Pop\Cache;

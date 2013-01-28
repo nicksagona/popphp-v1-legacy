@@ -6,10 +6,10 @@ Documentation : Image
 
 Home
 
-Die Image-Komponente bietet eine standardisierte API-Wrapper fÃ¼r die
+Die Image-Komponente bietet eine standardisierte API-Wrapper für die
 Erstellung und Bearbeitung von Bildern, die PHP GD und Imagick
 Erweiterungen, sowie die SVG-Bildformat nutzt. Innerhalb dieser
-Komponente ist eine feature-rich API fÃ¼r die DurchfÃ¼hrung viele
+Komponente ist eine feature-rich API für die Durchführung viele
 verschiedene Bild-basierte Funktionen. Und, da die API standardisiert
 ist, wenn ein Projekt bewegt sich in eine andere Umgebung, sollte es
 leicht verschlechtern.

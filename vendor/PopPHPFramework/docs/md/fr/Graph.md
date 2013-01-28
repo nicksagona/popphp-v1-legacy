@@ -6,15 +6,14 @@ Documentation : Graph
 
 Home
 
-Le composant graphique permet la fonctionnalitÃ© graphique robuste qui
+Le composant graphique permet la fonctionnalité graphique robuste qui
 peut utiliser n'importe quel construit dans les composants graphiques
-tels que des images, SVG et PDF pour tracer des graphes dans une
-variÃ©tÃ© de formats. Vous pouvez dÃ©finir un large Ã©ventail
-d'attributs graphiques pour crÃ©er et rendre des graphiques linÃ©aires,
-histogrammes et de diagrammes circulaires. Puisque l'API entre les
-diffÃ©rentes composantes graphiques est normalisÃ©, il est trÃ¨s facile
-d'Ã©changer entre diffÃ©rents du fichier et des formats d'image dans
-lequel pour produire un graphe.
+tels que des images, SVG et PDF pour tracer des graphes dans une variété
+de formats. Vous pouvez définir un large éventail d'attributs graphiques
+pour créer et rendre des graphiques linéaires, histogrammes et de
+diagrammes circulaires. Puisque l'API entre les différentes composantes
+graphiques est normalisé, il est très facile d'échanger entre différents
+du fichier et des formats d'image dans lequel pour produire un graphe.
 
     use Pop\Color\Space\Rgb,
         Pop\Graph\Graph;

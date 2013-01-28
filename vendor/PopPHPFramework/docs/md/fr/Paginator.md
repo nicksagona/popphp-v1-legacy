@@ -6,10 +6,10 @@ Documentation : Paginator
 
 Home
 
-La composante Paginator fournit simplement la fonctionnalitÃ© Ã la page
-sur un ensemble de grands rÃ©sultats. De nombreux paramÃ¨tres
-diffÃ©rents et attributs peuvent Ãªtre appliquÃ©s, mais le plus utile
-est le systÃ¨me de template qu'il construit po
+La composante Paginator fournit simplement la fonctionnalité à la page
+sur un ensemble de grands résultats. De nombreux paramètres différents
+et attributs peuvent être appliqués, mais le plus utile est le système
+de template qu'il construit po
 
     use Pop\Paginator\Paginator;
 

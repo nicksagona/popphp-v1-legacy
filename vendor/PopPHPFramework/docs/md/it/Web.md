@@ -6,9 +6,9 @@ Documentation : Web
 
 Home
 
-Il componente Web Ã¨ una raccolta di web-based esigenze e funzionalitÃ ,
+Il componente Web è una raccolta di web-based esigenze e funzionalità,
 tali sessioni di gestione, server, browser e biscotti. Inoltre, include
-la funzionalitÃ per il rilevamento di dispositivi mobili, in modo che
+la funzionalità per il rilevamento di dispositivi mobili, in modo che
 l'applicazione possa rispondere di conseguenza.
 
     use Pop\Web\Session;

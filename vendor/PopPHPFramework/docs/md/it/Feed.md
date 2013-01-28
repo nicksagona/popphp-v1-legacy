@@ -6,9 +6,9 @@ Documentation : Feed
 
 Home
 
-Il componente di alimentazione fornisce la funzionalitÃ per leggere e
-analizzare feed esterni e fornire i dati in modo utile, cosÃ¬ come la
-funzionalitÃ per scrivere e visualizzare feed di contenuti.
+Il componente di alimentazione fornisce la funzionalità per leggere e
+analizzare feed esterni e fornire i dati in modo utile, così come la
+funzionalità per scrivere e visualizzare feed di contenuti.
 
 Ecco un esempio di lettura (per esempio, l'analisi) una alimentazione
 esterna.

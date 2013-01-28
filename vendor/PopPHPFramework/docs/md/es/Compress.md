@@ -6,8 +6,8 @@ Documentation : Compress
 
 Home
 
-El componente de la compresa proporciona un mÃ©todo normalizado para
-comprimir y descomprimir datos y archivos a travÃ©s de los mÃ©todos
+El componente de la compresa proporciona un método normalizado para
+comprimir y descomprimir datos y archivos a través de los métodos
 admitidos:
 
 -   bzip2

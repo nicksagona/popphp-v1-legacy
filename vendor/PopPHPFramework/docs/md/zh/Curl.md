@@ -6,7 +6,7 @@ Documentation : Curl
 
 Home
 
-å?·æ›²éƒ¨åˆ†å?ªæ??ä¾›äº†ä¸€ä¸ªé?¢å?‘å¯¹è±¡çš„APIåŒ…è£…PHPçš„cURLæ‰©å±•ã€‚
+卷曲部分只提供了一个面向对象的API包装PHP的cURL扩展。
 
     use Pop\Curl\Curl;
 

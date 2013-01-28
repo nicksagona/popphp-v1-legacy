@@ -7,9 +7,9 @@ Documentation : Font
 Home
 
 La composante de police est un analyseur de police profondeur qui
-extrait des donnÃ©es importantes et des mesures de police pour les
-autres composants et les programmes Ã utiliser. Les types de polices
-pris en charge sont les suivants:
+extrait des données importantes et des mesures de police pour les autres
+composants et les programmes à utiliser. Les types de polices pris en
+charge sont les suivants:
 
 -   TrueType
 -   OpenType

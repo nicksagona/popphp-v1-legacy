@@ -6,8 +6,8 @@ Documentation : Archive
 
 Home
 
-La composante Archive est conÃ§u pour normaliser la crÃ©ation et la
-manipulation de fichiers d'archives communes Ã travers une API unique.
+La composante Archive est conçu pour normaliser la création et la
+manipulation de fichiers d'archives communes à travers une API unique.
 Types d'archives qui sont pris en charge sont les suivants:
 
 -   tar

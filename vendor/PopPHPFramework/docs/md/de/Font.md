@@ -7,8 +7,8 @@ Documentation : Font
 Home
 
 Der Font Komponente ist ein in der Tiefe font-Parser, der wichtige font
-Daten und Metriken fÃ¼r andere Komponenten und Programme zu verwenden
-extrahiert. Die unterstÃ¼tzten Schriftarten sind:
+Daten und Metriken für andere Komponenten und Programme zu verwenden
+extrahiert. Die unterstützten Schriftarten sind:
 
 -   TrueType
 -   OpenType

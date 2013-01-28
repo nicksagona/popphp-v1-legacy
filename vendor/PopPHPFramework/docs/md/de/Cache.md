@@ -6,8 +6,8 @@ Documentation : Cache
 
 Home
 
-Die Cache-Komponente ermÃ¶glicht die einfache Speicherung von
-persistenten Daten Ã¼ber vier Methoden:
+Die Cache-Komponente ermöglicht die einfache Speicherung von
+persistenten Daten über vier Methoden:
 
 -   Apc
 -   a file on disk
@@ -15,11 +15,11 @@ persistenten Daten Ã¼ber vier Methoden:
 -   Memcache
 
 Das Ziel des Cache-Komponente ist zu beschleunigen den Zugriff auf
-Daten, die mehr statisch ist und nicht oft Ã¤ndern. Durch Speicherung
-von einer der oben genannten Methoden kÃ¶nnen Zugriffsgeschwindigkeit
-erhÃ¶ht, da ein teurer Prozess Anruf kann vermieden, wie den Zugriff auf
-eine groÃŸe Datenbank oder einer externen Web-Adresse zum Abrufen von
-Daten werden kann.
+Daten, die mehr statisch ist und nicht oft ändern. Durch Speicherung von
+einer der oben genannten Methoden können Zugriffsgeschwindigkeit erhöht,
+da ein teurer Prozess Anruf kann vermieden, wie den Zugriff auf eine
+große Datenbank oder einer externen Web-Adresse zum Abrufen von Daten
+werden kann.
 
     use Pop\Cache;
     $test = 'This is my test variable. It contains a string.';

@@ -6,8 +6,8 @@ Documentation : Compress
 
 Home
 
-La composante Compress offre une mÃ©thode normalisÃ©e pour compresser et
-dÃ©compresser des donnÃ©es et des fichiers via les mÃ©thodes prises en
+La composante Compress offre une méthode normalisée pour compresser et
+décompresser des données et des fichiers via les méthodes prises en
 charge:
 
 -   bzip2

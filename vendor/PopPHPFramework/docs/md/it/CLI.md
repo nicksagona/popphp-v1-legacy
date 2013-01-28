@@ -6,8 +6,8 @@ Documentation : CLI
 
 Home
 
-La riga di comando (CLI) componente Ã¨ un componente molto utile che
-permette di eseguire alcune attivitÃ utili, quali:
+La riga di comando (CLI) componente è un componente molto utile che
+permette di eseguire alcune attività utili, quali:
 
 -   valutare l'ambiente delle dipendenze richieste
 -   installazione di un progetto da un file di installazione di progetto

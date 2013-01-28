@@ -6,8 +6,8 @@ Documentation : Curl
 
 Home
 
-La composante Curl fournit simplement un wrapper API orientÃ©e objet
-pour l'extension cURL.
+La composante Curl fournit simplement un wrapper API orientée objet pour
+l'extension cURL.
 
     use Pop\Curl\Curl;
 

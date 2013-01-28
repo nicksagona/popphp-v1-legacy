@@ -37,7 +37,7 @@ documenti DOM e dei loro figli.
     $doc = new Dom(Dom::XHTML11, 'utf-8', $html);
     $doc->render();
 
-Ãˆ inoltre possibile aggiungere i bambini attraverso una serie
+È inoltre possibile aggiungere i bambini attraverso una serie
 strutturata di valori.
 
     use Pop\Dom\Dom;

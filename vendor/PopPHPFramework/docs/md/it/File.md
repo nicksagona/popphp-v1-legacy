@@ -7,7 +7,7 @@ Documentation : File
 Home
 
 Il componente File fornisce una API utile per gestire e manipolare i
-file sul disco. Esso fornisce anche la funzionalitÃ di gestire
+file sul disco. Esso fornisce anche la funzionalità di gestire
 facilmente il caricamento di file.
 
     use Pop\File\File;

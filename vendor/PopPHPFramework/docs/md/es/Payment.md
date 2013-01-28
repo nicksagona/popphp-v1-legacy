@@ -6,10 +6,10 @@ Documentation : Payment
 
 Home
 
-El componente de pago ofrece una funcionalidad estÃ¡ndar para procesar
-las solicitudes de pago con tarjeta de crÃ©dito a travÃ©s de una
-pasarela de 3 Âª parte. Las puertas de enlace de corriente integrados y
-soportados son:
+El componente de pago ofrece una funcionalidad estándar para procesar
+las solicitudes de pago con tarjeta de crédito a través de una pasarela
+de 3 ª parte. Las puertas de enlace de corriente integrados y soportados
+son:
 
 -   Authorize.net
 -   PayLeap
@@ -18,8 +18,7 @@ soportados son:
 -   UsaEpay
 
 Sin embargo, si el soporte para una puerta de enlace diferente se
-requiere, entonces serÃ­a fÃ¡cil de escribir sÃ³lo un adaptador para
-ello.
+requiere, entonces sería fácil de escribir sólo un adaptador para ello.
 
     use Pop\Payment\Payment,
         Pop\Payment\Adapter\Authorize;

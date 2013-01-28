@@ -6,9 +6,9 @@ Documentation : Form
 
 Home
 
-O componente de Forma Ã© um componente poderoso que se estende do
+O componente de Forma é um componente poderoso que se estende do
 componente D.. Ele fornece a funcionalidade robusta para criar,
-processar e validar formulÃ¡rios HTML e elementos de formulÃ¡rio.
+processar e validar formulários HTML e elementos de formulário.
 
     use Pop\Form\Form,
         Pop\Form\Element,
@@ -73,7 +73,7 @@ processar e validar formulÃ¡rios HTML e elementos de formulÃ¡rio.
         $form->render();
     }
 
-Ou, vocÃª pode criar elementos de formulÃ¡rio atravÃ©s de um conjunto
+Ou, você pode criar elementos de formulário através de um conjunto
 estruturado de valores.
 
     use Pop\Form\Form,
@@ -134,9 +134,9 @@ estruturado de valores.
         $form->render();
     }
 
-Com a classe Campos, vocÃª pode usar uma tabela de banco de dados
-atravÃ©s do componente Record para acessar e construir os campos
-iniciais do formulÃ¡rio.
+Com a classe Campos, você pode usar uma tabela de banco de dados através
+do componente Record para acessar e construir os campos iniciais do
+formulário.
 
     use Pop\Form\Form,
         Pop\Form\Fields,

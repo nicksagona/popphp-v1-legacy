@@ -7,14 +7,14 @@ Documentation : Locale
 Home
 
 La composante Locale apporte un soutien linguistique et des
-fonctionnalitÃ©s de traduction pour votre application. Vous pouvez
-simplement crÃ©er et de charger vos propres fichiers XML des traductions
-linguistiques requises dans le format qui a dÃ©crites dans ses propres
+fonctionnalités de traduction pour votre application. Vous pouvez
+simplement créer et de charger vos propres fichiers XML des traductions
+linguistiques requises dans le format qui a décrites dans ses propres
 Pop fichiers de langue XML.
 
 Vous pouvez charger vos propres fichiers de traduction automatique,
-aussi longtemps que l'adhÃ©sion Ã la norme XML crÃ©Ã© dans le dossier
-Pop / Locale / DonnÃ©es.
+aussi longtemps que l'adhésion à la norme XML créé dans le dossier Pop /
+Locale / Données.
 
     use Pop\Locale\Locale;
 

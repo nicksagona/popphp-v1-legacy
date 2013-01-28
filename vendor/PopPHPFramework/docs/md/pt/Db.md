@@ -7,7 +7,7 @@ Documentation : Db
 Home
 
 O componente Db fornece acesso a bases de dados normalizado consulta. Os
-adaptadores suportados sÃ£o:
+adaptadores suportados são:
 
 -   mysql
 -   mysqli
@@ -17,9 +17,9 @@ adaptadores suportados sÃ£o:
 -   sqlite
 -   sqlsrv
 
-DeclaraÃ§Ãµes preparadas sÃ£o suportados com o MySQLi, Oracle, DOP,
-PostgreSQL, SQLite e adaptadores sqlsrv. Valores escaparam estÃ£o
-disponÃ­veis para todos os adaptadores.
+Declarações preparadas são suportados com o MySQLi, Oracle, DOP,
+PostgreSQL, SQLite e adaptadores sqlsrv. Valores escaparam estão
+disponíveis para todos os adaptadores.
 
     use Pop\Db\Db;
 
@@ -42,9 +42,9 @@ disponÃ­veis para todos os adaptadores.
         print_r($row);
     }
 
-AlÃ©m de acesso Ã base de dados, o componente Db tambÃ©m apresenta um
-objeto abstraÃ§Ã£o Ãºtil Sql que ajuda vocÃª a criar padronizados
-consultas SQL.
+Além de acesso à base de dados, o componente Db também apresenta um
+objeto abstração útil Sql que ajuda você a criar padronizados consultas
+SQL.
 
     use Pop\Db\Sql;
 

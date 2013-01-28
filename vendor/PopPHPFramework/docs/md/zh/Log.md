@@ -6,9 +6,9 @@ Documentation : Log
 
 Home
 
-æ—¥å¿—ç»„ä»¶æ??ä¾›äº†å¤šç§?æ–¹å¼?ï¼ŒåŒ…æ‹¬è®°å½•æ—¥å¿—æ?¡ç›®å†™å…¥æ–‡ä»¶ï¼Œæ?’å…¥åˆ°æ•°æ?®åº“ä¸­ï¼Œæˆ–å?‘é€?ç”µå­?é‚®ä»¶ï¼Œæˆ–ä»»ä½•æ··å?ˆç‰©ï¼Œå…¶ä¸­çš„åŸºæœ¬åŠŸèƒ½ã€‚
+日志组件提供了多种方式，包括记录日志条目写入文件，插入到数据库中，或发送电子邮件，或任何混合物，其中的基本功能。
 
-ä¸‹é?¢æ˜¯ä¸€ä¸ªä¾‹å­?å†™å…¥åˆ°æ—¥å¿—æ–‡ä»¶ä¸­ï¼š
+下面是一个例子写入到日志文件中：
 
     use Pop\Log\Logger,
         Pop\Log\Writer\File;
@@ -18,7 +18,7 @@ Home
     $logger->emerg('Here is an emergency message.')
            ->info('Here is an info message.');
 
-å†™å…¥åˆ°æ•°æ?®åº“ä¸‹é?¢æ˜¯ä¸€ä¸ªä¾‹å­?ï¼š
+写入到数据库下面是一个例子：
 
     use Pop\Db\Db as PopDb,
         Pop\Log\Logger,
@@ -35,7 +35,7 @@ Home
     $logger->emerg('Here is an emergency message.')
            ->info('Here is an info message.');
 
-ä¸‹é?¢æ˜¯ä¸€ä¸ªä¾‹å­?ï¼Œå?‘é€?ç”µå­?é‚®ä»¶ï¼š
+下面是一个例子，发送电子邮件：
 
     use Pop\Log\Logger,
         Pop\Log\Writer\Mail,

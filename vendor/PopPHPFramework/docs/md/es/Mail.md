@@ -7,9 +7,9 @@ Documentation : Mail
 Home
 
 El componente Mail proporciona la funcionalidad necesaria para gestionar
-el correo saliente a travÃ©s de PHP. Esto incluye soporte para el correo
-electrÃ³nico basado en texto y basados â€‹â€‹en HTML, varios
-destinatarios de correo electrÃ³nico, plantillas y archivos adjuntos.
+el correo saliente a través de PHP. Esto incluye soporte para el correo
+electrónico basado en texto y basados ​​en HTML, varios destinatarios de
+correo electrónico, plantillas y archivos adjuntos.
 
     use Pop\Mail\Mail;
 

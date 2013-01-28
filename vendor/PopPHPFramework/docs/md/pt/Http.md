@@ -6,9 +6,9 @@ Documentation : Http
 
 Home
 
-O componente Http proporciona uma fÃ¡cil de usar a API para gerenciar,
-acessar e manipular solicitaÃ§Ãµes HTTP e respostas. Ã‰ usado em vÃ¡rios
-componentes, mas Ã© mais integrado com o componente Mvc de gestÃ£o dos
+O componente Http proporciona uma fácil de usar a API para gerenciar,
+acessar e manipular solicitações HTTP e respostas. É usado em vários
+componentes, mas é mais integrado com o componente Mvc de gestão dos
 pedidos e respostas dentro desse componente.
 
     use Pop\Http\Request,

@@ -6,20 +6,20 @@ Documentation : Cache
 
 Home
 
-La composante cache permet de stocker facilement des donnÃ©es
-persistantes par quatre mÃ©thodes:
+La composante cache permet de stocker facilement des données
+persistantes par quatre méthodes:
 
 -   Apc
 -   a file on disk
 -   a Sqlite database
 -   Memcache
 
-L'objectif de la composante cache est d'accÃ©lÃ©rer l'accÃ¨s aux
-donnÃ©es qui ne sont plus statiques et ne changent pas souvent. En les
-stockant par l'une des mÃ©thodes Ã©numÃ©rÃ©es ci-dessus, la vitesse
-d'accÃ¨s peut Ãªtre augmentÃ©e en raison d'un appel de processus plus
-coÃ»teux peuvent Ãªtre Ã©vitÃ©s, tels que l'accÃ¨s Ã une vaste base de
-donnÃ©es ou une adresse Web externe pour rÃ©cupÃ©rer les donnÃ©es.
+L'objectif de la composante cache est d'accélérer l'accès aux données
+qui ne sont plus statiques et ne changent pas souvent. En les stockant
+par l'une des méthodes énumérées ci-dessus, la vitesse d'accès peut être
+augmentée en raison d'un appel de processus plus coûteux peuvent être
+évités, tels que l'accès à une vaste base de données ou une adresse Web
+externe pour récupérer les données.
 
     use Pop\Cache;
     $test = 'This is my test variable. It contains a string.';

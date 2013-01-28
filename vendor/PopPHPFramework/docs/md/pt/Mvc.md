@@ -6,21 +6,20 @@ Documentation : Mvc
 
 Home
 
-O componente MVC, como descrito na visÃ£o geral da documentaÃ§Ã£o, Ã©
-uma implementaÃ§Ã£o do padrÃ£o de projeto MVC, com a camada adicional de
-um roteador para facilitar caminhos mÃºltiplos usuÃ¡rios e
-controladores. Simplificando, o controlador manipula a delegaÃ§Ã£o de
-pedidos, o modelo lida com a lÃ³gica de negÃ³cio ea visÃ£o determina
-como exibir a saÃ­da para o usuÃ¡rio. Todas essas classes dentro deste
-componente sÃ£o muito fÃ¡cil de estender para aproveitÃ¡-los dentro de
-sua prÃ³pria aplicaÃ§Ã£o.
+O componente MVC, como descrito na visão geral da documentação, é uma
+implementação do padrão de projeto MVC, com a camada adicional de um
+roteador para facilitar caminhos múltiplos usuários e controladores.
+Simplificando, o controlador manipula a delegação de pedidos, o modelo
+lida com a lógica de negócio ea visão determina como exibir a saída para
+o usuário. Todas essas classes dentro deste componente são muito fácil
+de estender para aproveitá-los dentro de sua própria aplicação.
 
-Enquanto isto pode parecer muito complexo, se vocÃª usar o componente
-CLI recurso de instalaÃ§Ã£o do projeto, a maior parte deste cÃ³digo pode
-ser escrito e instalados para vocÃª. VocÃª apenas tem que definir o nome
-do projeto e as configuraÃ§Ãµes no arquivo de configuraÃ§Ã£o de
-instalaÃ§Ã£o. Ver o Projeto componente de arquivo doc para obter um
-exemplo de um projeto de arquivo de instalaÃ§Ã£o de configuraÃ§Ã£o.
+Enquanto isto pode parecer muito complexo, se você usar o componente CLI
+recurso de instalação do projeto, a maior parte deste código pode ser
+escrito e instalados para você. Você apenas tem que definir o nome do
+projeto e as configurações no arquivo de configuração de instalação. Ver
+o Projeto componente de arquivo doc para obter um exemplo de um projeto
+de arquivo de instalação de configuração.
 
     use Pop\Mvc\Controller,
         Pop\Mvc\Model,

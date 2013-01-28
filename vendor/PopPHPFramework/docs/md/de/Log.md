@@ -6,12 +6,12 @@ Documentation : Log
 
 Home
 
-Der Log-Komponente stellt die grundlegende FunktionalitÃ¤t
-ProtokolleintrÃ¤ge in vielfÃ¤ltiger Weise aufzuzeichnen, einschlieÃŸlich
+Der Log-Komponente stellt die grundlegende Funktionalität
+Protokolleinträge in vielfältiger Weise aufzuzeichnen, einschließlich
 Schreiben in die Datei, Einsetzen in eine Datenbank oder das Senden
 einer E-Mail oder eine beliebige Mischung davon.
 
-Hier ist ein Beispiel fÃ¼r das Schreiben in eine Log-Datei:
+Hier ist ein Beispiel für das Schreiben in eine Log-Datei:
 
     use Pop\Log\Logger,
         Pop\Log\Writer\File;
@@ -21,7 +21,7 @@ Hier ist ein Beispiel fÃ¼r das Schreiben in eine Log-Datei:
     $logger->emerg('Here is an emergency message.')
            ->info('Here is an info message.');
 
-Hier ist ein Beispiel fÃ¼r das Schreiben in einer Datenbank:
+Hier ist ein Beispiel für das Schreiben in einer Datenbank:
 
     use Pop\Db\Db as PopDb,
         Pop\Log\Logger,
@@ -38,7 +38,7 @@ Hier ist ein Beispiel fÃ¼r das Schreiben in einer Datenbank:
     $logger->emerg('Here is an emergency message.')
            ->info('Here is an info message.');
 
-Hier ist ein Beispiel fÃ¼r das Senden einer E-Mail:
+Hier ist ein Beispiel für das Senden einer E-Mail:
 
     use Pop\Log\Logger,
         Pop\Log\Writer\Mail,

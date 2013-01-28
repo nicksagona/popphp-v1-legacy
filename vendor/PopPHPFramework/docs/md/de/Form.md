@@ -6,10 +6,9 @@ Documentation : Form
 
 Home
 
-Die Form-Komponente ist eine leistungsfÃ¤hige Komponente, die den
-Dom-Komponente erweitert. Es bietet robuste FunktionalitÃ¤t zu
-erstellen, zu rendern und zu validieren HTML-Formulare und
-Formularelemente.
+Die Form-Komponente ist eine leistungsfähige Komponente, die den
+Dom-Komponente erweitert. Es bietet robuste Funktionalität zu erstellen,
+zu rendern und zu validieren HTML-Formulare und Formularelemente.
 
     use Pop\Form\Form,
         Pop\Form\Element,
@@ -74,8 +73,8 @@ Formularelemente.
         $form->render();
     }
 
-Oder kÃ¶nnen Sie Formular-Elemente Ã¼ber eine strukturierte Anordnung
-von Werten.
+Oder können Sie Formular-Elemente über eine strukturierte Anordnung von
+Werten.
 
     use Pop\Form\Form,
         Pop\Form\Element,
@@ -135,8 +134,8 @@ von Werten.
         $form->render();
     }
 
-Mit der Felder-Klasse kÃ¶nnen Sie eine Datenbank-Tabelle Ã¼ber den
-Rekord-Komponente fÃ¼r den Zugriff auf und bauen die ersten Felder des
+Mit der Felder-Klasse können Sie eine Datenbank-Tabelle über den
+Rekord-Komponente für den Zugriff auf und bauen die ersten Felder des
 Formulars.
 
     use Pop\Form\Form,

@@ -6,9 +6,9 @@ Documentation : Archive
 
 Home
 
-O componente de Arquivo Ã© projetado para normalizar a criaÃ§Ã£o e
-manipulaÃ§Ã£o de arquivos de arquivo comuns atravÃ©s de uma Ãºnica API.
-Tipos de arquivos suportados sÃ£o:
+O componente de Arquivo é projetado para normalizar a criação e
+manipulação de arquivos de arquivo comuns através de uma única API.
+Tipos de arquivos suportados são:
 
 -   tar
 -   tar.gz

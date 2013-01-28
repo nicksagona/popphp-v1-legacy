@@ -6,9 +6,9 @@ Documentation : File
 
 Home
 
-Das File-Komponente stellt eine nÃ¼tzliche API zur Verwaltung und
+Das File-Komponente stellt eine nützliche API zur Verwaltung und
 Bearbeitung von Dateien auf der Festplatte. Es bietet auch die
-FunktionalitÃ¤t auf einfache Weise verwalten Datei-Uploads.
+Funktionalität auf einfache Weise verwalten Datei-Uploads.
 
     use Pop\File\File;
 
@@ -21,7 +21,7 @@ FunktionalitÃ¤t auf einfache Weise verwalten Datei-Uploads.
     $upload = File::upload($_FILES['upload_file']['tmp_name'], '../uploads/' . $_FILES['upload_file']['name']);
     echo 'File uploaded.';
 
-Es bietet auch eine einfache MÃ¶glichkeit, Verzeichnisse durchqueren
+Es bietet auch eine einfache Möglichkeit, Verzeichnisse durchqueren
 zugreifen und Bearbeiten von Dateien in ihnen.
 
     use Pop\File\Dir;

@@ -6,11 +6,10 @@ Documentation : Http
 
 Home
 
-La composante Http fournit un outil facile Ã utiliser l'API pour gÃ©rer,
-accÃ©der et manipuler les requÃªtes et rÃ©ponses HTTP. Il est utilisÃ©
-dans plusieurs composantes, mais elle est plus Ã©troitement intÃ©grÃ©
-avec le composant MVC pour gÃ©rer les demandes et les rÃ©ponses dans ce
-composant.
+La composante Http fournit un outil facile à utiliser l'API pour gérer,
+accéder et manipuler les requêtes et réponses HTTP. Il est utilisé dans
+plusieurs composantes, mais elle est plus étroitement intégré avec le
+composant MVC pour gérer les demandes et les réponses dans ce composant.
 
     use Pop\Http\Request,
         Pop\Http\Response;

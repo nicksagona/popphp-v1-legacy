@@ -6,7 +6,7 @@ Documentation : Mail
 
 Home
 
-Il componente Mail fornisce le funzionalitÃ necessarie per gestire la
+Il componente Mail fornisce le funzionalità necessarie per gestire la
 posta in uscita tramite PHP. Questo include il supporto per e-mail
 basati su testo e HTML-based, destinatari di posta multipli, modelli e
 file allegati.

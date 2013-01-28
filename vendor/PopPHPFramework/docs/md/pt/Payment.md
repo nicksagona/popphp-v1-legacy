@@ -7,8 +7,8 @@ Documentation : Payment
 Home
 
 O componente de Pagamento fornece funcionalidade padronizada para
-processar os pedidos de pagamento com cartÃ£o de crÃ©dito atravÃ©s de um
-gateway de terceiros 3. Os gateways atuais internas e suportados sÃ£o:
+processar os pedidos de pagamento com cartão de crédito através de um
+gateway de terceiros 3. Os gateways atuais internas e suportados são:
 
 -   Authorize.net
 -   PayLeap
@@ -16,8 +16,8 @@ gateway de terceiros 3. Os gateways atuais internas e suportados sÃ£o:
 -   TrustCommerce
 -   UsaEpay
 
-No entanto, se o suporte para um gateway diferente Ã© necessÃ¡rio,
-entÃ£o seria simples escrever apenas um adaptador para ele.
+No entanto, se o suporte para um gateway diferente é necessário, então
+seria simples escrever apenas um adaptador para ele.
 
     use Pop\Payment\Payment,
         Pop\Payment\Adapter\Authorize;

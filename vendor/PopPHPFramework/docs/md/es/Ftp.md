@@ -7,7 +7,7 @@ Documentation : Ftp
 Home
 
 El componente del ftp simplemente provee un wrapper API orientada a
-objetos para FTP extensiÃ³n de PHP.
+objetos para FTP extensión de PHP.
 
     use Pop\Ftp\Ftp;
 

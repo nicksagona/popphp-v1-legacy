@@ -6,13 +6,13 @@ Documentation : Validator
 
 Home
 
-O componente Validator simplesmente fornece funcionalidade de
-validaÃ§Ã£o para muitos casos de uso diferentes, como validar ou nÃ£o um
-nÃºmero Ã© de um determinado valor ou uma string Ã© alfanumÃ©rico.
-Validadores mais avanÃ§ados tambÃ©m estÃ£o disponÃ­veis, como a
-validaÃ§Ã£o de um endereÃ§o de e-mail e endereÃ§o IP ou um nÃºmero de
-cartÃ£o de crÃ©dito. E, se o que vocÃª precisa nÃ£o estiver disponÃ­vel,
-o componente pode ser facilmente estendido.
+O componente Validator simplesmente fornece funcionalidade de validação
+para muitos casos de uso diferentes, como validar ou não um número é de
+um determinado valor ou uma string é alfanumérico. Validadores mais
+avançados também estão disponíveis, como a validação de um endereço de
+e-mail e endereço IP ou um número de cartão de crédito. E, se o que você
+precisa não estiver disponível, o componente pode ser facilmente
+estendido.
 
     use Pop\Validator\AlphaNumeric;
 

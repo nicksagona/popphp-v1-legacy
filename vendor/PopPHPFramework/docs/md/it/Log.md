@@ -6,8 +6,8 @@ Documentation : Log
 
 Home
 
-Il componente Log fornisce le funzionalitÃ di base per registrare le
-voci di registro in una varietÃ di modi, tra cui la scrittura nel file,
+Il componente Log fornisce le funzionalità di base per registrare le
+voci di registro in una varietà di modi, tra cui la scrittura nel file,
 l'inserimento in un database o l'invio di una e-mail, o qualsiasi
 miscela di questi.
 

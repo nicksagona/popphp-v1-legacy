@@ -7,7 +7,7 @@ Documentation : Data
 Home
 
 O componente de dados fornece a capacidade de converter os conjuntos de
-dados de um formato comum para a outra. Os formatos suportados sÃ£o:
+dados de um formato comum para a outra. Os formatos suportados são:
 
 -   csv
 -   json

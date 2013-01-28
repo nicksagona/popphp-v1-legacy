@@ -6,10 +6,10 @@ Documentation : Pdf
 
 Home
 
-Il componente Pdf offre ricco di funzionalitÃ funzionalitÃ per la
+Il componente Pdf offre ricco di funzionalità funzionalità per la
 generazione di PDF e la manipolazione. Lungo la creazione di nuovi file
-PDF, Ã¨ anche possibile importare quelli giÃ esistenti e aggiungere
-contenuti a loro da lÃ¬. Alcune delle funzioni disponibili sono:
+PDF, è anche possibile importare quelli già esistenti e aggiungere
+contenuti a loro da lì. Alcune delle funzioni disponibili sono:
 
 -   disegnare forme
 -   l'aggiunta di tracciati di ritaglio

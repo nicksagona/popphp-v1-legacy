@@ -6,10 +6,10 @@ Documentation : Code
 
 Home
 
-La composante de code est un composant de gÃ©nÃ©ration de code qui vous
-permet non seulement de gÃ©nÃ©rer standardisÃ©, bien structurÃ©e du code
-PHP Ã la volÃ©e, mais aussi vous permet de modifier et d'Ã©tendre le
-code existant en s'appuyant sur l'extension de rÃ©flexion de PHP.
+La composante de code est un composant de génération de code qui vous
+permet non seulement de générer standardisé, bien structurée du code PHP
+à la volée, mais aussi vous permet de modifier et d'étendre le code
+existant en s'appuyant sur l'extension de réflexion de PHP.
 
     use Pop\Code;
 

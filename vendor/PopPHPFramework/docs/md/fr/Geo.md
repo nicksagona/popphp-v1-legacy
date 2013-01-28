@@ -6,7 +6,7 @@ Documentation : Geo
 
 Home
 
-La composante Geo fournit simplement un wrapper API orientÃ©e objet pour
+La composante Geo fournit simplement un wrapper API orientée objet pour
 l'extension GeoIP de PHP.
 
     use Pop\Geo\Geo;

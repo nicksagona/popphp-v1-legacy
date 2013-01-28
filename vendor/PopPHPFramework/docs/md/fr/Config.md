@@ -6,12 +6,11 @@ Documentation : Config
 
 Home
 
-Le composant de configuration fournit un objet de valeur de donnÃ©es qui
-est utilisÃ©e par d'autres composants comme le volet projet.
-Typiquement, des choses comme les informations d'identification de base
-de donnÃ©es sont dÃ©finis dans l'objet de configuration et transmis Ã un
-objet de projet Ã utiliser durant le cycle de vie du projet ou d'un
-script.
+Le composant de configuration fournit un objet de valeur de données qui
+est utilisée par d'autres composants comme le volet projet. Typiquement,
+des choses comme les informations d'identification de base de données
+sont définis dans l'objet de configuration et transmis à un objet de
+projet à utiliser durant le cycle de vie du projet ou d'un script.
 
     use Pop\Config;
 

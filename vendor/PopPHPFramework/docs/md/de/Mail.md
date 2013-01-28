@@ -6,10 +6,10 @@ Documentation : Mail
 
 Home
 
-Die Mail-Komponente bietet die notwendige FunktionalitÃ¤t, um ausgehende
-E-Mails via PHP zu verwalten. Dazu gehÃ¶rt die UnterstÃ¼tzung fÃ¼r
-Text-basierte und HTML-basierte E-Mail, mehrere E-Mail-EmpfÃ¤nger,
-Vorlagen und DateianhÃ¤ngen.
+Die Mail-Komponente bietet die notwendige Funktionalität, um ausgehende
+E-Mails via PHP zu verwalten. Dazu gehört die Unterstützung für
+Text-basierte und HTML-basierte E-Mail, mehrere E-Mail-Empfänger,
+Vorlagen und Dateianhängen.
 
     use Pop\Mail\Mail;
 

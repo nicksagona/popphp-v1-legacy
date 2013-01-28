@@ -6,17 +6,17 @@ Documentation : Project
 
 Home
 
-Das Projekt Komponente enthÃ¤lt die Project-Klasse, in der Sie
-erstrecken und kapseln Ihrer Anwendung Spezifikationen, wie der Router,
+Das Projekt Komponente enthält die Project-Klasse, in der Sie erstrecken
+und kapseln Ihrer Anwendung Spezifikationen, wie der Router,
 Steuerungen, Datenbanken und Module. Einmal richtig eingerichtet, kann
 das Projekt "run" und erfolgreich leiten die Anfrage des Benutzers, um
 den richtigen Bereich der Anwendung. Sehen Sie sich die Mvc Component
 doc-Datei, um ein Beispiel eines erweiterten Project-Klasse Datei zu
 sehen.
 
-AuÃŸerdem enthÃ¤lt das Projekt Komponente die Installation Klassen, die
+Außerdem enthält das Projekt Komponente die Installation Klassen, die
 CLI-Komponente verwendet, um zu bauen und zu installieren Ihr Projekt
-GerÃ¼st. Ein Beispiel fÃ¼r ein Projekt install Konfigurationsdatei ist
+Gerüst. Ein Beispiel für ein Projekt install Konfigurationsdatei ist
 unten.
 
     <?php

@@ -8,7 +8,7 @@ Home
 
 Il componente Http fornisce un facile da usare API per gestire, accedere
 e gestire le richieste e le risposte HTTP. E 'utilizzato in diversi
-componenti, ma Ã¨ piÃ¹ strettamente integrato con il componente Mvc di
+componenti, ma è più strettamente integrato con il componente Mvc di
 gestione di richieste e risposte in tale componente.
 
     use Pop\Http\Request,

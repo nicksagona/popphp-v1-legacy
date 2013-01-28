@@ -6,9 +6,9 @@ Documentation : Feed
 
 Home
 
-La composante alimentation fournit la fonctionnalitÃ© de lire et
-d'analyser des flux externes et de fournir les donnÃ©es d'une maniÃ¨re
-utile, ainsi que la fonctionnalitÃ© d'Ã©crire et afficher des flux de
+La composante alimentation fournit la fonctionnalité de lire et
+d'analyser des flux externes et de fournir les données d'une manière
+utile, ainsi que la fonctionnalité d'écrire et afficher des flux de
 contenus.
 
 Voici un exemple de lecture (par exemple, analyse) une alimentation
@@ -30,7 +30,7 @@ externe.
     $feed->setTemplate($tmpl);
     $feed->render();
 
-Voici un exemple de la lecture d'un flux Ã partir d'un compte de
+Voici un exemple de la lecture d'un flux à partir d'un compte de
 service, comme Twitter ou Facebook.
 
     use Pop\Feed;
@@ -56,7 +56,7 @@ service, comme Twitter ou Facebook.
 
     $twitter->render();
 
-Voici un exemple d'Ã©criture d'un flux.
+Voici un exemple d'écriture d'un flux.
 
     use Pop\Feed;
 

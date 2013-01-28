@@ -7,16 +7,16 @@ Documentation : Pdf
 Home
 
 El componente de PDF proporciona la funcionalidad rica en
-caracterÃ­sticas para la generaciÃ³n de PDF y la manipulaciÃ³n. A lo
-largo de la creaciÃ³n de nuevos archivos PDF, tambiÃ©n puede importar
-los ya existentes y aÃ±adir contenido a partir de ahÃ­. Algunas de las
-caracterÃ­sticas disponibles son:
+características para la generación de PDF y la manipulación. A lo largo
+de la creación de nuevos archivos PDF, también puede importar los ya
+existentes y añadir contenido a partir de ahí. Algunas de las
+características disponibles son:
 
 -   dibujar formas
--   aÃ±adiendo trazados de recorte
--   la adiciÃ³n de texto
--   IncorporaciÃ³n de imÃ¡genes
--   La incrustaciÃ³n de fuentes
+-   añadiendo trazados de recorte
+-   la adición de texto
+-   Incorporación de imágenes
+-   La incrustación de fuentes
 -   URL de enlace
 -   enlaces internos
 

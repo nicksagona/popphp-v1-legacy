@@ -6,27 +6,26 @@ Documentation : Record
 
 Home
 
-Die Record-Komponente, wie in der Dokumentation Ãœberblick skizziert,
-ist ein "Hybrid" der Arten zwischen dem Active Record und Table Data
-Gateway Muster. Ãœber eine standardisierte API, kÃ¶nnen sie den Zugang
-zu einer einzelnen Zeile oder Datensatz in einer Datenbank-Tabelle oder
-mehrere Zeilen oder DatensÃ¤tze auf einmal liefern. Die hÃ¤ufigste
-Methode ist, ein Kind zu Klasse, die die Record-Klasse, die eine Tabelle
-in der Datenbank stellt sich schreiben. Der Name des Kindes Klasse
-sollte der Name der Tabelle. Durch einfaches Erstellen
+Die Record-Komponente, wie in der Dokumentation Überblick skizziert, ist
+ein "Hybrid" der Arten zwischen dem Active Record und Table Data Gateway
+Muster. Über eine standardisierte API, können sie den Zugang zu einer
+einzelnen Zeile oder Datensatz in einer Datenbank-Tabelle oder mehrere
+Zeilen oder Datensätze auf einmal liefern. Die häufigste Methode ist,
+ein Kind zu Klasse, die die Record-Klasse, die eine Tabelle in der
+Datenbank stellt sich schreiben. Der Name des Kindes Klasse sollte der
+Name der Tabelle. Durch einfaches Erstellen
 
     use Pop\Record\Record;
 
     class Users extends Record { }
 
-Sie erstellen eine Klasse, die die gesamte FunktionalitÃ¤t des
+Sie erstellen eine Klasse, die die gesamte Funktionalität des
 Record-Komponente eingebaut und die Klasse kennt den Namen der
 Datenbank-Tabelle aus den Namen der Klasse abgefragt hat. Zum Beispiel,
-'Users' Ã¼bersetzt in \`users\` oder 'DbUsers' Ã¼bersetzt in
-\`db\_users\` (CamelCase wird automatisch in lower\_case\_underscore
-umgewandelt.) Von dort aus kÃ¶nnen Sie die Feinabstimmung der
-Kind-Klasse, die die Tabelle mit verschiedenen Klassen Eigenschaften wie
-stellt:
+'Users' übersetzt in \`users\` oder 'DbUsers' übersetzt in \`db\_users\`
+(CamelCase wird automatisch in lower\_case\_underscore umgewandelt.) Von
+dort aus können Sie die Feinabstimmung der Kind-Klasse, die die Tabelle
+mit verschiedenen Klassen Eigenschaften wie stellt:
 
     // Table prefix, if applicable
     protected $prefix = null;

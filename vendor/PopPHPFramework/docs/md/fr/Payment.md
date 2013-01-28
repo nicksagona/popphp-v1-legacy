@@ -6,10 +6,10 @@ Documentation : Payment
 
 Home
 
-La composante de paiement fournit des fonctionnalitÃ©s standard pour
-traiter les demandes de carte de crÃ©dit de paiement via une passerelle
-3Ã¨me partie. Les passerelles actuelles intÃ©grÃ©s et pris en charge
-sont les suivants:
+La composante de paiement fournit des fonctionnalités standard pour
+traiter les demandes de carte de crédit de paiement via une passerelle
+3ème partie. Les passerelles actuelles intégrés et pris en charge sont
+les suivants:
 
 -   Authorize.net
 -   PayLeap
@@ -17,9 +17,8 @@ sont les suivants:
 -   TrustCommerce
 -   UsaEpay
 
-Toutefois, si le support pour une passerelle diffÃ©rente est
-nÃ©cessaire, alors il serait plus simple de rÃ©diger un adaptateur pour
-cela.
+Toutefois, si le support pour une passerelle différente est nécessaire,
+alors il serait plus simple de rédiger un adaptateur pour cela.
 
     use Pop\Payment\Payment,
         Pop\Payment\Adapter\Authorize;

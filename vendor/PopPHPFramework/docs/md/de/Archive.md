@@ -7,8 +7,8 @@ Documentation : Archive
 Home
 
 Das Archiv-Komponente wurde entwickelt, um die Erstellung und
-Bearbeitung von gemeinsamen Archivdateien Ã¼ber ein einziges API
-normalisieren. Archiv-Typen werden unterstÃ¼tzt:
+Bearbeitung von gemeinsamen Archivdateien über ein einziges API
+normalisieren. Archiv-Typen werden unterstützt:
 
 -   tar
 -   tar.gz

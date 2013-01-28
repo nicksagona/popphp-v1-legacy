@@ -6,9 +6,9 @@ Documentation : File
 
 Home
 
-La composante fichier fournit une API utile pour gÃ©rer et manipuler des
-fichiers sur le disque. Il fournit Ã©galement la fonctionnalitÃ© de
-gÃ©rer facilement les tÃ©lÃ©chargements de fichiers.
+La composante fichier fournit une API utile pour gérer et manipuler des
+fichiers sur le disque. Il fournit également la fonctionnalité de gérer
+facilement les téléchargements de fichiers.
 
     use Pop\File\File;
 
@@ -21,8 +21,8 @@ gÃ©rer facilement les tÃ©lÃ©chargements de fichiers.
     $upload = File::upload($_FILES['upload_file']['tmp_name'], '../uploads/' . $_FILES['upload_file']['name']);
     echo 'File uploaded.';
 
-Il fournit Ã©galement un moyen facile de parcourir les rÃ©pertoires et
-accÃ©der et manipuler des fichiers en leur sein.
+Il fournit également un moyen facile de parcourir les répertoires et
+accéder et manipuler des fichiers en leur sein.
 
     use Pop\File\Dir;
 

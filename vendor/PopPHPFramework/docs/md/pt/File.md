@@ -6,8 +6,8 @@ Documentation : File
 
 Home
 
-O componente de arquivo fornece uma API Ãºtil para gerenciar e manipular
-arquivos no disco. Ele tambÃ©m fornece a funcionalidade para gerenciar
+O componente de arquivo fornece uma API útil para gerenciar e manipular
+arquivos no disco. Ele também fornece a funcionalidade para gerenciar
 facilmente o upload de arquivos.
 
     use Pop\File\File;
@@ -21,8 +21,8 @@ facilmente o upload de arquivos.
     $upload = File::upload($_FILES['upload_file']['tmp_name'], '../uploads/' . $_FILES['upload_file']['name']);
     echo 'File uploaded.';
 
-Ela tambÃ©m fornece uma maneira fÃ¡cil de percorrer diretÃ³rios e
-acessar e manipular arquivos dentro deles.
+Ela também fornece uma maneira fácil de percorrer diretórios e acessar e
+manipular arquivos dentro deles.
 
     use Pop\File\Dir;
 

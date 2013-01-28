@@ -6,8 +6,8 @@ Documentation : Geo
 
 Home
 
-Î— ÏƒÏ…Î½Î¹ÏƒÏ„ÏŽÏƒÎ± Geo Ï€Î±Ï?Î­Ï‡ÎµÎ¹ Î±Ï€Î»Î¬ Î­Î½Î± object-oriented
-Ï€ÎµÏ?Î¹Ï„Ï?Î»Î¹Î³Î¼Î± API Î³Î¹Î± ÎµÏ€Î­ÎºÏ„Î±ÏƒÎ· GeoIP Ï„Î·Ï‚ PHP.
+Η συνιστώσα Geo παρέχει απλά ένα object-oriented περιτύλιγμα API για
+επέκταση GeoIP της PHP.
 
     use Pop\Geo\Geo;
 

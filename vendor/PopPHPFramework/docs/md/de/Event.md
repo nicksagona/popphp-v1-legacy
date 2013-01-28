@@ -6,15 +6,14 @@ Documentation : Event
 
 Home
 
-Der Event-Komponente bietet einen Weg zu befestigen und lÃ¶sen
-Ereignisse im Lebenszyklus einer Anwendung. Der Hauptvorteil ist die
-MÃ¶glichkeit, eine Anwendung durch Einhaken FunktionalitÃ¤t in sie Ã¼ber
-SchlieÃŸungen und Klassen, die als Ereignisse verbunden sind
-verlÃ¤ngern.
+Der Event-Komponente bietet einen Weg zu befestigen und lösen Ereignisse
+im Lebenszyklus einer Anwendung. Der Hauptvorteil ist die Möglichkeit,
+eine Anwendung durch Einhaken Funktionalität in sie über Schließungen
+und Klassen, die als Ereignisse verbunden sind verlängern.
 
-Hier ist ein Beispiel der Befestigung und das AuslÃ¶sen eines
-Ereignisses mit VerschlÃ¼ssen. Die zweite Funktion erhÃ¤lt das Ergebnis
-von der ersten.
+Hier ist ein Beispiel der Befestigung und das Auslösen eines Ereignisses
+mit Verschlüssen. Die zweite Funktion erhält das Ergebnis von der
+ersten.
 
     use Pop\Event\Manager;
 

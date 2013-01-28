@@ -6,9 +6,9 @@ Documentation : Payment
 
 Home
 
-Der Payment-Komponente bietet standardisierte FunktionalitÃ¤t zur
-Kreditkartenzahlung Zugriffe Ã¼ber eine 3rd-Party-Gateway zu
-verarbeiten. Die aktuellen eingebauten und unterstÃ¼tzten Gateways sind:
+Der Payment-Komponente bietet standardisierte Funktionalität zur
+Kreditkartenzahlung Zugriffe über eine 3rd-Party-Gateway zu verarbeiten.
+Die aktuellen eingebauten und unterstützten Gateways sind:
 
 -   Authorize.net
 -   PayLeap
@@ -16,8 +16,8 @@ verarbeiten. Die aktuellen eingebauten und unterstÃ¼tzten Gateways sind:
 -   TrustCommerce
 -   UsaEpay
 
-Jedoch, wenn die UnterstÃ¼tzung fÃ¼r einen anderen Gateway benÃ¶tigt
-wird, dann wÃ¤re es einfach, unkompliziert um eine Adapter dafÃ¼r.
+Jedoch, wenn die Unterstützung für einen anderen Gateway benötigt wird,
+dann wäre es einfach, unkompliziert um eine Adapter dafür.
 
     use Pop\Payment\Payment,
         Pop\Payment\Adapter\Authorize;

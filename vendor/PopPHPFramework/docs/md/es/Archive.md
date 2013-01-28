@@ -6,9 +6,9 @@ Documentation : Archive
 
 Home
 
-El componente Archive estÃ¡ diseÃ±ado para normalizar la creaciÃ³n y
-manipulaciÃ³n de archivos de almacenamiento comunes a travÃ©s de una
-Ãºnica API. Los tipos de archivo que son compatibles son:
+El componente Archive está diseñado para normalizar la creación y
+manipulación de archivos de almacenamiento comunes a través de una única
+API. Los tipos de archivo que son compatibles son:
 
 -   tar
 -   tar.gz

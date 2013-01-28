@@ -6,8 +6,8 @@ Documentation : Filter
 
 Home
 
-La composante Filter offre des fonctionnalitÃ©s utiles pour la
-manipulation de chaÃ®nes de filtrage, de chiffrement et de recherche
+La composante Filter offre des fonctionnalités utiles pour la
+manipulation de chaînes de filtrage, de chiffrement et de recherche
 ensemble.
 
     use Pop\Filter\String;

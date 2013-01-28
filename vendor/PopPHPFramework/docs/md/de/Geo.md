@@ -7,7 +7,7 @@ Documentation : Geo
 Home
 
 Die Geo-Komponente stellt lediglich eine objektorientierte API wrapper
-fÃ¼r PHP GeoIP Erweiterung.
+für PHP GeoIP Erweiterung.
 
     use Pop\Geo\Geo;
 

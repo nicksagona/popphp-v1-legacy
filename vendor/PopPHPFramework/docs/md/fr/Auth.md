@@ -7,16 +7,16 @@ Documentation : Auth
 Home
 
 Le composant Auth facilite l'authentification et l'autorisation des
-utilisateurs basÃ©s sur un ensemble d'informations d'identification de
-base et les rÃ´les dÃ©finis. L'aspect d'authentification gÃ¨re
-l'authentification d'un utilisateur de dÃ©terminer si oui ou non
-l'utilisateur est autorisÃ© Ã tous. L'aspect autorisation poignÃ©es de
-dÃ©terminer si oui ou non l'utilisateur authentifiÃ© a accÃ¨s suffisant
-Ã Ãªtre admis dans une certaine zone. RÃ´les peuvent facilement Ãªtre
-dÃ©terminÃ©es et Ã©valuÃ©es pour dÃ©terminer le niveau de l'utilisateur
-de l'accÃ¨s. Le composant Auth peut lier facilement dans une table de
-base de donnÃ©es ou d'un fichier sur le disque pour rÃ©cupÃ©rer les
-informations d'identification et d'information.
+utilisateurs basés sur un ensemble d'informations d'identification de
+base et les rôles définis. L'aspect d'authentification gère
+l'authentification d'un utilisateur de déterminer si oui ou non
+l'utilisateur est autorisé à tous. L'aspect autorisation poignées de
+déterminer si oui ou non l'utilisateur authentifié a accès suffisant à
+être admis dans une certaine zone. Rôles peuvent facilement être
+déterminées et évaluées pour déterminer le niveau de l'utilisateur de
+l'accès. Le composant Auth peut lier facilement dans une table de base
+de données ou d'un fichier sur le disque pour récupérer les informations
+d'identification et d'information.
 
     use Pop\Auth;
 

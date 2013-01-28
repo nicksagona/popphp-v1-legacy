@@ -6,8 +6,8 @@ Documentation : Version
 
 Home
 
-Il componente versione fornisce solo la capacitÃ di determinare quale
-versione di Pop che hanno in corso, e che Ã¨ l'ultima disponibile.
+Il componente versione fornisce solo la capacità di determinare quale
+versione di Pop che hanno in corso, e che è l'ultima disponibile.
 Inoltre, il componente viene usato dal componente CLI per eseguire la
 dipendenza-controllo.
 

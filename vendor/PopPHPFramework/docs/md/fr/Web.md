@@ -6,11 +6,11 @@ Documentation : Web
 
 Home
 
-Le composant Web est un ensemble de besoins basÃ©s sur le web et les
-fonctionnalitÃ©s, telles la gestion de sessions, les serveurs, les
-navigateurs et les biscuits. En outre, il inclut la fonctionnalitÃ© de
-dÃ©tection des appareils mobiles afin que votre application peut rÃ©agir
-en consÃ©quence.
+Le composant Web est un ensemble de besoins basés sur le web et les
+fonctionnalités, telles la gestion de sessions, les serveurs, les
+navigateurs et les biscuits. En outre, il inclut la fonctionnalité de
+détection des appareils mobiles afin que votre application peut réagir
+en conséquence.
 
     use Pop\Web\Session;
 

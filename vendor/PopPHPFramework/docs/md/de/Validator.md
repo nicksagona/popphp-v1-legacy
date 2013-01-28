@@ -6,12 +6,11 @@ Documentation : Validator
 
 Home
 
-Die Service-Komponente fungiert als Service Locator fÃ¼r die laufende
-Anwendung oder ein Projekt. Es unterstÃ¼tzt lazy-loading von
+Die Service-Komponente fungiert als Service Locator für die laufende
+Anwendung oder ein Projekt. Es unterstützt lazy-loading von
 Service-Instanzen, so werden die Dienste erst erstellt, wenn die
-Anwendung sie benÃ¶tigt werden. Es gibt viele MÃ¶glichkeiten, wie Sie
-die Dienste aufrufen kÃ¶nnen, von der Definition Klassen mit
-VerschlÃ¼ssen.
+Anwendung sie benötigt werden. Es gibt viele Möglichkeiten, wie Sie die
+Dienste aufrufen können, von der Definition Klassen mit Verschlüssen.
 
     use Pop\Validator\AlphaNumeric;
 

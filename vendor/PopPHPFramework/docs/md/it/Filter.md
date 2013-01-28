@@ -6,7 +6,7 @@ Documentation : Filter
 
 Home
 
-Il componente Filtro fornisce alcune utili funzionalitÃ di filtraggio
+Il componente Filtro fornisce alcune utili funzionalità di filtraggio
 per la manipolazione di stringhe, la crittografia e la ricerca di
 matrice.
 

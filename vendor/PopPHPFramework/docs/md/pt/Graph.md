@@ -6,14 +6,14 @@ Documentation : Graph
 
 Home
 
-O componente GrÃ¡fico permite a funcionalidade grÃ¡fica robusta que pode
-utilizar qualquer um dos componentes construÃ­do em grÃ¡ficos, tais como
-imagens, e Svg Pdf para desenhar grÃ¡ficos em uma variedade de formatos.
-VocÃª pode definir uma grande variedade de atributos grÃ¡ficos para
-criar e renderizar grÃ¡ficos de linha, grÃ¡ficos de barras e grÃ¡ficos
-de pizza. Como a API entre os diferentes componentes grÃ¡ficos Ã©
-padronizado, Ã© muito fÃ¡cil de trocar entre os diferentes arquivos e
-formatos de imagem em que para produzir um grÃ¡fico.
+O componente Gráfico permite a funcionalidade gráfica robusta que pode
+utilizar qualquer um dos componentes construído em gráficos, tais como
+imagens, e Svg Pdf para desenhar gráficos em uma variedade de formatos.
+Você pode definir uma grande variedade de atributos gráficos para criar
+e renderizar gráficos de linha, gráficos de barras e gráficos de pizza.
+Como a API entre os diferentes componentes gráficos é padronizado, é
+muito fácil de trocar entre os diferentes arquivos e formatos de imagem
+em que para produzir um gráfico.
 
     use Pop\Color\Space\Rgb,
         Pop\Graph\Graph;

@@ -6,8 +6,8 @@ Documentation : Form
 
 Home
 
-Il componente modulo Ã¨ un componente potente che estende il componente
-Dom. Fornisce robusta funzionalitÃ per creare, eseguire il rendering e
+Il componente modulo è un componente potente che estende il componente
+Dom. Fornisce robusta funzionalità per creare, eseguire il rendering e
 convalidare moduli HTML e gli elementi del form.
 
     use Pop\Form\Form,
@@ -73,7 +73,7 @@ convalidare moduli HTML e gli elementi del form.
         $form->render();
     }
 
-In alternativa, Ã¨ possibile creare gli elementi del modulo attraverso
+In alternativa, è possibile creare gli elementi del modulo attraverso
 una serie strutturata di valori.
 
     use Pop\Form\Form,
@@ -134,7 +134,7 @@ una serie strutturata di valori.
         $form->render();
     }
 
-Con la classe campi, Ã¨ possibile utilizzare una tabella di database
+Con la classe campi, è possibile utilizzare una tabella di database
 tramite il componente di registrazione per accedere e costruire i campi
 iniziali della forma.
 

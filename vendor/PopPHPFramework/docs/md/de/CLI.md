@@ -7,15 +7,15 @@ Documentation : CLI
 Home
 
 Die Kommandozeilen-Schnittstelle (CLI)-Komponente ist eine sehr
-nÃ¼tzliche Komponente, die Sie durchfÃ¼hren einige hilfreiche Aufgaben
-wie erlaubt:
+nützliche Komponente, die Sie durchführen einige hilfreiche Aufgaben wie
+erlaubt:
 
--   Beurteilung der derzeitigen Rahmenbedingungen fÃ¼r erforderlichen
-    AbhÃ¤ngigkeiten
+-   Beurteilung der derzeitigen Rahmenbedingungen für erforderlichen
+    Abhängigkeiten
 -   Installieren Sie ein Projekt aus einem Projekt Installationsdatei
 -   die Standardsprache einer Anwendung
 -   Erstellen Sie eine Klasse map
--   Ã¼berprÃ¼fen Sie die aktuelle Version mit der neuesten verfÃ¼gbaren
+-   überprüfen Sie die aktuelle Version mit der neuesten verfügbaren
     Version
 
 <!-- -->

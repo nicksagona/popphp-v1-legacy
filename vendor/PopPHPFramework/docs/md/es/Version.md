@@ -7,9 +7,9 @@ Documentation : Version
 Home
 
 El componente Version simplemente proporciona la capacidad para
-determinar quÃ© versiÃ³n del pop actual que tenemos, y lo que es el
-Ãºltimo disponible. AdemÃ¡s, este componente se utiliza el componente de
-CLI para realizar la dependencia de verificaciÃ³n.
+determinar qué versión del pop actual que tenemos, y lo que es el último
+disponible. Además, este componente se utiliza el componente de CLI para
+realizar la dependencia de verificación.
 
     use Pop\Version;
 

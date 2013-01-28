@@ -6,8 +6,8 @@ Documentation : Db
 
 Home
 
-La composante Db offre un accÃ¨s normalisÃ© aux bases de donnÃ©es de la
-requÃªte. Les adaptateurs pris en charge sont les suivants:
+La composante Db offre un accès normalisé aux bases de données de la
+requête. Les adaptateurs pris en charge sont les suivants:
 
 -   mysql
 -   mysqli
@@ -17,8 +17,8 @@ requÃªte. Les adaptateurs pris en charge sont les suivants:
 -   sqlite
 -   sqlsrv
 
-Les requÃªtes prÃ©parÃ©es sont pris en charge avec le MySQLi, Oracle,
-AOP, PostgreSQL, SQLite et adaptateurs sqlsrv. Valeurs Ã©chappÃ©s sont
+Les requêtes préparées sont pris en charge avec le MySQLi, Oracle, AOP,
+PostgreSQL, SQLite et adaptateurs sqlsrv. Valeurs échappés sont
 disponibles pour tous les adaptateurs.
 
     use Pop\Db\Db;
@@ -42,9 +42,9 @@ disponibles pour tous les adaptateurs.
         print_r($row);
     }
 
-En plus de l'accÃ¨s base de donnÃ©es, la composante Db dispose
-Ã©galement d'un objet Sql abstraction utile qui vous assiste dans la
-crÃ©ation de requÃªtes SQL standard.
+En plus de l'accès base de données, la composante Db dispose également
+d'un objet Sql abstraction utile qui vous assiste dans la création de
+requêtes SQL standard.
 
     use Pop\Db\Sql;
 

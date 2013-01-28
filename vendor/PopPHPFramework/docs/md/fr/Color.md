@@ -6,10 +6,10 @@ Documentation : Color
 
 Home
 
-La composante de couleur est un Ã©lÃ©ment utile pour gÃ©rer et utiliser
-des objets de valeur de couleur. Il fournit Ã©galement la
-fonctionnalitÃ© de convertir des valeurs de couleur Ã d'autres espaces
-colorimÃ©triques, par exemple, la conversion de RVB en CMJN.
+La composante de couleur est un élément utile pour gérer et utiliser des
+objets de valeur de couleur. Il fournit également la fonctionnalité de
+convertir des valeurs de couleur à d'autres espaces colorimétriques, par
+exemple, la conversion de RVB en CMJN.
 
     use Pop\Color;
 

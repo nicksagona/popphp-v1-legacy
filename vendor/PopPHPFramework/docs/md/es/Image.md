@@ -7,12 +7,12 @@ Documentation : Image
 Home
 
 El componente de imagen proporciona un contenedor API normalizada para
-la creaciÃ³n y manipulaciÃ³n de imÃ¡genes que aprovecha GD de PHP y
-extensiones Imagick, asÃ­ como el formato de imagen SVG. Dentro de este
-componente es una API rica en caracterÃ­sticas para la realizaciÃ³n de
-diversas funciones basadas en imÃ¡genes. Y, dado que la API estÃ¡
+la creación y manipulación de imágenes que aprovecha GD de PHP y
+extensiones Imagick, así como el formato de imagen SVG. Dentro de este
+componente es una API rica en características para la realización de
+diversas funciones basadas en imágenes. Y, dado que la API está
 estandarizado, si un proyecto se traslada a un entorno diferente, debe
-degradar fÃ¡cilmente.
+degradar fácilmente.
 
     use Pop\Color\Space\Rgb,
         Pop\Image\Gd;

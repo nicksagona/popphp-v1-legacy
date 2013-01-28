@@ -6,8 +6,8 @@ Documentation : Filter
 
 Home
 
-Die Filter-Komponente bietet einige nÃ¼tzliche Filterfunktion fÃ¼r
-String-Manipulation, VerschlÃ¼sselung und Array-Suche.
+Die Filter-Komponente bietet einige nützliche Filterfunktion für
+String-Manipulation, Verschlüsselung und Array-Suche.
 
     use Pop\Filter\String;
 

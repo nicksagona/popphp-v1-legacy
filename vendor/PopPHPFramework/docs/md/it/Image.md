@@ -8,10 +8,10 @@ Home
 
 Il componente Immagine fornisce un wrapper standard API per la creazione
 e la manipolazione di immagini che sfrutta PHP GD ed estensioni imagick,
-cosÃ¬ come il formato immagine SVG. All'interno di questo componente Ã¨
-un ricco di funzionalitÃ API per l'esecuzione di molteplici funzioni
-basati su immagini. E, poichÃ© l'API Ã¨ standardizzato, se un progetto
-si sposta in un ambiente diverso, dovrebbe degradare facilmente.
+così come il formato immagine SVG. All'interno di questo componente è un
+ricco di funzionalità API per l'esecuzione di molteplici funzioni basati
+su immagini. E, poiché l'API è standardizzato, se un progetto si sposta
+in un ambiente diverso, dovrebbe degradare facilmente.
 
     use Pop\Color\Space\Rgb,
         Pop\Image\Gd;

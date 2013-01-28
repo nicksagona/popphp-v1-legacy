@@ -7,7 +7,7 @@ Documentation : Db
 Home
 
 Die Db-Komponente bietet normierten Zugang zu Datenbanken abzufragen.
-Die unterstÃ¼tzten Adapter sind:
+Die unterstützten Adapter sind:
 
 -   mysql
 -   mysqli
@@ -18,7 +18,7 @@ Die unterstÃ¼tzten Adapter sind:
 -   sqlsrv
 
 Prepared Statements werden mit dem MySQLi, Oracle, PDO, PostgreSQL,
-SQLite und sqlsrv Adaptern unterstÃ¼tzt. Entgangen Werte sind fÃ¼r alle
+SQLite und sqlsrv Adaptern unterstützt. Entgangen Werte sind für alle
 Adapter.
 
     use Pop\Db\Db;
@@ -43,7 +43,7 @@ Adapter.
     }
 
 Neben Zugriff auf die Datenbank, die DB-Komponente bietet auch einen
-nÃ¼tzlichen Sql Abstraktion Objekt, das Sie beim Erstellen von
+nützlichen Sql Abstraktion Objekt, das Sie beim Erstellen von
 standardisierten SQL-Abfragen.
 
     use Pop\Db\Sql;

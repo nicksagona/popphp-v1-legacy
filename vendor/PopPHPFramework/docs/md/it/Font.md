@@ -6,7 +6,7 @@ Documentation : Font
 
 Home
 
-Il componente Font Ã¨ un tipo di carattere in parser profonditÃ che
+Il componente Font è un tipo di carattere in parser profondità che
 estrae i dati dei font e metriche importanti per le altre componenti e
 programmi da utilizzare. I tipi di font supportati sono:
 

@@ -7,7 +7,7 @@ Documentation : Geo
 Home
 
 El componente Geo simplemente proporciona una capa API orientada a
-objetos para la extensiÃ³n GeoIP PHP.
+objetos para la extensión GeoIP PHP.
 
     use Pop\Geo\Geo;
 

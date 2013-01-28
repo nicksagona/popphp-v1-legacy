@@ -6,25 +6,25 @@ Documentation : Record
 
 Home
 
-O componente Record, como descrito na visÃ£o geral da documentaÃ§Ã£o, Ã©
-um "hÃ­brido" das sortes entre o Active Record e padrÃµes de tabela de
-dados Gateway. AtravÃ©s de uma API padronizada, pode fornecer acesso a
-uma Ãºnica linha ou registro dentro de uma tabela de banco de dados, ou
-vÃ¡rias linhas ou registros de uma vez. A abordagem mais comum Ã©
-escrever uma classe filha que estende a classe Record que representa uma
-tabela no banco de dados. O nome da classe crianÃ§a deve ser o nome da
-tabela. Simplesmente criando
+O componente Record, como descrito na visão geral da documentação, é um
+"híbrido" das sortes entre o Active Record e padrões de tabela de dados
+Gateway. Através de uma API padronizada, pode fornecer acesso a uma
+única linha ou registro dentro de uma tabela de banco de dados, ou
+várias linhas ou registros de uma vez. A abordagem mais comum é escrever
+uma classe filha que estende a classe Record que representa uma tabela
+no banco de dados. O nome da classe criança deve ser o nome da tabela.
+Simplesmente criando
 
     use Pop\Record\Record;
 
     class Users extends Record { }
 
-vocÃª criar uma classe que tem todas as funcionalidades do componente
-construÃ­do em Registro e da classe sabe o nome da tabela de banco de
+você criar uma classe que tem todas as funcionalidades do componente
+construído em Registro e da classe sabe o nome da tabela de banco de
 dados para consulta a partir do nome da classe. Por exemplo, se traduz
-'UsuÃ¡rios' em \`usuÃ¡rios\` ou 'traduz DbUsers' em \`db\_users\`
-(CamelCase Ã© automaticamente convertido em lower\_case\_underscore.) De
-lÃ¡, vocÃª pode ajustar a classe filha que representa a tabela com as
+'Usuários' em \`usuários\` ou 'traduz DbUsers' em \`db\_users\`
+(CamelCase é automaticamente convertido em lower\_case\_underscore.) De
+lá, você pode ajustar a classe filha que representa a tabela com as
 propriedades da classe diversos, tais como :
 
     // Table prefix, if applicable
@@ -39,11 +39,11 @@ propriedades da classe diversos, tais como :
     // Whether to use prepared statements or not, defaults to true
     protected $usePrepared = true;
 
-Se vocÃª estÃ¡ dentro de um projeto estruturado, que tem um adaptador de
-banco de dados definido, entÃ£o a componente Record serÃ¡ pegar isso e
-usÃ¡-lo. No entanto, se vocÃª estÃ¡ simplesmente escrever alguns scripts
-rÃ¡pidos usando o componente Record, entÃ£o vocÃª precisa dizer a ele
-qual adaptador de banco de dados para usar:
+Se você está dentro de um projeto estruturado, que tem um adaptador de
+banco de dados definido, então a componente Record será pegar isso e
+usá-lo. No entanto, se você está simplesmente escrever alguns scripts
+rápidos usando o componente Record, então você precisa dizer a ele qual
+adaptador de banco de dados para usar:
 
     // Define DB credentials
     $creds = array(
@@ -58,7 +58,7 @@ qual adaptador de banco de dados para usar:
 
     Record::setDb($db);
 
-A partir daÃ­, a utilizaÃ§Ã£o de base Ã© a seguinte:
+A partir daí, a utilização de base é a seguinte:
 
     // Get a single user
     $user = Users::findById(1001);

@@ -6,12 +6,12 @@ Documentation : Graph
 
 Home
 
-Il componente grafico consente per la funzionalitÃ grafica robusto che
-puÃ² utilizzare uno dei componenti predefiniti grafici come immagini,
-Svg e Pdf per disegnare grafici in una varietÃ di formati. Ãˆ possibile
+Il componente grafico consente per la funzionalità grafica robusto che
+può utilizzare uno dei componenti predefiniti grafici come immagini, Svg
+e Pdf per disegnare grafici in una varietà di formati. È possibile
 definire una vasta gamma di attributi grafici per creare ed eseguire il
 rendering grafici a linee, istogrammi e grafici a torta. Dal momento che
-l'API tra le diverse componenti grafici Ã¨ standard, Ã¨ molto facile da
+l'API tra le diverse componenti grafici è standard, è molto facile da
 scambiare tra diversi file e formati di immagine in cui per produrre un
 grafico.
 

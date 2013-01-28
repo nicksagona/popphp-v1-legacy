@@ -6,8 +6,8 @@ Documentation : Compress
 
 Home
 
-O componente Compress fornece um mÃ©todo normalizado para compactar e
-descompactar arquivos de dados e atravÃ©s dos mÃ©todos suportados:
+O componente Compress fornece um método normalizado para compactar e
+descompactar arquivos de dados e através dos métodos suportados:
 
 -   bzip2
 -   gzip & zlib
