@@ -23,6 +23,7 @@ Released on January 24, 2013
         + Twitter
         + Vimeo
         + YouTube
+* Improve File component with better file owner/group/permissions API
 * Add Csrf and Captcha elements to the Form component
 * Refactor and improve Graph component
 * Refactor, clean up and improve the API of the Image component
