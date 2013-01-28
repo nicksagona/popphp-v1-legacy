@@ -24,7 +24,7 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            The Record component, as outlined in the documentation overview, is a "hybrid" of sorts between the Active Record and Table Data Gateway patterns. Via a standardized API, it can provide access to a single row or record within a database table, or multiple rows or records at once. The most common approach is to write a child class that extends the Record class that represents a table in the database. The name of the child class should be the name of the table. By simply creating
+            Η συνιστώσα της εγγραφής, όπως περιγράφεται στην επισκόπηση τεκμηρίωση, είναι ένα "υβρίδιο" του είδους μεταξύ του Active Record και τα σχέδια πύλη πίνακα δεδομένων. Μέσω ενός τυποποιημένο API, μπορεί να παρέχει πρόσβαση σε μία μόνο γραμμή ή εγγραφή σε έναν πίνακα βάσης δεδομένων, ή πολλαπλές σειρές ή αρχεία ταυτόχρονα. Η πιο κοινή προσέγγιση είναι να γράψετε μια κατηγορία παιδιών που επεκτείνει την τάξη εγγραφής που αντιπροσωπεύει έναν πίνακα στη βάση δεδομένων. Το όνομα της κατηγορίας παιδιού θα πρέπει να είναι το όνομα του πίνακα. Με απλά δημιουργώντας
         </p>
 <pre>
 use Pop&#92;Record&#92;Record;
@@ -32,7 +32,7 @@ use Pop&#92;Record&#92;Record;
 class Users extends Record { }
 </pre>
         <p>
-            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) From there, you can fine-tune the child class that represents the table with various class properties such as:
+            μπορείτε να δημιουργήσετε μια κατηγορία που έχει όλες τις λειτουργίες του στοιχείου εγγραφής που χτίστηκε το και η τάξη δεν ξέρει το όνομα του πίνακα της βάσης δεδομένων για την υποβολή ερωτημάτων από το όνομα της κλάσης. Για παράδειγμα, μεταφράζεται «Χρήστες» σε χρήστες `` ή μεταφράζεται »DbUsers» σε db_users `` (CamelCase μετατρέπεται αυτόματα σε lower_case_underscore.) Από εκεί, μπορείτε να ρυθμίσετε την κατηγορία παιδί που αντιπροσωπεύει τον πίνακα με διάφορες ιδιότητες, όπως η τάξη :
         </p>
 <pre>
 // Table prefix, if applicable
@@ -47,9 +47,8 @@ protected $auto = true;
 // Whether to use prepared statements or not, defaults to true
 protected $usePrepared = true;
 </pre>
-
         <p>
-            If you're within a structured project that has a defined database adapter, then the Record component will pick that up and use it. However, if you are simply writing some quick scripts using the Record component, then you will need to tell it which database adapter to use:
+            Αν είστε μέσα σε ένα δομημένο πρόγραμμα που έχει οριστεί προσαρμογέα βάσης δεδομένων, τότε το στοιχείο Εγγραφή ότι θα πάρει μέχρι και να το χρησιμοποιήσετε. Ωστόσο, εάν γράφετε απλά κάποιες γρήγορες scripts χρησιμοποιώντας το εξάρτημα εγγραφής, τότε θα πρέπει να το πουν οι οποίες προσαρμογέα βάσης δεδομένων για χρήση:
         </p>
 <pre>
 // Define DB credentials
@@ -66,7 +65,7 @@ $db = &#92;Pop&#92;Db&#92;Db::factory('Mysqli', $creds);
 Record::setDb($db);
 </pre>
         <p>
-            From there, basic usage is as follows:
+            Από εκεί, βασική χρήση είναι ως εξής:
         </p>
 <pre>
 // Get a single user

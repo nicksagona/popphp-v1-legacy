@@ -24,7 +24,7 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            The Loader component is probably the most basic, yet most important component of the Pop PHP Framework. It's the component that drives the framework's autoloading capabilities, and your own application can easily be registered with the autoloader to load your own classes. This singlehandedly replaces all of those old include statements you used to have all over the place. Now, all you need is one require statement of the 'bootstrap.php' at the top and you're good to go. By default, the bootstrap file contains the required reference to the framework's Autoloader class and then loads it up. Within the bootstrap file, you can easily perform other loading functions, such as registering your application's namespace with the autoloader, or loading a classmap file to decrease load time.
+            Le composant Loader est probablement l'élément le plus basique, mais le plus important du Cadre Pop PHP. C'est l'élément qui pousse les capacités chargement automatique de ce cadre, et votre propre application peut facilement être enregistrés auprès de l'autochargeur pour charger vos propres classes. Cela remplace seul, toutes ces déclarations comprennent des vieux vous l'habitude d'avoir dans tous les sens. Maintenant, tout ce dont vous avez besoin est un besoin énoncé de la «bootstrap.php" en haut et vous êtes bon pour aller. Par défaut, le fichier bootstrap contient la référence à la classe requise Autoloader le cadre, puis il charge. Dans le fichier de démarrage, vous pouvez facilement effectuer d'autres fonctions de chargement, telles que l'inscription d'espace de noms de votre application avec le chargeur automatique ou le chargement d'un fichier classmap pour diminuer le temps de chargement.
         </p>
 <pre>
 // Instantiate the autoloader object
@@ -35,7 +35,7 @@ $autoloader-&gt;register('YourLib', '../vendor/YourLib/src');
 $autoloader-&gt;loadClassMap('../vendor/YourLib/classmap.php');
 </pre>
         <p>
-            And if you need a classmap file generated, the Loader component has the functionality to easily generate a classmap file for you as well.
+            Et si vous avez besoin d'un fichier généré classmap, le composant Loader a la fonctionnalité de facilement générer un fichier classmap pour vous aussi.
         </p>
 <pre>
 // Generate a classmap file

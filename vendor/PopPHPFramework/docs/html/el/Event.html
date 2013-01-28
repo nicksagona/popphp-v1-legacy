@@ -24,10 +24,10 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            The Event component provides a way to attach and trigger events within the life cycle of an application. The main benefit is the ability to extend an application by hooking functionality into it via closures and classes that are attached as events.
+            Το στοιχείο Event παρέχει έναν τρόπο για να συνδέσετε και να προκαλέσει τα γεγονότα στο πλαίσιο του κύκλου ζωής της αίτησης. Το κύριο πλεονέκτημα είναι η δυνατότητα να επεκτείνουν την εφαρμογή, συνδέοντας τη λειτουργικότητα σε αυτό μέσω του κλεισίματος και τάξεις που επισυνάπτονται ως γεγονότα.
         </p>
         <p>
-            Here's an example of attaching and triggering an event using closures. The second one receives the result from the first one.
+            Εδώ είναι ένα παράδειγμα από τη σύνδεση και την ενεργοποίηση ενός γεγονότος με το κλείσιμο. Το δεύτερο λαμβάνει το αποτέλεσμα από το πρώτο.
         </p>
 <pre>
 use Pop&#92;Event&#92;Manager;
@@ -40,7 +40,7 @@ $manager-&gt;attach('pre', function($result) { echo $result . '&lt;br /&gt;' . P
 $manager-&gt;trigger('pre', array('name' =&gt; 'World'));
 </pre>
         <p>
-            Here's an example using a class.
+            Εδώ είναι ένα παράδειγμα χρησιμοποιώντας μια τάξη.
         </p>
 <pre>
 use Pop&#92;Event&#92;Manager;

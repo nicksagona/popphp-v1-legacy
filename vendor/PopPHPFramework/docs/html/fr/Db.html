@@ -24,7 +24,7 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            The Db component provides normalized access to query databases. The supported adapters are:
+            La composante Db offre un accès normalisé aux bases de données de la requête. Les adaptateurs pris en charge sont les suivants:
         </p>
         <ul>
             <li>mysql</li>
@@ -36,7 +36,7 @@
             <li>sqlsrv</li>
         </ul>
         <p>
-            Prepared statements are supported with the MySQLi, Oracle, PDO, PostgreSQL, SQLite and SQLSrv adapters. Escaped values are available for all of the adapters.
+            Les requêtes préparées sont pris en charge avec le MySQLi, Oracle, AOP, PostgreSQL, SQLite et adaptateurs sqlsrv. Valeurs échappés sont disponibles pour tous les adaptateurs.
         </p>
 <pre>
 use Pop&#92;Db&#92;Db;
@@ -61,7 +61,7 @@ while (($row = $db-&gt;adapter()-&gt;fetch()) != false) {
 }
 </pre>
         <p>
-            In addition to database access, the Db component also features a useful Sql abstraction object that assists you in creating standardized SQL queries.
+            En plus de l'accès base de données, la composante Db dispose également d'un objet Sql abstraction utile qui vous assiste dans la création de requêtes SQL standard.
         </p>
 <pre>
 use Pop&#92;Db&#92;Sql;
