@@ -4,31 +4,36 @@ Pop PHP Framework
 Documentation : File
 --------------------
 
-מרכיב קובץ מספקת API שימושי לנהל ולטפל קבצים בדיסק. הוא גם מספק את הפונקציונליות לנהל בקלות העלאת קבצים.
+Home
 
-<pre>
-use Pop\File\File;
+×ž×¨×›×™×‘ ×”×§×•×‘×¥ ×ž×¡×¤×§ API × ×•×— ×œ× ×™×”×•×œ ×•×œ×˜×¤×œ
+×‘×§×‘×¦×™×? ×‘×“×™×¡×§. ×”×•×? ×’×? ×ž×¡×¤×§ ×?×ª ×”×¤×•× ×§×¦×™×•×
+×œ×™×•×ª ×›×“×™ ×œ× ×”×œ ×‘×§×œ×•×ª ×”×¢×œ×?×ª ×§×‘×¦×™×?.
 
-// Create a new file and write to it.
-$file = new File('new-file.txt');
-$file->write('Some text to the file.')
-     ->save();
+    use Pop\File\File;
 
-// Upload a file from a multipart POST form.
-$upload = File::upload($_FILES['upload_file']['tmp_name'], '../uploads/' . $_FILES['upload_file']['name']);
-echo 'File uploaded.';
-</pre>
-<pre>
-use Pop\File\Dir;
+    // Create a new file and write to it.
+    $file = new File('new-file.txt');
+    $file->write('Some text to the file.')
+         ->save();
 
-// Create the Dir object
-$dir = new Dir('../mydir');
+    // Upload a file from a multipart POST form.
+    $upload = File::upload($_FILES['upload_file']['tmp_name'], '../uploads/' . $_FILES['upload_file']['name']);
+    echo 'File uploaded.';
 
-// Loop through the files in the directory
-$files = $dir-&gt;getFiles();
-foreach ($files as $file) {
-    echo $file;
-}
-</pre>
+×”×•×? ×’×? ×ž×¡×¤×§ ×“×¨×š ×§×œ×” ×œ×¢×‘×•×¨ ×¡×¤×¨×™×•×ª ×•×œ×’×©×ª
+×•×œ×˜×¤×œ ×‘×§×‘×¦×™×? ×‘×ª×•×›×?.
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    use Pop\File\Dir;
+
+    // Create the Dir object
+    $dir = new Dir('../mydir');
+
+    // Loop through the files in the directory
+    $files = $dir->getFiles();
+    foreach ($files as $file) {
+        echo $file;
+    }
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

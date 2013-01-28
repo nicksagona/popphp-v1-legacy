@@ -4,17 +4,18 @@ Pop PHP Framework
 Documentation : Web
 -------------------
 
-Web组件是基于网络的需求和功能，例如管理会话，服务器，浏览器和Cookie的集合。此外，它还包括检测移动设备的功能，使您的应用程序可以作出相应的反应。
+Home
 
-<pre>
-use Pop\Web\Session;
+Webç»„ä»¶æ˜¯åŸºäºŽç½‘ç»œçš„éœ€æ±‚å’ŒåŠŸèƒ½ï¼Œä¾‹å¦‚ç®¡ç?†ä¼šè¯?ï¼Œæœ?åŠ¡å™¨ï¼Œæµ?è§ˆå™¨å’Œcookieçš„é›†å?ˆã€‚æ­¤å¤–ï¼Œå®ƒåŒ…æ‹¬ç”¨äºŽæ£€æµ‹ç§»åŠ¨è®¾å¤‡çš„åŠŸèƒ½ï¼Œä½¿æ‚¨çš„åº”ç”¨ç¨‹åº?å?¯ä»¥ä½œå‡ºç›¸åº”çš„å??åº”
 
-$sess = Session::getInstance();
-$sess->username = 'yourname';
-print_r($sess);
-print_r($_SESSION);
+    use Pop\Web\Session;
 
-echo $sess->getId();
-</pre>
+    $sess = Session::getInstance();
+    $sess->username = 'yourname';
+    print_r($sess);
+    print_r($_SESSION);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    echo $sess->getId();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

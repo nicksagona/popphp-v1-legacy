@@ -4,18 +4,23 @@ Pop PHP Framework
 Documentation : Filter
 ----------------------
 
-מרכיב הסינון מספק כמה פונקציונליות סינון יעילות למניפולצית מחרוזת, הצפנה וחיפוש מערך.
+Home
 
-<pre>
-echo 'Random String: ' . String::random(6, String::ALPHANUM, String::UPPER) . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+×ž×¨×›×™×‘ ×”×¡×™× ×•×Ÿ ×ž×¡×¤×§ ×›×ž×” ×¤×•× ×§×¦×™×•× ×œ×™×•×ª ×¡×™×
+×•×Ÿ ×™×¢×™×œ×•×ª ×œ×ž× ×™×¤×•×œ×¦×™×ª ×ž×—×¨×•×–×ª, ×”×¦×¤× ×”
+×•×—×™×¤×•×© ×ž×¢×¨×š.
 
-$key = md5('Pop PHP Framework');
+    use Pop\Filter\String;
 
-$encrypted = String::encrypt('Hello World!', $key);
-echo 'Encrypted: ' . $encrypted . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+    echo 'Random String: ' . String::random(6, String::ALPHANUM, String::UPPER) . '<br /><br />' . PHP_EOL;
 
-$decrypted = String::decrypt($encrypted, $key);
-echo 'Decrypted: ' . $decrypted . '&lt;br /&gt;' . PHP_EOL;
-</pre>
+    $key = md5('Pop PHP Framework');
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $encrypted = String::encrypt('Hello World!', $key);
+    echo 'Encrypted: ' . $encrypted . '<br /><br />' . PHP_EOL;
+
+    $decrypted = String::decrypt($encrypted, $key);
+    echo 'Decrypted: ' . $decrypted . '<br />' . PHP_EOL;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

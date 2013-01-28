@@ -4,23 +4,29 @@ Pop PHP Framework
 Documentation : Font
 --------------------
 
-La composante de police est un analyseur de la police de profondeur qui extrait des données de police et des mesures importantes pour d'autres composants et les programmes à utiliser. Les types de polices pris en charge sont les suivants:
+Home
 
-* TrueType
-* OpenType
-* Type1
+La composante de police est un analyseur de police profondeur qui
+extrait des donnÃ©es importantes et des mesures de police pour les
+autres composants et les programmes Ã utiliser. Les types de polices
+pris en charge sont les suivants:
 
-<pre>
-use Pop\Font\TrueType;
+-   TrueType
+-   OpenType
+-   Type1
 
-$font = new TrueType('fonts/times.ttf');
+<!-- -->
 
-// You then have access to all of the parsed font data and metrics.
-echo $font->info->fullName;
-echo $font->bBox->xMin;
-echo $font->bBox->yMin;
-echo $font->bBox->xMax;
-echo $font->bBox->yMax;
-</pre>
+    use Pop\Font\TrueType;
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $font = new TrueType('fonts/times.ttf');
+
+    // You then have access to all of the parsed font data and metrics.
+    echo $font->info->fullName;
+    echo $font->bBox->xMin;
+    echo $font->bBox->yMin;
+    echo $font->bBox->xMax;
+    echo $font->bBox->yMax;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

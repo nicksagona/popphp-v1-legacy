@@ -4,56 +4,61 @@ Pop PHP Framework
 Documentation : Event
 ---------------------
 
-المكون الحدث يوفر وسيلة لتحريك الأحداث ونعلق في إطار دورة حياة التطبيق. والفائدة الرئيسية هي القدرة على توجيه الطلب من قبل تركيب وظيفة في ذلك عن طريق الإغلاق والفئات التي ترد عن الأحداث.
+Home
 
-وهنا مثال على ربط واثار الحدث باستخدام الإغلاق. ثانية واحدة يتلقى النتيجة من أول واحد.
+Ø§Ù„Ù…ÙƒÙˆÙ† Ø§Ù„Ø­Ø¯Ø« ÙŠÙˆÙ?Ø± ÙˆØ³ÙŠÙ„Ø© Ù„ØªØ­Ø±ÙŠÙƒ Ø§Ù„Ø£Ø­Ø¯Ø§Ø«
+ÙˆÙ†Ø¹Ù„Ù‚ Ù?ÙŠ Ø¥Ø·Ø§Ø± Ø¯ÙˆØ±Ø© Ø­ÙŠØ§Ø© Ø§Ù„ØªØ·Ø¨ÙŠÙ‚.
+ÙˆØ§Ù„Ù?Ø§Ø¦Ø¯Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ© Ù‡ÙŠ Ø§Ù„Ù‚Ø¯Ø±Ø© Ø¹Ù„Ù‰ ØªÙˆØ¬ÙŠÙ‡
+Ø§Ù„Ø·Ù„Ø¨ Ù…Ù† Ù‚Ø¨Ù„ ØªØ±ÙƒÙŠØ¨ ÙˆØ¸ÙŠÙ?Ø© Ù?ÙŠ Ø°Ù„Ùƒ Ø¹Ù† Ø·Ø±ÙŠÙ‚
+Ø§Ù„Ø¥ØºÙ„Ø§Ù‚ ÙˆØ§Ù„Ù?Ø¦Ø§Øª Ø§Ù„ØªÙŠ ØªØ±Ø¯ Ø¹Ù† Ø§Ù„Ø£Ø­Ø¯Ø§Ø«.
 
-<pre>
-use Pop\Event\Manager;
+ÙˆÙ‡Ù†Ø§ Ù…Ø«Ø§Ù„ Ø¹Ù„Ù‰ Ø±Ø¨Ø· ÙˆØ§Ø«Ø§Ø± Ø§Ù„Ø­Ø¯Ø« Ø¨Ø§Ø³ØªØ®Ø¯Ø§Ù…
+Ø§Ù„Ø¥ØºÙ„Ø§Ù‚. Ø«Ø§Ù†ÙŠØ© ÙˆØ§Ø­Ø¯Ø© ÙŠØªÙ„Ù‚Ù‰ Ø§Ù„Ù†ØªÙŠØ¬Ø© Ù…Ù†
+Ø£ÙˆÙ„ ÙˆØ§Ø­Ø¯.
 
-$manager = new Manager();
+    use Pop\Event\Manager;
 
-$manager-&gt;attach('pre', function($name) { return 'Hello, ' . $name; }, 2);
-$manager-&gt;attach('pre', function($result) { echo $result . '&lt;br /&gt;' . PHP_EOL; }, 1);
+    $manager = new Manager();
 
-$manager-&gt;trigger('pre', array('name' =&gt; 'World'));
-</pre>
+    $manager->attach('pre', function($name) { return 'Hello, ' . $name; }, 2);
+    $manager->attach('pre', function($result) { echo $result . '<br />' . PHP_EOL; }, 1);
 
-وهنا مثال باستخدام فئة.
+    $manager->trigger('pre', array('name' => 'World'));
 
-<pre>
-use Pop\Event\Manager;
+ÙˆÙ‡Ù†Ø§ Ù…Ø«Ø§Ù„ Ø¨Ø§Ø³ØªØ®Ø¯Ø§Ù… Ù?Ø¦Ø©.
 
-class Foo
-{
-    public $value;
+    use Pop\Event\Manager;
 
-    public function __construct($arg = null)
+    class Foo
     {
-        $this-&gt;value = $arg;
+        public $value;
+
+        public function __construct($arg = null)
+        {
+            $this->value = $arg;
+        }
+
+        public static function factory($arg)
+        {
+            return new self($arg);
+        }
+
+        public function bar($arg)
+        {
+            $this->value = $arg;
+            return $this;
+        }
     }
 
-    public static function factory($arg)
-    {
-        return new self($arg);
-    }
+    $manager = new Manager();
 
-    public function bar($arg)
-    {
-        $this-&gt;value = $arg;
-        return $this;
-    }
-}
+    $manager->attach('pre', 'Foo::factory', 2);
 
-$manager = new Manager();
+    // OR
+    //$manager->attach('pre', 'Foo->bar', 2);
 
-$manager-&gt;attach('pre', 'Foo::factory', 2);
+    $manager->attach('pre', function($result) { echo 'Hello, ' . $result->value . '<br />' . PHP_EOL; }, 1);
+    $manager->trigger('pre', array('arg' => 'World'));
 
-// OR
-//$manager-&gt;attach('pre', array(new Foo, 'bar'), 2);
-
-$manager-&gt;attach('pre', function($result) { echo 'Hello, ' . $result-&gt;value . '&lt;br /&gt;' . PHP_EOL; }, 1);
-$manager-&gt;trigger('pre', array('arg' =&gt; 'World'));
-</pre>
-
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

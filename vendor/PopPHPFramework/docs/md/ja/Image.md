@@ -4,20 +4,23 @@ Pop PHP Framework
 Documentation : Image
 ---------------------
 
-Imageコンポーネントは、PHPのGDとImagickは拡張子と同様に、SVG画像形式を利用して画像の作成と操作のための標準的なAPIのラッパーを提供します。このコンポーネント内の多くの異なったイメージベースの機能を実行するための機能豊富なAPIです。プロジェクトは、異なる環境に移動すると、APIが標準化されているので、それは容易に分解する必要があります。
+Home
 
-<pre>
-use Pop\Color\Rgb,
-    Pop\Image\Gd;
+Imageã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã?¯ã€?PHPã?®GDã?¨Imagickã‚’æ‹¡å¼µå­?ã?
+ã?‘ã?§ã?ªã??ã€?SVGç”»åƒ?ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆã‚’æ´»ç”¨ã?—ã?Ÿç”»åƒ?ã?®ä½œæˆ?ã?¨æ“?ä½œã?®ã?Ÿã‚?ã?®æ¨™æº–åŒ–ã?•ã‚Œã?ŸAPIã?®ãƒ©ãƒƒãƒ‘ãƒ¼ã‚’æ??ä¾›ã?—ã?¾ã?™ã€‚ã?“ã?®ã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆå†…ã?§ã?•ã?¾ã?–ã?¾ã?ªç”»åƒ?ãƒ™ãƒ¼ã‚¹ã?®æ©Ÿèƒ½ã‚’å®Ÿè¡Œã?™ã‚‹ã?Ÿã‚?ã?®æ©Ÿèƒ½è±Šå¯Œã?ªAPIã?§ã?™ã€‚ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã?Œåˆ¥ã?®ç’°å¢ƒã?«ç§»å‹•ã?—ã?Ÿå
+´å?ˆã?¨ã€?APIã?Œæ¨™æº–åŒ–ã?•ã‚Œã?¦ã?„ã‚‹ã?®ã?§ã€?ã??ã‚Œã?¯ç°¡å?˜ã?«åˆ†è§£ã?™ã‚‹å¿…è¦?ã?Œã?‚ã‚Šã?¾ã?™ã€‚
 
-$image = new Gd('new-image.jpg', 640, 480, new Rgb(255, 0, 0));
-$image->setFillColor(new Rgb(0, 0, 255))
-      ->setStrokeColor(new Rgb(255, 255, 255))
-      ->setStrokeWidth(3)
-      ->addEllipse(320, 240, 150, 75)
-      ->output();
+    use Pop\Color\Space\Rgb,
+        Pop\Image\Gd;
 
-$image->destroy();
-</pre>
+    $image = new Gd('new-image.jpg', 640, 480, new Rgb(255, 0, 0));
+    $image->setFillColor(new Rgb(0, 0, 255))
+          ->setStrokeColor(new Rgb(255, 255, 255))
+          ->setStrokeWidth(3)
+          ->drawEllipse(320, 240, 150, 75)
+          ->output();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $image->destroy();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

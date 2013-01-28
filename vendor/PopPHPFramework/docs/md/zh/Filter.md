@@ -4,18 +4,22 @@ Pop PHP Framework
 Documentation : Filter
 ----------------------
 
-字符串处理，加密和阵列搜索筛选器组件提供了一些有用的过滤功能。
+Home
 
-<pre>
-echo 'Random String: ' . String::random(6, String::ALPHANUM, String::UPPER) . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+å­—ç¬¦ä¸²å¤„ç?†ï¼ŒåŠ
+å¯†å’Œé˜µåˆ—æ?œç´¢ç­›é€‰å™¨ç»„ä»¶æ??ä¾›äº†ä¸€äº›æœ‰ç”¨çš„è¿‡æ»¤åŠŸèƒ½ã€‚
 
-$key = md5('Pop PHP Framework');
+    use Pop\Filter\String;
 
-$encrypted = String::encrypt('Hello World!', $key);
-echo 'Encrypted: ' . $encrypted . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+    echo 'Random String: ' . String::random(6, String::ALPHANUM, String::UPPER) . '<br /><br />' . PHP_EOL;
 
-$decrypted = String::decrypt($encrypted, $key);
-echo 'Decrypted: ' . $decrypted . '&lt;br /&gt;' . PHP_EOL;
-</pre>
+    $key = md5('Pop PHP Framework');
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $encrypted = String::encrypt('Hello World!', $key);
+    echo 'Encrypted: ' . $encrypted . '<br /><br />' . PHP_EOL;
+
+    $decrypted = String::decrypt($encrypted, $key);
+    echo 'Decrypted: ' . $decrypted . '<br />' . PHP_EOL;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

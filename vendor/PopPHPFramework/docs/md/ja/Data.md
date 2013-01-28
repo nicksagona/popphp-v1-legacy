@@ -4,28 +4,31 @@ Pop PHP Framework
 Documentation : Data
 --------------------
 
-データコンポーネントは、別の一般的な形式からのデータセットを変換する機能を提供します。サポートされている形式は以下のとおりです。
+Home
 
-* csv
-* json
-* php
-* sql
-* xml
-* yaml
+ãƒ‡ãƒ¼ã‚¿ã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã?¯ã€?åˆ¥ã?®å…±é€šã?®ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆã?‹ã‚‰ã?®ãƒ‡ãƒ¼ã‚¿ã‚»ãƒƒãƒˆã‚’å¤‰æ?›ã?™ã‚‹æ©Ÿèƒ½ã‚’æ??ä¾›ã?—ã?¾ã?™ã€‚ã‚µãƒ?ãƒ¼ãƒˆã?•ã‚Œã?¦ã?„ã‚‹å½¢å¼?ã?¯ä»¥ä¸‹ã?®ã?¨ã?Šã‚Šã?§ã?™ã€‚
 
-<pre>
-use Pop\Data\Data;
+-   csv
+-   json
+-   php
+-   sql
+-   xml
+-   yaml
 
-// Parses the data file into a usable PHP array
-$data = new Data('../assets/files/test-import.csv');
-$csv = $data->parseFile();
+<!-- -->
 
-// Takes the PHP array and creates an XML file from it
-$data = new Data($csv);
-$obj = $data->parseData('xml');
+    use Pop\Data\Data;
 
-// Prints out the data in the new XML format
-echo $obj;
-</pre>
+    // Parses the data file into a usable PHP array
+    $data = new Data('../assets/files/test-import.csv');
+    $csv = $data->parseFile();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Takes the PHP array and creates an XML file from it
+    $data = new Data($csv);
+    $obj = $data->parseData('xml');
+
+    // Prints out the data in the new XML format
+    echo $obj;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

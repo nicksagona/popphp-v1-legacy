@@ -4,46 +4,73 @@ Pop PHP Framework
 Documentation : Record
 ----------------------
 
-O componente Record, conforme descrito na visão geral da documentação, é um "híbrido" de tipos entre o Active Record e padrões da tabela de dados do Gateway. Através de uma API padronizada, que pode fornecer acesso a uma única linha ou registro em uma tabela de banco de dados, ou várias linhas ou registros de uma vez. A abordagem mais comum é escrever uma classe filha que estende a classe Record que representa uma tabela no banco de dados. O nome de classe criança deve ser o nome da tabela. Simplesmente criando
+Home
 
-<pre>
-use Pop\Record\Record;
+O componente Record, como descrito na visÃ£o geral da documentaÃ§Ã£o, Ã©
+um "hÃ­brido" das sortes entre o Active Record e padrÃµes de tabela de
+dados Gateway. AtravÃ©s de uma API padronizada, pode fornecer acesso a
+uma Ãºnica linha ou registro dentro de uma tabela de banco de dados, ou
+vÃ¡rias linhas ou registros de uma vez. A abordagem mais comum Ã©
+escrever uma classe filha que estende a classe Record que representa uma
+tabela no banco de dados. O nome da classe crianÃ§a deve ser o nome da
+tabela. Simplesmente criando
 
-class Users extends Record { }
-</pre>
+    use Pop\Record\Record;
 
-você criar uma classe que tem toda a funcionalidade do componente registro embutido e da classe sabe o nome da tabela de banco de dados para consulta a partir do nome da classe. Por exemplo, traduz 'Usuários' em `users` ou traduz dos DbUsers 'em `db_users` (CamelCase é automaticamente convertido em lower_case_underscore). De lá, você pode ajustar a classe filha que representa a tabela com as propriedades de classe diversas, tais como :
+    class Users extends Record { }
 
-<pre>
-// Table prefix, if applicable
-protected $prefix = null;
+vocÃª criar uma classe que tem todas as funcionalidades do componente
+construÃ­do em Registro e da classe sabe o nome da tabela de banco de
+dados para consulta a partir do nome da classe. Por exemplo, se traduz
+'UsuÃ¡rios' em \`usuÃ¡rios\` ou 'traduz DbUsers' em \`db\_users\`
+(CamelCase Ã© automaticamente convertido em lower\_case\_underscore.) De
+lÃ¡, vocÃª pode ajustar a classe filha que representa a tabela com as
+propriedades da classe diversos, tais como :
 
-// Primary ID, if applicable, defaults to 'id'
-protected $primaryId = 'id';
+    // Table prefix, if applicable
+    protected $prefix = null;
 
-// Whether the table is auto-incrementing or not
-protected $auto = true;
+    // Primary ID, if applicable, defaults to 'id'
+    protected $primaryId = 'id';
 
-// Whether to use prepared statements or not, defaults to true
-protected $usePrepared = true;
-</pre>
+    // Whether the table is auto-incrementing or not
+    protected $auto = true;
 
-A partir daí, o uso de base é como se segue:
+    // Whether to use prepared statements or not, defaults to true
+    protected $usePrepared = true;
 
-<pre>
-use Users;
+Se vocÃª estÃ¡ dentro de um projeto estruturado, que tem um adaptador de
+banco de dados definido, entÃ£o a componente Record serÃ¡ pegar isso e
+usÃ¡-lo. No entanto, se vocÃª estÃ¡ simplesmente escrever alguns scripts
+rÃ¡pidos usando o componente Record, entÃ£o vocÃª precisa dizer a ele
+qual adaptador de banco de dados para usar:
 
-// Get a single user
-$user = Users::findById(1001);
-echo $user->name;
-echo $user->email;
+    // Define DB credentials
+    $creds = array(
+        'database' => 'helloworld',
+        'host'     => 'localhost',
+        'username' => 'hello',
+        'password' => '12world34'
+    );
 
-// Get multiple users
-$users = Users::findAll('last_name ASC');
-foreach ($users->rows as $user) {
+    // Create DB object
+    $db = \Pop\Db\Db::factory('Mysqli', $creds);
+
+    Record::setDb($db);
+
+A partir daÃ­, a utilizaÃ§Ã£o de base Ã© a seguinte:
+
+    // Get a single user
+    $user = Users::findById(1001);
     echo $user->name;
     echo $user->email;
-}
-</pre>
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Get multiple users
+    $users = Users::findAll('last_name ASC');
+    foreach ($users->rows as $user) {
+        echo $user->name;
+        echo $user->email;
+    }
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

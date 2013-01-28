@@ -4,29 +4,40 @@ Pop PHP Framework
 Documentation : Config
 ----------------------
 
-Το Config στοιχείο παρέχει ένα αντικείμενο αξίας δεδομένων που χρησιμοποιείται από τις άλλες συνιστώσες, όπως η συνιστώσα του σχεδίου. Συνήθως, τα πράγματα όπως τα διαπιστευτήρια βάση δεδομένων που ορίζονται σε ένα αντικείμενο ρυθμίσεων και να περάσει σε ένα αντικείμενο του έργου που πρόκειται να χρησιμοποιηθούν κατά τη διάρκεια του κύκλου ζωής του έργου ή σενάριο.
+Home
 
-<pre>
-use Pop\Config;
+Î— Config ÏƒÏ…ÏƒÏ„Î±Ï„Î¹ÎºÏŒ Ï€Î±Ï?Î­Ï‡ÎµÎ¹ Î­Î½Î±
+Î±Î½Ï„Î¹ÎºÎµÎ¯Î¼ÎµÎ½Î¿ Ï„Î¹Î¼Î® Î´ÎµÎ´Î¿Î¼Î­Î½Ï‰Î½ Ï€Î¿Ï…
+Ï‡Ï?Î·ÏƒÎ¹Î¼Î¿Ï€Î¿Î¹ÎµÎ¯Ï„Î±Î¹ Î±Ï€ÏŒ Î¬Î»Î»Î± ÏƒÏ…ÏƒÏ„Î±Ï„Î¹ÎºÎ¬
+ÏŒÏ€Ï‰Ï‚ Ï„Î¿ ÏƒÏ…ÏƒÏ„Î±Ï„Î¹ÎºÏŒ Î­Ï?Î³Î¿Ï…. Î£Ï…Î½Î®Î¸Ï‰Ï‚, Ï„Î±
+Ï€Ï?Î¬Î³Î¼Î±Ï„Î± ÏŒÏ€Ï‰Ï‚ Ï„Î± Î´Î¹Î±Ï€Î¹ÏƒÏ„ÎµÏ…Ï„Î®Ï?Î¹Î± Ï„Î·Ï‚
+Î²Î¬ÏƒÎ·Ï‚ Î´ÎµÎ´Î¿Î¼Î­Î½Ï‰Î½ Ï€Î¿Ï… Î¿Ï?Î¯Î¶Î¿Î½Ï„Î±Î¹ ÏƒÎµ Î­Î½Î±
+Î±Î½Ï„Î¹ÎºÎµÎ¯Î¼ÎµÎ½Î¿ Ï?Ï…Î¸Î¼Î¯ÏƒÎµÏ‰Î½ ÎºÎ±Î¹ Î½Î± Ï€ÎµÏ?Î¬ÏƒÎµÎ¹
+ÏƒÎµ Î­Î½Î± Î±Î½Ï„Î¹ÎºÎµÎ¯Î¼ÎµÎ½Î¿ Ï„Î¿Ï… Î­Ï?Î³Î¿Ï… Ï€Î¿Ï…
+Ï€Ï?ÏŒÎºÎµÎ¹Ï„Î±Î¹ Î½Î± Ï‡Ï?Î·ÏƒÎ¹Î¼Î¿Ï€Î¿Î¹Î·Î¸Î¿Ï?Î½ ÎºÎ±Ï„Î¬ Ï„Î·
+Î´Î¹Î¬Ï?ÎºÎµÎ¹Î± Ï„Î¿Ï… ÎºÏ?ÎºÎ»Î¿Ï… Î¶Ï‰Î®Ï‚ Ï„Î¿Ï… Î­Ï?Î³Î¿Ï… Î®
+ÏƒÎµÎ½Î¬Ï?Î¹Î¿.
 
-$cfg = array(
-    'db' => array(
-        'name' => 'testdb',
-        'host' => 'localhost',
-        'user' => array(
-            'username' => 'testuser',
-            'password' => '12test34',
-            'role'     => 'editor'
-        )
-    ),
-    'module' => 'TestModule'
-);
+    use Pop\Config;
 
-$config = new Config($cfg);
+    $cfg = array(
+        'db' => array(
+            'name' => 'testdb',
+            'host' => 'localhost',
+            'user' => array(
+                'username' => 'testuser',
+                'password' => '12test34',
+                'role'     => 'editor'
+            )
+        ),
+        'module' => 'TestModule'
+    );
 
-echo 'DB Name: ' . $config->db->name;
-echo 'User: ' . $config->db->user->username . ' has the role: ' . $config->db->user->role;
-echo 'Module Name: ' . $config->module;
-</pre>
+    $config = new Config($cfg);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    echo 'DB Name: ' . $config->db->name;
+    echo 'User: ' . $config->db->user->username . ' has the role: ' . $config->db->user->role;
+    echo 'Module Name: ' . $config->module;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

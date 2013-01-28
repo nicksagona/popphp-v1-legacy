@@ -4,17 +4,22 @@ Pop PHP Framework
 Documentation : Compress
 ------------------------
 
-Die Compress-Komponente stellt eine normalisierte Methode zum Komprimieren und Dekomprimieren von Daten und Dateien über die unterstützten Methoden:
+Home
 
-* bzip2
-* gzip &amp; zlib
-* lzf
+Die Compress-Komponente stellt eine normalisierte Methode zum
+Komprimieren und Entpacken von Daten und Dateien Ã¼ber die
+unterstÃ¼tzten Methoden:
 
-<pre>
-use Pop\Compress\Bzip2;
+-   bzip2
+-   gzip & zlib
+-   lzf
 
-$compressed = Bzip2::compress('Some string');
-$uncompressed = Bzip2:uncompress($compressed);
-</pre>
+<!-- -->
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    use Pop\Compress\Bzip2;
+
+    $compressed = Bzip2::compress('Some string');
+    $uncompressed = Bzip2::uncompress($compressed);
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

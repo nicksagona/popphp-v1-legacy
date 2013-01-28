@@ -4,17 +4,18 @@ Pop PHP Framework
 Documentation : Web
 -------------------
 
-Webコンポーネントは、Webベースのニーズや機能性など、セッション管理、サーバー、ブラウザやCookieのコレクションです。また、アプリケーションがそれに応じて応答できるようにモバイルデバイスを検出するための機能が含まれています。
+Home
 
-<pre>
-use Pop\Web\Session;
+Webã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã?¯ã€?Webãƒ™ãƒ¼ã‚¹ã?®ãƒ‹ãƒ¼ã‚ºã‚„æ©Ÿèƒ½æ€§ã€?ã?“ã?®ã‚ˆã?†ã?ªã‚»ãƒƒã‚·ãƒ§ãƒ³ã?®ç®¡ç?†ã€?ã‚µãƒ¼ãƒ?ãƒ¼ã€?ãƒ–ãƒ©ã‚¦ã‚¶ã?¨ã‚¯ãƒƒã‚­ãƒ¼ã?®ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã?§ã?™ã€‚ã?¾ã?Ÿã€?ã??ã‚Œã?¯ã?‚ã?ªã?Ÿã?®ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã?Œã??ã‚Œã?«å¿œã?˜ã?¦å¯¾å¿œã?§ã??ã‚‹ã‚ˆã?†ã?«ãƒ¢ãƒ?ã‚¤ãƒ«ãƒ‡ãƒ?ã‚¤ã‚¹ã‚’æ¤œå‡ºã?™ã‚‹ã?Ÿã‚?ã?®æ©Ÿèƒ½ã?Œå?«ã?¾ã‚Œã?¦ã?„ã?¾ã?™ã€‚
 
-$sess = Session::getInstance();
-$sess->username = 'yourname';
-print_r($sess);
-print_r($_SESSION);
+    use Pop\Web\Session;
 
-echo $sess->getId();
-</pre>
+    $sess = Session::getInstance();
+    $sess->username = 'yourname';
+    print_r($sess);
+    print_r($_SESSION);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    echo $sess->getId();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

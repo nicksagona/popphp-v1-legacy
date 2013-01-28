@@ -4,54 +4,61 @@ Pop PHP Framework
 Documentation : Paginator
 -------------------------
 
-Η συνιστώσα Paginator παρέχει απλά τη λειτουργικότητα στη σελίδα από ένα μεγάλο σύνολο αποτελεσμάτων. Πολλές διαφορετικές ρυθμίσεις και τα χαρακτηριστικά μπορεί να εφαρμοστεί, αλλά η πιο χρήσιμη είναι η υποστήριξη πρότυπο που χτίστηκε μέσα
+Home
 
-<pre>
-use Pop\Paginator\Paginator;
+Î— ÏƒÏ…Î½Î¹ÏƒÏ„ÏŽÏƒÎ± Paginator Ï€Î±Ï?Î­Ï‡ÎµÎ¹ Î±Ï€Î»Î¬ Ï„Î·
+Î»ÎµÎ¹Ï„Î¿Ï…Ï?Î³Î¹ÎºÏŒÏ„Î·Ï„Î± ÏƒÏ„Î· ÏƒÎµÎ»Î¯Î´Î± Î±Ï€ÏŒ Î­Î½Î±
+Î¼ÎµÎ³Î¬Î»Î¿ ÏƒÏ?Î½Î¿Î»Î¿ Î±Ï€Î¿Ï„ÎµÎ»ÎµÏƒÎ¼Î¬Ï„Ï‰Î½. Î Î¿Î»Î»Î­Ï‚
+Î´Î¹Î±Ï†Î¿Ï?ÎµÏ„Î¹ÎºÎ­Ï‚ Ï?Ï…Î¸Î¼Î¯ÏƒÎµÎ¹Ï‚ ÎºÎ±Î¹ Ï„Î±
+Ï‡Î±Ï?Î±ÎºÏ„Î·Ï?Î¹ÏƒÏ„Î¹ÎºÎ¬ Î¼Ï€Î¿Ï?Î¿Ï?Î½ Î½Î± ÎµÏ†Î±Ï?Î¼Î¿ÏƒÏ„Î¿Ï?Î½,
+Î±Î»Î»Î¬ Î· Ï€Î»Î­Î¿Î½ Ï‡Ï?Î®ÏƒÎ¹Î¼Î· ÎµÎ¯Î½Î±Î¹ Î· Ï…Ï€Î¿ÏƒÏ„Î®Ï?Î¹Î¾Î·
+Ï€Î¿Ï… Ï„Î¿ Ï€Ï?ÏŒÏ„Ï…Ï€Î¿ Ï‡Ï„Î¹ÏƒÎ¼Î­Î½Î¿ in
 
-$rows = array(
-    array('id' => 1, 'name' => 'Test1', 'email' => 'test1@email.com'),
-    array('id' => 2, 'name' => 'Test2', 'email' => 'test2@email.com'),
-    array('id' => 3, 'name' => 'Test3', 'email' => 'test3@email.com'),
-    array('id' => 4, 'name' => 'Test4', 'email' => 'test4@email.com'),
-    array('id' => 5, 'name' => 'Test5', 'email' => 'test5@email.com'),
-    array('id' => 6, 'name' => 'Test6', 'email' => 'test6@email.com'),
-    array('id' => 7, 'name' => 'Test7', 'email' => 'test7@email.com'),
-    array('id' => 8, 'name' => 'Test8', 'email' => 'test8@email.com'),
-    array('id' => 9, 'name' => 'Test9', 'email' => 'test9@email.com'),
-    array('id' => 10, 'name' => 'Test10', 'email' => 'test10@email.com'),
-    array('id' => 11, 'name' => 'Test11', 'email' => 'test11@email.com'),
-    array('id' => 12, 'name' => 'Test12', 'email' => 'test12@email.com'),
-    array('id' => 13, 'name' => 'Test13', 'email' => 'test13@email.com'),
-    array('id' => 14, 'name' => 'Test14', 'email' => 'test14@email.com'),
-    array('id' => 15, 'name' => 'Test15', 'email' => 'test15@email.com'),
-    array('id' => 16, 'name' => 'Test16', 'email' => 'test16@email.com')
-);
+    use Pop\Paginator\Paginator;
 
-$header = &lt;&lt;&lt;HEADER
-&lt;table class="paged-table" cellpadding="0" cellspacing="0"&gt;
-    &lt;tr&gt;&lt;td colspan="2"&gt;[{page_links}]&lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;td&gt;&lt;strong&gt;Name&lt;/strong&gt;&lt;/td&gt;&lt;td&gt;&lt;strong&gt;Email&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+    $rows = array(
+        array('id' => 1, 'name' => 'Test1', 'email' => 'test1@email.com'),
+        array('id' => 2, 'name' => 'Test2', 'email' => 'test2@email.com'),
+        array('id' => 3, 'name' => 'Test3', 'email' => 'test3@email.com'),
+        array('id' => 4, 'name' => 'Test4', 'email' => 'test4@email.com'),
+        array('id' => 5, 'name' => 'Test5', 'email' => 'test5@email.com'),
+        array('id' => 6, 'name' => 'Test6', 'email' => 'test6@email.com'),
+        array('id' => 7, 'name' => 'Test7', 'email' => 'test7@email.com'),
+        array('id' => 8, 'name' => 'Test8', 'email' => 'test8@email.com'),
+        array('id' => 9, 'name' => 'Test9', 'email' => 'test9@email.com'),
+        array('id' => 10, 'name' => 'Test10', 'email' => 'test10@email.com'),
+        array('id' => 11, 'name' => 'Test11', 'email' => 'test11@email.com'),
+        array('id' => 12, 'name' => 'Test12', 'email' => 'test12@email.com'),
+        array('id' => 13, 'name' => 'Test13', 'email' => 'test13@email.com'),
+        array('id' => 14, 'name' => 'Test14', 'email' => 'test14@email.com'),
+        array('id' => 15, 'name' => 'Test15', 'email' => 'test15@email.com'),
+        array('id' => 16, 'name' => 'Test16', 'email' => 'test16@email.com')
+    );
 
-HEADER;
+    $header = <<<HEADER
+    <table class="paged-table" cellpadding="0" cellspacing="0">
+        <tr><td colspan="2">[{page_links}]</td></tr>
+        <tr><td><strong>Name</strong></td><td><strong>Email</strong></td></tr>
 
-$rowTemplate = &lt;&lt;&lt;TMPL
-    &lt;tr&gt;&lt;td&gt;&lt;a href="./edit-user.php?id=[{id}]"&gt;[{name}]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;[{email}]&lt;/td&gt;&lt;/tr&gt;
+    HEADER;
 
-TMPL;
+    $rowTemplate = <<<TMPL
+        <tr><td><a href="./edit-user.php?id=[{id}]">[{name}]</a></td><td>[{email}]</td></tr>
 
-$footer = &lt;&lt;&lt;FOOTER
-    &lt;tr&gt;&lt;td colspan="2"&gt;[{page_links}]&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
+    TMPL;
 
-FOOTER;
+    $footer = <<<FOOTER
+        <tr><td colspan="2">[{page_links}]</td></tr>
+    </table>
 
-$pages = new Paginator($rows, 3, 3);
-$pages->setHeader($header)
-      ->setRowTemplate($rowTemplate)
-      ->setFooter($footer);
+    FOOTER;
 
-echo $pages;
-</pre>
+    $pages = new Paginator($rows, 3, 3);
+    $pages->setHeader($header)
+          ->setRowTemplate($rowTemplate)
+          ->setFooter($footer);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    echo $pages;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

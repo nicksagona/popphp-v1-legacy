@@ -4,67 +4,78 @@ Pop PHP Framework
 Documentation : Project
 -----------------------
 
-מרכיב הפרויקט מכיל את המעמד פרויקט בו ניתן להרחיב לתמצת מפרטים היישום שלך, כגון נתב, בקרים, מסדי נתונים ומודולים. פעם, להגדיר כראוי, הפרויקט יכול "לרוץ" בהצלחה לנתב את בקשת המשתמש לאזור הנכון של הבקשה. לראות את הקובץ doc MVC רכיב לראות דוגמה של קובץ פרויקט המורחבת בכיתה.
+Home
 
-כמו כן, מרכיב הפרויקט מכיל את כיתות ההתקנה מרכיב CLI משתמש כדי לבנות ולהתקין פיגומים הפרוייקט. דוגמה של קובץ ההתקנה הפרויקט בתצורה נמוכה.
+×ž×¨×›×™×‘ ×”×¤×¨×•×™×§×˜ ×ž×›×™×œ ×›×™×ª×ª ×¤×¨×•×™×§×˜ ×©×‘×• ×?×ª×”
+×™×›×•×œ ×œ×”×¨×—×™×‘ ×•×œ×ª×ž×¦×ª ×ž×¤×¨×˜×™×? ×©×œ ×”×™×™×©×•×ž×™×?
+×©×œ×š, ×›×’×•×Ÿ × ×ª×‘, ×‘×§×¨×™×?, ×ž×¡×“×™ × ×ª×•× ×™×?
+×•×ž×•×“×•×œ×™×?. ×¤×¢×?, ×”×•×’×“×¨ ×›×¨×?×•×™, ×”×¤×¨×•×™×§×˜ ×™×›×•×œ
+"×œ×¨×•×¥" ×•×œ× ×ª×‘ ×?×ª ×‘×§×©×ª×• ×©×œ ×”×ž×©×ª×ž×© ×œ×?×–×•×¨ ×”×
+×›×•×Ÿ ×©×œ ×”×™×™×©×•×? ×©×œ×š ×‘×”×¦×œ×—×”. ×¦×¤×” ×‘×§×•×‘×¥ doc
+×¨×›×™×‘ MVC ×›×“×™ ×œ×¨×?×•×ª ×“×•×’×ž×” ×©×œ ×§×•×‘×¥ ×ž×—×œ×§×ª
+×¤×¨×•×™×§×˜ ×ž×•×¨×—×‘.
 
-<pre>
-&lt;?php
-return new Pop\Config(array(
-    'project' => array(
-        'name'    => 'HelloWorld',
-        'base'    => __DIR__ . '/../../',
-        'docroot' => __DIR__ . '/../../public'
-    ),
-    'databases' => array(
-        'helloworld' => array(
-            'type'     => 'Mysqli',
-            'database' => 'helloworld',
-            'host'     => 'localhost',
-            'username' => 'hello',
-            'password' => '12world34',
-            'prefix'   => 'pop_',
-            'default'  => true
-        )
-    ),
-    'forms' => array(
-        'login' => array(
-            'fields' => array(
-                array(
-                    'type'       => 'text',
-                    'name'       => 'username',
-                    'label'      => 'Username:',
-                    'required'   => true,
-                    'attributes' => array('size', 40),
-                    'validators' => 'AlphaNumeric()'
-                ),
-                array(
-                    'type'       => 'password',
-                    'name'       => 'password',
-                    'label'      => 'Password:',
-                    'required'   => true,
-                    'attributes' => array('size', 40),
-                    'validators' => array('NotEmpty()', 'LengthGt(6)')
-                ),
-                array(
-                    'type'       => 'submit',
-                    'name'       => 'submit',
-                    'value'      => 'LOGIN'
+×›×ž×• ×›×Ÿ, ×ž×¨×›×™×‘ ×”×¤×¨×•×™×§×˜ ×ž×›×™×œ ×?×ª ×”×©×™×¢×•×¨×™×?
+×©×”×ª×§× ×ª ×¨×›×™×‘ CLI ×ž×©×ª×ž×© ×›×“×™ ×œ×‘× ×•×ª ×•×œ×”×ª×§×™×Ÿ
+×¤×™×’×•×ž×™ ×”×¤×¨×•×™×§×˜ ×©×œ×š. ×“×•×’×ž×” ×œ×§×•×‘×¥ ×ª×¦×•×¨×ª
+×”×ª×§× ×ª ×¤×¨×•×™×§×˜ ×‘×”×ž×©×š.
+
+    <?php
+    return new Pop\Config(array(
+        'project' => array(
+            'name'    => 'HelloWorld',
+            'base'    => __DIR__ . '/../../',
+            'docroot' => __DIR__ . '/../../public'
+        ),
+        'databases' => array(
+            'helloworld' => array(
+                'type'     => 'Mysqli',
+                'database' => 'helloworld',
+                'host'     => 'localhost',
+                'username' => 'hello',
+                'password' => '12world34',
+                'prefix'   => 'pop_',
+                'default'  => true
+            )
+        ),
+        'forms' => array(
+            'login' => array(
+                'fields' => array(
+                    array(
+                        'type'       => 'text',
+                        'name'       => 'username',
+                        'label'      => 'Username:',
+                        'required'   => true,
+                        'attributes' => array('size', 40),
+                        'validators' => 'AlphaNumeric()'
+                    ),
+                    array(
+                        'type'       => 'password',
+                        'name'       => 'password',
+                        'label'      => 'Password:',
+                        'required'   => true,
+                        'attributes' => array('size', 40),
+                        'validators' => array('NotEmpty()', 'LengthGt(6)')
+                    ),
+                    array(
+                        'type'       => 'submit',
+                        'name'       => 'submit',
+                        'value'      => 'LOGIN'
+                    )
                 )
             )
-        )
-    ),
-    'controllers' => array(
-        'default' => array(
-            'index' => 'index.phtml',
-            'error' => 'error.phtml'
         ),
-        'admin' => array(
-            'index' => 'index.phtml',
-            'error' => 'error.phtml'
+        'controllers' => array(
+            '/' => array(
+                'index' => 'index.phtml',
+                'error' => 'error.phtml'
+            ),
+            '/admin' => array(
+                'index' => 'index.phtml',
+                'error' => 'error.phtml'
+            )
         )
-    )
-));
-</pre>
+    ));
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

@@ -4,56 +4,56 @@ Pop PHP Framework
 Documentation : Event
 ---------------------
 
-事件组件提供附加和触发事件的生命周期内的一个应用程序的一种方法。其主要优点是通过挂钩到它通过连接事件的闭包和类的功能扩展应用程序的能力。
+Home
 
-下面是一个例子使用闭包的安装和触发事件。第二个从第一个接收的结果。
+äº‹ä»¶ç»„ä»¶æ??ä¾›é™„åŠ
+å’Œè§¦å?‘äº‹ä»¶çš„ç”Ÿå‘½å‘¨æœŸå†…çš„ä¸€ä¸ªåº”ç”¨ç¨‹åº?çš„ä¸€ç§?æ–¹æ³•ã€‚å…¶ä¸»è¦?ä¼˜ç‚¹æ˜¯é€šè¿‡æŒ‚é’©åˆ°å®ƒé€šè¿‡è¿žæŽ¥äº‹ä»¶çš„é—­åŒ…å’Œç±»çš„åŠŸèƒ½æ‰©å±•åº”ç”¨ç¨‹åº?çš„èƒ½åŠ›ã€‚
 
-<pre>
-use Pop\Event\Manager;
+ä¸‹é?¢æ˜¯ä¸€ä¸ªä¾‹å­?ä½¿ç”¨é—­åŒ…çš„å®‰è£…å’Œè§¦å?‘äº‹ä»¶ã€‚ç¬¬äºŒä¸ªä»Žç¬¬ä¸€ä¸ªæŽ¥æ”¶çš„ç»“â€‹â€‹æžœã€‚
 
-$manager = new Manager();
+    use Pop\Event\Manager;
 
-$manager-&gt;attach('pre', function($name) { return 'Hello, ' . $name; }, 2);
-$manager-&gt;attach('pre', function($result) { echo $result . '&lt;br /&gt;' . PHP_EOL; }, 1);
+    $manager = new Manager();
 
-$manager-&gt;trigger('pre', array('name' =&gt; 'World'));
-</pre>
+    $manager->attach('pre', function($name) { return 'Hello, ' . $name; }, 2);
+    $manager->attach('pre', function($result) { echo $result . '<br />' . PHP_EOL; }, 1);
 
-下面是一个例子，使用一个类。
+    $manager->trigger('pre', array('name' => 'World'));
 
-<pre>
-use Pop\Event\Manager;
+ä¸‹é?¢æ˜¯ä¸€ä¸ªä¾‹å­?ï¼Œä½¿ç”¨ä¸€ä¸ªç±»ã€‚
 
-class Foo
-{
-    public $value;
+    use Pop\Event\Manager;
 
-    public function __construct($arg = null)
+    class Foo
     {
-        $this-&gt;value = $arg;
+        public $value;
+
+        public function __construct($arg = null)
+        {
+            $this->value = $arg;
+        }
+
+        public static function factory($arg)
+        {
+            return new self($arg);
+        }
+
+        public function bar($arg)
+        {
+            $this->value = $arg;
+            return $this;
+        }
     }
 
-    public static function factory($arg)
-    {
-        return new self($arg);
-    }
+    $manager = new Manager();
 
-    public function bar($arg)
-    {
-        $this-&gt;value = $arg;
-        return $this;
-    }
-}
+    $manager->attach('pre', 'Foo::factory', 2);
 
-$manager = new Manager();
+    // OR
+    //$manager->attach('pre', 'Foo->bar', 2);
 
-$manager-&gt;attach('pre', 'Foo::factory', 2);
+    $manager->attach('pre', function($result) { echo 'Hello, ' . $result->value . '<br />' . PHP_EOL; }, 1);
+    $manager->trigger('pre', array('arg' => 'World'));
 
-// OR
-//$manager-&gt;attach('pre', array(new Foo, 'bar'), 2);
-
-$manager-&gt;attach('pre', function($result) { echo 'Hello, ' . $result-&gt;value . '&lt;br /&gt;' . PHP_EOL; }, 1);
-$manager-&gt;trigger('pre', array('arg' =&gt; 'World'));
-</pre>
-
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

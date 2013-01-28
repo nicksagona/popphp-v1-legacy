@@ -4,46 +4,77 @@ Pop PHP Framework
 Documentation : Record
 ----------------------
 
-המרכיב הקובע, כפי שמתואר סקירה תיעוד, הוא "הכלאה" של מיני בין הקלט הפעיל נתונים מהטבלה דפוסי השער. באמצעות ה-API סטנדרטי, היא יכולה לספק גישה לשורה רשומה בודדת או בתוך טבלת מסד נתונים, או מספר שורות או רשומות בבת אחת. הגישה הנפוצה ביותר היא לכתוב בכיתה הילד מרחיב את המעמד שיא המייצג טבלה במסד הנתונים. שם בכיתה ילד צריך להיות שם הטבלה. פשוט על ידי יצירת
+Home
 
-<pre>
-use Pop\Record\Record;
+×”×ž×¨×›×™×‘ ×”×§×•×‘×¢, ×›×¤×™ ×©×ž×ª×•×?×¨ ×‘×¡×§×™×¨×ª ×”×ª×™×¢×•×“,
+×”×•×? "×”×™×‘×¨×™×“×™" ×©×œ ×ž×™× ×™ ×‘×™×Ÿ ×”×¨×©×•×ž×” ×”×¤×¢×™×œ×”
+×•×“×¤×•×¡×™ Gateway × ×ª×•× ×™ ×˜×‘×œ×”. ×‘×?×ž×¦×¢×•×ª API ×¡×˜×
+×“×¨×˜×™, ×”×™×? ×™×›×•×œ×” ×œ×¡×¤×§ ×’×™×©×” ×œ×©×•×¨×” ×?×• ×¨×©×•×ž×”
+×‘×•×“×“×” ×‘×˜×‘×œ×ª ×ž×¡×“ × ×ª×•× ×™×?, ×?×• ×©×•×¨×•×ª ×?×• ×¨×©×•×?
+×”×ž×¨×•×‘×•×ª ×‘×‘×ª ×?×—×ª. ×”×’×™×©×” ×”× ×¤×•×¦×” ×‘×™×•×ª×¨ ×”×™×?
+×œ×›×ª×•×‘ ×‘×›×™×ª×ª ×™×œ×“ ×©×ž×¨×—×™×‘×” ×?×ª ×”×ž×—×œ×§×”
+×”×¨×©×•×ž×” ×©×ž×™×™×¦×’×ª ×˜×‘×œ×” ×‘×ž×¡×“ ×”× ×ª×•× ×™×?. ×©×ž×•
+×©×œ ×”×™×œ×“ ×‘×›×™×ª×” ×¦×¨×™×š ×œ×”×™×•×ª ×”×©×? ×©×œ ×”×˜×‘×œ×”.
+×¤×©×•×˜ ×¢×œ ×™×“×™ ×™×¦×™×¨×”
 
-class Users extends Record { }
-</pre>
+    use Pop\Record\Record;
 
-יצירת המעמד שיש לו את כל הפונקציונליות של רכיב הקלטה מובנה ומעמד יודע את השם של הטבלה במסד הנתונים לשאילתה של שם המחלקה. כך, למשל, מתרגם "של משתמשים אל תוך ג` המשתמשים `או מתרגם של DbUsers של אל ג` db_users `(CamelCase מומר אוטומטית lower_case_underscore). משם, ניתן לכוונן את מעמד הילד המייצג את הטבלה עם תכונות ברמה שונים כגון :
+    class Users extends Record { }
 
-<pre>
-// Table prefix, if applicable
-protected $prefix = null;
+×?×ª×” ×™×•×¦×¨ ×‘×›×™×ª×” ×©×™×© ×?×ª ×›×œ ×”×¤×•× ×§×¦×™×•× ×œ×™×•×ª
+×©×œ ×”×¨×›×™×‘ ×”×¨×©×•×? ×•× ×‘× ×” ×‘×›×™×ª×” ×™×•×“×¢×ª ×?×ª ×”×©×?
+×©×œ ×”×˜×‘×œ×” ×‘×ž×¡×“ ×”× ×ª×•× ×™×? ×œ×©×?×™×œ×ª×? ×ž×©×?
+×”×ž×—×œ×§×”. ×œ×“×•×’×ž×”, ×ž×ª×¨×’×? '×”×ž×©×ª×ž×©×™×?' ×œ×ž×©×ª×ž×©×™
+\`\` ×?×• ×ž×ª×¨×’×? 'DbUsers' ×œ\` db\_users \`(CamelCase ×”×•×¤×š
+×?×•×˜×•×ž×˜×™ lower\_case\_underscore.) ×ž×©×?, ×?×ª×” ×™×›×•×œ
+×œ×›×•×•× ×Ÿ ×?×ª ×›×™×ª×ª ×”×™×œ×“ ×©×ž×™×™×¦×’×ª ×?×ª ×”×˜×‘×œ×” ×¢×?
+×ž×?×¤×™×™× ×™×? ×‘×¨×ž×” ×©×•× ×™×?, ×›×’×•×Ÿ :
 
-// Primary ID, if applicable, defaults to 'id'
-protected $primaryId = 'id';
+    // Table prefix, if applicable
+    protected $prefix = null;
 
-// Whether the table is auto-incrementing or not
-protected $auto = true;
+    // Primary ID, if applicable, defaults to 'id'
+    protected $primaryId = 'id';
 
-// Whether to use prepared statements or not, defaults to true
-protected $usePrepared = true;
-</pre>
+    // Whether the table is auto-incrementing or not
+    protected $auto = true;
 
-משם, השימוש הבסיסי הוא כדלקמן:
+    // Whether to use prepared statements or not, defaults to true
+    protected $usePrepared = true;
 
-<pre>
-use Users;
+×?×? ×?×ª×” ×‘×ª×•×š ×¤×¨×•×™×§×˜ ×ž×•×‘× ×” ×©×™×© ×ž×ª×?×? ×ž×¡×“ ×
+×ª×•× ×™×? ×ž×•×’×“×¨×™×?, ×?×– ×ž×¨×›×™×‘ ×”×©×™×? ×™×”×™×” ×œ×”×¨×™×?
+×?×ª ×–×” ×•×œ×”×©×ª×ž×© ×‘×•. ×¢×? ×–×?×ª, ×?×? ×?×ª×” ×¤×©×•×˜
+×›×•×ª×‘ ×›×ž×” ×ª×¡×¨×™×˜×™×? ×ž×”×™×¨×™×? ×‘×?×ž×¦×¢×•×ª ×¨×›×™×‘
+×”×”×§×œ×˜×”, ×?×– ×?×ª×” ×¦×¨×™×š ×œ×”×’×™×“ ×?×ª ×–×” ×ž×ª×?×? ×ž×¡×“
+× ×ª×•× ×™×? ×›×“×™ ×œ×”×©×ª×ž×© ×‘×•:
 
-// Get a single user
-$user = Users::findById(1001);
-echo $user->name;
-echo $user->email;
+    // Define DB credentials
+    $creds = array(
+        'database' => 'helloworld',
+        'host'     => 'localhost',
+        'username' => 'hello',
+        'password' => '12world34'
+    );
 
-// Get multiple users
-$users = Users::findAll('last_name ASC');
-foreach ($users->rows as $user) {
+    // Create DB object
+    $db = \Pop\Db\Db::factory('Mysqli', $creds);
+
+    Record::setDb($db);
+
+×ž×©×?, ×©×™×ž×•×© ×‘×¡×™×¡×™ ×”×•×? ×›×“×œ×§×ž×Ÿ:
+
+    // Get a single user
+    $user = Users::findById(1001);
     echo $user->name;
     echo $user->email;
-}
-</pre>
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Get multiple users
+    $users = Users::findAll('last_name ASC');
+    foreach ($users->rows as $user) {
+        echo $user->name;
+        echo $user->email;
+    }
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

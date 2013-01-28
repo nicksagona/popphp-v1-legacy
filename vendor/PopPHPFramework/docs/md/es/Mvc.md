@@ -4,80 +4,86 @@ Pop PHP Framework
 Documentation : Mvc
 -------------------
 
-El componente de MVC, tal como se indica en el resumen de la documentación, es una implementación del patrón de diseño MVC, con la capa adicional de un router para facilitar varias rutas de acceso de usuario y los controladores. En pocas palabras, el controlador se encarga de la delegación de las solicitudes, el modelo se encarga de la lógica de negocio y el punto de vista determina cómo se muestran los resultados al usuario. Todas estas clases dentro de este componente son muy fáciles de extender a aprovecharlas dentro de su propia aplicación.
+Home
 
-Si bien esto puede parecer demasiado complejo, si se utiliza el componente de la CLI proyecto de largometraje de la instalación, la mayor parte de este código se puede escribir e instalado por usted. Sólo tienes que definir el nombre del proyecto y la configuración en el fichero de configuración de instalación. Ver el componente del proyecto doc para obtener un ejemplo de un proyecto de instalar el archivo de configuración.
+El componente MVC, tal como se indica en el resumen de la
+documentaciÃ³n, es una implementaciÃ³n del patrÃ³n de diseÃ±o MVC, con
+la capa adicional de un router para facilitar mÃºltiples caminos de
+usuario y controladores. En pocas palabras, el controlador se encarga de
+la delegaciÃ³n de solicitudes, el modelo se encarga de la lÃ³gica de
+negocio y la vista determina cÃ³mo mostrar el resultado al usuario.
+Todas estas clases dentro de este componente es muy fÃ¡cil de extender a
+aprovecharlas dentro de su propia aplicaciÃ³n.
 
-<pre>
-use Pop\Mvc\Controller,
-    Pop\Mvc\Model,
-    Pop\Mvc\Router,
-    Pop\Mvc\View,
-    Pop\Project\Project;
+Si bien esto puede parecer demasiado complejo, si se utiliza el
+componente CLI proyecto de largometraje de la instalaciÃ³n, la mayor
+parte de este cÃ³digo puede ser escrito e instalado por usted. SÃ³lo
+tienes que definir el nombre del proyecto y la configuraciÃ³n del
+archivo de configuraciÃ³n de instalaciÃ³n. Ver el componente del
+Proyecto doc archivo para obtener un ejemplo de un proyecto de
+instalaciÃ³n de archivo de configuraciÃ³n.
 
-// Define your project class
-class MyProject extends Project
-{
-    // Extend the parent 'run' method to establish router paths
-    public function run()
+    use Pop\Mvc\Controller,
+        Pop\Mvc\Model,
+        Pop\Mvc\Router,
+        Pop\Mvc\View,
+        Pop\Project\Project;
+
+    // Define your project class
+    class MyProject extends Project
     {
-        parent::run();
-
-        if ($this->router()->controller()->getRequest()->getRequestUri() == '/') {
-            $this->router()->controller()->dispatch();
-        } else if (method_exists($this->router()->controller(), $this->router()->getAction())) {
-            $this->router()->controller()->dispatch($this->router()->getAction());
-        } else if (method_exists($this->router()->controller(), 'error')) {
-            $this->router()->controller()->dispatch('error');
+        // Extend the parent 'run' method to establish router paths
+        public function run()
+        {
+            parent::run();
         }
     }
-}
 
-class MyModel extends Model
-{
-    // Perhaps does something special pertaining to whatever data you are manipulating
-}
-
-class MyController extends Controller
-{
-    // Constructor
-    public function __construct(Request $request = null, Response $response = null, Project $project = null, $viewPath = null)
+    class MyModel extends Model
     {
-        if (null === $viewPath) {
-            $viewPath = __DIR__ . '/path/to/my/view/default';
+        // Perhaps does something special pertaining to whatever data you are manipulating
+    }
+
+    class MyController extends Controller
+    {
+        // Constructor
+        public function __construct(Request $request = null, Response $response = null, Project $project = null, $viewPath = null)
+        {
+            if (null === $viewPath) {
+                $viewPath = __DIR__ . '/path/to/my/view/default';
+            }
+
+            parent::__construct($request, $response, $project, $viewPath);
         }
 
-        parent::__construct($request, $response, $project, $viewPath);
+        // Your home page
+        public function index()
+        {
+            $model = new MyModel(array('username' => 'myusername');
+            $this->view = View::factory($this->viewPath . '/index.phtml', $model);
+            $this->send();
+        }
+
+        // Your 404 page
+        public function error()
+        {
+            $this->isError = true;
+            $this->view = View::factory($this->viewPath . '/error.phtml');
+            $this->send();
+        }
     }
 
-    // Your home page
-    public function index()
-    {
-        $model = new MyModel(array('username' => 'myusername');
-        $this->view = View::factory($this->viewPath . '/index.phtml', $model);
-        $this->send();
-    }
+    // Create a project object, to define the project config, router and controller(s)
+    $project = MyProject::factory(
+        include '../some/config/project.config.php',
+        include '../some/config/module.config.php',
+        new Router(array(
+            '/' => 'MyApp\MyController'
+        ))
+    );
 
-    // Your 404 page
-    public function error()
-    {
-        $this->isError = true;
-        $this->view = View::factory($this->viewPath . '/error.phtml');
-        $this->send();
-    }
-}
+    // Run the project
+    $project->run();
 
-// Create a project object, to define the project config, router and controller(s)
-$project = MyProject::factory(
-    include '../some/config/project.config.php',
-    include '../some/config/module.config.php',
-    new Router(array(
-        'default' => 'MyApp\\MyController'
-    ))
-);
-
-// Run the project
-$project->run();
-</pre>
-
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

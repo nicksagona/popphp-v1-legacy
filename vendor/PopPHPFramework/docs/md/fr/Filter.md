@@ -4,18 +4,23 @@ Pop PHP Framework
 Documentation : Filter
 ----------------------
 
-La composante Filter offre des fonctionnalités utiles pour la manipulation de chaînes de filtrage, de chiffrement et de recherche ensemble.
+Home
 
-<pre>
-echo 'Random String: ' . String::random(6, String::ALPHANUM, String::UPPER) . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+La composante Filter offre des fonctionnalitÃ©s utiles pour la
+manipulation de chaÃ®nes de filtrage, de chiffrement et de recherche
+ensemble.
 
-$key = md5('Pop PHP Framework');
+    use Pop\Filter\String;
 
-$encrypted = String::encrypt('Hello World!', $key);
-echo 'Encrypted: ' . $encrypted . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+    echo 'Random String: ' . String::random(6, String::ALPHANUM, String::UPPER) . '<br /><br />' . PHP_EOL;
 
-$decrypted = String::decrypt($encrypted, $key);
-echo 'Decrypted: ' . $decrypted . '&lt;br /&gt;' . PHP_EOL;
-</pre>
+    $key = md5('Pop PHP Framework');
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $encrypted = String::encrypt('Hello World!', $key);
+    echo 'Encrypted: ' . $encrypted . '<br /><br />' . PHP_EOL;
+
+    $decrypted = String::decrypt($encrypted, $key);
+    echo 'Decrypted: ' . $decrypted . '<br />' . PHP_EOL;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

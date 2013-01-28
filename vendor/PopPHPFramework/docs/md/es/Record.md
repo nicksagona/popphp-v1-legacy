@@ -4,46 +4,75 @@ Pop PHP Framework
 Documentation : Record
 ----------------------
 
-El componente de registro, como se indica en el resumen de la documentación, es un "híbrido" de clases entre el registro activo y los patrones de datos de tabla de puerta de enlace. A través de una API estandarizada, puede proporcionar acceso a una sola fila o registro dentro de una tabla de base de datos o varias filas o registros a la vez. El enfoque más común es la de escribir una clase de niño que extiende la clase Registro que representa una tabla en la base de datos. El nombre de la clase niño debe ser el nombre de la mesa. Por la simple creación de
+Home
 
-<pre>
-use Pop\Record\Record;
+El componente de grabaciÃ³n, como se indica en el resumen de la
+documentaciÃ³n, es un "hÃ­brido" de clases entre el Registro de la tabla
+de datos activo y los patrones de Gateway. A travÃ©s de una API
+normalizada, puede facilitar el acceso a una Ãºnica fila o registro
+dentro de una tabla de base de datos o varias filas o registros a la
+vez. El mÃ©todo mÃ¡s comÃºn es escribir una clase hija que se extiende
+la clase de registro que representa una tabla en la base de datos. El
+nombre de la clase hija debe ser el nombre de la tabla. Por la simple
+creaciÃ³n de
 
-class Users extends Record { }
-</pre>
+    use Pop\Record\Record;
 
-crear una clase que tiene toda la funcionalidad del componente construido en el Registro y la clase conoce el nombre de la tabla de base de datos para consultar desde el nombre de la clase. Por ejemplo, se traduce 'de los usuarios en `usuarios` o traduce los DbUsers' en `` (db_users CamelCase se convierte automáticamente en lower_case_underscore.) A partir de ahí, se puede ajustar con precisión la clase de niño que representa a la mesa con varias propiedades de la clase, tales como :
+    class Users extends Record { }
 
-<pre>
-// Table prefix, if applicable
-protected $prefix = null;
+se crea una clase que tiene toda la funcionalidad del componente de
+grabaciÃ³n construido en la clase y conoce el nombre de la tabla de base
+de datos para consultar el nombre de la clase. Por ejemplo, se traduce
+'Usuarios' en \`usuarios\` o 'traduce' en \`DbUsers db\_users\`
+(CamelCase se convierte automÃ¡ticamente en lower\_case\_underscore).
+Desde allÃ­, se puede ajustar con precisiÃ³n la clase de niÃ±o que
+representa la tabla con las propiedades de clases diferentes, tales
+como:
 
-// Primary ID, if applicable, defaults to 'id'
-protected $primaryId = 'id';
+    // Table prefix, if applicable
+    protected $prefix = null;
 
-// Whether the table is auto-incrementing or not
-protected $auto = true;
+    // Primary ID, if applicable, defaults to 'id'
+    protected $primaryId = 'id';
 
-// Whether to use prepared statements or not, defaults to true
-protected $usePrepared = true;
-</pre>
+    // Whether the table is auto-incrementing or not
+    protected $auto = true;
 
-Desde allí, el uso básico es como sigue:
+    // Whether to use prepared statements or not, defaults to true
+    protected $usePrepared = true;
 
-<pre>
-use Users;
+Si usted estÃ¡ dentro de un proyecto estructurado que tiene un adaptador
+de base de datos definida, entonces el componente Record recogerÃ¡ eso y
+lo utilizan. Sin embargo, si usted simplemente estÃ¡ escrito algunos
+guiones rÃ¡pidos utilizando el componente de grabaciÃ³n, entonces usted
+tendrÃ¡ que saber quÃ© adaptador de base de datos a utilizar:
 
-// Get a single user
-$user = Users::findById(1001);
-echo $user->name;
-echo $user->email;
+    // Define DB credentials
+    $creds = array(
+        'database' => 'helloworld',
+        'host'     => 'localhost',
+        'username' => 'hello',
+        'password' => '12world34'
+    );
 
-// Get multiple users
-$users = Users::findAll('last_name ASC');
-foreach ($users->rows as $user) {
+    // Create DB object
+    $db = \Pop\Db\Db::factory('Mysqli', $creds);
+
+    Record::setDb($db);
+
+A partir de ahÃ­, el uso bÃ¡sico es el siguiente:
+
+    // Get a single user
+    $user = Users::findById(1001);
     echo $user->name;
     echo $user->email;
-}
-</pre>
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Get multiple users
+    $users = Users::findAll('last_name ASC');
+    foreach ($users->rows as $user) {
+        echo $user->name;
+        echo $user->email;
+    }
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

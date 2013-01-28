@@ -4,15 +4,28 @@ Pop PHP Framework
 Documentation : Color
 ---------------------
 
-O componente de cor é um componente útil para gerenciar e utilizar objetos de valor de cor. Ele também fornece a funcionalidade para converter valores de cor para outros espaços de cor, por exemplo, converter RGB para CMYK.
+Home
 
-<pre>
-use Pop\Color\Color,
-    Pop\Color\Rgb;
+O componente de cor Ã© um componente Ãºtil para gerenciar e utilizar
+objetos de valor de cor. Ele tambÃ©m oferece a funcionalidade de
+converter valores de cores para outros espaÃ§os de cor, por exemplo, a
+conversÃ£o de RGB para CMYK.
 
-$color = new Color(new Rgb(112, 124, 228));
-echo $color->cmyk->getCmyk(Color::STRING);
-echo $color->lab->getLab(Color::STRING);
-</pre>
+    use Pop\Color;
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Create a color space value object
+    $color = new Color\Color(new Color\Space\Rgb(112, 124, 228));
+
+    echo '<strong>RGB values:</strong> ' . $color->rgb . '<br /><br />' . PHP_EOL;
+    echo '<strong>HEX values:</strong> ' . $color->hex . '<br /><br />' . PHP_EOL;
+    echo '<strong>CMYK conversion:</strong> ' . $color->cmyk . '<br /><br />' . PHP_EOL;
+    echo '<strong>HSB conversion:</strong> ' . $color->hsb . '<br /><br />' . PHP_EOL;
+    echo '<strong>Lab conversion:</strong> ' . $color->lab . '<br /><br />' . PHP_EOL;
+
+    // Directly convert a single color object
+    $rgb = new Color\Space\Rgb(112, 124, 228);
+    $cmyk = Color\Convert::toCmyk($rgb);
+    echo 'RGB: ' . $rgb . ' => CMYK: ' . $cmyk;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

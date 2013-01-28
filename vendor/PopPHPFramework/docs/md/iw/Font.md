@@ -4,23 +4,29 @@ Pop PHP Framework
 Documentation : Font
 --------------------
 
-מרכיב גופן הוא מנתח בבית גופן עומק המפיקה נתונים חשובים גופן ומדדים עבור רכיבים אחרים ותוכניות להשתמש. סוגי הגופנים הנתמכים הם:
+Home
 
-* TrueType
-* OpenType
-* Type1
+×”×¨×›×™×‘ ×”×•×? ×”×’×•×¤×Ÿ ×‘×’×•×¤×Ÿ ×ž× ×ª×— ×”×¢×•×ž×§ ×©×ž×—×œ×¦×ª
+× ×ª×•× ×™ ×’×•×¤× ×™×? ×•×ž×“×“×™×? ×—×©×•×‘×™×? ×¢×‘×•×¨ ×¨×›×™×‘×™×?
+×•×ª×•×›× ×™×•×ª ×œ×©×™×ž×•×© ×?×—×¨×™×?. ×?×ª ×¡×•×’×™ ×”×’×•×¤× ×™×?
+×”× ×ª×ž×›×™×? ×”×?:
 
-<pre>
-use Pop\Font\TrueType;
+-   TrueType
+-   OpenType
+-   Type1
 
-$font = new TrueType('fonts/times.ttf');
+<!-- -->
 
-// You then have access to all of the parsed font data and metrics.
-echo $font->info->fullName;
-echo $font->bBox->xMin;
-echo $font->bBox->yMin;
-echo $font->bBox->xMax;
-echo $font->bBox->yMax;
-</pre>
+    use Pop\Font\TrueType;
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $font = new TrueType('fonts/times.ttf');
+
+    // You then have access to all of the parsed font data and metrics.
+    echo $font->info->fullName;
+    echo $font->bBox->xMin;
+    echo $font->bBox->yMin;
+    echo $font->bBox->xMax;
+    echo $font->bBox->yMax;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

@@ -4,39 +4,42 @@ Pop PHP Framework
 Documentation : Cache
 ---------------------
 
-Der Cache-Komponente ermöglicht die einfache Speicherung von dauerhaften Daten über drei Methoden:
+Home
 
-* a file on disk
-* a sqlite database
-* memcache
+Die Cache-Komponente ermÃ¶glicht die einfache Speicherung von
+persistenten Daten Ã¼ber vier Methoden:
 
-Das Ziel des Cache-Komponente ist, um schnelleren Zugriff auf Daten, die eher statisch ist und sich nicht oft ändern. Durch Speicherung von einem der oben aufgeführten Methoden können Zugriffsgeschwindigkeit erhöht, weil ein teurer Prozess Anruf kann vermieden werden, wie den Zugriff auf eine große Datenbank oder eine externe Web-Adresse zum Abrufen von Daten werden kann.
+-   Apc
+-   a file on disk
+-   a Sqlite database
+-   Memcache
 
-<pre>
-use Pop\Cache\Cache,
-    Pop\Cache\File,
-    Pop\Cache\Memcached,
-    Pop\Cache\Sqlite;
+Das Ziel des Cache-Komponente ist zu beschleunigen den Zugriff auf
+Daten, die mehr statisch ist und nicht oft Ã¤ndern. Durch Speicherung
+von einer der oben genannten Methoden kÃ¶nnen Zugriffsgeschwindigkeit
+erhÃ¶ht, da ein teurer Prozess Anruf kann vermieden, wie den Zugriff auf
+eine groÃŸe Datenbank oder einer externen Web-Adresse zum Abrufen von
+Daten werden kann.
 
-$test = 'This is my test variable. It contains a string.';
+    use Pop\Cache;
+    $test = 'This is my test variable. It contains a string.';
 
-// Create Cache object, using either Memcached, File or Sqlite
-$cache = Cache::factory(new Memcached(), 30);
-//$cache = Cache::factory(new File('../tmp'), 30);
-//$cache = Cache::factory(new Sqlite('../tmp/cache.sqlite'), 30);
+    $cache = Cache\Cache::factory(new Cache\Adapter\File('../tmp'), 30);
+    //$cache = Cache\Cache::factory(new Cache\Adapter\Memcached(), 30);
+    //$cache = Cache\Cache::factory(new Cache\Adapter\Sqlite('../tmp/cache.sqlite'), 30);
+    //$cache = Cache\Cache::factory(new Cache\Adapter\Apc(), 30);
 
-// Save value to cache
-$cache->save('test', $test);
+    $cache->save('test', $test);
 
-// Load the value from cache
-if (!($var = $cache->load('test'))) {
-    echo 'The value is either not there or expired.';
-} else {
-    var_dump($var);
-}
+    // Load the value
+    if (!($var = $cache->load('test'))) {
+        echo "It's either not there or expired.";
+    } else {
+        echo $var;
+    }
 
-// Clear the cache
-$cache->clear();
-</pre>
+    // Clear the cache
+    $cache->clear();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

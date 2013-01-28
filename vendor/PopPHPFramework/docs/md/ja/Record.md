@@ -4,46 +4,65 @@ Pop PHP Framework
 Documentation : Record
 ----------------------
 
-としてのドキュメントの概要で説明されているレコードのコンポーネントは、Active Recordのとテーブルデータゲートウェイパターンの間にある種の "ハイブリッド"です。標準化されたAPIを介して、それが一度にデータベーステーブル内の単一の行またはレコードへのアクセス、または複数の行またはレコードを提供することができます。最も一般的なアプローチは、データベース内のテーブルを表すレコードクラスを拡張子クラスを作成することです。子クラスの名前は、テーブルの名前でなければなりません。単に作成することにより、
+Home
 
-<pre>
-use Pop\Record\Record;
+ã?¨ã?—ã?¦ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆæ¦‚è¦?ã‚’èª¬æ˜Žã?—ã?¦ãƒ¬ã‚³ãƒ¼ãƒ‰ã?®æ§‹æˆ?è¦?ç´
+ã?¯ã€?ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ¬ã‚³ãƒ¼ãƒ‰ã?¨ãƒ†ãƒ¼ãƒ–ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚²ãƒ¼ãƒˆã‚¦ã‚§ã‚¤ãƒ‘ã‚¿ãƒ¼ãƒ³é–“ã?®ã?‚ã‚‹ç¨®ã?®
+"ãƒ?ã‚¤ãƒ–ãƒªãƒƒãƒ‰"ã?§ã?™ã€‚æ¨™æº–åŒ–ã?•ã‚Œã?ŸAPIã‚’ä»‹ã?—ã?¦ã€?ã??ã‚Œã?Œä¸€åº¦ã?«ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒ–ãƒ«å†…ã?®å?˜ä¸€ã?®è¡Œã?¾ã?Ÿã?¯ãƒ¬ã‚³ãƒ¼ãƒ‰ã?¸ã?®ã‚¢ã‚¯ã‚»ã‚¹ã€?ã?¾ã?Ÿã?¯è¤‡æ•°ã?®è¡Œã?¾ã?Ÿã?¯ãƒ¬ã‚³ãƒ¼ãƒ‰ã‚’æ??ä¾›ã?™ã‚‹ã?“ã?¨ã?Œã?§ã??ã?¾ã?™ã€‚æœ€ã‚‚ä¸€èˆ¬çš„ã?ªã‚¢ãƒ—ãƒ­ãƒ¼ãƒ?ã?¯ã€?ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹å†…ã?®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’è¡¨ã?™Recordã‚¯ãƒ©ã‚¹ã‚’æ‹¡å¼µå­?ã‚¯ãƒ©ã‚¹ã‚’è¨˜è¿°ã?™ã‚‹ã?“ã?¨ã?§ã?™ã€‚å­?ã‚¯ãƒ©ã‚¹ã?®å??å‰?ã?¯ã€?è¡¨ã?®å??å‰?ã?§ã?ªã?‘ã‚Œã?°ã?ªã‚Šã?¾ã?›ã‚“ã€‚å?˜ã?«ä½œæˆ?ã?™ã‚‹ã?“ã?¨ã?«ã‚ˆã‚Šã€?
 
-class Users extends Record { }
-</pre>
+    use Pop\Record\Record;
 
-あなたは、年に建てられ、クラスはクラス名からクエリを実行するデータベーステーブルの名前を知っているレコード·コンポーネントのすべての機能を持つクラスを作成します。たとえば、そこから `db_users`（キャメルケースは自動的にlower_case_underscoreに変換されます。）に `ユーザー`または 'DbUsers'変換に 'ユーザー'に変換するには、などのさまざまなクラスのプロパティを持つテーブルを表す子クラスを微調整することができます：
+    class Users extends Record { }
 
-<pre>
-// Table prefix, if applicable
-protected $prefix = null;
+ã?‚ã?ªã?Ÿã?¯ã€?å¹´ã?«å»ºè¨­ã?•ã‚Œã€?ã‚¯ãƒ©ã‚¹ã?¯ã‚¯ãƒ©ã‚¹å??ã?‹ã‚‰ç…§ä¼šã?™ã‚‹ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒ–ãƒ«ã?®å??å‰?ã‚’çŸ¥ã?£ã?¦ã?„ã‚‹ãƒ¬ã‚³ãƒ¼ãƒ‰ã?®æ§‹æˆ?è¦?ç´
+ã?®ã?™ã?¹ã?¦ã?®æ©Ÿèƒ½ã‚’æŒ?ã?¤ã‚¯ãƒ©ã‚¹ã‚’ä½œæˆ?ã?—ã?¾ã?™ã€‚ä¾‹ã?ˆã?°ã€?ã??ã?“ã?‹ã‚‰
+\`db\_users\`ï¼ˆã‚­ãƒ£ãƒ¡ãƒ«ã‚±ãƒ¼ã‚¹ã?Œè‡ªå‹•çš„lower\_case\_underscoreã?«å¤‰æ?›ã?•ã‚Œã?¾ã?™ã€‚ï¼‰ã?«
+\`ãƒ¦ãƒ¼ã‚¶\`ã‚„ 'DbUsers'å¤‰æ?›ä¸­ã?«
+"ãƒ¦ãƒ¼ã‚¶ãƒ¼"å¤‰æ?›ã?¯ã€?æ¬¡ã?®ã‚ˆã?†ã?ªæ§˜ã€…ã?ªã‚¯ãƒ©ã‚¹ã?®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ä½¿ç”¨ã?—ã?¦ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’è¡¨ã?™å­?ã‚¯ãƒ©ã‚¹ã‚’å¾®èª¿æ•´ã?™ã‚‹ã?“ã?¨ã?Œã?§ã??ã?¾ã?™ï¼š
 
-// Primary ID, if applicable, defaults to 'id'
-protected $primaryId = 'id';
+    // Table prefix, if applicable
+    protected $prefix = null;
 
-// Whether the table is auto-incrementing or not
-protected $auto = true;
+    // Primary ID, if applicable, defaults to 'id'
+    protected $primaryId = 'id';
 
-// Whether to use prepared statements or not, defaults to true
-protected $usePrepared = true;
-</pre>
+    // Whether the table is auto-incrementing or not
+    protected $auto = true;
 
-そこから、基本的な使い方は次のとおりです。
+    // Whether to use prepared statements or not, defaults to true
+    protected $usePrepared = true;
 
-<pre>
-use Users;
+ä½¿ç”¨ã?—ã?¦ã€?å®šç¾©æ¸ˆã?¿ã?®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚¢ãƒ€ãƒ—ã‚¿ã‚’æŒ?ã?£ã?¦æ§‹é€
+åŒ–ã?•ã‚Œã?Ÿãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå†…ã?«ã?„ã‚‹å
+´å?ˆã?¯ã€?ãƒ¬ã‚³ãƒ¼ãƒ‰ã?®æ§‹æˆ?è¦?ç´
+ã?¯ã€?ã??ã‚Œã‚’æ‹¾ã?†ã?¨ã€?ã??ã‚Œã‚’ä½¿ç”¨ã?—ã?¾ã?™ã€‚ã?—ã?‹ã?—ã€?ã?‚ã?ªã?Ÿã?¯ã€?å?˜ã?«ãƒ¬ã‚³ãƒ¼ãƒ‰Â·ã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã‚’ä½¿ç”¨ã?—ã?¦ã€?ã?„ã??ã?¤ã?‹ã?®ç°¡å?˜ã?ªã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’æ›¸ã?„ã?¦ã?„ã‚‹ã?ªã‚‰ã€?ã?‚ã?ªã?Ÿã?¯ã€?ã?©ã?®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹Â·ã‚¢ãƒ€ãƒ—ã‚¿ã?Œä½¿ç”¨ã?™ã‚‹ã‚ˆã?†æŒ‡ç¤ºã?™ã‚‹å¿…è¦?ã?Œã?‚ã‚Šã?¾ã?™ï¼š
 
-// Get a single user
-$user = Users::findById(1001);
-echo $user->name;
-echo $user->email;
+    // Define DB credentials
+    $creds = array(
+        'database' => 'helloworld',
+        'host'     => 'localhost',
+        'username' => 'hello',
+        'password' => '12world34'
+    );
 
-// Get multiple users
-$users = Users::findAll('last_name ASC');
-foreach ($users->rows as $user) {
+    // Create DB object
+    $db = \Pop\Db\Db::factory('Mysqli', $creds);
+
+    Record::setDb($db);
+
+ã??ã?“ã?‹ã‚‰ã€?åŸºæœ¬çš„ã?ªä½¿ã?„æ–¹ã?¯ä»¥ä¸‹ã?®é€šã‚Šã?§ã?™ï¼š
+
+    // Get a single user
+    $user = Users::findById(1001);
     echo $user->name;
     echo $user->email;
-}
-</pre>
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Get multiple users
+    $users = Users::findAll('last_name ASC');
+    foreach ($users->rows as $user) {
+        echo $user->name;
+        echo $user->email;
+    }
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

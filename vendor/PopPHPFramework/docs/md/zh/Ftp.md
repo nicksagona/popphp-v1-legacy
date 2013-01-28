@@ -4,16 +4,17 @@ Pop PHP Framework
 Documentation : Ftp
 -------------------
 
-简单的FTP组件提供了一个PHP的FTP扩展的面向对象的API的包装。
+Home
 
-<pre>
-use Pop\Ftp\Ftp;
+ç®€å?•çš„FTPç»„ä»¶çš„PHPçš„FTPæ‰©å±•æ??ä¾›äº†ä¸€ä¸ªé?¢å?‘å¯¹è±¡çš„APIçš„åŒ…è£…ã€‚
 
-$ftp = new Ftp('ftp.yourserver.com', 'username', 'password');
-$ftp->pasv(true)
-    ->chdir('./httpdocs/')
-    ->put('test.txt', '../assets/files/test.txt', FTP_ASCII);
-echo 'File Sent!';
-</pre>
+    use Pop\Ftp\Ftp;
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $ftp = new Ftp('ftp.yourserver.com', 'username', 'password');
+    $ftp->pasv(true)
+        ->chdir('./httpdocs/')
+        ->put('test.txt', '../assets/files/test.txt', FTP_ASCII);
+    echo 'File Sent!';
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

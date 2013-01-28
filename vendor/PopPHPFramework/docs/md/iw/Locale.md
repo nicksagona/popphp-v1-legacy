@@ -4,21 +4,26 @@ Pop PHP Framework
 Documentation : Locale
 ----------------------
 
-המרכיב אזור מספקת תמיכה שפה פונקציונליות תרגום עבור היישום. אתה יכול פשוט ליצור לטעון קבצי XML משלך של תרגומים בשפות הנדרשות בפורמט מה המתוארים הקבצים האישיים של פופ שפת XML.
+Home
 
-אתה יכול לטעון תרגום משלך קבצי שפה, כל עוד לדבוק בתקן XML הוקמה בתיקייה פופ / אזור / נתונים.
+×•×?×? ×?×ª×” ×¦×¨×™×š ×§×•×‘×¥ classmap × ×•×¦×¨, ×¨×›×™×‘ Loader ×™×©
+×”×¤×•× ×§×¦×™×•× ×œ×™ ×§×œ ×›×“×™ ×œ×™×¦×•×¨ ×§×•×‘×¥ classmap ×’×?
+×œ×š.
 
-<pre>
-use Pop\Locale\Locale;
+×?×ª×” ×™×›×•×œ ×œ×˜×¢×•×Ÿ ×§×‘×¦×™ ×ª×¨×’×•×? ×”×©×¤×” ×©×œ×š, ×›×œ
+×¢×•×“ ×œ×“×‘×•×§ ×‘×ª×§×Ÿ XML ×”×•×§×? ×‘×ª×™×§×™×™×ª ×¤×•×¤ /
+×”×?×–×•×¨ / × ×ª×•× ×™×?.
 
-// Create a Locale object to translate to French, using your own language file.
-$lang = Locale::factory('fr')->loadFile('folder/mylangfile.xml);
+    use Pop\Locale\Locale;
 
-// Will output 'Ce champ est obligatoire.'
-$lang->_e('This field is required.');
+    // Create a Locale object to translate to French, using your own language file.
+    $lang = Locale::factory('fr')->loadFile('folder/mylangfile.xml);
 
-// Will return and output 'Ce champ est obligatoire.'
-echo $lang->__('This field is required.');
-</pre>
+    // Will output 'Ce champ est obligatoire.'
+    $lang->_e('This field is required.');
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Will return and output 'Ce champ est obligatoire.'
+    echo $lang->__('This field is required.');
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

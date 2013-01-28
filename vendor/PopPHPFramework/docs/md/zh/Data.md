@@ -4,28 +4,32 @@ Pop PHP Framework
 Documentation : Data
 --------------------
 
-数据组件提供了一个共同的格式转换到另一个数据集的能力。支持的格式是：
+Home
 
-* csv
-* json
-* php
-* sql
-* xml
-* yaml
+æ•°æ?®ç»„ä»¶æ??ä¾›çš„æ•°æ?®é›†ä»Žä¸€ä¸ªå…±å?Œçš„æ
+¼å¼?è½¬æ?¢çš„èƒ½åŠ›ã€‚æ”¯æŒ?çš„æ ¼å¼?åŒ…æ‹¬ï¼š
 
-<pre>
-use Pop\Data\Data;
+-   csv
+-   json
+-   php
+-   sql
+-   xml
+-   yaml
 
-// Parses the data file into a usable PHP array
-$data = new Data('../assets/files/test-import.csv');
-$csv = $data->parseFile();
+<!-- -->
 
-// Takes the PHP array and creates an XML file from it
-$data = new Data($csv);
-$obj = $data->parseData('xml');
+    use Pop\Data\Data;
 
-// Prints out the data in the new XML format
-echo $obj;
-</pre>
+    // Parses the data file into a usable PHP array
+    $data = new Data('../assets/files/test-import.csv');
+    $csv = $data->parseFile();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Takes the PHP array and creates an XML file from it
+    $data = new Data($csv);
+    $obj = $data->parseData('xml');
+
+    // Prints out the data in the new XML format
+    echo $obj;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

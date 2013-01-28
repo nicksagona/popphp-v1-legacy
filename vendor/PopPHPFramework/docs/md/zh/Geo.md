@@ -4,18 +4,20 @@ Pop PHP Framework
 Documentation : Geo
 -------------------
 
-简单地缘组件到PHP的GeoIp扩展名提供了一个面向对象的API的包装。
+Home
 
-<pre>
-use Pop\Geo\Geo;
+ç®€å?•åœ°ç¼˜ç»„ä»¶PHP
+geoipçš„æ‰©å±•æ??ä¾›äº†ä¸€ä¸ªé?¢å?‘å¯¹è±¡çš„APIçš„åŒ…è£…ã€‚
 
-$geo1 = new Geo('123.123.123.123');
-$geo2 = new Geo('234.234.234.234');
+    use Pop\Geo\Geo;
 
-print_r($geo->getHostInfo());
+    $geo1 = new Geo('123.123.123.123');
+    $geo2 = new Geo('234.234.234.234');
 
-echo $geo1->distanceTo($geo2, 4);
-//echo $geo1->distanceTo($geo2->latitude, $geo2->longitude, 4);
-</pre>
+    print_r($geo->getHostInfo());
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    echo $geo1->distanceTo($geo2, 4);
+    //echo $geo1->distanceTo($geo2->latitude, $geo2->longitude, 4);
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

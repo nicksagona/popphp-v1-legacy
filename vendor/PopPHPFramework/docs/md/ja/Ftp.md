@@ -4,16 +4,17 @@ Pop PHP Framework
 Documentation : Ftp
 -------------------
 
-FTPコンポーネントは、単にPHPのftp拡張機能のオブジェクト指向のAPIのラッパーを提供します。
+Home
 
-<pre>
-use Pop\Ftp\Ftp;
+FTPã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã?¯ã€?å?˜ã?«PHPã?®ftpæ‹¡å¼µæ©Ÿèƒ½ã?¸ã?®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæŒ‡å?‘APIã?®ãƒ©ãƒƒãƒ‘ãƒ¼ã‚’æ??ä¾›ã?—ã?¾ã?™ã€‚
 
-$ftp = new Ftp('ftp.yourserver.com', 'username', 'password');
-$ftp->pasv(true)
-    ->chdir('./httpdocs/')
-    ->put('test.txt', '../assets/files/test.txt', FTP_ASCII);
-echo 'File Sent!';
-</pre>
+    use Pop\Ftp\Ftp;
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $ftp = new Ftp('ftp.yourserver.com', 'username', 'password');
+    $ftp->pasv(true)
+        ->chdir('./httpdocs/')
+        ->put('test.txt', '../assets/files/test.txt', FTP_ASCII);
+    echo 'File Sent!';
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

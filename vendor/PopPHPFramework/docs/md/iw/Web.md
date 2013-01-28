@@ -4,17 +4,22 @@ Pop PHP Framework
 Documentation : Web
 -------------------
 
-רכיב האינטרנט הוא אוסף של מבוססי אינטרנט לצרכים ופונקציונליות, הפעלות ניהול כאלה, שרתים, דפדפנים ועוגיות. כמו כן, היא כוללת את פונקציונליות לאיתור התקנים ניידים, כך שהיישום יוכל להגיב בהתאם.
+Home
 
-<pre>
-use Pop\Web\Session;
+×¨×›×™×‘ ×”×?×™× ×˜×¨× ×˜ ×”×•×? ×?×•×¡×£ ×©×œ ×¦×•×¨×›×™×? ×ž×‘×•×¡×¡×™
+×?×™× ×˜×¨× ×˜ ×•×¤×•× ×§×¦×™×•× ×œ×™, ×”×¤×¢×œ×•×ª × ×™×”×•×œ ×›×?×œ×”,
+×©×¨×ª×™×?, ×“×¤×“×¤× ×™×? ×•×¢×•×’×™×•×ª. ×›×ž×• ×›×Ÿ, ×–×” ×›×•×œ×œ
+×?×ª ×”×¤×•× ×§×¦×™×•× ×œ×™×•×ª ×œ×?×™×ª×•×¨ ×”×ª×§× ×™×? × ×™×™×“×™×?,
+×›×š ×©×”×™×™×©×•×? ×©×œ×š ×™×›×•×œ ×œ×”×’×™×‘ ×‘×”×ª×?×?.
 
-$sess = Session::getInstance();
-$sess->username = 'yourname';
-print_r($sess);
-print_r($_SESSION);
+    use Pop\Web\Session;
 
-echo $sess->getId();
-</pre>
+    $sess = Session::getInstance();
+    $sess->username = 'yourname';
+    print_r($sess);
+    print_r($_SESSION);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    echo $sess->getId();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

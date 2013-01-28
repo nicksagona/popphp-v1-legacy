@@ -4,29 +4,36 @@ Pop PHP Framework
 Documentation : Config
 ----------------------
 
-عنصر التكوين يوفر كائن قيمة البيانات التي يتم استخدامها من قبل المكونات الأخرى مثل عنصر من عناصر المشروع. عادة، يتم تعريف الأشياء مثل أوراق اعتماد قاعدة البيانات في كائن التكوين ومرر إلى كائن مشروع ليتم استخدامها خلال دورة حياة المشروع أو البرنامج النصي.
+Home
 
-<pre>
-use Pop\Config;
+ÙŠÙˆÙ?Ø± Ø¹Ù†ØµØ± Ø§Ù„ØªÙƒÙˆÙŠÙ† ÙƒØ§Ø¦Ù† Ù‚ÙŠÙ…Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª
+Ø§Ù„ØªÙŠ ÙŠØªÙ… Ø§Ø³ØªØ®Ø¯Ø§Ù…Ù‡Ø§ Ù…Ù† Ù‚Ø¨Ù„ Ø§Ù„Ù…ÙƒÙˆÙ†Ø§Øª
+Ø§Ù„Ø£Ø®Ø±Ù‰ Ù…Ø«Ù„ Ù…ÙƒÙˆÙ†Ø§Øª Ø§Ù„Ù…Ø´Ø±ÙˆØ¹. Ø¹Ø§Ø¯Ø©ØŒ ÙŠØªÙ…
+ØªØ¹Ø±ÙŠÙ? Ø£Ø´ÙŠØ§Ø¡ Ù…Ø«Ù„ Ø£ÙˆØ±Ø§Ù‚ Ø§Ø¹ØªÙ…Ø§Ø¯ Ù‚Ø§Ø¹Ø¯Ø©
+Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ù?ÙŠ ÙƒØ§Ø¦Ù† Ø§Ù„ØªÙƒÙˆÙŠÙ† ÙˆØªÙ…Ø±ÙŠØ±Ù‡Ø§ Ø¥Ù„Ù‰
+ÙƒØ§Ø¦Ù† Ø§Ù„Ù…Ø´Ø±ÙˆØ¹ Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù…Ù‡Ø§ Ø®Ù„Ø§Ù„ Ø¯ÙˆØ±Ø© Ø­ÙŠØ§Ø©
+Ø§Ù„Ù…Ø´Ø±ÙˆØ¹ Ø£Ùˆ Ø§Ù„Ø¨Ø±Ù†Ø§Ù…Ø¬ Ø§Ù„Ù†ØµÙŠ.
 
-$cfg = array(
-    'db' => array(
-        'name' => 'testdb',
-        'host' => 'localhost',
-        'user' => array(
-            'username' => 'testuser',
-            'password' => '12test34',
-            'role'     => 'editor'
-        )
-    ),
-    'module' => 'TestModule'
-);
+    use Pop\Config;
 
-$config = new Config($cfg);
+    $cfg = array(
+        'db' => array(
+            'name' => 'testdb',
+            'host' => 'localhost',
+            'user' => array(
+                'username' => 'testuser',
+                'password' => '12test34',
+                'role'     => 'editor'
+            )
+        ),
+        'module' => 'TestModule'
+    );
 
-echo 'DB Name: ' . $config->db->name;
-echo 'User: ' . $config->db->user->username . ' has the role: ' . $config->db->user->role;
-echo 'Module Name: ' . $config->module;
-</pre>
+    $config = new Config($cfg);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    echo 'DB Name: ' . $config->db->name;
+    echo 'User: ' . $config->db->user->username . ' has the role: ' . $config->db->user->role;
+    echo 'Module Name: ' . $config->module;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

@@ -4,18 +4,22 @@ Pop PHP Framework
 Documentation : Version
 -----------------------
 
-מרכיב גרסה פשוט מספק את היכולת לקבוע איזו גירסה של חלונות יש לך הנוכחית, ומה זמין האחרונה היא. כמו כן, רכיב זה משמש מרכיב CLI כדי לבצע את התלות-הסימון.
+Home
 
-<pre>
-use Pop\Version;
+×ž×¨×›×™×‘ ×”×’×¨×¡×” ×¤×©×•×˜ ×ž×¡×¤×§ ×?×ª ×”×™×›×•×œ×ª ×œ×§×‘×•×¢
+×?×™×–×• ×’×¨×¡×” ×©×œ ×¤×•×¤ ×™×© ×œ×š × ×•×›×—×™, ×•×ž×” ×”×–×ž×™×Ÿ
+×”×?×—×¨×•×Ÿ ×”×•×?. ×›×ž×• ×›×Ÿ, ×¨×›×™×‘ ×–×” ×ž×©×ž×© ×ž×¨×›×™×‘ CLI
+×œ×‘×¦×¢ ×?×ª ×”×ª×œ×•×ª ×‘×ž×›×•× ×”.
 
-echo Version::getVersion();
+    use Pop\Version;
 
-if (Version::compareVersion(1.0) == 1) {
-    echo 'The current version is less than 1.0';
-} else {
-    echo 'The current version is greater than or equal to 1.0';
-}
-</pre>
+    echo Version::getVersion();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    if (Version::compareVersion(1.0) == 1) {
+        echo 'The current version is less than 1.0';
+    } else {
+        echo 'The current version is greater than or equal to 1.0';
+    }
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

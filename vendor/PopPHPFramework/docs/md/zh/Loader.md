@@ -4,22 +4,33 @@ Pop PHP Framework
 Documentation : Loader
 ----------------------
 
-Loader组件可能是流行的PHP框架的最基本的，但最重要的组成部分。这是组件，驱动框架的自动装填能力，并可以很容易地与自己的应用程序自动加载器来加载自己的类注册。这单枪匹马替换所有那些旧的include语句，你曾经有过所有的地方。现在，所有你需要的是一个需要bootstrap.php'在上面的语句，你是好去。默认情况下，引导文件包含所需的参考框架的自动加载类，然后加载它。在引导文件，你可以轻松地执行其他加载功能，如登记与自动装带您的应用程序的命名空间，或装载一个ClassMap文件，以减少加载时间。
+Home
 
-<pre>
-// Instantiate the autoloader object
-$autoloader = new Pop\Loader\Autoloader();
-$autoloader->splAutoloadRegister();
+Loaderç»„ä»¶å?¯èƒ½æ˜¯æœ€åŸºæœ¬çš„ï¼Œä¹Ÿæ˜¯æœ€é‡?è¦?çš„ç»„æˆ?éƒ¨åˆ†æµ?è¡Œçš„PHPæ¡†æž¶ã€‚å®ƒçš„ç»„ä»¶ï¼Œé©±åŠ¨æ¡†æž¶çš„è‡ªåŠ¨åŠ
+è½½åŠŸèƒ½ï¼Œå¹¶å?¯ä»¥å¾ˆå®¹æ˜“åœ°æ³¨å†Œè‡ªå·±çš„åº”ç”¨ç¨‹åº?çš„è‡ªåŠ¨åŠ
+è½½ä½ è‡ªå·±çš„ç±»åŠ
+è½½ã€‚è¿™å?•æžªåŒ¹é©¬å?–ä»£æ‰€æœ‰é‚£äº›è€?includeè¯­å?¥ï¼Œä½
+æœ‰æ‰€æœ‰çš„åœ°æ–¹ã€‚çŽ°åœ¨ï¼Œæ‰€æœ‰ä½
+éœ€è¦?çš„æ˜¯ä¸€ä¸ªåœ¨é¡¶éƒ¨çš„â€œbootstrap.phpâ€?requireè¯­å?¥ï¼Œä½
+æ˜¯å¥½åŽ»ã€‚é»˜è®¤æƒ…å†µä¸‹ï¼Œç¨‹åº?çš„å¼•å¯¼æ–‡ä»¶ä¸­åŒ…å?«æ‰€éœ€çš„å?‚è€ƒæ¡†æž¶çš„è‡ªåŠ¨åŠ
+è½½ç£?å¸¦æœºç±»ï¼Œç„¶å?Žå°†å…¶åŠ
+è½½äº†ã€‚åœ¨ç¨‹åº?çš„å¼•å¯¼æ–‡ä»¶ä¸­ï¼Œä½
+å?¯ä»¥å¾ˆå®¹æ˜“åœ°æ‰§è¡Œå…¶ä»–åŠ
+è½½åŠŸèƒ½ï¼Œå¦‚æ³¨å†Œæ‚¨çš„åº”ç”¨ç¨‹åº?çš„å‘½å??ç©ºé—´çš„è‡ªåŠ¨åŠ
+è½½ç£?å¸¦æœºï¼Œæˆ–åŠ è½½ä¸€ä¸ªClassMapæ–‡ä»¶ï¼Œä»¥å‡?å°‘åŠ è½½æ—¶é—´ã€‚
 
-$autoloader->register('YourLib', '../vendor/YourLib/src');
-$autoloader->loadClassMap('../vendor/YourLib/classmap.php');
-</pre>
+    // Instantiate the autoloader object
+    $autoloader = new Pop\Loader\Autoloader();
+    $autoloader->splAutoloadRegister();
 
-如果你需要生成一个ClassMap文件，Loader组件具有的功能，可以轻松地为你生成一个classmap文件以及。
+    $autoloader->register('YourLib', '../vendor/YourLib/src');
+    $autoloader->loadClassMap('../vendor/YourLib/classmap.php');
 
-<pre>
-// Generate a classmap file
-Pop\Loader\Classmap::generate('your/src/folder', 'your/src/folder/classmap.php');
-</pre>
+å¦‚æžœä½
+éœ€è¦?ä¸€ä¸ªClassMapç”Ÿæˆ?çš„æ–‡ä»¶ï¼ŒLoaderç»„ä»¶çš„åŠŸèƒ½ï¼Œå?¯ä»¥è½»æ?¾åœ°ç”Ÿæˆ?ä¸€ä¸ªClassMapæ–‡ä»¶ä»¥å?Šã€‚
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Generate a classmap file
+    Pop\Loader\Classmap::generate('your/src/folder', 'your/src/folder/classmap.php');
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

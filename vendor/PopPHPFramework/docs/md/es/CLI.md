@@ -1,27 +1,85 @@
 Pop PHP Framework
 =================
 
-Documentation : Cli
+Documentation : CLI
 -------------------
 
-La línea de comandos (CLI) componente es un componente muy útil que te permite realizar algunas tareas útiles tales como:
+Home
 
-* evaluar el entorno actual de las dependencias necesarias
-* instalar un proyecto de un archivo de instalación del proyecto
-* establecer el idioma predeterminado de una aplicación
-* crear un mapa de la clase
-* volver a configurar un proyecto que se ha movido
-* comprobar la versión actual con respecto a la última versión disponible
+La interfaz de lÃ­nea de comandos (CLI) de componente es un componente
+muy Ãºtil que te permite realizar algunas tareas Ãºtiles tales como:
 
-<pre>
-script/pop --check                     // Check the current configuration for required dependencies
-script/pop --help                      // Display this help
-script/pop --install file.php          // Install a project based on the install file specified
-script/pop --lang fr                   // Set the default language for the project
-script/pop --map folder file.php       // Create a class map file from the source folder and save to the output file
-script/pop --reconfig projectfolder    // Reconfigure the project based on the new location of the project
-script/pop --show                      // Show project install instructions
-script/pop --version                   // Display version of Pop PHP Framework and latest available
-</pre>
+-   evaluar el entorno actual de las dependencias necesarias
+-   instalar un proyecto desde un archivo de instalaciÃ³n del proyecto
+-   establecer el idioma predeterminado de una aplicaciÃ³n
+-   crear un mapa de clase
+-   comprobar la versiÃ³n actual con la Ãºltima versiÃ³n disponible
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+<!-- -->
+
+    script/pop --check                     // Check the current configuration for required dependencies
+    script/pop --help                      // Display this help
+    script/pop --install file.php          // Install a project based on the install file specified
+    script/pop --lang fr                   // Set the default language for the project
+    script/pop --map folder file.php       // Create a class map file from the source folder and save to the output file
+    script/pop --show                      // Show project install instructions
+    script/pop --version                   // Display version of Pop PHP Framework and latest available
+
+He aquÃ­ un ejemplo de proyecto del archivo de instalaciÃ³n:
+
+    return new Pop\Config(array(
+        'project' => array(
+            'name'    => 'HelloWorld',
+            'base'    => __DIR__ . '/../../',
+            'docroot' => __DIR__ . '/../../public'
+        ),
+        'databases' => array(
+            'helloworld' => array(
+                'type'     => 'Sqlite',
+                'database' => '.hthelloworld.sqlite',
+                'prefix'   => 'pop_',
+                'default'  => true
+            )
+        ),
+        'forms' => array(
+            'login' => array(
+                'fields' => array(
+                    array(
+                        'type'       => 'text',
+                        'name'       => 'username',
+                        'label'      => 'Username:',
+                        'required'   => true,
+                        'attributes' => array('size', 40),
+                        'validators' => 'AlphaNumeric()'
+                    ),
+                    array(
+                        'type'       => 'password',
+                        'name'       => 'password',
+                        'label'      => 'Password:',
+                        'required'   => true,
+                        'attributes' => array('size', 40),
+                        'validators' => array('NotEmpty()', 'LengthGt(6)')
+                    ),
+                    array(
+                        'type'       => 'submit',
+                        'name'       => 'submit',
+                        'value'      => 'LOGIN'
+                    )
+                )
+            )
+        ),
+        'controllers' => array(
+            '/' => array(
+                'index'   => 'index.phtml',
+                'about'   => 'about.phtml',
+                'contact' => 'contact.phtml',
+                'error'   => 'error.phtml'
+            )
+        ),
+        'models' => array(
+            'User'
+        )
+    ));
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

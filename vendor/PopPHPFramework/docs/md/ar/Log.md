@@ -2,67 +2,69 @@ Pop PHP Framework
 =================
 
 Documentation : Log
---------------------
+-------------------
 
-المكون دخول يوفر وظائف أساسية لتسجيل إدخالات سجل في مجموعة متنوعة من الطرق، بما في ذلك كتابة إلى ملف، وإدراج في قاعدة بيانات أو إرسال رسالة بريد إلكتروني، أو أي مزيج منها.
+Home
 
-وهنا مثال على كتابة إلى ملف سجل:
+Ø§Ù„Ù…ÙƒÙˆÙ† Ø¯Ø®ÙˆÙ„ ÙŠÙˆÙ?Ø± ÙˆØ¸Ø§Ø¦Ù? Ø£Ø³Ø§Ø³ÙŠØ© Ù„ØªØ³Ø¬ÙŠÙ„
+Ø¥Ø¯Ø®Ø§Ù„Ø§Øª Ø³Ø¬Ù„ Ù?ÙŠ Ù…Ø¬Ù…ÙˆØ¹Ø© Ù…ØªÙ†ÙˆØ¹Ø© Ù…Ù† Ø§Ù„Ø·Ø±Ù‚ØŒ
+Ø¨Ù…Ø§ Ù?ÙŠ Ø°Ù„Ùƒ ÙƒØªØ§Ø¨Ø© Ø¥Ù„Ù‰ Ù…Ù„Ù?ØŒ ÙˆØ¥Ø¯Ø±Ø§Ø¬ Ù?ÙŠ
+Ù‚Ø§Ø¹Ø¯Ø© Ø¨ÙŠØ§Ù†Ø§Øª Ø£Ùˆ Ø¥Ø±Ø³Ø§Ù„ Ø±Ø³Ø§Ù„Ø© Ø¨Ø±ÙŠØ¯
+Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠØŒ Ø£Ùˆ Ø£ÙŠ Ù…Ø²ÙŠØ¬ Ù…Ù†Ù‡Ø§.
 
-<pre>
-use Pop\Log\Logger,
-    Pop\Log\Writer\File;
+ÙˆÙ‡Ù†Ø§ Ù…Ø«Ø§Ù„ Ø¹Ù„Ù‰ ÙƒØªØ§Ø¨Ø© Ø¥Ù„Ù‰ Ù…Ù„Ù? Ø³Ø¬Ù„:
 
-$logger = new Logger(new File('../tmp/app.log'));
-$logger-&gt;addWriter(new File('../tmp/app.xml'));
-$logger-&gt;emerg('Here is an emergency message.')
-       -&gt;info('Here is an info message.');
-</pre>
+    use Pop\Log\Logger,
+        Pop\Log\Writer\File;
 
-وهنا مثال على الكتابة إلى قاعدة البيانات:
+    $logger = new Logger(new File('../tmp/app.log'));
+    $logger->addWriter(new File('../tmp/app.xml'));
+    $logger->emerg('Here is an emergency message.')
+           ->info('Here is an info message.');
 
-<pre>
-use Pop\Db\Db as PopDb,
-    Pop\Log\Logger,
-    Pop\Log\Writer\Db,
-    Pop\Log\Writer\File,
-    Pop\Record\Record;
+ÙˆÙ‡Ù†Ø§ Ù…Ø«Ø§Ù„ Ø¹Ù„Ù‰ Ø§Ù„ÙƒØªØ§Ø¨Ø© Ø¥Ù„Ù‰ Ù‚Ø§Ø¹Ø¯Ø©
+Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª:
 
-class Logs extends Record {}
+    use Pop\Db\Db as PopDb,
+        Pop\Log\Logger,
+        Pop\Log\Writer\Db,
+        Pop\Log\Writer\File,
+        Pop\Record\Record;
 
-Logs::setDb(PopDb::factory('Sqlite', array('database' =&gt; '../tmp/log.sqlite')));
+    class Logs extends Record {}
 
-$logger = new Logger(new Db(new Logs()));
-$logger-&gt;addWriter(new File('../tmp/app.log'));
-$logger-&gt;emerg('Here is an emergency message.')
-       -&gt;info('Here is an info message.');
-</pre>
+    Logs::setDb(PopDb::factory('Sqlite', array('database' => '../tmp/log.sqlite')));
 
-وهنا مثال على ارسال بالبريد الالكتروني:
+    $logger = new Logger(new Db(new Logs()));
+    $logger->addWriter(new File('../tmp/app.log'));
+    $logger->emerg('Here is an emergency message.')
+           ->info('Here is an info message.');
 
-<pre>
-use Pop\Log\Logger,
-    Pop\Log\Writer\Mail,
-    Pop\Log\Writer\File;
+ÙˆÙ‡Ù†Ø§ Ù…Ø«Ø§Ù„ Ø¹Ù„Ù‰ Ø§Ø±Ø³Ø§Ù„ Ø¨Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø§Ù„ÙƒØªØ±ÙˆÙ†ÙŠ:
 
-$emails = array(
-    'Bob Smith'   =&gt; 'bob@smith.com',
-    'Bubba Smith' =&gt; 'bubba@smith.com'
-);
+    use Pop\Log\Logger,
+        Pop\Log\Writer\Mail,
+        Pop\Log\Writer\File;
 
-$options = array(
-    'subject' =&gt; 'Test App Log Entry:',
-    'headers' =&gt; array(
-        'From'       =&gt; array('name' =&gt; 'Test App Logger', 'email' =&gt; 'logger@testapp.com'),
-        'Reply-To'   =&gt; array('name' =&gt; 'Test App Logger', 'email' =&gt; 'logger@testapp.com'),
-        'X-Mailer'   =&gt; 'PHP/' . phpversion(),
-        'X-Priority' =&gt; '3',
-    )
-);
+    $emails = array(
+        'Bob Smith'   => 'bob@smith.com',
+        'Bubba Smith' => 'bubba@smith.com'
+    );
 
-$logger = new Logger(new Mail($emails));
-$logger-&gt;addWriter(new File('../tmp/app.log'));
-$logger-&gt;emerg('Here is an emergency message.', $options)
-       -&gt;info('Here is an info message.', $options);
-</pre>
+    $options = array(
+        'subject' => 'Test App Log Entry:',
+        'headers' => array(
+            'From'       => array('name' => 'Test App Logger', 'email' => 'logger@testapp.com'),
+            'Reply-To'   => array('name' => 'Test App Logger', 'email' => 'logger@testapp.com'),
+            'X-Mailer'   => 'PHP/' . phpversion(),
+            'X-Priority' => '3',
+        )
+    );
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $logger = new Logger(new Mail($emails));
+    $logger->addWriter(new File('../tmp/app.log'));
+    $logger->emerg('Here is an emergency message.', $options)
+           ->info('Here is an info message.', $options);
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

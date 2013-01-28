@@ -2,67 +2,67 @@ Pop PHP Framework
 =================
 
 Documentation : Log
---------------------
+-------------------
 
-El componente de registro proporciona la funcionalidad básica para registrar las entradas del registro en una variedad de maneras, incluyendo escribir en el archivo, insertar en una base de datos o el envío de un correo electrónico, o cualquier mezcla de ellos.
+Home
 
-He aquí un ejemplo de cómo escribir un archivo de registro:
+El componente de registro proporciona la funcionalidad bÃ¡sica para
+registrar las entradas del registro en una variedad de maneras,
+incluyendo escribir en el archivo, insertar en una base de datos o el
+envÃ­o de un correo electrÃ³nico, o cualquier mezcla de ellos.
 
-<pre>
-use Pop\Log\Logger,
-    Pop\Log\Writer\File;
+He aquÃ­ un ejemplo de cÃ³mo escribir un archivo de registro:
 
-$logger = new Logger(new File('../tmp/app.log'));
-$logger-&gt;addWriter(new File('../tmp/app.xml'));
-$logger-&gt;emerg('Here is an emergency message.')
-       -&gt;info('Here is an info message.');
-</pre>
+    use Pop\Log\Logger,
+        Pop\Log\Writer\File;
 
-He aquí un ejemplo de cómo escribir una base de datos:
+    $logger = new Logger(new File('../tmp/app.log'));
+    $logger->addWriter(new File('../tmp/app.xml'));
+    $logger->emerg('Here is an emergency message.')
+           ->info('Here is an info message.');
 
-<pre>
-use Pop\Db\Db as PopDb,
-    Pop\Log\Logger,
-    Pop\Log\Writer\Db,
-    Pop\Log\Writer\File,
-    Pop\Record\Record;
+He aquÃ­ un ejemplo de cÃ³mo escribir una base de datos:
 
-class Logs extends Record {}
+    use Pop\Db\Db as PopDb,
+        Pop\Log\Logger,
+        Pop\Log\Writer\Db,
+        Pop\Log\Writer\File,
+        Pop\Record\Record;
 
-Logs::setDb(PopDb::factory('Sqlite', array('database' =&gt; '../tmp/log.sqlite')));
+    class Logs extends Record {}
 
-$logger = new Logger(new Db(new Logs()));
-$logger-&gt;addWriter(new File('../tmp/app.log'));
-$logger-&gt;emerg('Here is an emergency message.')
-       -&gt;info('Here is an info message.');
-</pre>
+    Logs::setDb(PopDb::factory('Sqlite', array('database' => '../tmp/log.sqlite')));
 
-He aquí un ejemplo del envío de un correo electrónico:
+    $logger = new Logger(new Db(new Logs()));
+    $logger->addWriter(new File('../tmp/app.log'));
+    $logger->emerg('Here is an emergency message.')
+           ->info('Here is an info message.');
 
-<pre>
-use Pop\Log\Logger,
-    Pop\Log\Writer\Mail,
-    Pop\Log\Writer\File;
+He aquÃ­ un ejemplo del envÃ­o de un correo electrÃ³nico:
 
-$emails = array(
-    'Bob Smith'   =&gt; 'bob@smith.com',
-    'Bubba Smith' =&gt; 'bubba@smith.com'
-);
+    use Pop\Log\Logger,
+        Pop\Log\Writer\Mail,
+        Pop\Log\Writer\File;
 
-$options = array(
-    'subject' =&gt; 'Test App Log Entry:',
-    'headers' =&gt; array(
-        'From'       =&gt; array('name' =&gt; 'Test App Logger', 'email' =&gt; 'logger@testapp.com'),
-        'Reply-To'   =&gt; array('name' =&gt; 'Test App Logger', 'email' =&gt; 'logger@testapp.com'),
-        'X-Mailer'   =&gt; 'PHP/' . phpversion(),
-        'X-Priority' =&gt; '3',
-    )
-);
+    $emails = array(
+        'Bob Smith'   => 'bob@smith.com',
+        'Bubba Smith' => 'bubba@smith.com'
+    );
 
-$logger = new Logger(new Mail($emails));
-$logger-&gt;addWriter(new File('../tmp/app.log'));
-$logger-&gt;emerg('Here is an emergency message.', $options)
-       -&gt;info('Here is an info message.', $options);
-</pre>
+    $options = array(
+        'subject' => 'Test App Log Entry:',
+        'headers' => array(
+            'From'       => array('name' => 'Test App Logger', 'email' => 'logger@testapp.com'),
+            'Reply-To'   => array('name' => 'Test App Logger', 'email' => 'logger@testapp.com'),
+            'X-Mailer'   => 'PHP/' . phpversion(),
+            'X-Priority' => '3',
+        )
+    );
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $logger = new Logger(new Mail($emails));
+    $logger->addWriter(new File('../tmp/app.log'));
+    $logger->emerg('Here is an emergency message.', $options)
+           ->info('Here is an info message.', $options);
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

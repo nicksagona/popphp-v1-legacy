@@ -4,56 +4,61 @@ Pop PHP Framework
 Documentation : Mail
 --------------------
 
-المكون بريد يوفر وظائف اللازمة لإدارة البريد الصادر عن طريق PHP. هذا يتضمن دعم البريد الإلكتروني المستندة إلى النصوص وHTML المستندة إلى والمستفيدين بريد متعددة، والقوالب ومرفقات الملفات.
+Home
 
-<pre>
-use Pop\Mail\Mail;
+Ø§Ù„Ù…ÙƒÙˆÙ† ÙŠÙˆÙ?Ø± ÙˆØ¸Ø§Ø¦Ù? Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ù„Ø§Ø²Ù…Ø©
+Ù„Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„ØµØ§Ø¯Ø± Ø¹Ø¨Ø± PHP. Ù‡Ø°Ø§ ÙŠØªØ¶Ù…Ù†
+Ø¯Ø¹Ù… Ù„Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ ÙŠØ³ØªÙ†Ø¯ Ø¥Ù„Ù‰ Ù†Øµ HTML
+ÙˆØ§Ù„Ù‚Ø§Ø¦Ù… Ø¹Ù„Ù‰ ÙˆØ§Ù„Ù…Ø³ØªÙ?ÙŠØ¯ÙŠÙ† Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ
+Ù…ØªØ¹Ø¯Ø¯Ø©ØŒ ÙˆÙ‚ÙˆØ§Ù„Ø¨ Ù…Ø±Ù?Ù‚Ø§Øª Ø§Ù„Ù…Ù„Ù?Ø§Øª.
 
-$rcpts = array(
-    array(
-        'name'  => 'Test Smith',
-        'email' => 'test@email.com'
-    ),
-    array(
-        'name'  => 'Someone Else',
-        'email' => 'someone@email.com'
-    )
-);
+    use Pop\Mail\Mail;
 
-$mail = new Mail($rcpts, 'Hello World!');
-$mail->setHeaders(array(
-    'From'        => array('name' => 'Bob', 'email' => 'bob123@gmail.com'),
-    'Reply-To'    => array('name' => 'Bob', 'email' => 'bob123@gmail.com'),
-    'X-Mailer'    => 'PHP/' . phpversion(),
-    'X-Priority'  => '3',
-));
+    $rcpts = array(
+        array(
+            'name'  => 'Test Smith',
+            'email' => 'test@email.com'
+        ),
+        array(
+            'name'  => 'Someone Else',
+            'email' => 'someone@email.com'
+        )
+    );
 
-$html = &lt;&lt;&lt;HTMLMSG
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;
-        Test HTML Email
-    &lt;/title&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;Hello [{name}]&lt;/h1&gt;
-    &lt;p&gt;
-        I'm just trying out this new Pop Mail Library component.
-    &lt;/p&gt;
-    &lt;p&gt;
-        Thanks,&lt;br /&gt;
-        Bob
-    &lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;
 
-HTMLMSG;
+    $html = <<<HTMLMSG
+    <html>
+    <head>
+        <title>
+            Test HTML Email
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </head>
+    <body>
+        <h1>Hello [{name}]</h1>
+        <p>
+            I'm just trying out this new Pop Mail Library component.
+        </p>
+        <p>
+            Thanks,<br />
+            Bob
+        </p>
+    </body>
+    </html>
 
-$mail->setText("Hello [{name}],\n\nI'm just trying out this new Pop Mail component.\n\nThanks,\nBob\n\n");
-$mail->setHtml($html);
-$mail->attachFile('../assets/files/test.pdf');
-$mail->send();
-</pre>
+    HTMLMSG;
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+
+    $mail = new Mail('Hello World!', $rcpts);
+    $mail->from('bob123@gmail.com', 'Bob')
+         ->setHeaders(array(
+             'X-Mailer'    => 'PHP/' . phpversion(),
+             'X-Priority'  => '3',
+         ));
+
+    $mail->setText("Hello [{name}],\n\nI'm just trying out this new Pop Mail component.\n\nThanks,\nBob\n\n");
+    $mail->setHtml($html);
+    $mail->send();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

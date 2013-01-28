@@ -4,21 +4,28 @@ Pop PHP Framework
 Documentation : Locale
 ----------------------
 
-La composante Locale apporte un soutien linguistique et des fonctionnalités de traduction pour votre application. Vous pouvez tout simplement créer et charger vos propres fichiers XML des traductions linguistiques requises dans le format qui est décrits dans ses propres fichiers Pop langage XML.
+Home
 
-Vous pouvez charger vos propres fichiers de traduction de langue, aussi longtemps que l'adhésion à la norme XML créé dans le dossier Pop / Locale / données.
+La composante Locale apporte un soutien linguistique et des
+fonctionnalitÃ©s de traduction pour votre application. Vous pouvez
+simplement crÃ©er et de charger vos propres fichiers XML des traductions
+linguistiques requises dans le format qui a dÃ©crites dans ses propres
+Pop fichiers de langue XML.
 
-<pre>
-use Pop\Locale\Locale;
+Vous pouvez charger vos propres fichiers de traduction automatique,
+aussi longtemps que l'adhÃ©sion Ã la norme XML crÃ©Ã© dans le dossier
+Pop / Locale / DonnÃ©es.
 
-// Create a Locale object to translate to French, using your own language file.
-$lang = Locale::factory('fr')->loadFile('folder/mylangfile.xml);
+    use Pop\Locale\Locale;
 
-// Will output 'Ce champ est obligatoire.'
-$lang->_e('This field is required.');
+    // Create a Locale object to translate to French, using your own language file.
+    $lang = Locale::factory('fr')->loadFile('folder/mylangfile.xml);
 
-// Will return and output 'Ce champ est obligatoire.'
-echo $lang->__('This field is required.');
-</pre>
+    // Will output 'Ce champ est obligatoire.'
+    $lang->_e('This field is required.');
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Will return and output 'Ce champ est obligatoire.'
+    echo $lang->__('This field is required.');
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

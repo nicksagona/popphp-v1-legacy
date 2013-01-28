@@ -4,37 +4,52 @@ Pop PHP Framework
 Documentation : Graph
 ---------------------
 
-רכיב גרף מאפשר פונקציונליות גרפים חזקים שיכולים לנצל את כל שנבנה רכיבים גרפיים, כגון תמונות, SVG ו-PDF לצייר גרפים במגוון רחב של פורמטים. ניתן להגדיר מגוון רחב של תכונות גרפיות ליצירת גרפים ו לדקלם שורות, גרפים ותרשימים בר עוגה. מאז ה-API בין רכיבים גרפיים שונים היא סטנדרטית, קל מאוד למחלף בין קובץ אחר פורמטים של תמונות בהן כדי לייצר גרף.
+Home
 
-<pre>
-use Pop\Color\Rgb,
-    Pop\Graph\Graph;
+×ž×¨×›×™×‘ ×”×’×¨×£ ×ž×?×¤×©×¨ ×¤×•× ×§×¦×™×•× ×œ×™ ×’×¨×¤×™×?
+×—×–×§×™×? ×©×™×›×•×œ ×œ× ×¦×œ ×?×ª ×›×œ ×¨×›×™×‘×™×? ×’×¨×¤×™×™×?
+×ž×•×‘× ×” ×›×ž×• ×ª×ž×•× ×”, SVG ×•-PDF ×œ×¦×™×™×¨ ×’×¨×¤×™×?
+×‘×ž×’×•×•×Ÿ ×¨×—×‘ ×©×œ ×¤×•×¨×ž×˜×™×?. ×‘×?×¤×©×¨×•×ª×š ×œ×”×’×“×™×¨
+×ž×’×•×•×Ÿ ×¨×—×‘ ×©×œ ×ª×›×•× ×•×ª ×’×¨×¤×™×•×ª ×›×“×™ ×œ×™×¦×•×¨
+×•×œ×¢×‘×“ ×§×• ×’×¨×¤×™×?, ×’×¨×¤×™×? ×•×ª×¨×©×™×ž×™ ×¢×•×’×ª ×‘×¨.
+×ž×?×– API ×‘×™×Ÿ ×”×¨×›×™×‘×™×? ×”×’×¨×¤×™×™×? ×”×©×•× ×™×? ×”×•×?
+×¡×˜× ×“×¨×˜×™, ×–×” ×ž×?×•×“ ×§×œ ×œ×”×—×œ×™×£ ×‘×™×Ÿ ×”×§×•×‘×¥
+×”×©×•× ×” ×•×¤×•×¨×ž×˜×™×? ×©×œ ×ª×ž×•× ×•×ª ×©×‘×›×“×™ ×œ×™×™×¦×¨
+×’×¨×£.
 
-$x = array('1995', '2000', '2005', '2010', '2015');
-$y = array('0M', '50M', '100M', '150M', '200M');
+    use Pop\Color\Space\Rgb,
+        Pop\Graph\Graph;
 
-$data = array(
-    array(1995, 0),
-    array(1997, 35),
-    array(1998, 25),
-    array(2002, 100),
-    array(2004, 84),
-    array(2006, 98),
-    array(2007, 76),
-    array(2010, 122),
-    array(2013, 175),
-    array(2015, 162)
-);
+    $x = array('1995', '2000', '2005', '2010', '2015');
+    $y = array('0M', '50M', '100M', '150M', '200M');
 
-$graph = new Graph('graph.gif', 640, 480, Graph::IMAGICK);
-//$graph = new Graph('graph.svg', 640, 480);
-$graph->addFont('../assets/fonts/times.ttf')
-      ->setFontColor(new Rgb(128, 128, 128))
-      ->setFillColor(new Rgb(10, 125, 210))
-      ->showY(true)
-      ->showText(true)
-      ->addLineGraph($data, $x, $y)
-      ->output();
-</pre>
+    $data = array(
+        array(1995, 0),
+        array(1997, 35),
+        array(1998, 25),
+        array(2002, 100),
+        array(2004, 84),
+        array(2006, 98),
+        array(2007, 76),
+        array(2010, 122),
+        array(2012, 175),
+        array(2015, 162)
+    );
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+
+    $graph = new Graph(array(
+        'filename' => 'graph.gif',
+        'width'    => 640,
+        'height'   => 480
+    ));
+
+    $graph->addFont('../assets/fonts/times.ttf')
+          ->setFontColor(new Rgb(128, 128, 128))
+          ->setFillColor(new Rgb(10, 125, 210))
+          ->showY(true)
+          ->showText(true)
+          ->createLineGraph($data, $x, $y)
+          ->output();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

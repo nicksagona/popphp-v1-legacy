@@ -4,41 +4,58 @@ Pop PHP Framework
 Documentation : Auth
 --------------------
 
-المكون تسهل المصادقة مصادقة وترخيص من المستخدمين استنادا إلى مجموعة أساسية من وثائق التفويض وتحديد الأدوار. الجانب المصادقة يعالج مصادقة مستخدم لتحديد ما إذا كان أو لم يتم السماح لذلك المستخدم على الإطلاق. الجانب ترخيص يعالج تحديد ما إذا كانت مصادقة المستخدم لديه حق الوصول بما فيه الكفاية ليسمح ضمن منطقة معينة. ويمكن بسهولة أن تحدد الأدوار وتقييمها لتحديد مستوى المستخدم من الوصول. لا يمكن للعنصر المصادقة التعادل بسهولة في جدول قاعدة بيانات أو ملف على القرص لاسترداد أوراق اعتماد المستخدم والمعلومات.
+Home
 
-<pre>
-use Pop\Auth\Auth,
-    Pop\Auth\Role,
-    Pop\Auth\Adapter\AuthFile,
-    Pop\Auth\Adapter\AuthTable;
+Ø§Ù„Ù…ÙƒÙˆÙ† Ø§Ù„Ù…ØµØ§Ø¯Ù‚Ø© ÙŠØ³Ù‡Ù„ Ø§Ù„ØªÙˆØ«ÙŠÙ‚ ÙˆØ§Ù„Ø¥Ø°Ù† Ù…Ù†
+Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…ÙŠÙ† Ø¨Ù†Ø§Ø¡ Ø¹Ù„Ù‰ Ù…Ø¬Ù…ÙˆØ¹Ø© Ø£Ø³Ø§Ø³ÙŠØ© Ù…Ù†
+ÙˆØ«Ø§Ø¦Ù‚ Ø§Ù„ØªÙ?ÙˆÙŠØ¶ ÙˆØ£Ø¯ÙˆØ§Ø± Ù…Ø­Ø¯Ø¯Ø©. ÙŠØ¹Ø§Ù„Ø¬
+Ø§Ù„Ø¬Ø§Ù†Ø¨ Ø§Ù„Ù…ØµØ§Ø¯Ù‚Ø© Ù…ØµØ§Ø¯Ù‚Ø© Ù…Ø³ØªØ®Ø¯Ù… Ù„ØªØ­Ø¯ÙŠØ¯
+Ù…Ø§ Ø¥Ø°Ø§ ÙƒØ§Ù† Ø£Ùˆ Ù„Ø§ ÙŠØ³Ù…Ø­ Ù‡Ø°Ø§ Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ø¹Ù„Ù‰
+Ø§Ù„Ø¥Ø·Ù„Ø§Ù‚. Ø¥Ø°Ù† Ø§Ù„Ø¬Ø§Ù†Ø¨ Ù…Ù‚Ø§Ø¨Ø¶ ØªØ­Ø¯ÙŠØ¯ Ù…Ø§ Ø¥Ø°Ø§
+ÙƒØ§Ù† Ø£Ùˆ Ù„Ù… ÙŠÙƒÙ† Ù„Ø¯ÙŠÙ‡ Ø­Ù‚ Ø§Ù„ÙˆØµÙˆÙ„ Ù…ØµØ§Ø¯Ù‚Ø©
+Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ø¨Ù…Ø§ Ù?ÙŠÙ‡ Ø§Ù„ÙƒÙ?Ø§ÙŠØ© Ù„ÙŠØ³Ù…Ø­ Ø¯Ø§Ø®Ù„
+Ù…Ù†Ø·Ù‚Ø© Ù…Ø¹ÙŠÙ†Ø©. ÙŠÙ…ÙƒÙ†Ùƒ Ø¨Ø³Ù‡ÙˆÙ„Ø© Ø£Ù† ØªØ¹Ø±Ù?
+Ø§Ù„Ø£Ø¯ÙˆØ§Ø± ÙˆØªÙ‚ÙŠÙŠÙ…Ù‡Ø§ Ù„ØªØ­Ø¯ÙŠØ¯ Ù…Ø³ØªÙˆÙ‰ Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…
+Ù…Ù† Ø§Ù„ÙˆØµÙˆÙ„. ÙŠÙ…ÙƒÙ† Ø±Ø¨Ø· Ø¹Ù†ØµØ± Ø£ØµÙŠÙ„ Ø¨Ø³Ù‡ÙˆÙ„Ø© Ù?ÙŠ
+Ø¬Ø¯ÙˆÙ„ Ù‚Ø§Ø¹Ø¯Ø© Ø¨ÙŠØ§Ù†Ø§Øª Ø£Ùˆ Ù…Ù„Ù? Ø¹Ù„Ù‰ Ø§Ù„Ù‚Ø±Øµ
+Ù„Ø§Ø³ØªØ±Ø¯Ø§Ø¯ Ø£ÙˆØ±Ø§Ù‚ Ø§Ø¹ØªÙ…Ø§Ø¯ Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…
+ÙˆØ§Ù„Ù…Ø¹Ù„ÙˆÙ…Ø§Øª.
 
-// Create the Auth object using a table in the database or a local access file.
-$auth = new Auth(new AuthTable('MyApp\\Table\\Users'), Auth::ENCRYPT_SHA1);
-//$auth = new Auth(new AuthFile('../access/users.txt'), Auth::ENCRYPT_SHA1);
+    use Pop\Auth;
 
-// Add some roles
-$auth->addRoles(array(
-    Role::factory('admin', 3),
-    Role::factory('editor', 2),
-    Role::factory('reader', 1)
-));
+    // Set the username and password
+    $username = 'testuser3';
+    $password = '90test12';
 
-// Define some other auth parameters and authenticate the user
-$auth->setRequiredRole('admin')
-     ->setAttemptLimit(3)
-     ->setAllowedIps('127.0.0.1')
-     ->authenticate($username, $password);
+    // Create auth object
+    $auth = new Auth\Auth(new Auth\Adapter\File('../assets/files/access.txt'), Auth\Auth::ENCRYPT_SHA1);
 
-// Check if the user is authorized to be in this area
-if ($auth->isValid()) {
-    if ($auth->isAuthorized()) {
-        echo 'The user is authorized in this area.';
-    } else {
-        echo 'The user is NOT authorized in this area.';
+    // Add some roles
+    $auth->addRoles(array(
+        Auth\Role::factory('admin', 3),
+        Auth\Role::factory('editor', 2),
+        Auth\Role::factory('reader', 1)
+    ));
+
+    // Define some other auth parameters and authenticate the user
+    $auth->setRequiredRole('admin')
+         ->setAttemptLimit(3)
+         ->setAllowedIps('127.0.0.1')
+         ->authenticate($username, $password);
+
+    echo $auth->getResultMessage() . '<br /> ' . PHP_EOL;
+
+    // Check if the user is authorized to be in this area
+    if ($auth->isValid()) {
+        if ($auth->isAuthorized()) {
+            echo 'The user "' . $auth->getUser()->getUsername() .
+                 '" is authorized as a "' .  $auth->getUser()->getRole()->getName() . '".';
+        } else {
+            echo 'The user "' . $auth->getUser()->getUsername() .
+                 '" is NOT authorized. The user is a "' .  $auth->getUser()->getRole()->getName() .
+                 '" and needs to be a "' . $auth->getRequiredRole()->getName() . '".';
+        }
     }
-} else {
-    echo 'Authenication failed. The user is not valid. ' . $auth->getResultMessage();
-}
-</pre>
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

@@ -4,17 +4,22 @@ Pop PHP Framework
 Documentation : Web
 -------------------
 
-El componente de Web es una colección de web basados ​​en las necesidades y funcionalidad, como la gestión de sesiones, servidores, navegadores y galletas. Además, incluye la funcionalidad para la detección de dispositivos móviles de modo que su aplicación puede responder en consecuencia.
+Home
 
-<pre>
-use Pop\Web\Session;
+El componente Web es una colecciÃ³n de web basados â€‹â€‹en las
+necesidades y funcionalidad, como la gestiÃ³n de sesiones, servidores,
+navegadores y cookies. AdemÃ¡s, incluye la funcionalidad para la
+detecciÃ³n de dispositivos mÃ³viles para que la aplicaciÃ³n pueda actuar
+en consecuencia.
 
-$sess = Session::getInstance();
-$sess->username = 'yourname';
-print_r($sess);
-print_r($_SESSION);
+    use Pop\Web\Session;
 
-echo $sess->getId();
-</pre>
+    $sess = Session::getInstance();
+    $sess->username = 'yourname';
+    print_r($sess);
+    print_r($_SESSION);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    echo $sess->getId();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

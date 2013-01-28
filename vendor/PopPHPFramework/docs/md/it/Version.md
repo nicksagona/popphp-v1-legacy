@@ -4,18 +4,22 @@ Pop PHP Framework
 Documentation : Version
 -----------------------
 
-Il componente Version fornisce semplicemente la capacità di determinare quale versione di Pop che hanno in corso, e che l'ultima disponibile è. Inoltre, questo componente è utilizzato dal componente CLI per eseguire la dipendenza-controllo.
+Home
 
-<pre>
-use Pop\Version;
+Il componente versione fornisce solo la capacitÃ di determinare quale
+versione di Pop che hanno in corso, e che Ã¨ l'ultima disponibile.
+Inoltre, il componente viene usato dal componente CLI per eseguire la
+dipendenza-controllo.
 
-echo Version::getVersion();
+    use Pop\Version;
 
-if (Version::compareVersion(1.0) == 1) {
-    echo 'The current version is less than 1.0';
-} else {
-    echo 'The current version is greater than or equal to 1.0';
-}
-</pre>
+    echo Version::getVersion();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    if (Version::compareVersion(1.0) == 1) {
+        echo 'The current version is less than 1.0';
+    } else {
+        echo 'The current version is greater than or equal to 1.0';
+    }
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

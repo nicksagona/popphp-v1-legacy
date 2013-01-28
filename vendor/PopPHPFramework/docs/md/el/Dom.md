@@ -4,82 +4,86 @@ Pop PHP Framework
 Documentation : Dom
 -------------------
 
-Η συνιστώσα Dom παρέχει έναν εύκολο τρόπο να δημιουργήσετε και να χειριστείτε DOM έγγραφα και τα παιδιά τους.
+Home
 
-<pre>
-use Pop\Dom\Child,
-    Pop\Dom\Dom;
+Î— ÏƒÏ…Î½Î¹ÏƒÏ„ÏŽÏƒÎ± Dom Ï€Î±Ï?Î­Ï‡ÎµÎ¹ Î­Î½Î±Î½ ÎµÏ?ÎºÎ¿Î»Î¿
+Ï„Ï?ÏŒÏ€Î¿ Î³Î¹Î± Î½Î± Î´Î·Î¼Î¹Î¿Ï…Ï?Î³Î®ÏƒÎµÏ„Îµ ÎºÎ±Î¹ Î½Î±
+Ï‡ÎµÎ¹Ï?Î¹ÏƒÏ„ÎµÎ¯Ï„Îµ DOM Î­Î³Î³Ï?Î±Ï†Î± ÎºÎ±Î¹ Ï„Î± Ï€Î±Î¹Î´Î¹Î¬
+Ï„Î¿Ï…Ï‚.
 
-$title = new Child('title', 'This is the title');
+    use Pop\Dom\Child,
+        Pop\Dom\Dom;
 
-$meta = new Child('meta');
-$meta->setAttributes(array('http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8'));
+    $title = new Child('title', 'This is the title');
 
-$head = new Child('head');
-$head->addChildren(array($title, $meta));
+    $meta = new Child('meta');
+    $meta->setAttributes(array('http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8'));
 
-$h1 = new Child('h1', 'This is a header');
-$p = new Child('p', 'This is a paragraph.');
+    $head = new Child('head');
+    $head->addChildren(array($title, $meta));
 
-$div = new Child('div');
-$div->setAttributes('id', 'contentDiv');
-$div->addChildren(array($h1, $p));
+    $h1 = new Child('h1', 'This is a header');
+    $p = new Child('p', 'This is a paragraph.');
 
-$body = new Child('body');
-$body->addChild($div);
+    $div = new Child('div');
+    $div->setAttributes('id', 'contentDiv');
+    $div->addChildren(array($h1, $p));
 
-$html = new Child('html');
-$html->setAttributes(array('xmlns' => 'http://www.w3.org/1999/xhtml', 'xml:lang' => 'en'));
-$html->addChildren(array($head, $body));
+    $body = new Child('body');
+    $body->addChild($div);
 
-$doc = new Dom(Dom::XHTML11, 'utf-8', $html);
-$doc->render();
-</pre>
+    $html = new Child('html');
+    $html->setAttributes(array('xmlns' => 'http://www.w3.org/1999/xhtml', 'xml:lang' => 'en'));
+    $html->addChildren(array($head, $body));
 
-Μπορείτε επίσης να προσθέσετε τα παιδιά μέσω ενός δομημένου πίνακα τιμών.
+    $doc = new Dom(Dom::XHTML11, 'utf-8', $html);
+    $doc->render();
 
-<pre>
-use Pop\Dom\Dom;
+ÎœÏ€Î¿Ï?ÎµÎ¯Ï„Îµ ÎµÏ€Î¯ÏƒÎ·Ï‚ Î½Î± Ï€Ï?Î¿ÏƒÎ¸Î­ÏƒÎµÏ„Îµ Ï„Î±
+Ï€Î±Î¹Î´Î¹Î¬ Î¼Î­ÏƒÏ‰ Î¼Î¹Î±Ï‚ Î´Î¿Î¼Î·Î¼Î­Î½Î·Ï‚ Ï€Î¯Î½Î±ÎºÎ±
+Ï„Î¹Î¼ÏŽÎ½.
 
-$children = array(
-    array(
-        'nodeName'      => 'h1',
-        'nodeValue'     => 'This is a header',
-        'attributes'    => array('class' => 'headerClass', 'style' => 'font-size: 3.0em;'),
-        'childrenFirst' => false,
-        'childNodes'    => null
-    ),
-    array(
-        'nodeName'      => 'div',
-        'nodeValue'     => 'This is a div element',
-        'attributes'    => array('id' => 'contentDiv'),
-        'childrenFirst' => false,
-        'childNodes'    => array(
-            array(
-                 'nodeName'      => 'p',
-                 'nodeValue'     => 'This is a paragraph1',
-                 'attributes'    => array('style' => 'font-size: 0.9em;'),
-                 'childrenFirst' => false,
-                 'childNodes'    => array(
-                     array(
-                         'nodeName'   => 'strong',
-                         'nodeValue'  => 'This is bold!',
-                         'attributes' => array('style' => 'font-size: 1.2em;')
-                     )
-                 )
-            ),
-            array(
-                'nodeName'   => 'p',
-                'nodeValue'  => 'This is another paragraph!',
-                'attributes' => array('style' => 'font-size: 0.9em;')
-            )
+    use Pop\Dom\Dom;
+
+    $children = array(
+        array(
+            'nodeName'      => 'h1',
+            'nodeValue'     => 'This is a header',
+            'attributes'    => array('class' => 'headerClass', 'style' => 'font-size: 3.0em;'),
+            'childrenFirst' => false,
+            'childNodes'    => null
         ),
-    )
-);
+        array(
+            'nodeName'      => 'div',
+            'nodeValue'     => 'This is a div element',
+            'attributes'    => array('id' => 'contentDiv'),
+            'childrenFirst' => false,
+            'childNodes'    => array(
+                array(
+                     'nodeName'      => 'p',
+                     'nodeValue'     => 'This is a paragraph1',
+                     'attributes'    => array('style' => 'font-size: 0.9em;'),
+                     'childrenFirst' => false,
+                     'childNodes'    => array(
+                         array(
+                             'nodeName'   => 'strong',
+                             'nodeValue'  => 'This is bold!',
+                             'attributes' => array('style' => 'font-size: 1.2em;')
+                         )
+                     )
+                ),
+                array(
+                    'nodeName'   => 'p',
+                    'nodeValue'  => 'This is another paragraph!',
+                    'attributes' => array('style' => 'font-size: 0.9em;')
+                )
+            ),
+        )
+    );
 
-$doc = new Dom(Dom::XHTML11);
-$doc->addChildren($children);
-$doc->render();
-</pre>
+    $doc = new Dom(Dom::XHTML11);
+    $doc->addChildren($children);
+    $doc->render();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

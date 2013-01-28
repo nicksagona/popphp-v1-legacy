@@ -4,53 +4,57 @@ Pop PHP Framework
 Documentation : Db
 ------------------
 
-מרכיב Db מספק גישה למאגרי מידע מנורמל השאילתה. מתאמי הנתמכים הם:
+Home
 
-* sqlsrv
-* mysql
-* mysqli
-* oracle
-* pdo
-* pgsql
-* sqlite
+×ž×¨×›×™×‘ Db ×ž×¡×¤×§ ×’×™×©×” ×œ×ž×?×’×¨×™ ×ž×™×“×¢ ×ž× ×•×¨×ž×œ
+×©×?×™×œ×ª×?. ×”×ž×ª×?×ž×™×? ×”× ×ª×ž×›×™×? ×”×?:
 
-דוחות מוכנים נתמכים עם SQLSrv, MySQLi, Oracle, PDO, PostgreSQL ו adapaters SQLite. ערכים נמלטים זמינים עבור כל המתאמים את.
+-   mysql
+-   mysqli
+-   oracle
+-   pdo
+-   pgsql
+-   sqlite
+-   sqlsrv
 
-<pre>
-use Pop\Db\Db;
+×”×”×¦×”×¨×•×ª ×ž×•×›× ×•×ª × ×ª×ž×›×•×ª ×¢×? MySQLi, ×?×•×¨×§×œ, PDO,
+PostgreSQL, SQLite ×•×ž×ª×?×ž×™ SQLSrv. ×¢×¨×›×™×? × ×ž×œ×˜×• ×–×ž×™×
+×™×? ×œ×›×œ ×ž×ª×?×ž×™×?.
 
-// Define DB credentials
-$creds = array(
-    'database' => 'helloworld',
-    'host'     => 'localhost',
-    'username' => 'hello',
-    'password' => '12world34'
-);
+    use Pop\Db\Db;
 
-// Create DB object
-$db = Db::factory('Mysqli', $creds);
+    // Define DB credentials
+    $creds = array(
+        'database' => 'helloworld',
+        'host'     => 'localhost',
+        'username' => 'hello',
+        'password' => '12world34'
+    );
 
-// Perform the query
-$db->adapter()->query('SELECT * FROM users');
+    // Create DB object
+    $db = Db::factory('Mysqli', $creds);
 
-// Fetch the results
-while (($row = $db->adapter()->fetch()) != false) {
-    print_r($row);
-}
-</pre>
+    // Perform the query
+    $db->adapter()->query('SELECT * FROM users');
 
-בנוסף גישה למסדי נתונים, המרכיב Db גם תכונות אובייקט מופשט Sql שימושי המסייע לך ליצור שאילתות SQL סטנדרטי.
+    // Fetch the results
+    while (($row = $db->adapter()->fetch()) != false) {
+        print_r($row);
+    }
 
-<pre>
-use Pop\Db\Sql;
+×‘× ×•×¡×£ ×œ×’×™×©×” ×œ×ž×¡×“ × ×ª×•× ×™×?, ×¨×›×™×‘ Db ×›×•×œ×œ ×’×?
+×?×•×‘×™×™×§×˜ ×”×¤×©×˜×ª Sql ×©×™×ž×•×©×™ ×©×ž×¡×™×™×¢ ×œ×š
+×‘×™×¦×™×¨×ª ×©×?×™×œ×ª×•×ª SQL ×¡×˜× ×“×¨×˜×™×•×ª.
 
-$sql = new Sql('users');
-$sql->setIdQuoteType(Sql::BACKTICK)
-    ->select()
-    ->where('id', '=', 1);
+    use Pop\Db\Sql;
 
-// Outputs 'SELECT * FROM `users` WHERE `id` = 1'
-echo $sql;
-</pre>
+    $sql = new Sql('users');
+    $sql->setIdQuoteType(Sql::BACKTICK)
+        ->select()
+        ->where('id', '=', 1);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Outputs 'SELECT * FROM `users` WHERE `id` = 1'
+    echo $sql;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

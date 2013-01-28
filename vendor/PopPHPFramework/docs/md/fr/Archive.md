@@ -4,30 +4,35 @@ Pop PHP Framework
 Documentation : Archive
 -----------------------
 
-La composante Archive est conçu pour normaliser la création et la manipulation des fichiers d'archives communes à travers une API unique. Types d'archives qui sont pris en charge sont:
+Home
 
-* tar
-* tar.gz
-* tar.bz2
-* zip
-* phar
-* rar
+La composante Archive est conÃ§u pour normaliser la crÃ©ation et la
+manipulation de fichiers d'archives communes Ã travers une API unique.
+Types d'archives qui sont pris en charge sont les suivants:
 
-<pre>
-use Pop\Archive\Archive;
+-   tar
+-   tar.gz
+-   tar.bz2
+-   zip
+-   phar
+-   rar
 
-// Create a new TAR archive and add some files to it
-$archive = new Archive('../tmp/test.tar');
-$archive->addFiles('../files');
+<!-- -->
 
-// Compress the archive, gzip by default,
-// will produce '../tmp/test.tar.gz'
-$archive->compress();
+    use Pop\Archive\Archive;
 
-// Extract an existing archive file to specified folder,
-// will automatically uncompress the gzip file first
-$archive = new Archive('../tmp/existing.tar.gz');
-$archive->extract('/tmp');
-</pre>
+    // Create a new TAR archive and add some files to it
+    $archive = new Archive('../tmp/test.tar');
+    $archive->addFiles('../files');
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Compress the archive, gzip by default.
+    // Using 'bz', will produce '../tmp/test.tar.bz2'
+    $archive->compress('bz');
+
+    // Extract an existing archive file to specified folder,
+    // will automatically uncompress the gzip file first
+    $archive = new Archive('../tmp/existing.tar.gz');
+    $archive->extract('/tmp');
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

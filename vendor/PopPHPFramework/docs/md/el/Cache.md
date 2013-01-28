@@ -4,39 +4,48 @@ Pop PHP Framework
 Documentation : Cache
 ---------------------
 
-Η συνιστώσα Cache επιτρέπει την εύκολη αποθήκευση των δεδομένων μέσω επίμονης τρεις μεθόδους:
+Home
 
-* a file on disk
-* a sqlite database
-* memcache
+Î¤Î¿ ÏƒÏ…ÏƒÏ„Î±Ï„Î¹ÎºÏŒ Cache ÎµÏ€Î¹Ï„Ï?Î­Ï€ÎµÎ¹ Ï„Î·Î½ ÎµÏ?ÎºÎ¿Î»Î·
+Î±Ï€Î¿Î¸Î®ÎºÎµÏ…ÏƒÎ· Ï„Ï‰Î½ Î´ÎµÎ´Î¿Î¼Î­Î½Ï‰Î½ Î¼Î­ÏƒÏ‰ ÎµÏ€Î¯Î¼Î¿Î½Î·Ï‚
+Ï„Î­ÏƒÏƒÎµÏ?Î¹Ï‚ Î¼ÎµÎ¸ÏŒÎ´Î¿Ï…Ï‚:
 
-Ο στόχος του στοιχείου Cache είναι να επιταχυνθεί η πρόσβαση στα δεδομένα που είναι πιο στατικός και δεν αλλάζει συχνά. Με την αποθήκευσή του με μία από τις μεθόδους που αναφέρονται παραπάνω, η ταχύτητα πρόσβασης μπορεί να αυξηθεί, διότι ένα πιο ακριβό κλήση διαδικασία μπορεί να αποφευχθεί, όπως πρόσβαση σε μια μεγάλη βάση δεδομένων ή μια εξωτερική διεύθυνση ιστού για να ανακτήσετε δεδομένα.
+-   Apc
+-   a file on disk
+-   a Sqlite database
+-   Memcache
 
-<pre>
-use Pop\Cache\Cache,
-    Pop\Cache\File,
-    Pop\Cache\Memcached,
-    Pop\Cache\Sqlite;
+ÎŸ ÏƒÏ„ÏŒÏ‡Î¿Ï‚ Ï„Î¿Ï… ÏƒÏ…ÏƒÏ„Î±Ï„Î¹ÎºÎ¿Ï? Cache ÎµÎ¯Î½Î±Î¹ Î½Î±
+ÎµÏ€Î¹Ï„Î±Ï‡Ï…Î½Î¸ÎµÎ¯ Î· Ï€Ï?ÏŒÏƒÎ²Î±ÏƒÎ· ÏƒÏ„Î± Î´ÎµÎ´Î¿Î¼Î­Î½Î±
+Ï€Î¿Ï… ÎµÎ¯Î½Î±Î¹ Ï€Î¹Î¿ ÏƒÏ„Î±Ï„Î¹ÎºÏŒÏ‚ ÎºÎ±Î¹ Î´ÎµÎ½ Î±Î»Î»Î¬Î¶ÎµÎ¹
+ÏƒÏ…Ï‡Î½Î¬. ÎœÎµ Ï„Î·Î½ Î±Ï€Î¿Î¸Î®ÎºÎµÏ…ÏƒÎ· Î¼Îµ Î¼Î¯Î± Î±Ï€ÏŒ Ï„Î¹Ï‚
+Î¼ÎµÎ¸ÏŒÎ´Î¿Ï…Ï‚ Ï€Î¿Ï… Î±Î½Î±Ï†Î­Ï?Î¿Î½Ï„Î±Î¹ Ï€Î±Ï?Î±Ï€Î¬Î½Ï‰, Î·
+Ï„Î±Ï‡Ï?Ï„Î·Ï„Î± Ï€Ï?ÏŒÏƒÎ²Î±ÏƒÎ·Ï‚ Î¼Ï€Î¿Ï?ÎµÎ¯ Î½Î± Î±Ï…Î¾Î·Î¸ÎµÎ¯
+ÎµÏ€ÎµÎ¹Î´Î® Î¼Î¹Î± Ï€Î¹Î¿ Î´Î±Ï€Î±Î½Î·Ï?Î® Î´Î¹Î±Î´Î¹ÎºÎ±ÏƒÎ¯Î±
+ÎºÎ»Î®ÏƒÎ·Ï‚ Î¼Ï€Î¿Ï?ÎµÎ¯ Î½Î± Î±Ï€Î¿Ï†ÎµÏ…Ï‡Î¸ÎµÎ¯, ÏŒÏ€Ï‰Ï‚
+Ï€Ï?ÏŒÏƒÎ²Î±ÏƒÎ· ÏƒÎµ Î¼Î¹Î± Î¼ÎµÎ³Î¬Î»Î· Î²Î¬ÏƒÎ· Î´ÎµÎ´Î¿Î¼Î­Î½Ï‰Î½ Î®
+Î­Î½Î± ÎµÎ¾Ï‰Ï„ÎµÏ?Î¹ÎºÏŒ Î´Î¹ÎµÏ?Î¸Ï…Î½ÏƒÎ· Î¹ÏƒÏ„Î¿Ï? Î³Î¹Î± Ï„Î·Î½
+Î±Î½Î¬ÎºÏ„Î·ÏƒÎ· Î´ÎµÎ´Î¿Î¼Î­Î½Ï‰Î½.
 
-$test = 'This is my test variable. It contains a string.';
+    use Pop\Cache;
+    $test = 'This is my test variable. It contains a string.';
 
-// Create Cache object, using either Memcached, File or Sqlite
-$cache = Cache::factory(new Memcached(), 30);
-//$cache = Cache::factory(new File('../tmp'), 30);
-//$cache = Cache::factory(new Sqlite('../tmp/cache.sqlite'), 30);
+    $cache = Cache\Cache::factory(new Cache\Adapter\File('../tmp'), 30);
+    //$cache = Cache\Cache::factory(new Cache\Adapter\Memcached(), 30);
+    //$cache = Cache\Cache::factory(new Cache\Adapter\Sqlite('../tmp/cache.sqlite'), 30);
+    //$cache = Cache\Cache::factory(new Cache\Adapter\Apc(), 30);
 
-// Save value to cache
-$cache->save('test', $test);
+    $cache->save('test', $test);
 
-// Load the value from cache
-if (!($var = $cache->load('test'))) {
-    echo 'The value is either not there or expired.';
-} else {
-    var_dump($var);
-}
+    // Load the value
+    if (!($var = $cache->load('test'))) {
+        echo "It's either not there or expired.";
+    } else {
+        echo $var;
+    }
 
-// Clear the cache
-$cache->clear();
-</pre>
+    // Clear the cache
+    $cache->clear();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

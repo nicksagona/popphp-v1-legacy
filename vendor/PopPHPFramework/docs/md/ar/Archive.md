@@ -4,30 +4,36 @@ Pop PHP Framework
 Documentation : Archive
 -----------------------
 
-تم تصميم مكون الأرشيف لتطبيع خلق والتلاعب في ملفات الأرشيف المشتركة من خلال API واحدة. أنواع الأرشيف التي يتم دعمها هي:
+Home
 
-* tar
-* tar.gz
-* tar.bz2
-* zip
-* phar
-* rar
+ØªÙ… ØªØµÙ…ÙŠÙ… Ù…ÙƒÙˆÙ† Ø§Ù„Ø£Ø±Ø´ÙŠÙ? Ù„ØªØ·Ø¨ÙŠØ¹ Ø®Ù„Ù‚
+ÙˆØ§Ù„ØªÙ„Ø§Ø¹Ø¨ Ù…Ù† Ù…Ù„Ù?Ø§Øª Ø§Ù„Ø£Ø±Ø´ÙŠÙ? Ø§Ù„Ù…Ø´ØªØ±ÙƒØ© Ù…Ù†
+Ø®Ù„Ø§Ù„ API ÙˆØ§Ø­Ø¯Ø©. Ø£Ù†ÙˆØ§Ø¹ Ø§Ù„Ø£Ø±Ø´ÙŠÙ? Ø§Ù„ØªÙŠ ÙŠØªÙ…
+Ø¯Ø¹Ù…Ù‡Ø§ Ù‡ÙŠ:
 
-<pre>
-use Pop\Archive\Archive;
+-   tar
+-   tar.gz
+-   tar.bz2
+-   zip
+-   phar
+-   rar
 
-// Create a new TAR archive and add some files to it
-$archive = new Archive('../tmp/test.tar');
-$archive->addFiles('../files');
+<!-- -->
 
-// Compress the archive, gzip by default,
-// will produce '../tmp/test.tar.gz'
-$archive->compress();
+    use Pop\Archive\Archive;
 
-// Extract an existing archive file to specified folder,
-// will automatically uncompress the gzip file first
-$archive = new Archive('../tmp/existing.tar.gz');
-$archive->extract('/tmp');
-</pre>
+    // Create a new TAR archive and add some files to it
+    $archive = new Archive('../tmp/test.tar');
+    $archive->addFiles('../files');
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Compress the archive, gzip by default.
+    // Using 'bz', will produce '../tmp/test.tar.bz2'
+    $archive->compress('bz');
+
+    // Extract an existing archive file to specified folder,
+    // will automatically uncompress the gzip file first
+    $archive = new Archive('../tmp/existing.tar.gz');
+    $archive->extract('/tmp');
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

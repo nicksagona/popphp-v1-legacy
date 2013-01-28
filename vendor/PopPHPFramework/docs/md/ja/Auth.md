@@ -4,41 +4,49 @@ Pop PHP Framework
 Documentation : Auth
 --------------------
 
-Authコンポーネントは、資格情報と定義されたロールの基本セットに基づいてユーザーの認証と認可を容易にします。認証アスペクトが、ユーザーがまったく許可されているかどうかを判断するためにユーザを認証して処理します。認可の側面は、認証されたユーザーが十分な特定のエリア内に許可するアクセスしたかどうかを判定する処理します。役割は簡単に定義して、アクセスユーザのレベルを決定するために評価することができます。 Authコンポーネントは、簡単にユーザーの資格情報を取得するために、データベースのテーブルやディスク上のファイルに結び付けることができます。
+Home
 
-<pre>
-use Pop\Auth\Auth,
-    Pop\Auth\Role,
-    Pop\Auth\Adapter\AuthFile,
-    Pop\Auth\Adapter\AuthTable;
+Authã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã?¯ã€?è³‡æ ¼æƒ…å
+±ã?¨å®šç¾©ã?•ã‚Œã?Ÿãƒ­ãƒ¼ãƒ«ã?®åŸºæœ¬ã‚»ãƒƒãƒˆã?«åŸºã?¥ã?„ã?¦ã€?ãƒ¦ãƒ¼ã‚¶ãƒ¼ã?®èª?è¨¼ã?¨èª?å?¯ã‚’å®¹æ˜“ã?«ã?—ã?¾ã?™ã€‚èª?è¨¼ã‚¢ã‚¹ãƒšã‚¯ãƒˆã?Œã€?ã??ã?®ãƒ¦ãƒ¼ã‚¶ã?Œå…¨ã??è¨±å?¯ã?•ã‚Œã?¦ã?„ã‚‹ã?‹ã?©ã?†ã?‹ã‚’æ±ºå®šã?™ã‚‹ã?Ÿã‚?ã?«ãƒ¦ãƒ¼ã‚¶ã‚’èª?è¨¼ã?™ã‚‹å‡¦ç?†ã?—ã?¾ã?™ã€‚èª?å?¯ã?®å?´é?¢ã?¯ã€?èª?è¨¼ã?•ã‚Œã?Ÿãƒ¦ãƒ¼ã‚¶ãƒ¼ã?Œå??åˆ†ã?ªç‰¹å®šã?®é
+˜åŸŸå†…ã?§ã?¯è¨±å?¯ã?•ã‚Œã?ªã?‘ã‚Œã?°ã‚¢ã‚¯ã‚»ã‚¹ã?—ã?¦ã?„ã‚‹ã?‹å?¦ã?‹ã‚’åˆ¤å®šã?™ã‚‹å‡¦ç?†ã?—ã?¾ã?™ã€‚ãƒ­ãƒ¼ãƒ«ã?¯ç°¡å?˜ã?«â€‹â€‹å®šç¾©ã?—ã€?ãƒ¦ãƒ¼ã‚¶ãƒ¼ã?®ã‚¢ã‚¯ã‚»ã‚¹ãƒ¬ãƒ™ãƒ«ã‚’æ±ºå®šã?™ã‚‹ã?Ÿã‚?ã?«è©•ä¾¡ã?™ã‚‹ã?“ã?¨ã?Œã?§ã??ã?¾ã?™ã€‚
+Authã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã?¯ã€?ç°¡å?˜ã?«ãƒ¦ãƒ¼ã‚¶ãƒ¼ã?®è³‡æ ¼æƒ…å
+±ã‚’å?–å¾—ã?™ã‚‹ã?Ÿã‚?ã?«ã€?ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹Â·ãƒ†ãƒ¼ãƒ–ãƒ«ã?¾ã?Ÿã?¯ãƒ‡ã‚£ã‚¹ã‚¯ä¸Šã?®ãƒ•ã‚¡ã‚¤ãƒ«ã?«çµ?å?ˆã?™ã‚‹ã?“ã?¨ã?Œã?§ã??ã?¾ã?™ã€‚
 
-// Create the Auth object using a table in the database or a local access file.
-$auth = new Auth(new AuthTable('MyApp\\Table\\Users'), Auth::ENCRYPT_SHA1);
-//$auth = new Auth(new AuthFile('../access/users.txt'), Auth::ENCRYPT_SHA1);
+    use Pop\Auth;
 
-// Add some roles
-$auth->addRoles(array(
-    Role::factory('admin', 3),
-    Role::factory('editor', 2),
-    Role::factory('reader', 1)
-));
+    // Set the username and password
+    $username = 'testuser3';
+    $password = '90test12';
 
-// Define some other auth parameters and authenticate the user
-$auth->setRequiredRole('admin')
-     ->setAttemptLimit(3)
-     ->setAllowedIps('127.0.0.1')
-     ->authenticate($username, $password);
+    // Create auth object
+    $auth = new Auth\Auth(new Auth\Adapter\File('../assets/files/access.txt'), Auth\Auth::ENCRYPT_SHA1);
 
-// Check if the user is authorized to be in this area
-if ($auth->isValid()) {
-    if ($auth->isAuthorized()) {
-        echo 'The user is authorized in this area.';
-    } else {
-        echo 'The user is NOT authorized in this area.';
+    // Add some roles
+    $auth->addRoles(array(
+        Auth\Role::factory('admin', 3),
+        Auth\Role::factory('editor', 2),
+        Auth\Role::factory('reader', 1)
+    ));
+
+    // Define some other auth parameters and authenticate the user
+    $auth->setRequiredRole('admin')
+         ->setAttemptLimit(3)
+         ->setAllowedIps('127.0.0.1')
+         ->authenticate($username, $password);
+
+    echo $auth->getResultMessage() . '<br /> ' . PHP_EOL;
+
+    // Check if the user is authorized to be in this area
+    if ($auth->isValid()) {
+        if ($auth->isAuthorized()) {
+            echo 'The user "' . $auth->getUser()->getUsername() .
+                 '" is authorized as a "' .  $auth->getUser()->getRole()->getName() . '".';
+        } else {
+            echo 'The user "' . $auth->getUser()->getUsername() .
+                 '" is NOT authorized. The user is a "' .  $auth->getUser()->getRole()->getName() .
+                 '" and needs to be a "' . $auth->getRequiredRole()->getName() . '".';
+        }
     }
-} else {
-    echo 'Authenication failed. The user is not valid. ' . $auth->getResultMessage();
-}
-</pre>
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

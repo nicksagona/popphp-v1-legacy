@@ -4,16 +4,18 @@ Pop PHP Framework
 Documentation : Ftp
 -------------------
 
-Le composant FTP fournit simplement un wrapper API orientée objet à l'extension FTP de PHP.
+Home
 
-<pre>
-use Pop\Ftp\Ftp;
+Le composant de ftp fournit simplement un wrapper API orientÃ©e objet
+pour l'extension FTP de PHP.
 
-$ftp = new Ftp('ftp.yourserver.com', 'username', 'password');
-$ftp->pasv(true)
-    ->chdir('./httpdocs/')
-    ->put('test.txt', '../assets/files/test.txt', FTP_ASCII);
-echo 'File Sent!';
-</pre>
+    use Pop\Ftp\Ftp;
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $ftp = new Ftp('ftp.yourserver.com', 'username', 'password');
+    $ftp->pasv(true)
+        ->chdir('./httpdocs/')
+        ->put('test.txt', '../assets/files/test.txt', FTP_ASCII);
+    echo 'File Sent!';
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

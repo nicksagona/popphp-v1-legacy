@@ -4,21 +4,27 @@ Pop PHP Framework
 Documentation : Validator
 -------------------------
 
-Il componente Validator prevede semplicemente funzionalità di convalida per molti casi d'uso differenti, quali la convalida o meno di un numero è di un certo valore o una stringa alfanumerica. Validatori più avanzate sono disponibili così come convalida di un indirizzo e-mail e l'indirizzo IP o un numero di carta di credito. E, se quello che ti serve non è disponibile, il componente può essere facilmente esteso.
+Home
 
-<pre>
-use Pop\Validator\Validator,
-    Pop\Validator\Validator\AlphaNumeric;
+Il componente Validator fornisce il vantaggio di funzionalitÃ di
+validazione per molti casi d'uso differenti, quali convalida se un
+numero Ã¨ di un certo valore o una stringa alfanumerica Ã¨. Validatori
+piÃ¹ avanzate sono disponibili pure, come ad esempio la convalida di un
+indirizzo di posta elettronica, e l'indirizzo IP o un numero di carta di
+credito. E se quello che ti serve non Ã¨ disponibile, il componente puÃ²
+essere facilmente esteso.
 
-// Create an alphanumeric validator
-$val = Validator::factory(new AlphaNumeric());
+    use Pop\Validator\AlphaNumeric;
 
-// Evaluate if the input value meets the rule or not
-if (!$val->evaluate('abcd1234')) {
-    echo $val->getMessage();
-} else {
-    echo 'The validator test passed. The string is alphanumeric.';
-}
-</pre>
+    // Create an alphanumeric validator
+    $val = new AlphaNumeric();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Evaluate if the input value meets the rule or not
+    if (!$val->evaluate('abcd1234')) {
+        echo $val->getMessage();
+    } else {
+        echo 'The validator test passed. The string is alphanumeric.';
+    }
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

@@ -4,17 +4,21 @@ Pop PHP Framework
 Documentation : Web
 -------------------
 
-Die Web-Komponente ist eine Sammlung von web-basierten Bedürfnisse und Funktionalität, wie Verwalten von Sitzungen, Server, Browser und Cookies. Außerdem enthält es die Funktionalität zur Erkennung mobiler Geräte so, dass Ihre Anwendung entsprechend reagieren können.
+Home
 
-<pre>
-use Pop\Web\Session;
+Die Version Komponente stellt lediglich die MÃ¶glichkeit zu bestimmen,
+welche Version von Pop Sie Strom haben, und was die neuesten zur
+VerfÃ¼gung steht. Auch diese Komponente durch die CLI-Komponente
+verwendet, um die AbhÃ¤ngigkeit-PrÃ¼fung durchzufÃ¼hren.
 
-$sess = Session::getInstance();
-$sess->username = 'yourname';
-print_r($sess);
-print_r($_SESSION);
+    use Pop\Web\Session;
 
-echo $sess->getId();
-</pre>
+    $sess = Session::getInstance();
+    $sess->username = 'yourname';
+    print_r($sess);
+    print_r($_SESSION);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    echo $sess->getId();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

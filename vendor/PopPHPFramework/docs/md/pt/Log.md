@@ -2,67 +2,67 @@ Pop PHP Framework
 =================
 
 Documentation : Log
---------------------
+-------------------
 
-O componente de Log fornece a funcionalidade básica para gravar entradas de registo por uma variedade de maneiras, incluindo a escrita para o arquivo, inserindo em uma base de dados ou do envio de um e-mail, ou qualquer mistura deles.
+Home
 
-Aqui está um exemplo de gravar em um arquivo de log:
+O componente de Log fornece a funcionalidade bÃ¡sica para gravar
+entradas de registo por uma variedade de maneiras, incluindo a escrita
+para o arquivo, inserindo em uma base de dados ou do envio de um e-mail,
+ou qualquer mistura deles.
 
-<pre>
-use Pop\Log\Logger,
-    Pop\Log\Writer\File;
+Aqui estÃ¡ um exemplo de gravar em um arquivo de log:
 
-$logger = new Logger(new File('../tmp/app.log'));
-$logger-&gt;addWriter(new File('../tmp/app.xml'));
-$logger-&gt;emerg('Here is an emergency message.')
-       -&gt;info('Here is an info message.');
-</pre>
+    use Pop\Log\Logger,
+        Pop\Log\Writer\File;
 
-Aqui está um exemplo de gravar em um banco de dados:
+    $logger = new Logger(new File('../tmp/app.log'));
+    $logger->addWriter(new File('../tmp/app.xml'));
+    $logger->emerg('Here is an emergency message.')
+           ->info('Here is an info message.');
 
-<pre>
-use Pop\Db\Db as PopDb,
-    Pop\Log\Logger,
-    Pop\Log\Writer\Db,
-    Pop\Log\Writer\File,
-    Pop\Record\Record;
+Aqui estÃ¡ um exemplo de gravar em um banco de dados:
 
-class Logs extends Record {}
+    use Pop\Db\Db as PopDb,
+        Pop\Log\Logger,
+        Pop\Log\Writer\Db,
+        Pop\Log\Writer\File,
+        Pop\Record\Record;
 
-Logs::setDb(PopDb::factory('Sqlite', array('database' =&gt; '../tmp/log.sqlite')));
+    class Logs extends Record {}
 
-$logger = new Logger(new Db(new Logs()));
-$logger-&gt;addWriter(new File('../tmp/app.log'));
-$logger-&gt;emerg('Here is an emergency message.')
-       -&gt;info('Here is an info message.');
-</pre>
+    Logs::setDb(PopDb::factory('Sqlite', array('database' => '../tmp/log.sqlite')));
 
-Aqui está um exemplo de envio de um e-mail:
+    $logger = new Logger(new Db(new Logs()));
+    $logger->addWriter(new File('../tmp/app.log'));
+    $logger->emerg('Here is an emergency message.')
+           ->info('Here is an info message.');
 
-<pre>
-use Pop\Log\Logger,
-    Pop\Log\Writer\Mail,
-    Pop\Log\Writer\File;
+Aqui estÃ¡ um exemplo de envio de um e-mail:
 
-$emails = array(
-    'Bob Smith'   =&gt; 'bob@smith.com',
-    'Bubba Smith' =&gt; 'bubba@smith.com'
-);
+    use Pop\Log\Logger,
+        Pop\Log\Writer\Mail,
+        Pop\Log\Writer\File;
 
-$options = array(
-    'subject' =&gt; 'Test App Log Entry:',
-    'headers' =&gt; array(
-        'From'       =&gt; array('name' =&gt; 'Test App Logger', 'email' =&gt; 'logger@testapp.com'),
-        'Reply-To'   =&gt; array('name' =&gt; 'Test App Logger', 'email' =&gt; 'logger@testapp.com'),
-        'X-Mailer'   =&gt; 'PHP/' . phpversion(),
-        'X-Priority' =&gt; '3',
-    )
-);
+    $emails = array(
+        'Bob Smith'   => 'bob@smith.com',
+        'Bubba Smith' => 'bubba@smith.com'
+    );
 
-$logger = new Logger(new Mail($emails));
-$logger-&gt;addWriter(new File('../tmp/app.log'));
-$logger-&gt;emerg('Here is an emergency message.', $options)
-       -&gt;info('Here is an info message.', $options);
-</pre>
+    $options = array(
+        'subject' => 'Test App Log Entry:',
+        'headers' => array(
+            'From'       => array('name' => 'Test App Logger', 'email' => 'logger@testapp.com'),
+            'Reply-To'   => array('name' => 'Test App Logger', 'email' => 'logger@testapp.com'),
+            'X-Mailer'   => 'PHP/' . phpversion(),
+            'X-Priority' => '3',
+        )
+    );
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $logger = new Logger(new Mail($emails));
+    $logger->addWriter(new File('../tmp/app.log'));
+    $logger->emerg('Here is an emergency message.', $options)
+           ->info('Here is an info message.', $options);
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

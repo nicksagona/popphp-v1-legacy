@@ -4,46 +4,74 @@ Pop PHP Framework
 Documentation : Record
 ----------------------
 
-Die Record-Komponente, wie in der Dokumentation Überblick skizziert, ist ein "Hybrid" von Art zwischen dem Active Record und Table Data Gateway-Muster. Über eine standardisierte API, kann er den Zugriff auf eine einzelne Zeile oder Datensatz in einer Datenbank-Tabelle oder mehrere Zeilen oder Datensätze auf einmal liefern. Die häufigste Methode ist, ein Kind zu Klasse, die die Record-Klasse, die eine Tabelle in der Datenbank repräsentiert erstreckt schreiben. Der Name des Kindes Klasse sollte der Name der Tabelle sein. Durch einfaches Anlegen
+Home
 
-<pre>
-use Pop\Record\Record;
+Die Record-Komponente, wie in der Dokumentation Ãœberblick skizziert,
+ist ein "Hybrid" der Arten zwischen dem Active Record und Table Data
+Gateway Muster. Ãœber eine standardisierte API, kÃ¶nnen sie den Zugang
+zu einer einzelnen Zeile oder Datensatz in einer Datenbank-Tabelle oder
+mehrere Zeilen oder DatensÃ¤tze auf einmal liefern. Die hÃ¤ufigste
+Methode ist, ein Kind zu Klasse, die die Record-Klasse, die eine Tabelle
+in der Datenbank stellt sich schreiben. Der Name des Kindes Klasse
+sollte der Name der Tabelle. Durch einfaches Erstellen
 
-class Users extends Record { }
-</pre>
+    use Pop\Record\Record;
 
-Sie erstellen eine Klasse, die die gesamte Funktionalität des Record-Komponente eingebaut und die Klasse kennt den Namen der Datenbank-Tabelle, um aus den Namen der Klasse abfragen muss. Zum Beispiel, 'Benutzer' übersetzt in `users` oder 'DbUsers' übersetzt in `` db_users (CamelCase wird automatisch in lower_case_underscore umgewandelt.) Von dort aus können Sie eine Feinabstimmung der Kind-Klasse, die die Tabelle mit verschiedenen Eigenschaften, wie zB Klasse repräsentiert :
+    class Users extends Record { }
 
-<pre>
-// Table prefix, if applicable
-protected $prefix = null;
+Sie erstellen eine Klasse, die die gesamte FunktionalitÃ¤t des
+Record-Komponente eingebaut und die Klasse kennt den Namen der
+Datenbank-Tabelle aus den Namen der Klasse abgefragt hat. Zum Beispiel,
+'Users' Ã¼bersetzt in \`users\` oder 'DbUsers' Ã¼bersetzt in
+\`db\_users\` (CamelCase wird automatisch in lower\_case\_underscore
+umgewandelt.) Von dort aus kÃ¶nnen Sie die Feinabstimmung der
+Kind-Klasse, die die Tabelle mit verschiedenen Klassen Eigenschaften wie
+stellt:
 
-// Primary ID, if applicable, defaults to 'id'
-protected $primaryId = 'id';
+    // Table prefix, if applicable
+    protected $prefix = null;
 
-// Whether the table is auto-incrementing or not
-protected $auto = true;
+    // Primary ID, if applicable, defaults to 'id'
+    protected $primaryId = 'id';
 
-// Whether to use prepared statements or not, defaults to true
-protected $usePrepared = true;
-</pre>
+    // Whether the table is auto-incrementing or not
+    protected $auto = true;
 
-Von dort aus ist die grundlegende Anwendung wie folgt:
+    // Whether to use prepared statements or not, defaults to true
+    protected $usePrepared = true;
 
-<pre>
-use Users;
+Wenn Sie innerhalb eines strukturierten Projekt, das eine definierte
+Datenbank-Adapter hat, dann sind die Record-Komponente holen, dass bis
+und zu nutzen. Allerdings, wenn Sie einfach schriftlich sind einige
+schnelle Skripte mit den Record-Komponente, dann werden Sie brauchen, um
+es welche Datenbank-Adapter sagen, zu verwenden:
 
-// Get a single user
-$user = Users::findById(1001);
-echo $user->name;
-echo $user->email;
+    // Define DB credentials
+    $creds = array(
+        'database' => 'helloworld',
+        'host'     => 'localhost',
+        'username' => 'hello',
+        'password' => '12world34'
+    );
 
-// Get multiple users
-$users = Users::findAll('last_name ASC');
-foreach ($users->rows as $user) {
+    // Create DB object
+    $db = \Pop\Db\Db::factory('Mysqli', $creds);
+
+    Record::setDb($db);
+
+Von dort sind grundlegende Verwendung wie folgt:
+
+    // Get a single user
+    $user = Users::findById(1001);
     echo $user->name;
     echo $user->email;
-}
-</pre>
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Get multiple users
+    $users = Users::findAll('last_name ASC');
+    foreach ($users->rows as $user) {
+        echo $user->name;
+        echo $user->email;
+    }
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

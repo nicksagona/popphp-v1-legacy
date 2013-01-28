@@ -4,21 +4,23 @@ Pop PHP Framework
 Documentation : Locale
 ----------------------
 
-ロケールのコンポーネントは、アプリケーションの言語サポートと翻訳機能を提供します。あなたは、単にポップ独自のXML言語ファイルで説明されている形式で、必要な言語の翻訳の独自のXMLファイルを作成し、読み込むことができます。
+Home
 
-あなたがいる限りポップ/ロケール/データフォルダーに設立されたXML標準に準拠したもので、自分自身の言語の翻訳ファイルを読み込むことができます。
+ãƒ­ã‚±ãƒ¼ãƒ«ã?®ã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã?¯ã€?ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã?®è¨€èªžã‚µãƒ?ãƒ¼ãƒˆã?¨ç¿»è¨³æ©Ÿèƒ½ã‚’æ??ä¾›ã?—ã?¾ã?™ã€‚ã?‚ã?ªã?Ÿã?¯ã€?å?˜ã?«ãƒ?ãƒƒãƒ—ã?®ç‹¬è‡ªã?®XMLè¨€èªžãƒ•ã‚¡ã‚¤ãƒ«ã?§èª¬æ˜Žã?•ã‚Œã?¦ã?„ã‚‹å½¢å¼?ã?§å¿…è¦?ã?ªè¨€èªžã?®ç¿»è¨³ã?®ç‹¬è‡ªã?®XMLãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œæˆ?ã?—ã€?ãƒ­ãƒ¼ãƒ‰ã?™ã‚‹ã?“ã?¨ã?Œã?§ã??ã?¾ã?™ã€‚
 
-<pre>
-use Pop\Locale\Locale;
+ã?‚ã?ªã?Ÿã?Œã?„ã‚‹é™?ã‚Šãƒ?ãƒƒãƒ—/ãƒ­ã‚±ãƒ¼ãƒ«/ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚©ãƒ«ãƒ€ãƒ¼ã?«è¨­ç«‹ã?•ã‚Œã?ŸXMLæ¨™æº–ã?«æº–æ‹
+ã?—ã?Ÿã‚‚ã?®ã?§ã€?è‡ªåˆ†è‡ªèº«ã?®è¨€èªžã?®ç¿»è¨³ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã?¿è¾¼ã‚€ã?“ã?¨ã?Œã?§ã??ã?¾ã?™ã€‚
 
-// Create a Locale object to translate to French, using your own language file.
-$lang = Locale::factory('fr')->loadFile('folder/mylangfile.xml);
+    use Pop\Locale\Locale;
 
-// Will output 'Ce champ est obligatoire.'
-$lang->_e('This field is required.');
+    // Create a Locale object to translate to French, using your own language file.
+    $lang = Locale::factory('fr')->loadFile('folder/mylangfile.xml);
 
-// Will return and output 'Ce champ est obligatoire.'
-echo $lang->__('This field is required.');
-</pre>
+    // Will output 'Ce champ est obligatoire.'
+    $lang->_e('This field is required.');
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Will return and output 'Ce champ est obligatoire.'
+    echo $lang->__('This field is required.');
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

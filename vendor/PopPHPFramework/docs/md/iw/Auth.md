@@ -4,41 +4,55 @@ Pop PHP Framework
 Documentation : Auth
 --------------------
 
-רכיב המחבר מאפשר אימות ואישור של משתמשים בהתבסס על מערכת בסיסית של אישורי ותפקידים מוגדרים. היבט אימות מטפל אימות המשתמש כדי לקבוע אם שהמשתמש מותר בכלל. היבט אישור מטפל לקבוע אם משתמש מאומת יש מספיק גישה יורשו בתחום מסוים. תפקידים יכול בקלות להיות מוגדר הערכה כדי לקבוע את רמת המשתמש של גישה. רכיב המחבר יכול בקלות לקשור לטבלה מסד נתונים או קבצים על הדיסק כדי לאחזר אישורי המשתמש ומידע.
+Home
 
-<pre>
-use Pop\Auth\Auth,
-    Pop\Auth\Role,
-    Pop\Auth\Adapter\AuthFile,
-    Pop\Auth\Adapter\AuthTable;
+×¨×›×™×‘ ×”×?×™×ž×•×ª ×ž×?×¤×©×¨ ×?×™×ž×•×ª ×•×?×™×©×•×¨ ×©×œ
+×ž×©×ª×ž×©×™×? ×¢×œ ×¡×ž×š ×¢×¨×›×” ×‘×¡×™×¡×™×ª ×©×œ ×?×™×©×•×¨×™×?
+×•×ª×¤×§×™×“×™×? ×ž×•×’×“×¨×™×?. ×”×™×‘×˜ ×”×?×™×ž×•×ª ×ž×˜×¤×œ
+×?×™×ž×•×ª ×ž×©×ª×ž×© ×›×“×™ ×œ×§×‘×•×¢ ×?×? ×?×• ×œ×? ×©×”×ž×©×ª×ž×©
+×¨×©×?×™ ×‘×›×œ×œ. ×”×™×‘×˜ ×”×”×¨×©×?×” ×ž×˜×¤×œ ×§×‘×™×¢×” ×?×?
+×”×ž×©×ª×ž×© ×”×ž×•×¨×©×” ×™×© ×ž×¡×¤×™×§ ×œ×’×©×ª ×œ×™×ª×?×¤×©×¨
+×‘×ª×•×š ×?×–×•×¨ ×ž×¡×•×™×?. ×ª×¤×§×™×“×™×? ×™×›×•×œ×™×? ×‘×§×œ×•×ª
+×œ×”×™×•×ª ×ž×•×’×“×¨×™×? ×•×™×™×‘×“×§×• ×›×“×™ ×œ×§×‘×•×¢ ×”×¨×ž×” ×©×œ
+×ž×©×ª×ž×© ×©×œ ×’×™×©×”. ×ž×¨×›×™×‘ ×”×?×™×ž×•×ª ×‘×§×œ×•×ª ×™×›×•×œ
+×œ×§×©×•×¨ ×œ×˜×‘×œ×ª ×ž×¡×“ × ×ª×•× ×™×? ×?×• ×§×•×‘×¥ ×‘×“×™×¡×§
+×›×“×™ ×œ×?×—×–×¨ ×?×™×©×•×¨×™ ×ž×©×ª×ž×© ×•×ž×™×“×¢.
 
-// Create the Auth object using a table in the database or a local access file.
-$auth = new Auth(new AuthTable('MyApp\\Table\\Users'), Auth::ENCRYPT_SHA1);
-//$auth = new Auth(new AuthFile('../access/users.txt'), Auth::ENCRYPT_SHA1);
+    use Pop\Auth;
 
-// Add some roles
-$auth->addRoles(array(
-    Role::factory('admin', 3),
-    Role::factory('editor', 2),
-    Role::factory('reader', 1)
-));
+    // Set the username and password
+    $username = 'testuser3';
+    $password = '90test12';
 
-// Define some other auth parameters and authenticate the user
-$auth->setRequiredRole('admin')
-     ->setAttemptLimit(3)
-     ->setAllowedIps('127.0.0.1')
-     ->authenticate($username, $password);
+    // Create auth object
+    $auth = new Auth\Auth(new Auth\Adapter\File('../assets/files/access.txt'), Auth\Auth::ENCRYPT_SHA1);
 
-// Check if the user is authorized to be in this area
-if ($auth->isValid()) {
-    if ($auth->isAuthorized()) {
-        echo 'The user is authorized in this area.';
-    } else {
-        echo 'The user is NOT authorized in this area.';
+    // Add some roles
+    $auth->addRoles(array(
+        Auth\Role::factory('admin', 3),
+        Auth\Role::factory('editor', 2),
+        Auth\Role::factory('reader', 1)
+    ));
+
+    // Define some other auth parameters and authenticate the user
+    $auth->setRequiredRole('admin')
+         ->setAttemptLimit(3)
+         ->setAllowedIps('127.0.0.1')
+         ->authenticate($username, $password);
+
+    echo $auth->getResultMessage() . '<br /> ' . PHP_EOL;
+
+    // Check if the user is authorized to be in this area
+    if ($auth->isValid()) {
+        if ($auth->isAuthorized()) {
+            echo 'The user "' . $auth->getUser()->getUsername() .
+                 '" is authorized as a "' .  $auth->getUser()->getRole()->getName() . '".';
+        } else {
+            echo 'The user "' . $auth->getUser()->getUsername() .
+                 '" is NOT authorized. The user is a "' .  $auth->getUser()->getRole()->getName() .
+                 '" and needs to be a "' . $auth->getRequiredRole()->getName() . '".';
+        }
     }
-} else {
-    echo 'Authenication failed. The user is not valid. ' . $auth->getResultMessage();
-}
-</pre>
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

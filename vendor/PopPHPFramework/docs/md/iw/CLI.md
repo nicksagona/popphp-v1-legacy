@@ -1,27 +1,88 @@
 Pop PHP Framework
 =================
 
-Documentation : Cli
+Documentation : CLI
 -------------------
 
-שורת פקודה (CLI) רכיב ממשק הוא מרכיב מאוד שימושי, המאפשר לך לבצע משימות מועילות כגון:
+Home
 
-* להעריך את הסביבה הנוכחית של תלות הנדרשים
-* התקנת פרויקט מקובץ ההתקנה הפרויקט
-* לקבוע את שפת ברירת המחדל של יישום
-* ליצור מפה בכיתה
-* להגדיר מחדש את הפרויקט, כי כבר עבר
-* לבדוק את הגרסה הנוכחית על הגרסה העדכנית ביותר
+×ž×ž×©×§ ×©×•×¨×ª ×¤×§×•×“×ª ×”×¨×›×™×‘ (CLI) ×”×•×? ×¨×›×™×‘
+×©×™×ž×•×©×™ ×ž×?×•×“ ×”×ž×?×¤×©×¨ ×œ×š ×œ×‘×¦×¢ ×›×ž×” ×ž×©×™×ž×•×ª
+×ž×•×¢×™×œ×•×ª ×›×’×•×Ÿ:
 
-<pre>
-script/pop --check                     // Check the current configuration for required dependencies
-script/pop --help                      // Display this help
-script/pop --install file.php          // Install a project based on the install file specified
-script/pop --lang fr                   // Set the default language for the project
-script/pop --map folder file.php       // Create a class map file from the source folder and save to the output file
-script/pop --reconfig projectfolder    // Reconfigure the project based on the new location of the project
-script/pop --show                      // Show project install instructions
-script/pop --version                   // Display version of Pop PHP Framework and latest available
-</pre>
+-   ×œ×”×¢×¨×™×š ×?×ª ×”×¡×‘×™×‘×” ×”× ×•×›×—×™×ª ×œ×ª×œ×•×ª ×”×
+    ×“×¨×©×ª
+-   ×”×ª×§× ×ª ×¤×¨×•×™×§×˜ ×ž×§×•×‘×¥ ×”×ª×§× ×ª ×¤×¨×•×™×§×˜
+-   ×œ×”×’×“×™×¨ ×?×ª ×©×¤×ª ×‘×¨×™×¨×ª ×”×ž×—×“×œ ×©×œ ×™×™×©×•×?
+-   ×œ×™×¦×•×¨ ×ž×¤×ª ×›×™×ª×”
+-   ×œ×‘×“×•×§ ×?×ª ×”×’×¨×¡×” ×”× ×•×›×—×™×ª × ×’×“ ×”×’×¨×¡×”
+    ×”×¢×“×›× ×™×ª ×‘×™×•×ª×¨ ×”×–×ž×™× ×”
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+<!-- -->
+
+    script/pop --check                     // Check the current configuration for required dependencies
+    script/pop --help                      // Display this help
+    script/pop --install file.php          // Install a project based on the install file specified
+    script/pop --lang fr                   // Set the default language for the project
+    script/pop --map folder file.php       // Create a class map file from the source folder and save to the output file
+    script/pop --show                      // Show project install instructions
+    script/pop --version                   // Display version of Pop PHP Framework and latest available
+
+×”× ×” ×§×•×‘×¥ ×”×ª×§× ×ª ×¤×¨×•×™×§×˜ ×“×•×’×ž×”:
+
+    return new Pop\Config(array(
+        'project' => array(
+            'name'    => 'HelloWorld',
+            'base'    => __DIR__ . '/../../',
+            'docroot' => __DIR__ . '/../../public'
+        ),
+        'databases' => array(
+            'helloworld' => array(
+                'type'     => 'Sqlite',
+                'database' => '.hthelloworld.sqlite',
+                'prefix'   => 'pop_',
+                'default'  => true
+            )
+        ),
+        'forms' => array(
+            'login' => array(
+                'fields' => array(
+                    array(
+                        'type'       => 'text',
+                        'name'       => 'username',
+                        'label'      => 'Username:',
+                        'required'   => true,
+                        'attributes' => array('size', 40),
+                        'validators' => 'AlphaNumeric()'
+                    ),
+                    array(
+                        'type'       => 'password',
+                        'name'       => 'password',
+                        'label'      => 'Password:',
+                        'required'   => true,
+                        'attributes' => array('size', 40),
+                        'validators' => array('NotEmpty()', 'LengthGt(6)')
+                    ),
+                    array(
+                        'type'       => 'submit',
+                        'name'       => 'submit',
+                        'value'      => 'LOGIN'
+                    )
+                )
+            )
+        ),
+        'controllers' => array(
+            '/' => array(
+                'index'   => 'index.phtml',
+                'about'   => 'about.phtml',
+                'contact' => 'contact.phtml',
+                'error'   => 'error.phtml'
+            )
+        ),
+        'models' => array(
+            'User'
+        )
+    ));
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

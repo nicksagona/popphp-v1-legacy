@@ -4,29 +4,34 @@ Pop PHP Framework
 Documentation : Config
 ----------------------
 
-The Config component provides a data value object that is utilized by other components such as the Project component. Typically, things like database credentials are defined in a config object and passed to a project object to be used during the life-cycle of the project or script.
+Home
 
-<pre>
-use Pop\Config;
+The Config component provides a data value object that is utilized by
+other components such as the Project component. Typically, things like
+database credentials are defined in a config object and passed to a
+project object to be used during the life-cycle of the project or
+script.
 
-$cfg = array(
-    'db' => array(
-        'name' => 'testdb',
-        'host' => 'localhost',
-        'user' => array(
-            'username' => 'testuser',
-            'password' => '12test34',
-            'role'     => 'editor'
-        )
-    ),
-    'module' => 'TestModule'
-);
+    use Pop\Config;
 
-$config = new Config($cfg);
+    $cfg = array(
+        'db' => array(
+            'name' => 'testdb',
+            'host' => 'localhost',
+            'user' => array(
+                'username' => 'testuser',
+                'password' => '12test34',
+                'role'     => 'editor'
+            )
+        ),
+        'module' => 'TestModule'
+    );
 
-echo 'DB Name: ' . $config->db->name;
-echo 'User: ' . $config->db->user->username . ' has the role: ' . $config->db->user->role;
-echo 'Module Name: ' . $config->module;
-</pre>
+    $config = new Config($cfg);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    echo 'DB Name: ' . $config->db->name;
+    echo 'User: ' . $config->db->user->username . ' has the role: ' . $config->db->user->role;
+    echo 'Module Name: ' . $config->module;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

@@ -4,53 +4,54 @@ Pop PHP Framework
 Documentation : Db
 ------------------
 
-DB组件提供查询数据库的规范化访问。所支持的适配器：
+Home
 
-* sqlsrv
-* mysql
-* mysqli
-* oracle
-* pdo
-* pgsql
-* sqlite
+DBç»„ä»¶æ??ä¾›äº†æ
+‡å‡†åŒ–çš„æŸ¥è¯¢æ•°æ?®åº“çš„è®¿é—®ã€‚æ”¯æŒ?çš„é€‚é…?å™¨ï¼š
 
-支持和SQLSrv， MySQLi，Oracle， PDO，PostgreSQL的SQLite的adapaters准备好的语句。逃脱的值是所有适配器。
+-   mysql
+-   mysqli
+-   oracle
+-   pdo
+-   pgsql
+-   sqlite
+-   sqlsrv
 
-<pre>
-use Pop\Db\Db;
+æ”¯æŒ?é¢„å¤„ç?†è¯­å?¥çš„mysqliï¼Œç”²éª¨æ–‡ï¼ŒPDOæ—¶ï¼ŒPostgreSQLï¼ŒSQLiteå’ŒSQLSRVé€‚é…?å™¨ã€‚è½¬ä¹‰çš„å€¼æ˜¯é€‚ç”¨äºŽæ‰€æœ‰é€‚é…?å™¨ã€‚
 
-// Define DB credentials
-$creds = array(
-    'database' => 'helloworld',
-    'host'     => 'localhost',
-    'username' => 'hello',
-    'password' => '12world34'
-);
+    use Pop\Db\Db;
 
-// Create DB object
-$db = Db::factory('Mysqli', $creds);
+    // Define DB credentials
+    $creds = array(
+        'database' => 'helloworld',
+        'host'     => 'localhost',
+        'username' => 'hello',
+        'password' => '12world34'
+    );
 
-// Perform the query
-$db->adapter()->query('SELECT * FROM users');
+    // Create DB object
+    $db = Db::factory('Mysqli', $creds);
 
-// Fetch the results
-while (($row = $db->adapter()->fetch()) != false) {
-    print_r($row);
-}
-</pre>
+    // Perform the query
+    $db->adapter()->query('SELECT * FROM users');
 
-除了访问数据库，DB组件还设有一个有用的SQL抽象对象，帮助您建立标准化的SQL查询。
+    // Fetch the results
+    while (($row = $db->adapter()->fetch()) != false) {
+        print_r($row);
+    }
 
-<pre>
-use Pop\Db\Sql;
+é™¤äº†æ•°æ?®åº“è®¿é—®ï¼ŒDBç»„ä»¶è¿˜è®¾æœ‰ä¸€ä¸ªæœ‰ç”¨çš„çš„SQLæŠ½è±¡å¯¹è±¡ï¼Œå¸®åŠ©æ‚¨åœ¨åˆ›å»ºæ
+‡å‡†åŒ–çš„SQLæŸ¥è¯¢ã€‚
 
-$sql = new Sql('users');
-$sql->setIdQuoteType(Sql::BACKTICK)
-    ->select()
-    ->where('id', '=', 1);
+    use Pop\Db\Sql;
 
-// Outputs 'SELECT * FROM `users` WHERE `id` = 1'
-echo $sql;
-</pre>
+    $sql = new Sql('users');
+    $sql->setIdQuoteType(Sql::BACKTICK)
+        ->select()
+        ->where('id', '=', 1);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Outputs 'SELECT * FROM `users` WHERE `id` = 1'
+    echo $sql;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

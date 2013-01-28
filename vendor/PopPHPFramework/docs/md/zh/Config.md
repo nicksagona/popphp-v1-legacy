@@ -4,29 +4,30 @@ Pop PHP Framework
 Documentation : Config
 ----------------------
 
-配置组件提供的数据值的对象是由其他组件，如项目的组成部分使用。通常情况下，定义在一个配置对象数据库凭据之类的东西，并通过项目对象在生命周期的项目或脚本使用。
+Home
 
-<pre>
-use Pop\Config;
+é…?ç½®ç»„ä»¶æ??ä¾›çš„æ•°æ?®å€¼å¯¹è±¡ï¼Œè¯¥å¯¹è±¡ä½¿ç”¨çš„å…¶ä»–ç»„ä»¶ï¼Œå¦‚é¡¹ç›®çš„ç»„æˆ?éƒ¨åˆ†ã€‚é€šå¸¸æƒ…å†µä¸‹ï¼Œåœ¨é…?ç½®å¯¹è±¡å®šä¹‰çš„æ•°æ?®åº“å‡­æ?®ä¹‹ç±»çš„ä¸œè¥¿ï¼Œå¹¶é€šè¿‡é¡¹ç›®å¯¹è±¡åœ¨å…¶ç”Ÿå‘½å‘¨æœŸçš„é¡¹ç›®æˆ–è„šæœ¬ã€‚
 
-$cfg = array(
-    'db' => array(
-        'name' => 'testdb',
-        'host' => 'localhost',
-        'user' => array(
-            'username' => 'testuser',
-            'password' => '12test34',
-            'role'     => 'editor'
-        )
-    ),
-    'module' => 'TestModule'
-);
+    use Pop\Config;
 
-$config = new Config($cfg);
+    $cfg = array(
+        'db' => array(
+            'name' => 'testdb',
+            'host' => 'localhost',
+            'user' => array(
+                'username' => 'testuser',
+                'password' => '12test34',
+                'role'     => 'editor'
+            )
+        ),
+        'module' => 'TestModule'
+    );
 
-echo 'DB Name: ' . $config->db->name;
-echo 'User: ' . $config->db->user->username . ' has the role: ' . $config->db->user->role;
-echo 'Module Name: ' . $config->module;
-</pre>
+    $config = new Config($cfg);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    echo 'DB Name: ' . $config->db->name;
+    echo 'User: ' . $config->db->user->username . ' has the role: ' . $config->db->user->role;
+    echo 'Module Name: ' . $config->module;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

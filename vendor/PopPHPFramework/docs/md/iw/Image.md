@@ -4,20 +4,28 @@ Pop PHP Framework
 Documentation : Image
 ---------------------
 
-רכיב תמונה מספקת מעטפת ה-API סטנדרטי ליצירת ומניפולציה של תמונות ממנף GD של PHP והרחבות Imagick, כמו גם פורמט תמונה SVG. בתוך מרכיב זה הוא ה-API עשיר בתכונות לביצוע רבים שונים התמונה מבוססי פונקציות. ו, מאז ה-API הוא טופל, אם הפרויקט עובר בסביבה שונה, זה צריך להשפיל בקלות.
+Home
 
-<pre>
-use Pop\Color\Rgb,
-    Pop\Image\Gd;
+×”×¨×›×™×‘ ×ž×¡×¤×§ ×ª×ž×•× ×ª ×¢×˜×™×¤×ª API ×¡×˜× ×“×¨×˜×™×ª
+×œ×™×¦×™×¨×” ×•×”×ž× ×™×¤×•×œ×¦×™×” ×©×œ ×ª×ž×•× ×•×ª, ×”×ž×ž× ×¤×ª ×?×ª
+×¨×—×‘×•×ª Imagick, ×›×ž×• ×’×? ×‘×¤×•×¨×ž×˜ SVG ×ª×ž×•× ×ª GD ×•×©×œ
+PHP. ×‘×ª×•×š ×¨×›×™×‘ ×–×” ×”×•×? API ×¢×©×™×¨ ×‘×ª×›×•× ×•×ª
+×œ×‘×™×¦×•×¢ ×¤×•× ×§×¦×™×•×ª ×”×ž×‘×•×¡×¡×•×ª ×¢×œ ×ª×ž×•× ×•×ª
+×¨×‘×•×ª ×•×©×•× ×•×ª. ×•, ×ž×?×– ×”-API ×”×•×? ×˜×•×¤×œ, ×?×?
+×¤×¨×•×™×§×˜ ×¢×•×‘×¨ ×œ×¡×‘×™×‘×” ×©×•× ×”, ×–×” ×¦×¨×™×š ×œ×”×©×¤×™×œ
+×§×œ×•×ª.
 
-$image = new Gd('new-image.jpg', 640, 480, new Rgb(255, 0, 0));
-$image->setFillColor(new Rgb(0, 0, 255))
-      ->setStrokeColor(new Rgb(255, 255, 255))
-      ->setStrokeWidth(3)
-      ->addEllipse(320, 240, 150, 75)
-      ->output();
+    use Pop\Color\Space\Rgb,
+        Pop\Image\Gd;
 
-$image->destroy();
-</pre>
+    $image = new Gd('new-image.jpg', 640, 480, new Rgb(255, 0, 0));
+    $image->setFillColor(new Rgb(0, 0, 255))
+          ->setStrokeColor(new Rgb(255, 255, 255))
+          ->setStrokeWidth(3)
+          ->drawEllipse(320, 240, 150, 75)
+          ->output();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $image->destroy();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

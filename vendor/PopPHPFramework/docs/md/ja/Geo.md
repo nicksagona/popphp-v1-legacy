@@ -4,18 +4,19 @@ Pop PHP Framework
 Documentation : Geo
 -------------------
 
-ジオ·コンポーネントは、単にPHPのGeoIP拡張モジュールをオブジェクト指向のAPIのラッパーを提供します。
+Home
 
-<pre>
-use Pop\Geo\Geo;
+ã‚¸ã‚ªÂ·ã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã?¯ã€?å?˜ã?«PHPã?®geoipã?®æ‹¡å¼µã?¸ã?®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæŒ‡å?‘APIã?®ãƒ©ãƒƒãƒ‘ãƒ¼ã‚’æ??ä¾›ã?—ã?¾ã?™ã€‚
 
-$geo1 = new Geo('123.123.123.123');
-$geo2 = new Geo('234.234.234.234');
+    use Pop\Geo\Geo;
 
-print_r($geo->getHostInfo());
+    $geo1 = new Geo('123.123.123.123');
+    $geo2 = new Geo('234.234.234.234');
 
-echo $geo1->distanceTo($geo2, 4);
-//echo $geo1->distanceTo($geo2->latitude, $geo2->longitude, 4);
-</pre>
+    print_r($geo->getHostInfo());
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    echo $geo1->distanceTo($geo2, 4);
+    //echo $geo1->distanceTo($geo2->latitude, $geo2->longitude, 4);
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

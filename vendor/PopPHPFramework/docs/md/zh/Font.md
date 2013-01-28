@@ -4,23 +4,27 @@ Pop PHP Framework
 Documentation : Font
 --------------------
 
-字体部分是在深入字体解析器，提取重要的字体数据和指标，使用其他组件和程序。支持的字体类型是：
+Home
 
-* TrueType
-* OpenType
-* Type1
+çš„å­—ä½“ç»„ä»¶æ˜¯ä¸€ä¸ªæ·±å…¥çš„å­—ä½“è§£æž?å™¨ä¸­æ??å?–é‡?è¦?çš„å…¶ä»–ç»„ä»¶å’Œç¨‹åº?ä½¿ç”¨çš„å­—ä½“æ•°æ?®å’ŒæŒ‡æ
+‡ã€‚æ”¯æŒ?çš„å­—ä½“ç±»åž‹æ˜¯ï¼š
 
-<pre>
-use Pop\Font\TrueType;
+-   TrueType
+-   OpenType
+-   Type1
 
-$font = new TrueType('fonts/times.ttf');
+<!-- -->
 
-// You then have access to all of the parsed font data and metrics.
-echo $font->info->fullName;
-echo $font->bBox->xMin;
-echo $font->bBox->yMin;
-echo $font->bBox->xMax;
-echo $font->bBox->yMax;
-</pre>
+    use Pop\Font\TrueType;
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $font = new TrueType('fonts/times.ttf');
+
+    // You then have access to all of the parsed font data and metrics.
+    echo $font->info->fullName;
+    echo $font->bBox->xMin;
+    echo $font->bBox->yMin;
+    echo $font->bBox->xMax;
+    echo $font->bBox->yMax;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

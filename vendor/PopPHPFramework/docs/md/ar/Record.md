@@ -4,46 +4,79 @@ Pop PHP Framework
 Documentation : Record
 ----------------------
 
-المكون سجل، على النحو المبين في وثائق عامة، هو "مختلطة" من نوع ما بين السجل النشط وأنماط الجدول بوابة بيانات. عبر API موحدة، يمكن أن توفر فرص الحصول على صف واحد أو سجل في جدول قاعدة بيانات، أو عدة صفوف أو سجلات في آن واحد. النهج الأكثر شيوعا هو كتابة فئة الأطفال التي تمتد الطبقة السجل الذي يمثل الجدول في قاعدة البيانات. يجب أن يكون اسم الطبقة طفل يكون اسم الجدول. من خلال خلق ببساطة
+Home
 
-<pre>
-use Pop\Record\Record;
+Ø§Ù„Ù…ÙƒÙˆÙ† Ø³Ø¬Ù„ØŒ Ø¹Ù„Ù‰ Ø§Ù„Ù†Ø­Ùˆ Ø§Ù„Ù…Ø¨ÙŠÙ† Ù?ÙŠ ÙˆØ«Ø§Ø¦Ù‚
+Ù†Ø¸Ø±Ø© Ø¹Ø§Ù…Ø©ØŒ Ù‡Ùˆ "Ù…Ø®ØªÙ„Ø·Ø©" Ù…Ù† Ù†ÙˆØ¹ Ù…Ø§ Ø¨ÙŠÙ†
+Ø§Ù„Ø³Ø¬Ù„ Ø§Ù„Ù†Ø´Ø· ÙˆØ£Ù†Ù…Ø§Ø· Ø§Ù„Ø¬Ø¯ÙˆÙ„ Ø¨ÙˆØ§Ø¨Ø©
+Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª. Ø¹Ø¨Ø± API Ù…ÙˆØ­Ø¯Ø©ØŒ ÙŠÙ…ÙƒÙ† Ø£Ù† ØªÙˆÙ?Ø±
+Ø¥Ù…ÙƒØ§Ù†ÙŠØ© Ø§Ù„ÙˆØµÙˆÙ„ Ø¥Ù„Ù‰ ØµÙ? ÙˆØ§Ø­Ø¯ Ø£Ùˆ Ø³Ø¬Ù„ Ù?ÙŠ
+Ø¬Ø¯ÙˆÙ„ Ù‚Ø§Ø¹Ø¯Ø© Ø¨ÙŠØ§Ù†Ø§ØªØŒ Ø£Ùˆ ØµÙ?ÙˆÙ? Ù…ØªØ¹Ø¯Ø¯Ø© Ù?ÙŠ
+ÙˆÙ‚Øª ÙˆØ§Ø­Ø¯ Ø£Ùˆ Ø§Ù„Ø³Ø¬Ù„Ø§Øª. Ø§Ù„Ù†Ù‡Ø¬ Ø§Ù„Ø£ÙƒØ«Ø± Ø´ÙŠÙˆØ¹Ø§
+Ù‡Ùˆ ÙƒØªØ§Ø¨Ø© Ù?Ø¦Ø© Ø§Ù„Ø£Ø·Ù?Ø§Ù„ Ø§Ù„ØªÙŠ ØªÙ…ØªØ¯ Ø§Ù„Ø·Ø¨Ù‚Ø©
+Ø³Ø¬Ù„ Ø§Ù„Ø°ÙŠ ÙŠÙ…Ø«Ù„ Ø§Ù„Ø¬Ø¯ÙˆÙ„ Ù?ÙŠ Ù‚Ø§Ø¹Ø¯Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª.
+ÙŠØ¬Ø¨ Ø£Ù† ÙŠÙƒÙˆÙ† Ø§Ø³Ù… Ø§Ù„Ø·Ø¨Ù‚Ø© Ø§Ù„Ø·Ù?Ù„ ÙŠÙƒÙˆÙ† Ø§Ø³Ù…
+Ø§Ù„Ø¬Ø¯ÙˆÙ„. Ø¨Ø¨Ø³Ø§Ø·Ø© Ø¹Ù† Ø·Ø±ÙŠÙ‚ Ø¥Ù†Ø´Ø§Ø¡
 
-class Users extends Record { }
-</pre>
+    use Pop\Record\Record;
 
-يمكنك إنشاء فئة التي لديها كل من وظائف المكون سجل بنيت في والطبقة يعرف اسم جدول قاعدة البيانات للاستعلام عن اسم الفئة. على سبيل المثال، يترجم "المستخدمين إلى المستخدمين` `أو يترجم 'DbUsers' الى` db_users `(يتم تحويلها تلقائيا إلى CamelCase lower_case_underscore.) من هناك، يمكنك صقل فئة الطفل الذي يمثل الجدول مع خصائص فئة مختلفة مثل :
+    class Users extends Record { }
 
-<pre>
-// Table prefix, if applicable
-protected $prefix = null;
+Ø¥Ù†Ø´Ø§Ø¡ Ù?Ø¦Ø© Ø§Ù„ØªÙŠ Ù„Ø¯ÙŠÙ‡Ø§ ÙƒÙ„ Ù…Ù† ÙˆØ¸Ø§Ø¦Ù? Ø§Ù„Ù…ÙƒÙˆÙ†
+Ø³Ø¬Ù„ Ø¨Ù†ÙŠØª Ù?ÙŠ ÙˆØ§Ù„Ø·Ø¨Ù‚Ø© ÙŠØ¹Ø±Ù? Ø§Ø³Ù… Ø¬Ø¯ÙˆÙ„ Ù‚Ø§Ø¹Ø¯Ø©
+Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ù„Ù„Ø§Ø³ØªØ¹Ù„Ø§Ù… Ø¹Ù† Ø§Ø³Ù… Ø§Ù„Ù?Ø¦Ø©. Ø¹Ù„Ù‰
+Ø³Ø¨ÙŠÙ„ Ø§Ù„Ù…Ø«Ø§Ù„ØŒ ÙŠØªØ±Ø¬Ù… "Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…ÙŠÙ†" Ù?ÙŠ \`\`
+Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…ÙŠÙ† Ø£Ùˆ ÙŠØªØ±Ø¬Ù… 'DbUsers' Ø¥Ù„Ù‰ \`\` db\_users
+(ÙŠØªÙ… ØªØ­ÙˆÙŠÙ„ ØªÙ„Ù‚Ø§Ø¦ÙŠØ§ Ø¥Ù„Ù‰ CamelCase
+lower\_case\_underscore.) Ù…Ù† Ù‡Ù†Ø§ÙƒØŒ ÙŠÙ…ÙƒÙ†Ùƒ ØµÙ‚Ù„ Ø§Ù„Ø·Ø¨Ù‚Ø©
+Ø§Ù„Ø·Ù?Ù„ Ø§Ù„Ø°ÙŠ ÙŠÙ…Ø«Ù„ Ø§Ù„Ø¬Ø¯ÙˆÙ„ Ù…Ø¹ Ø®ØµØ§Ø¦Øµ Ù?Ø¦Ø©
+Ù…Ø®ØªÙ„Ù?Ø© Ù…Ø«Ù„ :
 
-// Primary ID, if applicable, defaults to 'id'
-protected $primaryId = 'id';
+    // Table prefix, if applicable
+    protected $prefix = null;
 
-// Whether the table is auto-incrementing or not
-protected $auto = true;
+    // Primary ID, if applicable, defaults to 'id'
+    protected $primaryId = 'id';
 
-// Whether to use prepared statements or not, defaults to true
-protected $usePrepared = true;
-</pre>
+    // Whether the table is auto-incrementing or not
+    protected $auto = true;
 
-من هناك، واستخدام الأساسية هي كما يلي:
+    // Whether to use prepared statements or not, defaults to true
+    protected $usePrepared = true;
 
-<pre>
-use Users;
+Ø¥Ø°Ø§ ÙƒÙ†Øª Ø¶Ù…Ù† Ù…Ø´Ø±ÙˆØ¹ Ù…Ù†Ø¸Ù… ÙŠØ­ØªÙˆÙŠ Ø¹Ù„Ù‰ Ù‚Ø§Ø¹Ø¯Ø©
+Ø¨ÙŠØ§Ù†Ø§Øª ØªØ¹Ø±ÙŠÙ? Ù…Ø­ÙˆÙ„ØŒ Ø«Ù… Ø§Ù„Ù…ÙƒÙˆÙ† Ø³Ø¬Ù„ ØªØ®ØªØ§Ø±
+Ø£Ù† ØªØµÙ„ ÙˆØ§Ø³ØªØ®Ø¯Ø§Ù…Ù‡Ø§. ÙˆÙ…Ø¹ Ø°Ù„ÙƒØŒ Ø¥Ø°Ø§ ÙƒÙ†Øª ØªÙƒØªØ¨
+Ø¨Ø¨Ø³Ø§Ø·Ø© Ø¨Ø¹Ø¶ Ø§Ù„ÙƒØªØ§Ø¨Ø§Øª Ø§Ù„Ø³Ø±ÙŠØ¹ Ø¨Ø§Ø³ØªØ®Ø¯Ø§Ù…
+Ø§Ù„Ù…ÙƒÙˆÙ† Ø³Ø¬Ù„ØŒ Ù?Ø¥Ù†Ùƒ Ø³ÙˆÙ? ØªØ­ØªØ§Ø¬ Ù„Ù…Ø¹Ø±Ù?Ø© Ù…Ø§
+Ø§Ù„Ø°ÙŠ Ù…Ø­ÙˆÙ„ Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù… Ù‚Ø§Ø¹Ø¯Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª:
 
-// Get a single user
-$user = Users::findById(1001);
-echo $user->name;
-echo $user->email;
+    // Define DB credentials
+    $creds = array(
+        'database' => 'helloworld',
+        'host'     => 'localhost',
+        'username' => 'hello',
+        'password' => '12world34'
+    );
 
-// Get multiple users
-$users = Users::findAll('last_name ASC');
-foreach ($users->rows as $user) {
+    // Create DB object
+    $db = \Pop\Db\Db::factory('Mysqli', $creds);
+
+    Record::setDb($db);
+
+Ù…Ù† Ù‡Ù†Ø§ÙƒØŒ ÙˆØ§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„Ø£Ø³Ø§Ø³ÙŠØ© Ù‡ÙŠ ÙƒÙ…Ø§ ÙŠÙ„ÙŠ:
+
+    // Get a single user
+    $user = Users::findById(1001);
     echo $user->name;
     echo $user->email;
-}
-</pre>
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Get multiple users
+    $users = Users::findAll('last_name ASC');
+    foreach ($users->rows as $user) {
+        echo $user->name;
+        echo $user->email;
+    }
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

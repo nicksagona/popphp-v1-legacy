@@ -4,38 +4,42 @@ Pop PHP Framework
 Documentation : Payment
 -----------------------
 
-Der Payment-Komponente bietet standardisierte Funktionalität zur Kreditkartenzahlung Zugriffe über eine 3rd-Party-Gateway verarbeitet werden. Die aktuellen eingebauten und unterstützten Gateways sind:
+Home
 
-* Authorize.net
-* PayLeap
-* PayPal
-* TrustCommerce
-* UsaEpay
+Der Payment-Komponente bietet standardisierte FunktionalitÃ¤t zur
+Kreditkartenzahlung Zugriffe Ã¼ber eine 3rd-Party-Gateway zu
+verarbeiten. Die aktuellen eingebauten und unterstÃ¼tzten Gateways sind:
 
-Allerdings, wenn die Unterstützung für ein anderes Gateway benötigt wird, dann wäre es einfach, schreiben Sie einfach einen Adapter dafür.
+-   Authorize.net
+-   PayLeap
+-   PayPal
+-   TrustCommerce
+-   UsaEpay
 
-<pre>
-use Pop\Payment\Payment,
-    Pop\Payment\Adapter\Authorize;
+Jedoch, wenn die UnterstÃ¼tzung fÃ¼r einen anderen Gateway benÃ¶tigt
+wird, dann wÃ¤re es einfach, unkompliziert um eine Adapter dafÃ¼r.
 
-$payment = new Payment(new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST));
+    use Pop\Payment\Payment,
+        Pop\Payment\Adapter\Authorize;
 
-$payment->cardNum = 'XXXXXXXXXXXXXXXX';
-$payment->amount = '27.00';
-$payment->expDate = '12/13';
+    $payment = new Payment(new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST));
 
-$payment->send();
+    $payment->cardNum = 'XXXXXXXXXXXXXXXX';
+    $payment->amount = '27.00';
+    $payment->expDate = '12/13';
 
-if ($payment->isApproved()) {
-    echo "You're approved!" . PHP_EOL;
-    echo $payment->getMessage();
-} else if ($payment->isDeclined()) {
-    echo "You were declined!" . PHP_EOL;
-    echo $payment->getMessage();
-} else if ($payment->isError()) {
-    echo "There was an error!" . PHP_EOL;
-    echo $payment->getMessage();
-}
-</pre>
+    $payment->send();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    if ($payment->isApproved()) {
+        echo "You're approved!" . PHP_EOL;
+        echo $payment->getMessage();
+    } else if ($payment->isDeclined()) {
+        echo "You were declined!" . PHP_EOL;
+        echo $payment->getMessage();
+    } else if ($payment->isError()) {
+        echo "There was an error!" . PHP_EOL;
+        echo $payment->getMessage();
+    }
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

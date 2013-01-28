@@ -4,38 +4,42 @@ Pop PHP Framework
 Documentation : Payment
 -----------------------
 
-The Payment component provides standardized functionality to process credit card payment requests via a 3rd party gateway.  The current built-in and supported gateways are:
+Home
 
-* Authorize.net
-* PayLeap
-* PayPal
-* TrustCommerce
-* UsaEpay
+The Payment component provides standardized functionality to process
+credit card payment requests via a 3rd party gateway. The current
+built-in and supported gateways are:
 
-However, if support for a different gateway is required, then it would be simple to just write an adapter for it.
+-   Authorize.net
+-   PayLeap
+-   PayPal
+-   TrustCommerce
+-   UsaEpay
 
-<pre>
-use Pop\Payment\Payment,
-    Pop\Payment\Adapter\Authorize;
+However, if support for a different gateway is required, then it would
+be simple to just write an adapter for it.
 
-$payment = new Payment(new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST));
+    use Pop\Payment\Payment,
+        Pop\Payment\Adapter\Authorize;
 
-$payment->cardNum = 'XXXXXXXXXXXXXXXX';
-$payment->amount = '27.00';
-$payment->expDate = '12/13';
+    $payment = new Payment(new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST));
 
-$payment->send();
+    $payment->cardNum = 'XXXXXXXXXXXXXXXX';
+    $payment->amount = '27.00';
+    $payment->expDate = '12/13';
 
-if ($payment->isApproved()) {
-    echo "You're approved!" . PHP_EOL;
-    echo $payment->getMessage();
-} else if ($payment->isDeclined()) {
-    echo "You were declined!" . PHP_EOL;
-    echo $payment->getMessage();
-} else if ($payment->isError()) {
-    echo "There was an error!" . PHP_EOL;
-    echo $payment->getMessage();
-}
-</pre>
+    $payment->send();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    if ($payment->isApproved()) {
+        echo "You're approved!" . PHP_EOL;
+        echo $payment->getMessage();
+    } else if ($payment->isDeclined()) {
+        echo "You were declined!" . PHP_EOL;
+        echo $payment->getMessage();
+    } else if ($payment->isError()) {
+        echo "There was an error!" . PHP_EOL;
+        echo $payment->getMessage();
+    }
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

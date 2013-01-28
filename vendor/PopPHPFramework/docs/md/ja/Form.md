@@ -4,200 +4,190 @@ Pop PHP Framework
 Documentation : Form
 --------------------
 
-Formコンポーネントは、DOMコンポーネントを拡張する強力なコンポーネントです。これは、作成しレンダリングするための堅牢な機能と有効なHTMLフォームとフォーム要素を提供します。
+Home
 
-<pre>
-use Pop\Form\Form,
-    Pop\Form\Element,
-    Pop\Form\Element\Checkbox,
-    Pop\Form\Element\Radio,
-    Pop\Form\Element\Select,
-    Pop\Form\Element\Textarea,
-    Pop\Validator\Validator,
-    Pop\Validator\Validator\AlphaNumeric,
-    Pop\Validator\Validator\Email,
-    Pop\Validator\Validator\LengthGt;
+Formã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã?¯ã€?DOMã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã‚’æ‹¡å¼µã?™ã‚‹å¼·åŠ›ã?ªã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã?§ã?™ã€‚ã?“ã‚Œã?¯HTMLãƒ•ã‚©ãƒ¼ãƒ
+ã?¨ãƒ•ã‚©ãƒ¼ãƒ è¦?ç´
+ã?®ä½œæˆ?ã€?ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã?Šã‚ˆã?³æ¤œè¨¼ã?™ã‚‹ã?Ÿã‚?ã?«ã€?å
+…ç‰¢ã?ªæ©Ÿèƒ½ã‚’æ??ä¾›ã?—ã?¾ã?™ã€‚
 
-$form = new Form($_SERVER['PHP_SELF'], 'post', null, '    ');
+    use Pop\Form\Form,
+        Pop\Form\Element,
+        Pop\Validator;
 
-$username = new Element('text', 'username', 'Username here...');
-$username->setLabel('Username:')
-         ->setRequired(true)
-         ->setAttributes('size', 40)
-         ->addValidator(new AlphaNumeric());
+    $form = new Form($_SERVER['PHP_SELF'], 'post', null, '    ');
 
-$email = new Element('text', 'email');
-$email->setLabel('Email:')
-      ->setRequired(true)
-      ->setAttributes('size', 40)
-      ->addValidator(new Email());
+    $username = new Element('text', 'username', 'Username here...');
+    $username->setLabel('Username:')
+             ->setRequired(true)
+             ->setAttributes('size', 40)
+             ->addValidator(new Validator\AlphaNumeric());
 
-$password = new Element('password', 'password');
-$password->setLabel('Password:')
-         ->setRequired(true)
-         ->setAttributes('size', 40)
-         ->addValidator(new LengthGt(6));
+    $email = new Element('text', 'email');
+    $email->setLabel('Email:')
+          ->setRequired(true)
+          ->setAttributes('size', 40)
+          ->addValidator(new Validator\Email());
 
-$checkbox = new Checkbox('colors', array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'));
-$checkbox->setLabel('Colors:');
+    $password = new Element('password', 'password');
+    $password->setLabel('Password:')
+             ->setRequired(true)
+             ->setAttributes('size', 40)
+             ->addValidator(new Validator\LengthGt(6));
 
-$radio = new Radio('answer', array('Yes' => 'Yes', 'No' => 'No', 'Maybe' => 'Maybe'));
-$radio->setLabel('Answer:');
+    $checkbox = new Element\Checkbox('colors', array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'));
+    $checkbox->setLabel('Colors:');
 
-$select = new Select('days', Select::DAYS_OF_WEEK);
-$select->setLabel('Day:');
+    $radio = new Element\Radio('answer', array('Yes' => 'Yes', 'No' => 'No', 'Maybe' => 'Maybe'));
+    $radio->setLabel('Answer:');
 
-$textarea = new Textarea('comments', 'Please type a comment...');
-$textarea->setAttributes('rows', '5')
-         ->setAttributes('cols', '40')
-         ->setLabel('Comments:');
+    $select = new Element\Select('days', Element\Select::DAYS_OF_WEEK);
+    $select->setLabel('Day:');
 
-$submit = new Element('submit', 'submit', 'SUBMIT');
-$submit->setAttributes('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;');
+    $textarea = new Element\Textarea('comments', 'Please type a comment...');
+    $textarea->setAttributes('rows', '5')
+             ->setAttributes('cols', '40')
+             ->setLabel('Comments:');
 
-$form->addElements(array(
-    $username,
-    $email,
-    $password,
-    $checkbox,
-    $radio,
-    $select,
-    $textarea,
-    $submit
-));
+    $submit = new Element('submit', 'submit', 'SUBMIT');
+    $submit->setAttributes('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;');
 
-if ($_POST) {
-    $form->setFieldValues($_POST);
-    if (!$form->isValid()) {
-        $form->render();
+    $form->addElements(array(
+        $username,
+        $email,
+        $password,
+        $checkbox,
+        $radio,
+        $select,
+        $textarea,
+        $submit
+    ));
+
+    if ($_POST) {
+        $form->setFieldValues($_POST);
+        if (!$form->isValid()) {
+            $form->render();
+        } else {
+            echo 'Form is valid.';
+        }
     } else {
-        echo 'Form is valid.';
-    }
-} else {
-    $form->render();
-}
-</pre>
-
-または、値の構造化された配列を介してフォーム要素を作成することができます。
-
-<pre>
-use Pop\Form\Form,
-    Pop\Form\Element,
-    Pop\Form\Element\Checkbox,
-    Pop\Form\Element\Radio,
-    Pop\Form\Element\Select,
-    Pop\Form\Element\Textarea,
-    Pop\Validator\Validator,
-    Pop\Validator\Validator\AlphaNumeric,
-    Pop\Validator\Validator\Email,
-    Pop\Validator\Validator\LengthGt;
-
-$fields = array(
-    array(
-        'type'       => 'text',
-        'name'       => 'username',
-        'value'      => 'Username here...',
-        'label'      => 'Username:',
-        'required'   => true,
-        'attributes' => array('size', 40),
-        'validators' => new AlphaNumeric()
-    ),
-    array(
-        'type'       => 'text',
-        'name'       => 'email',
-        'label'      => 'Email:',
-        'required'   => true,
-        'attributes' => array('size', 40),
-        'validators' => new Email()
-    ),
-    array(
-        'type'       => 'password',
-        'name'       => 'password',
-        'label'      => 'Password:',
-        'required'   => true,
-        'attributes' => array('size', 40),
-        'validators' => new LengthGt(6)
-    ),
-    array(
-        'type'       => 'checkbox',
-        'name'       => 'colors',
-        'label'      => 'Colors:',
-        'value'      => array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue')
-    ),
-    array(
-        'type'       => 'submit',
-        'name'       => 'submit',
-        'value'      => 'SUBMIT',
-        'attributes' => array('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;')
-    )
-);
-
-$form = new Form($_SERVER['PHP_SELF'], 'post', $fields, '    ');
-$form->setTemplate('form.phtml');
-
-if ($_POST) {
-    $form->setFieldValues($_POST);
-    if (!$form->isValid()) {
         $form->render();
-    } else {
-        echo 'Form is valid.';
     }
-} else {
-    $form->render();
-}
-</pre>
 
-フィールドクラスを使用すると、フォームの最初のフィールドにアクセスして、構築するためにレコードの構成要素を経由してデータベースのテーブルを使用することができます。
+ã?¾ã?Ÿã?¯ã€?ã?‚ã?ªã?Ÿã?¯å€¤ã?®æ§‹é€ é…?åˆ—ã‚’ä»‹ã?—ã?¦ãƒ•ã‚©ãƒ¼ãƒ è¦?ç´
+ã‚’ä½œæˆ?ã?§ã??ã?¾ã?™ã€‚
 
-<pre>
-use Pop\Form\Form,
-    Pop\Form\Fields,
-    Pop\Form\Element,
-    Pop\Record\Record;
+    use Pop\Form\Form,
+        Pop\Form\Element,
+        Pop\Validator;
 
-class Users extends Record { }
-
-class User extends Form { }
-
-try {
-    $attribs = array(
-        'text'     =&gt; array('size', 40),
-        'password' =&gt; array('size', 20),
-        'textarea' =&gt; array(array('rows', 5), array('cols', 80))
-    );
-
-    $values = array(
-        'id' =&gt; array(
-            'type' =&gt; 'hidden'
+    $fields = array(
+        array(
+            'type'       => 'text',
+            'name'       => 'username',
+            'value'      => 'Username here...',
+            'label'      => 'Username:',
+            'required'   => true,
+            'attributes' => array('size', 40),
+            'validators' => new Validator\AlphaNumeric()
+        ),
+        array(
+            'type'       => 'text',
+            'name'       => 'email',
+            'label'      => 'Email:',
+            'required'   => true,
+            'attributes' => array('size', 40),
+            'validators' => new Validator\Email()
+        ),
+        array(
+            'type'       => 'password',
+            'name'       => 'password',
+            'label'      => 'Password:',
+            'required'   => true,
+            'attributes' => array('size', 40),
+            'validators' => new Validator\LengthGt(6)
+        ),
+        array(
+            'type'       => 'checkbox',
+            'name'       => 'colors',
+            'label'      => 'Colors:',
+            'value'      => array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue')
+        ),
+        array(
+            'type'       => 'submit',
+            'name'       => 'submit',
+            'value'      => 'SUBMIT',
+            'attributes' => array('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;')
         )
     );
 
-    $fields = Fields::factory(
-        new Users(),
-        $attribs,
-        $values,
-        array('last_login', 'last_ua', 'last_ip', 'failed_attempts')
-    );
-
-    $fields-&gt;addFields(array(
-        'type'  =&gt; 'submit',
-        'name'  =&gt; 'submit',
-        'label' =&gt; '&nbsp;',
-        'value' =&gt; 'SUBMIT',
-    ));
-
-    $form = new User($_SERVER['REQUEST_URI'], 'post', $fields-&gt;getFields());
+    $form = new Form($_SERVER['PHP_SELF'], 'post', $fields, '    ');
+    $form->setTemplate('form.phtml');
 
     if ($_POST) {
-        $form-&gt;setFieldValues($_POST);
-        if ($form-&gt;isValid()) {
-            echo 'Form is valid!';
+        $form->setFieldValues($_POST);
+        if (!$form->isValid()) {
+            $form->render();
         } else {
-            $form-&gt;render();
+            echo 'Form is valid.';
         }
     } else {
-        $form-&gt;render();
+        $form->render();
     }
-</pre>
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚¯ãƒ©ã‚¹ã‚’ä½¿ç”¨ã?™ã‚‹ã?¨ã€?ãƒ•ã‚©ãƒ¼ãƒ
+ã?®æœ€åˆ?ã?®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã?«ã‚¢ã‚¯ã‚»ã‚¹ã?—ã?¦ã€?æ§‹ç¯‰ã?™ã‚‹ã?Ÿã‚?ã?«ãƒ¬ã‚³ãƒ¼ãƒ‰ã?®æ§‹æˆ?è¦?ç´
+ã‚’çµŒç”±ã?—ã?¦ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã?®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½¿ç”¨ã?™ã‚‹ã?“ã?¨ã?Œã?§ã??ã?¾ã?™ã€‚
+
+    use Pop\Form\Form,
+        Pop\Form\Fields,
+        Pop\Form\Element,
+        Pop\Record\Record;
+
+    class Users extends Record { }
+
+    class User extends Form { }
+
+    try {
+        $attribs = array(
+            'text'     => array('size', 40),
+            'password' => array('size', 20),
+            'textarea' => array(array('rows', 5), array('cols', 80))
+        );
+
+        $values = array(
+            'id' => array(
+                'type' => 'hidden'
+            )
+        );
+
+        // The last parameter is an array of fields from the DB table to omit
+        $fields = Fields::factory(
+            new Users(),
+            $attribs,
+            $values,
+            array('last_login', 'last_ua', 'last_ip', 'failed_attempts')
+        );
+
+        $fields->addFields(array(
+            'type'  => 'submit',
+            'name'  => 'submit',
+            'label' => ' ',
+            'value' => 'SUBMIT',
+        ));
+
+        $form = new User($_SERVER['REQUEST_URI'], 'post', $fields->getFields());
+
+        if ($_POST) {
+            $form->setFieldValues($_POST);
+            if ($form->isValid()) {
+                echo 'Form is valid!';
+            } else {
+                $form->render();
+            }
+        } else {
+            $form->render();
+        }
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

@@ -4,29 +4,35 @@ Pop PHP Framework
 Documentation : Config
 ----------------------
 
-מרכיב Config מספק נתוני ערך האובייקט הוא מנוצל על ידי רכיבים אחרים, כגון רכיב Project. בדרך כלל, דברים כמו אישורי מסד נתונים מוגדרים אובייקט config והעביר לאובייקט הפרויקט לשמש במהלך מחזור החיים של הפרויקט או התסריט.
+Home
 
-<pre>
-use Pop\Config;
+×ž×¨×›×™×‘ ×”×ª×¦×•×¨×” ×ž×¡×¤×§ ×?×•×‘×™×™×§×˜ ×¢×¨×š × ×ª×•× ×™×?
+×©×”×•×? ×ž× ×•×¦×œ ×¢×œ ×™×“×™ ×¨×›×™×‘×™×? ×?×—×¨×™×? ×›×’×•×Ÿ
+×¨×›×™×‘ ×”×¤×¨×•×™×§×˜. ×‘×“×¨×š ×›×œ×œ, ×“×‘×¨×™×? ×›×ž×• ×?×™×©×•×¨×™
+×ž×¡×“ × ×ª×•× ×™×? ×ž×•×’×“×¨×™×? ×‘×?×•×‘×™×™×§×˜ config ×•×¢×‘×¨×•
+×œ×?×•×‘×™×™×§×˜ ×¤×¨×•×™×§×˜ ×œ×©×ž×© ×‘×ž×”×œ×š ×ž×—×–×•×¨ ×”×—×™×™×?
+×©×œ ×¤×¨×•×™×§×˜ ×?×• ×”×ª×¡×¨×™×˜.
 
-$cfg = array(
-    'db' => array(
-        'name' => 'testdb',
-        'host' => 'localhost',
-        'user' => array(
-            'username' => 'testuser',
-            'password' => '12test34',
-            'role'     => 'editor'
-        )
-    ),
-    'module' => 'TestModule'
-);
+    use Pop\Config;
 
-$config = new Config($cfg);
+    $cfg = array(
+        'db' => array(
+            'name' => 'testdb',
+            'host' => 'localhost',
+            'user' => array(
+                'username' => 'testuser',
+                'password' => '12test34',
+                'role'     => 'editor'
+            )
+        ),
+        'module' => 'TestModule'
+    );
 
-echo 'DB Name: ' . $config->db->name;
-echo 'User: ' . $config->db->user->username . ' has the role: ' . $config->db->user->role;
-echo 'Module Name: ' . $config->module;
-</pre>
+    $config = new Config($cfg);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    echo 'DB Name: ' . $config->db->name;
+    echo 'User: ' . $config->db->user->username . ' has the role: ' . $config->db->user->role;
+    echo 'Module Name: ' . $config->module;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

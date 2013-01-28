@@ -4,15 +4,25 @@ Pop PHP Framework
 Documentation : Color
 ---------------------
 
-色成分は色の値オブジェクトを管理し、活用するのに便利なコンポーネントです。また、RGBからCMYKへの変換は、例えば、他のカラースペースにカラー値を変換する機能を提供します。
+Home
 
-<pre>
-use Pop\Color\Color,
-    Pop\Color\Rgb;
+è‰²æˆ?åˆ†ã?¯è‰²ã?®å€¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç®¡ç?†Â·æ´»ç”¨ã?™ã‚‹ã?Ÿã‚?ã?®ä¾¿åˆ©ã?ªã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã?§ã?™ã€‚ã?¾ã?Ÿã€?RGBã?‹ã‚‰CMYKã?¸ã?®å¤‰æ?›ã?¯ã€?ä¾‹ã?ˆã?°ã€?ä»–ã?®è‰²ç©ºé–“ã?«è‰²ã?®å€¤ã‚’å¤‰æ?›ã?™ã‚‹æ©Ÿèƒ½ã‚’æ??ä¾›ã?—ã?¾ã?™ã€‚
 
-$color = new Color(new Rgb(112, 124, 228));
-echo $color->cmyk->getCmyk(Color::STRING);
-echo $color->lab->getLab(Color::STRING);
-</pre>
+    use Pop\Color;
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Create a color space value object
+    $color = new Color\Color(new Color\Space\Rgb(112, 124, 228));
+
+    echo '<strong>RGB values:</strong> ' . $color->rgb . '<br /><br />' . PHP_EOL;
+    echo '<strong>HEX values:</strong> ' . $color->hex . '<br /><br />' . PHP_EOL;
+    echo '<strong>CMYK conversion:</strong> ' . $color->cmyk . '<br /><br />' . PHP_EOL;
+    echo '<strong>HSB conversion:</strong> ' . $color->hsb . '<br /><br />' . PHP_EOL;
+    echo '<strong>Lab conversion:</strong> ' . $color->lab . '<br /><br />' . PHP_EOL;
+
+    // Directly convert a single color object
+    $rgb = new Color\Space\Rgb(112, 124, 228);
+    $cmyk = Color\Convert::toCmyk($rgb);
+    echo 'RGB: ' . $rgb . ' => CMYK: ' . $cmyk;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

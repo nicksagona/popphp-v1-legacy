@@ -4,17 +4,24 @@ Pop PHP Framework
 Documentation : Web
 -------------------
 
-مكون ويب عبارة عن مجموعة من على شبكة الإنترنت احتياجات وظائف، مثل دورات إدارة والخوادم والمتصفحات والكوكيز. أيضا، فإنه يشمل وظائف للكشف عن الأجهزة المحمولة بحيث أن التطبيق الخاص بك يمكن أن تستجيب وفقا لذلك.
+Home
 
-<pre>
-use Pop\Web\Session;
+Ù…ÙƒÙˆÙ† ÙˆÙŠØ¨ Ø¹Ø¨Ø§Ø±Ø© Ø¹Ù† Ù…Ø¬Ù…ÙˆØ¹Ø© Ù…Ù† Ø´Ø¨ÙƒØ©
+Ø§Ù„Ø¥Ù†ØªØ±Ù†Øª ÙˆØ§Ù„Ø§Ø­ØªÙŠØ§Ø¬Ø§Øª ÙˆØ¸Ø§Ø¦Ù?ØŒ Ù…Ø«Ù„ Ø¯ÙˆØ±Ø§Øª
+Ø¥Ø¯Ø§Ø±Ø© ÙˆØ§Ù„Ø®ÙˆØ§Ø¯Ù…ØŒ Ø¨Ø±Ø§Ù…Ø¬ Ø§Ù„ØªØµÙ?Ø­ ÙˆÙ…Ù„Ù?Ø§Øª
+ØªØ¹Ø±ÙŠÙ? Ø§Ù„Ø§Ø±ØªØ¨Ø§Ø·. Ø£ÙŠØ¶Ø§ØŒ Ù?Ø¥Ù†Ù‡ ÙŠØ´Ù…Ù„ ÙˆØ¸Ø§Ø¦Ù?
+Ù„Ù„ÙƒØ´Ù? Ø¹Ù† Ø§Ù„Ø£Ø¬Ù‡Ø²Ø© Ø§Ù„Ù†Ù‚Ø§Ù„Ø© Ø¨Ø­ÙŠØ« Ø£Ù†
+Ø§Ù„ØªØ·Ø¨ÙŠÙ‚ Ø§Ù„Ø®Ø§Øµ Ø¨Ùƒ ÙŠÙ…ÙƒÙ† Ø£Ù† ØªØ³ØªØ¬ÙŠØ¨ ÙˆÙ?Ù‚Ø§
+Ù„Ø°Ù„Ùƒ.
 
-$sess = Session::getInstance();
-$sess->username = 'yourname';
-print_r($sess);
-print_r($_SESSION);
+    use Pop\Web\Session;
 
-echo $sess->getId();
-</pre>
+    $sess = Session::getInstance();
+    $sess->username = 'yourname';
+    print_r($sess);
+    print_r($_SESSION);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    echo $sess->getId();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

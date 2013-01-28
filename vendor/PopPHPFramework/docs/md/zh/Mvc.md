@@ -4,80 +4,76 @@ Pop PHP Framework
 Documentation : Mvc
 -------------------
 
-MVC组件，文档中概述的概述，是MVC设计模式的实现，用的路由器，以方便多个用户的路径和控制器的附加层。简而言之，控制器处理请求的代表团，该模型处理业务逻辑和视图决定如何显示给用户的输出。此组件内的所有这些类是很容易扩展，利用他们在自己的应用程序。
+Home
 
-虽然这可能看起来过于复杂，如果你使用CLI组件项目安装功能，大部分代码可以书面和为您安装。你只需要定义的项目名称，并在安装配置文件的设置。查看项目组件DOC文件得到一个项目的安装配置文件的一个例子。
+ä¸­åˆ—å‡ºçš„æ–‡æ¡£æ¦‚è¿°ï¼ŒMVCç»„ä»¶ï¼Œæ˜¯ä¸€ä¸ªå®žçŽ°äº†MVCçš„è®¾è®¡æ¨¡å¼?ï¼Œé™„åŠ
+å±‚çš„è·¯ç”±å™¨ï¼Œä»¥æ–¹ä¾¿å¤šä¸ªç”¨æˆ·çš„è·¯å¾„å’ŒæŽ§åˆ¶å™¨ã€‚ç®€å?•åœ°è¯´ï¼ŒæŽ§åˆ¶å™¨å¤„ç?†è¯·æ±‚çš„ä»£è¡¨å›¢ï¼Œè¯¥æ¨¡åž‹å¤„ç?†ä¸šåŠ¡é€»è¾‘ï¼Œå¹¶å†³å®šå¦‚ä½•æ˜¾ç¤ºè¾“å‡ºåˆ°ç”¨æˆ·çš„è§‚ç‚¹ã€‚è¿™ä¸ªç»„ä»¶å†…çš„æ‰€æœ‰è¿™äº›ç±»æ˜¯å¾ˆå®¹æ˜“çš„æ‰©å±•åˆ°åˆ©ç”¨ä»–ä»¬åœ¨è‡ªå·±çš„åº”ç”¨ç¨‹åº?ã€‚
 
-<pre>
-use Pop\Mvc\Controller,
-    Pop\Mvc\Model,
-    Pop\Mvc\Router,
-    Pop\Mvc\View,
-    Pop\Project\Project;
+è™½ç„¶è¿™å?¯èƒ½çœ‹èµ·æ?¥è¿‡äºŽå¤?æ?‚ï¼Œå¦‚æžœæ‚¨ä½¿ç”¨CLIå®‰è£…ç»„ä»¶é¡¹ç›®åŠŸèƒ½ï¼Œå¤§éƒ¨åˆ†ä»£ç
+?å?¯ä»¥ä¹¦é?¢å’Œä¸ºæ‚¨å®‰è£…ã€‚ä½
+å?ªéœ€è¦?å®šä¹‰çš„é¡¹ç›®å??ç§°ï¼Œå¹¶åœ¨å®‰è£…é…?ç½®æ–‡ä»¶çš„è®¾ç½®ã€‚æŸ¥çœ‹é¡¹ç›®çš„ç»„æˆ?éƒ¨åˆ†DOCæ–‡ä»¶ï¼Œä»¥èŽ·å¾—ä¸€ä¸ªé¡¹ç›®çš„å®‰è£…é…?ç½®æ–‡ä»¶çš„ä¸€ä¸ªä¾‹å­?ã€‚
 
-// Define your project class
-class MyProject extends Project
-{
-    // Extend the parent 'run' method to establish router paths
-    public function run()
+    use Pop\Mvc\Controller,
+        Pop\Mvc\Model,
+        Pop\Mvc\Router,
+        Pop\Mvc\View,
+        Pop\Project\Project;
+
+    // Define your project class
+    class MyProject extends Project
     {
-        parent::run();
-
-        if ($this->router()->controller()->getRequest()->getRequestUri() == '/') {
-            $this->router()->controller()->dispatch();
-        } else if (method_exists($this->router()->controller(), $this->router()->getAction())) {
-            $this->router()->controller()->dispatch($this->router()->getAction());
-        } else if (method_exists($this->router()->controller(), 'error')) {
-            $this->router()->controller()->dispatch('error');
+        // Extend the parent 'run' method to establish router paths
+        public function run()
+        {
+            parent::run();
         }
     }
-}
 
-class MyModel extends Model
-{
-    // Perhaps does something special pertaining to whatever data you are manipulating
-}
-
-class MyController extends Controller
-{
-    // Constructor
-    public function __construct(Request $request = null, Response $response = null, Project $project = null, $viewPath = null)
+    class MyModel extends Model
     {
-        if (null === $viewPath) {
-            $viewPath = __DIR__ . '/path/to/my/view/default';
+        // Perhaps does something special pertaining to whatever data you are manipulating
+    }
+
+    class MyController extends Controller
+    {
+        // Constructor
+        public function __construct(Request $request = null, Response $response = null, Project $project = null, $viewPath = null)
+        {
+            if (null === $viewPath) {
+                $viewPath = __DIR__ . '/path/to/my/view/default';
+            }
+
+            parent::__construct($request, $response, $project, $viewPath);
         }
 
-        parent::__construct($request, $response, $project, $viewPath);
+        // Your home page
+        public function index()
+        {
+            $model = new MyModel(array('username' => 'myusername');
+            $this->view = View::factory($this->viewPath . '/index.phtml', $model);
+            $this->send();
+        }
+
+        // Your 404 page
+        public function error()
+        {
+            $this->isError = true;
+            $this->view = View::factory($this->viewPath . '/error.phtml');
+            $this->send();
+        }
     }
 
-    // Your home page
-    public function index()
-    {
-        $model = new MyModel(array('username' => 'myusername');
-        $this->view = View::factory($this->viewPath . '/index.phtml', $model);
-        $this->send();
-    }
+    // Create a project object, to define the project config, router and controller(s)
+    $project = MyProject::factory(
+        include '../some/config/project.config.php',
+        include '../some/config/module.config.php',
+        new Router(array(
+            '/' => 'MyApp\MyController'
+        ))
+    );
 
-    // Your 404 page
-    public function error()
-    {
-        $this->isError = true;
-        $this->view = View::factory($this->viewPath . '/error.phtml');
-        $this->send();
-    }
-}
+    // Run the project
+    $project->run();
 
-// Create a project object, to define the project config, router and controller(s)
-$project = MyProject::factory(
-    include '../some/config/project.config.php',
-    include '../some/config/module.config.php',
-    new Router(array(
-        'default' => 'MyApp\\MyController'
-    ))
-);
-
-// Run the project
-$project->run();
-</pre>
-
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

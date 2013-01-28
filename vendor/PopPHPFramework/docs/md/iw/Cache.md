@@ -4,39 +4,44 @@ Pop PHP Framework
 Documentation : Cache
 ---------------------
 
-רכיב מטמון מאפשר אחסון קל של נתונים מתמשך באמצעות שלוש שיטות:
+Home
 
-* a file on disk
-* a sqlite database
-* memcache
+×¨×›×™×‘ ×”×ž×˜×ž×•×Ÿ ×ž×?×¤×©×¨ ×?×—×¡×•×Ÿ ×”×§×œ ×©×œ × ×ª×•× ×™×?
+×ž×ª×ž×©×›×™×? ×‘×?×ž×¦×¢×•×ª ×?×¨×‘×¢ ×©×™×˜×•×ª:
 
-המטרה של הרכיב הוא מטמון כדי להאיץ גישה לנתונים סטטי יותר ואינו משתנה לעיתים קרובות. על ידי אחסונם על ידי אחת מהשיטות המפורטות לעיל, מהירות גישה יכולה להיות מוגברת בגלל שיחת תהליך יקר יותר ניתן להימנע, כגון גישה מסד נתונים גדול או כתובת אינטרנט חיצוני כדי לאחזר נתונים.
+-   Apc
+-   a file on disk
+-   a Sqlite database
+-   Memcache
 
-<pre>
-use Pop\Cache\Cache,
-    Pop\Cache\File,
-    Pop\Cache\Memcached,
-    Pop\Cache\Sqlite;
+×ž×˜×¨×ª×• ×©×œ ×¨×›×™×‘ ×”×ž×˜×ž×•×Ÿ ×”×™×? ×œ×”×?×™×¥ ×’×™×©×” ×œ×
+×ª×•× ×™×? ×©×™×•×ª×¨ ×¡×˜×˜×™ ×•×?×™× ×• ×ž×©×ª× ×™×? ×œ×¢×ª×™×?
+×§×¨×•×‘×•×ª. ×¢×œ ×™×“×™ ×?×—×¡×•× ×• ×¢×œ ×™×“×™ ×?×—×ª ×ž×”×©×™×˜×•×ª
+×”×ž×¤×•×¨×˜×•×ª ×œ×¢×™×œ, ×ž×”×™×¨×•×ª ×’×™×©×” ×™×›×•×œ×” ×œ×”×™×•×ª
+×ž×•×’×‘×¨×ª, ×ž×?×—×¨ ×©× ×™×ª×Ÿ ×œ×”×™×ž× ×¢ ×ž×©×™×—×ª ×ª×”×œ×™×š
+×™×§×¨×” ×™×•×ª×¨, ×›×’×•×Ÿ ×’×™×©×” ×œ×ž×¡×“ × ×ª×•× ×™×? ×’×“×•×œ ×?×•
+×›×ª×•×‘×ª ×?×™× ×˜×¨× ×˜ ×—×™×¦×•× ×™×ª ×›×“×™ ×œ×?×—×–×¨ ×?×ª ×”×
+×ª×•× ×™×?.
 
-$test = 'This is my test variable. It contains a string.';
+    use Pop\Cache;
+    $test = 'This is my test variable. It contains a string.';
 
-// Create Cache object, using either Memcached, File or Sqlite
-$cache = Cache::factory(new Memcached(), 30);
-//$cache = Cache::factory(new File('../tmp'), 30);
-//$cache = Cache::factory(new Sqlite('../tmp/cache.sqlite'), 30);
+    $cache = Cache\Cache::factory(new Cache\Adapter\File('../tmp'), 30);
+    //$cache = Cache\Cache::factory(new Cache\Adapter\Memcached(), 30);
+    //$cache = Cache\Cache::factory(new Cache\Adapter\Sqlite('../tmp/cache.sqlite'), 30);
+    //$cache = Cache\Cache::factory(new Cache\Adapter\Apc(), 30);
 
-// Save value to cache
-$cache->save('test', $test);
+    $cache->save('test', $test);
 
-// Load the value from cache
-if (!($var = $cache->load('test'))) {
-    echo 'The value is either not there or expired.';
-} else {
-    var_dump($var);
-}
+    // Load the value
+    if (!($var = $cache->load('test'))) {
+        echo "It's either not there or expired.";
+    } else {
+        echo $var;
+    }
 
-// Clear the cache
-$cache->clear();
-</pre>
+    // Clear the cache
+    $cache->clear();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

@@ -4,56 +4,60 @@ Pop PHP Framework
 Documentation : Event
 ---------------------
 
-La composante de l'événement fournit un moyen d'attacher et de déclencher des événements dans le cycle de vie d'une application. Le principal avantage est la possibilité d'étendre une application en accrochant la fonctionnalité en elle par l'intermédiaire des fermetures et des classes qui sont attachés comme des événements.
+Home
 
-Voici un exemple d'attacher et de déclenchement d'un événement à l'aide des fermetures. Le second reçoit le résultat de la première.
+La composante de l'Ã©vÃ©nement fournit un moyen d'attacher et de
+dÃ©clencher des Ã©vÃ©nements dans le cycle de vie d'une application. Le
+principal avantage est la possibilitÃ© d'Ã©tendre une application en
+accrochant la fonctionnalitÃ© en elle par l'intermÃ©diaire des
+fermetures et des classes qui sont attachÃ©s comme des Ã©vÃ©nements.
 
-<pre>
-use Pop\Event\Manager;
+Voici un exemple d'attacher et de dÃ©clenchement d'un Ã©vÃ©nement Ã
+l'aide des fermetures. Le second reÃ§oit le rÃ©sultat de la premiÃ¨re.
 
-$manager = new Manager();
+    use Pop\Event\Manager;
 
-$manager-&gt;attach('pre', function($name) { return 'Hello, ' . $name; }, 2);
-$manager-&gt;attach('pre', function($result) { echo $result . '&lt;br /&gt;' . PHP_EOL; }, 1);
+    $manager = new Manager();
 
-$manager-&gt;trigger('pre', array('name' =&gt; 'World'));
-</pre>
+    $manager->attach('pre', function($name) { return 'Hello, ' . $name; }, 2);
+    $manager->attach('pre', function($result) { echo $result . '<br />' . PHP_EOL; }, 1);
+
+    $manager->trigger('pre', array('name' => 'World'));
 
 Voici un exemple en utilisant une classe.
 
-<pre>
-use Pop\Event\Manager;
+    use Pop\Event\Manager;
 
-class Foo
-{
-    public $value;
-
-    public function __construct($arg = null)
+    class Foo
     {
-        $this-&gt;value = $arg;
+        public $value;
+
+        public function __construct($arg = null)
+        {
+            $this->value = $arg;
+        }
+
+        public static function factory($arg)
+        {
+            return new self($arg);
+        }
+
+        public function bar($arg)
+        {
+            $this->value = $arg;
+            return $this;
+        }
     }
 
-    public static function factory($arg)
-    {
-        return new self($arg);
-    }
+    $manager = new Manager();
 
-    public function bar($arg)
-    {
-        $this-&gt;value = $arg;
-        return $this;
-    }
-}
+    $manager->attach('pre', 'Foo::factory', 2);
 
-$manager = new Manager();
+    // OR
+    //$manager->attach('pre', 'Foo->bar', 2);
 
-$manager-&gt;attach('pre', 'Foo::factory', 2);
+    $manager->attach('pre', function($result) { echo 'Hello, ' . $result->value . '<br />' . PHP_EOL; }, 1);
+    $manager->trigger('pre', array('arg' => 'World'));
 
-// OR
-//$manager-&gt;attach('pre', array(new Foo, 'bar'), 2);
-
-$manager-&gt;attach('pre', function($result) { echo 'Hello, ' . $result-&gt;value . '&lt;br /&gt;' . PHP_EOL; }, 1);
-$manager-&gt;trigger('pre', array('arg' =&gt; 'World'));
-</pre>
-
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

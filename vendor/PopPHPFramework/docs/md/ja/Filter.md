@@ -4,18 +4,21 @@ Pop PHP Framework
 Documentation : Filter
 ----------------------
 
-フィルタコンポーネントは、文字列操作、暗号化および配列検索のためのいくつかの有用なフィルタリング機能を提
+Home
 
-<pre>
-echo 'Random String: ' . String::random(6, String::ALPHANUM, String::UPPER) . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+ãƒ•ã‚£ãƒ«ã‚¿ã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã?¯ã€?æ–‡å­—åˆ—æ“?ä½œã€?æš—å?·åŒ–ã?Šã‚ˆã?³é…?åˆ—æ¤œç´¢ã?®ã?Ÿã‚?ã?®ã?„ã??ã?¤ã?‹ã?®æœ‰ç”¨ã?ªãƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°æ©Ÿèƒ½ã‚’æ??ä¾›ã?—ã?¾ã?™ã€‚
 
-$key = md5('Pop PHP Framework');
+    use Pop\Filter\String;
 
-$encrypted = String::encrypt('Hello World!', $key);
-echo 'Encrypted: ' . $encrypted . '&lt;br /&gt;&lt;br /&gt;' . PHP_EOL;
+    echo 'Random String: ' . String::random(6, String::ALPHANUM, String::UPPER) . '<br /><br />' . PHP_EOL;
 
-$decrypted = String::decrypt($encrypted, $key);
-echo 'Decrypted: ' . $decrypted . '&lt;br /&gt;' . PHP_EOL;
-</pre>
+    $key = md5('Pop PHP Framework');
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $encrypted = String::encrypt('Hello World!', $key);
+    echo 'Encrypted: ' . $encrypted . '<br /><br />' . PHP_EOL;
+
+    $decrypted = String::decrypt($encrypted, $key);
+    echo 'Decrypted: ' . $decrypted . '<br />' . PHP_EOL;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

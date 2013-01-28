@@ -4,21 +4,26 @@ Pop PHP Framework
 Documentation : Locale
 ----------------------
 
-区域设置组件提供语言支持，为您的应用和翻译功能。你可以简单地创建和加载自己的XML文件格式所需的语言，这是在流行的XML语言文件概述翻译。
+Home
 
-你可以加载自己的语言翻译文件，只要坚持以流行/现场/ Data文件夹中建立的XML标准。
+åŒºåŸŸè®¾ç½®ç»„ä»¶æ??ä¾›è¯­è¨€æ”¯æŒ?å’Œç¿»è¯‘åŠŸèƒ½ï¼Œä¸ºæ‚¨çš„åº”ç”¨ç¨‹åº?ã€‚ä½
+å?¯ä»¥ç®€å?•åœ°åˆ›å»ºå’ŒåŠ è½½è‡ªå·±çš„XMLæ–‡ä»¶çš„æ
+¼å¼?ï¼Œæµ?è¡Œçš„XMLè¯­è¨€æ–‡ä»¶ä¸­åˆ—å‡ºæ‰€éœ€çš„è¯­è¨€ç¿»è¯‘ã€‚
 
-<pre>
-use Pop\Locale\Locale;
+æ‚¨å?¯ä»¥åŠ
+è½½æ‚¨è‡ªå·±çš„è¯­è¨€ç¿»è¯‘æ–‡ä»¶ï¼Œå?ªè¦?å?šæŒ?æµ?è¡Œ/çŽ°åœº/
+Dataæ–‡ä»¶å¤¹ä¸­å»ºç«‹çš„XMLæ ‡å‡†ã€‚
 
-// Create a Locale object to translate to French, using your own language file.
-$lang = Locale::factory('fr')->loadFile('folder/mylangfile.xml);
+    use Pop\Locale\Locale;
 
-// Will output 'Ce champ est obligatoire.'
-$lang->_e('This field is required.');
+    // Create a Locale object to translate to French, using your own language file.
+    $lang = Locale::factory('fr')->loadFile('folder/mylangfile.xml);
 
-// Will return and output 'Ce champ est obligatoire.'
-echo $lang->__('This field is required.');
-</pre>
+    // Will output 'Ce champ est obligatoire.'
+    $lang->_e('This field is required.');
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Will return and output 'Ce champ est obligatoire.'
+    echo $lang->__('This field is required.');
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

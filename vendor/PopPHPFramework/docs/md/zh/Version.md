@@ -4,18 +4,20 @@ Pop PHP Framework
 Documentation : Version
 -----------------------
 
-版本组件简单地提供的能力，以确定流行的版本，你目前有最新可用的是什么。此外，此组件使用的CLI组件进行依赖检查。
+Home
 
-<pre>
-use Pop\Version;
+ç‰ˆæœ¬ç»„ä»¶ä»…ä»…æ??ä¾›äº†èƒ½åŠ›ï¼Œä»¥ç¡®å®šå“ªä¸ªç‰ˆæœ¬çš„æµ?è¡Œä½
+ç›®å‰?æœ‰ä»€ä¹ˆæœ€æ–°çš„æ˜¯ã€‚æ­¤å¤–ï¼Œæ­¤ç»„ä»¶è¢«ç”¨äºŽç”±CLIç»„ä»¶æ?¥æ‰§è¡Œçš„ä¾?èµ–æ£€æŸ¥ã€‚
 
-echo Version::getVersion();
+    use Pop\Version;
 
-if (Version::compareVersion(1.0) == 1) {
-    echo 'The current version is less than 1.0';
-} else {
-    echo 'The current version is greater than or equal to 1.0';
-}
-</pre>
+    echo Version::getVersion();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    if (Version::compareVersion(1.0) == 1) {
+        echo 'The current version is less than 1.0';
+    } else {
+        echo 'The current version is greater than or equal to 1.0';
+    }
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

@@ -4,53 +4,57 @@ Pop PHP Framework
 Documentation : Db
 ------------------
 
-Der DB-Komponente bietet Zugang zu den normalisierten Datenbanken abzufragen. Die unterstützten Adapter sind:
+Home
 
-* sqlsrv
-* mysql
-* mysqli
-* oracle
-* pdo
-* pgsql
-* sqlite
+Die Db-Komponente bietet normierten Zugang zu Datenbanken abzufragen.
+Die unterstÃ¼tzten Adapter sind:
 
-Prepared Statements werden mit der SQLSrv, MySQLi, Oracle, PDO, PostgreSQL und SQLite adapaters unterstützt. Entkommen Werte sind für alle Adapter.
+-   mysql
+-   mysqli
+-   oracle
+-   pdo
+-   pgsql
+-   sqlite
+-   sqlsrv
 
-<pre>
-use Pop\Db\Db;
+Prepared Statements werden mit dem MySQLi, Oracle, PDO, PostgreSQL,
+SQLite und sqlsrv Adaptern unterstÃ¼tzt. Entgangen Werte sind fÃ¼r alle
+Adapter.
 
-// Define DB credentials
-$creds = array(
-    'database' => 'helloworld',
-    'host'     => 'localhost',
-    'username' => 'hello',
-    'password' => '12world34'
-);
+    use Pop\Db\Db;
 
-// Create DB object
-$db = Db::factory('Mysqli', $creds);
+    // Define DB credentials
+    $creds = array(
+        'database' => 'helloworld',
+        'host'     => 'localhost',
+        'username' => 'hello',
+        'password' => '12world34'
+    );
 
-// Perform the query
-$db->adapter()->query('SELECT * FROM users');
+    // Create DB object
+    $db = Db::factory('Mysqli', $creds);
 
-// Fetch the results
-while (($row = $db->adapter()->fetch()) != false) {
-    print_r($row);
-}
-</pre>
+    // Perform the query
+    $db->adapter()->query('SELECT * FROM users');
 
-Neben Zugriff auf die Datenbank, die DB-Komponente bietet auch eine nützliche Abstraktion Sql-Objekt, das Sie beim Erstellen von standardisierten SQL-Abfragen.
+    // Fetch the results
+    while (($row = $db->adapter()->fetch()) != false) {
+        print_r($row);
+    }
 
-<pre>
-use Pop\Db\Sql;
+Neben Zugriff auf die Datenbank, die DB-Komponente bietet auch einen
+nÃ¼tzlichen Sql Abstraktion Objekt, das Sie beim Erstellen von
+standardisierten SQL-Abfragen.
 
-$sql = new Sql('users');
-$sql->setIdQuoteType(Sql::BACKTICK)
-    ->select()
-    ->where('id', '=', 1);
+    use Pop\Db\Sql;
 
-// Outputs 'SELECT * FROM `users` WHERE `id` = 1'
-echo $sql;
-</pre>
+    $sql = new Sql('users');
+    $sql->setIdQuoteType(Sql::BACKTICK)
+        ->select()
+        ->where('id', '=', 1);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Outputs 'SELECT * FROM `users` WHERE `id` = 1'
+    echo $sql;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

@@ -4,24 +4,28 @@ Pop PHP Framework
 Documentation : Http
 --------------------
 
-Der HTTP-Komponente bietet eine einfach zu bedienende API zur Verwaltung, Zugriff und Manipulation von HTTP-Requests und-Responses. Es wird in mehreren Komponenten verwendet, wird jedoch am engsten mit dem MVC-Komponente zur Verwaltung von Anfragen und Antworten in diesem Bauteil integriert.
+Home
 
-<pre>
-use Pop\Http\Request,
-    Pop\Http\Response;
+Der HTTP-Komponente bietet eine einfach zu bedienende API zu verwalten,
+Zugriff und Manipulation HTTP Anfragen und Antworten. Es ist in mehrere
+Komponenten verwendet, ist aber den meisten eng mit der MVC-Komponente
+zur Verwaltung von Anfragen und Antworten in diesem Bauteil integriert.
 
-// Create a request object and access the data and information
-$request = new Request();
-echo $request->getRequestUri();
-if ($request->isPost()) {
-    print_r($request->getPost());
-}
+    use Pop\Http\Request,
+        Pop\Http\Response;
 
-// Create a response object and send
-$response = new Response();
-$response->setHeader('content-type', 'text/html')
-         ->setBody('<html><body>This is some HTML.</body></html>')
-         ->send();
-</pre>
+    // Create a request object and access the data and information
+    $request = new Request();
+    echo $request->getRequestUri();
+    if ($request->isPost()) {
+        print_r($request->getPost());
+    }
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Create a response object and send
+    $response = new Response();
+    $response->setHeader('content-type', 'text/html')
+             ->setBody('<html><body>This is some HTML.</body></html>')
+             ->send();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

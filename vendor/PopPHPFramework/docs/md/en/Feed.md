@@ -4,74 +4,100 @@ Pop PHP Framework
 Documentation : Feed
 --------------------
 
-The Feed component provides the functionality to read and parse external feeds and provide the data in a useful way, as well as the functionality to write and display content feeds.
+Home
+
+The Feed component provides the functionality to read and parse external
+feeds and provide the data in a useful way, as well as the functionality
+to write and display content feeds.
 
 Here's an example of reading (i.e., parsing) an external feed.
 
-<pre>
-use Pop\Feed\Reader;
-$feed = new Reader('http://gdata.youtube.com/feeds/base/standardfeeds/most_viewed', 4);
+    use Pop\Feed;
 
-$htmlTemplate = &lt;&lt;&lt;HTML
-    &lt;div&gt;
-        &lt;a href="[{link}]"&gt;&lt;img src="[{image}]" alt="[{title}]" border="0" /&gt;&lt;/a&gt;&lt;br /&gt;
-        &lt;a href="[{link}]"&gt;[{title}]&lt;/a&gt;&lt;br /&gt;
-        &lt;strong&gt;[{pubDate}]&lt;/strong&gt; ([{timeElapsed}])&lt;br /&gt;
-        &lt;p&gt;[{description}]&lt;/p&gt;
-    &lt;/div&gt;
+    $tmpl = <<<NEWS
+        <div class="news-div">
+            <a href="[{link}]">[{title}]</a><br />
+            <strong>[{published}]</strong> ([{time}])<br />
+            <p>[{content}]</p>
+        </div>
 
-HTML;
+    NEWS;
 
-$feed->setTemplate($htmlTemplate);
-$feed->render();
-</pre>
+    $google = 'http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss';
+    $feed = Feed\Reader::getByUrl($google, 3);
+    $feed->setTemplate($tmpl);
+    $feed->render();
+
+Here's an example of reading a feed from a service account, like Twitter
+or Facebook.
+
+    use Pop\Feed;
+
+    $tmpl = <<<POSTS
+        <div class="post-div">
+            <a href="[{link}]">[{title}]</a><br />
+            <strong>[{published}]</strong> ([{time}])<br />
+        </div>
+
+    POSTS;
+
+    $twitter = Feed\Reader::getByAccountName('twitter', 'highvoltagenola', 3);
+    // OR
+    //$twitter = Feed\Reader::getByAccountId('twitter', '50079850', 3);
+
+    $twitter->setTemplate($tmpl);
+
+    echo '<h1>' . $twitter->title . '</h1>' . PHP_EOL;
+    echo '<h4>' . $twitter->tweet_count . ' Tweets : ' .
+        $twitter->following . ' Following : ' .
+        $twitter->followers . ' Followers</h4>' . PHP_EOL;
+
+    $twitter->render();
 
 Here's an example of writing a feed.
 
-<pre>
-use Pop\Dom\Dom,
-    Pop\Feed\Writer;
+    use Pop\Feed;
 
-$feedHeaders = array(
-    'title'     => 'Test Feed Title',
-    'subtitle'  => 'Test Feed Description',
-    'link'      => 'http://www.testfeed.com/',
-    'language'  => 'en',
-    'updated'   => '2010-01-12 13:01:32',
-    'generator' => 'http://www.website.com/',
-    'author'    => 'Some Editor'
-);
+    $feedHeaders = array(
+        'title'     => 'Test Feed Title',
+        'subtitle'  => 'Test Feed Description',
+        'link'      => 'http://www.testfeed.com/',
+        'language'  => 'en',
+        'updated'   => '2010-01-12 13:01:32',
+        'generator' => 'http://www.website.com/',
+        'author'    => 'Some Editor'
+    );
 
-$entry1 = array(
-    'title'    => 'Entry Title 1',
-    'link'     => 'http://www.testfeed.com/entry1',
-    'comments' => 'http://www.testfeed.com/entry1#comments',
-    'author'   => 'Entry Author 1',
-    'updated'  => '2010-01-13 14:12:24',
-    'summary'  => 'Entry Desc 1'
-);
+    $entry1 = array(
+        'title'    => 'Entry Title 1',
+        'link'     => 'http://www.testfeed.com/entry1',
+        'comments' => 'http://www.testfeed.com/entry1#comments',
+        'author'   => 'Entry Author 1',
+        'updated'  => '2010-01-13 14:12:24',
+        'summary'  => 'Entry Desc 1'
+    );
 
-$entry2 = array(
-    'title'    => 'Entry Title 2',
-    'link'     => 'http://www.testfeed.com/entry2',
-    'comments' => 'http://www.testfeed.com/entry2#comments',
-    'author'   => 'Entry Author 2',
-    'updated'  => '2010-01-12 14:12:24',
-    'summary'  => 'Entry Desc 2'
-);
+    $entry2 = array(
+        'title'    => 'Entry Title 2',
+        'link'     => 'http://www.testfeed.com/entry2',
+        'comments' => 'http://www.testfeed.com/entry2#comments',
+        'author'   => 'Entry Author 2',
+        'updated'  => '2010-01-12 14:12:24',
+        'summary'  => 'Entry Desc 2'
+    );
 
-$entry3 = array(
-    'title'    => 'Entry Title 3',
-    'link'     => 'http://www.testfeed.com/entry3',
-    'comments' => 'http://www.testfeed.com/entry3#comments',
-    'author'   => 'Entry Author 3',
-    'updated'  => '2010-01-11 14:12:24',
-    'summary'  => 'Entry Desc 3'
-);
+    $entry3 = array(
+        'title'    => 'Entry Title 3',
+        'link'     => 'http://www.testfeed.com/entry3',
+        'comments' => 'http://www.testfeed.com/entry3#comments',
+        'author'   => 'Entry Author 3',
+        'updated'  => '2010-01-11 14:12:24',
+        'summary'  => 'Entry Desc 3'
+    );
 
-$feedEntries = array($entry1, $entry2, $entry3);
-$feed = new Writer($feedHeaders, $feedEntries, Dom::ATOM);
-$feed->render();
-</pre>
+    $feedEntries = array($entry1, $entry2, $entry3);
+    $feed = new Feed\Writer($feedHeaders, $feedEntries, Feed\Writer::ATOM);
+    $feed->render();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

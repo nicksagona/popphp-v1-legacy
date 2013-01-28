@@ -1,82 +1,158 @@
 Pop PHP Framework
 =================
 
-Documentation : Overview
-------------------------
+DocumentaciÃ³n: InformaciÃ³n general
+------------------------------------
 
-El Pop framework PHP es un marco orientado a objetos de PHP con un fácil de usar API que le permite utilizar una amplia gama de funcionalidad. Usted puede usarlo como una caja de herramientas para ayudar en forma rápida la escritura de scripts básicos, o se puede utilizar como un marco de pleno derecho para construir y personalizar en gran escala, aplicaciones robustas. En el centro del marco es un grupo de componentes, de los cuales, algunos se pueden usar de forma independiente y algunos se pueden usar en conjunto para aprovechar toda la potencia de la estructura y PHP.
+The Pop Framework PHP es un framework orientado a objetos de PHP con un
+fÃ¡cil de usar API que le permite utilizar una amplia gama de funciones.
+Se puede utilizar como una caja de herramientas para ayudar con rapidez
+escribiendo guiones bÃ¡sicos, o se puede utilizar como un marco integral
+para crear y personalizar a gran escala, aplicaciones robustas. En el
+centro de este marco es un grupo de componentes, algunos de los cuales
+se puede utilizar de forma independiente y algunas de las cuales se
+pueden utilizar en tÃ¡ndem para aprovechar toda la potencia del marco y
+PHP.
 
-* Archive
-* Auth
-* Cache
-* Cli
-* Code
-* Color
-* Compress
-* Config
-* Curl
-* Data
-* Db
-* Dom
-* Event
-* Feed
-* File
-* Filter
-* Font
-* Form
-* Ftp
-* Geo
-* Graph
-* Http
-* Image
-* Loader
-* Locale
-* Log
-* Mail
-* Mvc
-* Paginator
-* Payment
-* Pdf
-* Project
-* Record
-* Validator
-* Version
-* Web
+-   Archive
+-   Auth
+-   Cache
+-   CLI
+-   Code
 
-QuickStart
-----------
+-   Color
+-   Compress
+-   Config
+-   Curl
+-   Data
 
-Hay dos maneras que usted puede conseguir en marcha con el Pop framework PHP.
+-   Db
+-   Dom
+-   Event
+-   Feed
+-   File
 
-Si usted está buscando para escribir algunos scripts rápidos, sólo tiene que colocar la carpeta de origen en su carpeta de trabajo del proyecto, hacer referencia a la 'Bootstrap.php' en consecuencia en un guión y empezar a escribir código. Usted encontrará referencias y ejemplos lo largo de toda esta documentación que le explicará los diferentes componentes y cómo puede utilizarlos.
+-   Filter
+-   Font
+-   Form
+-   Ftp
+-   Geo
 
-Si usted está buscando para construir una aplicación a gran escala, puede utilizar el componente de la CLI para crear la fundación del proyecto base, o "andamiaje". De esta manera, usted puede comenzar a escribir el código del proyecto de forma rápida y no tener que cargar con tener todo en marcha y funcionando. Todo lo que tienes que hacer es definir el proyecto en un solo archivo de instalación, ejecute el comando de la CLI Pop usando ese archivo y - ¡voilà! - Pop hace todo el trabajo sucio por ti y puedes llegar a escribir código más rápido del proyecto. Revise la documentación sobre el componente de la CLI para explorar más a fondo cómo tomar ventaja de este componente robusto.
+-   Graph
+-   Http
+-   Image
+-   Loader
+-   Locale
 
-El componente del MVC
----------------------
+-   Log
+-   Mail
+-   Mvc
+-   Paginator
+-   Payment
 
-El componente MVC está disponible y útil sobre todo cuando la construcción de una aplicación a gran escala. MVC significa Modelo-Vista-Controlador y es un patrón de diseño que facilita una separación bien organizada de intereses. Esto permite a su presentación, lógica de negocio y acceso a los datos a todos se guardan por separado.
+-   Pdf
+-   Project
+-   Record
+-   Service
+-   Validator
 
-El controlador recibe la entrada (es decir, una petición web) por parte del usuario y en base a esa entrada, se comunica que con el modelo. El modelo puede procesar la solicitud para determinar qué datos o la respuesta que se necesita. En ese momento, se comunica el modelo y la vista para que la vista se puede construir la presentación, o "vista", basada en los datos obtenidos a partir del modelo. Entonces, el controlador se comunicará con el fin de mostrar la salida apropiada para el usuario.
+-   Version
+-   Web
 
-Una pieza extra del componente MVC que está disponible con el Pop framework PHP es un router. El router es simplemente una capa adicional en la parte superior que hace exactamente lo que su nombre sugiere - que las rutas de los diferentes tipos de peticiones de usuarios para sus controladores correspondientes. En otras palabras, proporciona una manera fácil de manejar varias rutas de acceso de usuario y los controladores.
+### Inicio RÃ¡pido
 
-Muchas veces, puede ser difícil de entender el patrón de diseño MVC hasta que comiencen a utilizarlo. Una vez que usted hace, sin embargo, usted verá inmediatamente el beneficio de tener todo lo que separa en fáciles de manejar conceptos con muy poco, en su caso, la superposición. El controlador se encarga de la delegación de las solicitudes, el modelo se encarga de la lógica de negocio y su punto de vista determina cómo se muestran los resultados al usuario. Por el momento, este modelo supera a los viejos tiempos de abarrotar todo en una única secuencia de comandos o scripts que se incluyen varias por todo el lugar creando un gran desorden. Haga la prueba y verás!
+Hay dos maneras que usted puede ponerse en marcha con el Pop Framework
+PHP.
 
+Si usted estÃ¡ buscando para escribir algunos scripts rÃ¡pidos, sÃ³lo
+tiene que soltar la carpeta fuente en la carpeta de trabajo del
+proyecto, haga referencia a la "Bootstrap.php 'en consecuencia en un
+guiÃ³n y empezar a escribir cÃ³digo. Usted encontrarÃ¡ referencias y
+ejemplos lo largo de toda esta documentaciÃ³n que le explicarÃ¡ los
+diferentes componentes y cÃ³mo puede utilizarlos.
 
-Los componentes de la BD y Registro
------------------------------------
+Si usted estÃ¡ buscando para construir una aplicaciÃ³n a gran escala,
+puede utilizar el componente CLI para crear bases del proyecto base, o
+"andamiaje". De esta manera, usted puede comenzar a escribir cÃ³digo de
+proyecto rÃ¡pidamente y no tener que cargar con tener todo en marcha y
+funcionando. Todo lo que tienes que hacer es definir su proyecto en un
+solo archivo de instalaciÃ³n, ejecute el comando CLI Pop utilizando
+dicho archivo y Pop hace todo el trabajo sucio por ti. Se puede llegar a
+escribir cÃ³digo de proyecto mÃ¡s rÃ¡pido. Revise la documentaciÃ³n del
+componente CLI para explorar mÃ¡s a fondo la manera de tomar ventaja de
+este componente robusto.
 
-Los componentes de la BD y el registro son dos componentes que tienen el potencial de ser utilizado un poco en cualquier aplicación. Obviamente, el componente DB proporciona un acceso directo para consultar una base de datos. Los adaptadores compatibles incluyen nativa de MySQL, MySQLi, PgSQL, SQLite y la denominación de origen. Sirven para normalizar el acceso de base de datos en entornos de modo que usted no tiene que preocuparse tanto de reequipamiento de una aplicación para trabajar con un tipo diferente de base de datos en un entorno diferente.
+### El componente MVC
 
-El componente de Registro es un componente de gran alcance que proporciona un acceso estandarizado a los datos dentro de una base de datos, específicamente las tablas de bases de datos y registros individuales dentro de las tablas. El componente de disco es realmente un híbrido de Active Record y de los patrones de datos de tabla de puerta de enlace. Puede proporcionar acceso a una sola fila o registro como un patrón de registro activo lo haría, o varias filas de una sola vez, como una puerta de enlace de datos de la tabla lo haría. Con el Pop marco de PHP, el enfoque más común es la de escribir una clase de niños que se extiende a la clase de registro que representa una tabla en la base de datos. El nombre de la clase niño debe ser el nombre de la mesa. Por la simple creación de
+El componente MVC es disponibles y son Ãºtiles especialmente cuando la
+construcciÃ³n de una aplicaciÃ³n a gran escala. MVC significa
+Modelo-Vista-Controlador y es un patrÃ³n de diseÃ±o que facilita una
+separaciÃ³n bien organizado de preocupaciones. Esto permite a su
+presentaciÃ³n, lÃ³gica de negocio y acceso a datos a todos mantenerse
+separado.
 
-<pre>
-use Pop\Record\Record;
+El controlador recibe la entrada (es decir, una peticiÃ³n Web) del
+usuario y en base a esa entrada, que se comunica con el modelo. El
+modelo puede entonces procesar la solicitud para determinar quÃ© datos o
+de respuesta que se necesita. En ese momento, se comunican modelo y la
+vista para que la vista se puede construir de la presentaciÃ³n, o
+"vista", basada en los datos obtenidos a partir del modelo. Entonces, el
+controlador se comunicarÃ¡ con el fin de mostrar la salida adecuada al
+usuario.
 
-class Users extends Record { }
-</pre>
+Una pieza adicional del componente MVC que estÃ¡ disponible con el Pop
+Marco PHP es un router. El router es simplemente una capa adicional en
+la parte superior que hace exactamente lo que su nombre sugiere - que
+las rutas de los diferentes tipos de peticiones de usuarios para sus
+controladores correspondientes. En otras palabras, proporciona una
+manera fÃ¡cil de manejar mÃºltiples rutas de usuario y controladores.
 
-crear una clase que tiene toda la funcionalidad del componente construido en el Registro y la clase conoce el nombre de la tabla de base de datos para consultar desde el nombre de la clase. Por ejemplo, se traduce 'de los usuarios en `usuarios` o traduce los DbUsers' en `` db_users (CamelCase se convierte automáticamente en lower_case_underscore.) Revisar la documentación de los expedientes para ver cómo se puede ajustar con precisión la clase de tabla secundaria.
+Muchas veces, puede ser difÃ­cil de entender el patrÃ³n de diseÃ±o MVC
+hasta que realmente empieza a usarlo. Una vez hecho, sin embargo,
+inmediatamente verÃ¡ la ventaja de tener todo separado en fÃ¡ciles de
+manejar conceptos con muy poca o ninguna superposiciÃ³n. El controlador
+se encarga de la delegaciÃ³n de las solicitudes, el modelo se encarga de
+la lÃ³gica de negocio y su vista determina cÃ³mo mostrar el resultado al
+usuario. Por el momento, este modelo supera a los viejos tiempos de
+abarrotar todo en una Ãºnica secuencia de comandos con numerosas
+include.
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+### Los componentes DB & Record
+
+Los componentes de DB y registro son dos componentes que tienen el
+potencial de ser utilizado bastante en cualquier aplicaciÃ³n.
+Obviamente, el componente Db proporciona acceso directo para consultar
+una base de datos. Los adaptadores compatibles incluyen MySQL nativa,
+MySQLi, Oracle, PDO, PostgreSQL, SQLite y SQLServer. Sirven para
+normalizar el acceso de base de datos a travÃ©s de diferentes ambientes
+para que usted no tiene que preocuparse tanto de reequipamiento una
+aplicaciÃ³n para trabajar con un tipo diferente de base de datos en un
+entorno diferente.
+
+El componente de registro es un componente poderoso que proporciona
+acceso normalizado a los datos dentro de una base de datos,
+especÃ­ficamente las tablas de base de datos y los registros
+individuales dentro de las tablas. El componente de registro es
+realmente un hÃ­brido de Active Record y especificaciones Tabla patrones
+Gateway. Puede proporcionar acceso a una sola fila o registro como un
+patrÃ³n Active Record harÃ­a, o varias filas a la vez, como una puerta
+de enlace de la tabla de datos harÃ­a. Con el Pop Framework PHP, el
+enfoque mÃ¡s comÃºn es escribir una clase hija que se extiende a la
+clase de registro que representa una tabla en la base de datos. El
+nombre de la clase hija debe ser el nombre de la tabla. Por la simple
+creaciÃ³n de
+
+    use Pop\Record\Record;
+
+    class Users extends Record { }
+
+se crea una clase que tiene toda la funcionalidad del componente de
+grabaciÃ³n construido en la clase y conoce el nombre de la tabla de base
+de datos para consultar el nombre de la clase. Por ejemplo, se traduce
+'Usuarios' en \`usuarios\` o 'traduce' en \`DbUsers db\_users\`
+(CamelCase se convierte automÃ¡ticamente en lower\_case\_underscore.)
+Revisar la documentaciÃ³n de grabaciÃ³n para ver cÃ³mo se puede ajustar
+con precisiÃ³n la clase de tabla secundaria.
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

@@ -4,37 +4,45 @@ Pop PHP Framework
 Documentation : Graph
 ---------------------
 
-グラフコンポーネントは、さまざまな形式でグラフを描画するSVGやPDF、画像などのグラフィックコンポーネントで構築されたのいずれかを利用することができる堅牢なグラフ機能が可能になります。あなたは、線グラフ、棒グラフと円グラフを作成し、レンダリングするグラフィック属性の広い配列を定義することができます。別のグラフィックコンポーネント間のAPIが標準化されているので、グラフを生成する別のファイルとイメージ形式の間で交換するために非常に簡単です。
+Home
 
-<pre>
-use Pop\Color\Rgb,
-    Pop\Graph\Graph;
+ã‚°ãƒ©ãƒ•ã?®æ§‹æˆ?è¦?ç´
+ã?«ã?¯æ§˜ã€…ã?ªå½¢å¼?ã?®ã‚°ãƒ©ãƒ•ã‚’æ??ç”»ã?™ã‚‹ã?Ÿã‚?ã?«SVGã‚„PDFã€?ç”»åƒ?ã?ªã?©ã?®ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆã?§æ§‹ç¯‰ã?•ã‚Œã?Ÿã?®ã?„ã?šã‚Œã?‹ã‚’åˆ©ç”¨ã?§ã??ã‚‹å
+…ç‰¢ã?ªã‚°ãƒ©ãƒ•ä½œæˆ?æ©Ÿèƒ½ã‚’å?¯èƒ½ã?«ã?™ã‚‹ã€‚ã?‚ã?ªã?Ÿã?¯ã€?ç·šã‚°ãƒ©ãƒ•ã€?æ£’ã‚°ãƒ©ãƒ•ã‚„å††ã‚°ãƒ©ãƒ•ã‚’ä½œæˆ?ã?—ã?¦ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã?™ã‚‹ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯å±žæ€§ã?®åºƒã?„é…?åˆ—ã‚’å®šç¾©ã?™ã‚‹ã?“ã?¨ã?Œã?§ã??ã?¾ã?™ã€‚ç•°ã?ªã‚‹ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯Â·ã‚³ãƒ³ãƒ?ãƒ¼ãƒ?ãƒ³ãƒˆé–“ã?®APIã?Œæ¨™æº–åŒ–ã?•ã‚Œã?¦ã?„ã‚‹ã?®ã?§ã€?ã‚°ãƒ©ãƒ•ã‚’ä½œæˆ?ã?™ã‚‹ã?Ÿã‚?ã?®åˆ¥ã?®ãƒ•ã‚¡ã‚¤ãƒ«ã‚„ç”»åƒ?å½¢å¼?ã?®é–“ã?§äº¤æ?›ã?™ã‚‹ã?Ÿã‚?ã?«é?žå¸¸ã?«ç°¡å?˜ã?§ã?™ã€‚
 
-$x = array('1995', '2000', '2005', '2010', '2015');
-$y = array('0M', '50M', '100M', '150M', '200M');
+    use Pop\Color\Space\Rgb,
+        Pop\Graph\Graph;
 
-$data = array(
-    array(1995, 0),
-    array(1997, 35),
-    array(1998, 25),
-    array(2002, 100),
-    array(2004, 84),
-    array(2006, 98),
-    array(2007, 76),
-    array(2010, 122),
-    array(2013, 175),
-    array(2015, 162)
-);
+    $x = array('1995', '2000', '2005', '2010', '2015');
+    $y = array('0M', '50M', '100M', '150M', '200M');
 
-$graph = new Graph('graph.gif', 640, 480, Graph::IMAGICK);
-//$graph = new Graph('graph.svg', 640, 480);
-$graph->addFont('../assets/fonts/times.ttf')
-      ->setFontColor(new Rgb(128, 128, 128))
-      ->setFillColor(new Rgb(10, 125, 210))
-      ->showY(true)
-      ->showText(true)
-      ->addLineGraph($data, $x, $y)
-      ->output();
-</pre>
+    $data = array(
+        array(1995, 0),
+        array(1997, 35),
+        array(1998, 25),
+        array(2002, 100),
+        array(2004, 84),
+        array(2006, 98),
+        array(2007, 76),
+        array(2010, 122),
+        array(2012, 175),
+        array(2015, 162)
+    );
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+
+    $graph = new Graph(array(
+        'filename' => 'graph.gif',
+        'width'    => 640,
+        'height'   => 480
+    ));
+
+    $graph->addFont('../assets/fonts/times.ttf')
+          ->setFontColor(new Rgb(128, 128, 128))
+          ->setFillColor(new Rgb(10, 125, 210))
+          ->showY(true)
+          ->showText(true)
+          ->createLineGraph($data, $x, $y)
+          ->output();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

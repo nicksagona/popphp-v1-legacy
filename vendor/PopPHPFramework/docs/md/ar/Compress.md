@@ -4,17 +4,22 @@ Pop PHP Framework
 Documentation : Compress
 ------------------------
 
-عنصر ضغط يوفر طريقة طبيعية لضغط وإلغاء ضغط البيانات والملفات عن طريق الأساليب المعتمدة:
+Home
 
-* bzip2
-* gzip &amp; zlib
-* lzf
+Ø§Ù„Ù…ÙƒÙˆÙ† Ø¶ØºØ· ÙŠÙˆÙ?Ø± Ø·Ø±ÙŠÙ‚Ø© Ø·Ø¨ÙŠØ¹ÙŠØ© Ù„Ø¶ØºØ·
+ÙˆØ¥Ù„ØºØ§Ø¡ Ø¶ØºØ· Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª ÙˆØ§Ù„Ù…Ù„Ù?Ø§Øª Ø¹Ù† Ø·Ø±ÙŠÙ‚
+Ø§Ù„Ø£Ø³Ø§Ù„ÙŠØ¨ Ø§Ù„Ù…Ø¹ØªÙ…Ø¯Ø©:
 
-<pre>
-use Pop\Compress\Bzip2;
+-   bzip2
+-   gzip & zlib
+-   lzf
 
-$compressed = Bzip2::compress('Some string');
-$uncompressed = Bzip2:uncompress($compressed);
-</pre>
+<!-- -->
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    use Pop\Compress\Bzip2;
+
+    $compressed = Bzip2::compress('Some string');
+    $uncompressed = Bzip2::uncompress($compressed);
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

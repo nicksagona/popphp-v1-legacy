@@ -4,23 +4,28 @@ Pop PHP Framework
 Documentation : Font
 --------------------
 
-O componente Font é um analisador font profundidade que extrai dados de fontes importantes e métricas para outros componentes e programas a serem usados. Os tipos de fonte suportados são:
+Home
 
-* TrueType
-* OpenType
-* Type1
+O componente da fonte Ã© um analisador fonte profundidade que extrai
+dados de fontes importantes e mÃ©tricas para outros componentes e
+programas para usar. Os tipos de fontes suportados sÃ£o:
 
-<pre>
-use Pop\Font\TrueType;
+-   TrueType
+-   OpenType
+-   Type1
 
-$font = new TrueType('fonts/times.ttf');
+<!-- -->
 
-// You then have access to all of the parsed font data and metrics.
-echo $font->info->fullName;
-echo $font->bBox->xMin;
-echo $font->bBox->yMin;
-echo $font->bBox->xMax;
-echo $font->bBox->yMax;
-</pre>
+    use Pop\Font\TrueType;
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $font = new TrueType('fonts/times.ttf');
+
+    // You then have access to all of the parsed font data and metrics.
+    echo $font->info->fullName;
+    echo $font->bBox->xMin;
+    echo $font->bBox->yMin;
+    echo $font->bBox->xMax;
+    echo $font->bBox->yMax;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

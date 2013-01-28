@@ -4,53 +4,52 @@ Pop PHP Framework
 Documentation : Code
 --------------------
 
-La composante de code est un élément de génération de code qui vous permet non seulement de générer normalisé, bien structurée du code PHP à la volée, mais vous permet également de modifier et d'étendre le code existant en s'appuyant sur l'extension de réflexion de PHP.
+Home
 
-<pre>
-use Pop\Code\ClassGenerator,
-    Pop\Code\DocblockGenerator,
-    Pop\Code\Generator,
-    Pop\Code\MethodGenerator,
-    Pop\Code\NamespaceGenerator,
-    Pop\Code\PropertyGenerator;
+La composante de code est un composant de gÃ©nÃ©ration de code qui vous
+permet non seulement de gÃ©nÃ©rer standardisÃ©, bien structurÃ©e du code
+PHP Ã la volÃ©e, mais aussi vous permet de modifier et d'Ã©tendre le
+code existant en s'appuyant sur l'extension de rÃ©flexion de PHP.
 
-// Create the code generator object
-$code = new Generator('MyClass.php', Generator::CREATE_CLASS);
-$code->setDocblock(new DocblockGenerator('This is my test class file'))
-     ->getDocblock()->setTag('category', 'Pop')
-                    ->setTag('package', 'Pop_Code')
-                    ->setTag('author', 'Joe Author');
+    use Pop\Code;
 
-// Create namespace object
-$ns = new NamespaceGenerator('Some\\Other');
-$ns->setUse('Some\\Other\\Thing')
-   ->setUse('Some\\Other\\Blah', 'B')
-   ->setUse('Some\\Other\\Another');
+    // Create the code generator object
+    $code = new Code\Generator('MyClass.php', Code\Generator::CREATE_CLASS);
+    $code->setDocblock(new Code\Generator\DocblockGenerator('This is my test class file'))
+         ->getDocblock()->setTag('category', 'Pop')
+                        ->setTag('package', 'Pop_Code')
+                        ->setTag('author', 'Joe Author');
 
-// Create property object
-$prop = new PropertyGenerator('_testProp', 'string', 'test', 'protected');
-$prop->setDesc('This is a test property');
+    // Create namespace object
+    $ns = new Code\Generator\NamespaceGenerator('Some\Other');
+    $ns->setUse('Some\Other\Thing')
+       ->setUse('Some\Other\Blah', 'B')
+       ->setUse('Some\Other\Another');
 
-// Create a method object
-$method = new MethodGenerator('__construct');
-$method->setDesc('This is a test method')
-       ->setBody("// Let's get some stuff to happen here." . PHP_EOL . "\$blah = 'Sounds like a good idea';")
-       ->appendToBody("echo \$blah;", false)
-       ->addArgument('test', "null", "Pop\\Filter\\String")
-       ->addArgument('other', "array()", 'array');
+    // Create property object
+    $prop = new Code\Generator\PropertyGenerator('_testProp', 'string', 'test', 'protected');
+    $prop->setDesc('This is a test property');
 
-// Add code pieces to the code file
-$code->setNamespace($ns);
-$code->code()->setDocblock(new DocblockGenerator('This is my test class'))
-             ->getDocblock()->setTag('category', 'Pop')
-                            ->setTag('package', 'Pop_Code')
-                            ->setTag('author', 'Joe Author');
+    // Create a method object
+    $method = new Code\Generator\MethodGenerator('__construct');
+    $method->setDesc('This is a test method')
+           ->setBody("// Let's get some stuff to happen here." . PHP_EOL . "\$blah = 'Sounds like a good idea';")
+           ->appendToBody("echo \$blah;", false)
+           ->addArgument('test', "null", "Pop\Filter\String")
+           ->addArgument('other', "array()", 'array');
 
-$code->code()->addProperty($prop);
-$code->code()->addMethod($method);
+    // Add code pieces to the code file
+    $code->setNamespace($ns);
+    $code->code()->setDocblock(new Code\Generator\DocblockGenerator('This is my test class'))
+                 ->getDocblock()->setTag('category', 'Pop')
+                                ->setTag('package', 'Pop_Code')
+                                ->setTag('author', 'Joe Author');
 
-// Render and output the code
-$code->output();
-</pre>
+    $code->code()->addProperty($prop);
+    $code->code()->addMethod($method);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Render and output the code
+    $code->output();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

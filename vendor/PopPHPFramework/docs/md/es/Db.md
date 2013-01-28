@@ -4,53 +4,57 @@ Pop PHP Framework
 Documentation : Db
 ------------------
 
-El componente DB proporciona un acceso normalizado a bases de datos de consulta. Los adaptadores soportados son:
+Home
 
-* sqlsrv
-* mysql
-* mysqli
-* oracle
-* pdo
-* pgsql
-* sqlite
+El componente Db proporciona acceso normalizado a bases de datos de
+consulta. Los adaptadores soportados son:
 
-Declaraciones preparadas son compatibles con el SQLSrv, MySQLi, Oracle, PDO, PostgreSQL y SQLite adapaters. Los valores de escape están disponibles para todos los adaptadores.
+-   mysql
+-   mysqli
+-   oracle
+-   pdo
+-   pgsql
+-   sqlite
+-   sqlsrv
 
-<pre>
-use Pop\Db\Db;
+Declaraciones preparadas son compatibles con el MySQLi, Oracle, PDO,
+PostgreSQL, SQLite y adaptadores sqlsrv. Los valores de escape estÃ¡n
+disponibles para todos los adaptadores.
 
-// Define DB credentials
-$creds = array(
-    'database' => 'helloworld',
-    'host'     => 'localhost',
-    'username' => 'hello',
-    'password' => '12world34'
-);
+    use Pop\Db\Db;
 
-// Create DB object
-$db = Db::factory('Mysqli', $creds);
+    // Define DB credentials
+    $creds = array(
+        'database' => 'helloworld',
+        'host'     => 'localhost',
+        'username' => 'hello',
+        'password' => '12world34'
+    );
 
-// Perform the query
-$db->adapter()->query('SELECT * FROM users');
+    // Create DB object
+    $db = Db::factory('Mysqli', $creds);
 
-// Fetch the results
-while (($row = $db->adapter()->fetch()) != false) {
-    print_r($row);
-}
-</pre>
+    // Perform the query
+    $db->adapter()->query('SELECT * FROM users');
 
-Además del acceso a la base de datos, el componente de Db también cuenta con un útil objeto SQL abstracción que le asiste en la creación de consultas SQL estándar.
+    // Fetch the results
+    while (($row = $db->adapter()->fetch()) != false) {
+        print_r($row);
+    }
 
-<pre>
-use Pop\Db\Sql;
+AdemÃ¡s de conexiÃ³n a base de datos, el componente Db tambiÃ©n cuenta
+con un Ãºtil objeto Sql abstracciÃ³n que le ayuda a crear consultas SQL
+estÃ¡ndar.
 
-$sql = new Sql('users');
-$sql->setIdQuoteType(Sql::BACKTICK)
-    ->select()
-    ->where('id', '=', 1);
+    use Pop\Db\Sql;
 
-// Outputs 'SELECT * FROM `users` WHERE `id` = 1'
-echo $sql;
-</pre>
+    $sql = new Sql('users');
+    $sql->setIdQuoteType(Sql::BACKTICK)
+        ->select()
+        ->where('id', '=', 1);
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Outputs 'SELECT * FROM `users` WHERE `id` = 1'
+    echo $sql;
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

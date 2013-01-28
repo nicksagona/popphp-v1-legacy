@@ -4,22 +4,24 @@ Pop PHP Framework
 Documentation : Curl
 --------------------
 
-The Curl component simply provides an object-oriented API wrapper to PHP's cURL extension.
+Home
 
-<pre>
-use Pop\Curl\Curl;
+The Curl component simply provides an object-oriented API wrapper to
+PHP's cURL extension.
 
-$options = array(
-    CURLOPT_URL            => 'http://pop.localhost/examples/curl/curl-process.php',
-    CURLOPT_POST           => true,
-    CURLOPT_POSTFIELDS     => array('name' => 'Bubba', 'email' => 'bubba@hotmail.com'),
-    CURLOPT_HEADER         => false,
-    CURLOPT_RETURNTRANSFER => true
-);
+    use Pop\Curl\Curl;
 
-header('Content-Type: text/html; charset=utf-8');
-$curl = new Curl($options);
-echo $curl->execute();
-</pre>
+    $options = array(
+        CURLOPT_URL            => 'http://pop.localhost/examples/curl/curl-process.php',
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => array('name' => 'Bubba', 'email' => 'bubba@hotmail.com'),
+        CURLOPT_HEADER         => false,
+        CURLOPT_RETURNTRANSFER => true
+    );
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    header('Content-Type: text/html; charset=utf-8');
+    $curl = new Curl($options);
+    echo $curl->execute();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

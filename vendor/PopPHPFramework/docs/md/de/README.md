@@ -1,81 +1,155 @@
 Pop PHP Framework
 =================
 
-Documentation : Overview
-------------------------
+Dokumentation: Ãœbersicht
+-------------------------
 
-Die Pop-PHP-Framework ist ein objektorientiertes PHP-Framework mit einer einfach zu bedienende API, mit denen Sie eine breite Palette von Funktionen nutzen kann. Sie können es als eine Toolbox nutzen, um schnell mit Basic-Skripte schreiben zu unterstützen, oder Sie können ihn als vollwertigen Rahmen zu bauen und zu gestalten großflächige, robuste Anwendungen zu verwenden. Den Kern des Frameworks ist eine Gruppe von Komponenten, von denen einige unabhängig voneinander eingesetzt werden können, und einige können im Tandem zu nutzen, die volle Leistung des Frameworks und PHP eingesetzt werden.
+Die Pop PHP Framework ist eine objektorientierte PHP-Framework mit einer
+einfach zu bedienenden API, die Ihnen erlauben, eine breite Palette von
+Funktionen nutzen kann. Sie kÃ¶nnen es als eine Toolbox zu verwenden, um
+mit schnell schriftlich Basic Scripts unterstÃ¼tzen, oder Sie kÃ¶nnen es
+als vollwertiges Rahmen zu bauen und zu gestalten groÃŸflÃ¤chige,
+robuste Anwendungen. Im Kern des Rahmens ist eine Gruppe von
+Komponenten, von denen einige unabhÃ¤ngig verwendet werden kann und von
+denen einige in Tandem verwendet werden, um die volle Leistung
+Hebelwirkung des Frameworks und PHP.
 
-* Archive
-* Auth
-* Cache
-* Cli
-* Code
-* Color
-* Compress
-* Config
-* Curl
-* Data
-* Db
-* Dom
-* Event
-* Feed
-* File
-* Filter
-* Font
-* Form
-* Ftp
-* Geo
-* Graph
-* Http
-* Image
-* Loader
-* Locale
-* Log
-* Mail
-* Mvc
-* Paginator
-* Payment
-* Pdf
-* Project
-* Record
-* Validator
-* Version
-* Web
+-   Archive
+-   Auth
+-   Cache
+-   CLI
+-   Code
 
-QuickStart
-----------
+-   Color
+-   Compress
+-   Config
+-   Curl
+-   Data
 
-Es gibt zwei Möglichkeiten, dass Sie aufstehen und laufen mit dem Pop-PHP-Framework können.
+-   Db
+-   Dom
+-   Event
+-   Feed
+-   File
 
-Wenn Sie gerade suchen, um ein paar schnelle Skripte schreiben, können Sie einfach auf, Quell-Ordner in Ihrem Projekt-Ordner arbeiten, verweisen die "bootstrap.php 'entsprechend in einem Skript und starten Sie das Schreiben von Code. Sie werden alle Referenzen und Beispiele in dieser Dokumentation enthalten, die die verschiedenen Komponenten erklären wird und wie Sie sie nutzen können, zu finden.
+-   Filter
+-   Font
+-   Form
+-   Ftp
+-   Geo
 
-Wenn Sie schauen, um in einem größeren Maßstab Anwendung erstellen möchten, können Sie das CLI-Komponente, um das Projekt Basis-Stiftung, oder erstellen "Gerüst". Auf diese Weise können Sie mit dem Schreiben beginnen Projekt Code schnell und nicht mit, um alles zum Laufen belastet. Alles, was Sie tun müssen ist, definieren Sie Ihr Projekt in einzelne Installationsdatei, führen Sie den Pop-CLI-Befehl verwenden diese Datei und - voilà! - Pop macht die ganze schmutzige Arbeit für Sie und Sie können das Schreiben Projekt Code schneller zu bekommen. Lesen Sie die Dokumentation auf der CLI-Komponente weiter zu erkunden, wie man die Vorteile dieses robusten Komponente nehmen.
+-   Graph
+-   Http
+-   Image
+-   Loader
+-   Locale
 
-Das MVC-Komponenten
--------------------
+-   Log
+-   Mail
+-   Mvc
+-   Paginator
+-   Payment
 
-Das MVC-Komponente zur Verfügung steht und besonders nützlich bei der Erstellung einer Anwendung im großen Maßstab. MVC steht für Model-View-Controller und ist ein Entwurfsmuster, die einen gut organisierten Trennung von Bereichen erleichtert. Es ermöglicht die Präsentation, Geschäftslogik und Datenzugriff auf alle separat gehalten werden.
+-   Pdf
+-   Project
+-   Record
+-   Service
+-   Validator
 
-Die Steuerung empfängt Eingang (dh ein Web-Anfrage) von dem Benutzer und basierend auf dieser Eingabe, kommuniziert, dass mit dem Modell. Das Modell kann dann die Anfrage, um zu bestimmen, welche Daten oder tätig werden muss. An diesem Punkt, das Modell und Ansicht kommunizieren, so dass der Blick auf die Präsentation aufbauen kann, oder "Ansicht" auf den Daten aus dem Modell erzielt wurden. Dann wird die Steuerung im Hinblick kommunizieren, um die entsprechenden Anschlüsse mit dem Benutzer angezeigt werden.
+-   Version
+-   Web
 
-Ein zusätzliches Gepäckstück des MVC-Komponente, die zur Verfügung mit dem Pop-PHP-Framework ist ein Router ist. Der Router ist einfach eine zusätzliche Schicht auf der Oberseite, die genau das tut, was der Name vermuten lässt - es leitet verschiedene Benutzeranforderungen zu den entsprechenden Controller. Mit anderen Worten, es eine einfache Möglichkeit, mehrere Benutzer Pfade und Steuerungen zu verwalten.
+### QuickStart
 
-Oft kann es schwierig sein, das MVC-Entwurfsmuster erfassen, bis Sie beginnen tatsächlich benutzen. Sobald Sie aber tun, werden Sie sofort sehen den Vorteil, dass alles, was in einfach zu verwalten Konzepte mit sehr wenig voneinander getrennt, wenn überhaupt, überlappen. Ihr Controller übernimmt die Delegation von Anfragen, handhabt Ihr Modell der Business-Logik und Ihrer Sicht bestimmt, wie die Ausgabe an den Benutzer anzuzeigen. Bei weitem übertrumpft dieses Muster den alten Tagen von pauken alles in einem einzigen Skript oder verschiedenen Skripte, die alle über den Ort schaffen ein großes Durcheinander enthalten sind. Probieren Sie es aus und du wirst sehen!
+Es gibt 2 MÃ¶glichkeiten, kÃ¶nnen Sie aufstehen und laufen mit der Pop
+PHP Framework.
 
-Die DB & Record-Komponenten
----------------------------
+Wenn Sie gerade suchen, um ein paar schnelle Script schreiben, kÃ¶nnen
+Sie einfach fallen die Quelle Ordner in Ihrer Arbeitskopie Projektordner
+verweisen die "bootstrap.php 'entsprechend in einem Skript und starten
+Sie das Schreiben von Code. Sie Referenzen und Beispiele Alle in dieser
+Dokumentation, die die verschiedenen Komponenten erklÃ¤ren wird und wie
+Sie sie nutzen kÃ¶nnen, zu finden.
 
-Die DB-und Record-Komponenten sind zwei Komponenten, die das Potenzial genutzt ziemlich in jeder Anwendung werden müssen. Offensichtlich bietet das DB-Komponente den direkten Zugriff auf eine Datenbank abfragen. Die unterstützten Adapter gehören nativen MySQL, mysqli, PgSQL, SQLite und PDO. Sie dienen dazu, Zugriff auf die Datenbank in verschiedenen Umgebungen zu normalisieren, so dass Sie nicht so viel Sorgen um Umrüsten eine Anwendung mit einer anderen Art von Datenbank in einem anderen Umfeld zu arbeiten.
+Wenn Sie schauen, um in einem grÃ¶ÃŸeren MaÃŸstab Anwendung erstellen
+mÃ¶chten, kÃ¶nnen Sie das CLI-Komponente des Projekts Basis Fundament,
+oder erstellen "GerÃ¼st". Auf diese Weise kÃ¶nnen Sie mit dem Schreiben
+beginnen Projekt-Code schnell und nicht mit immer alles zum Laufen
+belastet. Alles, was Sie tun mÃ¼ssen, ist zu definieren Ihr Projekt in
+einzelne Installationsdatei, fÃ¼hren Sie den Pop-CLI-Befehl mit, dass
+Datei-und Pop all die schmutzige Arbeit fÃ¼r Sie erledigt. Sie kÃ¶nnen
+schriftlich Projekt-Code schneller. ÃœberprÃ¼fen Sie die Dokumentation
+Ã¼ber die CLI-Komponente weiter zu erkunden, wie die Vorteile der
+robusten Komponenten nehmen.
 
-Die Record-Komponente ist eine leistungsfähige Komponente, die einen standardisierten Zugriff auf Daten innerhalb einer Datenbank, die speziell den Datenbank-Tabellen und einzelne Datensätze in den Tabellen zur Verfügung stellt. Der Rekord-Komponente ist wirklich ein Hybrid aus dem Active Record und Table Data Gateway-Muster. Es kann den Zugang zu einer einzelnen Zeile oder Platte wie ein Active Record-Muster würde, oder mehrere Zeilen auf einmal, wie ein Table Data Gateway würde. Mit der Pop-PHP-Framework, ist die häufigste Methode, um ein Kind-Klasse, die die Record-Klasse, die eine Tabelle in der Datenbank repräsentiert erstreckt schreiben. Der Name des Kindes Klasse sollte der Name der Tabelle sein. Durch einfaches Anlegen
+### Das MVC-Komponenten
 
-<pre>
-use Pop\Record\Record;
+Das MVC-Komponente ist besonders nÃ¼tzlich, wenn Bau einer
+groÃŸtechnischen Anwendung. MVC steht fÃ¼r Model-View-Controller und ist
+ein Design-Muster, das eine gut organisierte Trennung von Bedenken
+erleichtert. Es ermÃ¶glicht Ihre PrÃ¤sentation, GeschÃ¤ftslogik und
+Datenzugriff auf alle separat gehalten werden.
 
-class Users extends Record { }
-</pre>
+Der Controller empfÃ¤ngt Eingang (dh ein Web-Anfrage) von dem Benutzer
+und basierend auf diesen Eingang kommuniziert, dass mit dem Modell. Das
+Modell kann dann zu verarbeiten, um zu bestimmen, welche Daten oder
+Antwort benÃ¶tigt wird. An diesem Punkt, das Modell und Blick
+kommunizieren, so dass die Sicht aufbauen kann die PrÃ¤sentation oder
+"Ansicht" auf die Daten aus dem Modell erhaltenen. Dann wird die
+Steuereinheit mit der Ansicht kommunizieren, um den entsprechenden
+Ausgang fÃ¼r den Benutzer anzuzeigen.
 
-Sie erstellen eine Klasse, die die gesamte Funktionalität des Record-Komponente eingebaut und die Klasse kennt den Namen der Datenbank-Tabelle, um aus den Namen der Klasse abfragen muss. Zum Beispiel, 'Benutzer' übersetzt in `users` oder 'DbUsers' übersetzt in `` db_users (CamelCase wird automatisch in lower_case_underscore umgewandelt.) Überprüfen Sie die Record-Dokumentation zu sehen, wie können Sie eine Feinabstimmung der untergeordneten Tabelle Klasse.
+Ein zusÃ¤tzlicher Teil des MVC-Komponente, mit der Pop PHP Framework ist
+ein Router. Der Router ist einfach eine zusÃ¤tzliche Schicht auf der
+Oberseite, die genau das tut, was der Name schon sagt - es leitet
+verschiedene Benutzeranforderungen an den entsprechenden Controller. Mit
+anderen Worten, es stellt eine einfache MÃ¶glichkeit, mehrere
+Benutzer-Pfade und Steuerungen zu verwalten.
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+Oft kann es schwierig sein, das MVC-Entwurfsmuster begreifen, wenn man
+tatsÃ¤chlich beginnen es zu benutzen. Sobald Sie aber tun, werden Sie
+sofort sehen, den Vorteil, dass alles in leicht zu verwaltende Konzepte
+mit sehr wenig voneinander getrennt, wenn Ã¼berhaupt, Ã¼berlappen. Ihr
+Controller Ã¼bernimmt die Delegation von Anfragen, Ã¼bernimmt Ihr Modell
+der Business-Logik und Ihre Sicht bestimmt, wie die Ausgabe fÃ¼r den
+Benutzer angezeigt. Bei weitem dieses Muster TrÃ¼mpfe die alten Zeiten
+pauken alles in einem einzigen Skript mit zahlreichen beinhalten
+Aussagen.
+
+### Die Db & Record-Komponenten
+
+Die Db und Record-Komponenten sind zwei Komponenten, die das Potenzial
+genutzt ziemlich in jeder Anwendung werden mÃ¼ssen. Offensichtlich
+bietet die DB-Komponente den direkten Zugriff auf eine Datenbank
+abzufragen. Die unterstÃ¼tzten Adaptern zÃ¤hlen native MySQL, MySQLi,
+Oracle, PDO, PostgreSQL, SQLite und SQLServer. Sie dienen dazu, Zugriff
+auf die Datenbank in verschiedenen Umgebungen zu normalisieren, so dass
+Sie nicht haben, um so viel kÃ¼mmern UmrÃ¼stung eine Anwendung mit einer
+anderen Art von Datenbank in einer anderen Umgebung zu arbeiten.
+
+Die Record-Komponente ist eine leistungsfÃ¤hige Komponente, die einen
+standardisierten Zugriff auf Daten in einer Datenbank, die speziell den
+Datenbanktabellen und einzelne DatensÃ¤tze in den Tabellen zur
+VerfÃ¼gung stellt. Der Rekord-Komponente ist wirklich ein Hybrid aus dem
+Active Record und Table Data Gateway Muster. Es kann Zugriff auf eine
+einzelne Zeile oder Datensatz wie ein Active Record Pattern wÃ¼rde, oder
+mehrere Zeilen auf einmal, wie ein Table Data Gateway wÃ¼rde. Mit dem
+Pop PHP Framework ist die hÃ¤ufigste Methode, um ein Kind-Klasse, die
+Record-Klasse, die eine Tabelle in der Datenbank stellt sich schreiben.
+Der Name des Kindes Klasse sollte der Name der Tabelle. Durch einfaches
+Erstellen
+
+    use Pop\Record\Record;
+
+    class Users extends Record { }
+
+Sie erstellen eine Klasse, die die gesamte FunktionalitÃ¤t des
+Record-Komponente eingebaut und die Klasse kennt den Namen der
+Datenbank-Tabelle aus den Namen der Klasse abgefragt hat. Zum Beispiel,
+'Users' Ã¼bersetzt in \`users\` oder 'DbUsers' Ã¼bersetzt in
+\`db\_users\` (CamelCase wird automatisch in lower\_case\_underscore
+umgewandelt.) ÃœberprÃ¼fen Sie die Aufnahme-Dokumentation zu sehen, wie
+kÃ¶nnen Sie eine Feinabstimmung der untergeordneten Tabelle Klasse.
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

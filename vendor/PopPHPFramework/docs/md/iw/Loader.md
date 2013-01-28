@@ -4,22 +4,37 @@ Pop PHP Framework
 Documentation : Loader
 ----------------------
 
-מרכיב Loader הוא כנראה מרכיב בסיסי ביותר, אך החשוב ביותר של המסגרת PHP פופ. זה מרכיב שמניע יכולות autoloading של מסגרת, ויישום שלך יכול בקלות להיות רשומים AUTOLOADER לטעון כיתות משלך. זה במו מחליף את כל ההצהרות הישנות כוללות פעם היה לך בכל מקום. עכשיו, כל מה שאתה צריך הוא אחד דורשים הצהרה של "bootstrap.php" בראש ואתה טוב ללכת. כברירת מחדל, קובץ bootstrap מכיל התייחסות לשיעור הנדרש AUTOLOADER של המסגרת ולאחר מכן טוען את זה. בתוך הקובץ bootstrap, אתה יכול בקלות לבצע פעולות טעינה אחרות, כגון רישום מרחב שם היישום שלך עם AUTOLOADER, או טוען קובץ classmap כדי להקטין את זמן הטעינה.
+Home
 
-<pre>
-// Instantiate the autoloader object
-$autoloader = new Pop\Loader\Autoloader();
-$autoloader->splAutoloadRegister();
+×ž×¨×›×™×‘ Loader ×”×•×? ×›× ×¨×?×” ×”×ž×¨×›×™×‘ ×”×‘×¡×™×¡×™
+×‘×™×•×ª×¨, ×?×š ×”×—×©×•×‘ ×‘×™×•×ª×¨ ×©×œ ×ž×¡×’×¨×ª PHP ×¤×•×¤. ×–×”
+×”×ž×¨×›×™×‘ ×©×ž× ×™×¢ ×?×ª ×”×™×›×•×œ×•×ª ×©×œ ×ž×¡×’×¨×ª autoloading,
+×•×”×™×™×©×•×? ×©×œ×š ×™×›×•×œ ×‘×§×œ×•×ª ×œ×”×™×•×ª ×¨×©×•×?
+×‘autoloader ×œ×˜×¢×•×Ÿ ×”×©×™×¢×•×¨×™×? ×©×œ×š. ×–×” ×œ×‘×“×•
+×ž×—×œ×™×£ ×?×ª ×›×œ ×”×”×¦×”×¨×•×ª ×”×?×œ×” ×™×©× ×•×ª ×›×•×œ×œ×•×ª
+×?×ª×” ×¨×’×™×œ ×™×© ×‘×›×œ ×”×ž×§×•×?. ×¢×›×©×™×•, ×›×œ ×ž×” ×©×?×ª×”
+×¦×¨×™×š ×–×” ×?×—×“ ×“×•×¨×© ×”×¦×”×¨×” ×©×œ 'bootstrap.php' ×‘×¨×?×©
+×•×?×ª×” ×˜×•×‘ ×œ×œ×›×ª. ×›×‘×¨×™×¨×ª ×ž×—×“×œ, ×”×§×•×‘×¥ ×ž×›×™×œ
+bootstrap ×”×ª×™×™×—×¡×•×ª ×”× ×“×¨×©×ª ×œ×›×™×ª×ª autoloader ×©×œ
+×”×ž×¡×’×¨×ª ×•×œ×?×—×¨ ×ž×›×Ÿ ×˜×•×¢×Ÿ ×?×ª ×–×”. ×‘×ª×•×š ×§×•×‘×¥
+bootstrap, ×?×ª×” ×™×›×•×œ ×‘×§×œ×•×ª ×œ×‘×¦×¢ ×¤×¢×•×œ×•×ª ×˜×¢×™× ×”
+×?×—×¨×•×ª, ×›×’×•×Ÿ ×¨×™×©×•×? ×ž×¨×—×‘ ×”×©×ž×•×ª ×©×œ ×”×™×™×©×•×?
+×©×œ×š ×¢×? ×”×˜×¢×™× ×” ×?×•×˜×•×ž×˜×™×ª, ×?×• ×˜×¢×™× ×ª ×§×•×‘×¥
+classmap ×›×“×™ ×œ×”×§×˜×™×Ÿ ×?×ª ×–×ž×Ÿ ×˜×¢×™× ×”.
 
-$autoloader->register('YourLib', '../vendor/YourLib/src');
-$autoloader->loadClassMap('../vendor/YourLib/classmap.php');
-</pre>
+    // Instantiate the autoloader object
+    $autoloader = new Pop\Loader\Autoloader();
+    $autoloader->splAutoloadRegister();
 
-ואם אתה צריך קובץ classmap שנוצר, המרכיב Loader יש פונקציונליות בקלות ליצור קובץ classmap גם לך.
+    $autoloader->register('YourLib', '../vendor/YourLib/src');
+    $autoloader->loadClassMap('../vendor/YourLib/classmap.php');
 
-<pre>
-// Generate a classmap file
-Pop\Loader\Classmap::generate('your/src/folder', 'your/src/folder/classmap.php');
-</pre>
+×•×?×? ×?×ª×” ×¦×¨×™×š ×§×•×‘×¥ classmap × ×•×¦×¨, ×¨×›×™×‘ Loader ×™×©
+×”×¤×•× ×§×¦×™×•× ×œ×™ ×§×œ ×›×“×™ ×œ×™×¦×•×¨ ×§×•×‘×¥ classmap ×’×?
+×œ×š.
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Generate a classmap file
+    Pop\Loader\Classmap::generate('your/src/folder', 'your/src/folder/classmap.php');
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

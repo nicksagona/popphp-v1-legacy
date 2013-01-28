@@ -4,21 +4,28 @@ Pop PHP Framework
 Documentation : Locale
 ----------------------
 
-El componente de configuración regional proporciona compatibilidad con el idioma y la funcionalidad de traducción para su aplicación. Usted puede simplemente crear y cargar sus propios archivos XML de las traducciones de idiomas requeridos en el formato que se perfiladas en las propias Pop archivos de idioma XML.
+Home
 
-Usted puede cargar sus propios archivos de traducción de idiomas, siempre y cuando el se adhieren al estándar XML creado en la carpeta de Pop / locale / Datos.
+El componente de configuraciÃ³n regional proporciona apoyo lingÃ¼Ã­stico
+y funcionalidad de traducciÃ³n para su aplicaciÃ³n. Usted puede
+simplemente crear y cargar sus propios archivos XML de las traducciones
+de la lengua requeridos en el formato que se describen en propias radios
+de archivos de idioma XML.
 
-<pre>
-use Pop\Locale\Locale;
+Usted puede cargar sus propios archivos de traducciÃ³n de idiomas,
+siempre y cuando el adherirse a la norma XML creado en la carpeta Pop /
+locale / Datos.
 
-// Create a Locale object to translate to French, using your own language file.
-$lang = Locale::factory('fr')->loadFile('folder/mylangfile.xml);
+    use Pop\Locale\Locale;
 
-// Will output 'Ce champ est obligatoire.'
-$lang->_e('This field is required.');
+    // Create a Locale object to translate to French, using your own language file.
+    $lang = Locale::factory('fr')->loadFile('folder/mylangfile.xml);
 
-// Will return and output 'Ce champ est obligatoire.'
-echo $lang->__('This field is required.');
-</pre>
+    // Will output 'Ce champ est obligatoire.'
+    $lang->_e('This field is required.');
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    // Will return and output 'Ce champ est obligatoire.'
+    echo $lang->__('This field is required.');
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.

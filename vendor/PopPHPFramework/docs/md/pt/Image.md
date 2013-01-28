@@ -4,20 +4,26 @@ Pop PHP Framework
 Documentation : Image
 ---------------------
 
-O componente de imagem fornece um invólucro API normalizado para a criação e manipulação de imagens que alavanca GD do PHP e extensões Imagick, bem como o formato de imagem SVG. Dentro deste componente é um API característica-rico para a realização de muitos diferentes baseadas na imagem funções. E, uma vez que a API é padronizado, se um projeto se move para um ambiente diferente, deve degradar facilmente.
+Home
 
-<pre>
-use Pop\Color\Rgb,
-    Pop\Image\Gd;
+O componente de imagem fornece um invÃ³lucro API padronizada para a
+criaÃ§Ã£o e manipulaÃ§Ã£o de imagens que utiliza GD do PHP e extensÃµes
+Imagick, bem como o formato de imagem SVG. Dentro deste componente Ã© um
+API rico em recursos para a realizaÃ§Ã£o de diversas funÃ§Ãµes baseados
+em imagem. E, desde que a API Ã© padronizado, se um projeto se desloca
+para um ambiente diferente, ele deve degradar facilmente.
 
-$image = new Gd('new-image.jpg', 640, 480, new Rgb(255, 0, 0));
-$image->setFillColor(new Rgb(0, 0, 255))
-      ->setStrokeColor(new Rgb(255, 255, 255))
-      ->setStrokeWidth(3)
-      ->addEllipse(320, 240, 150, 75)
-      ->output();
+    use Pop\Color\Space\Rgb,
+        Pop\Image\Gd;
 
-$image->destroy();
-</pre>
+    $image = new Gd('new-image.jpg', 640, 480, new Rgb(255, 0, 0));
+    $image->setFillColor(new Rgb(0, 0, 255))
+          ->setStrokeColor(new Rgb(255, 255, 255))
+          ->setStrokeWidth(3)
+          ->drawEllipse(320, 240, 150, 75)
+          ->output();
 
-(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All Rights Reserved.
+    $image->destroy();
+
+\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+Rights Reserved.
