@@ -110,6 +110,7 @@ class File
         'js'     => 'text/plain',
         'json'   => 'text/plain',
         'log'    => 'text/plain',
+        'md'     => 'text/plain',
         'mov'    => 'video/quicktime',
         'mp2'    => 'audio/mpeg',
         'mp3'    => 'audio/mpeg',
@@ -193,12 +194,11 @@ class File
 
         // Check to see if the permissions are set correctly.
         if ((self::checkPermissions(dirname($file))) != 777) {
-            throw new Exception('Error: Permission denied.');
+            throw new Exception('Error: Permission denied. The upload directory is not writable.');
         }
 
         // Move the uploaded file, creating a file object with it.
         if (move_uploaded_file($upload, $file)) {
-            chmod($file, 0777);
             $fileSize = filesize($file);
 
             // Check the file size requirement.
@@ -485,11 +485,9 @@ class File
      */
     public function copy($new)
     {
-        // Check to see if the new file already exists, and if the permissions are set correctly.
+        // Check to see if the new file already exists.
         if (file_exists($new)) {
             throw new Exception('Error: The file already exists.');
-        } else if ((self::checkPermissions(dirname($new))) != 777) {
-            throw new Exception('Error: Permission denied.');
         }
 
         if (file_exists($this->fullpath)) {
@@ -497,7 +495,6 @@ class File
         } else {
             file_put_contents($new, $this->output);
         }
-        chmod($new, 0777);
         $this->setFile($new);
 
         return $this;
@@ -512,11 +509,9 @@ class File
      */
     public function move($new)
     {
-        // Check to see if the new file already exists, and if the permissions are set correctly.
+        // Check to see if the new file already exists.
         if (file_exists($new)) {
             throw new Exception('Error: The file already exists.');
-        } else if ((self::checkPermissions(dirname($new)) != 777) || ($this->perm['dir'] != 777)) {
-            throw new Exception('Error: Permission denied.');
         }
 
         if (file_exists($this->fullpath)) {
@@ -524,7 +519,6 @@ class File
         } else {
             file_put_contents($new, $this->output);
         }
-        chmod($new, 0777);
         $this->setFile($new);
 
         return $this;
@@ -585,12 +579,8 @@ class File
      */
     public function delete()
     {
-        // Check to make sure the file exists and the permissions are set correctly before attempting to delete it from disk.
+        // Check to make sure the file exists.
         if (file_exists($this->fullpath)) {
-            if ((null !== $this->perm['file']) && ($this->perm['file'] != 777)) {
-                throw new Exception('Error: Permission denied.');
-            }
-
             unlink($this->fullpath);
 
             // Reset file object properties.
