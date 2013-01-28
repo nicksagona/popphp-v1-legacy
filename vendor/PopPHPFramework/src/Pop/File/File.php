@@ -76,12 +76,6 @@ class File
     protected $output = null;
 
     /**
-     * Directory and file permissions, based on chmod, when and if applicable.
-     * @var array
-     */
-    protected $perm = array();
-
-    /**
      * Array of allowed file types.
      * @var array
      */
@@ -193,7 +187,7 @@ class File
         }
 
         // Check to see if the permissions are set correctly.
-        if ((self::checkPermissions(dirname($file))) != 777) {
+        if (!is_writable(dirname($file))) {
             throw new Exception('Error: Permission denied. The upload directory is not writable.');
         }
 
@@ -378,36 +372,146 @@ class File
     }
 
     /**
-     * Get the permissions of the file.
-     *
-     * @param  boolean $dir
-     * @return int|boolean
-     */
-    public function getMode($dir = false)
-    {
-        return ($dir) ? $this->perm['dir'] : $this->perm['file'];
-    }
-
-    /**
      * Change the permissions of the file.
      *
      * @param  mixed    $mode
-     * @param  boolean  $dir
-     * @return void
+     * @return \Pop\File\File
      */
-    public function setMode($mode, $dir = false)
+    public function setPermissions($mode)
     {
-        if ($dir) {
-            if (file_exists($this->dir)) {
-                chmod($this->dir, $mode);
-                $this->setFile($this->fullpath);
+        if (file_exists($this->fullpath)) {
+            if (is_numeric($mode) && (strlen($mode) == 3)) {
+                $mode = '0' . $mode;
             }
-        } else {
+            chmod($this->fullpath, $mode);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Change the permissions of the directory the file is in.
+     *
+     * @param  mixed    $mode
+     * @return \Pop\File\File
+     */
+    public function setDirPermissions($mode)
+    {
+        if (file_exists($this->dir)) {
+            if (is_numeric($mode) && (strlen($mode) == 3)) {
+                $mode = '0' . $mode;
+            }
+            chmod($this->dir, $mode);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the permissions of the file.
+     *
+     * @return string
+     */
+    public function getPermissions()
+    {
+        return (DIRECTORY_SEPARATOR == '/') ?
+            substr(sprintf('%o', fileperms($this->fullpath)), -3) :
+            null;
+    }
+
+    /**
+     * Get the permissions of the directory the file is in.
+     *
+     * @return string
+     */
+    public function getDirPermissions()
+    {
+        return (DIRECTORY_SEPARATOR == '/') ?
+            substr(sprintf('%o', fileperms($this->dir)), -3) :
+            null;
+    }
+
+    /**
+     * Get the owner of the file. Works on POSIX file systems only
+     *
+     * @return array
+     */
+    public function getOwner()
+    {
+        $owner = array();
+        if (DIRECTORY_SEPARATOR == '/') {
+            $owner = (file_exists($this->fullpath)) ?
+                posix_getpwuid(fileowner($this->fullpath)) :
+                $this->getUser();
+        }
+
+        return $owner;
+    }
+
+    /**
+     * Get the owner of the file. Works on POSIX file systems only
+     *
+     * @return array
+     */
+    public function getDirOwner()
+    {
+        $owner = array();
+        if (DIRECTORY_SEPARATOR == '/') {
+            $owner = (file_exists($this->dir)) ?
+                posix_getpwuid(fileowner($this->dir)) :
+                $this->getUser();
+        }
+
+        return $owner;
+    }
+
+    /**
+     * Get the owner of the file. Works on POSIX file systems only
+     *
+     * @return array
+     */
+    public function getGroup()
+    {
+        $group = array();
+        if (DIRECTORY_SEPARATOR == '/') {
             if (file_exists($this->fullpath)) {
-                chmod($this->fullpath, $mode);
-                $this->setFile($this->fullpath);
+                $group = posix_getgrgid(filegroup($this->fullpath));
             }
         }
+
+        return $group;
+    }
+
+    /**
+     * Get the owner of the file. Works on POSIX file systems only
+     *
+     * @return array
+     */
+    public function getDirGroup()
+    {
+        $group = array();
+        if (DIRECTORY_SEPARATOR == '/') {
+            if (file_exists($this->dir)) {
+                $group = posix_getgrgid(filegroup($this->dir));
+            }
+        }
+
+        return $group;
+    }
+
+    /**
+     * Get current user. Works on POSIX file systems only
+     *
+     * @return array
+     */
+    public function getUser()
+    {
+        $me = array();
+        if (DIRECTORY_SEPARATOR == '/') {
+            $me = posix_getpwuid(posix_geteuid());
+        }
+
+        return $me;
     }
 
     /**
@@ -593,24 +697,6 @@ class File
     }
 
     /**
-     * Check file or directory permissions.
-     *
-     * @param  string $file
-     * @throws Exception
-     * @return string
-     */
-    protected static function checkPermissions($file)
-    {
-        if (DIRECTORY_SEPARATOR == '/') {
-            $perm = substr(sprintf('%o', fileperms($file)), -3);
-        } else {
-            $perm = (is_writable($file)) ? 777 : 644;
-        }
-
-        return $perm;
-    }
-
-    /**
      * Set the file and its properties.
      *
      * @param  string $file
@@ -632,18 +718,9 @@ class File
         $this->basename = $file_parts['basename'];
         $this->filename = $file_parts['filename'];
         $this->ext = (isset($file_parts['extension'])) ? $file_parts['extension'] : null;
-        $this->perm['dir'] = self::checkPermissions($this->dir);
 
         // Check if the file exists, and set the size and permissions accordingly.
-        if (file_exists($file)) {
-            // Check if the server is a Linux/Unix server or a Windows server.
-            $this->perm['file'] = self::checkPermissions($this->fullpath);
-            $this->size = filesize($file);
-        } else {
-            // Check if the server is a Linux/Unix server or a Windows server.
-            $this->perm['file'] = 777;
-            $this->size = 0;
-        }
+        $this->size = (file_exists($file)) ? filesize($file) : 0;
 
         // Check to see if the file is an accepted file format.
         if ((null !== $this->allowed) && (null !== $this->ext) && (count($this->allowed) > 0) && (!array_key_exists(strtolower($this->ext), $this->allowed))) {

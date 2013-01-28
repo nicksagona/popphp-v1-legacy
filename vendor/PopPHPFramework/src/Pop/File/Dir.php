@@ -162,7 +162,6 @@ class Dir
         return realpath($sysTemp);
     }
 
-
     /**
      * Static method to return the upload temp directory.
      *
@@ -196,25 +195,81 @@ class Dir
     /**
      * Get the permissions of the directory.
      *
-     * @return int
+     * @return string
      */
-    public function getMode()
+    public function getPermissions()
     {
-        return substr(sprintf('%o', fileperms($this->path)), -3);
+        return (DIRECTORY_SEPARATOR == '/') ?
+            substr(sprintf('%o', fileperms($this->path)), -3) :
+            null;
     }
 
     /**
      * Change the permissions of the directory.
      *
      * @param  int $mode
-     * @return void
+     * @return \Pop\File\Dir
      */
-    public function setMode($mode)
+    public function setPermissions($mode)
     {
         if (file_exists($this->path)) {
+            if (is_numeric($mode) && (strlen($mode) == 3)) {
+                $mode = '0' . $mode;
+            }
             chmod($this->path, $mode);
             self::__construct($this->path, $this->full, $this->rec);
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the owner of the file. Works on POSIX file systems only
+     *
+     * @return array
+     */
+    public function getOwner()
+    {
+        $owner = array();
+        if (DIRECTORY_SEPARATOR == '/') {
+            if (file_exists($this->path)) {
+                $owner = posix_getpwuid(fileowner($this->path));
+            }
+        }
+
+        return $owner;
+    }
+
+    /**
+     * Get the owner of the file. Works on POSIX file systems only
+     *
+     * @return array
+     */
+    public function getGroup()
+    {
+        $group = array();
+        if (DIRECTORY_SEPARATOR == '/') {
+            if (file_exists($this->path)) {
+                $group = posix_getgrgid(filegroup($this->path));
+            }
+        }
+
+        return $group;
+    }
+
+    /**
+     * Get current user. Works on POSIX file systems only
+     *
+     * @return array
+     */
+    public function getUser()
+    {
+        $me = array();
+        if (DIRECTORY_SEPARATOR == '/') {
+            $me = posix_getpwuid(posix_geteuid());
+        }
+
+        return $me;
     }
 
     /**
