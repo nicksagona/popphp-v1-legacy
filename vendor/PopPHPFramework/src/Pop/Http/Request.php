@@ -162,6 +162,13 @@ class Request
             foreach ($_SERVER as $key => $value) {
                 if (substr($key, 0, 5) == 'HTTP_') {
                     $key = ucfirst(strtolower(str_replace('HTTP_', '', $key)));
+                    if (strpos($key, '_') !== false) {
+                        $ary = explode('_', $key);
+                        foreach ($ary as $k => $v){
+                            $ary[$k] = ucfirst(strtolower($v));
+                        }
+                        $key = implode('-', $ary);
+                    }
                     $this->headers[$key] = $value;
                 }
             }
