@@ -26,6 +26,7 @@ Released on January 29, 2013
 * Improve File component with better file owner/group/permissions API
 * Add Csrf and Captcha elements to the Form component
 * Refactor and improve Graph component
+* Add header support to the Http\Request class in the Http component
 * Renamed the Locale component to I18n. Refactor and improve the component.
 * Refactor, clean up and improve the API of the Image component
     - Add Captcha image class
