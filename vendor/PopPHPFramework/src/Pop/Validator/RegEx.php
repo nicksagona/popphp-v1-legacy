@@ -15,7 +15,7 @@
  */
 namespace Pop\Validator;
 
-use Pop\Locale\Locale;
+use Pop\I18n\I18n;
 
 /**
  * RegEx validator class
@@ -46,9 +46,9 @@ class RegEx extends Validator
         // Set the default message
         if (null === $this->defaultMessage) {
             if ($this->condition) {
-                $this->defaultMessage = Locale::factory()->__('The value format is not correct.');
+                $this->defaultMessage = I18n::factory()->__('The value format is not correct.');
             } else {
-                $this->defaultMessage = Locale::factory()->__('The value format is not correct.');
+                $this->defaultMessage = I18n::factory()->__('The value format is not correct.');
             }
         }
 

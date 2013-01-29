@@ -120,7 +120,7 @@ class Select extends \Pop\Form\Element
     public function __construct($name, $value = null, $marked = null, $indent = null)
     {
         $val = null;
-        $lang = new \Pop\Locale\Locale();
+        $lang = new \Pop\I18n\I18n();
 
         // If the value flag is YEAR-based, calculate the year range for the select drop-down menu.
         if (is_string($value) && (strpos($value, 'YEAR') !== false)) {

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : I18n</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            El componente de configuración regional proporciona apoyo lingüístico y funcionalidad de traducción para su aplicación. Usted puede simplemente crear y cargar sus propios archivos XML de las traducciones de la lengua requeridos en el formato que se describen en propias radios de archivos de idioma XML.
+        </p>
+        <p>
+            Usted puede cargar sus propios archivos de traducción de idiomas, siempre y cuando el adherirse a la norma XML creado en la carpeta Pop / locale / Datos.
+        </p>
+<pre>
+use Pop&#92;I18n&#92;I18n;
+
+// Create a I18n object to translate to French, using your own language file.
+$lang = I18n::factory('fr')-&gt;loadFile('folder/mylangfile.xml);
+
+// Will output 'Ce champ est obligatoire.'
+$lang-&gt;_e('This field is required.');
+
+// Will return and output 'Ce champ est obligatoire.'
+echo $lang-&gt;__('This field is required.');
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2013 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

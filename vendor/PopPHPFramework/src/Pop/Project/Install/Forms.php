@@ -40,7 +40,7 @@ class Forms
      */
     public static function install($install)
     {
-        echo \Pop\Locale\Locale::factory()->__('Creating form class files...') . PHP_EOL;
+        echo \Pop\I18n\I18n::factory()->__('Creating form class files...') . PHP_EOL;
 
         // Create form class folder
         $formDir = $install->project->base . '/module/' . $install->project->name . '/src/' . $install->project->name . '/Form';

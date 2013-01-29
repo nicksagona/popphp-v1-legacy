@@ -15,7 +15,7 @@
  */
 namespace Pop\Validator;
 
-use Pop\Locale\Locale;
+use Pop\I18n\I18n;
 
 /**
  * Included validator class
@@ -46,9 +46,9 @@ class Included extends Validator
         // Set the default message
         if (null === $this->defaultMessage) {
             if ($this->condition) {
-                $this->defaultMessage = Locale::factory()->__('The value must be included.');
+                $this->defaultMessage = I18n::factory()->__('The value must be included.');
             } else {
-                $this->defaultMessage = Locale::factory()->__('The value must not be included.');
+                $this->defaultMessage = I18n::factory()->__('The value must not be included.');
             }
         }
 

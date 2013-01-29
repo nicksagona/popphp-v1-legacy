@@ -289,7 +289,7 @@ class Element extends Child
             }
 
             if (empty($curElemValue) && ($curElemValue != '0')) {
-                $this->errors[] = \Pop\Locale\Locale::factory()->__('This field is required.');
+                $this->errors[] = \Pop\I18n\I18n::factory()->__('This field is required.');
             }
         }
 

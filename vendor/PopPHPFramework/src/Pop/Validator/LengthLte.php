@@ -15,7 +15,7 @@
  */
 namespace Pop\Validator;
 
-use Pop\Locale\Locale;
+use Pop\I18n\I18n;
 
 /**
  * Length less than or equal validator class
@@ -46,9 +46,9 @@ class LengthLte extends Validator
         // Set the default message
         if (null === $this->defaultMessage) {
             if ($this->condition) {
-                $this->defaultMessage = Locale::factory()->__('The value length must be less than or equal to %1.', $this->value);
+                $this->defaultMessage = I18n::factory()->__('The value length must be less than or equal to %1.', $this->value);
             } else {
-                $this->defaultMessage = Locale::factory()->__('The value length must not be less than or equal to %1.', $this->value);
+                $this->defaultMessage = I18n::factory()->__('The value length must not be less than or equal to %1.', $this->value);
             }
         }
 

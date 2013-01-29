@@ -15,7 +15,7 @@
  */
 namespace Pop\Validator;
 
-use Pop\Locale\Locale;
+use Pop\I18n\I18n;
 
 /**
  * Is subnet of validator class
@@ -53,9 +53,9 @@ class IsSubnetOf extends Validator
         // Set the default message
         if (null === $this->defaultMessage) {
             if ($this->condition) {
-                $this->defaultMessage = Locale::factory()->__('The value must be part of the subnet %1.', $this->value);
+                $this->defaultMessage = I18n::factory()->__('The value must be part of the subnet %1.', $this->value);
             } else {
-                $this->defaultMessage = Locale::factory()->__('The value must not be part of the subnet %1.', $this->value);
+                $this->defaultMessage = I18n::factory()->__('The value must not be part of the subnet %1.', $this->value);
             }
         }
 

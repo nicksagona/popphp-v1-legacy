@@ -41,7 +41,7 @@ class Controllers
      */
     public static function install($install, $installDir)
     {
-        echo \Pop\Locale\Locale::factory()->__('Creating controller class files...') . PHP_EOL;
+        echo \Pop\I18n\I18n::factory()->__('Creating controller class files...') . PHP_EOL;
 
         // Make the controller folder
         $module = (substr($install->project->base, -1) == '/') ? 'module/' : '/module/';

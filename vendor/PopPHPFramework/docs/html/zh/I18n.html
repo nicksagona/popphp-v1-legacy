@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : I18n</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            区域设置组件提供语言支持和翻译功能，为您的应用程序。你可以简单地创建和加载自己的XML文件的格式，流行的XML语言文件中列出所需的语言翻译。
+        </p>
+        <p>
+            您可以加载您自己的语言翻译文件，只要坚持流行/现场/ Data文件夹中建立的XML标准。
+        </p>
+<pre>
+use Pop&#92;I18n&#92;I18n;
+
+// Create a I18n object to translate to French, using your own language file.
+$lang = I18n::factory('fr')-&gt;loadFile('folder/mylangfile.xml);
+
+// Will output 'Ce champ est obligatoire.'
+$lang-&gt;_e('This field is required.');
+
+// Will return and output 'Ce champ est obligatoire.'
+echo $lang-&gt;__('This field is required.');
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2013 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

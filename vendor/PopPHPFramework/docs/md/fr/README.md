@@ -36,9 +36,9 @@ exploiter toute la puissance du cadre et PHP.
 -   Geo
 -   Graph
 -   Http
+-   I18n
 -   Image
 -   Loader
--   Locale
 -   Log
 -   Mail
 -   Mvc

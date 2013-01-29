@@ -15,7 +15,7 @@
  */
 namespace Pop\Feed\Format;
 
-use Pop\Locale\Locale;
+use Pop\I18n\I18n;
 
 /**
  * Abstract feed format class
@@ -147,28 +147,28 @@ abstract class AbstractFormat
         if ($timeDiff < 3600) {
             $elapsedTime = round($timeDiff / 60);
             if ($elapsedTime <= 0) {
-                $timePhrase = Locale::factory()->__('A few seconds ago');
+                $timePhrase = I18n::factory()->__('A few seconds ago');
             } else if ($elapsedTime == 1) {
-                $timePhrase = Locale::factory()->__('1 minute ago');
+                $timePhrase = I18n::factory()->__('1 minute ago');
             } else {
-                $timePhrase = Locale::factory()->__('%1 minutes ago', $elapsedTime);
+                $timePhrase = I18n::factory()->__('%1 minutes ago', $elapsedTime);
             }
             // If less than a day.
         } else if (($timeDiff >= 3600) && ($timeDiff < 86400)) {
             $elapsedTime = round(($timeDiff / 60) / 60);
-            $timePhrase = ($elapsedTime == 1) ? Locale::factory()->__('1 hour ago') : Locale::factory()->__('%1 hours ago', $elapsedTime);
+            $timePhrase = ($elapsedTime == 1) ? I18n::factory()->__('1 hour ago') : I18n::factory()->__('%1 hours ago', $elapsedTime);
             // If less than a month.
         } else if (($timeDiff >= 86400) && ($timeDiff < 2592000)) {
             $elapsedTime = round(((($timeDiff / 60) / 60) / 24));
-            $timePhrase = ($elapsedTime == 1) ? Locale::factory()->__('1 day ago') : Locale::factory()->__('%1 days ago', $elapsedTime);
+            $timePhrase = ($elapsedTime == 1) ? I18n::factory()->__('1 day ago') : I18n::factory()->__('%1 days ago', $elapsedTime);
             // If more than a month, less than 2 years
         } else if (($timeDiff >= 2592000) && ($timeDiff < 63072000)) {
             $elapsedTime = round((((($timeDiff / 60) / 60) / 24) / 30));
-            $timePhrase = ($elapsedTime == 1) ? Locale::factory()->__('1 month ago') : Locale::factory()->__('%1 months ago', $elapsedTime);
+            $timePhrase = ($elapsedTime == 1) ? I18n::factory()->__('1 month ago') : I18n::factory()->__('%1 months ago', $elapsedTime);
             // If more than 2 years ago
         } else {
             $elapsedTime = round((((($timeDiff / 60) / 60) / 24 / 30) / 12));
-            $timePhrase = Locale::factory()->__('%1 years ago', $elapsedTime);
+            $timePhrase = I18n::factory()->__('%1 years ago', $elapsedTime);
         }
 
         // Return the calculated elapsed time.

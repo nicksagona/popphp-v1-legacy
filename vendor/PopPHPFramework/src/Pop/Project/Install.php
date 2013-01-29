@@ -16,7 +16,7 @@
 namespace Pop\Project;
 
 use Pop\File\File,
-    Pop\Locale\Locale;
+    Pop\I18n\I18n;
 
 /**
  * Project install class
@@ -61,7 +61,7 @@ class Install
 
         $input = self::cliInput();
         if ($input == 'n') {
-            echo Locale::factory()->__('Aborted.') . PHP_EOL . PHP_EOL;
+            echo I18n::factory()->__('Aborted.') . PHP_EOL . PHP_EOL;
             exit(0);
         }
 
@@ -71,7 +71,7 @@ class Install
 
         // Check if a project folder already exists.
         if (file_exists($install->project->name)) {
-            echo wordwrap(Locale::factory()->__('Project folder exists. This may overwrite any project files you may already have under that project folder.'), 70, PHP_EOL) . PHP_EOL;
+            echo wordwrap(I18n::factory()->__('Project folder exists. This may overwrite any project files you may already have under that project folder.'), 70, PHP_EOL) . PHP_EOL;
             $input = self::cliInput();
         } else {
             $input = 'y';
@@ -79,7 +79,7 @@ class Install
 
         // If 'No', abort
         if ($input == 'n') {
-            echo Locale::factory()->__('Aborted.') . PHP_EOL . PHP_EOL;
+            echo I18n::factory()->__('Aborted.') . PHP_EOL . PHP_EOL;
             exit(0);
         // Else, continue
         } else {
@@ -90,8 +90,8 @@ class Install
             // to test and install the database.
             if (isset($install->databases)) {
                 $databases =  $install->databases->asArray();
-                echo Locale::factory()->__('Database credentials and schema detected.') . PHP_EOL;
-                $input = self::cliInput(Locale::factory()->__('Test and install the database(s)?') . ' (Y/N) ');
+                echo I18n::factory()->__('Database credentials and schema detected.') . PHP_EOL;
+                $input = self::cliInput(I18n::factory()->__('Test and install the database(s)?') . ' (Y/N) ');
                 $db = ($input == 'n') ? false : true;
             }
 
@@ -103,12 +103,12 @@ class Install
                 error_reporting(E_ERROR);
 
                 // Test the databases
-                echo Locale::factory()->__('Testing the database(s)...') . PHP_EOL;
+                echo I18n::factory()->__('Testing the database(s)...') . PHP_EOL;
 
                 foreach ($databases as $dbname => $db) {
-                    echo Locale::factory()->__('Testing') . ' \'' . $dbname . '\'...' . PHP_EOL;
+                    echo I18n::factory()->__('Testing') . ' \'' . $dbname . '\'...' . PHP_EOL;
                     if (!isset($db['type']) || !isset($db['database'])) {
-                        echo Locale::factory()->__('The database type and database name must be set for the database ') . '\'' . $dbname . '\'.' . PHP_EOL . PHP_EOL;
+                        echo I18n::factory()->__('The database type and database name must be set for the database ') . '\'' . $dbname . '\'.' . PHP_EOL . PHP_EOL;
                         exit(0);
                     }
                     $check = Install\Dbs::check($db);
@@ -116,8 +116,8 @@ class Install
                         echo $check . PHP_EOL . PHP_EOL;
                         exit(0);
                     } else {
-                        echo Locale::factory()->__('Database') . ' \'' . $dbname . '\' passed.' . PHP_EOL;
-                        echo Locale::factory()->__('Installing database') .' \'' . $dbname . '\'...' . PHP_EOL;
+                        echo I18n::factory()->__('Database') . ' \'' . $dbname . '\' passed.' . PHP_EOL;
+                        echo I18n::factory()->__('Installing database') .' \'' . $dbname . '\'...' . PHP_EOL;
                         $tables = Install\Dbs::install($dbname, $db, $installDir, $install);
                         if (count($tables) > 0) {
                             $dbTables = array_merge($dbTables, $tables);
@@ -157,7 +157,7 @@ class Install
             // Create 'bootstrap.php' file
             Install\Bootstrap::install($install);
 
-            echo Locale::factory()->__('Project install complete.') . PHP_EOL . PHP_EOL;
+            echo I18n::factory()->__('Project install complete.') . PHP_EOL . PHP_EOL;
         }
 
     }
@@ -171,8 +171,8 @@ class Install
     {
         $msg1 = "This process will create and install the base foundation of your project under the folder specified in the install file. Minimally, the install file should return a Pop\\Config object containing your project install settings, such as project name, folders, forms, controllers, views and any database credentials.";
         $msg2 = "Besides creating the base folders and files for you, one of the main benefits is ability to test and install the database and the corresponding configuration and class files. You can take advantage of this by having the database SQL files in the same folder as your install file, like so:";
-        echo wordwrap(Locale::factory()->__($msg1), 70, PHP_EOL) . PHP_EOL . PHP_EOL;
-        echo wordwrap(Locale::factory()->__($msg2), 70, PHP_EOL) . PHP_EOL . PHP_EOL;
+        echo wordwrap(I18n::factory()->__($msg1), 70, PHP_EOL) . PHP_EOL . PHP_EOL;
+        echo wordwrap(I18n::factory()->__($msg2), 70, PHP_EOL) . PHP_EOL . PHP_EOL;
         echo 'projectname' . DIRECTORY_SEPARATOR . 'project.install.php' . PHP_EOL;
         echo 'projectname' . DIRECTORY_SEPARATOR . '*.sql' . PHP_EOL . PHP_EOL;
     }
@@ -184,13 +184,13 @@ class Install
      */
     public static function cliHelp()
     {
-        echo ' -c --check                     ' . Locale::factory()->__('Check the current configuration for required dependencies') . PHP_EOL;
-        echo ' -h --help                      ' . Locale::factory()->__('Display this help') . PHP_EOL;
-        echo ' -i --install file.php          ' . Locale::factory()->__('Install a project based on the install file specified') . PHP_EOL;
-        echo ' -l --lang fr                   ' . Locale::factory()->__('Set the default language for the project') . PHP_EOL;
-        echo ' -m --map folder file.php       ' . Locale::factory()->__('Create a class map file from the source folder and save to the output file') . PHP_EOL;
-        echo ' -s --show                      ' . Locale::factory()->__('Show project install instructions') . PHP_EOL;
-        echo ' -v --version                   ' . Locale::factory()->__('Display version of Pop PHP Framework and latest available') . PHP_EOL . PHP_EOL;
+        echo ' -c --check                     ' . I18n::factory()->__('Check the current configuration for required dependencies') . PHP_EOL;
+        echo ' -h --help                      ' . I18n::factory()->__('Display this help') . PHP_EOL;
+        echo ' -i --install file.php          ' . I18n::factory()->__('Install a project based on the install file specified') . PHP_EOL;
+        echo ' -l --lang fr                   ' . I18n::factory()->__('Set the default language for the project') . PHP_EOL;
+        echo ' -m --map folder file.php       ' . I18n::factory()->__('Create a class map file from the source folder and save to the output file') . PHP_EOL;
+        echo ' -s --show                      ' . I18n::factory()->__('Show project install instructions') . PHP_EOL;
+        echo ' -v --version                   ' . I18n::factory()->__('Display version of Pop PHP Framework and latest available') . PHP_EOL . PHP_EOL;
     }
 
     /**
@@ -206,8 +206,8 @@ class Install
         if (!array_key_exists($i, self::$cliErrorCodes)) {
             $i = 0;
         }
-        $msg = Locale::factory()->__(self::$cliErrorCodes[$i]) . $arg . PHP_EOL .
-               Locale::factory()->__('Run \'.' . DIRECTORY_SEPARATOR . 'pop -h\' for help.') . PHP_EOL . PHP_EOL;
+        $msg = I18n::factory()->__(self::$cliErrorCodes[$i]) . $arg . PHP_EOL .
+               I18n::factory()->__('Run \'.' . DIRECTORY_SEPARATOR . 'pop -h\' for help.') . PHP_EOL . PHP_EOL;
         return $msg;
     }
 
@@ -219,7 +219,7 @@ class Install
      */
     public static function cliInput($msg = null)
     {
-        echo ((null === $msg) ? Locale::factory()->__('Continue?') . ' (Y/N) ' : $msg);
+        echo ((null === $msg) ? I18n::factory()->__('Continue?') . ' (Y/N) ' : $msg);
         $input = null;
 
         while (($input != 'y') && ($input != 'n')) {
@@ -242,13 +242,13 @@ class Install
      */
     public static function getBootstrap()
     {
-        $msg = Locale::factory()->__('Enter the folder where the \'bootstrap.php\' is located in relation to the current folder: ');
+        $msg = I18n::factory()->__('Enter the folder where the \'bootstrap.php\' is located in relation to the current folder: ');
         echo $msg;
         $input = null;
 
         while (!file_exists($input . '/bootstrap.php')) {
             if (null !== $input) {
-                echo Locale::factory()->__('Bootstrap file not found. Try again.') . PHP_EOL . $msg;
+                echo I18n::factory()->__('Bootstrap file not found. Try again.') . PHP_EOL . $msg;
             }
             $prompt = fopen("php://stdin", "r");
             $input = fgets($prompt, 255);
@@ -266,13 +266,13 @@ class Install
      */
     public static function getPop()
     {
-        $msg = Locale::factory()->__('Enter the folder where the \'vendor\' folder is contained in relation to the current folder: ');
+        $msg = I18n::factory()->__('Enter the folder where the \'vendor\' folder is contained in relation to the current folder: ');
         echo $msg;
         $input = null;
 
         while (!file_exists($input . '/vendor/PopPHPFramework/src/Pop/Loader/Autoloader.php')) {
             if (null !== $input) {
-                echo Locale::factory()->__('Pop PHP Framework not found. Try again.') . PHP_EOL . $msg;
+                echo I18n::factory()->__('Pop PHP Framework not found. Try again.') . PHP_EOL . $msg;
             }
             $prompt = fopen("php://stdin", "r");
             $input = fgets($prompt, 255);
@@ -291,7 +291,7 @@ class Install
      */
     public static function getLanguage($langs)
     {
-        $msg = Locale::factory()->__('Enter the two-letter code for the default language: ');
+        $msg = I18n::factory()->__('Enter the two-letter code for the default language: ');
         echo $msg;
         $lang = null;
 

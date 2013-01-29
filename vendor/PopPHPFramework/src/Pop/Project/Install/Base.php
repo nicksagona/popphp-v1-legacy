@@ -36,7 +36,7 @@ class Base
      */
     public static function install($install)
     {
-        echo \Pop\Locale\Locale::factory()->__('Creating base folder and file structure...') . PHP_EOL;
+        echo \Pop\I18n\I18n::factory()->__('Creating base folder and file structure...') . PHP_EOL;
 
         // Define folders to create
         $folders = array(

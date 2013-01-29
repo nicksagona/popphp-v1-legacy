@@ -15,7 +15,7 @@
  */
 namespace Pop\Validator;
 
-use Pop\Locale\Locale;
+use Pop\I18n\I18n;
 
 /**
  * Subnet validator class
@@ -46,9 +46,9 @@ class Subnet extends Validator
         // Set the default message
         if (null === $this->defaultMessage) {
             if ($this->condition) {
-                $this->defaultMessage = Locale::factory()->__('The value must be a valid IPv4 subnet.');
+                $this->defaultMessage = I18n::factory()->__('The value must be a valid IPv4 subnet.');
             } else {
-                $this->defaultMessage = Locale::factory()->__('The value must not be a valid IPv4 subnet.');
+                $this->defaultMessage = I18n::factory()->__('The value must not be a valid IPv4 subnet.');
             }
         }
 

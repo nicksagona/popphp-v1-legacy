@@ -15,7 +15,7 @@
  */
 namespace Pop\Validator;
 
-use Pop\Locale\Locale;
+use Pop\I18n\I18n;
 
 /**
  * Alphabetical validator class
@@ -46,9 +46,9 @@ class Alpha extends Validator
         // Set the default message
         if (null === $this->defaultMessage) {
             if ($this->condition) {
-                $this->defaultMessage = Locale::factory()->__('The value must only contain characters of the alphabet.');
+                $this->defaultMessage = I18n::factory()->__('The value must only contain characters of the alphabet.');
             } else {
-                $this->defaultMessage = Locale::factory()->__('The value must contain characters not in the alphabet.');
+                $this->defaultMessage = I18n::factory()->__('The value must contain characters not in the alphabet.');
             }
         }
 

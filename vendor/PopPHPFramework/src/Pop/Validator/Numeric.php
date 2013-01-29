@@ -15,7 +15,7 @@
  */
 namespace Pop\Validator;
 
-use Pop\Locale\Locale;
+use Pop\I18n\I18n;
 
 /**
  * Numeric validator class
@@ -46,9 +46,9 @@ class Numeric extends Validator
         // Set the default message
         if (null === $this->defaultMessage) {
             if ($this->condition) {
-                $this->defaultMessage = Locale::factory()->__('The value must be numeric.');
+                $this->defaultMessage = I18n::factory()->__('The value must be numeric.');
             } else {
-                $this->defaultMessage = Locale::factory()->__('The value must not be numeric.');
+                $this->defaultMessage = I18n::factory()->__('The value must not be numeric.');
             }
         }
 

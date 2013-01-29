@@ -15,7 +15,7 @@
  */
 namespace Pop\Validator;
 
-use Pop\Locale\Locale;
+use Pop\I18n\I18n;
 
 /**
  * Length between validator class
@@ -48,9 +48,9 @@ class LengthBetween extends Validator
         // Set the default message
         if (null === $this->defaultMessage) {
             if ($this->condition) {
-                $this->defaultMessage = Locale::factory()->__('The value length must be between %1 and %2.', $nums);
+                $this->defaultMessage = I18n::factory()->__('The value length must be between %1 and %2.', $nums);
             } else {
-                $this->defaultMessage = Locale::factory()->__('The value length must not be between %1 and %2.', $nums);
+                $this->defaultMessage = I18n::factory()->__('The value length must not be between %1 and %2.', $nums);
             }
         }
 

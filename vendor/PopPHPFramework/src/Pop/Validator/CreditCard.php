@@ -15,7 +15,7 @@
  */
 namespace Pop\Validator;
 
-use Pop\Locale\Locale;
+use Pop\I18n\I18n;
 
 /**
  * Credit card validator class
@@ -52,9 +52,9 @@ class CreditCard extends Validator
         // Set the default message
         if (null === $this->defaultMessage) {
             if ($this->condition) {
-                $this->defaultMessage = Locale::factory()->__('The value must be a valid credit card number.');
+                $this->defaultMessage = I18n::factory()->__('The value must be a valid credit card number.');
             } else {
-                $this->defaultMessage = Locale::factory()->__('The value must not be a valid credit card number.');
+                $this->defaultMessage = I18n::factory()->__('The value must not be a valid credit card number.');
             }
         }
 
