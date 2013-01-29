@@ -53,6 +53,13 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(123, $r->getPost('test'));
     }
 
+    public function testGetAndSetHeaders()
+    {
+        $r = new Request();
+        $this->assertNull($r->getHeader('Auth'));
+        $this->assertEquals(0, count($r->getHeaders()));
+    }
+
     public function testRequest()
     {
         $r = new Request();
