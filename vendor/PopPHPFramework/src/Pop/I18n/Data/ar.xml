@@ -18,7 +18,7 @@
     >
 ]>
 <language src="en" output="ar" name="Arabic" native="العربية">
-    <locale region="ae" name="United Arab Emirates" native="الأمارات العربية المتحدة">
+    <locale region="sa" name="Saudi Arabia" native="العربية السعودية">
         <text>
             <source>This field is required.</source>
             <output>هذا الحقل مطلوب.</output>
@@ -500,8 +500,8 @@
             <output>البوب ​​PHP إطار غير موجود. حاول مرة أخرى.</output>
         </text>
         <text>
-            <source>Enter the two-letter code for the default language:</source>
-            <output>أدخل الرمز المكون من حرفين للغة الافتراضية :</output>
+            <source>Enter the numeric code for the default language: </source>
+            <output> أدخل رمز رقمي للغة الافتراضية:</output>
         </text>
         <text>
             <source>Unknown error.</source>

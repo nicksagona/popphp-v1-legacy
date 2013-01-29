@@ -358,9 +358,6 @@
         <text>
             <source>The user is blocked.</source>
             <output>用户被封锁。</output>
-        </text>    <text>
-            <source></source>
-            <output></output>
         </text>
         <text>
             <source>The password was incorrect.</source>
@@ -503,8 +500,8 @@
             <output>流行PHP框架没有发现。再次尝试。</output>
         </text>
         <text>
-            <source>Enter the two-letter code for the default language:</source>
-            <output>输入默认语言的两个字母代码：</output>
+            <source>Enter the numeric code for the default language: </source>
+            <output>默认的语言输入数字代码： </output>
         </text>
         <text>
             <source>Unknown error.</source>

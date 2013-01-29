@@ -29,12 +29,13 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        define('POP_DEFAULT_LANG', 'fr');
+        define('POP_LANG', 'fr');
         $l = new I18n();
         $this->assertEquals('Ce champ est obligatoire.', $l->__('This field is required.'));
         $this->assertEquals('La valeur ne doit pas faire partie du 127.0.0 de sous-réseau.', $l->__('The value must not be part of the subnet %1.', '127.0.0'));
         $this->assertEquals('La valeur ne doit pas faire partie du 127.0.0 de sous-réseau.', $l->__('The value must not be part of the subnet %1.', array('127.0.0')));
         $this->assertEquals('fr', $l->getLanguage());
+        $this->assertEquals('fr', $l->getLocale());
     }
 
     public function testFactory()
@@ -63,8 +64,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 
     public function testGetLanguages()
     {
-        $l = new I18n();
-        $this->assertEquals(12, count($l->getLanguages()));
+        $this->assertEquals(12, count(I18n::getLanguages()));
     }
 
 }

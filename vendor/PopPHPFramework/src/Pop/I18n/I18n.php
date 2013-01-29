@@ -44,8 +44,10 @@ class I18n
      * Language content
      * @var array
      */
-    //protected $content = array('source' => array(), 'output' => array());
-    protected $content = array();
+    protected $content = array(
+        'source' => array(),
+        'output' => array()
+    );
 
     /**
      * Constructor
@@ -53,25 +55,21 @@ class I18n
      * Instantiate the I18n object.
      *
      * @param  string $lang
-     * @param  string $locale
      * @return \Pop\I18n\I18n
      */
-    public function __construct($lang = null, $locale = null)
+    public function __construct($lang = null)
     {
-        if (null !== $lang) {
-            $this->language = $lang;
-        } else if (defined('POP_DEFAULT_LANG')) {
-            $this->language = POP_DEFAULT_LANG;
-        } else {
-            $this->language = 'en';
+        if (null === $lang) {
+            $lang = (defined('POP_LANG')) ? POP_LANG : 'en-us';
         }
 
-        if (null !== $locale) {
-            $this->locale = $locale;
-        } else if (defined('POP_DEFAULT_LOCALE')) {
-            $this->locale = POP_DEFAULT_LOCALE;
+        if (strpos($lang, '-') !== false) {
+            $ary  = explode('-', $lang);
+            $this->language = $ary[0];
+            $this->locale = $ary[1];
         } else {
-            $this->locale = 'us';
+            $this->language = $lang;
+            $this->locale = $lang;
         }
 
         $this->loadCurrentLanguage();
@@ -81,12 +79,11 @@ class I18n
      * Static method to load the I18n object.
      *
      * @param  string $lang
-     * @param  string $locale
      * @return \Pop\I18n\I18n
      */
-    public static function factory($lang = null, $locale = null)
+    public static function factory($lang = null)
     {
-        return new self($lang, $locale);
+        return new self($lang);
     }
 
     /**
@@ -104,7 +101,7 @@ class I18n
      *
      * @return string
      */
-    public function getI18n()
+    public function getLocale()
     {
         return $this->locale;
     }
@@ -120,10 +117,23 @@ class I18n
     {
         if (file_exists($langFile)) {
             if (($xml =@ new \SimpleXMLElement($langFile, LIBXML_NOWARNING, true)) !== false) {
-                foreach ($xml->text as $text) {
-                    if (isset($text->source) && isset($text->output)) {
-                        $this->content['source'][] = (string)$text->source;
-                        $this->content['output'][] = (string)$text->output;
+                $key = 0;
+                $length = count($xml->locale);
+
+                // Find the locale node key
+                for ($i = 0; $i < $length; $i++) {
+                    if ($this->locale == (string)$xml->locale[$i]->attributes()->region) {
+                        $key = $i;
+                    }
+                }
+
+                // If the locale node matches the current locale
+                if ($this->locale == (string)$xml->locale[$key]->attributes()->region) {
+                    foreach ($xml->locale[$key]->text as $text) {
+                        if (isset($text->source) && isset($text->output)) {
+                            $this->content['source'][] = (string)$text->source;
+                            $this->content['output'][] = (string)$text->output;
+                        }
                     }
                 }
             } else {
@@ -164,7 +174,7 @@ class I18n
      * @param  string $dir
      * @return array
      */
-    public function getLanguages($dir = null)
+    public static function getLanguages($dir = null)
     {
         $langsAry = array();
         $langDirectory = (null !== $dir) ? $dir : __DIR__ . '/Data';
@@ -175,10 +185,32 @@ class I18n
             foreach ($files as $file) {
                 if ($file != '__.xml') {
                     if (($xml =@ new \SimpleXMLElement($langDirectory . '/' . $file, LIBXML_NOWARNING, true)) !== false) {
-                        if ((string)$xml->attributes()->name == (string)$xml->attributes()->native) {
-                            $langsAry[str_replace('.xml', '', $file)] = (string)$xml->attributes()->native;
-                        } else {
-                            $langsAry[str_replace('.xml', '', $file)] = $xml->attributes()->native . ' (' . $xml->attributes()->name . ")";
+                        $lang = (string)$xml->attributes()->output;
+                        $langName = (string)$xml->attributes()->name;
+                        $langNative = (string)$xml->attributes()->native;
+
+                        foreach ($xml->locale as $locale) {
+                            $region = (string)$locale->attributes()->region;
+                            $name   = (string)$locale->attributes()->name;
+                            $native = (string)$locale->attributes()->native;
+
+                            if ($name != $native) {
+                                if ($langName != $name) {
+                                    $native .= ' (' . $langName . ', ' . $name . ')';
+                                } else {
+                                    $native .= ' (' . $name . ')';
+                                }
+                            }
+
+                            if ($region == $lang) {
+                                $langsAry[$lang] = $native;
+                            } else {
+                                if ($langNative != (string)$locale->attributes()->native) {
+                                    $langsAry[$lang . '-' . $region] = $langNative . ', ' . $native;
+                                } else {
+                                    $langsAry[$lang . '-' . $region] = $native;
+                                }
+                            }
                         }
                     }
                 }

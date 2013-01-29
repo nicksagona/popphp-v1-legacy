@@ -3,7 +3,7 @@ Pop PHP Framework Changelog
 
 1.2.0
 -----
-Released on January 28, 2013
+Released on January 29, 2013
 
 * Large general code review and cleanup
 * Add relative path support to project install functionality
@@ -26,6 +26,7 @@ Released on January 28, 2013
 * Improve File component with better file owner/group/permissions API
 * Add Csrf and Captcha elements to the Form component
 * Refactor and improve Graph component
+* Renamed the Locale component to I18n. Refactor and improve the component.
 * Refactor, clean up and improve the API of the Image component
     - Add Captcha image class
 * Refactor and improve Mail component

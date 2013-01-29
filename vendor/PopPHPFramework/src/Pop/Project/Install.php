@@ -291,11 +291,12 @@ class Install
      */
     public static function getLanguage($langs)
     {
-        $msg = I18n::factory()->__('Enter the two-letter code for the default language: ');
+        $msg = I18n::factory()->__('Enter the numeric code for the default language: ');
         echo $msg;
         $lang = null;
+        $keys = array_keys($langs);
 
-        while (!array_key_exists($lang, $langs)) {
+        while (!array_key_exists($lang, $keys)) {
             if (null !== $lang) {
                 echo $msg;
             }

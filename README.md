@@ -4,7 +4,7 @@ Welcome to the Pop PHP Framework 1.2.0 Release!
 RELEASE INFORMATION
 -------------------
 Pop PHP Framework 1.2.0 Release  
-Released January 28, 2013
+Released January 29, 2013
 
 
 OVERVIEW
@@ -57,9 +57,9 @@ easy-to-use API to access and utilize the following components:
 * Geo
 * Graph
 * Http
+* I18n
 * Image
 * Loader
-* Locale
 * Log
 * Mail
 * Mvc
@@ -101,7 +101,7 @@ Some dependencies for the framework to fully function are as follows:
 * The Apc extension for the Cache component (using the Apc adapter)
 * The Memcache extension for the Cache component (using the Memcached adapter)
 * The DOMDocument extension for the Image\Svg component
-* The SimpleXML extension for the Feed, Data, Locale and Image\Svg components
+* The SimpleXML extension for the Feed, Data, I18n and Image\Svg components
 * The PHP mail function and SMTP server correctly set for the Mail component
 * The cURL extension for the Curl component
 * FTP support enabled for the FTP component

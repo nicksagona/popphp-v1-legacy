@@ -500,8 +500,8 @@
             <output>Pop PHP Framework no se encuentra. Inténtelo de nuevo.</output>
         </text>
         <text>
-            <source>Enter the two-letter code for the default language:</source>
-            <output>Introduzca el código de dos letras para el idioma por defecto:</output>
+            <source>Enter the numeric code for the default language: </source>
+            <output>Introduzca el código numérico para el idioma por defecto: </output>
         </text>
         <text>
             <source>Unknown error.</source>

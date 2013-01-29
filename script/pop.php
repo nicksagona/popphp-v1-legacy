@@ -30,7 +30,7 @@ $autoloader->splAutoloadRegister();
 
 use Pop\File\File,
     Pop\Loader\Classmap,
-    Pop\Locale\Locale,
+    Pop\I18n\I18n,
     Pop\Project\Install,
     Pop\Version;
 
@@ -67,25 +67,33 @@ if (!empty($argv[1])) {
         echo '----------------------------' . PHP_EOL;
 
         // Create list of available languages
-        $langs = Locale::factory()->getLanguages();
+        $langs = I18n::getLanguages();
         $langsList = null;
+        $i = 0;
         foreach ($langs as $key => $value) {
-            $langsList .= '[' . $key . '] : ' . $value . PHP_EOL;
+            if (strlen($key) == 2) {
+                $key .= '   ';
+            }
+            $num = ($i < 10) ? ' ' . $i : $i;
+            $langsList .= '  ' . $num . ' : [' . $key . '] ' . $value . PHP_EOL;
+            $i++;
         }
 
         // Prompt user to select language
         if (isset($argv[2])) {
             if (!array_key_exists($argv[2], $langs)) {
-                echo $langsList;
+                echo $langsList . PHP_EOL;
                 $lang = Install::getLanguage($langs);
             } else {
                 $lang = $argv[2];
             }
         } else {
-            echo $langsList;
+            echo $langsList . PHP_EOL;
             $lang = Install::getLanguage($langs);
         }
-        echo 'You selected [' . $lang .'] : ' . $langs[$lang] . PHP_EOL . PHP_EOL;
+        $keys = array_keys($langs);
+
+        echo 'You selected [' . $keys[$lang] .'] : ' . $langs[$keys[$lang]] . PHP_EOL . PHP_EOL;
 
         // Get the bootstrap file
         $location = Install::getBootstrap();
@@ -93,14 +101,14 @@ if (!empty($argv[1])) {
         $bootstrapCode = $bootstrap->read();
 
         // Set the new default language setting into the bootstrap file
-        if (stripos($bootstrapCode, 'define(\'POP_DEFAULT_LANG') !== false) {
-            $curLangCode = substr($bootstrapCode, stripos($bootstrapCode, 'define(\'POP_DEFAULT_LANG'));
+        if (stripos($bootstrapCode, 'define(\'POP_LANG') !== false) {
+            $curLangCode = substr($bootstrapCode, stripos($bootstrapCode, 'define(\'POP_LANG'));
             $curLangCode = substr($curLangCode, 0, strpos($curLangCode, ';'));
-            $bootstrapCode = str_replace($curLangCode, 'define(\'POP_DEFAULT_LANG\', \'' . $lang . '\')', $bootstrapCode);
+            $bootstrapCode = str_replace($curLangCode, 'define(\'POP_LANG\', \'' . $keys[$lang] . '\')', $bootstrapCode);
         } else {
-            $curLangCode = substr($bootstrapCode, stripos($bootstrapCode, '// Require the Autoloader class file'));
-            $curLangCode = substr($curLangCode, 0, strpos($curLangCode, 'Autoloader class file'));
-            $langCode = '// Define the default language to use' . PHP_EOL . 'define(\'POP_DEFAULT_LANG\', \'' . $lang . '\');' . PHP_EOL . PHP_EOL . '// Require the ';
+            $curLangCode = substr($bootstrapCode, stripos($bootstrapCode, 'require_once'));
+            $curLangCode = substr($curLangCode, 0, strpos($curLangCode, ';'));
+            $langCode = PHP_EOL . '// Define the default language to use' . PHP_EOL . 'define(\'POP_LANG\', \'' . $keys[$lang] . '\');' . PHP_EOL . PHP_EOL . $curLangCode;
             $bootstrapCode = str_replace($curLangCode, $langCode, $bootstrapCode);
         }
 
