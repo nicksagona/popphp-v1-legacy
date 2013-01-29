@@ -125,6 +125,12 @@ class Request
     protected $env = array();
 
     /**
+     * Headers
+     * @var array
+     */
+    protected $headers = array();
+
+    /**
      * Constructor
      *
      * Instantiate the request object.
@@ -146,6 +152,18 @@ class Request
         if (isset($_SERVER['REQUEST_METHOD'])) {
             if ($this->isPut() || $this->isPatch() || $this->isDelete()) {
                 $this->parseData();
+            }
+        }
+
+        // Get any possible request headers
+        if (function_exists('getallheaders')) {
+            $this->headers = getallheaders();
+        } else {
+            foreach ($_SERVER as $key => $value) {
+                if (substr($key, 0, 5) == 'HTTP_') {
+                    $key = ucfirst(strtolower(str_replace('HTTP_', '', $key)));
+                    $this->headers[$key] = $value;
+                }
             }
         }
     }
@@ -515,6 +533,27 @@ class Request
         } else {
             return (isset($this->env[$key])) ? $this->env[$key] : null;
         }
+    }
+
+    /**
+     * Get a value from the request headers
+     *
+     * @param  string $key
+     * @return string
+     */
+    public function getHeader($key)
+    {
+        return (isset($this->headers[$key])) ? $this->headers[$key] : null;
+    }
+
+    /**
+     * Get the request headers
+     *
+     * @return array
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
     }
 
     /**
