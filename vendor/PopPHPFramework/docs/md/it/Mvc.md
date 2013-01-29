@@ -50,7 +50,7 @@ di configurazione.
         public function __construct(Request $request = null, Response $response = null, Project $project = null, $viewPath = null)
         {
             if (null === $viewPath) {
-                $viewPath = __DIR__ . '/path/to/my/view/default';
+                $viewPath = __DIR__ . '/path/to/my/view';
             }
 
             parent::__construct($request, $response, $project, $viewPath);
@@ -67,9 +67,8 @@ di configurazione.
         // Your 404 page
         public function error()
         {
-            $this->isError = true;
             $this->view = View::factory($this->viewPath . '/error.phtml');
-            $this->send();
+            $this->send(404);
         }
     }
 
