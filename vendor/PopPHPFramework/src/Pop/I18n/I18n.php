@@ -16,7 +16,7 @@
 namespace Pop\I18n;
 
 /**
- * I18n exception class
+ * I18n and l10n class
  *
  * @category   Pop
  * @package    Pop_I18n
