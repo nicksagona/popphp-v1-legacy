@@ -18,7 +18,7 @@
     >
 ]>
 <language src="en" output="el" name="Greek" native="Ελληνικά">
-    <locale region="el" name="Greek" native="Ελληνικά">
+    <locale region="GR" name="Greece" native="Ελλάδα">
         <text>
             <source>This field is required.</source>
             <output>Αυτό το πεδίο είναι υποχρεωτικό.</output>

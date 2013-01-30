@@ -17,8 +17,8 @@
         native    CDATA    #REQUIRED
     >
 ]>
-<language src="en" output="iw" name="Hebrew" native="עברית">
-    <locale region="iw" name="Hebrew" native="עברית">
+<language src="en" output="he" name="Hebrew" native="עברית">
+    <locale region="IL" name="Israel" native="ישראל">
         <text>
             <source>This field is required.</source>
             <output>שדה זה נדרש.</output>

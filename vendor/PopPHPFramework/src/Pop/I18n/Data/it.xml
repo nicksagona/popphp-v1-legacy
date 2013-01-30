@@ -18,7 +18,7 @@
     >
 ]>
 <language src="en" output="it" name="Italian" native="Italiano">
-    <locale region="it" name="Italian" native="Italiano">
+    <locale region="IT" name="Italy" native="Italia">
         <text>
             <source>This field is required.</source>
             <output>Questo campo è obbligatorio.</output>

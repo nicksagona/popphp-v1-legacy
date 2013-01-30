@@ -144,11 +144,11 @@ abstract class AbstractImage extends \Pop\File\File
      * Instantiate an image file object based on either a pre-existing
      * image file on disk, or a new image file.
      *
-     * @param  string         $img
-     * @param  int|string     $w
-     * @param  int|string     $h
-     * @param  ColorInterface $color
-     * @param  array          $types
+     * @param  string                          $img
+     * @param  int|string                      $w
+     * @param  int|string                      $h
+     * @param  \Pop\Color\Space\ColorInterface $color
+     * @param  array                           $types
      * @return \Pop\Image\AbstractImage
      */
     public function __construct($img, $w = null, $h = null, ColorInterface $color = null, $types = null)

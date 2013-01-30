@@ -18,7 +18,7 @@
     >
 ]>
 <language src="en" output="ru" name="Russian" native="Россию">
-    <locale region="ru" name="Russian" native="Россию">
+    <locale region="RU" name="Russia" native="Россия">
         <text>
             <source>This field is required.</source>
             <output>Это поле обязательно для заполнения.</output>

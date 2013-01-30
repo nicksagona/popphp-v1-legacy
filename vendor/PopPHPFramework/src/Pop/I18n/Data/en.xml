@@ -18,6 +18,6 @@
     >
 ]>
 <language src="en" output="en" name="English" native="English">
-    <locale region="us" name="United States" native="United States">
+    <locale region="US" name="United States" native="United States">
     </locale>
 </language>

@@ -132,11 +132,11 @@ class Imagick extends AbstractImage
      * Any variation in the versions of the required software may contribute to
      * the Pop\Image\Imagick component not functioning properly.
      *
-     * @param  string         $img
-     * @param  int|string     $w
-     * @param  int|string     $h
-     * @param  ColorInterface $color
-     * @param  array          $types
+     * @param  string                          $img
+     * @param  int|string                      $w
+     * @param  int|string                      $h
+     * @param  \Pop\Color\Space\ColorInterface $color
+     * @param  array                           $types
      * @throws Exception
      * @return \Pop\Image\Imagick
      */
@@ -994,9 +994,9 @@ class Imagick extends AbstractImage
     /**
      * Apply a skew effect to the image
      *
-     * @param  ColorInterface $color
-     * @param  int            $x
-     * @param  int            $y
+     * @param  \Pop\Color\Space\ColorInterface $color
+     * @param  int                             $x
+     * @param  int                             $y
      * @return \Pop\Image\Imagick
      */
     public function skew(ColorInterface $color, $x, $y)

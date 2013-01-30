@@ -60,16 +60,16 @@ class I18n
     public function __construct($lang = null)
     {
         if (null === $lang) {
-            $lang = (defined('POP_LANG')) ? POP_LANG : 'en-us';
+            $lang = (defined('POP_LANG')) ? POP_LANG : 'en_US';
         }
 
-        if (strpos($lang, '-') !== false) {
-            $ary  = explode('-', $lang);
+        if (strpos($lang, '_') !== false) {
+            $ary  = explode('_', $lang);
             $this->language = $ary[0];
             $this->locale = $ary[1];
         } else {
             $this->language = $lang;
-            $this->locale = $lang;
+            $this->locale = strtoupper($lang);
         }
 
         $this->loadCurrentLanguage();
@@ -193,24 +193,8 @@ class I18n
                             $region = (string)$locale->attributes()->region;
                             $name   = (string)$locale->attributes()->name;
                             $native = (string)$locale->attributes()->native;
-
-                            if ($name != $native) {
-                                if ($langName != $name) {
-                                    $native .= ' (' . $langName . ', ' . $name . ')';
-                                } else {
-                                    $native .= ' (' . $name . ')';
-                                }
-                            }
-
-                            if ($region == $lang) {
-                                $langsAry[$lang] = $native;
-                            } else {
-                                if ($langNative != (string)$locale->attributes()->native) {
-                                    $langsAry[$lang . '-' . $region] = $langNative . ', ' . $native;
-                                } else {
-                                    $langsAry[$lang . '-' . $region] = $native;
-                                }
-                            }
+                            $native .= ' (' . $langName . ', ' . $name . ')';
+                            $langsAry[$lang . '_' . $region] = $langNative . ', ' . $native;
                         }
                     }
                 }

@@ -158,10 +158,10 @@ class Svg extends \Pop\File\File
      * Instantiate an SVG image object based on either a pre-existing SVG image
      * file on disk, or a new SVG image file.
      *
-     * @param  string         $svg
-     * @param  int|string     $w
-     * @param  int|string     $h
-     * @param  ColorInterface $color
+     * @param  string                          $svg
+     * @param  int|string                      $w
+     * @param  int|string                      $h
+     * @param  \Pop\Color\Space\ColorInterface $color
      * @throws Exception
      * @return \Pop\Image\Svg
      */
@@ -317,9 +317,9 @@ class Svg extends \Pop\File\File
     /**
      * Add a gradient.
      *
-     * @param  ColorInterface $color1
-     * @param  ColorInterface $color2
-     * @param  int            $type
+     * @param  \Pop\Color\Space\ColorInterface $color1
+     * @param  \Pop\Color\Space\ColorInterface $color2
+     * @param  int                             $type
      * @return \Pop\Image\Svg
      */
     public function addGradient(ColorInterface $color1, ColorInterface $color2, $type = Svg::HORIZONTAL)

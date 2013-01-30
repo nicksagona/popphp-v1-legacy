@@ -29,21 +29,28 @@ class I18nTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        define('POP_LANG', 'fr');
+        define('POP_LANG', 'fr_FR');
         $l = new I18n();
         $this->assertEquals('Ce champ est obligatoire.', $l->__('This field is required.'));
         $this->assertEquals('La valeur ne doit pas faire partie du 127.0.0 de sous-réseau.', $l->__('The value must not be part of the subnet %1.', '127.0.0'));
         $this->assertEquals('La valeur ne doit pas faire partie du 127.0.0 de sous-réseau.', $l->__('The value must not be part of the subnet %1.', array('127.0.0')));
         $this->assertEquals('fr', $l->getLanguage());
-        $this->assertEquals('fr', $l->getLocale());
+        $this->assertEquals('FR', $l->getLocale());
     }
 
     public function testFactory()
     {
-        $l = I18n::factory('fr');
-        $class = 'Pop\I18n\I18n';
+        $l = I18n::factory('es_ES');
         $this->assertInstanceOf('Pop\I18n\I18n', $l);
-        $this->assertEquals('Ce champ est obligatoire.', $l->__('This field is required.'));
+        $this->assertEquals('Este campo es obligatorio.', $l->__('This field is required.'));
+    }
+
+    public function testLangNoLocale()
+    {
+        $l = I18n::factory('es');
+        $this->assertInstanceOf('Pop\I18n\I18n', $l);
+        $this->assertEquals('es', $l->getLanguage());
+        $this->assertEquals('ES', $l->getLocale());
     }
 
     public function testLoadFileException()

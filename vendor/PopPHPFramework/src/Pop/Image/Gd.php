@@ -56,11 +56,11 @@ class Gd extends AbstractImage
      * Instantiate an image file object based on either a pre-existing
      * image file on disk, or a new image file.
      *
-     * @param  string         $img
-     * @param  int|string     $w
-     * @param  int|string     $h
-     * @param  ColorInterface $color
-     * @param  array          $types
+     * @param  string                          $img
+     * @param  int|string                      $w
+     * @param  int|string                      $h
+     * @param  \Pop\Color\Space\ColorInterface $color
+     * @param  array                           $types
      * @throws Exception
      * @return \Pop\Image\Gd
      */
@@ -1050,9 +1050,9 @@ class Gd extends AbstractImage
      * Dummy method to match the Imagick API.
      * This method doesn't do anything
      *
-     * @param  ColorInterface $color
-     * @param  int            $x
-     * @param  int            $y
+     * @param  \Pop\Color\Space\ColorInterface $color
+     * @param  int                             $x
+     * @param  int                             $y
      * @return \Pop\Image\Gd
      */
     public function skew(ColorInterface $color, $x, $y)

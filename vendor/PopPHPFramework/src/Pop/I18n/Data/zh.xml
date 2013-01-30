@@ -18,7 +18,7 @@
     >
 ]>
 <language src="en" output="zh" name="Chinese" native="中文">
-    <locale region="cn" name="Chinese" native="中文">
+    <locale region="CN" name="China" native="中国">
         <text>
             <source>This field is required.</source>
             <output>此字段是必需的。</output>

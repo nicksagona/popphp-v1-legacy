@@ -71,9 +71,6 @@ if (!empty($argv[1])) {
         $langsList = null;
         $i = 0;
         foreach ($langs as $key => $value) {
-            if (strlen($key) == 2) {
-                $key .= '   ';
-            }
             $num = ($i < 10) ? ' ' . $i : $i;
             $langsList .= '  ' . $num . ' : [' . $key . '] ' . $value . PHP_EOL;
             $i++;

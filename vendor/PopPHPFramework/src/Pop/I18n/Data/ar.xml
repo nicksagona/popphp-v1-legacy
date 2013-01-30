@@ -18,7 +18,7 @@
     >
 ]>
 <language src="en" output="ar" name="Arabic" native="العربية">
-    <locale region="sa" name="Saudi Arabia" native="العربية السعودية">
+    <locale region="EG" name="Egypt" native="مصر">
         <text>
             <source>This field is required.</source>
             <output>هذا الحقل مطلوب.</output>

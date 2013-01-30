@@ -18,7 +18,7 @@
     >
 ]>
 <language src="en" output="ja" name="Japanese" native="日本">
-    <locale region="ja" name="Japanese" native="日本">
+    <locale region="JA" name="Japan" native="日本">
         <text>
             <source>This field is required.</source>
             <output>このフィールドは必須です。</output>
