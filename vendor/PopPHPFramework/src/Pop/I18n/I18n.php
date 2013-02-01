@@ -206,6 +206,97 @@ class I18n
     }
 
     /**
+     * Create an XML language file from an array of data.
+     * The format of the parameters should be as follows:
+     *
+     * $lang = array(
+     *     'src'    => 'en',
+     *     'output' => 'de',
+     *     'name'   => 'German',
+     *     'native' => 'Deutsch'
+     * );
+     *
+     * $locales = array(
+     *     array(
+     *         'region' => 'DE',
+     *         'name'   => 'Germany',
+     *         'native' => 'Deutschland',
+     *         'text' => array(
+     *             array(
+     *                 'source' => 'This field is required.',
+     *                 'output' => 'Dieses Feld ist erforderlich.'
+     *             ), ...
+     *         )
+     *     ), ...
+     * );
+     *
+     * @param  array  $lang
+     * @param  array  $locales
+     * @param  string $file
+     * @throws Exception
+     * @return void
+     */
+    public static function createXmlFile(array $lang, array $locales, $file)
+    {
+        // Validate the $lang parameter
+        if (!isset($lang['src']) || !isset($lang['output'])) {
+            throw new Exception("Error: The language parameter must have at least the 'src' and 'output' keys defined.");
+        }
+
+        // Validate the $locales parameter
+        foreach ($locales as $locale) {
+            if (!isset($locale['region'])) {
+                throw new Exception("Error: The locales parameter must have at least the 'region' key defined in each locale.");
+            }
+            if (!isset($locale['text'])) {
+                throw new Exception("Error: The locales parameter must have at least the 'text' key defined in each locale.");
+            }
+            if (!is_array($locale['text'])) {
+                throw new Exception("Error: The parameter key 'text' in each locale must be an array.");
+            }
+        }
+
+        // Get the XML file header
+        $xmlHeader = file_get_contents(__DIR__ . '/Data/__.xml');
+        $xmlHeader = substr($xmlHeader, 0, (strpos($xmlHeader, 'native="">') + 10));
+        $xmlHeader = str_replace(
+            array('src="en"', 'output=""'),
+            array('src="' . $lang['src'] . '"', 'output="' . $lang['output'] . '"'),
+            $xmlHeader
+        );
+
+        if (isset($lang['name'])) {
+            $xmlHeader = str_replace('name=""', 'name="' . $lang['name'] . '"', $xmlHeader);
+        }
+
+        if (isset($lang['native'])) {
+            $xmlHeader = str_replace('native=""', 'native="' . $lang['native'] . '"', $xmlHeader);
+        }
+
+        // Format the Locales
+        $xmlLocales = null;
+
+        foreach ($locales as $locale) {
+            $name = (isset($locale['name'])) ? $locale['name'] : null;
+            $native = (isset($locale['native'])) ? $locale['native'] : null;
+            $xmlLocales .= '    <locale region="' . $locale['region'] . '" name="' . $name . '" native="' . $native . '">' . PHP_EOL;
+            foreach ($locale['text'] as $text) {
+                if (!isset($text['source']) || !isset($text['output'])) {
+                    throw new Exception("Error: The 'source' and 'output' keys must be defined in each 'text' array.");
+                }
+                $xmlLocales .= '        <text>' . PHP_EOL;
+                $xmlLocales .= '            <source>' . $text['source'] . '</source>' . PHP_EOL;
+                $xmlLocales .= '            <output>' . $text['output'] . '</output>' . PHP_EOL;
+                $xmlLocales .= '        </text>' . PHP_EOL;
+            }
+            $xmlLocales .= '    </locale>' . PHP_EOL;
+        }
+
+        // Save XML file
+        file_put_contents($file, $xmlHeader . PHP_EOL . $xmlLocales . '</language>');
+    }
+
+    /**
      * Translate and return the string.
      *
      * @param  string $str

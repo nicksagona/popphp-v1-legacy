@@ -53,11 +53,18 @@ class I18nTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('ES', $l->getLocale());
     }
 
-    public function testLoadFileException()
+    public function testLoadFileNoFileException()
     {
         $this->setExpectedException('Pop\I18n\Exception');
         $l = I18n::factory();
         $l->loadFile('bad.xml');
+    }
+
+    public function testLoadFileBadFileException()
+    {
+        $this->setExpectedException('Exception');
+        $l = I18n::factory();
+        $l->loadFile(__DIR__ . '/../tmp/access.txt');
     }
 
     public function testE()
@@ -72,6 +79,197 @@ class I18nTest extends \PHPUnit_Framework_TestCase
     public function testGetLanguages()
     {
         $this->assertEquals(12, count(I18n::getLanguages()));
+    }
+
+    public function testCreateXmlFile()
+    {
+        $lang = array(
+            'src'    => 'en',
+            'output' => 'de',
+            'name'   => 'German',
+            'native' => 'Deutsch'
+        );
+
+        $locales = array(
+            array(
+                'region' => 'DE',
+                'name'   => 'Germany',
+                'native' => 'Deutschland',
+                'text' => array(
+                    array(
+                        'source' => 'This field is required.',
+                        'output' => 'Dieses Feld ist erforderlich.'
+                    ),
+                    array(
+                        'source' => 'Thursday',
+                        'output' => 'Donnerstag'
+                    ),
+                    array(
+                        'source' => 'The value length must be between or equal to %1 and %2.',
+                        'output' => 'Der Wert muss zwischen oder gleich %1 und %2 sein.'
+                    )
+                )
+            ),
+            array(
+                'region' => 'CH',
+                'name'   => 'Switzerland',
+                'native' => 'Schweiz',
+                'text' => array(
+                    array(
+                        'source' => 'This field is required. (CH)',
+                        'output' => 'Dieses Feld ist erforderlich. (CH)'
+                    ),
+                    array(
+                        'source' => 'Thursday (CH)',
+                        'output' => 'Donnerstag (CH)'
+                    ),
+                    array(
+                        'source' => 'The value length must be between or equal to %1 and %2. (CH)',
+                        'output' => 'Der Wert muss zwischen oder gleich %1 und %2 sein. (CH)'
+                    )
+                )
+            )
+        );
+
+        I18n::createXmlFile($lang, $locales, __DIR__ . '/../tmp/new_de.xml');
+        $this->assertFileExists(__DIR__ . '/../tmp/new_de.xml');
+        if (file_exists(__DIR__ . '/../tmp/new_de.xml')) {
+            unlink(__DIR__ . '/../tmp/new_de.xml');
+        }
+    }
+
+    public function testCreateXmlFileNoSrcException()
+    {
+        $this->setExpectedException('Pop\I18n\Exception');
+        $lang = array(
+            'output' => 'de',
+            'name'   => 'German',
+            'native' => 'Deutsch'
+        );
+
+        $locales = array();
+
+        I18n::createXmlFile($lang, $locales, __DIR__ . '/../tmp/new_de.xml');
+    }
+
+    public function testCreateXmlFileNoRegionException()
+    {
+        $this->setExpectedException('Pop\I18n\Exception');
+        $lang = array(
+            'src'    => 'en',
+            'output' => 'de',
+            'name'   => 'German',
+            'native' => 'Deutsch'
+        );
+
+        $locales = array(
+            array(
+                'name'   => 'Germany',
+                'native' => 'Deutschland',
+                'text' => array(
+                    array(
+                        'source' => 'This field is required.',
+                        'output' => 'Dieses Feld ist erforderlich.'
+                    ),
+                    array(
+                        'source' => 'Thursday',
+                        'output' => 'Donnerstag'
+                    ),
+                    array(
+                        'source' => 'The value length must be between or equal to %1 and %2.',
+                        'output' => 'Der Wert muss zwischen oder gleich %1 und %2 sein.'
+                    )
+                )
+            )
+        );
+
+        I18n::createXmlFile($lang, $locales, __DIR__ . '/../tmp/new_de.xml');
+    }
+
+    public function testCreateXmlFileNoTextException()
+    {
+        $this->setExpectedException('Pop\I18n\Exception');
+        $lang = array(
+            'src'    => 'en',
+            'output' => 'de',
+            'name'   => 'German',
+            'native' => 'Deutsch'
+        );
+
+        $locales = array(
+            array(
+                'region' => 'DE',
+                'name'   => 'Germany',
+                'native' => 'Deutschland'
+            ),
+            array(
+                'region' => 'CH',
+                'name'   => 'Switzerland',
+                'native' => 'Schweiz',
+                'text' => array(
+                    array(
+                        'source' => 'This field is required. (CH)',
+                        'output' => 'Dieses Feld ist erforderlich. (CH)'
+                    ),
+                    array(
+                        'source' => 'Thursday (CH)',
+                        'output' => 'Donnerstag (CH)'
+                    ),
+                    array(
+                        'source' => 'The value length must be between or equal to %1 and %2. (CH)',
+                        'output' => 'Der Wert muss zwischen oder gleich %1 und %2 sein. (CH)'
+                    )
+                )
+            )
+        );
+
+        I18n::createXmlFile($lang, $locales, __DIR__ . '/../tmp/new_de.xml');
+    }
+
+    public function testCreateXmlFileTextNotArrayException()
+    {
+        $this->setExpectedException('Pop\I18n\Exception');
+        $lang = array(
+            'src'    => 'en',
+            'output' => 'de',
+            'name'   => 'German',
+            'native' => 'Deutsch'
+        );
+
+        $locales = array(
+            array(
+                'region' => 'DE',
+                'name'   => 'Germany',
+                'native' => 'Deutschland',
+                'text' => '123'
+            )
+        );
+
+        I18n::createXmlFile($lang, $locales, __DIR__ . '/../tmp/new_de.xml');
+    }
+
+    public function testCreateXmlFileNoSourceException()
+    {
+        $this->setExpectedException('Pop\I18n\Exception');
+        $lang = array(
+            'src'    => 'en',
+            'output' => 'de',
+            'name'   => 'German',
+            'native' => 'Deutsch'
+        );
+
+        $locales = array(
+            array(
+                'region' => 'DE',
+                'name'   => 'Germany',
+                'native' => 'Deutschland',
+                'text' => array(
+                    array()
+                )
+            )
+        );
+
+        I18n::createXmlFile($lang, $locales, __DIR__ . '/../tmp/new_de.xml');
     }
 
 }
