@@ -15,8 +15,7 @@
  */
 namespace Pop\Image;
 
-use Pop\Color\Color,
-    Pop\Color\Space\ColorInterface,
+use Pop\Color\Space\ColorInterface,
     Pop\Color\Space\Rgb;
 
 /**

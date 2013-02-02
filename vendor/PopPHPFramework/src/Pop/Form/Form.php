@@ -590,13 +590,17 @@ class Form extends \Pop\Dom\Dom
      */
     public function clear()
     {
-        $sess = \Pop\Web\Session::getInstance();
-        if (isset($sess->pop_csrf)) {
-            unset($sess->pop_csrf);
+        // Start a session.
+        if (session_id() == '') {
+            session_start();
         }
 
-        if (isset($sess->pop_captcha)) {
-            unset($sess->pop_captcha);
+        if (isset($_SESSION['pop_csrf'])) {
+            unset($_SESSION['pop_csrf']);
+        }
+
+        if (isset($_SESSION['pop_captcha'])) {
+            unset($_SESSION['pop_captcha']);
         }
 
         return $this;

@@ -15,8 +15,7 @@
  */
 namespace Pop\Image;
 
-use Pop\Color\Color,
-    Pop\Color\Space\ColorInterface,
+use Pop\Color\Space\ColorInterface,
     Pop\Color\Space\Rgb;
 
 /**
@@ -191,7 +190,7 @@ class Svg extends \Pop\File\File
                 $rect->addAttribute('y', '0' . $this->units);
                 $rect->addAttribute('width', $w);
                 $rect->addAttribute('height', $h);
-                $rect->addAttribute('fill', $color->get(Color::STRING, true));
+                $rect->addAttribute('fill', $color->get(3, true));
             }
         }
 
@@ -357,11 +356,11 @@ class Svg extends \Pop\File\File
 
         $stop1 = $grad->addChild('stop');
         $stop1->addAttribute('offset', '0%');
-        $stop1->addAttribute('style', 'stop-color: ' . $color1->get(Color::STRING, true) . '; stop-opacity: 1;');
+        $stop1->addAttribute('style', 'stop-color: ' . $color1->get(3, true) . '; stop-opacity: 1;');
 
         $stop2 = $grad->addChild('stop');
         $stop2->addAttribute('offset', '100%');
-        $stop2->addAttribute('style', 'stop-color: ' . $color2->get(Color::STRING, true) . '; stop-opacity: 1;');
+        $stop2->addAttribute('style', 'stop-color: ' . $color2->get(3, true) . '; stop-opacity: 1;');
 
         return $this;
     }
@@ -536,7 +535,7 @@ class Svg extends \Pop\File\File
         $text->addAttribute('font-family', $font);
 
         if (null !== $this->fillColor) {
-            $text->addAttribute('fill', $this->fillColor->get(Color::STRING, true));
+            $text->addAttribute('fill', $this->fillColor->get(3, true));
             if ($this->opacity < 1.0) {
                 $text->addAttribute('fill-opacity', $this->opacity);
             }
@@ -827,7 +826,7 @@ class Svg extends \Pop\File\File
 
         $color = (null !== $this->strokeColor) ? $this->strokeColor : new Rgb(0, 0, 0);
 
-        $rect->addAttribute('stroke', $color->get(Color::STRING, true));
+        $rect->addAttribute('stroke', $color->get(3, true));
         $rect->addAttribute('stroke-width', ($w * 2) . $this->units);
         if ((null !== $this->strokeDashLength) && (null !== $this->strokeDashGap)) {
             $rect->addAttribute('stroke-dasharray', $this->strokeDashLength . $this->units . ',' . $this->strokeDashGap . $this->units);
@@ -871,13 +870,13 @@ class Svg extends \Pop\File\File
         if (null !== $this->curGradient) {
             $obj->addAttribute('fill', 'url(#grad' . $this->curGradient . ')');
         } else if (null !== $this->fillColor) {
-            $obj->addAttribute('fill', $this->fillColor->get(Color::STRING, true));
+            $obj->addAttribute('fill', $this->fillColor->get(3, true));
             if ($this->opacity < 1.0) {
                 $obj->addAttribute('fill-opacity', $this->opacity);
             }
         }
         if (null !== $this->strokeColor) {
-            $obj->addAttribute('stroke', $this->strokeColor->get(Color::STRING, true));
+            $obj->addAttribute('stroke', $this->strokeColor->get(3, true));
             $obj->addAttribute('stroke-width', ((null !== $this->strokeWidth) ? $this->strokeWidth : 1) . $this->units);
             if ((null !== $this->strokeDashLength) && (null !== $this->strokeDashGap)) {
                 $obj->addAttribute('stroke-dasharray', $this->strokeDashLength . $this->units . ',' . $this->strokeDashGap . $this->units);

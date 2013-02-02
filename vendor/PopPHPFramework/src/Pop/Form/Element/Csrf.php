@@ -27,11 +27,6 @@ namespace Pop\Form\Element;
  */
 class Csrf extends \Pop\Form\Element
 {
-    /**
-     * Session object
-     * @var \Pop\Web\Session
-     */
-    protected $sess = null;
 
     /**
      * Current token data
@@ -52,19 +47,22 @@ class Csrf extends \Pop\Form\Element
      */
     public function __construct($name, $value = null, $expire = 300, $indent = null)
     {
-        $this->sess = \Pop\Web\Session::getInstance();
+        // Start a session.
+        if (session_id() == '') {
+            session_start();
+        }
 
         // If token does not exist, create one
-        if (!isset($this->sess->pop_csrf)) {
+        if (!isset($_SESSION['pop_csrf'])) {
             $this->token = array(
                 'value'  => sha1(rand(10000, getrandmax()) . $value),
                 'expire' => (int)$expire,
                 'start'  => time()
             );
-            $this->sess->pop_csrf = serialize($this->token);
+            $_SESSION['pop_csrf'] = serialize($this->token);
         // Else, retrieve existing token
         } else {
-            $this->token = unserialize($this->sess->pop_csrf);
+            $this->token = unserialize($_SESSION['pop_csrf']);
 
             // Check to see if the token has expired
             if ($this->token['expire'] > 0) {
@@ -74,7 +72,7 @@ class Csrf extends \Pop\Form\Element
                         'expire' => (int)$expire,
                         'start'  => time()
                     );
-                    $this->sess->pop_csrf = serialize($this->token);
+                    $_SESSION['pop_csrf'] = serialize($this->token);
                 }
             }
         }

@@ -15,8 +15,7 @@
  */
 namespace Pop\Image;
 
-use Pop\Color\Color,
-    Pop\Color\Space\ColorInterface,
+use Pop\Color\Space\ColorInterface,
     Pop\Color\Space\Rgb,
     Pop\Http\Response;
 
@@ -894,7 +893,7 @@ class Imagick extends AbstractImage
      */
     public function colorize(ColorInterface $color)
     {
-        $this->resource->colorizeImage($color->get(Color::STRING, true), $this->opacity);
+        $this->resource->colorizeImage($color->get(3, true), $this->opacity);
         return $this;
     }
 
@@ -1001,7 +1000,7 @@ class Imagick extends AbstractImage
      */
     public function skew(ColorInterface $color, $x, $y)
     {
-        $this->resource->shearImage($color->get(Color::STRING, true), $x, $y);
+        $this->resource->shearImage($color->get(3, true), $x, $y);
         return $this;
     }
 
@@ -1412,7 +1411,7 @@ class Imagick extends AbstractImage
      */
     protected function setColor(ColorInterface $color = null)
     {
-        $clr = (null !== $color) ? $color->get(Color::STRING, true) : 'rgb(0,0,0)';
+        $clr = (null !== $color) ? $color->get(3, true) : 'rgb(0,0,0)';
         return new \ImagickPixel($clr);
     }
 

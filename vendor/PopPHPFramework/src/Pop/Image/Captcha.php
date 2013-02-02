@@ -15,9 +15,7 @@
  */
 namespace Pop\Image;
 
-use Pop\Color\Space\Rgb,
-    Pop\Filter\String,
-    Pop\Web\Session;
+use Pop\Color\Space\Rgb;
 
 /**
  * Image CAPTCHA class
@@ -43,12 +41,6 @@ class Captcha
      * @var mixed
      */
     protected $image = null;
-
-    /**
-     * CAPTCHA session object
-     * @var \Pop\Web\Session
-     */
-    protected $sess = null;
 
     /**
      * CAPTCHA token object
@@ -156,8 +148,6 @@ class Captcha
         if ((!Gd::isInstalled()) && (!Imagick::isInstalled())) {
             throw new Exception('Error: At least either the GD or Imagick extension must be installed.');
         }
-
-        $this->sess = Session::getInstance();
 
         if ($forceGd) {
             $class = 'Pop\Image\Gd';
@@ -677,23 +667,36 @@ class Captcha
      */
     public function generateToken()
     {
+        $str = null;
+        $chars = str_split('ABCDEFGHJKLMNPQRSTUVWXYZ23456789');
+
+        for ($i = 0; $i < $this->length; $i++) {
+            $index = rand(0, (count($chars) - 1));
+            $str .= $chars[$index];
+        }
+
+        // Start a session.
+        if (session_id() == '') {
+            session_start();
+        }
+
         // If no captcha token has been created, create one
-        if (!isset($this->sess->pop_captcha)) {
+        if (!isset($_SESSION['pop_captcha'])) {
             $this->token = array(
                 'captcha' => '<img id="pop-captcha-image" src="' . $_SERVER['PHP_SELF'] . '" alt="POP Captcha Image" /><br />(<a class="reload" href="#" onclick="document.getElementById(\'pop-captcha-image\').src = document.getElementById(\'pop-captcha-image\').src + \'?reload=1\'; return false;">Reload</a>)',
-                'value'   => String::random($this->length, String::ALPHANUM, String::UPPER),
+                'value'   => $str,
                 'expire'  => (int)$this->expire,
                 'start'   => time()
             );
-            $this->sess->pop_captcha = serialize($this->token);
+            $_SESSION['pop_captcha'] = serialize($this->token);
         // Else, retrieve the existing one
         } else {
-            $this->token = unserialize($this->sess->pop_captcha);
+            $this->token = unserialize($_SESSION['pop_captcha']);
             // If the token is has no value, is expired or a reload has been requested, generate a new value
             if ((null === $this->token['value']) || (($this->token['expire'] + $this->token['start']) < time()) || isset($_GET['reload'])) {
-                $this->token['value'] = String::random($this->length, String::ALPHANUM, String::UPPER);
+                $this->token['value'] = $str;
                 $this->token['start'] = time();
-                $this->sess->pop_captcha = serialize($this->token);
+                $_SESSION['pop_captcha'] = serialize($this->token);
             }
         }
     }

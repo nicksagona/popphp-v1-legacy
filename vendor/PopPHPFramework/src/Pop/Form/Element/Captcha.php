@@ -27,11 +27,6 @@ namespace Pop\Form\Element;
  */
 class Captcha extends \Pop\Form\Element
 {
-    /**
-     * Session object
-     * @var \Pop\Web\Session
-     */
-    protected $sess = null;
 
     /**
      * Current token data
@@ -53,10 +48,13 @@ class Captcha extends \Pop\Form\Element
      */
     public function __construct($name, $value = null, $expire = 300, $captcha = null, $indent = null)
     {
-        $this->sess = \Pop\Web\Session::getInstance();
+        // Start a session.
+        if (session_id() == '') {
+            session_start();
+        }
 
         // If token does not exist, create one
-        if (!isset($this->sess->pop_captcha)) {
+        if (!isset($_SESSION['pop_captcha'])) {
             if (null === $captcha) {
                 $captcha = $this->generateEquation();
             } else if (stripos($captcha, '<img') === false) {
@@ -69,10 +67,10 @@ class Captcha extends \Pop\Form\Element
                 'expire'  => (int)$expire,
                 'start'   => time()
             );
-            $this->sess->pop_captcha = serialize($this->token);
+            $_SESSION['pop_captcha'] = serialize($this->token);
         // Else, retrieve existing token
         } else {
-            $this->token = unserialize($this->sess->pop_captcha);
+            $this->token = unserialize($_SESSION['pop_captcha']);
 
             // Check to see if the token has expired
             if ($this->token['expire'] > 0) {
@@ -89,7 +87,7 @@ class Captcha extends \Pop\Form\Element
                         'expire'  => (int)$expire,
                         'start'   => time()
                     );
-                    $this->sess->pop_captcha = serialize($this->token);
+                    $_SESSION['pop_captcha'] = serialize($this->token);
                 }
             }
         }
