@@ -34,26 +34,11 @@ try {
         ),
         'username' => array(
             'value'      => 'Enter Username...',
-            'validators' => new Pop\Validator\Validator\AlphaNumeric()
-        ),
-        'allowed_sites' => array(
-            'type'   => 'checkbox',
-            'value'  => array('2001' => 'test1.localhost', '2002' => 'test2.localhost'),
-            'marked' => array('2001', '2002')
-        ),
-        'access_id' => array(
-            'type'   => 'select',
-            'value'  => array('3001' => 'Admin', '3002' => 'Basic'),
-            'marked' => '3002'
+            'validators' => new Pop\Validator\AlphaNumeric()
         )
     );
 
-    $fields = Fields::factory(
-        new Users(),
-        $attribs,
-        $values,
-        array('last_login', 'last_ua', 'last_ip', 'failed_attempts')
-    );
+    $fields = Fields::factory(Users::getTableInfo(), $attribs, $values, array('access'));
 
     $fields->addFields(array(
         'type'  => 'submit',

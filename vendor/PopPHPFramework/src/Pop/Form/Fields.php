@@ -48,7 +48,7 @@ class Fields
     public function __construct($fields = null, array $attribs = null, array $values = null, $omit = null)
     {
         if (null !== $fields) {
-            if ($fields instanceof \Pop\Record\Record) {
+            if (is_array($fields) && isset($fields['tableName'])) {
                 $this->addFieldsFromTable($fields, $attribs, $values, $omit);
             } else {
                 $this->addFields($fields);
@@ -96,17 +96,22 @@ class Fields
     }
 
     /**
-     * Add form fields from a related database table
+     * Add form fields from a related database table. The $tableInfo
+     * parameter should be the returned array result from calling the
+     * static Pop\Record\Record method, Record::getTableInfo();
      *
-     * @param  \Pop\Record\Record $tableObj
-     * @param  array              $attribs
-     * @param  array              $values
-     * @param  mixed              $omit
+     * @param  array $tableInfo
+     * @param  array $attribs
+     * @param  array $values
+     * @param  mixed $omit
+     * @throws Exception
      * @return \Pop\Form\Fields
      */
-    public function addFieldsFromTable(\Pop\Record\Record $tableObj, array $attribs = null, array $values = null, $omit = null)
+    public function addFieldsFromTable(array $tableInfo, array $attribs = null, array $values = null, $omit = null)
     {
-        $tableInfo = $tableObj->getTableInfo();
+        if (!isset($tableInfo['tableName']) || !isset($tableInfo['primaryId']) || !isset($tableInfo['columns'])) {
+            throw new Exception('Error: The table info parameter is not in the correct format. It should be a returned array value from the getTableInfo() method of the Record component.');
+        }
 
         if (null !== $omit) {
             if (!is_array($omit)) {

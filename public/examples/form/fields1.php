@@ -25,12 +25,7 @@ try {
     $attribs = array('text' => array('size', 40));
     $values = array('id' => array('type' => 'hidden'));
 
-    $fields = Fields::factory(
-        new Users(),
-        null,
-        $values,
-        array('allowed_sites', 'access_id', 'last_login', 'last_ua', 'last_ip', 'failed_attempts')
-    );
+    $fields = Fields::factory(Users::getTableInfo(), null, $values, 'access');
 
     $fields->addFields(array(
         'type'  => 'submit',
