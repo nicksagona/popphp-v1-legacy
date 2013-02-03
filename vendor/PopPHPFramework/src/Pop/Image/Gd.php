@@ -1326,14 +1326,14 @@ class Gd extends AbstractImage
     {
         // Destroy the image resource.
         if (null !== $this->resource) {
-            if (!is_string($this->resource)) {
+            if (!is_string($this->resource) && is_resource($this->resource)) {
                 imagedestroy($this->resource);
             }
             $this->resource = null;
         }
         // Destroy the image output resource.
         if (null !== $this->output) {
-            if (!is_string($this->output)) {
+            if (!is_string($this->output) && is_resource($this->output)) {
                 imagedestroy($this->output);
             }
             $this->output = null;
@@ -1377,6 +1377,27 @@ class Gd extends AbstractImage
     public function getNumberOfFormats()
     {
         return count($this->allowed);
+    }
+
+    /**
+     * To string method to output the image
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $this->output();
+        return '';
+    }
+
+    /**
+     * Destructor to destroy the image resource
+     *
+     * @return void
+     */
+    public function __destruct()
+    {
+        $this->destroy();
     }
 
     /**

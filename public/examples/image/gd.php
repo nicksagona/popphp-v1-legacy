@@ -26,7 +26,8 @@ try {
           ->drawPolygon($points)
           ->output();
 
-    $image->destroy();
+    // Calling the destructor destroys the image resource as well
+    unset($image);
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

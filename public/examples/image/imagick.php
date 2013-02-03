@@ -27,7 +27,8 @@ try {
             ->swirl(90)
             ->save('../tmp/test.jpg');
 
-    $imagick->destroy();
+    // Calling the destructor destroys the image resource as well
+    unset($imagick);
     echo 'Image saved.';
 } catch (\Exception $e) {
     echo $e->getMessage();

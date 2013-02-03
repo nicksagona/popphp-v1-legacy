@@ -856,6 +856,17 @@ class Svg extends \Pop\File\File
     }
 
     /**
+     * To string method to output the image
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $this->output();
+        return '';
+    }
+
+    /**
      * Method to set the styles.
      *
      * @param  SimpleXMLElement

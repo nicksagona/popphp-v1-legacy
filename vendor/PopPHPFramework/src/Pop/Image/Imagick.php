@@ -1264,6 +1264,27 @@ class Imagick extends AbstractImage
     }
 
     /**
+     * To string method to output the image
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $this->output();
+        return '';
+    }
+
+    /**
+     * Destructor to destroy the image resource
+     *
+     * @return void
+     */
+    public function __destruct()
+    {
+        $this->destroy();
+    }
+
+    /**
      * Get Imagick Info.
      *
      * @return void
