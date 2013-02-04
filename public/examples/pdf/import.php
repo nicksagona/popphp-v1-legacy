@@ -7,7 +7,7 @@ use Pop\Color\Space\Rgb,
 
 try {
     $pdf = new Pdf('new_test.pdf');
-    $pdf->importPdf('../assets/pdfs/hospital.pdf');
+    $pdf->import('../assets/pdfs/hospital.pdf');
 
     $pdf->setFillColor(new Rgb(128, 200, 50));
     $pdf->setStrokeColor(new Rgb(0, 255, 0));

@@ -8,7 +8,7 @@ use Pop\Color\Space\Rgb,
 try {
     $pdf = new Pdf('new_test.pdf');
 
-    $pdf->importPdf('../assets/pdfs/doc.pdf', array(1, 3));
+    $pdf->import('../assets/pdfs/doc.pdf', array(1, 3));
 
     $pdf->setCompression(true);
 
@@ -53,7 +53,7 @@ try {
     $pdf->addImage('../assets/images/logo-cmyk.jpg', 150, 400);
     $pdf->addLink(150, 400, 240, 100, 200, 300, 1, 1);
 
-    $pdf->importPdf('../assets/pdfs/test.pdf', 1);
+    $pdf->import('../assets/pdfs/test.pdf', 1);
 
     $pdf->output();
 } catch (\Exception $e) {

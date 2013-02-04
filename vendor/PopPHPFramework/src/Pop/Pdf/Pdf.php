@@ -211,7 +211,7 @@ class Pdf extends \Pop\File\File
 
         // If the PDF file already exists, import it.
         if ($this->size != 0) {
-            $this->importPdf($this->fullpath);
+            $this->import($this->fullpath);
         }
 
         // If page parameters were passed, add a new page.
@@ -227,7 +227,7 @@ class Pdf extends \Pop\File\File
      * @param  int|string|array $pg
      * @return \Pop\Pdf\Pdf
      */
-    public function importPdf($pdf, $pg = null)
+    public function import($pdf, $pg = null)
     {
         // Create a new PDF Import object.
         $pdfi = new Import($pdf, $pg);
