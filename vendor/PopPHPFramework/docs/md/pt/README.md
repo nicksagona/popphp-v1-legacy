@@ -46,7 +46,6 @@ estrutura e PHP.
 -   Payment
 -   Pdf
 -   Project
--   Record
 -   Service
 -   Validator
 -   Version

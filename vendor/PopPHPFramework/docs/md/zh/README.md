@@ -38,7 +38,6 @@ Pop PHP Framework
 -   Payment
 -   Pdf
 -   Project
--   Record
 -   Service
 -   Validator
 -   Version

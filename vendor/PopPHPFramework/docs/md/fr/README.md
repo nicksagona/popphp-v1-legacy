@@ -46,7 +46,6 @@ exploiter toute la puissance du cadre et PHP.
 -   Payment
 -   Pdf
 -   Project
--   Record
 -   Service
 -   Validator
 -   Version

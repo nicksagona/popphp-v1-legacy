@@ -46,7 +46,6 @@ per sfruttare tutta la potenza del quadro e PHP.
 -   Payment
 -   Pdf
 -   Project
--   Record
 -   Service
 -   Validator
 -   Version
