@@ -13,10 +13,10 @@
 /**
  * @namespace
  */
-namespace Pop\Record;
+namespace Pop\Db\Record;
 
 /**
- * Record exception class
+ * Record adapter exception class
  *
  * @category   Pop
  * @package    Pop_Record

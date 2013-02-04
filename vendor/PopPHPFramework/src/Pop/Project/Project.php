@@ -90,7 +90,7 @@ class Project
 
         if (isset($this->config->defaultDb)) {
             $default = $this->config->defaultDb;
-            \Pop\Record\Record::setDb($this->config->databases->$default);
+            \Pop\Db\Record::setDb($this->config->databases->$default);
         }
     }
 

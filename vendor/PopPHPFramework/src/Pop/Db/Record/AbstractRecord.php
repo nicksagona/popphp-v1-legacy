@@ -13,7 +13,7 @@
 /**
  * @namespace
  */
-namespace Pop\Record\Adapter;
+namespace Pop\Db\Record;
 
 /**
  * Record abstract adapter class

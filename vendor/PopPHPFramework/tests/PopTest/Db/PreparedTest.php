@@ -13,11 +13,11 @@
 /**
  * @namespace
  */
-namespace PopTest\Record;
+namespace PopTest\Db;
 
 use Pop\Loader\Autoloader,
     Pop\Db\Db,
-    Pop\Record\Record;
+    Pop\Db\Record;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -43,7 +43,7 @@ class PreparedTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $r = new Record(array('column' => 'value'), Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')));
-        $this->assertInstanceOf('Pop\Record\Record', $r);
+        $this->assertInstanceOf('Pop\Db\Record', $r);
     }
 
     public function testGetDefaultDb()
@@ -61,7 +61,7 @@ class PreparedTest extends \PHPUnit_Framework_TestCase
 
     public function testFindByIdException()
     {
-        $this->setExpectedException('Pop\Record\Adapter\Exception');
+        $this->setExpectedException('Pop\Db\Record\Exception');
         $r = PreparedUserData::findById(array(1));
     }
 
@@ -135,7 +135,7 @@ class PreparedTest extends \PHPUnit_Framework_TestCase
 
     public function testSetValuesException()
     {
-        $this->setExpectedException('Pop\Record\Exception');
+        $this->setExpectedException('Pop\Db\Exception');
         $r = new Record();
         $r->setValues(123);
     }

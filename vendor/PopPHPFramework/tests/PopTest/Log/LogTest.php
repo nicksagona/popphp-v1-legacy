@@ -20,7 +20,7 @@ use Pop\Loader\Autoloader,
     Pop\Log\Writer\Db,
     Pop\Log\Writer\File,
     Pop\Log\Writer\Mail,
-    Pop\Record\Record;
+    Pop\Db\Record;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

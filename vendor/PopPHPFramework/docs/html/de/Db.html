@@ -74,6 +74,63 @@ $sql-&gt;setIdQuoteType(Sql::BACKTICK)
 // Outputs 'SELECT * FROM `users` WHERE `id` = 1'
 echo $sql;
 </pre>
+        <p>
+            Die Record-Klasse, wie in der Dokumentation Überblick skizziert, ist ein "Hybrid" der Arten zwischen dem Active Record und Tabelle Gateway-Muster. Über eine standardisierte API, können sie den Zugang zu einer einzelnen Zeile oder Datensatz in einer Datenbank-Tabelle oder mehrere Zeilen oder Datensätze auf einmal liefern. Die häufigste Methode ist, ein Kind zu Klasse, die die Record-Klasse, die eine Tabelle in der Datenbank stellt sich schreiben. Der Name des Kindes Klasse sollte der Name der Tabelle. Indem einfach:
+        </p>
+<pre>
+use Pop&#92;Record&#92;Record;
+
+class Users extends Record { }
+</pre>
+        <p>
+            Sie erstellen eine Klasse, die die gesamte Funktionalität der Record-Klasse in und die Klasse kennt den Namen der Datenbank-Tabelle aus den Namen der Klasse abzufragen gebaut hat. Zum Beispiel, 'Users' übersetzt in `users` oder 'DbUsers' übersetzt in `db_users` (CamelCase wird automatisch in lower_case_underscore umgewandelt.) Von dort aus können Sie die Feinabstimmung der Kind-Klasse, die die Tabelle mit verschiedenen Klassen Eigenschaften wie stellt :
+        </p>
+<pre>
+// Table prefix, if applicable
+protected $prefix = null;
+
+// Primary ID, if applicable, defaults to 'id'
+protected $primaryId = 'id';
+
+// Whether the table is auto-incrementing or not
+protected $auto = true;
+
+// Whether to use prepared statements or not, defaults to true
+protected $usePrepared = true;
+</pre>
+        <p>
+            Wenn Sie innerhalb eines strukturierten Projekt, das eine definierte Datenbank-Adapter hat, dann sind die Record-Klasse holen, dass bis und zu nutzen. Allerdings, wenn Sie einfach schriftlich sind einige schnelle Skripte mit den Record-Komponente, dann werden Sie brauchen, um es welche Datenbank-Adapter sagen, zu verwenden:
+        </p>
+<pre>
+// Define DB credentials
+$creds = array(
+    'database' =&gt; 'helloworld',
+    'host'     =&gt; 'localhost',
+    'username' =&gt; 'hello',
+    'password' =&gt; '12world34'
+);
+
+// Create DB object
+$db = &#92;Pop&#92;Db&#92;Db::factory('Mysqli', $creds);
+
+Record::setDb($db);
+</pre>
+        <p>
+            Von dort sind grundlegende Verwendung wie folgt:
+        </p>
+<pre>
+// Get a single user
+$user = Users::findById(1001);
+echo $user-&gt;name;
+echo $user-&gt;email;
+
+// Get multiple users
+$users = Users::findAll('last_name ASC');
+foreach ($users-&gt;rows as $user) {
+    echo $user-&gt;name;
+    echo $user-&gt;email;
+}
+</pre>
     </div>
     <div id="doc-footer">
         <p>

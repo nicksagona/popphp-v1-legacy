@@ -30,53 +30,49 @@
         </p>
         <table style="width: 100%;">
             <tr>
-                <td style="width: 12.5%">
+                <td style="width: 16.5%">
                     <ul>
                         <li><a href="Archive.html">Archive</a></li>
                         <li><a href="Auth.html">Auth</a></li>
                         <li><a href="Cache.html">Cache</a></li>
                         <li><a href="CLI.html">CLI</a></li>
                         <li><a href="Code.html">Code</a></li>
+                        <li><a href="Color.html">Color</a></li>
                     </ul>
                 </td>
-                <td style="width: 12.5%">
+                <td style="width: 16.5%">
                     <ul>
-                        <li><a href="Color.html">Color</a></li>
                         <li><a href="Compress.html">Compress</a></li>
                         <li><a href="Config.html">Config</a></li>
                         <li><a href="Curl.html">Curl</a></li>
                         <li><a href="Data.html">Data</a></li>
-                    </ul>
-                </td>
-                <td style="width: 12.5%">
-                    <ul>
                         <li><a href="Db.html">Db</a></li>
                         <li><a href="Dom.html">Dom</a></li>
+                    </ul>
+                </td>
+                <td style="width: 16.5%">
+                    <ul>
                         <li><a href="Event.html">Event</a></li>
                         <li><a href="Feed.html">Feed</a></li>
                         <li><a href="File.html">File</a></li>
-                    </ul>
-                </td>
-                <td style="width: 12.5%">
-                    <ul>
                         <li><a href="Filter.html">Filter</a></li>
                         <li><a href="Font.html">Font</a></li>
                         <li><a href="Form.html">Form</a></li>
-                        <li><a href="Ftp.html">Ftp</a></li>
-                        <li><a href="Geo.html">Geo</a></li>
                     </ul>
                 </td>
-                <td style="width: 12.5%">
+                <td style="width: 16.5%">
                     <ul>
+                        <li><a href="Ftp.html">Ftp</a></li>
+                        <li><a href="Geo.html">Geo</a></li>
                         <li><a href="Graph.html">Graph</a></li>
                         <li><a href="Http.html">Http</a></li>
                         <li><a href="I18n.html">I18n</a></li>
                         <li><a href="Image.html">Image</a></li>
-                        <li><a href="Loader.html">Loader</a></li>
                     </ul>
                 </td>
-                <td style="width: 12.5%">
+                <td style="width: 16.5%">
                     <ul>
+                        <li><a href="Loader.html">Loader</a></li>
                         <li><a href="Log.html">Log</a></li>
                         <li><a href="Mail.html">Mail</a></li>
                         <li><a href="Mvc.html">Mvc</a></li>
@@ -84,17 +80,12 @@
                         <li><a href="Payment.html">Payment</a></li>
                     </ul>
                 </td>
-                <td style="width: 12.5%">
+                <td style="width: 16.5%">
                     <ul>
                         <li><a href="Pdf.html">Pdf</a></li>
                         <li><a href="Project.html">Project</a></li>
-                        <li><a href="Record.html">Record</a></li>
                         <li><a href="Service.html">Service</a></li>
                         <li><a href="Validator.html">Validator</a></li>
-                    </ul>
-                </td>
-                <td style="width: 12.5%">
-                    <ul>
                         <li><a href="Version.html">Version</a></li>
                         <li><a href="Web.html">Web</a></li>
                     </ul>
@@ -124,20 +115,20 @@
         <p>
             Often times, it can be difficult to grasp the MVC design pattern until you actually start using it. Once you do though, you'll immediately see the benefit of having everything separated out in easy-to-manage concepts with very little, if any, overlap. Your controller handles the delegation of requests, your model handles the business logic and your view determines how to display the output to the user. By far, this pattern trumps the olden days of cramming everything into a single script with numerous include statements.
         </p>
-        <h3>The Db &amp; Record Components</h3>
+        <h3>The Db Component</h3>
         <p>
-            The Db and Record components are two components that have the potential to be used quite a bit in any application. Obviously, the Db component provides direct access to query a database. The supported adapters include native MySQL, MySQLi, Oracle, PDO, PostgreSQL, Sqlite and SQLServer. They serve to normalize database access across different environments so that you don't have to worry as much about re-tooling an application to work with a different type of database in a different environment.
+            The Db component has the potential to be used quite a bit in any application. Obviously, the Db class provides direct access to query a database. The supported adapters include native MySQL, MySQLi, Oracle, PDO, PostgreSQL, Sqlite and SQLServer. They serve to normalize database access across different environments so that you don't have to worry as much about re-tooling an application to work with a different type of database in a different environment.
         </p>
         <p>
-            The Record component is a powerful component that provides standardized access to data within a database, specifically the database tables and individual records within the tables. The record component is really a hybrid of the Active Record and Table Data Gateway patterns. It can provide access to a single row or record like an Active Record pattern would, or multiple rows at one time, like a Table Data Gateway would. With the Pop PHP Framework, the most common approach is to write a child class that extends the Record class that represents a table in the database. The name of the child class should be the name of the table. By simply creating
+            The Record class is a powerful component that provides standardized access to data within a database, specifically the database tables and individual records within the tables. The Record class is really a hybrid of the Active Record and Table Gateway patterns. It can provide access to a single row or record like an Active Record pattern would, or multiple rows at one time, like a Table Gateway would. With the Pop PHP Framework, the most common approach is to write a child class that extends the Record class that represents a table in the database. The name of the child class should be the name of the table. By simply creating:
         </p>
 <pre>
-use Pop&#92;Record&#92;Record;
+use Pop&#92;Db&#92;Record;
 
 class Users extends Record { }
 </pre>
         <p>
-            you create a class that has all of the functionality of the Record component built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Record documentation to see how you can fine tune the child table class.
+            you create a class that has all of the functionality of the Record class built in and the class knows the name of the database table to query from the class name. For example,  'Users' translates into `users` or 'DbUsers' translates into `db_users` (CamelCase is automatically converted into lower_case_underscore.) Review the Db documentation to see how you can fine tune the child table class.
         </p>
     </div>
     <div id="doc-footer">

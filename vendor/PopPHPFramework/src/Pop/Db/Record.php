@@ -4,7 +4,7 @@
  *
  * @link       https://github.com/nicksagona/PopPHP
  * @category   Pop
- * @package    Pop_Record
+ * @package    Pop_Db
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
@@ -13,13 +13,13 @@
 /**
  * @namespace
  */
-namespace Pop\Record;
+namespace Pop\Db;
 
 /**
  * Record class
  *
  * @category   Pop
- * @package    Pop_Record
+ * @package    Pop_Db
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
@@ -55,7 +55,7 @@ class Record
 
     /**
      * Database adapter
-     * @var \Pop\Record\Adapter\AbstractRecord
+     * @var \Pop\Db\Record\AbstractRecord
      */
     protected $interface = null;
 
@@ -108,7 +108,7 @@ class Record
      *
      * @param  array $columns
      * @param  \Pop\Db\Db    $db
-     * @return \Pop\Record\Record
+     * @return \Pop\Db\Record
      */
     public function __construct(array $columns = null, \Pop\Db\Db $db = null)
     {
@@ -146,9 +146,9 @@ class Record
         $type = self::getDb()->getAdapterType();
 
         if (($type == 'Mysql') || (!$this->usePrepared)) {
-            $this->interface = new Adapter\Escaped(self::getDb(), $options);
+            $this->interface = new Record\Escaped(self::getDb(), $options);
         } else {
-            $this->interface = new Adapter\Prepared(self::getDb(), $options);
+            $this->interface = new Record\Prepared(self::getDb(), $options);
         }
     }
 
@@ -193,8 +193,7 @@ class Record
      *
      * @param  mixed $id
      * @param  int   $limit
-     * @throws Exception
-     * @return \Pop\Record\Record
+     * @return \Pop\Db\Record
      */
     public static function findById($id, $limit = null)
     {
@@ -211,7 +210,7 @@ class Record
      * @param  array  $columns
      * @param  string $order
      * @param  int    $limit
-     * @return \Pop\Record\Record
+     * @return \Pop\Db\Record
      */
     public static function findBy(array $columns, $order = null, $limit = null)
     {
@@ -229,7 +228,7 @@ class Record
      * @param  string     $order
      * @param  array      $columns
      * @param  int|string $limit
-     * @return \Pop\Record\Record
+     * @return \Pop\Db\Record
      */
     public static function findAll($order = null, array $columns = null, $limit = null)
     {
@@ -245,7 +244,7 @@ class Record
      *
      * @param  string $sql
      * @param  array  $params
-     * @return \Pop\Record\Record
+     * @return \Pop\Db\Record
      */
     public static function execute($sql, $params = null)
     {
@@ -260,7 +259,7 @@ class Record
      * Execute a custom SQL query.
      *
      * @param  string $sql
-     * @return \Pop\Record\Record
+     * @return \Pop\Db\Record
      */
     public static function query($sql)
     {
@@ -408,7 +407,7 @@ class Record
      *
      * @param  array $columns
      * @throws Exception
-     * @return \Pop\Record\Record
+     * @return \Pop\Db\Record
      */
     public function setValues($columns = null)
     {
@@ -464,7 +463,6 @@ class Record
      * Delete the database record.
      *
      * @param  array $columns
-     * @throws Exception
      * @return void
      */
     public function delete(array $columns = null)

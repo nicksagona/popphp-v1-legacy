@@ -74,6 +74,63 @@ $sql-&gt;setIdQuoteType(Sql::BACKTICK)
 // Outputs 'SELECT * FROM `users` WHERE `id` = 1'
 echo $sql;
 </pre>
+        <p>
+            としてドキュメント概要を説明してRecordクラスは、Active Recordは、表ゲートウェイパターン間一種の "ハイブリッド"です。標準化されたAPIを介して、それがデータベースのテーブル、または、一度に複数の行またはレコード内で単一の行またはレコードへのアクセスを提供することができます。最も一般的なアプローチは、データベース内のテーブルを表すRecordクラスを拡張子クラスを記述することです。子クラスの名前は、表の名前でなければなりません。 ：簡単に作成することにより、
+        </p>
+<pre>
+use Pop&#92;Record&#92;Record;
+
+class Users extends Record { }
+</pre>
+        <p>
+            あなたは、で、そのクラスがクラス名から照会するデータベーステーブルの名前を知って構築されたレコード·クラスのすべての機能を持つクラスを作成します。例えば、そこから`db_users`（キャメルケースが自動的lower_case_underscoreに変換されます。）に`ユーザ`や 'DbUsers'変換中に"ユーザー"変換は、次のような様々なクラスのプロパティを使用してテーブルを表す子クラスを微調整することができます：
+        </p>
+<pre>
+// Table prefix, if applicable
+protected $prefix = null;
+
+// Primary ID, if applicable, defaults to 'id'
+protected $primaryId = 'id';
+
+// Whether the table is auto-incrementing or not
+protected $auto = true;
+
+// Whether to use prepared statements or not, defaults to true
+protected $usePrepared = true;
+</pre>
+        <p>
+            使用して、定義済みのデータベースアダプタを持って構造化されたプロジェクト内にいる場合は、Recordクラスはそれを拾うと、それを使用します。あなたは、単にレコード·コンポーネントを使用して、いくつかの簡単なスクリプトを書いている場合は、その後に、使用するデータベース·アダプタのことを教えてやる必要があります：
+        </p>
+<pre>
+// Define DB credentials
+$creds = array(
+    'database' =&gt; 'helloworld',
+    'host'     =&gt; 'localhost',
+    'username' =&gt; 'hello',
+    'password' =&gt; '12world34'
+);
+
+// Create DB object
+$db = &#92;Pop&#92;Db&#92;Db::factory('Mysqli', $creds);
+
+Record::setDb($db);
+</pre>
+        <p>
+            次のようにそこから、基本的な使い方は次のとおりです。
+        </p>
+<pre>
+// Get a single user
+$user = Users::findById(1001);
+echo $user-&gt;name;
+echo $user-&gt;email;
+
+// Get multiple users
+$users = Users::findAll('last_name ASC');
+foreach ($users-&gt;rows as $user) {
+    echo $user-&gt;name;
+    echo $user-&gt;email;
+}
+</pre>
     </div>
     <div id="doc-footer">
         <p>

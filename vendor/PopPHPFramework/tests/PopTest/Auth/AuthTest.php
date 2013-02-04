@@ -21,7 +21,7 @@ use Pop\Loader\Autoloader,
     Pop\Auth\Adapter\File,
     Pop\Auth\Adapter\Table,
     Pop\Db\Db,
-    Pop\Record\Record;
+    Pop\Db\Record;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

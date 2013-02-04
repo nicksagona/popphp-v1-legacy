@@ -74,6 +74,63 @@ $sql-&gt;setIdQuoteType(Sql::BACKTICK)
 // Outputs 'SELECT * FROM `users` WHERE `id` = 1'
 echo $sql;
 </pre>
+        <p>
+            سجل الطبقة، كما ورد في الوثائق نظرة عامة، هو "مختلطة" من نوع ما بين السجل النشط وأنماط بوابة الجدول. عبر API موحدة، يمكن أن توفر إمكانية الوصول إلى صف واحد أو سجل في جدول قاعدة بيانات، أو صفوف متعددة في وقت واحد أو السجلات. النهج الأكثر شيوعا هو كتابة فئة الأطفال التي تمتد الطبقة سجل الذي يمثل الجدول في قاعدة البيانات. يجب أن يكون اسم الطبقة الطفل يكون اسم الجدول. من خلال خلق ببساطة:
+        </p>
+<pre>
+use Pop&#92;Record&#92;Record;
+
+class Users extends Record { }
+</pre>
+        <p>
+            إنشاء فئة التي لديها كل من وظائف من الفئة التي بنيت في سجل والطبقة يعرف اسم جدول قاعدة البيانات للاستعلام عن اسم الفئة. على سبيل المثال، يترجم "المستخدمين" في `` المستخدمين أو يترجم 'DbUsers' إلى `` db_users (يتم تحويل تلقائيا إلى CamelCase lower_case_underscore.) من هناك، يمكنك صقل الطبقة الطفل الذي يمثل الجدول مع خصائص فئة مختلفة مثل :
+        </p>
+<pre>
+// Table prefix, if applicable
+protected $prefix = null;
+
+// Primary ID, if applicable, defaults to 'id'
+protected $primaryId = 'id';
+
+// Whether the table is auto-incrementing or not
+protected $auto = true;
+
+// Whether to use prepared statements or not, defaults to true
+protected $usePrepared = true;
+</pre>
+        <p>
+            إذا كنت ضمن مشروع منظم يحتوي على قاعدة بيانات تعريف محول، ثم الطبقة سجل تختار أن تصل واستخدامها. ومع ذلك، إذا كنت تكتب ببساطة بعض الكتابات السريع باستخدام المكون سجل، فإنك سوف تحتاج لمعرفة ما الذي محول لاستخدام قاعدة البيانات:
+        </p>
+<pre>
+// Define DB credentials
+$creds = array(
+    'database' =&gt; 'helloworld',
+    'host'     =&gt; 'localhost',
+    'username' =&gt; 'hello',
+    'password' =&gt; '12world34'
+);
+
+// Create DB object
+$db = &#92;Pop&#92;Db&#92;Db::factory('Mysqli', $creds);
+
+Record::setDb($db);
+</pre>
+        <p>
+            من هناك، واستخدام الأساسية هي كما يلي:
+        </p>
+<pre>
+// Get a single user
+$user = Users::findById(1001);
+echo $user-&gt;name;
+echo $user-&gt;email;
+
+// Get multiple users
+$users = Users::findAll('last_name ASC');
+foreach ($users-&gt;rows as $user) {
+    echo $user-&gt;name;
+    echo $user-&gt;email;
+}
+</pre>
     </div>
     <div id="doc-footer">
         <p>

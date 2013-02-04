@@ -3,7 +3,7 @@
 require_once '../../bootstrap.php';
 
 use Pop\Db\Db,
-    Pop\Record\Record,
+    Pop\Db\Record,
     Pop\Log,
     Pop\Log\Writer;
 

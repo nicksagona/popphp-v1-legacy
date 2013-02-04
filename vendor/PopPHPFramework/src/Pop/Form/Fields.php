@@ -98,7 +98,7 @@ class Fields
     /**
      * Add form fields from a related database table. The $tableInfo
      * parameter should be the returned array result from calling the
-     * static Pop\Record\Record method, Record::getTableInfo();
+     * static Pop\Db\Record method, Record::getTableInfo();
      *
      * @param  array $tableInfo
      * @param  array $attribs

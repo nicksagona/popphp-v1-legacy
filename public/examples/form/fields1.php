@@ -5,7 +5,7 @@ use Pop\Db\Db,
     Pop\Form\Form,
     Pop\Form\Fields,
     Pop\Form\Element,
-    Pop\Record\Record;
+    Pop\Db\Record;
 
 class Users extends Record { }
 

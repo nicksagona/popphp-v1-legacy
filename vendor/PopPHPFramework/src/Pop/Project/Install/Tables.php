@@ -55,7 +55,7 @@ class Tables
             $tableName = ucfirst(\Pop\Filter\String::underscoreToCamelcase(str_replace($prefix, '', $table)));
 
             $ns = new NamespaceGenerator($install->project->name . '\Table');
-            $ns->setUse('Pop\Record\Record');
+            $ns->setUse('Pop\Db\Record');
 
             if (strpos($value['primaryId'], '|') !== false) {
                 $pIdType = 'array';

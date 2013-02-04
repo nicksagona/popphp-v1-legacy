@@ -30,7 +30,7 @@ class Db implements WriterInterface
 
     /**
      * Table record object that represents the log table in the database
-     * @var \Pop\Record\Record
+     * @var \Pop\Db\Record
      */
     protected $table = null;
 
@@ -39,11 +39,11 @@ class Db implements WriterInterface
      *
      * Instantiate the DB writer object.
      *
-     * @param  \Pop\Record\Record $table
+     * @param  \Pop\Db\Record $table
      * @throws Exception
      * @return \Pop\Log\Writer\Db
      */
-    public function __construct(\Pop\Record\Record $table)
+    public function __construct(\Pop\Db\Record $table)
     {
         // Check that the table has the appropriate columns.
         $tableInfo = $table->getTableInfo();

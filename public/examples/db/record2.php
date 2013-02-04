@@ -2,18 +2,17 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Db\Db,
-    Pop\Record\Record;
+use Pop\Db;
 
 /*
  * Placing a class here is highly unorthodox.
  * This is just for example purposes only.
  */
-class Users extends Record { }
+class Users extends Db\Record { }
 
 try {
     // Define DB credentials
-    $db = Db::factory('Mysqli', array(
+    $db = Db\Db::factory('Mysqli', array(
         'database' => 'helloworld',
         'host'     => 'localhost',
         'username' => 'hello',
@@ -21,8 +20,18 @@ try {
     ));
 
     Users::setDb($db);
-    $users = Users::findAll();
-    print_r($users);
+
+    $fields = array(
+        'username'   => 'newuser2',
+        'password'   => '123456',
+        'first_name' => 'Onemore',
+        'last_name'  => 'Newuser',
+        'email'      => 'test@test.com'
+    );
+
+    $user = new Users($fields);
+    $user->save();
+    print_r($user);
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

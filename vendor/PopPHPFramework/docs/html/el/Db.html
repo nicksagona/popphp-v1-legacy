@@ -74,6 +74,63 @@ $sql-&gt;setIdQuoteType(Sql::BACKTICK)
 // Outputs 'SELECT * FROM `users` WHERE `id` = 1'
 echo $sql;
 </pre>
+        <p>
+            Η τάξη εγγραφής, όπως περιγράφεται στην επισκόπηση τεκμηρίωση, είναι ένα "υβρίδιο" του είδους μεταξύ του Active Record και τα σχέδια πύλη πίνακα. Μέσω ενός τυποποιημένο API, μπορεί να παρέχει πρόσβαση σε μία μόνο γραμμή ή εγγραφή σε έναν πίνακα βάσης δεδομένων, ή πολλαπλές σειρές ή αρχεία ταυτόχρονα. Η πιο κοινή προσέγγιση είναι να γράψετε μια κατηγορία παιδιών που επεκτείνει την τάξη εγγραφής που αντιπροσωπεύει έναν πίνακα στη βάση δεδομένων. Το όνομα της κατηγορίας παιδιού θα πρέπει να είναι το όνομα του πίνακα. Με απλά δημιουργώντας:
+        </p>
+<pre>
+use Pop&#92;Record&#92;Record;
+
+class Users extends Record { }
+</pre>
+        <p>
+            μπορείτε να δημιουργήσετε μια κατηγορία που έχει όλες τις λειτουργίες της τάξης Εγγραφή ενσωματωμένο και η τάξη δεν ξέρει το όνομα του πίνακα της βάσης δεδομένων για την υποβολή ερωτημάτων από το όνομα της κλάσης. Για παράδειγμα, μεταφράζεται «Χρήστες» σε χρήστες `` ή μεταφράζεται »DbUsers» σε db_users `` (CamelCase μετατρέπεται αυτόματα σε lower_case_underscore.) Από εκεί, μπορείτε να ρυθμίσετε την κατηγορία παιδί που αντιπροσωπεύει τον πίνακα με διάφορες ιδιότητες, όπως η τάξη :
+        </p>
+<pre>
+// Table prefix, if applicable
+protected $prefix = null;
+
+// Primary ID, if applicable, defaults to 'id'
+protected $primaryId = 'id';
+
+// Whether the table is auto-incrementing or not
+protected $auto = true;
+
+// Whether to use prepared statements or not, defaults to true
+protected $usePrepared = true;
+</pre>
+        <p>
+            Αν είστε μέσα σε ένα δομημένο πρόγραμμα που έχει οριστεί προσαρμογέα βάσης δεδομένων, τότε η τάξη εγγραφής θα πάρει ότι και να το χρησιμοποιήσετε. Ωστόσο, εάν γράφετε απλά κάποιες γρήγορες scripts χρησιμοποιώντας το εξάρτημα εγγραφής, τότε θα πρέπει να το πουν οι οποίες προσαρμογέα βάσης δεδομένων για χρήση:
+        </p>
+<pre>
+// Define DB credentials
+$creds = array(
+    'database' =&gt; 'helloworld',
+    'host'     =&gt; 'localhost',
+    'username' =&gt; 'hello',
+    'password' =&gt; '12world34'
+);
+
+// Create DB object
+$db = &#92;Pop&#92;Db&#92;Db::factory('Mysqli', $creds);
+
+Record::setDb($db);
+</pre>
+        <p>
+            Από εκεί, βασική χρήση είναι ως εξής:
+        </p>
+<pre>
+// Get a single user
+$user = Users::findById(1001);
+echo $user-&gt;name;
+echo $user-&gt;email;
+
+// Get multiple users
+$users = Users::findAll('last_name ASC');
+foreach ($users-&gt;rows as $user) {
+    echo $user-&gt;name;
+    echo $user-&gt;email;
+}
+</pre>
     </div>
     <div id="doc-footer">
         <p>
