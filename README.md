@@ -4,7 +4,7 @@ Welcome to the Pop PHP Framework 1.2.0 Release!
 RELEASE INFORMATION
 -------------------
 Pop PHP Framework 1.2.0 Release  
-Released January 29, 2013
+Released February 4, 2013
 
 
 OVERVIEW
@@ -67,7 +67,6 @@ easy-to-use API to access and utilize the following components:
 * Payment
 * Pdf
 * Project
-* Record
 * Service
 * Validator
 * Version

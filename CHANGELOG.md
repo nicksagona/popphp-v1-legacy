@@ -3,10 +3,11 @@ Pop PHP Framework Changelog
 
 1.2.0
 -----
-Released on January 29, 2013
+Released on February 4, 2013
 
 * Large general code review and cleanup
 * Add relative path support to project install functionality
+* Move the Record component under the Db component
 * Add a Service component
     - Ability to configure and lazy-load services as needed
     - Hooked into the Project component
