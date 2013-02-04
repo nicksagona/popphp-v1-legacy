@@ -109,40 +109,39 @@ Benutzer angezeigt. Bei weitem dieses Muster Trümpfe die alten Zeiten
 pauken alles in einem einzigen Skript mit zahlreichen beinhalten
 Aussagen.
 
-### Die Db & Record-Komponenten
+### Der DB-Komponente
 
-Die Db und Record-Komponenten sind zwei Komponenten, die das Potenzial
-genutzt ziemlich in jeder Anwendung werden müssen. Offensichtlich bietet
-die DB-Komponente den direkten Zugriff auf eine Datenbank abzufragen.
-Die unterstützten Adaptern zählen native MySQL, MySQLi, Oracle, PDO,
-PostgreSQL, SQLite und SQLServer. Sie dienen dazu, Zugriff auf die
-Datenbank in verschiedenen Umgebungen zu normalisieren, so dass Sie
-nicht haben, um so viel kümmern Umrüstung eine Anwendung mit einer
-anderen Art von Datenbank in einer anderen Umgebung zu arbeiten.
+Die Db Komponente hat das Potential, verwendet einiges in jeder
+Anwendung verwendet werden. Offensichtlich bietet die Db-Klasse den
+direkten Zugriff auf eine Datenbank abzufragen. Die unterstützten
+Adaptern zählen native MySQL, MySQLi, Oracle, PDO, PostgreSQL, SQLite
+und SQLServer. Sie dienen dazu, Zugriff auf die Datenbank in
+verschiedenen Umgebungen zu normalisieren, so dass Sie nicht haben,
+um so viel kümmern Umrüstung eine Anwendung mit einer anderen Art von
+Datenbank in einer anderen Umgebung zu arbeiten.
 
-Die Record-Komponente ist eine leistungsfähige Komponente, die einen
-standardisierten Zugriff auf Daten in einer Datenbank, die speziell den
-Datenbanktabellen und einzelne Datensätze in den Tabellen zur Verfügung
-stellt. Der Rekord-Komponente ist wirklich ein Hybrid aus dem Active
-Record und Table Data Gateway Muster. Es kann Zugriff auf eine einzelne
-Zeile oder Datensatz wie ein Active Record Pattern würde, oder mehrere
-Zeilen auf einmal, wie ein Table Data Gateway würde. Mit dem Pop PHP
-Framework ist die häufigste Methode, um ein Kind-Klasse, die
+Die Record-Klasse ist eine leistungsfähige Komponente, die einen
+standardisierten Zugriff auf Daten in einer Datenbank, die speziell
+den Datenbanktabellen und einzelne Datensätze in den Tabellen zur
+Verfügung stellt. Die Record-Klasse ist wirklich ein Hybrid aus dem
+Active Record und Tabelle Gateway-Muster. Es kann Zugriff auf eine
+einzelne Zeile oder Datensatz wie ein Active Record Pattern würde,
+oder mehrere Zeilen auf einmal, wie ein Table-Gateway würde. Mit dem
+Pop PHP Framework ist die häufigste Methode, um ein Kind-Klasse, die
 Record-Klasse, die eine Tabelle in der Datenbank stellt sich schreiben.
-Der Name des Kindes Klasse sollte der Name der Tabelle. Durch einfaches
-Erstellen
+Der Name des Kindes Klasse sollte der Name der Tabelle. Indem einfach:
 
-    use Pop\Record\Record;
+    use Pop\Db\Record;
 
     class Users extends Record { }
 
-Sie erstellen eine Klasse, die die gesamte Funktionalität des
-Record-Komponente eingebaut und die Klasse kennt den Namen der
-Datenbank-Tabelle aus den Namen der Klasse abgefragt hat. Zum Beispiel,
-'Users' übersetzt in \`users\` oder 'DbUsers' übersetzt in \`db\_users\`
-(CamelCase wird automatisch in lower\_case\_underscore umgewandelt.)
-Überprüfen Sie die Aufnahme-Dokumentation zu sehen, wie können Sie eine
-Feinabstimmung der untergeordneten Tabelle Klasse.
+Sie erstellen eine Klasse, die die gesamte Funktionalität der
+Record-Klasse in und die Klasse kennt den Namen der Datenbank-Tabelle
+aus den Namen der Klasse abzufragen gebaut hat. Zum Beispiel, 'Users'
+übersetzt in `users` oder 'DbUsers' übersetzt in `db_users` (CamelCase
+wird automatisch in lower_case_underscore umgewandelt.) Überprüfen Sie
+die DB-Dokumentation zu sehen, wie können Sie eine Feinabstimmung der
+untergeordneten Tabelle Klasse.
 
 \(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

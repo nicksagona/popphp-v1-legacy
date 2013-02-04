@@ -109,40 +109,39 @@ la lógica de negocio y su vista determina cómo mostrar el resultado al
 usuario. Por el momento, este modelo supera a los viejos tiempos de
 abarrotar todo en una única secuencia de comandos con numerosas include.
 
-### Los componentes DB & Record
+### El componente Db
 
-Los componentes de DB y registro son dos componentes que tienen el
-potencial de ser utilizado bastante en cualquier aplicación. Obviamente,
-el componente Db proporciona acceso directo para consultar una base de
-datos. Los adaptadores compatibles incluyen MySQL nativa, MySQLi,
-Oracle, PDO, PostgreSQL, SQLite y SQLServer. Sirven para normalizar el
-acceso de base de datos a través de diferentes ambientes para que usted
-no tiene que preocuparse tanto de reequipamiento una aplicación para
-trabajar con un tipo diferente de base de datos en un entorno diferente.
+El componente Db tiene el potencial de ser usado un poco en cualquier
+aplicación. Obviamente, la clase Db proporciona acceso directo para
+consultar una base de datos. Los adaptadores compatibles incluyen MySQL
+nativa, MySQLi, Oracle, PDO, PostgreSQL, SQLite y SQLServer. Sirven
+para normalizar el acceso de base de datos a través de diferentes
+ambientes para que usted no tiene que preocuparse tanto de
+reequipamiento una aplicación para trabajar con un tipo diferente de
+base de datos en un entorno diferente.
 
-El componente de registro es un componente poderoso que proporciona
-acceso normalizado a los datos dentro de una base de datos,
-específicamente las tablas de base de datos y los registros individuales
-dentro de las tablas. El componente de registro es realmente un híbrido
-de Active Record y especificaciones Tabla patrones Gateway. Puede
-proporcionar acceso a una sola fila o registro como un patrón Active
-Record haría, o varias filas a la vez, como una puerta de enlace de la
-tabla de datos haría. Con el Pop Framework PHP, el enfoque más común es
-escribir una clase hija que se extiende a la clase de registro que
-representa una tabla en la base de datos. El nombre de la clase hija
-debe ser el nombre de la tabla. Por la simple creación de
+La clase de registro es un componente poderoso que proporciona acceso
+normalizado a los datos dentro de una base de datos, específicamente
+las tablas de base de datos y los registros individuales dentro de las
+tablas. La clase de registro es realmente un híbrido de la Active Record
+y los patrones de la tabla Gateway. Puede proporcionar acceso a una sola
+fila o registro como un patrón Active Record haría, o varias filas a la
+vez, como una puerta de enlace de la tabla lo haría. Con el Pop
+Framework PHP, el enfoque más común es escribir una clase hija que se
+extiende a la clase de registro que representa una tabla en la base de
+datos. El nombre de la clase hija debe ser el nombre de la tabla. Por
+la simple creación:
 
-    use Pop\Record\Record;
+    use Pop\Db\Record;
 
     class Users extends Record { }
 
-se crea una clase que tiene toda la funcionalidad del componente de
-grabación construido en la clase y conoce el nombre de la tabla de base
-de datos para consultar el nombre de la clase. Por ejemplo, se traduce
-'Usuarios' en \`usuarios\` o 'traduce' en \`DbUsers db\_users\`
-(CamelCase se convierte automáticamente en lower\_case\_underscore.)
-Revisar la documentación de grabación para ver cómo se puede ajustar con
-precisión la clase de tabla secundaria.
+se crea una clase que tiene toda la funcionalidad de la clase Record
+construido en la clase y conoce el nombre de la tabla de base de datos
+para consultar el nombre de la clase. Por ejemplo, se traduce 'Usuarios'
+en `usuarios` o 'traduce' en `DbUsers db_users` (CamelCase se convierte
+automáticamente en lower_case_underscore.) Revisar la documentación Db a
+ver cómo se puede ajustar con precisión la clase de tabla secundaria.
 
 \(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

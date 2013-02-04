@@ -102,7 +102,7 @@ view determines how to display the output to the user. By far, this
 pattern trumps the olden days of cramming everything into a single
 script with numerous include statements.
 
-### The Db Components
+### The Db Component
 
 The Db component has the potential to be used quite a bit in any
 application. Obviously, the Db class provides direct access to query a

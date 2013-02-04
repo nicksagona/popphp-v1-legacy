@@ -110,41 +110,40 @@ sortie à l'utilisateur. De loin, ce modèle l'emporte sur les temps
 anciens de bachotage tout dans un seul script avec de nombreux
 comprennent des déclarations.
 
-### Les composants Db & enregistrement
+### La composante Db
 
-Les composants Db et enregistrement sont deux composantes qui ont le
-potentiel d'être utilisé un peu dans n'importe quelle application. De
-toute évidence, la composante Db offre un accès direct à interroger une
-base de données. Les adaptateurs pris en charge comprennent natif MySQL,
-MySQLi, Oracle, AOP, PostgreSQL, SQLite et SQLServer. Ils servent à
-normaliser l'accès base de données dans des environnements différents de
-sorte que vous n'avez pas à s'inquiéter autant de réoutillage une
-demande de travailler avec un autre type de base de données dans un
-environnement différent.
+La composante Db a le potentiel d'être utilisé un peu dans n'importe
+quelle application. De toute évidence, la classe Db offre un accès
+direct à interroger une base de données. Les adaptateurs pris en charge
+comprennent natif MySQL, MySQLi, Oracle, AOP, PostgreSQL, SQLite et
+SQLServer. Ils servent à normaliser l'accès base de données dans des
+environnements différents de sorte que vous n'avez pas à s'inquiéter
+autant de réoutillage une demande de travailler avec un autre type de
+base de données dans un environnement différent.
 
-Le volet enregistrement est un élément puissant qui fournit un accès
+La classe enregistrement est un élément puissant qui fournit un accès
 standardisé aux données dans une base de données, en particulier les
-tables de bases de données et les dossiers individuels dans les
-tableaux. La composante record est vraiment un hybride de l'Active
-Record et les habitudes Table Data Gateway. Il peut donner accès à une
-seule ligne ou disque comme un modèle Active Record aurait ou plusieurs
-lignes à la fois, comme une Table Data Gateway ferait. Avec le Cadre Pop
-PHP, l'approche la plus courante consiste à écrire une classe enfant qui
-étend la classe enregistrement qui représente une table dans la base de
-données. Le nom de la classe de l'enfant doit être le nom de la table.
-En créant simplement
+tables de bases de données et les dossiers individuels dans les tableaux.
+La classe enregistrement est vraiment un hybride de l'Active Record et
+les modèles de passerelle de table. Il peut donner accès à une seule
+ligne ou disque comme un modèle Active Record aurait ou plusieurs lignes
+à la fois, comme une passerelle tableau ferait. Avec le Cadre Pop PHP,
+l'approche la plus courante consiste à écrire une classe enfant qui étend
+la classe enregistrement qui représente une table dans la base de données.
+Le nom de la classe de l'enfant doit être le nom de la table. En
+créant simplement:
 
-    use Pop\Record\Record;
+    use Pop\Db\Record;
 
     class Users extends Record { }
 
-vous créez une classe qui dispose de toutes les fonctionnalités du
-composant enregistrement intégré et la classe connaît le nom de la table
+vous créez une classe qui dispose de toutes les fonctionnalités de la
+classe enregistrement intégré et la classe connaît le nom de la table
 de base de données à interroger à partir du nom de la classe. Par
-exemple, se traduit par «Utilisateurs» dans \`utilisateurs\` ou traduit
-'DbUsers' dans \`\` db\_users (CamelCase est automatiquement converti en
-lower\_case\_underscore.), Consultez la documentation d'enregistrement
-pour voir comment vous pouvez affiner la classe table enfant.
+exemple, se traduit par «Utilisateurs» dans `utilisateurs` ou traduit
+'DbUsers' dans `` db_users (CamelCase est automatiquement converti en
+lower_case_underscore.), Consultez la documentation Db pour voir comment
+vous pouvez affiner la classe table enfant.
 
 \(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

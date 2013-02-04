@@ -107,39 +107,37 @@ do negócio e sua visão determina como exibir a saída para o usuário. De
 longe, este supera o padrão velhos tempos de colocar tudo em um único
 script com numerosos incluem declarações.
 
-### Os Componentes Db & Record
+### O Componente Db
 
-Os componentes Db e Record são dois componentes que têm o potencial de
-ser usado um pouco em qualquer aplicação. Obviamente, o componente Db
-fornece acesso direto para consultar um banco de dados. Os adaptadores
-suportados incluem MySQL nativa, MySQLi, Oracle, DOP, PostgreSQL, SQLite
-e SQLServer. Eles servem para normalizar o acesso de dados em ambientes
-diferentes de modo que você não precisa se preocupar tanto com novos
-equipamentos de um aplicativo para trabalhar com um tipo diferente de
-banco de dados em um ambiente diferente.
+O componente Db tem o potencial de ser usado um pouco em toda a aplicação.
+Obviamente, a classe Db fornece acesso direto para consultar um banco de
+dados. Os adaptadores suportados incluem MySQL nativa, MySQLi, Oracle, DOP,
+PostgreSQL, SQLite e SQLServer. Eles servem para normalizar o acesso de
+dados em ambientes diferentes de modo que você não precisa se preocupar
+tanto com novos equipamentos de um aplicativo para trabalhar com um tipo
+diferente de banco de dados em um ambiente diferente.
 
-O componente Record é um componente poderoso que fornece acesso
-padronizado aos dados em um banco de dados, especificamente as tabelas
-de banco de dados e registros individuais dentro das tabelas. O
-componente de registro é realmente um híbrido do Active Record e padrões
-de tabela de dados Gateway. Ele pode fornecer acesso a uma única linha
-ou registro como um padrão Active Record seria, ou várias linhas de uma
-só vez, como um gateway de dados Tabela faria. Com o quadro PHP Pop, a
-abordagem mais comum é escrever uma classe filha que estende a classe
-Record que representa uma tabela no banco de dados. O nome da classe
-criança deve ser o nome da tabela. Simplesmente criando
+A classe Record é um componente poderoso que fornece acesso padronizado
+aos dados em um banco de dados, especificamente as tabelas de banco de
+dados e registros individuais dentro das tabelas. A classe Record é
+realmente um híbrido do Active Record e padrões de gateway da tabela.
+Ele pode fornecer acesso a uma única linha ou registro como um padrão
+Active Record seria, ou várias linhas de uma só vez, como um Gateway
+Tabela faria. Com o quadro PHP Pop, a abordagem mais comum é escrever
+uma classe filha que estende a classe Record que representa uma tabela
+no banco de dados. O nome da classe criança deve ser o nome da tabela.
+Simplesmente criando:
 
-    use Pop\Record\Record;
+    use Pop\Db\Record;
 
     class Users extends Record { }
 
-você criar uma classe que tem todas as funcionalidades do componente
+você criar uma classe que tem todas as funcionalidades da classe
 construído em Registro e da classe sabe o nome da tabela de banco de
 dados para consulta a partir do nome da classe. Por exemplo, se traduz
-'Usuários' em \`usuários\` ou 'traduz DbUsers' em \`db\_users\`
-(CamelCase é automaticamente convertido em lower\_case\_underscore.)
-Analisar a documentação Record para ver como você pode ajustar a classe
-tabela filho.
+'Usuários' em `usuários` ou 'traduz DbUsers' em `db_users` (CamelCase
+é automaticamente convertido em lower_case_underscore.) Analisar a
+documentação Db para ver como você pode ajustar a classe tabela filho.
 
 \(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

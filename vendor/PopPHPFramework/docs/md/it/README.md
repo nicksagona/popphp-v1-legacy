@@ -109,40 +109,38 @@ business e la vostra vista determina come visualizzare l'output per
 l'utente. Di gran lunga, questo trionfi motivo i vecchi tempi di stipare
 tutto in un unico script con numerosi includono dichiarazioni.
 
-### I Db & Record componenti
+### La componente Db
 
-I componenti Db e Record sono due componenti che hanno il potenziale per
-essere utilizzato un po 'in tutta l'applicazione. Ovviamente, il
-componente Db offre accesso diretto a interrogare un database. Gli
-adattatori supportati includono MySQL nativo, MySQLi, Oracle, DOP,
-PostgreSQL, SQLite e SQLServer. Essi servono a normalizzare l'accesso al
-database in ambienti diversi in modo che non ci si deve preoccupare
-tanto di re-tooling un'applicazione per lavorare con un diverso tipo di
-database in un ambiente diverso.
+Il componente Db ha il potenziale di essere usato un po 'in qualsiasi
+applicazione. Ovviamente, la classe Db offre accesso diretto a interrogare
+un database. Gli adattatori supportati includono MySQL nativo, MySQLi,
+Oracle, DOP, PostgreSQL, SQLite e SQLServer. Essi servono a normalizzare
+l'accesso al database in ambienti diversi in modo che non ci si deve
+preoccupare tanto di re-tooling un'applicazione per lavorare con un
+diverso tipo di database in un ambiente diverso.
 
-Il componente di registrazione è un componente potente che fornisce un
-accesso standard ai dati all'interno di un database, in particolare le
-tabelle del database e singoli record all'interno delle tabelle. Il
-componente di registrazione è in realtà un ibrido di Active Record e
-dati della tabella modelli Gateway. E 'in grado di fornire l'accesso a
-una singola riga o disco come un pattern Active Record sia, o più righe
-in una sola volta, come un gateway Tabella dati avrebbe fatto. Con il
-quadro Pop PHP, l'approccio più comune è quello di scrivere una classe
-figlia che estende la classe record che rappresenta una tabella nel
-database. Il nome della classe figlio dovrebbe essere il nome della
-tabella. Con la semplice creazione di
+La classe Record è un componente potente che fornisce un accesso standard
+ai dati all'interno di un database, in particolare le tabelle del database
+e dei singoli record all'interno delle tabelle. La classe Record è in
+realtà un ibrido di Active Record e modelli Gateway Tabella. E 'in grado
+di fornire l'accesso a una singola riga o disco come un pattern Active
+Record sia, o più righe in una sola volta, come un gateway tabella sarebbe.
+Con il quadro Pop PHP, l'approccio più comune è quello di scrivere una
+classe figlia che estende la classe record che rappresenta una tabella
+nel database. Il nome della classe figlio dovrebbe essere il nome della
+tabella. Con la semplice creazione di:
 
-    use Pop\Record\Record;
+    use Pop\Db\Record;
 
     class Users extends Record { }
 
-si crea una classe che dispone di tutte le funzionalità del componente
-di registrazione costruito e la classe conosce il nome della tabella di
-database per eseguire query dal nome della classe. Ad esempio, si
-traduce 'utenti INTO \`utenti\` o si traduce "DbUsers' in\` \`db\_users
-(CamelCase viene automaticamente convertito in lower\_case\_underscore.)
-Esaminare la documentazione di registrazione per vedere come è possibile
-regolare con precisione la classe tabella figlio.
+si crea una classe che dispone di tutte le funzionalità della classe
+Record costruito e la classe conosce il nome della tabella di database
+per eseguire query dal nome della classe. Ad esempio, si traduce 'utenti
+INTO `utenti` o si traduce "DbUsers' in` `db_users (CamelCase viene
+automaticamente convertito in lower_case_underscore.) Commenta la
+documentazione Db per vedere come è possibile regolare con precisione la
+classe tabella figlio.
 
 \(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.
