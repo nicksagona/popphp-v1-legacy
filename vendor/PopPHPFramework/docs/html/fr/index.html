@@ -115,12 +115,12 @@
         <p>
             Souvent, il peut être difficile de comprendre le motif de conception MVC jusqu'à ce que vous commencer à l'utiliser. Une fois que vous faites bien, vous verrez immédiatement l'avantage d'avoir tout séparé dans faciles à gérer concepts avec très peu, le cas échéant, se chevauchent. Votre contrôleur gère la délégation de demandes, votre modèle gère la logique métier et votre point de vue détermine la façon d'afficher la sortie à l'utilisateur. De loin, ce modèle l'emporte sur les temps anciens de bachotage tout dans un seul script avec de nombreux comprennent des déclarations.
         </p>
-        <h3>Les composants Db & enregistrement</h3>
+        <h3>La composante Db</h3>
         <p>
-            Les composants Db et enregistrement sont deux composantes qui ont le potentiel d'être utilisé un peu dans n'importe quelle application. De toute évidence, la composante Db offre un accès direct à interroger une base de données. Les adaptateurs pris en charge comprennent natif MySQL, MySQLi, Oracle, AOP, PostgreSQL, SQLite et SQLServer. Ils servent à normaliser l'accès base de données dans des environnements différents de sorte que vous n'avez pas à s'inquiéter autant de réoutillage une demande de travailler avec un autre type de base de données dans un environnement différent.
+            La composante Db a le potentiel d'être utilisé un peu dans n'importe quelle application. De toute évidence, la classe Db offre un accès direct à interroger une base de données. Les adaptateurs pris en charge comprennent natif MySQL, MySQLi, Oracle, AOP, PostgreSQL, SQLite et SQLServer. Ils servent à normaliser l'accès base de données dans des environnements différents de sorte que vous n'avez pas à s'inquiéter autant de réoutillage une demande de travailler avec un autre type de base de données dans un environnement différent.
         </p>
         <p>
-            Le volet enregistrement est un élément puissant qui fournit un accès standardisé aux données dans une base de données, en particulier les tables de bases de données et les dossiers individuels dans les tableaux. La composante record est vraiment un hybride de l'Active Record et les habitudes Table Data Gateway. Il peut donner accès à une seule ligne ou disque comme un modèle Active Record aurait ou plusieurs lignes à la fois, comme une Table Data Gateway ferait. Avec le Cadre Pop PHP, l'approche la plus courante consiste à écrire une classe enfant qui étend la classe enregistrement qui représente une table dans la base de données. Le nom de la classe de l'enfant doit être le nom de la table. En créant simplement
+            La classe enregistrement est un élément puissant qui fournit un accès standardisé aux données dans une base de données, en particulier les tables de bases de données et les dossiers individuels dans les tableaux. La classe enregistrement est vraiment un hybride de l'Active Record et les modèles de passerelle de table. Il peut donner accès à une seule ligne ou disque comme un modèle Active Record aurait ou plusieurs lignes à la fois, comme une passerelle tableau ferait. Avec le Cadre Pop PHP, l'approche la plus courante consiste à écrire une classe enfant qui étend la classe enregistrement qui représente une table dans la base de données. Le nom de la classe de l'enfant doit être le nom de la table. En créant simplement:
         </p>
 <pre>
 use Pop&#92;Db&#92;Record;
@@ -128,7 +128,7 @@ use Pop&#92;Db&#92;Record;
 class Users extends Record { }
 </pre>
         <p>
-            vous créez une classe qui dispose de toutes les fonctionnalités du composant enregistrement intégré et la classe connaît le nom de la table de base de données à interroger à partir du nom de la classe. Par exemple, se traduit par «Utilisateurs» dans `utilisateurs` ou traduit 'DbUsers' dans `` db_users (CamelCase est automatiquement converti en lower_case_underscore.), Consultez la documentation d'enregistrement pour voir comment vous pouvez affiner la classe table enfant.
+            vous créez une classe qui dispose de toutes les fonctionnalités de la classe enregistrement intégré et la classe connaît le nom de la table de base de données à interroger à partir du nom de la classe. Par exemple, se traduit par «Utilisateurs» dans `utilisateurs` ou traduit 'DbUsers' dans `` db_users (CamelCase est automatiquement converti en lower_case_underscore.), Consultez la documentation Db pour voir comment vous pouvez affiner la classe table enfant.
         </p>
     </div>
     <div id="doc-footer">

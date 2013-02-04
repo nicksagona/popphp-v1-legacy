@@ -45,7 +45,6 @@ full power of the framework and PHP.
 -   Payment
 -   Pdf
 -   Project
--   Record
 -   Service
 -   Validator
 -   Version
@@ -103,37 +102,36 @@ view determines how to display the output to the user. By far, this
 pattern trumps the olden days of cramming everything into a single
 script with numerous include statements.
 
-### The Db & Record Components
+### The Db Components
 
-The Db and Record components are two components that have the potential
-to be used quite a bit in any application. Obviously, the Db component
-provides direct access to query a database. The supported adapters
-include native MySQL, MySQLi, Oracle, PDO, PostgreSQL, Sqlite and
-SQLServer. They serve to normalize database access across different
-environments so that you don't have to worry as much about re-tooling an
-application to work with a different type of database in a different
-environment.
+The Db component has the potential to be used quite a bit in any
+application. Obviously, the Db class provides direct access to query a
+database. The supported adapters include native MySQL, MySQLi, Oracle,
+PDO, PostgreSQL, Sqlite and SQLServer. They serve to normalize database
+access across different environments so that you don't have to worry as
+much about re-tooling an application to work with a different type of
+database in a different environment.
 
-The Record component is a powerful component that provides standardized
+The Record class is a powerful component that provides standardized
 access to data within a database, specifically the database tables and
-individual records within the tables. The record component is really a
-hybrid of the Active Record and Table Data Gateway patterns. It can
-provide access to a single row or record like an Active Record pattern
-would, or multiple rows at one time, like a Table Data Gateway would.
-With the Pop PHP Framework, the most common approach is to write a child
-class that extends the Record class that represents a table in the
-database. The name of the child class should be the name of the table.
-By simply creating
+individual records within the tables. The Record class is really a
+hybrid of the Active Record and Table Gateway patterns. It can provide
+access to a single row or record like an Active Record pattern would,
+or multiple rows at one time, like a Table Gateway would. With the Pop
+PHP Framework, the most common approach is to write a child class that
+extends the Record class that represents a table in the database. The
+name of the child class should be the name of the table. By simply
+creating:
 
-    use Pop\Record\Record;
+    use Pop\Db\Record;
 
     class Users extends Record { }
 
 you create a class that has all of the functionality of the Record
-component built in and the class knows the name of the database table to
-query from the class name. For example, 'Users' translates into
-\`users\` or 'DbUsers' translates into \`db\_users\` (CamelCase is
-automatically converted into lower\_case\_underscore.) Review the Record
+class built in and the class knows the name of the database table to
+query from the class name. For example,  'Users' translates into
+\`users\` or 'DbUsers' translates into \`db_users\` (CamelCase is
+automatically converted into lower_case_underscore.) Review the Db
 documentation to see how you can fine tune the child table class.
 
 \(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
