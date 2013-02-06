@@ -29,12 +29,6 @@ class Db
 {
 
     /**
-     * SQL object
-     * @var \Pop\Db\Sql
-     */
-    protected $sql = null;
-
-    /**
      * Default database adapter object
      * @var mixed
      */
@@ -58,7 +52,7 @@ class Db
         if (!class_exists($class)) {
             throw new Exception('Error: That database adapter class does not exist.');
         }
-        $this->sql = new Sql();
+
         $this->adapter = new $class($options);
     }
 
@@ -84,16 +78,6 @@ class Db
     public function adapter()
     {
         return $this->adapter;
-    }
-
-    /**
-     * Get the database SQL object.
-     *
-     * @return mixed
-     */
-    public function sql()
-    {
-        return $this->sql;
     }
 
     /**
