@@ -107,6 +107,12 @@ class Sql
     protected $table = null;
 
     /**
+     * SQL clause object
+     * @var mixed
+     */
+    protected $clause = null;
+
+    /**
      * SQL statement
      * @var string
      */
@@ -257,7 +263,7 @@ class Sql
     }
 
     /**
-     * Get the current SQL statement string.
+     * Quote the value with the quoted identifier
      *
      * @param  string $id
      * @return string
@@ -297,43 +303,106 @@ class Sql
     }
 
     /**
+     * Quote the value with single quotes
+     *
+     * @param  string $value
+     * @return string
+     */
+    public function quote($value)
+    {
+        if (($value != '?') && (substr($value, 0, 1) != ':') && (preg_match('/^\$\d*\d$/', $value) == 0)) {
+            $value = "'" . addslashes($value) . "'";
+        }
+        return $value;
+    }
+
+    /**
      * Create a select statement
      *
-     * @return void
+     * @param  array $columns
+     * @return \Pop\Db\Sql\Select
      */
-    public function select()
+    public function select(array $columns = null)
     {
+        if (null === $this->clause) {
+            $this->clause = new Sql\Select($this, $columns);
+        }
 
+        return $this->clause;
     }
 
     /**
      * Create a insert statement
      *
-     * @return void
+     * @param  array $columns
+     * @throws Exception
+     * @return \Pop\Db\Sql\Insert
      */
-    public function insert()
+    public function insert(array $columns = null)
     {
+        if (null === $this->clause) {
+            if (null === $columns) {
+                throw new Exception('Error: The columns parameter cannot be null for a new INSERT clause.');
+            }
+            $this->clause = new Sql\Insert($this, $columns);
+        }
 
+        return $this->clause;
     }
 
     /**
      * Create a update statement
      *
-     * @return void
+     * @param  array $columns
+     * @throws Exception
+     * @return \Pop\Db\Sql\Update
      */
-    public function update()
+    public function update(array $columns = null)
     {
+        if (null === $this->clause) {
+            if (null === $columns) {
+                throw new Exception('Error: The columns parameter cannot be null for a new UPDATE clause.');
+            }
+            $this->clause = new Sql\Update($this, $columns);
+        }
 
+        return $this->clause;
     }
 
     /**
      * Create a delete statement
      *
-     * @return void
+     * @return \Pop\Db\Sql\Update
      */
     public function delete()
     {
+        if (null === $this->clause) {
+            $this->clause = new Sql\Delete($this);
+        }
 
+        return $this->clause;
+    }
+
+    /**
+     * Render SQL string
+     *
+     * @param  boolean $ret
+     * @throws Exception
+     * @return mixed
+     */
+    public function render($ret = false)
+    {
+        if (null === $this->clause) {
+            throw new Exception('Error: No SQL clause has been created yet.');
+        }
+
+        $this->sql = $this->clause->render();
+
+        if ($ret) {
+            return $this->sql;
+        } else {
+            echo $this->sql;
+        }
     }
 
     /**
@@ -343,7 +412,7 @@ class Sql
      */
     public function __toString()
     {
-        return $this->sql;
+        return $this->render(true);
     }
 
 }

@@ -29,69 +29,96 @@ abstract class AbstractSql
 {
 
     /**
+     * SQL columns
+     * @var array
+     */
+    protected $columns = array();
+
+    /**
      * SQL object
      * @var \Pop\Db\Sql
      */
     protected $sql = null;
 
     /**
-     * SQL values
-     * @var array
-     */
-    protected $values = array();
-
-    /**
-     * Predicate collection
-     * @var \Pop\Db\Sql\Predicate
-     */
-    protected $predicate = null;
-
-    /**
-     * Order value
+     * ORDER BY value
      * @var string
      */
-    protected $order = null;
+    protected $orderBy = null;
 
     /**
-     * Limit value
-     * @var int|string
+     * LIMIT value
+     * @var mixed
      */
     protected $limit = null;
+
+    /**
+     * OFFSET value
+     * @var int
+     */
+    protected $offset = null;
 
     /**
      * Constructor
      *
      * Instantiate the SQL object.
      *
-     * @param  \Pop\Db\Db $db
-     * @param  string     $table
-     * @return \Pop\Db\Sql
+     * @param  \Pop\Db\Sql $sql
+     * @param  array       $columns
+     * @return \Pop\Db\Sql\AbstractSql
      */
-    public function __construct($sql, array $values = null)
+    public function __construct(\Pop\Db\Sql $sql, array $columns = null)
     {
         $this->sql = $sql;
-        if (null !== $values) {
-            $this->values = $values;
+        if (null !== $columns) {
+            $this->columns = $columns;
         }
     }
 
     /**
-     * Set the database object
+     * Set the ORDER BY value
      *
-     * @return \Pop\Db\Sql\Predicate
+     * @param mixed  $by
+     * @param string $order
+     * @return \Pop\Db\Sql\AbstractSql
      */
-    public function where()
+    public function orderBy($by, $order = 'ASC')
     {
-        if (null === $this->predicate) {
-            $this->predicate = new Predicate();
+        $byColumns = null;
+
+        if (is_array($by)) {
+            $quotedAry = array();
+            foreach ($by as $value) {
+                $quotedAry[] = $this->sql->quoteId(trim($value));
+            }
+            $byColumns = implode(', ', $quotedAry);
+        } else if (strpos($by, ',') !== false) {
+            $ary = explode(',' , $by);
+            $quotedAry = array();
+            foreach ($ary as $value) {
+                $quotedAry[] = $this->sql->quoteId(trim($value));
+            }
+            $byColumns = implode(', ', $quotedAry);
+        } else {
+            $byColumns = $this->sql->quoteId(trim($by));
         }
 
-        return $this->predicate;
+        $this->orderBy = $byColumns;
+        $order = strtoupper($order);
+
+        if (strpos($order, 'RAND') !== false) {
+            $this->orderBy .= ($this->sql->getDbType() == \Pop\Db\Sql::SQLITE) ? ' RANDOM()' : ' RAND()';
+        } else if (($order == 'ASC') || ($order == 'DESC')) {
+            $this->orderBy .= ' ' . $order;
+        }
+
+        return $this;
     }
+
     /**
-     * Set the LIMIT value.
+     * Set the LIMIT value
      *
-     * @param  mixed $limit
+     * @param mixed $limit
      * @return \Pop\Db\Sql\AbstractSql
      */
     public function limit($limit)
@@ -101,36 +128,22 @@ abstract class AbstractSql
     }
 
     /**
-     * Set the ORDER value.
+     * Set the OFFSET value
      *
-     * @param  string $by
-     * @param  string $order
+     * @param  int $offset
      * @return \Pop\Db\Sql\AbstractSql
      */
-    public function order($by, $order = 'ASC')
+    public function offset($offset)
     {
-        $byColumns = null;
-
-        if (strpos($by, ',') !== false) {
-            $ary = explode(',' , $by);
-            $quotedAry = array();
-            foreach ($ary as $value) {
-                $quotedAry[] = $this->sql->quoteId(trim($value));
-            }
-            $byColumns = implode(', ', $quotedAry);
-        } else {
-            $byColumns = trim($by);
-        }
-
-        $this->order = $byColumns;
-        $order = strtoupper($order);
-
-        if (strpos($order, 'RAND') !== false) {
-            $this->order .= ($this->sql->getDbType() == \Pop\Db\Sql::SQLITE) ? ' RANDOM()' : ' RAND()';
-        } else if (($order == 'ASC') || ($order == 'DESC')) {
-            $this->order .= ' ' . $order;
-        }
-
+        $this->offset = (int)$offset;
         return $this;
     }
+
+    /**
+     * Abstract render method
+     *
+     * @return string
+     */
+    abstract public function render();
+
 }

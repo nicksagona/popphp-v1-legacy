@@ -28,6 +28,53 @@ namespace Pop\Db\Sql;
 class Update extends AbstractSql
 {
 
+    /**
+     * WHERE predicate object
+     * @var \Pop\Db\Sql\Predicate
+     */
+    protected $where = null;
 
+    /**
+     * Set the WHERE clause
+     *
+     * @return \Pop\Db\Sql\Predicate
+     */
+    public function where()
+    {
+        if (null === $this->where) {
+            $this->where = new Predicate($this->sql);
+        }
+
+        return $this->where;
+    }
+
+    /**
+     * Render the UPDATE statement
+     *
+     * @return string
+     */
+    public function render()
+    {
+        $sql = 'UPDATE ' . $this->sql->quoteId($this->sql->getTable()) . ' SET ';
+        $set = array();
+
+        foreach ($this->columns as $column => $value) {
+            $set[] = $this->sql->quoteId($column) .' = ' . $this->sql->quote($value);
+        }
+
+        $sql .= implode(', ', $set);
+
+        if (null !== $this->where) {
+            $sql .= ' WHERE ' . $this->where;
+        }
+        if (null !== $this->orderBy) {
+            $sql .= ' ORDER BY ' . $this->orderBy;
+        }
+        if (null !== $this->limit) {
+            $sql .= ' LIMIT ' . $this->limit;
+        }
+
+        return $sql;
+    }
 
 }

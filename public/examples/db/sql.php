@@ -30,8 +30,16 @@ try {
 
     // Create SQL object
     $sql = new Sql(Db::factory('Mysqli', $creds), 'users');
-    print_r($sql);
+    $sql->select(array('name', 'email'))
+        ->distinct()
+        ->where()->equalTo('name', 'Bob')
+                 ->like('email', '%@test.com');
 
+    $sql->select()->limit(3)
+                  ->offset(5)
+                  ->orderBy('name', 'DESC');
+
+    echo $sql;
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

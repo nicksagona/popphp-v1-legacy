@@ -28,6 +28,26 @@ namespace Pop\Db\Sql;
 class Insert extends AbstractSql
 {
 
+    /**
+     * Render the INSERT statement
+     *
+     * @return string
+     */
+    public function render()
+    {
+        $sql = 'INSERT INTO ' . $this->sql->quoteId($this->sql->getTable()) . ' ';
+        $columns = array();
+        $values = array();
 
+        foreach ($this->columns as $column => $value) {
+            $columns[] = $this->sql->quoteId($column);
+            $values[] = $this->sql->quote($value);
+        }
+
+        $sql .= '(' . implode(', ', $columns) . ') VALUES ';
+        $sql .= '(' . implode(', ', $values) . ')';
+
+        return $sql;
+    }
 
 }
