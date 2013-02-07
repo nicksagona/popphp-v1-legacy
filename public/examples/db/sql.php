@@ -29,15 +29,24 @@ try {
     //);
 
     // Create SQL object
-    $sql = new Sql(Db::factory('Mysqli', $creds), 'users');
-    $sql->select(array('name', 'email'))
-        ->distinct()
-        ->where()->equalTo('name', 'Bob')
-                 ->like('email', '%@test.com');
+    //$sql = new Sql(Db::factory('Mysqli', $creds), 'users');
+    //$sql->select(array('name' => 'username', 'email'))
+    //    ->join('user_data', array('id', 'user_id'), 'LEFT JOIN')
+    //    ->where()->equalTo('username', 'testuser4')
+    //             ->like('email', '%@test.com');
 
-    $sql->select()->limit(3)
-                  ->offset(5)
-                  ->orderBy('name', 'DESC');
+    //$sql->select()->groupBy('username')
+    //              ->having()->like('username', '%test%');
+
+    //$sql->select()->limit(3)
+    //              ->offset(1)
+    //              ->orderBy('id', 'DESC');
+
+    $subSql = new Sql(Db::factory('Mysqli', $creds), 'users');
+    $subSql->select();
+
+    $sql = new Sql(Db::factory('Mysqli', $creds), $subSql);
+    $sql->select(array('username'))->where()->like('username', '%test%');
 
     echo $sql;
 } catch (\Exception $e) {

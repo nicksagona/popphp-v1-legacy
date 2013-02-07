@@ -55,6 +55,7 @@ class Update extends AbstractSql
      */
     public function render()
     {
+        // Start building the UPDATE statement
         $sql = 'UPDATE ' . $this->sql->quoteId($this->sql->getTable()) . ' SET ';
         $set = array();
 
@@ -64,14 +65,19 @@ class Update extends AbstractSql
 
         $sql .= implode(', ', $set);
 
+        // Build any WHERE clauses
         if (null !== $this->where) {
             $sql .= ' WHERE ' . $this->where;
         }
+
+        // Build any ORDER BY clause
         if (null !== $this->orderBy) {
             $sql .= ' ORDER BY ' . $this->orderBy;
         }
+
+        // Build any LIMIT clause
         if (null !== $this->limit) {
-            $sql .= ' LIMIT ' . $this->limit;
+            $sql .= ' LIMIT ' . (int)$this->limit;
         }
 
         return $sql;

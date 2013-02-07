@@ -55,16 +55,22 @@ class Delete extends AbstractSql
      */
     public function render()
     {
+        // Start building the DELETE statement
         $sql = 'DELETE FROM ' . $this->sql->quoteId($this->sql->getTable());
 
+        // Build any WHERE clauses
         if (null !== $this->where) {
             $sql .= ' WHERE ' . $this->where;
         }
+
+        // Build any ORDER BY clause
         if (null !== $this->orderBy) {
             $sql .= ' ORDER BY ' . $this->orderBy;
         }
+
+        // Build any LIMIT clause
         if (null !== $this->limit) {
-            $sql .= ' LIMIT ' . $this->limit;
+            $sql .= ' LIMIT ' . (int)$this->limit;
         }
 
         return $sql;

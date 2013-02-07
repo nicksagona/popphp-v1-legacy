@@ -27,12 +27,27 @@ namespace Pop\Db\Sql;
  */
 class Select extends AbstractSql
 {
+    /**
+     * Allowed JOIN keywords
+     * @var boolean
+     */
+    protected static $allowedJoins = array(
+        'JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'FULL JOIN',
+        'OUTER JOIN', 'LEFT OUTER JOIN', 'RIGHT OUTER JOIN', 'FULL OUTER JOIN',
+        'INNER JOIN', 'LEFT INNER JOIN', 'RIGHT INNER JOIN', 'FULL INNER JOIN'
+    );
 
     /**
      * Distinct keyword
      * @var boolean
      */
     protected $distinct = false;
+
+    /**
+     * JOIN clauses
+     * @var array
+     */
+    protected $joins = array();
 
     /**
      * WHERE predicate object
@@ -51,6 +66,35 @@ class Select extends AbstractSql
      * @var \Pop\Db\Sql\Predicate
      */
     protected $having = null;
+
+    /**
+     * Set the JOIN clause
+     *
+     * @param string $tableToJoin
+     * @param string $commonColumn
+     * @param string $typeOfJoin
+     * @return \Pop\Db\Sql\Select
+     */
+    public function join($tableToJoin, $commonColumn, $typeOfJoin = 'JOIN')
+    {
+        $join = (in_array(strtoupper($typeOfJoin), self::$allowedJoins)) ? strtoupper($typeOfJoin) : 'JOIN';
+
+        if (is_array($commonColumn)) {
+            $col1 = $this->sql->quoteId($commonColumn[0]);
+            $col2 = $this->sql->quoteId($commonColumn[1]);
+            $cols = array($col1, $col2);
+        } else {
+            $cols = $this->sql->quoteId($commonColumn);
+        }
+
+        $this->joins[] = array(
+            'tableToJoin' => $this->sql->quoteId($tableToJoin),
+            'commonColumn' => $cols,
+            'typeOfJoin'  => $join
+        );
+
+        return $this;
+    }
 
     /**
      * Set the DISTINCT keyword
@@ -129,29 +173,74 @@ class Select extends AbstractSql
      */
     public function render()
     {
+        // Start building the SELECT statement
         $sql = 'SELECT ' . (($this->distinct) ? 'DISTINCT ' : null);
 
         if (count($this->columns) > 0) {
             $cols = array();
-            foreach ($this->columns as $col) {
-                $cols[] = $this->sql->quoteId($col);
+            foreach ($this->columns as $as => $col) {
+                if (!is_numeric($as)) {
+                    $cols[] = $this->sql->quoteId($col) . ' AS ' . $this->sql->quoteId($as);
+                } else {
+                    $cols[] = $this->sql->quoteId($col);
+                }
             }
             $sql .= implode(', ', $cols) . ' ';
         } else {
             $sql .= '* ';
         }
 
-        $sql .= 'FROM ' . $this->sql->quoteId($this->sql->getTable());
+        // If there is a nested SELECT statement.
+        if ($this->sql->getTable() instanceof \Pop\Db\Sql) {
+            $subSelect = $this->sql->getTable();
+            $subSelectAlias = $subSelect->getTable();
+            $sql .= 'FROM (' . $subSelect . ') AS ' . $this->sql->quoteId($subSelectAlias);
+        } else {
+            $sql .= 'FROM ' . $this->sql->quoteId($this->sql->getTable());
+        }
 
+        // Build any JOIN clauses
+        if (count($this->joins) > 0) {
+            foreach ($this->joins as $join) {
+                if (is_array($join['commonColumn'])) {
+                    $col1 = $join['commonColumn'][0];
+                    $col2 = $join['commonColumn'][1];
+                } else {
+                    $col1 = $join['commonColumn'];
+                    $col2 = $join['commonColumn'];
+                }
+                $sql .= ' ' . $join['typeOfJoin'] . ' ' .
+                    $join['tableToJoin'] . ' ON ' .
+                    $this->sql->quoteId($this->sql->getTable()) . '.' . $col1 . ' = ' . $join['tableToJoin'] . '.' . $col2;
+            }
+        }
+
+        // Build any WHERE clauses
         if (null !== $this->where) {
             $sql .= ' WHERE ' . $this->where;
         }
+
+        // Build any GROUP BY clause
+        if (null !== $this->groupBy) {
+            $sql .= ' GROUP BY ' . $this->groupBy;
+        }
+
+        // Build any HAVING clause
+        if (null !== $this->groupBy) {
+            $sql .= ' HAVING ' . $this->having;
+        }
+
+        // Build any ORDER BY clause
         if (null !== $this->orderBy) {
             $sql .= ' ORDER BY ' . $this->orderBy;
         }
+
+        // Build any LIMIT clause
         if (null !== $this->limit) {
             $sql .= ' LIMIT ' . $this->limit;
         }
+
+        // Build any OFFSET clause
         if (null !== $this->offset) {
             $sql .= ' OFFSET ' . $this->offset;
         }

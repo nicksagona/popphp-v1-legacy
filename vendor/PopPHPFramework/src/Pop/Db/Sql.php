@@ -138,7 +138,7 @@ class Sql
      * to facilitate chaining methods together.
      *
      * @param  \Pop\Db\Db $db
-     * @param  string     $table
+     * @param  mixed     $table
      * @return \Pop\Db\Sql
      */
     public static function factory(Db $db, $table = null)
@@ -193,7 +193,7 @@ class Sql
     /**
      * Set current table to operate on.
      *
-     * @param  string $table
+     * @param  mixed $table
      * @return \Pop\Db\Sql
      */
     public function setTable($table = null)
@@ -311,7 +311,7 @@ class Sql
     public function quote($value)
     {
         if (($value != '?') && (substr($value, 0, 1) != ':') && (preg_match('/^\$\d*\d$/', $value) == 0)) {
-            $value = "'" . addslashes($value) . "'";
+            $value = "'" . $this->db->adapter()->escape($value) . "'";
         }
         return $value;
     }
