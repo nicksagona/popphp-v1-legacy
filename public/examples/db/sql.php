@@ -15,6 +15,8 @@ try {
         'type'     => 'mysql'
     );
 
+    $db = Db::factory('Mysqli', $creds);
+
     //$creds = array(
     //    'database' => 'phirecms',
     //    'host'     => 'localhost',
@@ -42,10 +44,10 @@ try {
     //              ->offset(1)
     //              ->orderBy('id', 'DESC');
 
-    $subSql = new Sql(Db::factory('Mysqli', $creds), 'users');
+    $subSql = new Sql($db, 'users');
     $subSql->select();
 
-    $sql = new Sql(Db::factory('Mysqli', $creds), $subSql);
+    $sql = new Sql($db, $subSql);
     $sql->select(array('username'))->where()->like('username', '%test%');
 
     echo $sql;
