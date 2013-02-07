@@ -13,10 +13,10 @@
 /**
  * @namespace
  */
-namespace Pop\Db\Sql\Verb;
+namespace Pop\Db\Sql;
 
 /**
- * Select SQL verb class
+ * Select SQL class
  *
  * @category   Pop
  * @package    Pop_Db
@@ -25,7 +25,7 @@ namespace Pop\Db\Sql\Verb;
  * @license    http://www.popphp.org/license     New BSD License
  * @version    1.2.0
  */
-class Select extends AbstractVerb
+class Select extends AbstractSql
 {
 
 

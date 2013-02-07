@@ -13,10 +13,10 @@
 /**
  * @namespace
  */
-namespace Pop\Db\Sql\Predicate;
+namespace Pop\Db\Sql;
 
 /**
- * SQL Predicates class
+ * Insert SQL class
  *
  * @category   Pop
  * @package    Pop_Db
@@ -25,13 +25,9 @@ namespace Pop\Db\Sql\Predicate;
  * @license    http://www.popphp.org/license     New BSD License
  * @version    1.2.0
  */
-class Predicates
+class Insert extends AbstractSql
 {
 
-    /**
-     * Predicates array
-     * @var array
-     */
-    protected $predicates = array();
+
 
 }

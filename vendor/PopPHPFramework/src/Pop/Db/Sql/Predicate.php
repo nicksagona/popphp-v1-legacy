@@ -13,10 +13,10 @@
 /**
  * @namespace
  */
-namespace Pop\Db\Sql\Verb;
+namespace Pop\Db\Sql;
 
 /**
- * Delete SQL verb class
+ * SQL Predicate collection class
  *
  * @category   Pop
  * @package    Pop_Db
@@ -25,8 +25,26 @@ namespace Pop\Db\Sql\Verb;
  * @license    http://www.popphp.org/license     New BSD License
  * @version    1.2.0
  */
-class Delete extends AbstractVerb
+class Predicate
 {
+
+    /**
+     * Predicates array
+     * @var array
+     */
+    protected $predicates = array();
+
+    /**
+     * Constructor
+     *
+     * Instantiate the predicate collection object.
+     *
+     * @return \Pop\Db\Sql\Predicate
+     */
+    public function __construct()
+    {
+
+    }
 
 
 
