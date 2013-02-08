@@ -193,7 +193,7 @@ class Select extends AbstractSql
         // If there is a nested SELECT statement.
         if ($this->sql->getTable() instanceof \Pop\Db\Sql) {
             $subSelect = $this->sql->getTable();
-            $subSelectAlias = $subSelect->getTable();
+            $subSelectAlias = ($subSelect->hasAlias()) ? $subSelect->getAlias() : $subSelect->getTable();
             $sql .= 'FROM (' . $subSelect . ') AS ' . $this->sql->quoteId($subSelectAlias);
         } else {
             $sql .= 'FROM ' . $this->sql->quoteId($this->sql->getTable());

@@ -107,6 +107,12 @@ class Sql
     protected $table = null;
 
     /**
+     * Alias name
+     * @var string
+     */
+    protected $alias = null;
+
+    /**
      * SQL clause object
      * @var mixed
      */
@@ -124,13 +130,15 @@ class Sql
      * Instantiate the SQL object.
      *
      * @param  \Pop\Db\Db $db
-     * @param  string     $table
+     * @param  mixed      $table
+     * @param  string     $alias
      * @return \Pop\Db\Sql
      */
-    public function __construct(Db $db, $table = null)
+    public function __construct(Db $db, $table = null, $alias = null)
     {
         $this->setDb($db);
         $this->setTable($table);
+        $this->setAlias($alias);
     }
 
     /**
@@ -138,12 +146,13 @@ class Sql
      * to facilitate chaining methods together.
      *
      * @param  \Pop\Db\Db $db
-     * @param  mixed     $table
+     * @param  mixed      $table
+     * @param  string     $alias
      * @return \Pop\Db\Sql
      */
-    public static function factory(Db $db, $table = null)
+    public static function factory(Db $db, $table = null, $alias = null)
     {
-        return new self($db, $table);
+        return new self($db, $table, $alias);
     }
 
     /**
@@ -203,6 +212,18 @@ class Sql
     }
 
     /**
+     * Set alias name
+     *
+     * @param  string $alias
+     * @return \Pop\Db\Sql
+     */
+    public function setAlias($alias = null)
+    {
+        $this->alias = $alias;
+        return $this;
+    }
+
+    /**
      * Determine if the Sql object has a table set
      *
      * @return boolean
@@ -210,6 +231,16 @@ class Sql
     public function hasTable()
     {
         return ($this->table != null);
+    }
+
+    /**
+     * Determine if the Sql object has an alias name
+     *
+     * @return boolean
+     */
+    public function hasAlias()
+    {
+        return ($this->alias != null);
     }
 
     /**
@@ -250,6 +281,16 @@ class Sql
     public function getTable()
     {
         return $this->table;
+    }
+
+    /**
+     * Get the alias name.
+     *
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->alias;
     }
 
     /**

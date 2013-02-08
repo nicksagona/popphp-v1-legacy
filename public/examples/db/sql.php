@@ -44,10 +44,13 @@ try {
     //              ->offset(1)
     //              ->orderBy('id', 'DESC');
 
-    $subSql = new Sql($db, 'users');
-    $subSql->select();
+    $subSql2 = new Sql($db, 'users', 'users_table2');
+    $subSql2->select();
 
-    $sql = new Sql($db, $subSql);
+    $subSql1 = new Sql($db, $subSql2, 'users_table1');
+    $subSql1->select();
+
+    $sql = new Sql($db, $subSql1);
     $sql->select(array('username'))->where()->like('username', '%test%');
 
     echo $sql;
