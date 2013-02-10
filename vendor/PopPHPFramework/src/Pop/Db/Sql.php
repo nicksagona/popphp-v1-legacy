@@ -351,7 +351,7 @@ class Sql
      */
     public function quote($value)
     {
-        if (($value != '?') && (substr($value, 0, 1) != ':') && (preg_match('/^\$\d*\d$/', $value) == 0)) {
+        if (($value != '?') && (substr($value, 0, 1) != ':') && (preg_match('/^\$\d*\d$/', $value) == 0) && (!is_int($value)) && (!is_float($value))) {
             $value = "'" . $this->db->adapter()->escape($value) . "'";
         }
         return $value;

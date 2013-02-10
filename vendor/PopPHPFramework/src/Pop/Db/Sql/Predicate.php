@@ -322,7 +322,15 @@ class Predicate
                     if ($i == 0) {
                         $format = str_replace('%1', $this->sql->quoteId($predicate['values'][$i]), $format);
                     } else {
-                        $format = str_replace('%' . ($i + 1), $this->sql->quote($predicate['values'][$i]), $format);
+                        if (is_array($predicate['values'][$i])) {
+                            $vals = $predicate['values'][$i];
+                            foreach ($vals as $k => $v) {
+                                $vals[$k] = $this->sql->quote($v);
+                            }
+                            $format = str_replace('%' . ($i + 1), implode(', ', $vals), $format);
+                        } else {
+                            $format = str_replace('%' . ($i + 1), $this->sql->quote($predicate['values'][$i]), $format);
+                        }
                     }
                 }
                 $curWhere .= $format . ')';

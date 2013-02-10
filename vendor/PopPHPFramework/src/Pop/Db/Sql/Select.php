@@ -169,6 +169,7 @@ class Select extends AbstractSql
     /**
      * Render the SELECT statement
      *
+     * @throws Exception
      * @return string
      */
     public function render()
@@ -190,13 +191,42 @@ class Select extends AbstractSql
             $sql .= '* ';
         }
 
+        $sql .= 'FROM ';
+
+        // Account for LIMIT clause if the database is ORACLE
+        if (($this->sql->getDbType() == \Pop\Db\Sql::ORACLE) && (null !== $this->limit)) {
+            if (null === $this->orderBy) {
+                throw new Exception('Error: You must set an order by clause to execute a limit clause on the Oracle database.');
+            }
+
+            $sql .= '(SELECT t.*, ROW_NUMBER() OVER (ORDER BY ' . $this->orderBy . ') RowNumber FROM ' . $this->sql->quoteId($this->sql->getTable()) . ' t)';
+            if (strpos($this->limit, ',') !== false) {
+                $lim = explode(',', $this->limit);
+                $this->where()->between('RowNumber', trim($lim[0]), trim($lim[1]));
+            } else {
+                $this->where()->lessThanOrEqualTo('RowNumber', $this->limit);
+            }
+        // Account for LIMIT clause if the database is SQLSRV
+        } else if (($this->sql->getDbType() == \Pop\Db\Sql::SQLSRV) && (null !== $this->limit)) {
+            if (strpos($this->limit, ',') !== false) {
+                if (null === $this->orderBy) {
+                    throw new Exception('Error: You must set an order by clause to execute a limit clause on the SQL server database.');
+                }
+                $lim = explode(',', $this->limit);
+                $sql .= '(SELECT *, ROW_NUMBER() OVER (ORDER BY ' . $this->orderBy . ') AS RowNumber FROM ' . $this->sql->quoteId($this->sql->getTable()) . ') AS OrderedTable';
+                $this->where()->between('OrderedTable.RowNumber', trim($lim[0]), trim($lim[1]));
+            } else {
+                $sql = str_replace('SELECT', 'SELECT TOP ' . $this->limit, $sql);
+                $sql .= $this->sql->quoteId($this->sql->getTable());
+            }
         // If there is a nested SELECT statement.
-        if ($this->sql->getTable() instanceof \Pop\Db\Sql) {
+        } else if ($this->sql->getTable() instanceof \Pop\Db\Sql) {
             $subSelect = $this->sql->getTable();
             $subSelectAlias = ($subSelect->hasAlias()) ? $subSelect->getAlias() : $subSelect->getTable();
-            $sql .= 'FROM (' . $subSelect . ') AS ' . $this->sql->quoteId($subSelectAlias);
+            $sql .= '(' . $subSelect . ') AS ' . $this->sql->quoteId($subSelectAlias);
+        // Else, select from the table
         } else {
-            $sql .= 'FROM ' . $this->sql->quoteId($this->sql->getTable());
+            $sql .=  $this->sql->quoteId($this->sql->getTable());
         }
 
         // Build any JOIN clauses
