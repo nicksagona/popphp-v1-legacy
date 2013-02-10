@@ -64,13 +64,16 @@ abstract class AbstractSql
      * Instantiate the SQL object.
      *
      * @param  \Pop\Db\Sql $sql
-     * @param  array       $columns
+     * @param  mixed       $columns
      * @return \Pop\Db\Sql\AbstractSql
      */
-    public function __construct(\Pop\Db\Sql $sql, array $columns = null)
+    public function __construct(\Pop\Db\Sql $sql, $columns = null)
     {
         $this->sql = $sql;
         if (null !== $columns) {
+            if (!is_array($columns)) {
+                $columns = array($columns);
+            }
             $this->columns = $columns;
         }
     }

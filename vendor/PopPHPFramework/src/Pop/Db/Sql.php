@@ -360,10 +360,10 @@ class Sql
     /**
      * Create a select statement
      *
-     * @param  array $columns
+     * @param  mixed $columns
      * @return \Pop\Db\Sql\Select
      */
-    public function select(array $columns = null)
+    public function select($columns = null)
     {
         if (null === $this->clause) {
             $this->clause = new Sql\Select($this, $columns);

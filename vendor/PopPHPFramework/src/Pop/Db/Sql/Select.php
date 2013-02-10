@@ -194,29 +194,70 @@ class Select extends AbstractSql
         $sql .= 'FROM ';
 
         // Account for LIMIT clause if the database is ORACLE
-        if (($this->sql->getDbType() == \Pop\Db\Sql::ORACLE) && (null !== $this->limit)) {
+        if (($this->sql->getDbType() == \Pop\Db\Sql::ORACLE) && ((null !== $this->limit) || (null !== $this->offset))) {
             if (null === $this->orderBy) {
                 throw new Exception('Error: You must set an order by clause to execute a limit clause on the Oracle database.');
             }
 
-            $sql .= '(SELECT t.*, ROW_NUMBER() OVER (ORDER BY ' . $this->orderBy . ') RowNumber FROM ' . $this->sql->quoteId($this->sql->getTable()) . ' t)';
-            if (strpos($this->limit, ',') !== false) {
-                $lim = explode(',', $this->limit);
-                $this->where()->between('RowNumber', trim($lim[0]), trim($lim[1]));
+            $limit = null;
+            $offset = null;
+
+            // Calculate the limit and/or offset
+            if (null !== $this->offset) {
+                $offset = (int)$this->offset + 1;
+                $limit = (null !== $this->limit) ? (int)$this->limit + (int)$this->offset : 0;
+            } else if (strpos($this->limit, ',') !== false) {
+                $limAry  = explode(',', $this->limit);
+                $offset = (int)trim($limAry[0]) + 1;
+                $limit = (int)trim($limAry[1]) + (int)trim($limAry[0]);
             } else {
-                $this->where()->lessThanOrEqualTo('RowNumber', $this->limit);
+                $limit = (int)$this->limit;
+            }
+
+            $sql .= '(SELECT t.*, ROW_NUMBER() OVER (ORDER BY ' . $this->orderBy . ') ' .
+                $this->sql->quoteId('RowNumber') . ' FROM ' .
+                $this->sql->quoteId($this->sql->getTable()) . ' t)';
+
+            if (null !== $offset) {
+                if ($limit > 0) {
+                    $this->where()->between('RowNumber', $offset, $limit);
+                } else {
+                    $this->where()->greaterThanOrEqualTo('RowNumber', $offset);
+                }
+            } else {
+                $this->where()->lessThanOrEqualTo('RowNumber', $limit);
             }
         // Account for LIMIT clause if the database is SQLSRV
-        } else if (($this->sql->getDbType() == \Pop\Db\Sql::SQLSRV) && (null !== $this->limit)) {
-            if (strpos($this->limit, ',') !== false) {
-                if (null === $this->orderBy) {
-                    throw new Exception('Error: You must set an order by clause to execute a limit clause on the SQL server database.');
-                }
-                $lim = explode(',', $this->limit);
-                $sql .= '(SELECT *, ROW_NUMBER() OVER (ORDER BY ' . $this->orderBy . ') AS RowNumber FROM ' . $this->sql->quoteId($this->sql->getTable()) . ') AS OrderedTable';
-                $this->where()->between('OrderedTable.RowNumber', trim($lim[0]), trim($lim[1]));
+        } else if (($this->sql->getDbType() == \Pop\Db\Sql::SQLSRV) && ((null !== $this->limit) || (null !== $this->offset))) {
+            if (null === $this->orderBy) {
+                throw new Exception('Error: You must set an order by clause to execute a limit clause on the SQL server database.');
+            }
+
+            $limit = null;
+            $offset = null;
+
+            // Calculate the limit and/or offset
+            if (null !== $this->offset) {
+                $offset = (int)$this->offset + 1;
+                $limit = (null !== $this->limit) ? (int)$this->limit + (int)$this->offset : 0;
+            } else if (strpos($this->limit, ',') !== false) {
+                $limAry  = explode(',', $this->limit);
+                $offset = (int)trim($limAry[0]) + 1;
+                $limit = (int)trim($limAry[1]) + (int)trim($limAry[0]);
             } else {
-                $sql = str_replace('SELECT', 'SELECT TOP ' . $this->limit, $sql);
+                $limit = (int)$this->limit;
+            }
+
+            if (null !== $offset) {
+                $sql .= '(SELECT *, ROW_NUMBER() OVER (ORDER BY ' . $this->orderBy . ') AS RowNumber FROM ' .
+                    $this->sql->quoteId($this->sql->getTable()) . ') AS OrderedTable';
+                if ($limit > 0) {
+                    $this->where()->between('OrderedTable.RowNumber', $offset, $limit);
+                } else {
+                    $this->where()->greaterThanOrEqualTo('OrderedTable.RowNumber', $offset);
+                }
+            } else {
+                $sql = str_replace('SELECT', 'SELECT TOP ' . $limit, $sql);
                 $sql .= $this->sql->quoteId($this->sql->getTable());
             }
         // If there is a nested SELECT statement.
@@ -265,14 +306,18 @@ class Select extends AbstractSql
             $sql .= ' ORDER BY ' . $this->orderBy;
         }
 
-        // Build any LIMIT clause
-        if (null !== $this->limit) {
-            $sql .= ' LIMIT ' . $this->limit;
+        // Build any LIMIT clause for all other database types.
+        if (($this->sql->getDbType() != \Pop\Db\Sql::SQLSRV) && ($this->sql->getDbType() != \Pop\Db\Sql::ORACLE)) {
+            if (null !== $this->limit) {
+                $sql .= ' LIMIT ' . $this->limit;
+            }
         }
 
-        // Build any OFFSET clause
-        if (null !== $this->offset) {
-            $sql .= ' OFFSET ' . $this->offset;
+        // Build any OFFSET clause for all other database types.
+        if (($this->sql->getDbType() != \Pop\Db\Sql::SQLSRV) && ($this->sql->getDbType() != \Pop\Db\Sql::ORACLE)) {
+            if (null !== $this->offset) {
+                $sql .= ' OFFSET ' . $this->offset;
+            }
         }
 
         return $sql;
