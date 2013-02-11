@@ -64,12 +64,14 @@ while (($row = $db-&gt;adapter()-&gt;fetch()) != false) {
             データベースへのアクセスに加えて、DBコンポーネントも標準化されたSQLクエリの作成を支援する便利なSQLの抽象化オブジェクトを提供しています。
         </p>
 <pre>
+use Pop&#92;Db&#92;Db;
 use Pop&#92;Db&#92;Sql;
 
-$sql = new Sql('users');
-$sql-&gt;setIdQuoteType(Sql::BACKTICK)
-    -&gt;select()
-    -&gt;where('id', '=', 1);
+$db = Db::factory('Sqlite', array('database' => 'mydb.sqlite'));
+
+$sql = new Sql($db, 'users');
+$sql-&gt;select()
+    -&gt;where()-&gt;equalTo('id', 1);
 
 // Outputs 'SELECT * FROM `users` WHERE `id` = 1'
 echo $sql;

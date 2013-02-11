@@ -43,12 +43,14 @@ SQLSrv. ערכים נמלטו זמינים לכל מתאמים.
 בנוסף לגישה למסד נתונים, רכיב Db כולל גם אובייקט הפשטת Sql שימושי שמסייע
 לך ביצירת שאילתות SQL סטנדרטיות.
 
+    use Pop\Db\Db;
     use Pop\Db\Sql;
 
-    $sql = new Sql('users');
-    $sql->setIdQuoteType(Sql::BACKTICK)
-        ->select()
-        ->where('id', '=', 1);
+    $db = Db::factory('Sqlite', array('database' => 'mydb.sqlite'));
+
+    $sql = new Sql($db, 'users');
+    $sql->select()
+        ->where()->equalTo('id', 1);
 
     // Outputs 'SELECT * FROM `users` WHERE `id` = 1'
     echo $sql;

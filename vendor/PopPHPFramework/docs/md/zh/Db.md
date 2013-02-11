@@ -41,12 +41,14 @@ DB组件提供了标准化的查询数据库的访问。支持的适配器：
 
 除了数据库访问，DB组件还设有一个有用的的SQL抽象对象，帮助您在创建标准化的SQL查询。
 
+    use Pop\Db\Db;
     use Pop\Db\Sql;
 
-    $sql = new Sql('users');
-    $sql->setIdQuoteType(Sql::BACKTICK)
-        ->select()
-        ->where('id', '=', 1);
+    $db = Db::factory('Sqlite', array('database' => 'mydb.sqlite'));
+
+    $sql = new Sql($db, 'users');
+    $sql->select()
+        ->where()->equalTo('id', 1);
 
     // Outputs 'SELECT * FROM `users` WHERE `id` = 1'
     echo $sql;

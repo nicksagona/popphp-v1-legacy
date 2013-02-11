@@ -46,12 +46,14 @@ Neben Zugriff auf die Datenbank, die DB-Komponente bietet auch einen
 nützlichen Sql Abstraktion Objekt, das Sie beim Erstellen von
 standardisierten SQL-Abfragen.
 
+    use Pop\Db\Db;
     use Pop\Db\Sql;
 
-    $sql = new Sql('users');
-    $sql->setIdQuoteType(Sql::BACKTICK)
-        ->select()
-        ->where('id', '=', 1);
+    $db = Db::factory('Sqlite', array('database' => 'mydb.sqlite'));
+
+    $sql = new Sql($db, 'users');
+    $sql->select()
+        ->where()->equalTo('id', 1);
 
     // Outputs 'SELECT * FROM `users` WHERE `id` = 1'
     echo $sql;

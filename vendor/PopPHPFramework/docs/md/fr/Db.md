@@ -46,12 +46,14 @@ En plus de l'accès base de données, la composante Db dispose également
 d'un objet Sql abstraction utile qui vous assiste dans la création de
 requêtes SQL standard.
 
+    use Pop\Db\Db;
     use Pop\Db\Sql;
 
-    $sql = new Sql('users');
-    $sql->setIdQuoteType(Sql::BACKTICK)
-        ->select()
-        ->where('id', '=', 1);
+    $db = Db::factory('Sqlite', array('database' => 'mydb.sqlite'));
+
+    $sql = new Sql($db, 'users');
+    $sql->select()
+        ->where()->equalTo('id', 1);
 
     // Outputs 'SELECT * FROM `users` WHERE `id` = 1'
     echo $sql;
