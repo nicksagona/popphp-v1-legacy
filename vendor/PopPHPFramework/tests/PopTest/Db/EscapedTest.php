@@ -36,6 +36,12 @@ class UserData extends Record {
     protected $usePrepared = false;
 }
 
+class BadUsers extends Record {
+    protected $primaryId = null;
+    protected $tableName = 'users';
+    protected $usePrepared = false;
+}
+
 class EscapedTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -58,6 +64,12 @@ class EscapedTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $r->lastId());
     }
 
+    public function testFindByIdNoIdException()
+    {
+        $this->setExpectedException('Pop\Db\Record\Exception');
+        $r = BadUsers::findById(1);
+    }
+
     public function testFindByIdException()
     {
         $this->setExpectedException('Pop\Db\Record\Exception');
@@ -74,6 +86,12 @@ class EscapedTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $r->id);
     }
 
+    public function testFindByLike()
+    {
+        $r = Users::findBy(array('email' => '%@test.com'), null, 1);
+        $this->assertContains('@test.com', $r->email);
+    }
+
     public function testFindAll()
     {
         $r = Users::findAll('id RAND()', array('email' => 'test1@test.com'));
@@ -82,6 +100,12 @@ class EscapedTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(8, count($r->rows));
         $this->assertEquals(8, $r->numRows());
         $this->assertEquals(5, $r->numFields());
+    }
+
+    public function testFindAllLike()
+    {
+        $r = Users::findAll('id ASC', array('email' => '%@test.com'));
+        $this->assertContains('@test.com', $r->rows[0]->email);
     }
 
     public function testExecute()

@@ -37,6 +37,12 @@ class PreparedUserData extends Record {
     protected $primaryId = array('user_id', 'data_id');
 }
 
+class PreparedBadUsers extends Record {
+    protected $primaryId = null;
+    protected $tableName = 'users';
+    protected $usePrepared = true;
+}
+
 class PreparedTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -59,6 +65,12 @@ class PreparedTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $r->lastId());
     }
 
+    public function testFindByIdNoIdException()
+    {
+        $this->setExpectedException('Pop\Db\Record\Exception');
+        $r = PreparedBadUsers::findById(1);
+    }
+
     public function testFindByIdException()
     {
         $this->setExpectedException('Pop\Db\Record\Exception');
@@ -75,6 +87,12 @@ class PreparedTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $r->id);
     }
 
+    public function testFindByLike()
+    {
+        $r = PreparedUsers::findBy(array('email' => '%@test.com'), null, 1);
+        $this->assertContains('@test.com', $r->email);
+    }
+
     public function testFindAll()
     {
         $r = PreparedUsers::findAll('id RAND()', array('email' => 'test1@test.com'));
@@ -83,6 +101,12 @@ class PreparedTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(8, count($r->rows));
         $this->assertEquals(0, $r->numRows());
         $this->assertEquals(5, $r->numFields());
+    }
+
+    public function testFindAllLike()
+    {
+        $r = PreparedUsers::findAll('id ASC', array('email' => '%@test.com'));
+        $this->assertContains('@test.com', $r->rows[0]->email);
     }
 
     public function testExecute()
@@ -95,6 +119,12 @@ class PreparedTest extends \PHPUnit_Framework_TestCase
     {
         $r = PreparedUsers::query('SELECT * FROM users');
         $this->assertEquals(8, count($r->rows));
+    }
+
+    public function testIsPrepared()
+    {
+        $r = PreparedUsers::findById(1);
+        $this->assertTrue($r->isPrepared());
     }
 
     public function testIsAuto()

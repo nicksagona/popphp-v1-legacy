@@ -271,7 +271,7 @@ class Select extends AbstractSql
         }
 
         // Build any HAVING clause
-        if (null !== $this->groupBy) {
+        if (null !== $this->having) {
             $sql .= ' HAVING ' . $this->having;
         }
 

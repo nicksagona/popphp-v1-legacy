@@ -48,17 +48,23 @@ class SqlTest extends \PHPUnit_Framework_TestCase
         $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
         $s->select()
           ->where()->equalTo('id', 1);
+
+        ob_start();
+        $s->render();
+        $output = ob_get_clean();
+
         $this->assertEquals('SELECT * FROM "users" WHERE ("id" = 1)', $s->render(true));
         $this->assertEquals('SELECT * FROM "users" WHERE ("id" = 1)', (string)$s);
         $this->assertEquals('SELECT * FROM "users" WHERE ("id" = 1)', $s->getSql());
+        $this->assertEquals('SELECT * FROM "users" WHERE ("id" = 1)', $output);
     }
 
     public function testSqlDotId()
     {
         $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
-        $s->select()
+        $s->select('username')
           ->where()->equalTo('users.id', 1);
-        $this->assertEquals('SELECT * FROM "users" WHERE ("users"."id" = 1)', $s->render(true));
+        $this->assertEquals('SELECT "username" FROM "users" WHERE ("users"."id" = 1)', $s->render(true));
     }
 
     public function testSetAndGetQuoteId()
@@ -118,129 +124,111 @@ class SqlTest extends \PHPUnit_Framework_TestCase
         $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
         $this->assertEquals("'test@test.com'", $s->quote('test@test.com'));
     }
-/*
-    public function testDistinct()
-    {
-        $s = new Sql('users');
-        $s->setIdQuoteType(Sql::BACKTICK)
-          ->select('email')
-          ->distinct(true)
-          ->where('id', '=', 1)
-          ->where('email', '=', 'test@test.com');
-        $this->assertEquals("SELECT DISTINCT `email` FROM `users` WHERE (`id` = '1') AND (`email` = 'test@test.com')", $s->getSql());
-    }
 
     public function testInsertException()
     {
-        $s = new Sql('users');
         $this->setExpectedException('Pop\Db\Exception');
-        $s->insert(array());
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->insert();
     }
 
     public function testUpdateException()
     {
-        $s = new Sql('users');
         $this->setExpectedException('Pop\Db\Exception');
-        $s->update(array());
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->update();
+    }
+
+    public function testRenderException()
+    {
+        $this->setExpectedException('Pop\Db\Exception');
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $sql = $s->render(true);
+    }
+
+    public function testOrderBy()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->select()->orderBy('id, username');
+        $this->assertEquals('SELECT * FROM "users" ORDER BY "id", "username" ASC', $s->render(true));
+    }
+
+    public function testGroupBySingle()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->select()->groupBy('id');
+        $this->assertEquals('SELECT * FROM "users" GROUP BY "id"', $s->render(true));
+    }
+
+    public function testGroupByMultiple()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->select()->groupBy(array('id', 'username'));
+        $this->assertEquals('SELECT * FROM "users" GROUP BY "id", "username"', $s->render(true));
+    }
+
+    public function testGroupByArray()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->select()->groupBy('id, username');
+        $this->assertEquals('SELECT * FROM "users" GROUP BY "id", "username"', $s->render(true));
+    }
+
+    public function testHaving()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->select()->having()->equalTo('id', 5);
+        $this->assertEquals('SELECT * FROM "users" HAVING ("id" = 5)', $s->render(true));
+    }
+
+    public function testOffset()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->select()->offset(3);
+        $this->assertEquals('SELECT * FROM "users" OFFSET 3', $s->render(true));
+    }
+
+    public function testSelectColumnAlias()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->select(array('user_id' => 'id'));
+        $this->assertEquals('SELECT "id" AS "user_id" FROM "users"', $s->render(true));
+    }
+
+    public function testSelectJoin()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->select()->join('user_data', 'id', 'LEFT JOIN');
+        $this->assertEquals('SELECT * FROM "users" LEFT JOIN "user_data" ON "users"."id" = "user_data"."id"', $s->render(true));
+    }
+
+    public function testSelectJoinDifferentColumns()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->select()->join('user_data', array('id', 'user_id'), 'LEFT JOIN');
+        $this->assertEquals('SELECT * FROM "users" LEFT JOIN "user_data" ON "users"."id" = "user_data"."user_id"', $s->render(true));
+    }
+
+    public function testSelectDistinct()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->select('username')->distinct();
+        $this->assertEquals('SELECT DISTINCT "username" FROM "users"', $s->render(true));
     }
 
     public function testUpdate()
     {
-        $s = new Sql('users');
-        $s->update(array('name' => 'Test1', 'email' => 'test1@test.com'))
-          ->where('id', '=', 1);
-        $this->assertEquals("UPDATE users SET name = 'Test1', email = 'test1@test.com' WHERE (id = '1')", $s->getSql());
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->update(array('username' => 'newuser'))->orderBy('id')->limit(1);
+        $this->assertEquals('UPDATE "users" SET "username" = \'newuser\' ORDER BY "id" ASC LIMIT 1', $s->render(true));
     }
 
-    public function testJoin()
+    public function testDelete()
     {
-        $s = new Sql('users');
-        $s->select()
-          ->join('admins', 'email')
-          ->order(array('email', 'name'))
-          ->limit(3);
-        $this->assertEquals("SELECT * FROM users JOIN admins ON users.email = admins.email ORDER BY email, name ASC LIMIT 3", $s->getSql());
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->delete()->orderBy('id')->limit(1);
+        $this->assertEquals('DELETE FROM "users" ORDER BY "id" ASC LIMIT 1', $s->render(true));
     }
 
-    public function testJoinColumns()
-    {
-        $s = new Sql('users');
-        $s->select()
-          ->join('admins', array('email', 'name'), 'LEFT JOIN')
-          ->order('email')
-          ->limit(3);
-        $this->assertEquals("SELECT * FROM users LEFT JOIN admins ON users.email = admins.name ORDER BY email ASC LIMIT 3", $s->getSql());
-    }
-
-    public function testMsSql()
-    {
-        $s = new Sql('users');
-        $s->setDbType(Sql::SQLSRV)
-          ->setIdQuoteType(Sql::BRACKET)
-          ->select('email')
-          ->limit(5);
-        $this->assertEquals("SELECT TOP 5 [email] FROM [users]", $s->getSql());
-
-        $s = new Sql('users');
-        $s->setDbType(Sql::SQLSRV)
-          ->setIdQuoteType(Sql::BRACKET)
-          ->select('email')
-          ->order('id')
-          ->limit('5, 10');
-        $this->assertEquals("SELECT [email] FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY [id] ASC) AS RowNumber FROM [users]) AS OrderedTable WHERE ([OrderedTable].[RowNumber] BETWEEN '5' AND '10') ORDER BY [id] ASC", $s->getSql());
-    }
-
-    public function testMsSqlException()
-    {
-        $s = new Sql('users');
-        $s->setDbType(Sql::SQLSRV)
-          ->setIdQuoteType(Sql::BRACKET)
-          ->select('email')
-          ->limit('5, 10');
-        $this->setExpectedException('Pop\Db\Exception');
-        $sql = $s->getSql();
-    }
-
-    public function testOracleSql()
-    {
-        $s = new Sql('users');
-        $s->setDbType(Sql::ORACLE)
-          ->select('email')
-          ->order('id')
-          ->limit(5);
-        $this->assertEquals("SELECT email FROM (SELECT t.*, ROW_NUMBER() OVER (ORDER BY id ASC) RowNumber FROM users t) WHERE (RowNumber <= '5') ORDER BY id ASC", $s->getSql());
-
-        $s = new Sql('users');
-        $s->setDbType(Sql::ORACLE)
-          ->select('email')
-          ->order('id')
-          ->limit('5, 10');
-        $this->assertEquals("SELECT email FROM (SELECT t.*, ROW_NUMBER() OVER (ORDER BY id ASC) RowNumber FROM users t) WHERE (RowNumber BETWEEN '5' AND '10') ORDER BY id ASC", $s->getSql());
-    }
-
-    public function testOracleException()
-    {
-        $s = new Sql('users');
-        $s->setDbType(Sql::ORACLE)
-          ->select('email')
-          ->limit('5, 10');
-        $this->setExpectedException('Pop\Db\Exception');
-        $sql = $s->getSql();
-    }
-
-    public function testBuildTableException()
-    {
-        $s = new Sql();
-        $this->setExpectedException('Pop\Db\Exception');
-        $s->getSql();
-    }
-
-    public function testBuildTypeException()
-    {
-        $s = new Sql('users');
-        $this->setExpectedException('Pop\Db\Exception');
-        $s->getSql();
-    }
-*/
 }
 
