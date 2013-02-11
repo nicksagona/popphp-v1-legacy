@@ -31,10 +31,10 @@ class Prepared extends AbstractRecord
 {
 
     /**
-     * Prepared statement placeholder
-     * @var boolean
+     * Prepared statement parameter placeholder
+     * @var string
      */
-    protected $placeholder = null;
+    protected $placeholder = '?';
 
     /**
      * Constructor
@@ -47,35 +47,18 @@ class Prepared extends AbstractRecord
      */
     public function __construct(\Pop\Db\Db $db, $options)
     {
-        $this->db = $db;
-
-        $type = $this->db->getAdapterType();
-
-        if (stripos($type, 'sqlite') !== false) {
-            $this->placeholder = ':';
-            $this->idQuote = (null === $options['idQuote']) ? Sql::DOUBLE_QUOTE : $options['idQuote'];
-            $this->db->sql()->setDbType(Sql::SQLITE);
-        } else if (stripos($type, 'pgsql') !== false) {
-            $this->placeholder = '$';
-            $this->idQuote = (null === $options['idQuote']) ? Sql::DOUBLE_QUOTE : $options['idQuote'];
-            $this->db->sql()->setDbType(Sql::PGSQL);
-        } else if (stripos($type, 'sqlsrv') !== false) {
-            $this->placeholder = '?';
-            $this->idQuote = (null === $options['idQuote']) ? Sql::BRACKET : $options['idQuote'];
-            $this->db->sql()->setDbType(Sql::SQLSRV);
-        } else if (stripos($type, 'oracle') !== false) {
-            $this->placeholder = ':';
-            $this->idQuote = (null === $options['idQuote']) ? Sql::DOUBLE_QUOTE : $options['idQuote'];
-            $this->db->sql()->setDbType(Sql::ORACLE);
-        } else {
-            $this->placeholder = '?';
-            $this->idQuote = (null === $options['idQuote']) ? Sql::BACKTICK : $options['idQuote'];
-            $this->db->sql()->setDbType(Sql::MYSQL);
-        }
-
+        $this->sql = new \Pop\Db\Sql($db, $options['tableName']);
         $this->tableName = $options['tableName'];
         $this->primaryId = $options['primaryId'];
         $this->auto = $options['auto'];
+
+        if (($this->sql->getDbType() == \Pop\Db\Sql::SQLITE) ||
+            ($this->sql->getDbType() == \Pop\Db\Sql::SQLSRV) ||
+            (stripos($this->sql->getDb()->getAdapterType(), 'pdo') !== false)) {
+            $this->placeholder = ':';
+        } else if ($this->sql->getDbType() == \Pop\Db\Sql::PGSQL) {
+            $this->placeholder = '$';
+        }
     }
 
     /**
@@ -93,26 +76,26 @@ class Prepared extends AbstractRecord
         }
 
         // Build the SQL.
-        $this->db->sql()->setTable($this->tableName)
-                        ->setIdQuoteType($this->idQuote)
-                        ->select();
+        $this->sql->select();
 
         if (is_array($this->primaryId)) {
             if (!is_array($id) || (count($id) != count($this->primaryId))) {
                 throw new Exception('The array of ID values does not match the number of IDs.');
             }
             foreach ($id as $key => $value) {
-                $this->db->sql()->where($this->primaryId[$key], '=', $this->getPlaceholder($this->primaryId[$key], ($key + 1)));
+                $this->sql->select()->where()->equalTo($this->primaryId[$key], $this->getPlaceholder($this->primaryId[$key], ($key + 1)));
             }
         } else {
-            $this->db->sql()->where($this->primaryId, '=', $this->getPlaceholder($this->primaryId));
+            $this->sql->select()->where()->equalTo($this->primaryId, $this->getPlaceholder($this->primaryId));
         }
 
+        // Set the limit, if passed
         if (null !== $limit) {
-            $this->db->sql()->limit($this->db->adapter()->escape($limit));
+            $this->sql->select()->limit($this->sql->adapter()->escape($limit));
         }
 
-        $this->db->adapter()->prepare($this->db->sql()->getSql());
+        // Prepare the statement
+        $this->sql->adapter()->prepare($this->sql->render(true));
 
         if (is_array($this->primaryId)) {
             $params = array();
@@ -123,10 +106,9 @@ class Prepared extends AbstractRecord
             $params = array($this->primaryId => $id);
         }
 
-        $this->db->adapter()->bindParams($params);
-        $this->db->adapter()->execute();
-
-        // Set the return results.
+        // Bind the parameters, execute the statement and set the return results.
+        $this->sql->adapter()->bindParams($params);
+        $this->sql->adapter()->execute();
         $this->setResults();
     }
 
@@ -143,39 +125,33 @@ class Prepared extends AbstractRecord
         $this->finder = array_merge($this->finder, $columns);
 
         // Build the SQL.
-        $this->db->sql()->setTable($this->tableName)
-                        ->setIdQuoteType($this->idQuote)
-                        ->select();
+        $this->sql->select();
 
         $i = 1;
         foreach ($columns as $key => $value) {
-            $this->db->sql()->where($key, '=', $this->getPlaceholder($key, $i));
+            if (strpos($value, '%') !== false) {
+                $this->sql->select()->where()->like($key, $this->getPlaceholder($key, $i));
+            } else {
+                $this->sql->select()->where()->equalTo($key, $this->getPlaceholder($key, $i));
+            }
             $i++;
+        }
+
+        // Set the limit, if passed
+        if (null !== $limit) {
+            $this->sql->select()->limit($this->sql->adapter()->escape($limit));
         }
 
         // Set the SQL query to a specific order, if given.
         if (null !== $order) {
             $ord = $this->getOrder($order);
-            if (is_array($ord['by'])) {
-                $by = array();
-                foreach ($ord['by'] as $b) {
-                    $by[] = $this->db->adapter()->escape($b);
-                }
-            } else {
-                $by = $this->db->adapter()->escape($ord['by']);
-            }
-            $this->db->sql()->order($by, $this->db->adapter()->escape($ord['order']));
+            $this->sql->select()->orderBy($ord['by'], $this->sql->adapter()->escape($ord['order']));
         }
 
-        if (null !== $limit) {
-            $this->db->sql()->limit($this->db->adapter()->escape($limit));
-        }
-
-        $this->db->adapter()->prepare($this->db->sql()->getSql());
-        $this->db->adapter()->bindParams($columns);
-        $this->db->adapter()->execute();
-
-        // Set the return results.
+        // Prepare the statement, bind the parameters, execute the statement and set the return results.
+        $this->sql->adapter()->prepare($this->sql->render(true));
+        $this->sql->adapter()->bindParams($columns);
+        $this->sql->adapter()->execute();
         $this->setResults();
     }
 
@@ -190,48 +166,45 @@ class Prepared extends AbstractRecord
     public function findAll($order = null, array $columns = null, $limit = null)
     {
         // Build the SQL.
-        $this->db->sql()->setTable($this->tableName)
-                        ->setIdQuoteType($this->idQuote)
-                        ->select();
+        $this->sql->select();
 
         // If a specific column and value are passde.
         if (null !== $columns) {
             $this->finder = array_merge($this->finder, $columns);
             $i = 1;
             foreach ($columns as $key => $value) {
-                $this->db->sql()->where($key, '=', $this->getPlaceholder($key, $i));
+                if (strpos($value, '%') !== false) {
+                    $this->sql->select()->where()->like($key, $this->getPlaceholder($key, $i));
+                } else {
+                    $this->sql->select()->where()->equalTo($key, $this->getPlaceholder($key, $i));
+                }
                 $i++;
             }
         } else {
             $this->finder = array();
         }
 
+        // Set any limit to the SQL query.
+        if (null !== $limit) {
+            $this->sql->select()->limit($this->sql->adapter()->escape($limit));
+        }
+
         // Set the SQL query to a specific order, if given.
         if (null !== $order) {
             $ord = $this->getOrder($order);
-            if (is_array($ord['by'])) {
-                $by = array();
-                foreach ($ord['by'] as $b) {
-                    $by[] = $this->db->adapter()->escape($b);
-                }
-            } else {
-                $by = $this->db->adapter()->escape($ord['by']);
-            }
-            $this->db->sql()->order($by, $this->db->adapter()->escape($ord['order']));
+            $this->sql->select()->orderBy($ord['by'], $this->sql->adapter()->escape($ord['order']));
         }
 
-        // Set any limit to the SQL query.
-        if (null !== $limit) {
-            $this->db->sql()->limit($this->db->adapter()->escape($limit));
-        }
+        // Prepare the SQL statement
+        $this->sql->adapter()->prepare($this->sql->render(true));
 
-        $this->db->adapter()->prepare($this->db->sql()->getSql());
+        // Bind the parameters
         if (null !== $columns) {
-            $this->db->adapter()->bindParams($columns);
+            $this->sql->adapter()->bindParams($columns);
         }
-        $this->db->adapter()->execute();
 
-        // Set the return results.
+        // Execute the statement and set the return results.
+        $this->sql->adapter()->execute();
         $this->setResults();
     }
 
@@ -248,9 +221,6 @@ class Prepared extends AbstractRecord
 
         if (null === $this->primaryId) {
             if ($type == \Pop\Db\Record::UPDATE) {
-                $this->db->sql()->setTable($this->tableName)
-                                ->setIdQuoteType($this->idQuote);
-
                 if (count($this->finder) > 0) {
                     $columns = array();
                     $params = $this->columns;
@@ -270,14 +240,14 @@ class Prepared extends AbstractRecord
                         }
                     }
 
-                    $this->db->sql()->update((array)$columns);
+                    $this->sql()->update((array)$columns);
                     $i = 1;
                     foreach ($this->finder as $key => $value) {
-                        $this->db->sql()->where($key, '=', $this->getPlaceholder($key, $i));
+                        $this->sql()->update()->where()->equalTo($key, $this->getPlaceholder($key, $i));
                         $i++;
                     }
-                    $this->db->adapter()->prepare($this->db->sql()->getSql());
-                    $this->db->adapter()->bindParams($params);
+                    $this->sql->adapter()->prepare($this->sql->render(true));
+                    $this->sql->adapter()->bindParams($params);
                 } else {
                     $columns = array();
                     $i = 1;
@@ -285,25 +255,23 @@ class Prepared extends AbstractRecord
                         $columns[$key] = $this->getPlaceholder($key, $i);
                         $i++;
                     }
-                    $this->db->sql()->update((array)$columns);
-                    $this->db->adapter()->prepare($this->db->sql()->getSql());
-                    $this->db->adapter()->bindParams($this->columns);
+                    $this->sql()->update((array)$columns);
+                    $this->sql->adapter()->prepare($this->sql->render(true));
+                    $this->sql->adapter()->bindParams($this->columns);
                 }
-                $this->db->adapter()->execute();
+                // Execute the SQL statement
+                $this->sql->adapter()->execute();
             } else {
-                $this->db->sql()->setTable($this->tableName)
-                                ->setIdQuoteType($this->idQuote);
-
                 $columns = array();
                 $i = 1;
                 foreach ($this->columns as $key => $value) {
                     $columns[$key] = $this->getPlaceholder($key, $i);
                     $i++;
                 }
-                $this->db->sql()->insert((array)$columns);
-                $this->db->adapter()->prepare($this->db->sql()->getSql());
-                $this->db->adapter()->bindParams($this->columns);
-                $this->db->adapter()->execute();
+                $this->sql->insert((array)$columns);
+                $this->sql->adapter()->prepare($this->sql->render(true));
+                $this->sql->adapter()->bindParams($this->columns);
+                $this->sql->adapter()->execute();
             }
         } else {
             if ($this->auto == false) {
@@ -323,9 +291,6 @@ class Prepared extends AbstractRecord
             }
 
             if ($action == 'update') {
-                $this->db->sql()->setTable($this->tableName)
-                                ->setIdQuoteType($this->idQuote);
-
                 $columns = array();
                 $params = $this->columns;
 
@@ -344,7 +309,7 @@ class Prepared extends AbstractRecord
                     }
                 }
 
-                $this->db->sql()->update((array)$columns);
+                $this->sql->update((array)$columns);
 
                 if (is_array($this->primaryId)) {
                     foreach ($this->primaryId as $key => $value) {
@@ -355,7 +320,7 @@ class Prepared extends AbstractRecord
                             $id = $params[$value];
                         }
                         $params[$value] = $id;
-                        $this->db->sql()->where($value, '=', $this->getPlaceholder($value, ($i + $key + 1)));
+                        $this->sql->update()->where()->equalTo($value, $this->getPlaceholder($value, ($i + $key + 1)));
                     }
                 } else {
                     if (isset($params[$this->primaryId])) {
@@ -365,16 +330,13 @@ class Prepared extends AbstractRecord
                         $id = $params[$this->primaryId];
                     }
                     $params[$this->primaryId] = $id;
-                    $this->db->sql()->where($this->primaryId, '=', $this->getPlaceholder($this->primaryId, $i));
+                    $this->sql()->update()->where()->equalTo($this->primaryId, $this->getPlaceholder($this->primaryId, $i));
                 }
 
-                $this->db->adapter()->prepare($this->db->sql()->getSql());
-                $this->db->adapter()->bindParams($params);
-                $this->db->adapter()->execute();
+                $this->sql->adapter()->prepare($this->sql->render(true));
+                $this->sql->adapter()->bindParams($params);
+                $this->sql->adapter()->execute();
             } else {
-                $this->db->sql()->setTable($this->tableName)
-                                ->setIdQuoteType($this->idQuote);
-
                 $columns = array();
                 $i = 1;
 
@@ -383,14 +345,14 @@ class Prepared extends AbstractRecord
                     $i++;
                 }
 
-                $this->db->sql()->insert((array)$columns);
-                $this->db->adapter()->prepare($this->db->sql()->getSql());
-                $this->db->adapter()->bindParams($this->columns);
-                $this->db->adapter()->execute();
+                $this->sql->insert((array)$columns);
+                $this->sql->adapter()->prepare($this->sql->render(true));
+                $this->sql->adapter()->bindParams($this->columns);
+                $this->sql->adapter()->execute();
 
                 if ($this->auto) {
-                    $this->columns[$this->primaryId] = $this->db->adapter()->lastId();
-                    $this->rows[0][$this->primaryId] = $this->db->adapter()->lastId();
+                    $this->columns[$this->primaryId] = $this->sql->adapter()->lastId();
+                    $this->rows[0][$this->primaryId] = $this->sql->adapter()->lastId();
                 }
             }
         }
@@ -419,44 +381,40 @@ class Prepared extends AbstractRecord
                 $columns = $this->finder;
             }
 
-            $this->db->sql()->setTable($this->tableName)
-                            ->setIdQuoteType($this->idQuote)
-                            ->delete();
+            $this->sql->delete();
 
             $i = 1;
             foreach ($columns as $key => $value) {
-                $this->db->sql()->where($this->db->adapter()->escape($key), '=', $this->getPlaceholder($key, $i));
+                $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($key), $this->getPlaceholder($key, $i));
                 $i++;
             }
 
-            $this->db->adapter()->prepare($this->db->sql()->getSql());
-            $this->db->adapter()->bindParams($columns);
-            $this->db->adapter()->execute();
+            $this->sql->adapter()->prepare($this->sql->render(true));
+            $this->sql->adapter()->bindParams($columns);
+            $this->sql->adapter()->execute();
 
             $this->columns = array();
             $this->rows = array();
         } else {
-            $this->db->sql()->setTable($this->tableName)
-                            ->setIdQuoteType($this->idQuote)
-                            ->delete();
+            $this->sql->delete();
 
             // Specific column override.
             if (null !== $columns) {
                 $i = 1;
                 foreach ($columns as $key => $value) {
-                    $this->db->sql()->where($this->db->adapter()->escape($key), '=', $this->getPlaceholder($key, $i));
+                    $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($key), $this->getPlaceholder($key, $i));
                     $i++;
                 }
             // Else, continue with the primaryId column(s)
             } else if (is_array($this->primaryId)) {
                 foreach ($this->primaryId as $key => $value) {
-                    $this->db->sql()->where($this->db->adapter()->escape($value), '=', $this->getPlaceholder($value, ($key + 1)));
+                    $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($value), $this->getPlaceholder($value, ($key + 1)));
                 }
             } else {
-                $this->db->sql()->where($this->db->adapter()->escape($this->primaryId), '=', $this->getPlaceholder($this->primaryId));
+                $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($this->primaryId), $this->getPlaceholder($this->primaryId));
             }
 
-            $this->db->adapter()->prepare($this->db->sql()->getSql());
+            $this->sql->adapter()->prepare($this->sql->render(true));
 
             // Specific column override.
             if (null !== $columns) {
@@ -471,8 +429,8 @@ class Prepared extends AbstractRecord
                 $params = array($this->primaryId => $this->columns[$this->primaryId]);
             }
 
-            $this->db->adapter()->bindParams($params);
-            $this->db->adapter()->execute();
+            $this->sql->adapter()->bindParams($params);
+            $this->sql->adapter()->execute();
 
             $this->columns = array();
             $this->rows = array();
@@ -488,13 +446,13 @@ class Prepared extends AbstractRecord
      */
     public function execute($sql, $params = null)
     {
-        $this->db->adapter()->prepare($sql);
+        $this->sql->adapter()->prepare($sql);
 
         if ((null !== $params) && is_array($params)) {
-            $this->db->adapter()->bindParams($params);
+            $this->sql->adapter()->bindParams($params);
         }
 
-        $this->db->adapter()->execute();
+        $this->sql->adapter()->execute();
 
         // Set the return results.
         if (stripos($sql, 'select') !== false) {
@@ -513,18 +471,18 @@ class Prepared extends AbstractRecord
      */
     public function query($sql)
     {
-        $this->db->adapter()->query($sql);
+        $this->sql->adapter()->query($sql);
 
         // Set the return results.
         if (stripos($sql, 'select') !== false) {
             // If there is more than one result returned, create an array of results.
-            if ($this->db->adapter()->numRows() > 1) {
-                while (($row = $this->db->adapter()->fetch()) != false) {
+            if ($this->sql->adapter()->numRows() > 1) {
+                while (($row = $this->sql->adapter()->fetch()) != false) {
                     $this->rows[] = new \ArrayObject($row, \ArrayObject::ARRAY_AS_PROPS);
                 }
             // Else, set the _columns array to the single returned result.
             } else {
-                while (($row = $this->db->adapter()->fetch()) != false) {
+                while (($row = $this->sql->adapter()->fetch()) != false) {
                     $this->rows[0] = new \ArrayObject($row, \ArrayObject::ARRAY_AS_PROPS);
                 }
             }
@@ -563,7 +521,7 @@ class Prepared extends AbstractRecord
     {
         $this->rows = array();
 
-        $rows = $this->db->adapter()->fetchResult();
+        $rows = $this->sql->adapter()->fetchResult();
         foreach ($rows as $row) {
             $this->rows[] = new \ArrayObject($row, \ArrayObject::ARRAY_AS_PROPS);
         }

@@ -29,10 +29,10 @@ abstract class AbstractRecord
 {
 
     /**
-     * Database connection adapter
-     * @var \Pop\Db\Db
+     * Sql abstraction object
+     * @var \Pop\Db\Sql
      */
-    public $db = null;
+    protected $sql = null;
 
     /**
      * Rows of multiple return results from a database query
@@ -66,16 +66,20 @@ abstract class AbstractRecord
     protected $auto = true;
 
     /**
-     * Flag on which quote identifier to use.
-     * @var int
-     */
-    protected $idQuote = null;
-
-    /**
      * Original query finder, if primary ID is not set.
      * @var array
      */
     protected $finder = array();
+
+    /**
+     * Get the SQL abtraction object.
+     *
+     * @return \Pop\Db\Sql
+     */
+    public function sql()
+    {
+        return $this->sql;
+    }
 
     /**
      * Get the result rows.
@@ -109,7 +113,7 @@ abstract class AbstractRecord
             $ord = 'DESC';
         } else if (stripos($order, 'RAND()') !== false) {
             $by = trim(str_replace('RAND()', '', $order));
-            $ord = ($this->db->getAdapterType() == 'Sqlite') ? 'RANDOM()' : 'RAND()';
+            $ord = 'RAND()';
         } else {
             $by = $order;
             $ord = null;

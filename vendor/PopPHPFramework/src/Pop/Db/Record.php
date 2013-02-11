@@ -54,7 +54,7 @@ class Record
     public $rows = array();
 
     /**
-     * Database adapter
+     * Record interface
      * @var \Pop\Db\Record\AbstractRecord
      */
     protected $interface = null;
@@ -66,7 +66,7 @@ class Record
     protected $prefix = null;
 
     /**
-     * Table name of the database tablel
+     * Table name of the database table
      * @var string
      */
     protected $tableName = null;
@@ -94,12 +94,6 @@ class Record
      * @var boolean
      */
     protected $usePrepared = true;
-
-    /**
-     * Flag on which quote identifier to use.
-     * @var int
-     */
-    protected $idQuote = null;
 
     /**
      * Constructor
@@ -139,8 +133,7 @@ class Record
         $options = array(
             'tableName' => $this->tableName,
             'primaryId' => $this->primaryId,
-            'auto'      => $this->auto,
-            'idQuote'   => $this->idQuote
+            'auto'      => $this->auto
         );
 
         $type = self::getDb()->getAdapterType();
@@ -291,24 +284,24 @@ class Record
         $nullField = 'is_nullable';
 
         // SQLite
-        if (stripos($record->interface->db->getAdapterType(), 'sqlite') !== false) {
+        if ($record->interface->sql()->getDbType() == \Pop\Db\Sql::SQLITE) {
             $sql = 'PRAGMA table_info(\'' . $tableName . '\')';
             $field = 'name';
             $type = 'type';
             $nullField = 'notnull';
-            // PostgreSQL
-        } else if (stripos($record->interface->db->getAdapterType(), 'pgsql') !== false) {
+        // PostgreSQL
+        } else if ($record->interface->sql()->getDbType() == \Pop\Db\Sql::PGSQL) {
             $sql = 'SELECT * FROM information_schema.COLUMNS WHERE table_name = \'' . $tableName . '\' ORDER BY ordinal_position ASC';
-            // SQL Server
-        } else if (stripos($record->interface->db->getAdapterType(), 'sqlsrv') !== false) {
+        // SQL Server
+        } else if ($record->interface->sql()->getDbType() == \Pop\Db\Sql::SQLSRV) {
             $sql = 'SELECT c.name \'column_name\', t.Name \'data_type\', c.is_nullable, c.column_id FROM sys.columns c INNER JOIN sys.types t ON c.system_type_id = t.system_type_id WHERE object_id = OBJECT_ID(\'' . $tableName . '\') ORDER BY c.column_id ASC';
-            // Oracle
-        } else  if (stripos($record->interface->db->getAdapterType(), 'oracle') !== false) {
+        // Oracle
+        } else if ($record->interface->sql()->getDbType() == \Pop\Db\Sql::ORACLE) {
             $sql = 'SELECT column_name, data_type, nullable FROM all_tab_cols where table_name = \'' . $tableName . '\'';
             $field = 'COLUMN_NAME';
             $type = 'DATA_TYPE';
             $nullField = 'NULLABLE';
-            // MySQL
+        // MySQL
         } else {
             $sql = 'SHOW COLUMNS FROM `' . $tableName . '`';
             $field = 'Field';
@@ -316,14 +309,14 @@ class Record
             $nullField  = 'Null';
         }
 
-        $record->interface->db->adapter()->query($sql);
+        $record->interface->sql()->adapter()->query($sql);
 
-        while (($row = $record->interface->db->adapter()->fetch()) != false) {
-            if (stripos($record->interface->db->getAdapterType(), 'sqlite') !== false) {
+        while (($row = $record->interface->sql()->adapter()->fetch()) != false) {
+            if ($record->interface->sql()->getDbType() == \Pop\Db\Sql::SQLITE) {
                 $nullResult = ($row[$nullField]) ? false : true;
-            } else if (stripos($record->interface->db->getAdapterType(), 'mysql') !== false) {
+            } else if ($record->interface->sql()->getDbType() == \Pop\Db\Sql::MYSQL) {
                 $nullResult = (strtoupper($row[$nullField]) != 'NO') ? true : false;
-            } else if (stripos($record->interface->db->getAdapterType(), 'oracle') !== false) {
+            } else if ($record->interface->sql()->getDbType() == \Pop\Db\Sql::ORACLE) {
                 $nullResult = (strtoupper($row[$nullField]) != 'Y') ? true : false;
             } else {
                 $nullResult = $row[$nullField];
@@ -479,7 +472,7 @@ class Record
      */
     public function escape($value)
     {
-        return $this->interface->db->adapter()->escape($value);
+        return $this->interface->sql()->adapter()->escape($value);
     }
 
     /**
@@ -489,7 +482,7 @@ class Record
      */
     public function lastId()
     {
-        return $this->interface->db->adapter()->lastId();
+        return $this->interface->sql()->adapter()->lastId();
     }
 
     /**
@@ -499,7 +492,7 @@ class Record
      */
     public function numRows()
     {
-        return $this->interface->db->adapter()->numRows();
+        return $this->interface->sql()->adapter()->numRows();
     }
 
     /**
@@ -509,7 +502,7 @@ class Record
      */
     public function numFields()
     {
-        return $this->interface->db->adapter()->numFields();
+        return $this->interface->sql()->adapter()->numFields();
     }
 
     /**

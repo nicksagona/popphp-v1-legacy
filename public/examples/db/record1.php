@@ -20,8 +20,9 @@ try {
     ));
 
     Users::setDb($db);
-    $users = Users::findAll();
-    print_r($users);
+    $users = Users::findAll('id ASC', array('username' => '%test%'), '3, 4');
+    print_r($users->rows);
+
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

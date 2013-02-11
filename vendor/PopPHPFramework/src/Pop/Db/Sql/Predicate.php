@@ -41,6 +41,12 @@ class Predicate
     protected $predicates = array();
 
     /**
+     * Nested predicates
+     * @var \Pop\Db\Sql\Predicate
+     */
+    protected $nested = null;
+
+    /**
      * Constructor
      *
      * Instantiate the predicate collection object.
@@ -51,6 +57,20 @@ class Predicate
     public function __construct(\Pop\Db\Sql $sql)
     {
         $this->sql = $sql;
+    }
+
+    /**
+     * Add a nested predicate
+     *
+     * @return \Pop\Db\Sql\Predicate
+     */
+    public function nest()
+    {
+        if (null === $this->nested) {
+            $this->nested = new Predicate($this->sql);
+        }
+
+        return $this->nested;
     }
 
     /**
@@ -239,11 +259,11 @@ class Predicate
      * Predicate for IN
      *
      * @param  string $column
-     * @param  array  $values
+     * @param  mixed  $values
      * @param  string $combine
      * @return \Pop\Db\Sql\Predicate
      */
-    public function in($column, array $values, $combine = 'AND')
+    public function in($column, $values, $combine = 'AND')
     {
         $this->predicates[] = array(
             'format' => '%1 IN (%2)',
@@ -257,11 +277,11 @@ class Predicate
      * Predicate for NOT IN
      *
      * @param  string $column
-     * @param  array  $values
+     * @param  mixed  $values
      * @param  string $combine
      * @return \Pop\Db\Sql\Predicate
      */
-    public function notIn($column, array $values, $combine = 'AND')
+    public function notIn($column, $values, $combine = 'AND')
     {
         $this->predicates[] = array(
             'format' => '%1 NOT IN (%2)',
@@ -314,7 +334,17 @@ class Predicate
     {
         $where = null;
 
+        // Build any nested predicates
+        if (null !== $this->nested) {
+            $where = '(' . $this->nested . ')';
+        }
+
+        // Loop through and format the predicates
         if (count($this->predicates) > 0) {
+            if (null !== $where) {
+                $where .= ' ' . $this->predicates[0]['combine'] . ' ';
+            }
+
             foreach ($this->predicates as $key => $predicate) {
                 $format = $predicate['format'];
                 $curWhere = '(';
@@ -329,7 +359,10 @@ class Predicate
                             }
                             $format = str_replace('%' . ($i + 1), implode(', ', $vals), $format);
                         } else {
-                            $format = str_replace('%' . ($i + 1), $this->sql->quote($predicate['values'][$i]), $format);
+                            $val = ($predicate['values'][$i] instanceof \Pop\Db\Sql) ?
+                                (string)$predicate['values'][$i] :
+                                $this->sql->quote($predicate['values'][$i]);
+                            $format = str_replace('%' . ($i + 1), $val, $format);
                         }
                     }
                 }

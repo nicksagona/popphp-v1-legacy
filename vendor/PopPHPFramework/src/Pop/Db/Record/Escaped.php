@@ -41,27 +41,7 @@ class Escaped extends AbstractRecord
      */
     public function __construct(\Pop\Db\Db $db, $options)
     {
-        $this->db = $db;
-
-        $type = $this->db->getAdapterType();
-
-        if (stripos($type, 'sqlite') !== false) {
-            $this->idQuote = (null === $options['idQuote']) ? Sql::DOUBLE_QUOTE : $options['idQuote'];
-            $this->db->sql()->setDbType(Sql::SQLITE);
-        } else if (stripos($type, 'pgsql') !== false) {
-            $this->idQuote = (null === $options['idQuote']) ? Sql::DOUBLE_QUOTE : $options['idQuote'];
-            $this->db->sql()->setDbType(Sql::PGSQL);
-        } else if (stripos($type, 'sqlsrv') !== false) {
-            $this->idQuote = (null === $options['idQuote']) ? Sql::BRACKET : $options['idQuote'];
-            $this->db->sql()->setDbType(Sql::SQLSRV);
-        } else if (stripos($type, 'oracle') !== false) {
-            $this->idQuote = (null === $options['idQuote']) ? Sql::DOUBLE_QUOTE : $options['idQuote'];
-            $this->db->sql()->setDbType(Sql::ORACLE);
-        } else {
-            $this->idQuote = (null === $options['idQuote']) ? Sql::BACKTICK : $options['idQuote'];
-            $this->db->sql()->setDbType(Sql::MYSQL);
-        }
-
+        $this->sql = new \Pop\Db\Sql($db, $options['tableName']);
         $this->tableName = $options['tableName'];
         $this->primaryId = $options['primaryId'];
         $this->auto = $options['auto'];
@@ -82,28 +62,26 @@ class Escaped extends AbstractRecord
         }
 
         // Build the SQL.
-        $this->db->sql()->setTable($this->tableName)
-                        ->setIdQuoteType($this->idQuote)
-                        ->select();
+        $this->sql->select();
 
         if (is_array($this->primaryId)) {
             if (!is_array($id) || (count($id) != count($this->primaryId))) {
                 throw new Exception('The array of ID values does not match the number of IDs.');
             }
             foreach ($id as $key => $value) {
-                $this->db->sql()->where($this->primaryId[$key], '=', $this->db->adapter()->escape($value));
+                $this->sql->select()->where()->equalTo($this->primaryId[$key], $this->sql->adapter()->escape($value));
             }
         } else {
-            $this->db->sql()->where($this->primaryId, '=', $this->db->adapter()->escape($id));
+            $this->sql->select()->where()->equalTo($this->primaryId, $this->sql->adapter()->escape($id));
         }
 
+        // Set the limit, if passed
         if (null !== $limit) {
-            $this->db->sql()->limit($this->db->adapter()->escape($limit));
+            $this->sql->select()->limit($this->sql->adapter()->escape($limit));
         }
 
-        $this->db->adapter()->query($this->db->sql()->getSql());
-
-        // Set the return results.
+        // Perform the query and set the return results.
+        $this->sql->adapter()->query($this->sql->render(true));
         $this->setResults();
     }
 
@@ -120,35 +98,29 @@ class Escaped extends AbstractRecord
         $this->finder = array_merge($this->finder, $columns);
 
         // Build the SQL.
-        $this->db->sql()->setTable($this->tableName)
-                        ->setIdQuoteType($this->idQuote)
-                        ->select();
+        $this->sql->select();
 
         foreach ($columns as $key => $value) {
-            $this->db->sql()->where($this->db->adapter()->escape($key), '=', $this->db->adapter()->escape($value));
-        }
-
-        if (null !== $limit) {
-            $this->db->sql()->limit($this->db->adapter()->escape($limit));
+            if (strpos($value, '%') !== false) {
+                $this->sql->select()->where()->like($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
+            } else {
+                $this->sql->select()->where()->equalTo($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
+            }
         }
 
         // Set the SQL query to a specific order, if given.
         if (null !== $order) {
             $ord = $this->getOrder($order);
-            if (is_array($ord['by'])) {
-                $by = array();
-                foreach ($ord['by'] as $b) {
-                    $by[] = $this->db->adapter()->escape($b);
-                }
-            } else {
-                $by = $this->db->adapter()->escape($ord['by']);
-            }
-            $this->db->sql()->order($by, $this->db->adapter()->escape($ord['order']));
+            $this->sql->select()->orderBy($ord['by'], $this->sql->adapter()->escape($ord['order']));
         }
 
-        $this->db->adapter()->query($this->db->sql()->getSql());
+        // Set the limit, if passed
+        if (null !== $limit) {
+            $this->sql->select()->limit($this->sql->adapter()->escape($limit));
+        }
 
-        // Set the return results.
+        // Perform the query and set the return results.
+        $this->sql->adapter()->query($this->sql->render(true));
         $this->setResults();
     }
 
@@ -163,15 +135,17 @@ class Escaped extends AbstractRecord
     public function findAll($order = null, array $columns = null, $limit = null)
     {
         // Build the SQL.
-        $this->db->sql()->setTable($this->tableName)
-                        ->setIdQuoteType($this->idQuote)
-                        ->select();
+        $this->sql->select();
 
-        // If a specific column and value are passde.
+        // If a specific column and value are passed.
         if (null !== $columns) {
             $this->finder = array_merge($this->finder, $columns);
             foreach ($columns as $key => $value) {
-                $this->db->sql()->where($this->db->adapter()->escape($key), '=', $this->db->adapter()->escape($value));
+                if (strpos($value, '%') !== false) {
+                    $this->sql->select()->where()->like($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
+                } else {
+                    $this->sql->select()->where()->equalTo($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
+                }
             }
         } else {
             $this->finder = array();
@@ -180,25 +154,16 @@ class Escaped extends AbstractRecord
         // Set the SQL query to a specific order, if given.
         if (null !== $order) {
             $ord = $this->getOrder($order);
-            if (is_array($ord['by'])) {
-                $by = array();
-                foreach ($ord['by'] as $b) {
-                    $by[] = $this->db->adapter()->escape($b);
-                }
-            } else {
-                $by = $this->db->adapter()->escape($ord['by']);
-            }
-            $this->db->sql()->order($by, $this->db->adapter()->escape($ord['order']));
+            $this->sql->select()->orderBy($ord['by'], $this->sql->adapter()->escape($ord['order']));
         }
 
         // Set any limit to the SQL query.
         if (null !== $limit) {
-            $this->db->sql()->limit($this->db->adapter()->escape($limit));
+            $this->sql->select()->limit($this->sql->adapter()->escape($limit));
         }
 
-        $this->db->adapter()->query($this->db->sql()->getSql());
-
-        // Set the return results.
+        // Perform the query and set the return results.
+        $this->sql->adapter()->query($this->sql->render(true));
         $this->setResults();
     }
 
@@ -214,28 +179,25 @@ class Escaped extends AbstractRecord
         $this->columns = $columnsPassed;
 
         foreach ($this->columns as $key => $value) {
-            $this->columns[$key] = $this->db->adapter()->escape($value);
+            $this->columns[$key] = $this->sql->adapter()->escape($value);
         }
 
         if (null === $this->primaryId) {
+            // Build the UPDATE SQL
             if ($type == \Pop\Db\Record::UPDATE) {
-                $this->db->sql()->setTable($this->tableName)
-                                ->setIdQuoteType($this->idQuote)
-                                ->update((array)$this->columns);
+                $this->sql->update((array)$this->columns);
 
                 if (count($this->finder) > 0) {
                     foreach ($this->finder as $key => $value) {
-                        $this->db->sql()->where($key, '=', $this->db->adapter()->escape($value));
+                        $this->sql->update()->where()->equalTo($key, $this->sql->adapter()->escape($value));
                     }
                 }
 
-                $this->db->adapter()->query($this->db->sql()->getSql());
+                $this->sql->adapter()->query($this->sql->render(true));
+            // Else, build the INSERT SQL
             } else {
-                $this->db->sql()->setTable($this->tableName)
-                                ->setIdQuoteType($this->idQuote)
-                                ->insert((array)$this->columns);
-
-                $this->db->adapter()->query($this->db->sql()->getSql());
+                $this->sql->insert((array)$this->columns);
+                $this->sql->adapter()->query($this->sql->render(true));
             }
         } else {
             if ($this->auto == false) {
@@ -254,30 +216,27 @@ class Escaped extends AbstractRecord
                 }
             }
 
+            // Build the UPDATE SQL
             if ($action == 'update') {
-                $this->db->sql()->setTable($this->tableName)
-                                ->setIdQuoteType($this->idQuote)
-                                ->update((array)$this->columns);
+                $this->sql->update((array)$this->columns);
 
                 if (is_array($this->primaryId)) {
                     foreach ($this->primaryId as $value) {
-                        $this->db->sql()->where($this->db->adapter()->escape($value), '=', $this->db->adapter()->escape($this->columns[$value]));
+                        $this->sql->update()->where()->equalTo($this->sql->adapter()->escape($value), $this->sql->adapter()->escape($this->columns[$value]));
                     }
                 } else {
-                    $this->db->sql()->where($this->db->adapter()->escape($this->primaryId), '=', $this->db->adapter()->escape($this->columns[$this->primaryId]));
+                    $this->sql->update()->where()->equalTo($this->sql->adapter()->escape($this->primaryId), $this->sql->adapter()->escape($this->columns[$this->primaryId]));
                 }
 
-                $this->db->adapter()->query($this->db->sql()->getSql());
+                $this->sql->adapter()->query($this->sql->render(true));
+            // Else, build the INSERT SQL
             } else {
-                $this->db->sql()->setTable($this->tableName)
-                                ->setIdQuoteType($this->idQuote)
-                                ->insert((array)$this->columns);
-
-                $this->db->adapter()->query($this->db->sql()->getSql());
+                $this->sql->insert((array)$this->columns);
+                $this->sql->adapter()->query($this->sql->render(true));
 
                 if ($this->auto) {
-                    $this->columns[$this->primaryId] = $this->db->adapter()->lastId();
-                    $this->rows[0][$this->primaryId] = $this->db->adapter()->lastId();
+                    $this->columns[$this->primaryId] = $this->sql->adapter()->lastId();
+                    $this->rows[0][$this->primaryId] = $this->sql->adapter()->lastId();
                 }
             }
         }
@@ -299,6 +258,7 @@ class Escaped extends AbstractRecord
     {
         $this->columns = $columnsPassed;
 
+        // Build the DELETE SQL
         if (null === $this->primaryId) {
             if ((null === $columns) && (count($this->finder) == 0)) {
                 throw new Exception('The column and value parameters were not defined to describe the row(s) to delete.');
@@ -306,38 +266,34 @@ class Escaped extends AbstractRecord
                 $columns = $this->finder;
             }
 
-            $this->db->sql()->setTable($this->tableName)
-                            ->setIdQuoteType($this->idQuote)
-                            ->delete();
+            $this->sql->delete();
 
             foreach ($columns as $key => $value) {
-                $this->db->sql()->where($this->db->adapter()->escape($key), '=', $this->db->adapter()->escape($value));
+                $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
             }
 
-            $this->db->adapter()->query($this->db->sql()->getSql());
+            $this->sql->adapter()->query($this->sql->render(true));
 
             $this->columns = array();
             $this->rows = array();
         } else {
-            $this->db->sql()->setTable($this->tableName)
-                            ->setIdQuoteType($this->idQuote)
-                            ->delete();
+            $this->sql->delete();
 
             // Specific column override.
             if (null !== $columns) {
                 foreach ($columns as $key => $value) {
-                    $this->db->sql()->where($this->db->adapter()->escape($key), '=', $this->db->adapter()->escape($value));
+                    $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
                 }
             // Else, continue with the primaryId column(s)
             } else if (is_array($this->primaryId)) {
                 foreach ($this->primaryId as $value) {
-                    $this->db->sql()->where($this->db->adapter()->escape($value), '=', $this->db->adapter()->escape($this->columns[$value]));
+                    $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($value), $this->sql->adapter()->escape($this->columns[$value]));
                 }
             } else {
-                $this->db->sql()->where($this->db->adapter()->escape($this->primaryId), '=', $this->db->adapter()->escape($this->columns[$this->primaryId]));
+                $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($this->primaryId), $this->sql->adapter()->escape($this->columns[$this->primaryId]));
             }
 
-            $this->db->adapter()->query($this->db->sql()->getSql());
+            $this->sql->adapter()->query($this->sql->render(true));
 
             $this->columns = array();
             $this->rows = array();
@@ -364,7 +320,7 @@ class Escaped extends AbstractRecord
      */
     public function query($sql)
     {
-        $this->db->adapter()->query($sql);
+        $this->sql->adapter()->query($sql);
 
         // Set the return results.
         if (stripos($sql, 'select') !== false) {
@@ -384,7 +340,7 @@ class Escaped extends AbstractRecord
     {
         $this->rows = array();
 
-        while (($row = $this->db->adapter()->fetch()) != false) {
+        while (($row = $this->sql->adapter()->fetch()) != false) {
             $this->rows[] = new \ArrayObject($row, \ArrayObject::ARRAY_AS_PROPS);
         }
 

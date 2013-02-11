@@ -24,9 +24,8 @@ try {
     $fields = array(
         'username'   => 'newuser2',
         'password'   => '123456',
-        'first_name' => 'Onemore',
-        'last_name'  => 'Newuser',
-        'email'      => 'test@test.com'
+        'email'      => 'new@test.com',
+        'access'     => 'editor'
     );
 
     $user = new Users($fields);

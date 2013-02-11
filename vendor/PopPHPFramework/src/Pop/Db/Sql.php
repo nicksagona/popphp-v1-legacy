@@ -101,13 +101,13 @@ class Sql
     protected $quoteIdType = 0;
 
     /**
-     * Current selected table
+     * Current table
      * @var string
      */
     protected $table = null;
 
     /**
-     * Alias name
+     * Alias name for sub-queries
      * @var string
      */
     protected $alias = null;
@@ -254,6 +254,16 @@ class Sql
     }
 
     /**
+     * Get the current database object's adapter.
+     *
+     * @return \Pop\Db\Adapter\AbstractAdapter
+     */
+    public function adapter()
+    {
+        return $this->db->adapter();
+    }
+
+    /**
      * Get the current database type.
      *
      * @return int
@@ -365,7 +375,7 @@ class Sql
      */
     public function select($columns = null)
     {
-        if (null === $this->clause) {
+        if ((null === $this->clause) || !($this->clause instanceof \Pop\Db\Sql\Select)) {
             $this->clause = new Sql\Select($this, $columns);
         }
 
@@ -381,7 +391,7 @@ class Sql
      */
     public function insert(array $columns = null)
     {
-        if (null === $this->clause) {
+        if ((null === $this->clause) || !($this->clause instanceof \Pop\Db\Sql\Insert)) {
             if (null === $columns) {
                 throw new Exception('Error: The columns parameter cannot be null for a new INSERT clause.');
             }
@@ -400,7 +410,7 @@ class Sql
      */
     public function update(array $columns = null)
     {
-        if (null === $this->clause) {
+        if ((null === $this->clause) || !($this->clause instanceof \Pop\Db\Sql\Update)) {
             if (null === $columns) {
                 throw new Exception('Error: The columns parameter cannot be null for a new UPDATE clause.');
             }
@@ -417,7 +427,7 @@ class Sql
      */
     public function delete()
     {
-        if (null === $this->clause) {
+        if ((null === $this->clause) || !($this->clause instanceof \Pop\Db\Sql\Delete)) {
             $this->clause = new Sql\Delete($this);
         }
 

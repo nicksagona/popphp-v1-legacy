@@ -193,79 +193,53 @@ class Select extends AbstractSql
 
         $sql .= 'FROM ';
 
-        // Account for LIMIT clause if the database is ORACLE
+        // Account for LIMIT and OFFSET clauses if the database is ORACLE
         if (($this->sql->getDbType() == \Pop\Db\Sql::ORACLE) && ((null !== $this->limit) || (null !== $this->offset))) {
             if (null === $this->orderBy) {
                 throw new Exception('Error: You must set an order by clause to execute a limit clause on the Oracle database.');
             }
 
-            $limit = null;
-            $offset = null;
-
-            // Calculate the limit and/or offset
-            if (null !== $this->offset) {
-                $offset = (int)$this->offset + 1;
-                $limit = (null !== $this->limit) ? (int)$this->limit + (int)$this->offset : 0;
-            } else if (strpos($this->limit, ',') !== false) {
-                $limAry  = explode(',', $this->limit);
-                $offset = (int)trim($limAry[0]) + 1;
-                $limit = (int)trim($limAry[1]) + (int)trim($limAry[0]);
-            } else {
-                $limit = (int)$this->limit;
-            }
+            $result = $this->getLimitAndOffset();
 
             $sql .= '(SELECT t.*, ROW_NUMBER() OVER (ORDER BY ' . $this->orderBy . ') ' .
                 $this->sql->quoteId('RowNumber') . ' FROM ' .
                 $this->sql->quoteId($this->sql->getTable()) . ' t)';
 
-            if (null !== $offset) {
-                if ($limit > 0) {
-                    $this->where()->between('RowNumber', $offset, $limit);
+            if (null !== $result['offset']) {
+                if ($result['limit'] > 0) {
+                    $this->where()->between('RowNumber', $result['offset'], $result['limit']);
                 } else {
-                    $this->where()->greaterThanOrEqualTo('RowNumber', $offset);
+                    $this->where()->greaterThanOrEqualTo('RowNumber', $result['offset']);
                 }
             } else {
-                $this->where()->lessThanOrEqualTo('RowNumber', $limit);
+                $this->where()->lessThanOrEqualTo('RowNumber', $result['limit']);
             }
-        // Account for LIMIT clause if the database is SQLSRV
+        // Account for LIMIT and OFFSET clauses if the database is SQLSRV
         } else if (($this->sql->getDbType() == \Pop\Db\Sql::SQLSRV) && ((null !== $this->limit) || (null !== $this->offset))) {
             if (null === $this->orderBy) {
                 throw new Exception('Error: You must set an order by clause to execute a limit clause on the SQL server database.');
             }
 
-            $limit = null;
-            $offset = null;
+            $result = $this->getLimitAndOffset();
 
-            // Calculate the limit and/or offset
-            if (null !== $this->offset) {
-                $offset = (int)$this->offset + 1;
-                $limit = (null !== $this->limit) ? (int)$this->limit + (int)$this->offset : 0;
-            } else if (strpos($this->limit, ',') !== false) {
-                $limAry  = explode(',', $this->limit);
-                $offset = (int)trim($limAry[0]) + 1;
-                $limit = (int)trim($limAry[1]) + (int)trim($limAry[0]);
-            } else {
-                $limit = (int)$this->limit;
-            }
-
-            if (null !== $offset) {
+            if (null !== $result['offset']) {
                 $sql .= '(SELECT *, ROW_NUMBER() OVER (ORDER BY ' . $this->orderBy . ') AS RowNumber FROM ' .
                     $this->sql->quoteId($this->sql->getTable()) . ') AS OrderedTable';
-                if ($limit > 0) {
-                    $this->where()->between('OrderedTable.RowNumber', $offset, $limit);
+                if ($result['limit'] > 0) {
+                    $this->where()->between('OrderedTable.RowNumber', $result['offset'], $result['limit']);
                 } else {
-                    $this->where()->greaterThanOrEqualTo('OrderedTable.RowNumber', $offset);
+                    $this->where()->greaterThanOrEqualTo('OrderedTable.RowNumber', $result['offset']);
                 }
             } else {
-                $sql = str_replace('SELECT', 'SELECT TOP ' . $limit, $sql);
+                $sql = str_replace('SELECT', 'SELECT TOP ' . $result['limit'], $sql);
                 $sql .= $this->sql->quoteId($this->sql->getTable());
             }
-        // If there is a nested SELECT statement.
+        // Else, if there is a nested SELECT statement.
         } else if ($this->sql->getTable() instanceof \Pop\Db\Sql) {
             $subSelect = $this->sql->getTable();
             $subSelectAlias = ($subSelect->hasAlias()) ? $subSelect->getAlias() : $subSelect->getTable();
             $sql .= '(' . $subSelect . ') AS ' . $this->sql->quoteId($subSelectAlias);
-        // Else, select from the table
+        // Else, just select from the table
         } else {
             $sql .=  $this->sql->quoteId($this->sql->getTable());
         }
@@ -309,6 +283,11 @@ class Select extends AbstractSql
         // Build any LIMIT clause for all other database types.
         if (($this->sql->getDbType() != \Pop\Db\Sql::SQLSRV) && ($this->sql->getDbType() != \Pop\Db\Sql::ORACLE)) {
             if (null !== $this->limit) {
+                if ((strpos($this->limit, ',') !== false) && ($this->sql->getDbType() == \Pop\Db\Sql::PGSQL)) {
+                    $ary = explode(',', $this->limit);
+                    $this->offset = (int)trim($ary[0]);
+                    $this->limit = (int)trim($ary[1]);
+                }
                 $sql .= ' LIMIT ' . $this->limit;
             }
         }
@@ -321,6 +300,33 @@ class Select extends AbstractSql
         }
 
         return $sql;
+    }
+
+    /**
+     * Method to get the limit and offset
+     *
+     * @return array
+     */
+    protected function getLimitAndOffset()
+    {
+        $result = array(
+            'limit'  => null,
+            'offset' => null
+        );
+
+        // Calculate the limit and/or offset
+        if (null !== $this->offset) {
+            $result['offset'] = (int)$this->offset + 1;
+            $result['limit'] = (null !== $this->limit) ? (int)$this->limit + (int)$this->offset : 0;
+        } else if (strpos($this->limit, ',') !== false) {
+            $ary  = explode(',', $this->limit);
+            $result['offset'] = (int)trim($ary[0]) + 1;
+            $result['limit'] = (int)trim($ary[1]) + (int)trim($ary[0]);
+        } else {
+            $result['limit'] = (int)$this->limit;
+        }
+
+        return $result;
     }
 
 }
