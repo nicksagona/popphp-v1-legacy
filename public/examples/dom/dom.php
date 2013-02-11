@@ -2,8 +2,8 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Dom\Child,
-    Pop\Dom\Dom;
+use Pop\Dom\Child;
+use Pop\Dom\Dom;
 
 try {
     $title = new Child('title', 'This is the title');

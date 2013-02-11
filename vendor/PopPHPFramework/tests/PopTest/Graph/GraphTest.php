@@ -15,9 +15,9 @@
  */
 namespace PopTest\Graph;
 
-use Pop\Loader\Autoloader,
-    Pop\Color\Space\Rgb,
-    Pop\Graph\Graph;
+use Pop\Loader\Autoloader;
+use Pop\Color\Space\Rgb;
+use Pop\Graph\Graph;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

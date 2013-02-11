@@ -15,14 +15,14 @@
  */
 namespace PopTest\Color;
 
-use Pop\Loader\Autoloader,
-    Pop\Color\Color,
-    Pop\Color\Convert,
-    Pop\Color\Space\Cmyk,
-    Pop\Color\Space\Hex,
-    Pop\Color\Space\Hsb,
-    Pop\Color\Space\Lab,
-    Pop\Color\Space\Rgb;
+use Pop\Loader\Autoloader;
+use Pop\Color\Color;
+use Pop\Color\Convert;
+use Pop\Color\Space\Cmyk;
+use Pop\Color\Space\Hex;
+use Pop\Color\Space\Hsb;
+use Pop\Color\Space\Lab;
+use Pop\Color\Space\Rgb;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

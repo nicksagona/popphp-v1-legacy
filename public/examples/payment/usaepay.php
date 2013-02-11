@@ -2,8 +2,8 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Payment\Payment,
-    Pop\Payment\Adapter\UsaEpay;
+use Pop\Payment\Payment;
+use Pop\Payment\Adapter\UsaEpay;
 
 try {
     $payment = new Payment(new UsaEpay('SOURCE_KEY', Payment::TEST));

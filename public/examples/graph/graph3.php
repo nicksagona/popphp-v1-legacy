@@ -2,8 +2,8 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Color\Space\Rgb,
-    Pop\Graph\Graph;
+use Pop\Color\Space\Rgb;
+use Pop\Graph\Graph;
 
 try {
     $x = array('0M', '50M', '100M', '150M', '200M');

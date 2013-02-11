@@ -15,10 +15,10 @@
  */
 namespace PopTest\Form;
 
-use Pop\Loader\Autoloader,
-    Pop\Db\Db,
-    Pop\Form\Fields,
-    Pop\Db\Record;
+use Pop\Loader\Autoloader;
+use Pop\Db\Db;
+use Pop\Form\Fields;
+use Pop\Db\Record;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

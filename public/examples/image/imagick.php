@@ -2,8 +2,8 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Color\Space\Rgb,
-    Pop\Image\Imagick;
+use Pop\Color\Space\Rgb;
+use Pop\Image\Imagick;
 
 try {
     $imagick = new Imagick('../assets/images/test.jpg');

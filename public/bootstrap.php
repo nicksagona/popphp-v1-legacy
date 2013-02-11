@@ -19,7 +19,7 @@
  */
 require_once __DIR__ . '/../vendor/PopPHPFramework/src/Pop/Loader/Autoloader.php';
 
-$autoloader = new Pop\Loader\Autoloader();
+$autoloader = new \Pop\Loader\Autoloader();
 $autoloader->splAutoloadRegister();
 
 /**

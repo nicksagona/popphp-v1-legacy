@@ -15,12 +15,12 @@
  */
 namespace PopTest\Log;
 
-use Pop\Loader\Autoloader,
-    Pop\Log\Logger,
-    Pop\Log\Writer\Db,
-    Pop\Log\Writer\File,
-    Pop\Log\Writer\Mail,
-    Pop\Db\Record;
+use Pop\Loader\Autoloader;
+use Pop\Log\Logger;
+use Pop\Log\Writer\Db;
+use Pop\Log\Writer\File;
+use Pop\Log\Writer\Mail;
+use Pop\Db\Record;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

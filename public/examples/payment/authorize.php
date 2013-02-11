@@ -2,8 +2,8 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Payment\Payment,
-    Pop\Payment\Adapter\Authorize;
+use Pop\Payment\Payment;
+use Pop\Payment\Adapter\Authorize;
 
 try {
     $payment = new Payment(new Authorize('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST));

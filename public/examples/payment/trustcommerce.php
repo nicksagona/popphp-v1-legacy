@@ -2,8 +2,8 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Payment\Payment,
-    Pop\Payment\Adapter\TrustCommerce;
+use Pop\Payment\Payment;
+use Pop\Payment\Adapter\TrustCommerce;
 
 try {
     $payment = new Payment(new TrustCommerce('CUSTID', 'PASSWORD', Payment::TEST));

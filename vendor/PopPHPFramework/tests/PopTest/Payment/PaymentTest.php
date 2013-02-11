@@ -15,13 +15,13 @@
  */
 namespace PopTest\Payment;
 
-use Pop\Loader\Autoloader,
-    Pop\Payment\Payment,
-    Pop\Payment\Adapter\Authorize,
-    Pop\Payment\Adapter\PayLeap,
-    Pop\Payment\Adapter\PayPal,
-    Pop\Payment\Adapter\TrustCommerce,
-    Pop\Payment\Adapter\UsaEpay;
+use Pop\Loader\Autoloader;
+use Pop\Payment\Payment;
+use Pop\Payment\Adapter\Authorize;
+use Pop\Payment\Adapter\PayLeap;
+use Pop\Payment\Adapter\PayPal;
+use Pop\Payment\Adapter\TrustCommerce;
+use Pop\Payment\Adapter\UsaEpay;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

@@ -2,8 +2,7 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Color\Space\Rgb,
-    Pop\Pdf\Pdf;
+use Pop\Pdf\Pdf;
 
 try {
     $pdf = new Pdf('../tmp/doc.pdf');

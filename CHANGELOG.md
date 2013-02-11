@@ -1,6 +1,12 @@
 Pop PHP Framework Changelog
 ===========================
 
+1.2.1
+-----
+Released on February 11, 2013
+
+* Refactor the Db\Sql component and its functionality with the Db\Record component
+
 1.2.0
 -----
 Released on February 4, 2013

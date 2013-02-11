@@ -15,8 +15,8 @@
  */
 namespace PopTest\Http;
 
-use Pop\Loader\Autoloader,
-    Pop\Http\Request;
+use Pop\Loader\Autoloader;
+use Pop\Http\Request;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

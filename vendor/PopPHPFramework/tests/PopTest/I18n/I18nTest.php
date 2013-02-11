@@ -15,8 +15,8 @@
  */
 namespace PopTest\I18n;
 
-use Pop\Loader\Autoloader,
-    Pop\I18n\I18n;
+use Pop\Loader\Autoloader;
+use Pop\I18n\I18n;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

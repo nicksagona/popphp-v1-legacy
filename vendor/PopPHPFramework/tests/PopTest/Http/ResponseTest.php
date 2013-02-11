@@ -15,8 +15,8 @@
  */
 namespace PopTest\Http;
 
-use Pop\Loader\Autoloader,
-    Pop\Http\Response;
+use Pop\Loader\Autoloader;
+use Pop\Http\Response;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -100,7 +100,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $r = Response::parse('http://www.popphp.org/version', array('header' => "Accept-language: en\r\n"));
         $this->assertEquals('200', $r->getCode());
         $this->assertEquals('OK', $r->getMessage());
-        $this->assertEquals('1.2.0', trim($r->getBody()));
+        $this->assertEquals('1.2.1', trim($r->getBody()));
         $this->assertEquals('text/plain', $r->getHeader('Content-Type'));
         $this->assertTrue($r->isSuccessful());
         $this->assertTrue(is_array($r->getHeaders()));

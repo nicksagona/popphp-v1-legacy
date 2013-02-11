@@ -15,9 +15,9 @@
  */
 namespace PopTest\Data;
 
-use Pop\Loader\Autoloader,
-    Pop\Data\Type\Csv,
-    Pop\Data\Data;
+use Pop\Loader\Autoloader;
+use Pop\Data\Type\Csv;
+use Pop\Data\Data;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

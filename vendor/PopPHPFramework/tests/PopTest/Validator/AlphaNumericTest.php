@@ -15,8 +15,8 @@
  */
 namespace PopTest\Validator;
 
-use Pop\Loader\Autoloader,
-    Pop\Validator\AlphaNumeric;
+use Pop\Loader\Autoloader;
+use Pop\Validator\AlphaNumeric;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

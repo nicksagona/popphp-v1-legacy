@@ -15,8 +15,8 @@
  */
 namespace PopTest\Geo;
 
-use Pop\Loader\Autoloader,
-    Pop\Geo\Geo;
+use Pop\Loader\Autoloader;
+use Pop\Geo\Geo;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

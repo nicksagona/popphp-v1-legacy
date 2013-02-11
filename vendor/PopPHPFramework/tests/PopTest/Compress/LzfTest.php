@@ -15,8 +15,8 @@
  */
 namespace PopTest\Compress;
 
-use Pop\Loader\Autoloader,
-    Pop\Compress\Lzf;
+use Pop\Loader\Autoloader;
+use Pop\Compress\Lzf;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

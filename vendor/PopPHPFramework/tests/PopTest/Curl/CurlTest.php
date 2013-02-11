@@ -15,8 +15,8 @@
  */
 namespace PopTest\Curl;
 
-use Pop\Loader\Autoloader,
-    Pop\Curl\Curl;
+use Pop\Loader\Autoloader;
+use Pop\Curl\Curl;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -52,7 +52,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
         ));
         $result = trim($c->execute());
         unset($c);
-        $this->assertEquals('1.2.0', $result);
+        $this->assertEquals('1.2.1', $result);
     }
 
     public function testSetAndGetOptions()
@@ -83,7 +83,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
         $info = $c->getinfo();
         $version = $c->version();
         unset($c);
-        $this->assertEquals('1.2.0', trim($output));
+        $this->assertEquals('1.2.1', trim($output));
         $this->assertEquals('http://www.popphp.org/version', $info['url']);
         $this->assertEquals('text/plain', $info['content_type']);
         $this->assertTrue(isset($version['version']));
@@ -98,7 +98,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
             CURLOPT_WRITEFUNCTION => true
         ));
         $c->execute();
-        $this->assertEquals('1.2.0', trim($c->data));
+        $this->assertEquals('1.2.1', trim($c->data));
     }
 
     public function testCurlError()

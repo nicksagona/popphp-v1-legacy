@@ -15,9 +15,9 @@
  */
 namespace Pop\Pdf\Parser;
 
-use Pop\Image\Gd,
-    Pop\Image\Imagick,
-    Pop\Pdf\Object\Object;
+use Pop\Image\Gd;
+use Pop\Image\Imagick;
+use Pop\Pdf\Object\Object;
 
 /**
  * Image parser class
@@ -27,7 +27,7 @@ use Pop\Image\Gd,
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.2.0
+ * @version    1.2.1
  */
 class Image
 {

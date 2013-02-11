@@ -15,8 +15,8 @@
  */
 namespace PopTest;
 
-use Pop\Loader\Autoloader,
-    Pop\Version;
+use Pop\Loader\Autoloader;
+use Pop\Version;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../src/Pop/Loader/Autoloader.php';
@@ -29,8 +29,8 @@ class VersionTest extends \PHPUnit_Framework_TestCase
 
     public function testVersion()
     {
-        $this->assertEquals('1.2.0', Version::getVersion());
-        $this->assertEquals('1.2.0', trim(Version::getLatest()));
+        $this->assertEquals('1.2.1', Version::getVersion());
+        $this->assertEquals('1.2.1', trim(Version::getLatest()));
         $this->assertEquals(1, Version::compareVersion(1.3));
     }
 

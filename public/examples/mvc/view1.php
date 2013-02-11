@@ -2,8 +2,8 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Mvc\Model,
-    Pop\Mvc\View;
+use Pop\Mvc\Model;
+use Pop\Mvc\View;
 
 try {
     $data = array(

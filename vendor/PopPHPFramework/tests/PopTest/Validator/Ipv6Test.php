@@ -15,8 +15,8 @@
  */
 namespace PopTest\Validator;
 
-use Pop\Loader\Autoloader,
-    Pop\Validator\Ipv6;
+use Pop\Loader\Autoloader;
+use Pop\Validator\Ipv6;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

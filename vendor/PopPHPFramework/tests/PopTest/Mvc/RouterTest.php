@@ -15,12 +15,12 @@
  */
 namespace PopTest\Mvc;
 
-use Pop\Loader\Autoloader,
-    Pop\Config,
-    Pop\Http\Request,
-    Pop\Mvc\Controller,
-    Pop\Mvc\Router,
-    Pop\Project\Project;
+use Pop\Loader\Autoloader;
+use Pop\Config;
+use Pop\Http\Request;
+use Pop\Mvc\Controller;
+use Pop\Mvc\Router;
+use Pop\Project\Project;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

@@ -15,8 +15,8 @@
  */
 namespace PopTest\Validator;
 
-use Pop\Loader\Autoloader,
-    Pop\Validator\Length;
+use Pop\Loader\Autoloader;
+use Pop\Validator\Length;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

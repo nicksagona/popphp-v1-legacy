@@ -2,13 +2,13 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Form\Form,
-    Pop\Form\Element,
-    Pop\Form\Element\Checkbox,
-    Pop\Form\Element\Radio,
-    Pop\Form\Element\Select,
-    Pop\Form\Element\Textarea,
-    Pop\Validator;
+use Pop\Form\Form;
+use Pop\Form\Element;
+use Pop\Form\Element\Checkbox;
+use Pop\Form\Element\Radio;
+use Pop\Form\Element\Select;
+use Pop\Form\Element\Textarea;
+use Pop\Validator;
 
 try {
 

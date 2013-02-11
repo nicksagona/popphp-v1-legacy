@@ -15,13 +15,13 @@
  */
 namespace PopTest\Auth;
 
-use Pop\Loader\Autoloader,
-    Pop\Auth\Auth,
-    Pop\Auth\Role,
-    Pop\Auth\Adapter\File,
-    Pop\Auth\Adapter\Table,
-    Pop\Db\Db,
-    Pop\Db\Record;
+use Pop\Loader\Autoloader;
+use Pop\Auth\Auth;
+use Pop\Auth\Role;
+use Pop\Auth\Adapter\File;
+use Pop\Auth\Adapter\Table;
+use Pop\Db\Db;
+use Pop\Db\Record;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

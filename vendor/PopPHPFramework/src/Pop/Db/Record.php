@@ -23,7 +23,7 @@ namespace Pop\Db;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.2.0
+ * @version    1.2.1
  */
 class Record
 {
@@ -329,6 +329,16 @@ class Record
         }
 
         return $info;
+    }
+
+    /**
+     * Get if the record interface is prepared or not
+     *
+     * @return boolean
+     */
+    public function isPrepared()
+    {
+        return $this->usePrepared;
     }
 
     /**

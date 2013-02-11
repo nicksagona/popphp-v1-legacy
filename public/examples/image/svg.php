@@ -2,8 +2,8 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Color\Space\Rgb,
-    Pop\Image\Svg;
+use Pop\Color\Space\Rgb;
+use Pop\Image\Svg;
 
 try {
     $points = array(

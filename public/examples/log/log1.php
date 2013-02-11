@@ -2,8 +2,8 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Log,
-    Pop\Log\Writer;
+use Pop\Log;
+use Pop\Log\Writer;
 
 try {
     $logger = new Log\Logger(new Writer\File('../tmp/app.log'));

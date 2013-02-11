@@ -15,9 +15,9 @@
  */
 namespace PopTest\Data;
 
-use Pop\Loader\Autoloader,
-    Pop\File\File,
-    Pop\Data\Type\Sql;
+use Pop\Loader\Autoloader;
+use Pop\File\File;
+use Pop\Data\Type\Sql;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

@@ -15,13 +15,13 @@
  */
 namespace PopTest\Form;
 
-use Pop\Loader\Autoloader,
-    Pop\Form\Form,
-    Pop\Form\Element,
-    Pop\Form\Element\Checkbox,
-    Pop\Form\Element\Radio,
-    Pop\Form\Element\Select,
-    Pop\Form\Element\Textarea;
+use Pop\Loader\Autoloader;
+use Pop\Form\Form;
+use Pop\Form\Element;
+use Pop\Form\Element\Checkbox;
+use Pop\Form\Element\Radio;
+use Pop\Form\Element\Select;
+use Pop\Form\Element\Textarea;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

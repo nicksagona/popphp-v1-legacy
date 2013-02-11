@@ -15,8 +15,8 @@
  */
 namespace PopTest\Validator;
 
-use Pop\Loader\Autoloader,
-    Pop\Validator\Email;
+use Pop\Loader\Autoloader;
+use Pop\Validator\Email;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

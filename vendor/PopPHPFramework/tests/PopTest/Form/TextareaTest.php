@@ -15,8 +15,8 @@
  */
 namespace PopTest\Form;
 
-use Pop\Loader\Autoloader,
-    Pop\Form\Element\Textarea;
+use Pop\Loader\Autoloader;
+use Pop\Form\Element\Textarea;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

@@ -15,9 +15,9 @@
  */
 namespace Pop\Mvc;
 
-use Pop\Http\Response,
-    Pop\Http\Request,
-    Pop\Project\Project;
+use Pop\Http\Response;
+use Pop\Http\Request;
+use Pop\Project\Project;
 
 /**
  * Mvc controller class
@@ -27,7 +27,7 @@ use Pop\Http\Response,
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.2.0
+ * @version    1.2.1
  */
 class Controller
 {

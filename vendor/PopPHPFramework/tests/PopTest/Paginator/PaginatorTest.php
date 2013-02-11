@@ -15,8 +15,8 @@
  */
 namespace PopTest\Paginator;
 
-use Pop\Loader\Autoloader,
-    Pop\Paginator\Paginator;
+use Pop\Loader\Autoloader;
+use Pop\Paginator\Paginator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

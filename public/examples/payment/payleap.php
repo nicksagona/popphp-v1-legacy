@@ -2,8 +2,8 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Payment\Payment,
-    Pop\Payment\Adapter\PayLeap;
+use Pop\Payment\Payment;
+use Pop\Payment\Adapter\PayLeap;
 
 try {
     $payment = new Payment(new PayLeap('API_LOGIN_ID', 'TRANS_KEY', Payment::TEST));

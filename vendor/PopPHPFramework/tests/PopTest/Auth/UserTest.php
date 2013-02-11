@@ -15,9 +15,9 @@
  */
 namespace PopTest\Auth;
 
-use Pop\Loader\Autoloader,
-    Pop\Auth\Role,
-    Pop\Auth\User;
+use Pop\Loader\Autoloader;
+use Pop\Auth\Role;
+use Pop\Auth\User;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

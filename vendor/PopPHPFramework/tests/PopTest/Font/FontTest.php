@@ -15,10 +15,10 @@
  */
 namespace PopTest\Font;
 
-use Pop\Loader\Autoloader,
-    Pop\Font\TrueType,
-    Pop\Font\TrueType\OpenType,
-    Pop\Font\Type1;
+use Pop\Loader\Autoloader;
+use Pop\Font\TrueType;
+use Pop\Font\TrueType\OpenType;
+use Pop\Font\Type1;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

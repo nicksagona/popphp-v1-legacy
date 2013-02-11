@@ -28,11 +28,11 @@ require_once __DIR__  . '/../vendor/PopPHPFramework/src/Pop/Loader/Autoloader.ph
 $autoloader = new Pop\Loader\Autoloader();
 $autoloader->splAutoloadRegister();
 
-use Pop\File\File,
-    Pop\Loader\Classmap,
-    Pop\I18n\I18n,
-    Pop\Project\Install,
-    Pop\Version;
+use Pop\File\File;
+use Pop\Loader\Classmap;
+use Pop\I18n\I18n;
+use Pop\Project\Install;
+use Pop\Version;
 
 // Write header
 echo PHP_EOL;

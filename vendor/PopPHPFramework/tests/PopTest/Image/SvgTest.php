@@ -15,9 +15,9 @@
  */
 namespace PopTest\Image;
 
-use Pop\Loader\Autoloader,
-    Pop\Color\Space\Rgb,
-    Pop\Image\Svg;
+use Pop\Loader\Autoloader;
+use Pop\Color\Space\Rgb;
+use Pop\Image\Svg;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

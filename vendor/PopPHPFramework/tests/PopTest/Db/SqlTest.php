@@ -15,8 +15,9 @@
  */
 namespace PopTest\Db;
 
-use Pop\Loader\Autoloader,
-    Pop\Db\Sql;
+use Pop\Loader\Autoloader;
+use Pop\Db\Db;
+use Pop\Db\Sql;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -29,47 +30,95 @@ class SqlTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Pop\Db\Sql', new Sql('users'));
+        $this->assertInstanceOf('Pop\Db\Sql', new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users'));
+        $this->assertInstanceOf('Pop\Db\Sql', Sql::factory(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users'));
+    }
+
+    public function testSetAndGetDb()
+    {
+        $db = Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite'));
+        $s = new Sql($db, 'users');
+        $s->setDb($db);
+        $this->assertInstanceOf('Pop\Db\Db', $s->getDb());
+        $this->assertInstanceOf('Pop\Db\Adapter\Sqlite', $s->adapter());
     }
 
     public function testSql()
     {
-        $s = new Sql('users');
-        $s->setIdQuoteType(Sql::BACKTICK)
-          ->select()
-          ->where('id', '=', 1);
-        $this->assertEquals("SELECT * FROM `users` WHERE (`id` = '1')", $s->getSql());
-        $this->assertEquals("SELECT * FROM `users` WHERE (`id` = '1')", (string)$s);
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->select()
+          ->where()->equalTo('id', 1);
+        $this->assertEquals('SELECT * FROM "users" WHERE ("id" = 1)', $s->render(true));
+        $this->assertEquals('SELECT * FROM "users" WHERE ("id" = 1)', (string)$s);
+        $this->assertEquals('SELECT * FROM "users" WHERE ("id" = 1)', $s->getSql());
     }
 
     public function testSqlDotId()
     {
-        $s = new Sql('users');
-        $s->setIdQuoteType(Sql::BACKTICK)
-          ->select()
-          ->where('users.id', '=', 1);
-        $this->assertEquals("SELECT * FROM `users` WHERE (`users`.`id` = '1')", $s->getSql());
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->select()
+          ->where()->equalTo('users.id', 1);
+        $this->assertEquals('SELECT * FROM "users" WHERE ("users"."id" = 1)', $s->render(true));
     }
 
-    public function testSetAndGetIdQuote()
+    public function testSetAndGetQuoteId()
     {
-        $s = new Sql('users');
-        $s->setIdQuoteType(Sql::SINGLE_QUOTE);
-        $this->assertEquals("'", $s->getIdQuote());
-        $s->setIdQuoteType(Sql::BRACKET);
-        $this->assertEquals("[", $s->getIdQuote());
-        $this->assertEquals("]", $s->getIdQuote(true));
-        $s->setIdQuoteType();
-        $this->assertEquals('', $s->getIdQuote());
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->setQuoteId(Sql::NO_QUOTE);
+        $this->assertEquals(0, $s->getQuoteId());
     }
 
-    public function testSetAndGetDbType()
+    public function testGetDbType()
     {
-        $s = new Sql('users');
-        $s->setDbType(Sql::SQLSRV);
-        $this->assertEquals(6, $s->getDbType());
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $this->assertEquals(Sql::SQLITE, $s->getDbType());
     }
 
+    public function testSetAndGetTable()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->setTable('user_data');
+        $this->assertEquals('user_data', $s->getTable());
+    }
+
+    public function testSetAndGetAlias()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $s->setAlias('user_data');
+        $this->assertEquals('user_data', $s->getAlias());
+    }
+
+    public function testHasTable()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $this->assertTrue($s->hasTable());
+    }
+
+    public function testHasAlias()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users', 'user_data');
+        $this->assertTrue($s->hasAlias());
+    }
+
+    public function testQuoteId()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $this->assertEquals('"users"', $s->quoteId('users'));
+        $this->assertEquals('"users"."id"', $s->quoteId('users.id'));
+        $s->setQuoteId(Sql::BACKTICK);
+        $this->assertEquals('`users`', $s->quoteId('users'));
+        $this->assertEquals('`users`.`id`', $s->quoteId('users.id'));
+        $s->setQuoteId(Sql::BRACKET);
+        $this->assertEquals('[users]', $s->quoteId('users'));
+        $this->assertEquals('[users].[id]', $s->quoteId('users.id'));
+    }
+
+    public function testQuote()
+    {
+        $s = new Sql(Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite')), 'users');
+        $this->assertEquals("'test@test.com'", $s->quote('test@test.com'));
+    }
+/*
     public function testDistinct()
     {
         $s = new Sql('users');
@@ -192,6 +241,6 @@ class SqlTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Pop\Db\Exception');
         $s->getSql();
     }
-
+*/
 }
 

@@ -15,8 +15,8 @@
  */
 namespace PopTest\Pdf;
 
-use Pop\Loader\Autoloader,
-    Pop\Pdf\Object\Object;
+use Pop\Loader\Autoloader;
+use Pop\Pdf\Object\Object;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

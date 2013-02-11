@@ -2,10 +2,10 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Db\Db,
-    Pop\Db\Record,
-    Pop\Log,
-    Pop\Log\Writer;
+use Pop\Db\Db;
+use Pop\Db\Record;
+use Pop\Log;
+use Pop\Log\Writer;
 
 class Logs extends Record {}
 

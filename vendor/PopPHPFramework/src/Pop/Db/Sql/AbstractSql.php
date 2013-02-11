@@ -23,7 +23,7 @@ namespace Pop\Db\Sql;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.2.0
+ * @version    1.2.1
  */
 abstract class AbstractSql
 {
@@ -110,7 +110,7 @@ abstract class AbstractSql
         $order = strtoupper($order);
 
         if (strpos($order, 'RAND') !== false) {
-            $this->orderBy .= ($this->sql->getDbType() == \Pop\Db\Sql::SQLITE) ? ' RANDOM()' : ' RAND()';
+            $this->orderBy = ($this->sql->getDbType() == \Pop\Db\Sql::SQLITE) ? ' RANDOM()' : ' RAND()';
         } else if (($order == 'ASC') || ($order == 'DESC')) {
             $this->orderBy .= ' ' . $order;
         }

@@ -15,9 +15,9 @@
  */
 namespace PopTest\Loader;
 
-use Pop\Loader\Autoloader,
-    Pop\Loader\Classmap,
-    Pop\Filter\String;
+use Pop\Loader\Autoloader;
+use Pop\Loader\Classmap;
+use Pop\Filter\String;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

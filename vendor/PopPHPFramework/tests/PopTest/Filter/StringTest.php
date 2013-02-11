@@ -15,9 +15,9 @@
  */
 namespace Pop;
 
-use Pop\Loader\Autoloader,
-    Pop\Filter\String,
-    Pop\Validator;
+use Pop\Loader\Autoloader;
+use Pop\Filter\String;
+use Pop\Validator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

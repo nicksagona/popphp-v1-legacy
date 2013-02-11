@@ -15,8 +15,8 @@
  */
 namespace PopTest\Event;
 
-use Pop\Loader\Autoloader,
-    Pop\Event\Manager;
+use Pop\Loader\Autoloader;
+use Pop\Event\Manager;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

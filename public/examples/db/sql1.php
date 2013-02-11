@@ -2,8 +2,8 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Db\Db,
-    Pop\Db\Sql;
+use Pop\Db\Db;
+use Pop\Db\Sql;
 
 try {
     // Define DB credentials

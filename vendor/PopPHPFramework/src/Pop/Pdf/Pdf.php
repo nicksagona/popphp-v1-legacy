@@ -15,9 +15,9 @@
  */
 namespace Pop\Pdf;
 
-use Pop\Color\Color,
-    Pop\Color\Space\ColorInterface,
-    Pop\Pdf\Object;
+use Pop\Color\Color;
+use Pop\Color\Space\ColorInterface;
+use Pop\Pdf\Object;
 
 /**
  * Pdf class
@@ -27,7 +27,7 @@ use Pop\Color\Color,
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.2.0
+ * @version    1.2.1
  */
 class Pdf extends \Pop\File\File
 {

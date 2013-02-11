@@ -15,8 +15,8 @@
  */
 namespace Pop;
 
-use Pop\Loader\Autoloader,
-    Pop\Filter\Search;
+use Pop\Loader\Autoloader;
+use Pop\Filter\Search;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

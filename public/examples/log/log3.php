@@ -2,8 +2,8 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Log,
-    Pop\Log\Writer;
+use Pop\Log;
+use Pop\Log\Writer;
 
 try {
     $emails = array(

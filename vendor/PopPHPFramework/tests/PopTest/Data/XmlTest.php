@@ -15,8 +15,8 @@
  */
 namespace PopTest\Data;
 
-use Pop\Loader\Autoloader,
-    Pop\Data\Type\Xml;
+use Pop\Loader\Autoloader;
+use Pop\Data\Type\Xml;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

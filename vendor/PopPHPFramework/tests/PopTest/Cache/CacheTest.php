@@ -15,9 +15,9 @@
  */
 namespace PopTest\Cache;
 
-use Pop\Loader\Autoloader,
-    Pop\Cache\Cache,
-    Pop\Cache\Adapter\File;
+use Pop\Loader\Autoloader;
+use Pop\Cache\Cache;
+use Pop\Cache\Adapter\File;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

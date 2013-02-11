@@ -15,12 +15,12 @@
  */
 namespace PopTest\Code;
 
-use Pop\Loader\Autoloader,
-    Pop\Code\Generator\ClassGenerator,
-    Pop\Code\Generator\DocblockGenerator,
-    Pop\Code\Generator\MethodGenerator,
-    Pop\Code\Generator\NamespaceGenerator,
-    Pop\Code\Generator\PropertyGenerator;
+use Pop\Loader\Autoloader;
+use Pop\Code\Generator\ClassGenerator;
+use Pop\Code\Generator\DocblockGenerator;
+use Pop\Code\Generator\MethodGenerator;
+use Pop\Code\Generator\NamespaceGenerator;
+use Pop\Code\Generator\PropertyGenerator;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

@@ -1,11 +1,11 @@
 <?php
 require_once '../../bootstrap.php';
 
-use Pop\Db\Db,
-    Pop\Form\Form,
-    Pop\Form\Fields,
-    Pop\Form\Element,
-    Pop\Db\Record;
+use Pop\Db\Db;
+use Pop\Form\Form;
+use Pop\Form\Fields;
+use Pop\Form\Element;
+use Pop\Db\Record;
 
 class Users extends Record { }
 

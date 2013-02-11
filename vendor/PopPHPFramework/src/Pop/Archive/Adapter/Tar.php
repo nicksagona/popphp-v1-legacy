@@ -15,8 +15,8 @@
  */
 namespace Pop\Archive\Adapter;
 
-use Pop\Compress,
-    Pop\File\Dir;
+use Pop\Compress;
+use Pop\File\Dir;
 
 /**
  * Tar archive adapter class
@@ -26,7 +26,7 @@ use Pop\Compress,
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.2.0
+ * @version    1.2.1
  */
 class Tar implements ArchiveInterface
 {

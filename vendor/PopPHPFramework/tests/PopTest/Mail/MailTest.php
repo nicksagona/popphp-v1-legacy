@@ -15,10 +15,9 @@
  */
 namespace PopTest\Mail;
 
-use Pop\Loader\Autoloader,
-    Pop\File\Dir,
-    Pop\File\File,
-    Pop\Mail\Mail;
+use Pop\Loader\Autoloader;
+use Pop\File\Dir;
+use Pop\Mail\Mail;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

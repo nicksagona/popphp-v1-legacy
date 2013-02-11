@@ -15,8 +15,8 @@
  */
 namespace PopTest\Mvc;
 
-use Pop\Loader\Autoloader,
-    Pop\Mvc\Model;
+use Pop\Loader\Autoloader;
+use Pop\Mvc\Model;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

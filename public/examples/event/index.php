@@ -2,14 +2,14 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Event\Manager,
-    Pop\Http\Request,
-    Pop\Http\Response,
-    Pop\Mvc\Controller,
-    Pop\Mvc\Model,
-    Pop\Mvc\Router,
-    Pop\Mvc\View,
-    Pop\Project\Project;
+use Pop\Event\Manager;
+use Pop\Http\Request;
+use Pop\Http\Response;
+use Pop\Mvc\Controller;
+use Pop\Mvc\Model;
+use Pop\Mvc\Router;
+use Pop\Mvc\View;
+use Pop\Project\Project;
 
 class IndexController extends Controller
 {

@@ -2,9 +2,9 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Form\Element,
-    Pop\Form\Element\Select,
-    Pop\Form\Element\Textarea;
+use Pop\Form\Element;
+use Pop\Form\Element\Select;
+use Pop\Form\Element\Textarea;
 
 try {
 

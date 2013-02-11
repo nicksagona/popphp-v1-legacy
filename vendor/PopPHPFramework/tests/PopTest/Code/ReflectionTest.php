@@ -15,8 +15,8 @@
  */
 namespace PopTest\Code;
 
-use Pop\Loader\Autoloader,
-    Pop\Code\Reflection;
+use Pop\Loader\Autoloader;
+use Pop\Code\Reflection;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

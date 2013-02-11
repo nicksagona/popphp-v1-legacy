@@ -15,9 +15,8 @@
  */
 namespace PopTest\Feed;
 
-use Pop\Loader\Autoloader,
-    Pop\Dom\Dom,
-    Pop\Feed\Writer;
+use Pop\Loader\Autoloader;
+use Pop\Feed\Writer;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';

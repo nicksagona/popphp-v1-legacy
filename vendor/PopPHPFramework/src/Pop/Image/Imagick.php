@@ -15,9 +15,8 @@
  */
 namespace Pop\Image;
 
-use Pop\Color\Space\ColorInterface,
-    Pop\Color\Space\Rgb,
-    Pop\Http\Response;
+use Pop\Color\Space\ColorInterface;
+use Pop\Color\Space\Rgb;
 
 /**
  * Imagick image class
@@ -27,7 +26,7 @@ use Pop\Color\Space\ColorInterface,
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.2.0
+ * @version    1.2.1
  */
 class Imagick extends AbstractImage
 {
@@ -1155,7 +1154,7 @@ class Imagick extends AbstractImage
             'Content-disposition' => $attach . 'filename=' . $this->basename
         );
 
-        $response = new Response(200, $headers);
+        $response = new \Pop\Http\Response(200, $headers);
 
         if ($_SERVER['SERVER_PORT'] == 443) {
             $response->setSslHeaders();

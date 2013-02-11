@@ -2,8 +2,8 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Payment\Payment,
-    Pop\Payment\Adapter\PayPal;
+use Pop\Payment\Payment;
+use Pop\Payment\Adapter\PayPal;
 
 try {
     $payment = new Payment(new PayPal(

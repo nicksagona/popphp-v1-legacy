@@ -15,9 +15,9 @@
  */
 namespace PopTest\Color;
 
-use Pop\Loader\Autoloader,
-    Pop\Color\Color,
-    Pop\Color\Space\Hsb;
+use Pop\Loader\Autoloader;
+use Pop\Color\Color;
+use Pop\Color\Space\Hsb;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
