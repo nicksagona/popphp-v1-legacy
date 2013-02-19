@@ -64,8 +64,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     {
         $r = new Request();
         $r->setRequestUri('/test', '/admin');
-        $this->assertEquals('/test', $r->getRequestUri());
         $this->assertEquals('/admin', $r->getBasePath());
+        $this->assertEquals('/test', $r->getRequestUri());
+        $this->assertEquals('/admin/test', $r->getFullUri());
         $this->assertFalse($r->isFile());
         $this->assertFalse($r->isSecure());
         $this->assertEquals('', $r->getDocRoot());

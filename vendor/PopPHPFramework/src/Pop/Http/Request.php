@@ -286,13 +286,33 @@ class Request
     }
 
     /**
-     * Get the full request URI
+     * Get the base path
+     *
+     * @return string
+     */
+    public function getBasePath()
+    {
+        return $this->basePath;
+    }
+
+    /**
+     * Get the request URI
      *
      * @return string
      */
     public function getRequestUri()
     {
         return $this->requestUri;
+    }
+
+    /**
+     * Get the full request URI
+     *
+     * @return string
+     */
+    public function getFullUri()
+    {
+        return $this->basePath . $this->requestUri;
     }
 
     /**
@@ -320,16 +340,6 @@ class Request
         }
 
         return $path;
-    }
-
-    /**
-     * Get the base path
-     *
-     * @return string
-     */
-    public function getBasePath()
-    {
-        return $this->basePath;
     }
 
     /**
