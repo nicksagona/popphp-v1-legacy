@@ -230,13 +230,15 @@ class Data
     }
 
     /**
-     * Write the data stream to a file
+     * Write the data stream to a file and either save or output it
      *
-     * @param  string $toFile
+     * @param  string  $toFile
+     * @param  boolean $output
+     * @param  boolean $download
      * @throws Exception
      * @return \Pop\Data\Data
      */
-    public function writeData($toFile)
+    public function writeData($toFile, $output = false, $download = false)
     {
         $file = new \Pop\File\File($toFile);
 
@@ -257,8 +259,14 @@ class Data
             $this->file = $class::encode($this->data);
         }
 
-        $file->write($this->file)
-             ->save();
+        $file->write($this->file);
+
+        // Output or save file
+        if ($output) {
+            $file->output($download);
+        } else {
+            $file->save();
+        }
 
         return $this;
     }
