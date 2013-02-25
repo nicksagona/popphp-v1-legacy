@@ -264,6 +264,17 @@ class Record
     }
 
     /**
+     * Get the SQL object.
+     *
+     * @return \Pop\Db\Sql
+     */
+    public static function getSql()
+    {
+        $record = new static();
+        return $record->interface->sql();
+    }
+
+    /**
      * Get table info anf return as an array.
      *
      * @return array

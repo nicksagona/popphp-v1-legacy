@@ -120,6 +120,12 @@ class EscapedTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(8, count($r->rows));
     }
 
+    public function testGetSql()
+    {
+        $s = Users::getSql();
+        $this->assertInstanceOf('Pop\Db\Sql', $s);
+    }
+
     public function testGetTableName()
     {
         $r = Users::findById(1);
