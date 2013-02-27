@@ -34,7 +34,7 @@ Authコンポーネントは、簡単にユーザーの資格情報を取得す�
         // The user is valid so do top-secret stuff
     }
 
-
+#
     $admin = Auth\Role::factory('admin', 4);
     $editor = Auth\Role::factory('editor', 3);
     $reader = Auth\Role::factory('reader', 2);
