@@ -1,6 +1,15 @@
 Pop PHP Framework Changelog
 ===========================
 
+1.2.2
+-----
+Released on February 27, 2013
+
+* Refactor the Auth component and its functionality
+* Add getFullUri() method to the Request class
+* Small improvement to the writeData() method of the Data class
+* Add static getSql() method to the Record class
+
 1.2.1
 -----
 Released on February 11, 2013

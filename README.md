@@ -3,8 +3,8 @@ Welcome to the Pop PHP Framework 1.2.1 Release!
 
 RELEASE INFORMATION
 -------------------
-Pop PHP Framework 1.2.1 Release  
-Released February 11, 2013
+Pop PHP Framework 1.2.2 Release  
+Released February 27, 2013
 
 
 OVERVIEW
@@ -85,7 +85,7 @@ The Pop PHP Framework requires PHP 5.3.0 or later.
 Some dependencies for the framework to fully function are as follows:
 
 * The Phar, Rar, Tar and Zip extensions for the Archive component
-* The Bzip2, Lzf and ZLib extenstions for the Compress component
+* The Bzip2, Lzf and ZLib extensions for the Compress component
 * The Mcrypt extension for the Filter component
 * The basic MySQL extension for basic MySQL database connections and transactions
 * The MySQLi extension to utilize MySQLi to connect to and interact with MySQL databases
