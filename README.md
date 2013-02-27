@@ -1,4 +1,4 @@
-Welcome to the Pop PHP Framework 1.2.1 Release!
+Welcome to the Pop PHP Framework 1.2.2 Release!
 ===============================================
 
 RELEASE INFORMATION
