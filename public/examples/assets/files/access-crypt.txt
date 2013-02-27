@@ -1,0 +1,3 @@
+testuser1|10PHDJmxqq4mc|admin
+testuser2|10JlJdsCVpQqo|editor
+testuser3|10k6eD4FvFHfQ|reader

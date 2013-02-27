@@ -76,7 +76,7 @@ class Table implements AdapterInterface
      *
      * @param  string $username
      * @param  string $password
-     * @return array
+     * @return int
      */
     public function authenticate($username, $password)
     {
@@ -93,16 +93,14 @@ class Table implements AdapterInterface
             $result = \Pop\Auth\Auth::USER_NOT_FOUND;
         } else if ($user->$passwordField != $password) {
             $result = \Pop\Auth\Auth::PASSWORD_INCORRECT;
-            } else if ((null !== $accessField) && ((strtolower($user->$accessField) == 'blocked') || (is_numeric($user->$accessField) && ($user->$accessField == 0)))) {
+            } else if ((null !== $accessField) && ((strtolower($user->$accessField) == 'blocked') ||
+            (is_numeric($user->$accessField) && ($user->$accessField == 0)))) {
             $result = \Pop\Auth\Auth::USER_IS_BLOCKED;
         } else {
-            if ((null !== $accessField) && (isset($user->$accessField))) {
-                $access = $user->$accessField;
-            }
             $result = \Pop\Auth\Auth::USER_IS_VALID;
         }
 
-        return array('result' => $result, 'access' => $access, 'user' => $user);
+        return $result;
     }
 
 }

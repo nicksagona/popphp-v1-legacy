@@ -65,26 +65,22 @@ class File implements AdapterInterface
      *
      * @param  string $username
      * @param  string $password
-     * @return array
+     * @return int
      */
     public function authenticate($username, $password)
     {
-        $access = null;
-        $user = array('username' => $username);
-
         if (!array_key_exists($username, $this->users)) {
             $result = \Pop\Auth\Auth::USER_NOT_FOUND;
         } else if ($this->users[$username]['password'] != $password) {
             $result = \Pop\Auth\Auth::PASSWORD_INCORRECT;
-        } else if ((strtolower($this->users[$username]['access']) == 'blocked') || (is_numeric($this->users[$username]['access']) && ($this->users[$username]['access'] == 0))) {
+        } else if ((strtolower($this->users[$username]['access']) == 'blocked') ||
+            (is_numeric($this->users[$username]['access']) && ($this->users[$username]['access'] == 0))) {
             $result = \Pop\Auth\Auth::USER_IS_BLOCKED;
         } else {
-            $access = $this->users[$username]['access'];
             $result = \Pop\Auth\Auth::USER_IS_VALID;
-            $user = array_merge($user, $this->users[$username]);
         }
 
-        return array('result' => $result, 'access' => $access, 'user' => $user);
+        return $result;
     }
 
     /**
