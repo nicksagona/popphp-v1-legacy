@@ -40,6 +40,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $this->assertInstanceOf('Pop\Auth\Auth', new Auth(new File(__DIR__ . '/../tmp/access.txt')));
+        $this->assertInstanceOf('Pop\Auth\Auth', Auth::factory(new File(__DIR__ . '/../tmp/access.txt')));
     }
 
     public function testBadFile()
@@ -54,7 +55,6 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $a->authenticate('testuser1', '12test34');
         $this->assertTrue($a->isValid());
         $this->assertEquals(1, $a->getAttempts());
-        $this->assertTrue(is_int($a->getStart()));
         $this->assertEquals(0, $a->getEncryption());
         $this->assertEquals(1, $a->getResult());
         $this->assertEquals('The user is valid.', $a->getResultMessage());
@@ -75,26 +75,6 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('The user is blocked.', $a->getResultMessage());
     }
 
-    public function testIsAuthorizedWithFile()
-    {
-        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
-        $a->addRoles(Role::factory('admin', 3));
-        $a->addRoles(array(
-            Role::factory('editor', 2),
-            Role::factory('reader', 1)
-        ));
-        $a->removeRole('reader');
-        $a->setRequiredRole('admin')
-          ->authenticate('testuser1', '12test34');
-        //$this->assertTrue($a->isAuthorized());
-        $this->assertEquals('admin', $a->getRequiredRole()->getName());
-
-        $a->setRequiredRole()
-          ->authenticate('testuser1', '12test34');
-        $this->assertTrue($a->isAuthorized());
-        $this->assertInstanceOf('Pop\Auth\User', $a->getUser());
-    }
-
     public function testIsValidWithTable()
     {
         $a = new Auth(new Table('PopTest\Auth\Users', 'username', 'password', 'access'));
@@ -111,17 +91,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($a->isValid());
 
         $a->authenticate('test1', 'password1');
-        $a->validate();
         $this->assertTrue($a->isValid());
-    }
-
-    public function testSetAndGetExpiration()
-    {
-        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
-        $a->setExpiration(30);
-        $this->assertEquals(30, $a->getExpiration());
-        $a->setExpiration();
-        $this->assertEquals(0, $a->getExpiration());
     }
 
     public function testSetAndGetSalt()
@@ -131,23 +101,15 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('abcdefg', $a->getSalt());
     }
 
-    public function testRequiredRole()
-    {
-        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
-        $a->setRequiredRole('admin', 5);
-        $this->assertEquals('admin', $a->getRequiredRole()->getName());
-        $a->setRequiredRole(Role::factory('editor', 4));
-        $this->assertEquals('editor', $a->getRequiredRole()->getName());
-        $a->setRequiredRole();
-        $this->assertEquals(null, $a->getRequiredRole());
-    }
-
     public function testSetAttemptLimit()
     {
         $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
         $a->setAttempts(5);
         $a->setAttemptLimit(3);
-        $this->assertEquals(5, $a->getAttempts());
+        $a->authenticate('testuser1', '12test34');
+        $this->assertEquals(Auth::ATTEMPTS_EXCEEDED, $a->getResult());
+        $this->assertEquals('The allowed login attempts (3) have been exceeded.', $a->getResultMessage());
+        $this->assertEquals(6, $a->getAttempts());
         $this->assertEquals(3, $a->getValidator('attempts')->getValue());
         $a->setAttemptLimit();
         $this->assertEquals(null, $a->getValidator('attempts'));
@@ -209,5 +171,14 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $a->authenticate('testuser1', '12test34');
         $this->assertFalse($a->isValid());
     }
-}
 
+    public function testPasswordEncryptionException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'), Auth::ENCRYPT_CRYPT);
+        $a->authenticate('testuser1', '12test34');
+        $this->assertFalse($a->isValid());
+
+    }
+
+}
