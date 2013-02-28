@@ -35,10 +35,10 @@ class Role
     protected $name = null;
 
     /**
-     * Role level value
+     * Role value value
      * @var int
      */
-    protected $level = 0;
+    protected $value = 0;
 
     /**
      * Constructor
@@ -46,13 +46,13 @@ class Role
      * Instantiate the role object
      *
      * @param  string $name
-     * @param  int    $level
+     * @param  int    $value
      * @return \Pop\Auth\Role
      */
-    public function __construct($name, $level)
+    public function __construct($name, $value)
     {
         $this->name = $name;
-        $this->level = (int)$level;
+        $this->value = (int)$value;
     }
 
     /**
@@ -60,12 +60,12 @@ class Role
      * to facilitate chaining methods together.
      *
      * @param  string $name
-     * @param  int    $level
+     * @param  int    $value
      * @return \Pop\Auth\Role
      */
-    public static function factory($name, $level)
+    public static function factory($name, $value)
     {
-        return new self($name, $level);
+        return new self($name, $value);
     }
 
     /**
@@ -79,13 +79,13 @@ class Role
     }
 
     /**
-     * Method to get the role level value
+     * Method to get the role value value
      *
      * @return int
      */
-    public function getLevel()
+    public function getValue()
     {
-        return $this->level;
+        return $this->value;
     }
 
     /**
@@ -101,14 +101,14 @@ class Role
     }
 
     /**
-     * Method to get the role level value
+     * Method to get the role value value
      *
-     * @param  int $level
+     * @param  int $value
      * @return \Pop\Auth\Role
      */
-    public function setLevel($level)
+    public function setValue($value)
     {
-        $this->level = (int)$level;
+        $this->value = (int)$value;
         return $this;
     }
 
@@ -122,9 +122,9 @@ class Role
     {
         $value = 0;
 
-        if ($this->level < $role->getLevel()) {
+        if ($this->value < $role->getValue()) {
             $value = -1;
-        } else if ($this->level > $role->getLevel()) {
+        } else if ($this->value > $role->getValue()) {
             $value = 1;
         }
 
@@ -139,12 +139,12 @@ class Role
      */
     public function __get($name)
     {
-        $level = 0;
+        $value = 0;
         if ($name == $this->name) {
-            $level = $this->level;
+            $value = $this->value;
         }
 
-        return $level;
+        return $value;
     }
 
     /**

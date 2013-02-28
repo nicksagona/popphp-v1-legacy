@@ -82,10 +82,10 @@ class Acl
      * Method to set the required role
      *
      * @param  mixed $role
-     * @param  int   $level
+     * @param  int   $value
      * @return \Pop\Auth\Acl
      */
-    public function setRequiredRole($role = null, $level = 0)
+    public function setRequiredRole($role = null, $value = 0)
     {
         if (null === $role) {
             $this->required = null;
@@ -97,7 +97,7 @@ class Acl
                 $this->required = $role;
             } else {
                 if (!array_key_exists($role, $this->roles)) {
-                    $this->roles[$role] = Role::factory($role, $level);
+                    $this->roles[$role] = Role::factory($role, $value);
                 }
                 $this->required = $this->roles[$role];
             }
@@ -118,6 +118,8 @@ class Acl
             foreach ($roles as $r) {
                 if ($r instanceof Role) {
                     $this->roles[$r->getName()] = $r;
+                } else if (isset($r[0]) && isset($r[1])) {
+                    $this->roles[$r[0]] = Role::factory($r[0], $r[1]);
                 }
             }
         } else if ($roles instanceof Role) {
@@ -158,15 +160,27 @@ class Acl
     /**
      * Method to determine if the user is authorized
      *
-     * @param  \Pop\Auth\Role $userRole
+     * @param  mixed $user
+     * @param  mixed $role
+     * @param  int   $value
      * @return boolean
      */
-    public function isAuthorized(Role $userRole)
+    public function isAuthorized($user, $role = null, $value = 0)
     {
+        if (null !== $role) {
+            $this->setRequiredRole($role, $value);
+        }
+
         if (null === $this->required) {
             $result = true;
         } else {
-            $result = ($userRole->compare($this->required) >= 0);
+            if ($user instanceof Role) {
+                $result = ($user->compare($this->required) >= 0);
+            } else if (array_key_exists($user, $this->roles)) {
+                $result = ($this->roles[$user]->compare($this->required) >= 0);
+            } else {
+                $result = false;
+            }
         }
 
         return $result;
