@@ -44,7 +44,7 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $a->addRoles(array($admin, $editor))
           ->addRoles($reader);
 
-        $this->assertEquals(3, $a->getRole('admin')->getLevel());
+        $this->assertEquals(3, $a->getRole('admin')->getValue());
 
         $a->removeRole('admin');
         $this->assertNull($a->getRole('admin'));
@@ -55,9 +55,9 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $editor = Role::factory('editor',2);
         $a = Acl::factory();
         $a->setRequiredRole('admin', 3);
-        $this->assertEquals(3, $a->getRequiredRole()->getLevel());
+        $this->assertEquals(3, $a->getRequiredRole()->getValue());
         $a->setRequiredRole($editor);
-        $this->assertEquals(2, $a->getRequiredRole()->getLevel());
+        $this->assertEquals(2, $a->getRequiredRole()->getValue());
         $a->setRequiredRole();
         $this->assertNull($a->getRequiredRole());
         $this->assertTrue($a->isAuthorized($editor));
@@ -70,8 +70,22 @@ class AclTest extends \PHPUnit_Framework_TestCase
 
         $a = Acl::factory(array($admin, $editor));
         $a->setRequiredRole('admin');
-        $this->assertEquals(2, $a->getRequiredRole()->getLevel());
+        $this->assertEquals(2, $a->getRequiredRole()->getValue());
         $this->assertFalse($a->isAuthorized($editor));
+    }
+
+    public function testIsAuthorizedPassRoles()
+    {
+        $a = Acl::factory(array(
+            array('admin', 3),
+            array('editor', 2),
+            array('reader', 1)
+        ));
+
+        $user = $a->getRole('editor');
+        $this->assertFalse($a->isAuthorized($user, 'admin'));
+        $this->assertFalse($a->isAuthorized('editor', 'admin'));
+        $this->assertFalse($a->isAuthorized('baduser', 'admin'));
     }
 
 }

@@ -40,11 +40,11 @@ class RoleTest extends \PHPUnit_Framework_TestCase
         $this->assertLessThan(0, $r->compare($e));
     }
 
-    public function testSetAndGetLevel()
+    public function testSetAndGetValue()
     {
         $e = Role::factory('editor', 5);
-        $e->setLevel(10);
-        $this->assertEquals(10, $e->getLevel());
+        $e->setValue(10);
+        $this->assertEquals(10, $e->getValue());
     }
 
     public function testSetAndGetName()
