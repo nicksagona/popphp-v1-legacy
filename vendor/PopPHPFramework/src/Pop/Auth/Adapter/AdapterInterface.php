@@ -37,4 +37,11 @@ interface AdapterInterface
      */
     public function authenticate($username, $password);
 
+    /**
+     * Method to the user data array
+     *
+     * @return array
+     */
+    public function getUser();
+
 }

@@ -41,6 +41,12 @@ class File implements AdapterInterface
     protected $users = array();
 
     /**
+     * User data array
+     * @var array
+     */
+    protected $user = array();
+
+    /**
      * Constructor
      *
      * Instantiate the AuthFile object
@@ -77,10 +83,21 @@ class File implements AdapterInterface
             (is_numeric($this->users[$username]['access']) && ($this->users[$username]['access'] == 0))) {
             $result = \Pop\Auth\Auth::USER_IS_BLOCKED;
         } else {
+            $this->user = $this->users[$username];
             $result = \Pop\Auth\Auth::USER_IS_VALID;
         }
 
         return $result;
+    }
+
+    /**
+     * Method to the user data array
+     *
+     * @return array
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**
@@ -98,6 +115,7 @@ class File implements AdapterInterface
             $entAry = explode($this->delimiter , $ent);
             if (isset($entAry[0]) && isset($entAry[1])) {
                 $this->users[$entAry[0]] = array(
+                    'username' => $entAry[0],
                     'password' => $entAry[1],
                     'access'   => (isset($entAry[2]) ? $entAry[2] : null)
                 );

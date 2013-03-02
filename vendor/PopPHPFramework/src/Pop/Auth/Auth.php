@@ -280,6 +280,16 @@ class Auth
     }
 
     /**
+     * Method to get the user data array from the adapter
+     *
+     * @return array
+     */
+    public function getUser()
+    {
+        return $this->adapter->getUser();
+    }
+
+    /**
      * Method to set the encryption
      *
      * @param  int $encryption

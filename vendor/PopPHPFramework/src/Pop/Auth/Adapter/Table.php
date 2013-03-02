@@ -53,6 +53,12 @@ class Table implements AdapterInterface
     protected $accessField = null;
 
     /**
+     * User data array
+     * @var array
+     */
+    protected $user = array();
+
+    /**
      * Constructor
      *
      * Instantiate the DbTable object
@@ -97,10 +103,21 @@ class Table implements AdapterInterface
             (is_numeric($user->$accessField) && ($user->$accessField == 0)))) {
             $result = \Pop\Auth\Auth::USER_IS_BLOCKED;
         } else {
+            $this->user = $user->getValues();
             $result = \Pop\Auth\Auth::USER_IS_VALID;
         }
 
         return $result;
+    }
+
+    /**
+     * Method to the user data array
+     *
+     * @return array
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
 }

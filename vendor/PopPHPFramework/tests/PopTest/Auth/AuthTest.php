@@ -58,6 +58,8 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $a->getEncryption());
         $this->assertEquals(1, $a->getResult());
         $this->assertEquals('The user is valid.', $a->getResultMessage());
+        $u = $a->getUser();
+        $this->assertEquals('testuser1', $u['username']);
 
         $a->authenticate('baduser', '123456');
         $this->assertFalse($a->isValid());
@@ -80,6 +82,8 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $a = new Auth(new Table('PopTest\Auth\Users', 'username', 'password', 'access'));
         $a->authenticate('test1', 'password1');
         $this->assertTrue($a->isValid());
+        $u = $a->getUser();
+        $this->assertEquals('test1', $u['username']);
 
         $a->authenticate('baduser', '123456');
         $this->assertFalse($a->isValid());
