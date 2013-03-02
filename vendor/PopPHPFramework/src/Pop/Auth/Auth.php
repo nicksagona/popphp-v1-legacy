@@ -488,6 +488,7 @@ class Auth
         }
 
         foreach ($subnets as $subnet) {
+            $subnet = trim($subnet);
             if (Validator\Subnet::factory()->evaluate($subnet)) {
                 $validSubnets[] = $subnet;
             }
