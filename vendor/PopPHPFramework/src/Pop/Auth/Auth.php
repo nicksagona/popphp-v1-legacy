@@ -463,6 +463,7 @@ class Auth
         }
 
         foreach ($ips as $ip) {
+            $ip = trim($ip);
             if ((Validator\Ipv4::factory()->evaluate($ip)) ||
                 (Validator\Ipv6::factory()->evaluate($ip))) {
                 $validIps[] = $ip;
