@@ -525,6 +525,37 @@ class Form extends \Pop\Dom\Dom
     }
 
     /**
+     * Remove a form element
+     *
+     * @param string $elementName
+     * @return $this
+     */
+    public function removeElement($elementName)
+    {
+        $i = $this->getElementIndex($elementName);
+
+        $newInitValues = array();
+        foreach ($this->initFieldsValues as $key => $field) {
+            if (isset($field['name']) && ($field['name'] == $elementName)) {
+                unset($this->initFieldsValues[$key]);
+            } else {
+                $newInitValues[] = $field;
+            }
+        }
+        $this->initFieldsValues = $newInitValues;
+
+        if (isset($this->fields[$elementName])) {
+            unset($this->fields[$elementName]);
+        }
+
+        if (null !== $i) {
+            $this->form->removeChild($i);
+        }
+
+        return $this;
+    }
+
+    /**
      * Determine whether or not the form object is valid and return the result.
      *
      * @return boolean

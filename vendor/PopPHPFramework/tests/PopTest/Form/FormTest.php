@@ -81,6 +81,31 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($f->getFields()));
     }
 
+    public function testRemoveElement()
+    {
+        $fields = array(
+            array(
+                'type'       => 'text',
+                'name'       => 'username',
+                'value'      => 'Username here...',
+                'label'      => 'Username:',
+                'required'   => true,
+                'attributes' => array('size', 40)
+            ),
+            array(
+                'type'       => 'text',
+                'name'       => 'email',
+                'label'      => 'Email:',
+                'required'   => true,
+                'attributes' => array('size', 40)
+            )
+        );
+        $f = new Form('/submit', 'post');
+        $f->addFields($fields);
+        $f->removeElement('username');
+        $this->assertEquals(1, count($f->getFields()));
+    }
+
     public function testSetFieldValues()
     {
         $fields = array(
@@ -212,6 +237,20 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(5, count($f->getElements()));
         $this->assertInstanceOf('Pop\Form\Element', $f->getElement('username'));
         $this->assertTrue($f->isValid());
+    }
+
+    public function testRemoveElements()
+    {
+        $e = new Element('text', 'username', 'Username');
+        $c = new Checkbox('colors', array('Red', 'Green', 'Blue'));
+        $r = new Radio('colors', array('Red', 'Green', 'Blue'));
+        $f = new Form('/submit', 'post');
+        $f->addElements(array($e, $c, $r));
+        $f->removeElement('username');
+        $f->removeElement('colors');
+        $this->assertEquals(1, count($f->getFields()));
+
+
     }
 
     public function testRender()
