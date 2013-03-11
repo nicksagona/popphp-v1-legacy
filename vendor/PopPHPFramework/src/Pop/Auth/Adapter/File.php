@@ -80,6 +80,7 @@ class File implements AdapterInterface
         } else if ($this->users[$username]['password'] != $password) {
             $result = \Pop\Auth\Auth::PASSWORD_INCORRECT;
         } else if ((strtolower($this->users[$username]['access']) == 'blocked') ||
+            (null === $this->users[$username]['access']) ||
             (is_numeric($this->users[$username]['access']) && ($this->users[$username]['access'] == 0))) {
             $result = \Pop\Auth\Auth::USER_IS_BLOCKED;
         } else {

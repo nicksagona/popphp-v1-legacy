@@ -100,6 +100,7 @@ class Table implements AdapterInterface
         } else if ($user->$passwordField != $password) {
             $result = \Pop\Auth\Auth::PASSWORD_INCORRECT;
             } else if ((null !== $accessField) && ((strtolower($user->$accessField) == 'blocked') ||
+            (null === $user->$accessField) ||
             (is_numeric($user->$accessField) && ($user->$accessField == 0)))) {
             $result = \Pop\Auth\Auth::USER_IS_BLOCKED;
         } else {
