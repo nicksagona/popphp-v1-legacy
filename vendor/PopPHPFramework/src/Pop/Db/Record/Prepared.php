@@ -107,7 +107,7 @@ class Prepared extends AbstractRecord
         }
 
         // Bind the parameters, execute the statement and set the return results.
-        $this->sql->adapter()->bindParams($params);
+        $this->sql->adapter()->bindParams((array)$params);
         $this->sql->adapter()->execute();
         $this->setResults();
     }
@@ -150,7 +150,7 @@ class Prepared extends AbstractRecord
 
         // Prepare the statement, bind the parameters, execute the statement and set the return results.
         $this->sql->adapter()->prepare($this->sql->render(true));
-        $this->sql->adapter()->bindParams($columns);
+        $this->sql->adapter()->bindParams((array)$columns);
         $this->sql->adapter()->execute();
         $this->setResults();
     }
@@ -200,7 +200,7 @@ class Prepared extends AbstractRecord
 
         // Bind the parameters
         if (null !== $columns) {
-            $this->sql->adapter()->bindParams($columns);
+            $this->sql->adapter()->bindParams((array)$columns);
         }
 
         // Execute the statement and set the return results.
@@ -247,7 +247,7 @@ class Prepared extends AbstractRecord
                         $i++;
                     }
                     $this->sql->adapter()->prepare($this->sql->render(true));
-                    $this->sql->adapter()->bindParams($params);
+                    $this->sql->adapter()->bindParams((array)$params);
                 } else {
                     $columns = array();
                     $i = 1;
@@ -257,7 +257,7 @@ class Prepared extends AbstractRecord
                     }
                     $this->sql()->update((array)$columns);
                     $this->sql->adapter()->prepare($this->sql->render(true));
-                    $this->sql->adapter()->bindParams($this->columns);
+                    $this->sql->adapter()->bindParams((array)$this->columns);
                 }
                 // Execute the SQL statement
                 $this->sql->adapter()->execute();
@@ -270,7 +270,7 @@ class Prepared extends AbstractRecord
                 }
                 $this->sql->insert((array)$columns);
                 $this->sql->adapter()->prepare($this->sql->render(true));
-                $this->sql->adapter()->bindParams($this->columns);
+                $this->sql->adapter()->bindParams((array)$this->columns);
                 $this->sql->adapter()->execute();
             }
         } else {
@@ -334,7 +334,7 @@ class Prepared extends AbstractRecord
                 }
 
                 $this->sql->adapter()->prepare($this->sql->render(true));
-                $this->sql->adapter()->bindParams($params);
+                $this->sql->adapter()->bindParams((array)$params);
                 $this->sql->adapter()->execute();
             } else {
                 $columns = array();
@@ -347,7 +347,7 @@ class Prepared extends AbstractRecord
 
                 $this->sql->insert((array)$columns);
                 $this->sql->adapter()->prepare($this->sql->render(true));
-                $this->sql->adapter()->bindParams($this->columns);
+                $this->sql->adapter()->bindParams((array)$this->columns);
                 $this->sql->adapter()->execute();
 
                 if ($this->auto) {
@@ -390,7 +390,7 @@ class Prepared extends AbstractRecord
             }
 
             $this->sql->adapter()->prepare($this->sql->render(true));
-            $this->sql->adapter()->bindParams($columns);
+            $this->sql->adapter()->bindParams((array)$columns);
             $this->sql->adapter()->execute();
 
             $this->columns = array();
@@ -429,7 +429,7 @@ class Prepared extends AbstractRecord
                 $params = array($this->primaryId => $this->columns[$this->primaryId]);
             }
 
-            $this->sql->adapter()->bindParams($params);
+            $this->sql->adapter()->bindParams((array)$params);
             $this->sql->adapter()->execute();
 
             $this->columns = array();
@@ -449,7 +449,7 @@ class Prepared extends AbstractRecord
         $this->sql->adapter()->prepare($sql);
 
         if ((null !== $params) && is_array($params)) {
-            $this->sql->adapter()->bindParams($params);
+            $this->sql->adapter()->bindParams((array)$params);
         }
 
         $this->sql->adapter()->execute();
