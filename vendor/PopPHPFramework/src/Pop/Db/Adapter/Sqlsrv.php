@@ -61,7 +61,15 @@ class Sqlsrv extends AbstractAdapter
             throw new Exception('Error: The proper database credentials were not passed.');
         }
 
-        $this->connection = sqlsrv_connect($options['host'], array('Database' => $options['database'], 'UID' => $options['username'], 'PWD' => $options['password']));
+        $this->connection = sqlsrv_connect(
+            $options['host'],
+            array(
+                'Database'             => $options['database'],
+                'UID'                  => $options['username'],
+                'PWD'                  => $options['password'],
+                'ReturnDatesAsStrings' => (isset($options['ReturnDatesAsStrings'])) ? $options['ReturnDatesAsStrings'] : true
+            )
+        );
 
         if ($this->connection == false) {
             throw new Exception('Error: Could not connect to database. ' . PHP_EOL . $this->getErrors());
