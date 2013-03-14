@@ -53,7 +53,6 @@ class Prepared extends AbstractRecord
         $this->auto = $options['auto'];
 
         if (($this->sql->getDbType() == \Pop\Db\Sql::SQLITE) ||
-            ($this->sql->getDbType() == \Pop\Db\Sql::SQLSRV) ||
             (stripos($this->sql->getDb()->getAdapterType(), 'pdo') !== false)) {
             $this->placeholder = ':';
         } else if ($this->sql->getDbType() == \Pop\Db\Sql::PGSQL) {
