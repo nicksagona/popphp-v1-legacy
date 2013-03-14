@@ -60,7 +60,8 @@ class Update extends AbstractSql
         $set = array();
 
         foreach ($this->columns as $column => $value) {
-            $set[] = $this->sql->quoteId($column) .' = ' . $this->sql->quote($value);
+            $val = (null === $value) ? 'NULL' : $this->sql->quote($value);
+            $set[] = $this->sql->quoteId($column) .' = ' . $val;
         }
 
         $sql .= implode(', ', $set);

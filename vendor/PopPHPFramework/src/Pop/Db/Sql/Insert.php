@@ -42,7 +42,7 @@ class Insert extends AbstractSql
 
         foreach ($this->columns as $column => $value) {
             $columns[] = $this->sql->quoteId($column);
-            $values[] = $this->sql->quote($value);
+            $values[] = (null === $value) ? 'NULL' : $this->sql->quote($value);
         }
 
         $sql .= '(' . implode(', ', $columns) . ') VALUES ';
