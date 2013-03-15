@@ -11,13 +11,14 @@ try {
         array('reader', 1)
     ));
 
-    $user = $acl->getRole('editor');
+    $acl->setRequiredRole('super', 4);
 
-    if ($acl->isAuthorized($user, 'admin')) {
+    if ($acl->isAuthorized()) {
         echo 'The user is authorized.' . PHP_EOL;
     } else {
         echo 'The user is NOT authorized.' . PHP_EOL;
     }
+
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

@@ -47,12 +47,17 @@ class Acl
      * Instantiate the auth object
      *
      * @param  mixed $roles
+     * @param  mixed $requiredRole
+     * @param  int   $value
      * @return \Pop\Auth\Acl
      */
-    public function __construct($roles = null)
+    public function __construct($roles = null, $requiredRole = null, $value = 0)
     {
         if (null !== $roles) {
             $this->addRoles($roles);
+        }
+        if (null !== $requiredRole) {
+            $this->setRequiredRole($requiredRole, $value);
         }
     }
 
@@ -81,26 +86,17 @@ class Acl
     /**
      * Method to set the required role
      *
-     * @param  mixed $role
+     * @param  mixed $requiredRole
      * @param  int   $value
      * @return \Pop\Auth\Acl
      */
-    public function setRequiredRole($role = null, $value = 0)
+    public function setRequiredRole($requiredRole = null, $value = 0)
     {
-        if (null === $role) {
+        if (null === $requiredRole) {
             $this->required = null;
         } else {
-            if ($role instanceof Role) {
-                if (!array_key_exists($role->getName(), $this->roles)) {
-                    $this->roles[$role->getName()] = $role;
-                }
-                $this->required = $role;
-            } else {
-                if (!array_key_exists($role, $this->roles)) {
-                    $this->roles[$role] = Role::factory($role, $value);
-                }
-                $this->required = $this->roles[$role];
-            }
+            $this->required = ($requiredRole instanceof Role) ? $requiredRole :
+                Role::factory($requiredRole, $value);
         }
 
         return $this;
@@ -160,26 +156,27 @@ class Acl
     /**
      * Method to determine if the user is authorized
      *
-     * @param  mixed $user
-     * @param  mixed $role
+     * @param  mixed $requiredRole
      * @param  int   $value
      * @return boolean
      */
-    public function isAuthorized($user, $role = null, $value = 0)
+    public function isAuthorized($requiredRole = null, $value = 0)
     {
-        if (null !== $role) {
-            $this->setRequiredRole($role, $value);
+        if (null !== $requiredRole) {
+            $this->setRequiredRole($requiredRole, $value);
         }
+
+        $result = false;
 
         if (null === $this->required) {
             $result = true;
         } else {
-            if ($user instanceof Role) {
+            if (count($this->roles) == 1) {
+                reset($this->roles);
+                $user = current($this->roles);
                 $result = ($user->compare($this->required) >= 0);
-            } else if (array_key_exists($user, $this->roles)) {
-                $result = ($this->roles[$user]->compare($this->required) >= 0);
-            } else {
-                $result = false;
+            } else if (count($this->roles) > 0) {
+                $result = (array_key_exists($this->required->getName(), $this->roles));
             }
         }
 
