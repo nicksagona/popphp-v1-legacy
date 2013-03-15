@@ -66,13 +66,13 @@ class Included extends Validator
         // Else, if input check is a string
         } else {
             if (is_array($this->value)) {
-                $this->value = implode('', $this->value);
-            }
-
-            if ((strpos((string)$this->input, (string)$this->value) !== false) == $this->condition) {
-                $this->result = true;
+                $this->result = ((in_array($this->input, $this->value)) != $this->condition) ? false : true;
             } else {
-                $this->result = false;
+                if ((strpos((string)$this->input, (string)$this->value) !== false) == $this->condition) {
+                    $this->result = true;
+                } else {
+                    $this->result = false;
+                }
             }
         }
 
