@@ -10,9 +10,11 @@ try {
     $publisher = Role::factory('publisher')->addPermission('publish');
     $admin = Role::factory('admin')->addPermission('admin');
 
-    $publisher->addChild($admin);
-    $editor->addChild($publisher);
-    $reader->addChild($editor);
+    $reader->addChild(
+        $editor->addChild(
+            $publisher->addChild($admin)
+        )
+    );
 
     echo ($editor->hasPermission('publish')) ? 'Yes' : 'No';
 } catch (\Exception $e) {
