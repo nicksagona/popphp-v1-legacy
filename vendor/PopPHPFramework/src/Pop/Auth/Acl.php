@@ -36,28 +36,17 @@ class Acl
     protected $roles = array();
 
     /**
-     * Required role
-     * @var mixed
-     */
-    protected $required = null;
-
-    /**
      * Constructor
      *
      * Instantiate the auth object
      *
      * @param  mixed $roles
-     * @param  mixed $requiredRole
-     * @param  int   $value
      * @return \Pop\Auth\Acl
      */
-    public function __construct($roles = null, $requiredRole = null, $value = 0)
+    public function __construct($roles = null)
     {
         if (null !== $roles) {
             $this->addRoles($roles);
-        }
-        if (null !== $requiredRole) {
-            $this->setRequiredRole($requiredRole, $value);
         }
     }
 
@@ -74,35 +63,6 @@ class Acl
     }
 
     /**
-     * Method to get the required role
-     *
-     * @return \Pop\Auth\Role
-     */
-    public function getRequiredRole()
-    {
-        return $this->required;
-    }
-
-    /**
-     * Method to set the required role
-     *
-     * @param  mixed $requiredRole
-     * @param  int   $value
-     * @return \Pop\Auth\Acl
-     */
-    public function setRequiredRole($requiredRole = null, $value = 0)
-    {
-        if (null === $requiredRole) {
-            $this->required = null;
-        } else {
-            $this->required = ($requiredRole instanceof Role) ? $requiredRole :
-                Role::factory($requiredRole, $value);
-        }
-
-        return $this;
-    }
-
-    /**
      * Method to add a role
      *
      * @param  mixed $roles
@@ -114,12 +74,14 @@ class Acl
             foreach ($roles as $r) {
                 if ($r instanceof Role) {
                     $this->roles[$r->getName()] = $r;
-                } else if (isset($r[0])) {
-                    $this->roles[$r[0]] = Role::factory($r[0], (isset($r[1]) ? $r[1] : 0));
+                } else {
+                    $this->roles[$r] = Role::factory($r);
                 }
             }
         } else if ($roles instanceof Role) {
             $this->roles[$roles->getName()] = $roles;
+        } else {
+            $this->roles[$roles] = Role::factory($roles);
         }
 
         return $this;
@@ -128,27 +90,13 @@ class Acl
     /**
      * Method to determine if the user is allowed
      *
+     * @param  \Pop\Auth\Role     $user
+     * @param  \Pop\Auth\Resource $resource
+     * @param  string             $permission
      * @return boolean
      */
-    public function isAllowed()
+    public function isAllowed(\Pop\Auth\Role $user, \Pop\Auth\Resource $resource, $permission = null)
     {
-        /*
-        if (null !== $requiredRole) {
-            $this->setRequiredRole($requiredRole, $value);
-        }
-
-        if (null === $this->required) {
-            $result = true;
-        } else {
-            if (count($this->roles) == 1) {
-                reset($this->roles);
-                $user = current($this->roles);
-                $result = ($user->compare($this->required) >= 0);
-            } else if (count($this->roles) > 0) {
-                $result = (array_key_exists($this->required->getName(), $this->roles));
-            }
-        }
-        */
         $result = false;
         return $result;
     }
