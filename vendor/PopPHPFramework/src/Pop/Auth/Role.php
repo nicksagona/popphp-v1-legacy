@@ -41,6 +41,12 @@ class Role
     protected $value = 0;
 
     /**
+     * Role children
+     * @var array
+     */
+    protected $children = array();
+
+    /**
      * Constructor
      *
      * Instantiate the role object
@@ -49,7 +55,7 @@ class Role
      * @param  int    $value
      * @return \Pop\Auth\Role
      */
-    public function __construct($name, $value)
+    public function __construct($name, $value = 0)
     {
         $this->name = $name;
         $this->value = (int)$value;
@@ -63,7 +69,7 @@ class Role
      * @param  int    $value
      * @return \Pop\Auth\Role
      */
-    public static function factory($name, $value)
+    public static function factory($name, $value = 0)
     {
         return new self($name, $value);
     }
@@ -134,17 +140,13 @@ class Role
     /**
      * Get method to get the role value by name
      *
-     * @param  string $name
-     * @return int
+     * @param  \Pop\Auth\Role $role
+     * @return \Pop\Auth\Role
      */
-    public function __get($name)
+    public function addChild(\Pop\Auth\Role $role)
     {
-        $value = 0;
-        if ($name == $this->name) {
-            $value = $this->value;
-        }
-
-        return $value;
+        $this->children[] = $role;
+        return $this;
     }
 
     /**

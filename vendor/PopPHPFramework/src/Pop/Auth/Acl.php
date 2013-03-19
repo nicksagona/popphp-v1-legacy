@@ -126,41 +126,13 @@ class Acl
     }
 
     /**
-     * Method to get a role
-     *
-     * @param  string $role
-     * @return \Pop\Auth\Role
-     */
-    public function getRole($role)
-    {
-        return (array_key_exists($role, $this->roles)) ? $this->roles[$role] : null;
-    }
-
-    /**
-     * Method to remove a role
-     *
-     * @param  mixed $role
-     * @return \Pop\Auth\Acl
-     */
-    public function removeRole($role)
-    {
-        $roleName = ($role instanceof Role) ? $role->getName() : $role;
-
-        if (array_key_exists($roleName, $this->roles)) {
-            unset($this->roles[$roleName]);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Method to determine if the user is authorized
+     * Method to determine if the user is allowed
      *
      * @param  mixed $requiredRole
      * @param  int   $value
      * @return boolean
      */
-    public function isAuthorized($requiredRole = null, $value = 0)
+    public function isAllowed($requiredRole = null, $value = 0)
     {
         if (null !== $requiredRole) {
             $this->setRequiredRole($requiredRole, $value);
