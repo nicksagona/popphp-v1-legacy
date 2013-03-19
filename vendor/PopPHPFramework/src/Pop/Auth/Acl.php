@@ -114,8 +114,8 @@ class Acl
             foreach ($roles as $r) {
                 if ($r instanceof Role) {
                     $this->roles[$r->getName()] = $r;
-                } else if (isset($r[0]) && isset($r[1])) {
-                    $this->roles[$r[0]] = Role::factory($r[0], $r[1]);
+                } else if (isset($r[0])) {
+                    $this->roles[$r[0]] = Role::factory($r[0], (isset($r[1]) ? $r[1] : 0));
                 }
             }
         } else if ($roles instanceof Role) {
@@ -128,17 +128,14 @@ class Acl
     /**
      * Method to determine if the user is allowed
      *
-     * @param  mixed $requiredRole
-     * @param  int   $value
      * @return boolean
      */
-    public function isAllowed($requiredRole = null, $value = 0)
+    public function isAllowed()
     {
+        /*
         if (null !== $requiredRole) {
             $this->setRequiredRole($requiredRole, $value);
         }
-
-        $result = false;
 
         if (null === $this->required) {
             $result = true;
@@ -151,7 +148,8 @@ class Acl
                 $result = (array_key_exists($this->required->getName(), $this->roles));
             }
         }
-
+        */
+        $result = false;
         return $result;
     }
 

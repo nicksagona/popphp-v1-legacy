@@ -140,17 +140,23 @@ class Role
     /**
      * Get method to get the role value by name
      *
-     * @param  \Pop\Auth\Role $role
+     * @param  mixed $role
+     * @param  int   $value
      * @return \Pop\Auth\Role
      */
-    public function addChild(\Pop\Auth\Role $role)
+    public function addChild($role, $value = 0)
     {
-        $this->children[] = $role;
+        if ($role instanceof Role) {
+            $this->children[] = $role;
+        } else {
+            $this->children[] = new Role($role, $value);
+        }
+
         return $this;
     }
 
     /**
-     * Method to return the string value of the name of the role..
+     * Method to return the string value of the name of the role
      *
      * @return string
      */
