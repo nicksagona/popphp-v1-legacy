@@ -1,6 +1,14 @@
 Pop PHP Framework Changelog
 ===========================
 
+1.2.3
+-----
+Released on March 21, 2013
+
+* Refactor the Auth/Acl component
+    - Improve support for roles
+    - Add support for resources and permissions
+
 1.2.2
 -----
 Released on February 27, 2013

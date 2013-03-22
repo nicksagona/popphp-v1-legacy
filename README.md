@@ -1,10 +1,10 @@
-Welcome to the Pop PHP Framework 1.2.2 Release!
+Welcome to the Pop PHP Framework 1.2.3 Release!
 ===============================================
 
 RELEASE INFORMATION
 -------------------
-Pop PHP Framework 1.2.2 Release  
-Released February 27, 2013
+Pop PHP Framework 1.2.3 Release  
+Released March 21, 2013
 
 
 OVERVIEW
@@ -107,7 +107,7 @@ Some dependencies for the framework to fully function are as follows:
 
 Most of these extensions are generally included in PHP 5.3.0+, but should there be
 any issues in any of these areas, please verify that the related extensions are
-installed and configured properly. PHP's mail function is dependant on the whichever
+installed and configured properly. The PHP mail function is dependant on the whichever
 mail program is available and correctly installed on the server.
 
 A Note on ImageMagick: As of July 28th, 2011, stable testing was successful with the

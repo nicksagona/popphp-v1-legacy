@@ -53,30 +53,47 @@ if ($auth-&gt;isValid()) {
 }
 </pre>
 <pre>
-use Pop&#92;Auth;
+use Pop&#92;Auth&#92;Acl;
+use Pop&#92;Auth&#92;Role;
+use Pop&#92;Auth&#92;Resource;
 
-$admin = Auth&#92;Role::factory('admin', 4);
-$editor = Auth&#92;Role::factory('editor', 3);
-$reader = Auth&#92;Role::factory('reader', 2);
-$restricted = Auth&#92;Role::factory('restricted', 1);
+// Create some resources
+$page = new Resource('page');
+$template = new Resource('template');
 
-$userRole = $editor;
+// Create some roles with permissions
+$reader = Role::factory('reader')-&gt;addPermission('read');
+$editor = Role::factory('editor')-&gt;addPermission('edit');
+$publisher = Role::factory('publisher')-&gt;addPermission('publish');
+$admin = Role::factory('admin')-&gt;addPermission('admin');
 
-$acl = Auth&#92;Acl::factory(array($admin, $editor, $reader));
-$acl-&gt;setRequiredRole('reader');
+// Add roles as child roles to demonstrate inheritance
+$reader-&gt;addChild(
+    $editor-&gt;addChild(
+        $publisher-&gt;addChild($admin)
+    )
+);
 
-echo '&lt;h3&gt;Reader Area&lt;/h3&gt;' . PHP_EOL;
-echo 'The user is ' . ((!$acl-&gt;isAuthorized($userRole)) ? 'NOT ' : null) . 'authorized in the reader area.' . PHP_EOL;
+$acl = new Acl();
 
-$acl-&gt;setRequiredRole('editor');
+$acl-&gt;addRoles(array($reader, $editor, $publisher, $admin));
+$acl-&gt;addResources(array($page, $template));
 
-echo '&lt;h3&gt;Editor Area&lt;/h3&gt;' . PHP_EOL;
-echo 'The user is ' . ((!$acl-&gt;isAuthorized($userRole)) ? 'NOT ' : null) . 'authorized in the editor area.' . PHP_EOL;
+$acl-&gt;allow('reader', 'page', 'read')
+    -&gt;allow('editor', 'page', array('read', 'edit'))
+    -&gt;allow('publisher', 'page')
+    -&gt;allow('publisher', 'template', 'read')
+    -&gt;allow('admin');
 
-$acl-&gt;setRequiredRole('admin');
+$acl-&gt;deny('editor', 'page', 'read');
 
-echo '&lt;h3&gt;Admin Area&lt;/h3&gt;' . PHP_EOL;
-echo 'The user is ' . ((!$acl-&gt;isAuthorized($userRole)) ? 'NOT ' : null) . 'authorized in the admin area.' . PHP_EOL;
+$user = $editor;
+
+if ($acl-&gt;isAllowed($user, 'page', 'edit')) {
+    echo 'Yes.&lt;br /&gt;&lt;br /&gt;';
+} else {
+    echo 'No.&lt;br /&gt;&lt;br /&gt;';
+}
 </pre>
     </div>
     <div id="doc-footer">

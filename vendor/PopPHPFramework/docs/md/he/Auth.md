@@ -39,28 +39,47 @@ Home
     }
 
 #
-    $admin = Auth\Role::factory('admin', 4);
-    $editor = Auth\Role::factory('editor', 3);
-    $reader = Auth\Role::factory('reader', 2);
-    $restricted = Auth\Role::factory('restricted', 1);
+    use Pop\Auth\Acl;
+    use Pop\Auth\Role;
+    use Pop\Auth\Resource;
 
-    $userRole = $editor;
+    // Create some resources
+    $page = new Resource('page');
+    $template = new Resource('template');
 
-    $acl = Auth\Acl::factory(array($admin, $editor, $reader));
-    $acl->setRequiredRole('reader');
+    // Create some roles with permissions
+    $reader = Role::factory('reader')->addPermission('read');
+    $editor = Role::factory('editor')->addPermission('edit');
+    $publisher = Role::factory('publisher')->addPermission('publish');
+    $admin = Role::factory('admin')->addPermission('admin');
 
-    echo '<h3>Reader Area</h3>' . PHP_EOL;
-    echo 'The user is ' . ((!$acl->isAuthorized($userRole)) ? 'NOT ' : null) . 'authorized in the reader area.' . PHP_EOL;
+    // Add roles as child roles to demonstrate inheritance
+    $reader->addChild(
+        $editor->addChild(
+            $publisher->addChild($admin)
+        )
+    );
 
-    $acl->setRequiredRole('editor');
+    $acl = new Acl();
 
-    echo '<h3>Editor Area</h3>' . PHP_EOL;
-    echo 'The user is ' . ((!$acl->isAuthorized($userRole)) ? 'NOT ' : null) . 'authorized in the editor area.' . PHP_EOL;
+    $acl->addRoles(array($reader, $editor, $publisher, $admin));
+    $acl->addResources(array($page, $template));
 
-    $acl->setRequiredRole('admin');
+    $acl->allow('reader', 'page', 'read')
+        ->allow('editor', 'page', array('read', 'edit'))
+        ->allow('publisher', 'page')
+        ->allow('publisher', 'template', 'read')
+        ->allow('admin');
 
-    echo '<h3>Admin Area</h3>' . PHP_EOL;
-    echo 'The user is ' . ((!$acl->isAuthorized($userRole)) ? 'NOT ' : null) . 'authorized in the admin area.' . PHP_EOL;
+    $acl->deny('editor', 'page', 'read');
+
+    $user = $editor;
+
+    if ($acl->isAllowed($user, 'page', 'edit')) {
+        echo 'Yes.<br /><br />';
+    } else {
+        echo 'No.<br /><br />';
+    }
 
 \(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.
