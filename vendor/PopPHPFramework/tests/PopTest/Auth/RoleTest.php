@@ -29,40 +29,50 @@ class RoleTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $this->assertInstanceOf('Pop\Auth\Role', Role::factory('editor', 5));
+        $this->assertInstanceOf('Pop\Auth\Role', Role::factory('editor'));
     }
 
-    public function testCompare()
+    public function testGetName()
     {
-        $e = Role::factory('editor', 5);
-        $r = Role::factory('reader', 1);
-        $this->assertGreaterThan(0, $e->compare($r));
-        $this->assertLessThan(0, $r->compare($e));
+        $e = Role::factory('editor');
+        $this->assertEquals('editor', $e->getName());
     }
 
-    public function testSetAndGetValue()
+    public function testAddChild()
     {
-        $e = Role::factory('editor', 5);
-        $e->setValue(10);
-        $this->assertEquals(10, $e->getValue());
+        $e = Role::factory('editor');
+        $r = Role::factory('reader');
+        $r->addChild($e);
+        $this->assertTrue($e->hasParent());
+        $this->assertEquals('reader', $e->getParent()->getName());
     }
 
-    public function testSetAndGetName()
+    public function testSetParent()
     {
-        $e = Role::factory('editor', 5);
-        $e->setName('admin');
-        $this->assertEquals('admin', $e->getName());
+        $e = Role::factory('editor');
+        $r = Role::factory('reader');
+        $e->setParent($r);
+        $this->assertTrue($e->hasParent());
+        $this->assertEquals('reader', $e->getParent()->getName());
     }
 
-    public function testGetter()
+    public function testAddAndCheckPermission()
     {
-        $e = Role::factory('editor', 5);
-        $this->assertEquals(5, $e->editor);
+        $ad = Role::factory('admin');
+        $p = Role::factory('publisher');
+        $e = Role::factory('editor');
+        $r = Role::factory('reader');
+        $p->addPermission('publisher');
+        $e->addPermission('edit');
+        $r->addPermission('read');
+        $r->addChild($e->addChild($p->addChild($ad)));
+        //$this->assertTrue($e->hasPermission('edit'));
+        $this->assertTrue($ad->hasPermission('read'));
     }
 
     public function testToString()
     {
-        $e = Role::factory('editor', 5);
+        $e = Role::factory('editor');
         $this->assertEquals('editor', (string)$e);
     }
 

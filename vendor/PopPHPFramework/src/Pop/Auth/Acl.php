@@ -153,7 +153,7 @@ class Acl
      */
     public function getResource($resource)
     {
-        return (isset($this->resources[$resource])) ? $this->resource[$resource] : null;
+        return (isset($this->resources[$resource])) ? $this->resources[$resource] : null;
     }
 
     /**
@@ -245,7 +245,7 @@ class Acl
                         }
                         foreach ($permissions as $permission) {
                             if (!$this->roles[$role]->hasPermission($permission)) {
-                                throw new Exception("Error: That role does not have the permission ' . $permission . '.");
+                                throw new Exception("Error: That role does not have the permission '" . $permission . "'.");
                             }
                             $this->allowed[$role][$resource][] = $permission;
                         }
@@ -356,7 +356,7 @@ class Acl
                         }
                         foreach ($permissions as $permission) {
                             if (!$this->roles[$role]->hasPermission($permission)) {
-                                throw new Exception("Error: That role does not have the permission ' . $permission . '.");
+                                throw new Exception("Error: That role does not have the permission '" . $permission . "'.");
                             }
                             $this->denied[$role][$resource][] = $permission;
                         }

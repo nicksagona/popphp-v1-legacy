@@ -115,13 +115,6 @@ class Role
             $parent = $this->parent;
             if ($parent->hasPermission($name)) {
                 $result = true;
-            } else {
-                while ($parent->hasParent()) {
-                    $parent = $parent->getParent();
-                    if ($parent->hasPermission($name)) {
-                        $result = true;
-                    }
-                }
             }
         }
 

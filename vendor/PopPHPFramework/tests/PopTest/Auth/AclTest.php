@@ -17,6 +17,7 @@ namespace PopTest\Auth;
 
 use Pop\Loader\Autoloader;
 use Pop\Auth\Role;
+use Pop\Auth\Resource;
 use Pop\Auth\Acl;
 
 // Require the library's autoloader.
@@ -30,63 +31,253 @@ class AclTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $a = Acl::factory();
+        $a = Acl::factory(Role::factory('admin'), Resource::factory('page'));
         $this->assertInstanceOf('Pop\Auth\Acl', $a);
+        $this->assertTrue($a->hasRole('admin'));
+        $this->assertTrue($a->hasResource('page'));
     }
 
     public function testRoles()
     {
-        $admin = Role::factory('admin', 3);
-        $editor = Role::factory('editor',2);
-        $reader = Role::factory('reader', 1);
+        $admin = Role::factory('admin');
+        $editor = Role::factory('editor');
+        $reader = Role::factory('reader');
 
         $a = Acl::factory();
         $a->addRoles(array($admin, $editor))
-          ->addRoles($reader);
+          ->addRole($reader);
 
-        $this->assertEquals(3, $a->getRole('admin')->getValue());
-
-        $a->removeRole('admin');
-        $this->assertNull($a->getRole('admin'));
+        $a->addRoles('publisher');
+        $a->addRoles(array('super', 'duper'));
+        $this->assertTrue($a->hasRole('admin'));
+        $this->assertTrue($a->hasRole('super'));
+        $this->assertTrue($a->hasRole('duper'));
+        $this->assertEquals('editor', $a->getRole('editor')->getName());
     }
 
-    public function testSetRequiredRole()
+    public function testResources()
     {
-        $editor = Role::factory('editor',2);
+        $page = Resource::factory('page');
+        $template = Resource::factory('template');
+        $user = Resource::factory('user');
+
         $a = Acl::factory();
-        $a->setRequiredRole('admin', 3);
-        $this->assertEquals(3, $a->getRequiredRole()->getValue());
-        $a->setRequiredRole($editor);
-        $this->assertEquals(2, $a->getRequiredRole()->getValue());
-        $a->setRequiredRole();
-        $this->assertNull($a->getRequiredRole());
-        $this->assertTrue($a->isAuthorized($editor));
+        $a->addResources(array($page, $template))
+          ->addResource($user);
+
+        $a->addResources('file');
+        $a->addResources(array('image', 'event'));
+
+        $this->assertTrue($a->hasResource('page'));
+        $this->assertTrue($a->hasResource('file'));
+        $this->assertTrue($a->hasResource('image'));
+        $this->assertEquals('template', $a->getResource('template')->getName());
     }
 
-    public function testIsAuthorized()
+    public function testAllow()
     {
-        $admin = Role::factory('admin', 2);
-        $editor = Role::factory('editor', 1);
+        $admin = Role::factory('admin');
+        $publisher = Role::factory('publisher');
+        $editor = Role::factory('editor');
+        $editor->addPermission('edit');
+        $page = Resource::factory('page');
 
-        $a = Acl::factory(array($admin, $editor));
-        $a->setRequiredRole('admin');
-        $this->assertEquals(2, $a->getRequiredRole()->getValue());
-        $this->assertFalse($a->isAuthorized($editor));
+        $a = Acl::factory($editor, $page);
+        $a->addRoles(array($publisher, $admin));
+        $a->allow('editor', 'page', 'edit');
+        $a->allow('publisher', 'page');
+        $a->allow('admin');
+        $this->assertTrue($a->isAllowed($editor, 'page', 'edit'));
+        $this->assertTrue($a->isAllowed($publisher, 'page'));
+        $this->assertTrue($a->isAllowed($admin));
+        $this->assertFalse($a->isDenied($editor, 'page', 'edit'));
     }
 
-    public function testIsAuthorizedPassRoles()
+    public function testAllowNoRoleException()
     {
-        $a = Acl::factory(array(
-            array('admin', 3),
-            array('editor', 2),
-            array('reader', 1)
-        ));
+        $this->setExpectedException('Pop\Auth\Exception');
+        $a = Acl::factory();
+        $a->allow('editor');
+    }
 
-        $user = $a->getRole('editor');
-        $this->assertFalse($a->isAuthorized($user, 'admin'));
-        $this->assertFalse($a->isAuthorized('editor', 'admin'));
-        $this->assertFalse($a->isAuthorized('baduser', 'admin'));
+    public function testAllowNoResourceException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $editor = Role::factory('editor');
+        $a = Acl::factory($editor);
+        $a->allow('editor', 'page');
+    }
+
+    public function testAllowNoPermissionException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $editor = Role::factory('editor');
+        $editor->addPermission('edit');
+        $page = Resource::factory('page');
+
+        $a = acl::factory($editor, $page);
+        $a->allow('editor', 'page', 'read');
+    }
+
+    public function testRemoveAllow()
+    {
+        $editor = Role::factory('editor');
+        $editor->addPermission('edit');
+        $page = Resource::factory('page');
+
+        $a = Acl::factory($editor, $page);
+        $a->allow('editor', 'page', 'edit');
+        $this->assertTrue($a->isAllowed($editor, 'page', 'edit'));
+        $a->removeAllow('editor', 'page', 'edit');
+        $a->removeAllow('editor', 'page');
+        $a->removeAllow('editor');
+        $this->assertFalse($a->isAllowed($editor, 'page', 'edit'));
+    }
+
+    public function testRemoveAllowNoRoleException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $a = Acl::factory();
+        $a->removeAllow('editor');
+    }
+
+    public function testRemoveAllowNoRulesException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $editor = Role::factory('editor');
+        $a = Acl::factory($editor);
+        $a->removeAllow('editor');
+    }
+
+    public function testRemoveAllowNoResourceException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $editor = Role::factory('editor');
+        $a = Acl::factory($editor);
+        $a->removeAllow('editor', 'page');
+    }
+
+    public function testDeny()
+    {
+        $admin = Role::factory('admin');
+        $publisher = Role::factory('publisher');
+        $editor = Role::factory('editor');
+        $editor->addPermission('edit');
+        $page = Resource::factory('page');
+
+        $a = Acl::factory($editor, $page);
+        $a->addRoles(array($publisher, $admin));
+        $a->deny('editor', 'page', 'edit');
+        $a->deny('publisher', 'page');
+        $a->deny('admin');
+        $this->assertTrue($a->isDenied($editor, 'page', 'edit'));
+        $this->assertTrue($a->isDenied($publisher, 'page'));
+        $this->assertTrue($a->isDenied($admin));
+        $this->assertFalse($a->isAllowed($editor, 'page', 'edit'));
+    }
+
+    public function testDenyNoRoleException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $a = Acl::factory();
+        $a->deny('editor', 'page', 'edit');
+    }
+
+    public function testDenyNoResourceException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $editor = Role::factory('editor');
+        $a = Acl::factory($editor);
+        $a->deny('editor', 'page');
+    }
+
+    public function testDenyNoPermissionException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $editor = Role::factory('editor');
+        $editor->addPermission('edit');
+        $page = Resource::factory('page');
+
+        $a = acl::factory($editor, $page);
+        $a->deny('editor', 'page', 'read');
+    }
+
+    public function testRemoveDeny()
+    {
+        $editor = Role::factory('editor');
+        $editor->addPermission('edit');
+        $page = Resource::factory('page');
+
+        $a = Acl::factory($editor, $page);
+        $a->allow('editor', 'page', 'edit');
+        $a->deny('editor', 'page', 'edit');
+        $this->assertFalse($a->isAllowed($editor, 'page', 'edit'));
+        $a->removeDeny('editor', 'page', 'edit');
+        $a->removeDeny('editor');
+        $this->assertTrue($a->isAllowed($editor, 'page', 'edit'));
+    }
+
+    public function testRemoveDenyNoRoleException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $a = Acl::factory();
+        $a->removeDeny('editor');
+    }
+
+    public function testRemoveDenyNoRulesException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $editor = Role::factory('editor');
+        $a = Acl::factory($editor);
+        $a->removeDeny('editor');
+    }
+
+    public function testRemoveDenyNoResourceException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $editor = Role::factory('editor');
+        $a = Acl::factory($editor);
+        $a->removeDeny('editor', 'page');
+    }
+
+    public function testIsAllowedNoRoleException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $editor = Role::factory('editor');
+
+        $a = Acl::factory($editor);
+        $a->allow('editor');
+        $this->assertTrue($a->isAllowed(Role::factory('user'), 'page', 'edit'));
+    }
+
+    public function testIsAllowedNoResourceException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $editor = Role::factory('editor');
+
+        $a = Acl::factory($editor);
+        $a->allow('editor');
+        $this->assertTrue($a->isAllowed($editor, 'page'));
+    }
+
+    public function testIsDeniedNoRoleException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $editor = Role::factory('editor');
+
+        $a = Acl::factory($editor);
+        $a->deny('editor');
+        $this->assertTrue($a->isDenied(Role::factory('user'), 'page', 'edit'));
+    }
+
+    public function testIsDeniedNoResourceException()
+    {
+        $this->setExpectedException('Pop\Auth\Exception');
+        $editor = Role::factory('editor');
+
+        $a = Acl::factory($editor);
+        $a->deny('editor');
+        $this->assertTrue($a->isDenied($editor, 'page'));
     }
 
 }
-
