@@ -100,12 +100,12 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $a->allow('editor');
     }
 
-    public function testAllowNoResourceException()
+    public function testAllowNoResource()
     {
-        $this->setExpectedException('Pop\Auth\Exception');
         $editor = Role::factory('editor');
         $a = Acl::factory($editor);
         $a->allow('editor', 'page');
+        $this->assertTrue($a->hasResource('page'));
     }
 
     public function testAllowNoPermissionException()
@@ -149,12 +149,13 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $a->removeAllow('editor');
     }
 
-    public function testRemoveAllowNoResourceException()
+    public function testRemoveAllowNoResource()
     {
-        $this->setExpectedException('Pop\Auth\Exception');
         $editor = Role::factory('editor');
         $a = Acl::factory($editor);
+        $a->allow('editor');
         $a->removeAllow('editor', 'page');
+        $this->assertTrue($a->hasResource('page'));
     }
 
     public function testDeny()
@@ -183,12 +184,12 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $a->deny('editor', 'page', 'edit');
     }
 
-    public function testDenyNoResourceException()
+    public function testDenyNoResource()
     {
-        $this->setExpectedException('Pop\Auth\Exception');
         $editor = Role::factory('editor');
         $a = Acl::factory($editor);
         $a->deny('editor', 'page');
+        $this->assertTrue($a->hasResource('page'));
     }
 
     public function testDenyNoPermissionException()
@@ -232,12 +233,13 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $a->removeDeny('editor');
     }
 
-    public function testRemoveDenyNoResourceException()
+    public function testRemoveDenyNoResource()
     {
-        $this->setExpectedException('Pop\Auth\Exception');
         $editor = Role::factory('editor');
         $a = Acl::factory($editor);
+        $a->deny('editor');
         $a->removeDeny('editor', 'page');
+        $this->assertTrue($a->hasResource('page'));
     }
 
     public function testIsAllowedNoRoleException()
@@ -250,14 +252,14 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($a->isAllowed(Role::factory('user'), 'page', 'edit'));
     }
 
-    public function testIsAllowedNoResourceException()
+    public function testIsAllowedNoResource()
     {
-        $this->setExpectedException('Pop\Auth\Exception');
         $editor = Role::factory('editor');
 
         $a = Acl::factory($editor);
         $a->allow('editor');
         $this->assertTrue($a->isAllowed($editor, 'page'));
+        $this->assertTrue($a->hasResource('page'));
     }
 
     public function testIsDeniedNoRoleException()
@@ -270,14 +272,14 @@ class AclTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($a->isDenied(Role::factory('user'), 'page', 'edit'));
     }
 
-    public function testIsDeniedNoResourceException()
+    public function testIsDeniedNoResource()
     {
-        $this->setExpectedException('Pop\Auth\Exception');
         $editor = Role::factory('editor');
 
         $a = Acl::factory($editor);
         $a->deny('editor');
         $this->assertTrue($a->isDenied($editor, 'page'));
+        $this->assertTrue($a->hasResource('page'));
     }
 
 }

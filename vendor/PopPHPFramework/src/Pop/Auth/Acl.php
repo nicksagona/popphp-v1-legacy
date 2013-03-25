@@ -236,7 +236,7 @@ class Acl
                 }
                 foreach ($resources as $resource) {
                     if (!isset($this->resources[$resource])) {
-                        throw new Exception('Error: That resource has not been added.');
+                        $this->addResource($resource);
                     }
                     $this->allowed[$role][$resource] = array();
                     if (null != $permissions) {
@@ -289,7 +289,7 @@ class Acl
                 }
                 foreach ($resources as $resource) {
                     if (!isset($this->resources[$resource])) {
-                        throw new Exception('Error: That resource has not been added.');
+                        $this->addResource($resource);
                     }
                     if (isset($this->allowed[$role][$resource])) {
                         if (null != $permissions) {
@@ -347,7 +347,7 @@ class Acl
                 }
                 foreach ($resources as $resource) {
                     if (!isset($this->resources[$resource])) {
-                        throw new Exception('Error: That resource has not been added.');
+                        $this->addResource($resource);
                     }
                     $this->denied[$role][$resource] = array();
                     if (null != $permissions) {
@@ -400,7 +400,7 @@ class Acl
                 }
                 foreach ($resources as $resource) {
                     if (!isset($this->resources[$resource])) {
-                        throw new Exception('Error: That resource has not been added.');
+                        $this->addResource($resource);
                     }
                     if (isset($this->denied[$role][$resource])) {
                         if (null != $permissions) {
@@ -444,7 +444,7 @@ class Acl
         }
 
         if ((null !== $resource) && !isset($this->resources[$resource])) {
-            throw new Exception('Error: That resource has not been added.');
+            $this->addResource($resource);
         }
 
         if (!$this->isDenied($user, $resource, $permission)) {
@@ -496,7 +496,7 @@ class Acl
         }
 
         if ((null !== $resource) && !isset($this->resources[$resource])) {
-            throw new Exception('Error: That resource has not been added.');
+            $this->addResource($resource);
         }
 
         if ((null !== $resource) && (null !== $permission)) {
