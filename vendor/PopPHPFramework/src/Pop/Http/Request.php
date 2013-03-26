@@ -602,7 +602,17 @@ class Request
         $this->docRoot = (isset($_SERVER['DOCUMENT_ROOT'])) ? str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']) : null;
         $dir = str_replace('\\', '/', dirname($this->docRoot . $_SERVER['PHP_SELF']));
 
-        $this->requestUri = ($dir != $this->docRoot) ? str_replace(str_replace($this->docRoot, '', $dir), '', $uri) : $uri;
+        if ($dir != $this->docRoot) {
+            $realBasePath = str_replace($this->docRoot, '', $dir);
+            if (substr($uri, 0, strlen($realBasePath)) == $realBasePath) {
+                $this->requestUri = substr($uri, strlen($realBasePath));
+            } else {
+                $this->requestUri = $uri;
+            }
+        } else {
+            $this->requestUri = $uri;
+        }
+
         $this->basePath = (null === $basePath) ? str_replace($this->docRoot, '', $dir) : $basePath;
         $this->fullPath = $this->docRoot . $this->basePath;
         if (isset($_SERVER['SERVER_PORT'])) {
