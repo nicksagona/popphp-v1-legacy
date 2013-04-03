@@ -56,13 +56,13 @@ class Mobile
      * Desktop website destination URL
      * @var string
      */
-    protected $desktop = null;
+    protected $desktopUrl = null;
 
     /**
      * Mobile website destination URL
      * @var string
      */
-    protected $mobile = null;
+    protected $mobileUrl = null;
 
     /**
      * Force flag
@@ -74,7 +74,13 @@ class Mobile
      * Mobile detect flag
      * @var boolean
      */
-    protected $isMobile = false;
+    protected $mobile = false;
+
+    /**
+     * Tablet detect flag
+     * @var boolean
+     */
+    protected $tablet = false;
 
     /**
      * Android flag
@@ -126,9 +132,9 @@ class Mobile
     {
         // Set the user agent and object properties.
         $this->ua = $_SERVER['HTTP_USER_AGENT'];
-        $this->mobile = $mobile;
-        $this->desktop = $desktop;
-        $this->isMobile = $this->detect();
+        $this->mobileUrl = $mobile;
+        $this->desktopUrl = $desktop;
+        $this->mobile = $this->detect();
         $this->force = $force;
     }
 
@@ -140,7 +146,18 @@ class Mobile
     public static function isMobileDevice()
     {
         $mob = new static();
-        return $mob->isMobile;
+        return $mob->isMobile();
+    }
+
+    /**
+     * Static method to only detect a tablet device or not.
+     *
+     * @return boolean
+     */
+    public static function isTabletDevice()
+    {
+        $mob = new static();
+        return $mob->isTablet();
     }
 
     /**
@@ -181,7 +198,7 @@ class Mobile
      */
     public function getDesktopUrl()
     {
-        return $this->desktop;
+        return $this->desktopUrl;
     }
 
     /**
@@ -191,7 +208,7 @@ class Mobile
      */
     public function getMobileUrl()
     {
-        return $this->mobile;
+        return $this->mobileUrl;
     }
 
     /**
@@ -212,7 +229,7 @@ class Mobile
      */
     public function setDesktopUrl($url)
     {
-        $this->desktop = $url;
+        $this->desktopUrl = $url;
         return $this;
     }
 
@@ -224,7 +241,7 @@ class Mobile
      */
     public function setMobileUrl($url)
     {
-        $this->mobile = $url;
+        $this->mobileUrl = $url;
         return $this;
     }
 
@@ -247,7 +264,17 @@ class Mobile
      */
     public function isMobile()
     {
-        return $this->isMobile;
+        return $this->mobile;
+    }
+
+    /**
+     * Method to get is tablet flag
+     *
+     * @return boolean
+     */
+    public function isTablet()
+    {
+        return $this->tablet;
     }
 
     /**
@@ -318,11 +345,11 @@ class Mobile
      */
     public function goToMobile()
     {
-        if (null === $this->mobile) {
+        if (null === $this->mobileUrl) {
             throw new Exception('The mobile site is not set.');
         }
         header("HTTP/1.1 302 Found");
-        header("Location: " . $this->mobile);
+        header("Location: " . $this->mobileUrl);
     }
 
     /**
@@ -333,11 +360,11 @@ class Mobile
      */
     public function goToDesktop()
     {
-        if (null === $this->desktop) {
+        if (null === $this->desktopUrl) {
             throw new Exception('The desktop site is not set.');
         }
         header("HTTP/1.1 302 Found");
-        header("Location: " . $this->desktop);
+        header("Location: " . $this->desktopUrl);
     }
 
     /**
@@ -361,7 +388,7 @@ class Mobile
     {
         switch ($this->force) {
             case 0:
-                if ($this->isMobile) {
+                if ($this->mobile) {
                     $this->goToMobile();
                 } else {
                     $this->goToDesktop();
@@ -422,6 +449,14 @@ class Mobile
         } else if (preg_match('/(nokia|symbian|palm|treo|hiptop|avantgo|plucker|xiino|blazer|elaine|teleca|up.browser|up.link|mmp|smartphone|midp|wap|vodafone|o2|pocket|kindle|mobile|pda|psp)/i', $this->ua, $matches) != 0) {
             $this->device = $matches[0];
             $is = true;
+        }
+
+        if ($is) {
+            if (strtolower($this->device) == 'ipad') {
+                $this->tablet = true;
+            } else {
+                $this->tablet = (stripos($this->ua, 'mobile') !== false) ? false : true;
+            }
         }
 
         return $is;
