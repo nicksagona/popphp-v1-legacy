@@ -327,18 +327,18 @@ class Project
             $this->events->trigger('route.post', array('router' => $this->router));
 
             // If a controller was properly routed and created, then dispatch it
-            if (null !== $this->router()->controller()) {
+            if (null !== $this->router->controller()) {
                 // Trigger any pre-dispatch events
                 $this->events->trigger('dispatch.pre', array('router' => $this->router));
 
-                // Define the action and dispatch it
-                $action = ($this->router()->controller()->getRequest()->getRequestUri() == '/') ? 'index' : $this->router()->getAction();
+                // Get the action and dispatch it
+                $action = $this->router->getAction();
 
                 // Dispatch the found action, the error action or trigger the dispatch error events
-                if ((null !== $action) && method_exists($this->router()->controller(), $action)) {
-                    $this->router()->controller()->dispatch($action);
-                } else if (method_exists($this->router()->controller(), 'error')) {
-                    $this->router()->controller()->dispatch('error');
+                if ((null !== $action) && method_exists($this->router->controller(), $action)) {
+                    $this->router->controller()->dispatch($action);
+                } else if (method_exists($this->router->controller(), 'error')) {
+                    $this->router->controller()->dispatch('error');
                 } else {
                     $this->events->trigger('dispatch.error', array('router' => $this->router));
                 }

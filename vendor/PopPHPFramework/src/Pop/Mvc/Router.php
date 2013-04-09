@@ -175,7 +175,11 @@ class Router
     {
         $action = null;
         if ((null !== $this->controller) && (null !== $this->controller->getRequest())) {
-            $action = $this->controller->getRequest()->getPath(0);
+            if ($this->controller->getRequest()->getRequestUri() == '/') {
+                $action = 'index';
+            } else if ($this->controller->getRequest()->getPath(0) != '') {
+                $action = $this->controller->getRequest()->getPath(0);
+            }
         }
         return $action;
     }
