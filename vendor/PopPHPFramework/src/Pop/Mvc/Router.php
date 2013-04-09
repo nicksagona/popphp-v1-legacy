@@ -184,24 +184,10 @@ class Router
     {
         $this->project = $project;
 
-        // If a non-default route exists
-        if (($this->request->getPath(0) != '') && (array_key_exists('/' . $this->request->getPath(0), $this->controllers))) {
-            $route = '/' . $this->request->getPath(0);
-
-            // If the route has multiple options
-            if (is_array($this->controllers[$route])) {
-                if (($this->request->getPath(1) != '') && (array_key_exists('/' . $this->request->getPath(1), $this->controllers[$route]))) {
-                    $this->controllerClass = $this->controllers[$route]['/' . $this->request->getPath(1)];
-                } else if (isset($this->controllers[$route]['/'])){
-                    $this->controllerClass = $this->controllers[$route]['/'];
-                }
-            // Else, use the defined route
-            } else {
-                $this->controllerClass = $this->controllers[$route];
-            }
-        // Else, use the default route
-        } else if (array_key_exists('/', $this->controllers)) {
-            $this->controllerClass = $this->controllers['/'];
+        if ($this->request->getPath(0) != '') {
+            $this->controllerClass = $this->traverseControllers($this->controllers);
+        } else {
+            $this->controllerClass = (isset($this->controllers['/'])) ? $this->controllers['/'] : null;
         }
 
         // If found, create the controller object
@@ -211,6 +197,35 @@ class Router
         // Else, trigger any route error events
         } else {
             $this->project->getEventManager()->trigger('route.error', array('router' => $this));
+        }
+    }
+
+    /**
+     * Traverse the controllers based on the path
+     *
+     * @param  array $controllers
+     * @param  int $depth
+     * @return string
+     */
+    protected function traverseControllers($controllers, $depth = 0)
+    {
+        $next = $depth + 1;
+
+        // If the path stem exists in the controllers, the traverse it
+        if (($this->request->getPath($depth) != '') && (array_key_exists('/' . $this->request->getPath($depth), $controllers))) {
+            if (is_array($controllers['/' . $this->request->getPath($depth)])) {
+                return $this->traverseControllers($controllers['/' . $this->request->getPath($depth)], $next);
+            } else {
+                return (isset($controllers['/' . $this->request->getPath($depth)])) ?
+                    $controllers['/' . $this->request->getPath($depth)] : null;
+            }
+        // Else check for the root '/' path
+        } else if (array_key_exists('/', $controllers)) {
+            if (is_array($controllers['/'])) {
+                return $this->traverseControllers($controllers['/'], $next);
+            } else {
+                return (isset($controllers['/'])) ? $controllers['/'] : null;
+            }
         }
     }
 
