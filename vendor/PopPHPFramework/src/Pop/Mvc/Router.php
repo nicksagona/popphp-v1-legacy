@@ -59,6 +59,12 @@ class Router
     protected $controllers = array();
 
     /**
+     * Base path URI
+     * @var string
+     */
+    protected $basePath = null;
+
+    /**
      * Constructor
      *
      * Instantiate the router object
@@ -175,28 +181,46 @@ class Router
     }
 
     /**
-     * Route to the controller
+     * Route to the correct controller
      *
      * @param  \Pop\Project\Project $project
      * @return void
      */
     public function route(\Pop\Project\Project $project = null)
     {
-        $this->project = $project;
+        if (null !== $project) {
+            $this->project = $project;
+        }
 
+        // If the request isn't root '/', traverse the URI path
         if ($this->request->getPath(0) != '') {
             $this->controllerClass = $this->traverseControllers($this->controllers);
+        // Else, use root '/'
         } else {
             $this->controllerClass = (isset($this->controllers['/'])) ? $this->controllers['/'] : null;
         }
 
         // If found, create the controller object
         if ((null !== $this->controllerClass) && class_exists($this->controllerClass)) {
-            $this->controller = new $this->controllerClass(null, null, $project);
-            $this->project->getEventManager()->trigger('route', array('router' => $this));
+            // Push the real base path and URI into the request object
+            $realBasePath = $this->request->getBasePath() . $this->basePath;
+            $realUri = substr($this->request->getFullUri(), strlen($this->request->getBasePath() . $this->basePath));
+
+            // Create the controller object
+            $this->controller = new $this->controllerClass(
+                $this->request->setRequestUri($realUri, $realBasePath),
+                null,
+                $this->project
+            );
+            // Trigger any route events
+            if (null !== $this->project) {
+                $this->project->getEventManager()->trigger('route', array('router' => $this));
+            }
         // Else, trigger any route error events
         } else {
-            $this->project->getEventManager()->trigger('route.error', array('router' => $this));
+            if (null !== $this->project) {
+                $this->project->getEventManager()->trigger('route.error', array('router' => $this));
+            }
         }
     }
 
@@ -212,17 +236,24 @@ class Router
         $next = $depth + 1;
 
         // If the path stem exists in the controllers, the traverse it
-        if (($this->request->getPath($depth) != '') && (array_key_exists('/' . $this->request->getPath($depth), $controllers))) {
+        if (($this->request->getPath($depth) != '') &&
+            (array_key_exists('/' . $this->request->getPath($depth), $controllers))) {
+            $this->basePath .= '/' . $this->request->getPath($depth);
+            // If the next level is an array, traverse it
             if (is_array($controllers['/' . $this->request->getPath($depth)])) {
                 return $this->traverseControllers($controllers['/' . $this->request->getPath($depth)], $next);
+            // Else, return the controller class name
             } else {
                 return (isset($controllers['/' . $this->request->getPath($depth)])) ?
                     $controllers['/' . $this->request->getPath($depth)] : null;
             }
         // Else check for the root '/' path
         } else if (array_key_exists('/', $controllers)) {
+            $this->basePath .= '/';
+            // If the next level is an array, traverse it
             if (is_array($controllers['/'])) {
                 return $this->traverseControllers($controllers['/'], $next);
+            // Else, return the controller class name
             } else {
                 return (isset($controllers['/'])) ? $controllers['/'] : null;
             }
