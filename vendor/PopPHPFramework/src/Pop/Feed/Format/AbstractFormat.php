@@ -84,6 +84,12 @@ abstract class AbstractFormat
     protected $source = null;
 
     /**
+     * Feed options
+     * @var mixed
+     */
+    protected $options = null;
+
+    /**
      * Method to parse a feed object
      *
      * @param  mixed $options
@@ -93,6 +99,7 @@ abstract class AbstractFormat
      */
     public function __construct($options, $limit = 0)
     {
+        $this->options = $options;
         $this->limit = $limit;
 
         // Check is a valid URL was passed
@@ -222,6 +229,16 @@ abstract class AbstractFormat
     public function getFeed()
     {
         return $this->feed;
+    }
+
+    /**
+     * Method to get the feed options
+     *
+     * @return mixed
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 
     /**

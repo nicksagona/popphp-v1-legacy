@@ -87,6 +87,8 @@ class Facebook extends \Pop\Feed\Format\Rss
                 foreach ($json as $key => $value) {
                     $this->feed[$key] = $value;
                 }
+            } else if (isset($this->options['name'])) {
+                $this->feed['username'] = $this->options['name'];
             }
         }
 
