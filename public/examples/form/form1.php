@@ -13,7 +13,8 @@ try {
             'value'      => 'Username here...',
             'label'      => 'Username:',
             'required'   => true,
-            'attributes' => array('size', 40)
+            'attributes' => array('size', 40),
+            'validators' => array(new Validator\AlphaNumeric(), new Validator\LengthLt(6))
         ),
         array(
             'type'       => 'text',

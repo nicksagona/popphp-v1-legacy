@@ -34,7 +34,7 @@ try {
 
     $checkbox = new Checkbox('colors', array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'));
     $checkbox->setLabel('Colors:')
-          ->setRequired(true);
+             ->setRequired(true);
 
     $radio = new Radio('answer', array('Yes' => 'Yes', 'No' => 'No', 'Maybe' => 'Maybe'));
     $radio->setLabel('Answer:')
