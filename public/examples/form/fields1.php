@@ -22,10 +22,13 @@ try {
 
     Users::setDb($db);
 
-    $attribs = array('text' => array('size', 40));
+    $attribs = array(
+        'text' => array('size' => 40),
+        'textarea' => array('rows' => 5, 'cols' => 40)
+    );
     $values = array('id' => array('type' => 'hidden'));
 
-    $fields = Fields::factory(Users::getTableInfo(), null, $values, 'access');
+    $fields = Fields::factory(Users::getTableInfo(), $attribs, $values, 'access');
 
     $fields->addFields(array(
         'type'  => 'submit',

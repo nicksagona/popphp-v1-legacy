@@ -70,13 +70,7 @@ class Form extends \Pop\Dom\Dom
      * Global Form error display format
      * @var array
      */
-    protected $errorDisplay = array(
-        'container'  => 'div',
-        'attributes' => array(
-            'class' => 'error'
-        ),
-        'pre' => false
-    );
+    protected $errorDisplay = null;
 
     /**
      * Constructor
@@ -190,6 +184,26 @@ class Form extends \Pop\Dom\Dom
                     $expire = (isset($field['expire'])) ? $field['expire'] : 300;
                     $captcha = (isset($field['captcha'])) ? $field['captcha'] : null;
 
+                    if (isset($field['error'])) {
+                        $error = array(
+                            'container'  => 'div',
+                            'attributes' => array(
+                                'class' => 'error'
+                            ),
+                            'pre' => false
+                        );
+                        foreach ($field['error'] as $key => $value) {
+                            if ($key != 'pre') {
+                                $error['container'] = $key;
+                                $error['attributes'] = $value;
+                            } else if ($key == 'pre') {
+                                $error['pre'] = $value;
+                            }
+                        }
+                    } else {
+                        $error = null;
+                    }
+
                     if ((null !== $values) && array_key_exists($name, $values)) {
                         if (($type == 'checkbox') || ($type == 'radio') || ($type == 'select')) {
                             $value = (isset($field['value'])) ? $field['value'] : null;
@@ -236,18 +250,15 @@ class Form extends \Pop\Dom\Dom
                         $elem->setRequired($required);
                     }
 
+                    // Set if error display.
+                    if (null !== $error) {
+                        $elem->setErrorDisplay($error['container'], $error['attributes'], $error['pre']);
+                    }
+
                     // Set any attributes.
                     if (null !== $attributes) {
-                        if (is_array($attributes)) {
-                            if ((count($attributes) == 2) && !is_array($attributes[0]) && !is_array($attributes[1])) {
-                                $elem->setAttributes($attributes[0], $attributes[1]);
-                            } else {
-                                foreach ($attributes as $att) {
-                                    if (isset($att[0]) && isset($att[1])) {
-                                        $elem->setAttributes($att[0], $att[1]);
-                                    }
-                                }
-                            }
+                        foreach ($attributes as $a => $v) {
+                            $elem->setAttributes($a, $v);
                         }
                     }
 
@@ -313,11 +324,13 @@ class Form extends \Pop\Dom\Dom
             }
         }
 
-        $this->setErrorDisplay(
-            $this->errorDisplay['container'],
-            $this->errorDisplay['attributes'],
-            $this->errorDisplay['pre']
-        );
+        if (null !== $this->errorDisplay) {
+            $this->setErrorDisplay(
+                $this->errorDisplay['container'],
+                $this->errorDisplay['attributes'],
+                $this->errorDisplay['pre']
+            );
+        }
 
         return $this;
     }
@@ -593,30 +606,6 @@ class Form extends \Pop\Dom\Dom
     }
 
     /**
-     * Set global error pre-display
-     *
-     * @param  boolean $pre
-     * @return \Pop\Form\Form
-     */
-    public function setErrorPre($pre = true)
-    {
-        $this->errorDisplay['pre'] = (boolean)$pre;
-        return $this;
-    }
-
-    /**
-     * Set global error post-display
-     *
-     * @param  boolean $post
-     * @return \Pop\Form\Form
-     */
-    public function setErrorPost($post = true)
-    {
-        $this->errorDisplay['pre'] = !((boolean)$post);
-        return $this;
-    }
-
-    /**
      * Set error pre-display globally across all form element objects
      *
      * @param  string  $container
@@ -626,12 +615,24 @@ class Form extends \Pop\Dom\Dom
      */
     public function setErrorDisplay($container, array $attribs, $pre = false)
     {
+        if (null === $this->errorDisplay) {
+            $this->errorDisplay = array(
+                'container'  => 'div',
+                'attributes' => array(
+                    'class' => 'error'
+                ),
+                'pre' => false
+            );
+        }
+
         foreach ($this->form->childNodes as $child) {
             $child->setErrorDisplay($container, $attribs, $pre);
         }
+
         $this->errorDisplay['container'] = $container;
         $this->errorDisplay['attributes'] = $attribs;
         $this->errorDisplay['pre'] = $pre;
+
         return $this;
     }
 

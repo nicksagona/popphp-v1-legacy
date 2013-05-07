@@ -133,7 +133,7 @@ class Fields
 
                 $fieldType = (stripos($key, 'password') !== false) ?
                     'password' :
-                    ((stripos($value['type'], 'text' !== false)) ? 'textarea' : 'text');
+                    ((stripos($value['type'], 'text') !== false) ? 'textarea' : 'text');
 
                 if ((null !== $values) && isset($values[$key])) {
                     if (isset($values[$key]['type'])) {

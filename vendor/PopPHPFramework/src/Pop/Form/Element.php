@@ -235,9 +235,18 @@ class Element extends Child
 
             // Input element
             default:
-                parent::__construct('input', null, null, false, $indent);
+                if ($type == 'button') {
+                    $nodeType = 'button';
+                    $type = 'submit';
+                } else {
+                    $nodeType = 'input';
+                }
+                parent::__construct($nodeType, null, null, false, $indent);
                 $this->setAttributes(array('type' => $type, 'name' => $name, 'id' => $name));
                 if (!is_array($value)) {
+                    if ($nodeType == 'button') {
+                        $this->nodeValue = $value;
+                    }
                     $this->setAttributes('value', $value);
                 }
                 $this->value = $value;
@@ -637,9 +646,6 @@ class Element extends Child
         $container = $this->errorDisplay['container'];
         $attribs = null;
         foreach ($this->errorDisplay['attributes'] as $a => $v) {
-            if (($a == 'class') && ($v != 'error')) {
-                $v .= ' error';
-            }
             $attribs .= ' ' . $a . '="' . $v . '"';
         }
 

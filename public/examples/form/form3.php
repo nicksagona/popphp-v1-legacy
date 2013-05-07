@@ -12,7 +12,7 @@ try {
             'name'       => 'username',
             'label'      => 'Username:',
             'required'   => true,
-            'attributes' => array('size', 40),
+            'attributes' => array('size' => 40),
             'validators' => new Validator\AlphaNumeric()
         ),
         array(
@@ -20,7 +20,7 @@ try {
             'name'       => 'password',
             'label'      => 'Password:',
             'required'   => true,
-            'attributes' => array('size', 40)
+            'attributes' => array('size' => 40)
         ),
         array(
             'type'       => 'csrf',

@@ -23,9 +23,9 @@ try {
     Users::setDb($db);
 
     $attribs = array(
-        'text'     => array('size', 40),
-        'password' => array('size', 20),
-        'textarea' => array(array('rows', 5), array('cols', 80))
+        'text'     => array('size' => 40),
+        'password' => array('size' => 20),
+        'textarea' => array('rows' => 5, 'cols' => 80)
     );
 
     $values = array(

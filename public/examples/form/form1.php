@@ -13,7 +13,7 @@ try {
             'value'      => 'Username here...',
             'label'      => 'Username:',
             'required'   => true,
-            'attributes' => array('size', 40),
+            'attributes' => array('size' => 40),
             'validators' => array(new Validator\AlphaNumeric(), new Validator\LengthLt(6))
         ),
         array(
@@ -21,7 +21,7 @@ try {
             'name'       => 'email',
             'label'      => 'Email:',
             'required'   => true,
-            'attributes' => array('size', 40),
+            'attributes' => array('size' => 40),
             'validators' => new Validator\Email()
         ),
         array(
@@ -29,7 +29,7 @@ try {
             'name'       => 'password',
             'label'      => 'Password:',
             'required'   => true,
-            'attributes' => array('size', 40),
+            'attributes' => array('size' => 40),
             'validators' => new Validator\LengthGt(6)
         ),
         array(
@@ -53,13 +53,13 @@ try {
             'label'      => 'Colors:',
             'value'      => array('--' => '--', 'Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'),
             'validators' => new Validator\Excluded('--'),
-            'attributes' => array('multiple', 'multiple')
+            'attributes' => array('multiple' => 'multiple')
         ),
         array(
             'type'       => 'submit',
             'name'       => 'submit',
             'value'      => 'SUBMIT',
-            'attributes' => array('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;')
+            'attributes' => array('style' => 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;')
         )
     );
 
