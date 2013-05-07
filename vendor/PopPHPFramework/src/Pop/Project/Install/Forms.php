@@ -94,7 +94,7 @@ class Forms
                                 $val = 'new Validator\\' . $value;
                             }
                             $construct->appendToBody("        '{$key}' => {$val}{$comma}");
-                        } else if (($key == 'value') || ($key == 'marked') || ($key == 'attributes')) {
+                        } else if (($key == 'value') || ($key == 'marked') || ($key == 'attributes') || ($key == 'error')) {
                             $val = var_export($value, true);
                             $val = str_replace(PHP_EOL, PHP_EOL . '        ', $val);
                             if (strpos($val, 'Select::') !== false) {
