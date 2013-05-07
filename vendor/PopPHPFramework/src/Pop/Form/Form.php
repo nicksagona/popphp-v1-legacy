@@ -837,9 +837,6 @@ class Form extends \Pop\Dom\Dom
                 $labelAttributes = $child->getLabelAttributes();
                 if (null !== $labelAttributes) {
                     foreach ($labelAttributes as $a => $v) {
-                        if (($a == 'class') && $child->isRequired()) {
-                            $v .= ' required';
-                        }
                         $label->setAttributes($a, $v);
                     }
                 } else if ($child->isRequired()) {
@@ -912,9 +909,6 @@ class Form extends \Pop\Dom\Dom
                 $labelAttributes = $child->getLabelAttributes();
                 if (null !== $labelAttributes) {
                     foreach ($labelAttributes as $a => $v) {
-                        if (($a == 'class') && $child->isRequired()) {
-                            $v .= ' required';
-                        }
                         $label->setAttributes($a, $v);
                     }
                 } else if ($child->isRequired()) {
@@ -990,7 +984,7 @@ class Form extends \Pop\Dom\Dom
 
     /**
      * Output the form object in a basic HTML format. Each form element is formatted to a 1:1 label to element
-     * ratio, using <dl>, <dt> and <dd> tags. Required fields' labels have class="required" and error messages
+     * ratio, using <dl>, <dt> and <dd> tags. Required fields' labels have class="" and error messages
      * have class="error" for styling purposes.
      *
      * @return string
