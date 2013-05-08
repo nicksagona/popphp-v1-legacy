@@ -547,7 +547,6 @@ class Form extends \Pop\Dom\Dom
             }
             if ($name == $elementName) {
                 $index = $i;
-                $elem = $e;
             }
         }
 
