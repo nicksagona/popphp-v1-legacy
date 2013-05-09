@@ -239,6 +239,26 @@ class File
     }
 
     /**
+     * Is dir object.
+     *
+     * @return boolean
+     */
+    public function isDir()
+    {
+        return false;
+    }
+
+    /**
+     * Is file object.
+     *
+     * @return boolean
+     */
+    public function isFile()
+    {
+        return true;
+    }
+
+    /**
      * Test if a certain file type is allowed.
      *
      * @param  string $type
@@ -577,14 +597,15 @@ class File
     /**
      * Copy the file object directly to another file on disk.
      *
-     * @param  string $new
+     * @param  string  $new
+     * @param  boolean $overwrite
      * @throws Exception
      * @return \Pop\File\File
      */
-    public function copy($new)
+    public function copy($new, $overwrite = false)
     {
         // Check to see if the new file already exists.
-        if (file_exists($new)) {
+        if (file_exists($new) && (!$overwrite)) {
             throw new Exception('Error: The file already exists.');
         }
 
@@ -602,13 +623,14 @@ class File
      * Move the file object directly to another location on disk.
      *
      * @param  string $new
+     * @param  boolean $overwrite
      * @throws Exception
      * @return \Pop\File\File
      */
-    public function move($new)
+    public function move($new, $overwrite = false)
     {
         // Check to see if the new file already exists.
-        if (file_exists($new)) {
+        if (file_exists($new) && (!$overwrite)) {
             throw new Exception('Error: The file already exists.');
         }
 
@@ -708,13 +730,20 @@ class File
         }
 
         $this->fullpath = $file;
-        $this->dir = $file_parts['dirname'] . '/';
+        $this->dir = $file_parts['dirname'];
         $this->basename = $file_parts['basename'];
         $this->filename = $file_parts['filename'];
         $this->ext = (isset($file_parts['extension'])) ? $file_parts['extension'] : null;
 
         // Check if the file exists, and set the size and permissions accordingly.
-        $this->size = (file_exists($file)) ? filesize($file) : 0;
+        if (file_exists($file)) {
+            if (is_dir($file)) {
+                throw new Exception('The file passed is a directory.');
+            }
+            $this->size = filesize($file);
+        } else {
+            $this->size = 0;
+        }
 
         // Check to see if the file is an accepted file format.
         if ((null !== $this->allowed) && (null !== $this->ext) && (count($this->allowed) > 0) && (!array_key_exists(strtolower($this->ext), $this->allowed))) {

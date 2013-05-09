@@ -41,6 +41,12 @@ class Dir
     protected $files = array();
 
     /**
+     * The file within the directory as objects
+     * @var array
+     */
+    protected $objects = array();
+
+    /**
      * Flag to store the full path.
      * @var boolean
      */
@@ -102,16 +108,20 @@ class Dir
                     // If full path flag was passed, store the full path.
                     if ($this->full) {
                         if ($this->dirs) {
-                            $this->files[] = ($fileInfo->isDir()) ? (realpath($fileInfo->getPathname())) : realpath($fileInfo->getPathname());
+                            $f = ($fileInfo->isDir()) ? (realpath($fileInfo->getPathname())) : realpath($fileInfo->getPathname());
                         } else if (!$fileInfo->isDir()) {
-                            $this->files[] = realpath($fileInfo->getPathname());
+                            $f = realpath($fileInfo->getPathname());
                         }
+                        $this->files[] = $f;
+                        $this->objects[] = $f;
                     // Else, store only the directory or file name.
                     } else {
                         if ($this->dirs) {
                             $this->files[] = ($fileInfo->isDir()) ? ($fileInfo->getFilename()) : $fileInfo->getFilename();
+                            $this->objects[] = ($fileInfo->isDir()) ? (realpath($fileInfo->getPathname())) : realpath($fileInfo->getPathname());
                         } else if (!$fileInfo->isDir()) {
                             $this->files[] = $fileInfo->getFilename();
+                            $this->objects[] = realpath($fileInfo->getPathname());
                         }
                     }
                 }
@@ -123,21 +133,45 @@ class Dir
                     // If full path flag was passed, store the full path.
                     if ($this->full) {
                         if ($this->dirs) {
-                            $this->files[] = ($fileInfo->isDir()) ? ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename() . DIRECTORY_SEPARATOR) : ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename());
+                            $f = ($fileInfo->isDir()) ? ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename() . DIRECTORY_SEPARATOR) : ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename());
                         } else if (!$fileInfo->isDir()) {
-                            $this->files[] = $this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
+                            $f = $this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
                         }
+                        $this->files[] = $f;
+                        $this->objects[] = $f;
                     // Else, store only the directory or file name.
                     } else {
                         if ($this->dirs) {
                             $this->files[] = ($fileInfo->isDir()) ? ($fileInfo->getFilename()) : $fileInfo->getFilename();
+                            $this->objects[] = ($fileInfo->isDir()) ? ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename() . DIRECTORY_SEPARATOR) : ($this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename());
                         } else if (!$fileInfo->isDir()) {
                             $this->files[] = $fileInfo->getFilename();
+                            $this->objects[] = $this->path . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
                         }
                     }
                 }
             }
         }
+    }
+
+    /**
+     * Is dir object.
+     *
+     * @return boolean
+     */
+    public function isDir()
+    {
+        return true;
+    }
+
+    /**
+     * Is file object.
+     *
+     * @return boolean
+     */
+    public function isFile()
+    {
+        return false;
     }
 
     /**
@@ -190,6 +224,24 @@ class Dir
     public function getFiles()
     {
         return $this->files;
+    }
+
+    /**
+     * Get the files as objects.
+     *
+     * @return array
+     */
+    public function getObjects()
+    {
+        $objects = array();
+
+        foreach ($this->objects as $object) {
+            $objects[] = (is_dir($object)) ? new self($object, true, true) : new File($object, array());
+        }
+
+        $this->objects = $objects;
+
+        return $this->objects;
     }
 
     /**
