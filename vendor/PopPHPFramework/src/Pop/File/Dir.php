@@ -41,7 +41,7 @@ class Dir
     protected $files = array();
 
     /**
-     * The file within the directory as objects
+     * The files within the directory as objects
      * @var array
      */
     protected $objects = array();
