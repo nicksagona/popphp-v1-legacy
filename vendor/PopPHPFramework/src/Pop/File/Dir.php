@@ -233,13 +233,15 @@ class Dir
      */
     public function getObjects()
     {
-        $objects = array();
+        if (isset($this->objects[0]) && is_string($this->objects[0])) {
+            $objects = array();
 
-        foreach ($this->objects as $object) {
-            $objects[] = (is_dir($object)) ? new self($object, true, true) : new File($object, array());
+            foreach ($this->objects as $object) {
+                $objects[] = (is_dir($object)) ? new self($object, true, true) : new File($object, array());
+            }
+
+            $this->objects = $objects;
         }
-
-        $this->objects = $objects;
 
         return $this->objects;
     }
