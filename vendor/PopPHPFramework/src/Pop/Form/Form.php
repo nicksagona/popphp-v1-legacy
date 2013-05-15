@@ -83,10 +83,10 @@ class Form extends \Pop\Dom\Dom
      * @param  string $indent
      * @return \Pop\Form\Form
      */
-    public function __construct($action, $method, array $fields = null, $indent = null)
+    public function __construct($action = null, $method = 'post', array $fields = null, $indent = null)
     {
         // Set the form's action and method.
-        $this->action = $action;
+        $this->action = (null !== $action) ? $action : $_SERVER['REQUEST_URI'];
         $this->method = $method;
 
         // Create the parent DOM element and the form child element.
@@ -110,7 +110,7 @@ class Form extends \Pop\Dom\Dom
      * @param  string $indent
      * @return \Pop\Form\Form
      */
-    public static function factory($action, $method, array $fields = null, $indent = null)
+    public static function factory($action = null, $method = 'post', array $fields = null, $indent = null)
     {
         return new self($action, $method, $fields, $indent);
     }
@@ -344,7 +344,9 @@ class Form extends \Pop\Dom\Dom
     public function setTemplate($tmpl)
     {
         if (file_exists($tmpl)) {
-            $this->template = file_get_contents($tmpl);
+            $this->template = ((stripos($tmpl, '.phtml') === false) && (stripos($tmpl, '.php') === false)) ?
+                file_get_contents($tmpl) :
+                $tmpl;
         } else {
             $this->template = $tmpl;
         }
@@ -877,6 +879,9 @@ class Form extends \Pop\Dom\Dom
     protected function renderWithTemplate()
     {
         // Initialize properties and variables.
+        $isFile = !((stripos($this->template, '.phtml') === false) && (stripos($this->template, '.php') === false));
+        $template = $this->template;
+        $fileContents = ($isFile) ? file_get_contents($this->template) : null;
         $this->output = null;
         $children = $this->form->getChildren();
 
@@ -917,19 +922,25 @@ class Form extends \Pop\Dom\Dom
                 // Swap the element's label placeholder with the rendered label element.
                 $labelSearch = '[{' . $name . '_label}]';
                 $labelReplace = $label->render(true);
-                $this->template = str_replace($labelSearch, substr($labelReplace, 0, -1), $this->template);
+                $labelReplace = substr($labelReplace, 0, -1);
+                $template = str_replace($labelSearch, $labelReplace, $template);
+                ${$name . '_label'} = $labelReplace . PHP_EOL;
             }
 
             // Calculate the element's indentation.
-            $indent = null;
-            $childIndent = substr($this->template, 0, strpos($this->template, ('[{' . $name . '}]')));
-            $childIndent = substr($childIndent, (strrpos($childIndent, "\n") + 1));
+            if (null === $fileContents) {
+                $childIndent = substr($template, 0, strpos($template, ('[{' . $name . '}]')));
+                $childIndent = substr($childIndent, (strrpos($childIndent, "\n") + 1));
+            } else {
+                $childIndent = substr($fileContents, 0, strpos($fileContents, ('$' . $name)));
+                $childIndent = substr($childIndent, (strrpos($childIndent, "\n") + 1));
+            }
 
             $matches = array();
             preg_match_all('/[^\s]/', $childIndent, $matches);
             if (isset($matches[0])) {
                 foreach ($matches[0] as $str) {
-                    $childIndent = str_replace($str, ' ', $childIndent);
+                    $childIndent = str_replace($str, null, $childIndent);
                 }
             }
 
@@ -943,17 +954,26 @@ class Form extends \Pop\Dom\Dom
 
             // Swap the element's placeholder with the rendered element.
             $elementSearch = '[{' . $name . '}]';
-            $elementReplace = $child->render(true, 0, $indent, $childIndent);
+            $elementReplace = $child->render(true, 0, null, $childIndent);
             $elementReplace = substr($elementReplace, 0, -1);
             $elementReplace = str_replace('</select>', $childIndent . '</select>', $elementReplace);
             $elementReplace = str_replace('</fieldset>', $childIndent . '</fieldset>', $elementReplace);
-            $this->template = str_replace($elementSearch, $elementReplace, $this->template);
+            $template = str_replace($elementSearch, $elementReplace, $template);
+            ${$name} = $elementReplace . PHP_EOL;
         }
 
         // Set the rendered form content and remove the children.
-        $this->form->setNodeValue("\n" . $this->template . "\n" . $this->form->getIndent());
-        $this->form->removeChildren();
-        $this->output = $this->form->render(true);
+        if (!$isFile) {
+            $this->form->setNodeValue("\n" . $template . "\n" . $this->form->getIndent());
+            $this->form->removeChildren();
+            $this->output = $this->form->render(true);
+        } else {
+            $action = $this->action;
+            $method = $this->method;
+            ob_start();
+            include $this->template;
+            $this->output = ob_get_clean();
+        }
     }
 
     /**

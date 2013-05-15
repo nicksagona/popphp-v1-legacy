@@ -67,9 +67,7 @@ class View
             if (((substr($template, -6) == '.phtml') ||
                  (substr($template, -5) == '.php3') ||
                  (substr($template, -4) == '.php')) && (file_exists($template))) {
-
                 $this->templateFile = $template;
-
             } else {
                 $this->templateString = $template;
             }

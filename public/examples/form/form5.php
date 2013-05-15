@@ -64,7 +64,7 @@ try {
     );
 
     $form = new Form($_SERVER['PHP_SELF'], 'post', $fields, '    ');
-    $form->setTemplate('form.html');
+    $form->setTemplate('form.phtml');
 
     if ($_POST) {
         $form->setFieldValues($_POST, array('strip_tags', 'htmlentities'), array(null, array(ENT_QUOTES, 'UTF-8')));
