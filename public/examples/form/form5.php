@@ -7,57 +7,50 @@ use Pop\Validator;
 
 try {
     $fields = array(
-        array(
+        'username' => array(
             'type'       => 'text',
-            'name'       => 'username',
             'value'      => 'Username here...',
             'label'      => 'Username:',
             'required'   => true,
             'attributes' => array('size' => 40),
             'validators' => array(new Validator\AlphaNumeric(), new Validator\LengthLt(6))
         ),
-        array(
+        'email' => array(
             'type'       => 'text',
-            'name'       => 'email',
             'label'      => 'Email:',
             'required'   => true,
             'attributes' => array('size' => 40),
             'validators' => new Validator\Email()
         ),
-        array(
+        'password' => array(
             'type'       => 'password',
-            'name'       => 'password',
             'label'      => 'Password:',
             'required'   => true,
             'attributes' => array('size' => 40),
             'validators' => new Validator\LengthGt(6)
         ),
-        array(
+        'checkbox_colors' => array(
             'type'       => 'checkbox',
-            'name'       => 'checkbox_colors',
             'label'      => 'Colors:',
             'required'   => true,
             'value'      => array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'),
             'validators' => new Validator\Included(array('Red', 'Green'))
         ),
-        array(
+        'radio_colors' => array(
             'type'       => 'radio',
-            'name'       => 'radio_colors',
             'label'      => 'Colors:',
             'required'   => true,
             'value'      => array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue')
         ),
-        array(
+        'select_colors' => array(
             'type'       => 'select',
-            'name'       => 'select_colors',
             'label'      => 'Colors:',
             'value'      => array('--' => '--', 'Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'),
             'validators' => new Validator\Excluded('--'),
             'attributes' => array('multiple' => 'multiple')
         ),
-        array(
+        'submit' => array(
             'type'       => 'submit',
-            'name'       => 'submit',
             'value'      => 'SUBMIT',
             'attributes' => array('style' => 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;')
         )

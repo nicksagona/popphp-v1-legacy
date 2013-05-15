@@ -7,31 +7,27 @@ use Pop\Validator;
 
 try {
     $fields = array(
-        array(
+        'username' => array(
             'type'       => 'text',
-            'name'       => 'username',
             'label'      => 'Username:',
             'required'   => true,
             'attributes' => array('size' => 40),
             'validators' => new Validator\AlphaNumeric()
         ),
-        array(
+        'password' => array(
             'type'       => 'password',
-            'name'       => 'password',
             'label'      => 'Password:',
             'required'   => true,
             'attributes' => array('size' => 40)
         ),
-        array(
+        'my_captcha' => array(
             'type'       => 'captcha',
-            'name'       => 'my_captcha',
             'label'      => 'Please Solve: ',
             'attributes' => array('size' => 10),
             'expire'     => 120
         ),
-        array(
+        'submit' => array(
             'type'       => 'submit',
-            'name'       => 'submit',
             'value'      => 'SUBMIT'
         )
     );

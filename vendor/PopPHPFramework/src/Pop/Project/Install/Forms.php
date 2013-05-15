@@ -72,12 +72,12 @@ class Forms
             );
 
             // Create the init values array within the constructor
-            if (isset($form['fields'])) {
+            if (is_array($form) && (count($form) > 0)) {
                 $construct->appendToBody("\$this->initFieldsValues = array (");
                 $i = 0;
-                foreach ($form['fields'] as $field) {
+                foreach ($form as $name => $field) {
                     $i++;
-                    $construct->appendToBody("    array (");
+                    $construct->appendToBody("    '" . $name . "' => array (");
                     $j = 0;
                     foreach ($field as $key => $value) {
                         $j++;

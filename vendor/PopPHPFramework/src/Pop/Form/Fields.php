@@ -77,21 +77,9 @@ class Fields
      * @param  array $fields
      * @return \Pop\Form\Fields
      */
-    public function addFields($fields)
+    public function addFields(array $fields)
     {
-        $isArray = true;
-        foreach ($fields as $key => $value) {
-            if (!is_array($value)) {
-                $isArray = false;
-            }
-        }
-
-        if (!$isArray) {
-            $fields = array($fields);
-        }
-
         $this->fields = array_merge($this->fields, $fields);
-
         return $this;
     }
 
@@ -163,9 +151,8 @@ class Fields
                     $validators = new \Pop\Validator\Email();
                 }
 
-                $this->fields[] = array(
+                $this->fields[$fieldName] = array(
                     'type'       => $fieldType,
-                    'name'       => $fieldName,
                     'label'      => $fieldLabel,
                     'value'      => $fieldValue,
                     'required'   => $required,

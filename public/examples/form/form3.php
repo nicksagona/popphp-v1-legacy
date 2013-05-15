@@ -7,30 +7,26 @@ use Pop\Validator;
 
 try {
     $fields = array(
-        array(
+        'username' => array(
             'type'       => 'text',
-            'name'       => 'username',
             'label'      => 'Username:',
             'required'   => true,
             'attributes' => array('size' => 40),
             'validators' => new Validator\AlphaNumeric()
         ),
-        array(
+        'password' => array(
             'type'       => 'password',
-            'name'       => 'password',
             'label'      => 'Password:',
             'required'   => true,
             'attributes' => array('size' => 40)
         ),
-        array(
+        'my_csrf_token' => array(
             'type'       => 'csrf',
-            'name'       => 'my_csrf_token',
             'value'      => 'security',
             'expire'     => 120
         ),
-        array(
+        'submit' => array(
             'type'       => 'submit',
-            'name'       => 'submit',
             'value'      => 'SUBMIT'
         )
     );

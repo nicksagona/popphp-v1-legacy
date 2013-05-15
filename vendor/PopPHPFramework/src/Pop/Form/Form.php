@@ -123,19 +123,9 @@ class Form extends \Pop\Dom\Dom
      */
     public function setFields(array $fields)
     {
-        $isArray = true;
-        foreach ($fields as $value) {
-            if (!is_array($value)) {
-                $isArray = false;
-            }
-        }
-
-        if (!$isArray) {
-            $fields = array($fields);
-        }
-
-        foreach ($fields as $value) {
-            $this->fields[$value['name']] = (isset($value['value'])) ? $value['value'] : null;
+        foreach ($fields as $name => $value) {
+            $fields[$name]['name'] = $name;
+            $this->fields[$name] = (isset($value['value'])) ? $value['value'] : null;
         }
 
         $this->initFieldsValues = (count($this->initFieldsValues) > 0) ? array_merge($this->initFieldsValues, $fields) : $fields;
@@ -172,11 +162,10 @@ class Form extends \Pop\Dom\Dom
 
         // Loop through the initial fields values and build the fields
         // based on the _initFieldsValues property.
-        if (isset($this->initFieldsValues[0])) {
-            foreach ($this->initFieldsValues as $field) {
-                if (is_array($field) && isset($field['type']) && isset($field['name'])) {
+        if (count($this->initFieldsValues) > 0) {
+            foreach ($this->initFieldsValues as $name => $field) {
+                if (is_array($field) && isset($field['type'])) {
                     $type = $field['type'];
-                    $name = $field['name'];
                     $label = (isset($field['label'])) ? $field['label'] : null;
                     $required = (isset($field['required'])) ? $field['required'] : null;
                     $attributes = (isset($field['attributes'])) ? $field['attributes'] : null;
@@ -566,8 +555,8 @@ class Form extends \Pop\Dom\Dom
         $i = $this->getElementIndex($elementName);
 
         $newInitValues = array();
-        foreach ($this->initFieldsValues as $key => $field) {
-            if (isset($field['name']) && ($field['name'] == $elementName)) {
+        foreach ($this->initFieldsValues as $name => $field) {
+            if (isset($name) && ($name == $elementName)) {
                 unset($this->initFieldsValues[$key]);
             } else {
                 $newInitValues[] = $field;
@@ -900,6 +889,7 @@ class Form extends \Pop\Dom\Dom
             } else {
                 $attribs = $child->getAttributes();
             }
+
             $name = (isset($attribs['name'])) ? $attribs['name'] : '';
             $name = str_replace('[]', '', $name);
 
@@ -924,7 +914,7 @@ class Form extends \Pop\Dom\Dom
                 $labelReplace = $label->render(true);
                 $labelReplace = substr($labelReplace, 0, -1);
                 $template = str_replace($labelSearch, $labelReplace, $template);
-                ${$name . '_label'} = $labelReplace . PHP_EOL;
+                ${$name . '_label'} = $labelReplace;
             }
 
             // Calculate the element's indentation.
@@ -959,7 +949,7 @@ class Form extends \Pop\Dom\Dom
             $elementReplace = str_replace('</select>', $childIndent . '</select>', $elementReplace);
             $elementReplace = str_replace('</fieldset>', $childIndent . '</fieldset>', $elementReplace);
             $template = str_replace($elementSearch, $elementReplace, $template);
-            ${$name} = $elementReplace . PHP_EOL;
+            ${$name} = $elementReplace;
         }
 
         // Set the rendered form content and remove the children.
@@ -970,6 +960,7 @@ class Form extends \Pop\Dom\Dom
         } else {
             $action = $this->action;
             $method = $this->method;
+
             ob_start();
             include $this->template;
             $this->output = ob_get_clean();
