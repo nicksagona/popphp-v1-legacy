@@ -557,9 +557,9 @@ class Form extends \Pop\Dom\Dom
         $newInitValues = array();
         foreach ($this->initFieldsValues as $name => $field) {
             if (isset($name) && ($name == $elementName)) {
-                unset($this->initFieldsValues[$key]);
+                unset($this->initFieldsValues[$name]);
             } else {
-                $newInitValues[] = $field;
+                $newInitValues[$name] = $field;
             }
         }
         $this->initFieldsValues = $newInitValues;
@@ -643,12 +643,8 @@ class Form extends \Pop\Dom\Dom
     }
 
     /**
-     * Render the form object either using the defined template or by a basic
-     * 1:1 DT/DD tag structure. The template should use a simple search and
-     * replace format that contains [{element}] and/or [{element_label}] for
-     * the placeholders that will be swapped out. Required fields' labels have
-     * have class="required" and error messages have class="error" for
-     * styling purposes.
+     * Render the form object either using the defined template or
+     * by a basic 1:1 DT/DD tag structure.
      *
      * @param  boolean $ret
      * @throws Exception
@@ -780,7 +776,7 @@ class Form extends \Pop\Dom\Dom
     }
 
     /**
-     * Method to render the form using a basic 1:1 DD/DL layout
+     * Method to render the form using a basic 1:1 DT/DD layout
      *
      * @return void
      */
@@ -926,12 +922,21 @@ class Form extends \Pop\Dom\Dom
                 $childIndent = substr($childIndent, (strrpos($childIndent, "\n") + 1));
             }
 
+            // Some whitespace clean up
+            $length = strlen($childIndent);
+            $last = 0;
             $matches = array();
-            preg_match_all('/[^\s]/', $childIndent, $matches);
+            preg_match_all('/[^\s]/', $childIndent, $matches, PREG_OFFSET_CAPTURE);
             if (isset($matches[0])) {
                 foreach ($matches[0] as $str) {
-                    $childIndent = str_replace($str, null, $childIndent);
+                    $childIndent = str_replace($str[0], null, $childIndent);
+                    $last = $str[1];
                 }
+            }
+
+            // Final whitespace clean up
+            if (null !== $fileContents) {
+                $childIndent = substr($childIndent, 0, (0 - abs($length - $last)));
             }
 
             // Set each child element's indentation.
@@ -993,9 +998,29 @@ class Form extends \Pop\Dom\Dom
     }
 
     /**
-     * Output the form object in a basic HTML format. Each form element is formatted to a 1:1 label to element
-     * ratio, using <dl>, <dt> and <dd> tags. Required fields' labels have class="" and error messages
-     * have class="error" for styling purposes.
+     * Return the isset value of fields[$name].
+     *
+     * @param  string $name
+     * @return boolean
+     */
+    public function __isset($name)
+    {
+        return isset($this->fields[$name]);
+    }
+
+    /**
+     * Unset fields[$name].
+     *
+     * @param  string $name
+     * @return void
+     */
+    public function __unset($name)
+    {
+        $this->fields[$name] = null;
+    }
+
+    /**
+     * Output the form object as a string
      *
      * @return string
      */

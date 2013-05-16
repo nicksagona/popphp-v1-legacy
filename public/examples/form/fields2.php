@@ -41,10 +41,11 @@ try {
     $fields = Fields::factory(Users::getTableInfo(), $attribs, $values, array('access'));
 
     $fields->addFields(array(
-        'type'  => 'submit',
-        'name'  => 'submit',
-        'label' => '&nbsp;',
-        'value' => 'SUBMIT',
+        'submit' => array(
+            'type'  => 'submit',
+            'label' => '&nbsp;',
+            'value' => 'SUBMIT'
+        )
     ));
 
     $form = new User($_SERVER['REQUEST_URI'], 'post', $fields->getFields());
