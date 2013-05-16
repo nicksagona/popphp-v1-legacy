@@ -12,13 +12,30 @@ use Pop\Validator;
 
 try {
 
+    class MyValidator
+    {
+        public function validate($value)
+        {
+            if (strlen($value) < 6) {
+                return 'The password value must be greater than or equal to 6';
+            }
+        }
+    }
+
     $form = new Form($_SERVER['PHP_SELF'], 'post', null, '    ');
 
     $username = new Element('text', 'username', 'Username here...');
     $username->setLabel('Username:')
              ->setRequired(true)
              ->setAttributes('size', 40)
-             ->addValidator(new Validator\AlphaNumeric());
+             ->addValidator(new Validator\AlphaNumeric())
+             ->addValidator(
+                 function ($value) {
+                     if (strlen($value) < 6) {
+                         return 'The username value must be greater than or equal to 6.';
+                     }
+                 }
+             );
 
     $email = new Element('text', 'email');
     $email->setLabel('Email:')
@@ -30,7 +47,7 @@ try {
     $password->setLabel('Password:')
              ->setRequired(true)
              ->setAttributes('size', 40)
-             ->addValidator(new Validator\LengthGt(6));
+             ->addValidator(array(new MyValidator(), 'validate'));
 
     $checkbox = new Checkbox('colors', array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'));
     $checkbox->setLabel('Colors:')

@@ -568,10 +568,10 @@ class Element extends Child
     /**
      * Add a validator the form element object.
      *
-     * @param  \Pop\Validator\ValidatorInterface $validator
+     * @param  mixed $validator
      * @return \Pop\Form\Element
      */
-    public function addValidator(Validator\ValidatorInterface $validator)
+    public function addValidator($validator)
     {
         $this->validators[] = $validator;
         return $this;
@@ -604,7 +604,6 @@ class Element extends Child
         // Check the element's validators.
         if (isset($this->validators[0])) {
             foreach ($this->validators as $validator) {
-                //$curElemValue = (is_array($this->value)) ? $this->marked : $this->value;
                 if (is_array($this->value)) {
                     $curElemValue = $this->marked;
                 } else if (isset($_FILES[$this->name]['name'])) {
@@ -613,13 +612,22 @@ class Element extends Child
                     $curElemValue = $this->value;
                 }
 
-                if ('Pop\Validator\NotEmpty' == get_class($validator)) {
-                    if (!$validator->evaluate($curElemValue)) {
-                        $this->errors[] = $validator->getMessage();
+                // If Pop\Validator\*
+                if ($validator instanceof \Pop\Validator\ValidatorInterface) {
+                    if ('Pop\Validator\NotEmpty' == get_class($validator)) {
+                        if (!$validator->evaluate($curElemValue)) {
+                            $this->errors[] = $validator->getMessage();
+                        }
+                    } else {
+                        if (!empty($curElemValue) && !$validator->evaluate($curElemValue)) {
+                            $this->errors[] = $validator->getMessage();
+                        }
                     }
+                // Else, if callable
                 } else {
-                    if (!empty($curElemValue) && !$validator->evaluate($curElemValue)) {
-                        $this->errors[] = $validator->getMessage();
+                    $result = call_user_func_array($validator, array($curElemValue));
+                    if (null !== $result) {
+                        $this->errors[] = $result;
                     }
                 }
             }

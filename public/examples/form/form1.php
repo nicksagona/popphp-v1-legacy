@@ -13,7 +13,14 @@ try {
             'label'      => 'Username:',
             'required'   => true,
             'attributes' => array('size' => 40),
-            'validators' => array(new Validator\AlphaNumeric(), new Validator\LengthLt(6))
+            'validators' => array(
+                new Validator\AlphaNumeric(),
+                function ($value) {
+                    if (strlen($value) < 6) {
+                        return 'The username value must be greater than or equal to 6.';
+                    }
+                }
+            )
         ),
         'email' => array(
             'type'       => 'text',
@@ -27,7 +34,11 @@ try {
             'label'      => 'Password:',
             'required'   => true,
             'attributes' => array('size' => 40),
-            'validators' => new Validator\LengthGt(6)
+            'validators' => function ($value) {
+                if (strlen($value) < 6) {
+                    return 'The password value must be greater than or equal to 6!';
+                }
+            }
         ),
         'checkbox_colors' => array(
             'type'       => 'checkbox',
