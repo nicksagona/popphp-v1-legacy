@@ -107,13 +107,16 @@ class Dir
                 if (($fileInfo->getFilename() != '.') && ($fileInfo->getFilename() != '..')) {
                     // If full path flag was passed, store the full path.
                     if ($this->full) {
+                        $f = null;
                         if ($this->dirs) {
                             $f = ($fileInfo->isDir()) ? (realpath($fileInfo->getPathname())) : realpath($fileInfo->getPathname());
                         } else if (!$fileInfo->isDir()) {
                             $f = realpath($fileInfo->getPathname());
                         }
-                        $this->files[] = $f;
-                        $this->objects[] = $f;
+                        if (null !== $f) {
+                            $this->files[] = $f;
+                            $this->objects[] = $f;
+                        }
                     // Else, store only the directory or file name.
                     } else {
                         if ($this->dirs) {

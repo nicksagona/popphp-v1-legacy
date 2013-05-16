@@ -118,7 +118,7 @@ class Zip implements ArchiveInterface
             foreach ($files as $key => $value) {
                 if (is_dir($value)) {
                     $dir = new Dir($value, true, true, false);
-                    $allFiles = array_merge($allFiles, $this->filterDirFiles($dir->getFiles(), $value));
+                    $allFiles = array_merge($allFiles, $this->filterDirFiles($dir->getFiles(), realpath($value)));
                     unset($files[$key]);
                 } else {
                     $allFiles = array_merge($allFiles, $this->filterDirFiles(array(realpath($value)), dirname($value)));
@@ -231,6 +231,7 @@ class Zip implements ArchiveInterface
      */
     protected function filterDirFiles($dirFiles, $dir)
     {
+
         if (strpos($dir, '../') !== false) {
             $origDir = substr($dir, strpos($dir, '../'));
             $dir = realpath($dir);
@@ -247,11 +248,22 @@ class Zip implements ArchiveInterface
         $dir = str_replace($search, $replace, $dir);
         $files = array();
 
+        echo PHP_EOL . 'DIR: ' . $dir . PHP_EOL;
+        echo 'ORIG: ' . $origDir . PHP_EOL;
+
         foreach ($dirFiles as $file) {
             $f = str_replace('\\', '/', substr($file, strpos($file, $dir)));
-            $files[] = str_replace($dir, $origDir, $f);
+            if ($dir == $origDir) {
+                $sub = '.' . substr($dir, strrpos($dir, '/'));
+                $f = $sub . str_replace($dir, '', $f);
+            } else {
+                $f = str_replace($dir, $origDir, $f);
+            }
+            if (!empty($f)) {
+                $files[] = $f;
+            }
         }
-
+print_r($files);
         return $files;
     }
 

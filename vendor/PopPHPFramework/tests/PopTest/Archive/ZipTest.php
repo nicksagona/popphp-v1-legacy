@@ -44,6 +44,8 @@ class ZipTest extends \PHPUnit_Framework_TestCase
                 __DIR__ . '/TarTest.php',
                 __DIR__ . '/../../../../../public/examples/assets'
             ));
+
+            /*
             unset($a);
 
             $a = new Archive(__DIR__ . '/../tmp/test.zip');
@@ -87,10 +89,10 @@ class ZipTest extends \PHPUnit_Framework_TestCase
             $dir = new Dir(__DIR__ . '/../tmp/test');
             $dir->emptyDir();
             rmdir(__DIR__ . '/../tmp/test');
-
+*/
         }
     }
-
+/*
     public function testZipExtract()
     {
         if (class_exists('ZipArchive', false)) {
@@ -112,10 +114,10 @@ class ZipTest extends \PHPUnit_Framework_TestCase
             rmdir(__DIR__ . '/../tmp/test');
 
             if (file_exists(__DIR__ . '/../tmp/test.zip')) {
-                unlink(__DIR__ . '/../tmp/test.zip');
+                //unlink(__DIR__ . '/../tmp/test.zip');
             }
         }
     }
-
+*/
 }
 
