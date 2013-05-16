@@ -29,9 +29,9 @@ class VersionTest extends \PHPUnit_Framework_TestCase
 
     public function testVersion()
     {
-        $this->assertEquals('1.2.3', Version::getVersion());
-        $this->assertEquals('1.2.3', trim(Version::getLatest()));
-        $this->assertEquals(1, Version::compareVersion(1.3));
+        $this->assertEquals('1.3.0', Version::getVersion());
+        $this->assertEquals('1.3.0', trim(Version::getLatest()));
+        $this->assertEquals(1, Version::compareVersion(1.4));
     }
 
     public function testCheck()

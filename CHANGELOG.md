@@ -1,6 +1,19 @@
 Pop PHP Framework Changelog
 ===========================
 
+1.3.0 
+-----
+Released on May 17, 2013
+
+* Refactor the Form component
+    - Revise form fields PHP config pattern
+    - Better support for control over error display
+    - Better support for PHP view templates
+    - Add support for generic callables for form element validators
+* Update the File component
+    - Add object support to Dir class to retrieve files and directorys as objects
+    - Add overwrite flag to copy() and move() methods
+
 1.2.3
 -----
 Released on March 21, 2013

@@ -23,7 +23,7 @@ namespace Pop;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.2.3
+ * @version    1.3.0
  */
 class Version
 {
@@ -31,7 +31,7 @@ class Version
     /**
      * Current version
      */
-    const VERSION = '1.2.3';
+    const VERSION = '1.3.0';
 
     /**
      * Current URL
