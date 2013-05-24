@@ -47,6 +47,12 @@ class Dir
     protected $objects = array();
 
     /**
+     * The nested tree map of the directory and its files
+     * @var array
+     */
+    protected $tree = array();
+
+    /**
      * Flag to store the full path.
      * @var boolean
      */
@@ -82,6 +88,7 @@ class Dir
         if (!file_exists(dirname($dir))) {
             throw new Exception('Error: The directory does not exist.');
         }
+        $this->tree[realpath($dir)] = $this->buildTree(new \DirectoryIterator($dir));
         $this->full = $full;
         $this->rec = $rec;
         $this->dirs = $dirs;
@@ -250,6 +257,16 @@ class Dir
     }
 
     /**
+     * Get the tree.
+     *
+     * @return array
+     */
+    public function getTree()
+    {
+        return $this->tree;
+    }
+
+    /**
      * Get the permissions of the directory.
      *
      * @return string
@@ -365,6 +382,34 @@ class Dir
         if ($del) {
             @rmdir($path);
         }
+    }
+
+    /**
+     * Empty an entire directory.
+     *
+     * @param  \DirectoryIterator  $it
+     * @return array
+     */
+    protected function buildTree(\DirectoryIterator $it)
+    {
+        $result = array();
+
+        foreach ($it as $key => $child) {
+            if ($child->isDot()) {
+                continue;
+            }
+
+            $name = $child->getBasename();
+
+            if ($child->isDir()) {
+                $subit = new \DirectoryIterator($child->getPathname());
+                $result[DIRECTORY_SEPARATOR . $name] = $this->buildTree($subit);
+            } else {
+                $result[] = $name;
+            }
+        }
+
+        return $result;
     }
 
 }

@@ -105,28 +105,31 @@ class Zip implements ArchiveInterface
      */
     public function addFiles($files)
     {
-        // Create a usable array of files
-        if (!is_array($files)) {
-            if (is_dir($files)) {
-                $dir = new Dir($files, true, true, false);
-                $files = $this->filterDirFiles($dir->getFiles(), $files);
-            } else {
-                $files = $this->filterDirFiles(array(realpath($files)), dirname($files));
+        $realFiles = array();
+
+        if (is_array($files)) {
+            foreach ($files as $key => $value) {
+                $files[$key] = realpath($value);
             }
         } else {
-            $allFiles = array();
-            foreach ($files as $key => $value) {
-                if (is_dir($value)) {
-                    $dir = new Dir($value, true, true, false);
-                    $allFiles = array_merge($allFiles, $this->filterDirFiles($dir->getFiles(), realpath($value)));
-                    unset($files[$key]);
-                } else {
-                    $allFiles = array_merge($allFiles, $this->filterDirFiles(array(realpath($value)), dirname($value)));
-                    unset($files[$key]);
-                }
-            }
-            $files = array_merge($files, $allFiles);
+            $files = array(realpath($files));
         }
+
+        print_r($files);
+/*
+        // Create a usable array of files
+        $allFiles = array();
+        foreach ($files as $key => $value) {
+            if (is_dir($value)) {
+                $dir = new Dir($value, true, true, false);
+                $allFiles = array_merge($allFiles, $this->filterDirFiles($dir->getFiles(), realpath($value)));
+                unset($files[$key]);
+            } else {
+                $allFiles = array_merge($allFiles, $this->filterDirFiles(array(realpath($value)), dirname($value)));
+                unset($files[$key]);
+            }
+        }
+        $files = array_merge($files, $allFiles);
 
         if (!file_exists($this->path)) {
             $result = $this->archive->open($this->path, \ZipArchive::CREATE);
@@ -170,6 +173,7 @@ class Zip implements ArchiveInterface
 
             $this->archive->close();
         }
+*/
     }
 
     /**
@@ -248,8 +252,8 @@ class Zip implements ArchiveInterface
         $dir = str_replace($search, $replace, $dir);
         $files = array();
 
-        echo PHP_EOL . 'DIR: ' . $dir . PHP_EOL;
-        echo 'ORIG: ' . $origDir . PHP_EOL;
+        //echo PHP_EOL . 'DIR: ' . $dir . PHP_EOL;
+        //echo 'ORIG: ' . $origDir . PHP_EOL;
 
         foreach ($dirFiles as $file) {
             $f = str_replace('\\', '/', substr($file, strpos($file, $dir)));
@@ -263,7 +267,9 @@ class Zip implements ArchiveInterface
                 $files[] = $f;
             }
         }
-print_r($files);
+
+        //print_r($files);
+
         return $files;
     }
 
