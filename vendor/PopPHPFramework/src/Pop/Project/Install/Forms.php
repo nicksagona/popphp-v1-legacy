@@ -64,10 +64,10 @@ class Forms
             $construct->getDocblock()->setReturn('void');
             $construct->addArguments(
                 array(
-                    array('name' => 'action', 'value' => null, 'type' => 'string'),
-                    array('name' => 'method', 'value' => null, 'type' => 'string'),
-                    array('name' => 'fields', 'value' => 'null', 'type' => 'array'),
-                    array('name' => 'indent', 'value' => 'null', 'type' => 'string')
+                    array('name' => 'action', 'value' => 'null',   'type' => 'string'),
+                    array('name' => 'method', 'value' => "'post'", 'type' => 'string'),
+                    array('name' => 'fields', 'value' => 'null',   'type' => 'array'),
+                    array('name' => 'indent', 'value' => 'null',   'type' => 'string')
                 )
             );
 
@@ -110,7 +110,7 @@ class Forms
                             $construct->appendToBody("        '{$key}' => {$val}{$comma}");
                         }
                     }
-                    $end = ($i < count($form['fields'])) ? '    ),' : '    )';
+                    $end = ($i < count($form)) ? '    ),' : '    )';
                     $construct->appendToBody($end);
                 }
                 $construct->appendToBody(");");
