@@ -32,6 +32,8 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $f = new File(__DIR__ . '/test.txt');
         $this->assertInstanceOf('Pop\File\File', $f);
         $this->assertContains('File', $f->getDir());
+        $this->assertTrue($f->isFile());
+        $this->assertFalse($f->isDir());
     }
 
     public function testCheckDupe()

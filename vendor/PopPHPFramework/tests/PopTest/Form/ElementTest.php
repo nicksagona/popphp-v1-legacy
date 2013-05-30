@@ -39,11 +39,64 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $e = new Element('bogus', 'email');
     }
 
-    public function testLabel()
+    public function testSetAndGetName()
+    {
+        $e = new Element('text', 'email');
+        $e->setName('new_email');
+        $this->assertEquals('new_email', $e->getName());
+    }
+
+    public function testElementType()
+    {
+        $e = new Element('text', 'email');
+        $this->assertFalse($e->isCaptcha());
+        $this->assertFalse($e->isCheckbox());
+        $this->assertFalse($e->isCsrf());
+        $this->assertFalse($e->isRadio());
+        $this->assertFalse($e->isSelect());
+        $this->assertFalse($e->isTextarea());
+    }
+
+    public function testSetAndGetValue()
+    {
+        $e = new Element('text', 'email');
+        $e->setValue('email@email.com');
+        $this->assertEquals('email@email.com', $e->getValue());
+    }
+
+    public function testSetAndGetLabel()
     {
         $e = new Element('text', 'email');
         $e->setLabel('Email:');
-        $this->assertEquals('Email:', $e->label);
+        $e->setLabel(array('Email:' => array('class' => 'label-class')));
+        $this->assertEquals('Email:', $e->getLabel());
+    }
+
+    public function testSetAndGetLabelAttributes()
+    {
+        $e = new Element('text', 'email');
+        $e->setLabel('Email:');
+        $e->setLabelAttributes(array('class' => 'label-class'));
+        $attribs = $e->getLabelAttributes();
+        $this->assertEquals('label-class', $attribs['class']);
+    }
+
+    public function testErrorPre()
+    {
+        $e = new Element('text', 'email');
+        $e->setErrorPre(true);
+    }
+
+    public function testErrorPost()
+    {
+        $e = new Element('text', 'email');
+        $e->setErrorPost(true);
+    }
+
+    public function testErrorDisplay()
+    {
+        $e = new Element('text', 'email');
+        $e->setErrorDisplay('h3', array('class' => 'error-class'), true);
     }
 
     public function testRequired()
@@ -57,23 +110,28 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     {
         $e = new Element('text', 'email');
         $e->addValidator(new Email());
-        $e->value = 'test@test.com';
+        $e->setValue('test@test.com');
         $this->assertTrue($e->validate());
         $e = new Element('text', 'email');
         $e->addValidator(new Email());
-        $e->value = 'testtest.com';
+        $e->setValue('testtest.com');
         $this->assertFalse($e->validate());
         $this->assertContains('class="error"', $e->render(true));
+        $this->assertGreaterThan(0, count($e->getErrors()));
+        $this->assertTrue($e->hasErrors());
     }
 
     public function testRender()
     {
         $e = new Element('text', 'email');
         $element = $e->render(true);
+        $e->setErrorPre(true);
+        $element = $e->render(true);
 
         ob_start();
         $e->output();
         $output = ob_get_clean();
+
 
         $this->assertContains('<input', $element);
         $this->assertContains('<input', $output);

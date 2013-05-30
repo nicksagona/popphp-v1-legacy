@@ -35,19 +35,20 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
     public function testMarked()
     {
         $c = new Checkbox('colors', array('Red', 'Blue', 'Green'), array('Red', 'Green'));
-        $this->assertEquals(array('Red', 'Green'), $c->marked);
+        $this->assertEquals(array('Red', 'Green'), $c->getMarked());
     }
 
     public function testSetMarked()
     {
-        $c = new Checkbox('colors', array('Red' => 'Red', 'Blue' => 'Blue', 'Green' => 'Green'), array('Red', 'Green'));
-        $this->assertEquals(array('Red', 'Green'), $c->marked);
+        $c = new Checkbox('colors', array('Red' => 'Red', 'Blue' => 'Blue', 'Green' => 'Green'));
+        $c->setMarked( array('Red', 'Green'));
+        $this->assertEquals(array('Red', 'Green'), $c->getMarked());
     }
 
     public function testSetMarkedSingle()
     {
         $c = new Checkbox('colors', array('Red' => 'Red', 'Blue' => 'Blue', 'Green' => 'Green'), 'Green');
-        $this->assertEquals('Green', $c->marked);
+        $this->assertEquals('Green', $c->getMarked());
     }
 
 }

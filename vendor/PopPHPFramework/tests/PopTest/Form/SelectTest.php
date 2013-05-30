@@ -35,20 +35,20 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     public function testMarked()
     {
         $s = new Select('colors', array('Red', 'Blue', 'Green'), 'Green');
-        $this->assertEquals('Green', $s->marked);
+        $this->assertEquals('Green', $s->getMarked());
     }
 
     public function testSetMarked()
     {
         $s = new Select('colors', array('Red' => 'Red', 'Blue' => 'Blue', 'Green' => 'Green'), 'Green');
-        $this->assertEquals('Green', $s->marked);
+        $this->assertEquals('Green', $s->getMarked());
     }
 
     public function testMultiple()
     {
         $s = new Select('colors', array('Red' => 'Red', 'Blue' => 'Blue', 'Green' => 'Green'), array('Blue', 'Green'));
         $s->setAttributes('multiple', 'multiple');
-        $this->assertEquals(2, count($s->marked));
+        $this->assertEquals(2, count($s->getMarked()));
     }
 
     public function testYear()

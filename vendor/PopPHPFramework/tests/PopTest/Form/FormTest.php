@@ -40,27 +40,30 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorSetFields()
     {
-        $fields = array(array(
-            'type'       => 'text',
-            'name'       => 'username',
-            'value'      => 'Username here...',
-            'label'      => 'Username:',
-            'required'   => true,
-            'attributes' => array('size', 40)
-        ));
+        $fields = array(
+            'username' => array(
+                'type'       => 'text',
+                'value'      => 'Username here...',
+                'label'      => 'Username:',
+                'required'   => true,
+                'attributes' => array('size' => 40)
+            )
+        );
         $f = new Form('/submit', 'post', $fields);
+        $f->setErrorDisplay('h3', array('class' => 'error-class'), true);
         $this->assertEquals(1, count($f->getFields()));
     }
 
     public function testSetFields()
     {
         $fields = array(
-            'type'       => 'text',
-            'name'       => 'username',
-            'value'      => 'Username here...',
-            'label'      => 'Username:',
-            'required'   => true,
-            'attributes' => array('size', 40)
+            'username' => array(
+                'type'       => 'text',
+                'value'      => 'Username here...',
+                'label'      => 'Username:',
+                'required'   => true,
+                'attributes' => array('size' => 40)
+            )
         );
         $f = new Form('/submit', 'post', $fields);
         $this->assertEquals(1, count($f->getFields()));
@@ -69,12 +72,13 @@ class FormTest extends \PHPUnit_Framework_TestCase
     public function testAddFields()
     {
         $fields = array(
-            'type'       => 'text',
-            'name'       => 'username',
-            'value'      => 'Username here...',
-            'label'      => 'Username:',
-            'required'   => true,
-            'attributes' => array('size', 40)
+            'username' => array(
+                'type'       => 'text',
+                'value'      => 'Username here...',
+                'label'      => 'Username:',
+                'required'   => true,
+                'attributes' => array('size' => 40)
+            )
         );
         $f = new Form('/submit', 'post');
         $f->addFields($fields);
@@ -84,20 +88,18 @@ class FormTest extends \PHPUnit_Framework_TestCase
     public function testRemoveElement()
     {
         $fields = array(
-            array(
+            'username' => array(
                 'type'       => 'text',
-                'name'       => 'username',
                 'value'      => 'Username here...',
                 'label'      => 'Username:',
                 'required'   => true,
-                'attributes' => array('size', 40)
+                'attributes' => array('size' => 40)
             ),
-            array(
+            'email' => array(
                 'type'       => 'text',
-                'name'       => 'email',
                 'label'      => 'Email:',
                 'required'   => true,
-                'attributes' => array('size', 40)
+                'attributes' => array('size' => 40)
             )
         );
         $f = new Form('/submit', 'post');
@@ -109,44 +111,45 @@ class FormTest extends \PHPUnit_Framework_TestCase
     public function testSetFieldValues()
     {
         $fields = array(
-            array(
+            'username' => array(
                 'type'       => 'text',
-                'name'       => 'username',
                 'value'      => 'Username here...',
                 'label'      => 'Username:',
                 'required'   => true,
-                'attributes' => array('size', 40)
+                'attributes' => array('size' => 40),
+                'error'      => array(
+                    'h3'  => array('class' => 'error-class'),
+                    'pre' => true
+                ),
+                'validators' => new \Pop\Validator\AlphaNumeric()
             ),
-            array(
+            'checkbox' => array(
                 'type'       => 'checkbox',
-                'name'       => 'checkbox',
                 'value'      => array(0 => 'Test1', 1 => 'Test2', 2 => 'Test3'),
                 'label'      => 'Checkbox:',
                 'marked'     => array(0, 1),
                 'required'   => true
             ),
-            array(
+            'radio' => array(
                 'type'       => 'radio',
-                'name'       => 'radio',
                 'value'      => array(0 => 'Test1', 1 => 'Test2', 2 => 'Test3'),
                 'label'      => 'Radio:',
                 'marked'     => 0,
                 'required'   => true
             ),
-            array(
+            'select' => array(
                 'type'       => 'select',
-                'name'       => 'select',
                 'value'      => array(0 => 'Test1', 1 => 'Test2', 2 => 'Test3'),
                 'label'      => 'Select:',
                 'marked'     => 0,
                 'required'   => true
             ),
-            array(
+            'textarea' => array(
                 'type'       => 'textarea',
-                'name'       => 'textarea',
                 'label'      => 'Textarea:',
                 'required'   => true,
-                'attributes' => array('rows', 40)
+                'attributes' => array('rows' => 40),
+                'validators' => array(new \Pop\Validator\AlphaNumeric(), new \Pop\Validator\LengthGt(6))
             )
         );
         $f = new Form('/submit', 'post', $fields);
@@ -160,14 +163,15 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     public function testFilter()
     {
-        $fields = array(array(
-            'type'       => 'text',
-            'name'       => 'username',
-            'value'      => 'Username here...',
-            'label'      => 'Username:',
-            'required'   => true,
-            'attributes' => array('size', 40)
-        ));
+        $fields = array(
+            'username' => array(
+                'type'       => 'text',
+                'value'      => 'Username here...',
+                'label'      => 'Username:',
+                'required'   => true,
+                'attributes' => array('size' => 40)
+            )
+        );
         $f = new Form('/submit', 'post', $fields);
         $f->setFieldValues(
             array('username' => '<p>te\'st"<script>user</script></p>'),
@@ -202,6 +206,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
     public function testSetAndGetTemplate()
     {
         $f = new Form('/submit', 'post');
+        $f->setTemplate(__DIR__ . '/../../../../../public/examples/form/form.phtml');
         $f->setTemplate('This is the template');
         $this->assertEquals('This is the template', $f->getTemplate());
         $f->setTemplate(__DIR__ . '/../tmp/access.txt');
@@ -237,6 +242,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(5, count($f->getElements()));
         $this->assertInstanceOf('Pop\Form\Element', $f->getElement('username'));
         $this->assertTrue($f->isValid());
+        $this->assertEquals(0, count($f->getErrors()));
     }
 
     public function testRemoveElements()
@@ -249,8 +255,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $f->removeElement('username');
         $f->removeElement('colors');
         $this->assertEquals(1, count($f->getFields()));
-
-
     }
 
     public function testRender()

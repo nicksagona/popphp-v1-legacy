@@ -45,6 +45,8 @@ class ZipTest extends \PHPUnit_Framework_TestCase
                 __DIR__ . '/../../../../../public/examples/assets'
             ));
 
+            $this->assertGreaterThan(1, count($a->adapter()->getDirs()));
+
             unset($a);
 
             $a = new Archive(__DIR__ . '/../tmp/test.zip');

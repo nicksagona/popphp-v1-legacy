@@ -45,19 +45,21 @@ class FieldsTest extends \PHPUnit_Framework_TestCase
 
     public function testAddAndGetFields()
     {
-        $fields = array(array(
-            'type'       => 'text',
-            'name'       => 'username',
-            'value'      => 'Username here...',
-            'label'      => 'Username:',
-            'required'   => true,
-            'attributes' => array('size', 40)
-        ));
+        $fields = array(
+            'username' => array(
+                'type'       => 'text',
+                'value'      => 'Username here...',
+                'label'      => 'Username:',
+                'required'   => true,
+                'attributes' => array('size' => 40)
+            )
+        );
         $f = new Fields($fields);
         $f->addFields(array(
-            'type' => 'submit',
-            'name' => 'submit',
-            'value' => 'SUBMIT'
+            'submit' => array(
+                'type' => 'submit',
+                'value' => 'SUBMIT'
+            )
         ));
         $this->assertEquals(2, count($f->getFields()));
     }

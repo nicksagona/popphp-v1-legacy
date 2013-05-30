@@ -35,13 +35,13 @@ class RadioTest extends \PHPUnit_Framework_TestCase
     public function testMarked()
     {
         $r = new Radio('colors', array('Red', 'Blue', 'Green'), 'Green');
-        $this->assertEquals('Green', $r->marked);
+        $this->assertEquals('Green', $r->getMarked());
     }
 
     public function testSetMarked()
     {
         $r = new Radio('colors', array('Red' => 'Red', 'Blue' => 'Blue', 'Green' => 'Green'), 'Green');
-        $this->assertEquals('Green', $r->marked);
+        $this->assertEquals('Green', $r->getMarked());
     }
 
 }

@@ -56,6 +56,9 @@ class DirTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(array_key_exists('name', $d->getOwner()));
         $this->assertTrue(array_key_exists('name', $d->getGroup()));
         $this->assertTrue(array_key_exists('name', $d->getUser()));
+        $this->assertTrue($d->isDir());
+        $this->assertFalse($d->isFile());
+        $this->assertGreaterThan(1, count($d->getObjects()));
     }
 
     public function testGetPath()
