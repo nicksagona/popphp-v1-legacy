@@ -140,48 +140,47 @@ Dom. Она обеспечивает надежную функционально
     class Users extends Record { }
 
     class User extends Form { }
+    
+    $attribs = array(
+        'text'     => array('size' => 40),
+        'password' => array('size' => 20),
+        'textarea' => array('rows' => 5, 'cols' => 80)
+    );
 
-    try {
-        $attribs = array(
-            'text'     => array('size' => 40),
-            'password' => array('size' => 20),
-            'textarea' => array('rows' => 5, 'cols' => 80)
-        );
+    $values = array(
+        'id' => array(
+            'type' => 'hidden'
+        )
+    );
 
-        $values = array(
-            'id' => array(
-                'type' => 'hidden'
-            )
-        );
+    // The last parameter is an array of fields from the DB table to omit
+    $fields = Fields::factory(
+        new Users(),
+        $attribs,
+        $values,
+        array('last_login', 'last_ua', 'last_ip', 'failed_attempts')
+    );
 
-        // The last parameter is an array of fields from the DB table to omit
-        $fields = Fields::factory(
-            new Users(),
-            $attribs,
-            $values,
-            array('last_login', 'last_ua', 'last_ip', 'failed_attempts')
-        );
+    $fields->addFields(array(
+        'submit' => array(
+            'type'  => 'submit',
+            'label' => '&nbsp;',
+            'value' => 'SUBMIT',
+        )
+    );
 
-        $fields->addFields(array(
-            'submit' => array(
-                'type'  => 'submit',
-                'label' => '&nbsp;',
-                'value' => 'SUBMIT',
-            )
-        );
+    $form = new User($_SERVER['REQUEST_URI'], 'post', $fields->getFields());
 
-        $form = new User($_SERVER['REQUEST_URI'], 'post', $fields->getFields());
-
-        if ($_POST) {
-            $form->setFieldValues($_POST);
-            if ($form->isValid()) {
-                echo 'Form is valid!';
-            } else {
-                $form->render();
-            }
+    if ($_POST) {
+        $form->setFieldValues($_POST);
+        if ($form->isValid()) {
+            echo 'Form is valid!';
         } else {
             $form->render();
         }
+    } else {
+        $form->render();
+    }
 
 \(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.
