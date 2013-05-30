@@ -49,7 +49,7 @@ Dom. Она обеспечивает надежную функционально
              ->setLabel('Comments:');
 
     $submit = new Element('submit', 'submit', 'SUBMIT');
-    $submit->setAttributes('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;');
+    $submit->setAttributes('style', 'padding: 5px; border: solid 2px #000;');
 
     $form->addElements(array(
         $username,
@@ -111,7 +111,7 @@ Dom. Она обеспечивает надежную функционально
         'submit' => array(
             'type'       => 'submit',
             'value'      => 'SUBMIT',
-            'attributes' => array('style' => 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;')
+            'attributes' => array('style' => 'padding: 5px; border: solid 2px #000;')
         )
     );
 
