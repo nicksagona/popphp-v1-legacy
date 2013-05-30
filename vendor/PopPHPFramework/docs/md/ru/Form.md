@@ -81,42 +81,37 @@ Dom. Она обеспечивает надежную функционально
         Pop\Validator;
 
     $fields = array(
-        array(
+        'username' => array(
             'type'       => 'text',
-            'name'       => 'username',
             'value'      => 'Username here...',
             'label'      => 'Username:',
             'required'   => true,
-            'attributes' => array('size', 40),
-            'validators' => new Validator\AlphaNumeric()
+            'attributes' => array('size' => 40),
+            'validators' => new Validator&#92;AlphaNumeric()
         ),
-        array(
+        'email' => array(
             'type'       => 'text',
-            'name'       => 'email',
             'label'      => 'Email:',
             'required'   => true,
-            'attributes' => array('size', 40),
-            'validators' => new Validator\Email()
+            'attributes' => array('size' => 40),
+            'validators' => new Validator&#92;Email()
         ),
-        array(
+        'password' => array(
             'type'       => 'password',
-            'name'       => 'password',
             'label'      => 'Password:',
             'required'   => true,
-            'attributes' => array('size', 40),
-            'validators' => new Validator\LengthGt(6)
+            'attributes' => array('size' => 40),
+            'validators' => new Validator&#92;LengthGt(6)
         ),
-        array(
+        'colors' => array(
             'type'       => 'checkbox',
-            'name'       => 'colors',
             'label'      => 'Colors:',
             'value'      => array('Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue')
         ),
-        array(
+        'submit' => array(
             'type'       => 'submit',
-            'name'       => 'submit',
             'value'      => 'SUBMIT',
-            'attributes' => array('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;')
+            'attributes' => array('style' => 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;')
         )
     );
 
@@ -148,9 +143,9 @@ Dom. Она обеспечивает надежную функционально
 
     try {
         $attribs = array(
-            'text'     => array('size', 40),
-            'password' => array('size', 20),
-            'textarea' => array(array('rows', 5), array('cols', 80))
+            'text'     => array('size' => 40),
+            'password' => array('size' => 20),
+            'textarea' => array('rows' => 5, 'cols' => 80)
         );
 
         $values = array(
@@ -168,11 +163,12 @@ Dom. Она обеспечивает надежную функционально
         );
 
         $fields->addFields(array(
-            'type'  => 'submit',
-            'name'  => 'submit',
-            'label' => ' ',
-            'value' => 'SUBMIT',
-        ));
+            'submit' => array(
+                'type'  => 'submit',
+                'label' => '&nbsp;',
+                'value' => 'SUBMIT',
+            )
+        );
 
         $form = new User($_SERVER['REQUEST_URI'], 'post', $fields->getFields());
 

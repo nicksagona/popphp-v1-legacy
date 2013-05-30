@@ -99,42 +99,37 @@ use Pop&#92;Form&#92;Form,
     Pop&#92;Validator;
 
 $fields = array(
-    array(
+    'username' =&gt; array(
         'type'       =&gt; 'text',
-        'name'       =&gt; 'username',
         'value'      =&gt; 'Username here...',
         'label'      =&gt; 'Username:',
         'required'   =&gt; true,
-        'attributes' =&gt; array('size', 40),
+        'attributes' =&gt; array('size' =&gt; 40),
         'validators' =&gt; new Validator&#92;AlphaNumeric()
     ),
-    array(
+    'email' =&gt; array(
         'type'       =&gt; 'text',
-        'name'       =&gt; 'email',
         'label'      =&gt; 'Email:',
         'required'   =&gt; true,
-        'attributes' =&gt; array('size', 40),
+        'attributes' =&gt; array('size' =&gt; 40),
         'validators' =&gt; new Validator&#92;Email()
     ),
-    array(
+    'password' =&gt; array(
         'type'       =&gt; 'password',
-        'name'       =&gt; 'password',
         'label'      =&gt; 'Password:',
         'required'   =&gt; true,
-        'attributes' =&gt; array('size', 40),
+        'attributes' =&gt; array('size' =&gt; 40),
         'validators' =&gt; new Validator&#92;LengthGt(6)
     ),
-    array(
+    'colors' =&gt; array(
         'type'       =&gt; 'checkbox',
-        'name'       =&gt; 'colors',
         'label'      =&gt; 'Colors:',
         'value'      =&gt; array('Red' =&gt; 'Red', 'Green' =&gt; 'Green', 'Blue' =&gt; 'Blue')
     ),
-    array(
+    'submit' =&gt; array(
         'type'       =&gt; 'submit',
-        'name'       =&gt; 'submit',
         'value'      =&gt; 'SUBMIT',
-        'attributes' =&gt; array('style', 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;')
+        'attributes' =&gt; array('style' =&gt; 'padding: 5px; border: solid 2px #000; background-color: #00f; color: #fff; font-weight: bold;')
     )
 );
 
@@ -167,9 +162,9 @@ class User extends Form { }
 
 try {
     $attribs = array(
-        'text'     =&gt; array('size', 40),
-        'password' =&gt; array('size', 20),
-        'textarea' =&gt; array(array('rows', 5), array('cols', 80))
+        'text'     =&gt; array('size' =&gt; 40),
+        'password' =&gt; array('size' =&gt; 20),
+        'textarea' =&gt; array('rows' =&gt; 5, 'cols' =&gt; 80)
     );
 
     $values = array(
@@ -187,11 +182,12 @@ try {
     );
 
     $fields-&gt;addFields(array(
-        'type'  =&gt; 'submit',
-        'name'  =&gt; 'submit',
-        'label' =&gt; '&nbsp;',
-        'value' =&gt; 'SUBMIT',
-    ));
+        'submit' =&gt; array(
+            'type'  =&gt; 'submit',
+            'label' =&gt; '&nbsp;',
+            'value' =&gt; 'SUBMIT',
+        )
+    );
 
     $form = new User($_SERVER['REQUEST_URI'], 'post', $fields-&gt;getFields());
 
