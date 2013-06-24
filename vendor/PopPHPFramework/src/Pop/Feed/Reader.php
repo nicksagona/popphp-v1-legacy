@@ -44,7 +44,7 @@ class Reader
      * Feed date format
      * @var string
      */
-    protected $dateFormat = 'm/d/Y g:ia';
+    protected $dateFormat = 'M j Y g:ia';
 
     /**
      * Constructor

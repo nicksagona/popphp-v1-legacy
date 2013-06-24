@@ -40,8 +40,8 @@ class Facebook extends \Pop\Feed\Format\Rss
     /**
      * Method to create a Facebook RSS feed object
      *
-     * @param  mixed $options
-     * @param  int   $limit
+     * @param  mixed  $options
+     * @param  int    $limit
      * @return \Pop\Feed\Format\Rss\Facebook
      */
     public function __construct($options, $limit = 0)

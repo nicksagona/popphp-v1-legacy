@@ -40,8 +40,8 @@ class Vimeo extends \Pop\Feed\Format\Rss
     /**
      * Method to create a Vimeo RSS feed object
      *
-     * @param  mixed $options
-     * @param  int   $limit
+     * @param  mixed  $options
+     * @param  int    $limit
      * @return \Pop\Feed\Format\Rss\Vimeo
      */
     public function __construct($options, $limit = 0)

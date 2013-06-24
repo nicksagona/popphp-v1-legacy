@@ -40,8 +40,8 @@ class Youtube extends \Pop\Feed\Format\Json
     /**
      * Method to create a Youtube JSON feed object
      *
-     * @param  mixed $options
-     * @param  int   $limit
+     * @param  mixed  $options
+     * @param  int    $limit
      * @return \Pop\Feed\Format\Json\Youtube
      */
     public function __construct($options, $limit = 0)

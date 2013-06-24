@@ -33,15 +33,14 @@ class Twitter extends \Pop\Feed\Format\Rss
      * @var array
      */
     protected $urls = array(
-        'name' => 'http://api.twitter.com/1/statuses/user_timeline.rss?include_rts=true&screen_name=[{name}]',
-        'id'   => 'http://api.twitter.com/1/statuses/user_timeline.rss?include_rts=true&user_id=[{id}]'
+        'name' => 'https://twitter.com/[{name}]'
     );
 
     /**
      * Method to create a Twitter RSS feed object
      *
-     * @param  mixed $options
-     * @param  int   $limit
+     * @param  mixed  $options
+     * @param  int    $limit
      * @return \Pop\Feed\Format\Rss\Twitter
      */
     public function __construct($options, $limit = 0)
@@ -50,66 +49,165 @@ class Twitter extends \Pop\Feed\Format\Rss
         if (is_array($options)) {
             if (isset($options['name'])) {
                 $this->url = str_replace('[{name}]', $options['name'], $this->urls['name']);
-                if ((int)$limit > 0) {
-                    $this->url .= '&count=' . (int)$limit;
-                }
-            } else if (isset($options['id'])) {
-                $this->url = str_replace('[{id}]', $options['id'], $this->urls['id']);
-                if ((int)$limit > 0) {
-                    $this->url .= '&count=' . (int)$limit;
-                }
             }
         }
 
-        parent::__construct($options, $limit);
+        // Get the main header info of the feed
+        $feed = array();
+
+        $feed['title']       = null;
+        $feed['url']         = null;
+        $feed['description'] = null;
+        $feed['date']        = null;
+        $feed['generator']   = null;
+        $feed['author']      = null;
+        $feed['items']       = array();
+
+        $this->feed = new \ArrayObject($feed, \ArrayObject::ARRAY_AS_PROPS);
+        $this->limit = $limit;
+
+        //parent::__construct($options, $limit);
     }
 
     /**
      * Method to parse a Twitter RSS feed object
      *
+     * @throws \Pop\Feed\Exception
      * @return void
      */
     public function parse()
     {
-        parent::parse();
+        //parent::parse();
 
-        $username = substr($this->obj->channel->link, (strpos($this->obj->channel->link, 'http://twitter.com/') + 19));
-        $this->feed['username'] = $username;
+        $twitter = array(
+            'user'      => null,
+            'username'  => substr($this->url, (strrpos($this->url, '/') + 1)),
+            'profile'   => $this->url,
+            'tweets'    => null,
+            'followers' => null,
+            'following' => null,
+            'images'    => array(
+                'small'  => null,
+                'medium' => null,
+                'large'  => null
+            ),
+            'statuses' => array()
+        );
 
-        if (null === $this->feed['date']) {
-            $this->feed['date'] = date('D, d M Y H:i:s O');
+        if ((null === $this->url) || !($source = file_get_contents($this->url, false))) {
+            throw new \Pop\Feed\Exception('That feed URL cannot be read at this time. Please try again later.');
         }
 
-        if (null === $this->feed['generator']) {
-            $this->feed['generator'] = 'Twitter';
+        $user = substr($source, (strpos($source, '<span class="profile-field">') + 28));
+        $user = substr($user, 0, strpos($user, '<'));
+        $twitter['user'] = $user;
+
+        $tweetsRegex = "/\<strong\>(.*)\<\/strong\>\sTweets/";
+        $followersRegex = "/\<strong\>(.*)\<\/strong\>\sFollowers/";
+        $followingRegex = "/\<strong\>(.*)\<\/strong\>\sFollowing/";
+        $imagesRegex = "/\"http(.*)\.(jpg|jpeg)\"/";
+        $statusesRegex = "/\<div\sclass\=\"content\"\>/m";
+
+        $matches = array();
+        preg_match($tweetsRegex, $source, $matches, PREG_OFFSET_CAPTURE);
+        $twitter['tweets'] = (isset($matches[1]) && isset($matches[1][0])) ? $matches[1][0] : '0';
+
+        $matches = array();
+        preg_match($followersRegex, $source, $matches, PREG_OFFSET_CAPTURE);
+        $twitter['followers'] = (isset($matches[1]) && isset($matches[1][0])) ? $matches[1][0] : '0';
+
+        $matches = array();
+        preg_match($followingRegex, $source, $matches, PREG_OFFSET_CAPTURE);
+        $twitter['following'] = (isset($matches[1]) && isset($matches[1][0])) ? $matches[1][0] : '0';
+
+        $matches = array();
+        preg_match($imagesRegex, $source, $matches, PREG_OFFSET_CAPTURE);
+        if (isset($matches[0]) && isset($matches[0][0])) {
+            $img = substr($matches[0][0], 1);
+            $img = substr($img, 0, strpos($img, '"'));
+            $twitter['images']['small']  = str_replace('.jp', '_normal.jp', $img);
+            $twitter['images']['medium'] = str_replace('.jp', '_bigger.jp', $img);
+            $twitter['images']['large']  = $img;
         }
 
-        if (null === $this->feed['author']) {
-            $author = str_replace('Twitter updates from ', null, $this->feed['description']);
-            $author = trim(substr($author, 0, strpos($author, '/')));
-            $this->feed['author'] = $author;
+        $matches = array();
+        preg_match_all($statusesRegex, $source, $matches, PREG_OFFSET_CAPTURE);
+
+        if (isset($matches[0]) && isset($matches[0][0])) {
+            $i = 0;
+            foreach ($matches[0] as $match) {
+                $status = array(
+                    'user'      => null,
+                    'username'  => null,
+                    'profile'   => null,
+                    'image'     => null,
+                    'link'      => null,
+                    'time'      => null,
+                    'published' => null,
+                    'retweet'   => false,
+                    'html'      => null,
+                    'text'      => null
+                );
+                $html = substr($source, $match[1]);
+
+                $context = substr($html, strpos($html, '<div class="context">'));
+                $context = substr($context, 0, strpos($context, '</div>'));
+                if (strpos($context, 'Retweeted') !== false) {
+                    $status['retweet'] = true;
+                }
+
+                $html = substr($html, 0, strpos($html, '<div class="context">'));
+
+                $img = substr($html, (strpos($html, 'src="') + 5));
+                $img = substr($img, 0, strpos($img, '"'));
+                $status['image'] = $img;
+
+                $user = substr($html, (strpos($html, '<strong') + 7));
+                $user = substr($user, (strpos($user, '>') + 1));
+                $user = substr($user, 0, strpos($user, '<'));
+                $status['user'] = $user;
+
+                $username = substr($html, (strpos($html, '<s>@</s>') + 8));
+                $username = substr($username, (strpos($username, '>') + 1));
+                $username = substr($username, 0, strpos($username, '<'));
+                $status['username'] = $username;
+                $status['profile'] = 'https://twitter.com/' . $username;
+
+                $link = substr($html, (strpos($html, '<small class="time">') + 20));
+                $link = substr($link, (strpos($link, 'href="') + 6));
+                $link = substr($link, 0, strpos($link, '"'));
+                $status['link'] = 'https://twitter.com' . $link;
+
+                $time = substr($html, (strpos($html, 'data-time="') + 11));
+                $time = substr($time, 0, strpos($time, '"'));
+                $status['published'] = date('M j Y g:i:s', $time);
+                $status['time'] = self::calculateTime($status['published']);
+
+                $text = substr($html, (strpos($html, 'tweet-text">') + 12));
+                $text = substr($text, 0, strpos($text, '</p>'));
+                $status['html'] = str_replace(array('href="/', '<s>', '</s>'), array('href="https://twitter.com/', '<b>', '</b>'), $text);
+                $status['text'] = strip_tags($status['html']);
+
+                if ((($this->limit > 0) && ($i < $this->limit)) || ($this->limit == 0)) {
+                    $twitter['statuses'][] = $status;
+                }
+                $i++;
+            }
         }
 
-        // Parse the JSON URL to get the additional information
-        $jsonUrl = 'http://api.twitter.com/1/statuses/user_timeline.json?include_rts=true&count=1&screen_name=' . $username;
-        $json = json_decode(file_get_contents($jsonUrl), true);
-        if (isset($json[0])) {
-            $this->feed['user_id'] = $json[0]['user']['id'];
-            $this->feed['user_description'] = $json[0]['user']['description'];
-            $this->feed['user_website'] = $json[0]['user']['url'];
-            $this->feed['tweet_count'] = $json[0]['user']['statuses_count'];
-            $this->feed['followers'] = $json[0]['user']['followers_count'];
-            $this->feed['following'] = $json[0]['user']['friends_count'];
-            $this->feed['image_thumb'] = $json[0]['user']['profile_image_url'];
-        }
-
-        $items = $this->feed['items'];
-        foreach ($items as $key => $item) {
-            $items[$key]['title'] = trim(str_replace($username . ':', '', $item['title']));
-            $items[$key]['content'] = trim(str_replace($username . ':', '', $item['content']));
-        }
-
-        $this->feed['items'] = $items;
+        $this->feed['title']       = $twitter['user'] . "'s Twitter Feed";
+        $this->feed['url']         = $this->url;
+        $this->feed['description'] = $twitter['user'] . "'s Twitter Feed";
+        $this->feed['username']    = $twitter['username'];
+        $this->feed['date']        = date('D, d M Y H:i:s O');
+        $this->feed['generator']   = 'Twitter';
+        $this->feed['author']      = $twitter['user'];
+        $this->feed['profile']     = $twitter['profile'];
+        $this->feed['tweets']      = $twitter['tweets'];
+        $this->feed['followers']   = $twitter['followers'];
+        $this->feed['following']   = $twitter['following'];
+        $this->feed['images']      = $twitter['images'];
+        $this->feed['items']       = $twitter['statuses'];
     }
 
 }

@@ -40,8 +40,8 @@ class Facebook extends \Pop\Feed\Format\Atom
     /**
      * Method to create a Facebook Atom feed object
      *
-     * @param  mixed $options
-     * @param  int   $limit
+     * @param  mixed  $options
+     * @param  int    $limit
      * @return \Pop\Feed\Format\Atom\Facebook
      */
     public function __construct($options, $limit = 0)

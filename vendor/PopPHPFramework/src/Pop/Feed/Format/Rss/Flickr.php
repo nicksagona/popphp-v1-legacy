@@ -39,8 +39,8 @@ class Flickr extends \Pop\Feed\Format\Rss
     /**
      * Method to create a Flickr RSS feed object
      *
-     * @param  mixed $options
-     * @param  int   $limit
+     * @param  mixed  $options
+     * @param  int    $limit
      * @return \Pop\Feed\Format\Rss\Flickr
      */
     public function __construct($options, $limit = 0)

@@ -40,8 +40,8 @@ class Facebook extends \Pop\Feed\Format\Json
     /**
      * Method to create a Facebook JSON feed object
      *
-     * @param  mixed $options
-     * @param  int   $limit
+     * @param  mixed  $options
+     * @param  int    $limit
      * @return \Pop\Feed\Format\Json\Facebook
      */
     public function __construct($options, $limit = 0)

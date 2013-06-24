@@ -40,8 +40,8 @@ class Youtube extends \Pop\Feed\Format\Atom
     /**
      * Method to create a Youtube Atom feed object
      *
-     * @param  mixed $options
-     * @param  int   $limit
+     * @param  mixed  $options
+     * @param  int    $limit
      * @return \Pop\Feed\Format\Atom\Youtube
      */
     public function __construct($options, $limit = 0)

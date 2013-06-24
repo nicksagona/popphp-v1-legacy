@@ -55,6 +55,12 @@ abstract class AbstractFormat
     protected $limit = 0;
 
     /**
+     * Date format
+     * @var string
+     */
+    protected $dateFormat = 'm j Y';
+
+    /**
      * Feed content
      * @var array
      */
@@ -92,8 +98,8 @@ abstract class AbstractFormat
     /**
      * Method to parse a feed object
      *
-     * @param  mixed $options
-     * @param  int   $limit
+     * @param  mixed  $options
+     * @param  int    $limit
      * @throws Exception
      * @return \Pop\Feed\Format\AbstractFormat
      */

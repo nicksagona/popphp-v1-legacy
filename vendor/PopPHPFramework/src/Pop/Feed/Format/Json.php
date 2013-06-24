@@ -139,6 +139,11 @@ class Json extends AbstractFormat
                 $time = null;
             }
 
+            $title = trim($title);
+            if ($title == '') {
+                $title = $link;
+            }
+
             $items[] = new \ArrayObject(array(
                 'title'     => $title,
                 'content'   => $content,

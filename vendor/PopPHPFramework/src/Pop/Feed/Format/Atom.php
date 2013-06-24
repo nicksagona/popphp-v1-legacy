@@ -31,8 +31,8 @@ class Atom extends AbstractFormat
     /**
      * Method to create an Atom feed object
      *
-     * @param  mixed $options
-     * @param  int   $limit
+     * @param  mixed  $options
+     * @param  int    $limit
      * @throws Exception
      * @return \Pop\Feed\Format\Atom
      */
@@ -81,8 +81,13 @@ class Atom extends AbstractFormat
                 (string)$this->obj->entry[$i]->published :
                 (string)$this->obj->entry[$i]->updated;
 
+            $title = trim((string)$this->obj->entry[$i]->title);
+            if ($title == '') {
+                $title = (string)$this->obj->entry[$i]->link->attributes()->href;
+            }
+
             $items[] = new \ArrayObject(array(
-                'title'     => html_entity_decode((string)$this->obj->entry[$i]->title, ENT_QUOTES, 'UTF-8'),
+                'title'     => html_entity_decode($title, ENT_QUOTES, 'UTF-8'),
                 'content'   => html_entity_decode($content, ENT_QUOTES, 'UTF-8'),
                 'link'      => (string)$this->obj->entry[$i]->link->attributes()->href,
                 'published' => $date,

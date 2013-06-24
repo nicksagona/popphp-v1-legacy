@@ -39,8 +39,8 @@ class Flickr extends \Pop\Feed\Format\Php
     /**
      * Method to create a Flickr Php feed object
      *
-     * @param  mixed $options
-     * @param  int   $limit
+     * @param  mixed  $options
+     * @param  int    $limit
      * @return \Pop\Feed\Format\Php\Flickr
      */
     public function __construct($options, $limit = 0)
