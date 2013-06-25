@@ -7,7 +7,7 @@ use Pop\Feed;
 try {
     $tmpl = <<<POSTS
     <div class="post-div">
-        <a href="[{link}]">[{text}]</a><br />
+        <a href="[{link}]">[{title}]</a><br />
         <strong>[{published}]</strong> ([{time}])<br />
     </div>
 

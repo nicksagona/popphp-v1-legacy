@@ -419,8 +419,11 @@ class Reader
         $context = stream_context_create($options);
         $source = file_get_contents($url, false, $context);
 
+        // If Twitter or Facebook
+        if (strpos($url, 'twitter.com') !== false) {
+            $format = 'Rss';
         // If XML
-        if ((strpos($source, '<?xml') !== false) ||
+        } else if ((strpos($source, '<?xml') !== false) ||
             (strpos($source, '<rss') !== false) ||
             (strpos($source, '<feed') !== false)) {
             // If Atom

@@ -49,6 +49,8 @@ class Twitter extends \Pop\Feed\Format\Rss
         if (is_array($options)) {
             if (isset($options['name'])) {
                 $this->url = str_replace('[{name}]', $options['name'], $this->urls['name']);
+            } else if (isset($options['url'])) {
+                $this->url = $options['url'];
             }
         }
 
@@ -146,7 +148,7 @@ class Twitter extends \Pop\Feed\Format\Rss
                     'published' => null,
                     'retweet'   => false,
                     'html'      => null,
-                    'text'      => null
+                    'title'     => null
                 );
                 $html = substr($source, $match[1]);
 
@@ -183,10 +185,10 @@ class Twitter extends \Pop\Feed\Format\Rss
                 $status['published'] = date('M j Y g:i:s', $time);
                 $status['time'] = self::calculateTime($status['published']);
 
-                $text = substr($html, (strpos($html, 'tweet-text">') + 12));
-                $text = substr($text, 0, strpos($text, '</p>'));
-                $status['html'] = str_replace(array('href="/', '<s>', '</s>'), array('href="https://twitter.com/', '<b>', '</b>'), $text);
-                $status['text'] = strip_tags($status['html']);
+                $title = substr($html, (strpos($html, 'tweet-text">') + 12));
+                $title = substr($title, 0, strpos($title, '</p>'));
+                $status['html'] = str_replace(array('href="/', '<s>', '</s>'), array('href="https://twitter.com/', '<b>', '</b>'), $title);
+                $status['title'] = strip_tags($status['html']);
 
                 if ((($this->limit > 0) && ($i < $this->limit)) || ($this->limit == 0)) {
                     $twitter['statuses'][] = $status;
