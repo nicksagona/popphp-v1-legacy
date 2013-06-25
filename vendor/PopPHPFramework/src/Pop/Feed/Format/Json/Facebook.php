@@ -37,6 +37,13 @@ class Facebook extends \Pop\Feed\Format\Json
         'id'   => 'http://www.facebook.com/feeds/page.php?id=[{id}]&format=json'
     );
 
+
+    /**
+     * Feed ID
+     * @var string
+     */
+    protected $id = null;
+
     /**
      * Method to create a Facebook JSON feed object
      *
@@ -52,18 +59,21 @@ class Facebook extends \Pop\Feed\Format\Json
                 $jsonUrl = str_replace('[{name}]', $options['name'], $this->urls['name']);
                 $json = json_decode(file_get_contents($jsonUrl), true);
 
-                $this->url = str_replace('[{id}]', $this->id, $this->urls['id']);
+                $this->url = str_replace('[{id}]', $json['id'], $this->urls['id']);
                 foreach ($json as $key => $value) {
                     $this->feed[$key] = $value;
                 }
+                $this->id = $json['id'];
             } else if (isset($options['id'])) {
                 $this->url = str_replace('[{id}]', $options['id'], $this->urls['id']);
+                $this->id = $options['id'];
             } else if (isset($options['source'])) {
                 $json = json_decode($options['source'], true);
-                $this->url = str_replace('[{id}]', $this->id, $this->urls['id']);
+                $this->url = str_replace('[{id}]', $json['id'], $this->urls['id']);
                 foreach ($json as $key => $value) {
                     $this->feed[$key] = $value;
                 }
+                $this->id = $json['id'];
             }
         }
 
@@ -79,7 +89,7 @@ class Facebook extends \Pop\Feed\Format\Json
     {
         parent::parse();
 
-        $rss = new \Pop\Feed\Format\Rss\Facebook(array('url' => 'http://www.facebook.com/feeds/page.php?id=' . $this->obj['id'] . '&format=rss20'), $this->limit);
+        $rss = new \Pop\Feed\Format\Rss\Facebook(array('url' => 'http://www.facebook.com/feeds/page.php?id=' . $this->id . '&format=rss20'), $this->limit);
         $this->feed->username = substr($this->feed->url, (strpos($this->feed->url, '.com/') + 5));
         $this->feed->title = (string)$rss->obj()->channel->title;
         $this->feed->date = (string)$rss->obj()->channel->lastBuildDate;

@@ -44,12 +44,12 @@ Facebook.
 
     $twitter = Feed\Reader::getByAccountName('twitter', 'highvoltagenola', 3);
     // OR
-    //$twitter = Feed\Reader::getByAccountId('twitter', '50079850', 3);
+    //$twitter = Feed\Reader::getByUrl('http://twitter.com/highvoltagenola', 3);
 
     $twitter->setTemplate($tmpl);
 
     echo '<h1>' . $twitter->title . '</h1>' . PHP_EOL;
-    echo '<h4>' . $twitter->tweet_count . ' Tweets : ' .
+    echo '<h4>' . $twitter->tweets . ' Tweets : ' .
         $twitter->following . ' Following : ' .
         $twitter->followers . ' Followers</h4>' . PHP_EOL;
 

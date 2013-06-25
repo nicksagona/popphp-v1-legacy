@@ -62,12 +62,12 @@ POSTS;
 
 $twitter = Feed&#92;Reader::getByAccountName('twitter', 'highvoltagenola', 3);
 // OR
-//$twitter = Feed&#92;Reader::getByAccountId('twitter', '50079850', 3);
+//$twitter = Feed&#92;Reader::getByUrl('http://twitter.com/highvoltagenola', 3);
 
 $twitter-&gt;setTemplate($tmpl);
 
 echo '&lt;h1&gt;' . $twitter-&gt;title . '&lt;/h1&gt;' . PHP_EOL;
-echo '&lt;h4&gt;' . $twitter-&gt;tweet_count . ' Tweets : ' .
+echo '&lt;h4&gt;' . $twitter-&gt;tweets . ' Tweets : ' .
     $twitter-&gt;following . ' Following : ' .
     $twitter-&gt;followers . ' Followers&lt;/h4&gt;' . PHP_EOL;
 

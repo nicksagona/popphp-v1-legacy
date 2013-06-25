@@ -36,7 +36,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
             new Feed\Format\Rss('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4)
         ));
         $this->assertInstanceOf('Pop\Feed\Reader', Feed\Reader::getByUrl('http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&topic=h&output=rss', 4));
-        $this->assertInstanceOf('Pop\Feed\Reader', Feed\Reader::getByUrl('http://api.twitter.com/1/statuses/user_timeline.json?screen_name=highvoltagenola', 4));
+        $this->assertInstanceOf('Pop\Feed\Reader', Feed\Reader::getByUrl('http://twitter.com/highvoltagenola', 4));
         $this->assertInstanceOf('Pop\Feed\Reader', Feed\Reader::getByUrl('http://vimeo.com/api/v2/video/6271487.php', 1));
         $this->assertInstanceOf('Pop\Feed\Reader', Feed\Reader::getByUrl('http://www.popphp.org/phpfeedtest', 1));
     }
@@ -56,7 +56,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
     public function testManualAccounts()
     {
         $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
-            new Feed\Format\Rss\Twitter(array('id' => '50079850'), 4)
+            new Feed\Format\Rss\Twitter(array('url' => 'http://twitter.com/highvoltagenola'), 4)
         ));
         $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
             new Feed\Format\Atom\Facebook(array('id' => '49700389248'), 4)
@@ -72,12 +72,6 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         ));
         $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
             new Feed\Format\Json\Facebook(array('name' => 'highvoltagenola'), 4)
-        ));
-        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
-            new Feed\Format\Json\Twitter(array('id' => '50079850'), 4)
-        ));
-        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
-            new Feed\Format\Json\Twitter(array('name' => 'highvoltagenola'), 4)
         ));
         $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
             new Feed\Format\Json\Youtube(array('id' => '35318AF7BEB5DD11'), 4)
