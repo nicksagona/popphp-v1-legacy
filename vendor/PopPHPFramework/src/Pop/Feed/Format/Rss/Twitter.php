@@ -67,20 +67,16 @@ class Twitter extends \Pop\Feed\Format\Rss
 
         $this->feed = new \ArrayObject($feed, \ArrayObject::ARRAY_AS_PROPS);
         $this->limit = $limit;
-
-        //parent::__construct($options, $limit);
     }
 
     /**
-     * Method to parse a Twitter RSS feed object
+     * Method to parse a Twitter feed object
      *
      * @throws \Pop\Feed\Exception
      * @return void
      */
     public function parse()
     {
-        //parent::parse();
-
         $twitter = array(
             'user'      => null,
             'username'  => substr($this->url, (strrpos($this->url, '/') + 1)),
@@ -96,11 +92,11 @@ class Twitter extends \Pop\Feed\Format\Rss
             'statuses' => array()
         );
 
-        if ((null === $this->url) || !($source = file_get_contents($this->url, false))) {
+        if ((null === $this->url) || !($this->source = file_get_contents($this->url, false))) {
             throw new \Pop\Feed\Exception('That feed URL cannot be read at this time. Please try again later.');
         }
 
-        $user = substr($source, (strpos($source, '<span class="profile-field">') + 28));
+        $user = substr($this->source, (strpos($this->source, '<span class="profile-field">') + 28));
         $user = substr($user, 0, strpos($user, '<'));
         $twitter['user'] = $user;
 
@@ -111,19 +107,19 @@ class Twitter extends \Pop\Feed\Format\Rss
         $statusesRegex = "/\<div\sclass\=\"content\"\>/m";
 
         $matches = array();
-        preg_match($tweetsRegex, $source, $matches, PREG_OFFSET_CAPTURE);
+        preg_match($tweetsRegex, $this->source, $matches, PREG_OFFSET_CAPTURE);
         $twitter['tweets'] = (isset($matches[1]) && isset($matches[1][0])) ? $matches[1][0] : '0';
 
         $matches = array();
-        preg_match($followersRegex, $source, $matches, PREG_OFFSET_CAPTURE);
+        preg_match($followersRegex, $this->source, $matches, PREG_OFFSET_CAPTURE);
         $twitter['followers'] = (isset($matches[1]) && isset($matches[1][0])) ? $matches[1][0] : '0';
 
         $matches = array();
-        preg_match($followingRegex, $source, $matches, PREG_OFFSET_CAPTURE);
+        preg_match($followingRegex, $this->source, $matches, PREG_OFFSET_CAPTURE);
         $twitter['following'] = (isset($matches[1]) && isset($matches[1][0])) ? $matches[1][0] : '0';
 
         $matches = array();
-        preg_match($imagesRegex, $source, $matches, PREG_OFFSET_CAPTURE);
+        preg_match($imagesRegex, $this->source, $matches, PREG_OFFSET_CAPTURE);
         if (isset($matches[0]) && isset($matches[0][0])) {
             $img = substr($matches[0][0], 1);
             $img = substr($img, 0, strpos($img, '"'));
@@ -133,7 +129,7 @@ class Twitter extends \Pop\Feed\Format\Rss
         }
 
         $matches = array();
-        preg_match_all($statusesRegex, $source, $matches, PREG_OFFSET_CAPTURE);
+        preg_match_all($statusesRegex, $this->source, $matches, PREG_OFFSET_CAPTURE);
 
         if (isset($matches[0]) && isset($matches[0][0])) {
             $i = 0;
@@ -150,7 +146,7 @@ class Twitter extends \Pop\Feed\Format\Rss
                     'html'      => null,
                     'title'     => null
                 );
-                $html = substr($source, $match[1]);
+                $html = substr($this->source, $match[1]);
 
                 $context = substr($html, strpos($html, '<div class="context">'));
                 $context = substr($context, 0, strpos($context, '</div>'));

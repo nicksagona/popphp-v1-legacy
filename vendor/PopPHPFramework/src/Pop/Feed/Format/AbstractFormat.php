@@ -55,12 +55,6 @@ abstract class AbstractFormat
     protected $limit = 0;
 
     /**
-     * Date format
-     * @var string
-     */
-    protected $dateFormat = 'm j Y';
-
-    /**
      * Feed content
      * @var array
      */
