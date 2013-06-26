@@ -61,7 +61,7 @@ class Forms
             // Create the constructor
             $construct = new MethodGenerator('__construct');
             $construct->setDesc('Constructor method to instantiate the form object');
-            $construct->getDocblock()->setReturn('void');
+            $construct->getDocblock()->setReturn('self');
             $construct->addArguments(
                 array(
                     array('name' => 'action', 'value' => 'null',   'type' => 'string'),

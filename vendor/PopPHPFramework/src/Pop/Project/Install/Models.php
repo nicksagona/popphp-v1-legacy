@@ -59,7 +59,7 @@ class Models
             // Create the constructor
             $construct = new MethodGenerator('__construct');
             $construct->setDesc('Instantiate the model object.');
-            $construct->getDocblock()->setReturn('void');
+            $construct->getDocblock()->setReturn('self');
             $construct->addArguments(
                 array(
                     array('name' => 'data', 'value' => 'null', 'type' => 'mixed'),
