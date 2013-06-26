@@ -546,7 +546,7 @@ class Request
     public function getEnv($key = null)
     {
         if (null === $key) {
-            return $this->server;
+            return $this->env;
         } else {
             return (isset($this->env[$key])) ? $this->env[$key] : null;
         }
