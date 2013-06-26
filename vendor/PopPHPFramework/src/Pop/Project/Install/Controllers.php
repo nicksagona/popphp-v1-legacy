@@ -163,7 +163,7 @@ class Controllers
                     }
 
                     $construct->appendToBody("parent::__construct(\$request, \$response, \$project, \$viewPath);", false);
-                    $construct->getDocblock()->setReturn('void');
+                    $construct->getDocblock()->setReturn('self');
 
                     $controllerCls->setNamespace($ns);
                     $controllerCls->code()->setParent($parent)
