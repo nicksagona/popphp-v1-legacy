@@ -100,7 +100,14 @@ class Router
     public function addControllers(array $controller)
     {
         foreach ($controller as $key => $value) {
-            $this->controllers[$key] = $value;
+            if (!isset($this->controllers[$key])) {
+                $this->controllers[$key] = $value;
+            } else {
+                foreach ($value as $k => $v) {
+                    $this->controllers[$key][$k] = $v;
+                }
+            }
+
         }
         return $this;
     }
