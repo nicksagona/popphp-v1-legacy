@@ -107,8 +107,8 @@ class Router
                     $this->controllers[$key][$k] = $v;
                 }
             }
-
         }
+
         return $this;
     }
 
