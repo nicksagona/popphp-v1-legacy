@@ -48,8 +48,6 @@ FOOTER;
           ->setFooter($footer);
     echo $pages;
 } catch (\Exception $e) {
-
-    print($e->getMessage());
-
+    echo $e->getMessage();
 }
 

@@ -43,6 +43,18 @@ class Nav
     protected $config = array();
 
     /**
+     * Acl object
+     * @var \Pop\Auth\Acl
+     */
+    protected $acl = null;
+
+    /**
+     * Role object
+     * @var \Pop\Auth\Role
+     */
+    protected $role = null;
+
+    /**
      * Nav parent level
      * @var int
      */
@@ -67,7 +79,7 @@ class Nav
      *
      * @param  array $tree
      * @param  array $config
-     * @return \Pop\Nav\Nav
+     * @return self
      */
     public function __construct(array $tree, array $config = null)
     {
@@ -81,7 +93,7 @@ class Nav
      *
      * @param  array $tree
      * @param  array $config
-     * @return \Pop\Nav\Nav
+     * @return self
      */
     public static function factory(array $tree, array $config = array())
     {
@@ -97,6 +109,18 @@ class Nav
     public function setTree(array $tree)
     {
         $this->tree = $tree;
+        return $this;
+    }
+
+    /**
+     * Add to the nav tree
+     *
+     * @param  array $tree
+     * @return \Pop\Nav\Nav
+     */
+    public function add(array $tree)
+    {
+        $this->tree = array_merge($this->tree, $tree);
         return $this;
     }
 
@@ -121,6 +145,30 @@ class Nav
             $this->config = $config;
         }
 
+        return $this;
+    }
+
+    /**
+     * Set the Acl object
+     *
+     * @param  \Pop\Auth\Acl $acl
+     * @return \Pop\Nav\Nav
+     */
+    public function setAcl(\Pop\Auth\Acl $acl)
+    {
+        $this->acl = $acl;
+        return $this;
+    }
+
+    /**
+     * Set the Acl object
+     *
+     * @param  \Pop\Auth\Role $role
+     * @return \Pop\Nav\Nav
+     */
+    public function setRole(\Pop\Auth\Role $role)
+    {
+        $this->role = $role;
         return $this;
     }
 
@@ -182,25 +230,54 @@ class Nav
     /**
      * Traverse the config object
      *
-     * @param  array $tree
-     * @param  int $depth
+     * @param  array  $tree
+     * @param  int    $depth
+     * @param  string $parentHref
+     * @throws Exception
      * @return \Pop\Dom\Child
      */
-    protected function traverse(array $tree, $depth = 1)
+    protected function traverse(array $tree, $depth = 1, $parentHref = null)
     {
-        // Set up parent/child node names
-        $parent = (isset($this->config['parent']) && isset($this->config['parent']['node'])) ? $this->config['parent']['node'] : 'ul';
-        $child = (isset($this->config['child']) && isset($this->config['child']['node'])) ? $this->config['child']['node'] : 'li';
+        // Create overriding top level parent, if set
+        if (($depth == 1) && isset($this->config['top'])) {
+            $parent = (isset($this->config['top']) && isset($this->config['top']['node'])) ? $this->config['top']['node'] : 'ul';
+            $child = (isset($this->config['child']) && isset($this->config['child']['node'])) ? $this->config['child']['node'] : 'li';
 
-        // Create parent node
-        $nav = new Child($parent);
+            // Create parent node
+            $nav = new Child($parent);
 
-        // Set parent attributes if they exist
-        if (isset($this->config['parent']) && isset($this->config['parent']['id'])) {
-            $nav->setAttributes('id', $this->config['parent']['id'] . '-' . $this->parentLevel);
-        }
-        if (isset($this->config['parent']) && isset($this->config['parent']['class'])) {
-            $nav->setAttributes('class', $this->config['parent']['class'] . '-' . $depth);
+            // Set top attributes if they exist
+            if (isset($this->config['top']) && isset($this->config['top']['id'])) {
+                $nav->setAttributes('id', $this->config['top']['id']);
+            }
+            if (isset($this->config['top']) && isset($this->config['top']['class'])) {
+                $nav->setAttributes('class', $this->config['top']['class']);
+            }
+            if (isset($this->config['top']['attributes'])) {
+                foreach ($this->config['top']['attributes'] as $attrib => $value) {
+                    $nav->setAttributes($attrib, $value);
+                }
+            }
+        } else {
+            // Set up parent/child node names
+            $parent = (isset($this->config['parent']) && isset($this->config['parent']['node'])) ? $this->config['parent']['node'] : 'ul';
+            $child = (isset($this->config['child']) && isset($this->config['child']['node'])) ? $this->config['child']['node'] : 'li';
+
+            // Create parent node
+            $nav = new Child($parent);
+
+            // Set parent attributes if they exist
+            if (isset($this->config['parent']) && isset($this->config['parent']['id'])) {
+                $nav->setAttributes('id', $this->config['parent']['id'] . '-' . $this->parentLevel);
+            }
+            if (isset($this->config['parent']) && isset($this->config['parent']['class'])) {
+                $nav->setAttributes('class', $this->config['parent']['class'] . '-' . $depth);
+            }
+            if (isset($this->config['parent']['attributes'])) {
+                foreach ($this->config['parent']['attributes'] as $attrib => $value) {
+                    $nav->setAttributes($attrib, $value);
+                }
+            }
         }
 
         $this->parentLevel++;
@@ -208,10 +285,34 @@ class Nav
 
         // Recursively loop through the nodes
         foreach ($tree as $node) {
-            if (isset($node['name']) && isset($node['href'])) {
+            $allowed = true;
+            if (isset($node['acl'])) {
+                if (null === $this->acl) {
+                    throw new Exception('The access control object is not set.');
+                }
+                if (null === $this->role) {
+                    throw new Exception('The current role is not set.');
+                }
+                $resource = (isset($node['acl']['resource'])) ? $node['acl']['resource'] : null;
+                $permission = (isset($node['acl']['permission'])) ? $node['acl']['permission'] : null;
+                $allowed = $this->acl->isAllowed($this->role, $resource, $permission);
+            }
+            if (($allowed) && isset($node['name']) && isset($node['href'])) {
                 // Create child node and child link node
                 $a = new Child('a', $node['name']);
-                $a->setAttributes('href', $node['href']);
+                if ((substr($node['href'], 0, 1) == '/') || (substr($node['href'], 0, 4) == 'http')) {
+                    $href = $node['href'];
+                } else {
+                    $href = $parentHref . '/' . $node['href'];
+                }
+                $a->setAttributes('href', $href);
+
+                // If the node has any attributes
+                if (isset($node['attributes'])) {
+                    foreach ($node['attributes'] as $attrib => $value) {
+                        $a->setAttributes($attrib, $value);
+                    }
+                }
                 $navChild = new Child($child);
 
                 // Set child attributes if they exist
@@ -221,6 +322,12 @@ class Nav
                 if (isset($this->config['child']) && isset($this->config['child']['class'])) {
                     $navChild->setAttributes('class', $this->config['child']['class'] . '-' . ($depth - 1));
                 }
+                if (isset($this->config['child']['attributes'])) {
+                    foreach ($this->config['child']['attributes'] as $attrib => $value) {
+                        $navChild->setAttributes($attrib, $value);
+                    }
+                }
+
 
                 // Add link node
                 $navChild->addChild($a);
@@ -228,7 +335,7 @@ class Nav
 
                 // If there are children, loop through and add them
                 if (isset($node['children'])) {
-                    $navChild->addChild($this->traverse($node['children'], $depth));
+                    $navChild->addChild($this->traverse($node['children'], $depth, $href));
                 }
                 // Add child node
                 $nav->addChild($navChild);

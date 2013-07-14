@@ -27,8 +27,6 @@ try {
     $pages = new Paginator($rows, 3, 3);
     echo $pages;
 } catch (\Exception $e) {
-
-    print($e->getMessage());
-
+    echo $e->getMessage();
 }
 

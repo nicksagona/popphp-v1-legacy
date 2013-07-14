@@ -12,11 +12,11 @@ try {
             'children' => array(
                 array(
                     'name' => 'First Child',
-                    'href' => '/first-child'
+                    'href' => 'first-child'
                 ),
                 array(
                     'name' => 'Second Child',
-                    'href' => '/second-child'
+                    'href' => 'second-child'
                 )
             )
         ),
@@ -30,15 +30,23 @@ try {
             'children' => array(
                 array(
                     'name' => 'Another First Child',
-                    'href' => '/another-first-child'
+                    'href' => 'another-first-child',
+                    'attributes' => array(
+                        'target' => '_blank',
+                        'class'  => 'special-link'
+                    )
                 ),
                 array(
                     'name'     => 'Another Second Child',
-                    'href'     => '/another-second-child',
+                    'href'     => 'another-second-child',
                     'children' => array(
                         array(
                             'name' => 'Nested Child',
-                            'href' => '/nested-child'
+                            'href' => 'nested-child',
+                            'attributes' => array(
+                                'target' => '_blank',
+                                'class'  => 'nested-link'
+                            )
                         )
                     )
                 )
@@ -47,6 +55,10 @@ try {
     );
 
     $config = array(
+        'top' => array(
+            'node'  => 'ul',
+            'id'    => 'main-nav'
+        ),
         'parent' => array(
             'node'  => 'ul',
             'id'    => 'nav',
@@ -63,8 +75,6 @@ try {
     echo $nav;
 
 } catch (\Exception $e) {
-
-    print($e->getMessage());
-
+    echo $e->getMessage();
 }
 
