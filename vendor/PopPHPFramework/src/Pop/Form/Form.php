@@ -332,10 +332,18 @@ class Form extends \Pop\Dom\Dom
      */
     public function setTemplate($tmpl)
     {
-        if (file_exists($tmpl)) {
-            $this->template = ((stripos($tmpl, '.phtml') === false) && (stripos($tmpl, '.php') === false)) ?
-                file_get_contents($tmpl) :
-                $tmpl;
+        if (preg_match('/(.*)\.(x|ht|pht|xht)ml/i', $tmpl) ||
+            (substr($tmpl, -4) == '.htm') ||
+            (substr($tmpl, -4) == '.php') ||
+            (substr($tmpl, -5) == '.php3') ||
+            (substr($tmpl, -4) == '.txt')) {
+            if (file_exists($tmpl)) {
+                $this->template = ((stripos($tmpl, '.phtml') === false) && (stripos($tmpl, '.php') === false)) ?
+                    file_get_contents($tmpl) :
+                    $tmpl;
+            } else {
+                $this->template = $tmpl;
+            }
         } else {
             $this->template = $tmpl;
         }
