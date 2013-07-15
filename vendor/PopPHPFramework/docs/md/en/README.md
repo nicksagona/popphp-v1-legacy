@@ -41,6 +41,7 @@ full power of the framework and PHP.
 -   Log
 -   Mail
 -   Mvc
+-   Nav
 -   Paginator
 -   Payment
 -   Pdf

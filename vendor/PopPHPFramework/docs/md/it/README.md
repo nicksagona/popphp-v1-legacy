@@ -42,6 +42,7 @@ per sfruttare tutta la potenza del quadro e PHP.
 -   Log
 -   Mail
 -   Mvc
+-   Nav
 -   Paginator
 -   Payment
 -   Pdf

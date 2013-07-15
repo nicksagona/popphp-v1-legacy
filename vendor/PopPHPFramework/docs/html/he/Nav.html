@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Nav</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            רכיב הניווט מספק את הפונקציונליות כדי להגדיר, לבנות ותפוקת עץ ניווט מבוסס HTML. זה גם יכול לנצל את הרכיב אופציונלי ACL לבקרת גישה עדינה תבואה בתוך עץ הניווט.
+        </p>
+<pre>
+use Pop&#92;Auth;
+use Pop&#92;Nav&#92;Nav;
+
+// Set the roles and permissions for the Acl object
+$page = new Auth&#92;Resource('page');
+$user = new Auth&#92;Resource('user');
+
+$basic = Auth&#92;Role::factory('basic')-&gt;addPermission('add');
+$editor = Auth&#92;Role::factory('editor')-&gt;addPermission('add')
+                                      -&gt;addPermission('edit');
+
+$acl = new Auth&#92;Acl();
+$acl-&gt;addRoles(array($basic, $editor));
+$acl-&gt;addResources(array($page, $user));
+
+$acl-&gt;allow('basic', 'page', array('add'))
+    -&gt;allow('editor', 'page')
+    -&gt;allow('editor', 'user');
+
+// Define the nav tree and it's config
+$tree = array(
+    array(
+        'name'     =&gt; 'Pages',
+        'href'     =&gt; '/pages',
+        'children' =&gt; array(
+            array(
+                'name' =&gt; 'Add Page',
+                'href' =&gt; 'add',
+                'acl'  =&gt; array(
+                    'resource'   =&gt; 'page',
+                    'permission' =&gt; 'add'
+                )
+            ),
+            array(
+                'name' =&gt; 'Edit Page',
+                'href' =&gt; 'edit',
+                'acl'  =&gt; array(
+                    'resource'   =&gt; 'page',
+                    'permission' =&gt; 'edit'
+                )
+            )
+        )
+    ),
+    array(
+        'name'     =&gt; 'Users',
+        'href'     =&gt; '/users',
+        'acl'  =&gt; array(
+            'resource'   =&gt; 'user'
+        ),
+        'children' =&gt; array(
+            array(
+                'name' =&gt; 'Add User',
+                'href' =&gt; 'add'
+            ),
+            array(
+                'name' =&gt; 'Edit User',
+                'href' =&gt; 'edit'
+            )
+        )
+    )
+);
+
+$config = array(
+    'top' =&gt; array(
+        'id'    =&gt; 'main-nav'
+    )
+);
+
+// Create the nav object and render it
+$nav = new Nav($tree, $config);
+$nav-&gt;setAcl($acl)
+    -&gt;setRole($editor);
+
+echo $nav;
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2013 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

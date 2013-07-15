@@ -42,6 +42,7 @@ PHP.
 -   Log
 -   Mail
 -   Mvc
+-   Nav
 -   Paginator
 -   Payment
 -   Pdf

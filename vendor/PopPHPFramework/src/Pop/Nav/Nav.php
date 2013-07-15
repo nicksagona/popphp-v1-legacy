@@ -25,7 +25,7 @@ use Pop\Dom\Child;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.3.0
+ * @version    1.4.0
  */
 class Nav
 {
@@ -81,7 +81,7 @@ class Nav
      * @param  array $config
      * @return self
      */
-    public function __construct(array $tree, array $config = null)
+    public function __construct(array $tree = null, array $config = null)
     {
         $this->setTree($tree);
         $this->setConfig($config);
@@ -95,7 +95,7 @@ class Nav
      * @param  array $config
      * @return self
      */
-    public static function factory(array $tree, array $config = array())
+    public static function factory(array $tree = null, array $config = array())
     {
         return new self($tree, $config);
     }
@@ -106,21 +106,24 @@ class Nav
      * @param  array $tree
      * @return \Pop\Nav\Nav
      */
-    public function setTree(array $tree)
+    public function setTree(array $tree = null)
     {
-        $this->tree = $tree;
+        $this->tree = (null !== $tree) ? $tree : array();
         return $this;
     }
 
     /**
-     * Add to the nav tree
+     * Add to a nav tree branch
      *
-     * @param  array $tree
+     * @param  array $branch
      * @return \Pop\Nav\Nav
      */
-    public function add(array $tree)
+    public function add(array $branch)
     {
-        $this->tree = array_merge($this->tree, $tree);
+        if (isset($branch['name'])) {
+            $branch = array($branch);
+        }
+        $this->tree = array_merge($this->tree, $branch);
         return $this;
     }
 
@@ -154,22 +157,62 @@ class Nav
      * @param  \Pop\Auth\Acl $acl
      * @return \Pop\Nav\Nav
      */
-    public function setAcl(\Pop\Auth\Acl $acl)
+    public function setAcl(\Pop\Auth\Acl $acl = null)
     {
         $this->acl = $acl;
         return $this;
     }
 
     /**
-     * Set the Acl object
+     * Set the Role object
      *
      * @param  \Pop\Auth\Role $role
      * @return \Pop\Nav\Nav
      */
-    public function setRole(\Pop\Auth\Role $role)
+    public function setRole(\Pop\Auth\Role $role = null)
     {
         $this->role = $role;
         return $this;
+    }
+
+    /**
+     * Get the nav tree
+     *
+     * @return array
+     */
+    public function getTree()
+    {
+        return $this->tree;
+    }
+
+    /**
+     * Get the config
+     *
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * Get the Acl object
+     *
+     * @return \Pop\Auth\Acl
+     */
+    public function getAcl()
+    {
+        return $this->acl;
+    }
+
+    /**
+     * Get the Role object
+     *
+     * @return \Pop\Auth\Role
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 
     /**

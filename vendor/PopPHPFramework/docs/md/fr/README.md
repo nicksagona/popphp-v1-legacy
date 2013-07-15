@@ -42,6 +42,7 @@ exploiter toute la puissance du cadre et PHP.
 -   Log
 -   Mail
 -   Mvc
+-   Nav
 -   Paginator
 -   Payment
 -   Pdf

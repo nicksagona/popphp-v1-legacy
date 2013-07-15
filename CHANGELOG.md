@@ -1,6 +1,14 @@
 Pop PHP Framework Changelog
 ===========================
 
+1.4.0
+-----
+Released on July 15, 2013
+
+* Added Nav component
+    - Ability to construct an HTML-based navigation tree, with configuration
+    - Ability to utilize the Acl component with it
+
 1.3.0
 -----
 Released on May 31, 2013

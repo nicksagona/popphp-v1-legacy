@@ -3,8 +3,8 @@ Welcome to the Pop PHP Framework 1.3.0 Release!
 
 RELEASE INFORMATION
 -------------------
-Pop PHP Framework 1.3.0 Release  
-Released May 31, 2013
+Pop PHP Framework 1.4.0 Release  
+Released July 15, 2013
 
 
 OVERVIEW
@@ -63,6 +63,7 @@ easy-to-use API to access and utilize the following components:
 * Log
 * Mail
 * Mvc
+* Nav
 * Paginator
 * Payment
 * Pdf
