@@ -90,6 +90,8 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
             new Router(array('Pop\Mvc\Controller' => new Controller()))
         );
         $this->assertInstanceOf('Pop\Config', $p->module('Test'));
+        $this->assertTrue(is_array($p->modules()));
+        $this->assertEquals(1, count($p->modules()));
         $this->assertNull($p->module('BadModule'));
     }
 

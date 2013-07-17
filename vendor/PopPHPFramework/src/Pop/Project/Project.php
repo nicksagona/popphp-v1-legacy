@@ -151,6 +151,16 @@ class Project
     }
 
     /**
+     * Access all project module configs
+     *
+     * @return array
+     */
+    public function modules()
+    {
+        return $this->modules;
+    }
+
+    /**
      * Access the project router
      *
      * @return \Pop\Mvc\Router
