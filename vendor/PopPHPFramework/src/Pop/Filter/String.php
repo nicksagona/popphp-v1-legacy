@@ -284,7 +284,7 @@ class String
                     $tmpStrAry[] = $str;
                 }
 
-                $string = '/' . implode('/', $tmpStrAry);
+                $string = implode('/', $tmpStrAry);
                 $string = str_replace('/-', '/', $string);
                 $string = str_replace('-/', '/', $string);
             } else {
@@ -294,7 +294,6 @@ class String
                 $string = str_replace('/', '-', $string);
                 $string = str_replace(' ', '-', $string);
                 $string = preg_replace('/-*-/', '-', $string);
-                $string = '/' . $string;
             }
         } else {
             $string = '';
