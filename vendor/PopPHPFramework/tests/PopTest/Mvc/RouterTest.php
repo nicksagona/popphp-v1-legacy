@@ -33,36 +33,43 @@ class RouterTest extends \PHPUnit_Framework_TestCase
 
     public function testRouterConstructor()
     {
-        $this->assertInstanceOf('Pop\Mvc\Router', new Router(array('Pop\Mvc\Controller' => new Controller())));
-        $this->assertInstanceOf('Pop\Mvc\Router', Router::factory(array('Pop\Mvc\Controller' => new Controller())));
+        $this->assertInstanceOf('Pop\Mvc\Router', new Router(array('/' => 'Pop\Mvc\Controller')));
+        $this->assertInstanceOf('Pop\Mvc\Router', Router::factory(array('/' => 'Pop\Mvc\Controller')));
     }
 
     public function testAddAndGetControllers()
     {
-        $r = new Router(array('Pop\Mvc\Controller' => new Controller()));
-        $r->addControllers(array('Some\Other\Controller' => new Controller()));
-        $this->assertInstanceOf('Pop\Mvc\Controller', $r->getController('Some\Other\Controller'));
+        $r = new Router(array('/' => 'Some\New\Controller'));
+        $r->addControllers(array('/other' => 'Some\New\OtherController'));
+        $this->assertEquals(2, count($r->getControllers()));
+        $r->addControllers(array('/' => array('/test' => 'Some\New\TestController')));
         $this->assertEquals(2, count($r->getControllers()));
     }
 
     public function testGetRequest()
     {
-        $r = new Router(array('Pop\Mvc\Controller' => new Controller()), new Request());
+        $r = new Router(array('/' => 'Pop\Mvc\Controller'), new Request());
         $this->assertInstanceOf('Pop\Http\Request', $r->request());
+    }
+
+    public function testGetControllerClass()
+    {
+        $r = new Router(array('/' => 'Pop\Mvc\Controller'), new Request());
+        $this->assertNull( $r->getControllerClass());
     }
 
     public function testAction()
     {
-        $r = new Router(array('Pop\Mvc\Controller' => new Controller()));
+        $r = new Router(array('/' => 'Pop\Mvc\Controller'));
         $r->route(new Project(new Config(array())));
-        $this->assertNull($r->getAction());
+        $this->assertEquals('index', $r->getAction());
     }
 
     public function testRoute()
     {
-        $r = new Router(array('Pop\Mvc\Controller' => new Controller()));
+        $r = new Router(array('/' => 'Pop\Mvc\Controller'));
         $r->route(new Project(new Config(array())));
-        $this->assertNull($r->controller());
+        $this->assertInstanceOf('Pop\Mvc\Controller', $r->controller());
         $this->assertInstanceOf('Pop\Project\Project', $r->project());
     }
 

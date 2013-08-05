@@ -66,6 +66,13 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($c->getView());
     }
 
+    public function testSetAndGetErrorAction()
+    {
+        $c = new Controller();
+        $c->setErrorAction('myerror');
+        $this->assertEquals('myerror', $c->getErrorAction());
+    }
+
     public function testDispatchException()
     {
         $this->setExpectedException('Pop\Mvc\Exception');
