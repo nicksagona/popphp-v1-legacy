@@ -347,8 +347,8 @@ class Project
                 // Dispatch the found action, the error action or trigger the dispatch error events
                 if ((null !== $action) && method_exists($this->router->controller(), $action)) {
                     $this->router->controller()->dispatch($action);
-                } else if (method_exists($this->router->controller(), 'error')) {
-                    $this->router->controller()->dispatch('error');
+                } else if (method_exists($this->router->controller(), $this->router->controller()->getErrorAction())) {
+                    $this->router->controller()->dispatch($this->router->controller()->getErrorAction());
                 } else {
                     $this->events->trigger('dispatch.error', array('router' => $this->router));
                 }

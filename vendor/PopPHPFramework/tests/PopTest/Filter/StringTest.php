@@ -103,8 +103,8 @@ class StringTest extends \PHPUnit_Framework_TestCase
 
     public function testSlug()
     {
-        $this->assertEquals('/hello-world', String::slug($this->string));
-        $this->assertEquals("/hello/world", String::slug('Hello | World', ' | '));
+        $this->assertEquals('hello-world', String::slug($this->string));
+        $this->assertEquals("hello/world", String::slug('Hello | World', ' | '));
         $this->assertEquals('', String::slug(''));
     }
 

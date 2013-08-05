@@ -69,6 +69,12 @@ class Controller
     protected $viewPath = null;
 
     /**
+     * Error action
+     * @var string
+     */
+    protected $errorAction = 'error';
+
+    /**
      * Constructor
      *
      * Instantiate the controller object
@@ -142,6 +148,18 @@ class Controller
     }
 
     /**
+     * Set the error action
+     *
+     * @param  string $error
+     * @return \Pop\Mvc\Controller
+     */
+    public function setErrorAction($error)
+    {
+        $this->errorAction = $error;
+        return $this;
+    }
+
+    /**
      * Get the request object
      *
      * @return \Pop\Http\Request
@@ -189,6 +207,16 @@ class Controller
     public function getViewPath()
     {
         return $this->viewPath;
+    }
+
+    /**
+     * Get the error action
+     *
+     * @return string
+     */
+    public function getErrorAction()
+    {
+        return $this->errorAction;
     }
 
     /**
