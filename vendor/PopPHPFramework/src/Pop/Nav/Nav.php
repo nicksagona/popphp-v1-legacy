@@ -377,7 +377,7 @@ class Nav
                 $this->childLevel++;
 
                 // If there are children, loop through and add them
-                if (isset($node['children'])) {
+                if (isset($node['children']) && is_array($node['children']) && (count($node['children']) > 0)) {
                     $navChild->addChild($this->traverse($node['children'], $depth, $href));
                 }
                 // Add child node
