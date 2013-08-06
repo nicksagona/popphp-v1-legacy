@@ -27,6 +27,15 @@ namespace Pop\Db\Sql;
  */
 class Select extends AbstractSql
 {
+
+    /**
+     * SQL functions
+     * @var boolean
+     */
+    protected static $functions = array(
+        'AVG', 'COUNT', 'FIRST', 'LAST', 'MAX', 'MIN', 'SUM'
+    );
+
     /**
      * Allowed JOIN keywords
      * @var boolean
@@ -70,8 +79,8 @@ class Select extends AbstractSql
     /**
      * Set the JOIN clause
      *
-     * @param string $tableToJoin
-     * @param string $commonColumn
+     * @param mixed  $tableToJoin
+     * @param mixed  $commonColumn
      * @param string $typeOfJoin
      * @return \Pop\Db\Sql\Select
      */
@@ -87,10 +96,19 @@ class Select extends AbstractSql
             $cols = $this->sql->quoteId($commonColumn);
         }
 
+        if ($tableToJoin instanceof \Pop\Db\Sql) {
+            $subSelectAlias = ($tableToJoin->hasAlias()) ? $tableToJoin->getAlias() : $tableToJoin->getTable();
+            $table = '(' . $tableToJoin . ') AS ' . $this->sql->quoteId($subSelectAlias);
+        } else {
+            $subSelectAlias = null;
+            $table = $this->sql->quoteId($tableToJoin);
+        }
+
         $this->joins[] = array(
-            'tableToJoin' => $this->sql->quoteId($tableToJoin),
+            'tableToJoin'  => $table,
             'commonColumn' => $cols,
-            'typeOfJoin'  => $join
+            'typeOfJoin'   => $join,
+            'alias'        => $subSelectAlias
         );
 
         return $this;
@@ -180,10 +198,13 @@ class Select extends AbstractSql
         if (count($this->columns) > 0) {
             $cols = array();
             foreach ($this->columns as $as => $col) {
+                // If column is a SQL function, don't quote it
+                $c = ((strpos($col, '(') !== false) && (in_array(substr($col, 0, strpos($col, '(')), self::$functions))) ?
+                    $col : $this->sql->quoteId($col);
                 if (!is_numeric($as)) {
-                    $cols[] = $this->sql->quoteId($col) . ' AS ' . $this->sql->quoteId($as);
+                    $cols[] = $c . ' AS ' . $this->sql->quoteId($as);
                 } else {
-                    $cols[] = $this->sql->quoteId($col);
+                    $cols[] = $c;
                 }
             }
             $sql .= implode(', ', $cols) . ' ';
@@ -256,7 +277,8 @@ class Select extends AbstractSql
                 }
                 $sql .= ' ' . $join['typeOfJoin'] . ' ' .
                     $join['tableToJoin'] . ' ON ' .
-                    $this->sql->quoteId($this->sql->getTable()) . '.' . $col1 . ' = ' . $join['tableToJoin'] . '.' . $col2;
+                    $this->sql->quoteId($this->sql->getTable()) . '.' . $col1 . ' = ' .
+                        (isset($join['alias']) ? $this->sql->quoteId($join['alias']) : $join['tableToJoin']) . '.' . $col2;
             }
         }
 
