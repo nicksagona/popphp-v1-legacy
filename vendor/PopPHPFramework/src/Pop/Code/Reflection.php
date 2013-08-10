@@ -319,16 +319,18 @@ class Reflection extends \ReflectionClass
                         $start = $start + 1;
                         $end = $end - 1;
                         for ($i = $start; $i < $end; $i++) {
-                            if (substr($classLines[$i], 0, 8) == '        ') {
-                                $body .= substr($classLines[$i], 8);
-                            } else if (substr($classLines[$i], 0, 4) == '    ') {
-                                $body .= substr($classLines[$i], 4);
-                            } else if (substr($classLines[$i], 0, 2) == "\t\t") {
-                                $body .= substr($classLines[$i], 2);
-                            } else if (substr($classLines[$i], 0, 1) == "\t") {
-                                $body .= substr($classLines[$i], 1);
-                            } else {
-                                $body .= $classLines[$i];
+                            if (isset($classLines[$i])) {
+                                if (substr($classLines[$i], 0, 8) == '        ') {
+                                    $body .= substr($classLines[$i], 8);
+                                } else if (substr($classLines[$i], 0, 4) == '    ') {
+                                    $body .= substr($classLines[$i], 4);
+                                } else if (substr($classLines[$i], 0, 2) == "\t\t") {
+                                    $body .= substr($classLines[$i], 2);
+                                } else if (substr($classLines[$i], 0, 1) == "\t") {
+                                    $body .= substr($classLines[$i], 1);
+                                } else {
+                                    $body .= $classLines[$i];
+                                }
                             }
                         }
                         $mthd->setBody(rtrim($body), false);
