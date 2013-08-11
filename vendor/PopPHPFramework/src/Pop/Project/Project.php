@@ -333,28 +333,42 @@ class Project
         if (null !== $this->router) {
             // Trigger any pre-route events, route, then trigger any post-route events
             $this->events->trigger('route.pre', array('router' => $this->router));
-            $this->router->route($this);
-            $this->events->trigger('route.post', array('router' => $this->router));
 
-            // If a controller was properly routed and created, then dispatch it
-            if (null !== $this->router->controller()) {
-                // Trigger any pre-dispatch events
-                $this->events->trigger('dispatch.pre', array('router' => $this->router));
+            // If still alive after 'route.pre'
+            if ($this->events->alive()) {
+                $this->router->route($this);
 
-                // Get the action and dispatch it
-                $action = $this->router->getAction();
+                // If still alive after 'route'
+                if ($this->events->alive()) {
+                    $this->events->trigger('route.post', array('router' => $this->router));
 
-                // Dispatch the found action, the error action or trigger the dispatch error events
-                if ((null !== $action) && method_exists($this->router->controller(), $action)) {
-                    $this->router->controller()->dispatch($action);
-                } else if (method_exists($this->router->controller(), $this->router->controller()->getErrorAction())) {
-                    $this->router->controller()->dispatch($this->router->controller()->getErrorAction());
-                } else {
-                    $this->events->trigger('dispatch.error', array('router' => $this->router));
+                    // If still alive after 'route.post' and if a controller was properly
+                    // routed and created, then dispatch it
+                    if (($this->events->alive()) && (null !== $this->router->controller())) {
+                        // Trigger any pre-dispatch events
+                        $this->events->trigger('dispatch.pre', array('router' => $this->router));
+
+                        // If still alive after 'dispatch.pre'
+                        if ($this->events->alive()) {
+                            // Get the action and dispatch it
+                            $action = $this->router->getAction();
+
+                            // Dispatch the found action, the error action or trigger the dispatch error events
+                            if ((null !== $action) && method_exists($this->router->controller(), $action)) {
+                                $this->router->controller()->dispatch($action);
+                            } else if (method_exists($this->router->controller(), $this->router->controller()->getErrorAction())) {
+                                $this->router->controller()->dispatch($this->router->controller()->getErrorAction());
+                            } else {
+                                $this->events->trigger('dispatch.error', array('router' => $this->router));
+                            }
+                            // If still alive after 'dispatch'
+                            if ($this->events->alive()) {
+                                // Trigger any post-dispatch events
+                                $this->events->trigger('dispatch.post', array('router' => $this->router));
+                            }
+                        }
+                    }
                 }
-
-                // Trigger any post-dispatch events
-                $this->events->trigger('dispatch.post', array('router' => $this->router));
             }
         }
     }

@@ -8,6 +8,7 @@ Released on July 15, 2013
 * Added Nav component
     - Ability to construct an HTML-based navigation tree, with configuration
     - Ability to utilize the Acl component with it
+* Added a KILL constant to the Event component to allow killing the project app
 
 1.3.0
 -----
@@ -19,7 +20,7 @@ Released on May 31, 2013
     - Better support for PHP view templates
     - Add support for generic callables for form element validators
 * Update the File component
-    - Add object support to Dir class to retrieve files and directorys as objects
+    - Add object support to Dir class to retrieve files and directories as objects
     - Add overwrite flag to copy() and move() methods
 * Improve the Zip adapter for the Archive component
 

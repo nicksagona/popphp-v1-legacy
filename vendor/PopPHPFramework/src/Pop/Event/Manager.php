@@ -34,6 +34,13 @@ class Manager
      */
     const STOP = 'Pop\Event\Manager::STOP';
 
+
+    /**
+     * Constant to kill the project application and do something else (re-route, etc.)
+     * @var string
+     */
+    const KILL = 'Pop\Event\Manager::KILL';
+
     /**
      * Event listeners
      * @var array
@@ -45,6 +52,12 @@ class Manager
      * @var array
      */
     protected $results = array();
+
+    /**
+     * Event 'alive' tracking flag
+     * @var boolean
+     */
+    protected $alive = true;
 
     /**
      * Constructor
@@ -134,7 +147,17 @@ class Manager
      */
     public function getResults($name)
     {
-        return $this->results[$name];
+        return (isset($this->results[$name]) ? $this->results[$name] : null);
+    }
+
+    /**
+     * Method to if the project application is still alive or has been killed
+     *
+     * @return boolean
+     */
+    public function alive()
+    {
+        return $this->alive;
     }
 
     /**
@@ -219,10 +242,16 @@ class Manager
                 // If the method is the constructor, create object
                 if (isset($mthd) && ($mthd == '__construct')) {
                     $reflect  = new \ReflectionClass($action);
-                    $this->results[$name][] = $reflect->newInstanceArgs($realArgs);
+                    $result = $reflect->newInstanceArgs($realArgs);
+                    $this->results[$name][] = $result;
                 // Else, just call it
                 } else {
-                    $this->results[$name][] = call_user_func_array($action, $realArgs);
+                    $result = call_user_func_array($action, $realArgs);
+                    $this->results[$name][] = $result;
+                }
+
+                if ($result == self::KILL) {
+                    $this->alive = false;
                 }
             }
         }

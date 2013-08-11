@@ -54,6 +54,7 @@ class EventTest extends \PHPUnit_Framework_TestCase
         $e = new Manager('pre', function() { return 'Hello World'; }, 2);
         $this->assertInstanceOf('Pop\Event\Manager', $e);
         $this->assertEquals(1, count($e->get('pre')));
+        $this->assertTrue($e->alive());
     }
 
     public function testAttachEvent()
@@ -115,6 +116,17 @@ class EventTest extends \PHPUnit_Framework_TestCase
         $results = $e->getResults('pre');
         $this->assertEquals(1, count($results));
         $this->assertEquals(Manager::STOP, $results[0]);
+    }
+
+    public function testKill()
+    {
+        $e = new Manager();
+        $e->attach('pre', function() { return Manager::KILL; });
+        $e->trigger('pre');
+        $results = $e->getResults('pre');
+        $this->assertEquals(1, count($results));
+        $this->assertEquals(Manager::KILL, $results[0]);
+        $this->assertFalse($e->alive());
     }
 
 }
