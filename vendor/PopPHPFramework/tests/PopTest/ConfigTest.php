@@ -44,6 +44,77 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($c->data);
     }
 
+    public function testConfigMerge()
+    {
+        $cfg1 = array(
+            'db' => array(
+                'name' => 'testdb',
+                'host' => 'localhost',
+                'user' => array(
+                    'username' => 'testuser',
+                    'password' => '12test34',
+                    'role'     => 'editor'
+                )
+            ),
+            'nav' => array(
+                'some' => 'nav'
+            ),
+            'module' => 'TestModule',
+            'oldvalue' => 123456
+        );
+
+        $cfg2 = array(
+            'db' => array(
+                'name' => 'testdb123',
+                'host' => 'localhost',
+                'user' => array(
+                    'username' => 'testuser2',
+                    'password' => '45test67',
+                    'role'     => 'editor'
+                )
+            ),
+            'nav' => array(
+                'some' => 'nav12'
+            ),
+            'module' => 'TestModule',
+            'newvalue' => array(
+                'Some new value'
+            )
+        );
+
+        $config1 = new Config($cfg1);
+        $config2 = new Config($cfg2);
+        $config1->merge($config2);
+        $this->assertContains('Some new value', $config1->newvalue);
+    }
+
+    public function testConfigMergeException()
+    {
+        $this->setExpectedException('Exception');
+
+        $cfg1 = array(
+            'db' => array(
+                'name' => 'testdb',
+                'host' => 'localhost',
+                'user' => array(
+                    'username' => 'testuser',
+                    'password' => '12test34',
+                    'role'     => 'editor'
+                )
+            ),
+            'nav' => array(
+                'some' => 'nav'
+            ),
+            'module' => 'TestModule',
+            'oldvalue' => 123456
+        );
+
+        $cfg2 = 'bad value';
+
+        $config1 = new Config($cfg1);
+        $config1->merge($cfg2);
+    }
+
     public function testConfigException()
     {
         $this->setExpectedException('Exception');
