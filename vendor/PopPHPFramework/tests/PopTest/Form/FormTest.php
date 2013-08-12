@@ -69,6 +69,37 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($f->getFields()));
     }
 
+    public function testSetArrayOfFields()
+    {
+        $fields = array(
+            array(
+                'username' => array(
+                    'type'       => 'text',
+                    'value'      => 'Username here...',
+                    'label'      => 'Username:',
+                    'required'   => true,
+                    'attributes' => array('size' => 40)
+                )
+            ),
+            array(
+                'email1' => array(
+                    'type'       => 'text',
+                    'label'      => 'Email 1:',
+                    'required'   => true,
+                    'attributes' => array('size' => 40)
+                ),
+                'email2' => array(
+                    'type'       => 'text',
+                    'label'      => 'Email 1:',
+                    'required'   => true,
+                    'attributes' => array('size' => 40)
+                )
+            )
+        );
+        $f = new Form('/submit', 'post', $fields);
+        $this->assertEquals(3, count($f->getFields()));
+    }
+
     public function testAddFields()
     {
         $fields = array(
@@ -106,6 +137,39 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $f->addFields($fields);
         $f->removeElement('username');
         $this->assertEquals(1, count($f->getFields()));
+    }
+
+    public function testRemoveArrayOfElements()
+    {
+        $fields = array(
+            array(
+                'username' => array(
+                    'type'       => 'text',
+                    'value'      => 'Username here...',
+                    'label'      => 'Username:',
+                    'required'   => true,
+                    'attributes' => array('size' => 40)
+                )
+            ),
+            array(
+                'email1' => array(
+                    'type'       => 'text',
+                    'label'      => 'Email 1:',
+                    'required'   => true,
+                    'attributes' => array('size' => 40)
+                ),
+                'email2' => array(
+                    'type'       => 'text',
+                    'label'      => 'Email 1:',
+                    'required'   => true,
+                    'attributes' => array('size' => 40)
+                )
+            )
+        );
+        $f = new Form('/submit', 'post');
+        $f->addFields($fields);
+        $f->removeElement('username');
+        $this->assertEquals(2, count($f->getFields()));
     }
 
     public function testSetFieldValues()

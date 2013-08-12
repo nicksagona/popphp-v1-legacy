@@ -61,6 +61,12 @@ class Form extends \Pop\Dom\Dom
     protected $fields = array();
 
     /**
+     * Form field groups
+     * @var array
+     */
+    protected $groups = array();
+
+    /**
      * Form init field values
      * @var array
      */
@@ -123,9 +129,20 @@ class Form extends \Pop\Dom\Dom
      */
     public function setFields(array $fields)
     {
-        foreach ($fields as $name => $value) {
-            $fields[$name]['name'] = $name;
-            $this->fields[$name] = (isset($value['value'])) ? $value['value'] : null;
+        $keys = array_keys($fields);
+        if (is_numeric($keys[0])) {
+            foreach ($fields as $field) {
+                foreach ($field as $name => $value) {
+                    $field[$name]['name'] = $name;
+                    $this->fields[$name] = (isset($value['value'])) ? $value['value'] : null;
+                }
+
+            }
+        } else {
+            foreach ($fields as $name => $value) {
+                $fields[$name]['name'] = $name;
+                $this->fields[$name] = (isset($value['value'])) ? $value['value'] : null;
+            }
         }
 
         $this->initFieldsValues = (count($this->initFieldsValues) > 0) ? array_merge($this->initFieldsValues, $fields) : $fields;
@@ -163,6 +180,20 @@ class Form extends \Pop\Dom\Dom
         // Loop through the initial fields values and build the fields
         // based on the _initFieldsValues property.
         if (count($this->initFieldsValues) > 0) {
+            // If the fields are a group of fields
+            $keys = array_keys($this->initFieldsValues);
+            if (is_numeric($keys[0])) {
+                $fields = array();
+                foreach ($this->initFieldsValues as $ary) {
+                    $k = array_keys($ary);
+                    if (isset($k[0])) {
+                        $this->groups[] = $k[0];
+                    }
+                    $fields = array_merge($fields, $ary);
+                }
+                $this->initFieldsValues = $fields;
+            }
+
             foreach ($this->initFieldsValues as $name => $field) {
                 if (is_array($field) && isset($field['type'])) {
                     $type = $field['type'];
@@ -563,11 +594,27 @@ class Form extends \Pop\Dom\Dom
         $i = $this->getElementIndex($elementName);
 
         $newInitValues = array();
-        foreach ($this->initFieldsValues as $name => $field) {
-            if (isset($name) && ($name == $elementName)) {
-                unset($this->initFieldsValues[$name]);
-            } else {
-                $newInitValues[$name] = $field;
+        $keys = array_keys($this->initFieldsValues);
+
+        if (isset($keys[0]) && is_numeric($keys[0])) {
+            foreach ($this->initFieldsValues as $fields) {
+                $newInitValuesAry = array();
+                foreach ($fields as $name => $field) {
+                    if (isset($name) && ($name == $elementName)) {
+                        unset($fields[$name]);
+                    } else {
+                        $newInitValuesAry[$name] = $field;
+                    }
+                }
+                $newInitValues[] = $newInitValuesAry;
+            }
+        } else {
+            foreach ($this->initFieldsValues as $name => $field) {
+                if (isset($name) && ($name == $elementName)) {
+                    unset($this->initFieldsValues[$name]);
+                } else {
+                    $newInitValues[$name] = $field;
+                }
             }
         }
         $this->initFieldsValues = $newInitValues;
@@ -795,11 +842,34 @@ class Form extends \Pop\Dom\Dom
         $children = $this->form->getChildren();
         $this->form->removeChildren();
 
+        $id = (null !== $this->form->getAttribute('id')) ? $this->form->getAttribute('id') . '-field-group-' : 'pop-form-field-group-';
+
         // Create DL element.
+        $i = 1;
         $dl = new Child('dl', null, null, false, $this->form->getIndent());
+        $dl->setAttributes('id', $id . $i);
 
         // Loop through the children and create and attach the appropriate DT and DT elements, with labels where applicable.
         foreach ($children as $child) {
+            if ($child->getNodeName() == 'fieldset') {
+                $chdrn = $child->getChildren();
+                $attribs = $chdrn[0]->getAttributes();
+            } else {
+                $attribs = $child->getAttributes();
+            }
+
+            $name = (isset($attribs['name'])) ? $attribs['name'] : '';
+            $name = str_replace('[]', '', $name);
+
+            if (count($this->groups) > 0) {
+                if (isset($this->groups[$i]) && ($this->groups[$i] == $name)) {
+                    $this->form->addChild($dl);
+                    $i++;
+                    $dl = new Child('dl', null, null, false, $this->form->getIndent());
+                    $dl->setAttributes('id', $id . $i);
+                }
+            }
+
             // Clear the password field from display.
             if ($child->getAttribute('type') == 'password') {
                 $child->setValue(null);
@@ -815,17 +885,6 @@ class Form extends \Pop\Dom\Dom
                 // Format the label name.
                 $lblName = ($child->getNodeName() == 'fieldset') ? '1' : '';
                 $label = new Child('label', $child->getLabel(), null, false, ($this->form->getIndent() . '        '));
-
-                if ($child->getNodeName() == 'fieldset') {
-                    $chdrn = $child->getChildren();
-                    $attribs = $chdrn[0]->getAttributes();
-                } else {
-                    $attribs = $child->getAttributes();
-                }
-
-                $name = (isset($attribs['name'])) ? $attribs['name'] : '';
-                $name = str_replace('[]', '', $name);
-
                 $label->setAttributes('for', ($name . $lblName));
 
                 $labelAttributes = $child->getLabelAttributes();

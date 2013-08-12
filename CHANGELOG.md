@@ -9,6 +9,7 @@ Released on July 15, 2013
     - Ability to construct an HTML-based navigation tree, with configuration
     - Ability to utilize the Acl component with it
 * Added a KILL constant to the Event component to allow killing the project app
+* Add field grouping to the Form component
 
 1.3.0
 -----
