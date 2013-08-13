@@ -231,6 +231,7 @@ class View
         if (null !== $this->model) {
             $data = $this->model->asArrayObject();
 
+            // Render nested arrays first
             foreach ($data as $key => $value) {
                 if (is_array($value) || ($value instanceof \ArrayObject)) {
                     $start = '[{' . $key . '}]';
@@ -260,7 +261,12 @@ class View
                         }
                         $this->output = str_replace($loopCode, $outputLoop, $this->output);
                     }
-                } else {
+                }
+            }
+
+            // Render scalar values
+            foreach ($data as $key => $value) {
+                if (!is_array($value) && !($value instanceof \ArrayObject)) {
                     $this->output = str_replace('[{' . $key . '}]', $value, $this->output);
                 }
             }
