@@ -129,7 +129,7 @@ class Csv
             foreach ($value as $key => $val) {
                 if (!in_array($key, $omit)) {
                     if (null !== $dt) {
-                        if ((strtotime($val) !== false) || (stripos($key, 'date') !== false)) {
+                        if ((strtotime($val) !== false) && (stripos($key, 'date') !== false)) {
                             $v = (date($dt, strtotime($val)) != '12/31/1969') ? date($dt, strtotime((string)$val)) : '';
                         } else {
                             $v = (string)$val;

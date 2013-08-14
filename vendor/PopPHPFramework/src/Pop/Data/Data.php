@@ -204,13 +204,14 @@ class Data
      * Parse the data stream and return a file data stream.
      *
      * @param  string $to
+     * @param  array  $options
      * @throws Exception
      * @return mixed
      */
-    public function parseData($to)
+    public function parseData($to, array $options = null)
     {
         $to = strtolower($to);
-        $types = array('csv', 'json', 'sql', 'xml', 'yaml');
+        $types = array('csv', 'html', 'json', 'sql', 'xml', 'yaml');
 
         if (!in_array($to, $types)) {
             throw new Exception('That data type is not supported.');
@@ -222,6 +223,8 @@ class Data
             $this->file = $class::encode($this->data, $this->table, $this->idQuote);
         } else if ($to == 'xml') {
             $this->file = $class::encode($this->data, $this->table, $this->pma);
+        } else if ($to == 'html') {
+            $this->file = $class::encode($this->data, $options);
         } else {
             $this->file = $class::encode($this->data);
         }
