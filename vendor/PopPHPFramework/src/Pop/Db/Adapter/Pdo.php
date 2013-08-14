@@ -187,14 +187,31 @@ class Pdo extends AbstractAdapter
         if ($this->placeholder == '?') {
             $i = 1;
             foreach ($params as $key => $value) {
-                ${$key} = $value;
-                $this->statement->bindParam($i, ${$key});
-                $i++;
+                if (is_array($value)) {
+                    foreach ($value as $val) {
+                        ${$key} = $value;
+                        $this->statement->bindParam($i, ${$key});
+                        $i++;
+                    }
+                } else {
+                    ${$key} = $value;
+                    $this->statement->bindParam($i, ${$key});
+                    $i++;
+                }
             }
         } else if ($this->placeholder == ':') {
             foreach ($params as $key => $value) {
-                ${$key} = $value;
-                $this->statement->bindParam(':' . $key, ${$key});
+                if (is_array($value)) {
+                    $i = 1;
+                    foreach ($value as $val) {
+                        ${$key . $i} = $value;
+                        $this->statement->bindParam(':' . $key . $i, ${$key . $i});
+                        $i++;
+                    }
+                } else {
+                    ${$key} = $value;
+                    $this->statement->bindParam(':' . $key, ${$key});
+                }
             }
         }
 

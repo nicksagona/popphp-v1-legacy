@@ -31,8 +31,6 @@ try {
     foreach ($db->adapter()->fetchResult() as $row) {
         print_r($row);
     }
-
-
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

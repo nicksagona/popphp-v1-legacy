@@ -88,8 +88,17 @@ class Oracle extends AbstractAdapter
     public function bindParams($params)
     {
         foreach ($params as $key => $value) {
-            ${$key} = $value;
-            oci_bind_by_name($this->statement, ':' . $key, ${$key});
+            if (is_array($value)) {
+                $i = 1;
+                foreach ($value as $val) {
+                    ${$key . $i} = $value;
+                    oci_bind_by_name($this->statement, ':' . $key . $i, ${$key . $i});
+                    $i++;
+                }
+            } else {
+                ${$key} = $value;
+                oci_bind_by_name($this->statement, ':' . $key, ${$key});
+            }
         }
 
         return $this;

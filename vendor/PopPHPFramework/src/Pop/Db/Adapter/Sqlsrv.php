@@ -117,8 +117,13 @@ class Sqlsrv extends AbstractAdapter
     {
         $bindParams = array();
         foreach ($params as $dbColumnName => $dbColumnValue) {
-            ${$dbColumnName} = $dbColumnValue;
-            $bindParams[] = &${$dbColumnName};
+            $dbColumnValueAry = (!is_array($dbColumnValue)) ? array($dbColumnValue) : $dbColumnValue;
+            $i = 1;
+            foreach ($dbColumnValueAry as $dbColumnValueAryValue) {
+                ${$dbColumnName . $i} = $dbColumnValueAryValue;
+                $bindParams[] = &${$dbColumnName . $i};
+                $i++;
+            }
         }
 
         if ((count($bindParams) > 0) && (null !== $options)) {
