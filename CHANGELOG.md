@@ -11,6 +11,7 @@ Released on July 15, 2013
 * Added a KILL constant to the Event component to allow killing the project app
 * Add field grouping to the Form component
 * Add merge method to the Config class
+* Add Html class to the Data component
 
 1.3.0
 -----
