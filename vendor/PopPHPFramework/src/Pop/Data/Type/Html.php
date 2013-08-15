@@ -63,7 +63,9 @@ class Html
         $output .= $indent . '    <table';
         if (isset($options['table']) && is_array($options['table'])) {
             foreach ($options['table'] as $attrib => $value) {
-                $output .= ' ' . $attrib . '="' . $value . '"';
+                if ($attrib != 'headers') {
+                    $output .= ' ' . $attrib . '="' . $value . '"';
+                }
             }
         }
         $output .= '>' . PHP_EOL;
@@ -76,11 +78,19 @@ class Html
         $headerAry = array();
         foreach ($tempAry as $value) {
             if (!in_array($value, $exclude)) {
-                $headerAry[] = ucwords(str_replace('_', ' ' , (string)$value));
+                if (isset($options['table']) && isset($options['table']['headers']) && is_array($options['table']['headers']) && array_key_exists($value, $options['table']['headers'])) {
+                    $headerAry[] = $options['table']['headers'][$value];
+                } else {
+                    $headerAry[] = ucwords(str_replace('_', ' ' , (string)$value));
+                }
             }
         }
         if (isset($options['form'])) {
-            $headerAry[] = ((null !== $submit) && is_array($submit) && isset($submit['value'])) ? $submit['value'] : '&nbsp;';
+            if (isset($options['table']) && isset($options['table']['headers']) && is_array($options['table']['headers']) && isset($options['table']['headers']['process'])) {
+                $headerAry[] = $options['table']['headers']['process'];
+            } else {
+                $headerAry[] = ((null !== $submit) && is_array($submit) && isset($submit['value'])) ? $submit['value'] : '&nbsp;';
+            }
         }
 
         // Set header output.
@@ -113,6 +123,12 @@ class Html
                     foreach ($value as $ky => $vl) {
                         $tmpl = str_replace('[{' . $ky . '}]', $vl, $tmpl);
                     }
+                    if (isset($exclude['process'])) {
+                        $keys = array_keys($exclude['process']);
+                        if (isset($keys[0]) && ($exclude['process'][$keys[0]] == $value[$keys[0]])) {
+                            $tmpl = '&nbsp;';
+                        }
+                    }
                 } else {
                     $tmpl = '&nbsp;';
                 }
@@ -125,19 +141,21 @@ class Html
         }
 
         if (isset($options['form'])) {
-            $submitBtn = '<input type="submit" name="submit"';
-
             if ((null !== $submit) && is_array($submit)) {
+                $submitBtn = '<input type="submit" name="submit"';
+                if (!isset($submit['id'])) {
+                    $submitBtn .= ' id="submit"';
+                }
                 foreach ($submit as $attrib => $value) {
                     $submitBtn .= ' ' . $attrib . '="' . $value . '"';
                 }
             } else {
-                $submitBtn .= ' value="Submit"';
+                $submitBtn = '<input type="submit" name="submit" id="submit" value="Submit" />';
             }
 
             $submitBtn .= ' />';
 
-            $output .= $indent . '        <tr><td colspan="' . count($headerAry) . '" style="text-align: right;">' . $submitBtn . '</td></tr>' . PHP_EOL;
+            $output .= $indent . '        <tr><td colspan="' . count($headerAry) . '" class="table-bottom-row">' . $submitBtn . '</td></tr>' . PHP_EOL;
             $output .= $indent . '    </table>' . PHP_EOL;
             $output .= $indent . '</form>' . PHP_EOL;
         } else {
