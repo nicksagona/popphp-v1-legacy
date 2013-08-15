@@ -151,6 +151,17 @@ class Project
     }
 
     /**
+     * Determine whether a module is loaded
+     *
+     * @param  string $name
+     * @return boolean
+     */
+    public function isLoaded($name)
+    {
+        return (array_key_exists($name, $this->modules));
+    }
+
+    /**
      * Access all project module configs
      *
      * @return array
