@@ -94,7 +94,9 @@ class Html
         }
 
         // Set header output.
-        $output .= $indent . '        <tr><th>' . implode('</th><th>', $headerAry) . '</th></tr>' . PHP_EOL;
+        $output .= $indent . '        <tr><th class="first-th">' . implode('</th><th>', $headerAry) . '</th></tr>' . PHP_EOL;
+        $pos = strrpos($output, '<th') + 3;
+        $output = substr($output, 0, $pos) . ' class="last-th"' . substr($output, $pos);
 
         // Initialize and clean the field values.
         $i = 1;
@@ -137,7 +139,9 @@ class Html
             $i++;
 
             // Set field output.
-            $output .= $indent . '        <tr><td>' . implode('</td><td>', $rowAry) . '</td></tr>' . PHP_EOL;
+            $output .= $indent . '        <tr><td class="first-td">' . implode('</td><td>', $rowAry) . '</td></tr>' . PHP_EOL;
+            $pos = strrpos($output, '<td') + 3;
+            $output = substr($output, 0, $pos) . ' class="last-td"' . substr($output, $pos);
         }
 
         if (isset($options['form'])) {
@@ -149,11 +153,10 @@ class Html
                 foreach ($submit as $attrib => $value) {
                     $submitBtn .= ' ' . $attrib . '="' . $value . '"';
                 }
+                $submitBtn .= ' />';
             } else {
                 $submitBtn = '<input type="submit" name="submit" id="submit" value="Submit" />';
             }
-
-            $submitBtn .= ' />';
 
             $output .= $indent . '        <tr><td colspan="' . count($headerAry) . '" class="table-bottom-row">' . $submitBtn . '</td></tr>' . PHP_EOL;
             $output .= $indent . '    </table>' . PHP_EOL;
