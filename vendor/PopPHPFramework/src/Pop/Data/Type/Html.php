@@ -86,8 +86,8 @@ class Html
         $headerAry = array();
         $headerKeysAry = array();
         foreach ($tempAry as $value) {
-            $headerKeysAry[] = $value;
             if (!in_array($value, $exclude)) {
+                $headerKeysAry[] = $value;
                 if (isset($options['table']) && isset($options['table']['headers']) && is_array($options['table']['headers']) && array_key_exists($value, $options['table']['headers'])) {
                     $headerAry[] = $options['table']['headers'][$value];
                 } else {
