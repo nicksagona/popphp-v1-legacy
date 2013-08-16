@@ -15,6 +15,8 @@
  */
 namespace Pop\Data\Type;
 
+use Pop\Paginator\Paginator;
+
 /**
  * Html data type class
  *
@@ -33,11 +35,17 @@ class Html
      *
      * @param  mixed  $data
      * @param  array  $options
+     * @param  int    $perPage
+     * @param  int    $range
+     * @param  int    $total
      * @return string
      */
-    public static function encode($data, array $options = null)
+    public static function encode($data, array $options = null, $perPage = 0, $range = 10, $total = null)
     {
         $output = '';
+        $header = '';
+        $row    = '';
+        $footer = '';
         $indent = (isset($options['indent'])) ? $options['indent'] : '    ';
         $date = (isset($options['date'])) ? $options['date'] : 'M j, Y';
         $exclude = (isset($options['exclude'])) ? $options['exclude'] : array();
@@ -76,7 +84,9 @@ class Html
         }
 
         $headerAry = array();
+        $headerKeysAry = array();
         foreach ($tempAry as $value) {
+            $headerKeysAry[] = $value;
             if (!in_array($value, $exclude)) {
                 if (isset($options['table']) && isset($options['table']['headers']) && is_array($options['table']['headers']) && array_key_exists($value, $options['table']['headers'])) {
                     $headerAry[] = $options['table']['headers'][$value];
@@ -88,8 +98,10 @@ class Html
         if (isset($options['form'])) {
             if (isset($options['table']) && isset($options['table']['headers']) && is_array($options['table']['headers']) && isset($options['table']['headers']['process'])) {
                 $headerAry[] = $options['table']['headers']['process'];
+                $headerKeysAry[] = 'process';
             } else {
                 $headerAry[] = ((null !== $submit) && is_array($submit) && isset($submit['value'])) ? $submit['value'] : '&nbsp;';
+                $headerKeysAry[] = 'process';
             }
         }
 
@@ -98,6 +110,13 @@ class Html
         $pos = strrpos($output, '<th') + 3;
         $output = substr($output, 0, $pos) . ' class="last-th"' . substr($output, $pos);
 
+        // Set header and row templates
+        $header = $indent . '<div class="page-links">[{page_links}]</div>' . PHP_EOL . $output;
+        $row = $indent . '        <tr><td class="first-td">[{' . implode('}]</td><td>[{', $headerKeysAry) . '}]</td></tr>' . PHP_EOL;
+        $pos = strrpos($row, '<td') + 3;
+        $row = substr($row, 0, $pos) . ' class="last-td"' . substr($row, $pos) . PHP_EOL;
+
+        $rowValuesAry = array();
         // Initialize and clean the field values.
         $i = 1;
         foreach ($data as $value) {
@@ -138,6 +157,13 @@ class Html
             }
             $i++;
 
+            foreach ($rowAry as $k => $r) {
+                $rowAry[$headerKeysAry[$k]] = $r;
+                unset($rowAry[$k]);
+            }
+
+            $rowValuesAry[] = $rowAry;
+
             // Set field output.
             $output .= $indent . '        <tr><td class="first-td">' . implode('</td><td>', $rowAry) . '</td></tr>' . PHP_EOL;
             $pos = strrpos($output, '<td') + 3;
@@ -161,8 +187,23 @@ class Html
             $output .= $indent . '        <tr><td colspan="' . count($headerAry) . '" class="table-bottom-row">' . $submitBtn . '</td></tr>' . PHP_EOL;
             $output .= $indent . '    </table>' . PHP_EOL;
             $output .= $indent . '</form>' . PHP_EOL;
+
+            $footer = $indent . '        <tr><td colspan="' . count($headerAry) . '" class="table-bottom-row">' . $submitBtn . '<div class="page-links">[{page_links}]</div></td></tr>' . PHP_EOL;
+            $footer .= $indent . '    </table>' . PHP_EOL;
+            $footer .= $indent . '</form>' . PHP_EOL;
         } else {
             $output .= $indent . '    </table>' . PHP_EOL;
+            $footer = $indent . '    </table>' . PHP_EOL;
+            $footer .= $indent . '<div class="page-links">[{page_links}]</div>' . PHP_EOL;
+        }
+
+        if ($perPage > 0) {
+            $pages = new Paginator($rowValuesAry, $perPage, $range, $total);
+            $pages->setHeader($header)
+                  ->setRowTemplate($row)
+                  ->setFooter($footer);
+
+            $output = (string)$pages;
         }
 
         return $output;
