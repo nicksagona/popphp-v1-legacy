@@ -74,11 +74,13 @@ class ChildTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, count($c->getChildren()));
         $this->assertEquals(1, count($c->getAttributes()));
         $code = $c->render(true);
+        $string = (string)$c;
         ob_start();
         $c->render();
         $output = ob_get_clean();
         $this->assertContains('<div id="contentDiv">', $code);
         $this->assertContains('<div id="contentDiv">', $output);
+        $this->assertContains('<div id="contentDiv">', $string);
     }
 
     public function testSetAndGetNodeName()

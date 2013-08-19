@@ -14,6 +14,7 @@
  * @namespace
  */
 namespace Pop\File;
+use Pop\Archive\Adapter\Exception;
 
 /**
  * File class
@@ -201,9 +202,13 @@ class File
                 throw new Exception('Error: The file uploaded is too big.');
             }
 
-            $fileObj = new static($file, $types);
-
-            return $fileObj;
+            try {
+                $fileObj = new static($file, $types);
+                return $fileObj;
+            } catch (Exception $e) {
+                unlink($file);
+                throw $e;
+            }
         } else {
             throw new Exception('Error: There was an error in uploading the file.');
         }
@@ -343,13 +348,13 @@ class File
      * Set the file mime type.
      *
      * @param  string $mime
-     * @throws Exception
+     * @throws \Pop\File\Exception
      * @return \Pop\File\File
      */
     public function setMime($mime)
     {
         if ((count($this->allowed) > 0) && !in_array($mime, $this->allowed)) {
-            throw new Exception('Error: The file mime type ' . $mime . ' is not an accepted file mime type.');
+            throw new \Pop\File\Exception('Error: The file mime type ' . $mime . ' is not an accepted file mime type.');
         }
         $this->mime = $mime;
         return $this;
@@ -599,14 +604,14 @@ class File
      *
      * @param  string  $new
      * @param  boolean $overwrite
-     * @throws Exception
+     * @throws \Pop\File\Exception
      * @return \Pop\File\File
      */
     public function copy($new, $overwrite = false)
     {
         // Check to see if the new file already exists.
         if (file_exists($new) && (!$overwrite)) {
-            throw new Exception('Error: The file already exists.');
+            throw new \Pop\File\Exception('Error: The file already exists.');
         }
 
         if (file_exists($this->fullpath)) {
@@ -624,14 +629,14 @@ class File
      *
      * @param  string $new
      * @param  boolean $overwrite
-     * @throws Exception
+     * @throws \Pop\File\Exception
      * @return \Pop\File\File
      */
     public function move($new, $overwrite = false)
     {
         // Check to see if the new file already exists.
         if (file_exists($new) && (!$overwrite)) {
-            throw new Exception('Error: The file already exists.');
+            throw new \Pop\File\Exception('Error: The file already exists.');
         }
 
         if (file_exists($this->fullpath)) {

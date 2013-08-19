@@ -258,4 +258,14 @@ class Child extends AbstractDom
         }
     }
 
+    /**
+     * Render Dom child object to string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->render(true);
+    }
+
 }
