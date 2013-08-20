@@ -207,6 +207,17 @@ class Imagick extends AbstractImage
     }
 
     /**
+     * Get formats
+     *
+     * @return array
+     */
+    public static function formats()
+    {
+        $i = new static('i.jpg', 1, 1);
+        return $i->getFormats();
+    }
+
+    /**
      * Get the image resource to directly interact with it
      *
      * @return \Imagick
@@ -936,7 +947,7 @@ class Imagick extends AbstractImage
      */
     public function flatten()
     {
-        $this->resource->mergeImageLayers(\Imagick::LAYERMETHOD_FLATTEN);
+        $this->resource = $this->resource->mergeImageLayers(\Imagick::LAYERMETHOD_FLATTEN);
         return $this;
     }
 

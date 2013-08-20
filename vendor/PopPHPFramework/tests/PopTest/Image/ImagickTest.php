@@ -311,5 +311,10 @@ class ImagickTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($formats));
     }
 
+    public function testStaticImageFormats()
+    {
+        $this->assertGreaterThan(1, count(Imagick::formats()));
+    }
+
 }
 

@@ -70,6 +70,11 @@ class GdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(5, $i->getNumberOfFormats());
     }
 
+    public function testStaticImageFormats()
+    {
+        $this->assertEquals(5, count(Gd::formats()));
+    }
+
     public function testDummyMethods()
     {
         $i = new Gd(__DIR__ . '/../tmp/test.jpg');

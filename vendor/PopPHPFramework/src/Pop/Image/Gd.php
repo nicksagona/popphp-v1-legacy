@@ -166,6 +166,17 @@ class Gd extends AbstractImage
     }
 
     /**
+     * Get formats
+     *
+     * @return array
+     */
+    public static function formats()
+    {
+        $i = new static('i.jpg', 1, 1);
+        return $i->getFormats();
+    }
+
+    /**
      * Get the image resource to directly interact with it
      *
      * @return resource
