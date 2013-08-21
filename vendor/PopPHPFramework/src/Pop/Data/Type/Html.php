@@ -114,7 +114,7 @@ class Html
         $header = $indent . '<div class="page-links">[{page_links}]</div>' . PHP_EOL . $output;
         $row = $indent . '        <tr><td class="first-td">[{' . implode('}]</td><td>[{', $headerKeysAry) . '}]</td></tr>' . PHP_EOL;
         $pos = strrpos($row, '<td') + 3;
-        $row = substr($row, 0, $pos) . ' class="last-td"' . substr($row, $pos) . PHP_EOL;
+        $row = substr($row, 0, $pos) . ' class="last-td"' . substr($row, $pos);
 
         $rowValuesAry = array();
         // Initialize and clean the field values.
