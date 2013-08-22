@@ -186,31 +186,31 @@ class Pdo extends AbstractAdapter
     {
         if ($this->placeholder == '?') {
             $i = 1;
-            foreach ($params as $key => $value) {
-                if (is_array($value)) {
-                    foreach ($value as $val) {
-                        ${$key} = $value;
-                        $this->statement->bindParam($i, ${$key});
+            foreach ($params as $dbColumnName => $dbColumnValue) {
+                if (is_array($dbColumnValue)) {
+                    foreach ($dbColumnValue as $dbColumnVal) {
+                        ${$dbColumnName} = $dbColumnVal;
+                        $this->statement->bindParam($i, ${$dbColumnName});
                         $i++;
                     }
                 } else {
-                    ${$key} = $value;
-                    $this->statement->bindParam($i, ${$key});
+                    ${$dbColumnName} = $dbColumnValue;
+                    $this->statement->bindParam($i, ${$dbColumnName});
                     $i++;
                 }
             }
         } else if ($this->placeholder == ':') {
-            foreach ($params as $key => $value) {
-                if (is_array($value)) {
+            foreach ($params as $dbColumnName => $dbColumnValue) {
+                if (is_array($dbColumnValue)) {
                     $i = 1;
-                    foreach ($value as $val) {
-                        ${$key . $i} = $value;
-                        $this->statement->bindParam(':' . $key . $i, ${$key . $i});
+                    foreach ($dbColumnValue as $dbColumnVal) {
+                        ${$dbColumnName . $i} = $dbColumnVal;
+                        $this->statement->bindParam(':' . $dbColumnName . $i, ${$dbColumnName . $i});
                         $i++;
                     }
                 } else {
-                    ${$key} = $value;
-                    $this->statement->bindParam(':' . $key, ${$key});
+                    ${$dbColumnName} = $dbColumnValue;
+                    $this->statement->bindParam(':' . $dbColumnName, ${$dbColumnName});
                 }
             }
         }

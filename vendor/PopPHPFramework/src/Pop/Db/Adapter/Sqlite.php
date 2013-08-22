@@ -98,18 +98,18 @@ class Sqlite extends AbstractAdapter
      */
     public function bindParams($params)
     {
-        foreach ($params as $key => $value) {
-            if (is_array($value)) {
+        foreach ($params as $dbColumnName => $dbColumnValue) {
+            if (is_array($dbColumnValue)) {
                 $i = 1;
-                foreach ($value as $val) {
-                    $k = $key . $i;
-                    ${$k} = $val;
-                    $this->statement->bindParam(':' . $k, ${$k});
+                foreach ($dbColumnValue as $dbColumnVal) {
+                    $dbColumnN = $dbColumnName . $i;
+                    ${$dbColumnN} = $dbColumnVal;
+                    $this->statement->bindParam(':' . $dbColumnN, ${$dbColumnN});
                     $i++;
                 }
             } else {
-                ${$key} = $value;
-                $this->statement->bindParam(':' . $key, ${$key});
+                ${$dbColumnName} = $dbColumnValue;
+                $this->statement->bindParam(':' . $dbColumnName, ${$dbColumnName});
             }
         }
 
