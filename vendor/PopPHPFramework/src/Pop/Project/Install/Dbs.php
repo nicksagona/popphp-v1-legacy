@@ -75,10 +75,11 @@ class Dbs
      * @param string  $dir
      * @param mixed   $install
      * @param boolean $suppress
+     * @param boolean $clear
      * @throws Exception
      * @return array
      */
-    public static function install($dbname, $db, $dir, $install = null, $suppress = false)
+    public static function install($dbname, $db, $dir, $install = null, $suppress = false, $clear = true)
     {
         // Detect any SQL files
         $sqlFiles = array();
@@ -137,10 +138,12 @@ class Dbs
             }
 
             // Clear database
-            $oldTables = $popdb->adapter()->getTables();
-            if (count($oldTables) > 0) {
-                foreach ($oldTables as $tab) {
-                    $popdb->adapter()->query("DROP TABLE " . $tab);
+            if ($clear) {
+                $oldTables = $popdb->adapter()->getTables();
+                if (count($oldTables) > 0) {
+                    foreach ($oldTables as $tab) {
+                        $popdb->adapter()->query("DROP TABLE " . $tab);
+                    }
                 }
             }
 
