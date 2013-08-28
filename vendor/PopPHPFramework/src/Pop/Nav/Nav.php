@@ -371,14 +371,36 @@ class Nav
                     }
                 }
 
-
                 // Add link node
                 $navChild->addChild($a);
                 $this->childLevel++;
 
                 // If there are children, loop through and add them
                 if (isset($node['children']) && is_array($node['children']) && (count($node['children']) > 0)) {
-                    $navChild->addChild($this->traverse($node['children'], $depth, $href));
+                    $childrenAllowed = true;
+                    // Check if the children are allowed
+                    if (isset($node['acl'])) {
+                        $i = 0;
+                        foreach ($node['children'] as $nodeChild) {
+                            if (null === $this->acl) {
+                                throw new Exception('The access control object is not set.');
+                            }
+                            if (null === $this->role) {
+                                throw new Exception('The current role is not set.');
+                            }
+                            $resource = (isset($nodeChild['acl']['resource'])) ? $nodeChild['acl']['resource'] : null;
+                            $permission = (isset($nodeChild['acl']['permission'])) ? $nodeChild['acl']['permission'] : null;
+                            if (!($this->acl->isAllowed($this->role, $resource, $permission))) {
+                                $i++;
+                            }
+                        }
+                        if ($i == count($node['children'])) {
+                            $childrenAllowed = false;
+                        }
+                    }
+                    if ($childrenAllowed) {
+                        $navChild->addChild($this->traverse($node['children'], $depth, $href));
+                    }
                 }
                 // Add child node
                 $nav->addChild($navChild);
