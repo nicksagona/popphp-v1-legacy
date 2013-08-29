@@ -93,8 +93,8 @@ class Config
             $merge[$key] = (isset($merge[$key])) ? $merge[$key] : $value;
         }
 
-        $this->config = $merge;
-        $this->array = $merge;
+        $this->setConfig($merge);
+        $this->array = array();
 
         return $this;
     }

@@ -85,7 +85,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config1 = new Config($cfg1);
         $config2 = new Config($cfg2);
         $config1->merge($config2);
-        $this->assertContains('Some new value', $config1->newvalue);
+        $this->assertContains('Some new value', $config1->newvalue->asArray());
     }
 
     public function testConfigMergeException()
