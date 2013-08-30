@@ -590,7 +590,7 @@ class Element extends Child
         if ($this->required == true) {
             if (is_array($this->value)) {
                 $curElemValue = $this->marked;
-            } else if (isset($_FILES[$this->name]['name'])) {
+            } else if (($_FILES) && (isset($_FILES[$this->name]['name']))) {
                 $curElemValue = $_FILES[$this->name]['name'];
             } else {
                 $curElemValue = $this->value;
@@ -604,10 +604,12 @@ class Element extends Child
         // Check the element's validators.
         if (isset($this->validators[0])) {
             foreach ($this->validators as $validator) {
+                $curElemSize = null;
                 if (is_array($this->value)) {
                     $curElemValue = $this->marked;
-                } else if (isset($_FILES[$this->name]['name'])) {
+                } else if (($_FILES) && (isset($_FILES[$this->name]['name']))) {
                     $curElemValue = $_FILES[$this->name]['name'];
+                    $curElemSize = $_FILES[$this->name]['size'];
                 } else {
                     $curElemValue = $this->value;
                 }
@@ -616,6 +618,10 @@ class Element extends Child
                 if ($validator instanceof \Pop\Validator\ValidatorInterface) {
                     if ('Pop\Validator\NotEmpty' == get_class($validator)) {
                         if (!$validator->evaluate($curElemValue)) {
+                            $this->errors[] = $validator->getMessage();
+                        }
+                    } else if ((null !== $curElemSize) && ('Pop\Validator\LessThanEqual' == get_class($validator))) {
+                        if (!$validator->evaluate($curElemSize)) {
                             $this->errors[] = $validator->getMessage();
                         }
                     } else {
