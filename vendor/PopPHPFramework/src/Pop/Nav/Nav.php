@@ -131,12 +131,13 @@ class Nav
      * Add to a leaf to nav tree branch
      *
      * @param  string $branch
-     * @param  array $leaf
+     * @param  array  $leaf
+     * @param  int    $pos
      * @return \Pop\Nav\Nav
      */
-    public function addLeaf($branch, array $leaf)
+    public function addLeaf($branch, array $leaf, $pos = null)
     {
-        $this->tree = $this->traverseTree($this->tree, $branch, $leaf);
+        $this->tree = $this->traverseTree($this->tree, $branch, $leaf, $pos);
         return $this;
     }
 
@@ -289,13 +290,15 @@ class Nav
      * @param  array  $tree
      * @param  string $branch
      * @param  array  $newLeaf
+     * @param  int    $pos
+     * @param  int    $depth
      * @return array
      */
-    protected function traverseTree($tree, $branch, $newLeaf)
+    protected function traverseTree($tree, $branch, $newLeaf, $pos = null, $depth = 0)
     {
         $t = array();
         foreach ($tree as $leaf) {
-            if ($leaf['name'] == $branch) {
+            if (((null === $pos) || ($pos == $depth)) && ($leaf['name'] == $branch)) {
                 if (isset($leaf['children'])) {
                     $leaf['children'][] = $newLeaf;
                 } else {
@@ -303,7 +306,7 @@ class Nav
                 }
             }
             if (isset($leaf['children'])) {
-                $leaf['children'] = $this->traverseTree($leaf['children'], $branch, $newLeaf);
+                $leaf['children'] = $this->traverseTree($leaf['children'], $branch, $newLeaf, $pos, ($depth + 1));
             }
             $t[] = $leaf;
         }

@@ -11,7 +11,7 @@ try {
             'href'     => '/first',
             'children' => array(
                 array(
-                    'name' => 'First Child',
+                    'name' => 'Add Nav Here',
                     'href' => 'first-child'
                 ),
                 array(
@@ -49,7 +49,7 @@ try {
                             ),
                             'children' => array(
                                 array(
-                                    'name' => 'Sub Nested Child',
+                                    'name' => 'Add Nav Here',
                                     'href' => 'sub-nested-child'
                                 )
                             )
@@ -78,10 +78,10 @@ try {
     );
 
     $nav = new Nav($tree, $config);
-    $nav->addLeaf('Sub Nested Child', array(
+    $nav->addLeaf('Add Nav Here', array(
         'name'     => 'A Brand New Child',
         'href'     => 'a-brand-new-child'
-    ));
+    ), 3);
 
 
     echo $nav;
