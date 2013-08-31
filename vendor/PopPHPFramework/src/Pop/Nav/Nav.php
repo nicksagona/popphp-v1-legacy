@@ -118,12 +118,25 @@ class Nav
      * @param  array $branch
      * @return \Pop\Nav\Nav
      */
-    public function add(array $branch)
+    public function addBranch(array $branch)
     {
         if (isset($branch['name'])) {
             $branch = array($branch);
         }
         $this->tree = array_merge($this->tree, $branch);
+        return $this;
+    }
+
+    /**
+     * Add to a leaf to nav tree branch
+     *
+     * @param  string $branch
+     * @param  array $leaf
+     * @return \Pop\Nav\Nav
+     */
+    public function addLeaf($branch, array $leaf)
+    {
+        $this->tree = $this->traverseTree($this->tree, $branch, $leaf);
         return $this;
     }
 
@@ -268,6 +281,34 @@ class Nav
     public function __toString()
     {
         return $this->render(true);
+    }
+
+    /**
+     * Traverse tree to insert new leaf
+     *
+     * @param  array  $tree
+     * @param  string $branch
+     * @param  array  $newLeaf
+     * @return array
+     */
+    protected function traverseTree($tree, $branch, $newLeaf)
+    {
+        $t = array();
+        foreach ($tree as $leaf) {
+            if ($leaf['name'] == $branch) {
+                if (isset($leaf['children'])) {
+                    $leaf['children'][] = $newLeaf;
+                } else {
+                    $leaf['children'] = array($newLeaf);
+                }
+            }
+            if (isset($leaf['children'])) {
+                $leaf['children'] = $this->traverseTree($leaf['children'], $branch, $newLeaf);
+            }
+            $t[] = $leaf;
+        }
+
+        return $t;
     }
 
     /**

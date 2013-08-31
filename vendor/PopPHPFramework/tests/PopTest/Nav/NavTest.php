@@ -86,9 +86,38 @@ class NavTest extends \PHPUnit_Framework_TestCase
         );
         $n = new Nav();
         $n->setTree($tree);
-        $n->add($branch);
+        $n->addBranch($branch);
         $t = $n->getTree();
         $this->assertEquals('Second Nav Item', $t[1]['name']);
+    }
+
+    public function testAddLeaf()
+    {
+        $tree = array(
+            array(
+                'name'     => 'First Nav Item',
+                'href'     => '/first',
+            ),
+            array(
+                'name'     => 'Second Nav Item',
+                'href'     => '/second'
+            )
+        );
+        $n = new Nav($tree);
+        $n->addLeaf('Second Nav Item', array(
+            'name'     => 'A Brand New Child',
+            'href'     => 'a-brand-new-child'
+        ));
+
+        $navString = <<<NAV
+        <a href="/second">Second Nav Item</a>
+        <ul>
+            <li>
+                <a href="/second/a-brand-new-child">A Brand New Child</a>
+            </li>
+        </ul>
+NAV;
+        $this->assertContains($navString, (string)$n);
     }
 
     public function testSetAndGetAcl()

@@ -104,6 +104,8 @@ class Mysqli extends AbstractAdapter
                     $bindParams[0] .= 'd';
                 } else if (is_string($dbColumnValueAryValue)) {
                     $bindParams[0] .= 's';
+                } else if (is_null($dbColumnValueAryValue)) {
+                    $bindParams[0] .= 's';
                 } else {
                     $bindParams[0] .= 'b';
                 }
