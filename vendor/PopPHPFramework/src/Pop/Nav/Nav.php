@@ -138,6 +138,9 @@ class Nav
     public function addLeaf($branch, array $leaf, $pos = null)
     {
         $this->tree = $this->traverseTree($this->tree, $branch, $leaf, $pos);
+        $this->parentLevel = 1;
+        $this->childLevel = 1;
+        $this->nav = $this->traverse($this->tree);
         return $this;
     }
 
@@ -390,7 +393,11 @@ class Nav
                 if ((substr($node['href'], 0, 1) == '/') || (substr($node['href'], 0, 4) == 'http')) {
                     $href = $node['href'];
                 } else {
-                    $href = $parentHref . '/' . $node['href'];
+                    if (substr($parentHref, -1) == '/') {
+                        $href = $parentHref . $node['href'];
+                    } else {
+                        $href = $parentHref . '/' . $node['href'];
+                    }
                 }
                 $a->setAttributes('href', $href);
 
