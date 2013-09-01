@@ -78,11 +78,10 @@ try {
     );
 
     $nav = new Nav($tree, $config);
-    $nav->addLeaf('Add Nav Here', array(
+    $nav->addLeaf('Nested Child', array(
         'name'     => 'A Brand New Child',
         'href'     => 'a-brand-new-child'
-    ), 3);
-
+    ), null, true);
 
     echo $nav;
 

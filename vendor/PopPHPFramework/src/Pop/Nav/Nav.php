@@ -115,29 +115,31 @@ class Nav
     /**
      * Add to a nav tree branch
      *
-     * @param  array $branch
+     * @param  array   $branch
+     * @param  boolean $prepend
      * @return \Pop\Nav\Nav
      */
-    public function addBranch(array $branch)
+    public function addBranch(array $branch, $prepend = false)
     {
         if (isset($branch['name'])) {
             $branch = array($branch);
         }
-        $this->tree = array_merge($this->tree, $branch);
+        $this->tree = ($prepend) ? array_merge($branch, $this->tree) : array_merge($this->tree, $branch);
         return $this;
     }
 
     /**
      * Add to a leaf to nav tree branch
      *
-     * @param  string $branch
-     * @param  array  $leaf
-     * @param  int    $pos
+     * @param  string  $branch
+     * @param  array   $leaf
+     * @param  int     $pos
+     * @param  boolean $prepend
      * @return \Pop\Nav\Nav
      */
-    public function addLeaf($branch, array $leaf, $pos = null)
+    public function addLeaf($branch, array $leaf, $pos = null, $prepend = false)
     {
-        $this->tree = $this->traverseTree($this->tree, $branch, $leaf, $pos);
+        $this->tree = $this->traverseTree($this->tree, $branch, $leaf, $pos, $prepend);
         $this->parentLevel = 1;
         $this->childLevel = 1;
         $this->nav = $this->traverse($this->tree);
@@ -290,26 +292,28 @@ class Nav
     /**
      * Traverse tree to insert new leaf
      *
-     * @param  array  $tree
-     * @param  string $branch
-     * @param  array  $newLeaf
-     * @param  int    $pos
-     * @param  int    $depth
+     * @param  array   $tree
+     * @param  string  $branch
+     * @param  array   $newLeaf
+     * @param  int     $pos
+     * @param  boolean $prepend
+     * @param  int     $depth
      * @return array
      */
-    protected function traverseTree($tree, $branch, $newLeaf, $pos = null, $depth = 0)
+    protected function traverseTree($tree, $branch, $newLeaf, $pos = null, $prepend = false, $depth = 0)
     {
         $t = array();
         foreach ($tree as $leaf) {
             if (((null === $pos) || ($pos == $depth)) && ($leaf['name'] == $branch)) {
                 if (isset($leaf['children'])) {
-                    $leaf['children'][] = $newLeaf;
+                    $leaf['children'] = ($prepend) ?
+                        array_merge(array($newLeaf), $leaf['children']) : array_merge($leaf['children'], array($newLeaf));
                 } else {
                     $leaf['children'] = array($newLeaf);
                 }
             }
             if (isset($leaf['children'])) {
-                $leaf['children'] = $this->traverseTree($leaf['children'], $branch, $newLeaf, $pos, ($depth + 1));
+                $leaf['children'] = $this->traverseTree($leaf['children'], $branch, $newLeaf, $pos, $prepend, ($depth + 1));
             }
             $t[] = $leaf;
         }
