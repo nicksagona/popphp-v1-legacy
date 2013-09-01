@@ -273,9 +273,9 @@ class Nav
         }
 
         if ($ret) {
-            return $this->nav->render($ret);
+            return ($this->nav->hasChildren()) ? $this->nav->render($ret) : '';
         } else {
-            echo $this->nav->render($ret);
+            echo ($this->nav->hasChildren()) ? $this->nav->render($ret) : '';
         }
     }
 
