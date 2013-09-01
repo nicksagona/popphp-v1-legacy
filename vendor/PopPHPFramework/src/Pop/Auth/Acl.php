@@ -499,28 +499,19 @@ class Acl
             $this->addResource($resource);
         }
 
-        if ((null !== $resource) && (null !== $permission)) {
-            // Full access, no resource or permission defined OR
-            // Full access to the resource if no permission defined OR
-            // determine access based on resource and permission passed
-            if ((isset($this->denied[$user->getName()]) && (count($this->denied[$user->getName()]) == 0)) ||
-                (isset($this->denied[$user->getName()]) && isset($this->denied[$user->getName()][$resource]) && (count($this->denied[$user->getName()][$resource]) == 0)) ||
-                ($user->hasPermission($permission) &&
-                    isset($this->denied[$user->getName()]) &&
-                    isset($this->denied[$user->getName()][$resource]) &&
-                    in_array($permission, $this->denied[$user->getName()][$resource]))) {
-                $result = true;
-            }
-        } else if (null !== $resource) {
-            // Full access, no resource defined OR
-            // determine access based on resource passed
-            if ((isset($this->denied[$user->getName()]) && (count($this->denied[$user->getName()]) == 0)) ||
-                (isset($this->denied[$user->getName()]) &&
-                    isset($this->denied[$user->getName()][$resource]))) {
-                $result = true;
-            }
-        } else {
-            if (isset($this->denied[$user->getName()])) {
+        // Check if the user, resource and/or permission is denied
+        if (isset($this->denied[$user->getName()])) {
+            if (count($this->denied[$user->getName()]) > 0) {
+                if ((null !== $resource) && array_key_exists($resource, $this->denied[$user->getName()])) {
+                    if (count($this->denied[$user->getName()][$resource]) > 0) {
+                        if ((null !== $permission) && in_array($permission, $this->denied[$user->getName()][$resource])) {
+                            $result = true;
+                        }
+                    } else {
+                        $result = true;
+                    }
+                }
+            } else {
                 $result = true;
             }
         }
