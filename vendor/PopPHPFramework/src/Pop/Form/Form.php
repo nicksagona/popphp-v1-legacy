@@ -546,7 +546,8 @@ class Form extends \Pop\Dom\Dom
      */
     public function getElement($elementName)
     {
-        return $this->form->getChild($this->getElementIndex($elementName));
+        $i = $this->getElementIndex($elementName);
+        return (null !== $i) ? $this->form->getChild($this->getElementIndex($elementName)) : null;
     }
 
     /**
