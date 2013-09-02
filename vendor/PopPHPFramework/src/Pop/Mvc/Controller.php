@@ -238,8 +238,8 @@ class Controller
     /**
      * Finalize the request and send the response.
      *
-     * @param  int    $code
-     * @param  array  $headers
+     * @param  int   $code
+     * @param  array $headers
      * @throws \Pop\Mvc\Exception
      * @return void
      */
@@ -265,6 +265,32 @@ class Controller
         $this->project->getEventManager()->trigger('dispatch', array('controller' => $this));
         $this->response->setBody($this->view->render(true));
         $this->response->send();
+    }
+
+    /**
+     * Method to send a JSON response
+     *
+     * @param  mixed $values
+     * @param  int   $code
+     * @param  array $headers
+     * @return void
+     */
+    public function sendJson($values, $code = 200, array $headers = null)
+    {
+        // Build the response and send it
+        $response = new Response();
+        $this->response->setCode($code);
+
+        if (null !== $headers) {
+            foreach ($headers as $name => $value) {
+                $this->response->setHeader($name, $value);
+            }
+        }
+
+        // Force JSON content-type header
+        $response->setHeader('Content-Type', 'application/json')
+                 ->setBody(json_encode($values));
+        $response->send();
     }
 
 }

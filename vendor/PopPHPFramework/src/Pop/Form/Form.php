@@ -79,6 +79,12 @@ class Form extends \Pop\Dom\Dom
     protected $errorDisplay = null;
 
     /**
+     * Has file flag
+     * @var boolean
+     */
+    protected $hasFile = false;
+
+    /**
      * Constructor
      *
      * Instantiate the form object
@@ -135,6 +141,9 @@ class Form extends \Pop\Dom\Dom
                 foreach ($field as $name => $value) {
                     $field[$name]['name'] = $name;
                     $this->fields[$name] = (isset($value['value'])) ? $value['value'] : null;
+                    if ($field[$name]['type'] == 'file') {
+                        $this->hasFile = true;
+                    }
                 }
 
             }
@@ -142,6 +151,9 @@ class Form extends \Pop\Dom\Dom
             foreach ($fields as $name => $value) {
                 $fields[$name]['name'] = $name;
                 $this->fields[$name] = (isset($value['value'])) ? $value['value'] : null;
+                if ($fields[$name]['type'] == 'file') {
+                    $this->hasFile = true;
+                }
             }
         }
 
@@ -203,6 +215,10 @@ class Form extends \Pop\Dom\Dom
                     $validators = (isset($field['validators'])) ? $field['validators'] : null;
                     $expire = (isset($field['expire'])) ? $field['expire'] : 300;
                     $captcha = (isset($field['captcha'])) ? $field['captcha'] : null;
+
+                    if ($type == 'file') {
+                        $this->hasFile = true;
+                    }
 
                     if (isset($field['error'])) {
                         $error = array(
@@ -471,6 +487,9 @@ class Form extends \Pop\Dom\Dom
             } else {
                 if (isset($attribs['name'])) {
                     $this->fields[$attribs['name']] = (isset($attribs['value']) ? $attribs['value'] : null);
+                    if ($attribs['name']['type'] == 'file') {
+                        $this->hasFile = true;
+                    }
                 }
             }
         }
@@ -713,6 +732,11 @@ class Form extends \Pop\Dom\Dom
             throw new Exception('Error: There are no form elements declared for this form object.');
         } else if ((count($this->form->getChildren()) == 0) && (count($this->initFieldsValues) > 0)) {
             $this->setFieldValues();
+        }
+
+        // If the form has a file field
+        if ($this->hasFile) {
+            $this->setAttributes('enctype', 'multipart/form-data');
         }
 
         // If the template is not set, default to the basic output.
