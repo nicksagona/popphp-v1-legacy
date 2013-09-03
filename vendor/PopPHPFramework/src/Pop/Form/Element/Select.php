@@ -32,73 +32,73 @@ class Select extends \Pop\Form\Element
      * Constant for months, short
      * @var int
      */
-    const MONTHS_SHORT = 1;
+    const MONTHS_SHORT = 'MONTHS_SHORT';
 
     /**
      * Constant for months, long
      * @var int
      */
-    const MONTHS_LONG = 2;
+    const MONTHS_LONG = 'MONTHS_LONG';
 
     /**
      * Constant for days of the month
      * @var int
      */
-    const DAYS_OF_MONTH = 3;
+    const DAYS_OF_MONTH = 'DAYS_OF_MONTH';
 
     /**
      * Constant for days of the week
      * @var int
      */
-    const DAYS_OF_WEEK = 4;
+    const DAYS_OF_WEEK = 'DAYS_OF_WEEK';
 
     /**
      * Constant for 12 hours
      * @var int
      */
-    const HOURS_12 = 5;
+    const HOURS_12 = 'HOURS_12';
 
     /**
      * Constant for 24 hours
      * @var int
      */
-    const HOURS_24 = 6;
+    const HOURS_24 = 'HOURS_24';
 
     /**
      * Constant for 60 minutes (0-59)
      * @var int
      */
-    const MINUTES = 7;
+    const MINUTES = 'MINUTES';
 
     /**
      * Constant for minutes in increments of 5
      * @var int
      */
-    const MINUTES_5 = 8;
+    const MINUTES_5 = 'MINUTES_5';
 
     /**
      * Constant for minutes in increments of 10
      * @var int
      */
-    const MINUTES_10 = 9;
+    const MINUTES_10 = 'MINUTES_10';
 
     /**
      * Constant forminutes in increments of 15
      * @var int
      */
-    const MINUTES_15 = 10;
+    const MINUTES_15 = 'MINUTES_15';
 
     /**
      * Constant for US states, short
      * @var int
      */
-    const US_STATES_SHORT = 11;
+    const US_STATES_SHORT = 'US_STATES_SHORT';
 
     /**
      * Constant for US states, long
      * @var int
      */
-    const US_STATES_LONG = 12;
+    const US_STATES_LONG = 'US_STATES_LONG';
 
     /**
      * Constructor
