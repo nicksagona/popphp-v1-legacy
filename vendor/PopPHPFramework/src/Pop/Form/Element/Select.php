@@ -109,9 +109,10 @@ class Select extends \Pop\Form\Element
      * @param  string|array $value
      * @param  string|array $marked
      * @param  string $indent
+     * @param  string $data
      * @return \Pop\Form\Element\Select
      */
-    public function __construct($name, $value = null, $marked = null, $indent = null)
+    public function __construct($name, $value = null, $marked = null, $indent = null, $data = null)
     {
         $val = null;
         $lang = new \Pop\I18n\I18n();
@@ -218,7 +219,8 @@ class Select extends \Pop\Form\Element
                         $val = $value;
                     // Else, check for the values in the XML options file.
                     } else {
-                        $xmlFile = __DIR__ . DIRECTORY_SEPARATOR . 'Data' . DIRECTORY_SEPARATOR . 'options.xml';
+                        $xmlFile = (file_exists($data)) ? $data :
+                            __DIR__ . DIRECTORY_SEPARATOR . 'Data' . DIRECTORY_SEPARATOR . 'options.xml';
                         $val = self::parseXml($xmlFile, $value);
                     }
             }

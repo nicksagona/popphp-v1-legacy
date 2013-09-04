@@ -215,6 +215,7 @@ class Form extends \Pop\Dom\Dom
                     $validators = (isset($field['validators'])) ? $field['validators'] : null;
                     $expire = (isset($field['expire'])) ? $field['expire'] : 300;
                     $captcha = (isset($field['captcha'])) ? $field['captcha'] : null;
+                    $data = (isset($field['data'])) ? $field['data'] : null;
 
                     if ($type == 'file') {
                         $this->hasFile = true;
@@ -261,7 +262,7 @@ class Form extends \Pop\Dom\Dom
                             $elem = new Element\Radio($name, $value, $marked);
                             break;
                         case 'select':
-                            $elem = new Element\Select($name, $value, $marked);
+                            $elem = new Element\Select($name, $value, $marked, null, $data);
                             break;
                         case 'textarea':
                             $elem = new Element\Textarea($name, $value, $marked);
