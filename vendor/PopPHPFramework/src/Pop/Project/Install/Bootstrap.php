@@ -41,8 +41,8 @@ class Bootstrap
         // Define full paths of the autoloader and config files
         $autoload = realpath(__DIR__ . '/../../Loader/Autoloader.php');
         $moduleSrc = realpath($install->project->base . '/module/' . $install->project->name . '/src');
-        $projectCfg = realpath($install->project->base . '/config/project.config.php');
-        $moduleCfg = realpath($install->project->base . '/module/' . $install->project->name . '/config/module.config.php');
+        $projectCfg = realpath($install->project->base . '/config/project.php');
+        $moduleCfg = realpath($install->project->base . '/module/' . $install->project->name . '/config/module.php');
 
         // Figure out the relative base and docroot
         $base = str_replace("\\", '/', realpath($install->project->base));
@@ -54,8 +54,8 @@ class Bootstrap
         if (strlen($base) == strlen($docroot)) {
             $autoload = "__DIR__ . '/vendor/PopPHPFramework/src/Pop/Loader/Autoloader.php'";
             $moduleSrc = "__DIR__ . '/module/" . $install->project->name . "/src'";
-            $projectCfg = "__DIR__ . '/config/project.config.php'";
-            $moduleCfg = "__DIR__ . '/module/" . $install->project->name . "/config/module.config.php'";
+            $projectCfg = "__DIR__ . '/config/project.php'";
+            $moduleCfg = "__DIR__ . '/module/" . $install->project->name . "/config/module.php'";
         // If the docroot is under the base
         } else if (strlen($base) < strlen($docroot)) {
             // Calculate how many levels up the base is from the docroot
@@ -67,15 +67,15 @@ class Bootstrap
             }
             $autoload = "__DIR__ . '" . $dirs . "vendor/PopPHPFramework/src/Pop/Loader/Autoloader.php'";
             $moduleSrc = "__DIR__ . '" . $dirs . "module/" . $install->project->name . "/src'";
-            $projectCfg = "__DIR__ . '" . $dirs . "config/project.config.php'";
-            $moduleCfg = "__DIR__ . '" . $dirs . "module/" . $install->project->name . "/config/module.config.php'";
+            $projectCfg = "__DIR__ . '" . $dirs . "config/project.php'";
+            $moduleCfg = "__DIR__ . '" . $dirs . "module/" . $install->project->name . "/config/module.php'";
         // If the base is under the docroot
         } else if (strlen($base) > strlen($docroot)) {
             $dir = str_replace($docroot, '', $base);
             $autoload = "__DIR__ . '" . $dir . "/vendor/PopPHPFramework/src/Pop/Loader/Autoloader.php'";
             $moduleSrc = "__DIR__ . '" . $dir . "/module/" . $install->project->name . "/src'";
-            $projectCfg = "__DIR__ . '" . $dir . "/config/project.config.php'";
-            $moduleCfg = "__DIR__ . '" . $dir . "/module/" . $install->project->name . "/config/module.config.php'";
+            $projectCfg = "__DIR__ . '" . $dir . "/config/project.php'";
+            $moduleCfg = "__DIR__ . '" . $dir . "/module/" . $install->project->name . "/config/module.php'";
         }
 
         // Create new Code file object

@@ -74,8 +74,8 @@ de configuración.
 
     // Create a project object, to define the project config, router and controller(s)
     $project = MyProject::factory(
-        include '../some/config/project.config.php',
-        include '../some/config/module.config.php',
+        include '../some/config/project.php',
+        include '../some/config/module.php',
         new Router(array(
             '/' => 'MyApp\MyController'
         ))
