@@ -107,6 +107,10 @@ class Object
                 $this->define($s);
             }
 
+            if (stripos($this->def, '/flatedecode') !== false) {
+                $this->isCompressed = true;
+            }
+
             if (stripos($this->def, '/xobject') !== false) {
                 $this->isXObject = true;
             }

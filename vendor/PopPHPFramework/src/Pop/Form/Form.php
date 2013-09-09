@@ -499,6 +499,16 @@ class Form extends \Pop\Dom\Dom
     }
 
     /**
+     * Get the $hasFile property
+     *
+     * @return boolean
+     */
+    public function hasFile()
+    {
+        return $this->hasFile;
+    }
+
+    /**
      * Get the main form element.
      *
      * @return array

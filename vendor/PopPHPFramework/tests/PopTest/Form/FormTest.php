@@ -63,10 +63,17 @@ class FormTest extends \PHPUnit_Framework_TestCase
                 'label'      => 'Username:',
                 'required'   => true,
                 'attributes' => array('size' => 40)
+            ),
+            'upload' => array(
+                'type'       => 'file',
+                'label'      => 'File:',
+                'required'   => true,
+                'attributes' => array('size' => 40)
             )
         );
         $f = new Form('/submit', 'post', $fields);
         $this->assertEquals(1, count($f->getFields()));
+        $this->assertTrue($f->hasFile());
     }
 
     public function testSetArrayOfFields()
@@ -77,6 +84,12 @@ class FormTest extends \PHPUnit_Framework_TestCase
                     'type'       => 'text',
                     'value'      => 'Username here...',
                     'label'      => 'Username:',
+                    'required'   => true,
+                    'attributes' => array('size' => 40)
+                ),
+                'upload' => array(
+                    'type'       => 'file',
+                    'label'      => 'File:',
                     'required'   => true,
                     'attributes' => array('size' => 40)
                 )
@@ -98,6 +111,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         );
         $f = new Form('/submit', 'post', $fields);
         $this->assertEquals(3, count($f->getFields()));
+        $this->assertTrue($f->hasFile());
     }
 
     public function testAddFields()
