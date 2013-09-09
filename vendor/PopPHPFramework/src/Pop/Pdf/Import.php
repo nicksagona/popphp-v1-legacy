@@ -167,7 +167,9 @@ class Import
             }
 
             foreach ($this->pages as $k => $v) {
-                $this->kids[$k] = $keyChanges[$v];
+                if (isset($keyChanges[$v])) {
+                    $this->kids[$k] = $keyChanges[$v];
+                }
             }
 
             $this->objects = $newObjects;
@@ -285,7 +287,9 @@ class Import
             }
 
             foreach ($this->kids as $value) {
-                $this->objects[$value] = $pageOrder[$value];
+                if (isset($pageOrder[$value])) {
+                    $this->objects[$value] = $pageOrder[$value];
+                }
             }
 
             // Remove any thumbnail objects.

@@ -174,7 +174,7 @@ class Page
                     $this->width = $w;
                     $this->height = $h;
                 }
-            }
+            }http://www.google.com/
 
             if (null === $i) {
                 throw new Exception('Error: A page index must be passed.');
@@ -214,7 +214,11 @@ class Page
 
             // Determine the page content objects.
             $cn = substr($str, strpos($str, 'Contents'));
-            $cn = substr($cn, 0, strpos($cn, '/'));
+            if (strpos($cn , '/') !== false) {
+                $cn = substr($cn, 0, strpos($cn, '/'));
+            } else if (strpos($cn , '>') !== false) {
+                $cn = substr($cn, 0, strpos($cn, '>'));
+            }
             $cn = str_replace('Contents', '', $cn);
             if (strpos($cn, '[') !== false) {
                 $cn = str_replace('[', '', $cn);
@@ -293,7 +297,33 @@ class Page
                 $gs = '';
             }
 
-            $this->data = "\n[{page_index}] 0 obj\n<</Type/Page/Parent [{parent}] 0 R[{annotations}]/MediaBox[0 0 {$this->width} {$this->height}]/Contents[[{content_objects}]]/Resources<</ProcSet[/PDF/Text/ImageB/ImageC/ImageI][{xobjects}][{fonts}]{$gs}>>>>\nendobj\n";
+            // If any groups exist
+            if (strpos($str, '/Group') !== false) {
+                $grp = substr($str, strpos($str, 'Group'));
+                $grp = substr($grp, 0, (strpos($grp, '>>') + 2));
+                $grp = '/' . $grp;
+            } else {
+                $grp = '';
+            }
+
+            // If resources exists
+            if (strpos($str, '/Resources') !== false) {
+                $res = substr($str, strpos($str, 'Resources'));
+                if (strpos($res, '0 R') !== false) {
+                    $res = substr($res, 0, (strpos($res, '0 R') + 3));
+                    $res = '/' . $res;
+
+                } else if (strpos($res, '>>') !== false) {
+                    $res = substr($res, 0, (strpos($res, '>>') + 2));
+                    $res = '/' . $res;
+                } else {
+                    $res = "/Resources<</ProcSet[/PDF/Text/ImageB/ImageC/ImageI][{xobjects}][{fonts}]{$gs}>>";
+                }
+            } else {
+                $res = "/Resources<</ProcSet[/PDF/Text/ImageB/ImageC/ImageI][{xobjects}][{fonts}]{$gs}>>";
+            }
+
+            $this->data = "\n[{page_index}] 0 obj\n<</Type/Page/Parent [{parent}] 0 R[{annotations}]/MediaBox[0 0 {$this->width} {$this->height}]{$grp}/Contents[[{content_objects}]]{$res}>>\nendobj\n";
         }
     }
 
