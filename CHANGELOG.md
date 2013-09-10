@@ -1,6 +1,30 @@
 Pop PHP Framework Changelog
 ===========================
 
+1.5.0
+-----
+Released on September 9, 2013
+
+* Patch resource reference object bug in Pdf component
+* Modify install functionality of the Project component
+* Add isLoaded() method to the Project class
+* Add file size validation support to Form\Element
+* Add ability to inject XML data into Form\Element\Select object
+* Patch null value return issue with getElement() in Form class
+* Tweak/update isDenied() method of the Acl component
+* Add sendJson() method to the Controller class
+* Upgrades to the Nav component
+    - Add leaf method to Nav
+    - Add positioning to the new addLeaf() method in Nav
+    - Add $prepend option to the addBranch() and addLeaf() methods in Nav
+    - Add an empty return if the nav object doesn't have any child nodes
+    - Add check in the Nav class to see if children are allowed under the parent
+* Fix bug in prepared adapters/bindParams() with parameter naming conflict
+* Add static formats() method to the Gd and Imagick classes
+* Add exception to File::upload
+* Add __toString() method to Dom\Child
+* Add Paginator support to the new Html data class
+
 1.4.0
 -----
 Released on July 15, 2013
