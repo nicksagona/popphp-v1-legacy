@@ -23,7 +23,7 @@ namespace Pop\Feed\Format\Rss;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.4.0
+ * @version    1.5.0
  */
 class Vimeo extends \Pop\Feed\Format\Rss
 {
@@ -79,8 +79,8 @@ class Vimeo extends \Pop\Feed\Format\Rss
             if (!$vimeo->isError()) {
                 $info = unserialize($vimeo->getBody());
                 if (isset($info[0]) && is_array($info[0])) {
-                    $items[$key]['views'] = $info[0]['stats_number_of_plays'];
-                    $items[$key]['likes'] = $info[0]['stats_number_of_likes'];
+                    $items[$key]['views'] = (isset($info[0]['stats_number_of_plays']) ? $info[0]['stats_number_of_plays'] : null);
+                    $items[$key]['likes'] = (isset($info[0]['stats_number_of_likes']) ? $info[0]['stats_number_of_likes'] : null);
                     $items[$key]['duration'] = $info[0]['duration'];
                     $items[$key]['image_thumb']  = $info[0]['thumbnail_small'];
                     $items[$key]['image_medium'] = $info[0]['thumbnail_medium'];

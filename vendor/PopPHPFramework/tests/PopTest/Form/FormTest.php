@@ -72,7 +72,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
             )
         );
         $f = new Form('/submit', 'post', $fields);
-        $this->assertEquals(1, count($f->getFields()));
+        $this->assertEquals(2, count($f->getFields()));
         $this->assertTrue($f->hasFile());
     }
 
@@ -110,7 +110,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
             )
         );
         $f = new Form('/submit', 'post', $fields);
-        $this->assertEquals(3, count($f->getFields()));
+        $this->assertEquals(4, count($f->getFields()));
         $this->assertTrue($f->hasFile());
     }
 
