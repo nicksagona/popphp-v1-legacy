@@ -264,6 +264,7 @@ class Controller
         // Trigger any dispatch events, then send the response
         $this->project->getEventManager()->trigger('dispatch', array('controller' => $this));
         $this->response->setBody($this->view->render(true));
+        $this->project->getEventManager()->trigger('dispatch.send', array('controller' => $this));
         $this->response->send();
     }
 

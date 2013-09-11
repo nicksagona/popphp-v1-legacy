@@ -251,6 +251,7 @@ class Project
      *
      *   dispatch.pre
      *   dispatch
+     *   dispatch.send
      *   dispatch.error
      *   dispatch.post
      *
