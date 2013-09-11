@@ -253,6 +253,8 @@ class Nav
      */
     public function rebuild()
     {
+        $this->parentLevel = 1;
+        $this->childLevel = 1;
         $this->nav = $this->traverse($this->tree);
         return $this;
     }
