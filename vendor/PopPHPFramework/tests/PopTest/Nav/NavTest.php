@@ -238,6 +238,86 @@ NAV;
         $this->assertContains('<li id="menu-2" class="item-2"', $output);
     }
 
+    public function testRebuildNav()
+    {
+        $tree = array(
+            array(
+                'name'     => 'First Nav Item',
+                'href'     => '/first',
+                'children' => array(
+                    array(
+                        'name' => 'First Child',
+                        'href' => 'first-child'
+                    ),
+                    array(
+                        'name' => 'Second Child',
+                        'href' => 'second-child'
+                    )
+                )
+            ),
+            array(
+                'name'     => 'Second Nav Item',
+                'href'     => '/second',
+                'attributes' => array(
+                    'style' => 'display: block;'
+                )
+            )
+        );
+
+        $config  = array(
+            'top' => array(
+                'node'  => 'ul',
+                'id'    => 'main-nav',
+                'class' => 'main-nav',
+                'attributes' => array(
+                    'style' => 'display: block;'
+                )
+            ),
+            'parent' => array(
+                'node'  => 'ul',
+                'id'    => 'nav',
+                'class' => 'level',
+                'attributes' => array(
+                    'style' => 'display: block;'
+                )
+            ),
+            'child' => array(
+                'node'  => 'li',
+                'id'    => 'menu',
+                'class' => 'item',
+                'attributes' => array(
+                    'style' => 'display: block;'
+                )
+            )
+        );
+
+        $n = new Nav($tree, $config);
+        $r = $n->render(true);
+
+        ob_start();
+        $n->render();
+        echo $n;
+        $output = ob_get_clean();
+
+        $this->assertNotContains('New Nav Item', $r);
+        $this->assertNotContains('New Nav Item', $output);
+
+        $n->addBranch(array(
+            'name' => 'New Nav Item',
+            'href' => '/new-nav'
+        ));
+        $n->rebuild();
+        $r = $n->render(true);
+
+        ob_start();
+        $n->render();
+        echo $n;
+        $output = ob_get_clean();
+
+        $this->assertContains('New Nav Item', $r);
+        $this->assertContains('New Nav Item', $output);
+    }
+
     public function testBuildNavWithAcl()
     {
         $page = new Auth\Resource('page');
