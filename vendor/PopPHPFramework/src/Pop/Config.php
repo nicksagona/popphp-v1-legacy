@@ -134,7 +134,7 @@ class Config
     }
 
     /**
-     * Get method to return the value of _config[$name].
+     * Get method to return the value of config[$name].
      *
      * @param  string $name
      * @return mixed
@@ -149,7 +149,7 @@ class Config
     }
 
     /**
-     * Magic get method to return the value of _config[$name].
+     * Magic get method to return the value of config[$name].
      *
      * @param  string $name
      * @return mixed
@@ -160,7 +160,7 @@ class Config
     }
 
     /**
-     * Set method to set the property to the value of _config[$name].
+     * Set method to set the property to the value of config[$name].
      *
      * @param  string $name
      * @param  mixed $value
@@ -177,7 +177,7 @@ class Config
     }
 
     /**
-     * Return the isset value of _config[$name].
+     * Return the isset value of config[$name].
      *
      * @param  string $name
      * @return boolean
@@ -188,7 +188,7 @@ class Config
     }
 
     /**
-     * Unset _config[$name].
+     * Unset config[$name].
      *
      * @param  string $name
      * @return void

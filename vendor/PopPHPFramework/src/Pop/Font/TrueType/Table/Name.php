@@ -108,7 +108,7 @@ class Name
     }
 
     /**
-     * Set method to set the property to the value of _fontInfo[$name].
+     * Set method to set the property to the value of fontInfo[$name].
      *
      * @param  string $name
      * @param  mixed $value
@@ -120,7 +120,7 @@ class Name
     }
 
     /**
-     * Get method to return the value of _fontInfo[$name].
+     * Get method to return the value of fontInfo[$name].
      *
      * @param  string $name
      * @return mixed
@@ -131,7 +131,7 @@ class Name
     }
 
     /**
-     * Return the isset value of _fontInfo[$name].
+     * Return the isset value of fontInfo[$name].
      *
      * @param  string $name
      * @return boolean
@@ -142,7 +142,7 @@ class Name
     }
 
     /**
-     * Unset _fontInfo[$name].
+     * Unset fontInfo[$name].
      *
      * @param  string $name
      * @return void

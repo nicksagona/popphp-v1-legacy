@@ -164,7 +164,7 @@ class Geo
     }
 
     /**
-     * Get method to return the value of _hostInfo[$name].
+     * Get method to return the value of hostInfo[$name].
      *
      * @param  string $name
      * @return mixed

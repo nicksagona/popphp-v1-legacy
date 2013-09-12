@@ -85,7 +85,7 @@ class Head
     }
 
     /**
-     * Set method to set the property to the value of _headerInfo[$name].
+     * Set method to set the property to the value of headerInfo[$name].
      *
      * @param  string $name
      * @param  mixed $value
@@ -97,7 +97,7 @@ class Head
     }
 
     /**
-     * Get method to return the value of _headerInfo[$name].
+     * Get method to return the value of headerInfo[$name].
      *
      * @param  string $name
      * @return mixed
@@ -108,7 +108,7 @@ class Head
     }
 
     /**
-     * Return the isset value of _headerInfo[$name].
+     * Return the isset value of headerInfo[$name].
      *
      * @param  string $name
      * @return boolean
@@ -119,7 +119,7 @@ class Head
     }
 
     /**
-     * Unset _headerInfo[$name].
+     * Unset headerInfo[$name].
      *
      * @param  string $name
      * @return void

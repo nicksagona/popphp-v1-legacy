@@ -112,7 +112,7 @@ class Color
     }
 
     /**
-     * Get method to return the value of _colors[$name].
+     * Get method to return the value of colors[$name].
      *
      * @param  string $name
      * @return mixed
@@ -124,7 +124,7 @@ class Color
     }
 
     /**
-     * Return the isset value of _colors[$name].
+     * Return the isset value of colors[$name].
      *
      * @param  string $name
      * @return boolean
@@ -135,7 +135,7 @@ class Color
     }
 
     /**
-     * Unset _colors[$name].
+     * Unset colors[$name].
      *
      * @param  string $name
      * @return void

@@ -103,7 +103,7 @@ class Model
     }
 
     /**
-     * Get method to return the value of _data[$name].
+     * Get method to return the value of data[$name].
      *
      * @param  string $name
      * @return mixed
@@ -114,7 +114,7 @@ class Model
     }
 
     /**
-     * Get method to return the value of _data[$key].
+     * Get method to return the value of data[$key].
      *
      * @param  int $key
      * @return mixed
@@ -125,19 +125,20 @@ class Model
     }
 
     /**
-     * Get method to return the value of _data[$name].
+     * Set method to set the value of data[$name].
      *
      * @param  string $name
      * @param  mixed $value
-     * @return mixed
+     * @return \Pop\Mvc\Model
      */
     public function set($name, $value)
     {
         $this->data[$name] = (is_array($value) ? new Model($value) : $value);
+        return $this;
     }
 
     /**
-     * Get method to return the value of _data[$name].
+     * Get method to return the value of data[$name].
      *
      * @param  string $name
      * @return mixed
@@ -148,7 +149,7 @@ class Model
     }
 
     /**
-     * Set method to set the property to the value of _data[$name].
+     * Set method to set the property to the value of data[$name].
      *
      * @param  string $name
      * @param  mixed $value
@@ -160,7 +161,7 @@ class Model
     }
 
     /**
-     * Return the isset value of _data[$name].
+     * Return the isset value of data[$name].
      *
      * @param  string $name
      * @return boolean
@@ -171,7 +172,7 @@ class Model
     }
 
     /**
-     * Unset _data[$name].
+     * Unset data[$name].
      *
      * @param  string $name
      * @return void

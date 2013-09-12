@@ -1076,7 +1076,7 @@ class Form extends \Pop\Dom\Dom
     }
 
     /**
-     * Set method to set the property to the value of _fields[$name].
+     * Set method to set the property to the value of fields[$name].
      *
      * @param  string $name
      * @param  mixed $value
@@ -1089,7 +1089,7 @@ class Form extends \Pop\Dom\Dom
     }
 
     /**
-     * Get method to return the value of _fields[$name].
+     * Get method to return the value of fields[$name].
      *
      * @param  string $name
      * @throws Exception
