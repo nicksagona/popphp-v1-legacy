@@ -64,35 +64,8 @@ class Archive extends \Pop\File\File
      */
     public function __construct($archive, $password = null, $prefix = 'Pop\\Archive\\Adapter\\')
     {
-        // Check if Bzip2 is available.
-        if (!function_exists('bzcompress')) {
-            unset($this->allowed['bz2']);
-            unset($this->allowed['tbz2']);
-        }
-        // Check if Gzip is available.
-        if (!function_exists('gzcompress')) {
-            unset($this->allowed['gz']);
-            unset($this->allowed['tgz']);
-        }
-        // Check if Phar is available.
-        if (!class_exists('Phar', false)) {
-            unset($this->allowed['phar']);
-        }
-        // Check if Rar is available.
-        if (!class_exists('RarArchive', false)) {
-            unset($this->allowed['rar']);
-        }
-        // Check if Tar is available.
-        if (!class_exists('Archive_Tar')) {
-            unset($this->allowed['tar']);
-        }
-        // Check if Zip is available.
-        if (!class_exists('ZipArchive', false)) {
-            unset($this->allowed['zip']);
-        }
-
+        $this->allowed = self::formats();
         parent::__construct($archive);
-
         $this->setAdapter($password, $prefix);
     }
 
@@ -107,6 +80,55 @@ class Archive extends \Pop\File\File
     public static function factory($archive, $password = null)
     {
         return new self($archive, $password);
+    }
+
+    /**
+     * Get formats
+     *
+     * @return array
+     */
+    public static function formats()
+    {
+        $allowed = array(
+            'bz2'  => 'application/bzip2',
+            'gz'   => 'application/x-gzip',
+            'phar' => 'application/x-phar',
+            'rar'  => 'application/x-rar-compressed',
+            'tar'  => 'application/x-tar',
+            'tbz'  => 'application/bzip2',
+            'tbz2' => 'application/bzip2',
+            'tgz'  => 'application/x-gzip',
+            'zip'  => 'application/x-zip'
+        );
+
+        // Check if Bzip2 is available.
+        if (!function_exists('bzcompress')) {
+            unset($allowed['bz2']);
+            unset($allowed['tbz2']);
+        }
+        // Check if Gzip is available.
+        if (!function_exists('gzcompress')) {
+            unset($allowed['gz']);
+            unset($allowed['tgz']);
+        }
+        // Check if Phar is available.
+        if (!class_exists('Phar', false)) {
+            unset($allowed['phar']);
+        }
+        // Check if Rar is available.
+        if (!class_exists('RarArchive', false)) {
+            unset($allowed['rar']);
+        }
+        // Check if Tar is available.
+        if (!class_exists('Archive_Tar')) {
+            unset($allowed['tar']);
+        }
+        // Check if Zip is available.
+        if (!class_exists('ZipArchive', false)) {
+            unset($allowed['zip']);
+        }
+
+        return $allowed;
     }
 
     /**
