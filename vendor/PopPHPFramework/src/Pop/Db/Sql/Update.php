@@ -59,7 +59,21 @@ class Update extends AbstractSql
         $sql = 'UPDATE ' . $this->sql->quoteId($this->sql->getTable()) . ' SET ';
         $set = array();
 
+        $paramCount = 1;
+        $dbType = $this->sql->getDbType();
+
         foreach ($this->columns as $column => $value) {
+            // Check for named parameters
+            if ((':' . $column == substr($value, 0, strlen(':' . $column))) &&
+                ($dbType !== \Pop\Db\Sql::SQLITE) &&
+                ($dbType !== \Pop\Db\Sql::ORACLE)) {
+                if (($dbType == \Pop\Db\Sql::MYSQL) || ($dbType == \Pop\Db\Sql::SQLSRV)) {
+                    $value = '?';
+                } else if ($dbType == \Pop\Db\Sql::PGSQL) {
+                    $value = '$' . $paramCount;
+                    $paramCount++;
+                }
+            }
             $val = (null === $value) ? 'NULL' : $this->sql->quote($value);
             $set[] = $this->sql->quoteId($column) .' = ' . $val;
         }
@@ -68,7 +82,7 @@ class Update extends AbstractSql
 
         // Build any WHERE clauses
         if (null !== $this->where) {
-            $sql .= ' WHERE ' . $this->where;
+            $sql .= ' WHERE ' . $this->where->render($paramCount);
         }
 
         // Build any ORDER BY clause

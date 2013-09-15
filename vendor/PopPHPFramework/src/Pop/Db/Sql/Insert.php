@@ -40,7 +40,21 @@ class Insert extends AbstractSql
         $columns = array();
         $values = array();
 
+        $paramCount = 1;
+        $dbType = $this->sql->getDbType();
+
         foreach ($this->columns as $column => $value) {
+            // Check for named parameters
+            if ((':' . $column == substr($value, 0, strlen(':' . $column))) &&
+                ($dbType !== \Pop\Db\Sql::SQLITE) &&
+                ($dbType !== \Pop\Db\Sql::ORACLE)) {
+                if (($dbType == \Pop\Db\Sql::MYSQL) || ($dbType == \Pop\Db\Sql::SQLSRV)) {
+                    $value = '?';
+                } else if ($dbType == \Pop\Db\Sql::PGSQL) {
+                    $value = '$' . $paramCount;
+                    $paramCount++;
+                }
+            }
             $columns[] = $this->sql->quoteId($column);
             $values[] = (null === $value) ? 'NULL' : $this->sql->quote($value);
         }

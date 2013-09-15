@@ -326,11 +326,12 @@ class Predicate
     }
 
     /**
-     * Predicate return string
+     * Predicate render method
      *
+     * @param  int $count
      * @return string
      */
-    public function __toString()
+    public function render($count = 1)
     {
         $where = null;
 
@@ -345,6 +346,9 @@ class Predicate
                 $where .= ' ' . $this->predicates[0]['combine'] . ' ';
             }
 
+            $paramCount = $count;
+            $dbType = $this->sql->getDbType();
+
             foreach ($this->predicates as $key => $predicate) {
                 $format = $predicate['format'];
                 $curWhere = '(';
@@ -355,6 +359,17 @@ class Predicate
                         if (is_array($predicate['values'][$i])) {
                             $vals = $predicate['values'][$i];
                             foreach ($vals as $k => $v) {
+                                // Check for named parameters
+                                if ((':' . $predicate['values'][0] == substr($v, 0, strlen(':' . $predicate['values'][0]))) &&
+                                    ($dbType !== \Pop\Db\Sql::SQLITE) &&
+                                    ($dbType !== \Pop\Db\Sql::ORACLE)) {
+                                    if (($dbType == \Pop\Db\Sql::MYSQL) || ($dbType == \Pop\Db\Sql::SQLSRV)) {
+                                        $v = '?';
+                                    } else if ($dbType == \Pop\Db\Sql::PGSQL) {
+                                        $v = '$' . $paramCount;
+                                        $paramCount++;
+                                    }
+                                }
                                 $vals[$k] = (null === $v) ? 'NULL' : $this->sql->quote($v);
                             }
                             $format = str_replace('%' . ($i + 1), implode(', ', $vals), $format);
@@ -364,6 +379,17 @@ class Predicate
                             } else {
                                 $val = (null === $predicate['values'][$i]) ? 'NULL' :
                                     $this->sql->quote($predicate['values'][$i]);
+                            }
+                            // Check for named parameters
+                            if ((':' . $predicate['values'][0] == substr($val, 0, strlen(':' . $predicate['values'][0]))) &&
+                                ($dbType !== \Pop\Db\Sql::SQLITE) &&
+                                ($dbType !== \Pop\Db\Sql::ORACLE)) {
+                                if (($dbType == \Pop\Db\Sql::MYSQL) || ($dbType == \Pop\Db\Sql::SQLSRV)) {
+                                    $val = '?';
+                                } else if ($dbType == \Pop\Db\Sql::PGSQL) {
+                                    $val = '$' . $paramCount;
+                                    $paramCount++;
+                                }
                             }
                             $format = str_replace('%' . ($i + 1), $val, $format);
                         }
@@ -380,6 +406,16 @@ class Predicate
         }
 
         return $where;
+    }
+
+    /**
+     * Predicate return string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->render();
     }
 
 }
