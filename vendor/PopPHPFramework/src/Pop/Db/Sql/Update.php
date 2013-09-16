@@ -63,8 +63,11 @@ class Update extends AbstractSql
         $dbType = $this->sql->getDbType();
 
         foreach ($this->columns as $column => $value) {
+            $colValue = (strpos($column, '.') !== false) ?
+                substr($column, (strpos($column, '.') + 1)) : $column;
+
             // Check for named parameters
-            if ((':' . $column == substr($value, 0, strlen(':' . $column))) &&
+            if ((':' . $colValue == substr($value, 0, strlen(':' . $colValue))) &&
                 ($dbType !== \Pop\Db\Sql::SQLITE) &&
                 ($dbType !== \Pop\Db\Sql::ORACLE)) {
                 if (($dbType == \Pop\Db\Sql::MYSQL) || ($dbType == \Pop\Db\Sql::SQLSRV)) {

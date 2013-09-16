@@ -359,8 +359,11 @@ class Predicate
                         if (is_array($predicate['values'][$i])) {
                             $vals = $predicate['values'][$i];
                             foreach ($vals as $k => $v) {
+                                $predValue = (strpos($predicate['values'][0], '.') !== false) ?
+                                    substr($predicate['values'][0], (strpos($predicate['values'][0], '.') + 1)) : $predicate['values'][0];
+
                                 // Check for named parameters
-                                if ((':' . $predicate['values'][0] == substr($v, 0, strlen(':' . $predicate['values'][0]))) &&
+                                if ((':' . $predValue == substr($v, 0, strlen(':' . $predValue))) &&
                                     ($dbType !== \Pop\Db\Sql::SQLITE) &&
                                     ($dbType !== \Pop\Db\Sql::ORACLE)) {
                                     if (($dbType == \Pop\Db\Sql::MYSQL) || ($dbType == \Pop\Db\Sql::SQLSRV)) {
@@ -380,8 +383,12 @@ class Predicate
                                 $val = (null === $predicate['values'][$i]) ? 'NULL' :
                                     $this->sql->quote($predicate['values'][$i]);
                             }
+
+                            $predValue = (strpos($predicate['values'][0], '.') !== false) ?
+                                substr($predicate['values'][0], (strpos($predicate['values'][0], '.') + 1)) : $predicate['values'][0];
+
                             // Check for named parameters
-                            if ((':' . $predicate['values'][0] == substr($val, 0, strlen(':' . $predicate['values'][0]))) &&
+                            if ((':' . $predValue == substr($val, 0, strlen(':' . $predValue))) &&
                                 ($dbType !== \Pop\Db\Sql::SQLITE) &&
                                 ($dbType !== \Pop\Db\Sql::ORACLE)) {
                                 if (($dbType == \Pop\Db\Sql::MYSQL) || ($dbType == \Pop\Db\Sql::SQLSRV)) {
