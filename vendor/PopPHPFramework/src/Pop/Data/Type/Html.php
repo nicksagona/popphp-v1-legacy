@@ -184,11 +184,11 @@ class Html
                 $submitBtn = '<input type="submit" name="submit" id="submit" value="Submit" />';
             }
 
-            $output .= $indent . '        <tr><td colspan="' . count($headerAry) . '" class="table-bottom-row">' . $submitBtn . '</td></tr>' . PHP_EOL;
+            $output .= $indent . '        <tr class="table-bottom-row"><td colspan="' . count($headerAry) . '" class="table-bottom-row">' . $submitBtn . '</td></tr>' . PHP_EOL;
             $output .= $indent . '    </table>' . PHP_EOL;
             $output .= $indent . '</form>' . PHP_EOL;
 
-            $footer = $indent . '        <tr><td colspan="' . count($headerAry) . '" class="table-bottom-row">' . $submitBtn . '<div class="page-links">[{page_links}]</div></td></tr>' . PHP_EOL;
+            $footer = $indent . '        <tr class="table-bottom-row"><td colspan="' . count($headerAry) . '" class="table-bottom-row">' . $submitBtn . '<div class="page-links">[{page_links}]</div></td></tr>' . PHP_EOL;
             $footer .= $indent . '    </table>' . PHP_EOL;
             $footer .= $indent . '</form>' . PHP_EOL;
         } else {

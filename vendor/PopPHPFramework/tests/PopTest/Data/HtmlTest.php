@@ -74,7 +74,7 @@ class HtmlTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('<form id="data-form"', $html);
         $this->assertContains('<tr><th class="first-th">Id</th><th>First Name</th><th>Last Name</th><th>Birth Date</th><th class="last-th">Remove?</th></tr>', $html);
         $this->assertContains('<tr><td class="first-td">1001</td><td>Bob</td><td><a href="/edit/1001">Smith</a></td><td>Aug 19, 1977</td><td class="last-td"><input type="checkbox" name="rm_users[]" id="rm_users1" value="1001" /></td></tr>', $html);
-        $this->assertContains('<tr><td colspan="5" class="table-bottom-row"><input type="submit" name="submit" id="submit" class="submit-btn" value="Remove?" /></td></tr>', $html);
+        $this->assertContains('<tr class="table-bottom-row"><td colspan="5" class="table-bottom-row"><input type="submit" name="submit" id="submit" class="submit-btn" value="Remove?" /></td></tr>', $html);
     }
 
 }
