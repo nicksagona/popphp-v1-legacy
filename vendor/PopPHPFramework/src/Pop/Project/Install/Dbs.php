@@ -141,8 +141,20 @@ class Dbs
             if ($clear) {
                 $oldTables = $popdb->adapter()->getTables();
                 if (count($oldTables) > 0) {
-                    foreach ($oldTables as $tab) {
-                        $popdb->adapter()->query("DROP TABLE " . $tab);
+                    if (($type == 'Mysqli') || ($db['type'] == 'mysql')) {
+                        $popdb->adapter()->query('SET foreign_key_checks = 0;');
+                        foreach ($oldTables as $tab) {
+                            $popdb->adapter()->query("DROP TABLE " . $tab);
+                        }
+                        $popdb->adapter()->query('SET foreign_key_checks = 1;');
+                    } else if (($type == 'Pgsql') || ($db['type'] == 'pgsql')) {
+                        foreach ($oldTables as $tab) {
+                            $popdb->adapter()->query("DROP TABLE " . $tab . ' CASCADE');
+                        }
+                    } else {
+                        foreach ($oldTables as $tab) {
+                            $popdb->adapter()->query("DROP TABLE " . $tab);
+                        }
                     }
                 }
             }
