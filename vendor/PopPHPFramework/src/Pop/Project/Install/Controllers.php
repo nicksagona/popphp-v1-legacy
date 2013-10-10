@@ -135,7 +135,6 @@ class Controllers
                         'Pop\Http\Response',
                         'Pop\Http\Request',
                         array('Pop\Mvc\Controller', 'C'),
-                        'Pop\Mvc\Model',
                         'Pop\Mvc\View',
                         'Pop\Project\Project'
                     ));

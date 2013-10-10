@@ -51,12 +51,6 @@ class Controller
     protected $project = null;
 
     /**
-     * Data model object
-     * @var \Pop\Mvc\Model
-     */
-    protected $model = null;
-
-    /**
      * View object
      * @var \Pop\Mvc\View
      */

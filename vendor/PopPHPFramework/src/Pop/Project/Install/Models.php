@@ -54,25 +54,10 @@ class Models
 
             // Define namespace
             $ns = new NamespaceGenerator($install->project->name . '\Model');
-            $ns->setUse('Pop\Mvc\Model');
-
-            // Create the constructor
-            $construct = new MethodGenerator('__construct');
-            $construct->setDesc('Instantiate the model object.');
-            $construct->getDocblock()->setReturn('self');
-            $construct->addArguments(
-                array(
-                    array('name' => 'data', 'value' => 'null', 'type' => 'mixed'),
-                    array('name' => 'name', 'value' => 'null', 'type' => 'string')
-                )
-            );
-            $construct->appendToBody("parent::__construct(\$data, \$name);", false);
 
             // Create and save model class file
             $modelCls = new Generator($modelDir . '/' . $modelName . '.php', Generator::CREATE_CLASS);
             $modelCls->setNamespace($ns);
-            $modelCls->code()->setParent('Model')
-                             ->addMethod($construct);
             $modelCls->save();
         }
     }

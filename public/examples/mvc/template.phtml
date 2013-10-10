@@ -20,7 +20,7 @@
     <ul>
 <?php
     foreach ($pages as $page):
-        echo '        <li><a href="' . $page->page_url . '">' . $page->page_title . '</a></li>' . PHP_EOL;
+        echo '        <li><a href="' . $page['page_url'] . '">' . $page['page_title'] . '</a></li>' . PHP_EOL;
     endforeach;
 ?>
     </ul>

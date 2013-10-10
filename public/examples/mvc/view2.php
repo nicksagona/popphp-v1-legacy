@@ -2,7 +2,6 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Mvc\Model;
 use Pop\Mvc\View;
 
 try {
@@ -54,7 +53,7 @@ TMPL;
         )
     );
 
-    $view = View::factory($tmpl, new Model($data));
+    $view = View::factory($tmpl, $data);
     $view->render();
 } catch (Exception $e) {
     echo $e->getMessage();
