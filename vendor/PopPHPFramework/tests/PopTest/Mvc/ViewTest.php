@@ -16,7 +16,6 @@
 namespace PopTest\Mvc;
 
 use Pop\Loader\Autoloader;
-use Pop\Mvc\Model;
 use Pop\Mvc\View;
 
 // Require the library's autoloader.
@@ -31,34 +30,35 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     public function testViewConstructor()
     {
         $this->assertInstanceOf('Pop\Mvc\View', new View('some template'));
-        $this->assertInstanceOf('Pop\Mvc\View', View::factory(__DIR__ . '/ModelTest.php', new Model()));
-        $this->assertInstanceOf('Pop\Mvc\View', View::factory(__DIR__ . '/ModelTest.php', array()));
+        $this->assertInstanceOf('Pop\Mvc\View', View::factory(__DIR__ . '/RouterTest.php', array()));
     }
 
-    public function testSetAndGetModel()
+    public function testSetAndGetModelData()
     {
         $v = new View('some template');
-        $v->setModel(new Model(123, 'data'));
-        $this->assertEquals(123, $v->getModel()->data);
+        $v->setData(array(123, 'something'));
+        $d = $v->getData();
+        $this->assertTrue(in_array(123, $d));
+        $this->assertEquals('something', $v->getData(1));
     }
 
     public function testGetTemplateFile()
     {
-        $v = View::factory(__DIR__ . '/ModelTest.php', new Model());
-        $this->assertEquals(__DIR__ . '/ModelTest.php', $v->getTemplateFile());
+        $v = View::factory(__DIR__ . '/RouterTest.php', array());
+        $this->assertEquals(__DIR__ . '/RouterTest.php', $v->getTemplateFile());
     }
 
     public function testGetTemplateString()
     {
-        $v = View::factory('some template', new Model());
+        $v = View::factory('some template', array());
         $this->assertEquals('some template', $v->getTemplateString());
     }
 
     public function testSetTemplateFile()
     {
-        $v = View::factory(null, new Model());
-        $v->setTemplateFile(__DIR__ . '/ModelTest.php');
-        $this->assertEquals(__DIR__ . '/ModelTest.php', $v->getTemplateFile());
+        $v = View::factory(null, array());
+        $v->setTemplateFile(__DIR__ . '/RouterTest.php');
+        $this->assertEquals(__DIR__ . '/RouterTest.php', $v->getTemplateFile());
         $v->setTemplateFile();
         $this->assertNull($v->getTemplateFile());
     }
@@ -66,20 +66,20 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     public function testSetTemplateFileException1()
     {
         $this->setExpectedException('Pop\Mvc\Exception');
-        $v = View::factory(null, new Model());
-        $v->setTemplateFile(__DIR__ . '/ModelTest.bad');
+        $v = View::factory(null, array());
+        $v->setTemplateFile(__DIR__ . '/RouterTest.bad');
     }
 
     public function testSetTemplateFileException2()
     {
         $this->setExpectedException('Pop\Mvc\Exception');
-        $v = View::factory(null, new Model());
-        $v->setTemplateFile(__DIR__ . '/ModelTestBad.php');
+        $v = View::factory(null, array());
+        $v->setTemplateFile(__DIR__ . '/RouterTestBad.php');
     }
 
     public function testSetTemplateString()
     {
-        $v = View::factory(null, new Model());
+        $v = View::factory(null, array());
         $v->setTemplateString('some template');
         $this->assertEquals('some template', $v->getTemplateString());
     }
@@ -87,13 +87,13 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     public function testRenderException()
     {
         $this->setExpectedException('Pop\Mvc\Exception');
-        $v = View::factory(null, new Model());
+        $v = View::factory(null, array());
         $v->render();
     }
 
     public function testRender()
     {
-        $v = View::factory('some template with a [{var}]', new Model('variable', 'var'));
+        $v = View::factory('some template with a [{var}]', array('var' => 'variable'));
         $view = $v->render(true);
 
         ob_start();
@@ -107,7 +107,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderStringWithLoop()
     {
-        $data = new Model(array('list' => array('Thing #1', 'Thing #2')));
+        $data = array('list' => array('Thing #1', 'Thing #2'));
         $template = <<<TMPL
     <ul>
 [{list}]        <li>[{value}]</li>[{/list}]

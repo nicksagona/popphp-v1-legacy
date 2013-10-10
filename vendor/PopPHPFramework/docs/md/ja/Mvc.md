@@ -11,7 +11,6 @@ Home
 あなたはCLIコンポーネントプロジェクトのインストール機能を使用する場合、これは、過度に複雑に見えるかもしれませんが、このコードのほとんどは、あなたのために書かれており、インストールすることができます。あなただけのプロジェクト名とインストール構成ファイルの設定を定義する必要があります。プロジェクトインストール構成ファイルの例を取得するプロジェクトコンポーネントdocファイルを表示します。
 
     use Pop\Mvc\Controller,
-        Pop\Mvc\Model,
         Pop\Mvc\Router,
         Pop\Mvc\View,
         Pop\Project\Project;
@@ -26,7 +25,7 @@ Home
         }
     }
 
-    class MyModel extends Model
+    class MyModel
     {
         // Perhaps does something special pertaining to whatever data you are manipulating
     }
@@ -47,7 +46,7 @@ Home
         public function index()
         {
             $model = new MyModel(array('username' => 'myusername');
-            $this->view = View::factory($this->viewPath . '/index.phtml', $model);
+            $this->view = View::factory($this->viewPath . '/index.phtml', $model->getmyData()); // This would return an array into the view object
             $this->send();
         }
 

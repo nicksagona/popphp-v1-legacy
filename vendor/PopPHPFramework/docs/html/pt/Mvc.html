@@ -30,8 +30,8 @@
             Enquanto isto pode parecer muito complexo, se você usar o componente CLI recurso de instalação do projeto, a maior parte deste código pode ser escrito e instalados para você. Você apenas tem que definir o nome do projeto e as configurações no arquivo de configuração de instalação. Ver o Projeto componente de arquivo doc para obter um exemplo de um projeto de arquivo de instalação de configuração.
         </p>
 <pre>
+<pre>
 use Pop&#92;Mvc&#92;Controller,
-    Pop&#92;Mvc&#92;Model,
     Pop&#92;Mvc&#92;Router,
     Pop&#92;Mvc&#92;View,
     Pop&#92;Project&#92;Project;
@@ -46,7 +46,7 @@ class MyProject extends Project
     }
 }
 
-class MyModel extends Model
+class MyModel
 {
     // Perhaps does something special pertaining to whatever data you are manipulating
 }
@@ -66,8 +66,8 @@ class MyController extends Controller
     // Your home page
     public function index()
     {
-        $model = new MyModel(array('username' =&gt; 'myusername');
-        $this-&gt;view = View::factory($this-&gt;viewPath . '/index.phtml', $model);
+        $model = new MyModel();
+        $this-&gt;view = View::factory($this-&gt;viewPath . '/index.phtml', $model->getmyData()); // This would return an array into the view object
         $this-&gt;send();
     }
 

@@ -22,7 +22,6 @@ o Projeto componente de arquivo doc para obter um exemplo de um projeto
 de arquivo de instalação de configuração.
 
     use Pop\Mvc\Controller,
-        Pop\Mvc\Model,
         Pop\Mvc\Router,
         Pop\Mvc\View,
         Pop\Project\Project;
@@ -37,7 +36,7 @@ de arquivo de instalação de configuração.
         }
     }
 
-    class MyModel extends Model
+    class MyModel
     {
         // Perhaps does something special pertaining to whatever data you are manipulating
     }
@@ -58,7 +57,7 @@ de arquivo de instalação de configuração.
         public function index()
         {
             $model = new MyModel(array('username' => 'myusername');
-            $this->view = View::factory($this->viewPath . '/index.phtml', $model);
+            $this->view = View::factory($this->viewPath . '/index.phtml', $model->getmyData()); // This would return an array into the view object
             $this->send();
         }
 

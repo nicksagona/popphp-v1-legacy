@@ -18,7 +18,6 @@ Home
 דוגמה של קובץ תצורת התקנת פרויקט.
 
     use Pop\Mvc\Controller,
-        Pop\Mvc\Model,
         Pop\Mvc\Router,
         Pop\Mvc\View,
         Pop\Project\Project;
@@ -33,7 +32,7 @@ Home
         }
     }
 
-    class MyModel extends Model
+    class MyModel
     {
         // Perhaps does something special pertaining to whatever data you are manipulating
     }
@@ -54,7 +53,7 @@ Home
         public function index()
         {
             $model = new MyModel(array('username' => 'myusername');
-            $this->view = View::factory($this->viewPath . '/index.phtml', $model);
+            $this->view = View::factory($this->viewPath . '/index.phtml', $model->getmyData()); // This would return an array into the view object
             $this->send();
         }
 

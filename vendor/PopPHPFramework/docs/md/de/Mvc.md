@@ -24,7 +24,6 @@ doc-Datei, um ein Beispiel eines Projekts zu installieren
 Konfigurationsdatei zu bekommen.
 
     use Pop\Mvc\Controller,
-        Pop\Mvc\Model,
         Pop\Mvc\Router,
         Pop\Mvc\View,
         Pop\Project\Project;
@@ -39,7 +38,7 @@ Konfigurationsdatei zu bekommen.
         }
     }
 
-    class MyModel extends Model
+    class MyModel
     {
         // Perhaps does something special pertaining to whatever data you are manipulating
     }
@@ -60,7 +59,7 @@ Konfigurationsdatei zu bekommen.
         public function index()
         {
             $model = new MyModel(array('username' => 'myusername');
-            $this->view = View::factory($this->viewPath . '/index.phtml', $model);
+            $this->view = View::factory($this->viewPath . '/index.phtml', $model->getmyData()); // This would return an array into the view object
             $this->send();
         }
 

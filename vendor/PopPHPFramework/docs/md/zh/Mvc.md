@@ -11,7 +11,6 @@ Home
 虽然这可能看起来过于复杂，如果您使用CLI安装组件项目功能，大部分代码可以书面和为您安装。你只需要定义的项目名称，并在安装配置文件的设置。查看项目的组成部分DOC文件，以获得一个项目的安装配置文件的一个例子。
 
     use Pop\Mvc\Controller,
-        Pop\Mvc\Model,
         Pop\Mvc\Router,
         Pop\Mvc\View,
         Pop\Project\Project;
@@ -26,7 +25,7 @@ Home
         }
     }
 
-    class MyModel extends Model
+    class MyModel
     {
         // Perhaps does something special pertaining to whatever data you are manipulating
     }
@@ -47,15 +46,15 @@ Home
         public function index()
         {
             $model = new MyModel(array('username' => 'myusername');
-            $this->view = View::factory($this->viewPath . '/index.phtml', $model);
+            $this->view = View::factory($this->viewPath . '/index.phtml', $model->getmyData()); // This would return an array into the view object
             $this->send();
         }
 
         // Your 404 page
         public function error()
         {
-            $this-&gt;view = View::factory($this-&gt;viewPath . '/error.phtml');
-        $this-&gt;send(404);
+            $this->view = View::factory($this->viewPath . '/error.phtml');
+            $this->send(404);
         }
     }
 

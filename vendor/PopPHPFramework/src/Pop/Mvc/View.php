@@ -44,7 +44,7 @@ class View
      * Model data
      * @var array
      */
-    protected $data = array();
+    protected $data = null;
 
     /**
      * View output string
@@ -61,7 +61,7 @@ class View
      * @param  array  $data
      * @return \Pop\Mvc\View
      */
-    public function __construct($template = null, array $data = array())
+    public function __construct($template = null, array $data = null)
     {
         if (null !== $template) {
             if (((substr($template, -6) == '.phtml') ||
@@ -80,22 +80,27 @@ class View
      * Create a Pop\Mvc\View object
      *
      * @param  string $template
-     * @param  mixed  $model
+     * @param  array  $data
      * @return \Pop\Mvc\View
      */
-    public static function factory($template = null, $model = null)
+    public static function factory($template = null, array $data = null)
     {
-        return new self($template, $model);
+        return new self($template, $data);
     }
 
     /**
      * Get model data
      *
-     * @return array
+     * @param  string $key
+     * @return mixed
      */
-    public function getData()
+    public function getData($key = null)
     {
-        return $this->data;
+        if (null !== $key) {
+            return (isset($this->data[$key])) ? $this->data[$key] : null;
+        } else {
+            return $this->data;
+        }
     }
 
     /**
@@ -157,7 +162,7 @@ class View
     }
 
     /**
-     * Set data model
+     * Set model data
      *
      * @param  array $data
      * @return \Pop\Mvc\View
@@ -201,7 +206,7 @@ class View
      */
     protected function renderTemplateFile()
     {
-        if (count($this->data) > 0) {
+        if (null !== $this->data) {
             foreach ($this->data as $key => $value) {
                 ${$key} = $value;
             }
@@ -221,7 +226,7 @@ class View
     {
         $this->output = $this->templateString;
 
-        if (count($this->data) > 0) {
+        if (null !== $this->data) {
             // Render nested arrays first
             foreach ($this->data as $key => $value) {
                 if (is_array($value) || ($value instanceof \ArrayObject)) {

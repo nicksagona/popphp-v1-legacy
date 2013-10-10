@@ -22,7 +22,6 @@ CLI установки компонента функция, большая ча�
 конфигурации.
 
     use Pop\Mvc\Controller,
-        Pop\Mvc\Model,
         Pop\Mvc\Router,
         Pop\Mvc\View,
         Pop\Project\Project;
@@ -37,7 +36,7 @@ CLI установки компонента функция, большая ча�
         }
     }
 
-    class MyModel extends Model
+    class MyModel
     {
         // Perhaps does something special pertaining to whatever data you are manipulating
     }
@@ -58,15 +57,15 @@ CLI установки компонента функция, большая ча�
         public function index()
         {
             $model = new MyModel(array('username' => 'myusername');
-            $this->view = View::factory($this->viewPath . '/index.phtml', $model);
+            $this->view = View::factory($this->viewPath . '/index.phtml', $model->getmyData()); // This would return an array into the view object
             $this->send();
         }
 
         // Your 404 page
         public function error()
         {
-            $this-&gt;view = View::factory($this-&gt;viewPath . '/error.phtml');
-            $this-&gt;send(404);
+            $this->view = View::factory($this->viewPath . '/error.phtml');
+            $this->send(404);
         }
     }
 
