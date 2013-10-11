@@ -244,11 +244,17 @@ class View
                             if (is_array($val)) {
                                 $l = $loop;
                                 foreach ($val as $k => $v) {
-                                    $l = str_replace('[{' . $k . '}]', $v, $l);
+                                    // Check is value is stringable
+                                    if (!is_object($v) || (is_object($v) && method_exists($v, '__toString'))) {
+                                        $l = str_replace('[{' . $k . '}]', $v, $l);
+                                    }
                                 }
                                 $outputLoop .= $l;
                             } else {
-                                $outputLoop .= str_replace('[{value}]', $val, $loop);
+                                // Check is value is stringable
+                                if (!is_object($val) || (is_object($val) && method_exists($val, '__toString'))) {
+                                    $outputLoop .= str_replace('[{value}]', $val, $loop);
+                                }
                             }
                             $i++;
                             if ($i < count($value)) {
@@ -263,7 +269,10 @@ class View
             // Render scalar values
             foreach ($this->data as $key => $value) {
                 if (!is_array($value) && !($value instanceof \ArrayObject)) {
-                    $this->output = str_replace('[{' . $key . '}]', $value, $this->output);
+                    // Check is value is stringable
+                    if (!is_object($value) || (is_object($value) && method_exists($value, '__toString'))) {
+                        $this->output = str_replace('[{' . $key . '}]', $value, $this->output);
+                    }
                 }
             }
         }
