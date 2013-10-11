@@ -93,6 +93,8 @@ class NavTest extends \PHPUnit_Framework_TestCase
 
     public function testAddLeaf()
     {
+        $_SERVER['REQUEST_URI'] = '/first';
+
         $tree = array(
             array(
                 'name'     => 'First Nav Item',
@@ -138,6 +140,8 @@ NAV;
 
     public function testBuildAndGetNav()
     {
+        $_SERVER['REQUEST_URI'] = '/first';
+
         $tree = array(
             array(
                 'name'     => 'First Nav Item',
@@ -154,6 +158,8 @@ NAV;
 
     public function testGetNav()
     {
+        $_SERVER['REQUEST_URI'] = '/first';
+
         $tree = array(
             array(
                 'name'     => 'First Nav Item',
@@ -170,6 +176,8 @@ NAV;
 
     public function testBuildNav()
     {
+        $_SERVER['REQUEST_URI'] = '/first';
+
         $tree = array(
             array(
                 'name'     => 'First Nav Item',
@@ -218,7 +226,9 @@ NAV;
                 'attributes' => array(
                     'style' => 'display: block;'
                 )
-            )
+            ),
+            'on'  => 'link-on',
+            'off' => 'link-off'
         );
 
         $n = new Nav($tree, $config);
@@ -232,14 +242,20 @@ NAV;
         $this->assertContains('id="main-nav"', $r);
         $this->assertContains('<li id="menu-2" class="item-2"', $r);
         $this->assertContains('<li id="menu-2" class="item-2"', $r);
+        $this->assertContains('class="link-off"', $r);
+        $this->assertContains('class="link-on"', $r);
 
         $this->assertContains('id="main-nav"', $output);
         $this->assertContains('<li id="menu-2" class="item-2"', $output);
         $this->assertContains('<li id="menu-2" class="item-2"', $output);
+        $this->assertContains('class="link-off"', $output);
+        $this->assertContains('class="link-on"', $output);
     }
 
     public function testRebuildNav()
     {
+        $_SERVER['REQUEST_URI'] = '/first';
+
         $tree = array(
             array(
                 'name'     => 'First Nav Item',
@@ -320,6 +336,8 @@ NAV;
 
     public function testBuildNavWithAcl()
     {
+        $_SERVER['REQUEST_URI'] = '/first';
+
         $page = new Auth\Resource('page');
         $user = new Auth\Resource('user');
 
@@ -387,6 +405,8 @@ NAV;
 
     public function testBuildAclException()
     {
+        $_SERVER['REQUEST_URI'] = '/first';
+
         $this->setExpectedException('Pop\Nav\Exception');
         $page = new Auth\Resource('page');
         $user = new Auth\Resource('user');
@@ -452,6 +472,8 @@ NAV;
 
     public function testBuildRoleException()
     {
+        $_SERVER['REQUEST_URI'] = '/first';
+
         $this->setExpectedException('Pop\Nav\Exception');
         $page = new Auth\Resource('page');
         $user = new Auth\Resource('user');

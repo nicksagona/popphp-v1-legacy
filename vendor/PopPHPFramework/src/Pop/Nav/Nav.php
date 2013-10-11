@@ -415,14 +415,34 @@ class Nav
                         $href = $parentHref . '/' . $node['href'];
                     }
                 }
+
                 $a->setAttributes('href', $href);
+                $url = $_SERVER['REQUEST_URI'];
+                if (strpos($url, '?') !== false) {
+                    $url = substr($url, strpos($url, '?'));
+                }
+
+                $linkClass = null;
+                if ($href == $url) {
+                    if (isset($this->config['on'])) {
+                        $linkClass = $this->config['on'];
+                    }
+                } else {
+                    if (isset($this->config['off'])) {
+                        $linkClass = $this->config['off'];
+                    }
+                }
 
                 // If the node has any attributes
                 if (isset($node['attributes'])) {
                     foreach ($node['attributes'] as $attrib => $value) {
+                        $value = (($attrib == 'class') && (null !== $linkClass)) ? $value . ' ' . $linkClass : $value;
                         $a->setAttributes($attrib, $value);
                     }
+                } else if (null !== $linkClass) {
+                    $a->setAttributes('class', $linkClass);
                 }
+
                 $navChild = new Child($child);
 
                 // Set child attributes if they exist

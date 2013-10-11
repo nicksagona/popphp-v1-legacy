@@ -22,7 +22,7 @@ try {
         ),
         array(
             'name'     => 'Second Nav Item',
-            'href'     => '/second'
+            'href'     => '/examples/nav/nav1.php'
         ),
         array(
             'name'     => 'Third Nav Item',
@@ -42,7 +42,7 @@ try {
                     'children' => array(
                         array(
                             'name' => 'Nested Child',
-                            'href' => 'nested-child',
+                            'href' => '/examples/nav/nav1.php',
                             'attributes' => array(
                                 'target' => '_blank',
                                 'class'  => 'nested-link'
@@ -68,7 +68,9 @@ try {
             'node'  => 'li',
             'id'    => 'menu',
             'class' => 'item'
-        )
+        ),
+        'on'  => 'link-on',
+        'off' => 'link-off'
     );
 
     $nav = new Nav($tree, $config);
