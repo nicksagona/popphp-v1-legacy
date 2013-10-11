@@ -240,8 +240,8 @@ class View
                         $loop = str_replace($end, '', $loop);
                         $outputLoop = '';
                         $i = 0;
-                        foreach ($value as $val) {
-                            if (is_array($val)) {
+                        foreach ($value as $ky => $val) {
+                            if (is_array($val) || ($val instanceof \ArrayObject)) {
                                 $l = $loop;
                                 foreach ($val as $k => $v) {
                                     // Check is value is stringable
@@ -253,7 +253,8 @@ class View
                             } else {
                                 // Check is value is stringable
                                 if (!is_object($val) || (is_object($val) && method_exists($val, '__toString'))) {
-                                    $outputLoop .= str_replace('[{value}]', $val, $loop);
+                                    $replace = (!is_numeric($ky)) ? '[{' . $ky . '}]' : '[{value}]';
+                                    $outputLoop .= str_replace($replace, $val, $loop);
                                 }
                             }
                             $i++;
