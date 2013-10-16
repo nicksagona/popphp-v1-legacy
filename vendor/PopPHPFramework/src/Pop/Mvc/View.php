@@ -94,13 +94,19 @@ class View
      * @param  string $key
      * @return mixed
      */
-    public function getData($key = null)
+    public function get($key)
     {
-        if (null !== $key) {
-            return (isset($this->data[$key])) ? $this->data[$key] : null;
-        } else {
-            return $this->data;
-        }
+        return (isset($this->data[$key])) ? $this->data[$key] : null;
+    }
+
+    /**
+     * Get all model data
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->data;
     }
 
     /**
@@ -136,9 +142,7 @@ class View
             if (((substr($template, -6) == '.phtml') ||
                  (substr($template, -5) == '.php3') ||
                  (substr($template, -4) == '.php')) && (file_exists($template))) {
-
                 $this->templateFile = $template;
-
             } else {
                 throw new Exception('That template file either does not exist or is not the correct format.');
             }
@@ -163,6 +167,19 @@ class View
 
     /**
      * Set model data
+     *
+     * @param  string $name
+     * @param  mixed  $value
+     * @return \Pop\Mvc\View
+     */
+    public function set($name, $value)
+    {
+        $this->data[$name] = $value;
+        return $this;
+    }
+
+    /**
+     * Set all model data
      *
      * @param  array $data
      * @return \Pop\Mvc\View

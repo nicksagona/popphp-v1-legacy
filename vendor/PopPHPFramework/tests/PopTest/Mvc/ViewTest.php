@@ -37,9 +37,11 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     {
         $v = new View('some template');
         $v->setData(array(123, 'something'));
+        $v->set('new', 'thing');
         $d = $v->getData();
         $this->assertTrue(in_array(123, $d));
-        $this->assertEquals('something', $v->getData(1));
+        $this->assertEquals('something', $v->get(1));
+        $this->assertEquals('thing', $v->get('new'));
     }
 
     public function testGetTemplateFile()
