@@ -110,6 +110,23 @@ class View
     }
 
     /**
+     * Get view template
+     *
+     * @return string
+     */
+    public function getTemplate()
+    {
+        $tmpl = null;
+        if (null !== $this->templateFile) {
+            $tmpl = $this->templateFile;
+        } else if (null !== $this->templateString) {
+            $tmpl = $this->templateString;
+        }
+
+        return $tmpl;
+    }
+
+    /**
      * Get view template file
      *
      * @return string
@@ -130,24 +147,42 @@ class View
     }
 
     /**
+     * Set view template with auto-detect
+     *
+     * @param  string $template
+     * @return \Pop\Mvc\View
+     */
+    public function setTemplate($template)
+    {
+        if (((substr($template, -6) == '.phtml') ||
+                (substr($template, -5) == '.php3') ||
+                (substr($template, -4) == '.php')) && (file_exists($template))) {
+            $this->templateFile = $template;
+            $this->templateString = null;
+        } else {
+            $this->templateString = $template;
+            $this->templateFile = null;
+        }
+
+        return $this;
+    }
+
+    /**
      * Set view template file
      *
      * @param  string $template
      * @throws Exception
      * @return \Pop\Mvc\View
      */
-    public function setTemplateFile($template = null)
+    public function setTemplateFile($template)
     {
-        if (null !== $template) {
-            if (((substr($template, -6) == '.phtml') ||
-                 (substr($template, -5) == '.php3') ||
-                 (substr($template, -4) == '.php')) && (file_exists($template))) {
-                $this->templateFile = $template;
-            } else {
-                throw new Exception('That template file either does not exist or is not the correct format.');
-            }
-        } else {
+        if (((substr($template, -6) == '.phtml') ||
+             (substr($template, -5) == '.php3') ||
+             (substr($template, -4) == '.php')) && (file_exists($template))) {
             $this->templateFile = $template;
+            $this->templateString = null;
+        } else {
+            throw new Exception('That template file either does not exist or is not the correct format.');
         }
 
         return $this;
@@ -159,9 +194,10 @@ class View
      * @param  string $template
      * @return \Pop\Mvc\View
      */
-    public function setTemplateString($template = null)
+    public function setTemplateString($template)
     {
         $this->templateString = $template;
+        $this->templateFile = null;
         return $this;
     }
 
@@ -175,6 +211,18 @@ class View
     public function set($name, $value)
     {
         $this->data[$name] = $value;
+        return $this;
+    }
+
+    /**
+     * Merge new model data
+     *
+     * @param  array $data
+     * @return \Pop\Mvc\View
+     */
+    public function merge(array $data)
+    {
+        $this->data = array_merge($this->data, $data);
         return $this;
     }
 

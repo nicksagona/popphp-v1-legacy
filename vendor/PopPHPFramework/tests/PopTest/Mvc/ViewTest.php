@@ -46,6 +46,9 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $v->new = 'somethingelse';
         $this->assertEquals('somethingelse', $v->new);
         $this->assertTrue(isset($v->new));
+        $v->merge(array('newthing' => 456));
+        $this->assertTrue(isset($v->newthing));
+        $this->assertEquals(456, $v->newthing);
     }
 
     public function testGetTemplateFile()
@@ -60,13 +63,23 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('some template', $v->getTemplateString());
     }
 
+    public function testSetTemplate()
+    {
+        $v = View::factory(null, array());
+        $v->setTemplate(__DIR__ . '/RouterTest.php');
+        $this->assertEquals(__DIR__ . '/RouterTest.php', $v->getTemplateFile());
+        $this->assertEquals(__DIR__ . '/RouterTest.php', $v->getTemplate());
+        $v->setTemplate('some template');
+        $this->assertEquals('some template', $v->getTemplateString());
+        $this->assertEquals('some template', $v->getTemplate());
+    }
+
     public function testSetTemplateFile()
     {
         $v = View::factory(null, array());
         $v->setTemplateFile(__DIR__ . '/RouterTest.php');
         $this->assertEquals(__DIR__ . '/RouterTest.php', $v->getTemplateFile());
-        $v->setTemplateFile();
-        $this->assertNull($v->getTemplateFile());
+        $this->assertNull($v->getTemplateString());
     }
 
     public function testSetTemplateFileException1()
@@ -88,6 +101,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $v = View::factory(null, array());
         $v->setTemplateString('some template');
         $this->assertEquals('some template', $v->getTemplateString());
+        $this->assertNull($v->getTemplateFile());
     }
 
     public function testRenderException()
