@@ -77,6 +77,12 @@ class Browser
     protected $mozilla = false;
 
     /**
+     * Chrome flag
+     * @var boolean
+     */
+    protected $chrome = false;
+
+    /**
      * WebKit flag
      * @var boolean
      */
@@ -191,6 +197,16 @@ class Browser
     }
 
     /**
+     * Method to get Chrome flag
+     *
+     * @return boolean
+     */
+    public function isChrome()
+    {
+        return $this->chrome;
+    }
+
+    /**
      * Method to get WebKit flag
      *
      * @return boolean
@@ -291,6 +307,7 @@ class Browser
             $this->version = substr($this->ua, (stripos($this->ua, 'Camino/') + 7));
         } else if (stripos($this->ua, 'Chrome') !== false) {
             $this->name = 'Chrome';
+            $this->chrome = true;
             $this->webkit = true;
             $this->version = substr($this->ua, (stripos($this->ua, 'Chrome/') + 7));
             $this->version = substr($this->version, 0, (stripos($this->version, ' ')));
