@@ -51,6 +51,17 @@ abstract class AbstractAdapter implements AdapterInterface
         $pw   = false;
         $salt = (!empty($options['salt'])) ? $options['salt'] : null;
 
+        // If it's a serialize array value with hash/salt
+        if (substr($hash, 0, 5) == 'a:2:{') {
+            $ary = unserialize($hash);
+            if (isset($ary['hash'])) {
+                $hash = $ary['hash'];
+            }
+            if (isset($ary['salt'])) {
+                $salt = $ary['salt'];
+            }
+        }
+
         if (!empty($options['secret'])) {
             $attemptedPassword .= $options['secret'];
         }

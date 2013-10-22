@@ -227,6 +227,9 @@ class Mcrypt implements CryptInterface
      */
     public function decrypt($hash)
     {
+        if ($this->ivSize == 0) {
+            $this->ivSize = mcrypt_get_iv_size($this->cipher, $this->mode);
+        }
         $decrypted = base64_decode($hash);
         $iv = substr($decrypted, 0, $this->ivSize);
         $decrypted = substr($decrypted, $this->ivSize);
@@ -242,6 +245,9 @@ class Mcrypt implements CryptInterface
      */
     public function verify($string, $hash)
     {
+        if ($this->ivSize == 0) {
+            $this->ivSize = mcrypt_get_iv_size($this->cipher, $this->mode);
+        }
         $decrypted = base64_decode($hash);
         $iv = substr($decrypted, 0, $this->ivSize);
         $decrypted = substr($decrypted, $this->ivSize);
