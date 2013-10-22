@@ -22,6 +22,7 @@ PHP.
 -   Color
 -   Compress
 -   Config
+-   Crypt
 -   Curl
 -   Data
 -   Db

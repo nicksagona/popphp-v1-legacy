@@ -98,13 +98,6 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($a->isValid());
     }
 
-    public function testSetAndGetSalt()
-    {
-        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
-        $a->setSalt('abcdefg');
-        $this->assertEquals('abcdefg', $a->getSalt());
-    }
-
     public function testSetAttemptLimit()
     {
         $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'));
@@ -174,15 +167,6 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'), Auth::ENCRYPT_CRYPT, 'abcdefg');
         $a->authenticate('testuser1', '12test34');
         $this->assertFalse($a->isValid());
-    }
-
-    public function testPasswordEncryptionException()
-    {
-        $this->setExpectedException('Pop\Auth\Exception');
-        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'), Auth::ENCRYPT_CRYPT);
-        $a->authenticate('testuser1', '12test34');
-        $this->assertFalse($a->isValid());
-
     }
 
 }

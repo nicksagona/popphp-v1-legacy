@@ -15,6 +15,8 @@
  */
 namespace Pop\Auth\Adapter;
 
+use Pop\Auth\Auth;
+
 /**
  * File auth adapter class
  *
@@ -23,9 +25,9 @@ namespace Pop\Auth\Adapter;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.5.0
+ * @version    1.6.0
  */
-class File implements AdapterInterface
+class File extends AbstractAdapter
 {
 
     /**
@@ -39,12 +41,6 @@ class File implements AdapterInterface
      * @var array
      */
     protected $users = array();
-
-    /**
-     * User data array
-     * @var array
-     */
-    protected $user = array();
 
     /**
      * Constructor
@@ -71,34 +67,27 @@ class File implements AdapterInterface
      *
      * @param  string $username
      * @param  string $password
+     * @param  int    $encryption
      * @return int
      */
-    public function authenticate($username, $password)
+    public function authenticate($username, $password, $encryption)
     {
         if (!array_key_exists($username, $this->users)) {
-            $result = \Pop\Auth\Auth::USER_NOT_FOUND;
-        } else if ($this->users[$username]['password'] != $password) {
-            $result = \Pop\Auth\Auth::PASSWORD_INCORRECT;
-        } else if ((strtolower($this->users[$username]['access']) == 'blocked') ||
-            (null === $this->users[$username]['access']) ||
-            (is_numeric($this->users[$username]['access']) && ($this->users[$username]['access'] == 0))) {
-            $result = \Pop\Auth\Auth::USER_IS_BLOCKED;
-        } else {
-            $this->user = $this->users[$username];
-            $result = \Pop\Auth\Auth::USER_IS_VALID;
+            return Auth::USER_NOT_FOUND;
         }
 
-        return $result;
-    }
+        if (!$this->verifyPassword($this->users[$username]['password'], $password, $encryption)) {
+            return Auth::PASSWORD_INCORRECT;
+        }
 
-    /**
-     * Method to the user data array
-     *
-     * @return array
-     */
-    public function getUser()
-    {
-        return $this->user;
+        if ((strtolower($this->users[$username]['access']) == 'blocked') ||
+            (null === $this->users[$username]['access']) ||
+            (is_numeric($this->users[$username]['access']) && ($this->users[$username]['access'] == 0))) {
+            return Auth::USER_IS_BLOCKED;
+        } else {
+            $this->user = $this->users[$username];
+            return Auth::USER_IS_VALID;
+        }
     }
 
     /**

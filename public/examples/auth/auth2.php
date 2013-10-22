@@ -8,13 +8,11 @@ try {
     // Set the username and password
     $username = 'testuser1';
     $password = '12test34';
-    $salt = sha1('mysalt');
 
     // Create auth object
     $auth = new Auth\Auth(
         new Auth\Adapter\File('../assets/files/access-crypt.txt'),
-        Auth\Auth::ENCRYPT_CRYPT,
-        $salt
+        Auth\Auth::ENCRYPT_CRYPT
     );
 
     // Define some other auth parameters and authenticate the user

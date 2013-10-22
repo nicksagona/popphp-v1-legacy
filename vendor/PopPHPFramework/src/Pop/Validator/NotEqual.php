@@ -25,7 +25,7 @@ use Pop\I18n\I18n;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.5.0
+ * @version    1.6.0
  */
 class NotEqual extends Validator
 {

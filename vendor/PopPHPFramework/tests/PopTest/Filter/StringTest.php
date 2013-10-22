@@ -54,13 +54,6 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($val->evaluate($s));
     }
 
-    public function testCrypt()
-    {
-        $encrypted = String::encrypt($this->string, $this->key);
-        $decrypted = String::decrypt($encrypted, $this->key);
-        $this->assertEquals($this->string, $decrypted);
-    }
-
     public function testBetween()
     {
         $this->assertEquals('world', String::between('hello -world* test', '-', '*'));

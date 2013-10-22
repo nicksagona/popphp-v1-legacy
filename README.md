@@ -1,10 +1,10 @@
-Welcome to the Pop PHP Framework 1.5.0 Release!
+Welcome to the Pop PHP Framework 1.6.0 Release!
 ===============================================
 
 RELEASE INFORMATION
 -------------------
-Pop PHP Framework 1.5.0 Release  
-Released September 9, 2013
+Pop PHP Framework 1.6.0 Release  
+Released October 22, 2013
 
 
 OVERVIEW
@@ -43,6 +43,7 @@ easy-to-use API to access and utilize the following components:
 * Color
 * Compress
 * Config
+* Crypt
 * Curl
 * Data
 * Db
@@ -87,7 +88,7 @@ Some dependencies for the framework to fully function are as follows:
 
 * The Phar, Rar, Tar and Zip extensions for the Archive component
 * The Bzip2, Lzf and ZLib extensions for the Compress component
-* The Mcrypt extension for the Filter component
+* The basic crypt support and the mcrypt extension for the Crypt component
 * The basic MySQL extension for basic MySQL database connections and transactions
 * The MySQLi extension to utilize MySQLi to connect to and interact with MySQL databases
 * The PostgreSQL extension for PostgreSQL database connections and transactions

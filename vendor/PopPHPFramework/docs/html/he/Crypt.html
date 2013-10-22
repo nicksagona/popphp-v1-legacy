@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Crypt</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            מרכיב קריפטה מספק את היכולת ליצור hashes ולאמת ערכים נגד hashes אלה.כיתת Mcrypt תומכת בהצפנה דו כיוונית. סוגי הקריפטה הנתמכות הם:
+        </p>
+        <ul>
+            <li>Crypt</li>
+            <li>Bcrypt (via the crypt function)</li>
+            <li>Mcrypt (via the mcrypt extension)</li>
+            <li>Md5 (via the crypt function)</li>
+            <li>Sha (via the crypt function)</li>
+        </ul>
+<pre>
+use Pop&#92;Crypt&#92;Bcrypt;
+
+$bc = new Crypt&#92;Bcrypt();
+$hash = $bc-&gt;create('12password34');
+
+echo $hash;
+
+if ($bc-&gt;verify('12password34', $hash)) {
+    echo 'Verified!';
+} else {
+    echo 'NOT Verified!';
+}
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2013 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

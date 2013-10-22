@@ -23,7 +23,7 @@ namespace Pop\Filter;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.5.0
+ * @version    1.6.0
  */
 class String
 {
@@ -112,88 +112,6 @@ class String
         }
 
         return $str;
-    }
-
-    /**
-     * Static method to encrypt a string with the key using mcrypt
-     *
-     * @param  string $string
-     * @param  string $key
-     * @throws Exception
-     * @return string
-     */
-    public static function encrypt($string, $key)
-    {
-        $encrypted = null;
-
-        // If mcrypt is installed
-        if (function_exists('mcrypt_encrypt')) {
-            $key = md5($key);
-
-            $ivSize = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC);
-            if (strlen($key) > $ivSize) {
-                throw new Exception('Error: The length of the key is too long. It must not be longer than ' . $ivSize . ' characters.');
-            }
-
-            $iv = mcrypt_create_iv($ivSize, MCRYPT_RAND);
-            $encrypted = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $string, MCRYPT_MODE_CBC, $iv);
-            $encrypted = base64_encode($iv . $encrypted);
-        // Else, no mcrypt
-        } else {
-            $key = base64_encode($key);
-            $ary = str_split($string);
-            foreach ($ary as $k => $v) {
-                $ary[$k] = base64_encode($v);
-            }
-            $encrypted = $key . implode(':', $ary);
-        }
-
-        return $encrypted;
-    }
-
-    /**
-     * Static method to decrypt an encrypted string with the key using mcrypt
-     *
-     * @param  string $string
-     * @param  string $key
-     * @throws Exception
-     * @return string
-     */
-    public static function decrypt($string, $key)
-    {
-        $decrypted = null;
-
-        // If mcrypt is installed
-        if (function_exists('mcrypt_encrypt')) {
-            $key = md5($key);
-
-            $ivSize = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC);
-            if (strlen($key) > $ivSize) {
-                throw new Exception('Error: The length of the key is too long. It must not be longer than ' . $ivSize . ' characters.');
-            }
-
-            $decrypted = base64_decode($string);
-            $iv = substr($decrypted, 0, $ivSize);
-            $decrypted = substr($decrypted, $ivSize);
-            $decrypted = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $decrypted, MCRYPT_MODE_CBC, $iv);
-        // Else, no mcrypt
-        } else {
-            if (!empty($key)) {
-                $attemptedKey = base64_encode($key);
-                $k = base64_decode(substr($string, 0, strlen($attemptedKey)));
-
-                if ($k == $key) {
-                    $string = substr($string, strlen($attemptedKey));
-                    $ary = explode(':', $string);
-
-                    foreach ($ary as $k => $v) {
-                        $decrypted .= base64_decode($v);
-                    }
-                }
-            }
-        }
-
-        return trim($decrypted);
     }
 
     /**

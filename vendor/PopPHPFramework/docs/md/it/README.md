@@ -22,6 +22,7 @@ per sfruttare tutta la potenza del quadro e PHP.
 -   Color
 -   Compress
 -   Config
+-   Crypt
 -   Curl
 -   Data
 -   Db

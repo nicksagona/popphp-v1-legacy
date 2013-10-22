@@ -21,6 +21,7 @@ full power of the framework and PHP.
 -   Color
 -   Compress
 -   Config
+-   Crypt
 -   Curl
 -   Data
 -   Db

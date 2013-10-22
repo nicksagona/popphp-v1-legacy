@@ -15,8 +15,8 @@
  */
 namespace Pop\Auth;
 
-use Pop\Validator;
 use Pop\I18n\I18n;
+use Pop\Validator;
 
 /**
  * Auth class
@@ -26,7 +26,7 @@ use Pop\I18n\I18n;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.5.0
+ * @version    1.6.0
  */
 class Auth
 {
@@ -80,22 +80,52 @@ class Auth
     const ENCRYPT_NONE = 0;
 
     /**
-     * Constant to trigger using md5() encryption
+     * Constant to trigger using basic md5() encryption
      * @var int
      */
     const ENCRYPT_MD5 = 1;
 
     /**
-     * Constant to trigger using sha1() encryption
+     * Constant to trigger using basic sha1() encryption
      * @var int
      */
     const ENCRYPT_SHA1 = 2;
 
     /**
-     * Constant to trigger using crypt() encryption
+     * Constant to trigger using basic crypt() encryption
      * @var int
      */
     const ENCRYPT_CRYPT = 3;
+
+    /**
+     * Constant to trigger using bcrypt encryption
+     * @var int
+     */
+    const ENCRYPT_BCRYPT = 4;
+
+    /**
+     * Constant to trigger using bcrypt encryption
+     * @var int
+     */
+    const ENCRYPT_MCRYPT = 5;
+
+    /**
+     * Constant to trigger using crypt md5 encryption
+     * @var int
+     */
+    const ENCRYPT_CRYPT_MD5 = 6;
+
+    /**
+     * Constant to trigger using crypt sha 256 encryption
+     * @var int
+     */
+    const ENCRYPT_CRYPT_SHA_256 = 7;
+
+    /**
+     * Constant to trigger using crypt sha 512 encryption
+     * @var int
+     */
+    const ENCRYPT_CRYPT_SHA_512 = 8;
 
     /**
      * Array of validator objects
@@ -120,12 +150,6 @@ class Auth
      * @var int
      */
     protected $encryption = 0;
-
-    /**
-     * Encryption salt
-     * @var string
-     */
-    protected $salt = null;
 
     /**
      * Current number of login attempts
@@ -164,15 +188,13 @@ class Auth
      *
      * @param Adapter\AdapterInterface $adapter
      * @param int                      $encryption
-     * @param string                   $salt
      * @return \Pop\Auth\Auth
      */
-    public function __construct(Adapter\AdapterInterface $adapter, $encryption = 0, $salt = null)
+    public function __construct(Adapter\AdapterInterface $adapter, $encryption = 0)
     {
         $this->adapter = $adapter;
         $this->start = time();
         $this->setEncryption($encryption);
-        $this->salt = $salt;
     }
 
     /**
@@ -181,12 +203,11 @@ class Auth
      *
      * @param Adapter\AdapterInterface $adapter
      * @param int                      $encryption
-     * @param string                   $salt
      * @return \Pop\Auth\Auth
      */
-    public static function factory(Adapter\AdapterInterface $adapter, $encryption = 0, $salt = null)
+    public static function factory(Adapter\AdapterInterface $adapter, $encryption = 0)
     {
-        return new self($adapter, $encryption, $salt);
+        return new self($adapter, $encryption);
     }
 
     /**
@@ -218,16 +239,6 @@ class Auth
     public function getEncryption()
     {
         return $this->encryption;
-    }
-
-    /**
-     * Method to get the salt
-     *
-     * @return string
-     */
-    public function getSalt()
-    {
-        return $this->salt;
     }
 
     /**
@@ -298,22 +309,10 @@ class Auth
     public function setEncryption($encryption = 0)
     {
         $enc = (int)$encryption;
-        if (($enc >= 0) && ($enc <= 3)) {
+        if (($enc >= 0) && ($enc <= 8)) {
             $this->encryption = $enc;
         }
 
-        return $this;
-    }
-
-    /**
-     * Method to set the encryption
-     *
-     * @param  string $salt
-     * @return \Pop\Auth\Auth
-     */
-    public function setSalt($salt = null)
-    {
-        $this->salt = $salt;
         return $this;
     }
 
@@ -440,7 +439,7 @@ class Auth
         $this->processValidators();
 
         if ($this->result == 0) {
-            $this->result = $this->adapter->authenticate($username, $this->encryptPassword($password));
+            $this->result = $this->adapter->authenticate($username, $password, $this->encryption);
         }
 
         $this->isValid = ($this->result == 1) ? true : false;
@@ -505,31 +504,6 @@ class Auth
         }
 
         return $validSubnets;
-    }
-
-    /**
-     * Method to encrypt the password
-     *
-     * @param  string $pwd
-     * @throws Exception
-     * @return string
-     */
-    protected function encryptPassword($pwd)
-    {
-        $encrypted = $pwd;
-
-        if ($this->encryption == self::ENCRYPT_MD5) {
-            $encrypted = md5($pwd);
-        } else if ($this->encryption == self::ENCRYPT_SHA1) {
-            $encrypted = sha1($pwd);
-        } else if ($this->encryption == self::ENCRYPT_CRYPT) {
-            if (null === $this->salt) {
-                throw new \Pop\Auth\Exception('Error: The encryption salt was not set.');
-            }
-            $encrypted = crypt($pwd, $this->salt);
-        }
-
-        return $encrypted;
     }
 
     /**

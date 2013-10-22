@@ -22,6 +22,7 @@ exploiter toute la puissance du cadre et PHP.
 -   Color
 -   Compress
 -   Config
+-   Crypt
 -   Curl
 -   Data
 -   Db

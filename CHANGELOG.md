@@ -1,6 +1,13 @@
 Pop PHP Framework Changelog
 ===========================
 
+1.6.0
+-----
+Released on October 22, 2013
+
+* Add Crypt component and improve use of crypt with the Auth component
+    - The encrypt/decrypt methods in Filter\String have been deprecated in favor of the Crypt component
+
 1.5.0
 -----
 Released on September 9, 2013

@@ -52,7 +52,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
         ));
         $result = trim($c->execute());
         unset($c);
-        $this->assertEquals('1.5.0', $result);
+        $this->assertEquals('1.6.0', $result);
     }
 
     public function testSetAndGetOptions()
@@ -83,7 +83,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
         $info = $c->getinfo();
         $version = $c->version();
         unset($c);
-        $this->assertEquals('1.5.0', trim($output));
+        $this->assertEquals('1.6.0', trim($output));
         $this->assertEquals('http://www.popphp.org/version', $info['url']);
         $this->assertEquals('text/plain', $info['content_type']);
         $this->assertTrue(isset($version['version']));
@@ -98,7 +98,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
             CURLOPT_WRITEFUNCTION => true
         ));
         $c->execute();
-        $this->assertEquals('1.5.0', trim($c->data));
+        $this->assertEquals('1.6.0', trim($c->data));
     }
 
     public function testCurlError()
