@@ -83,7 +83,7 @@ abstract class AbstractAdapter implements AdapterInterface
                     $crypt->setCost($options['cost']);
                 }
                 if (!empty($options['prefix'])) {
-                    $crypt->setCost($options['prefix']);
+                    $crypt->setPrefix($options['prefix']);
                 }
 
                 $pw = $crypt->verify($attemptedPassword, $hash);
@@ -98,10 +98,10 @@ abstract class AbstractAdapter implements AdapterInterface
                     $crypt->setCipher($options['cipher']);
                 }
                 if (!empty($options['mode'])) {
-                    $crypt->setCipher($options['mode']);
+                    $crypt->setMode($options['mode']);
                 }
                 if (!empty($options['source'])) {
-                    $crypt->setCipher($options['source']);
+                    $crypt->setSource($options['source']);
                 }
 
                 $pw = $crypt->verify($attemptedPassword, $hash);
