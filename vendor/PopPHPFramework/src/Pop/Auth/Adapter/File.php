@@ -68,15 +68,16 @@ class File extends AbstractAdapter
      * @param  string $username
      * @param  string $password
      * @param  int    $encryption
+     * @param  array  $options
      * @return int
      */
-    public function authenticate($username, $password, $encryption)
+    public function authenticate($username, $password, $encryption, $options)
     {
         if (!array_key_exists($username, $this->users)) {
             return Auth::USER_NOT_FOUND;
         }
 
-        if (!$this->verifyPassword($this->users[$username]['password'], $password, $encryption)) {
+        if (!$this->verifyPassword($this->users[$username]['password'], $password, $encryption, $options)) {
             return Auth::PASSWORD_INCORRECT;
         }
 

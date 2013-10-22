@@ -79,9 +79,10 @@ class Table extends AbstractAdapter
      * @param  string $username
      * @param  string $password
      * @param  int    $encryption
+     * @param  array  $options
      * @return int
      */
-    public function authenticate($username, $password, $encryption)
+    public function authenticate($username, $password, $encryption, $options)
     {
         $access = null;
 
@@ -96,7 +97,7 @@ class Table extends AbstractAdapter
             return Auth::USER_NOT_FOUND;
         }
 
-        if (!$this->verifyPassword($user->$passwordField, $password, $encryption)) {
+        if (!$this->verifyPassword($user->$passwordField, $password, $encryption, $options)) {
             return Auth::PASSWORD_INCORRECT;
         }
 

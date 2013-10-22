@@ -34,9 +34,10 @@ interface AdapterInterface
      * @param  string $username
      * @param  string $password
      * @param  int    $encryption
+     * @param  array  $options
      * @return boolean
      */
-    public function authenticate($username, $password, $encryption);
+    public function authenticate($username, $password, $encryption, $options);
 
     /**
      * Method to the user data array

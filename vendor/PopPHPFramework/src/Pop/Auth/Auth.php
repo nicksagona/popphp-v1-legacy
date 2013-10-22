@@ -152,6 +152,25 @@ class Auth
     protected $encryption = 0;
 
     /**
+     * Encryption options. Possible options are:
+     *
+     * 'salt'   // Custom Salt
+     * 'secret' // Secret pepper
+     *
+     * 'cost'   // Bcrypt cost
+     * 'prefix' // Bcrypt prefix
+     *
+     * 'rounds' // Sha rounds
+     *
+     * 'cipher' // Mcrypt cipher
+     * 'mode'   // Mcrypt cipher
+     * 'source' // Mcrypt source
+     *
+     * @var array
+     */
+    protected $encryptionOptions = array();
+
+    /**
      * Current number of login attempts
      * @var int
      */
@@ -188,13 +207,15 @@ class Auth
      *
      * @param Adapter\AdapterInterface $adapter
      * @param int                      $encryption
+     * @param array                    $options
      * @return \Pop\Auth\Auth
      */
-    public function __construct(Adapter\AdapterInterface $adapter, $encryption = 0)
+    public function __construct(Adapter\AdapterInterface $adapter, $encryption = 0, array $options = array())
     {
         $this->adapter = $adapter;
         $this->start = time();
         $this->setEncryption($encryption);
+        $this->setEncryptionOptions($options);
     }
 
     /**
@@ -239,6 +260,16 @@ class Auth
     public function getEncryption()
     {
         return $this->encryption;
+    }
+
+    /**
+     * Method to get the encryption options
+     *
+     * @return array
+     */
+    public function getEncryptionOptions()
+    {
+        return $this->encryptionOptions;
     }
 
     /**
@@ -313,6 +344,18 @@ class Auth
             $this->encryption = $enc;
         }
 
+        return $this;
+    }
+
+    /**
+     * Method to set the encryption options
+     *
+     * @param  array $options
+     * @return \Pop\Auth\Auth
+     */
+    public function setEncryptionOptions(array $options = array())
+    {
+        $this->encryptionOptions = $options;
         return $this;
     }
 
@@ -439,7 +482,7 @@ class Auth
         $this->processValidators();
 
         if ($this->result == 0) {
-            $this->result = $this->adapter->authenticate($username, $password, $this->encryption);
+            $this->result = $this->adapter->authenticate($username, $password, $this->encryption, $this->encryptionOptions);
         }
 
         $this->isValid = ($this->result == 1) ? true : false;

@@ -43,11 +43,17 @@ abstract class AbstractAdapter implements AdapterInterface
      * @param  string $hash
      * @param  string $attemptedPassword
      * @param  int    $encryption
+     * @param  array  $options
      * @return boolean
      */
-    public function verifyPassword($hash, $attemptedPassword, $encryption)
+    public function verifyPassword($hash, $attemptedPassword, $encryption, $options)
     {
-        $pw = false;
+        $pw   = false;
+        $salt = (!empty($options['salt'])) ? $options['salt'] : null;
+
+        if (!empty($options['secret'])) {
+            $attemptedPassword .= $options['secret'];
+        }
 
         switch ($encryption) {
             case Auth::ENCRYPT_NONE:
@@ -64,34 +70,72 @@ abstract class AbstractAdapter implements AdapterInterface
 
             case Auth::ENCRYPT_CRYPT:
                 $crypt = new Crypt\Crypt();
+                $crypt->setSalt($salt);
                 $pw = $crypt->verify($attemptedPassword, $hash);
                 break;
 
             case Auth::ENCRYPT_BCRYPT:
                 $crypt = new Crypt\Bcrypt();
+                $crypt->setSalt($salt);
+
+                // Set cost and prefix, if applicable
+                if (!empty($options['cost'])) {
+                    $crypt->setCost($options['cost']);
+                }
+                if (!empty($options['prefix'])) {
+                    $crypt->setCost($options['prefix']);
+                }
+
                 $pw = $crypt->verify($attemptedPassword, $hash);
                 break;
 
             case Auth::ENCRYPT_MCRYPT:
                 $crypt = new Crypt\Mcrypt();
+                $crypt->setSalt($salt);
+
+                // Set cipher, mode and source, if applicable
+                if (!empty($options['cipher'])) {
+                    $crypt->setCipher($options['cipher']);
+                }
+                if (!empty($options['mode'])) {
+                    $crypt->setCipher($options['mode']);
+                }
+                if (!empty($options['source'])) {
+                    $crypt->setCipher($options['source']);
+                }
+
                 $pw = $crypt->verify($attemptedPassword, $hash);
                 break;
 
             case Auth::ENCRYPT_CRYPT_MD5:
                 $crypt = new Crypt\Md5();
+                $crypt->setSalt($salt);
                 $pw = $crypt->verify($attemptedPassword, $hash);
                 break;
 
             case Auth::ENCRYPT_CRYPT_SHA_256:
                 $crypt = new Crypt\Sha(256);
+                $crypt->setSalt($salt);
+
+                // Set rounds, if applicable
+                if (!empty($options['rounds'])) {
+                    $crypt->setRounds($options['rounds']);
+                }
+
                 $pw = $crypt->verify($attemptedPassword, $hash);
                 break;
 
             case Auth::ENCRYPT_CRYPT_SHA_512:
                 $crypt = new Crypt\Sha(512);
+                $crypt->setSalt($salt);
+
+                // Set rounds, if applicable
+                if (!empty($options['rounds'])) {
+                    $crypt->setRounds($options['rounds']);
+                }
+
                 $pw = $crypt->verify($attemptedPassword, $hash);
                 break;
-
         }
 
         return $pw;

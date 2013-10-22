@@ -104,6 +104,10 @@ class Bcrypt implements CryptInterface
      */
     public function setPrefix($prefix = '$2y$')
     {
+        if (($prefix != '$2a$') && ($prefix != '$2x$') && ($prefix != '$2y$')) {
+            $prefix = '$2y$';
+        }
+
         if (version_compare(PHP_VERSION, '5.3.7') < 0) {
             $prefix = '$2a$';
         }

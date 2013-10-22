@@ -150,6 +150,16 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $a->getValidator('allowedSubnets'));
     }
 
+    public function testPasswordEncryptionOptions()
+    {
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'), Auth::ENCRYPT_CRYPT_SHA_256, array('rounds' => 10000));
+        $opts = $a->getEncryptionOptions();
+        $this->assertEquals(10000, $opts['rounds']);
+        $a->setEncryptionOptions(array('rounds' => 7500));
+        $opts = $a->getEncryptionOptions();
+        $this->assertEquals(7500, $opts['rounds']);
+    }
+
     public function testPasswordEncryption()
     {
         $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'), Auth::ENCRYPT_MD5);
@@ -164,7 +174,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
 
         unset($a);
 
-        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'), Auth::ENCRYPT_CRYPT, 'abcdefg');
+        $a = new Auth(new File(__DIR__ . '/../tmp/access.txt'), Auth::ENCRYPT_CRYPT, array('salt' => 'abcdefg'));
         $a->authenticate('testuser1', '12test34');
         $this->assertFalse($a->isValid());
     }
