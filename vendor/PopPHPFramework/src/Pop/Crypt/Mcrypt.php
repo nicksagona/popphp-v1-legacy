@@ -214,7 +214,7 @@ class Mcrypt implements CryptInterface
         $this->iv = mcrypt_create_iv($this->ivSize, $this->source);
 
         $hash = mcrypt_encrypt($this->cipher, $this->salt, $string, $this->mode, $this->iv);
-        $hash = base64_encode($this->iv . $hash);
+        $hash = base64_encode($this->iv . $this->salt . '$' . $hash);
 
         return $hash;
     }
@@ -230,10 +230,16 @@ class Mcrypt implements CryptInterface
         if ($this->ivSize == 0) {
             $this->ivSize = mcrypt_get_iv_size($this->cipher, $this->mode);
         }
+
         $decrypted = base64_decode($hash);
-        $iv = substr($decrypted, 0, $this->ivSize);
-        $decrypted = substr($decrypted, $this->ivSize);
-        return trim(mcrypt_decrypt($this->cipher, $this->salt, $decrypted, $this->mode, $iv));
+
+        $this->iv = substr($decrypted, 0, $this->ivSize);
+        if (null === $this->salt) {
+            $this->salt = substr($decrypted, $this->ivSize);
+            $this->salt = substr($this->salt, 0, strpos($this->salt, '$'));
+        }
+        $decrypted = substr($decrypted, ($this->ivSize + strlen($this->salt) + 1));
+        return trim(mcrypt_decrypt($this->cipher, $this->salt, $decrypted, $this->mode, $this->iv));
     }
 
     /**
@@ -248,10 +254,16 @@ class Mcrypt implements CryptInterface
         if ($this->ivSize == 0) {
             $this->ivSize = mcrypt_get_iv_size($this->cipher, $this->mode);
         }
+
         $decrypted = base64_decode($hash);
-        $iv = substr($decrypted, 0, $this->ivSize);
-        $decrypted = substr($decrypted, $this->ivSize);
-        $decrypted = trim(mcrypt_decrypt($this->cipher, $this->salt, $decrypted, $this->mode, $iv));
+
+        $this->iv = substr($decrypted, 0, $this->ivSize);
+        if (null === $this->salt) {
+            $this->salt = substr($decrypted, $this->ivSize);
+            $this->salt = substr($this->salt, 0, strpos($this->salt, '$'));
+        }
+        $decrypted = substr($decrypted, ($this->ivSize + strlen($this->salt) + 1));
+        $decrypted = trim(mcrypt_decrypt($this->cipher, $this->salt, $decrypted, $this->mode, $this->iv));
 
         return ($string === $decrypted);
     }

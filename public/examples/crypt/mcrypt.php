@@ -11,15 +11,14 @@ try {
 
     echo 'Hash: ' . $hash . '<br/ >';
 
-    echo 'Decrypted: ' . $mc->decrypt($hash) . '<br />';
     echo 'Salt: ' . $mc->getSalt() . '<br />';
+    echo 'Decrypted: ' . $mc->decrypt($hash) . '<br />';
 
     if ($mc->verify('12password34', $hash)) {
         echo 'Verified!<br />';
     } else {
         echo 'NOT Verified!<br />';
     }
-
 } catch (\Exception $e) {
     echo $e->getMessage();
 }
