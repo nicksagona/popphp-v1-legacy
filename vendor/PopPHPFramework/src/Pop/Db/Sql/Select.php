@@ -275,9 +275,12 @@ class Select extends AbstractSql
                     $col1 = $join['commonColumn'];
                     $col2 = $join['commonColumn'];
                 }
+                if (strpos($col1, '.') === false) {
+                    $col1 = $this->sql->quoteId($this->sql->getTable()) . '.' . $col1;
+                }
                 $sql .= ' ' . $join['typeOfJoin'] . ' ' .
                     $join['tableToJoin'] . ' ON ' .
-                    $this->sql->quoteId($this->sql->getTable()) . '.' . $col1 . ' = ' .
+                    $col1 . ' = ' .
                         (isset($join['alias']) ? $this->sql->quoteId($join['alias']) : $join['tableToJoin']) . '.' . $col2;
             }
         }

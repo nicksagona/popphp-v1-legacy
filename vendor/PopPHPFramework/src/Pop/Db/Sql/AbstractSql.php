@@ -106,7 +106,7 @@ abstract class AbstractSql
             $byColumns = $this->sql->quoteId(trim($by));
         }
 
-        $this->orderBy = $byColumns;
+        $this->orderBy .= ((null !== $this->orderBy) ? ', ' : '') . $byColumns;
         $order = strtoupper($order);
 
         if (strpos($order, 'RAND') !== false) {
