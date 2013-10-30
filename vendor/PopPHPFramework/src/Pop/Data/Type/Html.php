@@ -123,7 +123,7 @@ class Html
             $rowAry = array();
             foreach ($value as $key => $val) {
                 if (!in_array($key, $exclude)) {
-                    if ((strtotime((string)$val) !== false) && (stripos($key, 'date') !== false)) {
+                    if ((strtotime((string)$val) !== false) && ((stripos($key, 'date') !== false) || (stripos($key, 'time') !== false))) {
                         $v = (date($date, strtotime($val)) != '12/31/1969') ? date($date, strtotime((string)$val)) : '';
                     } else {
                         $v = (string)$val;
@@ -131,6 +131,11 @@ class Html
                     if (isset($options[$key])) {
                         $tmpl = $options[$key];
                         foreach ($value as $ky => $vl) {
+                            if ((strtotime((string)$vl) !== false) && ((stripos($key, 'date') !== false) || (stripos($key, 'time') !== false))) {
+                                $vl = (date($date, strtotime($vl)) != '12/31/1969') ? date($date, strtotime((string)$vl)) : '';
+                            } else {
+                                $vl = (string)$vl;
+                            }
                             $tmpl = str_replace('[{' . $ky . '}]', $vl, $tmpl);
                         }
                         $v = $tmpl;
