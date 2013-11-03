@@ -69,7 +69,11 @@ class Escaped extends AbstractRecord
                 throw new Exception('The array of ID values does not match the number of IDs.');
             }
             foreach ($id as $key => $value) {
-                $this->sql->select()->where()->equalTo($this->primaryId[$key], $this->sql->adapter()->escape($value));
+                if (null === $value) {
+                    $this->sql->select()->where()->isNull($this->primaryId[$key]);
+                } else {
+                    $this->sql->select()->where()->equalTo($this->primaryId[$key], $this->sql->adapter()->escape($value));
+                }
             }
         } else {
             $this->sql->select()->where()->equalTo($this->primaryId, $this->sql->adapter()->escape($id));
@@ -103,6 +107,8 @@ class Escaped extends AbstractRecord
         foreach ($columns as $key => $value) {
             if (strpos($value, '%') !== false) {
                 $this->sql->select()->where()->like($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
+            } else if (null === $value) {
+                $this->sql->select()->where()->isNull($this->sql->adapter()->escape($key));
             } else {
                 $this->sql->select()->where()->equalTo($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
             }
@@ -143,6 +149,8 @@ class Escaped extends AbstractRecord
             foreach ($columns as $key => $value) {
                 if (strpos($value, '%') !== false) {
                     $this->sql->select()->where()->like($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
+                } else if (null === $value) {
+                    $this->sql->select()->where()->isNull($this->sql->adapter()->escape($key));
                 } else {
                     $this->sql->select()->where()->equalTo($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
                 }
@@ -189,7 +197,11 @@ class Escaped extends AbstractRecord
 
                 if (count($this->finder) > 0) {
                     foreach ($this->finder as $key => $value) {
-                        $this->sql->update()->where()->equalTo($key, $this->sql->adapter()->escape($value));
+                        if (null === $value) {
+                            $this->sql()->update()->where()->isNull($key);
+                        } else {
+                            $this->sql->update()->where()->equalTo($key, $this->sql->adapter()->escape($value));
+                        }
                     }
                 }
 
@@ -222,7 +234,12 @@ class Escaped extends AbstractRecord
 
                 if (is_array($this->primaryId)) {
                     foreach ($this->primaryId as $value) {
-                        $this->sql->update()->where()->equalTo($this->sql->adapter()->escape($value), $this->sql->adapter()->escape($this->columns[$value]));
+                        if (null === $this->columns[$value]) {
+
+                            $this->sql->update()->where()->isNull($this->sql->adapter()->escape($value));
+                        } else {
+                            $this->sql->update()->where()->equalTo($this->sql->adapter()->escape($value), $this->sql->adapter()->escape($this->columns[$value]));
+                        }
                     }
                 } else {
                     $this->sql->update()->where()->equalTo($this->sql->adapter()->escape($this->primaryId), $this->sql->adapter()->escape($this->columns[$this->primaryId]));
@@ -269,7 +286,11 @@ class Escaped extends AbstractRecord
             $this->sql->delete();
 
             foreach ($columns as $key => $value) {
-                $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
+                if (null === $value) {
+                    $this->sql->delete()->where()->isNull($this->sql->adapter()->escape($key));
+                } else {
+                    $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
+                }
             }
 
             $this->sql->adapter()->query($this->sql->render(true));
@@ -282,12 +303,20 @@ class Escaped extends AbstractRecord
             // Specific column override.
             if (null !== $columns) {
                 foreach ($columns as $key => $value) {
-                    $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
+                    if (null === $value) {
+                        $this->sql->delete()->where()->isNull($this->sql->adapter()->escape($key));
+                    } else {
+                        $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
+                    }
                 }
             // Else, continue with the primaryId column(s)
             } else if (is_array($this->primaryId)) {
                 foreach ($this->primaryId as $value) {
-                    $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($value), $this->sql->adapter()->escape($this->columns[$value]));
+                    if (null === $this->columns[$value]) {
+                        $this->sql->delete()->where()->isNull($this->sql->adapter()->escape($value));
+                    } else {
+                        $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($value), $this->sql->adapter()->escape($this->columns[$value]));
+                    }
                 }
             } else {
                 $this->sql->delete()->where()->equalTo($this->sql->adapter()->escape($this->primaryId), $this->sql->adapter()->escape($this->columns[$this->primaryId]));
