@@ -362,6 +362,14 @@ class Prepared extends AbstractRecord
                             $this->sql->update()->where()->equalTo($value, $this->getPlaceholder($value, ($i + $key)));
                         }
                     }
+
+
+                    $realParams = array();
+                    foreach ($params as $key => $value) {
+                        if (null !== $value) {
+                            $realParams[$key] = $value;
+                        }
+                    }
                 } else {
                     if (isset($params[$this->primaryId])) {
                         $id = $params[$this->primaryId];
@@ -371,10 +379,11 @@ class Prepared extends AbstractRecord
                     }
                     $params[$this->primaryId] = $id;
                     $this->sql()->update()->where()->equalTo($this->primaryId, $this->getPlaceholder($this->primaryId, $i));
+                    $realParams = $params;
                 }
 
                 $this->sql->adapter()->prepare($this->sql->render(true));
-                $this->sql->adapter()->bindParams((array)$params);
+                $this->sql->adapter()->bindParams((array)$realParams);
                 $this->sql->adapter()->execute();
             } else {
                 $columns = array();
