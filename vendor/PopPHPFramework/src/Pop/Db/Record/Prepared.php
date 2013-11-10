@@ -362,14 +362,7 @@ class Prepared extends AbstractRecord
                             $this->sql->update()->where()->equalTo($value, $this->getPlaceholder($value, ($i + $key)));
                         }
                     }
-
-
-                    $realParams = array();
-                    foreach ($params as $key => $value) {
-                        if (null !== $value) {
-                            $realParams[$key] = $value;
-                        }
-                    }
+                    $realParams = $params;
                 } else {
                     if (isset($params[$this->primaryId])) {
                         $id = $params[$this->primaryId];
