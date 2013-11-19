@@ -76,6 +76,31 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($f->hasFile());
     }
 
+    public function testGetAndSetField()
+    {
+        $fields = array(
+            'username' => array(
+                'type'       => 'text',
+                'value'      => 'Username here...',
+                'label'      => 'Username:',
+                'required'   => true,
+                'attributes' => array('size' => 40)
+            ),
+            'submit' => array(
+                'type'       => 'submit',
+                'value'      => 'SUBMIT'
+            )
+        );
+        $f = new Form('/submit', 'post', $fields);
+        $submit = $f->getField('submit');
+        $this->assertEquals('SUBMIT', $submit['value']);
+        $submit['value'] = 'NEW SUBMIT';
+
+        $f->setField('submit', $submit);
+        $submit = $f->getField('submit');
+        $this->assertEquals('NEW SUBMIT', $submit['value']);
+    }
+
     public function testSetArrayOfFields()
     {
         $fields = array(

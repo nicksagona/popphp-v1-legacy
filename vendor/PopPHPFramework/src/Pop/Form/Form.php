@@ -163,6 +163,41 @@ class Form extends \Pop\Dom\Dom
     }
 
     /**
+     * Set a single field in $initFieldsValues
+     *
+     * @param  string $name
+     * @param  array  $field
+     * @return \Pop\Form\Form
+     */
+    public function setField($name, array $field)
+    {
+        $match = false;
+        if (array_key_exists($name, $this->initFieldsValues)) {
+            $this->initFieldsValues[$name] = $field;
+            $match = true;
+        } else {
+            foreach ($this->initFieldsValues as $key => $value) {
+                if (array_key_exists($name, $value)) {
+                    $this->initFieldsValues[$key][$name] = $field;
+                    $match = true;
+                }
+            }
+        }
+
+        if (!$match) {
+            $keys = array_keys($this->initFieldsValues);
+            if (is_numeric($keys[0])) {
+                $last = $keys[(count($keys) - 1)];
+                $this->initFieldsValues[$last][$name] = $field;
+            } else {
+                $this->initFieldsValues[$name] = $field;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Alias for setFields()
      *
      * @param  array $fields
@@ -556,6 +591,29 @@ class Form extends \Pop\Dom\Dom
     public function getElements()
     {
         return $this->form->getChildren();
+    }
+
+    /**
+     * Get a single field from $initFieldsValues
+     *
+     * @param $name
+     * @return array
+     */
+    public function getField($name)
+    {
+        $field = array();
+
+        if (array_key_exists($name, $this->initFieldsValues)) {
+            $field = $this->initFieldsValues[$name];
+        } else {
+            foreach ($this->initFieldsValues as $f) {
+                if (array_key_exists($name, $f)) {
+                    $field = $f[$name];
+                }
+            }
+        }
+
+        return $field;
     }
 
     /**
