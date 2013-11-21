@@ -66,7 +66,7 @@ class Child extends AbstractDom
      */
     public function __construct($name, $value = null, $childNode = null, $first = false, $indent = null)
     {
-        $this->nodeName = strtolower($name);
+        $this->nodeName = $name;
         $this->nodeValue = $value;
         $this->childrenFirst = $first;
 

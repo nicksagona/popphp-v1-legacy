@@ -109,7 +109,7 @@ class Payment
      * Send transaction data
      *
      * @param  boolean $verifyPeer
-     * @return \Pop\Payment\Payment
+     * @return void
      */
     public function send($verifyPeer = true)
     {
