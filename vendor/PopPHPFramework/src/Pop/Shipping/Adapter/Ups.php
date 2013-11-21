@@ -391,9 +391,11 @@ class Ups extends AbstractAdapter
     /**
      * Send transaction
      *
+     * @param  boolean $verifyPeer
+     * @throws Exception
      * @return void
      */
-    public function send()
+    public function send($verifyPeer = true)
     {
         $this->buildRateRequest();
         $request = $this->accessRequest . $this->rateRequest;
@@ -405,9 +407,13 @@ class Ups extends AbstractAdapter
             CURLOPT_RETURNTRANSFER => true
         );
 
-        //$curl = new Curl($options);
-        //$response = $curl->execute();
-        //echo $response;
+        if (!$verifyPeer) {
+            $options[CURLOPT_SSL_VERIFYPEER] = false;
+        }
+
+        $curl = new Curl($options);
+        $response = $curl->execute();
+        echo $response;
         //echo $request;
     }
 
@@ -427,7 +433,7 @@ class Ups extends AbstractAdapter
         $customer      = new Child('CustomerContext', 'Rating and Service');
         $xpci          = new Child('XpciVersion', '1.0');
         $requestAction = new Child('RequestAction', 'Rate');
-        $requestOption = new Child('RequestOption', 'Rate');
+        $requestOption = new Child('RequestOption', 'Shop');
 
         $transaction->addChild($customer)
                     ->addChild($xpci);
