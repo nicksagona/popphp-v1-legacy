@@ -31,10 +31,33 @@ abstract class AbstractAdapter implements AdapterInterface
 {
 
     /**
+     * Response XML
+     * @var \SimpleXmlElement
+     */
+    protected $response = null;
+
+    /**
+     * Response code
+     * @var int
+     */
+    protected $responseCode = null;
+
+    /**
+     * Response message
+     * @var string
+     */
+    protected $responseMessage = null;
+
+    /**
+     * Service rates
+     * @var string
+     */
+    protected $rates = array();
+
+    /**
      * Send transaction
      *
      * @param  boolean $verifyPeer
-     * @throws Exception
      * @return mixed
      */
     abstract public function send($verifyPeer = true);

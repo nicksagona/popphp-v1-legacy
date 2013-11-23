@@ -16,6 +16,8 @@
 namespace Pop\Shipping\Adapter;
 
 use Pop\Curl\Curl;
+use Pop\Dom\Dom;
+use Pop\Dom\Child;
 
 /**
  * PayLeap payment adapter class
@@ -30,6 +32,13 @@ use Pop\Curl\Curl;
 class Fedex extends AbstractAdapter
 {
 
+
+    /**
+     * API URL
+     * @var string
+     */
+    protected $url = '';
+
     /**
      * Constructor
      *
@@ -43,12 +52,118 @@ class Fedex extends AbstractAdapter
     }
 
     /**
+     * Set ship to
+     *
+     * @param  array  $shipTo
+     * @return mixed
+     */
+    public function shipTo(array $shipTo)
+    {
+
+    }
+
+    /**
+     * Set ship from
+     *
+     * @param  array  $shipFrom
+     * @return mixed
+     */
+    public function shipFrom(array $shipFrom)
+    {
+
+    }
+
+    /**
+     * Set dimensions
+     *
+     * @param  array  $dimensions
+     * @param  string $unit
+     * @return mixed
+     */
+    public function setDimensions(array $dimensions, $unit = null)
+    {
+
+    }
+
+    /**
+     * Set dimensions
+     *
+     * @param  string $weight
+     * @param  string $unit
+     * @return mixed
+     */
+    public function setWeight($weight, $unit = null)
+    {
+
+    }
+
+    /**
      * Send transaction
      *
-     * @throws Exception
+     * @param  boolean $verifyPeer
      * @return void
      */
-    public function send()
+    public function send($verifyPeer = true)
+    {
+
+    }
+
+    /**
+     * Return whether the transaction is a success
+     *
+     * @return boolean
+     */
+    public function isSuccess()
+    {
+
+    }
+
+    /**
+     * Return whether the transaction is an error
+     *
+     * @return boolean
+     */
+    public function isError()
+    {
+
+    }
+
+    /**
+     * Get response
+     *
+     * @return object
+     */
+    public function getResponse()
+    {
+
+    }
+
+    /**
+     * Get response code
+     *
+     * @return int
+     */
+    public function getResponseCode()
+    {
+
+    }
+
+    /**
+     * Get response message
+     *
+     * @return string
+     */
+    public function getResponseMessage()
+    {
+
+    }
+
+    /**
+     * Get service rates
+     *
+     * @return array
+     */
+    public function getRates()
     {
 
     }

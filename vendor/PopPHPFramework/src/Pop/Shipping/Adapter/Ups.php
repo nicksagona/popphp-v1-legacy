@@ -69,30 +69,6 @@ class Ups extends AbstractAdapter
     protected $rateRequest = null;
 
     /**
-     * Response XML
-     * @var \SimpleXmlElement
-     */
-    protected $response = null;
-
-    /**
-     * Response code
-     * @var int
-     */
-    protected $responseCode = null;
-
-    /**
-     * Response message
-     * @var string
-     */
-    protected $responseMessage = null;
-
-    /**
-     * Service rates
-     * @var string
-     */
-    protected $rates = array();
-
-    /**
      * Pickup Types
      * @var array
      */
@@ -416,7 +392,6 @@ class Ups extends AbstractAdapter
      * Send transaction
      *
      * @param  boolean $verifyPeer
-     * @throws Exception
      * @return void
      */
     public function send($verifyPeer = true)
