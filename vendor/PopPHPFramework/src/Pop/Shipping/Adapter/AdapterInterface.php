@@ -71,4 +71,46 @@ interface AdapterInterface
      */
     public function send($verifyPeer = true);
 
+    /**
+     * Return whether the transaction is a success
+     *
+     * @return boolean
+     */
+    public function isSuccess();
+
+    /**
+     * Return whether the transaction is an error
+     *
+     * @return boolean
+     */
+    public function isError();
+
+    /**
+     * Get response object
+     *
+     * @return object
+     */
+    public function getResponse();
+
+    /**
+     * Get response code
+     *
+     * @return int
+     */
+    public function getResponseCode();
+
+    /**
+     * Get response message
+     *
+     * @return string
+     */
+    public function getResponseMessage();
+
+    /**
+     * Get service rates
+     *
+     * @return array
+     */
+    public function getRates();
+
 }

@@ -117,4 +117,64 @@ class Shipping
         $this->adapter->send();
     }
 
+    /**
+     * Return whether the transaction is success
+     *
+     * @return boolean
+     */
+    public function isSuccess()
+    {
+        return $this->adapter->isSuccess();
+    }
+
+    /**
+     * Return whether the transaction is an error
+     *
+     * @return boolean
+     */
+    public function isError()
+    {
+        return $this->adapter->isError();
+    }
+
+    /**
+     * Get response
+     *
+     * @return object
+     */
+    public function getResponse()
+    {
+        return $this->adapter->getResponse();
+    }
+
+    /**
+     * Get response code
+     *
+     * @return int
+     */
+    public function getResponseCode()
+    {
+        return $this->adapter->getResponseCode();
+    }
+
+    /**
+     * Get response message
+     *
+     * @return string
+     */
+    public function getResponseMessage()
+    {
+        return $this->adapter->getResponseMessage();
+    }
+
+    /**
+     * Get service rates
+     *
+     * @return array
+     */
+    public function getRates()
+    {
+        return $this->adapter->getRates();
+    }
+
 }

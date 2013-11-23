@@ -69,6 +69,30 @@ class Ups extends AbstractAdapter
     protected $rateRequest = null;
 
     /**
+     * Response XML
+     * @var \SimpleXmlElement
+     */
+    protected $response = null;
+
+    /**
+     * Response code
+     * @var int
+     */
+    protected $responseCode = null;
+
+    /**
+     * Response message
+     * @var string
+     */
+    protected $responseMessage = null;
+
+    /**
+     * Service rates
+     * @var string
+     */
+    protected $rates = array();
+
+    /**
      * Pickup Types
      * @var array
      */
@@ -413,8 +437,80 @@ class Ups extends AbstractAdapter
 
         $curl = new Curl($options);
         $response = $curl->execute();
-        echo $response;
-        //echo $request;
+        $this->response = simplexml_load_string($response);
+
+        $this->responseCode = (int)$this->response->Response->ResponseStatusCode;
+
+        if ($this->responseCode == 1) {
+            $this->responseMessage = (string)$this->response->Response->ResponseStatusDescription;
+
+            foreach ($this->response->RatedShipment as $rate) {
+                $this->rates[self::$services[(string)$rate->Service->Code]] = (string)$rate->TotalCharges->MonetaryValue;
+            }
+        } else {
+            $this->responseCode = (string)$this->response->Response->Error->ErrorCode;
+            $this->responseMessage = (string)$this->response->Response->Error->ErrorDescription;
+        }
+    }
+
+    /**
+     * Return whether the transaction is a success
+     *
+     * @return boolean
+     */
+    public function isSuccess()
+    {
+        return ($this->responseCode == 1);
+    }
+
+    /**
+     * Return whether the transaction is an error
+     *
+     * @return boolean
+     */
+    public function isError()
+    {
+        return ($this->responseCode != 1);
+    }
+
+    /**
+     * Get response
+     *
+     * @return object
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
+     * Get response code
+     *
+     * @return int
+     */
+    public function getResponseCode()
+    {
+        return $this->responseCode;
+    }
+
+    /**
+     * Get response message
+     *
+     * @return string
+     */
+    public function getResponseMessage()
+    {
+        return $this->responseMessage;
+    }
+
+    /**
+     * Get service rates
+     *
+     * @return array
+     */
+    public function getRates()
+    {
+        return $this->rates;
     }
 
     /**
@@ -489,14 +585,22 @@ class Ups extends AbstractAdapter
         $packageType->addChild(new Child('Code', $this->packageType))
                     ->addChild(new Child('Description', self::$packagingTypes[$this->packageType]));
 
-        $dimensions = new Child('Dimensions');
+        $package->addChild($packageType)
+                ->addChild(new Child('Description', 'Rate'));
 
-        $unit = new Child('UnitOfMeasurement');
-        $unit->addChild(new Child('Code', $this->dimensions['UnitOfMeasurement']));
-        $dimensions->addChild($unit)
-                   ->addChild(new Child('Length', $this->dimensions['Length']))
-                   ->addChild(new Child('Width', $this->dimensions['Width']))
-                   ->addChild(new Child('Height', $this->dimensions['Height']));
+        if ((null !== $this->dimensions['Length']) &&
+            (null !== $this->dimensions['Width']) &&
+            (null !== $this->dimensions['Height'])) {
+            $dimensions = new Child('Dimensions');
+
+            $unit = new Child('UnitOfMeasurement');
+            $unit->addChild(new Child('Code', $this->dimensions['UnitOfMeasurement']));
+            $dimensions->addChild($unit)
+                ->addChild(new Child('Length', $this->dimensions['Length']))
+                ->addChild(new Child('Width', $this->dimensions['Width']))
+                ->addChild(new Child('Height', $this->dimensions['Height']));
+            $package->addChild($dimensions);
+        }
 
         $weight = new Child('PackageWeight');
 
@@ -505,11 +609,7 @@ class Ups extends AbstractAdapter
         $weight->addChild($unit)
                ->addChild(new Child('Weight', $this->weight['Weight']));
 
-        $package->addChild($packageType)
-                ->addChild(new Child('Description', 'Rate'))
-                //->addChild($dimensions)
-                ->addChild($weight);
-
+        $package->addChild($weight);
         $shipment->addChild($shipper)
                  ->addChild($shipTo)
                  ->addChild($shipFrom)

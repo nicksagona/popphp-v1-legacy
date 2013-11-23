@@ -39,4 +39,46 @@ abstract class AbstractAdapter implements AdapterInterface
      */
     abstract public function send($verifyPeer = true);
 
+    /**
+     * Return whether the transaction is a success
+     *
+     * @return boolean
+     */
+    abstract public function isSuccess();
+
+    /**
+     * Return whether the transaction is an error
+     *
+     * @return boolean
+     */
+    abstract public function isError();
+
+    /**
+     * Get response
+     *
+     * @return object
+     */
+    abstract public function getResponse();
+
+    /**
+     * Get response code
+     *
+     * @return int
+     */
+    abstract public function getResponseCode();
+
+    /**
+     * Get response message
+     *
+     * @return string
+     */
+    abstract public function getResponseMessage();
+
+    /**
+     * Get service rates
+     *
+     * @return array
+     */
+    abstract public function getRates();
+
 }
