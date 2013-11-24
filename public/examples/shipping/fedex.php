@@ -6,13 +6,14 @@ use Pop\Shipping\Shipping;
 use Pop\Shipping\Adapter\Fedex;
 
 try {
-    $shipping = new Shipping(new Fedex('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    $shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
 
     $shipping->shipTo(array(
         'company'  => 'Some Company',
         'address1' => '123 Main St.',
-        'address2' => 'Suite 123',
+        'address2' => 'Suite A',
         'city'     => 'Metairie',
+        'state'    => 'LA',
         'zip'      => '70002',
         'country'  => 'US'
     ));
@@ -21,6 +22,7 @@ try {
         'company'  => 'My Company',
         'address1' => '456 Main St.',
         'city'     => 'New Orleans',
+        'state'    => 'LA',
         'zip'      => '70124',
         'country'  => 'US'
     ));
@@ -33,7 +35,7 @@ try {
 
     $shipping->setWeight(5);
 
-    $shipping->send(false);
+    $shipping->send();
 
     if ($shipping->isSuccess()) {
         foreach ($shipping->getRates() as $rate => $cost) {
@@ -42,7 +44,6 @@ try {
     } else {
         echo $shipping->getResponseCode() . ' : ' . $shipping->getResponseMessage() . '<br />' . PHP_EOL;
     }
-
 } catch (\Exception $e) {
     echo $e->getMessage() . PHP_EOL . PHP_EOL;
 }

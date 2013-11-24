@@ -31,8 +31,8 @@ abstract class AbstractAdapter implements AdapterInterface
 {
 
     /**
-     * Response XML
-     * @var \SimpleXmlElement
+     * Response object
+     * @var object
      */
     protected $response = null;
 
@@ -57,10 +57,9 @@ abstract class AbstractAdapter implements AdapterInterface
     /**
      * Send transaction
      *
-     * @param  boolean $verifyPeer
-     * @return mixed
+     * @return void
      */
-    abstract public function send($verifyPeer = true);
+    abstract public function send();
 
     /**
      * Return whether the transaction is a success
@@ -81,27 +80,39 @@ abstract class AbstractAdapter implements AdapterInterface
      *
      * @return object
      */
-    abstract public function getResponse();
+    public function getResponse()
+    {
+        return $this->response;
+    }
 
     /**
      * Get response code
      *
      * @return int
      */
-    abstract public function getResponseCode();
+    public function getResponseCode()
+    {
+        return $this->responseCode;
+    }
 
     /**
      * Get response message
      *
      * @return string
      */
-    abstract public function getResponseMessage();
+    public function getResponseMessage()
+    {
+        return $this->responseMessage;
+    }
 
     /**
      * Get service rates
      *
      * @return array
      */
-    abstract public function getRates();
+    public function getRates()
+    {
+        return $this->rates;
+    }
 
 }

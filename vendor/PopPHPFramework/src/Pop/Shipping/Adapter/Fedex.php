@@ -15,12 +15,8 @@
  */
 namespace Pop\Shipping\Adapter;
 
-use Pop\Curl\Curl;
-use Pop\Dom\Dom;
-use Pop\Dom\Child;
-
 /**
- * PayLeap payment adapter class
+ * FedEx shipping adapter class
  *
  * @category   Pop
  * @package    Pop_Shipping
@@ -32,23 +28,152 @@ use Pop\Dom\Child;
 class Fedex extends AbstractAdapter
 {
 
+    /**
+     * SOAP Client
+     * @var \SoapClient
+     */
+    protected $client = null;
 
     /**
-     * API URL
+     * FedEx WSDL File
      * @var string
      */
-    protected $url = '';
+    protected $wsdl = null;
+
+    /**
+     * Request array
+     * @var array
+     */
+    protected $request = null;
+
+    /**
+     * Ship to fields
+     * @var array
+     */
+    protected $shipTo = array(
+        'Contact' => array(
+            'PersonName'  => '',
+            'CompanyName' => '',
+            'PhoneNumber' => ''
+        ),
+        'Address' => array(
+            'StreetLines'         => array(),
+            'City'                => '',
+            'StateOrProvinceCode' => '',
+            'PostalCode'          => '',
+            'CountryCode'         => '',
+            'Residential'         => false
+        )
+    );
+
+    /**
+     * Ship from fields
+     * @var array
+     */
+    protected $shipFrom = array(
+        'Contact' => array(
+            'PersonName'  => '',
+            'CompanyName' => '',
+            'PhoneNumber' => ''
+        ),
+        'Address' => array(
+            'StreetLines'         => array(),
+            'City'                => '',
+            'StateOrProvinceCode' => '',
+            'PostalCode'          => '',
+            'CountryCode'         => ''
+        )
+    );
+
+    /**
+     * Package dimensions
+     * @var array
+     */
+    protected $dimensions = array(
+        'Length' => null,
+        'Width'  => null,
+        'Height' => null,
+        'Units'  => 'IN'
+    );
+
+    /**
+     * Package weight
+     * @var array
+     */
+    protected $weight = array(
+        'Value' => null,
+        'Units' => 'LB'
+    );
+
+    /**
+     * Services
+     * @var array
+     */
+    protected static $services = array(
+        'FIRST_OVERNIGHT'     => '1st Overnight',
+        'PRIORITY_OVERNIGHT'  => 'Priority Overnight',
+        'STANDARD_OVERNIGHT'  => 'Standard Overnight',
+        'FEDEX_2_DAY_AM'      => 'FedEx 2 Day AM',
+        'FEDEX_2_DAY'         => 'FedEx 2 Day',
+        'FEDEX_EXPRESS_SAVER' => 'FedEx Express Saver',
+        'FEDEX_GROUND'        => 'FedEx Ground'
+    );
 
     /**
      * Constructor
      *
      * Method to instantiate an FedEx shipping adapter object
      *
+     * @param  string $key
+     * @param  string $password
+     * @param  string $account
+     * @param  string $meter
+     * @param  string $wsdl
      * @return \Pop\Shipping\Adapter\Fedex
      */
-    public function __construct()
+    public function __construct($key, $password, $account, $meter, $wsdl = null)
     {
+        $this->wsdl = (null !== $wsdl) ? $wsdl : __DIR__ . '/Data/RateService_v14.wsdl';
+        ini_set('soap.wsdl_cache_enabled', '0');
 
+        $this->client = new \SoapClient($this->wsdl, array('trace' => 1));
+
+        $this->request['WebAuthenticationDetail'] = array(
+            'UserCredential' =>array(
+                'Key'      => $key,
+                'Password' => $password
+            )
+        );
+
+        $this->request['ClientDetail'] = array(
+            'AccountNumber' => $account,
+            'MeterNumber'   => $meter
+        );
+
+        $this->request['TransactionDetail'] = array(
+            'CustomerTransactionId' => ' *** Rate Request v14 using PHP ***'
+        );
+
+        $this->request['Version'] = array(
+            'ServiceId'    => 'crs',
+            'Major'        => '14',
+            'Intermediate' => '0',
+            'Minor'        => '0'
+        );
+
+        $this->request['RequestedShipment']['RateRequestTypes'] = 'ACCOUNT';
+        $this->request['RequestedShipment']['RateRequestTypes'] = 'LIST';
+        $this->request['RequestedShipment']['PackageCount']     = '1';
+    }
+
+    /**
+     * Static method to get the services
+     *
+     * @return array
+     */
+    public static function getServices()
+    {
+        return self::$services;
     }
 
     /**
@@ -59,7 +184,29 @@ class Fedex extends AbstractAdapter
      */
     public function shipTo(array $shipTo)
     {
+        foreach ($shipTo as $key => $value) {
+            if (stripos($key, 'person') !== false) {
+                $this->shipTo['Contact']['PersonName'] = $value;
+            } else if (stripos($key, 'company') !== false) {
+                $this->shipTo['Contact']['CompanyName'] = $value;
+            } else if (stripos($key, 'phone') !== false) {
+                $this->shipTo['Contact']['PhoneNumber'] = $value;
+            } else if (stripos($key, 'address') !== false) {
+                $this->shipTo['Address']['StreetLines'][] = $value;
+            } else if (strtolower($key) == 'city') {
+                $this->shipTo['Address']['City'] = $value;
+            } else if ((stripos($key, 'state') !== false) || (stripos($key, 'province') !== false)) {
+                $this->shipTo['Address']['StateOrProvinceCode'] = $value;
+            } else if ((strtolower($key) == 'postalcode') || (strtolower($key) == 'zipcode') || (strtolower($key) == 'zip')) {
+                $this->shipTo['Address']['PostalCode'] = $value;
+            } else if ((strtolower($key) == 'countrycode') || (strtolower($key) == 'country')) {
+                $this->shipTo['Address']['CountryCode'] = $value;
+            } else if (strtolower($key) == 'residential') {
+                $this->shipTo['Address']['Residential'] = $value;
+            }
+        }
 
+        $this->request['RequestedShipment']['Recipient'] = $this->shipTo;
     }
 
     /**
@@ -70,7 +217,29 @@ class Fedex extends AbstractAdapter
      */
     public function shipFrom(array $shipFrom)
     {
+        foreach ($shipFrom as $key => $value) {
+            if (stripos($key, 'person') !== false) {
+                $this->shipFrom['Contact']['PersonName'] = $value;
+            } else if (stripos($key, 'company') !== false) {
+                $this->shipFrom['Contact']['CompanyName'] = $value;
+            } else if (stripos($key, 'phone') !== false) {
+                $this->shipFrom['Contact']['PhoneNumber'] = $value;
+            } else if (stripos($key, 'address') !== false) {
+                $this->shipFrom['Address']['StreetLines'][] = $value;
+            } else if (strtolower($key) == 'city') {
+                $this->shipFrom['Address']['City'] = $value;
+            } else if ((stripos($key, 'state') !== false) || (stripos($key, 'province') !== false)) {
+                $this->shipFrom['Address']['StateOrProvinceCode'] = $value;
+            } else if ((strtolower($key) == 'postalcode') || (strtolower($key) == 'zipcode') || (strtolower($key) == 'zip')) {
+                $this->shipFrom['Address']['PostalCode'] = $value;
+            } else if ((strtolower($key) == 'countrycode') || (strtolower($key) == 'country')) {
+                $this->shipFrom['Address']['CountryCode'] = $value;
+            } else if (strtolower($key) == 'residential') {
+                $this->shipFrom['Address']['Residential'] = $value;
+            }
+        }
 
+        $this->request['RequestedShipment']['Shipper'] = $this->shipFrom;
     }
 
     /**
@@ -82,7 +251,19 @@ class Fedex extends AbstractAdapter
      */
     public function setDimensions(array $dimensions, $unit = null)
     {
+        if ((null !== $unit) && (($unit == 'IN') || ($unit == 'CM'))) {
+            $this->dimensions['Units'] = $unit;
+        }
 
+        foreach ($dimensions as $key => $value) {
+            if (strtolower($key) == 'length') {
+                $this->dimensions['Length'] = $value;
+            } else if (strtolower($key) == 'width') {
+                $this->dimensions['Width'] = $value;
+            } else if (strtolower($key) == 'height') {
+                $this->dimensions['Height'] = $value;
+            }
+        }
     }
 
     /**
@@ -94,18 +275,42 @@ class Fedex extends AbstractAdapter
      */
     public function setWeight($weight, $unit = null)
     {
+        if ((null !== $unit) && (($unit == 'LB') || ($unit == 'KG'))) {
+            $this->weight['Units'] = $unit;
+        }
 
+        $this->weight['Value'] = $weight;
     }
 
     /**
      * Send transaction
      *
-     * @param  boolean $verifyPeer
      * @return void
      */
-    public function send($verifyPeer = true)
+    public function send()
     {
+        $this->request['RequestedShipment']['RequestedPackageLineItems'] = array(
+            'SequenceNumber'    => 1,
+            'GroupPackageCount' => 1,
+            'Weight'            => $this->weight
+        );
 
+        if ((null !== $this->dimensions['Length']) &&
+            (null !== $this->dimensions['Width']) &&
+            (null !== $this->dimensions['Height'])) {
+            $this->request['RequestedShipment']['RequestedPackageLineItems']['Dimensions'] = $this->dimensions;
+        }
+
+        $this->response = $this->client->getRates($this->request);
+        $this->responseCode = (int)$this->response->Notifications->Code;
+        $this->responseMessage = (string)$this->response->Notifications->Message;
+
+        if ($this->responseCode == 0) {
+            foreach ($this->response->RateReplyDetails as $rate) {
+                $this->rates[self::$services[(string)$rate->ServiceType]] = number_format((string)$rate->RatedShipmentDetails[0]->ShipmentRateDetail->TotalNetCharge->Amount, 2);
+            }
+            $this->rates = array_reverse($this->rates, true);
+        }
     }
 
     /**
@@ -115,7 +320,7 @@ class Fedex extends AbstractAdapter
      */
     public function isSuccess()
     {
-
+        return ($this->responseCode == 0);
     }
 
     /**
@@ -125,52 +330,7 @@ class Fedex extends AbstractAdapter
      */
     public function isError()
     {
-
-    }
-
-    /**
-     * Get response
-     *
-     * @return object
-     */
-    public function getResponse()
-    {
-
-    }
-
-    /**
-     * Get response code
-     *
-     * @return int
-     */
-    public function getResponseCode()
-    {
-
-    }
-
-    /**
-     * Get response message
-     *
-     * @return string
-     */
-    public function getResponseMessage()
-    {
-
-    }
-
-    /**
-     * Get service rates
-     *
-     * @return array
-     */
-    public function getRates()
-    {
-
+        return ($this->responseCode != 0);
     }
 
 }
-
-
-
-
-

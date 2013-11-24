@@ -20,7 +20,7 @@ use Pop\Dom\Dom;
 use Pop\Dom\Child;
 
 /**
- * Authorize payment adapter class
+ * UPS shipping adapter class
  *
  * @category   Pop
  * @package    Pop_Shipping
@@ -39,22 +39,10 @@ class Ups extends AbstractAdapter
     protected $url = 'https://wwwcie.ups.com/ups.app/xml/Rate';
 
     /**
-     * API Access Key
-     * @var string
-     */
-    protected $accessKey = null;
-
-    /**
-     * API User ID
+     * User ID
      * @var string
      */
     protected $userId = null;
-
-    /**
-     * API Password
-     * @var string
-     */
-    protected $password = null;
 
     /**
      * Access Request XML
@@ -166,7 +154,7 @@ class Ups extends AbstractAdapter
     protected $service = '03';
 
     /**
-     * Ship from fields
+     * Package dimensions
      * @var array
      */
     protected $dimensions = array(
@@ -177,7 +165,7 @@ class Ups extends AbstractAdapter
     );
 
     /**
-     * Ship from fields
+     * Package weight
      * @var array
      */
     protected $weight = array(
@@ -197,18 +185,16 @@ class Ups extends AbstractAdapter
      */
     public function __construct($accessKey, $userId, $password)
     {
-        $this->accessKey = $accessKey;
-        $this->userId    = $userId;
-        $this->password  = $password;
+        $this->userId        = $userId;
         $this->accessRequest = new Dom(Dom::XML);
-        $this->rateRequest = new Dom(Dom::XML);
+        $this->rateRequest   = new Dom(Dom::XML);
 
         $access = new Child('AccessRequest');
         $access->setAttributes('xml:lang', 'en-US');
 
-        $key = new Child('AccessLicenseNumber', $this->accessKey);
-        $id  = new Child('UserId', $this->userId);
-        $pwd = new Child('Password', $this->password);
+        $key = new Child('AccessLicenseNumber', $accessKey);
+        $id  = new Child('UserId', $userId);
+        $pwd = new Child('Password', $password);
 
         $access->addChild($key)
                ->addChild($id)
@@ -385,6 +371,7 @@ class Ups extends AbstractAdapter
         if ((null !== $unit) && (($unit == 'LBS') || ($unit == 'KGS'))) {
             $this->weight['UnitOfMeasurement'] = $unit;
         }
+
         $this->weight['Weight'] = $weight;
     }
 
@@ -446,46 +433,6 @@ class Ups extends AbstractAdapter
     public function isError()
     {
         return ($this->responseCode != 1);
-    }
-
-    /**
-     * Get response
-     *
-     * @return object
-     */
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
-    /**
-     * Get response code
-     *
-     * @return int
-     */
-    public function getResponseCode()
-    {
-        return $this->responseCode;
-    }
-
-    /**
-     * Get response message
-     *
-     * @return string
-     */
-    public function getResponseMessage()
-    {
-        return $this->responseMessage;
-    }
-
-    /**
-     * Get service rates
-     *
-     * @return array
-     */
-    public function getRates()
-    {
-        return $this->rates;
     }
 
     /**
