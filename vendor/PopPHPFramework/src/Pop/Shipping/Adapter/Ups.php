@@ -319,7 +319,7 @@ class Ups extends AbstractAdapter
         foreach ($shipFrom as $key => $value) {
             if (stripos($key, 'company') !== false) {
                 $this->shipFrom['CompanyName'] = $value;
-            } else if ((strtolower($key) == 'addressline1') || (strtolower($key) == 'address1')) {
+            } else if ((strtolower($key) == 'addressline1') || (strtolower($key) == 'address1') || (strtolower($key) == 'address')) {
                 $this->shipFrom['AddressLine1'] = $value;
             } else if ((strtolower($key) == 'addressline2') || (strtolower($key) == 'address2')) {
                 $this->shipFrom['AddressLine2'] = $value;

@@ -48,6 +48,7 @@ full power of the framework and PHP.
 -   Pdf
 -   Project
 -   Service
+-   Shipping
 -   Validator
 -   Version
 -   Web

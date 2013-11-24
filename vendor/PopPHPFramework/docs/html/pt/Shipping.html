@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
+
+<head>
+    <title>
+        Pop PHP Framework : Documentation
+    </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Pop PHP Framework" />
+    <meta name="keywords" content="pop php framework, php, php framework, php library, documentation" />
+    <meta name="description" content="This is the Pop PHP Framework documentation." />
+    <meta name="robots" content="all" />
+
+    <link rel="stylesheet" type="text/css" href="http://www.popphp.org/css/docs.css" />
+</head>
+
+<body>
+    <h1>Pop PHP Framework</h1>
+    <h2>Documentation : Shipping</h2>
+    <div id="doc-content">
+        <p>
+            <a href="index.html"><strong>Home</strong></a>
+        </p>
+        <p>
+            O componente de envio fornece funcionalidade padronizada para comparar as taxas de transporte entre dois endereços através das UPS padrão e APIs FedEx. Se um adaptador de transporte diferente é necessária, pode-se facilmente ser escrito e integrada.
+        </p>
+<pre>
+use Pop&#92;Shipping&#92;Shipping;
+use Pop&#92;Shipping&#92;Adapter&#92;Ups;
+use Pop&#92;Shipping&#92;Adapter&#92;Fedex;
+
+$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+// -- OR --
+//$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
+
+$shipping-&gt;shipTo(array(
+    'company'  =&gt; 'Some Company',
+    'address1' =&gt; '123 Main St.',
+    'address2' =&gt; 'Suite A',
+    'city'     =&gt; 'Metairie',
+    'state'    =&gt; 'LA',
+    'zip'      =&gt; '70002',
+    'country'  =&gt; 'US'
+));
+
+$shipping-&gt;shipFrom(array(
+    'company'  =&gt; 'My Company',
+    'address1' =&gt; '456 Main St.',
+    'city'     =&gt; 'New Orleans',
+    'state'    =&gt; 'LA',
+    'zip'      =&gt; '70124',
+    'country'  =&gt; 'US'
+));
+
+$shipping-&gt;setDimensions(array(
+    'length' =&gt; 12,
+    'height' =&gt; 3,
+    'width'  =&gt; 6
+));
+
+$shipping-&gt;setWeight(5);
+
+$shipping-&gt;send();
+
+if ($shipping-&gt;isSuccess()) {
+    foreach ($shipping-&gt;getRates() as $rate =&gt; $cost) {
+        echo $rate . ': $' . $cost;
+    }
+} else {
+    echo $shipping-&gt;getResponseCode() . ' : ' . $shipping-&gt;getResponseMessage();
+}
+</pre>
+    </div>
+    <div id="doc-footer">
+        <p>
+            &copy; 2009-2013 <a href="http://www.moc10media.com/">Moc 10 Media, LLC</a>. All Rights Reserved.
+        </p>
+    </div>
+</body>
+
+</html>
+

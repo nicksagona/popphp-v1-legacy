@@ -49,6 +49,7 @@ per sfruttare tutta la potenza del quadro e PHP.
 -   Pdf
 -   Project
 -   Service
+-   Shipping
 -   Validator
 -   Version
 -   Web

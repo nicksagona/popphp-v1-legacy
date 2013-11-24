@@ -49,6 +49,7 @@ exploiter toute la puissance du cadre et PHP.
 -   Pdf
 -   Project
 -   Service
+-   Shipping
 -   Validator
 -   Version
 -   Web

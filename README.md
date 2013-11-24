@@ -4,7 +4,7 @@ Welcome to the Pop PHP Framework 1.6.0 Release!
 RELEASE INFORMATION
 -------------------
 Pop PHP Framework 1.6.0 Release  
-Released October 22, 2013
+Released November 23, 2013
 
 
 OVERVIEW
@@ -70,6 +70,7 @@ easy-to-use API to access and utilize the following components:
 * Pdf
 * Project
 * Service
+* Shipping
 * Validator
 * Version
 * Web
@@ -102,7 +103,8 @@ Some dependencies for the framework to fully function are as follows:
 * The Apc extension for the Cache component (using the Apc adapter)
 * The Memcache extension for the Cache component (using the Memcached adapter)
 * The DOMDocument extension for the Image\Svg component
-* The SimpleXML extension for the Feed, Data, I18n and Image\Svg components
+* The SimpleXML extension for the Data, Feed, Form, I18n, Image\Svg, Payment and Shipping components
+* The Soap extension for the Shipping component
 * The PHP mail function and SMTP server correctly set for the Mail component
 * The cURL extension for the Curl component
 * FTP support enabled for the FTP component

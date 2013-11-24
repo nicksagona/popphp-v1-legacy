@@ -45,6 +45,8 @@
                 <file>../src/Pop/Payment/Adapter/TrustCommerce.php</file>
                 <file>../src/Pop/Payment/Adapter/UsaEpay.php</file>
                 <file>../src/Pop/Project/Install.php</file>
+                <file>../src/Pop/Shipping/Adapter/Fedex.php</file>
+                <file>../src/Pop/Shipping/Adapter/Ups.php</file>
             </exclude>
         </whitelist>
     </filter>

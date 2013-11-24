@@ -49,6 +49,7 @@ estrutura e PHP.
 -   Pdf
 -   Project
 -   Service
+-   Shipping
 -   Validator
 -   Version
 -   Web

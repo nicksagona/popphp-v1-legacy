@@ -46,6 +46,7 @@ Pop PHP Framework
 -   Pdf
 -   Project
 -   Service
+-   Shipping
 -   Validator
 -   Version
 -   Web
