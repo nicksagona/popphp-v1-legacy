@@ -358,6 +358,7 @@ class Prepared extends AbstractRecord
                         $params[$value] = $id;
                         if (null === $this->columns[$value]) {
                             $this->sql->update()->where()->isNull($value);
+                            unset($params[$value]);
                         } else {
                             $this->sql->update()->where()->equalTo($value, $this->getPlaceholder($value, ($i + $key)));
                         }
