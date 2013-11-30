@@ -130,7 +130,7 @@ class Child extends AbstractDom
      */
     public function setNodeName($name)
     {
-        $this->nodeName = strtolower($name);
+        $this->nodeName = $name;
         return $this;
     }
 
@@ -157,10 +157,10 @@ class Child extends AbstractDom
     {
         if (is_array($a)) {
             foreach ($a as $name => $value) {
-                $this->attributes[strtolower($name)] = $value;
+                $this->attributes[$name] = $value;
             }
         } else {
-            $this->attributes[strtolower($a)] = $v;
+            $this->attributes[$a] = $v;
         }
         return $this;
     }

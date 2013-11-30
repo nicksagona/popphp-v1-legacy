@@ -176,7 +176,7 @@ class Ups extends AbstractAdapter
     /**
      * Constructor
      *
-     * Method to instantiate an FedEx shipping adapter object
+     * Method to instantiate an UPS shipping adapter object
      *
      * @param  string  $accessKey
      * @param  string  $userId
@@ -292,7 +292,7 @@ class Ups extends AbstractAdapter
         foreach ($shipTo as $key => $value) {
             if (stripos($key, 'company') !== false) {
                 $this->shipTo['CompanyName'] = $value;
-            } else if ((strtolower($key) == 'addressline1') || (strtolower($key) == 'address1')) {
+            } else if ((strtolower($key) == 'addressline1') || (strtolower($key) == 'address1') || (strtolower($key) == 'address')) {
                 $this->shipTo['AddressLine1'] = $value;
             } else if ((strtolower($key) == 'addressline2') || (strtolower($key) == 'address2')) {
                 $this->shipTo['AddressLine2'] = $value;
@@ -518,9 +518,9 @@ class Ups extends AbstractAdapter
             $unit = new Child('UnitOfMeasurement');
             $unit->addChild(new Child('Code', $this->dimensions['UnitOfMeasurement']));
             $dimensions->addChild($unit)
-                ->addChild(new Child('Length', $this->dimensions['Length']))
-                ->addChild(new Child('Width', $this->dimensions['Width']))
-                ->addChild(new Child('Height', $this->dimensions['Height']));
+                       ->addChild(new Child('Length', $this->dimensions['Length']))
+                       ->addChild(new Child('Width', $this->dimensions['Width']))
+                       ->addChild(new Child('Height', $this->dimensions['Height']));
             $package->addChild($dimensions);
         }
 
