@@ -27,7 +27,7 @@ use Pop\Dom\Child;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.6.0
+ * @version    1.7.0
  */
 class Ups extends AbstractAdapter
 {
@@ -384,22 +384,21 @@ class Ups extends AbstractAdapter
     public function send($verifyPeer = true)
     {
         $this->buildRateRequest();
-        $request = $this->accessRequest . $this->rateRequest;
+
         $options = array(
-            CURLOPT_URL            => $this->url,
-            CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => $request,
-            CURLOPT_HEADER         => false,
-            CURLOPT_RETURNTRANSFER => true
+            CURLOPT_URL        => $this->url,
+            CURLOPT_POST       => true,
+            CURLOPT_POSTFIELDS => $this->accessRequest . $this->rateRequest,
+            CURLOPT_HEADER     => false
         );
 
         if (!$verifyPeer) {
             $options[CURLOPT_SSL_VERIFYPEER] = false;
         }
 
-        $curl = new Curl($options);
-        $response = $curl->execute();
-        $this->response = simplexml_load_string($response);
+        $curl = new Curl($this->url, $options);
+        $curl->execute();
+        $this->response = simplexml_load_string($curl->getBody());
 
         $this->responseCode = (int)$this->response->Response->ResponseStatusCode;
 

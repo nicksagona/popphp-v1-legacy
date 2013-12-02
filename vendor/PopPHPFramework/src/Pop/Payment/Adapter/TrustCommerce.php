@@ -25,7 +25,7 @@ use Pop\Curl\Curl;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.6.0
+ * @version    1.7.0
  */
 class TrustCommerce extends AbstractAdapter
 {
@@ -161,18 +161,16 @@ class TrustCommerce extends AbstractAdapter
         $this->transaction['demo'] = ($this->test) ? 'y' : 'n';
 
         $options = array(
-            CURLOPT_URL            => $this->url,
-            CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => $this->buildPostString(),
-            CURLOPT_HEADER         => false,
-            CURLOPT_RETURNTRANSFER => true
+            CURLOPT_HEADER     => false,
+            CURLOPT_POST       => true,
+            CURLOPT_POSTFIELDS => $this->buildPostString()
         );
 
         if (!$verifyPeer) {
             $options[CURLOPT_SSL_VERIFYPEER] = false;
         }
 
-        $curl = new Curl($options);
+        $curl = new Curl($this->url, $options);
         $this->response = $curl->execute();
         $this->responseCodes = $this->parseResponseCodes();
         $this->responseCode = (isset($this->responseCodes['transid']) ? $this->responseCodes['transid'] : null);
@@ -222,7 +220,7 @@ class TrustCommerce extends AbstractAdapter
     /**
      * Parse the response codes
      *
-     * @return void
+     * @return array
      */
     protected function parseResponseCodes()
     {

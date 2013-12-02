@@ -17,8 +17,9 @@ namespace PopTest\Shipping;
 
 use Pop\Loader\Autoloader;
 use Pop\Shipping\Shipping;
-use Pop\Shipping\Adapter\Ups;
 use Pop\Shipping\Adapter\Fedex;
+use Pop\Shipping\Adapter\Ups;
+use Pop\Shipping\Adapter\Usps;
 
 // Require the library's autoloader.
 require_once __DIR__ . '/../../../src/Pop/Loader/Autoloader.php';
@@ -31,12 +32,15 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $s = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
-        $this->assertInstanceOf('Pop\Shipping\Shipping', $s);
-        $this->assertInstanceOf('Pop\Shipping\Adapter\Ups', $s->adapter());
         $s = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
         $this->assertInstanceOf('Pop\Shipping\Shipping', $s);
         $this->assertInstanceOf('Pop\Shipping\Adapter\Fedex', $s->adapter());
+        $s = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+        $this->assertInstanceOf('Pop\Shipping\Shipping', $s);
+        $this->assertInstanceOf('Pop\Shipping\Adapter\Ups', $s->adapter());
+        $s = new Shipping(new Usps('USERNAME', 'PASSWORD'));
+        $this->assertInstanceOf('Pop\Shipping\Shipping', $s);
+        $this->assertInstanceOf('Pop\Shipping\Adapter\Usps', $s->adapter());
     }
 
     public function testIsSuccess()

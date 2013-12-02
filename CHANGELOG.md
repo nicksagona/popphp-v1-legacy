@@ -1,11 +1,17 @@
 Pop PHP Framework Changelog
 ===========================
 
+1.7.0
+-----
+Released on December 1, 2013
+
+* Add Shipping component with FedEx, UPS and USPS support to calculate and compare shipping rates and services
+* Improve/update the Curl component
+
 1.6.0
 -----
 Released on November 23, 2013
 
-* Add Shipping component with UPS and FedEx support
 * Add Crypt component and improve use of crypt with the Auth component
     - The encrypt/decrypt methods in Filter\String have been deprecated in favor of the Crypt component
 

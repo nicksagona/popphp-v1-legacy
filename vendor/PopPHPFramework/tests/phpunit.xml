@@ -47,6 +47,7 @@
                 <file>../src/Pop/Project/Install.php</file>
                 <file>../src/Pop/Shipping/Adapter/Fedex.php</file>
                 <file>../src/Pop/Shipping/Adapter/Ups.php</file>
+                <file>../src/Pop/Shipping/Adapter/Usps.php</file>
             </exclude>
         </whitelist>
     </filter>

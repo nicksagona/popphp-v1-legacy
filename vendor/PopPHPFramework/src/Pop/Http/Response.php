@@ -23,7 +23,7 @@ namespace Pop\Http;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.6.0
+ * @version    1.7.0
  */
 class Response
 {
@@ -92,7 +92,7 @@ class Response
     protected $version = '1.1';
 
     /**
-     * Response codes
+     * Response code
      * @var int
      */
     protected $code = null;
@@ -197,7 +197,6 @@ class Response
             }
 
             $firstLine = trim(substr($headerStr, 0, strpos($headerStr, "\n")));
-            $firstLine = substr($firstLine, (strpos($firstLine, '/') + 1));
             $allHeaders = trim(substr($headerStr, strpos($headerStr, "\n")));
             $allHeadersAry = explode("\n", $allHeaders);
         } else {
@@ -206,9 +205,10 @@ class Response
 
         // Get the version, code and message
         $version = substr($firstLine, 0, strpos($firstLine, ' '));
+        $version = substr($version, (strpos($version, '/') + 1));
         preg_match('/\d\d\d/', trim($firstLine), $match);
         $code = $match[0];
-        $message = str_replace($version . ' ' . $code . ' ', '', $firstLine);
+        $message = str_replace('HTTP/' . $version . ' ' . $code . ' ', '', $firstLine);
 
         // Get the headers
         foreach ($allHeadersAry as $hdr) {

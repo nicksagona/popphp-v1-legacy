@@ -25,7 +25,7 @@ use Pop\Curl\Curl;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.6.0
+ * @version    1.7.0
  */
 class PayPal extends AbstractAdapter
 {
@@ -199,18 +199,16 @@ class PayPal extends AbstractAdapter
 
         $url = ($this->test) ? $this->testUrl : $this->liveUrl;
         $options = array(
-            CURLOPT_URL            => $url,
-            CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => $this->buildPostString(),
-            CURLOPT_HEADER         => false,
-            CURLOPT_RETURNTRANSFER => true
+            CURLOPT_HEADER     => false,
+            CURLOPT_POST       => true,
+            CURLOPT_POSTFIELDS => $this->buildPostString()
         );
 
         if (!$verifyPeer) {
             $options[CURLOPT_SSL_VERIFYPEER] = false;
         }
 
-        $curl = new Curl($options);
+        $curl = new Curl($url, $options);
         $this->response = $curl->execute();
         $this->responseCodes = $this->parseResponseCodes();
 

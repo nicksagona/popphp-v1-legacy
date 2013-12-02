@@ -26,7 +26,7 @@ use Pop\Dom\Child;
  * @author     Nick Sagona, III <nick@popphp.org>
  * @copyright  Copyright (c) 2009-2013 Moc 10 Media, LLC. (http://www.moc10media.com)
  * @license    http://www.popphp.org/license     New BSD License
- * @version    1.6.0
+ * @version    1.7.0
  */
 class Usps extends AbstractAdapter
 {
@@ -242,20 +242,19 @@ class Usps extends AbstractAdapter
     {
         $this->buildRequest();
 
-        $url = ($this->testMode) ? $this->testUrl : $this->liveUrl;
+        $url = (($this->testMode) ? $this->testUrl : $this->liveUrl) . rawurlencode($this->request);
         $options = array(
-            CURLOPT_URL            => $url . rawurlencode($this->request),
-            CURLOPT_HEADER         => false,
-		    CURLOPT_RETURNTRANSFER => true
+            CURLOPT_HEADER => false
         );
 
         if (!$verifyPeer) {
             $options[CURLOPT_SSL_VERIFYPEER] = false;
         }
 
-        $curl = new Curl($options);
-        $response = $curl->execute();
-        $this->response = simplexml_load_string($response);
+        $curl = new Curl($url, $options);
+        $curl->execute();
+        $this->response = simplexml_load_string($curl->getBody());
+
         if (isset($this->response->Package)) {
             $this->responseCode = 1;
             foreach ($this->response->Package->Postage as $rate) {

@@ -29,9 +29,8 @@ class CurlTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $c = new Curl(array(
-            CURLOPT_URL    => 'http://www.popphp.org/license',
-            CURLOPT_HEADER => false,
+        $c = new Curl('http://www.popphp.org/license', array(
+            CURLOPT_HEADER         => false,
             CURLOPT_RETURNTRANSFER => false
         ));
         $this->assertInstanceOf('Pop\Curl\Curl', $c);
@@ -45,35 +44,53 @@ class CurlTest extends \PHPUnit_Framework_TestCase
 
     public function testCurl()
     {
-        $c = new Curl(array(
-            CURLOPT_URL    => 'http://www.popphp.org/version',
-            CURLOPT_HEADER => false,
+        $c = new Curl('http://www.popphp.org/version', array(
+            CURLOPT_HEADER         => false,
             CURLOPT_RETURNTRANSFER => true
         ));
         $result = trim($c->execute());
         unset($c);
-        $this->assertEquals('1.6.0', $result);
+        $this->assertEquals('1.7.0', $result);
+    }
+
+    public function testSetPost()
+    {
+        $c = new Curl('http://www.popphp.org/version', array(
+            CURLOPT_HEADER         => false,
+            CURLOPT_RETURNTRANSFER => true
+        ));
+
+        $c->setPost(true);
+        $this->assertTrue($c->isPost());
+    }
+
+    public function testSetAndGetFields()
+    {
+        $c = new Curl('http://www.popphp.org/version', array(
+            CURLOPT_HEADER         => false,
+            CURLOPT_RETURNTRANSFER => true
+        ));
+
+        $c->setFields(array('name' => 'Test'));
+        $c->setField('email', 'test@test.com');
+        $this->assertEquals('Test', $c->getField('name'));
+        $this->assertEquals(2, count($c->getFields()));
     }
 
     public function testSetAndGetOptions()
     {
-        $c = new Curl(array(
-            CURLOPT_URL    => 'http://www.popphp.org/version',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_WRITEFUNCTION => true
+        $c = new Curl('http://www.popphp.org/version', array(
+            CURLOPT_RETURNTRANSFER => true
         ));
         $c->setOption(CURLOPT_HEADER, false);
-        $c->setOption(CURLOPT_WRITEFUNCTION, true);
         $this->assertEquals(1, $c->getOption(CURLOPT_RETURNTRANSFER));
         $this->assertEquals(0, $c->getOption(CURLOPT_HEADER));
-
     }
 
     public function testCurlNoReturn()
     {
-        $c = new Curl(array(
-            CURLOPT_URL    => 'http://www.popphp.org/version',
-            CURLOPT_HEADER => false,
+        $c = new Curl('http://www.popphp.org/version', array(
+            CURLOPT_HEADER         => false,
             CURLOPT_RETURNTRANSFER => false
         ));
 
@@ -83,29 +100,41 @@ class CurlTest extends \PHPUnit_Framework_TestCase
         $info = $c->getinfo();
         $version = $c->version();
         unset($c);
-        $this->assertEquals('1.6.0', trim($output));
+        $this->assertEquals('1.7.0', trim($output));
         $this->assertEquals('http://www.popphp.org/version', $info['url']);
         $this->assertEquals('text/plain', $info['content_type']);
         $this->assertTrue(isset($version['version']));
     }
 
-    public function testCurlData()
+    public function testResponse()
     {
-        $c = new Curl(array(
-            CURLOPT_URL    => 'http://www.popphp.org/version',
-            CURLOPT_HEADER => false,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_WRITEFUNCTION => true
+        $c = new Curl('http://www.popphp.org/version', array(
+            CURLOPT_HEADER         => false,
+            CURLOPT_RETURNTRANSFER => true
         ));
         $c->execute();
-        $this->assertEquals('1.6.0', trim($c->data));
+        $this->assertEquals('1.7.0', $c->getResponse());
+    }
+
+    public function testHeadersAndBody()
+    {
+        $c = new Curl('http://www.popphp.org/version', array(
+            CURLOPT_HEADER         => true,
+            CURLOPT_RETURNTRANSFER => true
+        ));
+        $c->execute();
+        $this->assertEquals('text/plain', $c->getHeader('Content-Type'));
+        $this->assertGreaterThan(1, count($c->getHeaders()));
+        $this->assertContains('HTTP', $c->getRawHeader());
+        $this->assertEquals('1.7.0', $c->getBody());
+        $this->assertEquals('200', $c->getCode());
+        $this->assertEquals('1.1', $c->getHttpVersion());
+        $this->assertEquals('OK', $c->getMessage());
     }
 
     public function testCurlError()
     {
-        $c = new Curl(array(
-            CURLOPT_URL    => 'http://blahblah.bla/',
-            CURLOPT_HEADER => false,
+        $c = new Curl('http://badurl/', array(
             CURLOPT_RETURNTRANSFER => false
         ));
         $this->setExpectedException('Pop\Curl\Exception');
