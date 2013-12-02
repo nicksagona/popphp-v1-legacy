@@ -53,6 +53,28 @@ class CurlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('1.7.0', $result);
     }
 
+    public function testSetReturnHeader()
+    {
+        $c = new Curl('http://www.popphp.org/version', array(
+            CURLOPT_HEADER         => false,
+            CURLOPT_RETURNTRANSFER => false
+        ));
+
+        $c->setReturnHeader(true);
+        $this->assertTrue($c->isReturnHeader());
+    }
+
+    public function testSetReturnTransfer()
+    {
+        $c = new Curl('http://www.popphp.org/version', array(
+            CURLOPT_HEADER         => false,
+            CURLOPT_RETURNTRANSFER => false
+        ));
+
+        $c->setReturnTransfer(true);
+        $this->assertTrue($c->isReturnTransfer());
+    }
+
     public function testSetPost()
     {
         $c = new Curl('http://www.popphp.org/version', array(

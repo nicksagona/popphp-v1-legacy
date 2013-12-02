@@ -53,7 +53,7 @@ class Curl
     protected $message = null;
 
     /**
-     * Response
+     * Response string
      * @var string
      */
     protected $response = null;
@@ -127,7 +127,7 @@ class Curl
     {
         // If an array of options is passed.
         if (is_array($opt)) {
-            // Set the cURL options in the array.
+            // Set the cURL options from the array.
             curl_setopt_array($this->curl, $opt);
 
             // Set the protected property to the cURL options.
@@ -169,6 +169,30 @@ class Curl
     }
 
     /**
+     * Set cURL option to return the header
+     *
+     * @param  boolean $header
+     * @return \Pop\Curl\Curl
+     */
+    public function setReturnHeader($header = false)
+    {
+        $this->setOption(CURLOPT_HEADER, (bool)$header);
+        return $this;
+    }
+
+    /**
+     * Set cURL option to return the transfer
+     *
+     * @param  boolean $transfer
+     * @return \Pop\Curl\Curl
+     */
+    public function setReturnTransfer($transfer = false)
+    {
+        $this->setOption(CURLOPT_RETURNTRANSFER, (bool)$transfer);
+        return $this;
+    }
+
+    /**
      * Set cURL option for POST
      *
      * @param  boolean $post
@@ -178,6 +202,26 @@ class Curl
     {
         $this->setOption(CURLOPT_POST, (bool)$post);
         return $this;
+    }
+
+    /**
+     * Check if cURL is set to return header
+     *
+     * @return boolean
+     */
+    public function isReturnHeader()
+    {
+        return (isset($this->options[CURLOPT_HEADER]) && ($this->options[CURLOPT_HEADER] == true));
+    }
+
+    /**
+     * Check if cURL is set to return transfer
+     *
+     * @return boolean
+     */
+    public function isReturnTransfer()
+    {
+        return (isset($this->options[CURLOPT_RETURNTRANSFER]) && ($this->options[CURLOPT_RETURNTRANSFER] == true));
     }
 
     /**
