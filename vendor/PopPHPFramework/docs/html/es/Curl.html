@@ -29,17 +29,16 @@
 <pre>
 use Pop&#92;Curl&#92;Curl;
 
-$options = array(
-    CURLOPT_URL            =&gt; 'http://pop.localhost/examples/curl/curl-process.php',
-    CURLOPT_POST           =&gt; true,
-    CURLOPT_POSTFIELDS     =&gt; array('name' =&gt; 'Bubba', 'email' =&gt; 'bubba@hotmail.com'),
-    CURLOPT_HEADER         =&gt; false,
-    CURLOPT_RETURNTRANSFER =&gt; true
-);
+$curl = new Curl('http://pop.localhost/examples/curl/curl-process.php');
+$curl-&gt;setPost(true);
+$curl-&gt;setFields(array(
+    'name'  =&gt; 'Bubba',
+    'email' =&gt; 'bubba@hotmail.com'
+));
 
-header('Content-Type: text/html; charset=utf-8');
-$curl = new Curl($options);
-echo $curl-&gt;execute();
+$curl-&gt;execute();
+
+echo $curl-&gt;getBody();
 </pre>
     </div>
     <div id="doc-footer">

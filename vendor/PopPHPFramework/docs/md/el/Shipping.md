@@ -6,15 +6,17 @@ Documentation : Shipping
 
 Home
 
-Το συστατικό Shipping παρέχει τυποποιημένη λειτουργικότητα για να συγκρίνετε τιμές ναυτιλίας μεταξύ δύο διευθύνσεων μέσω των τυποποιημένων UPS και FedEx APIs. Εάν απαιτείται ένα διαφορετικό προσαρμογέα ναυτιλία, κάποιος μπορεί εύκολα να γραφτεί και να ενσωματωθούν.
+Το συστατικό Shipping παρέχει τυποποιημένη λειτουργικότητα για να συγκρίνετε τιμές ναυτιλίας μεταξύ δύο διευθύνσεων με το πρότυπο FedEx, UPS και USPS APIs. Εάν απαιτείται ένα διαφορετικό προσαρμογέα ναυτιλία, κάποιος μπορεί εύκολα να γραφτεί και να ενσωματωθούν.
 
     use Pop\Shipping\Shipping;
-    use Pop\Shipping\Adapter\Ups;
     use Pop\Shipping\Adapter\Fedex;
+    use Pop\Shipping\Adapter\Ups;
+    use Pop\Shipping\Adapter\Usps;
 
-    $shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    $shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
     // -- OR --
-    //$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
+    //$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    //$shipping = new Shipping(new Usps('USERNAME', 'PASSWORD'));
 
     $shipping->shipTo(array(
         'company'  => 'Some Company',

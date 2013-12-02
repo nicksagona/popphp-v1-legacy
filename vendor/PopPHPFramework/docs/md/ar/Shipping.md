@@ -6,15 +6,17 @@ Documentation : Shipping
 
 Home
 
-            يوفر المكون شحن وظيفة موحدة لمقارنة أسعار الشحن بين عنوانين عبر شركة يو بي إس القياسية واجهات برمجة التطبيقات فيديكس. إذا كنت بحاجة لمحول الشحن المختلفة، ويمكن للمرء بسهولة أن تكون مكتوبة ومتكاملة.
+يوفر المكون شحن وظيفة موحدة لمقارنة أسعار الشحن بين عنوانين عبر فيديكس، يو بي إس وخدمة البريد الأميركية واجهات برمجة التطبيقات القياسية. إذا كنت بحاجة لمحول الشحن المختلفة، ويمكن للمرء بسهولة أن تكون مكتوبة ومتكاملة.
 
     use Pop\Shipping\Shipping;
-    use Pop\Shipping\Adapter\Ups;
     use Pop\Shipping\Adapter\Fedex;
+    use Pop\Shipping\Adapter\Ups;
+    use Pop\Shipping\Adapter\Usps;
 
-    $shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    $shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
     // -- OR --
-    //$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
+    //$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    //$shipping = new Shipping(new Usps('USERNAME', 'PASSWORD'));
 
     $shipping->shipTo(array(
         'company'  => 'Some Company',

@@ -24,16 +24,18 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            O componente de envio fornece funcionalidade padronizada para comparar as taxas de transporte entre dois endereços através das UPS padrão e APIs FedEx. Se um adaptador de transporte diferente é necessária, pode-se facilmente ser escrito e integrada.
+            O componente de envio fornece funcionalidade padronizada para comparar as taxas de transporte entre dois endereços via o padrão FedEx, UPS e USPS APIs. Se um adaptador de transporte diferente é necessária, pode-se facilmente ser escrito e integrada.
         </p>
 <pre>
 use Pop&#92;Shipping&#92;Shipping;
-use Pop&#92;Shipping&#92;Adapter&#92;Ups;
 use Pop&#92;Shipping&#92;Adapter&#92;Fedex;
+use Pop&#92;Shipping&#92;Adapter&#92;Ups;
+use Pop&#92;Shipping&#92;Adapter&#92;Usps;
 
-$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
 // -- OR --
-//$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
+//$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+//$shipping = new Shipping(new Usps('USERNAME', 'PASSWORD'));
 
 $shipping-&gt;shipTo(array(
     'company'  =&gt; 'Some Company',

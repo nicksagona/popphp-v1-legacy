@@ -6,15 +6,17 @@ Documentation : Shipping
 
 Home
 
-送料·コンポーネントは、標準のUPSとフェデックスのAPIを介して2つのアドレス間の運賃を比較するための標準化された機能を提供します。別の配送アダプタが必要な場合、人は簡単に書き込まれ、統合することができる。
+送料·コンポーネントは、標準的なフェデックス、UPSとUSPSのAPIを介して2つのアドレス間の運賃を比較するために標準化された機能を提供します。別の配送アダプタが必要な場合、人は簡単に書き込まれ、統合することができる。
 
     use Pop\Shipping\Shipping;
-    use Pop\Shipping\Adapter\Ups;
     use Pop\Shipping\Adapter\Fedex;
+    use Pop\Shipping\Adapter\Ups;
+    use Pop\Shipping\Adapter\Usps;
 
-    $shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    $shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
     // -- OR --
-    //$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
+    //$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    //$shipping = new Shipping(new Usps('USERNAME', 'PASSWORD'));
 
     $shipping->shipTo(array(
         'company'  => 'Some Company',

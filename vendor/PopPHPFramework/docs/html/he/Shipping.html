@@ -24,16 +24,18 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            מרכיב משלוח מספק פונקציונלי סטנדרטי כדי להשוות דמי משלוח בין שתי כתובות באמצעות UPS הסטנדרטי ו-APIs FedEx. אם נדרש מתאם ספנות שונה, אפשר בקלות להיות כתוב ומשולב.
+            מרכיב משלוח מספק פונקציונלי סטנדרטי כדי להשוות דמי משלוח בין שתי כתובות דרך APIs פדקס, UPS וUSPS הסטנדרטי. אם נדרש מתאם ספנות שונה, אפשר בקלות להיות כתוב ומשולב.
         </p>
 <pre>
 use Pop&#92;Shipping&#92;Shipping;
-use Pop&#92;Shipping&#92;Adapter&#92;Ups;
 use Pop&#92;Shipping&#92;Adapter&#92;Fedex;
+use Pop&#92;Shipping&#92;Adapter&#92;Ups;
+use Pop&#92;Shipping&#92;Adapter&#92;Usps;
 
-$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
 // -- OR --
-//$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
+//$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+//$shipping = new Shipping(new Usps('USERNAME', 'PASSWORD'));
 
 $shipping-&gt;shipTo(array(
     'company'  =&gt; 'Some Company',

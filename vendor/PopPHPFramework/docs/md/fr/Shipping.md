@@ -6,15 +6,17 @@ Documentation : Shipping
 
 Home
 
-La composante de livraison offre une fonctionnalité standard de comparer les tarifs d'expédition entre deux adresses via les UPS standard et API FedEx. Si un adaptateur de livraison différente est nécessaire, on peut facilement être rédigé et intégré.
+La composante de livraison offre une fonctionnalité standard de comparer les tarifs d'expédition entre deux adresses via les standards de FedEx, UPS et USPS API. Si un adaptateur de livraison différente est nécessaire, on peut facilement être rédigé et intégré.
 
     use Pop\Shipping\Shipping;
-    use Pop\Shipping\Adapter\Ups;
     use Pop\Shipping\Adapter\Fedex;
+    use Pop\Shipping\Adapter\Ups;
+    use Pop\Shipping\Adapter\Usps;
 
-    $shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    $shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
     // -- OR --
-    //$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
+    //$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    //$shipping = new Shipping(new Usps('USERNAME', 'PASSWORD'));
 
     $shipping->shipTo(array(
         'company'  => 'Some Company',

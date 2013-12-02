@@ -6,15 +6,17 @@ Documentation : Shipping
 
 Home
 
-Il componente di trasporto fornisce funzionalità standardizzato per confrontare le tariffe di spedizione tra due indirizzi tramite i gruppi di continuità standard e le API FedEx. Se è necessario un adattatore differente di trasporto, si può facilmente essere scritto e integrate.
+Il componente di trasporto fornisce funzionalità standardizzato per confrontare le tariffe di spedizione tra due indirizzi tramite lo standard FedEx, UPS e USPS API. Se è necessario un adattatore differente di trasporto, si può facilmente essere scritto e integrate.
 
     use Pop\Shipping\Shipping;
-    use Pop\Shipping\Adapter\Ups;
     use Pop\Shipping\Adapter\Fedex;
+    use Pop\Shipping\Adapter\Ups;
+    use Pop\Shipping\Adapter\Usps;
 
-    $shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    $shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
     // -- OR --
-    //$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
+    //$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    //$shipping = new Shipping(new Usps('USERNAME', 'PASSWORD'));
 
     $shipping->shipTo(array(
         'company'  => 'Some Company',

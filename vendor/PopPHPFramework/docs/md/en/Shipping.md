@@ -6,18 +6,17 @@ Documentation : Shipping
 
 Home
 
-The Shipping component provides standardized functionality to compare
-shipping rates between two addresses via the standard UPS and FedEx APIs.
-If a different shipping adapter is required, one can easily be written
-and integrated.
+The Shipping component provides standardized functionality to compare shipping rates between two addresses via the standard FedEx, UPS and USPS APIs. If a different shipping adapter is required, one can easily be written and integrated.
 
     use Pop\Shipping\Shipping;
-    use Pop\Shipping\Adapter\Ups;
     use Pop\Shipping\Adapter\Fedex;
+    use Pop\Shipping\Adapter\Ups;
+    use Pop\Shipping\Adapter\Usps;
 
-    $shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    $shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
     // -- OR --
-    //$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
+    //$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    //$shipping = new Shipping(new Usps('USERNAME', 'PASSWORD'));
 
     $shipping->shipTo(array(
         'company'  => 'Some Company',

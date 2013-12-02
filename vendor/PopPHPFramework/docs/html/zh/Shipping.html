@@ -24,16 +24,18 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            航运组件提供标准化的功能通过标准的UPS和FedEx的API来比较两个地址之间运费。如果使用不同的运输适配器是必需的，人们可以很容易地编写和整合。
+            航运组件提供标准化的功能通过标准的联邦快递，UPS和USPS API来比较两个地址之间运费。如果使用不同的运输适配器是必需的，人们可以很容易地编写和整合。
         </p>
 <pre>
 use Pop&#92;Shipping&#92;Shipping;
-use Pop&#92;Shipping&#92;Adapter&#92;Ups;
 use Pop&#92;Shipping&#92;Adapter&#92;Fedex;
+use Pop&#92;Shipping&#92;Adapter&#92;Ups;
+use Pop&#92;Shipping&#92;Adapter&#92;Usps;
 
-$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
 // -- OR --
-//$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
+//$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+//$shipping = new Shipping(new Usps('USERNAME', 'PASSWORD'));
 
 $shipping-&gt;shipTo(array(
     'company'  =&gt; 'Some Company',

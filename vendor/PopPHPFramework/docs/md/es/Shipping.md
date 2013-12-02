@@ -6,15 +6,17 @@ Documentation : Shipping
 
 Home
 
-El componente Envios proporciona funcionalidad estandarizada para comparar las tasas de envío entre dos direcciones a través de las UPS estándar y APIs de FedEx. Si se requiere un adaptador de envío diferente, uno fácilmente puede escribir e integrados.
+El componente Envios proporciona funcionalidad estandarizada para comparar las tasas de envío entre dos direcciones a través de las API de FedEx, UPS y USPS estándar. Si se requiere un adaptador de envío diferente, uno fácilmente puede escribir e integrados.
 
     use Pop\Shipping\Shipping;
-    use Pop\Shipping\Adapter\Ups;
     use Pop\Shipping\Adapter\Fedex;
+    use Pop\Shipping\Adapter\Ups;
+    use Pop\Shipping\Adapter\Usps;
 
-    $shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    $shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
     // -- OR --
-    //$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
+    //$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    //$shipping = new Shipping(new Usps('USERNAME', 'PASSWORD'));
 
     $shipping->shipTo(array(
         'company'  => 'Some Company',

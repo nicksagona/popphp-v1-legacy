@@ -6,15 +6,17 @@ Documentation : Shipping
 
 Home
 
-Компонент Доставка предоставляет стандартизированный функциональность для сравнения стоимости доставки между двумя адресами через стандартные ИБП и API, FedEx. Если другой адаптер доставка требуется, легко можно записать и интегрированы.
+Компонент Доставка предоставляет стандартизированный функциональные возможности для сравнения стоимости доставки между двумя адресами через стандартные FedEx, UPS и USPS API. Если другой адаптер доставка требуется, легко можно записать и интегрированы.
 
     use Pop\Shipping\Shipping;
-    use Pop\Shipping\Adapter\Ups;
     use Pop\Shipping\Adapter\Fedex;
+    use Pop\Shipping\Adapter\Ups;
+    use Pop\Shipping\Adapter\Usps;
 
-    $shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    $shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
     // -- OR --
-    //$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
+    //$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    //$shipping = new Shipping(new Usps('USERNAME', 'PASSWORD'));
 
     $shipping->shipTo(array(
         'company'  => 'Some Company',

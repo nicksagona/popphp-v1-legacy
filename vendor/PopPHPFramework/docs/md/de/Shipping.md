@@ -6,15 +6,17 @@ Documentation : Shipping
 
 Home
 
-Die Versand Komponente bietet standardisierte Funktionalität, um Versandkosten zwischen zwei Adressen über den Standard-APIs UPS und FedEx zu vergleichen. Wenn eine andere Versand Adapter erforderlich ist, kann man leicht geschrieben und integriert werden.
+Die Versand Komponente bietet standardisierte Funktionalität, um Versandkosten zwischen zwei Adressen über die Standard FedEx, UPS und USPS APIs vergleichen. Wenn eine andere Versand Adapter erforderlich ist, kann man leicht geschrieben und integriert werden.
 
     use Pop\Shipping\Shipping;
-    use Pop\Shipping\Adapter\Ups;
     use Pop\Shipping\Adapter\Fedex;
+    use Pop\Shipping\Adapter\Ups;
+    use Pop\Shipping\Adapter\Usps;
 
-    $shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    $shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
     // -- OR --
-    //$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
+    //$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+    //$shipping = new Shipping(new Usps('USERNAME', 'PASSWORD'));
 
     $shipping->shipTo(array(
         'company'  => 'Some Company',

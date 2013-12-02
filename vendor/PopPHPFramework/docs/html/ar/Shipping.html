@@ -24,16 +24,18 @@
             <a href="index.html"><strong>Home</strong></a>
         </p>
         <p>
-            يوفر المكون شحن وظيفة موحدة لمقارنة أسعار الشحن بين عنوانين عبر شركة يو بي إس القياسية واجهات برمجة التطبيقات فيديكس. إذا كنت بحاجة لمحول الشحن المختلفة، ويمكن للمرء بسهولة أن تكون مكتوبة ومتكاملة.
+            يوفر المكون شحن وظيفة موحدة لمقارنة أسعار الشحن بين عنوانين عبر فيديكس، يو بي إس وخدمة البريد الأميركية واجهات برمجة التطبيقات القياسية. إذا كنت بحاجة لمحول الشحن المختلفة، ويمكن للمرء بسهولة أن تكون مكتوبة ومتكاملة.
         </p>
 <pre>
 use Pop&#92;Shipping&#92;Shipping;
-use Pop&#92;Shipping&#92;Adapter&#92;Ups;
 use Pop&#92;Shipping&#92;Adapter&#92;Fedex;
+use Pop&#92;Shipping&#92;Adapter&#92;Ups;
+use Pop&#92;Shipping&#92;Adapter&#92;Usps;
 
-$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
 // -- OR --
-//$shipping = new Shipping(new Fedex('KEY', 'PASSWORD', 'ACCT_NUM', 'METER_NUM'));
+//$shipping = new Shipping(new Ups('ACCESS_KEY', 'USER_ID', 'PASSWORD'));
+//$shipping = new Shipping(new Usps('USERNAME', 'PASSWORD'));
 
 $shipping-&gt;shipTo(array(
     'company'  =&gt; 'Some Company',
