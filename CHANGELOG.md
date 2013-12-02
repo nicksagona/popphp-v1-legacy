@@ -146,7 +146,6 @@ Released on December 14, 2012
 * Add Event component, hook into Project class
 * Add Log component
 
-
 1.0.3
 -----
 Released on December 2, 2012
@@ -158,7 +157,6 @@ Released on December 2, 2012
     - search()
     - join()
 
-
 1.0.2
 -----
 Released on November 21, 2012
@@ -166,7 +164,6 @@ Released on November 21, 2012
 * Small restructure of the Dir component. Moved under the File component
 * Resolved and eliminated some unnecessary internal dependencies
 * Code cleanup
-
 
 1.0.1
 -----
@@ -186,7 +183,6 @@ Released on October 23, 2012
     - Change the mapping to the controller classes from keyword-based to direct URL mapping
     - Add the ability to route to sub-controllers
 * Overall code cleanup
-
 
 1.0.0
 -----

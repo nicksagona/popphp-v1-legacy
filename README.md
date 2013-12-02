@@ -10,10 +10,7 @@ Released December 1, 2013
 OVERVIEW
 --------
 The Pop PHP Framework is a robust, yet easy-to-use PHP framework
-with a verbose API. It was forked from the Moc10 PHP Library, which
-is now at its end of life. With the adoption of PHP 5.3 gaining, the
-decision was made to build the next version of the library as a
-full-fledged framework that supports only PHP 5.3+ moving forward.
+with a verbose API. It supports PHP 5.3+.
 
 The beginnings of this framework were humble. Originally containing only
 9 components, the focus was placed in simplicity and being lightweight.

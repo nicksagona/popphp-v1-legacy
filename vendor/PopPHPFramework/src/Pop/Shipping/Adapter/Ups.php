@@ -386,7 +386,6 @@ class Ups extends AbstractAdapter
         $this->buildRateRequest();
 
         $options = array(
-            CURLOPT_URL        => $this->url,
             CURLOPT_POST       => true,
             CURLOPT_POSTFIELDS => $this->accessRequest . $this->rateRequest,
             CURLOPT_HEADER     => false

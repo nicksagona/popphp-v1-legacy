@@ -178,6 +178,9 @@ class Version
         // Memcache
         $check['Memcache'] = (class_exists('Memcache', false))  ? 'Yes' : 'No';
 
+        // SOAP
+        $check['Soap'] = (class_exists('SoapClient', false))  ? 'Yes' : 'No';
+
         // Total
         $count = array_count_values($check);
         $total = count($check) - $count['No'] . ' of ' . count($check);
