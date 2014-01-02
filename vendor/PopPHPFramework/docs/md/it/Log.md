@@ -64,5 +64,5 @@ Ecco un esempio di invio di una e-mail:
     $logger->emerg('Here is an emergency message.', $options)
            ->info('Here is an info message.', $options);
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

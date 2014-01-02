@@ -145,5 +145,5 @@ en `usuarios` o 'traduce' en `DbUsers db_users` (CamelCase se convierte
 automáticamente en lower_case_underscore.) Revisar la documentación Db a
 ver cómo se puede ajustar con precisión la clase de tabla secundaria.
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

@@ -80,5 +80,5 @@ DOM组件提供了一个简单的方法来创建和操纵DOM文档和他们的�
     $doc->addChildren($children);
     $doc->render();
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

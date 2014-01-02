@@ -49,5 +49,5 @@ du fichier et des formats d'image dans lequel pour produire un graphe.
           ->createLineGraph($data, $x, $y)
           ->output();
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

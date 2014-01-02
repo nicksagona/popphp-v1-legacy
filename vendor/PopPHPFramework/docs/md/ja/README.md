@@ -82,5 +82,5 @@ Recordクラスは、テーブル内のデータベース内のデータ、特�
 
 あなたは、で、そのクラスがクラス名から照会するデータベーステーブルの名前を知って構築されたレコード·クラスのすべての機能を持つクラスを作成します。たとえば、ユーザーに`'や` DbUsers'変換に"ユーザー"変換db_users``（キャメルケースが自動的lower_case_underscoreに変換されます）を使用すると、子テーブルのクラスを微調整する方法を確認するためにDBのドキュメントを参照してください。
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

@@ -54,5 +54,5 @@ paginatorのコンポーネントは、単に大量の結果セットをペー�
 
     echo $pages;
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

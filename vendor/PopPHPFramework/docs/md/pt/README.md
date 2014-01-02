@@ -141,5 +141,5 @@ dados para consulta a partir do nome da classe. Por exemplo, se traduz
 é automaticamente convertido em lower_case_underscore.) Analisar a
 documentação Db para ver como você pode ajustar a classe tabela filho.
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

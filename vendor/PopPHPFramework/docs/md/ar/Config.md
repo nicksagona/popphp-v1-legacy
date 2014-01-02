@@ -32,5 +32,5 @@ Home
     echo 'User: ' . $config->db->user->username . ' has the role: ' . $config->db->user->role;
     echo 'Module Name: ' . $config->module;
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

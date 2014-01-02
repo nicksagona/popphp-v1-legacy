@@ -147,5 +147,5 @@ exemple, se traduit par «Utilisateurs» dans `utilisateurs` ou traduit
 lower_case_underscore.), Consultez la documentation Db pour voir comment
 vous pouvez affiner la classe table enfant.
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

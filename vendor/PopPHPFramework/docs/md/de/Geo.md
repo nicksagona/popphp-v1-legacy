@@ -19,5 +19,5 @@ für PHP GeoIP Erweiterung.
     echo $geo1->distanceTo($geo2, 4);
     //echo $geo1->distanceTo($geo2->latitude, $geo2->longitude, 4);
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

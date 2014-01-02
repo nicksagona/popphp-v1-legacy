@@ -24,5 +24,5 @@ HTTP组件提供了一个易于使用的API来管理，访问和操作HTTP请求
              ->setBody('<html><body>This is some HTML.</body></html>')
              ->send();
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

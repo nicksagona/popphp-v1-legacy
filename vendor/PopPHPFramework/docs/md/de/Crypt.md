@@ -21,5 +21,5 @@ Die Krypta Komponente bietet die Möglichkeit, Hashes erstellen und zu überprü
         echo 'NOT Verified!';
     }
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

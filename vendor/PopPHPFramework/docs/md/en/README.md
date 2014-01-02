@@ -137,5 +137,5 @@ query from the class name. For example,  'Users' translates into
 automatically converted into lower_case_underscore.) Review the Db
 documentation to see how you can fine tune the child table class.
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

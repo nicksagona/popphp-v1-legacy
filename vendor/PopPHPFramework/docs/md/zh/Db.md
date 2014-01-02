@@ -102,5 +102,5 @@ DB组件提供了标准化的查询数据库的访问。支持的适配器：
         echo $user->email;
     }
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

@@ -21,5 +21,5 @@ verwendet, um die Abhängigkeit-Prüfung durchzuführen.
         echo 'The current version is greater than or equal to 1.0';
     }
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

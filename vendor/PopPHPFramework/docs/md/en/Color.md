@@ -26,5 +26,5 @@ values to other color spaces, for example, converting RGB to CMYK.
     $cmyk = Color\Convert::toCmyk($rgb);
     echo 'RGB: ' . $rgb . ' => CMYK: ' . $cmyk;
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

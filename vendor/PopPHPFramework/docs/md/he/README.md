@@ -104,5 +104,5 @@ Pop PHP Framework
 
             ליוצרך מחלקה שכוללת את כל הפונקציונליות של מעמד השיא שנבנה בכיתה ויודעת את השם של טבלת מסד הנתונים לשאילתא משם המחלקה. לדוגמה, 'משתמשים' מיתרגם `` משתמשים או מתרגם 'DbUsers' ל` db_users `(CamelCase הופך אוטומטי lower_case_underscore.) סקור את תיעוד Db כדי לראות איך אתה יכול לכוונן את מעמד שולחן הילד.
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

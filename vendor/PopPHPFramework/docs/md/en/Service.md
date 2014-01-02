@@ -34,5 +34,5 @@ to using closures.
     $rgb    = $locator->get('rgb');     // Returns an RGB colorspace object
     $color  = $locator->get('color');   // Returns a color object that is loaded with the RGB object
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

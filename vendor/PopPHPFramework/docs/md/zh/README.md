@@ -79,5 +79,5 @@ DB组件有可能在任何应用程序中使用相当多的。显然，DB类提�
 
 您可以创建一个类，它具有所有功能的记录类和类知道的类名来查询数据库中的表的名称。例如，'用户'转化为'用户'或'DbUsers'转换成'db_users`（驼峰被自动转换成lower_case_underscore）查看DB文件，就看你怎么可以微调的子表类。
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

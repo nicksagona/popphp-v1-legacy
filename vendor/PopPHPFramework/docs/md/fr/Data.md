@@ -31,5 +31,5 @@ d'un format commun à l'autre. Les formats supportés sont les suivants:
     // Prints out the data in the new XML format
     echo $obj;
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.

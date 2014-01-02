@@ -79,5 +79,5 @@ Tמרכיב Pdf מספק עשיר בתכונות פונקציונליות לדו
 
     $pdf->output();
 
-\(c) 2009-2013 [Moc 10 Media, LLC.](http://www.moc10media.com) All
+\(c) 2009-2014 [Moc 10 Media, LLC.](http://www.moc10media.com) All
 Rights Reserved.
