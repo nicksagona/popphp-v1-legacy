@@ -46,6 +46,28 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('new_email', $e->getName());
     }
 
+    public function testGetType()
+    {
+        $e = new Element('text', 'email');
+        $this->assertEquals('text', $e->getType());
+    }
+
+    public function testSetAndGetValidators()
+    {
+        $e = new Element('text', 'email');
+        $e->setValidators(array(new Email()));
+        $vals = $e->getValidators();
+        $this->assertEquals(1, count($vals));
+    }
+
+    public function testClearErrors()
+    {
+        $e = new Element('text', 'email');
+        $e->clearErrors();
+        $errors = $e->getErrors();
+        $this->assertEquals(0, count($errors));
+    }
+
     public function testElementType()
     {
         $e = new Element('text', 'email');

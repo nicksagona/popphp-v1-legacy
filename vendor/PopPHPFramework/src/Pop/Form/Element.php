@@ -38,6 +38,12 @@ class Element extends Child
     protected $name = null;
 
     /**
+     * Element type
+     * @var string
+     */
+    protected $type = null;
+
+    /**
      * Form element value(s)
      * @var string|array
      */
@@ -126,6 +132,7 @@ class Element extends Child
     public function __construct($type, $name, $value = null, $marked = null, $indent = null)
     {
         $this->name = $name;
+        $this->type = $type;
 
         // Check the element type, else set the properties.
         if (!in_array($type, $this->allowedTypes)) {
@@ -290,7 +297,6 @@ class Element extends Child
      */
     public function setMarked($marked)
     {
-
         $this->marked = ($this->isMultiple()) ? array() : null;
 
         if (is_array($marked)) {
@@ -409,6 +415,29 @@ class Element extends Child
     }
 
     /**
+     * Set validators
+     *
+     * @param  array $validators
+     * @return \Pop\Form\Element
+     */
+    public function setValidators(array $validators = array())
+    {
+        $this->validators = $validators;
+        return $this;
+    }
+
+    /**
+     * Clear errors.
+     *
+     * @return \Pop\Form\Element
+     */
+    public function clearErrors()
+    {
+        $this->errors = array();
+        return $this;
+    }
+
+    /**
      * Get form element object name.
      *
      * @return string
@@ -416,6 +445,16 @@ class Element extends Child
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Get form element object type.
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
@@ -456,6 +495,16 @@ class Element extends Child
     public function getLabelAttributes()
     {
         return $this->labelAttributes;
+    }
+
+    /**
+     * Get validators
+     *
+     * @return array
+     */
+    public function getValidators()
+    {
+        return $this->validators;
     }
 
     /**
