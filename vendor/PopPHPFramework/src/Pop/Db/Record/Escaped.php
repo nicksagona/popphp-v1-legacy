@@ -194,6 +194,7 @@ class Escaped extends AbstractRecord
             // Build the UPDATE SQL
             if ($type == \Pop\Db\Record::UPDATE) {
                 $this->sql->update((array)$this->columns);
+                $this->sql->update()->where(true);
 
                 if (count($this->finder) > 0) {
                     foreach ($this->finder as $key => $value) {
@@ -231,6 +232,7 @@ class Escaped extends AbstractRecord
             // Build the UPDATE SQL
             if ($action == 'update') {
                 $this->sql->update((array)$this->columns);
+                $this->sql->update()->where(true);
 
                 if (is_array($this->primaryId)) {
                     foreach ($this->primaryId as $value) {

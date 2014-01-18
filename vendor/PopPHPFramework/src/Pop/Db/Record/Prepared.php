@@ -265,6 +265,8 @@ class Prepared extends AbstractRecord
                     }
 
                     $this->sql()->update((array)$columns);
+                    $this->sql->update()->where(true);
+
                     $i = 1;
                     foreach ($this->finder as $key => $value) {
                         if (null === $value) {
@@ -346,6 +348,7 @@ class Prepared extends AbstractRecord
                 }
 
                 $this->sql->update((array)$columns);
+                $this->sql->update()->where(true);
 
                 if (is_array($this->primaryId)) {
                     foreach ($this->primaryId as $key => $value) {

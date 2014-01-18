@@ -37,11 +37,12 @@ class Update extends AbstractSql
     /**
      * Set the WHERE clause
      *
+     * @param  boolean $reset
      * @return \Pop\Db\Sql\Predicate
      */
-    public function where()
+    public function where($reset = false)
     {
-        if (null === $this->where) {
+        if ((null === $this->where) || ($reset)) {
             $this->where = new Predicate($this->sql);
         }
 
