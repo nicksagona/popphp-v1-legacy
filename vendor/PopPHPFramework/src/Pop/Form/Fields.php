@@ -167,6 +167,29 @@ class Fields
     }
 
     /**
+     * Set form field
+     *
+     * @param  string $field
+     * @param  mixed  $attrib
+     * @param  mixed  $value
+     * @return \Pop\Form\Fields
+     */
+    public function setField($field, $attrib, $value = null)
+    {
+        if (isset($this->fields[$field])) {
+            if (is_string($attrib) && (null !== $value)) {
+                $this->fields[$field][$attrib] = $value;
+            } else if (is_array($attrib)) {
+                foreach ($attrib as $k => $v) {
+                    $this->fields[$field][$k] = $v;
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Get the form fields
      *
      * @return array

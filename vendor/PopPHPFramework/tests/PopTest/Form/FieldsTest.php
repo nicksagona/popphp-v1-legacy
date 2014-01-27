@@ -79,8 +79,12 @@ class FieldsTest extends \PHPUnit_Framework_TestCase
             'required'   => true,
             'attributes' => array('size' => 40)
         );
-        $this->assertEquals('New Username:', $f->username['label']);
         $this->assertTrue(isset($f->username));
+        $this->assertEquals('New Username:', $f->username['label']);
+        $f->setField('username', 'label', 'Other Username:');
+        $this->assertEquals('Other Username:', $f->username['label']);
+        $f->setField('username', array('label' => 'Another Username:'));
+        $this->assertEquals('Another Username:', $f->username['label']);
         unset($f->username);
         $this->assertFalse(isset($f->username));
     }
