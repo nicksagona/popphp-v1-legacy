@@ -71,6 +71,18 @@ class FieldsTest extends \PHPUnit_Framework_TestCase
         $f = Fields::factory(Users::getTableInfo(), array('size' => 40), array('id' => array('type' => 'hidden')), array('access'));
         $f = Fields::factory(Users::getTableInfo(), array('size' => 40), array('id' => array('type' => 'hidden')), 'access');
         $this->assertEquals(4, count($f->getFields()));
+        $this->assertEquals('Username:', $f->username['label']);
+        $f->username = array(
+            'type'       => 'text',
+            'value'      => 'Username here...',
+            'label'      => 'New Username:',
+            'required'   => true,
+            'attributes' => array('size' => 40)
+        );
+        $this->assertEquals('New Username:', $f->username['label']);
+        $this->assertTrue(isset($f->username));
+        unset($f->username);
+        $this->assertFalse(isset($f->username));
     }
 
     public function testAddFieldsFromTableException()

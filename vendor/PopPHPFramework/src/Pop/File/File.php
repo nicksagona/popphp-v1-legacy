@@ -14,7 +14,6 @@
  * @namespace
  */
 namespace Pop\File;
-use Pop\Archive\Adapter\Exception;
 
 /**
  * File class
@@ -348,13 +347,13 @@ class File
      * Set the file mime type.
      *
      * @param  string $mime
-     * @throws \Pop\File\Exception
+     * @throws Exception
      * @return \Pop\File\File
      */
     public function setMime($mime)
     {
         if ((count($this->allowed) > 0) && !in_array($mime, $this->allowed)) {
-            throw new \Pop\File\Exception('Error: The file mime type ' . $mime . ' is not an accepted file mime type.');
+            throw new Exception('Error: The file mime type ' . $mime . ' is not an accepted file mime type.');
         }
         $this->mime = $mime;
         return $this;
@@ -604,14 +603,14 @@ class File
      *
      * @param  string  $new
      * @param  boolean $overwrite
-     * @throws \Pop\File\Exception
+     * @throws Exception
      * @return \Pop\File\File
      */
     public function copy($new, $overwrite = false)
     {
         // Check to see if the new file already exists.
         if (file_exists($new) && (!$overwrite)) {
-            throw new \Pop\File\Exception('Error: The file already exists.');
+            throw new Exception('Error: The file already exists.');
         }
 
         if (file_exists($this->fullpath)) {
@@ -629,14 +628,14 @@ class File
      *
      * @param  string $new
      * @param  boolean $overwrite
-     * @throws \Pop\File\Exception
+     * @throws Exception
      * @return \Pop\File\File
      */
     public function move($new, $overwrite = false)
     {
         // Check to see if the new file already exists.
         if (file_exists($new) && (!$overwrite)) {
-            throw new \Pop\File\Exception('Error: The file already exists.');
+            throw new Exception('Error: The file already exists.');
         }
 
         if (file_exists($this->fullpath)) {

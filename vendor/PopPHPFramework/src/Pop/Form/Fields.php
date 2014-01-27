@@ -72,18 +72,6 @@ class Fields
     }
 
     /**
-     * Add form fields
-     *
-     * @param  array $fields
-     * @return \Pop\Form\Fields
-     */
-    public function addFields(array $fields)
-    {
-        $this->fields = array_merge($this->fields, $fields);
-        return $this;
-    }
-
-    /**
      * Add form fields from a related database table. The $tableInfo
      * parameter should be the returned array result from calling the
      * static Pop\Db\Record method, Record::getTableInfo();
@@ -167,6 +155,18 @@ class Fields
     }
 
     /**
+     * Add form fields
+     *
+     * @param  array $fields
+     * @return \Pop\Form\Fields
+     */
+    public function addFields(array $fields)
+    {
+        $this->fields = array_merge($this->fields, $fields);
+        return $this;
+    }
+
+    /**
      * Get the form fields
      *
      * @return array
@@ -174,6 +174,53 @@ class Fields
     public function getFields()
     {
         return $this->fields;
+    }
+
+    /**
+     * Set method to set the property to the value of fields[$name].
+     *
+     * @param  string $name
+     * @param  mixed $value
+     * @throws Exception
+     * @return void
+     */
+    public function __set($name, $value)
+    {
+        $this->fields[$name] = $value;
+    }
+
+    /**
+     * Get method to return the value of fields[$name].
+     *
+     * @param  string $name
+     * @throws Exception
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        return (isset($this->fields[$name])) ? $this->fields[$name] : null;
+    }
+
+    /**
+     * Return the isset value of fields[$name].
+     *
+     * @param  string $name
+     * @return boolean
+     */
+    public function __isset($name)
+    {
+        return isset($this->fields[$name]);
+    }
+
+    /**
+     * Unset fields[$name].
+     *
+     * @param  string $name
+     * @return void
+     */
+    public function __unset($name)
+    {
+        unset($this->fields[$name]);
     }
 
 }
