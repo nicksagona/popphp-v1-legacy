@@ -368,7 +368,7 @@ class Predicate
                                     ($dbType !== \Pop\Db\Sql::ORACLE)) {
                                     if (($dbType == \Pop\Db\Sql::MYSQL) || ($dbType == \Pop\Db\Sql::SQLSRV)) {
                                         $v = '?';
-                                    } else if ($dbType == \Pop\Db\Sql::PGSQL) {
+                                    } else if (($dbType == \Pop\Db\Sql::PGSQL) && (!$this->sql->getDb()->isPdo())) {
                                         $v = '$' . $paramCount;
                                         $paramCount++;
                                     }
@@ -393,7 +393,7 @@ class Predicate
                                 ($dbType !== \Pop\Db\Sql::ORACLE)) {
                                 if (($dbType == \Pop\Db\Sql::MYSQL) || ($dbType == \Pop\Db\Sql::SQLSRV)) {
                                     $val = '?';
-                                } else if ($dbType == \Pop\Db\Sql::PGSQL) {
+                                } else if (($dbType == \Pop\Db\Sql::PGSQL) && (!$this->sql->getDb()->isPdo())) {
                                     $val = '$' . $paramCount;
                                     $paramCount++;
                                 }

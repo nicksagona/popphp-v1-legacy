@@ -869,8 +869,8 @@ class Svg extends \Pop\File\File
     /**
      * Method to set the styles.
      *
-     * @param  SimpleXMLElement
-     * @return SimpleXMLElement
+     * @param  \SimpleXMLElement $obj
+     * @return \SimpleXMLElement
      */
     protected function setStyles($obj)
     {

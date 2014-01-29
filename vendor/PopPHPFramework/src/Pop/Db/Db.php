@@ -35,6 +35,12 @@ class Db
     protected $adapter = null;
 
     /**
+     * Flag for a PDO adapter
+     * @var boolean
+     */
+    protected $isPdo = false;
+
+    /**
      * Constructor
      *
      * Instantiate the database connection object.
@@ -47,6 +53,7 @@ class Db
      */
     public function __construct($type, array $options, $prefix = 'Pop\Db\Adapter\\')
     {
+        $this->isPdo = (strtolower($type) == 'pdo');
         $class = $prefix . ucfirst(strtolower($type));
 
         if (!class_exists($class)) {
@@ -81,6 +88,16 @@ class Db
     }
 
     /**
+     * Get the PDO flag
+     *
+     * @return boolean
+     */
+    public function isPdo()
+    {
+        return $this->isPdo;
+    }
+
+    /**
      * Get the database adapter type.
      *
      * @return string
@@ -92,8 +109,10 @@ class Db
         $class = get_class($this->adapter);
 
         if (stripos($class, 'Pdo') !== false) {
+            $this->isPdo = true;
             $type = 'Pdo\\' . ucfirst($this->adapter->getDbtype());
         } else {
+            $this->isPdo = false;
             $type = ucfirst(str_replace('Pop\Db\Adapter\\', '', $class));
         }
 

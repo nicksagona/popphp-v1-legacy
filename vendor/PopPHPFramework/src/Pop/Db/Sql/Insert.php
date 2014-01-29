@@ -53,7 +53,7 @@ class Insert extends AbstractSql
                 ($dbType !== \Pop\Db\Sql::ORACLE)) {
                 if (($dbType == \Pop\Db\Sql::MYSQL) || ($dbType == \Pop\Db\Sql::SQLSRV)) {
                     $value = '?';
-                } else if ($dbType == \Pop\Db\Sql::PGSQL) {
+                } else if (($dbType == \Pop\Db\Sql::PGSQL) && (!$this->sql->getDb()->isPdo())) {
                     $value = '$' . $paramCount;
                     $paramCount++;
                 }

@@ -74,6 +74,13 @@ class DbTest extends \PHPUnit_Framework_TestCase
     {
         $d = Db::factory('Sqlite', array('database' => __DIR__ . '/../tmp/test.sqlite'));
         $this->assertContains('SQLite', $d->adapter()->version());
+        $this->assertFalse($d->isPdo());
+    }
+
+    public function testIsPdo()
+    {
+        $d = Db::factory('Pdo', array('database' => __DIR__ . '/../tmp/test.sqlite', 'type' => 'sqlite'));
+        $this->assertTrue($d->isPdo());
     }
 
 }
