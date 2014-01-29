@@ -579,5 +579,13 @@
             <source>%1 years ago</source>
             <output>%1年前</output>
         </text>
+        <text>
+            <source>The answer is incorrect.</source>
+            <output>答案是不正确的。</output>
+        </text>
+        <text>
+            <source>The security token does not match.</source>
+            <output>安全令牌不匹配。</output>
+        </text>
     </locale>
 </language>

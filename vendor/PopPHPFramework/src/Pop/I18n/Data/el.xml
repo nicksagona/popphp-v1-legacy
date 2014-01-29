@@ -579,5 +579,13 @@
             <source>%1 years ago</source>
             <output>Πριν %1 χρόνια</output>
         </text>
+        <text>
+            <source>The answer is incorrect.</source>
+            <output>Η απάντηση είναι λανθασμένη.</output>
+        </text>
+        <text>
+            <source>The security token does not match.</source>
+            <output>Το διακριτικό ασφαλείας δεν ταιριάζουν.</output>
+        </text>
     </locale>
 </language>

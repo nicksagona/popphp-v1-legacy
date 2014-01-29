@@ -579,5 +579,13 @@
             <source>%1 years ago</source>
             <output>לפני %1 שנים</output>
         </text>
+        <text>
+            <source>The answer is incorrect.</source>
+            <output>התשובה היא לא נכונה.</output>
+        </text>
+        <text>
+            <source>The security token does not match.</source>
+            <output>אסימון האבטחה אינו תואם.</output>
+        </text>
     </locale>
 </language>

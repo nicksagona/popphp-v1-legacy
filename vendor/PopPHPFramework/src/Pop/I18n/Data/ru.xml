@@ -579,5 +579,13 @@
             <source>%1 years ago</source>
             <output>%1 года назад</output>
         </text>
+        <text>
+            <source>The answer is incorrect.</source>
+            <output>Ответ неправильный.</output>
+        </text>
+        <text>
+            <source>The security token does not match.</source>
+            <output>Маркер безопасности не соответствует.</output>
+        </text>
     </locale>
 </language>

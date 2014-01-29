@@ -115,7 +115,7 @@ class Csrf extends \Pop\Form\Element
             // If there is query data, set validator to check against the token value
             if (count($queryData) > 0) {
                 $val = (isset($queryData[$this->name])) ? $queryData[$this->name] : '';
-                $this->addValidator(new \Pop\Validator\Equal($val, 'The security token does not match.'));
+                $this->addValidator(new \Pop\Validator\Equal($val, \Pop\I18n\I18n::factory()->__('The security token does not match.')));
             }
         } else {
             throw new \Pop\Form\Exception('Error: The server request method is not set.');

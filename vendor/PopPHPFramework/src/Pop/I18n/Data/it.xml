@@ -579,5 +579,13 @@
             <source>%1 years ago</source>
             <output>%1 anni fa</output>
         </text>
+        <text>
+            <source>The answer is incorrect.</source>
+            <output>La risposta non è corretta.</output>
+        </text>
+        <text>
+            <source>The security token does not match.</source>
+            <output>Il token di sicurezza non corrisponde.</output>
+        </text>
     </locale>
 </language>

@@ -157,7 +157,7 @@ class Captcha extends \Pop\Form\Element
                     } else {
                         $answer = $captcha;
                     }
-                    $this->addValidator(new \Pop\Validator\Equal($answer, 'The answer is incorrect.'));
+                    $this->addValidator(new \Pop\Validator\Equal($answer, \Pop\I18n\I18n::factory()->__('The answer is incorrect.')));
                 }
             }
         } else {

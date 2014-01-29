@@ -576,8 +576,12 @@
             <output>%1 منذ أشهر</output>
         </text>
         <text>
-            <source>%1 years ago</source>
-            <output>%1 منذ سنوات</output>
+            <source>The answer is incorrect.</source>
+            <output>الجواب غير صحيح. </output>
+        </text>
+        <text>
+            <source>The security token does not match.</source>
+            <output>لا يطابق رمز الأمان.</output>
         </text>
     </locale>
 </language>
