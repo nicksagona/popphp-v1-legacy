@@ -297,6 +297,57 @@ class I18n
     }
 
     /**
+     * Create an XML document fragment from a source file and an output file,
+     * each entry separated by a new line
+     *
+     * @param  string $source
+     * @param  string $output
+     * @param  string $target
+     * @throws Exception
+     * @return void
+     */
+    public static function createXmlFromText($source, $output, $target = null)
+    {
+        if (!file_exists($source)) {
+            throw new Exception('Error: The source file does not exist.');
+        }
+        if (!file_exists($output)) {
+            throw new Exception('Error: The output file does not exist.');
+        }
+
+        $sourceLines = explode(PHP_EOL, file_get_contents($source));
+        $outputLines = explode(PHP_EOL, file_get_contents($output));
+
+        $targetDir = (null !== $target) ? $target : dirname($output);
+
+        if (!file_exists($targetDir)) {
+            throw new Exception('Error: The target directory does not exist.');
+        }
+
+        if (strpos($output, '/') !== false) {
+            $lang = substr($output, (strrpos($output, '/') + 1));
+            $lang = substr($lang, 0, strpos($lang, '.'));
+        } else if (strpos($output, "\\") !== false) {
+            $lang = substr($output, (strrpos($output, "\\") + 1));
+            $lang = substr($lang, 0, strpos($lang, '.'));
+        } else {
+            $lang = substr($output, 0, strpos($output, '.'));
+        }
+
+        $xml = null;
+
+        foreach ($outputLines as $key => $value) {
+            if (!empty($value) && !empty($sourceLines[$key])) {
+                $xml .= '        <text>' . PHP_EOL . '            <source>' . $sourceLines[$key] . '</source>' . PHP_EOL .
+                    '            <output>' . $value . '</output>' . PHP_EOL .
+                    '        </text>' . PHP_EOL;
+            }
+        }
+
+        file_put_contents($targetDir . DIRECTORY_SEPARATOR . $lang . '.xml', $xml);
+    }
+
+    /**
      * Translate and return the string.
      *
      * @param  string $str

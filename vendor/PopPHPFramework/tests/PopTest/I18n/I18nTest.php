@@ -272,5 +272,30 @@ class I18nTest extends \PHPUnit_Framework_TestCase
         I18n::createXmlFile($lang, $locales, __DIR__ . '/../tmp/new_de.xml');
     }
 
+    public function testCreateXmlFromText()
+    {
+        I18n::createXmlFromText(__DIR__ . '/../tmp/en.txt', __DIR__ . '/../tmp/de.txt', __DIR__ . '/../tmp');
+        $this->assertFileExists(__DIR__ . '/../tmp/de.xml');
+        unlink(__DIR__ . '/../tmp/de.xml');
+    }
+
+    public function testCreateXmlFromTextNoSourceException()
+    {
+        $this->setExpectedException('Pop\I18n\Exception');
+        I18n::createXmlFromText(__DIR__ . '/../tmp/bad.txt', __DIR__ . '/../tmp/de.txt', __DIR__ . '/../tmp');
+    }
+
+    public function testCreateXmlFromTextNoOutputException()
+    {
+        $this->setExpectedException('Pop\I18n\Exception');
+        I18n::createXmlFromText(__DIR__ . '/../tmp/en.txt', __DIR__ . '/../tmp/bad.txt', __DIR__ . '/../tmp');
+    }
+
+    public function testCreateXmlFromTextNoTargetException()
+    {
+        $this->setExpectedException('Pop\I18n\Exception');
+        I18n::createXmlFromText(__DIR__ . '/../tmp/bad.txt', __DIR__ . '/../tmp/de.txt', __DIR__ . '/../bad');
+    }
+
 }
 

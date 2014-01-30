@@ -1,0 +1,3 @@
+Configuration
+The configuration file is not writable and the configuration has not been written to the file.
+You will have to copy the code below and paste it into the 'config.php' file to continue.

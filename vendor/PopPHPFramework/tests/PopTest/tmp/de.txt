@@ -1,0 +1,3 @@
+Konfiguration
+Die Konfigurationsdatei ist nicht beschreibbar und die Konfiguration nicht in die Datei geschrieben.
+Sie müssen den nachfolgenden Code kopieren und in die Datei "config.php", um fortzufahren.
