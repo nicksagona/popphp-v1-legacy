@@ -45,9 +45,23 @@ try {
         'select_colors' => array(
             'type'       => 'select',
             'label'      => 'Colors:',
-            'value'      => array('--' => '--', 'Red' => 'Red', 'Green' => 'Green', 'Blue' => 'Blue'),
-            'validators' => new Validator\Excluded('--'),
-            'attributes' => array('multiple' => 'multiple')
+            'value'      => array(
+                '--' => '--',
+                'Red' => 'Red',
+                'Green' => 'Green',
+                'Other Colors' => array(
+                    'Purple' => 'Purple',
+                    'Gold'   => 'Gold',
+                    'Mauve'  => 'Mauve'
+                ),
+                'Blue' => 'Blue',
+                'No Colors' => array(
+                    'Black' => 'Black',
+                    'White' => 'White'
+                )
+            ),
+            'attributes' => array('multiple' => 'multiple'),
+            'marked'     => array('Black', 'Gold', 'Blue')
         ),
         'submit' => array(
             'type'       => 'submit',

@@ -51,6 +51,25 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, count($s->getMarked()));
     }
 
+    public function testOptGroup()
+    {
+        $s = new Select(
+            'colors',
+            array(
+                'Red' => 'Red',
+                'Blue' => 'Blue',
+                'Green' => 'Green',
+                'Other' => array(
+                    'Black' => 'Black',
+                    'White' => 'White'
+                )
+            ),
+            array('Blue', 'Black')
+        );
+        $s->setAttributes('multiple', 'multiple');
+        $this->assertContains('<optgroup label="', $s->render(true));
+    }
+
     public function testYear()
     {
         $s = new Select('select_test', 'YEAR_1900_2000');

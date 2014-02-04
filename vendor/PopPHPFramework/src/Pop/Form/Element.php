@@ -156,20 +156,40 @@ class Element extends Child
 
                 // Create the child option elements.
                 foreach ($value as $k => $v) {
-                    $opt = new Child('option', null, null, false, $indent);
-                    $opt->setAttributes('value', $k);
-                    // Determine if the current option element is selected.
-                    if (is_array($this->marked)) {
-                        if (in_array($v, $this->marked)) {
-                            $opt->setAttributes('selected', 'selected');
+                    if (is_array($v)) {
+                        $opt = new Child('optgroup', null, null, false, $indent);
+                        $opt->setAttributes('label', $k);
+                        foreach ($v as $ky => $vl) {
+                            $o = new Child('option', null, null, false, $indent);
+                            $o->setAttributes('value', $ky);
+                            // Determine if the current option element is selected.
+                            if (is_array($this->marked)) {
+                                if (in_array($vl, $this->marked)) {
+                                    $o->setAttributes('selected', 'selected');
+                                }
+                            } else {
+                                if ($vl == $this->marked) {
+                                    $o->setAttributes('selected', 'selected');
+                                }
+                            }
+                            $o->setNodeValue($vl);
+                            $opt->addChild($o);
                         }
                     } else {
-                        if ($v == $this->marked) {
-                            $opt->setAttributes('selected', 'selected');
+                        $opt = new Child('option', null, null, false, $indent);
+                        $opt->setAttributes('value', $k);
+                        // Determine if the current option element is selected.
+                        if (is_array($this->marked)) {
+                            if (in_array($v, $this->marked)) {
+                                $opt->setAttributes('selected', 'selected');
+                            }
+                        } else {
+                            if ($v == $this->marked) {
+                                $opt->setAttributes('selected', 'selected');
+                            }
                         }
+                        $opt->setNodeValue($v);
                     }
-
-                    $opt->setNodeValue($v);
                     $this->addChild($opt);
                 }
 
@@ -302,11 +322,33 @@ class Element extends Child
         if (is_array($marked)) {
             foreach ($marked as $v) {
                 if (is_array($this->value)) {
-                    if (array_key_exists($v, $this->value) !==  false) {
-                        if (is_array($this->marked)) {
-                            $this->marked[] = $this->value[$v];
+                    $inArray = false;
+                    foreach ($this->value as $key => $val) {
+                        if ($key == $v) {
+                            $inArray = true;
+                        } else if (is_array($val)) {
+                            foreach ($val as $ky => $va) {
+                                if ($ky == $v) {
+                                    $inArray = true;
+                                }
+                            }
+                        }
+                    }
+                    if ($inArray) {
+                        $val = null;
+                        if (!isset($this->value[$v])) {
+                            foreach ($this->value as $vl) {
+                                if (is_array($vl) && isset($vl[$v])) {
+                                    $val = $vl[$v];
+                                }
+                            }
                         } else {
-                            $this->marked = $this->value[$v];
+                            $val = $this->value[$v];
+                        }
+                        if (is_array($this->marked)) {
+                            $this->marked[] = $val;
+                        } else {
+                            $this->marked = $val;
                         }
                     }
                 }
