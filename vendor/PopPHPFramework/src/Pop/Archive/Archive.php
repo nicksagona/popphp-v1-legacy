@@ -104,6 +104,7 @@ class Archive extends \Pop\File\File
         // Check if Bzip2 is available.
         if (!function_exists('bzcompress')) {
             unset($allowed['bz2']);
+            unset($allowed['tbz']);
             unset($allowed['tbz2']);
         }
         // Check if Gzip is available.
@@ -121,7 +122,13 @@ class Archive extends \Pop\File\File
         }
         // Check if Tar is available.
         if (!class_exists('Archive_Tar')) {
+            unset($allowed['bz']);
+            unset($allowed['bz2']);
+            unset($allowed['gz']);
             unset($allowed['tar']);
+            unset($allowed['tgz']);
+            unset($allowed['tbz']);
+            unset($allowed['tbz2']);
         }
         // Check if Zip is available.
         if (!class_exists('ZipArchive', false)) {

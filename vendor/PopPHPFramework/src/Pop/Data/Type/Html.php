@@ -42,15 +42,16 @@ class Html
      */
     public static function encode($data, array $options = null, $perPage = 0, $range = 10, $total = null)
     {
-        $output = '';
-        $header = '';
-        $row    = '';
-        $footer = '';
-        $indent = (isset($options['indent'])) ? $options['indent'] : '    ';
-        $date = (isset($options['date'])) ? $options['date'] : 'M j, Y';
+        $output  = '';
+        $header  = '';
+        $row     = '';
+        $footer  = '';
+        $sep     = (isset($options['separator'])) ? $options['separator'] : ' | ';
+        $indent  = (isset($options['indent'])) ? $options['indent'] : '    ';
+        $date    = (isset($options['date'])) ? $options['date'] : 'M j, Y';
         $exclude = (isset($options['exclude'])) ? $options['exclude'] : array();
         $process = null;
-        $submit = null;
+        $submit  = null;
 
         if (!is_array($exclude)) {
             $exclude = array($exclude);
@@ -206,7 +207,8 @@ class Html
             $pages = new Paginator($rowValuesAry, $perPage, $range, $total);
             $pages->setHeader($header)
                   ->setRowTemplate($row)
-                  ->setFooter($footer);
+                  ->setFooter($footer)
+                  ->setSeparator($sep);
 
             $output = (string)$pages;
         }
