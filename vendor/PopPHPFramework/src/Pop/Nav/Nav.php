@@ -434,7 +434,8 @@ class Nav
             if (($allowed) && isset($node['name']) && isset($node['href'])) {
                 // Create child node and child link node
                 $a = new Child('a', $node['name']);
-                if ((substr($node['href'], 0, 1) == '/') || (substr($node['href'], 0, 1) == '#') || (substr($node['href'], 0, 4) == 'http')) {
+                if ((substr($node['href'], 0, 1) == '/') || (substr($node['href'], 0, 1) == '#') ||
+                    (substr($node['href'], -1) == '#') ||(substr($node['href'], 0, 4) == 'http')) {
                     $href = $node['href'];
                 } else {
                     if (substr($parentHref, -1) == '/') {
@@ -445,7 +446,8 @@ class Nav
                 }
 
                 $a->setAttributes('href', $href);
-                if (($this->returnFalse) && ($href == '#')) {
+
+                if (($this->returnFalse) && (($href == '#') || (substr($href, -1) == '#'))) {
                     $a->setAttributes('onclick', 'return false;');
                 }
                 $url = $_SERVER['REQUEST_URI'];
