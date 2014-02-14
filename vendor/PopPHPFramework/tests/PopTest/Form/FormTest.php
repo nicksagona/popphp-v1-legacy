@@ -258,8 +258,10 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $f = new Form('/submit', 'post', $fields);
         $f->setFieldValues(
             array('username' => '<p>te\'st"<script>user</script></p>'),
-            array('strip_tags', 'htmlentities'),
-            array('<p>', array(ENT_QUOTES, 'UTF-8'))
+            array(
+                'strip_tags'   => '<p>',
+                'htmlentities' => array(ENT_QUOTES, 'UTF-8')
+            )
         );
         $this->assertEquals('&lt;p&gt;te&#039;st&quot;user&lt;/p&gt;', $f->username);
     }
@@ -278,11 +280,15 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $f = new Form('/submit', 'post', $fields);
         $f->setFieldValues(
             array('username' => '<p>te\'st"<script>user</script></p>'),
-            array('strip_tags', 'htmlentities'),
-            array('<p>', array(ENT_QUOTES, 'UTF-8'))
+            array(
+                'strip_tags'   => '<p>',
+                'htmlentities' => array(ENT_QUOTES, 'UTF-8')
+            )
         );
         $this->assertEquals('&lt;p&gt;te&#039;st&quot;user&lt;/p&gt;', $f->username);
-        $f->filter('html_entity_decode', array(ENT_QUOTES, 'UTF-8'));
+        $f->filter(array(
+            'html_entity_decode' => array(ENT_QUOTES, 'UTF-8')
+        ));
         $this->assertEquals('<p>te\'st"user</p>', $f->username);
     }
 

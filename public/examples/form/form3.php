@@ -35,7 +35,7 @@ try {
 
     if ($_POST) {
         //$_POST['my_csrf_token'] = 'bad token';
-        $form->setFieldValues($_POST, array('strip_tags', 'htmlentities'), array(null, array(ENT_QUOTES, 'UTF-8')));
+        $form->setFieldValues($_POST, array('strip_tags' => null, 'htmlentities' => array(ENT_QUOTES, 'UTF-8')));
         if (!$form->isValid()) {
             $form->render();
         } else {

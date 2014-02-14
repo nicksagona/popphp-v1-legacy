@@ -71,12 +71,12 @@ try {
     $form->setTemplate('form.html');
 
     if ($_POST) {
-        $form->setFieldValues($_POST, array('strip_tags', 'htmlentities'), array(null, array(ENT_QUOTES, 'UTF-8')));
+        $form->setFieldValues($_POST, array('strip_tags' => null, 'htmlentities' => array(ENT_QUOTES, 'UTF-8')));
         if (!$form->isValid()) {
             $form->render();
         } else {
             echo 'Form is valid.<br />' . PHP_EOL;
-            $form->filter('html_entity_decode', array(ENT_QUOTES, 'UTF-8'));
+            $form->filter(array('html_entity_decode' => array(ENT_QUOTES, 'UTF-8')));
             print_r($form->getFields());
         }
     } else {
