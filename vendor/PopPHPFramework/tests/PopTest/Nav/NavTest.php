@@ -174,6 +174,34 @@ NAV;
         $this->assertInstanceOf('Pop\Dom\Child', $n->nav());
     }
 
+    public function testReturnFalse()
+    {
+        $_SERVER['REQUEST_URI'] = '/first';
+
+        $tree = array(
+            array(
+                'name'     => 'First Nav Item',
+                'href'     => '#',
+                'children' => array(
+                    array(
+                        'name' => 'First Child',
+                        'href' => '/first/first-child'
+                    ),
+                    array(
+                        'name' => 'Second Child',
+                        'href' => '/first/second-child'
+                    )
+                )
+            )
+        );
+
+        $n = new Nav($tree);
+        $this->assertFalse($n->isReturnFalse());
+        $n->returnFalse(true);
+        $this->assertTrue($n->isReturnFalse());
+        $this->assertContains('onclick="return false;"', $n->render(true));
+    }
+
     public function testBuildNav()
     {
         $_SERVER['REQUEST_URI'] = '/first';

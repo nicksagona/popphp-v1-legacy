@@ -67,6 +67,12 @@ class Nav
     protected $childLevel = 1;
 
     /**
+     * Return false flag
+     * @var boolean
+     */
+    protected $returnFalse = false;
+
+    /**
      * Parent nav element
      * @var \Pop\Dom\Child
      */
@@ -98,6 +104,18 @@ class Nav
     public static function factory(array $tree = null, array $config = array())
     {
         return new self($tree, $config);
+    }
+
+    /**
+     * Set the return false flag
+     *
+     * @param  boolean $return
+     * @return \Pop\Nav\Nav
+     */
+    public function returnFalse($return)
+    {
+        $this->returnFalse = (bool)$return;
+        return $this;
     }
 
     /**
@@ -191,6 +209,16 @@ class Nav
     {
         $this->role = $role;
         return $this;
+    }
+
+    /**
+     * Set the return false flag
+     *
+     * @return boolean
+     */
+    public function isReturnFalse()
+    {
+        return $this->returnFalse;
     }
 
     /**
@@ -406,7 +434,7 @@ class Nav
             if (($allowed) && isset($node['name']) && isset($node['href'])) {
                 // Create child node and child link node
                 $a = new Child('a', $node['name']);
-                if ((substr($node['href'], 0, 1) == '/') || (substr($node['href'], 0, 4) == 'http')) {
+                if ((substr($node['href'], 0, 1) == '/') || (substr($node['href'], 0, 1) == '#') || (substr($node['href'], 0, 4) == 'http')) {
                     $href = $node['href'];
                 } else {
                     if (substr($parentHref, -1) == '/') {
@@ -417,6 +445,9 @@ class Nav
                 }
 
                 $a->setAttributes('href', $href);
+                if (($this->returnFalse) && ($href == '#')) {
+                    $a->setAttributes('onclick', 'return false;');
+                }
                 $url = $_SERVER['REQUEST_URI'];
                 if (strpos($url, '?') !== false) {
                     $url = substr($url, strpos($url, '?'));
