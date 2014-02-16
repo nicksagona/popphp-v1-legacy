@@ -69,6 +69,33 @@ class Cache
     }
 
     /**
+     * Static method to determine available adapters
+     *
+     * @return array
+     */
+    public static function getAdapters()
+    {
+        $adapters = array();
+
+        if (function_exists('apc_cache_info')) {
+            $adapters[] = 'Apc';
+        }
+
+        $adapters[] = 'File';
+
+        if (class_exists('Memcache')) {
+            $adapters[] = 'Memcached';
+        }
+
+        $pdoDrivers = (class_exists('Pdo')) ? \PDO::getAvailableDrivers() : array();
+        if (class_exists('Sqlite3') || in_array('sqlite', $pdoDrivers)) {
+            $adapters[] = 'Sqlite';
+        }
+
+        return $adapters;
+    }
+
+    /**
      * Method to get the adapter
      *
      * @return mixed

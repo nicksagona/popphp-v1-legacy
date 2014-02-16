@@ -39,10 +39,14 @@ class Apc implements AdapterInterface
      *
      * Instantiate the APC cache object
      *
+     * @throws Exception
      * @return \Pop\Cache\Adapter\Apc
      */
     public function __construct()
     {
+        if (!function_exists('apc_cache_info')) {
+            throw new Exception('Error: APC is not available.');
+        }
         $this->info = apc_cache_info();
     }
 

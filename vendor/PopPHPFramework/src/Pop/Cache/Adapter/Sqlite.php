@@ -51,12 +51,13 @@ class Sqlite implements AdapterInterface
      *
      * Instantiate the cache db object
      *
-     * @param  string $db
-     * @param  string $table
+     * @param  string  $db
+     * @param  string  $table
+     * @param  boolean $pdo
      * @throws Exception
      * @return \Pop\Cache\Adapter\Sqlite
      */
-    public function __construct($db, $table = 'pop_cache')
+    public function __construct($db, $table = 'pop_cache', $pdo = false)
     {
         $this->db = $db;
         $this->table = $table;
@@ -79,7 +80,35 @@ class Sqlite implements AdapterInterface
             throw new Exception('Error: That cache db file and/or directory is not writable.');
         }
 
-        $this->sqlite = new \Pop\Db\Sql(\Pop\Db\Db::factory('Sqlite', array('database' => $this->db)), $table);
+        $pdoDrivers = (class_exists('Pdo')) ? \PDO::getAvailableDrivers() : array();
+        if (!class_exists('Sqlite3') && !in_array('sqlite', $pdoDrivers)) {
+            throw new Exception('Error: SQLite is not available.');
+        } else if (($pdo) && !in_array('sqlite', $pdoDrivers)) {
+            $pdo = false;
+        } else if ((!$pdo) && !class_exists('Sqlite3')) {
+            $pdo = true;
+        }
+
+        if ($pdo) {
+            $this->sqlite = new \Pop\Db\Sql(
+                \Pop\Db\Db::factory(
+                    'Pdo',
+                    array(
+                        'type' => 'sqlite',
+                        'database' => $this->db
+                    )
+                ), $table
+            );
+        } else {
+            $this->sqlite = new \Pop\Db\Sql(
+                \Pop\Db\Db::factory(
+                    'Sqlite',
+                    array(
+                        'database' => $this->db
+                    )
+                ), $table
+            );
+        }
 
         // If the cache table doesn't exist, create it.
         if (!in_array($this->table, $this->sqlite->adapter()->getTables())) {

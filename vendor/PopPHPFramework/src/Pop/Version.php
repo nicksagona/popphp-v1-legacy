@@ -118,28 +118,27 @@ class Version
             }
         }
         $check['Archive Phar'] = (!class_exists('Phar', false)) ? 'No' : 'Yes';
-        $check['Archive Rar'] = (!class_exists('RarArchive', false)) ? 'No' : 'Yes';
-        $check['Archive Zip'] = (!class_exists('ZipArchive', false)) ? 'No' : 'Yes';
+        $check['Archive Rar']  = (!class_exists('RarArchive', false)) ? 'No' : 'Yes';
+        $check['Archive Zip']  = (!class_exists('ZipArchive', false)) ? 'No' : 'Yes';
 
         // Compress
         $check['Compress Bzip2'] = (function_exists('bzcompress'))  ? 'Yes' : 'No';
-        $check['Compress Lzf'] = (function_exists('lzf_compress'))  ? 'Yes' : 'No';
-        $check['Compress Zlib'] = (function_exists('gzcompress'))  ? 'Yes' : 'No';
+        $check['Compress Lzf']   = (function_exists('lzf_compress'))  ? 'Yes' : 'No';
+        $check['Compress Zlib']  = (function_exists('gzcompress'))  ? 'Yes' : 'No';
 
         // cURL
         $check['cURL'] = (function_exists('curl_init'))  ? 'Yes' : 'No';
 
         // DB
-        $check['Db MySql'] = (function_exists('mysql_connect'))  ? 'Yes' : 'No';
+        $check['Db MySql']  = (function_exists('mysql_connect'))  ? 'Yes' : 'No';
         $check['Db MySqli'] = (class_exists('mysqli')) ? 'Yes' : 'No';
         $check['Db Oracle'] = (function_exists('oci_connect'))  ? 'Yes' : 'No';
-        $check['Db Pdo'] = (class_exists('Pdo', false))  ? 'Yes' : 'No';
+        $check['Db Pdo']    = (class_exists('Pdo', false))  ? 'Yes' : 'No';
 
-        $pdoDrivers = \PDO::getAvailableDrivers();
-
-        $check['Db Pdo MySQL'] = (in_array('mysql', $pdoDrivers)) ? 'Yes' : 'No';
+        $pdoDrivers = (class_exists('Pdo', false)) ? \PDO::getAvailableDrivers() : array();
+        $check['Db Pdo MySQL']  = (in_array('mysql', $pdoDrivers)) ? 'Yes' : 'No';
         $check['Db Pdo SQLSrv'] = (in_array('sqlsrv', $pdoDrivers)) ? 'Yes' : 'No';
-        $check['Db Pdo PgSQL'] = (in_array('pgsql', $pdoDrivers)) ? 'Yes' : 'No';
+        $check['Db Pdo PgSQL']  = (in_array('pgsql', $pdoDrivers)) ? 'Yes' : 'No';
         $check['Db Pdo SQLite'] = (in_array('sqlite', $pdoDrivers)) ? 'Yes' : 'No';
 
         $check['Db PgSql'] = (function_exists('pg_connect'))  ? 'Yes' : 'No';

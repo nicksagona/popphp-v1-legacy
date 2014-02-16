@@ -156,7 +156,7 @@ class Autoloader
             // Check to see if the prefix is registered with the autoloader
             $prefix = null;
             foreach ($this->prefixes as $key => $value) {
-                if (strpos($class, $key) !== false) {
+                if (substr($class, 0, strlen($key)) == $key) {
                     $prefix = $key;
                 }
             }
