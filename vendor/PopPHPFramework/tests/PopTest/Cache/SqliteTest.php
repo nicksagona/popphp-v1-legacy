@@ -56,12 +56,12 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
     public function testSaveAndLoad()
     {
         $str = 'This is my test variable. It contains a string.';
-        $c = Cache::factory(new Sqlite(__DIR__ . '/../tmp/cache.sqlite'), 30);
+        $c = Cache::factory(new Sqlite(__DIR__ . '/../tmp/cache.sqlite', 'pop_cache', true), 30);
         $this->assertContains('cache.sqlite', $c->adapter()->getDb());
         $this->assertEquals('pop_cache', $c->adapter()->getTable());
         $c->save('str', $str);
-        $this->assertEquals($str, $c->load('str'));
         $val = $c->load('str');
+        $this->assertEquals($str, $val);
         $val .= '-new';
         $c->save('str', $val);
         $this->assertEquals($val, $c->load('str'));

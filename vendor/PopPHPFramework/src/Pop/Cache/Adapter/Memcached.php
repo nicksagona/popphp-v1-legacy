@@ -82,9 +82,9 @@ class Memcached implements AdapterInterface
      * @param  string $time
      * @return void
      */
-    public function save($id, $value, $time = null)
+    public function save($id, $value, $time)
     {
-        $time = (null === $time) ? time() : time() + $time;
+        $time = time() + (int)$time;
         $this->memcache->set($id, $value, false, $time);
     }
 
@@ -95,7 +95,7 @@ class Memcached implements AdapterInterface
      * @param  string $time
      * @return mixed
      */
-    public function load($id, $time = null)
+    public function load($id, $time)
     {
         return $this->memcache->get($id);
     }

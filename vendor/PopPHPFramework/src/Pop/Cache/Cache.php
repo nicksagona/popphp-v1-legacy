@@ -132,29 +132,22 @@ class Cache
      *
      * @param  string $id
      * @param  mixed  $value
-     * @param  string $time
      * @return void
      */
-    public function save($id, $value, $time = null)
+    public function save($id, $value)
     {
-        if ($this->adapter instanceof Adapter\Memcached) {
-            $this->adapter->save($id, $value, $this->lifetime);
-        } else {
-            $this->adapter->save($id, $value, $time);
-        }
+        $this->adapter->save($id, $value, $this->lifetime);
     }
 
     /**
      * Method to load a value from cache.
      *
      * @param  string $id
-     * @param  int    $time
      * @return mixed
      */
-    public function load($id, $time = null)
+    public function load($id)
     {
-        $time = (null !== $time) ? $this->lifetime : $time;
-        return $this->adapter->load($id, $time);
+        return $this->adapter->load($id, $this->lifetime);
     }
 
     /**

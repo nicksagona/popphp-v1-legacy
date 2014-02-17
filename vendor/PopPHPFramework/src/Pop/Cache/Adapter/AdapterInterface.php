@@ -36,7 +36,7 @@ interface AdapterInterface
      * @param  string $time
      * @return void
      */
-    public function save($id, $value, $time = null);
+    public function save($id, $value, $time);
 
     /**
      * Method to load a value from cache.
@@ -45,7 +45,7 @@ interface AdapterInterface
      * @param  string $time
      * @return mixed
      */
-    public function load($id, $time = null);
+    public function load($id, $time);
 
     /**
      * Method to delete a value in cache.

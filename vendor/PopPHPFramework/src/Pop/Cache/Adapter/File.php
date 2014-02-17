@@ -72,12 +72,10 @@ class File implements AdapterInterface
      * @param  string $time
      * @return void
      */
-    public function save($id, $value, $time = null)
+    public function save($id, $value, $time)
     {
-        $time = (null === $time) ? time() : time() + $time;
-
         $file = $this->dir . DIRECTORY_SEPARATOR . sha1($id);
-        file_put_contents($file, $time . '|' . serialize($value));
+        file_put_contents($file, time() + (int)$time . '|' . serialize($value));
     }
 
     /**
@@ -87,7 +85,7 @@ class File implements AdapterInterface
      * @param  string $time
      * @return mixed
      */
-    public function load($id, $time = null)
+    public function load($id, $time)
     {
         $fileId = $this->dir . DIRECTORY_SEPARATOR . sha1($id);
         $value = false;
@@ -96,7 +94,7 @@ class File implements AdapterInterface
             $fileData = file_get_contents($fileId);
             $fileTime = substr($fileData, 0, strpos($fileData, '|'));
             $data = substr($fileData, (strpos($fileData, '|') + 1));
-            if (($time == 0) || ((time() - $fileTime) <= $time)) {
+            if ((time() - $fileTime) <= $time) {
                 $value = unserialize($data);
             }
         }

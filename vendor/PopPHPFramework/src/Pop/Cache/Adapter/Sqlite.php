@@ -94,7 +94,7 @@ class Sqlite implements AdapterInterface
                 \Pop\Db\Db::factory(
                     'Pdo',
                     array(
-                        'type' => 'sqlite',
+                        'type'     => 'sqlite',
                         'database' => $this->db
                     )
                 ), $table
@@ -157,35 +157,49 @@ class Sqlite implements AdapterInterface
      * @param  string $time
      * @return void
      */
-    public function save($id, $value, $time = null)
+    public function save($id, $value, $time)
     {
-        $time = (null === $time) ? time() : time() + $time;
+        $time = time() + (int)$time;
 
         // Determine if the value already exists.
-        $this->sqlite->select()->where()->equalTo('id', $this->sqlite->adapter()->escape(sha1($id)));
-        $this->sqlite->adapter()->query($this->sqlite->render(true));
+        $this->sqlite->select()->where()->equalTo('id', ':id');
+        $this->sqlite->adapter()->prepare($this->sqlite->render(true))
+                                ->bindParams(array('id' => sha1($id)))
+                                ->execute();
 
         $rows = array();
-        while (($row = $this->sqlite->adapter()->fetch()) != false) {
+        while (($row = $this->sqlite->adapter()->fetchResult()) != false) {
             $rows[] = $row;
         }
 
         // If the value exists, update it.
         if (count($rows) > 0) {
             $this->sqlite->update(array(
-                'value' => $this->sqlite->adapter()->escape(serialize($value)),
-                'time'  => $time
-            ))->where()->equalTo('id', $this->sqlite->adapter()->escape(sha1($id)));
+                'value' => ':value',
+                'time'  => ':time'
+            ))->where()->equalTo('id', ':id');
+            $params = array(
+                'value' => serialize($value),
+                'time'  => $time,
+                'id'    => sha1($id)
+            );
         // Else, save the new value.
         } else {
             $this->sqlite->insert(array(
-                'id'    => $this->sqlite->adapter()->escape(sha1($id)),
-                'value' => $this->sqlite->adapter()->escape(serialize($value)),
-                'time'  => $time
+                'id'    => ':id',
+                'value' => ':value',
+                'time'  => ':time'
             ));
+            $params = array(
+                'id'    => sha1($id),
+                'value' => serialize($value),
+                'time'  => $time
+            );
         }
 
-        $this->sqlite->adapter()->query($this->sqlite->render(true));
+        $this->sqlite->adapter()->prepare($this->sqlite->render(true))
+                                ->bindParams($params)
+                                ->execute();
     }
 
     /**
@@ -195,24 +209,23 @@ class Sqlite implements AdapterInterface
      * @param  string $time
      * @return mixed
      */
-    public function load($id, $time = null)
+    public function load($id, $time)
     {
         $value = false;
 
         // Retrieve the value.
-        $this->sqlite->select()->where()->equalTo('id', $this->sqlite->adapter()->escape(sha1($id)));
-        $this->sqlite->adapter()->query($this->sqlite->render(true));
+        $this->sqlite->select()->where()->equalTo('id', ':id');
+        $this->sqlite->adapter()->prepare($this->sqlite->render(true))
+                                ->bindParams(array('id' => sha1($id)))
+                                ->execute();
 
-        $rows = array();
-        while (($row = $this->sqlite->adapter()->fetch()) != false) {
-            $rows[] = $row;
-        }
+        $rows = $this->sqlite->adapter()->fetchResult();
 
         // If the value is found, check expiration and return.
         if (count($rows) > 0) {
             $data = $rows[0]['value'];
             $dbTime = $rows[0]['time'];
-            if (($time == 0) || ((time() - $dbTime) <= $time)) {
+            if ((time() - $dbTime) <= $time) {
                 $value = unserialize($data);
             }
         }
