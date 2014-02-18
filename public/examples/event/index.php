@@ -2,11 +2,9 @@
 
 require_once '../../bootstrap.php';
 
-use Pop\Event\Manager;
 use Pop\Http\Request;
 use Pop\Http\Response;
 use Pop\Mvc\Controller;
-use Pop\Mvc\Model;
 use Pop\Mvc\Router;
 use Pop\Mvc\View;
 use Pop\Project\Project;
@@ -32,12 +30,10 @@ class IndexController extends Controller
     {
         $this->view = View::factory(
             $this->viewPath . '/index.phtml',
-            new Model(
-                array(
-                    'title' => 'Test Event',
-                    'subtitle' => 'Home Page',
-                    'content' => 'This is the home page'
-                )
+            array(
+                'title' => 'Test Event',
+                'subtitle' => 'Home Page',
+                'content' => 'This is the home page'
             )
         );
         $this->send();
@@ -47,12 +43,10 @@ class IndexController extends Controller
     {
         $this->view = View::factory(
             $this->viewPath . '/index.phtml',
-            new Model(
-                array(
-                    'title' => 'Test Event',
-                    'subtitle' => 'Users Page',
-                    'content' => 'This is the users page'
-                )
+            array(
+                'title' => 'Test Event',
+                'subtitle' => 'Users Page',
+                'content' => 'This is the users page'
             )
         );
         $this->send();
@@ -62,12 +56,10 @@ class IndexController extends Controller
     {
         $this->view = View::factory(
             $this->viewPath . '/index.phtml',
-            new Model(
-                array(
-                    'title' => 'Test Event',
-                    'subtitle' => 'Error Page',
-                    'content' => 'Page not found.'
-                )
+            array(
+                'title' => 'Test Event',
+                'subtitle' => 'Error Page',
+                'content' => 'Page not found.'
             )
         );
         $this->send(404);
@@ -82,8 +74,8 @@ try {
     $project->attachEvent(
         'dispatch',
         function ($controller) {
-            if ($controller->getRequest()->getRequestUri() == '/') {
-                $controller->getView()->getModel()->set('subtitle', 'This is the REVISED Home Page Subtitle.');
+            if ($controller->request()->getRequestUri() == '/') {
+                $controller->view()->set('subtitle', 'This is the REVISED Home Page Subtitle.');
                 return 'Hello World! This is the home page!';
             }
         }
@@ -91,8 +83,8 @@ try {
     $project->attachEvent(
         'dispatch',
         function ($controller, $result) {
-            if ($controller->getRequest()->getRequestUri() == '/') {
-                $controller->getView()->getModel()->set('content', $result);
+            if ($controller->request()->getRequestUri() == '/') {
+                $controller->view()->set('content', $result);
             }
         }
     );

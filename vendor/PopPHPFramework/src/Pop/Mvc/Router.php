@@ -117,7 +117,7 @@ class Router
      *
      * @return \Pop\Project\Project
      */
-    public function project()
+    public function getProject()
     {
         return $this->project;
     }
@@ -127,23 +127,43 @@ class Router
      *
      * @return \Pop\Http\Request
      */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * Get the current controller object
+     *
+     * @return \Pop\Mvc\Controller
+     */
+    public function getController()
+    {
+        return $this->controller;
+    }
+
+    /**
+     * Get the project object (shorthand alias)
+     *
+     * @return \Pop\Project\Project
+     */
+    public function project()
+    {
+        return $this->project;
+    }
+
+    /**
+     * Get the request object (shorthand alias)
+     *
+     * @return \Pop\Http\Request
+     */
     public function request()
     {
         return $this->request;
     }
 
     /**
-     * Get the controller class name string
-     *
-     * @return string
-     */
-    public function getControllerClass()
-    {
-        return $this->controllerClass;
-    }
-
-    /**
-     * Get the current controller object
+     * Get the current controller object (shorthand alias)
      *
      * @return \Pop\Mvc\Controller
      */
@@ -153,12 +173,22 @@ class Router
     }
 
     /**
-     * Get an available controller class name
+     * Get the current controller class name string
+     *
+     * @return string
+     */
+    public function getControllerClass()
+    {
+        return $this->controllerClass;
+    }
+
+    /**
+     * Get a controller class name string, if available
      *
      * @param  string $controller
      * @return string
      */
-    public function getController($controller)
+    public function getControllerName($controller)
     {
         return (isset($this->controllers[$controller])) ? $this->controllers[$controller] : null;
     }
@@ -182,19 +212,19 @@ class Router
     {
         $action = null;
 
-        if ((null !== $this->controller) && (null !== $this->controller->getRequest())) {
+        if ((null !== $this->controller) && (null !== $this->controller->request())) {
             // If the URI is root '/', then set to 'index'
-            if ($this->controller->getRequest()->getRequestUri() == '/') {
+            if ($this->controller->request()->getRequestUri() == '/') {
                 $action = 'index';
             // Else, figure out the action from the path stems
-            } else if ($this->controller->getRequest()->getPath(0) != '') {
-                $path = $this->controller->getRequest()->getPath();
+            } else if ($this->controller->request()->getPath(0) != '') {
+                $path = $this->controller->request()->getPath();
                 $basePath = explode('/', substr($this->basePath, 1));
                 $pathDiff = array_values(array_diff($path, $basePath));
                 if (isset($pathDiff[0])) {
-                    $realBasePath = (substr($this->controller->getRequest()->getBasePath(), -1) == '/') ?
-                        substr($this->controller->getRequest()->getBasePath(), 0, -1) : $this->controller->getRequest()->getBasePath();
-                    $this->controller->getRequest()->setRequestUri('/' . implode('/', $pathDiff), $realBasePath);
+                    $realBasePath = (substr($this->controller->request()->getBasePath(), -1) == '/') ?
+                        substr($this->controller->request()->getBasePath(), 0, -1) : $this->controller->request()->getBasePath();
+                    $this->controller->request()->setRequestUri('/' . implode('/', $pathDiff), $realBasePath);
                     $action = $pathDiff[0];
                 }
             }
