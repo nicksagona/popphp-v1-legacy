@@ -74,8 +74,8 @@ try {
     $project->attachEvent(
         'dispatch',
         function ($controller) {
-            if ($controller->request()->getRequestUri() == '/') {
-                $controller->view()->set('subtitle', 'This is the REVISED Home Page Subtitle.');
+            if ($controller->getRequest()->getRequestUri() == '/') {
+                $controller->getView()->set('subtitle', 'This is the REVISED Home Page Subtitle.');
                 return 'Hello World! This is the home page!';
             }
         }
@@ -83,8 +83,8 @@ try {
     $project->attachEvent(
         'dispatch',
         function ($controller, $result) {
-            if ($controller->request()->getRequestUri() == '/') {
-                $controller->view()->set('content', $result);
+            if ($controller->getRequest()->getRequestUri() == '/') {
+                $controller->getView()->set('content', $result);
             }
         }
     );

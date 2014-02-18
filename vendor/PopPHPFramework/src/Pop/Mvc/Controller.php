@@ -194,46 +194,6 @@ class Controller
     }
 
     /**
-     * Get the request object (shorthand alias)
-     *
-     * @return \Pop\Http\Request
-     */
-    public function request()
-    {
-        return $this->request;
-    }
-
-    /**
-     * Get the response object (shorthand alias)
-     *
-     * @return \Pop\Http\Response
-     */
-    public function response()
-    {
-        return $this->response;
-    }
-
-    /**
-     * Get the project object (shorthand alias)
-     *
-     * @return \Pop\Project\Project
-     */
-    public function project()
-    {
-        return $this->project;
-    }
-
-    /**
-     * Get the view object (shorthand alias)
-     *
-     * @return \Pop\Mvc\View
-     */
-    public function view()
-    {
-        return $this->view;
-    }
-
-    /**
      * Get the view path
      *
      * @return string

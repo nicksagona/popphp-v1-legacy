@@ -212,19 +212,19 @@ class Router
     {
         $action = null;
 
-        if ((null !== $this->controller) && (null !== $this->controller->request())) {
+        if ((null !== $this->controller) && (null !== $this->controller->getRequest())) {
             // If the URI is root '/', then set to 'index'
-            if ($this->controller->request()->getRequestUri() == '/') {
+            if ($this->controller->getRequest()->getRequestUri() == '/') {
                 $action = 'index';
             // Else, figure out the action from the path stems
-            } else if ($this->controller->request()->getPath(0) != '') {
-                $path = $this->controller->request()->getPath();
+            } else if ($this->controller->getRequest()->getPath(0) != '') {
+                $path = $this->controller->getRequest()->getPath();
                 $basePath = explode('/', substr($this->basePath, 1));
                 $pathDiff = array_values(array_diff($path, $basePath));
                 if (isset($pathDiff[0])) {
-                    $realBasePath = (substr($this->controller->request()->getBasePath(), -1) == '/') ?
-                        substr($this->controller->request()->getBasePath(), 0, -1) : $this->controller->request()->getBasePath();
-                    $this->controller->request()->setRequestUri('/' . implode('/', $pathDiff), $realBasePath);
+                    $realBasePath = (substr($this->controller->getRequest()->getBasePath(), -1) == '/') ?
+                        substr($this->controller->getRequest()->getBasePath(), 0, -1) : $this->controller->getRequest()->getBasePath();
+                    $this->controller->getRequest()->setRequestUri('/' . implode('/', $pathDiff), $realBasePath);
                     $action = $pathDiff[0];
                 }
             }
