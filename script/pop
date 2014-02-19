@@ -16,7 +16,7 @@
 #
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P )"
-CYG_PATH="$( which cygpath )"
+CYG_PATH="$( which cygpath 2> /dev/null )"
 
 if [ "$CYG_PATH" != "" ]; then
     SCRIPT_PATH="$( cygpath -w $SCRIPT_DIR )\\pop.php $@"

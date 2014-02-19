@@ -203,7 +203,7 @@ class Imagick extends AbstractImage
      */
     public static function isInstalled()
     {
-        return class_exists('Imagick');
+        return class_exists('Imagick', false);
     }
 
     /**
