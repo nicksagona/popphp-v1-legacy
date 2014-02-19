@@ -41,28 +41,88 @@ class Cookie
     private $ip = null;
 
     /**
+     * Cookie Expiration
+     * @var int
+     */
+    private $expire = 0;
+
+    /**
+     * Cookie Path
+     * @var string
+     */
+    private $path = '/';
+
+    /**
+     * Cookie Domain
+     * @var string
+     */
+    private $domain = null;
+
+    /**
+     * Cookie Secure Flag
+     * @var boolean
+     */
+    private $secure = false;
+
+    /**
+     * Cookie HTTP Only Flag
+     * @var boolean
+     */
+    private $httponly = false;
+
+    /**
      * Constructor
      *
      * Private method to instantiate the cookie object.
      *
+     * @param  array $options
      * @return \Pop\Web\Cookie
      */
-    private function __construct()
+    private function __construct(array $options = array())
     {
-        // Set the cookie owner's IP address.
-        $this->ip = $_SERVER['REMOTE_ADDR'];
+        $this->setOptions($options);
+    }
+
+    /**
+     * Private method to set options
+     *
+     * @param  array $options
+     * @return \Pop\Web\Cookie
+     */
+    private function setOptions(array $options = array())
+    {
+        // Set the cookie owner's IP address and domain.
+        $this->ip     = $_SERVER['REMOTE_ADDR'];
+        $this->domain = $_SERVER['HTTP_HOST'];
+
+        if (isset($options['expire'])) {
+            $this->expire = (int)$options['expire'];
+        }
+        if (isset($options['path'])) {
+            $this->path = $options['path'];
+        }
+        if (isset($options['domain'])) {
+            $this->domain = $options['domain'];
+        }
+        if (isset($options['secure'])) {
+            $this->secure = (bool)$options['secure'];
+        }
+        if (isset($options['httponly'])) {
+            $this->httponly = (bool)$options['httponly'];
+        }
     }
 
     /**
      * Determine whether or not an instance of the cookie object exists
-     * already, and instantiate the object if it doesn't exist.
+     * already, and instantiate the object if it does not exist.
      *
+     * @param  array $options
      * @return \Pop\Web\Cookie
      */
-    public static function getInstance()
+    public static function getInstance(array $options = array())
     {
         if (empty(self::$instance)) {
-            self::$instance = new Cookie();
+            self::$instance = new Cookie($options);
         }
 
         return self::$instance;
@@ -73,29 +133,112 @@ class Cookie
      *
      * @param  string  $name
      * @param  mixed   $value
-     * @param  int     $expire
-     * @param  string  $path
-     * @param  string  $domain
-     * @param  boolean $secure
-     * @param  boolean $httponly
-     * @return void
+     * @param  array   $options
+     * @return \Pop\Web\Cookie
      */
-    public function set($name, $value, $expire = 0, $path = '/', $domain = null, $secure = false, $httponly = false)
+    public function set($name, $value, array $options = null)
     {
-        if (null !== $domain) {
-            $domain = $_SERVER['HTTP_HOST'];
+        if (null !== $options) {
+            $this->setOptions($options);
         }
-        setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
+
+        if (!is_string($value) && !is_numeric($value)) {
+            $value = json_encode($value);
+        }
+
+        setcookie($name, $value, $this->expire, $this->path, $this->domain, $this->secure, $this->httponly);
+        return $this;
     }
 
     /**
-     * Return the current the IP address.
+     * Return the current cookie expiration
+     *
+     * @return int
+     */
+    public function getExpire()
+    {
+        return $this->expire;
+    }
+
+    /**
+     * Return the current cookie path.
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Return the current cookie domain.
+     *
+     * @return string
+     */
+    public function getDomain()
+    {
+        return $this->domain;
+    }
+
+    /**
+     * Return if the cookie is secure
+     *
+     * @return boolean
+     */
+    public function isSecure()
+    {
+        return $this->secure;
+    }
+
+    /**
+     * Return if the cookie is HTTP only
+     *
+     * @return boolean
+     */
+    public function isHttpOnly()
+    {
+        return $this->httponly;
+    }
+
+    /**
+     * Return the current IP address.
      *
      * @return string
      */
     public function getIp()
     {
         return $this->ip;
+    }
+
+    /**
+     * Delete a cookie directly
+     *
+     * @param  string $name
+     * @param  array  $options
+     * @return void
+     */
+    public function delete($name, array $options = null)
+    {
+        if (null !== $options) {
+            $this->setOptions($options);
+        }
+        setcookie($name, $_COOKIE[$name], (time() - 3600), $this->path, $this->domain, $this->secure, $this->httponly);
+    }
+
+    /**
+     * Clear (delete) all cookies via unset($cookie)
+     *
+     * @param  array $options
+     * @return void
+     */
+    public function clear(array $options = null)
+    {
+        if (null !== $options) {
+            $this->setOptions($options);
+        }
+        foreach ($_COOKIE as $name => $value) {
+            setcookie($name, $_COOKIE[$name], (time() - 3600), $this->path, $this->domain, $this->secure, $this->httponly);
+        }
     }
 
     /**
@@ -106,7 +249,11 @@ class Cookie
      */
     public function __get($name)
     {
-        return (isset($_COOKIE[$name])) ? $_COOKIE[$name] : null;
+        $value = null;
+        if (isset($_COOKIE[$name])) {
+            $value = (substr($_COOKIE[$name], 0, 1) == '{') ? json_decode($_COOKIE[$name]) : $_COOKIE[$name];
+        }
+        return $value;
     }
 
     /**
@@ -128,7 +275,7 @@ class Cookie
      */
     public function __unset($name)
     {
-        setcookie($name, $_COOKIE[$name], (time() - 3600));
+        setcookie($name, $_COOKIE[$name], (time() - 3600), $this->path, $this->domain, $this->secure, $this->httponly);
     }
 
 }
