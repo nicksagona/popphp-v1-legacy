@@ -262,12 +262,24 @@ class String
     {
         $target = ($target == true) ? 'target="_blank" ' : '';
 
-        $string = preg_replace('/[f|ht]+tp:\/\/[^\s]*/', '<a href="$0">$0</a>', $string);
+        $string = preg_replace('/[ftp|http|https]+:\/\/[^\s]*/', '<a href="$0">$0</a>', $string);
         $string = preg_replace('/\s[\w]+[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,4})/', ' <a href="http://$0">$0</a>', $string);
         $string = preg_replace('/[a-zA-Z0-9\.\-\_+%]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]{2,4}/', '<a href="mailto:$0">$0</a>', $string);
-        $string = str_replace('href="http:// ', 'href="http://', $string);
-        $string = str_replace('"> ', '">', $string);
-        $string = str_replace('<a ', '<a ' . $target, $string);
+        $string = str_replace(
+            array(
+                'href="http:// ',
+                'href="https:// ',
+                '"> ',
+                '<a '
+            ),
+            array(
+                'href="http://',
+                'href="https://',
+                '">',
+                '<a ' . $target
+            ),
+            $string
+        );
 
         return $string;
     }
