@@ -77,9 +77,6 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
             new Feed\Format\Json\Youtube(array('id' => '35318AF7BEB5DD11'), 4)
         ));
         $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
-            new Feed\Format\Json\Youtube(array('name' => 'highvoltagenola'), 4)
-        ));
-        $this->assertInstanceOf('Pop\Feed\Reader', new Feed\Reader(
             new Feed\Format\Php\Flickr(array('id' => '96247146@N00'), 4)
         ));
     }
@@ -96,7 +93,6 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($feed->adapter()->test);
         $feed = Feed\Reader::getByAccountName('twitter', 'highvoltagenola', 4);
         $this->assertGreaterThan(0, $feed->items);
-        $feed = Feed\Reader::getByAccountName('youtube', 'highvoltagenola', 4);
         $this->assertGreaterThan(0, $feed->items);
         $feed = Feed\Reader::getByAccountName('vimeo', 'royraz', 4);
         $this->assertGreaterThan(0, $feed->items);
