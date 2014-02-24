@@ -186,12 +186,13 @@ class Record
      *
      * @param  mixed $id
      * @param  int   $limit
+     * @param  int    $offset
      * @return \Pop\Db\Record
      */
-    public static function findById($id, $limit = null)
+    public static function findById($id, $limit = null, $offset = null)
     {
         $record = new static();
-        $record->interface->findById($id, $limit);
+        $record->interface->findById($id, $limit, $offset);
         $record->setResults($record->interface->getResult());
 
         return $record;
@@ -203,12 +204,13 @@ class Record
      * @param  array  $columns
      * @param  string $order
      * @param  int    $limit
+     * @param  int    $offset
      * @return \Pop\Db\Record
      */
-    public static function findBy(array $columns, $order = null, $limit = null)
+    public static function findBy(array $columns, $order = null, $limit = null, $offset = null)
     {
         $record = new static();
-        $record->interface->findBy($columns, $order, $limit);
+        $record->interface->findBy($columns, $order, $limit, $offset);
         $record->setResults($record->interface->getResult());
 
         return $record;
@@ -218,15 +220,16 @@ class Record
     /**
      * Find all of the database rows by the column passed through the method argument.
      *
-     * @param  string     $order
-     * @param  array      $columns
-     * @param  int|string $limit
+     * @param  string $order
+     * @param  array  $columns
+     * @param  int    $limit
+     * @param  int    $offset
      * @return \Pop\Db\Record
      */
-    public static function findAll($order = null, array $columns = null, $limit = null)
+    public static function findAll($order = null, array $columns = null, $limit = null, $offset = null)
     {
         $record = new static();
-        $record->interface->findAll($order, $columns, $limit);
+        $record->interface->findAll($order, $columns, $limit, $offset);
         $record->setResults($record->interface->getResult());
 
         return $record;

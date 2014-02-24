@@ -52,10 +52,11 @@ class Escaped extends AbstractRecord
      *
      * @param  mixed $id
      * @param  int   $limit
+     * @param  int   $offset
      * @throws Exception
      * @return void
      */
-    public function findById($id, $limit = null)
+    public function findById($id, $limit = null, $offset = null)
     {
         if (null === $this->primaryId) {
             throw new Exception('This primary ID of this table either is not set or does not exist.');
@@ -84,6 +85,11 @@ class Escaped extends AbstractRecord
             $this->sql->select()->limit($this->sql->adapter()->escape($limit));
         }
 
+        // Set the offset, if passed
+        if (null !== $offset) {
+            $this->sql->select()->offset($this->sql->adapter()->escape($offset));
+        }
+
         // Perform the query and set the return results.
         $this->sql->adapter()->query($this->sql->render(true));
         $this->setResults();
@@ -92,12 +98,13 @@ class Escaped extends AbstractRecord
     /**
      * Find a database row by the column passed through the method argument.
      *
-     * @param  array $columns
+     * @param  array  $columns
      * @param  string $order
-     * @param  int   $limit
+     * @param  int    $limit
+     * @param  int    $offset
      * @return void
      */
-    public function findBy(array $columns, $order = null, $limit = null)
+    public function findBy(array $columns, $order = null, $limit = null, $offset = null)
     {
         $this->finder = array_merge($this->finder, $columns);
 
@@ -125,6 +132,11 @@ class Escaped extends AbstractRecord
             $this->sql->select()->limit($this->sql->adapter()->escape($limit));
         }
 
+        // Set the offset, if passed
+        if (null !== $offset) {
+            $this->sql->select()->offset($this->sql->adapter()->escape($offset));
+        }
+
         // Perform the query and set the return results.
         $this->sql->adapter()->query($this->sql->render(true));
         $this->setResults();
@@ -133,12 +145,13 @@ class Escaped extends AbstractRecord
     /**
      * Find all of the database rows by the column passed through the method argument.
      *
-     * @param  string     $order
-     * @param  array      $columns
-     * @param  int|string $limit
+     * @param  string $order
+     * @param  array  $columns
+     * @param  int    $limit
+     * @param  int    $offset
      * @return void
      */
-    public function findAll($order = null, array $columns = null, $limit = null)
+    public function findAll($order = null, array $columns = null, $limit = null, $offset = null)
     {
         // Build the SQL.
         $this->sql->select();
@@ -168,6 +181,11 @@ class Escaped extends AbstractRecord
         // Set any limit to the SQL query.
         if (null !== $limit) {
             $this->sql->select()->limit($this->sql->adapter()->escape($limit));
+        }
+
+        // Set the offset, if passed
+        if (null !== $offset) {
+            $this->sql->select()->offset($this->sql->adapter()->escape($offset));
         }
 
         // Perform the query and set the return results.
