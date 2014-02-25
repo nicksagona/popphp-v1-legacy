@@ -120,6 +120,12 @@ class EscapedTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(8, count($r->rows));
     }
 
+    public function testGetCount()
+    {
+        $this->assertEquals(8, Users::getCount());
+        $this->assertEquals(2, Users::getCount(array('access' => 'editor')));
+    }
+
     public function testGetSql()
     {
         $s = Users::getSql();

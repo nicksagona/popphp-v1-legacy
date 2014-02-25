@@ -579,6 +579,39 @@ class Prepared extends AbstractRecord
     }
 
     /**
+     * Get total count of records
+     *
+     * @param  array $columns
+     * @return int
+     */
+    public function getCount(array $columns = null)
+    {
+        // Build the SQL.
+        $this->sql->select(array('total_count' => 'COUNT(*)'));
+
+        if (null !== $columns) {
+            $i = 1;
+            $params = array();
+            foreach ($columns as $key => $value) {
+                $this->sql->select()->where()->equalTo($this->sql->adapter()->escape($key), $this->getPlaceholder($key, $i));
+                $params[$this->sql->adapter()->escape($key)] = $this->sql->adapter()->escape($value);
+                $i++;
+            }
+            $this->sql->adapter()->prepare($this->sql->render(true));
+            $this->sql->adapter()->bindParams($params);
+            $this->sql->adapter()->execute();
+        } else {
+            $this->sql->adapter()->query($this->sql->render(true));
+        }
+
+        $this->setResults();
+
+        echo 123;
+
+        return $this->columns['total_count'];
+    }
+
+    /**
      * Get the placeholder for a prepared statement
      *
      * @param  string $column

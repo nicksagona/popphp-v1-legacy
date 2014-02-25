@@ -121,6 +121,12 @@ class PreparedTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(8, count($r->rows));
     }
 
+    public function testGetCount()
+    {
+        $this->assertEquals(8, PreparedUsers::getCount());
+        $this->assertEquals(2, PreparedUsers::getCount(array('access' => 'editor')));
+    }
+
     public function testIsPrepared()
     {
         $r = PreparedUsers::findById(1);

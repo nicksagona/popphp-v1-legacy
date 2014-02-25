@@ -267,6 +267,21 @@ class Record
     }
 
     /**
+     * Get total count of records
+     *
+     * @param  array $columns
+     * @return int
+     */
+    public static function getCount(array $columns = null)
+    {
+        $record = new static();
+        $record->interface->getCount($columns);
+        $record->setResults($record->interface->getResult());
+
+        return $record->total_count;
+    }
+
+    /**
      * Get the SQL object.
      *
      * @return \Pop\Db\Sql

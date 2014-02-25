@@ -255,7 +255,6 @@ class Escaped extends AbstractRecord
                 if (is_array($this->primaryId)) {
                     foreach ($this->primaryId as $value) {
                         if (null === $this->columns[$value]) {
-
                             $this->sql->update()->where()->isNull($this->sql->adapter()->escape($value));
                         } else {
                             $this->sql->update()->where()->equalTo($this->sql->adapter()->escape($value), $this->sql->adapter()->escape($this->columns[$value]));
@@ -378,6 +377,31 @@ class Escaped extends AbstractRecord
             $this->columns = array();
             $this->rows = array();
         }
+    }
+
+    /**
+     * Get total count of records
+     *
+     * @param  array $columns
+     * @return int
+     */
+    public function getCount(array $columns = null)
+    {
+        // Build the SQL.
+        $this->sql->select(array('total_count' => 'COUNT(*)'));
+
+        if (null !== $columns) {
+            foreach ($columns as $key => $value) {
+                $this->sql->select()->where()->equalTo($this->sql->adapter()->escape($key), $this->sql->adapter()->escape($value));
+            }
+        }
+
+        $this->sql->adapter()->query($this->sql->render(true));
+        $this->setResults();
+
+        echo 456;
+
+        return $this->columns['total_count'];
     }
 
     /**
