@@ -399,8 +399,6 @@ class Escaped extends AbstractRecord
         $this->sql->adapter()->query($this->sql->render(true));
         $this->setResults();
 
-        echo 456;
-
         return $this->columns['total_count'];
     }
 

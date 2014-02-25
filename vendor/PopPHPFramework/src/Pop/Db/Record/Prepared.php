@@ -606,8 +606,6 @@ class Prepared extends AbstractRecord
 
         $this->setResults();
 
-        echo 123;
-
         return $this->columns['total_count'];
     }
 
