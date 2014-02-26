@@ -270,7 +270,7 @@ class Record
      * Get total count of records
      *
      * @param  array $columns
-     * @return int
+     * @return mixed
      */
     public static function getCount(array $columns = null)
     {

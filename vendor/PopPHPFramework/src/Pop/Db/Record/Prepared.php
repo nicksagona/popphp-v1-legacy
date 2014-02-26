@@ -599,14 +599,14 @@ class Prepared extends AbstractRecord
             }
             $this->sql->adapter()->prepare($this->sql->render(true));
             $this->sql->adapter()->bindParams($params);
-            $this->sql->adapter()->execute();
         } else {
-            $this->sql->adapter()->query($this->sql->render(true));
+            $this->sql->adapter()->prepare($this->sql->render(true));
         }
 
+        $this->sql->adapter()->execute();
         $this->setResults();
 
-        return $this->columns['total_count'];
+        return (isset($this->columns['total_count']) ? $this->columns['total_count'] : null);
     }
 
     /**
@@ -639,6 +639,7 @@ class Prepared extends AbstractRecord
         $this->rows = array();
 
         $rows = $this->sql->adapter()->fetchResult();
+
         foreach ($rows as $row) {
             $this->rows[] = new \ArrayObject($row, \ArrayObject::ARRAY_AS_PROPS);
         }

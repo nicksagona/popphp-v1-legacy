@@ -129,25 +129,25 @@ class Mysqli extends AbstractAdapter
     {
         $params = array();
         $bindParams = array();
-
-        $metaData = $this->statement->result_metadata();
-
-        foreach ($metaData->fetch_fields() as $col) {
-            ${$col->name} = null;
-            $bindParams[] = &${$col->name};
-            $params[] = $col->name;
-        }
-
-        call_user_func_array(array($this->statement, 'bind_result'), $bindParams);
-
         $rows = array();
 
-        while (($row = $this->statement->fetch()) != false) {
-            $ary = array();
-            foreach ($bindParams as $dbColumnName => $dbColumnValue) {
-                $ary[$params[$dbColumnName]] = $dbColumnValue;
+        $metaData = $this->statement->result_metadata();
+        if ($metaData !== false) {
+            foreach ($metaData->fetch_fields() as $col) {
+                ${$col->name} = null;
+                $bindParams[] = &${$col->name};
+                $params[] = $col->name;
             }
-            $rows[] = $ary;
+
+            call_user_func_array(array($this->statement, 'bind_result'), $bindParams);
+
+            while (($row = $this->statement->fetch()) != false) {
+                $ary = array();
+                foreach ($bindParams as $dbColumnName => $dbColumnValue) {
+                    $ary[$params[$dbColumnName]] = $dbColumnValue;
+                }
+                $rows[] = $ary;
+            }
         }
 
         return $rows;

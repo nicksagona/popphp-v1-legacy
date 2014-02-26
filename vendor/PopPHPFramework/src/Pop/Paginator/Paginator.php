@@ -440,6 +440,16 @@ class Paginator
     }
 
     /**
+     * Method to get the page links.
+     *
+     * @return string
+     */
+    public function getLinks()
+    {
+        return $this->links;
+    }
+
+    /**
      * Method to get the header template.
      *
      * @return string
