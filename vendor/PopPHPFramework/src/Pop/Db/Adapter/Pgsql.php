@@ -280,14 +280,4 @@ class Pgsql extends AbstractAdapter
         return $tables;
     }
 
-    /**
-     * Close the DB connection.
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        pg_close($this->connection);
-    }
-
 }

@@ -103,9 +103,7 @@ class Router
             if (!isset($this->controllers[$key])) {
                 $this->controllers[$key] = $value;
             } else {
-                foreach ($value as $k => $v) {
-                    $this->controllers[$key][$k] = $v;
-                }
+                $this->controllers[$key] = array_merge_recursive($this->controllers[$key], $value);
             }
         }
 

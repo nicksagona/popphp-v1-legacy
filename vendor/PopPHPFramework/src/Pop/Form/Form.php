@@ -508,16 +508,20 @@ class Form extends \Pop\Dom\Dom
                 }
             } else if ($child instanceof Element\Radio) {
                 $radioChildren = $child->getChildren();
-                $childAttribs = $radioChildren[0]->getAttributes();
-                if (isset($childAttribs['name'])) {
-                    $this->fields[$childAttribs['name']] = ((null !== $child->getMarked()) ? $child->getMarked() : null);
+                if (isset($radioChildren[0])) {
+                    $childAttribs = $radioChildren[0]->getAttributes();
+                    if (isset($childAttribs['name'])) {
+                        $this->fields[$childAttribs['name']] = ((null !== $child->getMarked()) ? $child->getMarked() : null);
+                    }
                 }
             } else if ($child instanceof Element\Checkbox) {
-                $radioChildren = $child->getChildren();
-                $childAttribs = $radioChildren[0]->getAttributes();
-                if (isset($childAttribs['name'])) {
-                    $key = str_replace('[]', '', $childAttribs['name']);
-                    $this->fields[$key] = ((null !== $child->getMarked()) ? $child->getMarked() : null);
+                $checkChildren = $child->getChildren();
+                if (isset($checkChildren[0])) {
+                    $childAttribs = $checkChildren[0]->getAttributes();
+                    if (isset($childAttribs['name'])) {
+                        $key = str_replace('[]', '', $childAttribs['name']);
+                        $this->fields[$key] = ((null !== $child->getMarked()) ? $child->getMarked() : null);
+                    }
                 }
             } else {
                 if (isset($attribs['name'])) {
@@ -936,7 +940,9 @@ class Form extends \Pop\Dom\Dom
         foreach ($children as $child) {
             if ($child->getNodeName() == 'fieldset') {
                 $chdrn = $child->getChildren();
-                $attribs = $chdrn[0]->getAttributes();
+                if (isset($chdrn[0])) {
+                    $attribs = $chdrn[0]->getAttributes();
+                }
             } else {
                 $attribs = $child->getAttributes();
             }
