@@ -103,7 +103,11 @@ class Router
             if (!isset($this->controllers[$key])) {
                 $this->controllers[$key] = $value;
             } else {
-                $this->controllers[$key] = array_merge_recursive($this->controllers[$key], $value);
+                if (is_array($this->controllers[$key]) && is_array($value)) {
+                    $this->controllers[$key] = array_merge_recursive($this->controllers[$key], $value);
+                } else {
+                    $this->controllers[$key] = $value;
+                }
             }
         }
 
