@@ -262,6 +262,18 @@ class Pgsql extends AbstractAdapter
     }
 
     /**
+     * Close the DB connection.
+     *
+     * @return void
+     */
+    public function disconnect()
+    {
+        if ($this->isConnected()) {
+            pg_close($this->connection);
+        }
+    }
+
+    /**
      * Get an array of the tables of the database.
      *
      * @return array

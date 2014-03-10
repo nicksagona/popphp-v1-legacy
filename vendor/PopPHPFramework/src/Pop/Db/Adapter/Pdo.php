@@ -356,6 +356,18 @@ class Pdo extends AbstractAdapter
     }
 
     /**
+     * Close the DB connection.
+     *
+     * @return void
+     */
+    public function disconnect()
+    {
+        if ($this->isConnected()) {
+            $this->connection = null;
+        }
+    }
+
+    /**
      * Get an array of the tables of the database.
      *
      * @return array
@@ -388,16 +400,6 @@ class Pdo extends AbstractAdapter
         }
 
         return $tables;
-    }
-
-    /**
-     * Close the DB connection.
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        $this->connection = null;
     }
 
 }

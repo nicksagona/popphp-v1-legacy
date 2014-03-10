@@ -286,6 +286,18 @@ class Sqlsrv extends AbstractAdapter
     }
 
     /**
+     * Close the DB connection.
+     *
+     * @return void
+     */
+    public function disconnect()
+    {
+        if ($this->isConnected()) {
+            sqlsrv_close($this->connection);
+        }
+    }
+
+    /**
      * Get an array of the tables of the database.
      *
      * @return array
@@ -302,16 +314,6 @@ class Sqlsrv extends AbstractAdapter
         }
 
         return $tables;
-    }
-
-    /**
-     * Close the DB connection.
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        sqlsrv_close($this->connection);
     }
 
 }

@@ -112,6 +112,23 @@ abstract class AbstractAdapter
     abstract public function numFields();
 
     /**
+     * Disconnect from the database
+     *
+     * @return void
+     */
+    abstract public function disconnect();
+
+    /**
+     * Determine whether or not an result resource exists
+     *
+     * @return boolean
+     */
+    public function hasResult()
+    {
+        return is_resource($this->result);
+    }
+
+    /**
      * Get the result resource
      *
      * @return resource
@@ -119,6 +136,16 @@ abstract class AbstractAdapter
     public function getResult()
     {
         return $this->result;
+    }
+
+    /**
+     * Determine whether or not connected
+     *
+     * @return boolean
+     */
+    public function isConnected()
+    {
+        return is_resource($this->connection);
     }
 
     /**

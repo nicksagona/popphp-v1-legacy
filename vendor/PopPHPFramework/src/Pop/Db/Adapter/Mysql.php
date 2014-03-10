@@ -163,6 +163,18 @@ class Mysql extends AbstractAdapter
     }
 
     /**
+     * Close the DB connection.
+     *
+     * @return void
+     */
+    public function disconnect()
+    {
+        if ($this->isConnected()) {
+            mysql_close($this->connection);
+        }
+    }
+
+    /**
      * Get an array of the tables of the database.
      *
      * @return array
@@ -179,16 +191,6 @@ class Mysql extends AbstractAdapter
         }
 
         return $tables;
-    }
-
-    /**
-     * Close the DB connection.
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        mysql_close($this->connection);
     }
 
 }

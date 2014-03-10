@@ -268,6 +268,18 @@ class Mysqli extends AbstractAdapter
     }
 
     /**
+     * Close the DB connection.
+     *
+     * @return void
+     */
+    public function disconnect()
+    {
+        if ($this->isConnected()) {
+            $this->connection->close();
+        }
+    }
+
+    /**
      * Get an array of the tables of the database.
      *
      * @return array
@@ -284,16 +296,6 @@ class Mysqli extends AbstractAdapter
         }
 
         return $tables;
-    }
-
-    /**
-     * Close the DB connection.
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        $this->connection->close();
     }
 
 }

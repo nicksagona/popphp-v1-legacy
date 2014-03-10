@@ -229,6 +229,18 @@ class Oracle extends AbstractAdapter
     }
 
     /**
+     * Close the DB connection.
+     *
+     * @return void
+     */
+    public function disconnect()
+    {
+        if ($this->isConnected()) {
+            oci_close($this->connection);
+        }
+    }
+
+    /**
      * Get an array of the tables of the database.
      *
      * @return array
@@ -245,16 +257,6 @@ class Oracle extends AbstractAdapter
         }
 
         return $tables;
-    }
-
-    /**
-     * Close the DB connection.
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        oci_close($this->connection);
     }
 
 }
