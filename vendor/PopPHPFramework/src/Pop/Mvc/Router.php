@@ -269,11 +269,17 @@ class Router
             );
             // Trigger any route events
             if (null !== $this->project) {
+                if (null !== $this->project->getEventManager()->get('route')) {
+                    $this->project->log('[Event] Route', time(), \Pop\Log\Logger::NOTICE);
+                }
                 $this->project->getEventManager()->trigger('route', array('router' => $this));
             }
         // Else, trigger any route error events
         } else {
             if (null !== $this->project) {
+                if (null !== $this->project->getEventManager()->get('route.error')) {
+                    $this->project->log('[Event] Route Error', time(), \Pop\Log\Logger::NOTICE);
+                }
                 $this->project->getEventManager()->trigger('route.error', array('router' => $this));
             }
         }
