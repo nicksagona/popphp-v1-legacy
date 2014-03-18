@@ -222,7 +222,9 @@ class Cookie
         if (null !== $options) {
             $this->setOptions($options);
         }
-        setcookie($name, $_COOKIE[$name], (time() - 3600), $this->path, $this->domain, $this->secure, $this->httponly);
+        if (isset($_COOKIE[$name])) {
+            setcookie($name, $_COOKIE[$name], (time() - 3600), $this->path, $this->domain, $this->secure, $this->httponly);
+        }
     }
 
     /**
@@ -237,7 +239,9 @@ class Cookie
             $this->setOptions($options);
         }
         foreach ($_COOKIE as $name => $value) {
-            setcookie($name, $_COOKIE[$name], (time() - 3600), $this->path, $this->domain, $this->secure, $this->httponly);
+            if (isset($_COOKIE[$name])) {
+                setcookie($name, $_COOKIE[$name], (time() - 3600), $this->path, $this->domain, $this->secure, $this->httponly);
+            }
         }
     }
 
@@ -275,7 +279,9 @@ class Cookie
      */
     public function __unset($name)
     {
-        setcookie($name, $_COOKIE[$name], (time() - 3600), $this->path, $this->domain, $this->secure, $this->httponly);
+        if (isset($_COOKIE[$name])) {
+            setcookie($name, $_COOKIE[$name], (time() - 3600), $this->path, $this->domain, $this->secure, $this->httponly);
+        }
     }
 
 }
