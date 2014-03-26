@@ -310,14 +310,14 @@ class View
                                 $l = $loop;
                                 foreach ($val as $k => $v) {
                                     // Check is value is stringable
-                                    if (!is_object($v) || (is_object($v) && method_exists($v, '__toString'))) {
+                                    if ((is_object($v) && method_exists($v, '__toString')) || (!is_object($v) && !is_array($v))) {
                                         $l = str_replace('[{' . $k . '}]', $v, $l);
                                     }
                                 }
                                 $outputLoop .= $l;
                             } else {
                                 // Check is value is stringable
-                                if (!is_object($val) || (is_object($val) && method_exists($val, '__toString'))) {
+                                if ((is_object($val) && method_exists($val, '__toString')) || (!is_object($val) && !is_array($val))) {
                                     $replace = (!is_numeric($ky)) ? '[{' . $ky . '}]' : '[{value}]';
                                     $outputLoop .= str_replace($replace, $val, $loop);
                                 }
@@ -336,7 +336,7 @@ class View
             foreach ($this->data as $key => $value) {
                 if (!is_array($value) && !($value instanceof \ArrayObject)) {
                     // Check is value is stringable
-                    if (!is_object($value) || (is_object($value) && method_exists($value, '__toString'))) {
+                    if ((is_object($value) && method_exists($value, '__toString')) || (!is_object($value) && !is_array($value))) {
                         $this->output = str_replace('[{' . $key . '}]', $value, $this->output);
                     }
                 }
