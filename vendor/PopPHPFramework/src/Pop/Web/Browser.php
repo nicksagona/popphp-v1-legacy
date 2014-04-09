@@ -324,7 +324,7 @@ class Browser
             $this->name = 'MSIE';
             $this->msie = true;
             $this->version = substr($this->ua, (stripos($this->ua, 'rv:') + 3));
-            $this->version = substr($this->version, 0, stripos($this->version, ';'));
+            $this->version = substr($this->version, 0, stripos($this->version, ')'));
         } else if (stripos($this->ua, 'Konqueror') !== false) {
             $this->name = 'Konqueror';
             $this->webkit = true;
