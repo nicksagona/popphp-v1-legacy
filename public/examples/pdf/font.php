@@ -9,8 +9,6 @@ try {
 
     $pdf->addPage('Letter');
 
-    $pdf->setCompression(true);
-
     $pdf->setVersion('1.4')
         ->setTitle('Test Title')
         ->setAuthor('Test Author')
@@ -20,7 +18,7 @@ try {
     //$pdf->addFont('../assets/fonts/times.ttf');
     $pdf->addFont('../assets/fonts/carltonn.ttf');
 
-    $pdf->addText(50, 620, 18, 'Thanks for trying the Pop PHP Framework!', $pdf->getLastFontName());
+    $pdf->addText(50, 620, 18, 'Thanks for trying the Pop PHP Framework!');
     $pdf->output();
 } catch (\Exception $e) {
     echo $e->getMessage();

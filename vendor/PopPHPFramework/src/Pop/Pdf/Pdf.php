@@ -183,7 +183,7 @@ class Pdf extends \Pop\File\File
      * Compression property
      * @var boolean
      */
-    protected $compress = false;
+    protected $compress = true;
 
     /**
      * Constructor
@@ -726,7 +726,7 @@ class Pdf extends \Pop\File\File
 
             // Add the font to the current page's fonts and add the font to _objects array.
             $this->objects[$this->objects[$this->pages[$this->curPage]]->index]->fonts[$font] = "/{$f} {$i} 0 R";
-            $this->objects[$i] = new Object\Object("{$i} 0 obj\n<<\n    /Type /Font\n    /Subtype /Type1\n    /Name /{$f}\n    /BaseFont /{$font}\n    /Encoding /StandardEncoding\n>>\nendobj\n\n");
+            $this->objects[$i] = new Object\Object("{$i} 0 obj\n<<\n    /Type /Font\n    /Subtype /Type1\n    /Name /{$f}\n    /BaseFont /{$font}\n    /Encoding /WinAnsiEncoding\n>>\nendobj\n\n");
 
             $this->lastFontName = $font;
         }
@@ -745,10 +745,18 @@ class Pdf extends \Pop\File\File
      * @throws Exception
      * @return \Pop\Pdf\Pdf
      */
-    public function addText($x, $y, $size, $str, $font)
+    public function addText($x, $y, $size, $str, $font = null)
     {
         // Check to see if the font already exists on another page.
         $fontExists = false;
+
+        if (null === $font) {
+            $font = $this->getLastFontName();
+        }
+
+        if (mb_strlen($str, 'UTF-8') < strlen($str)) {
+            $str = utf8_decode($str);
+        }
 
         foreach ($this->pages as $value) {
             if (array_key_exists($font, $this->objects[$value]->fonts)) {

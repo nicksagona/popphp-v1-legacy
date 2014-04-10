@@ -98,7 +98,7 @@ class Name
             if ($ttfRecord['platformId'] != 1) {
                 $ttfValue = @iconv('UTF-16be', 'UTF-8//TRANSLIT', $ttfValue);
             }
-            if ($ttfValue != '') {
+            if (($ttfValue != '') && isset($ttfRecord['nameId']) && isset($this->names[$ttfRecord['nameId']])) {
                 $this->fontInfo[$this->names[$ttfRecord['nameId']]] = $ttfValue;
             }
 
