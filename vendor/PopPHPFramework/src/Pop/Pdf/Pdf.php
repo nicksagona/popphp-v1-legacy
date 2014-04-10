@@ -126,6 +126,12 @@ class Pdf extends \Pop\File\File
     );
 
     /**
+     * Current fonts added to the PDF
+     * @var array
+     */
+    protected $fonts = array();
+
+    /**
      * Last font name
      * @var string
      */
@@ -450,6 +456,16 @@ class Pdf extends \Pop\File\File
      *
      * @return string
      */
+    public function getFonts()
+    {
+        return $this->fonts;
+    }
+
+    /**
+     * Method to return the name of the last font added.
+     *
+     * @return string
+     */
     public function getLastFontName()
     {
         return $this->lastFontName;
@@ -731,6 +747,10 @@ class Pdf extends \Pop\File\File
             $this->lastFontName = $font;
         }
 
+        if (!in_array($this->lastFontName, $this->fonts)) {
+            $this->fonts[] = $this->lastFontName;
+        }
+
         return $this;
     }
 
@@ -754,8 +774,10 @@ class Pdf extends \Pop\File\File
             $font = $this->getLastFontName();
         }
 
-        if (mb_strlen($str, 'UTF-8') < strlen($str)) {
-            $str = utf8_decode($str);
+        if (function_exists('mb_strlen')) {
+            if (mb_strlen($str, 'UTF-8') < strlen($str)) {
+                $str = utf8_decode($str);
+            }
         }
 
         foreach ($this->pages as $value) {

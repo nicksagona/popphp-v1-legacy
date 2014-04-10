@@ -382,9 +382,25 @@ class Page
         // Swap out the placeholders.
         $obj = str_replace('[{page_index}]', $this->index, $this->data);
         $obj = str_replace('[{parent}]', $this->parent, $obj);
-        $obj = str_replace('[{annotations}]', $annots, $obj);
-        $obj = str_replace('[{xobjects}]', $xobjects, $obj);
-        $obj = str_replace('[{fonts}]', $fonts, $obj);
+
+        if (($annots != '') && (strpos($obj, '[{annotations}]') === false)) {
+            $obj = str_replace('/MediaBox', $annots . '/MediaBox', $obj);
+        } else {
+            $obj = str_replace('[{annotations}]', $annots, $obj);
+        }
+
+        if (($xobjects != '') && (strpos($obj, '[{xobjects}]') === false)) {
+            $obj = str_replace('/ProcSet', $xobjects . '/ProcSet', $obj);
+        } else {
+            $obj = str_replace('[{xobjects}]', $xobjects, $obj);
+        }
+
+        if (($fonts != '') && (strpos($obj, '[{fonts}]') === false)) {
+            $obj = str_replace('/ProcSet', $fonts . '/ProcSet', $obj);
+        } else {
+            $obj = str_replace('[{fonts}]', $fonts, $obj);
+        }
+
         $obj = str_replace('[{content_objects}]', $content_objs, $obj);
 
         return $obj;
