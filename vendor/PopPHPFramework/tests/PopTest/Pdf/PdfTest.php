@@ -129,6 +129,18 @@ class PdfTest extends \PHPUnit_Framework_TestCase
         $p->setTextParams(10, 10, 50, 50, 45, 8);
     }
 
+    public function testAddAndGetFonts()
+    {
+        $p = new Pdf('doc.pdf');
+        $p->addPage('Letter');
+        $p->setPage(1);
+        $p->addFont('Arial');
+        $p->addFont('Courier');
+        $this->assertEquals('Courier', $p->getLastFontName());
+        $this->assertEquals(2, count($p->getFonts()));
+        $this->assertTrue(in_array('Arial', $p->getFonts()));
+    }
+
     public function testAddTextException()
     {
         $this->setExpectedException('Pop\Pdf\Exception');
