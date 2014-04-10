@@ -174,7 +174,7 @@ class Page
                     $this->width = $w;
                     $this->height = $h;
                 }
-            }http://www.google.com/
+            }
 
             if (null === $i) {
                 throw new Exception('Error: A page index must be passed.');
@@ -221,6 +221,8 @@ class Page
             }
             $cn = str_replace('Contents', '', $cn);
             if (strpos($cn, '[') !== false) {
+                $cn = substr($cn, 0, (strpos($cn, ']') + 1));
+                $str = str_replace('/Contents' . $cn, '/Contents[{content_objects}]', $str);
                 $cn = str_replace('[', '', $cn);
                 $cn = str_replace(']', '', $cn);
                 $cn = str_replace('0 R', '|', $cn);
@@ -232,6 +234,7 @@ class Page
                     }
                 }
             } else {
+                $str = str_replace('/Contents' . $cn, '/Contents[{content_objects}]', $str);
                 $cn = str_replace('0 R', '', $cn);
                 $cn = str_replace(' ', '', $cn);
                 $this->content[] = $cn;
@@ -243,6 +246,8 @@ class Page
                 $an = substr($an, 0, strpos($an, '/'));
                 $an = str_replace('Annots', '', $an);
                 if (strpos($an, '[') !== false) {
+                    $an = substr($an, 0, (strpos($an, ']') + 1));
+                    $str = str_replace('/Annots' . $an, '[{annotations}]', $str);
                     $an = str_replace('[', '', $an);
                     $an = str_replace(']', '', $an);
                     $an = str_replace('0 R', '|', $an);
@@ -254,6 +259,8 @@ class Page
                         }
                     }
                 } else {
+                    $an = substr($an, 0, strpos($an, '/'));
+                    $str = str_replace('/Annots' . $an, '[{annotations}]', $str);
                     $an = str_replace('0 R', '', $an);
                     $an = str_replace(' ', '', $an);
                     $this->annots[] = $an;
@@ -264,6 +271,7 @@ class Page
             if (strpos($str, '/Font') !== false) {
                 $ft = substr($str, strpos($str, 'Font'));
                 $ft = substr($ft, 0, (strpos($ft, '>>') + 2));
+                $str = str_replace('/' . $ft, '[{fonts}]', $str);
                 $ft = str_replace('Font<<', '', $ft);
                 $ft = str_replace('>>', '', $ft);
                 $ft = explode('/', $ft);
@@ -278,6 +286,7 @@ class Page
             if (strpos($str, '/XObject') !== false) {
                 $xo = substr($str, strpos($str, 'XObject'));
                 $xo = substr($xo, 0, (strpos($xo, '>>') + 2));
+                $str = str_replace('/' . $xo, '[{xobjects}]', $str);
                 $xo = str_replace('XObject<<', '', $xo);
                 $xo = str_replace('>>', '', $xo);
                 $xo = explode('/', $xo);
@@ -292,6 +301,7 @@ class Page
             if (strpos($str, '/ExtGState') !== false) {
                 $gs = substr($str, strpos($str, 'ExtGState'));
                 $gs = substr($gs, 0, (strpos($gs, '>>') + 2));
+                //$str = str_replace('/' . $gs, '', $str);
                 $gs = '/' . $gs;
             } else {
                 $gs = '';
@@ -321,6 +331,10 @@ class Page
                 }
             } else {
                 $res = "/Resources<</ProcSet[/PDF/Text/ImageB/ImageC/ImageI][{xobjects}][{fonts}]{$gs}>>";
+            }
+
+            if (substr_count($res, '<<') > substr_count($res, '>>')) {
+                $res .= str_repeat('>>', (substr_count($res, '<<') - substr_count($res, '>>')));
             }
 
             $this->data = "\n[{page_index}] 0 obj\n<</Type/Page/Parent [{parent}] 0 R[{annotations}]/MediaBox[0 0 {$this->width} {$this->height}]{$grp}/Contents[[{content_objects}]]{$res}>>\nendobj\n";

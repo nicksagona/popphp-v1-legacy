@@ -153,14 +153,19 @@ class Import
             }
 
             $keyChanges = array_reverse($keyChanges, true);
-
             foreach ($newObjects as $key => $obj) {
                 if (count($obj['refs']) > 0) {
-                    foreach ($obj['refs'] as $k => $ref) {
-                        if (isset($keyChanges[$ref])) {
-                            $newObjects[$key]['refs'][$k] = $keyChanges[$ref];
-                            $newObjects[$key]['data'] = str_replace(' ' . $ref . ' 0 R', ' ' . $keyChanges[$ref] . ' 0 R', $newObjects[$key]['data']);
-                            $newObjects[$key]['data'] = str_replace('[' . $ref . ' 0 R', '[' . $keyChanges[$ref] . ' 0 R', $newObjects[$key]['data']);
+                    $matches = array();
+                    preg_match_all('/\d+\s0\sR/mi', $newObjects[$key]['data'], $matches, PREG_OFFSET_CAPTURE);
+                    if (isset($matches[0][0])) {
+                        $start = count($matches[0]) - 1;
+                        for ($i = $start; $i >= 0; $i--) {
+                            $ref = $matches[0][$i][0];
+                            $len = $matches[0][$i][1];
+                            $k   = substr($ref, 0, strpos($ref, ' '));
+                            if (isset($keyChanges[$k])) {
+                                $newObjects[$key]['data'] = substr_replace($newObjects[$key]['data'], $keyChanges[$k] . ' 0 R', $len, strlen($ref));
+                            }
                         }
                     }
                 }
