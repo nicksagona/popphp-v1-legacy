@@ -164,11 +164,11 @@ class Element extends Child
                             $o->setAttributes('value', $ky);
                             // Determine if the current option element is selected.
                             if (is_array($this->marked)) {
-                                if (in_array($vl, $this->marked)) {
+                                if (in_array($ky, $this->marked)) {
                                     $o->setAttributes('selected', 'selected');
                                 }
                             } else {
-                                if ($vl == $this->marked) {
+                                if ($ky == $this->marked) {
                                     $o->setAttributes('selected', 'selected');
                                 }
                             }
@@ -180,11 +180,11 @@ class Element extends Child
                         $opt->setAttributes('value', $k);
                         // Determine if the current option element is selected.
                         if (is_array($this->marked)) {
-                            if (in_array($v, $this->marked)) {
+                            if (in_array($k, $this->marked)) {
                                 $opt->setAttributes('selected', 'selected');
                             }
                         } else {
-                            if ($v == $this->marked) {
+                            if ($k == $this->marked) {
                                 $opt->setAttributes('selected', 'selected');
                             }
                         }
@@ -214,7 +214,7 @@ class Element extends Child
                     ));
 
                     // Determine if the current radio element is checked.
-                    if ($v == $this->marked) {
+                    if ($k == $this->marked) {
                         $rad->setAttributes('checked', 'checked');
                     }
 
@@ -246,7 +246,7 @@ class Element extends Child
                     ));
 
                     // Determine if the current radio element is checked.
-                    if (in_array($v, $this->marked)) {
+                    if (in_array($k, $this->marked)) {
                         $chk->setAttributes('checked', 'checked');
                     }
 
@@ -339,11 +339,11 @@ class Element extends Child
                         if (!isset($this->value[$v])) {
                             foreach ($this->value as $vl) {
                                 if (is_array($vl) && isset($vl[$v])) {
-                                    $val = $vl[$v];
+                                    $val = $v;
                                 }
                             }
                         } else {
-                            $val = $this->value[$v];
+                            $val = $v;
                         }
                         if (is_array($this->marked)) {
                             $this->marked[] = $val;
@@ -357,13 +357,15 @@ class Element extends Child
             if (is_array($this->value)) {
                 if (array_key_exists($marked, $this->value) !==  false) {
                     if (is_array($this->marked)) {
-                        $this->marked[] = $this->value[$marked];
+                        $this->marked[] = $marked;
                     } else {
-                        $this->marked = $this->value[$marked];
+                        $this->marked = $marked;
                     }
                 }
             }
         }
+
+        //print_r($this->marked);
 
         return $this;
     }
