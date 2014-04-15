@@ -64,7 +64,7 @@ class Gzip
     public static function decompress($data)
     {
         // Decompress the file
-        if (file_exists($data)) {
+        if (@file_exists($data)) {
             $gz = gzopen($data, 'r');
             $uncompressed = '';
 

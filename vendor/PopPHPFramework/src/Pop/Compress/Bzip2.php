@@ -63,7 +63,7 @@ class Bzip2
     public static function decompress($data)
     {
         // Decompress the file
-        if (file_exists($data)) {
+        if (@file_exists($data)) {
             $bz = bzopen($data, 'r');
             $uncompressed = '';
             // Read the uncompressed data.

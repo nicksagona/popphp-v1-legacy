@@ -526,7 +526,7 @@ class Form extends \Pop\Dom\Dom
             } else {
                 if (isset($attribs['name'])) {
                     $this->fields[$attribs['name']] = (isset($attribs['value']) ? $attribs['value'] : null);
-                    if ($attribs['name']['type'] == 'file') {
+                    if ($attribs['type'] == 'file') {
                         $this->hasFile = true;
                     }
                 }
