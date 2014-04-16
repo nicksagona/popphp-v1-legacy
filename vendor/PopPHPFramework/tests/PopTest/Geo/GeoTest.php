@@ -30,14 +30,14 @@ class GeoTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         if (function_exists('geoip_db_get_all_info')) {
-            $this->assertInstanceOf('Pop\Geo\Geo', new Geo('www.google.com'));
+            $this->assertInstanceOf('Pop\Geo\Geo', new Geo(array('host' => 'www.google.com')));
         }
     }
 
     public function testGetDatabases()
     {
         if (function_exists('geoip_db_get_all_info')) {
-            $g = new Geo('www.google.com');
+            $g = new Geo(array('host' => 'www.google.com'));
             $this->assertEquals(10, count($g->getDatabases()));
             $this->assertTrue(is_bool($g->isDbAvailable('asnum')));
             $this->assertFalse($g->isDbAvailable('bogus'));
@@ -47,10 +47,38 @@ class GeoTest extends \PHPUnit_Framework_TestCase
     public function testGetHostInfo()
     {
         if (function_exists('geoip_db_get_all_info')) {
-            $g = new Geo('www.google.com');
+            $g = new Geo(array('host' => 'www.google.com'));
             $info = $g->getHostInfo();
             $this->assertTrue(is_array($info));
         }
+    }
+
+    public function testDistanceTo()
+    {
+        $geo1 = new Geo(array(
+            'latitude'  => '30.006003',
+            'longitude' => '-90.10947'
+        ));
+        $geo2 = new Geo(array(
+            'latitude'  => '32.919104',
+            'longitude' => '-96.77497'
+        ));
+        $this->assertEquals(441.24, $geo1->distanceTo($geo2, 2));
+    }
+
+    public function testCalculateDistance()
+    {
+        $dist = Geo::calculateDistance(
+            array(
+                'latitude'  => '32.919104',
+                'longitude' => '-96.77497'
+            ),
+            array(
+                'latitude'  => '30.006003',
+                'longitude' => '-90.10947'
+            ), 2, true
+        );
+        $this->assertEquals(710.11, $dist);
     }
 
 }

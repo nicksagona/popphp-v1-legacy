@@ -35,6 +35,18 @@ class Geo
     protected $host = null;
 
     /**
+     * Latitude value
+     * @var string
+     */
+    protected $latitude = null;
+
+    /**
+     * Longitude value
+     * @var string
+     */
+    protected $longitude = null;
+
+    /**
      * Host info
      * @var array
      */
@@ -77,14 +89,33 @@ class Geo
      *
      * Instantiate the Geo object.
      *
-     * @param  string $host
+     * @param  array $options
      * @return \Pop\Geo\Geo
      */
-    public function __construct($host = null)
+    public function __construct(array $options = array())
     {
-        $this->host = (null === $host) ? $_SERVER['REMOTE_ADDR'] : $host;
+        if (isset($options['host'])) {
+            $this->host = $options['host'];
+        } else if (isset($_SERVER['REMOTE_ADDR'])) {
+            $this->host = $_SERVER['REMOTE_ADDR'];
+        }
+
+        if (isset($options['latitude'])) {
+            $this->latitude  = $options['latitude'];
+        }
+
+        if (isset($options['longitude'])) {
+            $this->longitude = $options['longitude'];
+        }
+
         $this->getAvailableDatabases();
         $this->getGeoIpHostInfo();
+
+        // If lat and long weren't passed, try and get it from the host location
+        if ((null === $this->latitude) && (null === $this->longitude)) {
+            $this->latitude  = $this->hostInfo['latitude'];
+            $this->longitude = $this->hostInfo['longitude'];
+        }
     }
 
     /**
@@ -124,40 +155,91 @@ class Geo
     }
 
     /**
+     * Get latitude
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
      * Get distance from current Geo object coordinates to another
      *
-     * @param  mixed     $latitude
-     * @param  float     $longitude
-     * @param  int       $round
+     * @param  \Pop\Geo\Geo $dest
+     * @param  int          $round
+     * @param  boolean      $km
      * @throws Exception
-     * @return float
+     * @return mixed
      */
-    public function distanceTo($latitude, $longitude = null, $round = 2)
+    public function distanceTo(Geo $dest, $round = 2, $km = false)
     {
         $distance = null;
 
-        // If a Geo object is passed
-        if ($latitude instanceof Geo) {
-            $geo = $latitude;
-            $round = (null !== $longitude) ? (int)$longitude : 2;
-            $latitude = (null !== $geo->latitude) ? $geo->latitude : null;
-            $longitude = (null !== $geo->longitude) ? $geo->longitude : null;
-        } else if (null === $longitude) {
-            throw new Exception('You must either pass a Pop\Geo\Geo object or a set of latitude/longitude coordinates.');
+        if ((null === $this->latitude) || (null === $this->longitude)) {
+            throw new Exception('The origin coordinates are not set.');
         }
 
-        // Calculate approximate distance between the two points in miles
-        if ((null !== $this->hostInfo['latitude']) && (null !== $this->hostInfo['longitude'])
-             && (null !== $latitude) && (null !== $longitude)) {
-            $distance = (acos(
-                sin($this->hostInfo['latitude'] * pi() / 180)
-                * sin($latitude * pi() / 180)
-                + cos($this->hostInfo['latitude'] * pi() / 180)
-                * cos($latitude * pi() / 180)
-                * cos(($this->hostInfo['longitude'] - $longitude) * pi() / 180)
-                ) * 180 / pi()
-            ) * 60 * 1.1515;
-            $distance = abs(round($distance, $round));
+        if ((null === $dest->getLatitude()) || (null === $dest->getLongitude())) {
+            throw new Exception('The destination coordinates are not set.');
+        }
+
+        $origin = array(
+            'latitude'  => $this->latitude,
+            'longitude' => $this->longitude
+        );
+
+        $destination = array(
+            'latitude'  => $dest->getLatitude(),
+            'longitude' => $dest->getLongitude()
+        );
+
+        return self::calculateDistance($origin, $destination, $round, $km);
+    }
+
+    /**
+     * Method to calculate the distance between 2 sets of coordinate
+     *
+     * @param  array   $origin
+     * @param  array   $destination
+     * @param  int     $round
+     * @param  boolean $km
+     * @throws Exception
+     * @return mixed
+     */
+    public static function calculateDistance(array $origin, array$destination, $round = 2, $km = false)
+    {
+        if (!isset($origin['latitude']) || !isset($origin['longitude'])) {
+            throw new Exception('The origin coordinates are not set.');
+        }
+        if (!isset($destination['latitude']) || !isset($destination['longitude'])) {
+            throw new Exception('The destination coordinates are not set.');
+        }
+
+        $distance = (acos(
+                sin($origin['latitude'] * pi() / 180)
+                * sin($destination['latitude'] * pi() / 180)
+                + cos($origin['latitude'] * pi() / 180)
+                * cos($destination['latitude'] * pi() / 180)
+                * cos(($origin['longitude'] - $destination['longitude']) * pi() / 180)
+            ) * 180 / pi()
+        ) * 60 * 1.1515;
+
+        $distance = abs(round($distance, $round));
+
+        if ($km) {
+            $distance = round($distance * 1.60934, $round);
         }
 
         return $distance;
@@ -224,54 +306,56 @@ class Geo
      */
     protected function getGeoIpHostInfo()
     {
-        // Get base info by city
-        if ($this->databases['city']) {
-            $data = geoip_record_by_name($this->host);
-            $this->hostInfo['areaCode'] = $data['area_code'];
-            $this->hostInfo['city'] = $data['city'];
-            $this->hostInfo['continentCode'] = $data['continent_code'];
-            $this->hostInfo['country'] = $data['country_name'];
-            $this->hostInfo['countryCode'] = $data['country_code'];
-            $this->hostInfo['countryCode3'] = $data['country_code3'];
-            $this->hostInfo['dmaCode'] = $data['dma_code'];
-            $this->hostInfo['latitude'] = $data['latitude'];
-            $this->hostInfo['longitude'] = $data['longitude'];
-            $this->hostInfo['postalCode'] = $data['postal_code'];
-            $this->hostInfo['region'] = $data['region'];
-        // Else, get base info by country
-        } else if ($this->databases['country']) {
-            $this->hostInfo['continentCode'] = geoip_continent_code_by_name($this->host);
-            $this->hostInfo['country'] = geoip_country_name_by_name($this->host);
-            $this->hostInfo['countryCode'] = geoip_country_code_by_name($this->host);
-            $this->hostInfo['countryCode3'] = geoip_country_code3_by_name($this->host);
-        }
-
-        // If available, get ISP name
-        if ($this->databases['isp']) {
-            $this->hostInfo['isp'] = geoip_isp_by_name($this->host);
-        }
-
-        // If available, get internet connection speed
-        if ($this->databases['netspeed']) {
-            $netspeed = geoip_id_by_name($this->host);
-            switch ($netspeed) {
-                case GEOIP_DIALUP_SPEED:
-                    $this->hostInfo['netspeed'] = 'Dial-Up';
-                    break;
-                case GEOIP_CABLEDSL_SPEED:
-                    $this->hostInfo['netspeed'] = 'Cable/DSL';
-                    break;
-                case GEOIP_CORPORATE_SPEED:
-                    $this->hostInfo['netspeed'] = 'Corporate';
-                    break;
-                default:
-                    $this->hostInfo['netspeed'] = 'Unknown';
+        if ((null !== $this->host) && ($this->host != '127.0.0.1') && ($this->host != 'localhost')) {
+            // Get base info by city
+            if ($this->databases['city']) {
+                $data = geoip_record_by_name($this->host);
+                $this->hostInfo['areaCode'] = $data['area_code'];
+                $this->hostInfo['city'] = $data['city'];
+                $this->hostInfo['continentCode'] = $data['continent_code'];
+                $this->hostInfo['country'] = $data['country_name'];
+                $this->hostInfo['countryCode'] = $data['country_code'];
+                $this->hostInfo['countryCode3'] = $data['country_code3'];
+                $this->hostInfo['dmaCode'] = $data['dma_code'];
+                $this->hostInfo['latitude'] = $data['latitude'];
+                $this->hostInfo['longitude'] = $data['longitude'];
+                $this->hostInfo['postalCode'] = $data['postal_code'];
+                $this->hostInfo['region'] = $data['region'];
+            // Else, get base info by country
+            } else if ($this->databases['country']) {
+                $this->hostInfo['continentCode'] = geoip_continent_code_by_name($this->host);
+                $this->hostInfo['country'] = geoip_country_name_by_name($this->host);
+                $this->hostInfo['countryCode'] = geoip_country_code_by_name($this->host);
+                $this->hostInfo['countryCode3'] = geoip_country_code3_by_name($this->host);
             }
-        }
 
-        // If available, get Organization name
-        if ($this->databases['org']) {
-            $this->hostInfo['org'] = geoip_org_by_name($this->host);
+            // If available, get ISP name
+            if ($this->databases['isp']) {
+                $this->hostInfo['isp'] = geoip_isp_by_name($this->host);
+            }
+
+            // If available, get internet connection speed
+            if ($this->databases['netspeed']) {
+                $netspeed = geoip_id_by_name($this->host);
+                switch ($netspeed) {
+                    case GEOIP_DIALUP_SPEED:
+                        $this->hostInfo['netspeed'] = 'Dial-Up';
+                        break;
+                    case GEOIP_CABLEDSL_SPEED:
+                        $this->hostInfo['netspeed'] = 'Cable/DSL';
+                        break;
+                    case GEOIP_CORPORATE_SPEED:
+                        $this->hostInfo['netspeed'] = 'Corporate';
+                        break;
+                    default:
+                        $this->hostInfo['netspeed'] = 'Unknown';
+                }
+            }
+
+            // If available, get Organization name
+            if ($this->databases['org']) {
+                $this->hostInfo['org'] = geoip_org_by_name($this->host);
+            }
         }
     }
 }
