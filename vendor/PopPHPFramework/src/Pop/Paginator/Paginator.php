@@ -442,10 +442,14 @@ class Paginator
     /**
      * Method to get the page links.
      *
+     * @param  int  $pg
      * @return string
      */
-    public function getLinks()
+    public function getLinks($pg = null)
     {
+        $this->calcItems($pg);
+        $this->createLinks($pg);
+
         return $this->links;
     }
 
@@ -493,47 +497,7 @@ class Paginator
 
         // Calculate the necessary properties.
         $this->calcItems($pg);
-
-        // Generate the page links.
-        $this->links = array();
-
-        // Preserve any passed GET parameters.
-        $query = null;
-        $uri = null;
-        if (isset($_SERVER['REQUEST_URI'])) {
-            $uri = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '?'));
-
-            if (count($_GET) > 0) {
-                foreach ($_GET as $key => $value) {
-                    if ($key != 'page') {
-                        $query .= '&' . $key . '=' . $value;
-                    }
-                }
-            }
-        }
-
-        // Calculate page range links.
-        $pageRange = $this->calcRange($pg);
-
-        for ($i = $pageRange['start']; $i <= $pageRange['end']; $i++) {
-            $newLink = null;
-            $prevLink = null;
-            $nextLink = null;
-            $classOff = (null !== $this->classOff) ? " class=\"{$this->classOff}\"" : null;
-            $classOn = (null !== $this->classOn) ? " class=\"{$this->classOn}\"" : null;
-
-            $newLink = ($i == $pg) ? "<span{$classOff}>{$i}</span>" : "<a{$classOn} href=\"" . $uri . "?page={$i}{$query}\">{$i}</a>";
-
-            if (($i == $pageRange['start']) && ($pageRange['prev'])) {
-                $prevLink = "<a{$classOn} href=\"" . $uri . "?page=" . ($i - 1) . "{$query}\">" . $this->bookends[$this->bookendKey]['prev'] . "</a>";
-                $this->links[] = $prevLink;
-            }
-            $this->links[] = $newLink;
-            if (($i == $pageRange['end']) && ($pageRange['next'])) {
-                $nextLink = "<a{$classOn} href=\"" . $uri . "?page=" . ($i + 1) . "{$query}\">" . $this->bookends[$this->bookendKey]['next'] . "</a>";
-                $this->links[] = $nextLink;
-            }
-        }
+        $this->createLinks($pg);
 
         // Format and output the header.
         if (null === $this->header) {
@@ -600,6 +564,56 @@ class Paginator
             return $this->output;
         } else {
             echo $this->output;
+        }
+    }
+
+    /**
+     * Method to create links.
+     *
+     * @param  int  $pg
+     * @return void
+     */
+    protected function createLinks($pg = null)
+    {
+        // Generate the page links.
+        $this->links = array();
+
+        // Preserve any passed GET parameters.
+        $query = null;
+        $uri = null;
+        if (isset($_SERVER['REQUEST_URI'])) {
+            $uri = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '?'));
+
+            if (count($_GET) > 0) {
+                foreach ($_GET as $key => $value) {
+                    if ($key != 'page') {
+                        $query .= '&' . $key . '=' . $value;
+                    }
+                }
+            }
+        }
+
+        // Calculate page range links.
+        $pageRange = $this->calcRange($pg);
+
+        for ($i = $pageRange['start']; $i <= $pageRange['end']; $i++) {
+            $newLink = null;
+            $prevLink = null;
+            $nextLink = null;
+            $classOff = (null !== $this->classOff) ? " class=\"{$this->classOff}\"" : null;
+            $classOn = (null !== $this->classOn) ? " class=\"{$this->classOn}\"" : null;
+
+            $newLink = ($i == $pg) ? "<span{$classOff}>{$i}</span>" : "<a{$classOn} href=\"" . $uri . "?page={$i}{$query}\">{$i}</a>";
+
+            if (($i == $pageRange['start']) && ($pageRange['prev'])) {
+                $prevLink = "<a{$classOn} href=\"" . $uri . "?page=" . ($i - 1) . "{$query}\">" . $this->bookends[$this->bookendKey]['prev'] . "</a>";
+                $this->links[] = $prevLink;
+            }
+            $this->links[] = $newLink;
+            if (($i == $pageRange['end']) && ($pageRange['next'])) {
+                $nextLink = "<a{$classOn} href=\"" . $uri . "?page=" . ($i + 1) . "{$query}\">" . $this->bookends[$this->bookendKey]['next'] . "</a>";
+                $this->links[] = $nextLink;
+            }
         }
     }
 
