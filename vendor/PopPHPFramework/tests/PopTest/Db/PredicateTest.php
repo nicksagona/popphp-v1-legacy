@@ -35,7 +35,8 @@ class PredicateTest extends \PHPUnit_Framework_TestCase
         $p->nest()->equalTo('id', 5, 'OR')
                   ->equalTo('id', 6, 'OR');
         $p->equalTo('access', 'reader');
-        $this->assertInstanceOf('Pop\Db\Sql\Predicate', $p->nest());
+        $this->assertTrue($p->hasNest());
+        $this->assertInstanceOf('Pop\Db\Sql\Predicate', $p->getNest(0));
         $this->assertEquals('(("id" = 5) OR ("id" = 6)) AND ("access" = \'reader\')', (string)$p);
     }
 
