@@ -1,7 +1,7 @@
 IMPORTANT!
 ==========
 This version is now end-of-life, and represents only legacy code for reference.
-You are strongly encouraged to upgrade to verion 2 of the Pop PHP Framework
+You are strongly encouraged to upgrade to version 2 of the Pop PHP Framework
 and its components. You can find them here:
 
 [Pop PHP Website](http://www.popphp.org/)  
