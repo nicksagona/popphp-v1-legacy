@@ -1,3 +1,12 @@
+IMPORTANT!
+==========
+This version is now end-of-life, and represents only legacy code for reference.
+You are strongly encouraged to upgrade to verion 2 of the Pop PHP Framework
+and its components. You can find them here:
+
+[Pop PHP Website](http://www.popphp.org/)  
+[Github](https://github.com/popphp/popphp)
+
 Welcome to the Pop PHP Framework 1.7.0 Release!
 ===============================================
 
@@ -5,15 +14,6 @@ RELEASE INFORMATION
 -------------------
 Pop PHP Framework 1.7.0 Release  
 Released December 1, 2013
-
-IMPORTANT!
-==========
-This version is now end-of-life, and represents only legacy code for reference.
-You are strongly encouraged to upgrade to verion 2 of the Pop PHP Framework
-and its components. You can find them here:
-
-[Pop PHP Website](http://www.popphp.org/)
-[Github](https://github.com/popphp/popphp)
 
 OVERVIEW
 --------
